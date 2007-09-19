@@ -47,7 +47,12 @@ Require_stagefile .stage/bootstrap
 Check_stagefile .stage/binary_syslinux
 
 # Checking syslinux templates
-Check_templates syslinux
+if [ "${LH_SYSLINUX_MENU}" = "disabled" ]
+then
+	Check_templates syslinux
+else
+	Check_templates syslinux-menu
+fi
 
 # Checking lock file
 Check_lockfile .lock
@@ -68,12 +73,37 @@ Restore_cache cache/packages_binary
 Install_package
 
 # Local functions
+Syslinux_memtest_entry ()
+{
+	LABEL="${1}"
+	MENULABEL="${2}"
+	KERNEL="${3}"
+
+	# syslinux << 3.36 lacks support to file/path
+	if [ "`basename ${DESTDIR_LIVE}`" = "binary" ]
+	then
+		KERNEL="${DIRECTORY}/${KERNEL}"
+	fi
+
+	MEMTEST="${MEMTEST}\nLABEL ${LABEL}\n"
+
+	# Write the menu label if the syslinux menu is being use
+	if [ "${LH_SYSLINUX_MENU}" != "disabled" ]
+	then
+		MEMTEST="${MEMTEST}\tMENU LABEL ${MENULABEL}\n"
+	fi
+
+	MEMTEST="${MEMTEST}\tkernel /${KERNEL}\n"
+	MEMTEST="`/bin/echo ${MEMTEST} | sed -e 's#//#/#g'`"
+}
+
 Syslinux_live_entry ()
 {
 	LABEL="${1}"
-	KERNEL="${2}"
-	INITRD="${3}"
-	APPEND="${4}"
+	MENULABEL="${2}"
+	KERNEL="${3}"
+	INITRD="${4}"
+	APPEND="${5}"
 
 	# syslinux << 3.36 lacks support to file/path
 	if [ "${LH_BINARY_IMAGES}" != "net" ] && [ "`basename ${DESTDIR_LIVE}`" != "binary" ]
@@ -84,6 +114,13 @@ Syslinux_live_entry ()
 	fi
 
 	LINUX_LIVE="${LINUX_LIVE}\nLABEL ${LABEL}\n"
+
+	# Write the menu label if the syslinux menu is being use
+	if [ "${LH_SYSLINUX_MENU}" != "disabled" ]
+	then
+		LINUX_LIVE="${LINUX_LIVE}\tMENU LABEL ${MENULABEL}\n"
+	fi
+
 	LINUX_LIVE="${LINUX_LIVE}\tkernel /${KERNEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=/${INITRD} boot=${INITFS} LH_BOOTAPPEND_LIVE ${APPEND}\n"
 }
@@ -250,8 +287,8 @@ DEFAULT_FLAVOUR="`echo ${LH_LINUX_FLAVOURS} | awk '{ print $1 }'`"
 DEFAULT_KERNEL="`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`"
 DEFAULT_INITRD="initrd.img-`echo ${DEFAULT_KERNEL} | sed -e 's/vmlinuz-//'`"
 
-Syslinux_live_entry "live" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
-Syslinux_live_entry "live-failsafe" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}" "${FAILSAFE}"
+Syslinux_live_entry "live" "${LH_SYSLINUX_MENU_LH_ENTRY}" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
+Syslinux_live_entry "live-failsafe" "${LH_SYSLINUX_MENU_LIVE_FAILSAFE_ENTRY}" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}" "${FAILSAFE}"
 
 if [ "`echo ${LH_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
 then
@@ -261,8 +298,8 @@ then
 		KERNEL_VERSION="`echo ${KERNEL_IMAGE} | sed -e 's/vmlinuz-//'`"
 		INITRD="initrd.img-${KERNEL_VERSION}"
 
-		Syslinux_live_entry "live-${KERNEL_VERSION}" "${KERNEL_IMAGE}" "${INITRD}"
-		Syslinux_live_entry "live-${KERNEL_VERSION}-failsafe" "${KERNEL_IMAGE}" "${INITRD}" "${FAILSAFE}"
+		Syslinux_live_entry "live-${KERNEL_VERSION}" "${LH_SYSLINUX_MENU_LIVE_ENTRY}" "${KERNEL_IMAGE}" "${INITRD}"
+		Syslinux_live_entry "live-${KERNEL_VERSION}-failsafe" "${LH_SYSLINUX_MENU_LIVE_FAILSAFE_ENTRY}" "${KERNEL_IMAGE}" "${INITRD}" "${FAILSAFE}"
 	done
 fi
 
@@ -308,16 +345,7 @@ LINUX_INSTALL="`/bin/echo ${LINUX_INSTALL} | sed -e 's/binary//g' -e 's#//#/#g'`
 # Assembling memtest configuration
 if [ -f "${DESTDIR_LIVE}"/memtest ]
 then
-	KERNEL_PATH="/`basename ${DESTDIR_LIVE}`/"
-
-	# syslinux << 3.36 lacks support to file/path
-	if [ "`basename ${DESTDIR_LIVE}`" = "binary" ]
-	then
-		KERNEL_PATH=""
-	fi
-
-	MEMTEST="LABEL memtest\n\tkernel ${KERNEL_PATH}memtest"
-	MEMTEST="`/bin/echo ${MEMTEST} | sed -e 's#//#/#g'`"
+	Syslinux_memtest_entry "memtest" "${LH_SYSLINUX_MENU_MEMTEST_ENTRY}" "memtest"
 fi
 
 case "${LH_BINARY_IMAGES}" in
@@ -365,24 +393,44 @@ case "${LH_BINARY_IMAGES}" in
 
 		mv binary/isolinux/syslinux.cfg binary/isolinux/isolinux.cfg
 
-		# Copying local configuration file
-		if [ -f config/binary_syslinux/syslinux.cfg ]
+		# Copying configuration file
+		if [ -n "${LH_SYSLINUX_CFG}" ]
 		then
-			cp config/binary_syslinux/syslinux.cfg binary/isolinux/isolinux.cfg
+			cp "${LH_SYSLINUX_CFG}" binary/isolinux/isolinux.cfg
 		fi
 
-		# Copying splash screen
-		if [ -f config/binary_syslinux/splash.rle ]
+		# Copying local configuration file
+		if [ -f config/binary_syslinux/syslinux.cfg ]
 		then
 			LH_SYSLINUX_SPLASH="config/binary_syslinux/splash.rle"
 		fi
 
-		if [ -n "${LH_SYSLINUX_SPLASH}" ]
+		# Copying menu module
+		if [ "${LH_SYSLINUX_MENU}" != "disabled" ]
 		then
-			if [ "${LH_SYSLINUX_SPLASH}" = "none" ]
+			MENUPATH="`grep 'menu.c32' binary/isolinux/isolinux.cfg | sed 's,DEFAULT\s*\(.*menu.c32\)$,\1,g'`"
+			MENUMODULE="`basename ${MENUPATH}`"
+
+			mkdir -p binary/isolinux/"`dirname ${MENUPATH}`"
+			cp chroot/usr/lib/syslinux/"${MENUMODULE}" binary/isolinux/"`dirname ${MENUPATH}`"
+		fi
+
+		# Copying splash screen
+		if [ -z "${LH_SYSLINUX_SPLASH}" ] || [ "${LH_SYSLINUX_SPLASH}" = "none" ] 
+		then
+			rm -f binary/isolinux/splash.rle
+			sed -i -e "s/.*splash.*//" binary/isolinux/boot.txt
+		else
+			if [ "${LH_SYSLINUX_MENU}" != "disabled" ]
 			then
-				rm -f binary/isolinux/splash.rle
-				sed -i -e "s/.*splash.*//" binary/isolinux/boot.txt
+				SPLASHPATH="`grep -i 'MENU BACKGROUND' binary/isolinux/isolinux.cfg | sed 's,MENU\sBACKGROUND\s*\(.*\)$,\1,g'`"
+				if [ ! -e "${LH_SYSLINUX_SPLASH}" ]
+				then
+					Echo_error "${LH_SYSLINUX_SPLASH} doen't exist"
+					exit 1
+				fi
+				mkdir -p binary/isolinux/"`dirname ${SPLASHPATH}`"
+				cp -f "${LH_SYSLINUX_SPLASH}" binary/isolinux/"${SPLASHPATH}"
 			else
 				cp -f "${LH_SYSLINUX_SPLASH}" binary/isolinux/splash.rle
 			fi
@@ -391,9 +439,15 @@ case "${LH_BINARY_IMAGES}" in
 		# Configure syslinux templates
 		sed -i -e "s@LINUX_LIVE@${LINUX_LIVE}@" -e "s@LINUX_INSTALL@${LINUX_INSTALL}@" -e "s@MEMTEST@${MEMTEST}@" binary/isolinux/isolinux.cfg
 		sed -i -e "s#LH_BOOTAPPEND_INSTALL#${LH_BOOTAPPEND_INSTALL}#" -e "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" binary/isolinux/isolinux.cfg
-		sed -i -e "s/LH_DISTRIBUTION/${LH_DISTRIBUTION}/" -e "s/LH_DATE/`date +%Y%m%d`/" -e "s/LH_MEDIA/CD-ROM/" binary/isolinux/f1.txt
+		if [ -e binary/isolinux/f1.txt ]
+		then
+			sed -i -e "s/LH_DISTRIBUTION/${LH_DISTRIBUTION}/" -e "s/LH_DATE/`date +%Y%m%d`/" -e "s/LH_MEDIA/CD-ROM/" binary/isolinux/f1.txt
+		fi
 		sed -i -e "s/LH_MEDIA/CD-ROM/" binary/isolinux/f3.txt
-		sed -i -e "s/LH_VERSION/${VERSION}/" binary/isolinux/f10.txt
+		if [ -e binary/isolinux/f10.txt ]
+		then
+			sed -i -e "s/LH_VERSION/${VERSION}/" binary/isolinux/f10.txt
+		fi
 
 		# Working arround syslinux 8.3 limitation
 		if [ "`echo ${LH_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
