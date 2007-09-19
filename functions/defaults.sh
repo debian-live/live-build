@@ -730,10 +730,23 @@ Set_defaults ()
 	# Setting netboot server address
 	LH_NET_SERVER="${LH_NET_SERVER:-192.168.1.1}"
 
+	# Setting syslinux configuration file
+	# LH_SYSLINUX_CFG
+
 	# Setting syslinux splash
 	# LH_SYSLINUX_SPLASH
 
 	LH_SYSLINUX_TIMEOUT="${LH_SYSLINUX_TIMEOUT:-0}"
+
+	# Setting syslinux menu
+	LH_SYSLINUX_MENU="${LH_SYSLINUX_MENU:-disabled}"
+
+	# Setting syslinux menu live entries
+	LH_SYSLINUX_MENU_LIVE_ENTRY="${LH_SYSLINUX_MENU_LIVE_ENTRY:-Start ${LH_ISO_APPLICATION}}"
+	LH_SYSLINUX_MENU_LIVE_ENTRY_FAILSAFE="${LH_SYSLINUX_MENU_LIVE_ENTRY_FAILSAFE:-${LH_SYSLINUX_MENU_LIVE_ENTRY} - Fail Safe}"
+
+	# Settings memtest menu entry
+	LH_SYSLINUX_MENU_MEMTEST_ENTRY="${LH_SYSLINUX_MENU_MEMTEST_ENTRY:-Memory test}"
 
 	# Setting username
 	LH_USERNAME="${LH_USERNAME:-user}"
