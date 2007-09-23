@@ -26,40 +26,40 @@ Echo_debug "Init ${PROGRAM}"
 Breakpoint "binary: Init"
 
 # Preparing root filesystem
-lh_binary_chroot "${@}"
+lh_binary_chroot ${*}
 
 # Configuring chroot
-lh_chroot_proc install "${@}"
-lh_chroot_sysfs install "${@}"
-lh_chroot_hosts install "${@}"
-lh_chroot_resolv install "${@}"
-lh_chroot_sources install "${@}"
+lh_chroot_proc install ${*}
+lh_chroot_sysfs install ${*}
+lh_chroot_hosts install ${*}
+lh_chroot_resolv install ${*}
+lh_chroot_sources install ${*}
 
 # Building root filesystem
-lh_binary_rootfs "${@}"
-lh_binary_manifest "${@}"
-lh_binary_encryption "${@}"
+lh_binary_rootfs ${*}
+lh_binary_manifest ${*}
+lh_binary_encryption ${*}
 
 # Prepare images
-lh_binary_linuximage "${@}"
-lh_binary_debian-installer "${@}"
-lh_binary_memtest "${@}"
-lh_binary_grub "${@}"
-lh_binary_syslinux "${@}"
-lh_binary_yaboot "${@}"
-lh_binary_includes "${@}"
-lh_binary_localincludes "${@}"
-lh_binary_md5sum "${@}"
+lh_binary_linuximage ${*}
+lh_binary_debian-installer ${*}
+lh_binary_memtest ${*}
+lh_binary_grub ${*}
+lh_binary_syslinux ${*}
+lh_binary_yaboot ${*}
+lh_binary_includes ${*}
+lh_binary_localincludes ${*}
+lh_binary_md5sum ${*}
 
 # Building images
-lh_binary_hdd "${@}"
-lh_binary_iso "${@}"
-lh_binary_net "${@}"
-lh_binary_usb-hdd "${@}"
+lh_binary_hdd ${*}
+lh_binary_iso ${*}
+lh_binary_net ${*}
+lh_binary_usb-hdd ${*}
 
 # Deconfiguring chroot
 rm -f .stage/chroot_sources
-lh_chroot_resolv remove "${@}"
-lh_chroot_hosts remove "${@}"
-lh_chroot_sysfs remove "${@}"
-lh_chroot_proc remove "${@}"
+lh_chroot_resolv remove ${*}
+lh_chroot_hosts remove ${*}
+lh_chroot_sysfs remove ${*}
+lh_chroot_proc remove ${*}

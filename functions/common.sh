@@ -10,4 +10,4 @@
 set -e
 
 PROGRAM="`basename ${0}`"
-VERSION="1.0~a8"
+VERSION="1.0~a9"
