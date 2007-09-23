@@ -12,7 +12,7 @@ NAME="Debian Live Autobuilder"
 
 export DEBEMAIL EMAIL DEBFULLNAME NAME
 
-TEMPDIR="/srv/tmp/svn-snapshots"
+TEMPDIR="/srv/tmp/snapshots"
 SERVER="/srv/debian-unofficial/ftp/debian-live-snapshots"
 
 DATE_START="`date -R`"

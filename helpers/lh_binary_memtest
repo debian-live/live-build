@@ -57,6 +57,17 @@ then
 	exit 0
 fi
 
+if [ "${LIVE_CHROOT_BUILD}" = "enabled" ]
+then
+
+	if [ -f chroot/usr/sbin/grub ] && [ ! -d chroot/boot/grub ]
+	then
+		GRUB="yes"
+
+		mkdir -p chroot/boot/grub
+	fi
+fi
+
 # Checking depends
 case "${LIVE_MEMTEST}" in
 	memtest86)
@@ -67,6 +78,9 @@ case "${LIVE_MEMTEST}" in
 		Check_package chroot/boot/memtest86+.bin memtest86+
 		;;
 esac
+
+# Restoring cache
+Restore_cache cache/packages_binary
 
 # Installing depends
 Install_package
@@ -114,18 +128,26 @@ Check_multiarchitecture
 mkdir -p "${DESTDIR}"
 
 # Installing memtest
-case "${LIVE_MEMTEST}" in
-	memtest86)
-		cp -f chroot/boot/memtest86.bin "${DESTDIR}"/memtest
+case "${LIVE_CHROOT_BUILD}" in
+	enabled)
+		cp chroot/boot/${LIVE_MEMTEST}.bin "${DESTDIR}"/memtest
 		;;
 
-	memtest86+)
-		cp -f chroot/boot/memtest86+.bin "${DESTDIR}"/memtest
+	disabled)
+		cp /boot/${LIVE_MEMTEST}.bin "${DESTDIR}"/memtest
 		;;
 esac
 
+# Saving cache
+Save_cache cache/packages_binary
+
 # Removing depends
 Remove_package
+
+if [ "${GRUB}" ]
+then
+	rm -rf chroot/boot/grub
+fi
 
 # Creating stage file
 Create_stagefile .stage/binary_memtest

@@ -60,6 +60,9 @@ Check_architecture powerpc ppc64
 # Checking depends
 Check_package chroot/usr/lib/yaboot/yaboot yaboot
 
+# Restoring cache
+Restore_cache cache/packages_binary
+
 # Installing depends
 Install_package
 
@@ -239,8 +242,18 @@ case "${LIVE_BINARY_IMAGES}" in
 	iso|usb-hdd)
 		# Copying yaboot
 		mkdir -p binary/yaboot
-		cp chroot/usr/lib/yaboot/yaboot binary/yaboot
-		cp -r "${LIVE_TEMPLATES}"/yaboot/* binary/yaboot
+
+		case "${LIVE_CHROOT_BUILD}" in
+			enabled)
+				cp chroot/usr/lib/yaboot/yaboot binary/yaboot
+				;;
+
+			disabled)
+				cp /usr/lib/yaboot/yaboot binary/yaboot
+				;;
+		esac
+
+		cp -r "${TEMPLATES}"/* binary/yaboot
 
 		if [ "${LIVE_BINARY_IMAGES}" = "usb-hdd" ]
 		then
@@ -256,6 +269,9 @@ case "${LIVE_BINARY_IMAGES}" in
 		sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" -e "s/LIVE_VERSION/${VERSION}/" binary/yaboot/boot.msg
 		;;
 esac
+
+# Saving cache
+Save_cache cache/packages_binary
 
 # Removing depends
 Remove_package

@@ -80,11 +80,16 @@ esac
 # Checking depends
 Check_package chroot/usr/bin/aespipe aespipe
 
+# Restoring cache
+Restore_cache cache/packages_binary
+
 # Installing depends
 Install_package
 
-# Moving image
-mv binary/${INITFS}/filesystem.${LIVE_CHROOT_FILESYSTEM} chroot
+case "${LIVE_CHROOT_BUILD}" in
+	enabled)
+		# Moving image
+		mv binary/${INITFS}/filesystem.${LIVE_CHROOT_FILESYSTEM} chroot
 
 echo "Encrypting binary/${INITFS}/filesystem.${ROOTFS} with ${LIVE_ENCRYPTION}..."
 
@@ -105,11 +110,33 @@ do
 done
 EOF
 
-Chroot "sh encrypt.sh"
+		Chroot "sh encrypt.sh"
 
-# Move image
-mv chroot/filesystem.${LIVE_CHROOT_FILESYSTEM} binary/${INITFS}
-rm -f chroot/encrypt.sh
+		# Move image
+		mv chroot/filesystem.${LIVE_CHROOT_FILESYSTEM} binary/${INITFS}
+		rm -f chroot/encrypt.sh
+		;;
+
+	disabled)
+		while true
+		do
+			cat binary/${INITFS}/filesystem.${ROOTFS} | aespipe -e ${LIVE_ENCRYPTION} -T > binary/${INITFS}/filesystem.${ROOTFS}.tmp && mv binary/${INITFS}/filesystem.${ROOTFS}.tmp binary/${INITFS}/filesystem.${ROOTFS} && break
+
+			echo -n "Something went wrong... Retry? [YES/no] "
+
+			read ANSWER
+
+			if [ "no" = "${ANSWER}" ]
+			then
+				unset ANSWER
+				break
+			fi
+		done
+		;;
+esac
+
+# Saving cache
+Save_cache cache/packages_binary
 
 # Removing depends
 Remove_package
