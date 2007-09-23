@@ -9,20 +9,20 @@
 
 set -e
 
-# Source common functions
-for FUNCTION in /usr/share/live-helper/functions/*.sh
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
 do
-	. ${FUNCTION}
+	. "${FUNCTION}"
 done
 
-# Set static variables
+# Setting static variables
 DESCRIPTION="convert symlinks"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
-
-Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -32,7 +32,12 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-Breakpoint "chroot_symlinks: Init"
+if [ "${LIVE_SYMLINKS}" != "enabled" ]
+then
+	exit 0
+fi
+
+Echo_message "Begin converting symlinks..."
 
 # Requiring stage file
 Require_stagefile .stage/bootstrap
@@ -46,20 +51,17 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ "${LIVE_SYMLINKS}" = "enabled" ]
-then
-	# Checking depends
-	Check_package chroot/usr/bin/symlinks symlinks
+# Checking depends
+Check_package chroot/usr/bin/symlinks symlinks
 
-	# Installing depends
-	Install_package
+# Installing depends
+Install_package
 
-	# Converting symlinks
-	Chroot "symlinks -c -r -s /"
+# Converting symlinks
+Chroot "symlinks -c -r -s /"
 
-	# Removing depends
-	Remove_package
+# Removing depends
+Remove_package
 
-	# Creating stage file
-	Create_stagefile .stage/chroot_symlinks
-fi
+# Creating stage file
+Create_stagefile .stage/chroot_symlinks

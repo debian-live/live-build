@@ -9,20 +9,20 @@
 
 set -e
 
-# Source common functions
-for FUNCTION in /usr/share/live-helper/functions/*.sh
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
 do
-	. ${FUNCTION}
+	. "${FUNCTION}"
 done
 
-# Set static variables
+# Setting static variables
 DESCRIPTION="manage /etc/apt/sources.list"
 HELP=""
 USAGE="${PROGRAM} {install|remove} [--force]"
 
 Arguments "${@}"
-
-Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -32,7 +32,7 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-Breakpoint "chroot_sources: Init"
+Echo_message "Configuring file /etc/apt/sources.list"
 
 # Requiring stage file
 Require_stagefile .stage/bootstrap
@@ -83,7 +83,7 @@ case "${1}" in
 		fi
 
 		# Check local sources.list
-		if ls config/chroot_sources/*.bootstrap &> /dev/null
+		if ls config/chroot_sources/*.bootstrap > /dev/null 2>&1
 		then
 			echo "" >> chroot/etc/apt/sources.list
 			echo "# Custom repositories" >> chroot/etc/apt/sources.list
@@ -97,12 +97,12 @@ case "${1}" in
 		# Update indices from cache
 		if [ "${LH_CACHE_INDICES}" = "enabled" ] && [ -d cache/indices_bootstrap ]
 		then
-			if ls cache/indices_bootstrap/secring.gpg* &> /dev/null
+			if ls cache/indices_bootstrap/secring.gpg* > /dev/null 2>&1
 			then
 				cp -f cache/indices_bootstrap/secring.gpg* chroot/etc/apt
 			fi
 
-			if ls cache/indices_bootstrap/trusted.gpg* &> /dev/null
+			if ls cache/indices_bootstrap/trusted.gpg* > /dev/null 2>&1
 			then
 				cp -f cache/indices_bootstrap/trusted.gpg* chroot/etc/apt
 			fi
@@ -117,17 +117,17 @@ case "${1}" in
 				cp -f cache/indices_bootstrap/srcpkgcache.bin chroot/var/cache/apt
 			fi
 
-			if ls cache/indices_bootstrap/*_Packages &> /dev/null
+			if ls cache/indices_bootstrap/*_Packages > /dev/null 2>&1
 			then
 				cp -f cache/indices_bootstrap/*_Packages chroot/var/lib/apt/lists
 			fi
 
-			if ls cache/indices_bootstrap/*_Sources &> /dev/null
+			if ls cache/indices_bootstrap/*_Sources > /dev/null 2>&1
 			then
 				cp -f cache/indices_bootstrap/*_Sources chroot/var/lib/apt/lists
 			fi
 
-			if ls cache/indices_bootstrap/*_Release* &> /dev/null
+			if ls cache/indices_bootstrap/*_Release* > /dev/null 2>&1
 			then
 				cp -f cache/indices_bootstrap/*_Release* chroot/var/lib/apt/lists
 			fi
@@ -138,7 +138,7 @@ case "${1}" in
 			fi
 		else # Get fresh indices
 			# Check local gpg keys
-			if ls config/chroot_sources/*.bootstrap.gpg &> /dev/null
+			if ls config/chroot_sources/*.bootstrap.gpg > /dev/null 2>&1
 			then
 				for FILE in config/chroot_sources/*.bootstrap.gpg
 				do
@@ -149,7 +149,7 @@ case "${1}" in
 			fi
 
 			# Check local keyring packages
-			if ls config/chroot_sources/*.deb &> /dev/null
+			if ls config/chroot_sources/*.deb > /dev/null 2>&1
 			then
 				for PACKAGE in config/chroot_sources/*.deb
 				do
@@ -183,10 +183,7 @@ case "${1}" in
 
 			if [ "${LH_CACHE_INDICES}" = "enabled" ]
 			then
-				if [ ! -d cache/indices_bootstrap ]
-				then
-					mkdir -p cache/indices_bootstrap
-				fi
+				mkdir -p cache/indices_bootstrap
 
 				cp -f chroot/etc/apt/secring.gpg* cache/indices_bootstrap
 				cp -f chroot/etc/apt/trusted.gpg* cache/indices_bootstrap
@@ -259,7 +256,7 @@ case "${1}" in
 			fi
 
 			# Check local sources.list
-			if ls config/chroot_sources/*.binary &> /dev/null
+			if ls config/chroot_sources/*.binary > /dev/null 2>&1
 			then
 				echo "" >> chroot/etc/apt/sources.list
 				echo "# Custom repositories" >> chroot/etc/apt/sources.list
@@ -271,7 +268,7 @@ case "${1}" in
 			fi
 
 			# Check local gpg keys
-			if ls config/chroot_sources/*.binary.gpg &> /dev/null
+			if ls config/chroot_sources/*.binary.gpg > /dev/null 2>&1
 			then
 				for FILE in config/chroot_sources/*.binary.gpg
 				do

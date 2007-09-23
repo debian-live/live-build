@@ -9,13 +9,15 @@
 
 set -e
 
-# Source common functions
-for FUNCTION in /usr/share/live-helper/functions/*.sh
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
 do
-	. ${FUNCTION}
+	. "${FUNCTION}"
 done
 
-# Set static variables
+# Setting static variables
 DESCRIPTION="mount /sys"
 HELP=""
 USAGE="${PROGRAM} {install|remove} [--force]"
@@ -25,8 +27,6 @@ Arguments "${@}"
 # Ensure that a system is built as root
 lh_testroot
 
-Echo_debug "Init ${PROGRAM}"
-
 # Reading configuration files
 Read_conffile config/common
 Read_conffile config/bootstrap
@@ -35,7 +35,7 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-Breakpoint "chroot_sysfs: Init"
+Echo_message "Begin mounting /sys..."
 
 # Requiring stage file
 Require_stagefile .stage/bootstrap
@@ -51,11 +51,8 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ ! -d chroot/sys ]
-		then
-			# Create mountpoint
-			mkdir -p chroot/sys
-		fi
+		# Create mountpoint
+		mkdir -p chroot/sys
 
 		# Mounting /sys
 		${LH_ROOT_COMMAND} mount sysfs-live -t sysfs chroot/sys

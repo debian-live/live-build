@@ -9,20 +9,20 @@
 
 set -e
 
-# Source common functions
-for FUNCTION in /usr/share/live-helper/functions/*.sh
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
 do
-	. ${FUNCTION}
+	. "${FUNCTION}"
 done
 
-# Set static variables
+# Setting static variables
 DESCRIPTION="build netboot binary image"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
-
-Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -32,51 +32,50 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-Breakpoint "binary_net: Init"
+if ! echo "${LIVE_BINARY_IMAGES}" | grep -qs net
+then
+	exit 0
+fi
 
-for IMAGE in ${LIVE_BINARY_IMAGES}
-do
-	if [ "${IMAGE}" = "net" ]
-	then
-		# Requiring stage file
-		Require_stagefile .stage/bootstrap
+Echo_message "Begin building binary netboot image..."
 
-		# Checking stage file
-		Check_stagefile .stage/binary_net
+# Requiring stage file
+Require_stagefile .stage/bootstrap
 
-		# Checking lock file
-		Check_lockfile .lock
+# Checking stage file
+Check_stagefile .stage/binary_net
 
-		# Creating lock file
-		Create_lockfile .lock
+# Checking lock file
+Check_lockfile .lock
 
-		# Remove old binary
-		if [ -f binary-net.tar.gz ]
-		then
-			rm -f binary-net.tar.gz
-		fi
+# Creating lock file
+Create_lockfile .lock
 
-		# Creating image file
-		if [ "`basename ${LIVE_NET_PATH}`" = "chroot" ]
-		then
-			mv chroot chroot.tmp
-		fi
+# Remove old binary
+if [ -f binary-net.tar.gz ]
+then
+	rm -f binary-net.tar.gz
+fi
 
-		mv binary "`basename ${LIVE_NET_PATH}`"
+# Creating image file
+if [ "`basename ${LIVE_NET_PATH}`" = "chroot" ]
+then
+	mv chroot chroot.tmp
+fi
 
-		cd ..
-		tar cfz binary-net.tar.gz "`basename ${OLDPWD}`/`basename ${LIVE_NET_PATH}`" "`basename ${OLDPWD}`/tftpboot"
-		mv binary-net.tar.gz "${OLDPWD}"
-		cd "${OLDPWD}"
+mv binary "`basename ${LIVE_NET_PATH}`"
 
-		mv "`basename ${LIVE_NET_PATH}`" binary
+cd ..
+tar cfz binary-net.tar.gz "`basename ${OLDPWD}`/`basename ${LIVE_NET_PATH}`" "`basename ${OLDPWD}`/tftpboot"
+mv binary-net.tar.gz "${OLDPWD}"
+cd "${OLDPWD}"
 
-		if [ "`basename ${LIVE_NET_PATH}`" = "chroot" ]
-		then
-			mv chroot.tmp chroot
-		fi
+mv "`basename ${LIVE_NET_PATH}`" binary
 
-		# Creating stage file
-		Create_stagefile .stage/binary_net
-	fi
-done
+if [ "`basename ${LIVE_NET_PATH}`" = "chroot" ]
+then
+	mv chroot.tmp chroot
+fi
+
+# Creating stage file
+Create_stagefile .stage/binary_net

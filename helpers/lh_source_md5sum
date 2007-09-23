@@ -9,20 +9,20 @@
 
 set -e
 
-# Source common functions
-for FUNCTION in /usr/share/live-helper/functions/*.sh
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
 do
-	. ${FUNCTION}
+	. "${FUNCTION}"
 done
 
-# Set static variables
+# Setting static variables
 DESCRIPTION="create source md5sums"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
-
-Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -32,12 +32,12 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-Breakpoint "source_md5sum: Init"
-
 if [ "${LIVE_SOURCE}" != "enabled" ]
 then
 	exit 0
 fi
+
+Echo_message "Begin creating source md5sum.txt..."
 
 # Requiring stage file
 Require_stagefile .stage/source_debian

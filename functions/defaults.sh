@@ -16,7 +16,7 @@ Set_defaults ()
 	# Setting mode
 	if [ -z "${LH_MODE}" ]
 	then
-		if [ -f /usr/bin/lsb_release ]
+		if [ -x /usr/bin/lsb_release ]
 		then
 			case "`lsb_release --short --id`" in
 				Debian)
@@ -26,17 +26,34 @@ Set_defaults ()
 				Ubuntu)
 					LH_MODE="ubuntu"
 					;;
+
+				*)
+					Echo_verbose "Unexpected output from lsb_release"
+					Echo_verbose "Setting mode to debian."
+					LH_MODE="debian"
+					;;
 			esac
 		else
 			LH_MODE="debian"
 		fi
 	fi
 
-	# Setting package manager
-	if [ -z "${LH_APT}" ]
+	# Setting distribution value
+	if [ -z "${LIVE_DISTRIBUTION}" ]
 	then
-		LH_APT="aptitude"
+		case "${LH_MODE}" in
+			debian)
+				LIVE_DISTRIBUTION="etch"
+				;;
+
+			ubuntu)
+				LIVE_DISTRIBUTION="feisty"
+				;;
+		esac
 	fi
+
+	# Setting package manager
+	LH_APT="${LH_APT:-aptitude}"
 
 	# Setting apt ftp proxy
 	if [ -z "${LH_APT_FTPPROXY}" ] && [ -n "${ftp_proxy}" ]
@@ -61,22 +78,16 @@ Set_defaults ()
 	fi
 
 	# Setting apt pdiffs
-	if [ -z "${LH_APT_PDIFFS}" ]
-	then
-		LH_APT_PDIFFS="enabled"
-	fi
+	LH_APT_PDIFFS="${LH_APT_PDIFFS:-enabled}"
+
+	# Setting apt pipeline
+	# LH_APT_PIPELINE
 
 	# Setting apt recommends
-	if [ -z "${LH_APT_RECOMMENDS}" ]
-	then
-		LH_APT_RECOMMENDS="enabled"
-	fi
+	LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS:-enabled}"
 
 	# Setting apt secure
-	if [ -z "${LH_APT_SECURE}" ]
-	then
-		LH_APT_SECURE="enabled"
-	fi
+	LH_APT_SECURE="${LH_APT_SECURE:-enabled}"
 
 	# Setting bootstrap program
 	if [ -z "${LH_BOOTSTRAP}" ] || [ ! -x "${LH_BOOTSTRAP}" ]
@@ -111,36 +122,14 @@ Set_defaults ()
 	fi
 
 	# Setting cache option
-	if [ -z "${LH_CACHE_INDICES}" ]
-	then
-		LH_CACHE_INDICES="disabled"
-	fi
-
-	if [ -z "${LH_CACHE_PACKAGES}" ]
-	then
-		LH_CACHE_PACKAGES="enabled"
-	fi
-
-	if [ -z "${LH_CACHE_STAGES}" ]
-	then
-		LH_CACHE_STAGES="bootstrap"
-	fi
+	LH_CACHE_INDICES="${LH_CACHE_INDICES:-disabled}"
+	LH_CACHE_PACKAGES="${LH_CACHE_PACKAGES:-enabled}"
+	LH_CACHE_STAGES="${LH_CACHE_STAGES:-bootstrap}"
 
 	# Setting debconf frontend
-	if [ -z "${LH_DEBCONF_FRONTEND}" ]
-	then
-		LH_DEBCONF_FRONTEND="noninteractive"
-	fi
-
-	if [ -z "${LH_DEBCONF_NOWARNINGS}" ]
-	then
-		LH_DEBCONF_NOWARNINGS="yes"
-	fi
-
-	if [ -z "${LH_DEBCONF_PRIORITY}" ]
-	then
-		LH_DEBCONF_PRIORITY="critical"
-	fi
+	LH_DEBCONF_FRONTEND="${LH_DEBCONF_FRONTEND:-noninteractive}"
+	LH_DEBCONF_NOWARNINGS="${LH_DEBCONF_NOWARNINGS:-yes}"
+	LH_DEBCONF_PRIORITY="${LH_DEBCONF_PRIORITY:-critical}"
 
 	# Setting genisoimage
 	if [ -z "${LH_GENISOIMAGE}" ]
@@ -185,15 +174,12 @@ Set_defaults ()
 	# If we are root, disable root command
 	if [ "`id -u`" = "0" ]
 	then
-		# FIXME: this is disabled until considered save
+		# FIXME: this is disabled until considered safe
 		LIVE_ROOT_COMMAND=""
 	fi
 
 	# Setting tasksel
-	if [ -z "${LH_TASKSEL}" ]
-	then
-		LH_TASKSEL="aptitude"
-	fi
+	LH_TASKSEL="${LH_TASKSEL:-aptitude}"
 
 	# Setting root directory
 	if [ -z "${LIVE_ROOT}" ]
@@ -212,40 +198,21 @@ Set_defaults ()
 	# Setting includes
 	if [ -z "${LIVE_INCLUDES}" ]
 	then
-		LIVE_INCLUDES="/usr/share/live-helper/includes"
+		LIVE_INCLUDES="${LH_BASE:-/usr/share/live-helper}/includes"
 	fi
 
 	# Setting templates
 	if [ -z "${LIVE_TEMPLATES}" ]
 	then
-		LIVE_TEMPLATES="/usr/share/live-helper/templates"
+		LIVE_TEMPLATES="${LH_BASE:-/usr/share/live-helper}/templates"
 	fi
 
 	# Setting live helper options
-	if [ -z "${LH_BREAKPOINTS}" ]
-	then
-		LH_BREAKPOINTS="disabled"
-	fi
-
-	if [ -z "${LH_DEBUG}" ]
-	then
-		LH_DEBUG="disabled"
-	fi
-
-	if [ -z "${LH_FORCE}" ]
-	then
-		LH_FORCE="disabled"
-	fi
-
-	if [ -z "${LH_QUIET}" ]
-	then
-		LH_QUIET="disabled"
-	fi
-
-	if [ -z "${LH_VERBOSE}" ]
-	then
-		LH_VERBOSE="disabled"
-	fi
+	LH_BREAKPOINTS="${LH_BREAKPOINTS:-disabled}"
+	LH_DEBUG="${LH_DEBUG:-disabled}"
+	LH_FORCE="${LH_FORCE:-disabled}"
+	LH_QUIET="${LH_QUIET:-disabled}"
+	LH_VERBOSE="${LH_VERBOSE:-disabled}"
 
 	## config/bootstrap
 
@@ -261,28 +228,14 @@ Set_defaults ()
 		fi
 	fi
 
-	# Setting distribution value
-	if [ -z "${LIVE_DISTRIBUTION}" ]
-	then
-		case "${LH_MODE}" in
-			debian)
-				LIVE_DISTRIBUTION="etch"
-				;;
-
-			ubuntu)
-				LIVE_DISTRIBUTION="feisty"
-				;;
-		esac
-	fi
-
 	# Setting distribution configuration value
 	# LIVE_BOOTSTRAP_CONFIG
 
 	# Setting flavour value
-	if [ -z "${LIVE_BOOTSTRAP_FLAVOUR}" ]
-	then
-			LIVE_BOOTSTRAP_FLAVOUR="standard"
-	fi
+	LIVE_BOOTSTRAP_FLAVOUR="${LIVE_BOOTSTRAP_FLAVOUR:-standard}"
+
+	# Setting boostrap keyring
+	# LIVE_BOOTSTRAP_KEYRING
 
 	# Setting mirror to fetch packages from
 	if [ -z "${LIVE_MIRROR_BOOTSTRAP}" ]
@@ -357,18 +310,12 @@ Set_defaults ()
 	## config/chroot
 
 	# Setting chroot filesystem
-	if [ -z "${LIVE_CHROOT_FILESYSTEM}" ]
-	then
-		LIVE_CHROOT_FILESYSTEM="squashfs"
-	fi
+	LIVE_CHROOT_FILESYSTEM="${LIVE_CHROOT_FILESYSTEM:-squashfs}"
 
 	# LIVE_HOOKS
 
 	# Setting interactive shell/X11/Xnest
-	if [ -z "${LIVE_INTERACTIVE}" ]
-	then
-		LIVE_INTERACTIVE="disabled"
-	fi
+	LIVE_INTERACTIVE="${LIVE_INTERACTIVE:-disabled}"
 
 	# Setting keyring packages
 	# LIVE_KEYRING_PACKAGES
@@ -476,10 +423,7 @@ Set_defaults ()
 	# LIVE_PACKAGES
 
 	# Setting packages list string
-	if [ -z "${LIVE_PACKAGES_LISTS}" ]
-	then
-		LIVE_PACKAGES_LISTS="standard"
-	fi
+	LIVE_PACKAGES_LISTS="${LIVE_PACKAGES_LISTS:-standard}"
 
 	# Setting tasks string
 	for LIST in ${LIVE_PACKAGES_LISTS}
@@ -513,36 +457,21 @@ Set_defaults ()
 	# LIVE_TASKS
 
 	# Setting security updates option
-	if [ -z "${LIVE_SECURITY}" ]
-	then
-		LIVE_SECURITY="enabled"
-	fi
+	LIVE_SECURITY="${LIVE_SECURITY:-enabled}"
 
 	# Setting symlink convertion option
-	if [ -z "${LIVE_SYMLINKS}" ]
-	then
-		LIVE_SYMLINKS="disabled"
-	fi
+	LIVE_SYMLINKS="${LIVE_SYMLINKS:-disabled}"
 
 	# Setting sysvinit option
-	if [ -z "${LIVE_SYSVINIT}" ]
-	then
-		LIVE_SYSVINIT="disabled"
-	fi
+	LIVE_SYSVINIT="${LIVE_SYSVINIT:-disabled}"
 
 	## config/binary
 
 	# Setting image type
-	if [ -z "${LIVE_BINARY_IMAGES}" ]
-	then
-		LIVE_BINARY_IMAGES="iso"
-	fi
+	LIVE_BINARY_IMAGES="${LIVE_BINARY_IMAGES:-iso}"
 
 	# Setting apt indices
-	if [ -z "${LIVE_BINARY_INDICES}" ]
-	then
-		LIVE_BINARY_INDICES="enabled"
-	fi
+	LIVE_BINARY_INDICES="${LIVE_BINARY_INDICES:-enabled}"
 
 	# Setting boot parameters
 	# LIVE_BOOTAPPEND
@@ -562,10 +491,7 @@ Set_defaults ()
 	fi
 
 	# Setting debian-installer option
-	if [ -z "${LIVE_DEBIAN_INSTALLER}" ]
-	then
-		LIVE_DEBIAN_INSTALLER="disabled"
-	fi
+	LIVE_DEBIAN_INSTALLER="${LIVE_DEBIAN_INSTALLER:-disabled}"
 
 	# Setting encryption
 	# LIVE_ENCRYPTION
@@ -602,16 +528,10 @@ Set_defaults ()
 	fi
 
 	# Set iso preparer
-	if [ -z "${LIVE_ISO_PREPARER}" ]
-	then
-		LIVE_ISO_PREPARER="live-helper \${VERSION}; http://packages.qa.debian.org/live-helper"
-	fi
+	LIVE_ISO_PREPARER="${LIVE_ISO_PREPARER:-live-helper ${VERSION}; http://packages.qa.debian.org/live-helper}"
 
 	# Set iso publisher
-	if [ -z "${LIVE_ISO_PUBLISHER}" ]
-	then
-		LIVE_ISO_PUBLISHER="Debian Live project; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org"
-	fi
+	LIVE_ISO_PUBLISHER="${LIVE_ISO_PUBLISHER:-Debian Live project; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org}"
 
 	# Setting iso volume
 	if [ -z "${LIVE_ISO_VOLUME}" ]
@@ -628,10 +548,7 @@ Set_defaults ()
 	fi
 
 	# Setting memtest option
-	if [ -z "${LIVE_MEMTEST}" ]
-	then
-		LIVE_MEMTEST="memtest86+"
-	fi
+	LIVE_MEMTEST="${LIVE_MEMTEST:-memtest86+}"
 
 	# Setting netboot server path
 	if [ -z "${LIVE_NET_PATH}" ]
@@ -648,31 +565,19 @@ Set_defaults ()
 	fi
 
 	# Setting netboot server address
-	if [ -z "${LIVE_NET_SERVER}" ]
-	then
-		LIVE_NET_SERVER="192.168.1.1"
-	fi
+	LIVE_NET_SERVER="${LIVE_NET_SERVER:-192.168.1.1}"
 
 	# Setting syslinux splash
 	# LIVE_SYSLINUX_SPLASH
 
 	# Setting username
-	if [ -z "${LIVE_USERNAME}" ]
-	then
-		LIVE_USERNAME="user"
-	fi
+	LIVE_USERNAME="${LIVE_USERNAME:-user}"
 
 	## config/source
 
 	# Setting source option
-	if [ -z "${LIVE_SOURCE}" ]
-	then
-		LIVE_SOURCE="disabled"
-	fi
+	LIVE_SOURCE="${LIVE_SOURCE:-disabled}"
 
 	# Setting image type
-	if [ -z "${LIVE_SOURCE_IMAGES}" ]
-	then
-		LIVE_SOURCE_IMAGES="generic"
-	fi
+	LIVE_SOURCE_IMAGES="${LIVE_SOURCE_IMAGES:-generic}"
 }

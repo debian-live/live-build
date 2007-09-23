@@ -9,20 +9,20 @@
 
 set -e
 
-# Source common functions
-for FUNCTION in /usr/share/live-helper/functions/*.sh
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
 do
-	. ${FUNCTION}
+	. "${FUNCTION}"
 done
 
-# Set static variables
+# Setting static variables
 DESCRIPTION="build iso source image"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
-
-Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -37,78 +37,77 @@ then
 	exit 0
 fi
 
-for IMAGE in ${LIVE_SOURCE_IMAGES}
-do
-	if [ "${IMAGE}" = "iso" ]
-	then
-		Breakpoint "source_iso: Init"
+if ! echo "${LIVE_SOURCE_IMAGES}" | grep -qs iso
+then
+        exit 0
+fi
 
-		# Requiring stage file
-		Require_stagefile .stage/source_debian
+Echo_message "Begin building source iso image..."
 
-		# Checking stage file
-		Check_stagefile .stage/source_iso
+# Requiring stage file
+Require_stagefile .stage/source_debian
 
-		# Checking lock file
-		Check_lockfile .lock
+# Checking stage file
+Check_stagefile .stage/source_iso
 
-		# Creating lock file
-		Create_lockfile .lock
+# Checking lock file
+Check_lockfile .lock
 
-		# Checking depends
-		Check_package chroot/usr/bin/"${LH_GENISOIMAGE}" ${LH_GENISOIMAGE}
+# Creating lock file
+Create_lockfile .lock
 
-		# Installing depends
-		Install_package
+# Checking depends
+Check_package chroot/usr/bin/"${LH_GENISOIMAGE}" ${LH_GENISOIMAGE}
 
-		# Remove old iso image
-		if [ -f source.iso ]
-		then
-			rm -f source.iso
-		fi
+# Installing depends
+Install_package
 
-		if [ "${LH_VERBOSE}" = "enabled" ]
-		then
-			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -v"
-		fi
+# Remove old iso image
+if [ -f source.iso ]
+then
+	rm -f source.iso
+fi
 
-		if [ -n "${LIVE_ISO_APPLICATION}" ] && [ "${LIVE_ISO_APPLICATION}" != "none" ]
-		then
-			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -A \"${LIVE_ISO_APPLICATION}\""
-		fi
+if [ "${LH_VERBOSE}" = "enabled" ]
+then
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -v"
+fi
 
-		if [ -n "${LIVE_ISO_PREPARER}" ] && [ "${LIVE_ISO_PREPARER}" != "none" ]
-		then
-			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -p \"${LIVE_ISO_PREPARER}\""
-		fi
+if [ -n "${LIVE_ISO_APPLICATION}" ] && [ "${LIVE_ISO_APPLICATION}" != "none" ]
+then
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -A \"${LIVE_ISO_APPLICATION}\""
+fi
 
-		if [ -n "${LIVE_ISO_PUBLISHER}" ] && [ "${LIVE_ISO_PUBLISHER}" != "none" ]
-		then
-			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -publisher \"${LIVE_ISO_PUBLISHER}\""
-		fi
+if [ -n "${LIVE_ISO_PREPARER}" ] && [ "${LIVE_ISO_PREPARER}" != "none" ]
+then
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -p \"${LIVE_ISO_PREPARER}\""
+fi
 
-		if [ -n "${LIVE_ISO_VOLUME}" ] && [ "${LIVE_ISO_VOLUME}" != "none" ]
-		then
-			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -V \"${LIVE_ISO_VOLUME}\""
-		fi
+if [ -n "${LIVE_ISO_PUBLISHER}" ] && [ "${LIVE_ISO_PUBLISHER}" != "none" ]
+then
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -publisher \"${LIVE_ISO_PUBLISHER}\""
+fi
 
-		# Moving image
-		mv source chroot
+if [ -n "${LIVE_ISO_VOLUME}" ] && [ "${LIVE_ISO_VOLUME}" != "none" ]
+then
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -V \"${LIVE_ISO_VOLUME}\""
+fi
+
+# Moving image
+mv source chroot
 
 cat >> chroot/source.sh << EOF
 ${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -o source.iso -r -J -l -cache-inodes source
 EOF
 
-		Chroot "sh source.sh"
+Chroot "sh source.sh"
 
-		# Move image
-		mv chroot/source chroot/source.iso ./
-		rm -f chroot/source.sh
+# Move image
+mv chroot/source chroot/source.iso ./
+rm -f chroot/source.sh
 
-		# Removing depends
-		Remove_package
+# Removing depends
+Remove_package
 
-		# Creating stage file
-		Create_stagefile .stage/source_iso
-	fi
-done
+# Creating stage file
+Create_stagefile .stage/source_iso

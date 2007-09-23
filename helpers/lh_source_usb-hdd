@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_source_usb-hdd(1) - build source image
+# lh_source_usb-hdd(1) - build source usb-hdd image
 # Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -9,20 +9,20 @@
 
 set -e
 
-# Source common functions
-for FUNCTION in /usr/share/live-helper/functions/*.sh
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
 do
-	. ${FUNCTION}
+	. "${FUNCTION}"
 done
 
-# Set static variables
+# Setting static variables
 DESCRIPTION="build source image"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
-
-Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -32,82 +32,81 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-Breakpoint "source_usb-hdd: Init"
-
 if [ "${LIVE_SOURCE}" != "enabled" ]
 then
 	exit 0
 fi
 
-for IMAGE in ${LIVE_SOURCE_IMAGES}
-do
-	if [ "${IMAGE}" = "usb-hdd" ]
-	then
-		# Requiring stage file
-		Require_stagefile .stage/source_debian
+if ! echo "${LIVE_SOURCE_IMAGES}" | grep -qs usb-hdd
+then
+        exit 0
+fi
 
-		# Checking stage file
-		Check_stagefile .stage/source_usb-hdd
+Echo_message "Begin building source usb-hdd image..."
 
-		# Checking lock file
-		Check_lockfile .lock
+# Requiring stage file
+Require_stagefile .stage/source_debian
 
-		# Creating lock file
-		Create_lockfile .lock
+# Checking stage file
+Check_stagefile .stage/source_usb-hdd
 
-		# Checking depends
-		Check_package chroot/sbin/mkdosfs dosfstools
-		Check_package chroot/sbin/parted parted
+# Checking lock file
+Check_lockfile .lock
 
-		# Installing depends
-		Install_package
+# Creating lock file
+Create_lockfile .lock
 
-		# Remove old source
-		if [ -f source.img ]
-		then
-			rm -f source.img
-		fi
+# Checking depends
+Check_package chroot/sbin/mkdosfs dosfstools
+Check_package chroot/sbin/parted parted
 
-		# Everything which comes here needs to be cleaned up,
-		DU_DIM="`du -ms source | cut -f1`"
-		REAL_DIM="`expr ${DU_DIM} + ${DU_DIM} / 50`" # Just 2% more to be sure, need something more sophistcated here...
-		dd if=/dev/zero of=source.img bs=1024k count=${REAL_DIM}
-		FREELO="`${LH_LOSETUP} -f`"
-		if [ ! -b chroot/${FREELO} ]
-		then
-			MAKEDEV="true"
+# Installing depends
+Install_package
 
-			mv chroot/dev chroot/dev.tmp
-			find /dev | cpio -dmpu chroot
-		fi
+# Remove old source
+if [ -f source.img ]
+then
+	rm -f source.img
+fi
 
-		echo "!!! The following error/warning messages can be ignored !!!"
-		lh_losetup $FREELO source.img 0
-		Chroot "parted -s ${FREELO} mklabel msdos" || true
-		Chroot "parted -s ${FREELO} mkpartfs primary fat16 0.0 100%" || true
-		Chroot "parted -s ${FREELO} set 1 lba off" || true
-		${LH_LOSETUP} -d ${FREELO}
+# Everything which comes here needs to be cleaned up,
+DU_DIM="`du -ms source | cut -f1`"
+REAL_DIM="`expr ${DU_DIM} + ${DU_DIM} / 50`" # Just 2% more to be sure, need something more sophistcated here...
+dd if=/dev/zero of=source.img bs=1024k count=${REAL_DIM}
+FREELO="`${LH_LOSETUP} -f`"
+if [ ! -b chroot/${FREELO} ]
+then
+	MAKEDEV="true"
 
-		lh_losetup $FREELO source.img 1
-		Chroot " mkfs.vfat -F 16 -n DEBIAN_LIVE ${FREELO}"
-		mkdir -p source.tmp
-		${LH_ROOT_COMMAND} mount ${FREELO} source.tmp
-		cp -r source/* source.tmp
-		${LH_ROOT_COMMAND} umount source.tmp
-		rmdir source.tmp
-		${LH_LOSETUP} -d ${FREELO}
-		echo "!!! The above error/warning messages can be ignored !!!"
+	mv chroot/dev chroot/dev.tmp
+	find /dev | cpio -dmpu chroot
+fi
 
-		if [ -n "${MAKEDEV}" ]
-		then
-			rm -f chroot/dev
-			mv chroot/dev.tmp chroot/dev
-		fi
+echo "!!! The following error/warning messages can be ignored !!!"
+lh_losetup $FREELO source.img 0
+Chroot "parted -s ${FREELO} mklabel msdos" || true
+Chroot "parted -s ${FREELO} mkpartfs primary fat16 0.0 100%" || true
+Chroot "parted -s ${FREELO} set 1 lba off" || true
+${LH_LOSETUP} -d ${FREELO}
 
-		# Removing depends
-		Remove_package
+lh_losetup $FREELO source.img 1
+Chroot " mkfs.vfat -F 16 -n DEBIAN_LIVE ${FREELO}"
+mkdir -p source.tmp
+${LH_ROOT_COMMAND} mount ${FREELO} source.tmp
+cp -r source/* source.tmp
+${LH_ROOT_COMMAND} umount source.tmp
+rmdir source.tmp
+${LH_LOSETUP} -d ${FREELO}
+echo "!!! The above error/warning messages can be ignored !!!"
 
-		# Creating stage file
-		Create_stagefile .stage/source_usb-hdd
-	fi
-done
+if [ -n "${MAKEDEV}" ]
+then
+	rm -f chroot/dev
+	mv chroot/dev.tmp chroot/dev
+fi
+
+# Removing depends
+Remove_package
+
+# Creating stage file
+Create_stagefile .stage/source_usb-hdd

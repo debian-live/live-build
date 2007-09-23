@@ -9,20 +9,20 @@
 
 set -e
 
-# Source common functions
-for FUNCTION in /usr/share/live-helper/functions/*.sh
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
 do
-	. ${FUNCTION}
+	. "${FUNCTION}"
 done
 
-# Set static variables
+# Setting static variables
 DESCRIPTION="installs syslinux into binary"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
-
-Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -37,7 +37,7 @@ then
 	exit 0
 fi
 
-Breakpoint "binary_syslinux: Init"
+Echo_message "Begin installing syslinux..."
 
 # Requiring stage file
 Require_stagefile .stage/bootstrap
@@ -137,10 +137,7 @@ then
 fi
 
 # Creating directory
-if [ ! -d "${DESTDIR_LIVE}" ]
-then
-	mkdir -p "${DESTDIR_LIVE}"
-fi
+mkdir -p "${DESTDIR_LIVE}"
 
 # Setting boot parameters
 if [ -n "${LIVE_ENCRYPTION}" ]
@@ -174,7 +171,7 @@ then
 		live-initramfs)
 			if [ "${LIVE_HOSTNAME}" != "debian" ]
 			then
-				LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} username=${LIVE_HOSTNAME}"
+				LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} hostname=${LIVE_HOSTNAME}"
 			fi
 			;;
 	esac

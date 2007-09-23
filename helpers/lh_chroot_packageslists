@@ -9,20 +9,20 @@
 
 set -e
 
-# Source common functions
-for FUNCTION in /usr/share/live-helper/functions/*.sh
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
 do
-	. ${FUNCTION}
+	. "${FUNCTION}"
 done
 
-# Set static variables
+# Setting static variables
 DESCRIPTION="install packages lists into chroot"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
-
-Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -32,7 +32,7 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-Breakpoint "chroot_packageslists: Init"
+Echo_message "Begin installing packages lists..."
 
 # Requiring stage file
 Require_stagefile .stage/bootstrap
@@ -53,10 +53,10 @@ then
 
 	for LIST in ${LIVE_PACKAGES_LISTS}
 	do
-		if [ -f /usr/share/live-helper/lists/"${LIST}" ]
+		if [ -f ${LH_BASE:-/usr/share/live-helper}/lists/"${LIST}" ]
 		then
 			# Copying package list
-			grep -v "^#" /usr/share/live-helper/lists/"${LIST}" > chroot/root/"${LIST}"
+			grep -v "^#" ${LH_BASE:-/usr/share/live-helper}/lists/"${LIST}" > chroot/root/"${LIST}"
 
 			# Installing package list
 			case "${LH_APT}" in
