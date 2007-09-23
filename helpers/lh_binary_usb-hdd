@@ -34,7 +34,7 @@ Set_defaults
 
 Breakpoint "binary_usb-hdd: Init"
 
-for IMAGE in ${LIVE_BINARY_IMAGE}
+for IMAGE in ${LIVE_BINARY_IMAGES}
 do
 	if [ "${IMAGE}" = "usb-hdd" ]
 	then

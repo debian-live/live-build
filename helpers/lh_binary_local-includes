@@ -1,0 +1,64 @@
+#!/bin/sh
+
+# lh_binary_local-includes(1) - copy files into binary
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Set static variables
+DESCRIPTION="copy files into binary"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+Echo_debug "Init ${PROGRAM}"
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/bootstrap
+Read_conffile config/chroot
+Read_conffile config/binary
+Read_conffile config/source
+Set_defaults
+
+Breakpoint "binary_local-includes: Init"
+
+# Requiring stage file
+Require_stagefile .stage/bootstrap
+
+# Checking stage file
+Check_stagefile .stage/binary_local-includes
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+if ls config/binary_local-includes/* &> /dev/null
+then
+	# Copying includes
+	cd config/binary_local-includes
+	find . | cpio -dmpu "${OLDPWD}"/binary
+	cd "${OLDPWD}"
+
+	# Removing symlinks
+	if [ "${LIVE_BINARY_IMAGES}" = "usb-hdd" ]
+	then
+		find binary -type l | xargs rm -f
+	fi
+
+	# Creating stage file
+	Create_stagefile .stage/binary_local-includes
+fi

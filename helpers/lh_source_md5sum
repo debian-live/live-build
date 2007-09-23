@@ -40,7 +40,7 @@ then
 fi
 
 # Requiring stage file
-Require_stagefile .stage/source_download
+Require_stagefile .stage/source_debian
 
 # Checking stage file
 Check_stagefile .stage/source_md5sum
@@ -59,7 +59,8 @@ fi
 
 # Calculating md5sums
 cd source
-find . -type f -print0 | xargs -0 md5sum > md5sum.txt
+find . -type f | sort | xargs md5sum > ../md5sum.txt
+mv ../md5sum.txt ./
 cd "${OLDPWD}"
 
 # Creating stage file

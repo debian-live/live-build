@@ -57,7 +57,7 @@ then
 	exit 0
 fi
 
-# Checking templates
+# Checking user templates
 if [ ! -d "${LIVE_TEMPLATES}" ]
 then
 	if [ -d ../"${LIVE_TEMPLATES}" ]
@@ -67,6 +67,12 @@ then
 		Echo_error "user specified templates not accessible in ${LIVE_TEMPLATES}"
 		exit 1
 	fi
+fi
+
+# Check local templates
+if [ -d config/templates/syslinux ]
+then
+	LIVE_TEMPLATES="config/templates"
 fi
 
 # Checking depends
@@ -86,7 +92,7 @@ case "${LH_INITRAMFS}" in
 esac
 
 # Setting destination directory
-case "${LIVE_BINARY_IMAGE}" in
+case "${LIVE_BINARY_IMAGES}" in
 	iso)
 		DESTDIR_LIVE="binary/live"
 		DESTDIR_INSTALL="binary/install"
@@ -98,13 +104,13 @@ case "${LIVE_BINARY_IMAGE}" in
 	;;
 
 	usb-hdd|hdd)
-		DESTDIR_LIVE="binary"
-		DESTDIR_INSTALL="binary"
+		DESTDIR_LIVE="binary/live"
+		DESTDIR_INSTALL="binary/install"
 		;;
 esac
 
 # Temporary check for broken syslinux
-if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
 then
 	# Assembling multi-arch
 	if [ -n "${MULTIARCH}" ]
@@ -151,24 +157,24 @@ LIVE_BOOTAPPEND="`echo ${LIVE_BOOTAPPEND} | sed -e 's/  //'`"
 FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=normal"
 
 # Assembling kernel configuration
-if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+if [ "${LIVE_BINARY_IMAGES}" != "net" ]
 then
-	DEFAULT_FLAVOUR="`echo ${LIVE_KERNEL_FLAVOUR} | awk '{ print $1 }'`"
+	DEFAULT_FLAVOUR="`echo ${LIVE_LINUX_FLAVOURS} | awk '{ print $1 }'`"
 	LINUX="LABEL live\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
 	LINUX="${LINUX}\n\nLABEL live-failsafe\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
 else
-	DEFAULT_FLAVOUR="`echo ${LIVE_KERNEL_FLAVOUR} | awk '{ print $1 }'`"
+	DEFAULT_FLAVOUR="`echo ${LIVE_LINUX_FLAVOURS} | awk '{ print $1 }'`"
 	LINUX="LABEL live\n\tkernel `basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
 	LINUX="${LINUX}\n\nLABEL live-failsafe\n\tkernel `basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
 fi
 
-if [ "`echo ${LIVE_KERNEL_FLAVOUR} | wc -w`" -gt "1" ]
+if [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
 then
 	for KERNEL in chroot/boot/vmlinuz*
 	do
 		if [ -z "${LINUX}" ]
 		then
-			if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+			if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
 			then
 				LINUX="LABEL live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
 				LINUX="${LINUX}\n\nLABEL live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`-failsafe\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
@@ -177,7 +183,7 @@ then
 				LINUX="${LINUX}\n\nLABEL live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n\tkernel `basename ${KERNEL}`\n\tappend initrd=initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
 			fi
 		else
-			if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+			if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
 			then
 				LINUX="${LINUX}\n\nLABEL live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
 				LINUX="${LINUX}\n\nLABEL live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`-failsafe\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
@@ -195,21 +201,21 @@ LINUX="`echo ${LINUX} | sed -e 's#//#/#g'`"
 # Assembling debian-installer configuration
 if [ "${LIVE_DEBIAN_INSTALLER}" = "enabled" ]
 then
-	LIVE_KERNEL_INSTALL="LABEL install\n\tkernel /`basename ${DESTDIR_INSTALL}`/vmlinuz\n\tappend vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/initrd.gz -- "
-	LIVE_KERNEL_INSTALL="${LIVE_KERNEL_INSTALL}\n\nLABEL linux\n\tkernel /`basename ${DESTDIR_INSTALL}`/vmlinuz\n\tappend vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/initrd.gz -- \n\n"
-	LIVE_KERNEL_INSTALL="${LIVE_KERNEL_INSTALL}\n\nLABEL installgui\n\tkernel /`basename ${DESTDIR_INSTALL}`/vmlinuz\n\tappend video=vesa:ywrap,mtrr vga=788 initrd=/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz -- "
-	LIVE_KENREL_INSTALL="${LIVE_KERNEL_INSTALL}\n\nLABEL expert\n\tkernel /`basename ${DESTDIR_INSTALL}`/vmlinuz\n\tappend priority=low vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/initrd.gz -- "
-	LIVE_KERNEL_INSTALL="${LIVE_KERNEL_INSTALL}\n\nLABEL expertgui\n\tkernel /`basename ${DESTDIR_INSTALL}`/vmlinuz\n\tappend priority=low video=vesa:ywrap,mtrr vga=788 initrd=/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz -- "
-	LIVE_KERNEL_INSTALL="${LIVE_KERNEL_INSTALL}\n\nLABEL rescue\n\tkernel /`basename ${DESTDIR_INSTALL}`/vmlinuz\n\tappend vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/initrd.gz rescue/enable=true -- "
-	LIVE_KERNEL_INSTALL="${LIVE_KERNEL_INSTALL}\n\nLABEL rescuegui\n\tkernel /`basename ${DESTDIR_INSTALL}`/vmlinuz\n\tappend video=vesa:ywrap,mtrr vga=788 initrd=/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz rescue/enable=true -- "
-	LIVE_KERNEL_INSTALL="${LIVE_KERNEL_INSTALL}\n\nLABEL auto\n\tkernel /`basename ${DESTDIR_INSTALL}`/vmlinuz\n\tappend auto=true priority=critical vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/initrd.gz -- "
-	LIVE_KERNEL_INSTALL="${LIVE_KERNEL_INSTALL}\n\nLABEL autogui\n\tkernel /`basename ${DESTDIR_INSTALL}`/vmlinuz\n\tappend auto=true priority=critical video=vesa:ywrap,mtrr vga=788 initrd=/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz -- "
+	LIVE_LINUX_INSTALL="LABEL install\n\tkernel /`basename ${DESTDIR_INSTALL}`/vmlinuz\n\tappend vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/initrd.gz -- "
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL linux\n\tkernel /`basename ${DESTDIR_INSTALL}`/vmlinuz\n\tappend vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/initrd.gz -- "
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL installgui\n\tkernel /`basename ${DESTDIR_INSTALL}`/gtk/vmlinuz\n\tappend video=vesa:ywrap,mtrr vga=788 initrd=/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz -- "
+	LIVE_KENREL_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL expert\n\tkernel /`basename ${DESTDIR_INSTALL}`/vmlinuz\n\tappend priority=low vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/initrd.gz -- "
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL expertgui\n\tkernel /`basename ${DESTDIR_INSTALL}`/gtk/vmlinuz\n\tappend priority=low video=vesa:ywrap,mtrr vga=788 initrd=/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz -- "
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL rescue\n\tkernel /`basename ${DESTDIR_INSTALL}`/vmlinuz\n\tappend vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/initrd.gz rescue/enable=true -- "
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL rescuegui\n\tkernel /`basename ${DESTDIR_INSTALL}`/gtk/vmlinuz\n\tappend video=vesa:ywrap,mtrr vga=788 initrd=/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz rescue/enable=true -- "
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL auto\n\tkernel /`basename ${DESTDIR_INSTALL}`/vmlinuz\n\tappend auto=true priority=critical vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/initrd.gz -- "
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL autogui\n\tkernel /`basename ${DESTDIR_INSTALL}`/gtk/vmlinuz\n\tappend auto=true priority=critical video=vesa:ywrap,mtrr vga=788 initrd=/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz -- "
 fi
 
 # Assembling memtest configuration
 if [ -f "${DESTDIR_LIVE}"/memtest ]
 then
-	if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+	if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
 	then
 		MEMTEST="LABEL memtest\n\tkernel /`basename ${DESTDIR_LIVE}`/memtest"
 		MEMTEST="`echo ${MEMTEST} | sed -e 's#//#/#g'`"
@@ -218,7 +224,7 @@ then
 	fi
 fi
 
-case "${LIVE_BINARY_IMAGE}" in
+case "${LIVE_BINARY_IMAGES}" in
 	iso)
 		# Copying syslinux
 		mkdir -p binary/isolinux
@@ -243,7 +249,7 @@ case "${LIVE_BINARY_IMAGE}" in
 		fi
 
 		# Configure syslinux templates
-		sed -i -e "s#LIVE_KERNEL_LIVE#${LINUX}#" -e "s#LIVE_KERNEL_INSTALL#${LIVE_KERNEL_INSTALL}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" binary/isolinux/isolinux.cfg
+		sed -i -e "s#LIVE_LINUX_LIVE#${LINUX}#" -e "s#LIVE_LINUX_INSTALL#${LIVE_LINUX_INSTALL}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" binary/isolinux/isolinux.cfg
 		sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" binary/isolinux/isolinux.cfg
 		sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" binary/isolinux/f1.txt
 		sed -i -e "s/LIVE_VERSION/${VERSION}/" binary/isolinux/f10.txt
@@ -252,9 +258,9 @@ case "${LIVE_BINARY_IMAGE}" in
 		rm -f binary/isolinux/pxelinux.cfg
 
 		# Working arround syslinux 8.3 limitation
-		if [ "`echo ${LIVE_KERNEL_FLAVOUR} | wc -w`" -gt "1" ]
+		if [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
 		then
-			for FLAVOUR in ${LIVE_KERNEL_FLAVOUR}
+			for FLAVOUR in ${LIVE_LINUX_FLAVOURS}
 			do
 				NUMBER=$(($NUMBER + 1))
 
@@ -263,9 +269,9 @@ case "${LIVE_BINARY_IMAGE}" in
 				sed -i -e "s/vmlinuz-.*-${FLAVOUR}/vmlinuz${NUMBER}/g" -e "s/initrd.img-.*-${FLAVOUR}/initrd${NUMBER}.img/g" binary/isolinux/isolinux.cfg
 			done
 		else
-			mv "${DESTDIR_LIVE}"/vmlinuz-*-${LIVE_KERNEL_FLAVOUR} "${DESTDIR_LIVE}"/vmlinuz
-			mv "${DESTDIR_LIVE}"/initrd.img-*-${LIVE_KERNEL_FLAVOUR} "${DESTDIR_LIVE}"/initrd.img
-			sed -i -e "s/vmlinuz-.*-${LIVE_KERNEL_FLAVOUR}/vmlinuz/g" -e "s/initrd.img-.*-${LIVE_KERNEL_FLAVOUR}/initrd.img/g" binary/isolinux/isolinux.cfg
+			mv "${DESTDIR_LIVE}"/vmlinuz-*-${LIVE_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/vmlinuz
+			mv "${DESTDIR_LIVE}"/initrd.img-*-${LIVE_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/initrd.img
+			sed -i -e "s/vmlinuz-.*-${LIVE_LINUX_FLAVOURS}/vmlinuz/g" -e "s/initrd.img-.*-${LIVE_LINUX_FLAVOURS}/initrd.img/g" binary/isolinux/isolinux.cfg
 		fi
 		;;
 
@@ -297,8 +303,8 @@ case "${LIVE_BINARY_IMAGE}" in
 		fi
 
 		# Configure syslinux templates
-		sed -i -e "s#LIVE_KERNEL_LIVE#${LINUX}#" -e "s#LIVE_KERNEL_INSTALL#${LIVE_KERNEL_INSTALL}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" tftpboot/pxelinux.cfg/default
-		sed -i -e "s/LIVE_SERVER_ADDRESS/${LIVE_SERVER_ADDRESS}/" -e "s#LIVE_SERVER_PATH#${LIVE_SERVER_PATH}#" -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" tftpboot/pxelinux.cfg/default
+		sed -i -e "s#LIVE_LINUX_LIVE#${LINUX}#" -e "s#LIVE_LINUX_INSTALL#${LIVE_LINUX_INSTALL}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" tftpboot/pxelinux.cfg/default
+		sed -i -e "s/LIVE_NET_SERVER/${LIVE_NET_SERVER}/" -e "s#LIVE_NET_PATH#${LIVE_NET_PATH}#" -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" tftpboot/pxelinux.cfg/default
 		sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" tftpboot/pxelinux.cfg/f1.txt
 		sed -i -e "s/LIVE_VERSION/${VERSION}/" tftpboot/pxelinux.cfg/f10.txt
 
@@ -306,9 +312,9 @@ case "${LIVE_BINARY_IMAGE}" in
 		rm -f tftpboot/pxelinux.cfg/isolinux.cfg
 
 		# Working arround syslinux 8.3 limitation
-		if [ "`echo ${LIVE_KERNEL_FLAVOUR} | wc -w`" -gt "1" ]
+		if [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
 		then
-			for FLAVOUR in ${LIVE_KERNEL_FLAVOUR}
+			for FLAVOUR in ${LIVE_LINUX_FLAVOURS}
 			do
 				NUMBER=$(($NUMBER + 1))
 
@@ -317,9 +323,9 @@ case "${LIVE_BINARY_IMAGE}" in
 				sed -i -e "s/vmlinuz-.*-${FLAVOUR}/vmlinuz${NUMBER}/g" -e "s/initrd.img-.*-${FLAVOUR}/initrd${NUMBER}.img/g" binary/isolinux/isolinux.cfg
 			done
 		else
-			mv "${DESTDIR_LIVE}"/vmlinuz-*-${LIVE_KERNEL_FLAVOUR} "${DESTDIR_LIVE}"/vmlinuz
-			mv "${DESTDIR_LIVE}"/initrd.img-*-${LIVE_KERNEL_FLAVOUR} "${DESTDIR_LIVE}"/initrd.img
-			sed -i -e "s/vmlinuz-.*-${LIVE_KERNEL_FLAVOUR}/vmlinuz/g" -e "s/initrd.img-.*-${LIVE_KERNEL_FLAVOUR}/initrd.img/g" binary/isolinux/isolinux.cfg
+			mv "${DESTDIR_LIVE}"/vmlinuz-*-${LIVE_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/vmlinuz
+			mv "${DESTDIR_LIVE}"/initrd.img-*-${LIVE_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/initrd.img
+			sed -i -e "s/vmlinuz-.*-${LIVE_LINUX_FLAVOURS}/vmlinuz/g" -e "s/initrd.img-.*-${LIVE_LINUX_FLAVOURS}/initrd.img/g" binary/isolinux/isolinux.cfg
 		fi
 		;;
 
@@ -348,7 +354,7 @@ case "${LIVE_BINARY_IMAGE}" in
 		fi
 
 		# Configure syslinux templates
-		sed -i -e "s#LIVE_KERNEL_LIVE#${LINUX}#" -e "s#LIVE_KERNEL_INSTALL#${LIVE_KERNEL_INSTALL}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" binary/syslinux.cfg
+		sed -i -e "s#LIVE_LINUX_LIVE#${LINUX}#" -e "s#LIVE_LINUX_INSTALL#${LIVE_LINUX_INSTALL}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" binary/syslinux.cfg
 		sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" binary/syslinux.cfg
 		sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" binary/f1.txt
 		sed -i -e "s/LIVE_VERSION/${VERSION}/" binary/f10.txt
@@ -357,9 +363,9 @@ case "${LIVE_BINARY_IMAGE}" in
 		rm -f binary/pxelinux.cfg
 
 		# Working arround syslinux 8.3 limitation
-		if [ "`echo ${LIVE_KERNEL_FLAVOUR} | wc -w`" -gt "1" ]
+		if [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
 		then
-			for FLAVOUR in ${LIVE_KERNEL_FLAVOUR}
+			for FLAVOUR in ${LIVE_LINUX_FLAVOURS}
 			do
 				NUMBER=$(($NUMBER + 1))
 
@@ -368,9 +374,9 @@ case "${LIVE_BINARY_IMAGE}" in
 				sed -i -e "s/vmlinuz-.*-${FLAVOUR}/vmlinuz${NUMBER}/g" -e "s/initrd.img-.*-${FLAVOUR}/initrd${NUMBER}.img/g" binary/syslinux.cfg
 			done
 		else
-			mv "${DESTDIR_LIVE}"/vmlinuz-*-${LIVE_KERNEL_FLAVOUR} "${DESTDIR_LIVE}"/vmlinuz
-			mv "${DESTDIR_LIVE}"/initrd.img-*-${LIVE_KERNEL_FLAVOUR} "${DESTDIR_LIVE}"/initrd.img
-			sed -i -e "s/vmlinuz-.*-${LIVE_KERNEL_FLAVOUR}/vmlinuz/g" -e "s/initrd.img-.*-${LIVE_KERNEL_FLAVOUR}/initrd.img/g" binary/syslinux.cfg
+			mv "${DESTDIR_LIVE}"/vmlinuz-*-${LIVE_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/vmlinuz
+			mv "${DESTDIR_LIVE}"/initrd.img-*-${LIVE_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/initrd.img
+			sed -i -e "s/vmlinuz-.*-${LIVE_LINUX_FLAVOURS}/vmlinuz/g" -e "s/initrd.img-.*-${LIVE_LINUX_FLAVOURS}/initrd.img/g" binary/syslinux.cfg
 		fi
 		;;
 esac

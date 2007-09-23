@@ -120,7 +120,7 @@ then
 		fi
 
 		# Executing cdebootstrap (download-only)
-		${LH_ROOT_COMMAND} cdebootstrap ${CDEBOOTSTRAP_OPTIONS} --download-only "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_BUILD}"
+		${LH_ROOT_COMMAND} cdebootstrap ${CDEBOOTSTRAP_OPTIONS} --download-only "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_BOOTSTRAP}"
 
 		if [ -n "${LH_ROOT_COMMAND}" ]
 		then
@@ -143,7 +143,7 @@ then
 	fi
 
 	# Executing cdebootstrap (regular run)
-	${LH_ROOT_COMMAND} cdebootstrap ${CDEBOOTSTRAP_OPTIONS} "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_BUILD}"
+	${LH_ROOT_COMMAND} cdebootstrap ${CDEBOOTSTRAP_OPTIONS} "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_BOOTSTRAP}"
 
 	if [ -n "${LH_ROOT_COMMAND}" ]
 	then
@@ -172,6 +172,11 @@ then
 			if [ -d cache/stages_bootstrap ]
 			then
 				rm -rf cache/stages_bootstrap
+			fi
+
+			if [ ! -d cache ]
+			then
+				mkdir cache
 			fi
 
 			${LH_ROOT_COMMAND} cp -a chroot cache/stages_bootstrap

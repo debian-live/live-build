@@ -57,7 +57,7 @@ then
 	exit 0
 fi
 
-# Check templates
+# Check user templates
 if [ ! -d "${LIVE_TEMPLATES}" ]
 then
 	if [ -d ../"${LIVE_TEMPLATES}" ]
@@ -67,6 +67,12 @@ then
 		Echo_error "user specified templates not accessible in ${LIVE_TEMPLATES}"
 		exit 1
 	fi
+fi
+
+# Checking local templates
+if [ -d config/templates/yaboot ]
+then
+	LIVE_TEMPLATES="config/templates"
 fi
 
 # Checking depends
@@ -86,7 +92,7 @@ case "${LH_INITRAMFS}" in
 esac
 
 # Setting destination directory
-case "${LIVE_BINARY_IMAGE}" in
+case "${LIVE_BINARY_IMAGES}" in
 	iso)
 		DESTDIR="binary/live"
 		;;
@@ -97,7 +103,7 @@ case "${LIVE_BINARY_IMAGE}" in
 esac
 
 # Temporary check for broken yaboot
-if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
 then
 	case "${LIVE_ARCHITECTURE}" in
 		powerpc)
@@ -131,30 +137,30 @@ fi
 LIVE_BOOTAPPEND="`echo ${LIVE_BOOTAPPEND} | sed -e 's/  //'`"
 
 # Assembling kernel configuration
-if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
 then
-	DEFAULT_FLAVOUR="`echo ${LIVE_KERNEL_FLAVOUR} | awk '{ print $1 }'`"
+	DEFAULT_FLAVOUR="`echo ${LIVE_LINUX_FLAVOURS} | awk '{ print $1 }'`"
 	LINUX="image=/`basename ${DESTDIR}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tinitrd=/`basename ${DESTDIR}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'`\n\tlabel=LIVE\n\tappend=\"boot=${INITFS} LIVE_BOOTAPPEND\"\n\tinitrd-size=1048576\n\tread-only"
 else
-	DEFAULT_FLAVOUR="`echo ${LIVE_KERNEL_FLAVOUR} | awk '{ print $1 }'`"
+	DEFAULT_FLAVOUR="`echo ${LIVE_LINUX_FLAVOURS} | awk '{ print $1 }'`"
 	LINUX="image=`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tinitrd=initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'`\n\tlabel=LIVE\n\tappend=\"boot=${INITFS} LIVE_BOOTAPPEND\"\n\tinitrd-size=1048576\n\tread-only"
 fi
 
 # FIXME
-if [ "`echo ${LIVE_KERNEL_FLAVOUR} | wc -w`" -gt "1" ]
+if [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
 then
 	for KERNEL in chroot/boot/vmlinuz*
 	do
 		if [ -z "${LINUX}" ]
 		then
-			if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+			if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
 		then
 				LINUX="label LIVE-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n  kernel /`basename ${DESTDIR}`/`basename ${KERNEL}`\n  append initrd=/`basename ${DESTDIR}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
 			else
 				LINUX="label LIVE-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n  kernel `basename ${KERNEL}`\n  append initrd=initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
 		fi
 		else
-			if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+			if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
 			then
 				LINUX="${LINUX}\nlabel LIVE-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n  kernel /`basename ${DESTDIR}`/`basename ${KERNEL}`\n  append initrd=/`basename ${DESTDIR}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
 			else
@@ -166,7 +172,7 @@ fi
 
 LINUX="`echo ${LINUX} | sed -e 's#//#/#g'`"
 
-case "${LIVE_BINARY_IMAGE}" in
+case "${LIVE_BINARY_IMAGES}" in
 	iso)
 		# Copying yaboot
 		mkdir -p binary/install
@@ -174,14 +180,14 @@ case "${LIVE_BINARY_IMAGE}" in
 		cp -r "${LIVE_TEMPLATES}"/yaboot/* binary/yaboot
 
 		# Configure yaboot templates
-		sed -i -e "s#LIVE_KERNEL_LIVE#${LINUX}#" -e "s#LIVE_KERNEL_INSTALL#${LIVE_KERNEL_INSTALL}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" binary/install/yaboot.conf
+		sed -i -e "s#LIVE_LINUX_LIVE#${LINUX}#" -e "s#LIVE_LINUX_INSTALL#${LIVE_LINUX_INSTALL}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" binary/install/yaboot.conf
 		sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" binary/yaboot/yaboot.conf
 		sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" -e "s/LIVE_VERSION/${VERSION}/" binary/yaboot/boot.msg
 
 		# Working arround yaboot 8.3 limitation
-		if [ "`echo ${LIVE_KERNEL_FLAVOUR} | wc -w`" -gt "1" ]
+		if [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
 		then
-			for FLAVOUR in ${LIVE_KERNEL_FLAVOUR}
+			for FLAVOUR in ${LIVE_LINUX_FLAVOURS}
 			do
 				NUMBER=$(($NUMBER + 1))
 
@@ -190,9 +196,9 @@ case "${LIVE_BINARY_IMAGE}" in
 				sed -i -e "s/LIVE.*-${FLAVOUR}/live${NUMBER}/g" -e "s/vmlinuz-.*-${FLAVOUR}/vmlinuz${NUMBER}/g" -e "s/initrd.img-.*-${FLAVOUR}/initrd${NUMBER}.img/g" -e "s/LIVE/live/" binary/install/yaboot.conf
 			done
 		else
-			mv "${DESTDIR}"/vmlinuz-*-${LIVE_KERNEL_FLAVOUR} "${DESTDIR}"/vmlinuz
-			mv "${DESTDIR}"/initrd.img-*-${LIVE_KERNEL_FLAVOUR} "${DESTDIR}"/initrd.img
-			sed -i -e "s/LIVE.*-${LIVE_KERNEL_FLAVOUR}/live/g" -e "s/vmlinuz-.*-${LIVE_KERNEL_FLAVOUR}/vmlinuz/g" -e "s/initrd.img-.*-${LIVE_KERNEL_FLAVOUR}/initrd.img/g" -e "s/LIVE/live/" binary/install/yaboot.conf
+			mv "${DESTDIR}"/vmlinuz-*-${LIVE_LINUX_FLAVOURS} "${DESTDIR}"/vmlinuz
+			mv "${DESTDIR}"/initrd.img-*-${LIVE_LINUX_FLAVOURS} "${DESTDIR}"/initrd.img
+			sed -i -e "s/LIVE.*-${LIVE_LINUX_FLAVOURS}/live/g" -e "s/vmlinuz-.*-${LIVE_LINUX_FLAVOURS}/vmlinuz/g" -e "s/initrd.img-.*-${LIVE_LINUX_FLAVOURS}/initrd.img/g" -e "s/LIVE/live/" binary/install/yaboot.conf
 		fi
 		;;
 esac

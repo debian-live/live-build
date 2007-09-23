@@ -1,0 +1,51 @@
+TODO list for live-helper
+-------------------------
+
+This file lists only outstanding tasks. Any additions/comments/questions and
+help is welcome. Write to <debian-live-devel@lists.alioth.debian.org>.
+
+1.0~a11-1:
+  * add compat code for old syslinux
+  * reordering content of configuration files
+
+ALPHA series:
+
+FIXME
+  * xfce flavours seem to be damaged again
+  * multi-kernel syslinux fuckup
+  * d-i/g-i pool generation on the media
+  * yaboot (powerpc) boot support
+  * grub (i386/amd64) boot support on usb* binary images
+  * grub (i386/amd64) boot support on net binary images
+  * multi-binary builds in one shot
+  * vmlinu[xz]
+  * breakpoints (yes/no/all/type)
+  * check unset variables
+
+ADDME
+  * vmware binary image flavour
+  * usb-zip binary image flavour
+  * support splitted/partial squashfs images
+  * a fetch everything, then build option
+  * introduce package groups
+  * multi-arch for amd64/i386/powerpc on one medium
+  * logfiles
+  * re-import lh_clone/lh_preseed
+  * Add win32 loader
+
+BETA series:
+
+FIXME
+  * check all Require_stagefile calls
+  * make helpers call required stages when needed
+  * integrate lh_chroot_hacks
+  * cleanup variable names
+  * write manpage and documentation/manual
+
+POST 1.0:
+
+  * Add win32 autorun like
+    http://morphix.svn.sourceforge.net/viewvc/morphix/trunk/cdrom-misc/autorun/
+  * Add loadlin or qemu batch
+  * Adding colinux?
+  * exec wrapper for output hiding/handling

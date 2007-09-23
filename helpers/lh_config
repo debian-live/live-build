@@ -57,6 +57,8 @@ Breakpoint "config: Init"
 
 # Creating configuration directory
 mkdir -p "${LIVE_ROOT}"/config
+mkdir -p "${LIVE_ROOT}"/config/includes
+mkdir -p "${LIVE_ROOT}"/config/templates
 
 # Creating live-helper configuration
 cat > "${LIVE_ROOT}"/config/common << EOF
@@ -77,10 +79,6 @@ LH_APT_FTPPROXY="${LH_APT_FTPPROXY}"
 # \$LH_APT_HTTPPROXY: set apt/aptitude http proxy
 # (Default: autodetected or empty)
 LH_APT_HTTPPROXY="${LH_APT_HTTPPROXY}"
-
-# \$LH_APT_GENERIC: set apt/aptitude generic indices
-# (Default: ${LH_APT_GENERIC})
-LH_APT_GENERIC="${LH_APT_GENERIC}"
 
 # \$LH_APT_PDIFFS: set apt/aptitude pdiff indices
 # (Default: ${LH_APT_PDIFFS})
@@ -181,13 +179,21 @@ EOF
 cat > "${LIVE_ROOT}"/config/chroot << EOF
 # config/chroot: configuration for lh_chroot_*
 
-# \$LIVE_KERNEL_FLAVOUR: set the kernel flavour to use
-# (Default: autodetected)
-LIVE_KERNEL_FLAVOUR="${LIVE_KERNEL_FLAVOUR}"
+# \$LIVE_CHROOT_FILESYSTEM: set chroot filesystem
+# (Default: ${LIVE_CHROOT_FILESYSTEM})
+LIVE_CHROOT_FILESYSTEM="${LIVE_CHROOT_FILESYSTEM}"
 
-# \$LIVE_KERNEL_PACKAGES: set the kernel packages to use
+# \$LIVE_INTERACTIVE: set interactive build
+# (Default: ${LIVE_INTERACTIVE})
+LIVE_INTERACTIVE="${LIVE_INTERACTIVE}"
+
+# \$LIVE_LINUX_FLAVOURS: set the kernel flavour to use
 # (Default: autodetected)
-LIVE_KERNEL_PACKAGES="${LIVE_KERNEL_PACKAGES}"
+LIVE_LINUX_FLAVOURS="${LIVE_LINUX_FLAVOURS}"
+
+# \$LIVE_LINUX_PACKAGES: set the kernel packages to use
+# (Default: autodetected)
+LIVE_LINUX_PACKAGES="${LIVE_LINUX_PACKAGES}"
 
 # \$LIVE_KEYRING_PACKAGES: set the keyring packages
 # (Default: empty)
@@ -224,17 +230,13 @@ LIVE_SYMLINKS="${LIVE_SYMLINKS}"
 # \$LIVE_SYSVINIT: enable sysvinit
 # (Default: ${LIVE_SYSVINIT})
 LIVE_SYSVINIT="${LIVE_SYSVINIT}"
-
-# \$LIVE_INTERACTIVE: set interactive build
-# (Default: ${LIVE_INTERACTIVE})
-LIVE_INTERACTIVE="${LIVE_INTERACTIVE}"
 EOF
 
 # Creating lh_chroot_* directories
-mkdir -p "${LIVE_ROOT}"/config/chroot_localhooks
-mkdir -p "${LIVE_ROOT}"/config/chroot_localincludes
-mkdir -p "${LIVE_ROOT}"/config/chroot_localpackages
-mkdir -p "${LIVE_ROOT}"/config/chroot_localpackageslists
+mkdir -p "${LIVE_ROOT}"/config/chroot_local-hooks
+mkdir -p "${LIVE_ROOT}"/config/chroot_local-includes
+mkdir -p "${LIVE_ROOT}"/config/chroot_local-packages
+mkdir -p "${LIVE_ROOT}"/config/chroot_local-packageslists
 mkdir -p "${LIVE_ROOT}"/config/chroot_sources
 
 # Creating lh_bootstrap_* configuration
@@ -257,21 +259,21 @@ LIVE_DISTRIBUTION_CONFIG="${LIVE_DISTRIBUTION_CONFIG}"
 # (Default: ${LIVE_BOOTSTRAP_FLAVOUR})
 LIVE_BOOTSTRAP_FLAVOUR="${LIVE_BOOTSTRAP_FLAVOUR}"
 
-# \$LIVE_MIRROR_BUILD: set the mirror to fetch packages from
-# (Default: ${LIVE_MIRROR_BUILD})
-LIVE_MIRROR_BUILD="${LIVE_MIRROR_BUILD}"
+# \$LIVE_MIRROR_BOOTSTRAP: set the mirror to fetch packages from
+# (Default: ${LIVE_MIRROR_BOOTSTRAP})
+LIVE_MIRROR_BOOTSTRAP="${LIVE_MIRROR_BOOTSTRAP}"
 
-# \$LIVE_MIRROR_BUILD_SECURITY: set the security mirror to fetch packages from
-# (Default: ${LIVE_MIRROR_BUILD_SECURITY})
-LIVE_MIRROR_BUILD_SECURITY="${LIVE_MIRROR_BUILD_SECURITY}"
+# \$LIVE_MIRROR_BOOTSTRAP_SECURITY: set the security mirror to fetch packages from
+# (Default: ${LIVE_MIRROR_BOOTSTRAP_SECURITY})
+LIVE_MIRROR_BOOTSTRAP_SECURITY="${LIVE_MIRROR_BOOTSTRAP_SECURITY}"
 
-# \$LIVE_MIRROR_IMAGE: set the mirror which ends up in the image
-# (Default: ${LIVE_MIRROR_IMAGE})
-LIVE_MIRROR_IMAGE="${LIVE_MIRROR_IMAGE}"
+# \$LIVE_MIRROR_BINARY: set the mirror which ends up in the image
+# (Default: ${LIVE_MIRROR_BINARY})
+LIVE_MIRROR_BINARY="${LIVE_MIRROR_BINARY}"
 
-# \$LIVE_MIRROR_IMAGE_SECURITY: set the security mirror which ends up in the image
-# (Default: ${LIVE_MIRROR_IMAGE_SECURITY})
-LIVE_MIRROR_IMAGE_SECURITY="${LIVE_MIRROR_IMAGE_SECURITY}"
+# \$LIVE_MIRROR_BINARY_SECURITY: set the security mirror which ends up in the image
+# (Default: ${LIVE_MIRROR_BINARY_SECURITY})
+LIVE_MIRROR_BINARY_SECURITY="${LIVE_MIRROR_BINARY_SECURITY}"
 
 # \$LIVE_SECTIONS: select the section(s) to use
 # (Default: ${LIVE_SECTIONS})
@@ -281,6 +283,10 @@ EOF
 # Creating lh_binary_* configuration
 cat > "${LIVE_ROOT}"/config/binary << EOF
 # config/chroot: configuration for lh_binary_*
+
+# \$LIVE_BINARY_INDICES: set apt/aptitude generic indices
+# (Default: ${LIVE_BINARY_INDICES})
+LIVE_BINARY_INDICES="${LIVE_BINARY_INDICES}"
 
 # \$LIVE_BOOTAPPEND: set boot parameters
 # (Default: empty)
@@ -298,10 +304,6 @@ LIVE_USERNAME="${LIVE_USERNAME}"
 # (Default: ${LIVE_HOSTNAME})
 LIVE_HOSTNAME="${LIVE_HOSTNAME}"
 
-# \$LIVE_FILESYSTEM: set filesystem
-# (Default: ${LIVE_FILESYSTEM})
-LIVE_FILESYSTEM="${LIVE_FILESYSTEM}"
-
 # \$LIVE_MEMTEST: set memtest
 # (Default: ${LIVE_MEMTEST})
 LIVE_MEMTEST="${LIVE_MEMTEST}"
@@ -314,13 +316,13 @@ LIVE_DEBIAN_INSTALLER="${LIVE_DEBIAN_INSTALLER}"
 # (Default: ${LIVE_ISO_VOLUME})
 LIVE_ISO_VOLUME="${LIVE_ISO_VOLUME}"
 
-# \$LIVE_SERVER_ADDRESS: set the netboot server address
-# (Default: ${LIVE_SERVER_ADDRESS})
-LIVE_SERVER_ADDRESS="${LIVE_SERVER_ADDRESS}"
+# \$LIVE_NET_SERVER: set the netboot server address
+# (Default: ${LIVE_NET_SERVER})
+LIVE_NET_SERVER="${LIVE_NET_SERVER}"
 
-# \$LIVE_SERVER_PATH: set the netboot server directory
-# (Default: ${LIVE_SERVER_PATH})
-LIVE_SERVER_PATH="${LIVE_SERVER_PATH}"
+# \$LIVE_NET_PATH: set the netboot server directory
+# (Default: ${LIVE_NET_PATH})
+LIVE_NET_PATH="${LIVE_NET_PATH}"
 
 # \$LIVE_BOOTLOADER: set bootloader
 # (Default: ${LIVE_BOOTLOADER})
@@ -334,9 +336,9 @@ LIVE_GRUB_SPLASH="${LIVE_GRUB_SPLASH}"
 # (Default: empty)
 LIVE_SYSLINUX_SPLASH="${LIVE_SYSLINUX_SPLASH}"
 
-# \$LIVE_BINARY_IMAGE: set image type
-# (Default: ${LIVE_BINARY_IMAGE})
-LIVE_BINARY_IMAGE="${LIVE_BINARY_IMAGE}"
+# \$LIVE_BINARY_IMAGES: set image type
+# (Default: ${LIVE_BINARY_IMAGES})
+LIVE_BINARY_IMAGES="${LIVE_BINARY_IMAGES}"
 EOF
 
 # Creating lh_source_* configuration
@@ -347,12 +349,12 @@ cat > "${LIVE_ROOT}"/config/source << EOF
 # (Default: ${LH_SOURCE})
 LIVE_SOURCE="${LIVE_SOURCE}"
 
-# \$LIVE_SOURCE_IMAGE: set image type
-# (Default: ${LIVE_SOURCE_IMAGE})
-LIVE_SOURCE_IMAGE="${LIVE_SOURCE_IMAGE}"
+# \$LIVE_SOURCE_IMAGES: set image type
+# (Default: ${LIVE_SOURCE_IMAGES})
+LIVE_SOURCE_IMAGES="${LIVE_SOURCE_IMAGES}"
 EOF
 
 # Creating lh_binary_* directories
 mkdir -p "${LIVE_ROOT}"/config/binary_grub
-mkdir -p "${LIVE_ROOT}"/config/binary_localincludes
+mkdir -p "${LIVE_ROOT}"/config/binary_local-includes
 mkdir -p "${LIVE_ROOT}"/config/binary_syslinux

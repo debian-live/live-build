@@ -1,0 +1,51 @@
+How to report a bug in Debian Live
+==================================
+
+"No software is perfect... we need your help!"
+
+Debian Live is far from being perfect, but we want to make it as close as
+possible to perfect - with your help.
+
+Do not hesitate to report a bug: it is better to fill a report twice than never.
+However, here are some recommendations how to file good bug reports.
+
+
+1. Where does the bug appear?
+-----------------------------
+
+...at build time while bootstrapping?
+
+make-live first bootstraps a basic Debian system with cdebootstrap(1) or
+debootstrap(8). Depending on both cdebootstrap/debootstrap and the Debian
+distribution it is bootstrapping, it runs sucessful or not. If a bug appears
+here, check if the error is related to a specific Debian package (most likely),
+or if it is related to cdebootstrap/debootstrap itself.
+
+In both cases, this is not a bug in Debian Live, but rather in Debian itself. We
+can not fix this directly. Instead, report such a bug against the cdebootstrap
+package, or the failing package.
+
+
+...at build time while installing packages?
+
+Debian Live installs additional packages from the Debian archive. Depending on
+the Debian distribution used and the daily archive state, it can fail. If a bug
+appears here, check if the error is also reproducible on a normal system.
+
+If this is the case, this is not a bug in Debian Live, but rather in Debian
+again. Report it against the failing package.
+
+
+...at run time?
+
+If a package was successfully installed, but fails while actually running the
+Live system, this is probably a bug in Debian Live.
+
+
+2. Where to send the bug report?
+--------------------------------
+
+Report error logs of build time errors to live-helper and run time errors to
+casper in the Debian Bug Tracking System. If you are unsure or need more help
+before submitting a bug report, you can always send a message to
+<debian-devel-live@lists.alioth.debian.org>. We will help you to figure it out.
