@@ -12,7 +12,7 @@ losetup -d "${DEVICE}"
 
 LOOPDEVICE="`echo ${DEVICE}p${PARTITION:=1}`"
 CYL="`echo ${FDISK_OUT} | sed -ne "s_^${LOOPDEVICE}[ *]*\([0-9]*\).*_\1_p" `"
-#OFFSET="`expr ${CYL}*512`"
+#OFFSET="`expr 512 '*' ${CYL}`"
 OFFSET="$((CYL*512))"
 
 echo loop $DEVICE at offset $OFFSET
