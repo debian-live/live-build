@@ -27,7 +27,7 @@ Create_lockfile "${LIVE_ROOT}"/.lock
 # Checking stage file
 Check_stagefile "${LIVE_ROOT}"/.stage/chroot_sysvinit
 
-if [ "${LIVE_SYSVINIT}" = "disabled" ]
+if [ "${LIVE_SYSVINIT}" = "enabled" ]
 then
 	# Disable all
 	for FILE in "${LIVE_CHROOT}"/etc/init.d/*

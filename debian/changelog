@@ -1,3 +1,11 @@
+live-helper (1.0~a1-2) unstable; urgency=low
+
+  * functions/defaults.sh: Fixed setting of LIVE_SYSVINIT.
+  * helpers/lh_chroot_sysvinit: Changed check for LIVE_SYSVINIT from disabled to
+    enabled.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 12 Mar 2007 18:00:00 +0100
+
 live-helper (1.0~a1-1) unstable; urgency=low
 
   * Initial release, replacing live-package.
