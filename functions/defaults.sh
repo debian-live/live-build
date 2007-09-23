@@ -120,9 +120,19 @@ Set_defaults ()
 	fi
 
 	# Setting cache option
-	if [ -z "${LH_CACHE}" ]
+	if [ -z "${LH_CACHE_INDICES}" ]
 	then
-		LH_CACHE="enabled"
+		LH_CACHE_INDICES="disabled"
+	fi
+
+	if [ -z "${LH_CACHE_PACKAGES}" ]
+	then
+		LH_CACHE_PACKAGES="enabled"
+	fi
+
+	if [ -z "${LH_CACHE_STAGES}" ]
+	then
+		LH_CACHE_STAGES="bootstrap"
 	fi
 
 	# Setting debconf frontend
@@ -176,6 +186,12 @@ Set_defaults ()
 		LH_TASKSEL="aptitude"
 	fi
 
+	# Setting initramfs generator
+	if [ -z "${LH_INITRAMFS}" ]
+	then
+		LH_INITRAMFS="casper"
+	fi
+
 	# Setting root directory
 	if [ -z "${LIVE_ROOT}" ]
 	then
@@ -188,6 +204,18 @@ Set_defaults ()
 				LIVE_ROOT="ubuntu-live"
 				;;
 		esac
+	fi
+
+	# Setting includes
+	if [ -z "${LIVE_INCLUDES}" ]
+	then
+		LIVE_INCLUDES="/usr/share/live-helper/includes"
+	fi
+
+	# Setting templates
+	if [ -z "${LIVE_TEMPLATES}" ]
+	then
+		LIVE_TEMPLATES="/usr/share/live-helper/templates"
 	fi
 
 	# Setting live helper options
@@ -549,6 +577,12 @@ Set_defaults ()
 		LIVE_MEMTEST="memtest86+"
 	fi
 
+	# Setting debian-installer option
+	if [ -z "${LIVE_DEBIAN_INSTALLER}" ]
+	then
+		LIVE_DEBIAN_INSTALLER="disabled"
+	fi
+
 	# Setting iso volume
 	if [ -z "${LIVE_ISO_VOLUME}" ]
 	then
@@ -608,16 +642,4 @@ Set_defaults ()
 
 	# Setting syslinux splash
 	# LIVE_SYSLINUX_SPLASH
-
-	# Setting includes
-	if [ -z "${LIVE_INCLUDES}" ]
-	then
-		LIVE_INCLUDES="/usr/share/live-helper/includes"
-	fi
-
-	# Setting templates
-	if [ -z "${LIVE_TEMPLATES}" ]
-	then
-		LIVE_TEMPLATES="/usr/share/live-helper/templates"
-	fi
 }

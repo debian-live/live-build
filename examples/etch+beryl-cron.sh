@@ -9,7 +9,7 @@ AUTOBUILD_DISTRIBUTIONS="etch"
 AUTOBUILD_PACKAGES_LISTS="gnome-desktop kde-desktop xfce-desktop"
 AUTOBUILD_OPTIONS="--apt-recommends disabled"
 
-AUTOBUILD_DATE="r0_1.0~a7-1"
+AUTOBUILD_DATE="r0_1.0~a8-1"
 AUTOBUILD_DESTDIR="/srv/debian-unofficial/ftp/debian-live"
 AUTOBUILD_TEMPDIR="/srv/tmp"
 
@@ -68,7 +68,9 @@ do
 			cp /usr/share/live-helper/examples/beryl.sources.list debian-live/config/chroot_sources/beryl.build
 			cp /usr/share/live-helper/examples/beryl.sources.list debian-live/config/chroot_sources/beryl.image
 
-			make-live -b iso -s generic --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-build ${AUTOBUILD_MIRROR} --mirror-build-security ${AUTOBUILD_MIRROR_SECURITY} --source enabled ${AUTOBUILD_OPTIONS} > "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt 2>&1
+			echo "Begin: `date -R`" > "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt
+			make-live -b iso -s generic --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-build ${AUTOBUILD_MIRROR} --mirror-build-security ${AUTOBUILD_MIRROR_SECURITY} --source enabled ${AUTOBUILD_OPTIONS} >> "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt 2>&1
+			echo "End: `date -R`" >> "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt
 		fi
 
 		if [ -f "${AUTOBUILD_TEMPDIR}"/debian-live/binary.iso ] && [ -f "${AUTOBUILD_TEMPDIR}"/debian-live/source.tar ]
@@ -86,7 +88,7 @@ do
 			mv "${AUTOBUILD_TEMPDIR}"/debian-live/source.tar "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/source/debian-live-etch+beryl-source-${PACKAGES_LIST}.tar
 		fi
 
-		if [ ! -f "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/log/debian-live-etch+beryl-${ARCHITECTURE}-${PACKAGES_LIST}_${AUTOBUILD_DATE}-usb-log.txt ]
+		if [ ! -f "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/log/debian-live-etch+beryl-${ARCHITECTURE}-${PACKAGES_LIST}_${AUTOBUILD_DATE}-usb-hdd-log.txt ]
 		then
 			# Workaround of missing multi-binary support in live-helper
 			mv "${AUTOBUILD_TEMPDIR}"/debian-live/binary/casper "${AUTOBUILD_TEMPDIR}"/debian-live/casper.tmp
@@ -99,15 +101,17 @@ do
 			# Generating images
 			mkdir -p "${AUTOBUILD_TEMPDIR}"/debian-live
 			cd "${AUTOBUILD_TEMPDIR}"
-			make-live -b usb -s generic --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-build ${AUTOBUILD_MIRROR} --mirror-build-security ${AUTOBUILD_MIRROR_SECURITY} --source disabled ${AUTOBUILD_OPTIONS} > "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt 2>&1
+			echo "Begin: `date -R`" > "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt
+			make-live -b usb-hdd -s generic --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-build ${AUTOBUILD_MIRROR} --mirror-build-security ${AUTOBUILD_MIRROR_SECURITY} --source disabled ${AUTOBUILD_OPTIONS} >> "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt 2>&1
+			echo "End: `date -R`" >> "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt
 		fi
 
 		if [ -f "${AUTOBUILD_TEMPDIR}"/debian-live/binary.img ]
 		then
 			# Moving logs
 			mkdir -p "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/log
-			mv "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/log/debian-live-etch+beryl-${ARCHITECTURE}-${PACKAGES_LIST}_${AUTOBUILD_DATE}-usb-log.txt
-			cp "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/log/debian-live-etch+beryl-${ARCHITECTURE}-${PACKAGES_LIST}_${AUTOBUILD_DATE}-iso-packages.txt "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/log/debian-live-etch+beryl-${ARCHITECTURE}-${PACKAGES_LIST}_${AUTOBUILD_DATE}-usb-packages.txt
+			mv "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/log/debian-live-etch+beryl-${ARCHITECTURE}-${PACKAGES_LIST}_${AUTOBUILD_DATE}-usb-hdd-log.txt
+			cp "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/log/debian-live-etch+beryl-${ARCHITECTURE}-${PACKAGES_LIST}_${AUTOBUILD_DATE}-iso-packages.txt "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/log/debian-live-etch+beryl-${ARCHITECTURE}-${PACKAGES_LIST}_${AUTOBUILD_DATE}-usb-hdd-packages.txt
 
 			# Moving images
 			mkdir -p "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/${ARCHITECTURE}

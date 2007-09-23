@@ -1,23 +1,23 @@
 0fBOOT METHODS07                                                                  09F307
 
+
 0fAvailable boot methods:07
 
-0flive07
-  Start the live system -- this is the default CD-ROM mode.
-0fmemtest07
-  Start the memtest86+ RAM tester.
+0finstall07
+  Start the installation -- this is the default CD-ROM install.
+0finstallgui07
+  Start the installation using the graphical installer.
+0fexpert07
+  Start the installation in expert mode, for maximum control.
+0fexpertgui07
+  Start the installation in expert mode using the graphical installer.
 
 To use one of these boot methods, type it at the prompt, optionally
 followed by any boot parameters. For example:
 
-  boot: live foo=bar
+  boot: install acpi=off
 
 If unsure, you should use the default boot method, with no special
 parameters, by simply pressing enter at the boot prompt.
-
-
-
-
-
 
 Press F1control and F then 1 for the help index, or ENTER to 

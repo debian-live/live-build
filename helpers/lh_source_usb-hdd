@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_source_usb(1) - build source image
+# lh_source_usb-hdd(1) - build source image
 # Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -25,13 +25,14 @@ Arguments "${@}"
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
+Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/chroot
-Read_conffile config/common
-Read_conffile config/image
+Read_conffile config/binary
+Read_conffile config/source
 Set_defaults
 
-Breakpoint "source_usb: Init"
+Breakpoint "source_usb-hdd: Init"
 
 if [ "${LIVE_SOURCE}" != "enabled" ]
 then
@@ -40,13 +41,13 @@ fi
 
 for IMAGE in ${LIVE_SOURCE_IMAGE}
 do
-	if [ "${IMAGE}" = "usb" ]
+	if [ "${IMAGE}" = "usb-hdd" ]
 	then
 		# Requiring stage file
 		Require_stagefile .stage/source_download
 
 		# Checking stage file
-		Check_stagefile .stage/source_usb
+		Check_stagefile .stage/source_usb-hdd
 
 		# Checking lock file
 		Check_lockfile .lock
@@ -88,7 +89,7 @@ do
 		${LH_LOSETUP} -d ${FREELO}
 
 		lh_losetup $FREELO source.img 1
-		Chroot "mkfs.msdos -n DEBIAN_LIVE ${FREELO}"
+		Chroot " mkfs.vfat -F 16 -n DEBIAN_LIVE ${FREELO}"
 		mkdir -p source.tmp
 		${LH_ROOT_COMMAND} mount ${FREELO} source.tmp
 		cp -r source/* source.tmp
@@ -107,6 +108,6 @@ do
 		Remove_package
 
 		# Creating stage file
-		Create_stagefile .stage/source_usb
+		Create_stagefile .stage/source_usb-hdd
 	fi
 done

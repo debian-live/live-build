@@ -25,10 +25,11 @@ Arguments "${@}"
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
+Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/chroot
-Read_conffile config/common
-Read_conffile config/image
+Read_conffile config/binary
+Read_conffile config/source
 Set_defaults
 
 if [ "${LIVE_MEMTEST}" = "disabled" ]
@@ -80,7 +81,7 @@ case "${LIVE_BINARY_IMAGE}" in
 		DESTDIR="tftpboot"
 		;;
 
-	usb|hdd)
+	usb-hdd|hdd)
 		DESTDIR="binary"
 		;;
 esac
@@ -92,6 +93,10 @@ then
 	if [ -n "${MULTIARCH}" ]
 	then
 		case "${LIVE_ARCHITECTURE}" in
+			amd64)
+				DESTDIR="${DESTDIR}.amd"
+				;;
+
 			i386)
 				DESTDIR="${DESTDIR}.386"
 				;;

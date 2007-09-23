@@ -1,4 +1,4 @@
-.TH LIVE\-HELPER 7 "2007\-04\-23" "1.0~a7" "live\-helper"
+.TH LIVE\-HELPER 7 "2007\-04\-30" "1.0~a8" "live\-helper"
 
 .SH NAME
 live\-helper \- Debian Live helper programs
@@ -29,6 +29,8 @@ Here is the complete list of available live\-helper commands. See their man page
 meta\-helper for lh_binary_*.
 .IP "\fIlh_binary_chroot\fR(1)" 4
 copies chroot into chroot.
+.IP "\fIlh_binary_debian\-installer\fR(1)" 4
+copies debian-installer into the binary image.
 .IP "\fIlh_binary_encryption\fR(1)" 4
 encrypts the root filesystem.
 .IP "\fIlh_binary_grub\fR(1)" 4
@@ -55,8 +57,8 @@ creates the netboot binary tarball.
 creates the root filesystem.
 .IP "\fIlh_binary_syslinux\fR(1)" 4
 copies syslinux into the binary image.
-.IP "\fIlh_binary_usb\fR(1)" 4
-creates the USB binary image.
+.IP "\fIlh_binary_usb-hdd\fR(1)" 4
+creates the USB-hdd binary image.
 .IP "\fIlh_binary_yaboot\fR(1)" 4
 copies yaboot into the binary image.
 .IP "\fIlh_bootstrap\fR(1)" 4
@@ -133,8 +135,8 @@ creates harddisk source tarball.
 creates CD/DVD source image.
 .IP "\fIlh_source_net\fR(1)" 4
 creates netboot source tarball.
-.IP "\fIlh_source_usb\fR(1)" 4
-creates USB source image.
+.IP "\fIlh_source_usb-hdd\fR(1)" 4
+creates USB-hdd source image.
 .IP "\fIlh_testroot\fR(1)" 4
 checks for root privileges.
 

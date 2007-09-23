@@ -46,7 +46,8 @@ then
 	Read_conffile "${LIVE_ROOT}"/config/common
 	Read_conffile "${LIVE_ROOT}"/config/bootstrap
 	Read_conffile "${LIVE_ROOT}"/config/chroot
-	Read_conffile "${LIVE_ROOT}"/config/image
+	Read_conffile "${LIVE_ROOT}"/config/binary
+	Read_conffile "${LIVE_ROOT}"/config/source
 fi
 
 # Setting defaults
@@ -97,9 +98,17 @@ LH_APT_SECURE="${LH_APT_SECURE}"
 # (Default: ${LH_BOOTSTRAP})
 LH_BOOTSTRAP="${LH_BOOTSTRAP}"
 
-# \$LH_CACHE: control if downloaded packages should be cached
-# (Default: ${LH_CACHE})
-LH_CACHE="${LH_CACHE}"
+# \$LH_CACHE_INDICES: control if downloaded packages should be cached
+# (Default: ${LH_CACHE_INDICES})
+LH_CACHE_INDICES="${LH_CACHE_INDICES}"
+
+# \$LH_CACHE_PACKAGES: control if downloaded packages should be cached
+# (Default: ${LH_CACHE_PACKAGES})
+LH_CACHE_PACKAGES="${LH_CACHE_PACKAGES}"
+
+# \$LH_CACHE_STAGES: control if downloaded packages should be cached
+# (Default: ${LH_CACHE_STAGES})
+LH_CACHE_STAGES="${LH_CACHE_STAGES}"
 
 # \$LH_DEBCONF_FRONTEND: set the debconf(1) frontend to use
 # (Default: ${LH_DEBCONF_FRONTEND})
@@ -125,9 +134,21 @@ LH_LOSETUP="${LH_LOSETUP}"
 # (Default: ${LH_TASKSEL})
 LH_TASKSEL="${LH_TASKSEL}"
 
+# \$LH_INITRAMFS: set the initramfs generator
+# (Default: ${LH_INITRAMFS})
+LH_INITRAMFS="${LH_INITRAMFS}"
+
 # \$LIVE_ROOT: set the root directory
 # (Default: ${LIVE_ROOT})
 LIVE_ROOT="${LIVE_ROOT}"
+
+# \$LIVE_INCLUDES: set includes
+# (Default: ${LIVE_INCLUDES})
+LIVE_INCLUDES="${LIVE_INCLUDES}"
+
+# \$LIVE_TEMPLATES: set templates
+# (Default: ${LIVE_TEMPLATES})
+LIVE_TEMPLATES="${LIVE_TEMPLATES}"
 
 # Live-helper options
 
@@ -257,9 +278,9 @@ LIVE_MIRROR_IMAGE_SECURITY="${LIVE_MIRROR_IMAGE_SECURITY}"
 LIVE_SECTIONS="${LIVE_SECTIONS}"
 EOF
 
-# Creating lh_image_* configuration
-cat > "${LIVE_ROOT}"/config/image << EOF
-# config/chroot: configuration for lh_image_*
+# Creating lh_binary_* configuration
+cat > "${LIVE_ROOT}"/config/binary << EOF
+# config/chroot: configuration for lh_binary_*
 
 # \$LIVE_BOOTAPPEND: set boot parameters
 # (Default: empty)
@@ -285,6 +306,10 @@ LIVE_FILESYSTEM="${LIVE_FILESYSTEM}"
 # (Default: ${LIVE_MEMTEST})
 LIVE_MEMTEST="${LIVE_MEMTEST}"
 
+# \$LIVE_DEBIAN_INSTALLER: set debian-installer
+# (Default: ${LIVE_DEBIAN_INSTALLER})
+LIVE_DEBIAN_INSTALLER="${LIVE_DEBIAN_INSTALLER}"
+
 # \$LIVE_ISO_VOLUME: set iso volume
 # (Default: ${LIVE_ISO_VOLUME})
 LIVE_ISO_VOLUME="${LIVE_ISO_VOLUME}"
@@ -296,10 +321,6 @@ LIVE_SERVER_ADDRESS="${LIVE_SERVER_ADDRESS}"
 # \$LIVE_SERVER_PATH: set the netboot server directory
 # (Default: ${LIVE_SERVER_PATH})
 LIVE_SERVER_PATH="${LIVE_SERVER_PATH}"
-
-# \$LIVE_SOURCE: set source option
-# (Default: ${LH_SOURCE})
-LIVE_SOURCE="${LIVE_SOURCE}"
 
 # \$LIVE_BOOTLOADER: set bootloader
 # (Default: ${LIVE_BOOTLOADER})
@@ -316,18 +337,19 @@ LIVE_SYSLINUX_SPLASH="${LIVE_SYSLINUX_SPLASH}"
 # \$LIVE_BINARY_IMAGE: set image type
 # (Default: ${LIVE_BINARY_IMAGE})
 LIVE_BINARY_IMAGE="${LIVE_BINARY_IMAGE}"
+EOF
+
+# Creating lh_source_* configuration
+cat > "${LIVE_ROOT}"/config/source << EOF
+# config/chroot: configuration for lh_source_*
+
+# \$LIVE_SOURCE: set source option
+# (Default: ${LH_SOURCE})
+LIVE_SOURCE="${LIVE_SOURCE}"
 
 # \$LIVE_SOURCE_IMAGE: set image type
 # (Default: ${LIVE_SOURCE_IMAGE})
 LIVE_SOURCE_IMAGE="${LIVE_SOURCE_IMAGE}"
-
-# \$LIVE_INCLUDES: set includes
-# (Default: ${LIVE_INCLUDES})
-LIVE_INCLUDES="${LIVE_INCLUDES}"
-
-# \$LIVE_TEMPLATES: set templates
-# (Default: ${LIVE_TEMPLATES})
-LIVE_TEMPLATES="${LIVE_TEMPLATES}"
 EOF
 
 # Creating lh_binary_* directories

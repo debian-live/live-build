@@ -1,4 +1,4 @@
-.TH LIVE\-HELPER 7 "23.04.2007" "1.0~a7" "live\-helper"
+.TH LIVE\-HELPER 7 "30.04.2007" "1.0~a8" "live\-helper"
 
 .SH NAME
 live\-helper \- Debian Live Helper-Programme
@@ -29,6 +29,8 @@ Hier ist eine vollst\[:a]ndige Liste aller verf\[:u]gbaren live\-helper Kommando
 Meta\-Helper f\[:u]r lh_binary_*
 .IP "\fIlh_binary_chroot\fR(1)" 4
 kopiert chroot in chroot.
+.IP "\fIlh_binary_debian\-installer\fR(1)" 4
+kopiert debian-\installer in das Binary\-Image.
 .IP "\fIlh_binary_encryption\fR(1)" 4
 verschl\[:u]sselt das Root\-Dateisystem.
 .IP "\fIlh_binary_grub\fR(1)" 4
@@ -55,8 +57,8 @@ erstellt den Netboot Binary\-Tarball.
 erstell das Root\-Dateisystem.
 .IP "\fIlh_binary_syslinux\fR(1)" 4
 kopiert syslinux in das Binary\-Image.
-.IP "\fIlh_binary_usb\fR(1)" 4
-erstellt das USB Binary\-Image.
+.IP "\fIlh_binary_usb-hdd\fR(1)" 4
+erstellt das USB-hdd Binary\-Image.
 .IP "\fIlh_binary_yaboot\fR(1)" 4
 kopiert yaboot in das Binary\-Image.
 .IP "\fIlh_bootstrap\fR(1)" 4
@@ -135,8 +137,8 @@ erstellt  CD/DVD Source-Image.
 erstellt md5sum.txt im Source-Image.
 .IP "\fIlh_source_net\fR(1)" 4
 erstellt Netboot Source-Tarball.
-.IP "\fIlh_source_usb\fR(1)" 4
-erstellt USB Source-Tarball.
+.IP "\fIlh_source_usb-hdd\fR(1)" 4
+erstellt USB-hdd Source-Tarball.
 .IP "\fIlh_testroot\fR(1)" 4
 stellt sicher dass das System als root gebaut wird.
 

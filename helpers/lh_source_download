@@ -25,10 +25,11 @@ Arguments "${@}"
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
+Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/chroot
-Read_conffile config/common
-Read_conffile config/image
+Read_conffile config/binary
+Read_conffile config/source
 Set_defaults
 
 Breakpoint "source_download: Init"
@@ -59,7 +60,7 @@ fi
 # Download sources
 Chroot "dpkg --get-selections" | awk '{ print $1 }' > chroot/root/dpkg-selection.txt
 echo "${LIVE_BOOTLOADER}" >> chroot/root/dpkg-selection.txt
-#echo "live-helper" >> chroot/root/dpkg-selection.txt
+echo "live-helper" >> chroot/root/dpkg-selection.txt
 Chroot "xargs --arg-file=/root/dpkg-selection.txt apt-get source --download-only"
 rm -f chroot/root/dpkg-selection.txt
 

@@ -1,4 +1,4 @@
-.TH MAKE\-LIVE 1 "2007\-04\-23" "1.0~a7" "live\-helper"
+.TH MAKE\-LIVE 1 "2007\-04\-30" "1.0~a8" "live\-helper"
 
 .SH NAME
 make\-live \- build a Debian Live system
@@ -58,8 +58,8 @@ make\-live \- build a Debian Live system
 [\-\-bootloader \fIgrub\fR|\fIsyslinux\fR]
 [\-\-grub\-splash \fIFILE\fR]
 [\-\-syslinux\-splash \fIFILE\fR]
-[\-b|\-\-binary\-image \fIhdd\fR|\fIiso\fR|\fIusb\fR|\fInet\fR]
-[\-s|\-\-source\-image \fIgeneric\fR|\fIhdd\fR|\fIiso\fR|\fIusb\fR|\fInet\fR]
+[\-b|\-\-binary\-image \fIhdd\fR|\fIiso\fR|\fIusb-hdd\fR|\fInet\fR]
+[\-s|\-\-source\-image \fIgeneric\fR|\fIhdd\fR|\fIiso\fR|\fIusb-hdd\fR|\fInet\fR]
 [\-\-includes \fIPATH\fR]
 [\-\-templates \fIPATH\fR]
 [\-\-breakpoints]

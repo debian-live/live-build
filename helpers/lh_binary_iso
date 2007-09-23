@@ -25,10 +25,11 @@ Arguments "${@}"
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
+Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/chroot
-Read_conffile config/common
-Read_conffile config/image
+Read_conffile config/binary
+Read_conffile config/source
 Set_defaults
 
 for IMAGE in ${LIVE_BINARY_IMAGE}
@@ -63,7 +64,7 @@ do
 
 		if [ "${LH_VERBOSE}" = "enabled" ]
 		then
-			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -i"
+			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -v"
 		fi
 
 		# Moving image
@@ -74,19 +75,19 @@ do
 		then
 			case "${LIVE_BOOTLOADER}" in
 				grub)
-					Chroot "${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -o binary.iso -r -J -l -b boot/grub/stage2_eltorito -m boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -boot-info-table binary"
+					Chroot "${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -o binary.iso -r -J -l -cache-inodes -b boot/grub/stage2_eltorito -m boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -boot-info-table binary"
 					;;
 
 				syslinux)
-					#Chroot "${LH_GENISOIMAGE} -A \"Debian Live\" -p \"Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org\" -publisher \"Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org\" -o binary.iso -r -J -l -V \"${LIVE_ISO_VOLUME}\" -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table binary"
-					Chroot "${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -o binary.iso -r -J -l -b isolinux/isolinux.bin -m isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table binary"
+					#Chroot "${LH_GENISOIMAGE} -A \"Debian Live\" -p \"Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org\" -publisher \"Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org\" -o binary.iso -r -J -l -V \"${LIVE_ISO_VOLUME}\" -cache-inodes -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table binary"
+					Chroot "${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -o binary.iso -r -J -l -cache-inodes -b isolinux/isolinux.bin -m isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table binary"
 					;;
 			esac
 		else
 			Echo_warning "Bootloader on your architecture not yet supported (Continuing in 5 seconds)."
 			sleep 5
 			#Chroot "${LH_GENISOIMAGE} -A 'Debian Live' -p 'Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org' -publisher 'Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org' -o binary.iso -r -J -l -V \"${LIVE_ISO_VOLUME}\" binary"
-			Chroot "${LH_GENISOIMAGE} ${GENISOIMAGE} -o binary.iso -r -J -l binary"
+			Chroot "${LH_GENISOIMAGE} ${GENISOIMAGE} -o binary.iso -r -J -l binary -cache-inodes"
 		fi
 
 		# Move image
