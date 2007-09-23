@@ -84,10 +84,13 @@ do
 		mkdir -p "${SERVER}"
 
 		# Removing old packages
-		for FILE in `awk {'print $5'} "${SERVER}"/"${PACKAGE}"*.changes | grep -e ".*\.deb$" -e ".*\.diff.gz$" -e ".*\.dsc$" -e ".*\.tar.gz$" -e ".*\.udeb$"`
-		do
-			rm -f "${SERVER}"/"${FILE}"
-		done
+		if [ -f "${SERVER}"/"${PACKAGE}"*.changes ]
+		then
+			for FILE in `awk {'print $5'} "${SERVER}"/"${PACKAGE}"*.changes | grep -e ".*\.deb$" -e ".*\.diff.gz$" -e ".*\.dsc$" -e ".*\.tar.gz$" -e ".*\.udeb$"`
+			do
+				rm -f "${SERVER}"/"${FILE}"
+			done
+		fi
 
 		rm -f "${SERVER}"/"${PACKAGE}"*.changes
 
