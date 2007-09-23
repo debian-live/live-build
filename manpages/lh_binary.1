@@ -1,4 +1,4 @@
-.TH LH_BINARY 1 "2007\-03\-26" "1.0~a3" "live\-helper"
+.TH LH_BINARY 1 "2007\-04\-02" "1.0~a4" "live\-helper"
 
 .SH NAME
 lh_binary \- meta-helper for lh_binary_*
@@ -10,12 +10,16 @@ lh_binary \- meta-helper for lh_binary_*
 lh_binary is a meta-helper. It calls all necessary helpers to complete the binary stage.
 
 .SH OPTIONS
-lh_bootstrap has no options (FIXME).
+lh_binary has no options (FIXME).
 
 .SH BINARY HELPERS
 Here is the complete list of available binary helper commands. See their man pages for additional documentation.
+.IP "\fIlh_binary_chroot\fR(1)" 4
+copies chroot into chroot.
 .IP "\fIlh_binary_encryption\fR(1)" 4
 encrypts the root filesystem.
+.IP "\fIlh_binary_grub\fR(1)" 4
+copies grub into the binary image.
 .IP "\fIlh_binary_includes\fR(1)" 4
 copies files into the binary image.
 .IP "\fIlh_binary_hdd\fR(1)" 4

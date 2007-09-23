@@ -22,19 +22,14 @@ USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
 
-if [ "${FORCE}" = "true" ]
-then
-	OPTIONS="${OPTIONS} --force"
-fi
-
 # Bootstrapping system
-lh_bootstrap "${OPTIONS}"
+lh_bootstrap "${@}"
 
 # Customizing chroot
-lh_chroot "${OPTIONS}"
+lh_chroot "${@}"
 
 # Building binary image
-lh_binary "${OPTIONS}"
+lh_binary "${@}"
 
 # Building source image
-lh_source "${OPTIONS}"
+lh_source "${@}"

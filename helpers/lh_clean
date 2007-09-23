@@ -22,9 +22,6 @@ USAGE="${PROGRAM} [all|cache|chroot|binary|lock|purge|stage|source]"
 
 Arguments "${@}"
 
-# Ensure that a system is built as root
-lh_testroot
-
 # Reading configuration files
 Read_conffile config/common
 Set_defaults
@@ -36,6 +33,12 @@ case "${1}" in
 		"${0}" lock
 		"${0}" stage
 		"${0}" source
+
+		if [ -d chroot ]
+		then
+			mkdir -p .stage
+			touch .stage/bootstrap
+		fi
 		;;
 
 	cache)
@@ -51,6 +54,13 @@ case "${1}" in
 		umount -f chroot/dev > /dev/null 2>&1 || true
 
 		rm -rf chroot
+
+		if [ "${PURGE}" != "true" ] && [ -d cache/chroot_bootstrap ]
+		then
+			cp -a cache/chroot_bootstrap chroot
+			mkdir -p .stage
+			touch .stage/bootstrap
+		fi
 
 		rm -f .stage/chroot*
 		;;
@@ -72,7 +82,7 @@ case "${1}" in
 		;;
 
 	purge)
-		"${0}" all
+		PURGE="true" "${0}" all
 		"${0}" cache
 		;;
 

@@ -5,6 +5,7 @@ Maintainer: Debian Live <debian-live-devel@lists.alioth.debian.org>
 Uploaders: Daniel Baumann <daniel@debian.org>, Marco Amadori <marco.amadori@gmail.com>
 Build-Depends: debhelper (>= 5)
 Standards-Version: 3.7.2
+XS-Vcs-Svn: svn://svn.debian.org/debian-live/dists/trunk/live-helper/
 
 Package: live-helper
 Architecture: all

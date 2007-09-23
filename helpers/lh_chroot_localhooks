@@ -57,7 +57,7 @@ then
 		Chroot "/root/`basename ${HOOK}`"
 
 		# Removing hook
-		rm -f chroot/"`basename ${HOOK}`"
+		rm -f chroot/root/"`basename ${HOOK}`"
 	done
 
 	# Creating stage file

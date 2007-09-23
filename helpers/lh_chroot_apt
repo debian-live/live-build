@@ -133,21 +133,21 @@ case "${1}" in
 		then
 			case "${LH_APT}" in
 				apt|apt-get)
-		                        echo "APT::Get::AllowUnauthenticated \"0\";" >> chroot/etc/apt/apt.conf
+		                        echo "APT::Get::AllowUnauthenticated \"true\";" >> chroot/etc/apt/apt.conf
 					;;
 
 				aptitude)
-					echo "APT::Get::AllowUnauthenticated \"0\";" > chroot/etc/apt/apt.conf.d/secure
+					echo "APT::Get::AllowUnauthenticated \"true\";" > chroot/etc/apt/apt.conf.d/secure
 					;;
 			esac
 		else
 			case "${LH_APT}" in
 				apt|apt-get)
-		                        echo "APT::Get::AllowUnauthenticated \"1\";" >> chroot/etc/apt/apt.conf
+		                        echo "APT::Get::AllowUnauthenticated \"false\";" >> chroot/etc/apt/apt.conf
 					;;
 
 				aptitude)
-					echo "APT::Get::AllowUnauthenticated \"1\";" > chroot/etc/apt/apt.conf.d/secure
+					echo "APT::Get::AllowUnauthenticated \"false\";" > chroot/etc/apt/apt.conf.d/secure
 					;;
 			esac
 		fi

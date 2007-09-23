@@ -9,15 +9,13 @@
 
 set -e
 
-PROGRAM="`basename ${0}`"
-
 Arguments ()
 {
-	ARGUMENTS="`getopt --longoptions force,help,usage,version --name=${PROGRAM} --options huv --shell sh -- "${@}"`"
+	ARGUMENTS="`getopt --longoptions conffile:,debug,force,help,logfile:,quiet,usage,verbose,version --name=${PROGRAM} --options huv --shell sh -- "${@}"`"
 
 	if [ "${?}" != "0" ]
 	then
-		echo "terminating" >&2
+		Echo_error "terminating" >&2
 		exit 1
 	fi
 
@@ -27,11 +25,11 @@ Arguments ()
 	do
 		case "${1}" in
 			--conffile)
-				CONFFILE="FIXME"; shift
+				CONFFILE="${2}"; shift 2
 				;;
 
 			--debug)
-				DEBUG="FIXME"; shift
+				DEBUG="true"; shift
 				;;
 
 			--force)
@@ -43,11 +41,11 @@ Arguments ()
 				;;
 
 			--logfile)
-				LOGFILE="FIXME"; shift
+				LOGFILE="${2}"; shift 2
 				;;
 
 			--quiet)
-				QUIET="FIXME"; shift
+				QUIET="true"; shift
 				;;
 
 			-u|--usage)
@@ -55,7 +53,7 @@ Arguments ()
 				;;
 
 			--verbose)
-				VERBOSE="FIXME"; shift
+				VERBOSE="true"; shift
 				;;
 
 			-v|--version)
@@ -67,7 +65,7 @@ Arguments ()
 				;;
 
 			*)
-				echo "internal error"
+				Echo_error "internal error"
 				exit 1
 				;;
 		esac

@@ -9,8 +9,6 @@
 
 set -e
 
-VERSION="1.0~a3"
-
 Version ()
 {
 	echo "${PROGRAM}, version ${VERSION}"

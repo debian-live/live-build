@@ -1,10 +1,74 @@
-2006-03-26  Daniel Baumann  <daniel@debian.org>
+2007-04-05  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_grub, templates/grub/menu.lst:
+	  - Added splash functionality.
+	* Uploaded 1.0~a4-1.
+
+2007-04-03  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_grub, lh_binary_grub:
+	  - Added check for LIVE_TEMPLATES to be existing.
+	* helpers/lh_binary_includes:
+	  - Added check for LIVE_INCLUDES to be existing.
+
+2007-04-02  Daniel Baumann  <daniel@debian.org>
+
+	* functions/*, helpers/*:
+	  - Merged LIVE_SYSLINUX and LIVE_GRUB into LIVE_BOOTLOADER.
+	* helpers/lh_binary_iso:
+	  - Added exclude for the bootloader from the iso image content.
+
+2007-04-01  Daniel Baumann  <daniel@debian.org>
+
+	* helper/lh_binary_grub:
+	  - Added.
+
+2007-03-30  Daniel Baumann  <daniel@debian.org>
+
+	* helper/lh_chroot_localincludes:
+	  - Fixed wrong path for hook removal.
+
+2007-03-29  Daniel Baumann  <daniel@debian.org>
+
+	* functions/common.sh, echo.sh:
+	  - Added.
+	* doc/README, helpers/lh_source, manpages/lh_binary.1, live-helper.7:
+	  - Added forgotten helpers.
+	* doc/FAQ:
+	  - Added.
+	* lists/mini, minimal:
+	  - Added --yes to apt call to make them non-interactive.
+	* manpages/lh_chroot.1:
+	  - Added.
+
+2007-03-28  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_bootstrap_cdebootstrap, lh_bootstrap_debootstrap:
+	  - Added --debug, --quiet, and --verbose.
+
+2007-03-27  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_linuximage, lh_binary_memtest86:
+	  - Added missing Read_conffiles to fix foreign architecture builds.
+
+2007-03-26  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_bootstrap_cdebootstrap, lh_bootstrap_debootstrap,
+	  lh_clean:
+	  - Added routine to cache bootstrapped chroot as suggested by Kai
+	    Hendry <hendry@iki.fi>.
+	* helpers/lh_chroot_rootfs:
+	  - Fixed typo in net type.
+	* lists/gnome*, kde*, standard-x11, xfce*:
+	  - Added menu.
+
+2007-03-26  Daniel Baumann  <daniel@debian.org>
 
 	* functions/defaults.sh:
 	  - Fixed handling of desktop list variable loop.
 	* Uploaded 1.0~a3-1.
 
-2006-03-25  Daniel Baumann  <daniel@debian.org>
+2007-03-25  Daniel Baumann  <daniel@debian.org>
 
 	* functions/*, helpers/*:
 	  - Renamed LIVE_FLAVOUR to LIVE_BOOTSTRAP_FLAVOUR.
@@ -35,7 +99,7 @@
 	* lists/minimal-net:
 	  - Minimized.
 
-2006-03-24  Daniel Baumann  <daniel@debian.org>
+2007-03-24  Daniel Baumann  <daniel@debian.org>
 
 	* functions/*, helpers/*, hooks/*:
 	  - Added GPL blurb.
@@ -53,12 +117,12 @@
 	* helpers/lh_clean:
 	  - Added purge.
 
-2006-03-23  Daniel Baumann  <daniel@debian.org>
+2007-03-23  Daniel Baumann  <daniel@debian.org>
 
 	* helpers/make-live:
 	  - Calling Arguments twice to catch case with non-default root.
 
-2006-03-22  Daniel Baumann  <daniel@debian.org>
+2007-03-22  Daniel Baumann  <daniel@debian.org>
 
 	* functions/default.sh, helpers/*:
 	  - Renamed lh_chroot_packageslist to lh_chroot_packageslists and
@@ -71,7 +135,7 @@
 	  - Added check for LIVE_KERNEL_PACKGES=none to allow kernel packages as
 	    local packages.
 
-2006-03-21  Daniel Baumann  <daniel@debian.org>
+2007-03-21  Daniel Baumann  <daniel@debian.org>
 
 	* helpers/lh_binary_hdd, lh_binary_iso, lh_binary_net, lh_binary_usb:
 	  - Checking earlier if there is something todo.
@@ -90,17 +154,17 @@
 	  - Renamed LIVE_MIRROR_LOCAL to LIVE_MIRROR_BUILD and
 	    LIVE_MIRROR_GENERIC to LIVE_MIRROR_IMAGE.
 
-2006-03-20  Daniel Baumann  <daniel@debian.org>
+2007-03-20  Daniel Baumann  <daniel@debian.org>
 
 	* helpers/make-live:
 	  - Fixed typo in ARGUMENTS.
 
-2006-03-19  Daniel Baumann  <daniel@debian.org>
+2007-03-19  Daniel Baumann  <daniel@debian.org>
 
 	* lists/gnome*, kde*, standard-x11, xfce*:
 	  - Added alsa-base, alsa-oss, alsa-utils, and discover.
 
-2006-03-19  Daniel Baumann  <daniel@debian.org>
+2007-03-19  Daniel Baumann  <daniel@debian.org>
 
 	* Uploaded 1.0~a2-1.
 

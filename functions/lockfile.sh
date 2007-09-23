@@ -11,30 +11,30 @@ set -e
 
 Check_lockfile ()
 {
-	LOCKFILE="${1}"
+	FILE="${1}"
 
 	# Checking lock file
-	if [ -f "${LOCKFILE}" ]
+	if [ -f "${FILE}" ]
 	then
-		echo "E: system locked"
+		Echo_error "system locked"
 		exit 1
 	fi
 }
 
 Create_lockfile ()
 {
-	LOCKFILE="${1}"
-	LOCKDIRECTORY="`dirname ${1}`"
+	FILE="${1}"
+	DIRECTORY="`dirname ${1}`"
 
 	# Creating lock directory
-	if [ ! -d "${LOCKDIRECTORY}" ]
+	if [ ! -d "${DIRECTORY}" ]
 	then
-		mkdir -p "${LOCKDIRECTORY}"
+		mkdir -p "${DIRECTORY}"
 	fi
 
 	# Creating lock trap
-	trap "test -f ${LOCKFILE} && rm -f ${LOCKFILE}; exit 0" 0 2 15
+	trap "test -f ${FILE} && rm -f ${FILE}; exit 0" 0 2 15
 
 	# Creating lock file
-	touch "${LOCKFILE}"
+	touch "${FILE}"
 }

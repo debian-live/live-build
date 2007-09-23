@@ -1,4 +1,4 @@
-# /usr/share/make-live/lists/x11-core - package list for make-live(1)
+# /usr/share/live-helper/lists/gnustep - package list for live-helper(7)
 
 # Minimal
 eject file sudo vim-tiny
@@ -7,7 +7,7 @@ eject file sudo vim-tiny
 console-common kbd locales
 
 # X11
-xorg xresprobe
+xorg xresprobe discover menu
 
 # GNUstep
 wdm

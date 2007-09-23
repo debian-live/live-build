@@ -31,13 +31,13 @@ done
 # Set static variables
 PROGRAM="`basename ${0}`"
 DESCRIPTION="utility to build Debian Live systems"
-USAGE="${PROGRAM} [config] [--apt apt|aptitude] [--apt-ftpproxy URL] [--apt-httpproxy URL] [--apt-generic enabled|disabled] [--apt-pdiffs enabled|disabled] [--apt-recommends enabled|disabled] [--apt-secure enabled|disabled] [--bootstrap cdebootstrap|deboostrap] [--cache enabled|disabled] [--debconf-frontend dialog|readline|noninteractive] [--debconf-priority low|medium|high|critical] [--genisoimage genisoimage|mkisofs] [--losetup losetup|losetup.org] [-r|--root DIRECTORY] [-a|--architecture ARCHITECTURE] [-d|--distribution testing|unstable|etch|sid] [--distribution-config DIRECTORY] [-f|--bootstrap-flavour minimal|standard] [-m|--mirror-build URL] [--mirror-build-security URL] [--mirror-image URL] [--mirror-image-security URL] [--sections SECTION|\"SECTIONS\"] [--interactive shell|x11|xnest] [-k|--kernel-flavour FLAVOUR] [--kernel-packages PACKAGES] [-l|--language LANGUAGE] [--packages PACKAGE|\"PACKAGES\"] [-p|--packages-lists LIST|\"LISTS\"] [--tasks TASK|\"TASKS\"] [--security enabled|disabled] [--symlinks enabled|disabled] [--sysvinit enabled|disabled] [--bootappend KERNEL_PARAMETER|\"KERNEL_PARAMETERS\"] [-e|--encryption ALGORITHM] [--username NAME] [--hostname NAME] [--filesystem ext2|plain|squashfs] [--memtest86 enabled|disabled] [--iso-volume STRING] [--server-address HOSTNAME|IP] [--server-path DIRECTORY] [--source enabled|disabled] [--syslinux enabled|disabled] [--syslinux-splash FILE] [-b|--binary-image hdd|iso|usb|net] [-s|--source-image generic|hdd|iso|usb|net] [--includes DIRECTORY] [--templates DIRECTORY] [--force]"
+USAGE="${PROGRAM} [config] [--apt apt|aptitude] [--apt-ftpproxy URL] [--apt-httpproxy URL] [--apt-generic enabled|disabled] [--apt-pdiffs enabled|disabled] [--apt-recommends enabled|disabled] [--apt-secure enabled|disabled] [--bootstrap cdebootstrap|deboostrap] [--cache enabled|disabled] [--debconf-frontend dialog|readline|noninteractive] [--debconf-priority low|medium|high|critical] [--genisoimage genisoimage|mkisofs] [--losetup losetup|losetup.org] [-r|--root DIRECTORY] [-a|--architecture ARCHITECTURE] [-d|--distribution testing|unstable|etch|sid] [--distribution-config DIRECTORY] [-f|--bootstrap-flavour minimal|standard] [-m|--mirror-build URL] [--mirror-build-security URL] [--mirror-image URL] [--mirror-image-security URL] [--sections SECTION|\"SECTIONS\"] [--interactive shell|x11|xnest] [-k|--kernel-flavour FLAVOUR] [--kernel-packages PACKAGES] [-l|--language LANGUAGE] [--packages PACKAGE|\"PACKAGES\"] [-p|--packages-lists LIST|\"LISTS\"] [--tasks TASK|\"TASKS\"] [--security enabled|disabled] [--symlinks enabled|disabled] [--sysvinit enabled|disabled] [--bootappend KERNEL_PARAMETER|\"KERNEL_PARAMETERS\"] [-e|--encryption ALGORITHM] [--username NAME] [--hostname NAME] [--filesystem ext2|plain|squashfs] [--memtest86 enabled|disabled] [--iso-volume STRING] [--server-address HOSTNAME|IP] [--server-path DIRECTORY] [--source enabled|disabled] [--bootloader grub|syslinux] [--grub-splash FILE] [--syslinux-splash FILE] [-b|--binary-image hdd|iso|usb|net] [-s|--source-image generic|hdd|iso|usb|net] [--includes PATH] [--templates PATH] [--debug] [--force] [--quiet] [--verbose]"
 
 HELP="Lists: gnome, gnome-core, gnome-desktop, gnome-full, gnome-junior, gnustep, kde, kde-core, kde-desktop, kde-extra, kde-full, kde-junior, mini, minimal, minimal-net, rescue, standard, standard-x11, xfce, xfce-desktop, xfce-junior"
 
 Local_arguments ()
 {
-	ARGUMENTS="`getopt --longoptions apt:,apt-ftpproxy:,apt-httpproxy:,apt-generic:,apt-pdiffs:,apt-recommends:,apt-secure:,bootstrap:,cache:,debconf-frontend:,debconf-priority:,genisoimage:,losetup:,root:,architecture:,distribution:,distribution-config:,flavour:,mirror-local:,mirror-local-security:,mirror-generic:,mirror-generic-security:,sections:,interactive:,kernel:,kernel-packages:,language:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,bootappend:,encryption:,username:,hostname:,filesystem:,memtest86:,iso-volume:,server-address:,server-path:,source:,syslinux:,syslinux-splash:,binary-image:,binary-source:,includes:,templates:,help,usage,version,force --name=${PROGRAM} --options r:a:d:f:m:k:l:p:e:b:s:huv --shell sh -- "${@}"`"
+	ARGUMENTS="`getopt --longoptions apt:,apt-ftpproxy:,apt-httpproxy:,apt-generic:,apt-pdiffs:,apt-recommends:,apt-secure:,bootstrap:,cache:,debconf-frontend:,debconf-priority:,genisoimage:,losetup:,root:,architecture:,distribution:,distribution-config:,flavour:,mirror-local:,mirror-local-security:,mirror-generic:,mirror-generic-security:,sections:,interactive:,kernel:,kernel-packages:,language:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,bootappend:,encryption:,username:,hostname:,filesystem:,memtest86:,iso-volume:,server-address:,server-path:,source:,bootloader:,grub-splash:,syslinux-splash:,binary-image:,binary-source:,includes:,templates:,help,usage,version,force,debug,quiet,verbose --name=${PROGRAM} --options r:a:d:f:m:k:l:p:e:b:s:huv --shell sh -- "${@}"`"
 
 	if [ "${?}" != "0" ]
 	then
@@ -232,7 +232,11 @@ Local_arguments ()
 				LIVE_SOURCE="${2}"; shift 2
 				;;
 
-			--syslinux)
+			--bootloader)
+				LIVE_BOOTLOADER="${2}"; shift 2
+				;;
+
+			--grub-splash)
 				LIVE_SYSLINUX="${2}"; shift 2
 				;;
 
@@ -269,8 +273,20 @@ Local_arguments ()
 				Version; shift
 				;;
 
+			--debug)
+				DEBUG="true"; shift
+				;;
+
 			--force)
 				FORCE="true"; shift
+				;;
+
+			--quiet)
+				QUIET="true"; shift
+				;;
+
+			--verbose)
+				VERBOSE="true"; shift
 				;;
 
 			--)
@@ -304,15 +320,27 @@ Main ()
 
 	Local_arguments "${@}"
 
-	# Initializing
-	lh_testroot
-
 	# Configuring (this is really shit!)
-	LH_APT="${LH_APT}" LH_APT_FTPPROXY="${LH_APT_FTPPROXY}" LH_APT_HTTPPROXY="${LH_APT_HTTPPROXY}" LH_APT_GENERIC="${LH_APT_GENERIC}" LH_APT_PDIFFS="${LH_APT_PDIFFS}" LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS}" LH_APT_SECURE="${LH_APT_SECURE}" LH_BOOTSTRAP="${LH_BOOTSTRAP}" LH_CACHE="${LH_CACHE}" LH_DEBCONF_FRONTEND="${LH_DEBCONF_FRONTEND}" LH_DEBCONF_PRIORITY="${LH_DEBCONF_PRIORITY}" LH_GENISOIMAGE="${LH_GENISOIMAGE}" LIVE_ROOT="${LIVE_ROOT}" LIVE_ARCHITECTURE="${LIVE_ARCHITECTURE}" LIVE_DISTRIBUTION="${LIVE_DISTRIBUTION}" LIVE_DISTRIBUTION_CONFIG="${LIVE_DISTRIBUTION_CONFIG}" LIVE_BOOTSTRAP_FLAVOUR="${LIVE_BOOTSTRAP_FLAVOUR}" LIVE_MIRROR_BUILD="${LIVE_MIRROR_BUILD}" LIVE_MIRROR_BUILD_SECURITY="${LIVE_MIRROR_BUILD_SECURITY}" LIVE_MIRROR_IMAGE="${LIVE_MIRROR_IMAGE}" LIVE_MIRROR_IMAGE_SECURITY="${LIVE_MIRROR_IMAGE_SECURITY}" LIVE_SECTIONS="${LIVE_SECTIONS}" LIVE_INTERACTIVE="${LIVE_INTERACTIVE}" LIVE_KERNEL_FLAVOUR="${LIVE_KERNEL_FLAVOUR}" LIVE_KERNEL_PACKAGES="${LIVE_KERNEL_PACKAGES}" LIVE_LANGUAGE="${LIVE_LANGUAGE}" LIVE_PACKAGES="${LIVE_PACKAGES}" LIVE_PACKAGES_LISTS="${LIVE_PACKAGES_LISTS}" LIVE_TASKS="${LIVE_TASKS}" LIVE_SECURITY="${LIVE_SECURITY}" LIVE_SYMLINKS="${LIVE_SYMLINKS}" LIVE_SYSVINIT="${LIVE_SYSVINIT}" LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND}" LIVE_ENCRYPTION="${LIVE_ENCRYPTION}" LIVE_USERNAME="${LIVE_USERNAME}" LIVE_HOSTNAME="${LIVE_HOSTNAME}" LIVE_FILESYSTEM="${LIVE_FILESYSTEM}" LIVE_MEMTEST86="${LIVE_MEMTEST86}" LIVE_ISO_VOLUME="${LIVE_ISO_VOLUME}" LIVE_SERVER_ADDRESS="${LIVE_SERVER_ADDRESS}" LIVE_SERVER_PATH="${LIVE_SERVER_PATH}" LIVE_SOURCE="${LIVE_SOURCE}" LIVE_SYSLINUX="${LIVE_SYSLINUX}" LIVE_SYSLINUX_SPLASH="${LIVE_SYSLINUX_SPLASH}" LIVE_BINARY_IMAGE="${LIVE_BINARY_IMAGE}" LIVE_SOURCE_IMAGE="${LIVE_SOURCE_IMAGE}" LIVE_INCLUDES="${LIVE_INCLUDES}" LIVE_TEMPLATES="${LIVE_TEMPLATES}" lh_config newconfig
+	LH_APT="${LH_APT}" LH_APT_FTPPROXY="${LH_APT_FTPPROXY}" LH_APT_HTTPPROXY="${LH_APT_HTTPPROXY}" LH_APT_GENERIC="${LH_APT_GENERIC}" LH_APT_PDIFFS="${LH_APT_PDIFFS}" LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS}" LH_APT_SECURE="${LH_APT_SECURE}" LH_BOOTSTRAP="${LH_BOOTSTRAP}" LH_CACHE="${LH_CACHE}" LH_DEBCONF_FRONTEND="${LH_DEBCONF_FRONTEND}" LH_DEBCONF_PRIORITY="${LH_DEBCONF_PRIORITY}" LH_GENISOIMAGE="${LH_GENISOIMAGE}" LIVE_ROOT="${LIVE_ROOT}" LIVE_ARCHITECTURE="${LIVE_ARCHITECTURE}" LIVE_DISTRIBUTION="${LIVE_DISTRIBUTION}" LIVE_DISTRIBUTION_CONFIG="${LIVE_DISTRIBUTION_CONFIG}" LIVE_BOOTSTRAP_FLAVOUR="${LIVE_BOOTSTRAP_FLAVOUR}" LIVE_MIRROR_BUILD="${LIVE_MIRROR_BUILD}" LIVE_MIRROR_BUILD_SECURITY="${LIVE_MIRROR_BUILD_SECURITY}" LIVE_MIRROR_IMAGE="${LIVE_MIRROR_IMAGE}" LIVE_MIRROR_IMAGE_SECURITY="${LIVE_MIRROR_IMAGE_SECURITY}" LIVE_SECTIONS="${LIVE_SECTIONS}" LIVE_INTERACTIVE="${LIVE_INTERACTIVE}" LIVE_KERNEL_FLAVOUR="${LIVE_KERNEL_FLAVOUR}" LIVE_KERNEL_PACKAGES="${LIVE_KERNEL_PACKAGES}" LIVE_LANGUAGE="${LIVE_LANGUAGE}" LIVE_PACKAGES="${LIVE_PACKAGES}" LIVE_PACKAGES_LISTS="${LIVE_PACKAGES_LISTS}" LIVE_TASKS="${LIVE_TASKS}" LIVE_SECURITY="${LIVE_SECURITY}" LIVE_SYMLINKS="${LIVE_SYMLINKS}" LIVE_SYSVINIT="${LIVE_SYSVINIT}" LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND}" LIVE_ENCRYPTION="${LIVE_ENCRYPTION}" LIVE_USERNAME="${LIVE_USERNAME}" LIVE_HOSTNAME="${LIVE_HOSTNAME}" LIVE_FILESYSTEM="${LIVE_FILESYSTEM}" LIVE_MEMTEST86="${LIVE_MEMTEST86}" LIVE_ISO_VOLUME="${LIVE_ISO_VOLUME}" LIVE_SERVER_ADDRESS="${LIVE_SERVER_ADDRESS}" LIVE_SERVER_PATH="${LIVE_SERVER_PATH}" LIVE_SOURCE="${LIVE_SOURCE}" LIVE_BOOTLOADER="${LIVE_BOOTLOADER}" LIVE_GRUB_SPLASH="${LIVE_GRUB_SPLASH}" LIVE_SYSLINUX_SPLASH="${LIVE_SYSLINUX_SPLASH}" LIVE_BINARY_IMAGE="${LIVE_BINARY_IMAGE}" LIVE_SOURCE_IMAGE="${LIVE_SOURCE_IMAGE}" LIVE_INCLUDES="${LIVE_INCLUDES}" LIVE_TEMPLATES="${LIVE_TEMPLATES}" lh_config newconfig
+
+	if [ "${DEBUG}" = "true" ]
+	then
+		OPTIONS="${OPTIONS} --debug"
+	fi
 
 	if [ "${FORCE}" = "true" ]
 	then
 		OPTIONS="${OPTIONS} --force"
+	fi
+
+	if [ "${QUIET}" = "true" ]
+	then
+		OPTIONS="${OPTIONS} --quiet"
+	fi
+
+	if [ "${VERBOSE}" = "true" ]
+	then
+		OPTIONS="${OPTIONS} --verbose"
 	fi
 
 	# Building

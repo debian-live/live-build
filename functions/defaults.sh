@@ -274,17 +274,17 @@ Set_defaults ()
 		case "${LIST}" in
 			gnome-desktop)
 				LIVE_PACKAGES_LISTS="`echo ${LIVE_PACKAGES_LISTS} | sed -e 's/gnome-desktop//'` standard-x11"
-				LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/desktop//' -e 's/gnome-desktop//'` standard laptop desktop gnome-desktop"
+				LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/gnome-desktop//' -e 's/desktop//'` standard laptop desktop gnome-desktop"
 				;;
 
 			kde-desktop)
 				LIVE_PACKAGES_LISTS="`echo ${LIVE_PACKAGES_LISTS} | sed -e 's/kde-desktop//'` standard-x11"
-				LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/desktop//' -e 's/kde-desktop//'` standard laptop desktop kde-desktop"
+				LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/kde-desktop//' -e 's/desktop//'` standard laptop desktop kde-desktop"
 				;;
 
 			xfce-desktop)
 				LIVE_PACKAGES_LISTS="`echo ${LIVE_PACKAGES_LISTS} | sed -e 's/xfce-desktop//'` standard-x11"
-				LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/desktop//' -e 's/xfce-desktop//'` standard laptop desktop xfce-desktop"
+				LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/xfce-desktop//' -e 's/desktop//'` standard laptop desktop xfce-desktop"
 				;;
 		esac
 	done
@@ -339,29 +339,12 @@ Set_defaults ()
 	# Setting image type
 	if [ -z "${LIVE_SOURCE_IMAGE}" ]
 	then
-		if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
-		then
-			LIVE_SOURCE_IMAGE="iso"
-		elif [ "${LIVE_BINARY_IMAGE}" = "usb" ]
-		then
-			LIVE_SOURCE_IMAGE="usb"
-		elif [ "${LIVE_BINARY_IMAGE}" = "net" ]
-		then
-			LIVE_SOURCE_IMAGE="net"
-		fi
+		LIVE_SOURCE_IMAGE="generic"
 	fi
 
 	# Setting filesystem
-	if [ -z "${LIVE_FILESYSTEM}" ] && [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+	if [ -z "${LIVE_FILESYSTEM}" ]
 	then
-		LIVE_FILESYSTEM="squashfs"
-	elif [ -z "${LIVE_FILESYSTEM}" ] && [ "${LIVE_BINARY_IMAGE}" = "usb" ]
-	then
-		LIVE_FILESYSTEM="squashfs"
-	elif [ -z "${LIVE_FILESYSTEM}" ] && [ "${LIVE_BINARY_IMAGE}" = "net" ]
-	then
-		LIVE_FILESYSTEM="plain"
-	else
 		LIVE_FILESYSTEM="squashfs"
 	fi
 
@@ -395,11 +378,14 @@ Set_defaults ()
 		LIVE_SOURCE="disabled"
 	fi
 
-	# Setting syslinux
-	if [ -z "${LIVE_SYSLINUX}" ]
+	# Setting grub
+	if [ -z "${LIVE_BOOTLOADER}" ]
 	then
-		LIVE_SYSLINUX="enabled"
+		LIVE_BOOTLOADER="syslinux"
 	fi
+
+	# Setting grub splash
+	# LIVE_GRUB_SPLASH
 
 	# Setting syslinux splash
 	# LIVE_SYSLINUX_SPLASH

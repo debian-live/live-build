@@ -40,6 +40,18 @@ Create_lockfile .lock
 # Checking stage file
 Check_stagefile .stage/binary_includes
 
+# Check includes
+if [ ! -d "${LIVE_INCLUDES}" ]
+then
+	if [ -d ../"${LIVE_INCLUDES}" ]
+	then
+		LIVE_INCLUDES="../${LIVE_INCLUDES}"
+	else
+		Echo_error "user specified includes not accessible in ${LIVE_INCLUDES}"
+		exit 1
+	fi
+fi
+
 if ls "${LIVE_INCLUDES}"/common/* &> /dev/null
 then
 	cd "${LIVE_INCLUDES}"/common
