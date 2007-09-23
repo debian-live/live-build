@@ -75,8 +75,16 @@ do
 		# Create image
 		if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
 		then
-			#Chroot "${LH_GENISOIMAGE} -A \"Debian Live\" -p \"Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org\" -publisher \"Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org\" -o binary.iso -r -J -l -V \"${LIVE_ISO_VOLUME}\" -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table binary"
-			Chroot "${LH_GENISOIMAGE} -o binary.iso -r -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table binary"
+			case "${LIVE_BOOTLOADER}" in
+				grub)
+					Chroot "${LH_GENISOIMAGE} -o binary.iso -r -J -l -b boot/grub/stage2_eltorito -m boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -boot-info-table binary"
+					;;
+
+				syslinux)
+					#Chroot "${LH_GENISOIMAGE} -A \"Debian Live\" -p \"Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org\" -publisher \"Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org\" -o binary.iso -r -J -l -V \"${LIVE_ISO_VOLUME}\" -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table binary"
+					Chroot "${LH_GENISOIMAGE} -o binary.iso -r -J -l -b isolinux/isolinux.bin -m isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table binary"
+					;;
+			esac
 		else
 			echo "W: Bootloader on your architecture not yet supported (Continuing in 5 seconds)."
 			sleep 5

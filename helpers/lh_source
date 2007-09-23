@@ -22,33 +22,29 @@ USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
 
-if [ "${FORCE}" = "true" ]
-then
-	OPTIONS="${OPTIONS} --force"
-fi
-
 # Reading configuration files
 Read_conffile config/common
 Read_conffile config/image
 Set_defaults
 
 # Enabling network in chroot
-lh_chroot_hosts install "${OPTIONS}"
-lh_chroot_resolv install "${OPTIONS}"
-lh_chroot_sources install "${OPTIONS}"
+lh_chroot_hosts install "${@}"
+lh_chroot_resolv install "${@}"
+lh_chroot_sources install "${@}"
 
 # Preparing images
-lh_source_config "${OPTIONS}"
-lh_source_download "${OPTIONS}"
-lh_source_md5sum "${OPTIONS}"
+lh_source_config "${@}"
+lh_source_download "${@}"
+lh_source_md5sum "${@}"
 
 # Building images
-lh_source_generic "${OPTIONS}"
-lh_source_iso "${OPTIONS}"
-lh_source_net "${OPTIONS}"
-lh_source_usb "${OPTIONS}"
+lh_source_generic "${@}"
+lh_source_hdd "${@}"
+lh_source_iso "${@}"
+lh_source_net "${@}"
+lh_source_usb "${@}"
 
 # Deconfiguring chroot
 rm -f .stage/chroot_sources
-lh_chroot_resolv remove "${OPTIONS}"
-lh_chroot_hosts remove "${OPTIONS}"
+lh_chroot_resolv remove "${@}"
+lh_chroot_hosts remove "${@}"

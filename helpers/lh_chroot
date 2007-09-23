@@ -22,49 +22,44 @@ USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
 
-if [ "${FORCE}" = "true" ]
-then
-	OPTIONS="${OPTIONS} --force"
-fi
-
 # Reading configuration files
 Read_conffile config/common
 Read_conffile config/chroot
 Set_defaults
 
 # Configuring chroot
-lh_chroot_proc install "${OPTIONS}"
-lh_chroot_sysfs install "${OPTIONS}"
-lh_chroot_debianchroot install "${OPTIONS}"
-lh_chroot_sysvrc install "${OPTIONS}"
-lh_chroot_hosts install "${OPTIONS}"
-lh_chroot_resolv install "${OPTIONS}"
-lh_chroot_apt install "${OPTIONS}"
-lh_chroot_sources install "${OPTIONS}"
-lh_chroot_linuximage install "${OPTIONS}"
+lh_chroot_proc install "${@}"
+lh_chroot_sysfs install "${@}"
+lh_chroot_debianchroot install "${@}"
+lh_chroot_sysvrc install "${@}"
+lh_chroot_hosts install "${@}"
+lh_chroot_resolv install "${@}"
+lh_chroot_apt install "${@}"
+lh_chroot_sources install "${@}"
+lh_chroot_linuximage install "${@}"
 
 # Customizing chroot
-lh_chroot_tasks "${OPTIONS}"
-lh_chroot_packageslists "${OPTIONS}"
-lh_chroot_packages "${OPTIONS}"
-lh_chroot_localpackages "${OPTIONS}"
-lh_chroot_localpackageslists "${OPTIONS}"
-lh_chroot_localization "${OPTIONS}"
-lh_chroot_hacks "${OPTIONS}"
-lh_chroot_localincludes "${OPTIONS}"
-lh_chroot_sysvinit "${OPTIONS}"
-lh_chroot_hooks "${OPTIONS}"
-lh_chroot_localhooks "${OPTIONS}"
-lh_chroot_symlinks "${OPTIONS}"
-lh_chroot_interactive "${OPTIONS}"
+lh_chroot_tasks "${@}"
+lh_chroot_packageslists "${@}"
+lh_chroot_packages "${@}"
+lh_chroot_localpackages "${@}"
+lh_chroot_localpackageslists "${@}"
+lh_chroot_localization "${@}"
+lh_chroot_hacks "${@}"
+lh_chroot_localincludes "${@}"
+lh_chroot_sysvinit "${@}"
+lh_chroot_hooks "${@}"
+lh_chroot_localhooks "${@}"
+lh_chroot_symlinks "${@}"
+lh_chroot_interactive "${@}"
 
 # Deconfiguring chroot
-lh_chroot_linuximage remove "${OPTIONS}"
-lh_chroot_sources remove "${OPTIONS}"
-lh_chroot_apt remove "${OPTIONS}"
-lh_chroot_resolv remove "${OPTIONS}"
-lh_chroot_hosts remove "${OPTIONS}"
-lh_chroot_sysvrc remove "${OPTIONS}"
-lh_chroot_debianchroot remove "${OPTIONS}"
-lh_chroot_sysfs remove "${OPTIONS}"
-lh_chroot_proc remove "${OPTIONS}"
+lh_chroot_linuximage remove "${@}"
+lh_chroot_sources remove "${@}"
+lh_chroot_apt remove "${@}"
+lh_chroot_resolv remove "${@}"
+lh_chroot_hosts remove "${@}"
+lh_chroot_sysvrc remove "${@}"
+lh_chroot_debianchroot remove "${@}"
+lh_chroot_sysfs remove "${@}"
+lh_chroot_proc remove "${@}"

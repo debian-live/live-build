@@ -11,21 +11,21 @@ set -e
 
 Restore_cache ()
 {
-	CACHEDIRECTORY="${1}"
+	DIRECTORY="${1}"
 
 	if [ "${LH_CACHE}" = "enabled" ]
 	then
-		if [ -d "${CACHEDIRECTORY}" ]
+		if [ -d "${DIRECTORY}" ]
 		then
 			# Restore old cache
-			cp "${CACHEDIRECTORY}"/*.deb chroot/var/cache/apt/archives
+			cp "${DIRECTORY}"/*.deb chroot/var/cache/apt/archives
 		fi
 	fi
 }
 
 Save_cache ()
 {
-	CACHEDIRECTORY="${1}"
+	DIRECTORY="${1}"
 
 	if [ "${LH_CACHE}" = "enabled" ]
 	then
@@ -35,13 +35,13 @@ Save_cache ()
 		if ls chroot/var/cache/apt/archives/*.deb &> /dev/null
 		then
 			# Creating cache directory
-			if [ ! -d "${CACHEDIRECTORY}" ]
+			if [ ! -d "${DIRECTORY}" ]
 			then
-				mkdir -p "${CACHEDIRECTORY}"
+				mkdir -p "${DIRECTORY}"
 			fi
 
 			# Saving new cache
-			mv -f chroot/var/cache/apt/archives/*.deb "${CACHEDIRECTORY}"
+			mv -f chroot/var/cache/apt/archives/*.deb "${DIRECTORY}"
 		fi
 	else
 		# Purging current cache

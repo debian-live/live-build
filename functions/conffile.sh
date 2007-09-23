@@ -11,17 +11,16 @@ set -e
 
 Read_conffile ()
 {
-	CONFFILE="${1}"
+	FILE="${1}"
 
-	# Reading configuration file
-	if [ -f "${CONFFILE}" ]
+	if [ -f "${FILE}" ]
 	then
-		if [ -r "${CONFFILE}" ]
+		if [ -r "${FILE}" ]
 		then
-			# Sourcing configurationfile
-			. "${CONFFILE}"
+			Echo_debug "Reading configuration file ${FILE}"
+			. "${FILE}"
 		else
-			echo "W: failed to read ${CONFFILE}"
+			Echo_warning "Failed to read configuration file ${FILE}"
 		fi
 	fi
 }

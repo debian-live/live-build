@@ -1,4 +1,4 @@
-.TH LIVE\-HELPER 7 "2007\-03\-26" "1.0~a3" "live\-helper"
+.TH LIVE\-HELPER 7 "2007\-04\-02" "1.0~a4" "live\-helper"
 
 .SH NAME
 live\-helper \- Debian Live helper programs
@@ -27,6 +27,8 @@ A typical program that uses live\-helper will call several live\-helper commands
 Here is the complete list of available live\-helper commands. See their man pages for additional documentation.
 .IP "\fIlh_binary\fR(1)" 4
 meta-helper for lh_binary_*.
+.IP "\fIlh_binary_chroot\fR(1)" 4
+copies chroot into chroot.
 .IP "\fIlh_binary_encryption\fR(1)" 4
 encrypts the root filesystem.
 .IP "\fIlh_binary_includes\fR(1)" 4
@@ -117,10 +119,10 @@ meta-helper for lh_source_*.
 copies config into source directory.
 .IP "\fIlh_source_download\fR(1)" 4
 downloads source packages.
-.IP "\fIlh_source_hdd\fR(1)" 4
-creates harddisk source tarball.
 .IP "\fIlh_source_generic\fR(1)" 4
 creates generic source tarball.
+.IP "\fIlh_source_hdd\fR(1)" 4
+creates harddisk source tarball.
 .IP "\fIlh_source_iso\fR(1)" 4
 creates CD/DVD source image.
 .IP "\fIlh_source_net\fR(1)" 4

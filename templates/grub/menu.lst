@@ -16,7 +16,7 @@ default		0
 ## timeout sec
 # Set a timeout, in SEC seconds, before automatically booting the default entry
 # (normally the first entry defined).
-timeout		1
+#timeout	5
 
 # Pretty colours
 color cyan/blue white/blue
@@ -59,11 +59,11 @@ color cyan/blue white/blue
 ## e.g. kopt=root=/dev/hda1 ro
 ##      kopt_2_6_8=root=/dev/hdc1 ro
 ##      kopt_2_6_8_2_686=root=/dev/hdc2 ro
-# kopt=CDLABEL=Debian-Live rootfstype=iso9660 ro
+# kopt=root=/dev/hda1 ro
 
 ## default grub root device
 ## e.g. groot=(hd0,0)
-# groot=(hd0,4)
+# groot=(hd0,0)
 
 ## should update-grub create alternative automagic boot options
 ## e.g. alternative=true
@@ -115,21 +115,10 @@ color cyan/blue white/blue
 
 ## ## End Default Options ##
 
-title		Debian Live (default)
-root		(cd)
-kernel		/boot/vmlinuz root=CDLABEL=Debian-Live rootfstype=iso9660 ro boot=casper
-initrd		/boot/initrd.img
-savedefault
+LIVE_SPLASH
 
-title		Debian Live (run from RAM)
-root		(cd)
-kernel		/boot/vmlinuz root=CDLABEL=Debian-Live rootfstype=iso9660 ro boot=casper toram
-initrd		/boot/initrd.img
-savedefault
+LIVE_KERNEL_LIVE
 
-title		memtest86+ RAM tester
-root		(cd)
-kernel		/boot/memtest
-savedefault
+LIVE_KERNEL_INSTALL
 
 ### END DEBIAN AUTOMAGIC KERNELS LIST

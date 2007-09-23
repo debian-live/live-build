@@ -11,19 +11,19 @@ set -e
 
 Check_stagefile ()
 {
-	STAGEFILE="${1}"
-	STAGENAME="`basename ${1}`"
+	FILE="${1}"
+	NAME="`basename ${1}`"
 
 	# Checking stage file
-	if [ -f "${STAGEFILE}" ]
+	if [ -f "${FILE}" ]
 	then
 		if [ "${FORCE}" = "true" ]
 		then
 			# Forcing execution
-			rm -f "${STAGEFILE}"
+			rm -f "${FILE}"
 		else
 			# Skipping execution
-			echo "W: skipping ${STAGENAME}"
+			Echo_warning "skipping ${NAME}"
 			exit 0
 		fi
 	fi
@@ -31,28 +31,28 @@ Check_stagefile ()
 
 Create_stagefile ()
 {
-	STAGEFILE="${1}"
-	STAGEDIRECTORY="`dirname ${1}`"
+	FILE="${1}"
+	DIRECTORY="`dirname ${1}`"
 
 	# Creating stage directory
-	if [ ! -d "${STAGEDIRECTORY}" ]
+	if [ ! -d "${DIRECTORY}" ]
 	then
-		mkdir -p "${STAGEDIRECTORY}"
+		mkdir -p "${DIRECTORY}"
 	fi
 
 	# Creating stage file
-	touch "${STAGEFILE}"
+	touch "${FILE}"
 }
 
 Require_stagefile ()
 {
-	STAGEFILE="${1}"
-	STAGENAME="`basename ${1}`"
+	FILE="${1}"
+	NAME="`basename ${1}`"
 
 	# Checking stage file
-	if [ ! -f "${STAGEFILE}" ]
+	if [ ! -f "${FILE}" ]
 	then
-		echo "E: ${STAGENAME} missing"
+		Echo_error "${NAME} missing"
 		exit 1
 	fi
 }

@@ -10,9 +10,9 @@
 set -e
 
 # Removing unused packages
-apt-get remove --purge apt-utils aptitude libdb4.4
-apt-get remove --purge man-db manpages info
-apt-get remove --purge ssl wget
+apt-get remove --purge --yes apt-utils aptitude
+apt-get remove --purge --yes man-db manpages info
+apt-get remove --purge --yes ssl wget
 
 # Removing unused files
 rm -rf /usr/include/*

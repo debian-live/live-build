@@ -25,10 +25,18 @@ Arguments "${@}"
 # Ensure that a system is built as root
 lh_testroot
 
+# Starting helper
+Echo_debug "Init ${PROGRAM}"
+
 # Reading configuration files
 Read_conffile config/common
 Read_conffile config/bootstrap
 Set_defaults
+
+if [ "${LH_BOOTSTRAP}" != "cdebootstrap" ]
+then
+	exit 0
+fi
 
 # Checking stage file
 Check_stagefile .stage/bootstrap
@@ -63,11 +71,36 @@ else
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=minimal"
 fi
 
+if [ "${DEBUG}" = "true" ]
+then
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --debug"
+fi
+
+if [ "${QUIET}" = "true" ]
+then
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --quiet"
+fi
+
+if [ "${VERBOSE}" = "true" ]
+then
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --verbose"
+fi
+
 if [ -x "/usr/bin/cdebootstrap" ]
 then
 	if [ "${LH_CACHE}" = "enabled" ]
 	then
 		# Restore old cache
+		if [ -d cache/chroot_bootstrap ]
+		then
+			cp -a cache/chroot_bootstrap/* chroot
+
+			# Creating stage file
+			Create_stagefile .stage/bootstrap
+
+			exit 0
+		fi
+
 		if [ -d cache/bootstrap ]
 		then
 			mkdir -p chroot/var/cache/bootstrap
@@ -105,6 +138,17 @@ then
 	if [ -d chroot/var/cache/bootstrap ]
 	then
 		rm -rf chroot/var/cache/bootstrap
+	fi
+
+	# Saving new cache
+	if [ "${LH_CACHE}" = "enabled" ]
+	then
+		if [ -d cache/chroot_bootstrap ]
+		then
+			rm -rf cache/chroot_bootstrap
+		fi
+
+		cp -a chroot cache/chroot_bootstrap
 	fi
 
 	# Creating stage file

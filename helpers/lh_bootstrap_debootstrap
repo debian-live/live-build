@@ -25,10 +25,18 @@ Arguments "${@}"
 # Ensure that a system is built as root
 lh_testroot
 
+# Starting helper
+Echo_debug "Init ${PROGRAM}"
+
 # Reading configuration files
 Read_conffile config/common
 Read_conffile config/bootstrap
 Set_defaults
+
+if [ "${LH_BOOTSTRAP}" != "debootstrap" ]
+then
+	exit 0
+fi
 
 # Checking stage file
 Check_stagefile .stage/bootstrap
@@ -56,11 +64,26 @@ then
 	LIVE_DEBOOTSTRAP_SCRIPT="/usr/lib/debootstrap/scripts/${LIVE_BOOTSTRAP_CONFIG}"
 fi
 
+if [ "${VERBOSE}" = "true" ]
+then
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --verbose"
+fi
+
 if [ -x "/usr/sbin/debootstrap" ]
 then
 	if [ "${LH_CACHE}" = "enabled" ]
 	then
 		# Restore old cache
+		if [ -d cache/chroot_bootstrap ]
+		then
+			cp -a cache/chroot_bootstrap/* chroot
+
+			# Creating stage file
+			Create_stagefile .stage/bootstrap
+
+			exit 0
+		fi
+
 		if [ -d cache/bootstrap ]
 		then
 			mkdir -p chroot/var/cache/apt/archives
@@ -90,6 +113,17 @@ then
 
 	# Removing bootstrap cache
 	rm -rf chroot/var/cache/apt/archives/*.deb
+
+	# Saving new cache
+	if [ "${LH_CACHE}" = "enabled" ]
+	then
+		if [ -d cache/chroot_bootstrap ]
+		then
+			rm -rf cache/chroot_bootstrap
+		fi
+
+		cp -a chroot cache/chroot_bootstrap
+	fi
 
 	# Creating stage file
 	Create_stagefile .stage/bootstrap

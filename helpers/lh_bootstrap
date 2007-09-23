@@ -22,14 +22,13 @@ USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
 
-if [ "${FORCE}" = "true" ]
-then
-	OPTIONS="${OPTIONS} --force"
-fi
+# Starting helper
+Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
 Read_conffile config/common
 Set_defaults
 
 # Bootstrapping system
-lh_bootstrap_"${LH_BOOTSTRAP}" "${OPTIONS}"
+lh_bootstrap_cdebootstrap "${@}"
+lh_bootstrap_debootstrap "${@}"

@@ -54,7 +54,7 @@ do
 		mv binary "`basename ${LIVE_SERVER_PATH}`"
 
 		cd ..
-		tar cfz binary-net.tar.gz "${OLDPWD}/`basename ${LIVE_SERVER_PATH}`" "${OLDPWD}/tftpboot"
+		tar cfz binary-net.tar.gz "`basename ${OLDPWD}`/`basename ${LIVE_SERVER_PATH}`" "`basename ${OLDPWD}`/tftpboot"
 		mv binary-net.tar.gz "${OLDPWD}"
 		cd "${OLDPWD}"
 

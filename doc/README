@@ -1,7 +1,8 @@
   * lh_config
 
   * lh_bootstrap
-      |_ lh_cdebootstrap | lh_debootstrap
+      |_ lh_cdebootstrap
+      |_ lh_debootstrap
 
   * lh_chroot
       |_ lh_chroot_proc install
@@ -26,6 +27,7 @@
       |_ lh_chroot_hooks
       |_ lh_chroot_localhooks
       |_ lh_chroot_symlinks
+      |_ lh_chroot_interactive
       |
       |_ lh_chroot_linuximage remove
       |_ lh_chroot_sources remove
@@ -38,18 +40,21 @@
       |_ lh_chroot_proc remove
 
   * lh_binary
-      |_ lh_binary_rootfs
-      |_ lh_binary_manifest
-      |_ lh_binary_encryption
+      |_ lh_binary_chroot
       |
       |_ lh_chroot_proc install
-      |_ lh_chroot_sysfs install
+      |_ lh_chorot_sysfs install
       |_ lh_chroot_hosts install
       |_ lh_chroot_resolv install
       |_ lh_chroot_sources install
       |
+      |_ lh_binary_rootfs
+      |_ lh_binary_manifest
+      |_ lh_binary_encryption
+      |
       |_ lh_binary_linuximage
       |_ lh_binary_memtest86
+      |_ lh_binary_grub
       |_ lh_binary_syslinux
       |_ lh_binary_includes
       |_ lh_binary_localincludes
@@ -73,9 +78,10 @@
       |
       |_ lh_source_config
       |_ lh_source_download
+      |_ lh_source_md5sum
       |
-      |_ lh_source_hdd
       |_ lh_source_generic
+      |_ lh_source_hdd
       |_ lh_source_iso
       |_ lh_source_net
       |_ lh_source_usb
