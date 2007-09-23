@@ -30,6 +30,16 @@ Chroot ()
 		# Mount proc
 		mount proc-live -t proc "${LIVE_CHROOT}"/proc
 
+		# Avoid daemon starting
+		cat  > "${LIVE_CHROOT}"/usr/sbin/policy-rc.d <<EOF
+#!/bin/sh
+echo
+echo "Warning: invoke-rc.d policy in action. Skiping daemon starting"
+
+exit 101
+EOF
+		chmod 755 "${LIVE_CHROOT}"/usr/sbin/policy-rc.d
+
 		# Configure sources.list
 		Indices custom initial
 
@@ -42,7 +52,7 @@ Chroot ()
 		then
 			if [ "${LIVE_FLAVOUR}" != "minimal" ]
 			then
-				Chroot_exec "aptitude install --assume-yes debian-archive-keyring"
+				Chroot_exec "apt-get install --yes --force-yes ${LIVE_REPOSITORY_KEYRING}"
 
 				for NAME in ${LIVE_REPOSITORIES}
 				do
@@ -172,8 +182,14 @@ Chroot ()
 		rm -rf "${LIVE_CHROOT}"/var/cache/apt
 		mkdir -p "${LIVE_CHROOT}"/var/cache/apt/archives/partial
 
+		# Workaround binfmt-support /proc locking
+		umount "${LIVE_CHROOT}"/proc/sys/fs/binfmt_misc > /dev/null || true
+
 		# Unmount proc
 		umount "${LIVE_CHROOT}"/proc
+
+		# Allow daemon starting
+		rm "${LIVE_CHROOT}"/usr/sbin/policy-rc.d
 
 		# Deconfigure network
 		Patch_network deapply
