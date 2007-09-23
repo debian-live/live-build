@@ -28,8 +28,14 @@ Net ()
 			mv "${MANIFEST}" "${LIVE_ROOT}"/binary/casper/
 		done
 
+		# Mount proc
+		mount proc-live -t proc "${LIVE_CHROOT}"/proc
+
 		# Installing smbfs
 		Chroot_exec "apt-get install --yes --force-yes smbfs"
+
+		# Unmount proc
+		umount "${LIVE_CHROOT}"/proc
 
 		if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
 		then

@@ -27,6 +27,9 @@ Chroot ()
 		# Configure network
 		Patch_network apply
 
+		# Mount proc
+		mount proc-live -t proc "${LIVE_CHROOT}"/proc
+
 		# Configure sources.list
 		Indices custom
 
@@ -128,6 +131,9 @@ Chroot ()
 
 		# Remove cdebootstrap packages cache
 		rm -rf "${LIVE_CHROOT}"/var/cache/bootstrap
+
+		# Unmount proc
+		umount "${LIVE_CHROOT}"/proc
 
 		# Deconfigure network
 		Patch_network deapply

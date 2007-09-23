@@ -5,17 +5,17 @@ in combination with the boot method (see <09F307>).
 0f
 OPTION                                 PARAMETER TO SPECIFY07
 Check media for defects                0fintegrity-check07
-Enable persistent media                0fpersistent07
+Set a static ip (no dhcp)              0fip=if,add,netm,gatew07
+Set a static ip (no dhcp)              0fip=if,add,netm,gatew07
+Set a default locale                   0flocale=<locale>07
 Suppress some debug informations       0fquiet07
-Show internal filesystem               0fshow-cow07
+Show internal filesystems              0fshowmounts07
 Copy the live media to memory          0ftoram07
 Set initial display mode               0fvga=<mode>07
 
 For example:
 
-  boot: linux quiet vga=792
-
-
+  boot: linux quiet vga=792 locale=it_IT.UTF-8
 
 
 
