@@ -30,6 +30,7 @@ Read_conffile config/bootstrap
 Read_conffile config/chroot
 Read_conffile config/binary
 Read_conffile config/source
+Read_conffile "${LH_CONFIG}"
 Set_defaults
 
 # Preparing root filesystem

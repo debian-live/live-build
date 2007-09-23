@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_chroot_hostname(1) - manage /bin/hostname
+# lh_chroot_dpkg(1) - manage /sbin/dpkg
 # Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="manage /bin/hostname"
+DESCRIPTION="manage /sbin/dpkg"
 HELP=""
 USAGE="${PROGRAM} {install|remove} [--force]"
 
@@ -38,10 +38,10 @@ Require_stagefile .stage/bootstrap
 
 case "${1}" in
 	install)
-		Echo_message "Configuring file /etc/hostname"
+		Echo_message "Configuring file /sbin/start-stop-daemon"
 
 		# Checking stage file
-		Check_stagefile .stage/chroot_hostname
+		Check_stagefile .stage/chroot_dpkg
 
 		# Checking lock file
 		Check_lockfile .lock
@@ -49,44 +49,37 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		# Save hostname
-		mv chroot/bin/hostname chroot/bin/hostname.orig
+		# Save start-stop-daemon program
+		mv chroot/sbin/start-stop-daemon chroot/sbin/start-stop-daemon.orig
 
-		# Create hostname file
-		echo "localhost.localdomain" > chroot/etc/hostname
+		# Create start-stop-daemon program
 
-		Echo_message "Configuring file /bin/hostname"
-
-		# Create hostname program
-
-cat > chroot/bin/hostname << EOF
+cat > chroot/sbin/start-stop-daemon << EOF
 #!/bin/sh
 
-echo "localhost.localdomain"
+exit 0
 EOF
 
-		chmod 755 chroot/bin/hostname
+		chmod 755 chroot/sbin/start-stop-daemon
 
 		# Creating stage file
-		Create_stagefile .stage/chroot_hostname
+		Create_stagefile .stage/chroot_dpkg
 		;;
 
 	remove)
-		Echo_message "Deconfiguring file /etc/hostname"
-
 		# Checking lock file
 		Check_lockfile .lock
 
 		# Creating lock file
 		Create_lockfile .lock
 
-		Echo_message "Deconfiguring file /bin/hostname"
+		Echo_message "Deconfiguring file /sbin/start-stop-daemon"
 
-		# Restore hostname file
-		mv chroot/bin/hostname.orig chroot/bin/hostname
+		# Restore start-stop-daemon program
+		mv chroot/sbin/start-stop-daemon.orig chroot/sbin/start-stop-daemon
 
 		# Removing stage file
-		rm -f .stage/chroot_hostname
+		rm -f .stage/chroot_dpkg
 		;;
 
 	*)
