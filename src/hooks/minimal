@@ -1,0 +1,4 @@
+# /usr/share/make-live/hooks/minimal - hook list for make-live(8)
+
+# Remove unused packages
+#apt-get remove --purge --yes apt-utils libdb4.4

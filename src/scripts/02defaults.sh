@@ -219,7 +219,7 @@ Defaults ()
 	fi
 
 	# Set package indices
-	if [ -z "${LIVE_GENERIC_INDICES}" ]
+	if [ -z "${LIVE_GENERIC_INDICES}" ] && [ "${LIVE_FLAVOUR}" != "minimal" ]
 	then
 		LIVE_GENERIC_INDICES="yes"
 	fi
