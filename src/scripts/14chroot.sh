@@ -31,14 +31,18 @@ Chroot ()
 		mount proc-live -t proc "${LIVE_CHROOT}"/proc
 
 		# Configure sources.list
-		Indices custom
+		Indices custom initial
+
+		# Install aptitude
+		Chroot_exec "apt-get install --yes --force-yes aptitude"
 
 		# Install secure apt
-		if [ "${LIVE_DISTRIBUTION}" = "testing" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_TESTING}" ] || [ "${LIVE_DISTRIBUTION}" = "unstable" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_UNSTABLE}" ]
+		if [ "${LIVE_DISTRIBUTION}" = "unstable" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_UNSTABLE}" ] || \
+		   [ "${LIVE_DISTRIBUTION}" = "testing" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_TESTING}" ]
 		then
 			if [ "${LIVE_FLAVOUR}" != "minimal" ]
 			then
-				Chroot_exec "apt-get install --yes --force-yes debian-archive-keyring"
+				Chroot_exec "aptitude install --assume-yes debian-archive-keyring"
 
 				for NAME in ${LIVE_REPOSITORIES}
 				do
@@ -47,7 +51,7 @@ Chroot ()
 
 					if [ -n "${REPOSITORY_KEYRING}" ]
 					then
-						Chroot_exec "apt-get install ${REPOSITORY_KEYRING}"
+						Chroot_exec "aptiude install ${REPOSITORY_KEYRING}"
 					elif [ -n "${REPOSITORY_KEY}" ]
 					then
 						Chroot_exec "wget ${REPOSITORY_KEY}"
@@ -59,13 +63,13 @@ Chroot ()
 		fi
 
 		# Update indices
-		Chroot_exec "apt-get update"
+		Chroot_exec "aptitude update"
 
 		# Configure linux-image
 		Patch_linux apply
 
 		# Install linux-image, modules and casper
-		Chroot_exec "apt-get install --yes --force-yes ${LIVE_KERNEL_PACKAGES} casper"
+		Chroot_exec "aptitude install --assume-yes ${LIVE_KERNEL_PACKAGES} casper"
 
 		# Deconfigure linux-image
 		Patch_linux deapply
@@ -78,7 +82,7 @@ Chroot ()
 			LIVE_CHROOT="${LIVE_CLONE}"
 
 			# Extract debconf settings
-			Chroot_exec "apt-get install --yes debconf-utils"
+			Chroot_exec "aptitude install --assume-yes debconf-utils"
 			Chroot_exec "debconf-get-selections" > "${LIVE_ROOT}"/preseed.cloned
 
 			# Extract package selection
@@ -95,7 +99,7 @@ Chroot ()
 		# Restore preseed configuration
 		if [ -f "${LIVE_PRESEED}" ]
 		then
-			Chroot_exec "apt-get install --yes --force-yes debconf-utils"
+			Chroot_exec "aptitude install --assume-yes debconf-utils"
 			cp "${LIVE_PRESEED}" "${LIVE_CHROOT}"/root/preseed
 			Chroot_exec "debconf-set-selections /root/preseed"
 			rm -f "${LIVE_CHROOT}"/root/preseed
@@ -109,21 +113,21 @@ Chroot ()
 		# Restore cloned package selection
 		if [ -f "${LIVE_PACAKGE_LIST_CLONED}" ]
 		then
-			Chroot_exec "xargs --arg-file=/root/`basename ${LIVE_PACKAGE_LIST_CLONED}` apt-get install --yes --force-yes"
+			Chroot_exec "xargs --arg-file=/root/`basename ${LIVE_PACKAGE_LIST_CLONED}` aptitude install --assume-yes"
 		fi
 
 		# Install packages list
 		if [ -n "${LIVE_PACKAGE_LIST}" ]
 		then
 			grep -v "^#" "${LIVE_PACKAGE_LIST}" > "${LIVE_CHROOT}"/root/"`basename ${LIVE_PACKAGE_LIST}`"
-			Chroot_exec "xargs --arg-file=/root/`basename ${LIVE_PACKAGE_LIST}` apt-get install --yes --force-yes"
+			Chroot_exec "xargs --arg-file=/root/`basename ${LIVE_PACKAGE_LIST}` aptitude install --assume-yes"
 			rm -f "${LIVE_CHROOT}"/root/"`basename ${LIVE_PACKAGE_LIST}`"
 		fi
 
 		# Install extra packages
 		if [ -n "${LIVE_PACKAGES}" ]
 		then
-			Chroot_exec "apt-get install --yes --force-yes ${LIVE_PACKAGES}"
+			Chroot_exec "aptitude install --assume-yes ${LIVE_PACKAGES}"
 		fi
 
 		# Copy external directory into the chroot
@@ -160,7 +164,7 @@ Chroot ()
 
 		if [ ! -z "${LIVE_MANIFEST}" ]
 		then
-			Chroot_exec "apt-get install --yes --force-yes ${LIVE_MANIFEST}"
+			Chroot_exec "aptitude install --assume-yes ${LIVE_MANIFEST}"
 			Chroot_exec "dpkg-query -W \*" | awk '$2 ~ /./ {print $1 " " $2 }' > "${LIVE_ROOT}"/filesystem.manifest-desktop
 		fi
 

@@ -119,14 +119,19 @@ EOF
 	done
 
 	# Update indices
-	Chroot_exec "apt-get update"
+	if [ "${2}" = "initial" ]
+	then
+		Chroot_exec "apt-get update"
+	else
+		Chroot_exec "aptitude update"
+	fi
 
 	if [ "${LIVE_DISTRIBUTION_EXPERIMENTAL}" = "yes" ]
 	then
 		# experimental is sometimes broken,
 		# therefore this is intentionally kept interactive.
-		Chroot_exec "apt-get upgrade" || return 0
-		Chroot_exec "apt-get dist-upgrade" || return 0
+		Chroot_exec "aptitude upgrade" || return 0
+		Chroot_exec "aptitude dist-upgrade" || return 0
 	fi
 }
 
@@ -163,7 +168,7 @@ Syslinux ()
 	then
 		# Install syslinux
 		Patch_network apply
-		Chroot_exec "apt-get install --yes --force-yes syslinux"
+		Chroot_exec "aptitude install --assume-yes syslinux"
 
 		case "${1}" in
 			iso)
@@ -203,7 +208,7 @@ Syslinux ()
 		esac
 
 		# Remove syslinux
-		Chroot_exec "apt-get remove --purge --yes syslinux"
+		Chroot_exec "aptitude purge --assume-yes syslinux"
 		Patch_network deapply
 	fi
 }
@@ -244,7 +249,7 @@ Memtest ()
 	then
 		# Install memtest
 		Patch_network apply
-		Chroot_exec "apt-get install --yes --force-yes memtest86+"
+		Chroot_exec "aptitude install --assume-yes memtest86+"
 
 		case "$1" in
 			iso)
@@ -259,7 +264,7 @@ Memtest ()
 		esac
 
 		# Remove memtest
-		Chroot_exec "apt-get remove --purge --yes memtest86+"
+		Chroot_exec "aptitude purge --assume-yes memtest86+"
 		Patch_network deapply
 	fi
 }

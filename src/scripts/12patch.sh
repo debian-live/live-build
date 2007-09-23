@@ -35,7 +35,7 @@ Patch_runlevel ()
 	case "${1}" in
 		apply)
 			# Create init policy
-			echo > "${LIVE_CHROOT}"/usr/sbin/policy-rc.d <<EOF
+			cat > "${LIVE_CHROOT}"/usr/sbin/policy-rc.d <<EOF
 #!/bin/sh
 
 exit 101
@@ -71,6 +71,14 @@ Patch_network ()
 			elif [ -n "${LIVE_PROXY_HTTP}" ]
 			then
 				echo "Acquire::http::Proxy \"${LIVE_PROXY_HTTP}\";" >> "${LIVE_CHROOT}"/etc/apt/apt.conf
+			fi
+
+			# Configure recommends
+			if [ "${LIVE_RECOMMENDS}" = "yes" ]
+			then
+				echo "Aptitude::Recommends-Important \"true\";" >> "${LIVE_CHROOT}"/etc/apt/apt.conf
+			else
+				echo "Aptitude::Recommends-Important \"false\";" >> "${LIVE_CHROOT}"/etc/apt/apt.conf
 			fi
 
 			# Save host lookup table

@@ -1,3 +1,15 @@
+live-package (0.99.14-1) unstable; urgency=medium
+
+  * New upstream release:
+    - fixed typo for policy-rc.d hack (Closes: #396813), thanks to
+      Markus Bauer <bauer-markus@web.de>.
+    - corrected manpage section (Closes: #396083), thanks to
+      Sune Vuorela <reportbug@pusling.com>.
+    - fixes script sourcing to exclude files in .svn (Closes: #396861),
+      thanks to Markus Bauer <bauer-markus@web.de>.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon,  6 Nov 2006 00:00:00 +0200
+
 live-package (0.99.13-1) unstable; urgency=medium
 
   * New upstream release.
