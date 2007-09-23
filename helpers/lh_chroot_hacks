@@ -27,6 +27,9 @@ Check_lockfile "${LIVE_ROOT}"/.lock
 # Creating lock file
 Create_lockfile "${LIVE_ROOT}"/.lock
 
+# Removing udev mac caching rule
+rm -f chroot/etc/udev/rules.d/z25_persistent-net.rules
+
 case "${LIVE_BINARY_IMAGE}" in
 	net)
 		case "${LH_APT}" in

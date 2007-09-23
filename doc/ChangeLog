@@ -1,5 +1,10 @@
 2007-03-14 Daniel Baumann <daniel@debian.org>
 
+  * helpers/lh_chroot_hacks: Added removal of udev persistent-net rule.
+  * Uploaded 1.0~a1-3.
+
+2007-03-14 Daniel Baumann <daniel@debian.org>
+
   * functions/defaults.sh: Fixed setting of LIVE_SYSVINIT.
   * helpers/lh_chroot_sysvinit: Changed check for LIVE_SYSVINIT from disabled to
     enabled.
