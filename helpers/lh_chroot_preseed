@@ -32,6 +32,11 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
+if [ -z "${LIVE_PRESEED}" ]
+then
+	exit 0
+fi
+
 Echo_message "Begin executing preseed..."
 
 # Requiring stage file
@@ -46,30 +51,27 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ -n "${LIVE_PRESEED}" ]
+if [ -f "${LIVE_PRESEED}" ]
 then
-	if [ -f "${LIVE_PRESEED}" ]
-	then
-		# Check dependency
-		Check_package chroot/usr/bin/debconf-set-selections debconf
+	# Check dependency
+	Check_package chroot/usr/bin/debconf-set-selections debconf
 
-		# Install dependency
-		Install_package
+	# Install dependency
+	Install_package
 
-		# Copying preseed
-		cp "${LIVE_PRESEED}" chroot/root/preseed
+	# Copying preseed
+	cp "${LIVE_PRESEED}" chroot/root/preseed
 
-		Chroot "debconf-set-selections /root/preseed"
+	Chroot "debconf-set-selections /root/preseed"
 
-		# Removing preseed file
-		rm -f chroot/root/preseed
+	# Removing preseed file
+	rm -f chroot/root/preseed
 
-		# Remove dependency
-		Remove_package
+	# Remove dependency
+	Remove_package
 
-		# Creating stage file
-		Create_stagefile .stage/chroot_preseed
-	fi
+	# Creating stage file
+	Create_stagefile .stage/chroot_preseed
 else
 	Echo_error "'${LIVE_PRESEED}' file doesn't exists."
 	exit 1

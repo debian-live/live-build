@@ -70,12 +70,12 @@ do
 				echo "Begin: `date -R`" > "${TEMPDIR}"/debian-live/log.txt
 
 				# Generating images
-				make-live -b iso -s generic --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-bootstrap ${MIRROR_BOOTSTRAP} --mirror-bootstrap-security ${MIRROR_BOOTSTRAP_SECURITY} --mirror-binary ${MIRROR_BINARY} --mirror-binary-security ${MIRROR_BINARY_SECURITY} --source enabled ${OPTIONS} >> "${TEMPDIR}"/debian-live/log.txt 2>&1
+				make-live -b iso -s tar --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-bootstrap ${MIRROR_BOOTSTRAP} --mirror-bootstrap-security ${MIRROR_BOOTSTRAP_SECURITY} --mirror-binary ${MIRROR_BINARY} --mirror-binary-security ${MIRROR_BINARY_SECURITY} --source enabled ${OPTIONS} >> "${TEMPDIR}"/debian-live/log.txt 2>&1
 
 				echo "End: `date -R`" >> "${TEMPDIR}"/debian-live/log.txt
 			fi
 
-			if [ -f "${TEMPDIR}"/debian-live/binary.iso ] && [ -f "${TEMPDIR}"/debian-live/source.tar ]
+			if [ -f "${TEMPDIR}"/debian-live/binary.iso ] && [ -f "${TEMPDIR}"/debian-live/source.tar.gz ]
 			then
 				# Creating log directory
 				mkdir -p "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log
@@ -90,7 +90,7 @@ do
 
 				# Moving images
 				mv "${TEMPDIR}"/debian-live/binary.iso "${DESTDIR}"/"${BUILD}"-builds/${DATE}/${ARCHITECTURE}/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}.iso
-				mv "${TEMPDIR}"/debian-live/source.tar "${DESTDIR}"/"${BUILD}"-builds/${DATE}/source/debian-live-${DISTRIBUTION}-source-${PACKAGES_LIST}.tar
+				mv "${TEMPDIR}"/debian-live/source.tar.gz "${DESTDIR}"/"${BUILD}"-builds/${DATE}/source/debian-live-${DISTRIBUTION}-source-${PACKAGES_LIST}.tar.gz
 			fi
 
 			if [ ! -f "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${DATE}-usb-hdd-log.txt ]
@@ -110,7 +110,7 @@ do
 				echo "Begin: `date -R`" > "${TEMPDIR}"/debian-live/log.txt
 
 				# Generating images
-				make-live -b usb-hdd -s generic --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-bootstrap ${MIRROR_BOOTSTRAP} --mirror-bootstrap-security ${MIRROR_BOOTSTRAP_SECURITY} --mirror-binary ${MIRROR_BINARY} --mirror-binary-security ${MIRROR_BINARY_SECURITY} --source disabled ${OPTIONS} >> "${TEMPDIR}"/debian-live/log.txt 2>&1
+				make-live -b usb-hdd -s tar --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-bootstrap ${MIRROR_BOOTSTRAP} --mirror-bootstrap-security ${MIRROR_BOOTSTRAP_SECURITY} --mirror-binary ${MIRROR_BINARY} --mirror-binary-security ${MIRROR_BINARY_SECURITY} --source disabled ${OPTIONS} >> "${TEMPDIR}"/debian-live/log.txt 2>&1
 
 				echo "End: `date -R`" >> "${TEMPDIR}"/debian-live/log.txt
 			fi

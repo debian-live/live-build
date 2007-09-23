@@ -97,7 +97,7 @@ case "${LIVE_BINARY_IMAGES}" in
 		DESTDIR="binary/live"
 		;;
 
-	net|usb-hdd|hdd)
+	net|tar|usb-hdd)
 		Echo_error "not supported, FIXME"
 	;;
 esac
@@ -139,7 +139,7 @@ fi
 
 if [ -n "${LIVE_HOSTNAME}" ]
 then
-	case "${LIVE_INITRAMFS}" in
+	case "${LH_INITRAMFS}" in
 		casper)
 			LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} hostname=${LIVE_HOSTNAME}"
 			;;

@@ -171,11 +171,17 @@ Set_defaults ()
 		fi
 	fi
 
-	# If we are root, disable root command
 	if [ "`id -u`" = "0" ]
 	then
-		# FIXME: this is disabled until considered safe
+		# If we are root, disable root command
 		LIVE_ROOT_COMMAND=""
+	else
+		if [ -x /usr/bin/sudo ]
+		then
+			# FIXME: this is disabled until considered safe
+			#LIVE_ROOT_COMMAND="sudo"
+			LIVE_ROOT_COMMAND=""
+		fi
 	fi
 
 	# Setting tasksel
@@ -425,6 +431,9 @@ Set_defaults ()
 	# Setting packages list string
 	LIVE_PACKAGES_LISTS="${LIVE_PACKAGES_LISTS:-standard}"
 
+	# Setting package preseed
+	# LIVE_PRESEED
+
 	# Setting tasks string
 	for LIST in ${LIVE_PACKAGES_LISTS}
 	do
@@ -579,5 +588,5 @@ Set_defaults ()
 	LIVE_SOURCE="${LIVE_SOURCE:-disabled}"
 
 	# Setting image type
-	LIVE_SOURCE_IMAGES="${LIVE_SOURCE_IMAGES:-generic}"
+	LIVE_SOURCE_IMAGES="${LIVE_SOURCE_IMAGES:-tar}"
 }

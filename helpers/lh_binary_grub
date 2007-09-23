@@ -93,7 +93,7 @@ esac
 
 # Setting destination directory
 case "${LIVE_BINARY_IMAGES}" in
-	iso|usb-hdd|hdd)
+	iso|tar|usb-hdd)
 		DESTDIR_LIVE="binary/live"
 		DESTDIR_INSTALL="binary/install"
 		;;
@@ -151,7 +151,7 @@ fi
 
 if [ -n "${LIVE_HOSTNAME}" ]
 then
-	case "${LIVE_INITRAMFS}" in
+	case "${LH_INITRAMFS}" in
 		casper)
 			LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} hostname=${LIVE_HOSTNAME}"
 			;;
@@ -245,7 +245,7 @@ case ${LIVE_BINARY_IMAGES} in
 		cp chroot/usr/lib/grub/*/stage2_eltorito binary/boot/grub
 		;;
 
-	usb-hdd|hdd)
+	tar|usb-hdd)
 		cp chroot/usr/lib/grub/*/stage1 chroot/usr/lib/grub/*/stage2 binary/boot/grub
 		;;
 esac

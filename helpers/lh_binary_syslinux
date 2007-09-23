@@ -103,7 +103,7 @@ case "${LIVE_BINARY_IMAGES}" in
 		DESTDIR_INSTALL="tftpboot"
 	;;
 
-	usb-hdd|hdd)
+	tar|usb-hdd)
 		# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
 		if [ "${LIVE_DISTRIBUTION}" = "etch" ] || [ "${LIVE_DISTRIBUTION}" = "lenny" ]
 		then
@@ -163,7 +163,7 @@ fi
 
 if [ -n "${LIVE_HOSTNAME}" ]
 then
-	case "${LIVE_INITRAMFS}" in
+	case "${LH_INITRAMFS}" in
 		casper)
 			LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} hostname=${LIVE_HOSTNAME}"
 			;;
@@ -238,7 +238,7 @@ then
 	# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
 	if [ "${LIVE_DISTRIBUTION}" = "etch" ] || [ "${LIVE_DISTRIBUTION}" = "lenny" ]
 	then
-		if [ "${LIVE_BINARY_IMAGES}" = "usb-hdd" ] || [ "${LIVE_BINARY_IMAGES}" = "hdd" ]
+		if [ "${LIVE_BINARY_IMAGES}" = "tar" ] || [ "${LIVE_BINARY_IMAGES}" = "usb-hdd" ]
 		then
 			VMLINUZ_DI="vmlinuz.di"
 			INITRD_DI="initrddi.gz"
@@ -449,7 +449,7 @@ case "${LIVE_BINARY_IMAGES}" in
 		fi
 		;;
 
-	usb-hdd|hdd)
+	tar|usb-hdd)
 		# Workaround for syslinux (<< 3.36) which doesn't support dedicated directory
 		if [ "${LIVE_DISTRIBUTION}" = "etch" ] || [ "${LIVE_DISTRIBUTION}" = "lenny" ]
 		then

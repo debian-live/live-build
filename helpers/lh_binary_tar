@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_source_hdd(1) - build source harddisk image
+# lh_binary_tar(1) - build harddisk binary image
 # Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="build source harddisk image"
+DESCRIPTION="build harddisk binary image"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -32,24 +32,18 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-if [ "${LIVE_SOURCE}" != "enabled" ]
+if ! echo "${LIVE_BINARY_IMAGES}" | grep -qs tar
 then
 	exit 0
 fi
 
-if ! echo "${LIVE_SOURCE_IMAGES}" | grep -qs hdd
-then
-        exit 0
-fi
-
-Echo_message "Begin building source harddisk image..."
-Echo_message "This may take a while."
+Echo_message "Begin building binary harddisk image..."
 
 # Requiring stage file
-Require_stagefile .stage/source_debian
+Require_stagefile .stage/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/source_hdd
+Check_stagefile .stage/binary_tar
 
 # Checking lock file
 Check_lockfile .lock
@@ -57,14 +51,10 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-# Remove old source
-if [ -f source-hdd.tar.gz ]
-then
-	rm -f source-hdd.tar.gz
-fi
+# Remove old binary
+rm -f binary.tar.gz
 
-# Create tarball
-tar cfz source-hdd.tar.gz source
+tar cfz binary-tar.tar.gz binary
 
 # Creating stage file
-Create_stagefile .stage/source_hdd
+Create_stagefile .stage/binary_tar
