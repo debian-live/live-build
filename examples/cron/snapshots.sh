@@ -3,7 +3,7 @@
 # Needs: build-essential fakeroot lsb-release git-core [...]
 
 # Static variables
-PACKAGES="live-helper live-initramfs"
+PACKAGES="live-helper live-initramfs live-initscripts live-webhelper"
 
 DEBEMAIL="debian-live-devel@lists.alioth.debian.org"
 EMAIL="debian-live-devel@lists.alioth.debian.org"
