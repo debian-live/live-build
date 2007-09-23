@@ -16,17 +16,17 @@ Read_conffile config/image
 Set_defaults
 
 # Requiring stage file
-Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
-Require_stagefile "${LIVE_ROOT}"/.stage/binary_rootfs
+Require_stagefile .stage/bootstrap
+Require_stagefile .stage/binary_rootfs
 
 # Checking lock file
-Check_lockfile "${LIVE_ROOT}"/.lock
+Check_lockfile .lock
 
 # Creating lock file
-Create_lockfile "${LIVE_ROOT}"/.lock
+Create_lockfile .lock
 
 # Checking stage file
-Check_stagefile "${LIVE_ROOT}"/.stage/binary_encryption
+Check_stagefile .stage/binary_encryption
 
 if [ -n "${LIVE_ENCRYPTION}" ]
 then
@@ -51,11 +51,11 @@ then
 			;;
 	esac
 
-	echo "Encrypting ${LIVE_ROOT}/binary/casper/filesystem.${ROOTFS} with ${LIVE_ENCRYPTION}..."
+	echo "Encrypting binary/casper/filesystem.${ROOTFS} with ${LIVE_ENCRYPTION}..."
 
 	while true
 	do
-		cat ${LIVE_ROOT}/binary/casper/filesystem.${ROOTFS} | aespipe -e "${LIVE_ENCRYPTION}" -T > "${LIVE_ROOT}"/binary/casper/filesystem.${ROOTFS} && break
+		cat binary/casper/filesystem.${ROOTFS} | aespipe -e "${LIVE_ENCRYPTION}" -T > binary/casper/filesystem.${ROOTFS} && break
 
 		echo -n "Something went wrong... Retry? [YES/no] "
 
@@ -69,5 +69,5 @@ then
 	done
 
 	# Creating stage file
-	Create_stagefile "${LIVE_ROOT}"/.stage/binary_encryption
+	Create_stagefile .stage/binary_encryption
 fi

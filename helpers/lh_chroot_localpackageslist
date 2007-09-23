@@ -16,33 +16,33 @@ Read_conffile config/chroot
 Set_defaults
 
 # Requiring stage file
-Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Require_stagefile .stage/bootstrap
 
 # Checking stage file
-Check_stagefile "${LIVE_ROOT}"/.stage/chroot_localpackageslist
+Check_stagefile .stage/chroot_localpackageslist
 
 # Checking lock file
-Check_lockfile "${LIVE_ROOT}"/.lock
+Check_lockfile .lock
 
 # Creating lock file
-Create_lockfile "${LIVE_ROOT}"/.lock
+Create_lockfile .lock
 
-if ls "${LIVE_ROOT}"/config/chroot_localpackageslist/* &> /dev/null
+if ls config/chroot_localpackageslist/* &> /dev/null
 then
 	# Restore old cache
-	if [ -d "${LIVE_ROOT}"/cache/chroot_localpackageslist ]
+	if [ -d cache/chroot_localpackageslist ]
 	then
-		cp "${LIVE_ROOT}"/cache/chroot_localpackageslist/*.deb "${LIVE_CHROOT}"/var/cache/apt/archives
+		cp cache/chroot_localpackageslist/*.deb chroot/var/cache/apt/archives
 	fi
 
-	for PACKAGESLIST in "${LIVE_ROOT}"/config/chroot_localpackageslist/*
+	for PACKAGESLIST in config/chroot_localpackageslist/*
 	do
 		# Copying package list
-		grep -v "^#" "${PACKAGESLIST}" > "${LIVE_CHROOT}"/root/"`basename ${PACKAGESLIST}`"
+		grep -v "^#" "${PACKAGESLIST}" > chroot/root/"`basename ${PACKAGESLIST}`"
 
 		# Installing package list
 		case "${LH_APT}" in
-			apt)
+			apt|apt-get)
 				Chroot "xargs --arg-file=/root/`basename ${PACKAGESLIST}` apt-get install --yes"
 				;;
 
@@ -52,22 +52,22 @@ then
 		esac
 
 		# Removing package list
-		rm -f "${LIVE_CHROOT}"/root/"`basename ${PACKAGESLIST}`"
+		rm -f chroot/root/"`basename ${PACKAGESLIST}`"
 	done
 
 	# Saving new cache
 	Chroot "apt-get autoclean"
 
-	if ls "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb &> /dev/null
+	if ls chroot/var/cache/apt/archives/*.deb &> /dev/null
 	then
-		if [ ! -d "${LIVE_ROOT}"/cache/chroot_localpackageslist ]
+		if [ ! -d cache/chroot_localpackageslist ]
 		then
-			mkdir -p "${LIVE_ROOT}"/cache/chroot_localpackageslist
+			mkdir -p cache/chroot_localpackageslist
 		fi
 
-		mv -f "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb "${LIVE_ROOT}"/cache/chroot_localpackageslist
+		mv -f chroot/var/cache/apt/archives/*.deb cache/chroot_localpackageslist
 	fi
 
 	# Creating stage file
-	Create_stagefile "${LIVE_ROOT}"/.stage/chroot_localpackageslist
+	Create_stagefile .stage/chroot_localpackageslist
 fi

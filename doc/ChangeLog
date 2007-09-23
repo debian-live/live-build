@@ -1,16 +1,112 @@
-2007-03-14 Daniel Baumann <daniel@debian.org>
+2006-03-19  Daniel Baumann  <daniel@debian.org>
 
-  * helpers/lh_chroot_hacks: Added removal of udev persistent-net rule.
-  * Uploaded 1.0~a1-3.
+	* Uploaded 1.0~a2-1.
 
-2007-03-14 Daniel Baumann <daniel@debian.org>
+2007-03-18  Daniel Baumann  <daniel@debian.org>
 
-  * functions/defaults.sh: Fixed setting of LIVE_SYSVINIT.
-  * helpers/lh_chroot_sysvinit: Changed check for LIVE_SYSVINIT from disabled to
-    enabled.
-  * Uploaded 1.0~a1-2.
+	* functions/defaults.sh:
+	  - Quoted date call in LIVE_ISO_VOLUME.
+	* manpages/lh_clean.1:
+	  - Added.
 
-2007-03-12 Daniel Baumann <daniel@debian.org>
+2007-03-17  Daniel Baumann  <daniel@debian.org>
 
-  * Rewritten live-package.
-  * Uploaded 1.0~a1-1.
+	* functions/defaults.sh, helpers/*:
+	  - Renamed LIVE_MIRROR to LIVE_MIRROR_LOCAL and LIVE_MIRROR_SECURITY
+	    to LIVE_MIRROR_LOCAL_SECURITY.
+	* doc/examples/beryl-hook.sh:
+	  - Added, thanks to Inigo Tejedor Arrondo <inigo@navarrux.org>.
+	* helpers/lh_config, make-live:
+	  - Added check for newconfig to prevent overwriting of non-specified
+	    options to default values.
+	* helpers/lh_chroot_localhooks:
+	  - Added basename where needed.
+	* helpers/lh_chroot_sources:
+	  - Added check for local sources.list in config for custom
+	    repositories.
+	  - Replaced security check for etch with check for not-unstable.
+	* manpages/lh_binary.1, lh_bootstrap.1, lh_bootstrap_cdebootstrap.1,
+	  lh_bootstrap_debootstrap.1, lh_testroot.1:
+	  - Added.
+	* templates/syslinux/pxlinux.cfg:
+	  - Fixed path.
+
+2007-03-16  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_usb: Corrected stagefile creation.
+
+2007-03-15  Daniel Baumann  <daniel@debian.org>
+
+	* Makefile:
+	  - Replaced helper uninstall routine with a less intrusive one.
+	* doc/NEWS:
+	  - Updated.
+	* functions/conffile.sh:
+	  - Beautified.
+	* functions/defaults.sh:
+	  - Added LH_LOSETUP.
+	* functions/lockfile.sh:
+	  - Beautified.
+	* helpers/*:
+	  - Allowing apt-get, not just apt in LH_APT.
+	* helpers/lh_config:
+	  - Added check for existing configuration.
+	* helpers/lh_binary_md5sum:
+	  - Removed legacy code.
+	* helpers/lh_binary_manifest:
+	  - Added creation of packages.txt.
+	* helpers/lh_binary_usb, lh_source_usb:
+	  - Replaced loop device node workaround with a better one.
+	* helpers/lh_chroot_hooks, lh_chroot_localhooks:
+	  - Fixed executable check.
+	* helpers/lh_source_config:
+	  - Added.
+	* helpers/lh_source_download:
+	  - Separeted debian sources and debian-live configuration into
+	    different directories.
+	  - Added live-helper to the sources.
+	* helpers/lh_source_generic, lh_source_iso, lh_source_usb,
+	  lh_source_net:
+	  - Removed annyoing warning when sources are disabled.
+	* helpers/lh_source_net:
+	  - Beautified.
+	* helpers/make-live:
+	  - Fixed typo in ARGUMENTS.
+	  - Moved help, usage, version into functions.
+	  - Removed build pre-option.
+	* manpages/live-helper.7:
+	  - Added.
+	* templates/syslinux/f10.txt:
+	  - Added note about Debian Live project.
+
+2007-03-14  Daniel Baumann  <daniel@debian.org>
+
+	* functions/defaults.sh, helpers/*:
+	  - Converted LIVE_ROOT to directory, not full path.
+	* functions/*, helpers/*:
+	  - Replaced LIVE_CHROOT with directory name.
+	* functions/conffile.sh:
+	  - Added warning if CONFFILE is not readable.
+	* helpers/lh_chroot_localization:
+	  - Completed check for koffice.
+	* helpers/lh_source_download:
+	  - Fixed typo in old source removal.
+
+2007-03-14  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_chroot_hacks:
+	  - Added removal of udev persistent-net rule.
+	* Uploaded 1.0~a1-3.
+
+2007-03-14  Daniel Baumann  <daniel@debian.org>
+
+	* functions/defaults.sh:
+	  - Fixed setting of LIVE_SYSVINIT.
+	* helpers/lh_chroot_sysvinit:
+	  - Changed check for LIVE_SYSVINIT from disabled to enabled.
+	* Uploaded 1.0~a1-2.
+
+2007-03-12  Daniel Baumann  <daniel@debian.org>
+
+	* Rewritten live-package.
+	* Uploaded 1.0~a1-1.

@@ -18,30 +18,31 @@ Set_defaults
 if [ "${LIVE_SOURCE}" = "enabled" ]
 then
 	# Requiring stage file
-	Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+	Require_stagefile .stage/bootstrap
 
 	# Checking lock file
-	Check_lockfile "${LIVE_ROOT}"/.lock
+	Check_lockfile .lock
 
 	# Creating lock file
-	Create_lockfile "${LIVE_ROOT}"/.lock
+	Create_lockfile .lock
 
 	# Checking stage file
-	Check_stagefile "${LIVE_ROOT}"/.stage/source_download
+	Check_stagefile .stage/source_download
 
 	# Remove old sources
-	if [ "${LIVE_ROOT}"/source ]
+	if [ -d source/debian ]
 	then
-		rm -rf "${LIVE_ROOT}"/source
+		rm -rf source/debian
 	fi
 
 	# Download sources
-	Chroot "dpkg --get-selections" | awk '{ print $1 }' > "${LIVE_CHROOT}"/root/dpkg-selection.txt
+	Chroot "dpkg --get-selections" | awk '{ print $1 }' > chroot/root/dpkg-selection.txt
+	#echo "live-helper" >> chroot/root/dpkg-selection.txt
 	Chroot "xargs --arg-file=/root/dpkg-selection.txt apt-get source --download-only"
-	rm -f "${LIVE_CHROOT}"/root/dpkg-selection.txt
+	rm -f chroot/root/dpkg-selection.txt
 
 	# Sort sources
-	for DSC in "${LIVE_CHROOT}"/*.dsc
+	for DSC in chroot/*.dsc
 	do
 		SOURCE="`awk '/Source:/ { print $2; }' ${DSC}`"
 
@@ -53,15 +54,12 @@ then
 		fi
 
 		# Install directory
-		install -d -m 0755 "${LIVE_ROOT}"/source/"${LETTER}"/"${SOURCE}"
+		install -d -m 0755 source/debian/"${LETTER}"/"${SOURCE}"
 
 		# Move files
-		mv "${LIVE_CHROOT}"/"${SOURCE}"_* "${LIVE_ROOT}"/source/"${LETTER}"/"${SOURCE}"
+		mv chroot/"${SOURCE}"_* source/debian/"${LETTER}"/"${SOURCE}"
 	done
 
-	# Copy system configuration
-	cp -a "${LIVE_ROOT}"/config "${LIVE_ROOT}"/source
-
 	# Creating stage file
-	Create_stagefile "${LIVE_ROOT}"/.stage/source_download
+	Create_stagefile .stage/source_download
 fi

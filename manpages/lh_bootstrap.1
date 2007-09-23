@@ -1,0 +1,42 @@
+.TH LH_BOOTSTRAP 1 "2007\-03\-19" "1.0~a2" "live\-helper"
+
+.SH NAME
+lh_bootstrap \- meta-helper for lh_bootstrap_*
+
+.SH SYNOPSIS
+.B lh_bootstrap [\fIlive\-helper\ options\fR\|]
+
+.SH DESCRIPTION
+lh_bootstrap is a meta-helper. It calls all necessary helpers to complete the bootstrap stage.
+
+.SH CONFIGURATION FILE
+lh_bootstrap reads config/common if available. See ENVIRONMENT for the correct environment variables to use.
+
+.SH ENVIRONMENT
+lh_bootstrap respects the following environment variables if available, otherwise uses default values for it.
+.IP "\fI$LH_BOOTSTRAP\fR" 4
+select the bootstrap program (Default: cdebootstrap)
+
+.SH OPTIONS
+lh_bootstrap has no options (FIXME).
+
+.SH BOOTSTRAP HELPERS
+Here is the complete list of available bootstrap helper commands. See their man pages for additional documentation.
+.IP "\fIlh_bootstrap_cdebootstrap\fR(1)" 4
+bootstraps system with cdebootstrap.
+.IP "\fIlh_bootstrap_debootstrap\fR(1)" 4
+bootstraps system with debootstrap.
+
+.SH SEE ALSO
+\fIlive\-helper\fR(7)
+.PP
+This program is a part of live-helper.
+
+.SH BUGS
+Report bugs against live\-helper <\fIhttp://packages.qa.debian.org/live\-helper/\fR>.
+
+.SH HOMEPAGE
+More information about the Debian Live project can be found at <\fIhttp://debian\-live.alioth.debian.org/\fR> and <\fIhttp://wiki.debian.org/DebianLive/\fR>.
+
+.SH AUTHOR
+live\-helper was written by Daniel Baumann <\fIdaniel@debian.org\fR> and Marco Amadori <\fImarco.amadori@gmail.com\fR>, for the Debian project.

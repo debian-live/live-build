@@ -16,24 +16,24 @@ Read_conffile config/chroot
 Set_defaults
 
 # Requiring stage file
-Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Require_stagefile .stage/bootstrap
 
 # Checking lock file
-Check_lockfile "${LIVE_ROOT}"/.lock
+Check_lockfile .lock
 
 # Creating lock file
-Create_lockfile "${LIVE_ROOT}"/.lock
+Create_lockfile .lock
 
 # Checking stage file
-Check_stagefile "${LIVE_ROOT}"/.stage/binary_localincludes
+Check_stagefile .stage/binary_localincludes
 
-if ls "${LIVE_ROOT}"/config/binary_localincludes/* &> /dev/null
+if ls config/binary_localincludes/* &> /dev/null
 then
-	cd "${LIVE_ROOT}"/config/binary_localincludes
-
 	# Copying includes
-	find . | cpio -dmpu "${LIVE_ROOT}"/binary
+	cd config/binary_localincludes
+	find . | cpio -dmpu ../../binary
+	cd "${OLDPWD}"
 
 	# Creating stage file
-	Create_stagefile "${LIVE_ROOT}"/.stage/binary_localincludes
+	Create_stagefile .stage/binary_localincludes
 fi

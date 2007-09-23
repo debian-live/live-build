@@ -10,6 +10,16 @@ do
 	. ${FUNCTION}
 done
 
+if [ "${1}" != "newconfig" ]
+then
+	# Source existing configuration
+	Read_conffile "${LIVE_ROOT}"/config/common
+	Read_conffile "${LIVE_ROOT}"/config/bootstrap
+	Read_conffile "${LIVE_ROOT}"/config/chroot
+	Read_conffile "${LIVE_ROOT}"/config/image
+fi
+
+# Setting defaults
 Set_defaults
 
 # Creating configuration directory
@@ -47,7 +57,7 @@ LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS}"
 # (Default: ${LH_BOOTSTRAP})
 LH_BOOTSTRAP="${LH_BOOTSTRAP}"
 
-# \$LH_CACHE: enable cache
+# \$LH_CACHE: control if downloaded packages should be cached
 # (Default: ${LH_CACHE})
 LH_CACHE="${LH_CACHE}"
 
@@ -63,13 +73,13 @@ LH_DEBCONF_PRIORITY="${LH_DEBCONF_PRIORITY}"
 # (Default: autodetected)
 LH_GENISOIMAGE="${LH_GENISOIMAGE}"
 
-# \$LIVE_ROOT: set the root directory
-# (Default: \`pwd\`/debian-live)
-LIVE_ROOT="${LIVE_ROOT}"
+# \$LH_LOSETUP: set the losetup program
+# (Default: autodetected)
+LH_LOSETUP="${LH_LOSETUP}"
 
-# \$LIVE_CHROOT: set the chroot directory
-# (Default: \${LIVE_ROOT}/chroot)
-LIVE_CHROOT="${LIVE_CHROOT}"
+# \$LIVE_ROOT: set the root directory
+# (Default: ${LIVE_ROOT})
+LIVE_ROOT="${LIVE_ROOT}"
 EOF
 
 # Creating lh_chroot_* configuration
@@ -139,13 +149,13 @@ LIVE_DISTRIBUTION_CONFIG="${LIVE_DISTRIBUTION_CONFIG}"
 # (Default: ${LIVE_FLAVOUR})
 LIVE_FLAVOUR="${LIVE_FLAVOUR}"
 
-# \$LIVE_MIRROR: set the mirror to use
-# (Default: ${LIVE_MIRROR})
-LIVE_MIRROR="${LIVE_MIRROR}"
+# \$LIVE_MIRROR_LOCAL: set the local mirror to use
+# (Default: ${LIVE_MIRROR_LOCAL})
+LIVE_MIRROR_LOCAL="${LIVE_MIRROR_LOCAL}"
 
-# \$LIVE_MIRROR_SECURITY: set the security mirror to use
-# (Default: ${LIVE_MIRROR_SECURITY})
-LIVE_MIRROR_SECURITY="${LIVE_MIRROR_SECURITY}"
+# \$LIVE_MIRROR_LOCAL_SECURITY: set the local security mirror to use
+# (Default: ${LIVE_MIRROR_LOCAL_SECURITY})
+LIVE_MIRROR_LOCAL_SECURITY="${LIVE_MIRROR_LOCAL_SECURITY}"
 
 # \$LIVE_MIRROR_GENERIC: set the generic mirror to use
 # (Default: ${LIVE_MIRROR_GENERIC})
@@ -155,7 +165,7 @@ LIVE_MIRROR_GENERIC="${LIVE_MIRROR_GENERIC}"
 # (Default: ${LIVE_MIRROR_GENERIC_SECURITY})
 LIVE_MIRROR_GENERIC_SECURITY="${LIVE_MIRROR_GENERIC_SECURITY}"
 
-# \$LIVE_SECTIONS: select the section to use
+# \$LIVE_SECTIONS: select the section(s) to use
 # (Default: ${LIVE_SECTIONS})
 LIVE_SECTIONS="${LIVE_SECTIONS}"
 EOF

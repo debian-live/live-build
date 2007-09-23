@@ -17,37 +17,38 @@ Read_conffile config/image
 Set_defaults
 
 # Requiring stage file
-Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Require_stagefile .stage/bootstrap
+Require_stagefile .stage/chroot_proc
 
 # Checking lock file
-Check_lockfile "${LIVE_ROOT}"/.lock
+Check_lockfile .lock
 
 # Creating lock file
-Create_lockfile "${LIVE_ROOT}"/.lock
+Create_lockfile .lock
 
 # Checking stage file
-Check_stagefile "${LIVE_ROOT}"/.stage/binary_usb
+Check_stagefile .stage/binary_usb
 
 for IMAGE in ${LIVE_BINARY_IMAGE}
 do
 	if [ "${IMAGE}" = "usb" ]
 	then
-		if [ ! -f "${LIVE_CHROOT}"/sbin/mkdosfs ]
+		if [ ! -f chroot/sbin/mkdosfs ]
 		then
 			PACKAGES="${PACKAGES} dosfstools"
 		fi
 
-		if [ ! -f "${LIVE_CHROOT}"/usr/bin/mtools ]
+		if [ ! -f chroot/usr/bin/mtools ]
 		then
 			PACKAGES="${PACKAGES} mtools"
 		fi
 
-		if [ ! -f "${LIVE_CHROOT}"/sbin/parted ]
+		if [ ! -f chroot/sbin/parted ]
 		then
 			PACKAGES="${PACKAGES} parted"
 		fi
 
-		if [ ! -f "${LIVE_CHROOT}"/usr/bin/syslinux ]
+		if [ ! -f chroot/usr/bin/syslinux ]
 		then
 			PACKAGES="${PACKAGES} syslinux"
 		fi
@@ -56,7 +57,7 @@ do
 		then
 			# Installing packages
 			case "${LH_APT}" in
-				apt)
+				apt|apt-get)
 					Chroot "apt-get install --yes ${PACKAGES}"
 					;;
 
@@ -67,52 +68,55 @@ do
 		fi
 
 		# Remove old binary
-		if [ -f "${LIVE_ROOT}"/binary.img ]
+		if [ -f binary.img ]
 		then
-			rm -f "${LIVE_ROOT}"/binary.img
+			rm -f binary.img
 		fi
 
 		# Everything which comes here needs to be cleaned up,
-		DU_DIM="`du -ms ${LIVE_ROOT}/binary | cut -f1`"
+		DU_DIM="`du -ms binary | cut -f1`"
 		REAL_DIM="`expr ${DU_DIM} + ${DU_DIM} / 20`" # Just 5% more to be sure, need something more sophistcated here...
-		dd if=/dev/zero of="${LIVE_ROOT}"/binary.img bs=1024k count=${REAL_DIM}
-		FREELO="`losetup -f`"
-		if [ ! -b "${LIVE_CHROOT}"/${FREELO} ]
+		dd if=/dev/zero of=binary.img bs=1024k count=${REAL_DIM}
+		FREELO="`${LH_LOSETUP} -f`"
+		if [ ! -b chroot/${FREELO} ]
 		then
 			MAKEDEV="true"
-			Chroot "cd /dev && ./MAKEDEV ${FREELO}"
+
+			mv chroot/dev chroot/dev.tmp
+			find /dev | cpio -dmpu chroot
 		fi
 
 		echo "!!! The following error/warning messages can be ignored !!!"
-		lh_losetup $FREELO "${LIVE_ROOT}"/binary.img 0
+		lh_losetup $FREELO binary.img 0
 		Chroot "parted -s ${FREELO} mklabel msdos" || true
 		Chroot "parted -s ${FREELO} mkpartfs primary fat16 0.0 100%" || true
 		Chroot "parted -s ${FREELO} set 1 boot on" || true
 		Chroot "parted -s ${FREELO} set 1 lba off" || true
-		cat "${LIVE_CHROOT}"/usr/lib/syslinux/mbr.bin > ${FREELO}
-		losetup -d ${FREELO}
+		cat chroot/usr/lib/syslinux/mbr.bin > ${FREELO}
+		${LH_LOSETUP} -d ${FREELO}
 
-		lh_losetup $FREELO "${LIVE_ROOT}"/binary.img 1
+		lh_losetup $FREELO binary.img 1
 		Chroot "mkfs.msdos -n DEBIAN_LIVE ${FREELO}"
-		mkdir -p "${LIVE_ROOT}"/binary.tmp
-		mount ${FREELO} "${LIVE_ROOT}"/binary.tmp
-		cp -r "${LIVE_ROOT}"/binary/* "${LIVE_ROOT}"/binary.tmp
-		umount "${LIVE_ROOT}"/binary.tmp
-		rmdir "${LIVE_ROOT}"/binary.tmp
+		mkdir -p binary.tmp
+		mount ${FREELO} binary.tmp
+		cp -r binary/* binary.tmp
+		umount binary.tmp
+		rmdir binary.tmp
 		Chroot "syslinux ${FREELO}"
-		losetup -d ${FREELO}
+		${LH_LOSETUP} -d ${FREELO}
 		echo "!!! The above error/warning messages can be ignored !!!"
 
 		if [ -n "${MAKEDEV}" ]
 		then
-			rm -f "${LIVE_CHROOT}"/${FREELO}
+			rm -f chroot/dev
+			mv chroot/dev.tmp chroot/dev
 		fi
 
 		if [ -n "${PACKAGES}" ]
 		then
 			# Removing packages
 			case "${LH_APT}" in
-				apt)
+				apt|apt-get)
 					Chroot "apt-get remove --purge --yes ${PACKAGES}"
 					;;
 
@@ -121,8 +125,8 @@ do
 					;;
 			esac
 		fi
-	fi
 
-	# Creating stage file
-	Create_stagefile "${LIVE_ROOT}"/.stage/binary_usb
+		# Creating stage file
+		Create_stagefile .stage/binary_usb
+	fi
 done

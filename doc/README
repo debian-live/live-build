@@ -55,6 +55,7 @@
       |_ lh_binary_localincludes
       |_ lh_binary_md5sum
       |
+      |_ lh_binary_hdd
       |_ lh_binary_iso
       |_ lh_binary_net
       |_ lh_binary_usb
@@ -70,8 +71,10 @@
       |_ lh_chroot_resolv install
       |_ lh_chroot_sources install
       |
+      |_ lh_source_config
       |_ lh_source_download
       |
+      |_ lh_source_hdd
       |_ lh_source_generic
       |_ lh_source_iso
       |_ lh_source_net

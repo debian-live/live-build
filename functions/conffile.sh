@@ -9,8 +9,13 @@ Read_conffile ()
 	CONFFILE="${1}"
 
 	# Reading configuration file
-	if [ -r "${CONFFILE}" ]
+	if [ -f "${CONFFILE}" ]
 	then
-		. "${CONFFILE}"
+		if [ -r "${CONFFILE}" ]
+		then
+			. "${CONFFILE}"
+		else
+			echo "W: failed to read ${CONFFILE}"
+		fi
 	fi
 }

@@ -16,21 +16,21 @@ Read_conffile config/chroot
 Set_defaults
 
 # Requiring stage file
-Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Require_stagefile .stage/bootstrap
 
 # Checking lock file
-Check_lockfile "${LIVE_ROOT}"/.lock
+Check_lockfile .lock
 
 # Creating lock file
-Create_lockfile "${LIVE_ROOT}"/.lock
+Create_lockfile .lock
 
 # Checking stage file
-Check_stagefile "${LIVE_ROOT}"/.stage/chroot_sysvinit
+Check_stagefile .stage/chroot_sysvinit
 
 if [ "${LIVE_SYSVINIT}" = "enabled" ]
 then
 	# Disable all
-	for FILE in "${LIVE_CHROOT}"/etc/init.d/*
+	for FILE in chroot/etc/init.d/*
 	do
 		Chroot "update-rc.d -f `basename ${FILE}` remove"
 	done
@@ -38,7 +38,7 @@ then
 	# Re-enable all required (taken from -f standard chroot)
 	for PACKAGE in casper console-common cron dpkg ifupdown initscripts kbd klogd libc6 libdevmapper1.02 libselinux1 libsepol1 login makedev module-init-tools netbase openbsd-inetd procps sudo sysklogd udev util-linux
 	do
-		if [ -f "${LIVE_CHROOT}"/var/lib/dpkg/info/${PACKAGE}.postinst ]
+		if [ -f chroot/var/lib/dpkg/info/${PACKAGE}.postinst ]
 		then
 			# Re-configure if existing
 			Chroot "/var/lib/dpkg/info/${PACKAGE}.postinst configure"
@@ -46,5 +46,5 @@ then
 	done
 
 	# Creating stage file
-	Create_stagefile "${LIVE_ROOT}"/.stage/chroot_sysvinit
+	Create_stagefile .stage/chroot_sysvinit
 fi

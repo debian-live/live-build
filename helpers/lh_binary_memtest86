@@ -17,16 +17,16 @@ Read_conffile config/image
 Set_defaults
 
 # Requiring stage file
-Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Require_stagefile .stage/bootstrap
 
 # Checking lock file
-Check_lockfile "${LIVE_ROOT}"/.lock
+Check_lockfile .lock
 
 # Creating lock file
-Create_lockfile "${LIVE_ROOT}"/.lock
+Create_lockfile .lock
 
 # Checking stage file
-Check_stagefile "${LIVE_ROOT}"/.stage/binary_memtest86
+Check_stagefile .stage/binary_memtest86
 
 if [ "${LIVE_ARCHITECTURE}" != "amd64" ] && [ "${LIVE_ARCHITECTURE}" != "i386" ]
 then
@@ -36,7 +36,7 @@ fi
 
 if [ "${LIVE_MEMTEST86}" = "enabled" ]
 then
-	if [ ! -f "${LIVE_CHROOT}"/boot/memtest86+.bin ]
+	if [ ! -f chroot/boot/memtest86+.bin ]
 	then
 		PACKAGES="${PACKAGES} memtest86+"
 	fi
@@ -45,7 +45,7 @@ then
 	then
 		# Installing symlinks
 		case "${LH_APT}" in
-			apt)
+			apt|apt-get)
 				Chroot "apt-get install --yes ${PACKAGES}"
 				;;
 
@@ -57,15 +57,15 @@ then
 
 	case "${LIVE_BINARY_IMAGE}" in
 		iso)
-			DESTDIR="${LIVE_ROOT}/binary/isolinux"
+			DESTDIR="binary/isolinux"
 			;;
 
 		net)
-			DESTDIR="${LIVE_ROOT}/tftpboot"
+			DESTDIR="tftpboot"
 			;;
 
-		usb)
-			DESTDIR="${LIVE_ROOT}/binary"
+		usb|hdd)
+			DESTDIR="binary"
 			;;
 	esac
 
@@ -76,13 +76,13 @@ then
 	fi
 
 	# Installing memtest86+
-	cp "${LIVE_ROOT}"/chroot/boot/memtest86+.bin "${DESTDIR}"/memtest
+	cp chroot/boot/memtest86+.bin "${DESTDIR}"/memtest
 
 	if [ -n "${PACKAGES}" ]
 	then
 		# Removing syslinux
 		case "${LH_APT}" in
-			apt)
+			apt|apt-get)
 				Chroot "apt-get remove --purge --yes ${PACKAGES}"
 				;;
 
@@ -93,5 +93,5 @@ then
 	fi
 
 	# Creating stage file
-	Create_stagefile "${LIVE_ROOT}"/.stage/binary_memtest86
+	Create_stagefile .stage/binary_memtest86
 fi

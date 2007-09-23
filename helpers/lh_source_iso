@@ -17,7 +17,6 @@ Set_defaults
 
 if [ "${LIVE_SOURCE}" = "disabled" ]
 then
-	echo "W: source images disabled (FIXME)"
 	exit 0
 fi
 
@@ -26,28 +25,27 @@ do
 	if [ "${IMAGE}" = "iso" ]
 	then
 		# Requiring stage file
-		Require_stagefile "${LIVE_ROOT}"/.stage/source_download
+		Require_stagefile .stage/source_download
 
 		# Checking lock file
-		Check_lockfile "${LIVE_ROOT}"/.lock
+		Check_lockfile .lock
 
 		# Creating lock file
-		Create_lockfile "${LIVE_ROOT}"/.lock
+		Create_lockfile .lock
 
 		# Checking stage file
-		Check_stagefile "${LIVE_ROOT}"/.stage/source_iso
+		Check_stagefile .stage/source_iso
 
 		# Remove old source
-		if [ -f "${LIVE_ROOT}"/source.iso ]
+		if [ -f source.iso ]
 		then
-			rm -f "${LIVE_ROOT}"/source.iso
+			rm -f source.iso
 		fi
 
 		# Create image
-		cd "${LIVE_ROOT}" &&
 		${LH_GENISOIMAGE} -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -o source.iso -r -J -l -V "${LIVE_DISK_VOLUME}" source
 
 		# Creating stage file
-		Create_stagefile "${LIVE_ROOT}"/.stage/source_iso
+		Create_stagefile .stage/source_iso
 	fi
 done

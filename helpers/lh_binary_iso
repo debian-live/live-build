@@ -17,38 +17,38 @@ Read_conffile config/image
 Set_defaults
 
 # Requiring stage file
-Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Require_stagefile .stage/bootstrap
 
 # Checking lock file
-Check_lockfile "${LIVE_ROOT}"/.lock
+Check_lockfile .lock
 
 # Creating lock file
-Create_lockfile "${LIVE_ROOT}"/.lock
+Create_lockfile .lock
 
 # Checking stage file
-Check_stagefile "${LIVE_ROOT}"/.stage/binary_iso
+Check_stagefile .stage/binary_iso
 
 for IMAGE in ${LIVE_BINARY_IMAGE}
 do
 	if [ "${IMAGE}" = "iso" ]
 	then
 		# Remove old binary
-		if [ -f "${LIVE_ROOT}"/binary.iso ]
+		if [ -f binary.iso ]
 		then
-			rm -f "${LIVE_ROOT}"/binary.iso
+			rm -f binary.iso
 		fi
 
 		# Create image
 		if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
 		then
-			${LH_GENISOIMAGE} -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -o "${LIVE_ROOT}"/"${LIVE_IMAGE}"binary.iso -r -J -l -V "${LIVE_ISO_VOLUME}" -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table "${LIVE_ROOT}"/binary ${LIVE_INCLUDE_IMAGE}
+			${LH_GENISOIMAGE} -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -o "${LIVE_IMAGE}"binary.iso -r -J -l -V "${LIVE_ISO_VOLUME}" -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table binary ${LIVE_INCLUDE_IMAGE}
 		else
 			echo "W: Bootloader on your architecture not yet supported (Continuing in 5 seconds)."
 			sleep 5
-			${LH_GENISOIMAGE} -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -o "${LIVE_ROOT}"/"${LIVE_IMAGE}"binary.iso -r -J -l -V "${LIVE_ISO_VOLUME}" "${LIVE_ROOT}"/binary ${LIVE_INCLUDE_IMAGE}
+			${LH_GENISOIMAGE} -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -o "${LIVE_IMAGE}"binary.iso -r -J -l -V "${LIVE_ISO_VOLUME}" binary ${LIVE_INCLUDE_IMAGE}
 		fi
 
 		# Creating stage file
-		Create_stagefile "${LIVE_ROOT}"/.stage/binary_iso
+		Create_stagefile .stage/binary_iso
 	fi
 done

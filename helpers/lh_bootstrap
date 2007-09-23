@@ -12,7 +12,6 @@ done
 
 # Reading configuration files
 Read_conffile config/common
-Read_conffile config/bootstrap
 Set_defaults
 
 # Bootstrapping system

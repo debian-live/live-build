@@ -17,26 +17,26 @@ Read_conffile config/image
 Set_defaults
 
 # Requiring stage file
-Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Require_stagefile .stage/bootstrap
 
 # Checking lock file
-Check_lockfile "${LIVE_ROOT}"/.lock
+Check_lockfile .lock
 
 # Creating lock file
-Create_lockfile "${LIVE_ROOT}"/.lock
+Create_lockfile .lock
 
 # Checking stage file
-Check_stagefile "${LIVE_ROOT}"/.stage/binary_includes
+Check_stagefile .stage/binary_includes
 
 if ls /usr/share/live-helper/includes/common/* &> /dev/null
 then
-	cp -r /usr/share/live-helper/includes/common/* "${LIVE_ROOT}"/binary
+	cp -r /usr/share/live-helper/includes/common/* binary
 fi
 
 if ls /usr/share/live-helper/includes/"${LIVE_BINARY_IMAGE}"/* &> /dev/null
 then
-	cp -r /usr/share/live-helper/includes/"${LIVE_BINARY_IMAGE}"/* "${LIVE_ROOT}"/binary
+	cp -r /usr/share/live-helper/includes/"${LIVE_BINARY_IMAGE}"/* binary
 fi
 
 # Creating stage file
-Create_stagefile "${LIVE_ROOT}"/.stage/binary_includes
+Create_stagefile .stage/binary_includes

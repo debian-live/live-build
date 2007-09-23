@@ -1,0 +1,27 @@
+.TH LH_TESTROOT 1 "2007\-03\-19" "1.0~a2" "live\-helper"
+
+.SH NAME
+lh_testroot \- ensure that a system is built as root
+
+.SH SYNOPSIS
+.B lh_testroot [\fIlive\-helper\ options\fR\|]
+
+.SH DESCRIPTION
+lh_testroot simply checks to see if you are root. If not, it exits with an error. Debian Live images must currently be built as real root, \fIfakeroot\fR(1) or \fIsudo\fR(8) does not work.
+
+.SH OPTIONS
+lh_testroot has no options (FIXME).
+
+.SH SEE ALSO
+\fIlive\-helper\fR(7)
+.PP
+This program is a part of live-helper.
+
+.SH BUGS
+Report bugs against live\-helper <\fIhttp://packages.qa.debian.org/live\-helper/\fR>.
+
+.SH HOMEPAGE
+More information about the Debian Live project can be found at <\fIhttp://debian\-live.alioth.debian.org/\fR> and <\fIhttp://wiki.debian.org/DebianLive/\fR>.
+
+.SH AUTHOR
+live\-helper was written by Daniel Baumann <\fIdaniel@debian.org\fR> and Marco Amadori <\fImarco.amadori@gmail.com\fR>, for the Debian project.

@@ -16,47 +16,47 @@ Read_conffile config/chroot
 Set_defaults
 
 # Requiring stage file
-Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Require_stagefile .stage/bootstrap
 
 # Checking lock file
-Check_lockfile "${LIVE_ROOT}"/.lock
+Check_lockfile .lock
 
 # Creating lock file
-Create_lockfile "${LIVE_ROOT}"/.lock
+Create_lockfile .lock
 
 case "${1}" in
 	install)
 		# Checking stage file
-		Check_stagefile "${LIVE_ROOT}"/.stage/chroot_resolv
+		Check_stagefile .stage/chroot_resolv
 
-		if [ -f "${LIVE_CHROOT}"/etc/resolv.conf ]
+		if [ -f chroot/etc/resolv.conf ]
 		then
 			# Save resolv file
-			cp "${LIVE_CHROOT}"/etc/resolv.conf "${LIVE_CHROOT}"/etc/resolv.conf.orig
+			cp chroot/etc/resolv.conf chroot/etc/resolv.conf.orig
 		fi
 
 		if [ -f /etc/resolv.conf ]
 		then
 			# Copy resolv file
-			cp /etc/resolv.conf "${LIVE_CHROOT}"/etc/resolv.conf
+			cp /etc/resolv.conf chroot/etc/resolv.conf
 		fi
 
 		# Creating stage file
-		Create_stagefile "${LIVE_ROOT}"/.stage/chroot_resolv
+		Create_stagefile .stage/chroot_resolv
 		;;
 
 	remove)
-		if [ -f "${LIVE_CHROOT}"/etc/resolv.conf.orig ]
+		if [ -f chroot/etc/resolv.conf.orig ]
 		then
 			# Restore resolv file
-			mv "${LIVE_CHROOT}"/etc/resolv.conf.orig "${LIVE_CHROOT}"/etc/resolv.conf
+			mv chroot/etc/resolv.conf.orig chroot/etc/resolv.conf
 		else
 			# Remove resolv file
-			rm -f "${LIVE_CHROOT}"/etc/resolv.conf
+			rm -f chroot/etc/resolv.conf
 		fi
 
 		# Removing stage file
-		rm -f "${LIVE_ROOT}"/.stage/chroot_resolv
+		rm -f .stage/chroot_resolv
 		;;
 
 	*)

@@ -16,44 +16,44 @@ Read_conffile config/chroot
 Set_defaults
 
 # Requiring stage file
-Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Require_stagefile .stage/bootstrap
 
 # Checking lock file
-Check_lockfile "${LIVE_ROOT}"/.lock
+Check_lockfile .lock
 
 # Creating lock file
-Create_lockfile "${LIVE_ROOT}"/.lock
+Create_lockfile .lock
 
 case "${1}" in
 	install)
 		# Checking stage file
-		Check_stagefile "${LIVE_ROOT}"/.stage/chroot_debianchroot
+		Check_stagefile .stage/chroot_debianchroot
 
-		if [ -f "${LIVE_CHROOT}"/etc/debian_chroot ]
+		if [ -f chroot/etc/debian_chroot ]
 		then
 			# Save chroot file
-			mv "${LIVE_CHROOT}"/etc/debian_chroot "${LIVE_CHROOT}"/etc/debian_chroot.orig
+			mv chroot/etc/debian_chroot chroot/etc/debian_chroot.orig
 		fi
 
 		# Create chroot file
-		echo "live" > "${LIVE_CHROOT}"/etc/debian_chroot
+		echo "live" > chroot/etc/debian_chroot
 
 		# Creating stage file
-		Create_stagefile "${LIVE_ROOT}"/.stage/chroot_debianchroot
+		Create_stagefile .stage/chroot_debianchroot
 		;;
 
 	remove)
-		if [ -f "${LIVE_CHROOT}"/etc/debian_chroot.orig ]
+		if [ -f chroot/etc/debian_chroot.orig ]
 		then
 			# Restore chroot file
-			mv "${LIVE_CHROOT}"/etc/debian_chroot.orig "${LIVE_CHROOT}"/etc/debian_chroot
+			mv chroot/etc/debian_chroot.orig chroot/etc/debian_chroot
 		else
 			# Remove chroot file
-			rm -f "${LIVE_CHROOT}"/etc/debian_chroot
+			rm -f chroot/etc/debian_chroot
 		fi
 
 		# Removing stage file
-		rm -f "${LIVE_ROOT}"/.stage/chroot_debianchroot
+		rm -f .stage/chroot_debianchroot
 		;;
 
 	*)
