@@ -1,8 +1,8 @@
 Source: live-helper
 Section: misc
 Priority: optional
-Maintainer: Debian Live <debian-live-devel@lists.alioth.debian.org>
-Uploaders: Daniel Baumann <daniel@debian.org>, Marco Amadori <marco.amadori@gmail.com>
+Maintainer: Debian Live <debian-live-maint@lists.alioth.debian.org>
+Uploaders: Daniel Baumann <daniel@debian.org>
 Build-Depends: debhelper (>= 5)
 Standards-Version: 3.7.2
 XS-Vcs-Svn: svn://svn.debian.org/debian-live/dists/trunk/live-helper/
@@ -10,8 +10,8 @@ XS-VCS-Browse: http://svn.debian.org/wsvn/debian-live/dists/trunk/live-helper/
 
 Package: live-helper
 Architecture: all
-Depends: cdebootstrap (>= 0.3.15) | debootstrap (>= 0.3.3.2)
-Suggests: genisoimage | mkisofs, memtest86+ | memtest86, mtools, squashfs-tools | genext2fs, syslinux | grub
+Depends: cdebootstrap | debootstrap
+Suggests: dosfstools, genisoimage | mkisofs, memtest86+ | memtest86, mtools, parted, squashfs-tools | genext2fs, syslinux | grub
 Description: Debian Live helper programs
  Live-helper is a collection of programs that can be used to build Debian Live
  system images. The philosophy behind live-helper is to provide a collection of

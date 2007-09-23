@@ -44,6 +44,7 @@ Create_stagefile ()
 
 Require_stagefile ()
 {
+	NAME="`basename ${0}`"
 	FILES="${@}"
 	NUMBER="`echo ${@} | wc -w`"
 
@@ -59,11 +60,11 @@ Require_stagefile ()
 
 	if [ "${CONTINUE}" != "true" ]
 	then
-		if [ "${NUMBER}" -gt 1 ]
+		if [ "${NUMBER}" -eq 1 ]
 		then
-			Echo_error "one of ${NAME} is missing"
-		else
 			Echo_error "${NAME} missing"
+		else
+			Echo_error "one of ${NAME} is missing"
 		fi
 
 		exit 1

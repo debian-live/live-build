@@ -11,24 +11,38 @@ set -e
 
 Check_package ()
 {
-	ITEM="${1}"
+	FILE="${1}"
 	PACKAGE="${2}"
 
 	case "${LIVE_CHROOT_BUILD}" in
 		enabled)
-			if [ ! -d "${ITEM}" ] && [ ! -f "${ITEM}" ]
-			then
-				PACKAGES="${PACKAGES} ${PACKAGE}"
-			fi
+			for ITEM in ${PACKAGE}
+			do
+				if ! `Chroot "dpkg-query -s ${ITEM}"`
+				then
+					PACKAGES="${PACKAGES} ${ITEM}"
+				fi
+			done
 			;;
 
 		disabled)
-			ITEM="`echo ${ITEM} | sed -e 's/chroot//'`"
-
-			if [ ! -d "${ITEM}" ] && [ ! -f "${ITEM}" ]
+			if `which dpkg-query`
 			then
-				Echo_error "You need to install ${PACKAGE} on your host system."
-				exit 1
+				for ITEM in ${PACKAGE}
+				do
+					if ! `dpkg-query -s ${ITEM}`
+					then
+						PACKAGES="${PACKAGES} ${ITEM}"
+					fi
+				done
+			else
+				FILE="`echo ${FILE} | sed -e 's/chroot//'`"
+
+				if [ ! -f "${FILE}" ] && [ ! -d "${FILE}" ]
+				then
+					Echo_error "You need to install ${PACKAGE} on your host system."
+					exit 1
+				fi
 			fi
 			;;
 	esac
