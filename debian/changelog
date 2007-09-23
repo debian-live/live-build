@@ -1,3 +1,9 @@
+live-helper (1.0~a2-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 19 Mar 2007 00:00:00 +0100
+
 live-helper (1.0~a1-3) unstable; urgency=low
 
   * helpers/lh_chroot_hacks: Added removal of udev persistent-net rule.

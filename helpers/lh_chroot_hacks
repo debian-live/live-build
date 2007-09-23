@@ -16,16 +16,16 @@ Read_conffile config/chroot
 Set_defaults
 
 # Requiring stage file
-Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Require_stagefile .stage/bootstrap
 
 # Checking stage file
-Check_stagefile "${LIVE_ROOT}"/.stage/chroot_hacks
+Check_stagefile .stage/chroot_hacks
 
 # Checking lock file
-Check_lockfile "${LIVE_ROOT}"/.lock
+Check_lockfile .lock
 
 # Creating lock file
-Create_lockfile "${LIVE_ROOT}"/.lock
+Create_lockfile .lock
 
 # Removing udev mac caching rule
 rm -f chroot/etc/udev/rules.d/z25_persistent-net.rules
@@ -33,7 +33,7 @@ rm -f chroot/etc/udev/rules.d/z25_persistent-net.rules
 case "${LIVE_BINARY_IMAGE}" in
 	net)
 		case "${LH_APT}" in
-			apt)
+			apt|apt-get)
 				Chroot "apt-get install --yes smbfs"
 				;;
 
@@ -42,13 +42,13 @@ case "${LIVE_BINARY_IMAGE}" in
 				;;
 		esac
 
-		if [ ! -d "${LIVE_CHROOT}"/etc/initramfs-tools ]
+		if [ ! -d chroot/etc/initramfs-tools ]
 		then
-			mkdir "${LIVE_CHROOT}"/etc/initramfs-tools
+			mkdir chroot/etc/initramfs-tools
 		fi
 
 		# Configuring initramfs for NFS
-cat >> "${LIVE_CHROOT}"/etc/initramfs-tools/initramfs.conf << EOF
+cat >> chroot/etc/initramfs-tools/initramfs.conf << EOF
 MODULES=netboot
 BOOT=nfs
 NFSROOT=auto
@@ -60,4 +60,4 @@ esac
 Chroot "update-initramfs -tu"
 
 # Creating stage file
-Create_stagefile "${LIVE_ROOT}"/.stage/chroot_hacks
+Create_stagefile .stage/chroot_hacks

@@ -27,9 +27,9 @@ Create_lockfile ()
 		mkdir -p "${LOCKDIRECTORY}"
 	fi
 
-	# Creating lock file
-	trap "test -f ${LOCKFILE} && \
-	rm -f ${LOCKFILE}; exit 0" 0 2 15
+	# Creating lock trap
+	trap "test -f ${LOCKFILE} && rm -f ${LOCKFILE}; exit 0" 0 2 15
 
+	# Creating lock file
 	touch "${LOCKFILE}"
 }

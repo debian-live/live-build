@@ -16,16 +16,16 @@ Read_conffile config/chroot
 Set_defaults
 
 # Requiring stage file
-Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Require_stagefile .stage/bootstrap
 
 # Checking stage file
-Check_stagefile "${LIVE_ROOT}"/.stage/chroot_localization
+Check_stagefile .stage/chroot_localization
 
 # Checking lock file
-Check_lockfile "${LIVE_ROOT}"/.lock
+Check_lockfile .lock
 
 # Creating lock file
-Create_lockfile "${LIVE_ROOT}"/.lock
+Create_lockfile .lock
 
 # Setting localizations
 if [ -n "${LIVE_LANGUAGE}" ]
@@ -617,42 +617,42 @@ then
 	do
 		case "${LOCALZATION}" in
 			iceape)
-				if [ -f "${LIVE_CHROOT}"/usr/bin/iceape ]
+				if [ -f chroot/usr/bin/iceape ]
 				then
 					PACKAGES="${PACKAGES} iceweasel-l10n-${ICEAPE}"
 				fi
 				;;
 
 			icedove)
-				if [ -f "${LIVE_CHROOT}"/usr/bin/icedove ]
+				if [ -f chroot/usr/bin/icedove ]
 				then
 					PACKAGES="${PACKAGES} icedove-locale-${ICEDOVE}"
 				fi
 				;;
 
 			iceweasel)
-				if [ -f "${LIVE_CHROOT}"/usr/bin/iceweasel ]
+				if [ -f chroot/usr/bin/iceweasel ]
 				then
 					PACKAGES="${PACKAGES} iceweasel-l10n-${ICEWEASEL}"
 				fi
 				;;
 
 			kde)
-				if [ -f "${LIVE_CHROOT}"/usr/bin/kstart ]
+				if [ -f chroot/usr/bin/kstart ]
 				then
 					PACKAGES="${PACKAGES} kde-i18n-${KDE}"
 				fi
 				;;
 
 			koffice)
-				if [ -f "${LIVE_CHROOT}" ]
+				if [ -f chroot/usr/bin/usr/bin/koconverter ]
 				then
 					PACKAGES="${PACKAGES} koffice-i18n-${KOFFICE}"
 				fi
 				;;
 
 			openoffice)
-				if [ -f "${LIVE_CHROOT}"/usr/bin/ooffice ]
+				if [ -f chroot/usr/bin/ooffice ]
 				then
 					PACKAGES="${PACKAGES} openoffice.org-l10n-${OPENOFFICE}"
 				fi
@@ -661,14 +661,14 @@ then
 	done
 
 	# Restore old cache
-	if [ -d "${LIVE_ROOT}"/cache/chroot_localization ]
+	if [ -d cache/chroot_localization ]
 	then
-		cp "${LIVE_ROOT}"/cache/chroot_localization/*.deb "${LIVE_CHROOT}"/var/cache/apt/archives
+		cp cache/chroot_localization/*.deb chroot/var/cache/apt/archives
 	fi
 
 	# Installing packages
 	case "${LH_APT}" in
-		apt)
+		apt|apt-get)
 			Chroot "apt-get install --yes ${PACKAGES}"
 			;;
 
@@ -680,16 +680,16 @@ then
 	# Saving new cache
 	Chroot "apt-get autoclean"
 
-	if ls "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb &> /dev/null
+	if ls chroot/var/cache/apt/archives/*.deb &> /dev/null
 	then
-		if [ ! -d "${LIVE_ROOT}"/cache/chroot_localization ]
+		if [ ! -d cache/chroot_localization ]
 		then
-			mkdir -p "${LIVE_ROOT}"/cache/chroot_localization
+			mkdir -p cache/chroot_localization
 		fi
 
-		mv -f "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb "${LIVE_ROOT}"/cache/chroot_localization
+		mv -f chroot/var/cache/apt/archives/*.deb cache/chroot_localization
 	fi
 
 	# Creating stage file
-	Create_stagefile "${LIVE_ROOT}"/.stage/chroot_localization
+	Create_stagefile .stage/chroot_localization
 fi

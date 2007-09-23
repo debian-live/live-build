@@ -17,28 +17,28 @@ Read_conffile config/chroot
 Set_defaults
 
 # Requiring stage file
-Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Require_stagefile .stage/bootstrap
 
 # Checking stage file
-Check_stagefile "${LIVE_ROOT}"/.stage/chroot_packages
+Check_stagefile .stage/chroot_packages
 
 # Checking lock file
-Check_lockfile "${LIVE_ROOT}"/.lock
+Check_lockfile .lock
 
 # Creating lock file
-Create_lockfile "${LIVE_ROOT}"/.lock
+Create_lockfile .lock
 
 if [ -n "${LIVE_PACKAGES}" ]
 then
 	# Restore old cache
-	if [ -d "${LIVE_ROOT}"/cache/chroot ]
+	if [ -d cache/chroot ]
 	then
-		cp "${LIVE_ROOT}"/cache/chroot_packages/*.deb "${LIVE_CHROOT}"/var/cache/apt/archives
+		cp cache/chroot_packages/*.deb chroot/var/cache/apt/archives
 	fi
 
 	# Installing packages
 	case "${LH_APT}" in
-		apt)
+		apt|apt-get)
 			Chroot "apt-get install --yes ${LIVE_PACKAGES}"
 			;;
 
@@ -50,16 +50,16 @@ then
 	# Saving new cache
 	Chroot "apt-get autoclean"
 
-	if ls "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb &> /dev/null
+	if ls chroot/var/cache/apt/archives/*.deb &> /dev/null
 	then
-		if [ ! -d "${LIVE_ROOT}"/cache/chroot_packages ]
+		if [ ! -d cache/chroot_packages ]
 		then
-			mkdir -p "${LIVE_ROOT}"/cache/chroot_packages
+			mkdir -p cache/chroot_packages
 		fi
 
-		mv -f "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb "${LIVE_ROOT}"/cache/chroot_packages
+		mv -f chroot/var/cache/apt/archives/*.deb cache/chroot_packages
 	fi
 
 	# Creating stage file
-	Create_stagefile "${LIVE_ROOT}"/.stage/chroot_packages
+	Create_stagefile .stage/chroot_packages
 fi

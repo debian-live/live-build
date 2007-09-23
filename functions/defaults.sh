@@ -55,7 +55,7 @@ Set_defaults ()
 	fi
 
 	# Setting bootstrap program
-	if [ -z "${LH_BOOTSTRAP}" ]
+	if [ -z "${LH_BOOTSTRAP}" ] || [ ! -x "${LH_BOOTSTRAP}" ]
 	then
 		if [ -x "/usr/bin/cdebootstrap" ]
 		then
@@ -87,32 +87,44 @@ Set_defaults ()
 	fi
 
 	# Setting genisoimage
-	if [ -x /usr/bin/genisoimage ]
+	if [ -z "${LH_GENISOIMAGE}" ] || [ ! -x "${LH_GENISOIMAGE}" ]
 	then
-		LH_GENISOIMAGE="genisoimage"
-	elif [ -x /usr/bin/mkisofs ]
+		if [ -x /usr/bin/genisoimage ]
+		then
+			LH_GENISOIMAGE="genisoimage"
+		elif [ -x /usr/bin/mkisofs ]
+		then
+			LH_GENISOIMAGE="mkisofs"
+		else
+			echo "E: cannot find genisoimage nor mkisofs (FIXME)."
+			exit 1
+		fi
+	fi
+
+	# Setting losetup
+	if [ -z "${LH_LOSETUP}" ] || [ ! -x "${LH_LOSETUP}" ]
 	then
-		LH_GENISOIMAGE="mkisofs"
-	else
-		echo "E: cannot find genisoimage nor mkisofs (FIXME)."
-		exit 1
+		# Check for loop-aes-utils divertion
+		if [ -x /sbin/losetup.orig ]
+		then
+			LH_LOSETUP="losetup.orig"
+		elif [ -x /sbin/losetup ]
+		then
+			LH_LOSETUP="losetup"
+		else
+			echo "E: Can't process file /sbin/losetup (FIXME)"
+		fi
 	fi
 
 	# Setting root directory
 	if [ -z "${LIVE_ROOT}" ]
 	then
-		LIVE_ROOT="`pwd`/debian-live"
-	fi
-
-	# Setting chroot directory
-	if [ -z "${LIVE_CHROOT}" ]
-	then
-		LIVE_CHROOT="${LIVE_ROOT}/chroot"
+		LIVE_ROOT="debian-live"
 	fi
 
 	## config/bootstrap
 
-	# Setting architecture string
+	# Setting architecture value
 	if [ -z "${LIVE_ARCHITECTURE}" ]
 	then
 		if [ -x "/usr/bin/dpkg" ]
@@ -123,46 +135,46 @@ Set_defaults ()
 		fi
 	fi
 
-	# Setting distribution string
+	# Setting distribution value
 	if [ -z "${LIVE_DISTRIBUTION}" ]
 	then
 		LIVE_DISTRIBUTION="sid"
 	fi
 
-	# Setting distribution configuration string
+	# Setting distribution configuration value
 	# LIVE_DISTRIBUTION_CONFIG
 
-	# Setting flavour string
+	# Setting flavour value
 	if [ -z "${LIVE_FLAVOUR}" ]
 	then
 		LIVE_FLAVOUR="standard"
 	fi
 
-	# Setting mirror string
-	if [ -z "${LIVE_MIRROR}" ]
+	# Setting local mirror value
+	if [ -z "${LIVE_MIRROR_LOCAL}" ]
 	then
-		LIVE_MIRROR="http://ftp.debian.org/debian/"
+		LIVE_MIRROR_LOCAL="http://ftp.debian.org/debian/"
 	fi
 
-	# Setting security mirror string
-	if [ -z "${LIVE_MIRROR_SECURITY}" ]
+	# Setting local security mirror value
+	if [ -z "${LIVE_MIRROR_LOCAL_SECURITY}" ]
 	then
-		LIVE_MIRROR_SECURITY="http://security.debian.org/"
+		LIVE_MIRROR_LOCAL_SECURITY="http://security.debian.org/"
 	fi
 
-	# Setting mirror string
+	# Setting generic mirror value
 	if [ -z "${LIVE_MIRROR_GENERIC}" ]
 	then
 		LIVE_MIRROR_GENERIC="http://ftp.debian.org/debian/"
 	fi
 
-	# Setting security mirror string
+	# Setting generic security mirror value
 	if [ -z "${LIVE_MIRROR_GENERIC_SECURITY}" ]
 	then
 		LIVE_MIRROR_GENERIC_SECURITY="http://security.debian.org/"
 	fi
 
-	# Setting sections string
+	# Setting sections value
 	if [ -z "${LIVE_SECTIONS}" ]
 	then
 		LIVE_SECTIONS="main"
@@ -349,7 +361,7 @@ Set_defaults ()
 	# Setting iso volume
 	if [ -z "${LIVE_ISO_VOLUME}" ]
 	then
-		LIVE_ISO_VOLUME='Debian Live ${DATE}'
+		LIVE_ISO_VOLUME="Debian Live \`date +%Y%m%d\`"
 	fi
 
 	# Setting netboot server address

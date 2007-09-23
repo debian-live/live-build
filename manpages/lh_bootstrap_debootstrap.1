@@ -1,0 +1,49 @@
+.TH LH_BOOTSTRAP_DEBOOTSTRAP 1 "2007\-03\-19" "1.0~a2" "live\-helper"
+
+.SH NAME
+lh_bootstrap_debootstrap \- bootstrap a Debian system with \fIdebootstrap\fR(8)
+
+.SH SYNOPSIS
+.B lh_bootstrap_debootstrap [\fIlive\-helper\ options\fR\|]
+
+.SH DESCRIPTION
+lh_bootstrap_debootstrap uses \fIdebootstrap\fR(8) to create a Debian base system from scratch.
+
+.SH CONFIGURATION FILE
+lh_bootstrap_debootstrap reads config/common and config/bootstrap if available. See ENVIRONMENT for the correct environment variables to use.
+
+.SH ENVIRONMENT
+lh_bootstrap_debootstrap respects the following environment variables if available, otherwise uses default values for it.
+.IP "\fI$LH_CACHE\fR" 4
+control if downloaded packages should be cached (Default: enabled)
+.IP "\fI$LH_ROOT\fR" 4
+set the root directory (Default: debian-live)
+.IP "\fI$LIVE_ARCHITECTURE\fR" 4
+select the chroot architecture (Default: autodetected)
+.IP "\fI$LIVE_DISTRIBUTION\fR" 4
+select the distribution to use (Default: sid)
+.IP "\fI$LIVE_DISTRIBUTION_CONFIG\fR" 4
+set distribution config directory (Default: empty)
+.IP "\fI$LIVE_FLAVOUR\fR" 4
+select the flavour to use (Default: standard)
+.IP "\fI$LIVE_MIRROR_LOCAL\fR" 4
+set the local mirror to use (Default: http://ftp.debian.org/debian/)
+
+.SH OPTIONS
+lh_bootstrap_debootstrap has no options (FIXME).
+
+.SH SEE ALSO
+\fIdebootstrap\fR(8)
+.PP
+\fIlive\-helper\fR(7)
+.PP
+This program is a part of live-helper.
+
+.SH BUGS
+Report bugs against live\-helper <\fIhttp://packages.qa.debian.org/live\-helper/\fR>.
+
+.SH HOMEPAGE
+More information about the Debian Live project can be found at <\fIhttp://debian\-live.alioth.debian.org/\fR> and <\fIhttp://wiki.debian.org/DebianLive/\fR>.
+
+.SH AUTHOR
+live\-helper was written by Daniel Baumann <\fIdaniel@debian.org\fR> and Marco Amadori <\fImarco.amadori@gmail.com\fR>, for the Debian project.

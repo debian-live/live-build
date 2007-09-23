@@ -16,42 +16,42 @@ Read_conffile config/chroot
 Set_defaults
 
 # Requiring stage file
-Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Require_stagefile .stage/bootstrap
 
 # Checking lock file
-Check_lockfile "${LIVE_ROOT}"/.lock
+Check_lockfile .lock
 
 # Creating lock file
-Create_lockfile "${LIVE_ROOT}"/.lock
+Create_lockfile .lock
 
 case "${1}" in
 	install)
 		# Checking stage file
-		Check_stagefile "${LIVE_ROOT}"/.stage/chroot_proc
+		Check_stagefile .stage/chroot_proc
 
-		if [ ! -d "${LIVE_CHROOT}"/proc ]
+		if [ ! -d chroot/proc ]
 		then
 			# Creating mountpoint
-			mkdir -p "${LIVE_CHROOT}"/proc
+			mkdir -p chroot/proc
 		fi
 
 		# Mounting /proc
-		mount proc-live -t proc "${LIVE_CHROOT}"/proc
+		mount proc-live -t proc chroot/proc
 
 		# Creating stage file
-		Create_stagefile "${LIVE_ROOT}"/.stage/chroot_proc
+		Create_stagefile .stage/chroot_proc
 		;;
 
 	remove)
 		# Workaround binfmt-support /proc locking
-		umount "${LIVE_CHROOT}"/proc/sys/fs/binfmt_misc > /dev/null 2>&1 || true
+		umount chroot/proc/sys/fs/binfmt_misc > /dev/null 2>&1 || true
 
 		# Unmounting /proc
-		#fuser -km "${LIVE_CHROOT}"/proc
-		umount "${LIVE_CHROOT}"/proc > /dev/null 2>&1
+		#fuser -km chroot/proc
+		umount chroot/proc > /dev/null 2>&1
 
 		# Removing stage file
-		rm -f "${LIVE_ROOT}"/.stage/chroot_proc
+		rm -f .stage/chroot_proc
 		;;
 
 	*)

@@ -19,6 +19,7 @@ lh_chroot_resolv install
 lh_chroot_sources install
 
 # Preparing images
+lh_source_config
 lh_source_download
 
 # Building images
@@ -28,6 +29,6 @@ lh_source_net
 lh_source_usb
 
 # Deconfiguring chroot
-rm -f "${LIVE_ROOT}"/.stage/chroot_sources
+rm -f .stage/chroot_sources
 lh_chroot_resolv remove
 lh_chroot_hosts remove

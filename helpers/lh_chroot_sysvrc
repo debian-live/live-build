@@ -16,27 +16,27 @@ Read_conffile config/chroot
 Set_defaults
 
 # Requiring stage file
-Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Require_stagefile .stage/bootstrap
 
 # Checking lock file
-Check_lockfile "${LIVE_ROOT}"/.lock
+Check_lockfile .lock
 
 # Creating lock file
-Create_lockfile "${LIVE_ROOT}"/.lock
+Create_lockfile .lock
 
 case "${1}" in
 	install)
 		# Checking stage file
-		Check_stagefile "${LIVE_ROOT}"/.stage/chroot_sysvrc
+		Check_stagefile .stage/chroot_sysvrc
 
-		if [ -f "${LIVE_CHROOT}"/usr/sbin/policy-rc.d ]
+		if [ -f chroot/usr/sbin/policy-rc.d ]
 		then
 			# Save policy-rc.d file
-			mv "${LIVE_CHROOT}"/usr/sbin/policy-rc.d "${LIVE_CHROOT}"/usr/sbin/policy-rc.d.orig
+			mv chroot/usr/sbin/policy-rc.d chroot/usr/sbin/policy-rc.d.orig
 		fi
 
 		# Create policy-rc.d file
-cat  > "${LIVE_CHROOT}"/usr/sbin/policy-rc.d << EOF
+cat  > chroot/usr/sbin/policy-rc.d << EOF
 #!/bin/sh
 
 echo
@@ -45,24 +45,24 @@ echo "Warning: invoke-rc.d policy in action. Skiping daemon starting"
 exit 101
 EOF
 
-		chmod 0755 "${LIVE_CHROOT}"/usr/sbin/policy-rc.d
+		chmod 0755 chroot/usr/sbin/policy-rc.d
 
 		# Creating stage file
-		Create_stagefile "${LIVE_ROOT}"/.stage/chroot_sysvrc
+		Create_stagefile .stage/chroot_sysvrc
 		;;
 
 	remove)
-		if [ -f "${LIVE_CHROOT}"/usr/sbin/policy-rc.d.orig ]
+		if [ -f chroot/usr/sbin/policy-rc.d.orig ]
 		then
 			# Restore policy-rc.d file
-			mv "${LIVE_CHROOT}"/usr/sbin/policy-rc.d.orig "${LIVE_CHROOT}"/usr/sbin/policy-rc.d
+			mv chroot/usr/sbin/policy-rc.d.orig chroot/usr/sbin/policy-rc.d
 		else
 			# Remove policy-rc.d file
-			rm -f "${LIVE_CHROOT}"/usr/sbin/policy-rc.d
+			rm -f chroot/usr/sbin/policy-rc.d
 		fi
 
 		# Removing stage file
-		rm -f "${LIVE_ROOT}"/.stage/chroot_sysvrc
+		rm -f .stage/chroot_sysvrc
 		;;
 
 	*)

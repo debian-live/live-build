@@ -16,23 +16,23 @@ Read_conffile config/chroot
 Set_defaults
 
 # Requiring stage file
-Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Require_stagefile .stage/bootstrap
 
 # Checking stage file
-Check_stagefile "${LIVE_ROOT}"/.stage/chroot_packageslist
+Check_stagefile .stage/chroot_packageslist
 
 # Checking lock file
-Check_lockfile "${LIVE_ROOT}"/.lock
+Check_lockfile .lock
 
 # Creating lock file
-Create_lockfile "${LIVE_ROOT}"/.lock
+Create_lockfile .lock
 
 if [ -n "${LIVE_PACKAGES_LIST}" ]
 then
 	# Restore old cache
-	if [ -d "${LIVE_ROOT}"/cache/chroot_packageslist ]
+	if [ -d cache/chroot_packageslist ]
 	then
-		cp "${LIVE_ROOT}"/cache/chroot_packageslist/*.deb "${LIVE_CHROOT}"/var/cache/apt/archives
+		cp cache/chroot_packageslist/*.deb chroot/var/cache/apt/archives
 	fi
 
 	for LIST in ${LIVE_PACKAGES_LIST}
@@ -40,11 +40,11 @@ then
 		if [ -f /usr/share/live-helper/lists/"${LIST}" ]
 		then
 			# Copying package list
-			grep -v "^#" /usr/share/live-helper/lists/"${LIST}" > "${LIVE_CHROOT}"/root/"${LIST}"
+			grep -v "^#" /usr/share/live-helper/lists/"${LIST}" > chroot/root/"${LIST}"
 
 			# Installing package list
 			case "${LH_APT}" in
-				apt)
+				apt|apt-get)
 					Chroot "xargs --arg-file=/root/${LIST} apt-get install --yes"
 					;;
 
@@ -54,23 +54,23 @@ then
 			esac
 
 			# Removing package list
-			rm -f "${LIVE_CHROOT}"/root/"${LIST}"
+			rm -f chroot/root/"${LIST}"
 		fi
 	done
 
 	# Saving new cache
 	Chroot "apt-get autoclean"
 
-	if ls "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb &> /dev/null
+	if ls chroot/var/cache/apt/archives/*.deb &> /dev/null
 	then
-		if [ ! -d "${LIVE_ROOT}"/cache/chroot_packageslist ]
+		if [ ! -d cache/chroot_packageslist ]
 		then
-			mkdir -p "${LIVE_ROOT}"/cache/chroot_packageslist
+			mkdir -p cache/chroot_packageslist
 		fi
 
-		mv -f "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb "${LIVE_ROOT}"/cache/chroot_packageslist
+		mv -f chroot/var/cache/apt/archives/*.deb cache/chroot_packageslist
 	fi
 
 	# Creating stage file
-	Create_stagefile "${LIVE_ROOT}"/.stage/chroot_packageslist
+	Create_stagefile .stage/chroot_packageslist
 fi

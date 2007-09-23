@@ -16,39 +16,39 @@ Read_conffile config/chroot
 Set_defaults
 
 # Requiring stage file
-Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Require_stagefile .stage/bootstrap
 
 # Checking lock file
-Check_lockfile "${LIVE_ROOT}"/.lock
+Check_lockfile .lock
 
 # Creating lock file
-Create_lockfile "${LIVE_ROOT}"/.lock
+Create_lockfile .lock
 
 case "${1}" in
 	install)
 		# Checking stage file
-		Check_stagefile "${LIVE_ROOT}"/.stage/chroot_sysfs
+		Check_stagefile .stage/chroot_sysfs
 
-		if [ ! -d "${LIVE_CHROOT}"/sys ]
+		if [ ! -d chroot/sys ]
 		then
 			# Create mountpoint
-			mkdir -p "${LIVE_CHROOT}"/sys
+			mkdir -p chroot/sys
 		fi
 
 		# Mounting /sys
-		mount sys-live -t sysfs "${LIVE_CHROOT}"/sys
+		mount sys-live -t sysfs chroot/sys
 
 		# Creating stage file
-		Create_stagefile "${LIVE_ROOT}"/.stage/chroot_sysfs
+		Create_stagefile .stage/chroot_sysfs
 		;;
 
 	remove)
 		# Unmounting /sys
-		#fuser -km "${LIVE_CHROOT}"/sys
-		umount "${LIVE_CHROOT}"/sys > /dev/null 2>&1
+		#fuser -km chroot/sys
+		umount chroot/sys > /dev/null 2>&1
 
 		# Removing stage file
-		rm -f "${LIVE_ROOT}"/.stage/chroot_sysfs
+		rm -f .stage/chroot_sysfs
 		;;
 
 	*)
