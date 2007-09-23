@@ -22,7 +22,7 @@
 
 set -e
 
-echo "make-live is deprecated."
+echo "make-live is obsolete."
 echo "Use lh_config and lh_build instead."
 
 exit 1

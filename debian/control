@@ -10,7 +10,7 @@ XS-VCS-Browse: http://svn.debian.org/wsvn/debian-live/dists/trunk/live-helper/
 
 Package: live-helper
 Architecture: all
-Depends: cdebootstrap | debootstrap
+Depends: debootstrap | cdebootstrap
 Suggests: dosfstools, genisoimage | mkisofs, memtest86+ | memtest86, mtools, parted, squashfs-tools | genext2fs, syslinux | grub
 Description: Debian Live helper programs
  Live-helper is a collection of programs that can be used to build Debian Live
