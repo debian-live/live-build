@@ -420,7 +420,10 @@ do
 	ln -s ${LH_DISTRIBUTION} binary/dists/${DISTRIBUTION}
 done
 
-ln -s . binary/debian
+if [ "${LH_BINARY_IMAGES}" != "usb-hdd" ]
+then
+	ln -s . binary/debian
+fi
 
 # Creating stage file
 Create_stagefile .stage/binary_debian-installer
