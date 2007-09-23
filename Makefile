@@ -88,16 +88,16 @@ uninstall:
 update:
 	set -e; for MANPAGE in manpages/*.de.* manpages/*.en.*; \
 	do \
-		sed -i	-e 's/2007\\-05\\-07/2007\\-05\\-14/' \
-			-e 's/07.05.2007/14.05.2007/' \
-			-e 's/1.0~a9/1.0~a10/' \
+		sed -i	-e 's/2007\\-05\\-14/2007\\-05\\-21/' \
+			-e 's/14.05.2007/21.05.2007/' \
+			-e 's/1.0~a10/1.0~a11/' \
 		$$MANPAGE; \
 	done
 
-	sed -i -e 's/1.0~a9/1.0~a10/' functions/common.sh
+	sed -i -e 's/1.0~a10/1.0~a11/' functions/common.sh
 
-	sed -i -e 's/1.0~a9/1.0~a10/' examples/cron/etch.sh
-	sed -i -e 's/1.0~a9/1.0~a10/' examples/cron/etch+beryl.sh
+	sed -i -e 's/1.0~a10/1.0~a11/' examples/cron/etch.sh
+	sed -i -e 's/1.0~a10/1.0~a11/' examples/cron/etch+beryl.sh
 
 clean:
 

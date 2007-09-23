@@ -1,3 +1,12 @@
+2007-05-24  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_syslinux:
+	  - Added dedicated directory handling for syslinux (>= 3.36) on usb.
+	* helpers/lh_binary_debian-installer, lh_binary_linux-image,
+	  lh_binary_memtest, lh_binary_syslinux:
+	  - Added legacy support for syslinux (<< 3.36).
+	* Uploaded 1.0~a11-1.
+
 2007-05-18  Daniel Baumann  <daniel@debian.org>
 
 	* helpers/*:
