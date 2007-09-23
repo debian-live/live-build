@@ -4,7 +4,7 @@ AUTOBUILD="false"
 
 AUTOBUILD_DISTRIBUTIONS="etch sid"
 AUTOBUILD_FLAVOURS="minimal standard kde-desktop gnome-desktop xfce-desktop"
-AUTOBUILD_OPTIONS="--tasks laptop --with-source"
+AUTOBUILD_OPTIONS="--with-source"
 
 AUTOBUILD_DIRECTORY="/srv/tmp/make-live"
 AUTOBUILD_SERVER="/srv/debian-live"

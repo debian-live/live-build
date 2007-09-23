@@ -1,3 +1,11 @@
+live-package (0.99.20-1) unstable; urgency=low
+
+  * New upstream release:
+    - Fixed manual pruning in minimal flavour as suggested by
+      Bas Wijnen <wijnen@debian.org> (Closes: #410040).
+
+ -- Daniel Baumann <daniel@debian.org>  Thu,  1 Feb 2007 17:35:00 +0100
+
 live-package (0.99.19-1) unstable; urgency=low
 
   * New upstream release.

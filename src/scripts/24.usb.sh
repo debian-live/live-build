@@ -9,7 +9,7 @@
 # This is free software, and you are welcome to redistribute it
 # under certain conditions; see COPYING for details.
 
-Net ()
+Usb ()
 {
 	if [ ! -f "${LIVE_ROOT}"/.stage/image_binary ]
 	then
@@ -21,39 +21,12 @@ Net ()
 		Patch_network apply
 
 		mkdir -p "${LIVE_ROOT}"/binary/casper
-		cp -r "${LIVE_TEMPLATES}"/common/* "${LIVE_ROOT}"/binary
-
 		for MANIFEST in "${LIVE_ROOT}"/filesystem.manifest*
 		do
 			if [ -e "${MANIFEST}" ]; then
 				mv "${MANIFEST}" "${LIVE_ROOT}"/binary/casper/
 			fi
 		done
-
-		# Mount proc
-		mount proc-live -t proc "${LIVE_CHROOT}"/proc
-
-		# Installing smbfs
-		Chroot_exec "aptitude install --assume-yes smbfs"
-
-		# Unmount proc
-		umount "${LIVE_CHROOT}"/proc
-
-		if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
-		then
-			if [ ! -d "${LIVE_CHROOT}"/etc/initramfs-tools ]
-			then
-				mkdir "${LIVE_CHROOT}"/etc/initramfs-tools
-			fi
-
-			# Configuring initramfs for NFS
-cat >> "${LIVE_CHROOT}"/etc/initramfs-tools/initramfs.conf << EOF
-MODULES=netboot
-BOOT=nfs
-NFSROOT=auto
-EOF
-			Chroot_exec "update-initramfs -tu"
-		fi
 
 		# Remove indices
 		rm -rf "${LIVE_CHROOT}"/var/cache/apt
@@ -94,13 +67,13 @@ EOF
 		Indices custom
 
 		# Installing syslinux
-		Syslinux net
+		Syslinux iso
 
 		# Installing linux-image
-		Linuximage net
+		Linuximage iso
 
 		# Installing memtest
-		Memtest net
+		Memtest iso
 
 		# Deconfigure network
 		Patch_network deapply
@@ -109,14 +82,43 @@ EOF
 		Patch_runlevel deapply
 		Patch_chroot deapply
 
-		# Creating tarball
-		cd "${LIVE_ROOT}" && \
-		mv binary "`basename ${LIVE_SERVER_PATH}`" && \
-		cd .. && \
-		tar cfz binary.tar.gz "`basename ${LIVE_ROOT}`/`basename ${LIVE_SERVER_PATH}`" "`basename ${LIVE_ROOT}`/tftpboot" && \
-		mv binary.tar.gz "${LIVE_ROOT}" && \
-		cd "${OLDPWD}" && \
-		mv "`basename ${LIVE_SERVER_PATH}`" binary
+		# Calculating md5sums
+		Md5sum
+
+		# Creating image
+		mv "${LIVE_ROOT}"/binary/isolinux/isolinux.cfg "${LIVE_ROOT}"/binary/syslinux.cfg
+		mv "${LIVE_ROOT}"/binary/isolinux/isolinux.bin "${LIVE_ROOT}"/binary/syslinux.bin
+		mv "${LIVE_ROOT}"/binary/isolinux/* "${LIVE_ROOT}"/binary
+
+		# Everything which comes here needs to be cleaned up,
+		# especially all the parted/syslinux stuff should be done
+		# from within the chroot, not on the host system, will do that later.
+
+		DU_DIM="`du -ms ${LIVE_ROOT}/binary | cut -f1`"
+		REAL_DIM="`expr ${DU_DIM} + ${DU_DIM} / 20`" # Just 5% more to be sure, need something more sophistcated here...
+		dd if=/dev/zero of="${LIVE_ROOT}"/binary.img bs=1024k count=${REAL_DIM}
+
+		echo "!!! The following error/warning messages can be ignored !!!"
+		losetup_p "${LIVE_ROOT}"/binary.img 0
+		parted -s ${FREELO} mklabel msdos
+		set +e
+		parted -s ${FREELO} mkpartfs primary fat16 0.0 100%
+		parted -s ${FREELO} set 1 boot on
+		parted -s ${FREELO} set 1 lba off
+		set -e
+		cat /usr/lib/syslinux/mbr.bin > ${FREELO}
+		losetup -d ${FREELO}
+		echo "!!! The above error/warning messages can be ignored !!!"
+
+		losetup_p "${LIVE_ROOT}"/binary.img 1
+		mkfs.msdos -n DEBIAN_LIVE ${FREELO}
+		mkdir "${LIVE_ROOT}"/binary.tmp
+		mount ${FREELO} "${LIVE_ROOT}"/binary.tmp
+		cp -r "${LIVE_ROOT}"/binary/* "${LIVE_ROOT}"/binary.tmp
+		umount "${LIVE_ROOT}"/binary.tmp
+		rmdir "${LIVE_ROOT}"/binary.tmp
+		syslinux ${FREELO}
+		losetup -d ${FREELO}
 
 		# Touching stage file
 		touch "${LIVE_ROOT}"/.stage/image_binary
@@ -141,7 +143,7 @@ EOF
 		Patch_runlevel deapply
 		Patch_chroot deapply
 
-		# Creating tarball
+		# Creating image
 		tar cfz source.tar.gz "${LIVE_ROOT}"/source
 
 		# Touching stage file

@@ -126,20 +126,6 @@ EOF
 			Chroot_exec "xargs --arg-file=/root/`basename ${LIVE_PACKAGE_LIST_CLONED}` aptitude install --assume-yes"
 		fi
 
-		# Install packages list
-		if [ -n "${LIVE_PACKAGE_LIST}" ]
-		then
-			grep -v "^#" "${LIVE_PACKAGE_LIST}" > "${LIVE_CHROOT}"/root/"`basename ${LIVE_PACKAGE_LIST}`"
-			Chroot_exec "xargs --arg-file=/root/`basename ${LIVE_PACKAGE_LIST}` aptitude install --assume-yes"
-			rm -f "${LIVE_CHROOT}"/root/"`basename ${LIVE_PACKAGE_LIST}`"
-		fi
-
-		# Install extra packages
-		if [ -n "${LIVE_PACKAGES}" ]
-		then
-			Chroot_exec "aptitude install --assume-yes ${LIVE_PACKAGES}"
-		fi
-
 		# Install aptitude tasks
 		if [ -n "${LIVE_TASKS}" ]
 		then
@@ -147,6 +133,38 @@ EOF
 			do
 				Chroot_exec "aptitude install --assume-yes ${TASK}"
 			done
+		fi
+
+		# Install packages list
+		if [ -n "${LIVE_PACKAGE_LIST}" ]
+		then
+			if [ "${LIVE_PACKAGE_LIST}" = "everything" ]
+			then
+				#for FILE in "${LIVE_CHROOT}"/var/lib/apt/lists/*_Packages
+				#do
+				#	awk '/Package: / { print $2 }' "${FILE}" | grep -v ".*-dbg$" >> "${LIVE_CHROOT}"/root/everything
+				#done
+
+				#Chroot_exec "xargs --arg-file=/root/everything aptitude install --assume-yes"
+				#rm -f "${LIVE_CHROOT}"/root/everything
+
+				# FIXME
+
+				for SECTION in admin base comm devel doc editors electronics embedded games gnome graphics hamradio interpreters kde libs libdevel mail math misc net news oldlibs otherosfs perl python science shells sound tex text utils web x11
+				do
+					Chroot_exec "aptitude install --assume-yes ~s${SECTION}"
+				done
+			else
+				grep -v "^#" "${LIVE_PACKAGE_LIST}" > "${LIVE_CHROOT}"/root/"`basename ${LIVE_PACKAGE_LIST}`"
+				Chroot_exec "xargs --arg-file=/root/`basename ${LIVE_PACKAGE_LIST}` aptitude install --assume-yes"
+				rm -f "${LIVE_CHROOT}"/root/"`basename ${LIVE_PACKAGE_LIST}`"
+			fi
+		fi
+
+		# Install extra packages
+		if [ -n "${LIVE_PACKAGES}" ]
+		then
+			Chroot_exec "aptitude install --assume-yes ${LIVE_PACKAGES}"
 		fi
 
 		# Copy external directory into the chroot
@@ -178,6 +196,26 @@ EOF
 		# Save package list
 		Chroot_exec "dpkg --get-selections" > "${LIVE_ROOT}"/packages.txt
 
+		# Disable daemons
+		if [ "${LIVE_DAEMONS}" = "no" ]
+		then
+			# Disable all
+			for FILE in "${LIVE_CHROOT}"/etc/init.d/*
+			do
+				Chroot_exec "update-rc.d -f `basename ${FILE}` remove"
+			done
+
+			# Re-enable all required (taken from -f standard chroot)
+			for PACKAGE in casper console-common cron dpkg ifupdown initscripts kbd klogd libc6 libdevmapper1.02 libselinux1 libsepol1 login makedev module-init-tools netbase openbsd-inetd procps sudo sysklogd udev util-linux
+			do
+				# Re-configure if existing
+				if [ -f "${LIVE_CHROOT}"/var/lib/dpkg/info/${PACKAGE}.postinst ]
+				then
+					Chroot_exec "/var/lib/dpkg/info/${PACKAGE}.postinst configure"
+				fi
+			done
+		fi
+
 		# Add filesystem.manifest
 		Chroot_exec "dpkg-query -W \*" | awk '$2 ~ /./ {print $1 " " $2 }' > "${LIVE_ROOT}"/filesystem.manifest
 
@@ -193,7 +231,7 @@ EOF
 
 		if [ "${LIVE_FLAVOUR}" = "minimal" ]
 		then
-			rm -f "${LIVE_CHROOT}"/var/lib/apt/lists/*
+			rm -rf "${LIVE_CHROOT}"/var/lib/apt/lists/*
 			rm -f "${LIVE_CHROOT}"/var/lib/dpkg/available-old
 			rm -f "${LIVE_CHROOT}"/var/lib/dpkg/diversions-old
 			rm -f "${LIVE_CHROOT}"/var/lib/dpkg/statoverride-old

@@ -29,6 +29,10 @@ Defaults ()
 				LIVE_TYPE="Net"
 				;;
 
+			usb)
+				LIVE_TYPE="Usb"
+				;;
+
 			*)
 				echo "E: image type wrong or not yet supported."
 				Usage 1
@@ -70,6 +74,9 @@ Defaults ()
 
 	# Set filesystem
 	if [ -z "${LIVE_FILESYSTEM}" ] && [ "${LIVE_TYPE}" = "Iso" ]
+	then
+		LIVE_FILESYSTEM="squashfs"
+	elif [ -z "${LIVE_FILESYSTEM}" ] && [ "${LIVE_TYPE}" = "Usb" ]
 	then
 		LIVE_FILESYSTEM="squashfs"
 	elif [ -z "${LIVE_FILESYSTEM}" ] && [ "${LIVE_TYPE}" = "Net" ]
@@ -164,15 +171,15 @@ Defaults ()
 	if [ "${LIVE_PACKAGE_LIST}" = "gnome-desktop" ]
 	then
 		LIVE_PACKAGE_LIST="gnome"
-		LIVE_TASKS="${LIVE_TASKS} gnome-desktop"
+		LIVE_TASKS="${LIVE_TASKS} standard laptop desktop gnome-desktop"
 	elif [ "${LIVE_PACKAGE_LIST}" = "kde-desktop" ]
 	then
 		LIVE_PACKAGE_LIST="kde"
-		LIVE_TASKS="${LIVE_TASKS} kde-desktop"
+		LIVE_TASKS="${LIVE_TASKS} standard laptop desktop kde-desktop"
 	elif [ "${LIVE_PACKAGE_LIST}" = "xfce-desktop" ]
 	then
 		LIVE_PACKAGE_LIST="xfce"
-		LIVE_TASKS="${LIVE_TASKS} xfce-desktop"
+		LIVE_TASKS="${LIVE_TASKS} standard laptop desktop xfce-desktop"
 	fi
 
 	# Check for package lists
@@ -185,13 +192,16 @@ Defaults ()
 			LIVE_PACKAGE_LIST="${BASE}/lists/standard"
 		fi
 	else
-		if [ ! -r "${LIVE_PACKAGE_LIST}" ]
+		if [ "${LIVE_PACKAGE_LIST}" != "everything" ]
 		then
-			if [ -r "${BASE}/lists/${LIVE_PACKAGE_LIST}" ]
+			if [ ! -r "${LIVE_PACKAGE_LIST}" ]
 			then
-				LIVE_PACKAGE_LIST="${BASE}/lists/${LIVE_PACKAGE_LIST}"
-			else
-				LIVE_PACKAGE_LIST="${BASE}/lists/standard"
+				if [ -r "${BASE}/lists/${LIVE_PACKAGE_LIST}" ]
+				then
+					LIVE_PACKAGE_LIST="${BASE}/lists/${LIVE_PACKAGE_LIST}"
+				else
+					LIVE_PACKAGE_LIST="${BASE}/lists/standard"
+				fi
 			fi
 		fi
 	fi
@@ -223,9 +233,9 @@ Defaults ()
 	fi
 
 	# Set debian sections
-	if [ -z "${LIVE_SECTION}" ]
+	if [ -z "${LIVE_SECTIONS}" ]
 	then
-		LIVE_SECTION="main"
+		LIVE_SECTIONS="main"
 	fi
 
 	# Set netboot server
@@ -278,5 +288,18 @@ Defaults ()
 	if [ -z "${LIVE_DEBCONF_PRIORITY}" ]
 	then
 		LIVE_DEBCONF_PRIORITY="critical"
+	fi
+
+	if [ -z "${LIVE_DAEMONS}" ]
+	then
+		LIVE_DAEMONS="yes"
+	fi
+
+	# This is a hack because Ubuntu does not ship cdrkit already
+	if [ -x /usr/bin/genisoimage ]
+	then
+		GENISOIMAGE="/usr/bin/genisoimage"
+	else
+		GENISOIMAGE="/usr/bin/mkisofs"
 	fi
 }

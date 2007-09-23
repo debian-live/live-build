@@ -16,36 +16,36 @@ Indices ()
 			# Configure custom sources.list
 			case "${LIVE_DISTRIBUTION}" in
 				oldstable|"${CODENAME_OLDSTABLE}"|stable|"${CODENAME_STABLE}"|testing|"${CODENAME_TESTING}")
-					echo "deb ${LIVE_MIRROR} ${LIVE_DISTRIBUTION} ${LIVE_SECTION}" > "${LIVE_CHROOT}"/etc/apt/sources.list
+					echo "deb ${LIVE_MIRROR} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" > "${LIVE_CHROOT}"/etc/apt/sources.list
 
 					if [ "${LIVE_SOURCE}" = "yes" ]
 					then
-						echo "deb-src ${LIVE_MIRROR} ${LIVE_DISTRIBUTION} ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+						echo "deb-src ${LIVE_MIRROR} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
 					fi
 
-					echo "deb ${LIVE_MIRROR_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+					echo "deb ${LIVE_MIRROR_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
 
 					if [ "${LIVE_SOURCE}" = "yes" ]
 					then
-						echo "deb-src ${LIVE_MIRROR_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+						echo "deb-src ${LIVE_MIRROR_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
 					fi
 					;;
 
 				unstable|"${CODENAME_UNSTABLE}")
-					echo "deb ${LIVE_MIRROR} unstable ${LIVE_SECTION}" > "${LIVE_CHROOT}"/etc/apt/sources.list
+					echo "deb ${LIVE_MIRROR} unstable ${LIVE_SECTIONS}" > "${LIVE_CHROOT}"/etc/apt/sources.list
 
 					if [ "${LIVE_SOURCE}" = "yes" ]
 					then
-						echo "deb-src ${LIVE_MIRROR} unstable ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+						echo "deb-src ${LIVE_MIRROR} unstable ${LIVE_SECTIONS}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
 					fi
 
 					if [ "${LIVE_DISTRIBUTION_EXPERIMENTAL}" = "yes" ]
 					then
-						echo "deb ${LIVE_MIRROR} experimental ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+						echo "deb ${LIVE_MIRROR} experimental ${LIVE_SECTIONS}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
 
 						if [ "${LIVE_SOURCE}" = "yes" ]
 						then
-							echo "deb-src ${LIVE_MIRROR} experimental ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+							echo "deb-src ${LIVE_MIRROR} experimental ${LIVE_SECTIONS}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
 						fi
 
 cat > "${LIVE_CHROOT}"/etc/apt/preferences << EOF
@@ -62,36 +62,36 @@ EOF
 			# Configure default sources.list
 			case "${LIVE_DISTRIBUTION}" in
 				oldstable|"${CODENAME_OLDSTABLE}"|stable|"${CODENAME_STABLE}"|testing|"${CODENAME_TESTING}")
-					echo "deb http://ftp.debian.org/debian/ ${LIVE_DISTRIBUTION} ${LIVE_SECTION}" > "${LIVE_CHROOT}"/etc/apt/sources.list
+					echo "deb http://ftp.debian.org/debian/ ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" > "${LIVE_CHROOT}"/etc/apt/sources.list
 
 					if [ "${LIVE_SOURCE}" = "yes" ]
 					then
-						echo "deb-src http://ftp.debian.org/debian/ ${LIVE_DISTRIBUTION} ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+						echo "deb-src http://ftp.debian.org/debian/ ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
 					fi
 
-					echo "deb http://security.debian.org/ ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+					echo "deb http://security.debian.org/ ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
 
 					if [ "${LIVE_SOURCE}" = "yes" ]
 					then
-						echo "deb-src http://security.debian.org/ ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+						echo "deb-src http://security.debian.org/ ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
 					fi
 					;;
 
 				unstable|"${CODENAME_UNSTABLE}")
-					echo "deb http://ftp.debian.org/debian/ unstable ${LIVE_SECTION}" > "${LIVE_CHROOT}"/etc/apt/sources.list
+					echo "deb http://ftp.debian.org/debian/ unstable ${LIVE_SECTIONS}" > "${LIVE_CHROOT}"/etc/apt/sources.list
 
 					if [ "${LIVE_SOURCE}" = "yes" ]
 					then
-						echo "deb-src http://ftp.debian.org/debian/ unstable ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+						echo "deb-src http://ftp.debian.org/debian/ unstable ${LIVE_SECTIONS}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
 					fi
 
 					if [ "${LIVE_DISTRIBUTION_EXPERIMENTAL}" = "yes" ]
 					then
-						echo "deb http://ftp.debian.org/debian/ experimental ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+						echo "deb http://ftp.debian.org/debian/ experimental ${LIVE_SECTIONS}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
 
 						if [ "${LIVE_SOURCE}" = "yes" ]
 						then
-							echo "deb-src http://ftp.debian.org/debian/ experimental ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+							echo "deb-src http://ftp.debian.org/debian/ experimental ${LIVE_SECTIONS}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
 						fi
 					fi
 					;;
@@ -181,6 +181,15 @@ Syslinux ()
 					"${LIVE_ROOT}"/binary/isolinux
 				rm -f "${LIVE_ROOT}"/binary/isolinux/pxelinux.cfg
 
+				#if [ "${LIVE_TYPE}" = "Iso" ]
+				#then
+					mv "${LIVE_ROOT}"/binary/isolinux/isolinux.cfg.iso "${LIVE_ROOT}"/binary/isolinux/isolinux.cfg
+					rm -f "${LIVE_ROOT}"/binary/isolinux/isolinux.cfg.usb
+				#else
+				#	mv "${LIVE_ROOT}"/binary/isolinux/isolinux.cfg.usb "${LIVE_ROOT}"/binary/isolinux/isolinux.cfg
+				#	rm -f "${LIVE_ROOT}"/binary/isolinux/isolinux.cfg.iso
+				#fi
+
 				if [ -n "${LIVE_ISOLINUX_SPLASH}" ]; then
 					cp "${LIVE_ISOLINUX_SPLASH}" "${LIVE_ROOT}/binary/isolinux/splash.rle"
 				fi
@@ -201,7 +210,7 @@ Syslinux ()
 				cp -r "${LIVE_TEMPLATES}"/syslinux/* \
 					"${LIVE_ROOT}"/tftpboot/pxelinux.cfg
 				mv "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/pxelinux.cfg "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/default
-				rm -f "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/isolinux.cfg
+				rm -f "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/isolinux.cfg.*
 				sed -i -e 's#splash.rle#pxelinux.cfg/splash.rle#' "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/isolinux.txt
 
 				if [ -n "${LIVE_ISOLINUX_SPLASH}" ]; then
@@ -304,19 +313,19 @@ Mkisofs ()
 			if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
 			then
 				# Create image
-				genisoimage -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -o "${LIVE_ROOT}"/"${LIVE_IMAGE}"binary.iso -r -J -l -V "${LIVE_DISK_VOLUME}" -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table "${LIVE_ROOT}"/binary ${LIVE_INCLUDE_IMAGE}
+				${GENISOIMAGE} -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -o "${LIVE_ROOT}"/"${LIVE_IMAGE}"binary.iso -r -J -l -V "${LIVE_DISK_VOLUME}" -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table "${LIVE_ROOT}"/binary ${LIVE_INCLUDE_IMAGE}
 			else
 				echo "W: Bootloader on your architecture not yet supported (Continuing in 5 seconds)."
 				sleep 5
 
 				# Create image
-				genisoimage -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -o "${LIVE_ROOT}"/"${LIVE_IMAGE}"binary.iso -r -J -l -V "${LIVE_DISK_VOLUME}" "${LIVE_ROOT}"/binary ${LIVE_INCLUDE_IMAGE}
+				${GENISOIMAGE} -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -o "${LIVE_ROOT}"/"${LIVE_IMAGE}"binary.iso -r -J -l -V "${LIVE_DISK_VOLUME}" "${LIVE_ROOT}"/binary ${LIVE_INCLUDE_IMAGE}
 			fi
 			;;
 
 		source)
 			# Create image
-			genisoimage -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -o "${LIVE_ROOT}"/"${LIVE_IMAGE}"source.iso -r -J -l -V "${LIVE_DISK_VOLUME}" "${LIVE_ROOT}"/source
+			${GENISOIMAGE} -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -o "${LIVE_ROOT}"/"${LIVE_IMAGE}"source.iso -r -J -l -V "${LIVE_DISK_VOLUME}" "${LIVE_ROOT}"/source
 			;;
 	esac
 }
@@ -346,4 +355,34 @@ Sources ()
 		# Move sources
 		mv "${LIVE_CHROOT}"/"${SOURCE}"_* "${LIVE_ROOT}"/source/"${LETTER}"/"${SOURCE}"
 	done
+}
+
+losetup_p ()
+{
+	#  Usage:  losetup_p  <image_filename> [partition_#]
+	FILE=$1 ; MNT=$2 ; PART=$3
+
+	FREELO=$(losetup -f)
+	losetup $FREELO $FILE
+
+	FDISK_OUT=$(fdisk -l -u "$FREELO" 2>&1)
+	losetup -d $FREELO
+
+	VDEV=$(echo "$FREELO"p"${PART:=1}")
+
+	CYL=`echo "$FDISK_OUT" | sed -ne "s_^$VDEV[ *]*\([0-9]*\).*_\1_p"`
+
+	START=$((CYL*512))
+
+	FREELO=$(losetup -f)
+	echo loop $FREELO at offset $START
+
+	export FREELO
+
+	if [ "${PART}" = "0" ]
+	then
+		losetup $FREELO "${FILE}"
+	else
+		losetup -o $START $FREELO "$FILE"
+	fi
 }
