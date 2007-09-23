@@ -52,6 +52,12 @@ if ls config/binary_local-hooks/* > /dev/null 2>&1
 then
 	for HOOK in config/binary_local-hooks/*
 	do
+		# Making hook executable
+		if [ ! -x "${HOOK}" ]
+		then
+			chmod +x "${HOOK}"
+		fi
+
 		# Executing hook
 		./"${HOOK}"
 	done
