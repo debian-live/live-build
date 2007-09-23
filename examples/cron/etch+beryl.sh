@@ -7,7 +7,7 @@ BUILD="etch+beryl"
 # Begin custom defaults
 AUTOBUILD="enabled"
 
-DATE="r0_1.0~a14-1"
+DATE="r0_1.0~a15-1"
 DESTDIR="/srv/debian-unofficial/ftp/debian-live"
 TEMPDIR="/srv/tmp/live-helper"
 
@@ -91,7 +91,7 @@ do
 
 				# Moving logs
 				mv "${TEMPDIR}"/debian-live/log.txt "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log/debian-live-etch+beryl-${ARCHITECTURE}-${PACKAGES_LIST}_${DATE}-iso-log.txt
-				mv "${TEMPDIR}"/debian-live/packages.txt "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log/debian-live-etch+beryl-${ARCHITECTURE}-${PACKAGES_LIST}_${DATE}-iso-packages.txt
+				mv "${TEMPDIR}"/debian-live/binary/packages.txt "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log/debian-live-etch+beryl-${ARCHITECTURE}-${PACKAGES_LIST}_${DATE}-iso-packages.txt
 
 				# Creating images directory
 				mkdir -p "${DESTDIR}"/"${BUILD}"-builds/${DATE}/${ARCHITECTURE}

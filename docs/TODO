@@ -8,13 +8,18 @@ ALPHA series:
 
 FIXME
   * xfce flavours seem to be damaged again
-  * multi-kernel syslinux fuckup
-  * d-i/g-i pool generation on the media
+  * multi-kernel syslinux breakage
   * yaboot (powerpc) boot support
   * grub (i386/amd64) boot support on usb* binary images
   * grub (i386/amd64) boot support on net binary images
   * multi-{binary,architecture,distribution} builds in one shot
   * check unset variables
+  * include capability for package lists
+  * add descriptions in package lists
+  * signal handlers
+  * parsable descriptions in helpers
+  * add lilo support? :)
+  * set default live-entry to Live:, default install-entry to Install: in menu.lst.
 
 ADDME
   * vmlinu[xz] [ppc64?]

@@ -49,8 +49,11 @@ do
 
 			if [ "${STAGE}" = "chroot" ] && [ -d cache/stages_chroot ]
 			then
+				# Removing old chroot
+				rm -rf chroot
+
 				# Restoring old cache
-				${LH_ROOT_COMMAND} cp -a cache/stages_chroot/* chroot
+				${LH_ROOT_COMMAND} cp -a cache/stages_chroot chroot
 
 				if [ -n "${LH_ROOT_COMMAND}" ]
 				then

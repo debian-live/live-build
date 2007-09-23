@@ -60,17 +60,12 @@ case "${LIVE_BINARY_IMAGES}" in
 		;;
 
 	tar|usb-hdd)
+		DESTDIR="binary/live"
+
 		# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
-		if [ "${LIVE_DISTRIBUTION}" = "etch" ] || [ "${LIVE_DISTRIBUTION}" = "lenny" ]
+		if [ "${LIVE_DISTRIBUTION}" = "etch" ] && [ "${LIVE_BOOTLOADER}" = "syslinux" ]
 		then
-			if [ "${LIVE_BOOTLOADER}" = "syslinux" ]
-			then
-				DESTDIR="binary"
-			else
-				DESTDIR="binary/live"
-			fi
-		else
-			DESTDIR="binary/live"
+			DESTDIR="binary"
 		fi
 		;;
 esac
@@ -84,14 +79,17 @@ then
 		case "${LIVE_ARCHITECTURE}" in
 			amd64)
 				DESTDIR="${DESTDIR}.amd"
+				LINUX="vmlinuz"
 				;;
 
 			i386)
 				DESTDIR="${DESTDIR}.386"
+				LINUX="vmlinuz"
 				;;
 
 			powerpc)
 				DESTDIR="${DESTDIR}.ppc"
+				LINUX="vmlinux"
 				;;
 		esac
 	fi
@@ -101,7 +99,7 @@ fi
 mkdir -p "${DESTDIR}"
 
 # Installing linux-image
-cp chroot/boot/vmlinuz* "${DESTDIR}"
+cp chroot/boot/"${LINUX}"* "${DESTDIR}"
 cp chroot/boot/initrd.img* "${DESTDIR}"
 
 # Creating stage file

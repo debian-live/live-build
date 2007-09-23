@@ -32,13 +32,13 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-Echo_message "Configuring file /usr/sbin/policy-rc.d"
-
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
 case "${1}" in
 	install)
+		Echo_message "Configuring file /usr/sbin/policy-rc.d"
+
 		# Checking stage file
 		Check_stagefile .stage/chroot_sysvrc
 
@@ -71,6 +71,8 @@ EOF
 		;;
 
 	remove)
+		Echo_message "Deconfiguring file /usr/sbin/policy-rc.d"
+
 		# Checking lock file
 		Check_lockfile .lock
 
