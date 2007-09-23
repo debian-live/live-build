@@ -47,6 +47,7 @@ lh_chroot_linux-image install ${*}
 
 # Customizing chroot
 lh_chroot_preseed ${*}
+lh_chroot_local-preseed ${*}
 lh_chroot_tasks ${*}
 lh_chroot_packageslists ${*}
 lh_chroot_packages ${*}

@@ -29,6 +29,10 @@ install: build
 
 	install -D -m 0644 debian/default debian/live-helper/etc/default/live-helper
 
+	# Preparing alternatives
+	mv debian/live-helper/usr/share/live-helper/includes debian/live-helper/usr/share/live-helper/includes.debian
+	mv debian/live-helper/usr/share/live-helper/templates debian/live-helper/usr/share/live-helper/templates.debian
+
 	# Removing double files
 	rm -f debian/live-helper/usr/share/doc/live-helper/COPYING
 	rm -f debian/live-helper/usr/share/doc/live-helper/ChangeLog

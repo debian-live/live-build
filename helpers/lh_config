@@ -272,10 +272,6 @@ LIVE_PACKAGES="${LIVE_PACKAGES}"
 # (Default: ${LIVE_PACKAGES_LISTS})
 LIVE_PACKAGES_LISTS="${LIVE_PACKAGES_LISTS}"
 
-# \$LIVE_PRESEED: set package preseed
-# (Default: ${LIVE_PRESEED})
-LIVE_PRESEED="${LIVE_PRESEED}"
-
 # \$LIVE_TASKS: set tasks to install
 # (Default: empty)
 LIVE_TASKS="${LIVE_TASKS}"

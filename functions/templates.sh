@@ -11,10 +11,10 @@ set -e
 
 Check_templates ()
 {
-	ITEM="${1}"
+	PACKAGE="${1}"
 
 	# Check user defined templates directory
-	if [ ! -d "${LIVE_TEMPLATES}" ]
+	if [ ! -e "${LIVE_TEMPLATES}" ]
 	then
 		if [ -d config/templates ]
 		then
@@ -25,11 +25,11 @@ Check_templates ()
 		fi
 	fi
 
-	if [ -d "${LIVE_TEMPLATES}/${ITEM}" ]
+	if [ -d "${LIVE_TEMPLATES}/${PACKAGE}" ]
 	then
-		TEMPLATES="${LIVE_TEMPLATES}/${ITEM}"
+		TEMPLATES="${LIVE_TEMPLATES}/${PACKAGE}"
 	else
-		Echo_error "${ITEM} templates not accessible in ${LIVE_TEMPLATES}"
+		Echo_error "${PACKAGE} templates not accessible in ${LIVE_TEMPLATES}"
 		exit 1
 	fi
 }
