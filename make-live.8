@@ -24,6 +24,7 @@ make-live \- An utility for building Debian Live systems.
 .IR FILE \||\| DIRECTORY \|]
 .RB [\| \-\-include\-rootfs
 .IR FILE \||\| DIRECTORY \|]
+.BR [\| \-\-interactive \|]
 .RB [\| \-\-linux\-image
 .IR FLAVOUR \|]
 .RB [\| \-\-logfile
@@ -110,6 +111,9 @@ set through LIVE_INCLUDE_IMAGE environment variable.
 .BI "\-\-include\-rootfs " FILE \||\| DIRECTORY
 specifies a file or directory which will be copied inside the root filesystem of
 the image. Can be also set through the LIVE_INCLUDE_ROOTFS environment variable.
+.TP
+.BI \-\-interactive
+lets you interactively customize the package selection.
 .TP
 .BI "\-\-linux\-image " FLAVOUR
 .TP
