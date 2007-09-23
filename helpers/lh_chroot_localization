@@ -25,10 +25,11 @@ Arguments "${@}"
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
+Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/chroot
-Read_conffile config/common
-Read_conffile config/image
+Read_conffile config/binary
+Read_conffile config/source
 Set_defaults
 
 Breakpoint "chroot_localization: Init"
@@ -661,13 +662,13 @@ then
 	done
 
 	# Restoring cache
-	Restore_cache cache/chroot_localization
+	Restore_cache cache/packages_localization
 
 	# Installing packages
 	Install_package
 
 	# Saving cache
-	Save_cache cache/chroot_localization
+	Save_cache cache/packages_localization
 
 	# Creating stage file
 	Create_stagefile .stage/chroot_localization

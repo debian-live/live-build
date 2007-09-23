@@ -25,10 +25,11 @@ Arguments "${@}"
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
+Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/chroot
-Read_conffile config/common
-Read_conffile config/image
+Read_conffile config/binary
+Read_conffile config/source
 Set_defaults
 
 if [ "${LIVE_INCLUDES}" = "none" ]
@@ -79,17 +80,23 @@ esac
 
 if [ "${LIVE_DEBIAN_INSTALLER}" = "enabled" ]
 then
+	# Working arround vfat limitations
+	if [ "${LIVE_BINARY_IMAGE}" = "usb-hdd" ]
+	then
+		CP_OPTIONS="--preserve=link,mode,timestamps"
+	fi
+
 	# Copying d-i templates
 	if [ -d "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/install ] && \
 	ls "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/install/* &> /dev/null
 	then
-		cp -r "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/install/* binary
+		cp -r ${CP_OPTIONS} "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/install/* binary
 	fi
 
 	if [ -d "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/install."${ARCH}" ] && \
 	ls "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/install."${ARCH}"/* &> /dev/null
 	then
-		cp -r "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/install."${ARCH}"/* binary
+		cp -r ${CP_OPTIONS} "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/install."${ARCH}"/* binary
 	fi
 
 	# Adjusting d-i templates
@@ -105,8 +112,8 @@ then
 		DEBIAN_TOOLS_TXT="/tools/"
 	fi
 
-	sed -i -e "s/DEBIAN_NAME/${DEBIAN_NAME}/g" -e "s/DEBIAN_DATE/${DEBIAN_DATE}/g" -e "s/DEBIAN_TOOLS/${DEBIAN_TOOLS_HTML}/g" binary/README.html
-	sed -i -e "s/DEBIAN_NAME/${DEBIAN_NAME}/g" -e "s/DEBIAN_DATE/${DEBIAN_DATE}/g" -e "s/DEBIAN_TOOLS/${DEBIAN_TOOLS_TXT}/g" binary/README.txt
+	sed -i -e "s/DEBIAN_NAME/${DEBIAN_NAME}/g" -e "s/DEBIAN_DATE/${DEBIAN_DATE}/g" -e "s#DEBIAN_TOOLS#${DEBIAN_TOOLS_HTML}#g" binary/README.html
+	sed -i -e "s/DEBIAN_NAME/${DEBIAN_NAME}/g" -e "s/DEBIAN_DATE/${DEBIAN_DATE}/g" -e "s#DEBIAN_TOOLS#${DEBIAN_TOOLS_TXT}#g" binary/README.txt
 fi
 
 # Creating stage file

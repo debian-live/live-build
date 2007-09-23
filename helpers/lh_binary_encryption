@@ -25,10 +25,11 @@ Arguments "${@}"
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
+Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/chroot
-Read_conffile config/common
-Read_conffile config/image
+Read_conffile config/binary
+Read_conffile config/source
 Set_defaults
 
 if [ -z "${LIVE_ENCRYPTION}" ]
@@ -50,6 +51,16 @@ Check_lockfile .lock
 
 # Creating lock file
 Create_lockfile .lock
+
+case "${LH_INITRAMFS}" in
+	casper)
+		INITFS="casper"
+		;;
+
+	live-initramfs)
+		INITFS="live"
+		;;
+esac
 
 case "${LIVE_FILESYSTEM}" in
 	ext2)
@@ -73,9 +84,9 @@ Check_package chroot/usr/bin/aespipe aespipe
 Install_package
 
 # Moving image
-mv binary/casper/filesystem.${LIVE_FILESYSTEM} chroot
+mv binary/${INITFS}/filesystem.${LIVE_FILESYSTEM} chroot
 
-echo "Encrypting binary/casper/filesystem.${ROOTFS} with ${LIVE_ENCRYPTION}..."
+echo "Encrypting binary/${INITFS}/filesystem.${ROOTFS} with ${LIVE_ENCRYPTION}..."
 
 cat >> chroot/encrypt << EOF
 while true
@@ -97,7 +108,7 @@ EOF
 Chroot "sh encrypt"
 
 # Move image
-mv chroot/filesystem.${LIVE_FILESYSTEM} binary/casper
+mv chroot/filesystem.${LIVE_FILESYSTEM} binary/${INITFS}
 rm -f chroot/encrypt
 
 # Removing depends

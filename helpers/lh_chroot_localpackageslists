@@ -25,10 +25,11 @@ Arguments "${@}"
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
+Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/chroot
-Read_conffile config/common
-Read_conffile config/image
+Read_conffile config/binary
+Read_conffile config/source
 Set_defaults
 
 Breakpoint "chroot_localpackageslists: Init"
@@ -48,7 +49,7 @@ Create_lockfile .lock
 if ls config/chroot_localpackageslists/* &> /dev/null
 then
 	# Restoring cache
-	Restore_cache cache/chroot_localpackageslists
+	Restore_cache cache/packages_localpackageslists
 
 	for PACKAGESLIST in config/chroot_localpackageslists/*
 	do
@@ -71,7 +72,7 @@ then
 	done
 
 	# Saving cache
-	Save_cache cache/chroot_localpackageslists
+	Save_cache cache/packages_localpackageslists
 
 	# Creating stage file
 	Create_stagefile .stage/chroot_localpackageslists

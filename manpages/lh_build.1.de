@@ -1,4 +1,4 @@
-.TH LH_BUILD 1 "23.04.2007" "1.0~a7" "live\-helper"
+.TH LH_BUILD 1 "30.04.2007" "1.0~a8" "live\-helper"
 
 .SH NAME
 lh_build \- erstellen eines Live-Systemes
@@ -12,7 +12,7 @@ lh_build ist ein Helper-Script. Es ruft alle n\[:o]tigen Meta\-Helper auf um ein
 .SH META\-HELPER
 Hier ist eine vollst\[:a]ndige Liste aller verf\[:u]gbaren Meta\-Helper Kommandos. Siehe deren Hilfeseiten f\[:u]r zus\[:a]tzliche Dokumentation.
 .IP "\fIlh_binary\fR(1)" 4
-erstellt ein Binary-Image.
+erstellt ein Binary\-Image.
 .IP "\fIlh_bootstrap\fR(1)" 4
 erstellt das Grundsystem.
 .IP "\fIlh_chroot\fR(1)" 4

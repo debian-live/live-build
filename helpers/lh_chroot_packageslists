@@ -25,10 +25,11 @@ Arguments "${@}"
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
+Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/chroot
-Read_conffile config/common
-Read_conffile config/image
+Read_conffile config/binary
+Read_conffile config/source
 Set_defaults
 
 Breakpoint "chroot_packageslists: Init"
@@ -48,7 +49,7 @@ Create_lockfile .lock
 if [ -n "${LIVE_PACKAGES_LISTS}" ]
 then
 	# Restoring cache
-	Restore_cache cache/chroot_packageslists
+	Restore_cache cache/packages_packageslists
 
 	for LIST in ${LIVE_PACKAGES_LISTS}
 	do
@@ -74,7 +75,7 @@ then
 	done
 
 	# Saving cache
-	Save_cache cache/chroot_packageslists
+	Save_cache cache/packages_packageslists
 
 	# Creating stage file
 	Create_stagefile .stage/chroot_packageslists

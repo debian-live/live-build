@@ -25,10 +25,11 @@ Arguments "${@}"
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
+Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/chroot
-Read_conffile config/common
-Read_conffile config/image
+Read_conffile config/binary
+Read_conffile config/source
 Set_defaults
 
 Breakpoint "binary_manifest: Init"
@@ -45,8 +46,18 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
+case "${LH_INITRAMFS}" in
+	casper)
+		INITFS="casper"
+		;;
+
+	live-initramfs)
+		INITFS="live"
+		;;
+esac
+
 # Add filesystem.manifest
-Chroot "dpkg --get-selections" | awk '{ print $1 }' | sort -u > binary/casper/filesystem.manifest
+Chroot "dpkg --get-selections" | awk '{ print $1 }' | sort -u > binary/${INITFS}/filesystem.manifest
 
 # Add packages.list
 Chroot "dpkg -l" > packages.txt

@@ -25,10 +25,11 @@ Arguments "${@}"
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
+Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/chroot
-Read_conffile config/common
-Read_conffile config/image
+Read_conffile config/binary
+Read_conffile config/source
 Set_defaults
 
 Breakpoint "chroot_packages: Init"
@@ -48,7 +49,7 @@ Create_lockfile .lock
 if [ -n "${LIVE_PACKAGES}" ]
 then
 	# Restoring cache
-	Restore_cache cache/chroot_packages
+	Restore_cache cache/packages_packages
 
 	# Installing packages
 	case "${LH_APT}" in
@@ -62,7 +63,7 @@ then
 	esac
 
 	# Saving cache
-	Save_cache cache/chroot_packages
+	Save_cache cache/packages_packages
 
 	# Creating stage file
 	Create_stagefile .stage/chroot_packages

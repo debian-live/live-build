@@ -25,10 +25,11 @@ Arguments "${@}"
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
+Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/chroot
-Read_conffile config/common
-Read_conffile config/image
+Read_conffile config/binary
+Read_conffile config/source
 Set_defaults
 
 Breakpoint "source: Init"
@@ -48,7 +49,7 @@ lh_source_generic "${@}"
 lh_source_hdd "${@}"
 lh_source_iso "${@}"
 lh_source_net "${@}"
-lh_source_usb "${@}"
+lh_source_usb-hdd "${@}"
 
 # Deconfiguring chroot
 rm -f .stage/chroot_sources

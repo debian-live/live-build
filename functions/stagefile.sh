@@ -47,13 +47,28 @@ Create_stagefile ()
 
 Require_stagefile ()
 {
-	FILE="${1}"
-	NAME="`basename ${1}`"
+	FILES="${@}"
+	NUMBER="`echo ${@} | wc -w`"
 
-	# Checking stage file
-	if [ ! -f "${FILE}" ]
+	for FILE in ${FILES}
+	do
+		# Find at least one of the required stages
+		if [ -f ${FILE} ]
+		then
+			CONTINUE="true"
+			NAME="${NAME} `basename ${FILE}`"
+		fi
+	done
+
+	if [ "${CONTINUE}" != "true" ]
 	then
-		Echo_error "${NAME} missing"
+		if [ "${NUMBER}" -gt 1 ]
+		then
+			Echo_error "one of ${NAME} is missing"
+		else
+			Echo_error "${NAME} missing"
+		fi
+
 		exit 1
 	fi
 }

@@ -25,10 +25,11 @@ Arguments "${@}"
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
+Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/chroot
-Read_conffile config/common
-Read_conffile config/image
+Read_conffile config/binary
+Read_conffile config/source
 Set_defaults
 
 Breakpoint "chroot_sources: Init"
@@ -93,48 +94,110 @@ case "${1}" in
 			done
 		fi
 
-		# Check local gpg keys
-		if ls config/chroot_sources/*.build.gpg &> /dev/null
+		# Update indices from cache
+		if [ "${LH_CACHE_INDICES}" = "enabled" ] && [ -d cache/indices_build ]
 		then
-			for FILE in config/chroot_sources/*.build.gpg
-			do
-				cp ${FILE} chroot/root
-				Chroot "apt-key add /root/`basename ${FILE}`"
-				rm -f chroot/root/`basename ${FILE}`
-			done
-		fi
-
-		# Check local keyring packages
-		if ls config/chroot_sources/*.deb &> /dev/null
-		then
-			for PACKAGE in config/chroot_sources/*.deb
-			do
-				cp ${PACKAGE} chroot/root
-				Chroot "dpkg -i `basename ${PACKAGE}`"
-				rm -f chroot/root/`basename ${PACKAGE}`
-			done
-		fi
-
-		# Installing aptitude
-		if [ "${LH_APT}" = "apt" ] || [ "${LH_APT}" = "apt-get" ]
-		then
-			Chroot "apt-get update"
-		elif [ "${LH_APT}" = "aptitude" ]
-		then
-			if [ ! -x /usr/bin/aptitude ]
+			if ls cache/indices_build/secring.gpg* &> /dev/null
 			then
-				Chroot "apt-get update"
-				Chroot "apt-get install --yes --force-yes aptitude"
+				cp -f cache/indices_build/secring.gpg* chroot/etc/apt
 			fi
 
-			Chroot "aptitude update"
-		fi
+			if ls cache/indices_build/trusted.gpg* &> /dev/null
+			then
+				cp -f cache/indices_build/trusted.gpg* chroot/etc/apt
+			fi
 
-		# Installing keyring packages
-		if [ -n "${LIVE_KEYRING_PACKAGES}" ]
-		then
-			Chroot "apt-get install --yes --force-yes ${LIVE_KEYRING_PACKAGES}"
-			Chroot "apt-get update"
+			if [ -f cache/indices_build/pkgcache.bin ]
+			then
+				cp -f cache/indices_build/pkgcache.bin chroot/var/cache/apt
+			fi
+
+			if [ -f cache/indices_build/srcpkgcache.bin ]
+			then
+				cp -f cache/indices_build/srcpkgcache.bin chroot/var/cache/apt
+			fi
+
+			if ls cache/indices_build/*_Packages &> /dev/null
+			then
+				cp -f cache/indices_build/*_Packages chroot/var/lib/apt/lists
+			fi
+
+			if ls cache/indices_build/*_Sources &> /dev/null
+			then
+				cp -f cache/indices_build/*_Sources chroot/var/lib/apt/lists
+			fi
+
+			if ls cache/indices_build/*_Release* &> /dev/null
+			then
+				cp -f cache/indices_build/*_Release* chroot/var/lib/apt/lists
+			fi
+
+			if [ "${LH_APT}" = "aptitude" ] && [ ! -x /usr/bin/aptitude ]
+			then
+				Chroot "apt-get install --yes --force-yes aptitude"
+			fi
+		else # Get fresh indices
+			# Check local gpg keys
+			if ls config/chroot_sources/*.build.gpg &> /dev/null
+			then
+				for FILE in config/chroot_sources/*.build.gpg
+				do
+					cp ${FILE} chroot/root
+					Chroot "apt-key add /root/`basename ${FILE}`"
+					rm -f chroot/root/`basename ${FILE}`
+				done
+			fi
+
+			# Check local keyring packages
+			if ls config/chroot_sources/*.deb &> /dev/null
+			then
+				for PACKAGE in config/chroot_sources/*.deb
+				do
+					cp ${PACKAGE} chroot/root
+					Chroot "dpkg -i `basename ${PACKAGE}`"
+					rm -f chroot/root/`basename ${PACKAGE}`
+				done
+			fi
+
+			# Installing aptitude
+			if [ "${LH_APT}" = "apt" ] || [ "${LH_APT}" = "apt-get" ]
+			then
+				Chroot "apt-get update"
+			elif [ "${LH_APT}" = "aptitude" ]
+			then
+				if [ ! -x /usr/bin/aptitude ]
+				then
+					Chroot "apt-get update"
+					Chroot "apt-get install --yes --force-yes aptitude"
+				fi
+
+				Chroot "aptitude update"
+			fi
+
+			# Installing keyring packages
+			if [ -n "${LIVE_KEYRING_PACKAGES}" ]
+			then
+				Chroot "apt-get install --yes --force-yes ${LIVE_KEYRING_PACKAGES}"
+				Chroot "apt-get update"
+			fi
+
+			if [ "${LH_CACHE_INDICES}" = "enabled" ]
+			then
+				if [ ! -d cache/indices_build ]
+				then
+					mkdir -p cache/indices_build
+				fi
+
+				cp -f chroot/etc/apt/secring.gpg* cache/indices_build
+				cp -f chroot/etc/apt/trusted.gpg* cache/indices_build
+
+				cp -f chroot/var/cache/apt/pkgcache.bin cache/indices_build
+				cp -f chroot/var/cache/apt/srcpkgcache.bin cache/indices_build
+
+				cp -f chroot/var/lib/apt/lists/*_Packages cache/indices_build
+				cp -f chroot/var/lib/apt/lists/*_Sources cache/indices_build
+				cp -f chroot/var/lib/apt/*_Release* cache/indices_build
+			fi
 		fi
 
 		# Creating stage file

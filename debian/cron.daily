@@ -46,7 +46,9 @@ do
 			# Generating images
 			mkdir -p "${AUTOBUILD_TEMPDIR}"/debian-live
 			cd "${AUTOBUILD_TEMPDIR}"
-			make-live -b iso -s generic --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-build ${AUTOBUILD_MIRROR} --mirror-build-security ${AUTOBUILD_MIRROR_SECURITY} --source enabled ${AUTOBUILD_OPTIONS} > "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt 2>&1
+			echo "Begin: `date -R`" > "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt
+			make-live -b iso -s generic --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-build ${AUTOBUILD_MIRROR} --mirror-build-security ${AUTOBUILD_MIRROR_SECURITY} --source enabled ${AUTOBUILD_OPTIONS} >> "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt 2>&1
+			echo "End: `date -R`" >> "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt
 		fi
 
 		if [ -f "${AUTOBUILD_TEMPDIR}"/debian-live/binary.iso ] && [ -f "${AUTOBUILD_TEMPDIR}"/debian-live/source.tar ]
@@ -77,7 +79,9 @@ do
 			# Generating images
 			mkdir -p "${AUTOBUILD_TEMPDIR}"/debian-live
 			cd "${AUTOBUILD_TEMPDIR}"
-			make-live -b usb -s generic --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-build ${AUTOBUILD_MIRROR} --mirror-build-security ${AUTOBUILD_MIRROR_SECURITY} --source disabled ${AUTOBUILD_OPTIONS} > "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt 2>&1
+			echo "Begin: `date -R`" > "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt
+			make-live -b usb -s generic --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-build ${AUTOBUILD_MIRROR} --mirror-build-security ${AUTOBUILD_MIRROR_SECURITY} --source disabled ${AUTOBUILD_OPTIONS} >> "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt 2>&1
+			echo "End: `date -R`" >> "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt
 		fi
 
 		if [ -f "${AUTOBUILD_TEMPDIR}"/debian-live/binary.img ]

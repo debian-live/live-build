@@ -25,10 +25,11 @@ Arguments "${@}"
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
+Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/chroot
-Read_conffile config/common
-Read_conffile config/image
+Read_conffile config/binary
+Read_conffile config/source
 Set_defaults
 
 Breakpoint "chroot_linuximage: Init"
@@ -71,9 +72,9 @@ EOF
 			done
 		fi
 
-		PACKAGES="${PACKAGES} casper"
+		PACKAGES="${PACKAGES} ${LH_INITRAMFS}"
 
-		# Installing linux-image, modules and casper
+		# Installing linux-image, modules and ${LH_INITRAMFS}
 		case "${LH_APT}" in
 			apt|apt-get)
 				Chroot "apt-get install --yes ${PACKAGES}"

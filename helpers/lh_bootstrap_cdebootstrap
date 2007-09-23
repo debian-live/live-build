@@ -28,10 +28,11 @@ lh_testroot
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
+Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/chroot
-Read_conffile config/common
-Read_conffile config/image
+Read_conffile config/binary
+Read_conffile config/source
 Set_defaults
 
 Breakpoint "bootstrap_cdeboostrap: Init"
@@ -91,12 +92,12 @@ fi
 
 if [ -x "/usr/bin/cdebootstrap" ]
 then
-	if [ "${LH_CACHE}" = "enabled" ]
-	then
-		# Restore old cache
-		if [ -d cache/chroot_bootstrap ]
+	for STAGE in ${LH_CACHE_STAGES}
+	do
+		if [ "${STAGE}" = "bootstrap" ] && [ -d cache/stages_bootstrap ]
 		then
-			${LH_ROOT_COMMAND} cp -a cache/chroot_bootstrap/* chroot
+			# Restore old cache
+			${LH_ROOT_COMMAND} cp -a cache/stages_bootstrap/* chroot
 
 			if [ -n "${LH_ROOT_COMMAND}" ]
 			then
@@ -108,11 +109,14 @@ then
 
 			exit 0
 		fi
+	done
 
-		if [ -d cache/bootstrap ]
+	if [ "${LH_CACHE_PACKAGES}" = "enabled" ]
+	then
+		if [ -d cache/packages_bootstrap ]
 		then
 			mkdir -p chroot/var/cache/bootstrap
-			cp cache/bootstrap/*.deb chroot/var/cache/bootstrap
+			cp cache/packages_bootstrap/*.deb chroot/var/cache/bootstrap
 		fi
 
 		# Executing cdebootstrap (download-only)
@@ -124,18 +128,18 @@ then
 		fi
 
 		# Removing old cache
-		if [ -d cache/bootstrap ]
+		if [ -d cache/packages_bootstrap ]
 		then
-			rm -f cache/bootstrap/*.deb
+			rm -f cache/packages_bootstrap/*.deb
 		fi
 
 		# Saving new cache
-		if [ ! -d cache/bootstrap ]
+		if [ ! -d cache/packages_bootstrap ]
 		then
-			mkdir -p cache/bootstrap
+			mkdir -p cache/packages_bootstrap
 		fi
 
-		cp chroot/var/cache/bootstrap/*.deb cache/bootstrap
+		cp chroot/var/cache/bootstrap/*.deb cache/packages_bootstrap
 	fi
 
 	# Executing cdebootstrap (regular run)
@@ -158,26 +162,26 @@ then
 	rm -f chroot/etc/resolv.conf
 
 	# Removing bootstrap cache
-	if [ -d chroot/var/cache/bootstrap ]
-	then
-		rm -rf chroot/var/cache/bootstrap
-	fi
+	rm -rf chroot/var/cache/bootstrap
 
 	# Saving new cache
-	if [ "${LH_CACHE}" = "enabled" ]
-	then
-		if [ -d cache/chroot_bootstrap ]
+	for STAGE in ${LH_CACHE_STAGES}
+	do
+		if [ "${STAGE}" = "bootstrap" ]
 		then
-			rm -rf cache/chroot_bootstrap
-		fi
+			if [ -d cache/stages_bootstrap ]
+			then
+				rm -rf cache/stages_bootstrap
+			fi
 
-		${LH_ROOT_COMMAND} cp -a chroot cache/chroot_bootstrap
+			${LH_ROOT_COMMAND} cp -a chroot cache/stages_bootstrap
 
-		if [ -n "${LH_ROOT_COMMAND}" ]
-		then
-			${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` cache/chroot_bootstrap
+			if [ -n "${LH_ROOT_COMMAND}" ]
+			then
+				${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` cache/stages_bootstrap
+			fi
 		fi
-	fi
+	done
 
 	# Creating stage file
 	Create_stagefile .stage/bootstrap
