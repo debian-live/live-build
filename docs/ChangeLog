@@ -1,7 +1,18 @@
 2007-08-28  Daniel Baumann  <daniel@debian.org>
 
+	* functions/defaults.sh:
+	  - Prefering debootstrap over cdebootstrap.
+	* helpers/lh_chroot_local-packages:
+	  - Only copy packages matching the build-architecture. This way, you
+	    can store local packages for different architectures in the very
+	    same config directory.
+	* Uploading 1.0~a25-1.
+
+2007-08-28  Daniel Baumann  <daniel@debian.org>
+
 	* helpers/lh_clean:
 	  - Accepting more than one parameter at the same time.
+	* Uploading 1.0~a24-1.
 
 2007-08-14  Daniel Baumann  <daniel@debian.org>
 

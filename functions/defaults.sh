@@ -102,12 +102,12 @@ Set_defaults ()
 	then
 		case "${LH_MODE}" in
 			debian|debian-edu)
-				if [ -x "/usr/bin/cdebootstrap" ]
-				then
-					LH_BOOTSTRAP="cdebootstrap"
-				elif [ -x "/usr/sbin/debootstrap" ]
+				if [ -x "/usr/sbin/debootstrap" ]
 				then
 					LH_BOOTSTRAP="debootstrap"
+				elif [ -x "/usr/bin/cdebootstrap" ]
+				then
+					LH_BOOTSTRAP="cdebootstrap"
 				else
 					echo "E: Can't process file /usr/bin/cdebootstrap or /usr/sbin/debootstrap (FIXME)"
 					exit 1
@@ -115,12 +115,12 @@ Set_defaults ()
 			;;
 
 			ubuntu)
-				if [ -x "/usr/bin/cdebootstrap" ] && [ -d /usr/share/cdebootstrap/generic-ubuntu ]
-				then
-					LH_BOOTSTRAP="cdebootstrap"
-				elif [ -x "/usr/sbin/debootstrap" ] && [ -f /usr/lib/debootstrap/scripts/gutsy ]
+				if [ -x "/usr/sbin/debootstrap" ] && [ -f /usr/lib/debootstrap/scripts/gutsy ]
 				then
 					LH_BOOTSTRAP="debootstrap"
+				elif [ -x "/usr/bin/cdebootstrap" ] && [ -d /usr/share/cdebootstrap/generic-ubuntu ]
+				then
+					LH_BOOTSTRAP="cdebootstrap"
 				else
 					echo "E: Your version of debootstrap or cdebootstrap is outdated and does not support ubuntu."
 					exit 1
