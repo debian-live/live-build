@@ -1,9 +1,9 @@
 #!/bin/sh
 
-# Needs: man2html svn
+# Needs: man2html git-core
 
 # Static variables
-PACKAGES="live-helper live-initramfs live-initscripts live-webhelper"
+PACKAGES="live-helper live-initramfs"
 
 TEMPDIR="/srv/tmp/manpages"
 SERVER="/srv/debian-live/www/other/manpages"
@@ -48,7 +48,7 @@ do
 
 	# Getting sources
 	cd "${TEMPDIR}"
-	svn co svn://svn.debian.org/debian-live/dists/trunk/${PACKAGE} ${PACKAGE}
+	git clone git://git.debian.org/git/users/daniel/${PACKAGE}.git
 
 	# Building manpages
 	for MANPAGE in "${TEMPDIR}"/${PACKAGE}/manpages/*

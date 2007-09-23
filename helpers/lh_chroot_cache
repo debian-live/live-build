@@ -37,49 +37,49 @@ Echo_message "Begin caching chroot stage..."
 
 for STAGE in ${LH_CACHE_STAGES}
 do
-	case "${1}" in
-		restore)
-			# Checking stage file
-			Check_stagefile .stage/chroot_cache.restore
+	if [ "${STAGE}" = "chroot" ]
+	then
+		case "${1}" in
+			restore)
+				# Checking stage file
+				Check_stagefile .stage/chroot_cache.restore
 
-			# Checking lock file
-			Check_lockfile .lock
-
-			# Creating lock file
-			Create_lockfile .lock
-
-			if [ "${STAGE}" = "chroot" ] && [ -d cache/stages_chroot ]
-			then
-				# Removing old chroot
-				rm -rf chroot
-
-				# Restoring old cache
-				${LH_ROOT_COMMAND} cp -a cache/stages_chroot chroot
-
-				if [ -n "${LH_ROOT_COMMAND}" ]
+				if [ -d cache/stages_chroot ]
 				then
-					${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` chroot
+					# Checking lock file
+					Check_lockfile .lock
+
+					# Creating lock file
+					Create_lockfile .lock
+
+					# Removing old chroot
+					rm -rf chroot
+
+					# Restoring old cache
+					${LH_ROOT_COMMAND} cp -a cache/stages_chroot chroot
+
+					if [ -n "${LH_ROOT_COMMAND}" ]
+					then
+						${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` chroot
+					fi
+
+					# Creating stage file
+					Create_stagefile .stage/chroot_cache.restore
+
+					exit 0
 				fi
+				;;
 
-				# Creating stage file
-				Create_stagefile .stage/chroot_cache.restore
+			save)
+				# Checking stage file
+				Check_stagefile .stage/chroot_cache.save
 
-				exit 0
-			fi
-			;;
+				# Checking lock file
+				Check_lockfile .lock
 
-		save)
-			# Checking stage file
-			Check_stagefile .stage/chroot_cache.save
+				# Creating lock file
+				Create_lockfile .lock
 
-			# Checking lock file
-			Check_lockfile .lock
-
-			# Creating lock file
-			Create_lockfile .lock
-
-			if [ "${STAGE}" = "chroot" ]
-			then
 				rm -rf cache/stages_chroot
 
 				mkdir -p cache
@@ -90,7 +90,10 @@ do
 				then
 					${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` cache/stages_chroot
 				fi
-			fi
-			;;
-	esac
+
+				# Creating stage file
+				Create_stagefile .stage/chroot_cache.save
+				;;
+		esac
+	fi
 done

@@ -1,9 +1,9 @@
 #!/bin/sh
 
-# Needs: build-essential fakeroot lsb-release svn [...]
+# Needs: build-essential fakeroot lsb-release git-core [...]
 
 # Static variables
-PACKAGES="live-helper live-initramfs live-initscripts live-magic live-webhelper"
+PACKAGES="live-helper live-initramfs"
 
 DEBEMAIL="debian-live-devel@lists.alioth.debian.org"
 EMAIL="debian-live-devel@lists.alioth.debian.org"
@@ -52,7 +52,7 @@ do
 
 	# Getting sources
 	cd "${TEMPDIR}"
-	svn co svn://svn.debian.org/debian-live/dists/trunk/${PACKAGE} ${PACKAGE}
+	git clone git://git.debian.org/git/users/daniel/${PACKAGE}.git
 
 	# Getting version
 	cd "${TEMPDIR}"/${PACKAGE}
@@ -60,7 +60,8 @@ do
 
 	# Getting revision
 	cd "${TEMPDIR}"/${PACKAGE}
-	REVISION="`svn info | awk '/Last Changed Rev:/ { print $4 }'`"
+	REVISION="`git log | grep -m1 Date | awk -FDate: '{ print $2 }' | sed -e 's/+.*$//'`"
+	REVISION="`date -d "${REVISION}" +%Y%m%d.%H%M%S`"
 
 	# Check for existing package
 	if [ ! -f "${SERVER}"/${PACKAGE}_${VERSION}~${REVISION}.dsc ] || [ "${1}" = "--force" ]
@@ -72,7 +73,7 @@ do
 
 		# Building package
 		cd "${TEMPDIR}"/${PACKAGE}-${VERSION}~${REVISION}
-		find . -type d -name .svn | xargs rm -rf
+		rm -rf .git
 		dch --force-bad-version --newversion ${VERSION}~${REVISION} --distribution UNRELEASED Autobuild snapshot of SVN r${REVISION}.
 		dpkg-buildpackage -rfakeroot -sa -uc -us
 

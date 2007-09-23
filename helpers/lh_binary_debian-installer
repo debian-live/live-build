@@ -35,20 +35,20 @@ Set_defaults
 
 # Setting remote d-i directories
 case "${LH_DEBIAN_INSTALLER}" in
-	enabled|cdrom|live)
+	cdrom|netinst|businesscard)
 		DI="cdrom"
 		DI_GTK="${DI}/gtk"
 		DI_KERNEL="vmlinuz"
 		;;
 
-	disabled)
-		exit 0
+	netboot)
+		DI="netboot/debian-installer/${LH_ARCHITECTURE}"
+ 		DI_GTK="netboot/gtk/debian-installer/${LH_ARCHITECTURE}"
+		DI_KERNEL="linux"
 		;;
 
-	netboot)
-		DI="netboot/debian-installer/i386"
- 		DI_GTK="netboot/gtk/debian-installer/i386"
-		DI_KERNEL="linux"
+	disabled)
+		exit 0
 		;;
 
 	*)
@@ -121,61 +121,66 @@ then
 	fi
 fi
 
-# Debian Installer daily builds
-case "${LH_ARCHITECTURE}" in
-	alpha)
-		URL="http://people.debian.org/~vorlon/d-i/alpha/daily/"
-		;;
+if [ "${LH_DEBIAN_INSTALLER_DAILY}" = "enabled" ]
+then
+	# Debian Installer daily builds
+	case "${LH_ARCHITECTURE}" in
+		alpha)
+			URL="http://people.debian.org/~vorlon/d-i/alpha/daily/"
+			;;
 
-	amd64)
-		URL="http://people.debian.org/~aba/d-i/images/daily/"
-		;;
+		amd64)
+			URL="http://people.debian.org/~aba/d-i/images/daily/"
+			;;
 
-	arm)
-		URL="http://people.debian.org/~kmuto/d-i/images/daily/"
-		;;
+		arm)
+			URL="http://people.debian.org/~kmuto/d-i/images/daily/"
+			;;
 
-	hppa)
-		URL="http://people.debian.org/~kyle/d-i/hppa/daily/"
-		;;
+		hppa)
+			URL="http://people.debian.org/~kyle/d-i/hppa/daily/"
+			;;
 
-	i386)
-		URL="http://people.debian.org/~joeyh/d-i/images/daily/"
-		;;
+		i386)
+			URL="http://people.debian.org/~joeyh/d-i/images/daily/"
+			;;
 
-	ia64)
-		URL="http://people.debian.org/~dannf/d-i/images/daily/"
-		;;
+		ia64)
+			URL="http://people.debian.org/~dannf/d-i/images/daily/"
+			;;
 
-	m68k)
-		URL="http://people.debian.org/~smarenka/d-i/images-m68k/daily/"
-		;;
+		m68k)
+			URL="http://people.debian.org/~smarenka/d-i/images-m68k/daily/"
+			;;
 
-	mips)
-		URL="http://people.debian.org/~ths/d-i/mips/images/daily/"
-		;;
+		mips)
+			URL="http://people.debian.org/~ths/d-i/mips/images/daily/"
+			;;
 
-	mipsel)
-		URL="http://people.debian.org/~ths/d-i/mipsel/images/daily/"
-		;;
+		mipsel)
+			URL="http://people.debian.org/~ths/d-i/mipsel/images/daily/"
+			;;
 
-	powerpc)
-		URL="http://people.debian.org/~wouter/d-i/powerpc/daily/"
-		;;
+		powerpc)
+			URL="http://people.debian.org/~wouter/d-i/powerpc/daily/"
+			;;
 
-	s390)
-		URL="http://lophos.multibuild.org/d-i/images/daily/"
-		;;
+		s390)
+			URL="http://lophos.multibuild.org/d-i/images/daily/"
+			;;
 
-	sparc)
-		URL="http://people.debian.org/~stappers/d-i/images/daily/"
-		;;
+		sparc)
+			URL="http://people.debian.org/~stappers/d-i/images/daily/"
+			;;
 
-	*)
-		Echo_error "No daily-builds found for your architecture."
-		exit 1
-		;;
-esac
+		*)
+			Echo_error "No daily-builds found for your architecture."
+			exit 1
+			;;
+	esac
+else
+	URL="${LH_MIRROR_BOOTSTRAP}/dists/${LH_DISTRIBUTION}/main/installer-${LH_ARCHITECTURE}/current/images/"
+fi
 
 # Downloading debian-installer
 mkdir -p "${DESTDIR_DI}"
@@ -259,6 +264,9 @@ then
 		# Move files
 		cp "${FILE}" binary/pool/main/"${LETTER}"/"${SOURCE}"
 	done
+else
+	Echo_error "E: Could not find cache/packages_bootstrap"
+	exit 1
 fi
 
 # Including local debs

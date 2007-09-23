@@ -1,3 +1,32 @@
+2007-09-09  Daniel Baumann  <daniel@debian.org>
+
+	* functions/defaults.sh:
+	  - Fixing typing error.
+	* data/debian-cd:
+	  - Merging debian-cd 3.0.3 data files.
+	* functions/defaults.sh, helpers/lh_config:
+	  - Adding debian-installer daily images option.
+	* helpers/lh_binary_debian-installer:
+	  - Reworking debian-installer flavours and urls.
+	  - Failing when no bootstrap package cache.
+	* helpers/lh_binary_disk:
+	  - Reworking disk information.
+	* helpers/lh_bootstrap_cache:
+	  - Creating bootstrap stagefile when restoring cache.
+	* helpers/lh_bootstrap_cache, lh_chroot_cache:
+	  - Refactoring stage caching.
+	* helpers/lh_clean:
+	  - Removing cache/stages_bootstrap restore.
+	* lists/devel-live:
+	  - Moving from svn to git.
+	* Uploading 1.0~a27-1.
+
+2007-09-04  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_chroot_cache:
+	  - Added forgotten creation of the stagefile as mentioned by
+	    Peter Holik <peter@holik.at>.
+
 2007-09-04  Daniel Baumann  <daniel@debian.org>
 
 	* helpers/lh_binary_syslinux, lh_config:
@@ -8,6 +37,7 @@
 	* helpers/lh_bootstrap_cache:
 	  - Added forgotten creation of the stagefile as mentioned by
 	    Peter Holik <peter@holik.at>.
+	* Uploading 1.0~a26-1.
 
 2007-08-28  Daniel Baumann  <daniel@debian.org>
 

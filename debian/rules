@@ -4,9 +4,8 @@
 #export DH_VERBOSE=1
 
 upstream:
-	# Needs: subversion
-	cd .. && svn co svn://svn.debian.org/debian-live/dists/trunk/live-helper || true
-	find . -type d -name .svn | xargs rm -rf
+	cd .. && git clone git://git.debian.org/git/users/daniel/live-helper.git || true
+	rm -rf ../live-helper/.git
 
 build:
 

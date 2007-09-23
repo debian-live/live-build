@@ -43,12 +43,6 @@ do
 			"${0}" binary
 			"${0}" stage
 			"${0}" source
-
-			if [ -d chroot ]
-			then
-				mkdir -p .stage
-				touch .stage/bootstrap
-			fi
 			;;
 
 		cache)
@@ -66,13 +60,6 @@ do
 			${LH_ROOT_COMMAND} umount -f chroot/dev > /dev/null 2>&1 || true
 
 			${LH_ROOT_COMMAND} rm -rf chroot chroot.tmp
-
-			if [ "${PURGE}" != "true" ] && [ -d cache/stages_bootstrap ]
-			then
-				${LH_ROOT_COMMAND} cp -a cache/stages_bootstrap chroot
-				mkdir -p .stage
-				touch .stage/bootstrap
-			fi
 
 			rm -f .stage/chroot*
 			;;
@@ -92,7 +79,7 @@ do
 			;;
 
 		purge)
-			PURGE="true" "${0}" all
+			"${0}" all
 			"${0}" cache
 			;;
 
