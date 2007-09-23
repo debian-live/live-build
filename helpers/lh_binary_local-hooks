@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_bootstrap_clone(1) - bootstrap by cloning the host system
+# lh_binary_local-hooks(1) - execute local hooks in binary
 # Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="bootstrap by cloning the host system"
+DESCRIPTION="execute local hooks in binary"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -32,18 +32,13 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-if [ "${LH_BOOTSTRAP}" != "clone" ]
-then
-	exit 0
-fi
+Echo_message "Begin executing local hooks..."
 
-Echo_message "Begin bootstrapping system..."
-
-# Ensure that a system is built as root
-lh_testroot
+# Requiring stage file
+Require_stagefile .stage/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/bootstrap
+Check_stagefile .stage/binary_local-hooks
 
 # Checking lock file
 Check_lockfile .lock
@@ -51,11 +46,15 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-# Read package selection
-dpkg --get-selections
+# Processing local-hooks
+if ls config/binary_local-hooks/* > /dev/null 2>&1
+then
+	for HOOK in config/binary_local-hooks/*
+	do
+		# Executing hook
+		./"${HOOK}"
+	done
 
-# Read debconf values
-> preseed
-
-# Creating stage file
-Create_stagefile .stage/bootstrap
+	# Creating stage file
+	Create_stagefile .stage/binary_local-hooks
+fi

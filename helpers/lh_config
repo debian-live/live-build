@@ -291,6 +291,7 @@ EOF
 
 # Creating lh_binary_* configuration
 mkdir -p "${LIVE_ROOT}"/config/binary_grub
+mkdir -p "${LIVE_ROOT}"/config/binary_local-hooks
 mkdir -p "${LIVE_ROOT}"/config/binary_local-includes
 mkdir -p "${LIVE_ROOT}"/config/binary_local-udebs
 mkdir -p "${LIVE_ROOT}"/config/binary_rootfs
@@ -319,10 +320,6 @@ LIVE_BOOTLOADER="${LIVE_BOOTLOADER}"
 # (Default: ${LIVE_DEBIAN_INSTALLER})
 LIVE_DEBIAN_INSTALLER="${LIVE_DEBIAN_INSTALLER}"
 
-# \$LIVE_LIVE_INSTALLER: set debian-installer + live-installer
-# (Default: ${LIVE_LIVE_INSTALLER})
-LIVE_LIVE_INSTALLER="${LIVE_LIVE_INSTALLER}"
-
 # \$LIVE_ENCRYPTION: set encrytion
 # (Default: empty)
 LIVE_ENCRYPTION="${LIVE_ENCRYPTION}"
@@ -347,7 +344,7 @@ LIVE_ISO_PREPARER="${LIVE_ISO_PREPARER}"
 # (Default: ${LIVE_ISO_PUBLISHER})
 LIVE_ISO_PUBLISHER="${LIVE_ISO_PUBLISHER}"
 
-# \$LIVE_ISO_VOLUME: set iso volume
+# \$LIVE_ISO_VOLUME: set iso volume (max 32 chars)
 # (Default: ${LIVE_ISO_VOLUME})
 LIVE_ISO_VOLUME="${LIVE_ISO_VOLUME}"
 
@@ -384,3 +381,17 @@ LIVE_SOURCE="${LIVE_SOURCE}"
 # (Default: ${LIVE_SOURCE_IMAGES})
 LIVE_SOURCE_IMAGES="${LIVE_SOURCE_IMAGES}"
 EOF
+
+if [ "${CONFIG}" = "clone" ]
+then
+	# Read package selection
+	echo `dpkg --get-selections | awk '{ print $1 }'` > config/chroot_local-packageslists/local-system
+
+	# Read debconf questions
+	if [ ! -f /usr/bin/debconf-get-selections ]
+	then
+		Echo_warning "Please install 'debconf-utils' in order to use this feature."
+	else
+		debconf-get-selections | grep -v deinstall | cut -f1 > config/chroot_local-preseed/local-system
+	fi
+fi

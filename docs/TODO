@@ -14,8 +14,6 @@ FIXME
   * grub (i386/amd64) boot support on net binary images
   * multi-{binary,architecture,distribution} builds in one shot
   * check unset variables
-  * include capability for package lists
-  * add descriptions in package lists
   * signal handlers
   * parsable descriptions in helpers
   * add lilo support? :)

@@ -37,6 +37,9 @@ Require_stagefile .stage/bootstrap
 
 case "${1}" in
 	install)
+		# Restoring cache
+		Restore_cache cache/packages_linux-image
+
 		Echo_message "Configuring file /etc/kernel-img.conf"
 
 		# Checking stage file
@@ -84,6 +87,9 @@ EOF
 				Chroot "aptitude install --assume-yes ${PACKAGES}"
 				;;
 		esac
+
+		# Saving cache
+		Save_cache cache/packages_linux-image
 
 		# Creating stage file
 		Create_stagefile .stage/chroot_linux-image

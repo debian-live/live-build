@@ -1,3 +1,28 @@
+2007-06-25  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_local-hooks:
+	  - Added.
+	* helpers/lh_chroot_linux-image:
+	  - Caching downloaded packages.
+	* examples/hooks/qemu-launcher.sh:
+	  - Added.
+	* Uploaded 1.0~a16-1.
+
+2007-06-18  Chris Lamb  <chris@chris-lamb.co.uk>
+
+	* helpers/lh_chroot_packageslists, lh_chroot_local-packageslists:
+	  - Added support for '#<include>' pragma to include other list files.
+	* functions/packagelists.sh:
+	  - Added.
+	* lists/*:
+	  - Translated existing lists to be include-based, added a few missing
+	    lists.
+
+2007-06-18  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/*:
+	  - All cache operations use hardlinks now.
+
 2007-06-16  Daniel Baumann  <daniel@debian.org>
 
 	* helpers/lh_bootstrap_clone, lh_bootstrap_copy:

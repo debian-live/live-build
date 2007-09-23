@@ -1,3 +1,10 @@
+live-helper (1.0~a16-1) unstable; urgency=medium
+
+  * New upstream release:
+    - Caches also linux-image packages (Closes: #430511).
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 25 Jun 2007 00:00:00 +0200
+
 live-helper (1.0~a15-1) unstable; urgency=medium
 
   * New upstream release:
