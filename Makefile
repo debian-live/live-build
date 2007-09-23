@@ -9,7 +9,7 @@ install:
 
 	# Installing shared data
 	mkdir -p $(DESTDIR)/usr/share/live-helper
-	cp -r functions hooks includes lists templates $(DESTDIR)/usr/share/live-helper
+	cp -r examples functions hooks includes lists templates $(DESTDIR)/usr/share/live-helper
 
 	# Installing documentation
 	mkdir -p $(DESTDIR)/usr/share/doc/live-helper

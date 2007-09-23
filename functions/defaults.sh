@@ -16,7 +16,20 @@ Set_defaults ()
 	# Setting mode
 	if [ -z "${LH_MODE}" ]
 	then
-		LH_MODE="debian"
+		if [ -f /usr/bin/lsb_release ]
+		then
+			case "`lsb_release --short --id`" in
+				Debian)
+					LH_MODE="debian"
+					;;
+
+				Ubuntu)
+					LH_MODE="ubuntu"
+					;;
+			esac
+		else
+			LH_MODE="debian"
+		fi
 	fi
 
 	# Setting package manager
@@ -123,10 +136,23 @@ Set_defaults ()
 		LH_DEBCONF_PRIORITY="critical"
 	fi
 
+	if [ -z "${LH_DEBCONF_NOWARNINGS}" ]
+	then
+		LH_DEBCONF_NOWARNINGS="yes"
+	fi
+
 	# Setting genisoimage
 	if [ -z "${LH_GENISOIMAGE}" ]
 	then
-		LH_GENISOIMAGE="genisoimage"
+		case "${LH_MODE}" in
+			debian)
+				LH_GENISOIMAGE="genisoimage"
+				;;
+
+			ubuntu)
+				LH_GENISOIMAGE="mkisofs"
+				;;
+		esac
 	fi
 
 	# Setting losetup
@@ -202,7 +228,7 @@ Set_defaults ()
 	then
 		case "${LH_MODE}" in
 			debian)
-				LIVE_DISTRIBUTION="sid"
+				LIVE_DISTRIBUTION="etch"
 				;;
 
 			ubuntu)
@@ -407,25 +433,31 @@ Set_defaults ()
 	for LIST in ${LIVE_PACKAGES_LISTS}
 	do
 		case "${LIST}" in
+			mini|minimal)
+				LH_APT="apt-get"
+				;;
+
 			gnome-desktop)
 				LIVE_PACKAGES_LISTS="`echo ${LIVE_PACKAGES_LISTS} | sed -e 's/gnome-desktop//'` standard-x11"
-				LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/gnome-desktop//' -e 's/desktop//'` standard laptop desktop gnome-desktop"
+				LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/gnome-desktop//' -e 's/desktop//'` standard laptop gnome-desktop desktop"
 				;;
 
 			kde-desktop)
 				LIVE_PACKAGES_LISTS="`echo ${LIVE_PACKAGES_LISTS} | sed -e 's/kde-desktop//'` standard-x11"
-				LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/kde-desktop//' -e 's/desktop//'` standard laptop desktop kde-desktop"
+				LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/kde-desktop//' -e 's/desktop//'` standard laptop kde-desktop desktop"
 				;;
 
 			xfce-desktop)
 				LIVE_PACKAGES_LISTS="`echo ${LIVE_PACKAGES_LISTS} | sed -e 's/xfce-desktop//'` standard-x11"
-				LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/xfce-desktop//' -e 's/desktop//'` standard laptop desktop xfce-desktop"
+				LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/xfce-desktop//' -e 's/desktop//'` standard laptop xfce-desktop desktop"
 				;;
 		esac
 	done
 
 	LIVE_PACKAGES_LISTS="`echo ${LIVE_PACKAGES_LISTS} | sed -e 's/  //g'`"
 	LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/  //g'`"
+
+	# LIVE_HOOKS
 
 	# Setting security updates option
 	if [ -z "${LIVE_SECURITY}" ]
@@ -491,10 +523,10 @@ Set_defaults ()
 		LIVE_FILESYSTEM="squashfs"
 	fi
 
-	# Setting memtest86 option
-	if [ -z "${LIVE_MEMTEST86}" ]
+	# Setting memtest option
+	if [ -z "${LIVE_MEMTEST}" ]
 	then
-		LIVE_MEMTEST86="enabled"
+		LIVE_MEMTEST="memtest86+"
 	fi
 
 	# Setting iso volume
@@ -540,7 +572,15 @@ Set_defaults ()
 	# Setting grub
 	if [ -z "${LIVE_BOOTLOADER}" ]
 	then
-		LIVE_BOOTLOADER="syslinux"
+		case "${LIVE_ARCHITECTURE}" in
+			i386)
+				LIVE_BOOTLOADER="syslinux"
+				;;
+
+			powerpc)
+				LIVE_BOOTLOADER="yaboot"
+				;;
+		esac
 	fi
 
 	# Setting grub splash

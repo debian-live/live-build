@@ -4,14 +4,18 @@ Debian Live: Frequently Asked Questions (FAQ)
 Build Time
 ----------
 
+Q: Is live-helper/make-live Debian specific?
+A: live-helper supports Debian and Ubuntu right now. Adding automatic defaults
+   for other Debian derivatives is easy - let us know about them and we may
+   include it.
+
 Q: How do I drop in to a shell during make-live chroot process?
-A: Use "--interactive shell", then exit when you have made the setting changes
-   you want and the build process will continue.
+A: Use "--interactive shell", then exit with 'logout' when you have made the
+   setting changes you want and the build process will continue.
 
 Q: Where to set the username or the hostname?
 A: casper uses default username 'casper' and hostname 'live'. You can specify
-   them by passing 'username=' and 'hostname=' as kernel parameters (In previous
-   casper releases it was 'host=').
+   them by passing 'username=' and 'hostname=' as kernel parameters.
 
    live-helper automatically sets the username to 'user' and the hostname to
    'debian'. If you want to change this at build time, pass --username and
@@ -22,8 +26,8 @@ Run Time
 --------
 
 Q: What is the root password?
-A: There is none. You can switch to root with 'sudo -i' or set a password with
-   'sudo passwd'.
+A: There is none set. You can switch to root with 'sudo -i' or set a password
+   with 'sudo passwd'.
 
 Q: What is the user password?
 A: The password for the default user is 'live'.

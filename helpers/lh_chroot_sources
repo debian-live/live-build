@@ -36,16 +36,16 @@ Breakpoint "chroot_sources: Init"
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
-# Checking lock file
-Check_lockfile .lock
-
-# Creating lock file
-Create_lockfile .lock
-
 case "${1}" in
 	install)
 		# Checking stage file
 		Check_stagefile .stage/chroot_sources
+
+		# Checking lock file
+		Check_lockfile .lock
+
+		# Creating lock file
+		Create_lockfile .lock
 
 		# Configure custom sources.list
 		echo "deb ${LIVE_MIRROR_BUILD} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" > chroot/etc/apt/sources.list
@@ -57,7 +57,7 @@ case "${1}" in
 
 		if [ "${LIVE_SECURITY}" = "enabled" ]
 		then
-			if [ "${LIVE_DISTRIBUTION}" != "sid" ] && [ "${LIVE_DISTRIBUTION}" = "unstable" ]
+			if [ "${LIVE_DISTRIBUTION}" != "sid" ] && [ "${LIVE_DISTRIBUTION}" != "unstable" ]
 			then
 				echo "deb ${LIVE_MIRROR_BUILD_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 
@@ -76,7 +76,7 @@ case "${1}" in
 
 			for FILE in config/chroot_sources/*.build
 			do
-				cat ${FILE} >> chroot/etc/apt/sources.list
+				cat ${FILE} | grep -v "^##" >> chroot/etc/apt/sources.list
 			done
 		fi
 
@@ -103,7 +103,7 @@ case "${1}" in
 		fi
 
 		# Installing aptitude
-		if [ "${LH_APT}" = "apt" ]
+		if [ "${LH_APT}" = "apt" ] || [ "${LH_APT}" = "apt-get" ]
 		then
 			Chroot "apt-get update"
 		elif [ "${LH_APT}" = "aptitude" ]
@@ -129,6 +129,12 @@ case "${1}" in
 		;;
 
 	remove)
+		# Checking lock file
+		Check_lockfile .lock
+
+		# Creating lock file
+		Create_lockfile .lock
+
 		# Configure generic indices
 		if [ "${LH_APT_GENERIC}" = "enabled" ]
 		then
@@ -169,9 +175,9 @@ case "${1}" in
 				echo "" >> chroot/etc/apt/sources.list
 				echo "# Custom repositories" >> chroot/etc/apt/sources.list
 
-				for FILE in config/chroot_sources/*.image
+				for FILE in config/chroot_sources/*.build
 				do
-					cat ${FILE} >> chroot/etc/apt/sources.list
+					cat ${FILE} | grep -v "^##" >> chroot/etc/apt/sources.list
 				done
 			fi
 

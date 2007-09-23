@@ -42,14 +42,14 @@ Breakpoint "binary_encryption: Init"
 Require_stagefile .stage/bootstrap
 Require_stagefile .stage/binary_rootfs
 
+# Checking stage file
+Check_stagefile .stage/binary_encryption
+
 # Checking lock file
 Check_lockfile .lock
 
 # Creating lock file
 Create_lockfile .lock
-
-# Checking stage file
-Check_stagefile .stage/binary_encryption
 
 case "${LIVE_FILESYSTEM}" in
 	ext2)
@@ -57,7 +57,7 @@ case "${LIVE_FILESYSTEM}" in
 		;;
 
 	plain)
-		echo "W: encryption not supported on plain filesystem."
+		Echo_warning "encryption not supported on plain filesystem."
 		exit 0
 		;;
 

@@ -26,12 +26,14 @@ License:
 On Debian systems, the complete text of the GNU General Public License
 can be found in /usr/share/common-licenses/GPL file.
 
-License (contrib/syslinux-splash/*, templates/syslinux/splash.rle):
+License (contrib/grub-splash/*, contrib/syslinux-splash/*,
+templates/syslinux/splash.rle, templates/grub/splash.xpm.gz):
 
 	The splash for Debian Live was done by Daniel Baumann
-	<daniel@debian.org> based on the original work of Mark Riedesel. The
-	contribution of Daniel is hereby placed in the public domain (no rights
-	reserved).
+	<daniel@debian.org> based on the original work of Mark Riedesel.
+
+	The contribution of Daniel is hereby placed in the public domain (no
+	rights reserved).
 
 	---------------
 	http://dugnet.com/klown/pics/klowner_debboot.png

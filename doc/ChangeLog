@@ -1,3 +1,74 @@
+2007-04-16  Daniel Baumann  <daniel@debian.org>
+
+	* functions/defaults.sh:
+	  - Using lsb_release, if existing, to set default mode to ubuntu on
+	    ubuntu systems.
+	  - Moved desktop task to the end, so that gdm doesn't take
+	    gnome-session as default.
+	* helpers/lh_chroot_hooks:
+	  - Added simple --hooks for easy testing.
+	* Uploaded 1.0~a6-1.
+
+2007-04-15  Daniel Baumann  <daniel@debian.org>
+
+	* functions/defaults.sh:
+	  - Set LH_APT to apt-get when using mini or minimal.
+	* helpers/lh_chroot_sources:
+	  - Excluding comments from local sources lists.
+	* helpers/lh_bootstrap_cdebootstrap:
+	  - Removing imported configuration files by cdebootstrap.
+
+2007-04-13  Daniel Baumann  <daniel@debian.org>
+
+	* Moved examples from /usr/share/doc to /usr/share/live-helper.
+	* examples/bpo.sources.list:
+	  - Added.
+	* functions/defaults.sh:
+	  - Setting LH_GENISOIMAGE on ubuntu to legacy mkisofs.
+	* helpers/lh_clean:
+	  - Added missing removal of generic source.
+
+2007-04-12  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_config, make-live:
+	  - Adding --config.
+	* helpers/lh_binary_memtester86:
+	  - Renamed to lh_binary_memtest, made more generic.
+	* functions/defaults.sh:
+	  - Setting default distribution to etch until 2.6.20 has setteled in
+	    unstable.
+
+2007-04-11  Daniel Baumann  <daniel@debian.org>
+
+	* Merging from sidux fllbuilder 1.0.4:
+	  - functions/chroot: Added LH_DEBCONF_NOWARNINGS.
+	  - helpers/lh_chroot_linuximage: Added additional options to
+	    kernel-img.conf.
+	  - helpers/lh_chroot_proc: Made binfmt umount conditional.
+	* contrib/grub-splash/*, templates/grub/splash.xpm.gz:
+	  - Added.
+	* helpers/lh_binary_grub, lh_binary_syslinux:
+	  - Added failsafe kernel entries.
+	* helpers/lh_chroot_apt:
+	  - Using apt.conf.d also for apt, not just for aptitude.
+	  - Minor code cleanup.
+	* helpers/lh_source_*:
+	  - Minor code cleanup.
+	* helpers/lh_source_download:
+	  - Added LIVE_BOOTLOADER to the list of source packages.
+	* contrib/grub-splash/*, templates/grub/splash.xpm.gz:
+	  - Added.
+
+2007-04-10  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_includes, includes/*:
+	  - Redone.
+
+2007-04-09  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_yaboot, templates/yaboot:
+	  - Added.
+
 2007-04-09  Daniel Baumann  <daniel@debian.org>
 
 	* helpers/lh_config, make-live, functions/defaults.sh:
@@ -5,6 +76,7 @@
 	* helpers/lh_chroot_sources:
 	  - Added check for LIVE_MIRROR_BUILD* to be equal to
 	    LIVE_MIRROR_IMAGE*.
+	* Uploaded 1.0~a5-1.
 
 2007-04-08  Daniel Baumann  <daniel@debian.org>
 

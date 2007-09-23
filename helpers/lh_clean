@@ -58,7 +58,7 @@ case "${1}" in
 		umount -f chroot/dev/pts > /dev/null 2>&1 || true
 		umount -f chroot/dev > /dev/null 2>&1 || true
 
-		rm -rf chroot
+		rm -rf chroot chroot.tmp
 
 		if [ "${PURGE}" != "true" ] && [ -d cache/chroot_bootstrap ]
 		then
@@ -98,6 +98,7 @@ case "${1}" in
 	source)
 		rm -f source.iso
 		rm -f source.img
+		rm -f source*.tar
 		rm -f source*.tar.gz
 
 		rm -rf source

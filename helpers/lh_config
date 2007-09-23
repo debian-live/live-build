@@ -22,9 +22,25 @@ USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
 
+CONFIG="${1}"
+
 Echo_debug "Init ${PROGRAM}"
 
-if [ "${1}" != "newconfig" ]
+if [ -n "${LH_CONFIG}" ]
+then
+	if [ -d /usr/share/live-helper/configs/"${LH_CONFIG}" ]
+	then
+		mkdir "${LH_CONFIG}"
+		cp -r /usr/share/live-helper/configs/"${LH_CONFIG}" "${LH_CONFIG}"/config
+
+		LIVE_ROOT="${LH_CONFIG}"
+		CONFIG=""
+	else
+		Echo_error "Couldn't find config ${LH_CONFIG} in /usr/share/live-helper/configs/."
+	fi
+fi
+
+if [ "${CONFIG}" != "newconfig" ]
 then
 	# Source existing configuration
 	Read_conffile "${LIVE_ROOT}"/config/common
@@ -39,7 +55,7 @@ Set_defaults
 Breakpoint "config: Init"
 
 # Creating configuration directory
-install -d -m 0755 "${LIVE_ROOT}"/config || true
+mkdir -p "${LIVE_ROOT}"/config
 
 # Creating live-helper configuration
 cat > "${LIVE_ROOT}"/config/common << EOF
@@ -93,6 +109,10 @@ LH_DEBCONF_FRONTEND="${LH_DEBCONF_FRONTEND}"
 # (Default: ${LH_DEBCONF_PRIORITY})
 LH_DEBCONF_PRIORITY="${LH_DEBCONF_PRIORITY}"
 
+# \$LH_DEBCONF_NOWARNINGS: set debconf(1) warnings
+# (Default: ${LH_DEBCONF_NOWARNINGS})
+LH_DEBCONF_NOWARNINGS="${LH_DEBCONF_NOWARNINGS}"
+
 # \$LH_GENISOIMAGE: set the genisoimage program
 # (Default: ${LH_GENISOIMAGE})
 LH_GENISOIMAGE="${LH_GENISOIMAGE}"
@@ -144,6 +164,10 @@ LIVE_KERNEL_PACKAGES="${LIVE_KERNEL_PACKAGES}"
 # (Default: empty)
 LIVE_KEYRING_PACKAGES="${LIVE_KEYRING_PACKAGES}"
 
+# \$LIVE_HOOKS: set hook commands
+# (Default: empty)
+LIVE_HOOKS="${LIVE_HOOKS}"
+
 # \$LIVE_LANGUAGE: set the language to use
 # (Default: empty)
 LIVE_LANGUAGE="${LIVE_LANGUAGE}"
@@ -178,11 +202,11 @@ LIVE_INTERACTIVE="${LIVE_INTERACTIVE}"
 EOF
 
 # Creating lh_chroot_* directories
-install -d -m 0755 "${LIVE_ROOT}"/config/chroot_localhooks || true
-install -d -m 0755 "${LIVE_ROOT}"/config/chroot_localincludes || true
-install -d -m 0755 "${LIVE_ROOT}"/config/chroot_localpackages || true
-install -d -m 0755 "${LIVE_ROOT}"/config/chroot_localpackageslists || true
-install -d -m 0755 "${LIVE_ROOT}"/config/chroot_sources || true
+mkdir -p "${LIVE_ROOT}"/config/chroot_localhooks
+mkdir -p "${LIVE_ROOT}"/config/chroot_localincludes
+mkdir -p "${LIVE_ROOT}"/config/chroot_localpackages
+mkdir -p "${LIVE_ROOT}"/config/chroot_localpackageslists
+mkdir -p "${LIVE_ROOT}"/config/chroot_sources
 
 # Creating lh_bootstrap_* configuration
 cat > "${LIVE_ROOT}"/config/bootstrap << EOF
@@ -249,9 +273,9 @@ LIVE_HOSTNAME="${LIVE_HOSTNAME}"
 # (Default: ${LIVE_FILESYSTEM})
 LIVE_FILESYSTEM="${LIVE_FILESYSTEM}"
 
-# \$LIVE_MEMTEST86: set memtest86+
-# (Default: ${LIVE_MEMTEST86})
-LIVE_MEMTEST86="${LIVE_MEMTEST86}"
+# \$LIVE_MEMTEST: set memtest
+# (Default: ${LIVE_MEMTEST})
+LIVE_MEMTEST="${LIVE_MEMTEST}"
 
 # \$LIVE_ISO_VOLUME: set iso volume
 # (Default: ${LIVE_ISO_VOLUME})
@@ -299,4 +323,4 @@ LIVE_TEMPLATES="${LIVE_TEMPLATES}"
 EOF
 
 # Creating lh_binary_* directories
-install -d -m 0755 "${LIVE_ROOT}"/config/binary_localincludes || true
+mkdir -p "${LIVE_ROOT}"/config/binary_localincludes

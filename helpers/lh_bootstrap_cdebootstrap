@@ -137,6 +137,11 @@ then
 		Chroot "dpkg -P cdebootstrap-helper-diverts"
 	fi
 
+	# Deconfiguring cdebootstrap configurations
+	rm -f chroot/etc/apt/sources.list
+	rm -f chroot/etc/hosts
+	rm -f chroot/etc/resolv.conf
+
 	# Removing bootstrap cache
 	if [ -d chroot/var/cache/bootstrap ]
 	then
@@ -157,6 +162,6 @@ then
 	# Creating stage file
 	Create_stagefile .stage/bootstrap
 else
-	echo "E: Can't process file /usr/bin/cdebootstrap (FIXME)"
+	Echo_error "Can't process file /usr/bin/cdebootstrap (FIXME)"
 	exit 1
 fi

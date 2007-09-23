@@ -66,3 +66,8 @@ then
 	# Creating stage file
 	Create_stagefile .stage/chroot_hooks
 fi
+
+if [ -n "${LIVE_HOOKS}" ]
+then
+	LIVE_DEBCONF_FRONTEND="readline" LIVE_DEBCONF_PRIORITY="low" LIVE_DEBCONF_NOWARNINGS="no" Chroot "${LIVE_HOOKS}"
+fi

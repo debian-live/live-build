@@ -33,31 +33,33 @@ Set_defaults
 
 Breakpoint "source_md5sum: Init"
 
-if [ "${LIVE_SOURCE}" = "enabled" ]
+if [ "${LIVE_SOURCE}" != "enabled" ]
 then
-	# Requiring stage file
-	Require_stagefile .stage/source_download
-
-	# Checking lock file
-	Check_lockfile .lock
-
-	# Creating lock file
-	Create_lockfile .lock
-
-	# Checking stage file
-	Check_stagefile .stage/source_md5sum
-
-	# Remove old md5sums
-	if [ -f source/md5sum.txt ]
-	then
-		rm -f source/md5sum.txt
-	fi
-
-	# Calculating md5sums
-	cd source
-	find . -type f -print0 | xargs -0 md5sum > md5sum.txt
-	cd "${OLDPWD}"
-
-	# Creating stage file
-	Create_stagefile .stage/source_md5sum
+	exit 0
 fi
+
+# Requiring stage file
+Require_stagefile .stage/source_download
+
+# Checking stage file
+Check_stagefile .stage/source_md5sum
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+# Remove old md5sums
+if [ -f source/md5sum.txt ]
+then
+	rm -f source/md5sum.txt
+fi
+
+# Calculating md5sums
+cd source
+find . -type f -print0 | xargs -0 md5sum > md5sum.txt
+cd "${OLDPWD}"
+
+# Creating stage file
+Create_stagefile .stage/source_md5sum
