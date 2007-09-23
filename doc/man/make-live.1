@@ -11,6 +11,8 @@ make-live \- utility to build Debian Live systems
 .IR KERNEL_PARAMETER \||\| \|"KERNEL_PARAMETERS\|" \|]
 .RB [\| \-\-config
 .IR FILE \|]
+.RB [\| \-\-clone
+.IR DIRECTORY \|]
 .RB [\| \-c \||\| \-\-chroot
 .IR DIRECTORY \|]
 .RB [\| \-d \||\| \-\-distribution
@@ -35,6 +37,8 @@ make-live \- utility to build Debian Live systems
 .IR URL \|]
 .RB [\| \-\-packages
 .IR PACKAGE \||\| \|"PACKAGES\|" \|]
+.RB [\| \-\-preseed
+.IR FILE \|]
 .RB [\| \-p \||\| \-\-package-list
 .IR LIST \||\| FILE \|]
 .RB [\| \-\-proxy-ftp
@@ -81,6 +85,12 @@ passes kernel parameters to the bootloader, e.g. 'quiet' or 'vga=792' etc. Inste
 .BI "\-\-config " FILE
 uses another configuration file in addition to the default one. Settings in the additional configuration file do overwrite the settings from /etc/make-live.conf. Instead of this flag, the environment variable LIVE_CONFIG can be used (Default: /etc/make-live.conf).
 .TP
+.BI "\-\-clone " DIRECTORY
+Clones the package selection and configuration from a given root directory. It
+will output the settings to $LIVE_ROOT/preseed.cloned and $LIVE_ROOT/plist.clone
+for easy reuse with \-\-preseed and \-\-package-list. Instead of this flag, the
+environment variable LIVE_CLONE can be used.
+.TP
 .BI "\-c, \-\-chroot " DIRECTORY
 specifies the chroot directory. Instead of this flag, the environment variable LIVE_CHROOT (Default: $LIVE_ROOT/chroot").
 .TP
@@ -119,6 +129,10 @@ specifies a list of packages to install into the chroot. Instead of this flag, t
 .TP
 .BI "\-p, \-\-package-list " FILE
 specifies an external package list file, one package for each line. It overrides list option. Instead of this flag, the environment variable LIVE_PACKAGE_LIST can be used (Default: standard).
+.TP
+.BI "\-\-preseed " FILE
+clone the packages selection and configuration from the provided
+root directory.
 .TP
 .BI "\-\-proxy-ftp " URL
 specifies the value of ftp_proxy inside the chrooted environment. Instead of this flag, the environment variable LIVE_PROXY_FTP can be used (Default: empty).
@@ -189,7 +203,7 @@ works fully on amd64 and i386, partially on alpha, hppa, ia64, mips, mipsel, pow
 Debian Live project <http://live.debian.net/>
 
 .SH SEE ALSO
-.BR make-live.conf(8)
+.BR make-live.conf(5)
 
 .SH AUTHOR
 make-live was written by Daniel Baumann <daniel@debian.org> and Marco Amadori

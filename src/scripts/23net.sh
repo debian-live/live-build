@@ -25,7 +25,9 @@ Net ()
 		
 		for MANIFEST in "${LIVE_ROOT}"/filesystem.manifest*
 		do
-			mv "${MANIFEST}" "${LIVE_ROOT}"/binary/casper/
+			if [ -e "${MANIFEST}" ]; then
+				mv "${MANIFEST}" "${LIVE_ROOT}"/binary/casper/
+			fi
 		done
 
 		# Mount proc

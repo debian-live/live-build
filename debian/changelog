@@ -1,3 +1,11 @@
+live-package (0.99.12-1) unstable; urgency=medium
+
+  * New upstream release.
+    - Reverted mangling of LIVE_DISTRIBUTION for sources.list generation
+      (Closes: #394226).
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 23 Oct 2006 00:00:00 +0200
+
 live-package (0.99.11-1) unstable; urgency=medium
 
   * New upstream release.

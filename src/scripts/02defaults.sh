@@ -54,33 +54,12 @@ Defaults ()
 	if [ -z "${LIVE_DISTRIBUTION}" ]
 	then
 		LIVE_DISTRIBUTION="testing"
-	else
-		case "${LIVE_DISTRIBUTION}" in
-			"${CODENAME_OLDSTABLE}")
-				LIVE_DISTRIBUTION="oldstable"
-				;;
+	fi
 
-			"${CODENAME_STABLE}")
-				LIVE_DISTRIBUTION="stable"
-				;;
-
-			"${CODENAME_TESTING}")
-				LIVE_DISTRIBUTION="testing"
-				;;
-
-			"${CODENAME_UNSTABLE}")
-				LIVE_DISTRIBUTION="unstable"
-				;;
-
-			experimental)
-				LIVE_DISTRIBUTION="unstable"
-				LIVE_DISTRIBUTION_EXPERIMENTAL="yes"
-				;;
-
-			*)
-				LIVE_DISTRIBUTION="unstable"
-				;;
-		esac
+	if [ "${LIVE_DISTRIBUTION}" = "experimental" ]
+	then
+		LIVE_DISTRIBUTION="unstable"
+		LIVE_DISTRIBUTION_EXPERIMENTAL="yes"
 	fi
 
 	# Set bootstrap flavour
@@ -161,6 +140,12 @@ Defaults ()
 		esac
 	fi
 
+	# Set kernel packages
+	if [ -z "${LIVE_KERNEL_PACKAGES}" ]
+	then
+		LIVE_KERNEL_PACKAGES="linux-image-2.6-${LIVE_KERNEL} squashfs-modules-2.6-${LIVE_KERNEL} unionfs-modules-2.6-${LIVE_KERNEL}"
+	fi
+
 	# Set debian mirror
 	if [ -z "${LIVE_MIRROR}" ]
 	then
@@ -191,6 +176,32 @@ Defaults ()
 			else
 				LIVE_PACKAGE_LIST="${BASE}/lists/standard"
 			fi
+		fi
+	fi
+
+	# Set FTP proxy
+	if [ -z "${LIVE_PROXY_FTP}" ] && [ -n "${ftp_proxy}" ]
+	then
+		LIVE_PROXY_FTP="${ftp_proxy}"
+		export LIVE_PROXY_FTP
+	else
+		if [ -n "${LIVE_PROXY_FTP}" ] && [ "${LIVE_PROXY_FTP}" != "${ftp_proxy}" ]
+		then
+			ftp_proxy="${LIVE_PROXY_FTP}"
+			export ftp_proxy
+		fi
+	fi
+
+	# Set HTTP proxy
+	if [ -z "${LIVE_PROXY_HTTP}" ] && [ -n "${http_proxy}" ]
+	then
+		LIVE_PROXY_HTTP="${http_proxy}"
+		export LIVE_PROXY_HTTP
+	else
+		if [ -n "${LIVE_PROXY_HTTP}" ] && [ "${LIVE_PROXY_HTTP}" != "${http_proxy}" ]
+		then
+			http_proxy="${LIVE_PROXY_HTTP}"
+			export http_proxy
 		fi
 	fi
 

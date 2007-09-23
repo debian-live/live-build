@@ -13,25 +13,21 @@ Bootstrap ()
 {
 	if [ ! -f "${LIVE_ROOT}"/.stage/bootstrap ]
 	then
-		# Use proxy
-		if [ -n "${LIVE_PROXY_FTP}" ] && [ -z "${ftp_proxy}" ]
-		then
-			export ftp_proxy="${LIVE_PROXY_FTP}"
-		fi
-
-		if [ -n "${LIVE_PROXY_HTTP}" ] && [ -z "${http_proxy}" ]
-		then
-			export http_proxy="${LIVE_PROXY_HTTP}"
-		fi
-
 		# Create chroot directory
 		if [ ! -d "${LIVE_CHROOT}" ]
 		then
 			mkdir -p "${LIVE_CHROOT}"
 		fi
 
+		if [ -n "${LIVE_BOOTSTRAP_CONFIG}" ]; then
+			SUITE_CONFIG="--suite-config ${LIVE_BOOTSTRAP_CONFIG}"
+		fi 
+
 		# Bootstrap system
-		cdebootstrap --arch="${LIVE_ARCHITECTURE}" --flavour="${LIVE_FLAVOUR}" "${LIVE_DISTRIBUTION}" "${LIVE_CHROOT}" "${LIVE_MIRROR}"
+		cdebootstrap --arch="${LIVE_ARCHITECTURE}" --flavour="${LIVE_FLAVOUR}" ${SUITE_CONFIG} "${LIVE_DISTRIBUTION}" "${LIVE_CHROOT}" "${LIVE_MIRROR}"
+
+		# Remove unused packages
+		Chroot_exec "apt-get remove --purge --yes cdebootstrap-helper-diverts"
 
 		# Remove package cache
 		rm -rf "${LIVE_CHROOT}"/var/cache/bootstrap
