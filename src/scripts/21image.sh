@@ -215,6 +215,9 @@ Syslinux ()
 
 Linuximage ()
 {
+	# Removing initrd backup files
+	rm -f "${LIVE_CHROOT}"/boot/initrd*bak*
+
 	case "${1}" in
 		iso)
 			# Copy linux-image

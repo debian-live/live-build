@@ -1,3 +1,9 @@
+live-package (0.99.14-2) unstable; urgency=high
+
+  * Adding workaround for initrd backup files (Closes: #404314).
+
+ -- Daniel Baumann <daniel@debian.org>  Thu,  4 Jan 2007 20:52:00 +0100
+
 live-package (0.99.14-1) unstable; urgency=medium
 
   * New upstream release:
