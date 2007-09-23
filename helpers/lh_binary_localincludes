@@ -53,6 +53,12 @@ then
 	find . | cpio -dmpu "${OLDPWD}"/binary
 	cd "${OLDPWD}"
 
+	# Removing symlinks
+	if [ "${LIVE_BINARY_IMAGE}" = "usb-hdd" ]
+	then
+		find binary -type l | xargs rm -f
+	fi
+
 	# Creating stage file
 	Create_stagefile .stage/binary_localincludes
 fi

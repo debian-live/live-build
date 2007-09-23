@@ -158,23 +158,23 @@ LIVE_TEMPLATES="${LIVE_TEMPLATES}"
 
 # \$LH_BREAKPOINTS: enable breakpoints
 # (Default: ${LH_BREAKPOINTS})
-LH_BREAKPOINTS="${LH_BREAKPOINTS}"
+#LH_BREAKPOINTS="${LH_BREAKPOINTS}"
 
 # \$LH_DEBUG: enable debug
 # (Default: ${LH_DEBUG})
-LH_DEBUG="${LH_DEBUG}"
+#LH_DEBUG="${LH_DEBUG}"
 
 # \$LH_FORCE: enable force
 # (Default: ${LH_FORCE})
-LH_FORCE="${LH_FORCE}"
+#LH_FORCE="${LH_FORCE}"
 
 # \$LH_QUIET: enable quiet
 # (Default: ${LH_QUIET})
-LH_QUIET="${LH_QUIET}"
+#LH_QUIET="${LH_QUIET}"
 
 # \$LH_VERBOSE: enable verbose
 # (Default: ${LH_VERBOSE})
-LH_VERBOSE="${LH_VERBOSE}"
+#LH_VERBOSE="${LH_VERBOSE}"
 EOF
 
 # Creating lh_chroot_* configuration
