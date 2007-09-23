@@ -47,7 +47,7 @@ Set_defaults ()
 				;;
 
 			ubuntu)
-				LH_DISTRIBUTION="gutsy"
+				LH_DISTRIBUTION="feisty"
 				;;
 		esac
 	fi
@@ -115,7 +115,7 @@ Set_defaults ()
 			;;
 
 			ubuntu)
-				if [ -x "/usr/sbin/debootstrap" ] && [ -f /usr/lib/debootstrap/scripts/gutsy ]
+				if [ -x "/usr/sbin/debootstrap" ] && [ -f /usr/lib/debootstrap/scripts/feisty ]
 				then
 					LH_BOOTSTRAP="debootstrap"
 				elif [ -x "/usr/bin/cdebootstrap" ] && [ -d /usr/share/cdebootstrap/generic-ubuntu ]
