@@ -64,6 +64,12 @@ do_initrd = Yes
 warn_initrd = No
 EOF
 
+		# Diverting update-initramfs
+		#if [ "${LH_INITRAMFS}" = "live-initramfs" ]
+		#then
+		#	mv chroot/usr/sbin/update-initramfs chroot/usr/sbin/update-initramfs.live-helper
+		#fi
+
 		if [ "${LIVE_LINUX_PACKAGES}" != "none" ]
 		then
 			for FLAVOUR in ${LIVE_LINUX_FLAVOURS}

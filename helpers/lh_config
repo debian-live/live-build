@@ -357,6 +357,14 @@ LIVE_ISO_VOLUME="${LIVE_ISO_VOLUME}"
 # (Default: ${LIVE_MEMTEST})
 LIVE_MEMTEST="${LIVE_MEMTEST}"
 
+# \$LIVE_NET_FILESYSTEM: set netboot filesystem
+# (Default: ${LIVE_NET_FILESYSTEM})
+LIVE_NET_FILESYSTEM="${LIVE_NET_FILESYSTEM}"
+
+# \$LIVE_NET_MOUNTOPTIONS: set nfsopts
+# (Default: empty)
+LIVE_NET_MOUNTOPTIONS="${LIVE_NET_MOUNTOPTIONS}"
+
 # \$LIVE_NET_PATH: set netboot server directory
 # (Default: ${LIVE_NET_PATH})
 LIVE_NET_PATH="${LIVE_NET_PATH}"

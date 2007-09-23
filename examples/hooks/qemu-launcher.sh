@@ -6,4 +6,9 @@
 # To enable it, copy this hook into your config/binary_local-hooks directory.
 
 cd binary
+
 wget http://www.klabs.be/~fpiat/projects/autorun4linuxCD/autorun4linuxCD.tar.gz
+tar xfz autorun4linuxCD.tar.gz
+rm -f autorun4linuxCD.tar.gz
+
+cd "${OLDPWD}"

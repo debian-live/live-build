@@ -1,3 +1,10 @@
+live-helper (1.0~a18-1) unstable; urgency=medium
+
+  * New upstream release:
+    - Dropping transitional package, not needed anymore.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon,  9 Jul 2007 00:00:00 +0200
+
 live-helper (1.0~a17-1) unstable; urgency=medium
 
   * New upstream release.

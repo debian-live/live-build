@@ -116,7 +116,6 @@ then
 	cp -r ${CP_OPTIONS} "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live."${ARCH}"/* binary
 fi
 
-
 if [ "${LIVE_DEBIAN_INSTALLER}" != "disabled" ]
 then
 	# Copying install templates
@@ -160,6 +159,14 @@ then
 	sed -i -e "s#DEBIAN_NAME#${DEBIAN_NAME}#g" -e "s/DEBIAN_DATE/${DEBIAN_DATE}/g" -e "s#DEBIAN_TOOLS#${DEBIAN_TOOLS_HTML}#g" binary/README.html
 	sed -i -e "s#DEBIAN_NAME#${DEBIAN_NAME}#g" -e "s/DEBIAN_DATE/${DEBIAN_DATE}/g" -e "s#DEBIAN_TOOLS#${DEBIAN_TOOLS_TXT}#g" binary/README.txt
 fi
+
+# Cleaning up includes
+if [ -e binary/parameters.txt.${LH_INITRAMFS} ]
+then
+	mv binary/parameters.txt.${LH_INITRAMFS} binary/parameters.txt
+fi
+
+rm -f binary/parameters.txt.*
 
 # Creating stage file
 Create_stagefile .stage/binary_includes

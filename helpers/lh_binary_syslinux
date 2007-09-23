@@ -63,7 +63,7 @@ Check_package chroot/usr/bin/syslinux syslinux
 # Installing depends
 Install_package
 
-# Local methods
+# Local functions
 Syslinux_live_entry ()
 {
 	LABEL="${1}"
@@ -71,17 +71,17 @@ Syslinux_live_entry ()
 	INITRD="${3}"
 	APPEND="${4}"
 
-	# pxelinux and syslinux << 3.36 lacks support to file/path
-	if [ "${LIVE_BINARY_IMAGES}" != "net" ] && [ "${DIRECTORY}" != "binary" ]
+	# syslinux << 3.36 lacks support to file/path
+	if [ "${LIVE_BINARY_IMAGES}" != "net" ] && [ "`basename ${DESTDIR_LIVE}`" != "binary" ]
 	then
-		DIRECTORY="/`basename ${DESTDIR_LIVE}`"
+		DIRECTORY="`basename ${DESTDIR_LIVE}`"
 		KERNEL="${DIRECTORY}/${KERNEL}"
 		INITRD="${DIRECTORY}/${INITRD}"
 	fi
 
 	LINUX_LIVE="${LINUX_LIVE}\nLABEL ${LABEL}\n"
-	LINUX_LIVE="${LINUX_LIVE}\tkernel ${KERNEL}\n"
-	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=${INITRD} boot=${INITFS} LIVE_BOOTAPPEND ${APPEND}\n"
+	LINUX_LIVE="${LINUX_LIVE}\tkernel /${KERNEL}\n"
+	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=/${INITRD} boot=${INITFS} LIVE_BOOTAPPEND ${APPEND}\n"
 }
 
 Syslinux_install_entry ()
@@ -91,17 +91,23 @@ Syslinux_install_entry ()
 	INITRD="${3}"
 	APPEND="${4}"
 
-	# pxelinux and syslinux << 3.36 lacks support to file/path
-	if [ "${LIVE_BINARY_IMAGES}" != "net" ] && [ "${DIRECTORY}" != "binary" ]
+	# syslinux << 3.36 lacks support to file/path
+	if [ "${LIVE_BINARY_IMAGES}" != "net" ] && [ "`basename ${DESTDIR_INSTALL}`" != "binary" ]
 	then
-		DIRECTORY="/`basename ${DESTDIR_INSTALL}`"
+		DIRECTORY="`basename ${DESTDIR_INSTALL}`"
 		KERNEL="${DIRECTORY}/${KERNEL}"
 		INITRD="${DIRECTORY}/${INITRD}"
 	fi
 
+	# Boot in quiet mode
+	if [ "${LIVE_DISTRIBUTION}" != "etch" ] && [ "${LABEL}" != "rescue" ] && [ "${LABEL}" != "rescuegui" ]
+	then
+		APPEND="${APPEND} quiet"
+	fi
+
 	LINUX_INSTALL="${LINUX_INSTALL}\nLABEL ${LABEL}\n"
-	LINUX_INSTALL="${LINUX_INSTALL}\tkernel ${KERNEL}\n"
-	LINUX_INSTALL="${LINUX_INSTALL}\tappend initrd=${INITRD} ${APPEND} --\n"
+	LINUX_INSTALL="${LINUX_INSTALL}\tkernel /${KERNEL}\n"
+	LINUX_INSTALL="${LINUX_INSTALL}\tappend initrd=/${INITRD} ${APPEND} --\n"
 }
 
 case "${LH_INITRAMFS}" in
@@ -148,7 +154,7 @@ case "${LIVE_BINARY_IMAGES}" in
 
 		DESTDIR_INSTALL="binary/install"
 
-		# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
+		# syslinux << 3.36 lacks support for long file/path
 		if [ "${LIVE_DISTRIBUTION}" = "etch" ]
 		then
 			DESTDIR_LIVE="binary"
@@ -157,25 +163,7 @@ case "${LIVE_BINARY_IMAGES}" in
 		;;
 esac
 
-# Temporary check for broken syslinux
-if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
-then
-	# Assembling multi-arch
-	if [ -n "${MULTIARCH}" ]
-	then
-		case "${LIVE_ARCHITECTURE}" in
-			amd64)
-				DESTDIR_LIVE="${DESTDIR_LIVE}.amd"
-				DESTDIR_INSTALL="${DESTDIR_INSTALL}.amd"
-				;;
-
-			i386)
-				DESTDIR_LIVE="${DESTDIR_LIVE}.386"
-				DESTDIR_INSTALL="${DESTDIR_INSTALL}.386"
-				;;
-		esac
-	fi
-fi
+Check_multiarchitecture
 
 # Creating directory
 mkdir -p "${DESTDIR_LIVE}"
@@ -223,6 +211,29 @@ then
 	LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} union=${LIVE_UNION_FILESYSTEM}"
 fi
 
+if [ "${LIVE_BINARY_IMAGES}" = "net" ]
+then
+	case "${LIVE_NET_FILESYSTEM}" in
+		nfs)
+			LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} netboot=nfs nfsroot=LIVE_NET_SERVER:LIVE_NET_PATH"
+			;;
+
+		cifs)
+			LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} netboot=cifs nfsroot=//LIVE_NET_SERVERLIVE_NET_PATH"
+			;;
+
+		*)
+			Echo_error "Unsupported net filesystem"
+			exit 1
+			;;
+	esac
+
+	if [ -n "${LIVE_NET_MOUNTOPTIONS}" ]
+	then
+		LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} nfsopts=${LIVE_NET_MOUNTOPTIONS}"
+	fi
+fi
+
 LIVE_BOOTAPPEND="`echo ${LIVE_BOOTAPPEND} | sed -e 's/  //'`"
 
 # Parameters are listed at: linux/Documentation/kernel-parameters.txt
@@ -240,7 +251,7 @@ Syslinux_live_entry "live-failsafe" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}" "${F
 
 if [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
 then
-	for KERNEL in chroot/boot/vmlinuz*
+	for KERNEL in chroot/boot/vmlinuz-*
 	do
 		KERNEL_IMAGE="`basename ${KERNEL}`"
 		KERNEL_VERSION="`echo ${KERNEL_IMAGE} | sed -e 's/vmlinuz-//'`"
@@ -284,8 +295,8 @@ then
 	Syslinux_install_entry "expertgui" "${VMLINUZ_GI}" "${INITRD_GI}" "priority=low ${APPEND_GI}"
 	Syslinux_install_entry "rescue" "${VMLINUZ_DI}" "${INITRD_DI}" "rescue/enable=true ${APPEND_DI}"
 	Syslinux_install_entry "rescuegui" "${VMLINUZ_GI}" "${INITRD_GI}" "rescue/enable=true ${APPEND_GI}"
-	Syslinux_install_entry "auto" "${VMLINUZ_DI}" "${INITRD_DI}" "auto=true ${APPEND_DI}"
-	Syslinux_install_entry "autogui" "${VMLINUZ_GI}" "${INITRD_GI}" "auto=true ${APPEND_GI}"
+	Syslinux_install_entry "auto" "${VMLINUZ_DI}" "${INITRD_DI}" "auto=true priority=critical ${APPEND_DI}"
+	Syslinux_install_entry "autogui" "${VMLINUZ_GI}" "${INITRD_GI}" "auto=true priority=critical ${APPEND_GI}"
 fi
 
 LINUX_INSTALL="`echo ${LINUX_INSTALL} | sed -e 's/binary//g' -e 's#//#/#g'`"
@@ -295,13 +306,13 @@ if [ -f "${DESTDIR_LIVE}"/memtest ]
 then
 	KERNEL_PATH="/`basename ${DESTDIR_LIVE}`/"
 
-	# pxelinux and syslinux << 3.36 lacks support to file/path
-	if [ "${LIVE_BINARY_IMAGES}" = "net" ] || [ "`basename ${DESTDIR_LIVE}`" = "binary" ]
+	# syslinux << 3.36 lacks support to file/path
+	if [ "`basename ${DESTDIR_LIVE}`" = "binary" ]
 	then
 		KERNEL_PATH=""
 	fi
 
-	MEMTEST="LABEL ${KERNEL_PATH}memtest\n\tkernel memtest"
+	MEMTEST="LABEL memtest\n\tkernel ${KERNEL_PATH}memtest"
 	MEMTEST="`echo ${MEMTEST} | sed -e 's#//#/#g'`"
 fi
 
@@ -311,6 +322,13 @@ case "${LIVE_BINARY_IMAGES}" in
 		mkdir -p binary/isolinux
 		cp chroot/usr/lib/syslinux/isolinux.bin binary/isolinux
 		cp -r "${LIVE_TEMPLATES}"/syslinux/* binary/isolinux
+		mv binary/isolinux/syslinux.cfg binary/isolinux/isolinux.cfg
+
+		# Copying local configuration file
+		if [ -f config/binary_syslinux/syslinux.cfg ]
+		then
+			cp config/binary_syslinux/syslinux.cfg binary/isolinux/isolinux.cfg
+		fi
 
 		# Copying splash screen
 		if [ -f config/binary_syslinux/splash.rle ]
@@ -334,9 +352,6 @@ case "${LIVE_BINARY_IMAGES}" in
 		sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" binary/isolinux/isolinux.cfg
 		sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" binary/isolinux/f1.txt
 		sed -i -e "s/LIVE_VERSION/${VERSION}/" binary/isolinux/f10.txt
-
-		# Remove unused files
-		rm -f binary/isolinux/pxelinux.cfg
 
 		# Working arround syslinux 8.3 limitation
 		if [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
@@ -366,12 +381,17 @@ case "${LIVE_BINARY_IMAGES}" in
 	net)
 		# Copying syslinux
 		cp chroot/usr/lib/syslinux/pxelinux.0 tftpboot
-
-		# Install syslinux templates
 		mkdir -p tftpboot/pxelinux.cfg
 		cp -r "${LIVE_TEMPLATES}"/syslinux/* tftpboot/pxelinux.cfg
-		mv tftpboot/pxelinux.cfg/pxelinux.cfg tftpboot/pxelinux.cfg/default
-		sed -i -e 's#splash.rle#pxelinux.cfg/splash.rle#' tftpboot/pxelinux.cfg/boot.txt
+		mv tftpboot/pxelinux.cfg/syslinux.cfg tftpboot/pxelinux.cfg/default
+
+		# Copying local configuration file
+		if [ -f config/binary_syslinux/syslinux.cfg ]
+		then
+			cp config/binary_syslinux/syslinux.cfg tftpboot/pxelinux.cfg/default
+		fi
+
+		#sed -i -e 's#splash.rle#pxelinux.cfg/splash.rle#' tftpboot/pxelinux.cfg/boot.txt
 
 		# Copying splash screen
 		if [ -f config/binary_syslinux/splash.rle ]
@@ -392,34 +412,20 @@ case "${LIVE_BINARY_IMAGES}" in
 
 		# Configure syslinux templates
 		sed -i -e "s@LINUX_LIVE@${LINUX_LIVE}@" -e "s@LINUX_INSTALL@${LINUX_INSTALL}@" -e "s@MEMTEST@${MEMTEST}@" tftpboot/pxelinux.cfg/default
-		sed -i -e "s/LIVE_NET_SERVER/${LIVE_NET_SERVER}/" -e "s#LIVE_NET_PATH#${LIVE_NET_PATH}#" -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" tftpboot/pxelinux.cfg/default
+		sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" -e "s/LIVE_NET_SERVER/${LIVE_NET_SERVER}/" -e "s#LIVE_NET_PATH#${LIVE_NET_PATH}#" tftpboot/pxelinux.cfg/default
 		sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" tftpboot/pxelinux.cfg/f1.txt
 		sed -i -e "s/LIVE_VERSION/${VERSION}/" tftpboot/pxelinux.cfg/f10.txt
 
-		# Remove unused files
-		rm -f tftpboot/pxelinux.cfg/isolinux.cfg
-
 		# Working arround syslinux 8.3 limitation
-		if [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
+		if [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -eq "1" ]
 		then
-			NUMBER="0"
-
-			for FLAVOUR in ${LIVE_LINUX_FLAVOURS}
-			do
-				NUMBER="$(($NUMBER + 1))"
-
-				mv "${DESTDIR_LIVE}"/vmlinuz-*-${FLAVOUR} "${DESTDIR_LIVE}"/vmlinuz${NUMBER}
-				mv "${DESTDIR_LIVE}"/initrd.img-*-${FLAVOUR} "${DESTDIR_LIVE}"/initrd${NUMBER}.img
-				sed -i -e "s/vmlinuz-.*-${FLAVOUR}$/vmlinuz${NUMBER}/g" -e "s/initrd.img-.*-${FLAVOUR} /initrd${NUMBER}.img /g" binary/isolinux/isolinux.cfg
-			done
-		else
 			mv "${DESTDIR_LIVE}"/vmlinuz-*-${LIVE_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/vmlinuz
 			mv "${DESTDIR_LIVE}"/initrd.img-*-${LIVE_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/initrd.img
-			sed -i -e "s/vmlinuz-.*-${LIVE_LINUX_FLAVOURS}/vmlinuz/g" -e "s/initrd.img-.*-${LIVE_LINUX_FLAVOURS}/initrd.img/g" binary/isolinux/isolinux.cfg
+			sed -i -e "s/vmlinuz-.*-${LIVE_LINUX_FLAVOURS}/vmlinuz/g" -e "s/initrd.img-.*-${LIVE_LINUX_FLAVOURS}/initrd.img/g" tftpboot/pxelinux.cfg/default
 		fi
 
 		# Remove whitespaces
-		sed -i -e 's/\ $//g' binary/isolinux/isolinux.cfg
+		sed -i -e 's/\ $//g' tftpboot/pxelinux.cfg/default
 		;;
 
 	tar|usb-hdd)
@@ -435,7 +441,12 @@ case "${LIVE_BINARY_IMAGES}" in
 		mkdir -p "${DESTDIR}"
 		cp chroot/usr/lib/syslinux/isolinux.bin "${DESTDIR}"/syslinux.bin
 		cp -r "${LIVE_TEMPLATES}"/syslinux/* "${DESTDIR}"
-		mv "${DESTDIR}"/isolinux.cfg "${DESTDIR}"/syslinux.cfg
+
+		# Copying local configuration file
+		if [ -f config/binary_syslinux/syslinux.cfg ]
+		then
+			cp config/binary_syslinux/syslinux.cfg "${DESTDIR}"/syslinux.cfg
+		fi
 
 		# Copying splash screen
 		if [ -f config/binary_syslinux/splash.rle ]
@@ -459,9 +470,6 @@ case "${LIVE_BINARY_IMAGES}" in
 		sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" "${DESTDIR}"/syslinux.cfg
 		sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" "${DESTDIR}"/f1.txt
 		sed -i -e "s/LIVE_VERSION/${VERSION}/" "${DESTDIR}"/f10.txt
-
-		# Remove unused files
-		rm -f "${DESTDIR}"/pxelinux.cfg
 
 		# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
 		if [ "${LIVE_DISTRIBUTION}" = "etch" ] && [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -gt "1" ]

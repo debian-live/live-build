@@ -91,15 +91,15 @@ uninstall:
 update:
 	set -e; for MANPAGE in manpages/*.de.* manpages/*.en.*; \
 	do \
-		sed -i	-e 's/2007\\-06\\-25/2007\\-07\\-02/' \
-			-e 's/25.06.2007/02.07.2007/' \
-			-e 's/1.0~a16/1.0~a17/' \
+		sed -i	-e 's/2007\\-07\\-02/2007\\-07\\-09/' \
+			-e 's/02.07.2007/09.07.2007/' \
+			-e 's/1.0~a17/1.0~a18/' \
 		$$MANPAGE; \
 	done
 
 	set -e; for SCRIPT in functions/*.sh examples/cron/*.sh; \
 	do \
-		sed -i -e 's/1.0~a16/1.0~a17/' $$SCRIPT; \
+		sed -i -e 's/1.0~a17/1.0~a18/' $$SCRIPT; \
 	done
 
 clean:
