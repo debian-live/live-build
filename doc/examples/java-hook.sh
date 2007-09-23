@@ -1,7 +1,9 @@
 #!/bin/sh
 
 # This is a hook for live-helper(7) to install sun-java.
-# To enable it, copy this hook into your config/chroot_localhooks directory.
+#
+# To enable it, copy this hook into your config/chroot_localhooks directory and
+# don't forget to enable non-free in LIVE_SECTIONS.
 #
 # live-helper sets DEBIAN_FRONTEND to 'noninteractive' to advise debconf to not
 # ask any questions while installing packages. Suns redistribution terms for

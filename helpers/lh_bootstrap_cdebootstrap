@@ -25,13 +25,16 @@ Arguments "${@}"
 # Ensure that a system is built as root
 lh_testroot
 
-# Starting helper
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
-Read_conffile config/common
 Read_conffile config/bootstrap
+Read_conffile config/chroot
+Read_conffile config/common
+Read_conffile config/image
 Set_defaults
+
+Breakpoint "bootstrap_cdeboostrap: Init"
 
 if [ "${LH_BOOTSTRAP}" != "cdebootstrap" ]
 then
@@ -59,9 +62,9 @@ then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --arch=${LIVE_ARCHITECTURE}"
 fi
 
-if [ -n "${LIVE_DISTRIBUTION_CONFIG}" ]
+if [ -n "${LIVE_BOOTSTRAP_CONFIG}" ]
 then
-	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --suite-config=${LIVE_DISTRIBUTION_CONFIG}"
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --suite-config=${LIVE_BOOTSTRAP_CONFIG}"
 fi
 
 if [ "${LIVE_PACKAGES_LISTS}" != "minimal" ] && [ "${LIVE_PACKAGES_LISTS}" != "mini" ]
@@ -71,17 +74,17 @@ else
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=minimal"
 fi
 
-if [ "${DEBUG}" = "true" ]
+if [ "${LH_DEBUG}" = "true" ]
 then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --debug"
 fi
 
-if [ "${QUIET}" = "true" ]
+if [ "${LH_QUIET}" = "true" ]
 then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --quiet"
 fi
 
-if [ "${VERBOSE}" = "true" ]
+if [ "${LH_VERBOSE}" = "true" ]
 then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --verbose"
 fi

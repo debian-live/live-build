@@ -22,6 +22,8 @@ USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
 
+Echo_debug "Init ${PROGRAM}"
+
 if [ "${1}" != "newconfig" ]
 then
 	# Source existing configuration
@@ -34,12 +36,18 @@ fi
 # Setting defaults
 Set_defaults
 
+Breakpoint "config: Init"
+
 # Creating configuration directory
 install -d -m 0755 "${LIVE_ROOT}"/config || true
 
 # Creating live-helper configuration
 cat > "${LIVE_ROOT}"/config/common << EOF
 # config/common: configuration for live-helper(7)
+
+# \$LH_MODE: set distribution mode
+# (Default: ${LH_MODE})
+LH_MODE="${LH_MODE}"
 
 # \$LH_APT: set package manager
 # (Default: ${LH_APT})
@@ -96,6 +104,28 @@ LH_LOSETUP="${LH_LOSETUP}"
 # \$LIVE_ROOT: set the root directory
 # (Default: ${LIVE_ROOT})
 LIVE_ROOT="${LIVE_ROOT}"
+
+# Live-helper options
+
+# \$LH_BREAKPOINTS: enable breakpoints
+# (Default: ${LH_BREAKPOINTS})
+LH_BREAKPOINTS="${LH_BREAKPOINTS}"
+
+# \$LH_DEBUG: enable debug
+# (Default: ${LH_DEBUG})
+LH_DEBUG="${LH_DEBUG}"
+
+# \$LH_FORCE: enable force
+# (Default: ${LH_FORCE})
+LH_FORCE="${LH_FORCE}"
+
+# \$LH_QUIET: enable quiet
+# (Default: ${LH_QUIET})
+LH_QUIET="${LH_QUIET}"
+
+# \$LH_VERBOSE: enable verbose
+# (Default: ${LH_VERBOSE})
+LH_VERBOSE="${LH_VERBOSE}"
 EOF
 
 # Creating lh_chroot_* configuration
@@ -109,6 +139,10 @@ LIVE_KERNEL_FLAVOUR="${LIVE_KERNEL_FLAVOUR}"
 # \$LIVE_KERNEL_PACKAGES: set the kernel packages to use
 # (Default: autodetected)
 LIVE_KERNEL_PACKAGES="${LIVE_KERNEL_PACKAGES}"
+
+# \$LIVE_KEYRING_PACKAGES: set the keyring packages
+# (Default: empty)
+LIVE_KEYRING_PACKAGES="${LIVE_KEYRING_PACKAGES}"
 
 # \$LIVE_LANGUAGE: set the language to use
 # (Default: empty)
@@ -148,6 +182,7 @@ install -d -m 0755 "${LIVE_ROOT}"/config/chroot_localhooks || true
 install -d -m 0755 "${LIVE_ROOT}"/config/chroot_localincludes || true
 install -d -m 0755 "${LIVE_ROOT}"/config/chroot_localpackages || true
 install -d -m 0755 "${LIVE_ROOT}"/config/chroot_localpackageslists || true
+install -d -m 0755 "${LIVE_ROOT}"/config/chroot_sources || true
 
 # Creating lh_bootstrap_* configuration
 cat > "${LIVE_ROOT}"/config/bootstrap << EOF

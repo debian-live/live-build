@@ -13,7 +13,7 @@ Casper is a hook for initramfs-tools used to generate an initramfs capable to bo
 .SH RECOGNIZED BOOT OPTIONS
 .TP
 .BI "access=" ACCESS
-Set the accessibility level for physically or visually impared users. 
+Set the accessibility level for physically or visually impared users.
 ACCESS must be one of v1, v2, v3, m1, or m2. v1=lesser visual impairment, v2=moderate visual impairment, v3=blindness, m1=minor motor difficulties, m2=moderate motor difficulties.
 .TP
 .B casper-getty
@@ -72,7 +72,7 @@ This option causes casper to reboot without attempting to eject the media and wi
 .B "showmounts"
 This parameter will make casper to show on "/" the ro filesystems (mostly compressed) on /casper. This is not enabled by default because could lead to problems by applications like "mono" which store binary paths on installation.
 .TP
-.BI "todisk=" DEVICE 
+.BI "todisk=" DEVICE
 Adding this parameter, casper will try to copy the entire read-only media to the specified device before mounting the root filesystem. It probably needs a lot of free space. Subsequent boots should then skip this step and just specify the "live-media=DEVICE" boot parameter with the same DEVICE used this time.
 .TP
 .B toram

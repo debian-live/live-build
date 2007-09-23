@@ -5,8 +5,8 @@
 
 upstream:
 	# Needs: subversion
-	cd .. && svn co svn://svn.debian.org/debian-live/dists/trunk/live-helper || exit 0
-	find . -type d -name .svn -exec rm -rf {} \; || exit 0
+	cd .. && svn co svn://svn.debian.org/debian-live/dists/trunk/live-helper || true
+	find . -type d -name .svn | xargs rm -rf
 
 build:
 

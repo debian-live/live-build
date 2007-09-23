@@ -1,3 +1,43 @@
+2007-04-09  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_config, make-live, functions/defaults.sh:
+	  - Added mode to distinguish between Debian and Ubuntu.
+	* helpers/lh_chroot_sources:
+	  - Added check for LIVE_MIRROR_BUILD* to be equal to
+	    LIVE_MIRROR_IMAGE*.
+
+2007-04-08  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_net:
+	  - Added check for namespace collision with LIVE_SERVER_PATH.
+	* helpers/lh_binary_grub:
+	  - Added functionality for usb|hdd images.
+
+2007-04-07  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_chroot_sources:
+	  - Moved check for local source lists from
+	    config/sources.lists.{build,image} to
+	    config/chroot_sources/*.{build,image}.
+	  - Added check for local gpg keys in
+	    config/chroot_sources/*.{build,image}.gpg.
+	  - Added check for local keyring packages in
+	    config/chroot_sources/*.deb.
+	  - Added LIVE_KEYRING_PACKAGES.
+
+2007-04-06  Daniel Baumann  <daniel@debian.org>
+
+	* functions/breakpoints.sh, helpers/*:
+	  - Added initial breakpoints.
+	* functions/chroot.sh:
+	  - Adding /usr/local to path.
+	* functions/lockfile.sh:
+	  - Added additional signals to the trap.
+	* helpers/lh_binary_includes:
+	  - Respect LIVE_INCLUDES=none.
+	* manpages/*:
+	  - Updated.
+
 2007-04-05  Daniel Baumann  <daniel@debian.org>
 
 	* helpers/lh_binary_grub, templates/grub/menu.lst:

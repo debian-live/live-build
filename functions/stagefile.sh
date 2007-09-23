@@ -17,7 +17,7 @@ Check_stagefile ()
 	# Checking stage file
 	if [ -f "${FILE}" ]
 	then
-		if [ "${FORCE}" = "true" ]
+		if [ "${LH_FORCE}" = "enabled" ]
 		then
 			# Forcing execution
 			rm -f "${FILE}"

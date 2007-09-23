@@ -3,7 +3,7 @@ Mon, 12 Mar 2007 00:00:00 +0100.
 
 It was downloaded from <http://debian-live.alioth.debian.org/>.
 
-Upstream Author: Debian Live <debian-live-devel@lists.alioth.debian.org>
+Upstream contact: Debian Live <debian-live-devel@lists.alioth.debian.org>
 
 License:
 
@@ -28,10 +28,10 @@ can be found in /usr/share/common-licenses/GPL file.
 
 License (contrib/syslinux-splash/*, templates/syslinux/splash.rle):
 
-	The derivated splash for Debian Live was done by Daniel Baumann
-	<daniel@debian.org> from the original of Mark Riedesel. Daniels own
-	contribution to the derivated splash is hereby placed in the public
-	domain.
+	The splash for Debian Live was done by Daniel Baumann
+	<daniel@debian.org> based on the original work of Mark Riedesel. The
+	contribution of Daniel is hereby placed in the public domain (no rights
+	reserved).
 
 	---------------
 	http://dugnet.com/klown/pics/klowner_debboot.png

@@ -13,6 +13,12 @@ Set_defaults ()
 {
 	## config/common
 
+	# Setting mode
+	if [ -z "${LH_MODE}" ]
+	then
+		LH_MODE="debian"
+	fi
+
 	# Setting package manager
 	if [ -z "${LH_APT}" ]
 	then
@@ -68,16 +74,36 @@ Set_defaults ()
 	# Setting bootstrap program
 	if [ -z "${LH_BOOTSTRAP}" ] || [ ! -x "${LH_BOOTSTRAP}" ]
 	then
-		if [ -x "/usr/bin/cdebootstrap" ]
-		then
-			LH_BOOTSTRAP="cdebootstrap"
-		elif [ -x "/usr/sbin/debootstrap" ]
-		then
-			LH_BOOTSTRAP="debootstrap"
-		else
-			echo "E: Can't process file /usr/bin/cdebootstrap or /usr/sbin/debootstrap (FIXME)"
-			exit 1
-		fi
+		case "${LH_MODE}" in
+			debian)
+				if [ -x "/usr/bin/cdebootstrap" ]
+				then
+					LH_BOOTSTRAP="cdebootstrap"
+				elif [ -x "/usr/sbin/debootstrap" ]
+				then
+					LH_BOOTSTRAP="debootstrap"
+				else
+					echo "E: Can't process file /usr/bin/cdebootstrap or /usr/sbin/debootstrap (FIXME)"
+					exit 1
+				fi
+			;;
+
+			ubuntu)
+				if [ -x "/usr/sbin/debootstrap" ]
+				then
+					if [ -f /usr/lib/debootstrap/scripts/feisty ]
+					then
+						LH_BOOTSTRAP="debootstrap"
+					else
+						echo "E: Your version of debootstrap does not support ubuntu."
+						exit 1
+					fi
+				else
+					echo "E: You need to install debootstrap from Ubuntu in order to bootstrap ubuntu."
+					exit 1
+				fi
+				;;
+		esac
 	fi
 
 	# Setting cache option
@@ -121,7 +147,41 @@ Set_defaults ()
 	# Setting root directory
 	if [ -z "${LIVE_ROOT}" ]
 	then
-		LIVE_ROOT="debian-live"
+		case "${LH_MODE}" in
+			debian)
+				LIVE_ROOT="debian-live"
+				;;
+
+			ubuntu)
+				LIVE_ROOT="ubuntu-live"
+				;;
+		esac
+	fi
+
+	# Setting live helper options
+	if [ -z "${LH_BREAKPOINTS}" ]
+	then
+		LH_BREAKPOINTS="disabled"
+	fi
+
+	if [ -z "${LH_DEBUG}" ]
+	then
+		LH_DEBUG="disabled"
+	fi
+
+	if [ -z "${LH_FORCE}" ]
+	then
+		LH_FORCE="disabled"
+	fi
+
+	if [ -z "${LH_QUIET}" ]
+	then
+		LH_QUIET="disabled"
+	fi
+
+	if [ -z "${LH_VERBOSE}" ]
+	then
+		LH_VERBOSE="disabled"
 	fi
 
 	## config/bootstrap
@@ -140,11 +200,19 @@ Set_defaults ()
 	# Setting distribution value
 	if [ -z "${LIVE_DISTRIBUTION}" ]
 	then
-		LIVE_DISTRIBUTION="sid"
+		case "${LH_MODE}" in
+			debian)
+				LIVE_DISTRIBUTION="sid"
+				;;
+
+			ubuntu)
+				LIVE_DISTRIBUTION="feisty"
+				;;
+		esac
 	fi
 
 	# Setting distribution configuration value
-	# LIVE_DISTRIBUTION_CONFIG
+	# LIVE_BOOTSTRAP_CONFIG
 
 	# Setting flavour value
 	if [ -z "${LIVE_BOOTSTRAP_FLAVOUR}" ]
@@ -155,25 +223,57 @@ Set_defaults ()
 	# Setting mirror to fetch packages from
 	if [ -z "${LIVE_MIRROR_BUILD}" ]
 	then
-		LIVE_MIRROR_BUILD="http://ftp.debian.org/debian/"
+		case "${LH_MODE}" in
+			debian)
+				LIVE_MIRROR_BUILD="http://ftp.debian.org/debian/"
+				;;
+
+			ubuntu)
+				LIVE_MIRROR_BUILD="http://archive.ubuntu.com/ubuntu/"
+				;;
+		esac
 	fi
 
 	# Setting security mirror to fetch packages from
 	if [ -z "${LIVE_MIRROR_BUILD_SECURITY}" ]
 	then
-		LIVE_MIRROR_BUILD_SECURITY="http://security.debian.org/"
+		case "${LH_MODE}" in
+			debian)
+				LIVE_MIRROR_BUILD_SECURITY="http://security.debian.org/"
+				;;
+
+			ubuntu)
+				LIVE_MIRROR_BUILD_SECURITY="http://security.ubuntu.org/ubuntu/"
+				;;
+		esac
 	fi
 
 	# Setting mirror which ends up in the image
 	if [ -z "${LIVE_MIRROR_IMAGE}" ]
 	then
-		LIVE_MIRROR_IMAGE="http://ftp.debian.org/debian/"
+		case "${LH_MODE}" in
+			debian)
+				LIVE_MIRROR_IMAGE="http://ftp.debian.org/debian/"
+				;;
+
+			ubuntu)
+				LIVE_MIRROR_IMAGE="http://archive.ubuntu.com/ubuntu/"
+				;;
+		esac
 	fi
 
 	# Setting security mirror which ends up in the image
 	if [ -z "${LIVE_MIRROR_IMAGE_SECURITY}" ]
 	then
-		LIVE_MIRROR_IMAGE_SECURITY="http://security.debian.org/"
+		case "${LH_MODE}" in
+			debian)
+				LIVE_MIRROR_IMAGE_SECURITY="http://security.debian.org/"
+				;;
+
+			ubuntu)
+				LIVE_MIRROR_IMAGE_SECURITY="http://security.ubuntu.com/ubuntu/"
+				;;
+		esac
 	fi
 
 	# Setting sections value
@@ -199,7 +299,15 @@ Set_defaults ()
 				;;
 
 			amd64)
-				LIVE_KERNEL_FLAVOUR="amd64"
+				case "${LH_MODE}" in
+					debian)
+						LIVE_KERNEL_FLAVOUR="amd64"
+						;;
+
+					ubuntu)
+						LIVE_KERNEL_FLAVOUR="amd64-generic"
+						;;
+				esac
 				;;
 
 			arm)
@@ -212,7 +320,15 @@ Set_defaults ()
 				;;
 
 			i386)
-				LIVE_KERNEL_FLAVOUR="486"
+				case "${LH_MODE}" in
+					debian)
+						LIVE_KERNEL_FLAVOUR="486"
+						;;
+
+					ubuntu)
+						LIVE_KERNEL_FLAVOUR="386"
+						;;
+				esac
 				;;
 
 			ia64)
@@ -233,7 +349,15 @@ Set_defaults ()
 				;;
 
 			sparc)
-				LIVE_KERNEL_FLAVOUR="sparc32"
+				case "${LH_MODE}" in
+					debian)
+						LIVE_KERNEL_FLAVOUR="sparc32"
+						;;
+
+					ubuntu)
+						LIVE_KERNEL_FLAVOUR="sparc64"
+						;;
+				esac
 				;;
 
 			*)
@@ -245,13 +369,24 @@ Set_defaults ()
 	# Set kernel packages
 	if [ -z "${LIVE_KERNEL_PACKAGES}" ]
 	then
-		LIVE_KERNEL_PACKAGES="linux-image-2.6 squashfs-modules-2.6 unionfs-modules-2.6"
+		case "${LH_MODE}" in
+			debian)
+				LIVE_KERNEL_PACKAGES="linux-image-2.6 squashfs-modules-2.6 unionfs-modules-2.6"
+				;;
+
+			ubuntu)
+				LIVE_KERNEL_PACKAGES="linux-image"
+				;;
+		esac
 
 		if [ -n "${LIVE_ENCRYPTION}" ]
 		then
 			LIVE_KERNEL_PACKAGES="${LIVE_KERNEL_PACKAGES} loop-aes-modules-2.6"
 		fi
 	fi
+
+	# Setting keyring packages
+	# LIVE_KEYRING_PACKAGES
 
 	# Setting language string
 	# LIVE_LANGUAGE
@@ -327,7 +462,15 @@ Set_defaults ()
 	# Setting hostname
 	if [ -z "${LIVE_HOSTNAME}" ]
 	then
-		LIVE_HOSTNAME="debian"
+		case "${LH_MODE}" in
+			debian)
+				LIVE_HOSTNAME="debian"
+				;;
+
+			ubuntu)
+				LIVE_HOSTNAME="ubuntu"
+				;;
+		esac
 	fi
 
 	# Setting image type
@@ -357,7 +500,15 @@ Set_defaults ()
 	# Setting iso volume
 	if [ -z "${LIVE_ISO_VOLUME}" ]
 	then
-		LIVE_ISO_VOLUME="Debian Live \`date +%Y%m%d\`"
+		case "${LH_MODE}" in
+			debian)
+				LIVE_ISO_VOLUME="Debian Live \`date +%Y%m%d\`"
+				;;
+
+			ubuntu)
+				LIVE_ISO_VOLUME="Ubuntu Live \`date +%Y%m%d\`"
+				;;
+		esac
 	fi
 
 	# Setting netboot server address
@@ -369,7 +520,15 @@ Set_defaults ()
 	# Setting netboot server path
 	if [ -z "${LIVE_SERVER_PATH}" ]
 	then
-		LIVE_SERVER_PATH="/srv/debian-live"
+		case "${LH_MODE}" in
+			debian)
+				LIVE_SERVER_PATH="/srv/debian-live"
+				;;
+
+			ubuntu)
+				LIVE_SERVER_PATH="/srv/ubuntu-live"
+				;;
+		esac
 	fi
 
 	# Setting source option

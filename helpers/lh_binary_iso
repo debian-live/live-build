@@ -22,9 +22,12 @@ USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
 
+Echo_debug "Init ${PROGRAM}"
+
 # Reading configuration files
-Read_conffile config/common
 Read_conffile config/bootstrap
+Read_conffile config/chroot
+Read_conffile config/common
 Read_conffile config/image
 Set_defaults
 
@@ -32,6 +35,8 @@ for IMAGE in ${LIVE_BINARY_IMAGE}
 do
 	if [ "${IMAGE}" = "iso" ]
 	then
+		Breakpoint "binary_iso: Init"
+
 		# Requiring stage file
 		Require_stagefile .stage/bootstrap
 
