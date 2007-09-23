@@ -37,49 +37,50 @@ Echo_message "Begin caching bootstrap stage..."
 
 for STAGE in ${LH_CACHE_STAGES}
 do
-	case "${1}" in
-		restore)
-			# Checking stage file
-			Check_stagefile .stage/bootstrap_cache.restore
+	if [ "${STAGE}" = "bootstrap" ]
+	then
+		case "${1}" in
+			restore)
+				# Checking stage file
+				Check_stagefile .stage/bootstrap_cache.restore
 
-			# Checking lock file
-			Check_lockfile .lock
-
-			# Creating lock file
-			Create_lockfile .lock
-
-			if [ "${STAGE}" = "bootstrap" ] && [ -d cache/stages_bootstrap ]
-			then
-				# Removing old chroot
-				rm -rf chroot
-
-				# Restoring old cache
-				${LH_ROOT_COMMAND} cp -a cache/stages_bootstrap chroot
-
-				if [ -n "${LH_ROOT_COMMAND}" ]
+				if [ -d cache/stages_bootstrap ]
 				then
-					${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` chroot
+					# Checking lock file
+					Check_lockfile .lock
+
+					# Creating lock file
+					Create_lockfile .lock
+
+					# Removing old chroot
+					rm -rf chroot
+
+					# Restoring old cache
+					${LH_ROOT_COMMAND} cp -a cache/stages_bootstrap chroot
+
+					if [ -n "${LH_ROOT_COMMAND}" ]
+					then
+						${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` chroot
+					fi
+
+					# Creating stage file
+					Create_stagefile .stage/bootstrap_cache.restore
+					Create_stagefile .stage/bootstrap
+
+					exit 0
 				fi
+				;;
 
-				# Creating stage file
-				Create_stagefile .stage/bootstrap_cache.restore
+			save)
+				# Checking stage file
+				Check_stagefile .stage/bootstrap_cache.save
 
-				exit 0
-			fi
-			;;
+				# Checking lock file
+				Check_lockfile .lock
 
-		save)
-			# Checking stage file
-			Check_stagefile .stage/bootstrap_cache.save
+				# Creating lock file
+				Create_lockfile .lock
 
-			# Checking lock file
-			Check_lockfile .lock
-
-			# Creating lock file
-			Create_lockfile .lock
-
-			if [ "${STAGE}" = "bootstrap" ]
-			then
 				rm -rf cache/stages_bootstrap
 
 				mkdir -p cache
@@ -93,7 +94,7 @@ do
 
 				# Creating stage file
 				Create_stagefile .stage/bootstrap_cache.save
-			fi
-			;;
-	esac
+				;;
+		esac
+	fi
 done

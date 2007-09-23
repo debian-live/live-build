@@ -48,6 +48,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--debconf-nowarnings enabled|disabled]\n\
 \t    [--debconf-priority low|medium|high|critical]\n\
 \t    [--debian-installer enabled|disabled]\n\
+\t    [--debian-installer-daily enabled|disabled]\n\
 \t    [--debug]\n\
 \t    [-d|--distribution CODENAME]\n\
 \t    [-e|--encryption aes128|aes192|aes256]\n\
@@ -99,7 +100,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 
 Local_arguments ()
 {
-	ARGUMENTS="`getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,losetup:,mode:,root-command:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-images:,binary-indices:,bootappend:,bootloader:,chroot-build:,debian-installer:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,iso-memtest:,net-filesystem:,net-mountoptions:,net-path:,net-server:,syslinux-splash:,syslinux-timeout:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}"`"
+	ARGUMENTS="`getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,losetup:,mode:,root-command:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-images:,binary-indices:,bootappend:,bootloader:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,iso-memtest:,net-filesystem:,net-mountoptions:,net-path:,net-server:,syslinux-splash:,syslinux-timeout:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}"`"
 
 	if [ "${?}" != "0" ]
 	then
@@ -408,6 +409,11 @@ Local_arguments ()
 
 			--debian-installer)
 				LH_DEBIAN_INSTALLER="${2}"
+				shift 2
+				;;
+
+			--debian-installer-daily)
+				LH_DEBIAN_INSTALLER_DAILY="${2}"
 				shift 2
 				;;
 
@@ -846,6 +852,10 @@ LH_CHROOT_BUILD="${LH_CHROOT_BUILD}"
 # \$LH_DEBIAN_INSTALLER: set debian-installer
 # (Default: ${LH_DEBIAN_INSTALLER})
 LH_DEBIAN_INSTALLER="${LH_DEBIAN_INSTALLER}"
+
+# \$LH_DEBIAN_INSTALLER_DAILY: set daily images
+# (Default: ${LH_DEBIAN_INSTALLER_DAILY})
+LH_DEBIAN_INSTALLER_DAILY="${LH_DEBIAN_INSTALLER_DAILY}"
 
 # \$LH_ENCRYPTION: set encrytion
 # (Default: empty)

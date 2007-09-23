@@ -61,36 +61,15 @@ eval VERSION="$`echo VERSION_${LH_DISTRIBUTION}`"
 
 case "${LH_MODE}" in
 	debian)
-		if [ -d binary/pool/main/b/base-installer ]
-		then
-			if [ -d binary/pool/main/l/live-installer ]
-			then
-				TYPE="LIVE/INSTALL"
-			fi
+		case "${LH_DEBIAN_INSTALLER}" in
+			cdrom)
+				echo "main" > binary/.disk/base_components
 
-			TYPE="LIVE/NETINST"
-		else
-			TYPE="LIVE"
-		fi
+				touch binary/.disk/base_installable
 
-		echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} ${TYPE} Binary `date +%Y%m%d-%H:%M`" > binary/.disk/info
-		;;
+				echo "full_cd" > binary/.disk/cd_type
 
-	ubuntu)
-		echo "Ubuntu Linux ${VERSION} \"${DISTRIBUTION}\" - Unofficial ${ARCHITECTURE} LIVE/NETINST Binary `date +%Y%m%d-%H:%M`" > binary/.disk/info
-		# Ubuntu 7.04 "Feisty Fawn" - Release i386 (20070418)
-		;;
-esac
-
-if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
-then
-	echo "main" > binary/.disk/base_components
-
-	touch binary/.disk/base_installable
-
-	echo "not_complete" > binary/.disk/cd_type
-
-	#touch binary/.disk/mkisofs
+				echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} CD Binary `date +%Y%m%d-%H:%M`" > binary/.disk/info
 
 cat > binary/.disk/udeb_include << EOF
 netcfg
@@ -100,10 +79,61 @@ pcmciautils-udeb
 wireless-tools-udeb
 EOF
 
-	if [ -d binary/pool/main/l/live-installer ]
-	then
-		echo "live-installer" >> binary/.disk/udeb_include
-	fi
+				;;
+
+			netinst)
+				echo "main" > binary/.disk/base_components
+
+				touch binary/.disk/base_installable
+
+				echo "not_complete" > binary/.disk/cd_type
+
+				echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} NETINST Binary `date +%Y%m%d-%H:%M`" > binary/.disk/info
+
+cat > binary/.disk/udeb_include << EOF
+netcfg
+ethdetect
+pcmcia-cs-udeb
+pcmciautils-udeb
+wireless-tools-udeb
+EOF
+
+				;;
+
+			businesscard)
+				echo "main" > binary/.disk/base_components
+
+				echo "not_complete" > binary/.disk/cd_type
+
+				echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} BC Binary `date +%Y%m%d-%H:%M`" > binary/.disk/info
+
+cat > binary/.disk/udeb_include << EOF
+choose-mirror
+netcfg
+ethdetect
+pcmcia-cs-udeb
+pcmciautils-udeb
+wireless-tools-udeb
+EOF
+
+				;;
+
+			disabled)
+				echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} LIVE Binary `date +%Y%m%d-%H:%M`" > binary/.disk/info
+				;;
+		esac
+		;;
+
+	ubuntu)
+		# FIXME
+		echo "Ubuntu Linux ${VERSION} \"${DISTRIBUTION}\" - Unofficial ${ARCHITECTURE} LIVE/NETINST Binary `date +%Y%m%d-%H:%M`" > binary/.disk/info
+		# Ubuntu 7.04 "Feisty Fawn" - Release i386 (20070418)
+		;;
+esac
+
+if [ -d binary/pool/main/l/live-installer ]
+then
+	echo "live-installer" >> binary/.disk/udeb_include
 fi
 
 # Creating stage file
