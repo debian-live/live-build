@@ -88,7 +88,7 @@ case "${LH_MODE}" in
 
 				echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} NETINST Binary `date +%Y%m%d-%H:%M`" > binary/.disk/info
 
-				"${LH_BASE}"/data/debian-cd/${LH_DISTRIBUTION}/${LH_ARCHITECTURE}_netinst_udeb_include binary/.disk/udeb_include
+				cp "${LH_BASE}"/data/debian-cd/${LH_DISTRIBUTION}/${LH_ARCHITECTURE}_netinst_udeb_include binary/.disk/udeb_include
 				;;
 
 			businesscard)
