@@ -36,10 +36,7 @@ Create_stagefile ()
 	DIRECTORY="`dirname ${1}`"
 
 	# Creating stage directory
-	if [ ! -d "${DIRECTORY}" ]
-	then
-		mkdir -p "${DIRECTORY}"
-	fi
+	mkdir -p "${DIRECTORY}"
 
 	# Creating stage file
 	touch "${FILE}"

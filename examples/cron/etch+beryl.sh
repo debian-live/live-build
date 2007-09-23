@@ -7,7 +7,7 @@ BUILD="etch+beryl"
 # Begin custom defaults
 AUTOBUILD="enabled"
 
-DATE="r0_1.0~a12-1"
+DATE="r0_1.0~a13-1"
 DESTDIR="/srv/debian-unofficial/ftp/debian-live"
 TEMPDIR="/srv/tmp/live-helper"
 
@@ -75,8 +75,8 @@ do
 				mkdir -p debian-live/config/chroot_sources
 				wget http://debian.beryl-project.org/root@lupine.me.uk.gpg -O debian-live/config/chroot_sources/beryl.build.gpg
 				wget http://debian.beryl-project.org/root@lupine.me.uk.gpg -O debian-live/config/chroot_sources/beryl.image.gpg
-				cp /usr/share/live-helper/examples/sources.list/beryl debian-live/config/chroot_sources/beryl.build
-				cp /usr/share/live-helper/examples/sources.list/beryl debian-live/config/chroot_sources/beryl.image
+				cp /usr/share/live-helper/examples/sources/beryl debian-live/config/chroot_sources/beryl.build
+				cp /usr/share/live-helper/examples/sources/beryl debian-live/config/chroot_sources/beryl.image
 
 				# Generating images
 				make-live -b iso -s generic --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-bootstrap ${MIRROR_BOOTSTRAP} --mirror-bootstrap-security ${MIRROR_BOOTSTRAP_SECURITY} --mirror-binary ${MIRROR_BINARY} --mirror-binary-security ${MIRROR_BINARY_SECURITY} --source enabled ${OPTIONS} >> "${TEMPDIR}"/debian-live/log.txt 2>&1

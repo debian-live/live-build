@@ -9,20 +9,20 @@
 
 set -e
 
-# Source common functions
-for FUNCTION in /usr/share/live-helper/functions/*.sh
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
 do
-	. ${FUNCTION}
+	. "${FUNCTION}"
 done
 
-# Set static variables
+# Setting static variables
 DESCRIPTION="build source net image"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
-
-Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -32,39 +32,38 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-Breakpoint "source_net: Init"
-
 if [ "${LIVE_SOURCE}" != "enabled" ]
 then
 	exit 0
 fi
 
-for IMAGE in ${LIVE_SOURCE_IMAGES}
-do
-	if [ "${IMAGE}" = "net" ]
-	then
-		# Requiring stage file
-		Require_stagefile .stage/source_debian
+if ! echo "${LIVE_SOURCE_IMAGES}" | grep -qs net
+then
+        exit 0
+fi
 
-		# Checking stage file
-		Check_stagefile .stage/source_net
+Echo_message "Begin building source netboot image..."
 
-		# Checking lock file
-		Check_lockfile .lock
+# Requiring stage file
+Require_stagefile .stage/source_debian
 
-		# Creating lock file
-		Create_lockfile .lock
+# Checking stage file
+Check_stagefile .stage/source_net
 
-		# Remove old source
-		if [ -f source-net.tar.gz ]
-		then
-			rm -f source-net.tar.gz
-		fi
+# Checking lock file
+Check_lockfile .lock
 
-		# Create tarball
-		tar cfz source-net.tar.gz source
+# Creating lock file
+Create_lockfile .lock
 
-		# Creating stage file
-		Create_stagefile .stage/source_net
-	fi
-done
+# Remove old source
+if [ -f source-net.tar.gz ]
+then
+	rm -f source-net.tar.gz
+fi
+
+# Create tarball
+tar cfz source-net.tar.gz source
+
+# Creating stage file
+Create_stagefile .stage/source_net

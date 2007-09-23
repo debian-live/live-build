@@ -9,20 +9,20 @@
 
 set -e
 
-# Source common functions
-for FUNCTION in /usr/share/live-helper/functions/*.sh
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
 do
-	. ${FUNCTION}
+	. "${FUNCTION}"
 done
 
-# Set static variables
+# Setting static variables
 DESCRIPTION="customize the Debian system"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
-
-Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -31,8 +31,6 @@ Read_conffile config/chroot
 Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
-
-Breakpoint "chroot: Init"
 
 # Configuring chroot
 lh_chroot_proc install ${*}
@@ -46,6 +44,7 @@ lh_chroot_sources install ${*}
 lh_chroot_linux-image install ${*}
 
 # Customizing chroot
+lh_chroot_preseed ${*}
 lh_chroot_tasks ${*}
 lh_chroot_packageslists ${*}
 lh_chroot_packages ${*}

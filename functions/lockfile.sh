@@ -27,10 +27,7 @@ Create_lockfile ()
 	DIRECTORY="`dirname ${1}`"
 
 	# Creating lock directory
-	if [ ! -d "${DIRECTORY}" ]
-	then
-		mkdir -p "${DIRECTORY}"
-	fi
+	mkdir -p "${DIRECTORY}"
 
 	# Creating lock trap
 	trap "test -f ${FILE} && rm -f ${FILE}; exit 0" 0 1 2 3 9 15

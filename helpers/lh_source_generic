@@ -9,20 +9,20 @@
 
 set -e
 
-# Source common functions
-for FUNCTION in /usr/share/live-helper/functions/*.sh
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
 do
-	. ${FUNCTION}
+	. "${FUNCTION}"
 done
 
-# Set static variables
+# Setting static variables
 DESCRIPTION="build source generic image"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
-
-Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -32,40 +32,39 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-Breakpoint "source_generic: Init"
-
 if [ "${LIVE_SOURCE}" != "enabled" ]
 then
 	exit 0
 fi
 
-for IMAGE in ${LIVE_SOURCE_IMAGES}
-do
-	if [ "${IMAGE}" = "generic" ]
-	then
-		# Requiring stage file
-		Require_stagefile .stage/source_debian
+if ! echo "${LIVE_SOURCE_IMAGES}" | grep -qs generic
+then
+        exit 0
+fi
 
-		# Checking stage file
-		Check_stagefile .stage/source_generic
+Echo_message "Begin building source generic image..."
+Echo_message "This may take a while."
 
-		# Checking lock file
-		Check_lockfile .lock
+# Requiring stage file
+Require_stagefile .stage/source_debian
 
-		# Creating lock file
-		Create_lockfile .lock
+# Checking stage file
+Check_stagefile .stage/source_generic
 
-		# Remove old source
-		if [ -f source.tar ]
-		then
-			rm -f source.tar
-		fi
+# Checking lock file
+Check_lockfile .lock
 
-		# Create tarball
-		Echo_message "Creating tarball, this can take a while."
-		tar cf source.tar source
+# Creating lock file
+Create_lockfile .lock
 
-		# Creating stage file
-		Create_stagefile .stage/source_generic
-	fi
-done
+# Remove old source
+if [ -f source.tar ]
+then
+	rm -f source.tar
+fi
+
+# Create tarball
+tar cf source.tar source
+
+# Creating stage file
+Create_stagefile .stage/source_generic

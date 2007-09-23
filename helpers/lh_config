@@ -9,13 +9,15 @@
 
 set -e
 
-# Source common functions
-for FUNCTION in /usr/share/live-helper/functions/*.sh
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
 do
-	. ${FUNCTION}
+	. "${FUNCTION}"
 done
 
-# Set static variables
+# Setting static variables
 DESCRIPTION="create configuration for live-helper(7)"
 HELP=""
 USAGE="${PROGRAM} [--force]"
@@ -24,19 +26,17 @@ Arguments "${@}"
 
 CONFIG="${1}"
 
-Echo_debug "Init ${PROGRAM}"
-
 if [ -n "${LH_CONFIG}" ]
 then
-	if [ -d /usr/share/live-helper/configs/"${LH_CONFIG}" ]
+	if [ -d ${LH_BASE:-/usr/share/live-helper}/configs/"${LH_CONFIG}" ]
 	then
 		mkdir "${LH_CONFIG}"
-		cp -r /usr/share/live-helper/configs/"${LH_CONFIG}" "${LH_CONFIG}"/config
+		cp -r ${LH_BASE:-/usr/share/live-helper}/configs/"${LH_CONFIG}" "${LH_CONFIG}"/config
 
 		LIVE_ROOT="${LH_CONFIG}"
 		CONFIG=""
 	else
-		Echo_error "Couldn't find config ${LH_CONFIG} in /usr/share/live-helper/configs/."
+		Echo_error "Couldn't find config ${LH_CONFIG} in ${LH_BASE:-/usr/share/live-helper}/configs/."
 	fi
 fi
 
@@ -52,8 +52,6 @@ fi
 
 # Setting defaults
 Set_defaults
-
-Breakpoint "config: Init"
 
 # Creating bootstrap configuration
 mkdir -p "${LIVE_ROOT}"/config
@@ -79,6 +77,10 @@ LH_APT_HTTPPROXY="${LH_APT_HTTPPROXY}"
 # \$LH_APT_PDIFFS: set apt/aptitude pdiff indices
 # (Default: ${LH_APT_PDIFFS})
 LH_APT_PDIFFS="${LH_APT_PDIFFS}"
+
+# \$LH_APT_PIPELINE: set apt/aptitude pipeline depth
+# (Default: ${LH_APT_PIPELINE})
+LH_APT_PIPELINE="${LH_APT_PIPELINE}"
 
 # \$LH_APT_RECOMMENDS: set apt/aptitude recommends
 # (Default: ${LH_APT_RECOMMENDS})
@@ -183,17 +185,21 @@ cat > "${LIVE_ROOT}"/config/bootstrap << EOF
 # (Default: autodetected)
 LIVE_ARCHITECTURE="${LIVE_ARCHITECTURE}"
 
-# \$LIVE_DISTRIBUTION: select distribution to use
-# (Default: ${LIVE_DISTRIBUTION})
-LIVE_DISTRIBUTION="${LIVE_DISTRIBUTION}"
-
-# \$LIVE_DISTRIBUTION_CONFIG: set distribution config directory
+# \$LIVE_BOOTSTRAP_CONFIG: set distribution config directory
 # (Default: empty)
-LIVE_DISTRIBUTION_CONFIG="${LIVE_DISTRIBUTION_CONFIG}"
+LIVE_BOOTSTRAP_CONFIG="${LIVE_BOOTSTRAP_CONFIG}"
 
 # \$LIVE_BOOTSTRAP_FLAVOUR: select flavour to use
 # (Default: ${LIVE_BOOTSTRAP_FLAVOUR})
 LIVE_BOOTSTRAP_FLAVOUR="${LIVE_BOOTSTRAP_FLAVOUR}"
+
+# \$LIVE_BOOTSTRAP_KEYRING: set distribution keyring
+# (Default: empty)
+LIVE_BOOTSTRAP_KEYRING="${LIVE_BOOTSTRAP_KEYRING}"
+
+# \$LIVE_DISTRIBUTION: select distribution to use
+# (Default: ${LIVE_DISTRIBUTION})
+LIVE_DISTRIBUTION="${LIVE_DISTRIBUTION}"
 
 # \$LIVE_MIRROR_BOOTSTRAP: set mirror to fetch packages from
 # (Default: ${LIVE_MIRROR_BOOTSTRAP})
@@ -282,6 +288,7 @@ EOF
 # Creating lh_binary_* configuration
 mkdir -p "${LIVE_ROOT}"/config/binary_grub
 mkdir -p "${LIVE_ROOT}"/config/binary_local-includes
+mkdir -p "${LIVE_ROOT}"/config/binary_rootfs
 mkdir -p "${LIVE_ROOT}"/config/binary_syslinux
 
 cat > "${LIVE_ROOT}"/config/binary << EOF

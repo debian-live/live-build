@@ -9,20 +9,20 @@
 
 set -e
 
-# Source common functions
-for FUNCTION in /usr/share/live-helper/functions/*.sh
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
 do
-	. ${FUNCTION}
+	. "${FUNCTION}"
 done
 
-# Set static variables
+# Setting static variables
 DESCRIPTION="build iso binary image"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
-
-Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -32,109 +32,108 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-for IMAGE in ${LIVE_BINARY_IMAGES}
-do
-	if [ "${IMAGE}" = "iso" ]
-	then
-		Breakpoint "binary_iso: Init"
+if ! echo "${LIVE_BINARY_IMAGES}" | grep -qs iso
+then
+	exit 0
+fi
 
-		# Requiring stage file
-		Require_stagefile .stage/bootstrap
+Echo_message "Begin building binary iso image..."
 
-		# Checking stage file
-		Check_stagefile .stage/binary_iso
+# Requiring stage file
+Require_stagefile .stage/bootstrap
 
-		# Checking lock file
-		Check_lockfile .lock
+# Checking stage file
+Check_stagefile .stage/binary_iso
 
-		# Creating lock file
-		Create_lockfile .lock
+# Checking lock file
+Check_lockfile .lock
 
-		# Checking depends
-		Check_package chroot/usr/bin/"${LH_GENISOIMAGE}" ${LH_GENISOIMAGE}
+# Creating lock file
+Create_lockfile .lock
 
-		# Installing depends
-		Install_package
+# Checking depends
+Check_package chroot/usr/bin/"${LH_GENISOIMAGE}" ${LH_GENISOIMAGE}
 
-		# Remove old iso image
-		if [ -f binary.iso ]
-		then
-			rm -f binary.iso
-		fi
+# Installing depends
+Install_package
 
-		if [ "${LH_VERBOSE}" = "enabled" ]
-		then
-			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -v"
-		fi
+# Remove old iso image
+if [ -f binary.iso ]
+then
+	rm -f binary.iso
+fi
 
-		if [ -n "${LIVE_ISO_APPLICATION}" ] && [ "${LIVE_ISO_APPLICATION}" != "none" ]
-		then
-			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -A \"${LIVE_ISO_APPLICATION}\""
-		fi
+if [ "${LH_VERBOSE}" = "enabled" ]
+then
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -v"
+fi
 
-		if [ -n "${LIVE_ISO_PREPARER}" ] && [ "${LIVE_ISO_PREPARER}" != "none" ]
-		then
-			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -p \"${LIVE_ISO_PREPARER}\""
-		fi
+if [ -n "${LIVE_ISO_APPLICATION}" ] && [ "${LIVE_ISO_APPLICATION}" != "none" ]
+then
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -A \"${LIVE_ISO_APPLICATION}\""
+fi
 
-		if [ -n "${LIVE_ISO_PUBLISHER}" ] && [ "${LIVE_ISO_PUBLISHER}" != "none" ]
-		then
-			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -publisher \"${LIVE_ISO_PUBLISHER}\""
-		fi
+if [ -n "${LIVE_ISO_PREPARER}" ] && [ "${LIVE_ISO_PREPARER}" != "none" ]
+then
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -p \"${LIVE_ISO_PREPARER}\""
+fi
 
-		if [ -n "${LIVE_ISO_VOLUME}" ] && [ "${LIVE_ISO_VOLUME}" != "none" ]
-		then
-			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -V \"${LIVE_ISO_VOLUME}\""
-		fi
+if [ -n "${LIVE_ISO_PUBLISHER}" ] && [ "${LIVE_ISO_PUBLISHER}" != "none" ]
+then
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -publisher \"${LIVE_ISO_PUBLISHER}\""
+fi
 
-		# Moving image
-		mv binary chroot
+if [ -n "${LIVE_ISO_VOLUME}" ] && [ "${LIVE_ISO_VOLUME}" != "none" ]
+then
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -V \"${LIVE_ISO_VOLUME}\""
+fi
 
-		# Create image
-		if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
-		then
-			case "${LIVE_BOOTLOADER}" in
-				grub)
-					GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -b boot/grub/stage2_eltorito"
+# Moving image
+mv binary chroot
 
-					if [ "${LIVE_PACKAGES_LISTS}" = "mini" ] || [ "${LIVE_PACKAGES_LISTS}" = "minimal" ]
-					then
-						GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m boot/grub/stage2_eltorito"
-					fi
-					;;
+# Create image
+if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
+then
+	case "${LIVE_BOOTLOADER}" in
+		grub)
+			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -b boot/grub/stage2_eltorito"
 
-				syslinux)
-					GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -b isolinux/isolinux.bin -c isolinux/boot.cat"
+			if [ "${LIVE_PACKAGES_LISTS}" = "mini" ] || [ "${LIVE_PACKAGES_LISTS}" = "minimal" ]
+			then
+				GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m boot/grub/stage2_eltorito"
+			fi
+			;;
 
-					if [ "${LIVE_PACKAGES_LISTS}" = "mini" ] || [ "${LIVE_PACKAGES_LISTS}" = "minimal" ]
-					then
-						GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m isolinux/isolinux.bin"
-					fi
-					;;
+		syslinux)
+			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -b isolinux/isolinux.bin -c isolinux/boot.cat"
 
-				*)
-					Echo_warning "Bootloader on your architecture not yet supported (Continuing in 5 seconds)."
-					sleep 5
-					;;
-			esac
+			if [ "${LIVE_PACKAGES_LISTS}" = "mini" ] || [ "${LIVE_PACKAGES_LISTS}" = "minimal" ]
+			then
+				GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m isolinux/isolinux.bin"
+			fi
+			;;
 
-			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -no-emul-boot -boot-load-size 4 -boot-info-table"
-		fi
+		*)
+			Echo_warning "Bootloader on your architecture not yet supported (Continuing in 5 seconds)."
+			sleep 5
+			;;
+	esac
+
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -no-emul-boot -boot-load-size 4 -boot-info-table"
+fi
 
 cat >> chroot/binary.sh << EOF
 ${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -o binary.iso -r -J -l -cache-inodes binary
 EOF
 
-		Chroot "sh binary.sh"
+Chroot "sh binary.sh"
 
-		# Move image
-		mv chroot/binary chroot/binary.iso ./
-		rm -f chroot/binary.sh
+# Move image
+mv chroot/binary chroot/binary.iso ./
+rm -f chroot/binary.sh
 
-		# Removing depends
-		Remove_package
+# Removing depends
+Remove_package
 
-		# Creating stage file
-		Create_stagefile .stage/binary_iso
-	fi
-done
+# Creating stage file
+Create_stagefile .stage/binary_iso

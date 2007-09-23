@@ -32,13 +32,10 @@ Save_cache ()
 		# Cleaning current cache
 		Chroot "apt-get autoclean"
 
-		if ls chroot/var/cache/apt/archives/*.deb &> /dev/null
+		if ls chroot/var/cache/apt/archives/*.deb > /dev/null 2>&1
 		then
 			# Creating cache directory
-			if [ ! -d "${DIRECTORY}" ]
-			then
-				mkdir -p "${DIRECTORY}"
-			fi
+			mkdir -p "${DIRECTORY}"
 
 			# Saving new cache
 			mv -f chroot/var/cache/apt/archives/*.deb "${DIRECTORY}"

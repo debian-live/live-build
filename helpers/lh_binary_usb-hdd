@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_binary_usb-hdd(1) - build binary image
+# lh_binary_usb-hdd(1) - build binary usb-hdd image
 # Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -9,20 +9,20 @@
 
 set -e
 
-# Source common functions
-for FUNCTION in /usr/share/live-helper/functions/*.sh
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
 do
-	. ${FUNCTION}
+	. "${FUNCTION}"
 done
 
-# Set static variables
+# Setting static variables
 DESCRIPTION="build binary image"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
-
-Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -32,127 +32,126 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-Breakpoint "binary_usb-hdd: Init"
+if ! echo "${LIVE_BINARY_IMAGES}" | grep -qs usb-hdd
+then
+	exit 0
+fi
 
-for IMAGE in ${LIVE_BINARY_IMAGES}
-do
-	if [ "${IMAGE}" = "usb-hdd" ]
-	then
-		# Requiring stage file
-		Require_stagefile .stage/bootstrap
-		Require_stagefile .stage/chroot_proc
+Echo_message "Begin building binary usb-hdd image..."
 
-		# Checking stage file
-		Check_stagefile .stage/binary_usb-hdd
+# Requiring stage file
+Require_stagefile .stage/bootstrap
+Require_stagefile .stage/chroot_proc
 
-		# Checking lock file
-		Check_lockfile .lock
+# Checking stage file
+Check_stagefile .stage/binary_usb-hdd
 
-		# Creating lock file
-		Create_lockfile .lock
+# Checking lock file
+Check_lockfile .lock
 
-		# Checking depends
-		Check_package chroot/sbin/mkdosfs dosfstools
-		Check_package chroot/usr/sbin/mtools mtools
-		Check_package chroot/sbin/parted parted
+# Creating lock file
+Create_lockfile .lock
 
-		case "${LIVE_BOOTLOADER}" in
-			grub)
-				Check_package chroot/usr/sbin/grub grub
-				;;
+# Checking depends
+Check_package chroot/sbin/mkdosfs dosfstools
+Check_package chroot/usr/sbin/mtools mtools
+Check_package chroot/sbin/parted parted
 
-			syslinux)
-				Check_package chroot/usr/bin/syslinux syslinux
-				;;
-		esac
+case "${LIVE_BOOTLOADER}" in
+	grub)
+		Check_package chroot/usr/sbin/grub grub
+		;;
 
-		# Installing depends
-		Install_package
+	syslinux)
+		Check_package chroot/usr/bin/syslinux syslinux
+		;;
+esac
 
-		# Remove old binary
-		if [ -f binary.img ]
-		then
-			rm -f binary.img
-		fi
+# Installing depends
+Install_package
 
-		# Everything which comes here needs to be cleaned up,
-		DU_DIM="`du -ms binary | cut -f1`"
-		REAL_DIM="`expr ${DU_DIM} + ${DU_DIM} / 50`" # Just 2% more to be sure, need something more sophistcated here...
-		dd if=/dev/zero of=binary.img bs=1024k count=${REAL_DIM}
-		FREELO="`${LH_LOSETUP} -f`"
-		if [ ! -b chroot/${FREELO} ]
-		then
-			MAKEDEV="true"
+# Remove old binary
+if [ -f binary.img ]
+then
+	rm -f binary.img
+fi
 
-			mv chroot/dev chroot/dev.tmp
-			find /dev | cpio -dmpu chroot
-		fi
+# Everything which comes here needs to be cleaned up,
+DU_DIM="`du -ms binary | cut -f1`"
+REAL_DIM="`expr ${DU_DIM} + ${DU_DIM} / 50`" # Just 2% more to be sure, need something more sophistcated here...
+dd if=/dev/zero of=binary.img bs=1024k count=${REAL_DIM}
+FREELO="`${LH_LOSETUP} -f`"
+if [ ! -b chroot/${FREELO} ]
+then
+	MAKEDEV="true"
 
-		echo "!!! The following error/warning messages can be ignored !!!"
-		lh_losetup $FREELO binary.img 0
-		Chroot "parted -s ${FREELO} mklabel msdos" || true
-		Chroot "parted -s ${FREELO} mkpartfs primary fat16 0.0 100%" || true
-		Chroot "parted -s ${FREELO} set 1 boot on" || true
-		Chroot "parted -s ${FREELO} set 1 lba off" || true
+	mv chroot/dev chroot/dev.tmp
+	find /dev | cpio -dmpu chroot
+fi
 
-		case "${LIVE_BOOTLOADER}" in
-			grub)
-				#echo "(hd0) ${FREELO}" > binary/boot/grub/device.map
+echo "!!! The following error/warning messages can be ignored !!!"
+lh_losetup $FREELO binary.img 0
+Chroot "parted -s ${FREELO} mklabel msdos" || true
+Chroot "parted -s ${FREELO} mkpartfs primary fat16 0.0 100%" || true
+Chroot "parted -s ${FREELO} set 1 boot on" || true
+Chroot "parted -s ${FREELO} set 1 lba off" || true
+
+case "${LIVE_BOOTLOADER}" in
+	grub)
+		#echo "(hd0) ${FREELO}" > binary/boot/grub/device.map
 #grub --batch --no-floppy --device-map=binary/boot/grub/device.map << EOF
 #setup --stage1=binary/boot/grub/stage1 --stage2=binary/boot/grub/stage2 --prefix=/boot/grub (hd0)
 #
 #quit
 #EOF
-				#rm -f binary/boot/grub/device.map 
+		#rm -f binary/boot/grub/device.map
 
-				#Chroot "grub-install --no-floppy --root-directory=/ (hd0)"
-				;;
+		#Chroot "grub-install --no-floppy --root-directory=/ (hd0)"
+		;;
 
-			syslinux)
-				cat chroot/usr/lib/syslinux/mbr.bin > ${FREELO}
-				;;
-		esac
+	syslinux)
+		cat chroot/usr/lib/syslinux/mbr.bin > ${FREELO}
+		;;
+esac
 
-		${LH_LOSETUP} -d ${FREELO}
+${LH_LOSETUP} -d ${FREELO}
 
-		FREELO="`${LH_LOSETUP} -f`"
-		lh_losetup $FREELO binary.img 1
-		Chroot " mkfs.vfat -F 16 -n DEBIAN_LIVE ${FREELO}"
-		mkdir -p binary.tmp
-		${LH_ROOT_COMMAND} mount ${FREELO} binary.tmp
-		cp -r binary/* binary.tmp
-		${LH_ROOT_COMMAND} umount binary.tmp
-		rmdir binary.tmp
+FREELO="`${LH_LOSETUP} -f`"
+lh_losetup $FREELO binary.img 1
+Chroot " mkfs.vfat -F 16 -n DEBIAN_LIVE ${FREELO}"
+mkdir -p binary.tmp
+${LH_ROOT_COMMAND} mount ${FREELO} binary.tmp
+cp -r binary/* binary.tmp
+${LH_ROOT_COMMAND} umount binary.tmp
+rmdir binary.tmp
 
-		if [ "${LIVE_BOOTLOADER}" = "syslinux" ]
-		then
-			Chroot "syslinux ${FREELO}"
-		fi
+if [ "${LIVE_BOOTLOADER}" = "syslinux" ]
+then
+	Chroot "syslinux ${FREELO}"
+fi
 
-		${LH_LOSETUP} -d ${FREELO}
+${LH_LOSETUP} -d ${FREELO}
 
-		#if [ "${LIVE_BOOTLOADER}" = "grub" ]
-		#then
-		#	FREELO="`${LH_LOSETUP} -f`"
-		#	lh_losetup $FREELO binary.img 0
+#if [ "${LIVE_BOOTLOADER}" = "grub" ]
+#then
+#	FREELO="`${LH_LOSETUP} -f`"
+#	lh_losetup $FREELO binary.img 0
 
-		#	dd if=binary/boot/grub/stage1 of=${FREELO} bs=512 count=1
-		#	dd if=binary/boot/grub/stage2 of=${FREELO} bs=512 seek=1
+#	dd if=binary/boot/grub/stage1 of=${FREELO} bs=512 count=1
+#	dd if=binary/boot/grub/stage2 of=${FREELO} bs=512 seek=1
 
-		#	${LH_LOSETUP} -d ${FREELO}
-		#fi
-		echo "!!! The above error/warning messages can be ignored !!!"
+#	${LH_LOSETUP} -d ${FREELO}
+#fi
+echo "!!! The above error/warning messages can be ignored !!!"
 
-		if [ -n "${MAKEDEV}" ]
-		then
-			rm -f chroot/dev
-			mv chroot/dev.tmp chroot/dev
-		fi
+if [ -n "${MAKEDEV}" ]
+then
+	rm -f chroot/dev
+	mv chroot/dev.tmp chroot/dev
+fi
 
-		# Removing depends
-		Remove_package
+# Removing depends
+Remove_package
 
-		# Creating stage file
-		Create_stagefile .stage/binary_usb-hdd
-	fi
-done
+# Creating stage file
+Create_stagefile .stage/binary_usb-hdd

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_binary_manifest(1) - create manifest
+# lh_chroot_preseed(1) - mount /proc
 # Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="create manifest"
+DESCRIPTION="execute preseed in chroot"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -32,13 +32,13 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-Echo_message "Begin creating manifest..."
+Echo_message "Begin executing preseed..."
 
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/binary_manifest
+Check_stagefile .stage/chroot_preseed
 
 # Checking lock file
 Check_lockfile .lock
@@ -46,21 +46,31 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-case "${LH_INITRAMFS}" in
-	casper)
-		INITFS="casper"
-		;;
+if [ -n "${LIVE_PRESEED}" ]
+then
+	if [ -f "${LIVE_PRESEED}" ]
+	then
+		# Check dependency
+		Check_package chroot/usr/bin/debconf-set-selections debconf
 
-	live-initramfs)
-		INITFS="live"
-		;;
-esac
+		# Install dependency
+		Install_package
 
-# Add filesystem.manifest
-Chroot "dpkg --get-selections" | awk '{ print $1 }' | sort -u > binary/${INITFS}/filesystem.manifest
+		# Copying preseed
+		cp "${LIVE_PRESEED}" chroot/root/preseed
 
-# Add packages.list
-Chroot "dpkg -l" > packages.txt
+		Chroot "debconf-set-selections /root/preseed"
 
-# Creating stage file
-Create_stagefile .stage/binary_manifest
+		# Removing preseed file
+		rm -f chroot/root/preseed
+
+		# Remove dependency
+		Remove_package
+
+		# Creating stage file
+		Create_stagefile .stage/chroot_preseed
+	fi
+else
+	Echo_error "'${LIVE_PRESEED}' file doesn't exists."
+	exit 1
+fi

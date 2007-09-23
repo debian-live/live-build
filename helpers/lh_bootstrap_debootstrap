@@ -9,23 +9,20 @@
 
 set -e
 
-# Source common functions
-for FUNCTION in /usr/share/live-helper/functions/*.sh
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
 do
-	. ${FUNCTION}
+	. "${FUNCTION}"
 done
 
-# Set static variables
+# Setting static variables
 DESCRIPTION="bootstrap a Debian system with debootstrap(8)"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
-
-# Ensure that a system is built as root
-lh_testroot
-
-Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -35,12 +32,15 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-Breakpoint "bootstrap_debootstrap: Init"
-
 if [ "${LH_BOOTSTRAP}" != "debootstrap" ]
 then
 	exit 0
 fi
+
+Echo_message "Begin bootstrapping system..."
+
+# Ensure that a system is built as root
+lh_testroot
 
 # Checking stage file
 Check_stagefile .stage/bootstrap
@@ -52,10 +52,7 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Creating chroot directory
-if [ ! -d chroot ]
-then
-	mkdir -p chroot
-fi
+mkdir -p chroot
 
 # Setting debootstrap options
 if [ -n "${LIVE_ARCHITECTURE}" ]
@@ -117,10 +114,7 @@ then
 		fi
 
 		# Saving new cache
-		if [ ! -d cache/packages_bootstrap ]
-		then
-			mkdir -p cache/packages_bootstrap
-		fi
+		mkdir -p cache/packages_bootstrap
 
 		cp chroot/var/cache/apt/archives/*.deb cache/packages_bootstrap
 	fi
@@ -146,10 +140,7 @@ then
 				rm -rf cache/stages_bootstrap
 			fi
 
-			if [ ! -d cache ]
-			then
-				mkdir cache
-			fi
+			mkdir -p cache
 
 			${LH_ROOT_COMMAND} cp -a chroot cache/stages_bootstrap
 

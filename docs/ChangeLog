@@ -1,3 +1,37 @@
+2007-06-03  Daniel Baumann  <daniel@debian.org>
+
+	* Uploaded 1.0~a13-1.
+
+2007-06-02  Otavio Salvador  <otavio@debian.org>
+
+	* helpers/lh_chroot_preseed:
+	  - Use {Check,Install,Remove}_package to handle debconf dependency.
+	* Add support to specify the apt/aptitude pipeline depth.
+
+2007-06-02  Daniel Baumann  <daniel@debian.org>
+
+	* Applied patches from Otavio Salvador <otavio@debian.org>:
+	  - Add support to override helpers base directory
+	  - Use LIVE_BOOTSTRAP_CONFIG instead of LIVE_DISTRIBUTION_CONFIG.
+	  - Add support to specify the keyring to be used while bootstraping.
+	  - Add lh_chroot_preseed helper.
+
+2007-05-28  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/*:
+	  - Added initial P: messages.
+	  - Removed some bashisms.
+	  - Added some of the proposed cleanups from Trent Buck
+	    <trentbuck@gmail.com>.
+	* lists/mini, minimal:
+	  - Removed, already pulled in with live-initramfs depends.
+
+2007-05-27  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_rootfs:
+	  - Added check for config/binary_rootfs/squashfs.sort for passing a
+	    sorting list to mksquashfs.
+
 2007-05-26  Daniel Baumann  <daniel@debian.org>
 
 	* lists/rescue:

@@ -9,20 +9,20 @@
 
 set -e
 
-# Source common functions
-for FUNCTION in /usr/share/live-helper/functions/*.sh
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
 do
-	. ${FUNCTION}
+	. "${FUNCTION}"
 done
 
-# Set static variables
+# Setting static variables
 DESCRIPTION="execute local hooks in chroot"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
-
-Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -32,7 +32,7 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-Breakpoint "chroot_local-hooks: Init"
+Echo_message "Begin executing local hooks..."
 
 # Requiring stage file
 Require_stagefile .stage/bootstrap
@@ -47,7 +47,7 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Processing local-hooks
-if ls config/chroot_local-hooks/* &> /dev/null
+if ls config/chroot_local-hooks/* > /dev/null 2>&1
 then
 	for HOOK in config/chroot_local-hooks/*
 	do

@@ -14,11 +14,11 @@ FIXME
   * grub (i386/amd64) boot support on usb* binary images
   * grub (i386/amd64) boot support on net binary images
   * multi-{binary,architecture,distribution} builds in one shot
-  * vmlinu[xz]
-  * breakpoints (yes/no/all/type: soft ->interaction to stop/hard ->interaction to continue)
   * check unset variables
 
 ADDME
+  * vmlinu[xz] [ppc64?]
+  * breakpoints (yes/no/all/type: soft ->interaction to stop/hard ->interaction to continue)
   * vmware binary image flavour
   * usb-zip binary image flavour
   * support splitted/partial squashfs images
@@ -26,7 +26,7 @@ ADDME
   * introduce package groups
   * multi-arch for amd64/i386/powerpc on one medium
   * logfiles
-  * re-import lh_clone/lh_preseed
+  * re-import lh_clone
   * Add win32 loader
 
 BETA series:
@@ -45,3 +45,4 @@ POST 1.0:
   * Add loadlin or qemu batch
   * Adding colinux?
   * exec wrapper for output hiding/handling
+  * bootchart and squashfs sorting integration
