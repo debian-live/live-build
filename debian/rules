@@ -23,6 +23,7 @@ install: build
 
 	# Installing package
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/live-package
+	install -D debian/default debian/live-package/etc/default/make-live
 
 binary-arch: build install
 
@@ -32,6 +33,7 @@ binary-indep: build install
 	dh_installchangelogs ChangeLog
 	dh_installdocs
 	dh_install
+	dh_installcron
 	dh_compress
 	dh_fixperms
 	dh_installdeb

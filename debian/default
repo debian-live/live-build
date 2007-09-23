@@ -1,0 +1,13 @@
+# Defaults for make-live cron.daily
+
+AUTOBUILD="false"
+
+DISTRIBUTIONS="etch sid"
+FLAVOURS="minimal standard kde gnome xfce"
+MIRROR="http://ftp.debian.org/debian/"
+OPTIONS="--with-source"
+
+DIRECTORY="/srv/tmp/make-live"
+SERVER="/srv/debian-live"
+ARCHITECTURE="`dpkg --print-architecture`"
+DATE="`date +%Y%m%d`"

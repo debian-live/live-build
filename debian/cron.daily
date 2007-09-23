@@ -1,0 +1,67 @@
+#!/bin/sh
+
+# Check for make-live executable
+if [ ! -x /usr/sbin/make-live ]
+then
+	exit 0
+fi
+
+# Check for make-live default
+if [ -r /etc/default/make-live ]
+then
+	. /etc/default/make-live
+else
+	echo "E: /etc/default/make-live missing."
+	exit 1
+fi
+
+# Check for autobuild
+if [ "${AUTOBUILD}" = "false" ]
+then
+	exit 0
+fi
+
+# Check for build directory
+if [ ! -d "${DIRECTORY}" ]
+then
+	mkdir -p "${DIRECTORY}"
+else
+	# FIXME: maybe we should just remove the left overs.
+	echo "E: ${DIRECTORY} needs cleanup."
+	exit 1
+fi
+
+# Process image autobuilding
+cd "${DIRECTORY}"
+
+for DISTRIBUTION in ${DISTRIBUTIONS}
+do
+	for FLAVOUR in ${FLAVOURS}
+	do
+		if [ ! -f "${SERVER}"/daily-release/${DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}_${DATE}.txt ]
+		then
+			# Generating images
+			mkdir debian-live
+			make-live -d ${DISTRIBUTION} -p ${FLAVOUR} -m ${MIRROR} ${OPTIONS} > debian-live/log.txt 2>&1
+		fi
+
+		if [ -f debian-live/binary.iso ] && [ -f debian-live/source.iso ]
+		then
+			# Moving images
+			mkdir -p "${SERVER}"/daily-release/${DATE}/log
+			mv debian-live/log.txt "${SERVER}"/daily-release/${DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}_${DATE}.txt
+
+			mkdir -p "${SERVER}"/daily-release/${DATE}/${ARCHITECTURE}
+			mv debian-live/binary.iso "${SERVER}"/daily-release/${DATE}/${ARCHITECTURE}/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso
+
+			mkdir -p "${SERVER}"/daily-release/${DATE}/source
+			mv debian-live/source.iso "${SERVER}"/daily-release/${DATE}/source/debian-live-${DISTRIBUTION}-source-${FLAVOUR}.iso
+		fi
+
+		rm -rf debian-live
+	done
+done
+
+# Cleanup
+umount -f "${DIRECTORY}"/debian-live/chroot/proc > /dev/null 2>&1
+rm -rf "${DIRECTORY}"

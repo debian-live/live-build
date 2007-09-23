@@ -260,4 +260,14 @@ Defaults ()
 	then
 		LIVE_DISK_VOLUME="Debian Live `date +%Y%m%d`"
 	fi
+
+	if [ -z "${LIVE_DEBCONF_FRONTEND}" ]
+	then
+		LIVE_DEBCONF_FRONTEND="noninteractive"
+	fi
+
+	if [ -z "${LIVE_DEBCONF_PRIORITY}" ]
+	then
+		LIVE_DEBCONF_PRIORITY="critical"
+	fi
 }

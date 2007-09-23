@@ -1,3 +1,12 @@
+2007-01-30 Daniel Baumann <daniel@debian.org>
+
+	* Added cron job for autobuilding images.
+
+2007-01-25 Daniel Baumann <daniel@debian.org>
+
+	* Added additional pruning to minimal flavour.
+	* Using interactive frontend while processing --hook.
+
 2007-01-24 Daniel Baumann <daniel@debian.org>
 
 	* Applied patches from Otavio Salvador <otavio@debian.org>:
