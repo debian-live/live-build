@@ -33,7 +33,6 @@ Read_conffile config/source
 Set_defaults
 
 Echo_message "Begin copying chroot..."
-Echo_message "This may take a while."
 
 # Requiring stage file
 Require_stagefile .stage/bootstrap
@@ -62,6 +61,8 @@ if [ "${LIVE_CHROOT_BUILD}" = "disabled" ]
 then
 	exit 0
 fi
+
+Echo_message "This may take a while."
 
 # Removing old chroot
 ${LH_ROOT_COMMAND} rm -rf chroot/chroot

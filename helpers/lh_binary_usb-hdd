@@ -54,7 +54,7 @@ Create_lockfile .lock
 
 # Checking depends
 Check_package chroot/sbin/mkdosfs dosfstools
-Check_package chroot/usr/sbin/mtools mtools
+Check_package chroot/usr/share/doc/mtools mtools
 Check_package chroot/sbin/parted parted
 
 case "${LIVE_BOOTLOADER}" in
@@ -94,21 +94,48 @@ fi
 
 echo "!!! The following error/warning messages can be ignored !!!"
 lh_losetup $FREELO chroot/binary.img 0
-Chroot "parted -s ${FREELO} mklabel msdos" || true
-Chroot "parted -s ${FREELO} mkpartfs primary fat16 0.0 100%" || true
-Chroot "parted -s ${FREELO} set 1 boot on" || true
-Chroot "parted -s ${FREELO} set 1 lba off" || true
 
-if [ "${LIVE_BOOTLOADER}" = "syslinux" ]
-then
-	cat chroot/usr/lib/syslinux/mbr.bin > ${FREELO}
-fi
+case "${LIVE_CHROOT_BUILD}" in
+	enabled)
+		Chroot "parted -s ${FREELO} mklabel msdos" || true
+		Chroot "parted -s ${FREELO} mkpartfs primary fat16 0.0 100%" || true
+		Chroot "parted -s ${FREELO} set 1 boot on" || true
+		Chroot "parted -s ${FREELO} set 1 lba off" || true
+
+		if [ "${LIVE_BOOTLOADER}" = "syslinux" ]
+		then
+			cat chroot/usr/lib/syslinux/mbr.bin > ${FREELO}
+		fi
+		;;
+
+	disabled)
+		parted -s ${FREELO} mklabel msdos || true
+		parted -s ${FREELO} mkpartfs primary fat16 0.0 100% || true
+		parted -s ${FREELO} set 1 boot on || true
+		parted -s ${FREELO} set 1 lba off || true
+
+		if [ "${LIVE_BOOTLOADER}" = "syslinux" ]
+		then
+			cat /usr/lib/syslinux/mbr.bin > ${FREELO}
+		fi
+		;;
+esac
 
 ${LH_LOSETUP} -d ${FREELO}
 
 FREELO="`${LH_LOSETUP} -f`"
 lh_losetup $FREELO chroot/binary.img 1
-Chroot " mkfs.vfat -F 16 -n DEBIAN_LIVE ${FREELO}"
+
+case "${LIVE_CHROOT_BUILD}" in
+	enabled)
+		Chroot "mkfs.vfat -F 16 -n DEBIAN_LIVE ${FREELO}"
+		;;
+
+	disabled)
+		mkfs.vfat -F 16 -n DEBIAN_LIVE ${FREELO}
+		;;
+esac
+
 mkdir -p chroot/binary.tmp
 ${LH_ROOT_COMMAND} mount ${FREELO} chroot/binary.tmp
 cp -rL binary/* chroot/binary.tmp
@@ -149,7 +176,15 @@ rmdir chroot/binary.tmp
 
 if [ "${LIVE_BOOTLOADER}" = "syslinux" ]
 then
-	Chroot "syslinux ${FREELO}"
+	case "${LIVE_CHROOT_BUILD}" in
+		enabled)
+			Chroot "syslinux ${FREELO}"
+			;;
+
+		disabled)
+			syslinux ${FREELO}
+			;;
+	esac
 fi
 
 ${LH_LOSETUP} -d ${FREELO}

@@ -1,3 +1,19 @@
+2007-07-29  Daniel Baumann  <daniel@debian.org>
+
+	* functions/packages.sh:
+	  - Using dpkg-query to check for packages when building in chroot,
+	    and on systems where dpkg-query is available.
+	* functions/stagefile.sh:
+	  - Added missing NAME.
+
+2007-07-28  Daniel Baumann  <daniel@debian.org>
+
+	* functions/chroot.sh:
+	  - Added XORG_CONFIG="custom" to chroot call in order to disable
+	    xserver-xorg.postinst (Closes: #430566).
+	* helpers/lh_binary_usb-hdd:
+	  - Fixes for binary non-chroot build.
+
 2007-07-27  Daniel Baumann  <daniel@debian.org>
 
 	* Makefile, debian/postinst, prerm:
@@ -12,6 +28,13 @@
 	* templates/syslinux:
 	  - Added installer specific templates.
 	  - Renamebled additional boot targets (localboot).
+	* Uploaded 1.0~a20-1.
+
+2007-07-24  Mathieu Geli  <mathieu.geli@gmail.com>
+
+	* helpers/make-live:
+	  - synced usage message and getopts parsing (Closes and extends
+	    #434481).
 
 2007-07-19  Daniel Baumann  <daniel@debian.org>
 

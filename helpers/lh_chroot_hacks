@@ -86,9 +86,6 @@ Chroot "update-initramfs -k all -t -u"
 # Remove build systems clock drift
 echo "0.0 0 0.0" > chroot/etc/adjtime
 
-# Remove generated xorg.conf based on build systems configuration
-rm -f chroot/etc/X11/xorg.conf
-
 # Remove cruft
 rm -f chroot/boot/initrd*bak*
 rm -f /etc/apt/trusted.gpg~
