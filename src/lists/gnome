@@ -1,10 +1,10 @@
-# /usr/share/make-live/lists/gnome - package list for make-live(8)
+# /usr/share/make-live/lists/gnome - package list for make-live(1)
 
 # Minimal
 eject sudo
 
 # Standard
-locales
+console-common locales
 
 # GNOME
 gdm gdm-themes gnome-desktop-environment gnome-cups-manager gnome-screensaver

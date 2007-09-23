@@ -1,0 +1,8 @@
+# /usr/share/make-live/lists/minimal-net - package list for make-live(1)
+
+# Minimal
+eject vim-tiny sudo
+
+# Network
+bind9-host dhcp-client dnsutils ftp ifupdown iptables iputils-ping mtr-tiny
+net-tools netbase netcat openssh-client telnet traceroute wget whois

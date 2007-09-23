@@ -1,10 +1,10 @@
-# /usr/share/make-live/lists/gnome-core - package list for make-live(8)
+# /usr/share/make-live/lists/gnome-core - package list for make-live(1)
 
 # Minimal
 eject sudo
 
 # Standard
-locales
+console-common locales
 
 # GNOME Core
 gdm gnome-core

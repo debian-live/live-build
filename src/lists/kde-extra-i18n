@@ -1,10 +1,10 @@
-# /usr/share/make-live/lists/kde-extra-i18n - package list for make-live(8)
+# /usr/share/make-live/lists/kde-extra-i18n - package list for make-live(1)
 
 # Minimal
 eject sudo
 
 # Standard
-locales
+console-common locales
 
 # Standard i18n
 manpages manpages-dev manpages-de manpages-de-dev manpages-es manpages-es-extra
