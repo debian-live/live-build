@@ -22,40 +22,42 @@ then
 fi
 
 # Check for build directory
-if [ ! -d "${DIRECTORY}" ]
+if [ ! -d "${AUTOBUILD_DIRECTORY}" ]
 then
-	mkdir -p "${DIRECTORY}"
+	mkdir -p "${AUTOBUILD_DIRECTORY}"
 else
 	# FIXME: maybe we should just remove the left overs.
-	echo "E: ${DIRECTORY} needs cleanup."
+	echo "E: ${AUTOBUILD_DIRECTORY} needs cleanup."
 	exit 1
 fi
 
 # Process image autobuilding
-cd "${DIRECTORY}"
+cd "${AUTOBUILD_DIRECTORY}"
 
-for DISTRIBUTION in ${DISTRIBUTIONS}
+for DISTRIBUTION in ${AUTOBUILD_DISTRIBUTIONS}
 do
-	for FLAVOUR in ${FLAVOURS}
+	for FLAVOUR in ${AUTOBUILD_FLAVOURS}
 	do
-		if [ ! -f "${SERVER}"/daily-release/${DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}_${DATE}.txt ]
+		if [ ! -f "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/log/debian-live-${AUTOBUILD_DISTRIBUTION}-${AUTOBUILD_ARCHITECTURE}-${AUTOBUILD_FLAVOUR}_${AUTOBUILD_DATE}.txt ]
 		then
 			# Generating images
 			mkdir debian-live
-			make-live -d ${DISTRIBUTION} -p ${FLAVOUR} -m ${MIRROR} ${OPTIONS} > debian-live/log.txt 2>&1
+			make-live -d ${AUTOBUILD_DISTRIBUTION} -p ${AUTOBUILD_FLAVOUR} -m ${LIVE_MIRROR} ${AUTOBUILD_OPTIONS} > debian-live/log.txt 2>&1
 		fi
 
 		if [ -f debian-live/binary.iso ] && [ -f debian-live/source.iso ]
 		then
+			# Moving logs
+			mkdir -p "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/log
+			mv debian-live/log.txt "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/log/debian-live-${AUTOBUILD_DISTRIBUTION}-${AUTOBUILD_ARCHITECTURE}-${AUTOBUILD_FLAVOUR}_${AUTOBUILD_DATE}-log.txt
+			mv debian-live/packages.txt "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/log/debian-live-${AUTOBUILD_DISTRIBUTION}-${AUTOBUILD_ARCHITECTURE}-${AUTOBUILD_FLAVOUR}_${AUTOBUILD_DATE}-packages.txt
+
 			# Moving images
-			mkdir -p "${SERVER}"/daily-release/${DATE}/log
-			mv debian-live/log.txt "${SERVER}"/daily-release/${DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}_${DATE}.txt
+			mkdir -p "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/${AUTOBUILD_ARCHITECTURE}
+			mv debian-live/binary.iso "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/${AUTOBUILD_ARCHITECTURE}/debian-live-${AUTOBUILD_DISTRIBUTION}-${AUTOBUILD_ARCHITECTURE}-${AUTOBUILD_FLAVOUR}.iso
 
-			mkdir -p "${SERVER}"/daily-release/${DATE}/${ARCHITECTURE}
-			mv debian-live/binary.iso "${SERVER}"/daily-release/${DATE}/${ARCHITECTURE}/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso
-
-			mkdir -p "${SERVER}"/daily-release/${DATE}/source
-			mv debian-live/source.iso "${SERVER}"/daily-release/${DATE}/source/debian-live-${DISTRIBUTION}-source-${FLAVOUR}.iso
+			mkdir -p "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/source
+			mv debian-live/source.iso "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/source/debian-live-${AUTOBUILD_DISTRIBUTION}-source-${AUTOBUILD_FLAVOUR}.iso
 		fi
 
 		rm -rf debian-live
@@ -63,5 +65,5 @@ do
 done
 
 # Cleanup
-umount -f "${DIRECTORY}"/debian-live/chroot/proc > /dev/null 2>&1
-rm -rf "${DIRECTORY}"
+umount -f "${AUTOBUILD_DIRECTORY}"/debian-live/chroot/proc > /dev/null 2>&1
+rm -rf "${AUTOBUILD_DIRECTORY}"

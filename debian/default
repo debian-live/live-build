@@ -2,12 +2,16 @@
 
 AUTOBUILD="false"
 
-DISTRIBUTIONS="etch sid"
-FLAVOURS="minimal standard kde gnome xfce"
-MIRROR="http://ftp.debian.org/debian/"
-OPTIONS="--with-source"
+AUTOBUILD_DISTRIBUTIONS="etch sid"
+AUTOBUILD_FLAVOURS="minimal standard kde-desktop gnome-desktop xfce-desktop"
+AUTOBUILD_OPTIONS="--tasks laptop --with-source"
 
-DIRECTORY="/srv/tmp/make-live"
-SERVER="/srv/debian-live"
-ARCHITECTURE="`dpkg --print-architecture`"
-DATE="`date +%Y%m%d`"
+AUTOBUILD_DIRECTORY="/srv/tmp/make-live"
+AUTOBUILD_SERVER="/srv/debian-live"
+AUTOBUILD_ARCHITECTURE="`dpkg --print-architecture`"
+AUTOBUILD_DATE="`date +%Y%m%d`"
+
+LIVE_MIRROR="http://ftp.debian.org/debian/"
+
+# Source /etc/make-live.conf
+# . /etc/make-live.conf

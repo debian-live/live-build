@@ -86,13 +86,7 @@ Defaults ()
 				;;
 
 			amd64)
-				if [ "${LIVE_DISTRIBUTION}" = "unstable" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_UNSTABLE}" ] || \
-				   [ "${LIVE_DISTRIBUTION}" = "testing" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_TESTING}" ]
-				then
-					LIVE_KERNEL="amd64"
-				else
-					LIVE_KERNEL="amd64-generic"
-				fi
+				LIVE_KERNEL="amd64"
 				;;
 
 			arm)
@@ -164,6 +158,21 @@ Defaults ()
 	if [ -z "${LIVE_MIRROR_SECURITY}" ]
 	then
 		LIVE_MIRROR_SECURITY="http://security.debian.org/"
+	fi
+
+	# Set default aptitude tasks
+	if [ "${LIVE_PACKAGE_LIST}" = "gnome-desktop" ]
+	then
+		LIVE_PACKAGE_LIST="gnome"
+		LIVE_TASKS="${LIVE_TASKS} gnome-desktop"
+	elif [ "${LIVE_PACKAGE_LIST}" = "kde-desktop" ]
+	then
+		LIVE_PACKAGE_LIST="kde"
+		LIVE_TASKS="${LIVE_TASKS} kde-desktop"
+	elif [ "${LIVE_PACKAGE_LIST}" = "xfce-desktop" ]
+	then
+		LIVE_PACKAGE_LIST="xfce"
+		LIVE_TASKS="${LIVE_TASKS} xfce-desktop"
 	fi
 
 	# Check for package lists
