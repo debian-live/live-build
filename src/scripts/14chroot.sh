@@ -13,6 +13,7 @@ Chroot_exec ()
 {
 	# Execute commands chrooted
 	chroot "${LIVE_CHROOT}" /usr/bin/env -i HOME="/root" PATH="/usr/sbin:/usr/bin:/sbin:/bin" TERM="${TERM}" ftp_proxy="${LIVE_PROXY_FTP}" http_proxy="${LIVE_PPROXY_HTTP}" DEBIAN_FRONTEND="noninteractive" DEBIAN_PRIORITY="critical" ${1}
+	return ${?}
 }
 
 Chroot ()
@@ -70,13 +71,26 @@ Chroot ()
 		fi
 
 		# Execute extra command in the chroot
-		if [ -n "${LIVE_HOOK}" ]
+		if [ -r "${LIVE_HOOK}" ]
+		then
+			# FIXME
+			Chroot_exec "`cat ${LIVE_HOOK}`"
+		elif [ -n "${LIVE_HOOK}" ]
 		then
 			Chroot_exec "${LIVE_HOOK}"
 		fi
 
 		# Temporary hacks for broken packages
 		Hack_xorg
+
+		# Add filesystem.manifest
+		Chroot_exec "dpkg-query -W \*" | awk '$2 ~ /./ {print $1 " " $2 }' > "${LIVE_ROOT}"/filesystem.manifest
+
+		if [ ! -z "${LIVE_MANIFEST}" ]
+		then
+			Chroot_exec "apt-get install --yes ${LIVE_MANIFEST}"
+			Chroot_exec "dpkg-query -W \*" | awk '$2 ~ /./ {print $1 " " $2 }' > "${LIVE_ROOT}"/filesystem.manifest-desktop
+		fi
 
 		# Clean apt packages cache
 		rm -f "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb

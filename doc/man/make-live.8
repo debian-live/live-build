@@ -1,4 +1,4 @@
-.TH MAKE-LIVE 8 "Mon,  4 Sep 2006" "0.99.5" "Debian Live framework"
+.TH MAKE-LIVE 8 "Mon,  4 Sep 2006" "0.99" "Debian Live framework"
 
 .SH NAME
 make-live \- utility to build Debian Live systems
@@ -20,13 +20,15 @@ make-live \- utility to build Debian Live systems
 .RB [\| \-f \||\| \-\-flavour
 .IR BOOTSTRAP_FLAVOUR \|]
 .RB [\| \-\-hook
-.IR COMMAND \||\| \|"COMMANDS\|" \|]
+.IR COMMAND \||\| \|"COMMANDS\|" \||\|| FILE \|]
 .RB [\| \-\-include-chroot
 .IR FILE \||\| DIRECTORY \|]
 .RB [\| \-\-include-image
 .IR FILE \||\| DIRECTORY \|]
 .RB [\| \-k \||\| \-\-kernel
 .IR KERNEL_FLAVOUR \|]
+.RB [ \-\-manifest
+.IR PACKAGE \|]
 .RB [\| \-m \||\| \-\-mirror
 .IR URL \|]
 .RB [\| \-\-mirror-security
@@ -91,7 +93,7 @@ Specifies the filesystem for the compressed image. At the moment, ext2, plain an
 .BI "\-f, \-\-flavour " BOOTSTRAP_FLAVOUR
 specifies the bootstrap flavour. This can be either standard or minimal. Instead of this flag, the environment variable LIVE_FLAVOUR can be used (Default: standard).
 .TP
-.BI "\-\-hook " COMMANDS
+.BI "\-\-hook " COMMAND \||\| \|"COMMANDS\|" \||\|| FILE
 specifies one or more commands to be executed in the chroot. Instead of this flag, the environment variable LIVE_HOOK can be used (Default: empty).
 .TP
 .BI "\-\-include-chroot " FILE \||\| DIRECTORY
@@ -102,6 +104,9 @@ specifies a file or directory which will be copied inside the image. Instead of 
 .TP
 .BI "\-k, \-\-kernel " KERNEL_FLAVOUR
 specifies the kernel image flavour. Instead of this flag, the environment variable LIVE_KERNEL can be used (Default: auto-detected).
+.TP
+.BI "\-\-manifest " PACKAGE
+specifies the last package to install before creating the filesystem.manifest-desktop list, mainly used with ubuntu live, PACKAGE should probably be "ubuntu-live" for ubuntu desktop livecd's. Instead of this flag, the environment variable LIVE_MANIFEST can be used (Default: do not create filesystem.manifest-desktop).
 .TP
 .BI "\-m, \-\-mirror " URL
 specifies the debian mirror where make-live will download the packages from. Instead of this flag, the environment variable LIVE_MIRROR can be used (Default: http://ftp.debian.org/debian).

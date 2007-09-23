@@ -31,6 +31,7 @@ Defaults ()
 
 			*)
 				echo "E: image type wrong or not yet supported."
+				Usage 1
 				;;
 		esac
 	else
@@ -53,6 +54,33 @@ Defaults ()
 	if [ -z "${LIVE_DISTRIBUTION}" ]
 	then
 		LIVE_DISTRIBUTION="unstable"
+	else
+		case "${LIVE_DISTRIBUTION}" in
+			"${CODENAME_OLDSTABLE}")
+				LIVE_DISTRIBUTION="oldstable"
+				;;
+
+			"${CODENAME_STABLE}")
+				LIVE_DISTRIBUTION="stable"
+				;;
+
+			"${CODENAME_TESTING}")
+				LIVE_DISTRIBUTION="testing"
+				;;
+
+			"${CODENAME_UNSTABLE}")
+				LIVE_DISTRIBUTION="unstable"
+				;;
+
+			experimental)
+				LIVE_DISTRIBUTION="unstable"
+				LIVE_DISTRIBUTION_EXPERIMENTAL="yes"
+				;;
+
+			*)
+				LIVE_DISTRIBUTION="unstable"
+				;;
+		esac
 	fi
 
 	# Set bootstrap flavour
@@ -128,7 +156,7 @@ Defaults ()
 
 			*)
 				echo "FIXME: Architecture not yet supported."
-				exit 1
+				Usage 1
 				;;
 		esac
 	fi

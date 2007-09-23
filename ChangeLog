@@ -1,3 +1,19 @@
+2006-09-08 Marco Amadori <marco.amadori@gmail.com>
+
+	* 23net.sh: Fixed binary missing directory creation.
+	* templates/iso: Moved common files to templates/common.
+
+2006-09-07 Daniel Baumann <daniel@debian.org>
+
+	* Minor cleanups.
+	* Fixed dist target.
+
+2006-09-06 Marco Amadori <marco.amadori@gmail.com>
+
+	* 14chroot.sh, main.sh: Added manifest support.
+	* 23net.sh: Added 2 variables for basenames to ease readability.
+	* main.sh, 02default.sh: Modified Usage() uses.
+
 2006-09-03 Daniel Baumann <daniel@debian.org>
 
 	* Added dist parameter to easily pull images for live.debian.net.

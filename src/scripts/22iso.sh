@@ -14,6 +14,7 @@ Iso ()
 	if [ ! -f "${LIVE_ROOT}"/.stage/image_binary ]
 	then
 		mkdir -p "${LIVE_ROOT}"/binary/casper
+		mv "${LIVE_ROOT}"/filesystem.manifest* "${LIVE_ROOT}"/binary/casper/
 
 		# Switching package indices to default
 		if [ "${LIVE_GENERIC_INDICES}" = "yes" ]
@@ -43,6 +44,7 @@ Iso ()
 		if [ "${LIVE_FLAVOUR}" != "minimal" ]
 		then
 			cp -r "${LIVE_TEMPLATES}"/iso/* "${LIVE_ROOT}"/binary
+			cp -r "${LIVE_TEMPLATES}"/common/* "${LIVE_ROOT}"/binary
 		fi
 
 		# Calculating md5sums

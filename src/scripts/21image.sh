@@ -171,7 +171,8 @@ Syslinux ()
 				cp -r "${LIVE_TEMPLATES}"/syslinux/* \
 					"${LIVE_ROOT}"/tftpboot/pxelinux.cfg
 				mv "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/pxelinux.cfg "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/default
-				rm -f "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/isolinux.*
+				rm -f "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/isolinux.cfg
+				sed -i -e 's#splash.rle#pxelinux.cfg/splash.rle#' "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/isolinux.txt
 
 				# Configure syslinux templates
 				sed -i -e "s/LIVE_SERVER_ADDRESS/${LIVE_SERVER_ADDRESS}/" -e "s#LIVE_SERVER_PATH#${LIVE_SERVER_PATH}#" -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/default

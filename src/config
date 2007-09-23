@@ -42,6 +42,9 @@
 # Kernel flavour		(Default: auto-detected)
 #LIVE_KERNEL=""
 
+# Desktop package manifest	(Default: empty)
+#LIVE_MANIFEST=""
+
 # Debian mirror			(Default: http://ftp.debian.org/debian/)
 #LIVE_MIRROR="http://ftp.debian.org/debian/"
 

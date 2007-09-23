@@ -1,4 +1,4 @@
-.TH MAKE-LIVE.CONF 8 "Mon,  4 Sep 2006" "0.99.5" "Debian Live framework"
+.TH MAKE-LIVE.CONF 8 "Mon,  4 Sep 2006" "0.99" "Debian Live framework"
 
 .SH NAME
 make-live.conf \- configuration file for make-live(8)
@@ -41,6 +41,9 @@ specifies a file or a directory to be included into the chroot. Instead of this 
 .TP
 .B LIVE_KERNEL
 specifies the kernel image flavour. Instead of this environment variable, the flag \-k, \-\-kernel can be used.
+.TP
+.BI LIVE_MANIFEST
+specifies the last package to install before creating the filesystem.manifest-desktop list, mainly used with ubuntu live, in those system it should probably be set to "ubuntu-live" for ubuntu desktop livecd's (Default: do not create filesystem.manifest-desktop).
 .TP
 .B LIVE_MIRROR
 specifies the debian mirror where make-live will download the packages from. Instead of this environment variable, the flag \-m, \-\-mirror LIVE_MIRROR can be used (Default: http://ftp.debian.org/debian).
