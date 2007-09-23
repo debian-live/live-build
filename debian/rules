@@ -25,14 +25,14 @@ install: build
 	# Installing package
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/live-helper
 
-	install -D -m 0644 debian/changelog.old debian/live-helper/usr/share/doc/live-helper/changelog.Debian.old
+	install -D -m 0644 debian/changelog.live-package debian/live-helper/usr/share/doc/live-helper/changelog.Debian.live-package
 
 	install -D -m 0644 debian/default debian/live-helper/etc/default/live-helper
 
 	# Removing double files
 	rm -f debian/live-helper/usr/share/doc/live-helper/COPYING
 	rm -f debian/live-helper/usr/share/doc/live-helper/ChangeLog
-	mv debian/live-helper/usr/share/doc/live-helper/ChangeLog.old debian/live-helper/usr/share/doc/live-helper/changelog.old
+	mv debian/live-helper/usr/share/doc/live-helper/ChangeLog.live-package debian/live-helper/usr/share/doc/live-helper/changelog.live-package
 
 binary-arch: build install
 
