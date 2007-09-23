@@ -101,7 +101,7 @@ Yaboot_install_entry ()
 	LINUX_INSTALL="${LINUX_INSTALL}\nimage=${DIRECTORY}/${KERNEL}\n"
 	LINUX_INSTALL="${LINUX_INSTALL}\tlabel=${LABEL}\n"
 	LINUX_INSTALL="${LINUX_INSTALL}\tinitrd=${DIRECTORY}/${INITRD}\n"
-	LINUX_INSTALL="${LINUX_INSTALL}\tappend=\"LH_BOOTAPPEND_LIVE ${APPEND} --\"\n"
+	LINUX_INSTALL="${LINUX_INSTALL}\tappend=\"LH_BOOTAPPEND_LIVE ${APPEND} LH_BOOTAPPEND_INSTALL\"\n"
 	LINUX_INSTALL="${LINUX_INSTALL}\tinitrd-size=10240\n"
 }
 
@@ -266,7 +266,7 @@ case "${LH_BINARY_IMAGES}" in
 
 		# Configure yaboot templates
 		sed -i -e "s#LINUX_LIVE#${LINUX_LIVE}#" -e "s#LINUX_INSTALL#${LINUX_INSTALL}#" binary/yaboot/yaboot.conf
-		sed -i -e "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" binary/yaboot/yaboot.conf
+		sed -i -e "s#LH_BOOTAPPEND_INSTALL#${LH_BOOTAPPEND_INSTALL}#" -e "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" binary/yaboot/yaboot.conf
 		sed -i -e "s/LH_DATE/`date +%Y%m%d`/" -e "s/LH_VERSION/${VERSION}/" binary/yaboot/boot.msg
 		;;
 esac

@@ -93,7 +93,7 @@ Grub_install_entry ()
 	fi
 
 	LINUX_INSTALL="${LINUX_INSTALL}\ntitle\t\tDebian GNU/Linux - ${LABEL}"
-	LINUX_INSTALL="${LINUX_INSTALL}\nkernel\t\t/${KERNEL} ${APPEND} --"
+	LINUX_INSTALL="${LINUX_INSTALL}\nkernel\t\t/${KERNEL} ${APPEND} ${LH_BOOTSTRAP_INSTALL}"
 	LINUX_INSTALL="${LINUX_INSTALL}\ninitrd\t\t/${INITRD}"
 }
 
@@ -290,7 +290,7 @@ then
 fi
 
 sed -i -e "s#LINUX_LIVE#${LINUX_LIVE}#" -e "s#LINUX_INSTALL#${LINUX_INSTALL}#" -e "s#MEMTEST#${MEMTEST}#" binary/boot/grub/menu.lst
-sed -i -e "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" binary/boot/grub/menu.lst
+sed -i -e "s#LH_BOOTAPPEND_INSTALL#${LH_BOOTAPPEND_INSTALL}#" -e "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" binary/boot/grub/menu.lst
 
 sed -i -e 's/\ $//g' binary/boot/grub/menu.lst
 
