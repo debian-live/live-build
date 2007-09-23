@@ -1,6 +1,11 @@
 #!/bin/sh
 
 # lh_binary_hdd(1) - build harddisk binary image
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -10,28 +15,35 @@ do
 	. ${FUNCTION}
 done
 
+# Set static variables
+DESCRIPTION="build harddisk binary image"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
 # Reading configuration files
 Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/image
 Set_defaults
 
-# Requiring stage file
-Require_stagefile .stage/bootstrap
-
-# Checking lock file
-Check_lockfile .lock
-
-# Creating lock file
-Create_lockfile .lock
-
-# Checking stage file
-Check_stagefile .stage/binary_hdd
-
 for IMAGE in ${LIVE_BINARY_IMAGE}
 do
 	if [ "${IMAGE}" = "hdd" ]
 	then
+		# Requiring stage file
+		Require_stagefile .stage/bootstrap
+
+		# Checking lock file
+		Check_lockfile .lock
+
+		# Creating lock file
+		Create_lockfile .lock
+
+		# Checking stage file
+		Check_stagefile .stage/binary_hdd
+
 		# Remove old binary
 		if [ -f binary-hdd.tar.gz ]
 		then

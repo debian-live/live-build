@@ -1,6 +1,11 @@
 #!/bin/sh
 
 # lh_binary_rootfs(1) - build rootfs image
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -10,6 +15,13 @@ do
 	. ${FUNCTION}
 done
 
+# Set static variables
+DESCRIPTION="build rootfs image"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
 # Reading configuration files
 Read_conffile config/common
 Read_conffile config/image
@@ -17,6 +29,7 @@ Set_defaults
 
 # Requiring stage file
 Require_stagefile .stage/bootstrap
+Require_stagefile .stage/binary_chroot
 
 # Checking lock file
 Check_lockfile .lock
@@ -35,6 +48,26 @@ fi
 
 case "${LIVE_FILESYSTEM}" in
 	ext2)
+		if [ ! -f chroot/usr/bin/genext2fs ]
+		then
+			PACKAGES="${PACKAGES} genext2fs"
+		fi
+
+		if [ -n "${PACKAGES}" ]
+		then
+			# Installing packages
+			case "${LH_APT}" in
+				apt|apt-get)
+					Chroot "apt-get install --yes ${PACKAGES}"
+					;;
+
+				aptitude)
+					Chroot "aptitude install --assume-yes ${PACKAGES}"
+					;;
+			esac
+		fi
+
+		# Remove old ext2 image
 		if [ -f binary/casper/filesystem.ext2 ]
 		then
 			rm -f binary/casper/filesystem.ext2
@@ -43,7 +76,25 @@ case "${LIVE_FILESYSTEM}" in
 		DU_DIM="`du -ks chroot | cut -f1`"
 		REAL_DIM="`expr ${DU_DIM} + ${DU_DIM} / 20`" # Just 5% more to be sure, need something more sophistcated here...
 
-		genext2fs --size-in-blocks=${REAL_DIM} --reserved-blocks=0 --root=chroot binary/casper/filesystem.ext2
+		Chroot "genext2fs --size-in-blocks=${REAL_DIM} --reserved-blocks=0 --root=chroot filesystem.ext2"
+
+		# Move image
+		mv chroot/filesystem.ext2 binary/casper
+		rm -rf chroot/chroot
+
+		# Removing packages
+		if [ -n "${PACKAGES}" ]
+		then
+			case "${LH_APT}" in
+				apt|apt-get)
+					Chroot "apt-get remove --purge --yes ${PACKAGES}"
+					;;
+
+				aptitude)
+					Chroot "aptitude purge --assume-yes ${PACKAGES}"
+					;;
+			esac
+		fi
 		;;
 
 	plain)
@@ -55,19 +106,60 @@ case "${LIVE_FILESYSTEM}" in
 		cd chroot
 		find . | cpio -pumd ../binary/casper/filesystem.dir
 		cd "${OLDPWD}"
+
+		rm -rf chroot/chroot
 		;;
 
 	squashfs)
-		if [ -f binary/casper/filesystem.squashfs ]
+		if [ ! -f chroot/usr/sbin/mksquashfs ]
 		then
-			rm binary/casper/filesystem.squashfs
+			PACKAGES="${PACKAGES} squashfs-tools"
 		fi
 
-		if [ "${LIVE_FLAVOUR}" = "minimal" ] || [ "${LIVE_FLAVOUR}" = "mini" ]
+		if [ -n "${PACKAGES}" ]
 		then
-			mksquashfs chroot binary/casper/filesystem.squashfs -e chroot/boot/vmlinuz* chroot/boot/initrd.img* chroot/vmlinuz chroot/initrd.img chroot/boot/config-* chroot/boot/System.map-*
+			# Installing packages
+			case "${LH_APT}" in
+				apt|apt-get)
+					Chroot "apt-get install --yes ${PACKAGES}"
+					;;
+
+				aptitude)
+					Chroot "aptitude install --assume-yes ${PACKAGES}"
+					;;
+			esac
+		fi
+
+		# Remove old squashfs image
+		if [ -f binary/casper/filesystem.squashfs ]
+		then
+			rm -f binary/casper/filesystem.squashfs
+		fi
+
+		# Create image
+		if [ "${LIVE_PACKAGES_LISTS}" != "minimal" ] && [ "${LIVE_PACKAGES_LISTS}" != "mini" ]
+		then
+			Chroot "mksquashfs chroot filesystem.squashfs"
 		else
-			mksquashfs chroot binary/casper/filesystem.squashfs
+			Chroot "mksquashfs chroot filesystem.squashfs -e chroot/boot/vmlinuz* chroot/boot/initrd.img* chroot/vmlinuz* chroot/initrd.img* chroot/boot/config-* chroot/boot/System.map-*"
+		fi
+
+		# Move image
+		mv chroot/filesystem.squashfs binary/casper
+		rm -rf chroot/chroot
+
+		# Removing packages
+		if [ -n "${PACKAGES}" ]
+		then
+			case "${LH_APT}" in
+				apt|apt-get)
+					Chroot "apt-get remove --purge --yes ${PACKAGES}"
+					;;
+
+				aptitude)
+					Chroot "aptitude purge --assume-yes ${PACKAGES}"
+					;;
+			esac
 		fi
 		;;
 esac

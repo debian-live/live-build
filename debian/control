@@ -8,10 +8,9 @@ Standards-Version: 3.7.2
 
 Package: live-helper
 Architecture: all
-Depends: cdebootstrap | debootstrap, genext2fs, genisoimage | mkisofs, squashfs-tools
+Depends: cdebootstrap (>= 0.3.15) | debootstrap (>= 0.3.3.2)
 Conflicts: live-package
 Replaces: live-package
-Suggests: aesloop
 Provides: make-live
 Description: Debian Live helper programs
  Live-helper is a collection of programs that can be used to build Debian Live

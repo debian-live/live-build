@@ -1,3 +1,105 @@
+2006-03-26  Daniel Baumann  <daniel@debian.org>
+
+	* functions/defaults.sh:
+	  - Fixed handling of desktop list variable loop.
+	* Uploaded 1.0~a3-1.
+
+2006-03-25  Daniel Baumann  <daniel@debian.org>
+
+	* functions/*, helpers/*:
+	  - Renamed LIVE_FLAVOUR to LIVE_BOOTSTRAP_FLAVOUR.
+	  - Renamed LIVE_PACKAGES_LIST to LIVE_PACKAGES_LISTS.
+	* functions/cache.sh:
+	  - Added.
+	* helpers/lh_bootstrap_cdebootstrap:
+	  - Added removal of cdebootstrap-helper-diverts.
+	* helpers/lh_binary_chroot:
+	  - Added.
+	* helpers/lh_binary_rootfs:
+	  - Moved filesystem routines into chroot.
+	* helpers/lh_chroot_localization, lh_chroot_localpackages,
+	  lh_chroot_localpackageslists, lh_chroot_packages,
+	  lh_chroot_packageslists, lh_chroot_tasks:
+	  - Added check for LH_CACHE.
+	* helpers/lh_chroot_apt:
+	  - Removing old apt.conf if existing as suggested by Ben Armstrong
+	    <synrg@debian.org>.
+	* helpers/lh_chroot_hacks:
+	  - Added check for already installed smbfs.
+	  - Added check for already configured initramfs.conf as suggested by
+	    Ben Armstrong <synrg@debian.org>.
+	* helpers/lh_chroot_interactive:
+	  - Added.
+	* helpers/lh_chroot_tasks:
+	  - Added routine for LH_APT=apt.
+	* lists/minimal-net:
+	  - Minimized.
+
+2006-03-24  Daniel Baumann  <daniel@debian.org>
+
+	* functions/*, helpers/*, hooks/*:
+	  - Added GPL blurb.
+	* functions/arguments.sh, helpers/*:
+	  - Added common arguments.
+	* functions/arguments.sh, stagefile.sh, helpers/*,
+	  manpages/live-helper.7:
+	  - Added --force option.
+	* functions/defaults.sh, helpers/lh_binary_syslinux, lh_config,
+	  make-live:
+	  - Added LIVE_USERNAME and LIVE_HOSTNAME.
+	* helpers/lh_binary_linuximage, lh_binary_memtest86,
+	  lh_binary_syslinux:
+	  - Moved kernel directory to live.
+	* helpers/lh_clean:
+	  - Added purge.
+
+2006-03-23  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/make-live:
+	  - Calling Arguments twice to catch case with non-default root.
+
+2006-03-22  Daniel Baumann  <daniel@debian.org>
+
+	* functions/default.sh, helpers/*:
+	  - Renamed lh_chroot_packageslist to lh_chroot_packageslists and
+	    lh_chroot_localpackageslist to lh_chroot_localpackageslists
+	* helpers/lh_binary_includes:
+	  - Using LIVE_INCLUDES now.
+	* helpers/lh_chroot_apt:
+	  - Added LH_APT_SECURE.
+	* helpers/lh_chroot_linuximage:
+	  - Added check for LIVE_KERNEL_PACKGES=none to allow kernel packages as
+	    local packages.
+
+2006-03-21  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_hdd, lh_binary_iso, lh_binary_net, lh_binary_usb:
+	  - Checking earlier if there is something todo.
+	* helpers/lh_binary_linuximage, lh_binary_syslinux,
+	  lh_chroot_linuximage, templates/syslinux/isolinux.cfg:
+	  - Extended to support multiple kernels at once.
+	* helpers/lh_binary_includes, lh_binary_localincludes,
+	  lh_chroot_localincludes:
+	  - Replaced path with variable as suggested Kai Hendry <hendry@iki.fi>.
+	* helpers/lh_source_md5sum:
+	  - Added.
+	* helpers/make-live:
+	  - Added short options in ARGUMENTS.
+	* functions/defaults.sh, helpers/*:
+	  - Renamed LIVE_KERNEL to LIVE_KERNEL_FLAVOUR.
+	  - Renamed LIVE_MIRROR_LOCAL to LIVE_MIRROR_BUILD and
+	    LIVE_MIRROR_GENERIC to LIVE_MIRROR_IMAGE.
+
+2006-03-20  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/make-live:
+	  - Fixed typo in ARGUMENTS.
+
+2006-03-19  Daniel Baumann  <daniel@debian.org>
+
+	* lists/gnome*, kde*, standard-x11, xfce*:
+	  - Added alsa-base, alsa-oss, alsa-utils, and discover.
+
 2006-03-19  Daniel Baumann  <daniel@debian.org>
 
 	* Uploaded 1.0~a2-1.
@@ -15,7 +117,7 @@
 	  - Renamed LIVE_MIRROR to LIVE_MIRROR_LOCAL and LIVE_MIRROR_SECURITY
 	    to LIVE_MIRROR_LOCAL_SECURITY.
 	* doc/examples/beryl-hook.sh:
-	  - Added, thanks to Inigo Tejedor Arrondo <inigo@navarrux.org>.
+	  - Added, submitted by Inigo Tejedor Arrondo <inigo@navarrux.org>.
 	* helpers/lh_config, make-live:
 	  - Added check for newconfig to prevent overwriting of non-specified
 	    options to default values.

@@ -1,6 +1,11 @@
 #!/bin/sh
 
 # lh_chroot_linuximage(1) - manage /etc/kernel-img.conf
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -9,6 +14,13 @@ for FUNCTION in /usr/share/live-helper/functions/*.sh
 do
 	. ${FUNCTION}
 done
+
+# Set static variables
+DESCRIPTION="manage /etc/kernel-img.conf"
+HELP=""
+USAGE="${PROGRAM} {install|remove} [--force]"
+
+Arguments "${@}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -38,19 +50,32 @@ case "${1}" in
 		# Configuring kernel-img.conf
 		echo "do_initrd = Yes"  >> chroot/etc/kernel-img.conf
 
-		# Creating stage file
-		Create_stagefile .stage/chroot_linuximage
+		if [ "${LIVE_KERNEL_PACKAGES}" != "none" ]
+		then
+			for FLAVOUR in ${LIVE_KERNEL_FLAVOUR}
+			do
+				for PACKAGE in ${LIVE_KERNEL_PACKAGES}
+				do
+					PACKAGES="${PACKAGES} ${PACKAGE}-${FLAVOUR}"
+				done
+			done
+		fi
+
+		PACKAGES="${PACKAGES} casper"
 
 		# Installing linux-image, modules and casper
 		case "${LH_APT}" in
 			apt|apt-get)
-				Chroot "apt-get install --yes ${LIVE_KERNEL_PACKAGES}"
+				Chroot "apt-get install --yes ${PACKAGES}"
 				;;
 
 			aptitude)
-				Chroot "aptitude install --assume-yes ${LIVE_KERNEL_PACKAGES}"
+				Chroot "aptitude install --assume-yes ${PACKAGES}"
 				;;
 		esac
+
+		# Creating stage file
+		Create_stagefile .stage/chroot_linuximage
 		;;
 
 	remove)
@@ -68,7 +93,6 @@ case "${1}" in
 		;;
 
 	*)
-		echo "Usage: ${0} {install|remove}"
-		exit 1
+		Usage
 		;;
 esac

@@ -1,6 +1,11 @@
 #!/bin/sh
 
 # lh_chroot_localpackages(1) - install local packages into chroot
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -9,6 +14,13 @@ for FUNCTION in /usr/share/live-helper/functions/*.sh
 do
 	. ${FUNCTION}
 done
+
+# Set static variables
+DESCRIPTION="install local packages into chroot"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -29,11 +41,8 @@ Create_lockfile .lock
 
 if ls config/chroot_localpackages/*.deb &> /dev/null
 then
-	# Restore old cache
-	if [ -d cache/chroot_localpackages ]
-	then
-		cp cache/chroot_localpackages/*.deb chroot/var/cache/apt/archives
-	fi
+	# Restoring cache
+	Restore_cache cache/chroot_localpackages
 
 	# Copying packages
 	cp config/chroot_localpackages/*.deb chroot/root
@@ -57,18 +66,8 @@ then
 	rm -f chroot/root/*.deb
 	rm -f chroot/root/localpackages
 
-	# Saving new cache
-	Chroot "apt-get autoclean"
-
-	if ls chroot/var/cache/apt/archives/*.deb &> /dev/null
-	then
-		if [ ! -d cache/chroot_localpackages ]
-		then
-			mkdir -p cache/chroot_localpackages
-		fi
-
-		mv -f chroot/var/cache/apt/archives/*.deb cache/chroot_localpackages
-	fi
+	# Saving cache
+	Save_cache cache/chroot_localpackages
 
 	# Creating stage file
 	Create_stagefile .stage/chroot_localpackages

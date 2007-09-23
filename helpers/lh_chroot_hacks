@@ -1,6 +1,11 @@
 #!/bin/sh
 
 # lh_chroot_hacks(1) - execute hacks in chroot
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -9,6 +14,13 @@ for FUNCTION in /usr/share/live-helper/functions/*.sh
 do
 	. ${FUNCTION}
 done
+
+# Set static variables
+DESCRIPTION="execute hacks in chroot"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -32,32 +44,37 @@ rm -f chroot/etc/udev/rules.d/z25_persistent-net.rules
 
 case "${LIVE_BINARY_IMAGE}" in
 	net)
-		case "${LH_APT}" in
-			apt|apt-get)
-				Chroot "apt-get install --yes smbfs"
-				;;
+		if [ ! -f chroot/usr/bin/smbmount ]
+		then
+			case "${LH_APT}" in
+				apt|apt-get)
+					Chroot "apt-get install --yes smbfs"
+					;;
 
-			aptitude)
-				Chroot "aptitude install --assume-yes smbfs"
-				;;
-		esac
+				aptitude)
+					Chroot "aptitude install --assume-yes smbfs"
+					;;
+			esac
+		fi
 
 		if [ ! -d chroot/etc/initramfs-tools ]
 		then
 			mkdir chroot/etc/initramfs-tools
 		fi
-
-		# Configuring initramfs for NFS
+		if [ ! "`grep 'MODULES=netboot' chroot/etc/initramfs-tools/initramfs.conf`" ]
+		then
+			# Configuring initramfs for NFS
 cat >> chroot/etc/initramfs-tools/initramfs.conf << EOF
 MODULES=netboot
 BOOT=nfs
 NFSROOT=auto
 EOF
+		fi
 		;;
 esac
 
 # Update initramfs
-Chroot "update-initramfs -tu"
+Chroot "update-initramfs -k all -t -u"
 
 # Creating stage file
 Create_stagefile .stage/chroot_hacks

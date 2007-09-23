@@ -1,6 +1,11 @@
 #!/bin/sh
 
 # lh_chroot_debianchroot(1) - manage /etc/debian_chroot
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -9,6 +14,13 @@ for FUNCTION in /usr/share/live-helper/functions/*.sh
 do
 	. ${FUNCTION}
 done
+
+# Set static variables
+DESCRIPTION="manage /etc/debian_chroot"
+HELP=""
+USAGE="${PROGRAM} {install|remove} [--force]"
+
+Arguments "${@}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -57,7 +69,6 @@ case "${1}" in
 		;;
 
 	*)
-		echo "Usage: ${0} {install|remove}"
-		exit 1
+		Usage
 		;;
 esac

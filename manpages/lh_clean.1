@@ -1,10 +1,11 @@
-.TH LH_CLEAN 1 "2007\-03\-19" "1.0~a2" "live\-helper"
+.TH LH_CLEAN 1 "2007\-03\-26" "1.0~a3" "live\-helper"
 
 .SH NAME
 lh_clean \- clean up system build directories
 
 .SH SYNOPSIS
 .B lh_clean [\fIlive\-helper\ options\fR\|]
+.B lh_clean [\fRall\fB|\fRcache\fB|\fRchroot\fB|\fRbinary\fB|\fRlock\fB|\fRpurge\fB|\fRstage\fB|\fRsource\fB]
 
 .SH DESCRIPTION
 lh_clean is a live\-helper program that is responsible for cleaning up after a system is built. It removes the system build directories, and removes some other files including stage files, and any detritus left behind by other live\-helper commands.
@@ -24,4 +25,4 @@ Report bugs against live\-helper <\fIhttp://packages.qa.debian.org/live\-helper/
 More information about the Debian Live project can be found at <\fIhttp://debian\-live.alioth.debian.org/\fR> and <\fIhttp://wiki.debian.org/DebianLive/\fR>.
 
 .SH AUTHOR
-live\-helper was written by Daniel Baumann <\fIdaniel@debian.org\fR> and Marco Amadori <\fImarco.amadori@gmail.com\fR>, for the Debian project.
+live\-helper was written by Daniel Baumann <\fIdaniel@debian.org\fR> for the Debian project.

@@ -1,19 +1,19 @@
 
                                             (HTML version in README.html)
 
-       Debian GNU/Linux testing "Etch" - Official Snapshot i386 Binary-1
-                                   CD   
+         Debian GNU/Linux testing "Etch" - Official Beta i386 NETINST
+                         Binary-1 20070317-20:46   
 
 
 
    CONTENTS:
 
      * Intro
-     * About This CD
+     * About This Disc
      * Installing
      * Last-Minute Notes
-     * Using CDs with apt
-     * CD Manufacturers
+     * Using CDs/DVDs with apt
+     * CD/DVD Manufacturers
      * More Information
 
 
@@ -23,10 +23,10 @@
 Intro
 =====
 
-   This is one of the CD-ROMs of the Debian GNU/Linux distribution.
-   Debian is a very extensive collection of software. But it is more. It
-   is a complete Operating System (OS) for your computer. And it is free
-   (as in "freedom").
+   This is one disc in a set containing the the Debian GNU/Linux
+   distribution. Debian is a very extensive collection of software. But
+   it is more. It is a complete Operating System (OS) for your computer.
+   And it is free (as in "freedom").
 
    An operating system is the set of basic programs and utilities that
    make your computer run. At the core of an operating system is the
@@ -48,20 +48,22 @@ Intro
      http://www.debian.org/intro/about
 
 
-About This CD
+About This Disc
 =============
 
-   This CD-ROM is labeled
+   This disc is labeled
 
-     Debian GNU/Linux testing "Etch" - Official Snapshot i386 Binary-1
+     Debian GNU/Linux testing "Etch" - Official Beta i386 NETINST
+   Binary-1 20070317-20:46
 
-   which means that this CD is number 1 of 1 CDs containing programs
-   ("binaries") for `i386' computers.
+   which means that this disc is number 1 of a set of 1 discs. It
+   contains programs ("binaries") for `i386' computers.
 
-   The programs on the Binary CDs are ordered by popularity. The Binary-1
-   CD contains the most popular programs and the installation tools; it
-   is possible to install and run Debian with only the Binary-1 CD. The
-   other CDs, up to Binary-1, contain mostly special-interest programs.
+   The programs on the Binary discs are ordered by popularity. The
+   Binary-1 disc contains the most popular programs and the installation
+   tools; it is possible to install and run Debian with only the Binary-1
+   disc. The other discs, up to Binary-1, contain mostly
+   special-interest programs.
 
    The Release Notes for "etch" are available on the Debian web site.
 
@@ -73,16 +75,16 @@ Installing
    procedure may seem a bit unusual. You can install Debian GNU/Linux
    either alongside your current OS, or as the only OS on your computer.
 
-   An Installation Guide for this CD is available from the Debian web
+   An Installation Guide for this disc is available from the Debian web
    site.
 
    Programs and other files that are needed for the installation can be
-   found on this CD under
+   found on this disc under
 
      /tools/ and   /install/floppy/
 
    For the impatient ones: you can start the installation program easily
-   by booting off this CD-ROM. Note that not all (esp. older) systems
+   by booting off this disc. Note that not all (esp. older) systems
    support this.
 
    You can also examine the
@@ -96,17 +98,17 @@ Installing
 Last-Minute Notes
 =================
 
-     * You should keep in mind that this is an unofficial CD of the
-       current development version of the Debian system. This means that
-       all sorts of bugs may be present anywhere in the system.
+     * You should keep in mind that this is a beta disc of the current
+       development version of the Debian system. This means that all
+       sorts of bugs may be present anywhere in the system.
 
 
 
 Using Apt
 =============
 
-   After installing or upgrading, Debian's packaging system can use
-   CD-ROMs, local collections, or networked servers (FTP, HTTP) to
+   After installing or upgrading, Debian's packaging system can use CDs,
+   DVDs, local collections, or networked servers (FTP, HTTP) to
    automatically install software from (.deb packages). This is done
    preferably with the `apt' and `aptitude' programs.
 
@@ -123,10 +125,10 @@ Using Apt
    Debian packages.
 
 
-CD Manufacturers
+CD/DVD Manufacturers
 ================
 
-   You are completely free to manufacture and re-distribute CD-ROMs of
+   You are completely free to manufacture and re-distribute CDs/DVDs of
    the Debian GNU/Linux Operating System, like this one. There is no
    charge from us (but of course donations are always welcome).
 
@@ -138,9 +140,9 @@ CD Manufacturers
 More Information
 ================
 
-   There is much more information present on this CD. Besides the already
-   mentioned installation and upgrading procedures, this is the most
-   interesting:
+   There is much more information present on this disc. Besides the
+   already mentioned installation and upgrading procedures, this is the
+   most interesting:
 
      * /doc/FAQ                        Debian FAQ
      * /doc/constitution.txt           The Debian Constitution

@@ -1,0 +1,70 @@
+.TH "CASPER-SNAPSHOT" 1 "Thu,  28 Sep 2006" "0.0.1" "User commands"
+
+.SH NAME
+casper-snapshot \- a simple script to ease persistence usage.
+
+.SH SYNOPSIS
+.B casper-snapshot
+.RB [\| \-c \||\| \-\-cow
+.IR DIRECTORY \|]
+.RB [\| \-d \||\| \-\-device
+.IR DEVICE \|]
+.RB [\| \-e \||\| \-\-exclude\-list
+.IR FILE \|]
+.RB [\| \-o \||\| \-\-output
+.IR FILE \|]
+.RB [\| \-t \||\| \-\-type
+.IR TYPE \|]
+.PP
+.B casper-snapshot
+.RB \-r \||\| \-\-resync\-string
+.IR STRING
+.br
+.B casper-snapshot
+.RB \-h \||\| \-\-help
+.br
+.B casper-snapshot
+.RB \-u \||\| \-\-usage
+.br
+.B casper-snapshot
+.RB \-v \||\| \-\-version
+
+.SH DESCRIPTION
+Casper-snapshot is a script which can be used to build the right types of persistent image files supported by casper. It is also used on exit by the casper init script to resync the boot-found snapshots devices.
+
+.SH OPTIONS
+.TP
+.BI "\-c, \-\-cow" DIRECTORY
+specifies the input directory to be cloned in the image file.
+Its default value "/cow" should be right for most uses. However it could be handy to specify "/home" and type ext2 for the type to prepare an image file suited to be directly mounted by casper as home.
+.TP
+.BI "\-d, \-\-device" DEVICE
+sets the device where the media which the snapshot/persistence file/partition will be put. If it is not specified, a tmpfs will be used and linked to the user's desktop to move it where it is needed. If the device has no filesystem, an ext2 fs will be automatically created and labelled according to the values specified after the "--output" value or with a sane default.
+.TP
+.BI "\-e, \-\-exclude\-list" FILE
+a file containing a list of filenames/paths that should not be saved. This exclude list will be remebered on the target snapshot media for reuse.
+.TP
+.BI "\-o, \-\-output" FILE
+the filename/label used for the output file/partition. If left blank, casper-snapshot will search for a proper file on the device or use the whole partition.
+.TP
+.BI "\-r, \-\-resync\-string" STRING
+internally used on resyncs.
+.TP
+.BI "\-t, \-\-type" TYPE
+Type could be one of "cpio", "squashfs" or "ext2".
+
+.SH BUGS
+.B casper-snapshot
+Time (and BTS) will tell.
+
+.SH HOMEPAGE
+Debian Live project <http://live.debian.net/>
+
+.SH SEE ALSO
+.BR casper(7)
+
+.SH AUTHOR
+casper-snapshot was written Marco Amadori <marco.amadori@gmail.com>.
+.TP
+This manual page was written by Marco Amadori <marco.amadori@gmail.com>,
+for the Debian project (but may be used by others).

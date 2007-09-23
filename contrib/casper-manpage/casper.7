@@ -1,0 +1,111 @@
+.TH CASPER 7 "Thu,  28 Sep 2006" "1.69" "Initramfs-tools hook"
+
+.SH NAME
+casper \- a hook for initramfs-tools to boot live systems.
+
+.SH SYNOPSIS
+.B BOOT=casper
+As kernel parameter boot prompt.
+
+.SH DESCRIPTION
+Casper is a hook for initramfs-tools used to generate an initramfs capable to boot live systems as those created by make-live. This includes the Debian-Live isos, netboot tarballs, and usb stick images and Ubuntu live cds. At boot time it will look for a (read-only) media containing a "/casper" directory where a root filesystems (often a compressed squashfs) is stored. If found, it will create a writable environment, using unionfs, for debian like systems to boot from.
+
+.SH RECOGNIZED BOOT OPTIONS
+.TP
+.BI "access=" ACCESS
+Set the accessibility level for physically or visually impared users. 
+ACCESS must be one of v1, v2, v3, m1, or m2. v1=lesser visual impairment, v2=moderate visual impairment, v3=blindness, m1=minor motor difficulties, m2=moderate motor difficulties.
+.TP
+.B casper-getty
+This changes the auto-login on virtual terminals to use the (experimental) casper-getty code.
+With this option set the standard kernel argument "console=" is parsed and if a serial console is specified then casper-getty is used to autologin on the serial console.
+.TP
+.BI "console=" TTY "," SPEED
+Set the default console to be used with the "casper-getty" option.
+Example: "console=ttyS0,115200"
+.TP
+.BI "hostname=" HOSTNAME " , userfullname=" USERFULLNAME " , username=" USERNAME
+Those parameters lets you override values read from the config file.
+.TP
+.BI "{keyb|kbd-chooser/method}=" KEYBOARD " , {klayout|console-setup/layoutcode}=" LAYOUT " , {kvariant|console-setup/variantcode}=" VARIANT " , {kmodel|console-setup/modelcode}=" CODE " ,  koptions=" OPTIONS
+Configure the running keyboard as specified, if this one misses casper behaves as if "keyb=us" was specified. It will be interfered from "locale=" if locale is only 2 lowecase letters as a special case. You could also specify console layout, variant, code, and options (no defaults).
+.TP
+.B integrity-check
+If specified, an MD5 sum is calculated on the live media during boot and compared to the value found in md5sum.txt found in the root directory of that partition.
+.TP
+.BI ip= IFACE,ADDRESS,NETMASK,GATEWAY [ :IFACE,ADDRESS,NETMASK,GATEWAY "]*"
+Let you specify the name(s) and the options of the interface(s) that should be configured at boot time. Do not specify this if you want to use dhcp (default).
+.TP
+.BR ip[= frommedia ]
+If this variable is set, dhcp and static configuration are just skipped and the system will use the (must be) media-preconfigured /etc/network/interfaces instead.
+.TP
+.BI "{live-media|bootfrom}=" DEVICE
+If you specify one of this two equivalent forms, casper will first try to find this device for the "/casper" directory where the read-only root filesystem should reside. If it did not find something usable, the normal scan for block devices is performed.
+.TP
+.BI "{live-media-encryption|encryption}=" TYPE
+Casper will mount the encrypted rootfs TYPE, asking the passphrase, useful to build paranoid live systems :-). TYPE supported so far are "aes" for loop-aes encryption type.
+.TP
+.BI "live-media-offset=" BYTES
+This way you could tell casper that your image starts at offset BYTES in the above specified or autodiscovered device, this could be useful to hide the debian-live iso or image inside another iso or image, to create "clean" images.
+.TP
+.BI "live-media-timeout=" SECONDS
+Set the timeout in seconds for the device specified by "live-media=" to become ready before giving up.
+.TP
+.BI "locale=" LOCALE " | debian-installer/locale=" LOCALE
+Configure the running locale as specified, if not present the live-media rootfs configured locale will be used and if also this one misses casper behave as "locale=en_US.UTF-8" was specified. If only 2 lowercase letter are specified (like "it"), the "maybe wanted" locale is generated (like it:IT.UTF-8), in this case if also "keyb=" is unspecified is set with those 2 lowercase letters (keyb=it). Beside that facility, only UTF8 locales are supported by casper.
+.TP
+.BI "module=" NAME
+Instead of using the default optional file "order.lst" (see below) another file could be specified without the extension ".lst"; it should be placed on /casper/ directory of the live medium.
+.TP
+.BR "netboot[=" nfs "|" cifs ]
+This tells casper to perform a network mount. The parameter "nfsroot=" (with optional "nfsopts="), should specify where is the location of the root filesystem.  With no args, will try cifs first, and if it fails nfs.
+.TP
+.B persistent
+Casper will look for persistent and snapshot partitions or files labeled "casper-rw", "home-rw", and files called "casper-sn*", "home-sn*" and will try to, in order: mount as /cow the first, mount the second in /home, and just copy the contents of the latter in appropriate locations (snapshots). Snapshots will be tried to be updated on reboot/shutdown. Look at casper-snapshot(1) for more informations.
+.TP
+.B nopersistent
+disables the above mentioned "persistent" feature, useful if the bootloader (like syslinux) has been installed with persistent enabled.
+.TP
+.B quickreboot
+This option causes casper to reboot without attempting to eject the media and without asking the user to remove the boot media.
+.TP
+.B "showmounts"
+This parameter will make casper to show on "/" the ro filesystems (mostly compressed) on /casper. This is not enabled by default because could lead to problems by applications like "mono" which store binary paths on installation.
+.TP
+.BI "todisk=" DEVICE 
+Adding this parameter, casper will try to copy the entire read-only media to the specified device before mounting the root filesystem. It probably needs a lot of free space. Subsequent boots should then skip this step and just specify the "live-media=DEVICE" boot parameter with the same DEVICE used this time.
+.TP
+.B toram
+Adding this parameter, casper will try to copy the whole read-only media to the computer's RAM before mounting the root filesystem. This could need a lot of ram, according to the space used by the read-only media.
+.TP
+.BI "{preseed/file|file}=" FILE
+A path to a file present on the rootfs could be used to preseed debconf database.
+.TP
+.BI "package/question=" VALUE
+All debian installed packages could be preseeded from command-line that way, beware of blanks spaces, they will interfere with parsing, use a preseed file in this case.
+.TP
+.B xdebconf
+uses xdebconfigurator, if present on the rootfs, to configure X instead of the standard procedure (experimental).
+.TP
+
+.SH FILES
+.B /etc/casper.conf
+some variables can be configured via this config file.
+.TP
+.B /casper/order.lst
+This optional file contains a list of white-space or carriage-return-separated file names corresponding to disk images in the /casper directory. If this file exists, only images listed here will be merged into the root unionfs, and they will be loaded in the order listed here. The first entry in this file will be the "lowest" point in the unionfs, and the last file in this list will be on the "top" of the unionfs, directly below /cow.  Without this file, any images in the /casper directory are loaded in alphanumeric order.
+.SH BUGS
+.B casper
+works fully on amd64, i386 and ppc, it should also run on other archs.
+
+.SH HOMEPAGE
+Debian Live project <http://live.debian.net/>
+
+.SH SEE ALSO
+.BR casper-snapshot(1), initramfs-tools(8), make-live(8), make-live.conf(5)
+
+.SH AUTHOR
+casper was written by Tollen Fog Heen <tfheen@canonical.com>, Matt Zimmerman <mdz@canonical.com>, and Marco Amadori <marco.amadori@gmail.com>.
+.TP
+This manual page was written by Marco Amadori <marco.amadori@gmail.com>,
+for the Debian project (but may be used by others).

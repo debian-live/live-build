@@ -1,6 +1,11 @@
 #!/bin/sh
 
 # defaults.sh - handle default values
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -54,6 +59,12 @@ Set_defaults ()
 		LH_APT_RECOMMENDS="enabled"
 	fi
 
+	# Setting apt secure
+	if [ -z "${LH_APT_SECURE}" ]
+	then
+		LH_APT_SECURE="enabled"
+	fi
+
 	# Setting bootstrap program
 	if [ -z "${LH_BOOTSTRAP}" ] || [ ! -x "${LH_BOOTSTRAP}" ]
 	then
@@ -87,18 +98,9 @@ Set_defaults ()
 	fi
 
 	# Setting genisoimage
-	if [ -z "${LH_GENISOIMAGE}" ] || [ ! -x "${LH_GENISOIMAGE}" ]
+	if [ -z "${LH_GENISOIMAGE}" ]
 	then
-		if [ -x /usr/bin/genisoimage ]
-		then
-			LH_GENISOIMAGE="genisoimage"
-		elif [ -x /usr/bin/mkisofs ]
-		then
-			LH_GENISOIMAGE="mkisofs"
-		else
-			echo "E: cannot find genisoimage nor mkisofs (FIXME)."
-			exit 1
-		fi
+		LH_GENISOIMAGE="genisoimage"
 	fi
 
 	# Setting losetup
@@ -145,33 +147,33 @@ Set_defaults ()
 	# LIVE_DISTRIBUTION_CONFIG
 
 	# Setting flavour value
-	if [ -z "${LIVE_FLAVOUR}" ]
+	if [ -z "${LIVE_BOOTSTRAP_FLAVOUR}" ]
 	then
-		LIVE_FLAVOUR="standard"
+			LIVE_BOOTSTRAP_FLAVOUR="standard"
 	fi
 
-	# Setting local mirror value
-	if [ -z "${LIVE_MIRROR_LOCAL}" ]
+	# Setting mirror to fetch packages from
+	if [ -z "${LIVE_MIRROR_BUILD}" ]
 	then
-		LIVE_MIRROR_LOCAL="http://ftp.debian.org/debian/"
+		LIVE_MIRROR_BUILD="http://ftp.debian.org/debian/"
 	fi
 
-	# Setting local security mirror value
-	if [ -z "${LIVE_MIRROR_LOCAL_SECURITY}" ]
+	# Setting security mirror to fetch packages from
+	if [ -z "${LIVE_MIRROR_BUILD_SECURITY}" ]
 	then
-		LIVE_MIRROR_LOCAL_SECURITY="http://security.debian.org/"
+		LIVE_MIRROR_BUILD_SECURITY="http://security.debian.org/"
 	fi
 
-	# Setting generic mirror value
-	if [ -z "${LIVE_MIRROR_GENERIC}" ]
+	# Setting mirror which ends up in the image
+	if [ -z "${LIVE_MIRROR_IMAGE}" ]
 	then
-		LIVE_MIRROR_GENERIC="http://ftp.debian.org/debian/"
+		LIVE_MIRROR_IMAGE="http://ftp.debian.org/debian/"
 	fi
 
-	# Setting generic security mirror value
-	if [ -z "${LIVE_MIRROR_GENERIC_SECURITY}" ]
+	# Setting security mirror which ends up in the image
+	if [ -z "${LIVE_MIRROR_IMAGE_SECURITY}" ]
 	then
-		LIVE_MIRROR_GENERIC_SECURITY="http://security.debian.org/"
+		LIVE_MIRROR_IMAGE_SECURITY="http://security.debian.org/"
 	fi
 
 	# Setting sections value
@@ -182,16 +184,22 @@ Set_defaults ()
 
 	## config/chroot
 
+	# Setting interactive shell/X11/Xnest
+	if [ -z "${LIVE_INTERACTIVE}" ]
+	then
+		LIVE_INTERACTIVE="disabled"
+	fi
+
 	# Setting kernel flavour string
-	if [ -z "${LIVE_KERNEL}" ]
+	if [ -z "${LIVE_KERNEL_FLAVOUR}" ]
 	then
 		case "${LIVE_ARCHITECTURE}" in
 			alpha)
-				LIVE_KERNEL="alpha-generic"
+				LIVE_KERNEL_FLAVOUR="alpha-generic"
 				;;
 
 			amd64)
-				LIVE_KERNEL="amd64"
+				LIVE_KERNEL_FLAVOUR="amd64"
 				;;
 
 			arm)
@@ -200,32 +208,32 @@ Set_defaults ()
 				;;
 
 			hppa)
-				LIVE_KERNEL="parisc"
+				LIVE_KERNEL_FLAVOUR="parisc"
 				;;
 
 			i386)
-				LIVE_KERNEL="486"
+				LIVE_KERNEL_FLAVOUR="486"
 				;;
 
 			ia64)
-				LIVE_KERNEL="itanium"
+				LIVE_KERNEL_FLAVOUR="itanium"
 				;;
 
 			m68k)
-				LIVE_KERNEL="E: You need to specify the linux kernel flavour manually on m68k."
+				LIVE_KERNEL_FLAVOUR="E: You need to specify the linux kernel flavour manually on m68k."
 				exit 1
 				;;
 
 			powerpc)
-				LIVE_KERNEL="powerpc"
+				LIVE_KERNEL_FLAVOUR="powerpc"
 				;;
 
 			s390)
-				LIVE_KERNEL="s390"
+				LIVE_KERNEL_FLAVOUR="s390"
 				;;
 
 			sparc)
-				LIVE_KERNEL="sparc32"
+				LIVE_KERNEL_FLAVOUR="sparc32"
 				;;
 
 			*)
@@ -237,11 +245,11 @@ Set_defaults ()
 	# Set kernel packages
 	if [ -z "${LIVE_KERNEL_PACKAGES}" ]
 	then
-		LIVE_KERNEL_PACKAGES="linux-image-2.6-${LIVE_KERNEL} squashfs-modules-2.6-${LIVE_KERNEL} unionfs-modules-2.6-${LIVE_KERNEL} casper"
+		LIVE_KERNEL_PACKAGES="linux-image-2.6 squashfs-modules-2.6 unionfs-modules-2.6"
 
 		if [ -n "${LIVE_ENCRYPTION}" ]
 		then
-			LIVE_KERNEL_PACKAGES="${LIVE_KERNEL_PACKAGES} loop-aes-modules-2.6-${LIVE_KERNEL} loop-aes-utils"
+			LIVE_KERNEL_PACKAGES="${LIVE_KERNEL_PACKAGES} loop-aes-modules-2.6"
 		fi
 	fi
 
@@ -255,36 +263,34 @@ Set_defaults ()
 	# LIVE_PACKAGES
 
 	# Setting packages list string
-	if [ -z "${LIVE_PACKAGES_LIST}" ]
+	if [ -z "${LIVE_PACKAGES_LISTS}" ]
 	then
-		if [ "${LIVE_FLAVOUR}" = "mini" ] || [ "${LIVE_FLAVOUR}" = "minimal" ]
-		then
-			LIVE_PACKAGES_LIST="minimal"
-		else
-			LIVE_PACKAGES_LIST="standard"
-		fi
+		LIVE_PACKAGES_LISTS="standard"
 	fi
 
 	# Setting tasks string
-	for LIST in ${LIVE_PACKAGES_LIST}
+	for LIST in ${LIVE_PACKAGES_LISTS}
 	do
 		case "${LIST}" in
 			gnome-desktop)
-				LIVE_PACKAGES_LIST="`echo ${LIVE_PACKAGES_LIST} | sed -e 's/gnome-desktop//'` standard-x11"
-				LIVE_TASKS="${LIVE_TASKS} standard laptop desktop gnome-desktop"
+				LIVE_PACKAGES_LISTS="`echo ${LIVE_PACKAGES_LISTS} | sed -e 's/gnome-desktop//'` standard-x11"
+				LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/desktop//' -e 's/gnome-desktop//'` standard laptop desktop gnome-desktop"
 				;;
 
 			kde-desktop)
-				LIVE_PACKAGES_LIST="`echo ${LIVE_PACKAGES_LIST} | sed -e 's/kde-desktop//'` standard-x11"
-				LIVE_TASKS="${LIVE_TASKS} standard laptop desktop kde-desktop"
+				LIVE_PACKAGES_LISTS="`echo ${LIVE_PACKAGES_LISTS} | sed -e 's/kde-desktop//'` standard-x11"
+				LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/desktop//' -e 's/kde-desktop//'` standard laptop desktop kde-desktop"
 				;;
 
 			xfce-desktop)
-				LIVE_PACKAGES_LIST="`echo ${LIVE_PACKAGES_LIST} | sed -e 's/xfce-desktop//'` standard-x11"
-				LIVE_TASKS="${LIVE_TASKS} standard laptop desktop xfce-desktop"
+				LIVE_PACKAGES_LISTS="`echo ${LIVE_PACKAGES_LISTS} | sed -e 's/xfce-desktop//'` standard-x11"
+				LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/desktop//' -e 's/xfce-desktop//'` standard laptop desktop xfce-desktop"
 				;;
 		esac
 	done
+
+	LIVE_PACKAGES_LISTS="`echo ${LIVE_PACKAGES_LISTS} | sed -e 's/  //g'`"
+	LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/  //g'`"
 
 	# Setting security updates option
 	if [ -z "${LIVE_SECURITY}" ]
@@ -301,12 +307,7 @@ Set_defaults ()
 	# Setting sysvinit option
 	if [ -z "${LIVE_SYSVINIT}" ]
 	then
-		if [ "${LIVE_FLAVOUR}" = "mini" ]
-		then
-			LIVE_SYSVINIT="enabled"
-		else
-			LIVE_SYSVINIT="disabled"
-		fi
+		LIVE_SYSVINIT="disabled"
 	fi
 
 	## config/image
@@ -316,6 +317,18 @@ Set_defaults ()
 
 	# Setting encryption
 	# LIVE_ENCRYPTION
+
+	# Setting username
+	if [ -z "${LIVE_USERNAME}" ]
+	then
+		LIVE_USERNAME="user"
+	fi
+
+	# Setting hostname
+	if [ -z "${LIVE_HOSTNAME}" ]
+	then
+		LIVE_HOSTNAME="debian"
+	fi
 
 	# Setting image type
 	if [ -z "${LIVE_BINARY_IMAGE}" ]
@@ -390,6 +403,12 @@ Set_defaults ()
 
 	# Setting syslinux splash
 	# LIVE_SYSLINUX_SPLASH
+
+	# Setting includes
+	if [ -z "${LIVE_INCLUDES}" ]
+	then
+		LIVE_INCLUDES="/usr/share/live-helper/includes"
+	fi
 
 	# Setting templates
 	if [ -z "${LIVE_TEMPLATES}" ]

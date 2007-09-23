@@ -1,6 +1,11 @@
 #!/bin/sh
 
-# lh_chroot_packageslist(1) - install packages list into chroot
+# lh_chroot_packageslists(1) - install packages lists into chroot
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -9,6 +14,13 @@ for FUNCTION in /usr/share/live-helper/functions/*.sh
 do
 	. ${FUNCTION}
 done
+
+# Set static variables
+DESCRIPTION="install packages lists into chroot"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -19,7 +31,7 @@ Set_defaults
 Require_stagefile .stage/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/chroot_packageslist
+Check_stagefile .stage/chroot_packageslists
 
 # Checking lock file
 Check_lockfile .lock
@@ -27,15 +39,12 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ -n "${LIVE_PACKAGES_LIST}" ]
+if [ -n "${LIVE_PACKAGES_LISTS}" ]
 then
-	# Restore old cache
-	if [ -d cache/chroot_packageslist ]
-	then
-		cp cache/chroot_packageslist/*.deb chroot/var/cache/apt/archives
-	fi
+	# Restoring cache
+	Restore_cache cache/chroot_packageslists
 
-	for LIST in ${LIVE_PACKAGES_LIST}
+	for LIST in ${LIVE_PACKAGES_LISTS}
 	do
 		if [ -f /usr/share/live-helper/lists/"${LIST}" ]
 		then
@@ -58,19 +67,9 @@ then
 		fi
 	done
 
-	# Saving new cache
-	Chroot "apt-get autoclean"
-
-	if ls chroot/var/cache/apt/archives/*.deb &> /dev/null
-	then
-		if [ ! -d cache/chroot_packageslist ]
-		then
-			mkdir -p cache/chroot_packageslist
-		fi
-
-		mv -f chroot/var/cache/apt/archives/*.deb cache/chroot_packageslist
-	fi
+	# Saving cache
+	Save_cache cache/chroot_packageslists
 
 	# Creating stage file
-	Create_stagefile .stage/chroot_packageslist
+	Create_stagefile .stage/chroot_packageslists
 fi

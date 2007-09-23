@@ -1,6 +1,11 @@
 #!/bin/sh
 
 # stagefile.sh - handle stage files
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -12,8 +17,15 @@ Check_stagefile ()
 	# Checking stage file
 	if [ -f "${STAGEFILE}" ]
 	then
-		echo "W: skipping ${STAGENAME}"
-		exit 0
+		if [ "${FORCE}" = "true" ]
+		then
+			# Forcing execution
+			rm -f "${STAGEFILE}"
+		else
+			# Skipping execution
+			echo "W: skipping ${STAGENAME}"
+			exit 0
+		fi
 	fi
 }
 
