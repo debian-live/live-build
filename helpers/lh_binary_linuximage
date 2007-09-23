@@ -36,14 +36,14 @@ Breakpoint "binary_linuximage: Init"
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
+# Checking stage file
+Check_stagefile .stage/binary_linuximage
+
 # Checking lock file
 Check_lockfile .lock
 
 # Creating lock file
 Create_lockfile .lock
-
-# Checking stage file
-Check_stagefile .stage/binary_linuximage
 
 # Removing initrd backup files
 rm -f chroot/boot/initrd*bak*
@@ -66,11 +66,15 @@ esac
 # Temporary check for broken syslinux
 if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
 then
-	case "${LIVE_ARCHITECTURE}" in
-		i386)
-			DESTDIR="${DESTDIR}.386"
-			;;
-	esac
+	# Assemble multi-arch
+	if [ -n "${MULTIARCH}" ]
+	then
+		case "${LIVE_ARCHITECTURE}" in
+			i386)
+				DESTDIR="${DESTDIR}.386"
+				;;
+		esac
+	fi
 fi
 
 # Creating directory

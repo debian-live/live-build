@@ -33,7 +33,7 @@ Set_defaults
 
 Breakpoint "source_usb: Init"
 
-if [ "${LIVE_SOURCE}" = "disabled" ]
+if [ "${LIVE_SOURCE}" != "enabled" ]
 then
 	exit 0
 fi
@@ -45,14 +45,14 @@ do
 		# Requiring stage file
 		Require_stagefile .stage/source_download
 
+		# Checking stage file
+		Check_stagefile .stage/source_usb
+
 		# Checking lock file
 		Check_lockfile .lock
 
 		# Creating lock file
 		Create_lockfile .lock
-
-		# Checking stage file
-		Check_stagefile .stage/source_usb
 
 		if [ ! -f chroot/sbin/mkdosfs ]
 		then

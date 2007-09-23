@@ -36,14 +36,14 @@ Breakpoint "binary_localincludes: Init"
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
+# Checking stage file
+Check_stagefile .stage/binary_localincludes
+
 # Checking lock file
 Check_lockfile .lock
 
 # Creating lock file
 Create_lockfile .lock
-
-# Checking stage file
-Check_stagefile .stage/binary_localincludes
 
 if ls config/binary_localincludes/* &> /dev/null
 then

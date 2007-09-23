@@ -1,0 +1,386 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+
+<html>
+
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+
+<title>The Debian GNU/Linux FAQ - Compatibility issues</title>
+
+</head>
+
+<body>
+
+<p><a name="ch-compat"></a></p>
+<hr>
+
+<p>
+[ <a href="ch-getting.en.html">previous</a> ]
+[ <a href="index.en.html#contents">Contents</a> ]
+[ <a href="ch-basic_defs.en.html">1</a> ]
+[ <a href="ch-getting.en.html">2</a> ]
+[ 3 ]
+[ <a href="ch-software.en.html">4</a> ]
+[ <a href="ch-ftparchives.en.html">5</a> ]
+[ <a href="ch-pkg_basics.en.html">6</a> ]
+[ <a href="ch-pkgtools.en.html">7</a> ]
+[ <a href="ch-uptodate.en.html">8</a> ]
+[ <a href="ch-kernel.en.html">9</a> ]
+[ <a href="ch-customizing.en.html">10</a> ]
+[ <a href="ch-support.en.html">11</a> ]
+[ <a href="ch-contributing.en.html">12</a> ]
+[ <a href="ch-redistrib.en.html">13</a> ]
+[ <a href="ch-nexttime.en.html">14</a> ]
+[ <a href="ch-faqinfo.en.html">15</a> ]
+[ <a href="ch-software.en.html">next</a> ]
+</p>
+
+<hr>
+
+<h1>
+The Debian GNU/Linux FAQ
+<br>Chapter 3 - Compatibility issues
+</h1>
+
+<hr>
+
+<h2><a name="s-arches"></a>3.1 On what hardware architectures/systems does Debian GNU/Linux run?</h2>
+
+<p>
+Debian GNU/Linux includes complete source-code for all of the included
+programs, so it should work on all systems which are supported by the Linux
+kernel; see the <code><a
+href="http://en.tldp.org/FAQ/Linux-FAQ/intro.html#DOES-LINUX-RUN-ON-MY-COMPUTER">Linux
+FAQ</a></code> for details.
+</p>
+
+<p>
+The current Debian GNU/Linux release, 4.0, contains a complete, binary
+distribution for the following architectures:
+</p>
+
+<p>
+<em>i386</em>: this covers PCs based on Intel and compatible processors,
+including Intel's 386, 486, Pentium, Pentium Pro, Pentium II (both Klamath and
+Celeron), and Pentium III, and most compatible processors by AMD, Cyrix and
+others.
+</p>
+
+<p>
+<em>m68k</em>: this covers Amigas and ATARIs having a Motorola 680x0 processor
+for x&gt;=2; with MMU.
+</p>
+
+<p>
+<em>alpha</em>: Compaq/Digital's Alpha systems.
+</p>
+
+<p>
+<em>sparc</em>: this covers Sun's SPARC and most UltraSPARC systems.
+</p>
+
+<p>
+<em>powerpc</em>: this covers some IBM/Motorola PowerPC machines, including
+CHRP, PowerMac and PReP machines.
+</p>
+
+<p>
+<em>arm</em>: ARM and StrongARM machines.
+</p>
+
+<p>
+<em>mips</em>: SGI's big-endian MIPS systems, Indy and Indigo2;
+<em>mipsel</em>: little-endian MIPS machines, Digital DECstations.
+</p>
+
+<p>
+<em>hppa</em>: Hewlett-Packard's PA-RISC machines (712, C3000, L2000, A500).
+</p>
+
+<p>
+<em>ia64</em>: Intel IA-64 (&quot;Itanium&quot;) computers.
+</p>
+
+<p>
+<em>s390</em>: IBM S/390 mainframe systems.
+</p>
+
+<p>
+The development of binary distributions of Debian for Sparc64 (UltraSPARC
+native) architectures is currently underway.
+</p>
+
+<p>
+For further information on booting, partitioning your drive, enabling PCMCIA
+(PC Card) devices and similar issues please follow the instructions given in
+the Installation Manual, which is available from our WWW site at <code><a
+href="http://www.debian.org/releases/stable/installmanual">http://www.debian.org/releases/stable/installmanual</a></code>.
+</p>
+
+<hr>
+
+<h2><a name="s-otherdistribs"></a>3.2 How compatible is Debian with other distributions of Linux?</h2>
+
+<p>
+Debian developers communicate with other Linux distribution creators in an
+effort to maintain binary compatibility across Linux distributions.  Most
+commercial Linux products run as well under Debian as they do on the system
+upon which they were built.
+</p>
+
+<p>
+Debian GNU/Linux adheres to the <code><a
+href="http://www.pathname.com/fhs/">Linux Filesystem Hierarchy
+Standard</a></code>.  However, there is room for interpretation in some of the
+rules within this standard, so there may be slight differences between a Debian
+system and other Linux systems.
+</p>
+
+<p>
+Debian GNU/Linux supports software developed for the <code><a
+href="http://www.linuxbase.org/">Linux Standard Base</a></code>.  The LSB is a
+specification for allowing the same binary package to be used on multiple
+distributions.  Packages for the Debian Etch release must not conflict with
+requirements of the LSB, v1.3.  As of this writing, Debian GNU/Linux is not
+formally LSB-certified.  However, some Debian derived distributions are.
+Discussion and coordination of efforts towards ensuring Debian meets the
+requirements of the Linux Standard Base is taking place on the <code><a
+href="http://lists.debian.org/debian-lsb/">debian-lsb mailing list</a></code>.
+</p>
+
+<hr>
+
+<h2><a name="s-otherunices"></a>3.3 How source code compatible is Debian with other Unix systems?</h2>
+
+<p>
+For most applications Linux source code is compatible with other Unix systems.
+It supports almost everything that is available in System V Unix systems and
+the free and commercial BSD-derived systems.  However in the Unix business such
+claim has nearly no value because there is no way to prove it.  In the software
+development area complete compatibility is required instead of compatibility in
+&quot;about most&quot; cases.  So years ago the need for standards arose, and
+nowadays POSIX.1 (IEEE Standard 1003.1-1990) is one of the major standards for
+source code compatibility in Unix-like operating systems.
+</p>
+
+<p>
+Linux is intended to adhere to POSIX.1, but the POSIX standards cost real money
+and the POSIX.1 (and FIPS 151-2) certification is quite expensive; this made it
+more difficult for the Linux developers to work on complete POSIX conformance.
+The certification costs make it unlikely that Debian will get an official
+conformance certification even if it completely passed the validation suite.
+(The validation suite is now freely available, so it is expected that more
+people will work on POSIX.1 issues.)
+</p>
+
+<p>
+Unifix GmbH (Braunschweig, Germany) developed a Linux system that has been
+certified to conform to FIPS 151-2 (a superset of POSIX.1).  This technology
+was available in Unifix' own distribution called Unifix Linux 2.0 and in
+Lasermoon's Linux-FT.
+</p>
+
+<hr>
+
+<h2><a name="s-otherpackages"></a>3.4 Can I use Debian packages (&quot;.deb&quot; files) on my Red Hat/Slackware/... Linux system? Can I use Red Hat packages (&quot;.rpm&quot; files) on my Debian GNU/Linux system?</h2>
+
+<p>
+Different Linux distributions use different package formats and different
+package management programs.
+</p>
+<dl>
+<dt><strong>You probably can:</strong></dt>
+<dd>
+<p>
+A program to unpack a Debian package onto a Linux host that is been built from
+a `foreign' distribution is available, and will generally work, in the sense
+that files will be unpacked.  The converse is probably also true, that is, a
+program to unpack a Red Hat or Slackware package on a host that is based on
+Debian GNU/Linux will probably succeed in unpacking the package and placing
+most files in their intended directories.  This is largely a consequence of the
+existence (and broad adherence to) the Linux Filesystem Hierarchy Standard.
+The <code><a href="http://packages.debian.org/alien">Alien</a></code> package
+is used to convert between different package formats.
+</p>
+</dd>
+</dl>
+<dl>
+<dt><strong>You probably do not want to:</strong></dt>
+<dd>
+<p>
+Most package managers write administrative files when they are used to unpack
+an archive.  These administrative files are generally not standardized.
+Therefore, the effect of unpacking a Debian package on a `foreign' host will
+have unpredictable (certainly not useful) effects on the package manager on
+that system.  Likewise, utilities from other distributions might succeed in
+unpacking their archives on Debian systems, but will probably cause the Debian
+package management system to fail when the time comes to upgrade or remove some
+packages, or even simply to report exactly what packages are present on a
+system.
+</p>
+</dd>
+</dl>
+<dl>
+<dt><strong>A better way:</strong></dt>
+<dd>
+<p>
+The Linux File System Standard (and therefore Debian GNU/Linux) requires that
+subdirectories under <samp>/usr/local/</samp> be entirely under the user's
+discretion.  Therefore, users can unpack `foreign' packages into this
+directory, and then manage their configuration, upgrade and removal
+individually.
+</p>
+</dd>
+</dl>
+
+<hr>
+
+<h2><a name="s-libc5"></a>3.5 Is Debian able to run my old libc5 programs?</h2>
+
+<p>
+Yes.  Just install the required <code>libc5</code> libraries, from the
+<samp>oldlibs</samp> section (containing old packages included for
+compatibility with older applications).
+</p>
+
+<hr>
+
+<h2><a name="s-libc5-compile"></a>3.6 Can Debian be used to compile libc5 programs?</h2>
+
+<p>
+Yes.  Install <code>libc5-altdev</code> and <code>altgcc</code> packages (from
+the <samp>oldlibs</samp> section).  You can find the appropriate libc5-compiled
+<code>gcc</code> and <code>g++</code> in directory
+<samp>/usr/i486-linuxlibc1/bin</samp>.  Put them in your $PATH variable to get
+<code>make</code> and other programs to execute these first.
+</p>
+
+<p>
+Be aware that libc5 environment isn't fully supported by our other packages
+anymore.
+</p>
+
+<hr>
+
+<h2><a name="s-non-debian-programs"></a>3.7 How should I install a non-Debian program?</h2>
+
+<p>
+Files under the directory <samp>/usr/local/</samp> are not under the control of
+the Debian package management system.  Therefore, it is good practice to place
+the source code for your program in /usr/local/src/.  For example, you might
+extract the files for a package named &quot;foo.tar&quot; into the directory
+<samp>/usr/local/src/foo</samp>.  After you compile them, place the binaries in
+<samp>/usr/local/bin/</samp>, the libraries in <samp>/usr/local/lib/</samp>,
+and the configuration files in <samp>/usr/local/etc/</samp>.
+</p>
+
+<p>
+If your programs and/or files really must be placed in some other directory,
+you could still store them in <samp>/usr/local/</samp>, and build the
+appropriate symbolic links from the required location to its location in
+<samp>/usr/local/</samp>, e.g., you could make the link
+</p>
+
+<pre>
+     ln -s /usr/local/bin/foo /usr/bin/foo
+</pre>
+
+<p>
+In any case, if you obtain a package whose copyright allows redistribution, you
+should consider making a Debian package of it, and uploading it for the Debian
+system.  Guidelines for becoming a package developer are included in the Debian
+Policy manual (see <a href="ch-support.en.html#s-debiandocs">What other
+documentation exists on and for a Debian system?, Section 11.1</a>).
+</p>
+
+<hr>
+
+<h2><a name="s-termcap"></a>3.8 Why can't I compile programs that require libtermcap?</h2>
+
+<p>
+Debian uses the <samp>terminfo</samp> database and the <samp>ncurses</samp>
+library of terminal interface routes, rather than the <samp>termcap</samp>
+database and the <samp>termcap</samp> library.  Users who are compiling
+programs that require some knowledge of the terminal interface should replace
+references to <samp>libtermcap</samp> with references to
+<samp>libncurses</samp>.
+</p>
+
+<p>
+To support binaries that have already been linked with the <samp>termcap</samp>
+library, and for which you do not have the source, Debian provides a package
+called <code>termcap-compat</code>.  This provides both
+<samp>libtermcap.so.2</samp> and <samp>/etc/termcap</samp>.  Install this
+package if the program fails to run with the error message &quot;can't load
+library 'libtermcap.so.2'&quot;, or complains about a missing
+<samp>/etc/termcap</samp> file.
+</p>
+
+<hr>
+
+<h2><a name="s-accelx"></a>3.9 Why can't I install AccelX?</h2>
+
+<p>
+AccelX uses the <samp>termcap</samp> library for installation.  See <a
+href="#s-termcap">Why can't I compile programs that require libtermcap?,
+Section 3.8</a> above.
+</p>
+
+<hr>
+
+<h2><a name="s-motifnls"></a>3.10 Why do my old XFree 2.1 Motif applications crash?</h2>
+
+<p>
+You need to install the <code>motifnls</code> package, which provides the
+XFree-2.1 configuration files needed to allow Motif applications compiled under
+XFree-2.1 to run under XFree-3.1.
+</p>
+
+<p>
+Without these files, some Motif applications compiled on other machines (such
+as Netscape) may crash when attempting to copy or paste from or to a text
+field, and may also exhibit other problems.
+</p>
+
+<hr>
+
+<p>
+[ <a href="ch-getting.en.html">previous</a> ]
+[ <a href="index.en.html#contents">Contents</a> ]
+[ <a href="ch-basic_defs.en.html">1</a> ]
+[ <a href="ch-getting.en.html">2</a> ]
+[ 3 ]
+[ <a href="ch-software.en.html">4</a> ]
+[ <a href="ch-ftparchives.en.html">5</a> ]
+[ <a href="ch-pkg_basics.en.html">6</a> ]
+[ <a href="ch-pkgtools.en.html">7</a> ]
+[ <a href="ch-uptodate.en.html">8</a> ]
+[ <a href="ch-kernel.en.html">9</a> ]
+[ <a href="ch-customizing.en.html">10</a> ]
+[ <a href="ch-support.en.html">11</a> ]
+[ <a href="ch-contributing.en.html">12</a> ]
+[ <a href="ch-redistrib.en.html">13</a> ]
+[ <a href="ch-nexttime.en.html">14</a> ]
+[ <a href="ch-faqinfo.en.html">15</a> ]
+[ <a href="ch-software.en.html">next</a> ]
+</p>
+
+<hr>
+
+<p>
+The Debian GNU/Linux FAQ
+</p>
+
+<address>
+version 3.1.5, 17 January 2007<br>
+<br>
+Authors are listed at <a href="ch-faqinfo.en.html#s-authors">Debian FAQ Authors</a><br>
+<br>
+</address>
+<hr>
+
+</body>
+
+</html>
+

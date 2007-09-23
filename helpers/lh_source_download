@@ -33,51 +33,57 @@ Set_defaults
 
 Breakpoint "source_download: Init"
 
-if [ "${LIVE_SOURCE}" = "enabled" ]
+if [ "${LIVE_SOURCE}" != "enabled" ]
 then
-	# Requiring stage file
-	Require_stagefile .stage/bootstrap
-
-	# Checking lock file
-	Check_lockfile .lock
-
-	# Creating lock file
-	Create_lockfile .lock
-
-	# Checking stage file
-	Check_stagefile .stage/source_download
-
-	# Remove old sources
-	if [ -d source/debian ]
-	then
-		rm -rf source/debian
-	fi
-
-	# Download sources
-	Chroot "dpkg --get-selections" | awk '{ print $1 }' > chroot/root/dpkg-selection.txt
-	#echo "live-helper" >> chroot/root/dpkg-selection.txt
-	Chroot "xargs --arg-file=/root/dpkg-selection.txt apt-get source --download-only"
-	rm -f chroot/root/dpkg-selection.txt
-
-	# Sort sources
-	for DSC in chroot/*.dsc
-	do
-		SOURCE="`awk '/Source:/ { print $2; }' ${DSC}`"
-
-		if [ "`echo ${SOURCE} | cut -b 1-3`" == "lib" ]
-		then
-			LETTER="`echo ${SOURCE} | cut -b 1-4`"
-		else
-			LETTER="`echo ${SOURCE} | cut -b 1`"
-		fi
-
-		# Install directory
-		install -d -m 0755 source/debian/"${LETTER}"/"${SOURCE}"
-
-		# Move files
-		mv chroot/"${SOURCE}"_* source/debian/"${LETTER}"/"${SOURCE}"
-	done
-
-	# Creating stage file
-	Create_stagefile .stage/source_download
+	exit 0
 fi
+
+# Requiring stage file
+Require_stagefile .stage/bootstrap
+
+# Checking stage file
+Check_stagefile .stage/source_download
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+# Remove old sources
+if [ -d source/debian ]
+then
+	rm -rf source/debian
+fi
+
+# Download sources
+Chroot "dpkg --get-selections" | awk '{ print $1 }' > chroot/root/dpkg-selection.txt
+echo "${LIVE_BOOTLOADER}" >> chroot/root/dpkg-selection.txt
+#echo "live-helper" >> chroot/root/dpkg-selection.txt
+Chroot "xargs --arg-file=/root/dpkg-selection.txt apt-get source --download-only"
+rm -f chroot/root/dpkg-selection.txt
+
+# Sort sources
+for DSC in chroot/*.dsc
+do
+	SOURCE="`sed  -n 's/^Source: //p' ${DSC}`"
+
+	case "${SOURCE}" in
+		lib?*)
+			LETTER="`echo ${SOURCE} | sed 's/\(....\).*/\1/'`"
+			;;
+
+		*)
+			LETTER="`echo ${SOURCE} | sed 's/\(.\).*/\1/'`"
+			;;
+	esac
+
+	# Install directory
+	mkdir -p source/debian/"${LETTER}"/"${SOURCE}"
+
+	# Move files
+	mv chroot/"${SOURCE}"_* source/debian/"${LETTER}"/"${SOURCE}"
+done
+
+# Creating stage file
+Create_stagefile .stage/source_download

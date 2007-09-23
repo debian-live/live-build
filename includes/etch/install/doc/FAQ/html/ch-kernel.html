@@ -1,0 +1,315 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+
+<html>
+
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+
+<title>The Debian GNU/Linux FAQ - Debian and the kernel</title>
+
+</head>
+
+<body>
+
+<p><a name="ch-kernel"></a></p>
+<hr>
+
+<p>
+[ <a href="ch-uptodate.en.html">previous</a> ]
+[ <a href="index.en.html#contents">Contents</a> ]
+[ <a href="ch-basic_defs.en.html">1</a> ]
+[ <a href="ch-getting.en.html">2</a> ]
+[ <a href="ch-compat.en.html">3</a> ]
+[ <a href="ch-software.en.html">4</a> ]
+[ <a href="ch-ftparchives.en.html">5</a> ]
+[ <a href="ch-pkg_basics.en.html">6</a> ]
+[ <a href="ch-pkgtools.en.html">7</a> ]
+[ <a href="ch-uptodate.en.html">8</a> ]
+[ 9 ]
+[ <a href="ch-customizing.en.html">10</a> ]
+[ <a href="ch-support.en.html">11</a> ]
+[ <a href="ch-contributing.en.html">12</a> ]
+[ <a href="ch-redistrib.en.html">13</a> ]
+[ <a href="ch-nexttime.en.html">14</a> ]
+[ <a href="ch-faqinfo.en.html">15</a> ]
+[ <a href="ch-customizing.en.html">next</a> ]
+</p>
+
+<hr>
+
+<h1>
+The Debian GNU/Linux FAQ
+<br>Chapter 9 - Debian and the kernel
+</h1>
+
+<hr>
+
+<h2><a name="s-non-debian-kernel"></a>9.1 Can I install and compile a kernel without some Debian-specific tweaking?</h2>
+
+<p>
+Yes.
+</p>
+
+<p>
+There's only one common catch: the Debian C libraries are built with the most
+recent <em>stable</em> releases of the <strong>kernel</strong> headers.  If you
+happen to need to compile a program with kernel headers newer than the ones
+from the stable branch, then you should either upgrade the package containing
+the headers (<code>libc6-dev</code>), or use the new headers from an unpacked
+tree of the newer kernel.  That is, if the kernel sources are in
+<code>/usr/src/linux</code>, then you should add
+<samp>-I/usr/src/linux/include/</samp> to your command line when compiling.
+</p>
+
+<hr>
+
+<h2><a name="s-customkernel"></a>9.2 What tools does Debian provide to build custom kernels?</h2>
+
+<p>
+Users who wish to (or must) build a custom kernel are encouraged to download
+the package <code>kernel-package</code>.  This package contains the script to
+build the kernel package, and provides the capability to create a Debian
+<code>kernel-image-<var>version</var></code> package just by running the
+command
+</p>
+
+<pre>
+     make-kpkg kernel_image
+</pre>
+
+<p>
+in the top-level kernel source directory.  Help is available by executing the
+command
+</p>
+
+<pre>
+     make-kpkg --help
+</pre>
+
+<p>
+and through the manual page <code>make-kpkg(1)</code>.
+</p>
+
+<p>
+Users must separately download the source code for the most recent kernel (or
+the kernel of their choice) from their favorite Linux archive site, unless a
+<code>kernel-source-<var>version</var></code> package is available (where
+<var>version</var> stands for the kernel version).
+</p>
+
+<p>
+Detailed instructions for using the <code>kernel-package</code> package are
+given in the file <code>/usr/share/doc/kernel-package/README.gz</code>.
+Briefly, one should:
+</p>
+<ul>
+<li>
+<p>
+Unpack the kernel sources, and <samp>cd</samp> to the newly created directory.
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+Modify the kernel configuration using one of these commands:
+</p>
+<ul>
+<li>
+<p>
+<samp>make config</samp> (for a text-based interface).
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+<samp>make menuconfig</samp> (for an ncurses-based menu driven interface).
+Note that to use this option, the <code>libncurses5-dev</code> package must be
+installed.
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+<samp>make xconfig</samp> (for an X11 interface).  Using this option requires
+that relevant X and Tcl/Tk packages be installed.
+</p>
+</li>
+</ul>
+
+<p>
+Any of the above steps generates a new <samp>.config</samp> in the top-level
+kernel source directory.
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+Execute the command: <samp>make-kpkg -rev Custom.<var>N</var>
+kernel_image</samp>, where <var>N</var> is a revision number assigned by the
+user.  The new Debian archive thus formed would have revision
+Custom.<var>N</var>, e.g.  <code>kernel-image-2.2.14_Custom.1_i386.deb</code>
+for the Linux kernel 2.2.14 on i386.
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+Install the package created.
+</p>
+<ul>
+<li>
+<p>
+Run <samp>dpkg --install
+../kernel-image-<var>VVV</var>_Custom.<var>N</var>_i386.deb</samp> to install
+the kernel itself.  The installation script will:
+</p>
+<ul>
+<li>
+<p>
+run the boot loader (grub, LILO or some other) if needed,
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+install the custom kernel in
+<code>/boot/vmlinuz_<var>VVV</var>-Custom.<var>N</var></code>, and set up
+appropriate symbolic links to the most recent kernel version.
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+prompt the user to make a boot floppy.  This boot floppy will contain the raw
+kernel only.  See <a href="#s-custombootdisk">How can I make a custom boot
+floppy?, Section 9.3</a>.
+</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+To employ secondary boot loaders such as <code>loadlin</code>, copy this image
+to other locations (e.g.  to an <samp>MS-DOS</samp> partition).
+</p>
+</li>
+</ul>
+</li>
+</ul>
+
+<hr>
+
+<h2><a name="s-custombootdisk"></a>9.3 How can I make a custom boot floppy?</h2>
+
+<p>
+This task is greatly aided by the Debian package <code>boot-floppies</code>,
+normally found in the <samp>admin</samp> section of the Debian FTP archive.
+Shell scripts in this package produce boot floppies in the
+<samp>SYSLINUX</samp> format.  These are <samp>MS-DOS</samp> formatted floppies
+whose master boot records have been altered so that they boot Linux directly
+(or whatever other operating system has been defined in the
+<code>syslinux.cfg</code> file on the floppy).  Other scripts in this package
+produce emergency root disks and can even reproduce the base disks.
+</p>
+
+<p>
+You will find more information about this in the
+<code>/usr/share/doc/boot-floppies/README</code> file after installing the
+<code>boot-floppies</code> package.
+</p>
+
+<hr>
+
+<h2><a name="s-modules"></a>9.4 What special provisions does Debian provide to deal with modules?</h2>
+
+<p>
+Debian's <code>modconf</code> package provides a shell script
+(<code>/usr/sbin/modconf</code>) which can be used to customize the
+configuration of modules.  This script presents a menu-based interface,
+prompting the user for particulars on the loadable device drivers in his
+system.  The responses are used to customize the file
+<code>/etc/modules.conf</code> (which lists aliases, and other arguments that
+must be used in conjunction with various modules) through files in
+<code>/etc/modutils/</code>, and <code>/etc/modules</code> (which lists the
+modules that must be loaded at boot time).
+</p>
+
+<p>
+Like the (new) <code>Configure.help</code> files that are now available to
+support the construction of custom kernels, the <code>modconf</code> package
+comes with a series of help files (in <code>/usr/lib/modules_help/</code>)
+which provide detailed information on appropriate arguments for each of the
+modules.
+</p>
+
+<hr>
+
+<h2><a name="s-removeoldkernel"></a>9.5 Can I safely de-install an old kernel package, and if so, how?</h2>
+
+<p>
+Yes.  The <code>kernel-image-<var>NNN</var>.prerm</code> script checks to see
+whether the kernel you are currently running is the same as the kernel you are
+trying to de-install.  Therefore you can remove unwanted kernel image packages
+using this command:
+</p>
+
+<pre>
+     dpkg --purge --force-remove-essential kernel-image-<var>NNN</var>
+</pre>
+
+<p>
+(replace <var>NNN</var> with your kernel version and revision number, of
+course)
+</p>
+
+<hr>
+
+<p>
+[ <a href="ch-uptodate.en.html">previous</a> ]
+[ <a href="index.en.html#contents">Contents</a> ]
+[ <a href="ch-basic_defs.en.html">1</a> ]
+[ <a href="ch-getting.en.html">2</a> ]
+[ <a href="ch-compat.en.html">3</a> ]
+[ <a href="ch-software.en.html">4</a> ]
+[ <a href="ch-ftparchives.en.html">5</a> ]
+[ <a href="ch-pkg_basics.en.html">6</a> ]
+[ <a href="ch-pkgtools.en.html">7</a> ]
+[ <a href="ch-uptodate.en.html">8</a> ]
+[ 9 ]
+[ <a href="ch-customizing.en.html">10</a> ]
+[ <a href="ch-support.en.html">11</a> ]
+[ <a href="ch-contributing.en.html">12</a> ]
+[ <a href="ch-redistrib.en.html">13</a> ]
+[ <a href="ch-nexttime.en.html">14</a> ]
+[ <a href="ch-faqinfo.en.html">15</a> ]
+[ <a href="ch-customizing.en.html">next</a> ]
+</p>
+
+<hr>
+
+<p>
+The Debian GNU/Linux FAQ
+</p>
+
+<address>
+version 3.1.5, 17 January 2007<br>
+<br>
+Authors are listed at <a href="ch-faqinfo.en.html#s-authors">Debian FAQ Authors</a><br>
+<br>
+</address>
+<hr>
+
+</body>
+
+</html>
+
