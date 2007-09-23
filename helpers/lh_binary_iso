@@ -67,6 +67,26 @@ do
 			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -v"
 		fi
 
+		if [ -n "${LIVE_ISO_APPLICATION}" ] && [ "${LIVE_ISO_APPLICATION}" != "none" ]
+		then
+			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -A \"${LIVE_ISO_APPLICATION}\""
+		fi
+
+		if [ -n "${LIVE_ISO_PREPARER}" ] && [ "${LIVE_ISO_PREPARER}" != "none" ]
+		then
+			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -p \"${LIVE_ISO_PREPARER}\""
+		fi
+
+		if [ -n "${LIVE_ISO_PUBLISHER}" ] && [ "${LIVE_ISO_PUBLISHER}" != "none" ]
+		then
+			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -publisher \"${LIVE_ISO_PUBLISHER}\""
+		fi
+
+		if [ -n "${LIVE_ISO_VOLUME}" ] && [ "${LIVE_ISO_VOLUME}" != "none" ]
+		then
+			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -V \"${LIVE_ISO_VOLUME}\""
+		fi
+
 		# Moving image
 		mv binary chroot
 
@@ -102,7 +122,7 @@ do
 		fi
 
 cat >> chroot/binary.sh << EOF
-${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -V "${LIVE_ISO_VOLUME}" -o binary.iso -r -J -l -cache-inodes binary
+${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -o binary.iso -r -J -l -cache-inodes binary
 EOF
 
 		Chroot "sh binary.sh"

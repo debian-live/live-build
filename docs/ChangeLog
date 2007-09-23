@@ -1,3 +1,18 @@
+2007-05-26  Daniel Baumann  <daniel@debian.org>
+
+	* lists/rescue:
+	  - Updated with suggestions from Inigo Tejedor Arrondo
+	    <inigo@navarrux.org>
+	* Uploaded 1.0~a12-1.
+
+2007-05-25  Daniel Baumann  <daniel@debian.org>
+
+	* functions/defaults.sh:
+	  - Updated check for LH_BOOTSTRAP on ubuntu.
+	* helpers/lh_binary_iso, lh_source_iso:
+	  - Added configuration support for ISO application, preparer and
+	    publisher field.
+
 2007-05-24  Daniel Baumann  <daniel@debian.org>
 
 	* helpers/lh_binary_syslinux:

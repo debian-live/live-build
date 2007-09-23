@@ -53,6 +53,8 @@ else
 	exit 1
 fi
 
+echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: begin weekly build." >> /var/log/live
+
 for ARCHITECTURE in ${ARCHITECTURES}
 do
 	for DISTRIBUTION in ${DISTRIBUTIONS}
@@ -164,3 +166,5 @@ done
 # Creating current symlink
 rm -f "${DESTDIR}"/"${BUILD}"-builds/current
 ln -s ${DATE} "${DESTDIR}"/"${BUILD}"-builds/current
+
+echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: end weekly build." >> /var/log/live

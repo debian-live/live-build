@@ -6,52 +6,159 @@ eject file sudo vim-tiny
 # Standard
 console-common kbd locales
 
-# Rescue
+#####  Rescue
 
-# Editors
-mc nano-tiny qemacs-nox mg aview
-# Harddisk
-hdparm blktool scsitools
-# Memory
-dmidecode
-# System
-procinfo pciutils usbutils hwinfo hwtools x86info cpuid
-# Tools
-tofrodos rpncalc units
-# Browser
-lynx links w3m
-# Compression
-unzip zip
-# Backup
-dar ddrescue gddrescue
+## System
 
+gnupg dash discover gawk grub htop lilo ltrace pstack screen strace units
+
+## Editors
+aview mc nano-tiny qemacs-nox mg vim wdiff
+
+## Harddisk
+dosfstools dvd+rw-tools e2fsprogs ext2resize genisoimage hdparm blktool ntfsprogs parted partimage reiserfsprogs secure-delete scsitools smartmontools testdisk wodim wipe xfsprogs
+
+## System
+dmidecode lshw pciutils procinfo read-edid sysutils usbutils
+
+## Browser
+lynx links2 w3m
+
+## Compression
+bzip2 rar unace unrar unzip zip
+
+## Backup
+#dar ddrescue gddrescue
+
+## GENERAL
+chrootuid
+cryptcat
+directvnc
+dnstracer
+etherwake
+ftp
+ifenslave-2.6
+ifrename
+ipcalc
+mailx
+mii-diag
+minicom
+netcat
+netcat6
+netmask
+openntpd
+openssl
+openvpn
+sipcalc
+socat
+ssh
+telnet
+
+## FIREWALLING
+denyhosts
+fail2ban
+iptables
+knockd
+portsentry
+reaim
+vlan
+zorp
+
+## BRIDGING
+bridge-utils
+ebtables
+parprouted
+
+## ROUTING
+cutter
+iproute
+iproute-doc
+iputils-tracepath
+mrt
+mtr-tiny
+tcptraceroute
+traceproto
+traceroute
+spinner
+
+## MONITORING
+arpalert
+arpwatch
+atsar
+bmon
+ethstatus
+ettercap
+geopip-bin
+hp-search-mac
+icmpinfo
+ifstat
+iftop
+ipgrab
+iptstate
+irpas
+lft
+nast
+nbtscan
+netdiscover
+nload
+nsca
+nstreams
+ntop
+pasd
+saidar
+samhain
+scanssh
+sntop
+ssldump
+tcpdump
+tcpreen
+tcpreplay
+tshark
+
+## TESTING
+crashme
+dbench
+doscan
+dsniff
+fragrouter
+honeyd
+hping3
+icmpush
+irpas
+macchanger
+medusa
+ndiff
+netdiag
+netpipe-tcp
+nmap
+ndisc6
+ngrep
+nsed
+p0f
+packit
+paketto
+sing
+xprobe
+
+## LOG-ANALIZERS
+fwanalog
+fwlogwatch
+lwatch
+multitail
+
+#unsorted
+
+hwinfo hwtools x86info cpuid
+tofrodos rpncalc
 hal
-read-edid
-discover
-wdiff
-gawk
 dc
-dash
 rlwrap
 posh
 chkrootkit
+
 rkhunter
-parted
-partimage
-grub
-lilo
-testdisk
-xfsprogs
-reiserfsprogs
-e2fsprogs
-ext2resize
-ntfsprogs
-dosfstools
-genisoimage
-wodim
-dvd+rw-tools
 clamav
 clamav-data
-wipe
-secure-delete
-minicom
+smbclient
+nfs-common
+wireless-tools

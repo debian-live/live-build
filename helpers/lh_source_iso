@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_source_iso(1) - build source iso image
+# lh_source_iso(1) - build iso source image
 # Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -16,7 +16,7 @@ do
 done
 
 # Set static variables
-DESCRIPTION="build source iso image"
+DESCRIPTION="build iso source image"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -61,7 +61,7 @@ do
 		# Installing depends
 		Install_package
 
-		# Remove old source
+		# Remove old iso image
 		if [ -f source.iso ]
 		then
 			rm -f source.iso
@@ -72,11 +72,31 @@ do
 			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -v"
 		fi
 
+		if [ -n "${LIVE_ISO_APPLICATION}" ] && [ "${LIVE_ISO_APPLICATION}" != "none" ]
+		then
+			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -A \"${LIVE_ISO_APPLICATION}\""
+		fi
+
+		if [ -n "${LIVE_ISO_PREPARER}" ] && [ "${LIVE_ISO_PREPARER}" != "none" ]
+		then
+			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -p \"${LIVE_ISO_PREPARER}\""
+		fi
+
+		if [ -n "${LIVE_ISO_PUBLISHER}" ] && [ "${LIVE_ISO_PUBLISHER}" != "none" ]
+		then
+			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -publisher \"${LIVE_ISO_PUBLISHER}\""
+		fi
+
+		if [ -n "${LIVE_ISO_VOLUME}" ] && [ "${LIVE_ISO_VOLUME}" != "none" ]
+		then
+			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -V \"${LIVE_ISO_VOLUME}\""
+		fi
+
 		# Moving image
 		mv source chroot
 
 cat >> chroot/source.sh << EOF
-${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -V "${LIVE_ISO_VOLUME}" -o source.iso -r -J -l -cache-inodes source
+${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -o source.iso -r -J -l -cache-inodes source
 EOF
 
 		Chroot "sh source.sh"

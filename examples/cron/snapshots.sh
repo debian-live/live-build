@@ -3,7 +3,7 @@
 # Needs: build-essential fakeroot lsb-release svn [...]
 
 # Static variables
-PACKAGES="live-helper live-initramfs live-webbuilder"
+PACKAGES="live-helper live-initramfs live-webhelper"
 
 DEBEMAIL="debian-live-devel@lists.alioth.debian.org"
 EMAIL="debian-live-devel@lists.alioth.debian.org"
@@ -35,6 +35,8 @@ trap "test -f ${SERVER}/Archive-Update-in-Progress && rm -f ${SERVER}/Archive-Up
 
 # Creating lock file
 echo "${DATE_START}" > "${SERVER}"/Archive-Update-in-Progress
+
+echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: begin snapshot build." >> /var/log/live
 
 # Processing packages
 for PACKAGE in ${PACKAGES}
@@ -128,3 +130,5 @@ EOF
 
 # Removing build directory
 rm -rf "${TEMPDIR}"
+
+echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: end snapshot build." >> /var/log/live
