@@ -335,6 +335,32 @@ case "${LIVE_BINARY_IMAGES}" in
 		esac
 
 		cp -r "${TEMPLATES}"/* binary/isolinux
+
+		for FILE in binary/isolinux/*.live
+		do
+			mv ${FILE} `dirname ${FILE}`/`basename ${FILE} .live`
+		done
+
+		if [ "${LIVE_DEBIAN_INSTALLER}" != "disabled" ]
+		then
+			for FILE in binary/isolinux/*.install
+			do
+				mv ${FILE} `dirname ${FILE}`/`basename ${FILE} .install`
+			done
+
+			if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ] || [ "${LIVE_ARCHITECTURE}" = "powerpc" ]
+			then
+				for FILE in binary/isolinux/*.install.g-i
+				do
+					mv ${FILE} `dirname ${FILE}`/`basename ${FILE} .install.g-i`
+				done
+			else
+				rm -f binary/isolinux/*.install.g-i
+			fi
+		else
+			rm -f binary/isolinux/*.install*
+		fi
+
 		mv binary/isolinux/syslinux.cfg binary/isolinux/isolinux.cfg
 
 		# Copying local configuration file
@@ -363,7 +389,8 @@ case "${LIVE_BINARY_IMAGES}" in
 		# Configure syslinux templates
 		sed -i -e "s@LINUX_LIVE@${LINUX_LIVE}@" -e "s@LINUX_INSTALL@${LINUX_INSTALL}@" -e "s@MEMTEST@${MEMTEST}@" binary/isolinux/isolinux.cfg
 		sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" binary/isolinux/isolinux.cfg
-		sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" binary/isolinux/f1.txt
+		sed -i -e "s/LIVE_DISTRIBUTION/${LIVE_DISTRIBUTION}/" -e "s/LIVE_DATE/`date +%Y%m%d`/" -e "s/LIVE_MEDIA/CD-ROM/" binary/isolinux/f1.txt
+		sed -i -e "s/LIVE_MEDIA/CD-ROM/" binary/isolinux/f3.txt
 		sed -i -e "s/LIVE_VERSION/${VERSION}/" binary/isolinux/f10.txt
 
 		# Working arround syslinux 8.3 limitation
@@ -407,6 +434,32 @@ case "${LIVE_BINARY_IMAGES}" in
 
 		mkdir -p tftpboot/pxelinux.cfg
 		cp -r "${TEMPLATES}"/* tftpboot/pxelinux.cfg
+
+		for FILE in tftpboot/pxelinux.cfg/*.live
+		do
+			mv ${FILE} `dirname ${FILE}`/`basename ${FILE} .live`
+		done
+
+		if [ "${LIVE_DEBIAN_INSTALLER}" != "disabled" ]
+		then
+			for FILE in tftpboot/pxelinux.cfg/*.install
+			do
+				mv ${FILE} `dirname ${FILE}`/`basename ${FILE} .install`
+			done
+
+			if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ] || [ "${LIVE_ARCHITECTURE}" = "powerpc" ]
+			then
+				for FILE in tftpboot/pxelinux.cfg/*.install.g-i
+				do
+					mv ${FILE} `dirname ${FILE}`/`basename ${FILE} .install.g-i`
+				done
+			else
+				rm -f tftpboot/pxelinux.cfg/*.install.g-i
+			fi
+		else
+			rm -f tftpboot/pxelinux.cfg/*.install*
+		fi
+
 		mv tftpboot/pxelinux.cfg/syslinux.cfg tftpboot/pxelinux.cfg/default
 
 		# Copying local configuration file
@@ -437,7 +490,8 @@ case "${LIVE_BINARY_IMAGES}" in
 		# Configure syslinux templates
 		sed -i -e "s@LINUX_LIVE@${LINUX_LIVE}@" -e "s@LINUX_INSTALL@${LINUX_INSTALL}@" -e "s@MEMTEST@${MEMTEST}@" tftpboot/pxelinux.cfg/default
 		sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" -e "s/LIVE_NET_SERVER/${LIVE_NET_SERVER}/" -e "s#LIVE_NET_PATH#${LIVE_NET_PATH}#" tftpboot/pxelinux.cfg/default
-		sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" tftpboot/pxelinux.cfg/f1.txt
+		sed -i -e "s/LIVE_DISTRIBUTION/${LIVE_DISTRIBUTION}/" -e "s/LIVE_DATE/`date +%Y%m%d`/" -e "s/LIVE_MEDIA/netboot/" tftpboot/pxelinux.cfg/f1.txt
+		sed -i -e "s/LIVE_MEDIA/netboot/" tftpboot/pxelinux.cfg/f3.txt
 		sed -i -e "s/LIVE_VERSION/${VERSION}/" tftpboot/pxelinux.cfg/f10.txt
 
 		# Working arround syslinux 8.3 limitation
@@ -476,6 +530,31 @@ case "${LIVE_BINARY_IMAGES}" in
 
 		cp -r "${TEMPLATES}"/* "${DESTDIR}"
 
+		for FILE in "${DESTDIR}"/*.live
+		do
+			mv ${FILE} `dirname ${FILE}`/`basename ${FILE} .live`
+		done
+
+		if [ "${LIVE_DEBIAN_INSTALLER}" != "disabled" ]
+		then
+			for FILE in "${DESTDIR}"/*.install
+			do
+				mv ${FILE} `dirname ${FILE}`/`basename ${FILE} .install`
+			done
+
+			if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ] || [ "${LIVE_ARCHITECTURE}" = "powerpc" ]
+			then
+				for FILE in "${DESTDIR}"/*.install.g-i
+				do
+					mv ${FILE} `dirname ${FILE}`/`basename ${FILE} .install.g-i`
+				done
+			else
+				rm -f "${DESTDIR}"/*.install.g-i
+			fi
+		else
+			rm -f "${DESTDIR}"/*.install*
+		fi
+
 		# Copying local configuration file
 		if [ -f config/binary_syslinux/syslinux.cfg ]
 		then
@@ -502,7 +581,8 @@ case "${LIVE_BINARY_IMAGES}" in
 		# Configure syslinux templates
 		sed -i -e "s@LINUX_LIVE@${LINUX_LIVE}@" -e "s@LINUX_INSTALL@${LINUX_INSTALL}@" -e "s@MEMTEST@${MEMTEST}@" "${DESTDIR}"/syslinux.cfg
 		sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" "${DESTDIR}"/syslinux.cfg
-		sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" "${DESTDIR}"/f1.txt
+		sed -i -e "s/LIVE_DISTRIBUTION/${LIVE_DISTRIBUTION}/" -e "s/LIVE_DATE/`date +%Y%m%d`/" -e "s/LIVE_MEDIA/hd-media/" "${DESTDIR}"/f1.txt #FIXME
+		sed -i -e "s/LIVE_MEDIA/hd-media/" "${DESTDIR}"/f3.txt #FIXME
 		sed -i -e "s/LIVE_VERSION/${VERSION}/" "${DESTDIR}"/f10.txt
 
 		# Workaround for syslinux (<< 3.36) which doesn't support long file/path names

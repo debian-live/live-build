@@ -12,9 +12,6 @@ Package: live-helper
 Architecture: all
 Depends: cdebootstrap (>= 0.3.15) | debootstrap (>= 0.3.3.2)
 Suggests: genisoimage | mkisofs, memtest86+ | memtest86, mtools, squashfs-tools | genext2fs, syslinux | grub
-Conflicts: live-package
-Replaces: live-package
-Provides: make-live
 Description: Debian Live helper programs
  Live-helper is a collection of programs that can be used to build Debian Live
  system images. The philosophy behind live-helper is to provide a collection of
@@ -22,7 +19,6 @@ Description: Debian Live helper programs
  to automate building of a Live system.
  .
  A typical program that uses live-helper will call several live-helper commands
- in sequence. Live-helper commands are all named with a "lh_" prefix. Examples
- of such a program that uses live-helper is make-live (included here).
+ in sequence. Live-helper commands are all named with a "lh_" prefix.
  .
   Homepage: <http://debian-live.alioth.debian.org/>

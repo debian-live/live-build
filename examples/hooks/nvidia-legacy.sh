@@ -2,14 +2,9 @@
 
 # This is a hook for live-helper(7) to install nvidia-legacy drivers
 # To enable it, copy this hook into your config/chroot_localhooks directory.
-
-# IMPORTANT: for apt-get to locate the required packages you need to
-# add "contrib non-free" sections.
 #
-# e.g with make-live : --sections "main contrib non-free"
-
-# Updating indices
-apt-get update
+# Note: This hook requires packages from the non-free section. Make sure you
+# enabled it in your configuration.
 
 # Building kernel module
 which module-assistant || apt-get install --yes module-assistant nvidia-kernel-common
@@ -17,10 +12,10 @@ module-assistant update
 module-assistant --non-inter --quiet auto-install nvidia-kernel-legacy
 module-assistant clean nvidia-kernel-legacy
 
-# Installing aditional stuff
+# Installing additional stuff
 apt-get install --yes nvidia-glx-legacy nvidia-xconfig discover
 
-# fixup (#421028)
+# Fix #421028
 if [ -f /usr/lib/xorg/modules/drivers/nvidia_drv.o ]
 then
 	cd /usr/lib/xorg/modules/drivers
