@@ -1,4 +1,4 @@
-.TH MAKE-LIVE.CONF 8 "Mon, 28 Aug 2006" "0.99.4" "Debian Live framework"
+.TH MAKE-LIVE.CONF 8 "Mon,  4 Sep 2006" "0.99.5" "Debian Live framework"
 
 .SH NAME
 make-live.conf \- configuration file for make-live(8)
@@ -27,6 +27,9 @@ specifies the bootstrap flavour. This can be either standard (default) or minima
 specifies the filesystem to be used for the root filesystem image
 (Default: squashfs).
 .TP
+.B LIVE_GENERIC_INDICES
+specifies if generic Debian indices should be used (Default: enable).
+.TP
 .B LIVE_FTPPROXY
 specifies the value of ftp_proxy inside the chrooted environment. Instead of this environment variable, the flag \-\-ftp-proxy can be used (Default: empty).
 .TP
@@ -45,11 +48,10 @@ specifies the debian mirror where make-live will download the packages from. Ins
 specifies the archive signing key. Instead of this environment variable, the flav \-\-mirror-key can be used (Default: http://ftp-master.debian.org/ziyi_key_2006.asc).
 .TP
 .B LIVE_PACKAGES
-specifies a list of packages to install into the chroot. Instead of this environment variable, the flag \-p, \-\-packakges can be used (Default: empty).
+specifies a list of packages to install into the chroot. Instead of this environment variable, the flag \-\-packakges can be used (Default: empty).
 .TP
 .B LIVE_PACKAGE_LIST
-specifies a file which contains a list of packages to install, separated by
-newlines, if LIVE_PACKAGE_LIST exists, default LIST option will be ignored.
+specifies a file which contains a list of packages to install.
 .TP
 .B LIVE_PROXY_FTP
 specifies the value of ftp_proxy inside the chrooted environment. Instead of this environment variable, the flag \-\-ftp-proxy can be used (Default: empty).

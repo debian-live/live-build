@@ -8,7 +8,7 @@ Standards-Version: 3.7.2
 
 Package: live-package
 Architecture: all
-Depends: cdebootstrap (>= 0.3.10), dpkg-dev, genext2fs, mkisofs, squashfs-tools
+Depends: cdebootstrap (>= 0.3.10), genext2fs, mkisofs, squashfs-tools
 Provides: make-live
 Description: utility to build Debian Live systems
  make-live is a utility to build Debian Live systems. It takes a Debian mirror

@@ -1,0 +1,9 @@
+Debian Live Framework: Frequently Asked Questions (FAQ)
+=======================================================
+
+Q: What is the root password?
+A: There is none. You can switch to root with 'sudo su -' or set a password with
+   'sudo passwd'.
+
+Q: What is the user password?
+A: The user password for casper is 'live'.

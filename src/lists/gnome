@@ -1,1 +1,15 @@
-gnome-desktop-environment gdm-themes gnome-cups-manager gnome-themes-extras rhythmbox synaptic gnome-screensaver gdm x-window-system-core
+# /usr/share/make-live/lists/gnome - package list for make-live(8)
+
+# Minimal
+sudo
+
+# Standard
+locales
+
+# GNOME
+gdm gdm-themes gnome-desktop-environment gnome-cups-manager gnome-screensaver
+gnome-themes-extras
+
+rhythmbox synaptic
+
+x-window-system-core

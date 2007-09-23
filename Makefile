@@ -21,6 +21,10 @@ install:
 	@# Install templates
 	cp -r templates $(DESTDIR)/usr/share/make-live
 
+	@# Install documentation
+	install -d -m 0755 $(DESTDIR)/usr/share/doc/live-package
+	install -m 0644 doc/*.txt $(DESTDIR)/usr/share/doc/live-package
+
 	@# Install manpages
 	install -d -m 0755 $(DESTDIR)/usr/share/man/man8
 	install -m 0644 doc/man/*.8  $(DESTDIR)/usr/share/man/man8
@@ -35,6 +39,9 @@ uninstall:
 
 	@# Remove shared data
 	rm -rf $(DESTDIR)/usr/share/make-live
+
+	@# Remove documentation
+	rm -rf $(DESTDIR)/usr/share/doc/live-package
 
 	@# Remove manpages
 	rm -f $(DESTDIR)/usr/share/man/man8/make-live.*

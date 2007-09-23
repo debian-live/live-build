@@ -1,1 +1,18 @@
-kde koffice kde-extras kdm x-window-system-core
+# /usr/share/make-live/lists/kde-extra - package list for make-live(8)
+
+# Minimal
+sudo
+
+# Standard
+locales
+
+# KDE
+kde kdm
+
+x-window-system-core
+
+# KDE Full
+koffice
+
+# KDE Extra
+kde-extras

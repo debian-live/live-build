@@ -21,7 +21,7 @@ Chroot ()
 	then
 		# Configure chroot
 		Patch_chroot apply
-		#Patch_runlevel apply
+		Patch_runlevel apply
 
 		# Configure network
 		Patch_network apply
@@ -30,7 +30,7 @@ Chroot ()
 		Indices custom
 
 		# Install secure apt
-		if [ "${LIVE_DISTRIBUTION}" = "${CODENAME_TESTING}" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_UNSTABLE}" ]
+		if [ "${LIVE_DISTRIBUTION}" = "testing" ] || [ "${LIVE_DISTRIBUTION}" = "unstable" ]
 		then
 			Chroot_exec "apt-get install --yes --force-yes debian-archive-keyring"
 		fi
@@ -44,16 +44,15 @@ Chroot ()
 		# Install linux-image, modules and casper
 		Chroot_exec "apt-get install --yes linux-image-2.6-${LIVE_KERNEL} squashfs-modules-2.6-${LIVE_KERNEL} unionfs-modules-2.6-${LIVE_KERNEL} casper"
 
-		# Rebuild initial ramdisk
-		Chroot_exec "dpkg-reconfigure `basename ${LIVE_CHROOT}/var/lib/dpkg/info/linux-image-2.6.*-${LIVE_KERNEL}.postinst .postinst`"
-
 		# Deconfigure linux-image
 		Patch_linux deapply
 
 		# Install packages list
 		if [ -n "${LIVE_PACKAGE_LIST}" ]
 		then
-			Chroot_exec "apt-get install --yes `cat ${LIVE_PACKAGE_LIST}`"
+			grep -v "^#" "${LIVE_PACKAGE_LIST}" > "${LIVE_CHROOT}"/root/"`basename ${LIVE_PACKAGE_LIST}`"
+			Chroot_exec "xargs --arg-file=/root/`basename ${LIVE_PACKAGE_LIST}` apt-get install --yes"
+			rm -f "${LIVE_CHROOT}"/root/"`basename ${LIVE_PACKAGE_LIST}`"
 		fi
 
 		# Install extra packages
@@ -93,12 +92,10 @@ Chroot ()
 		Patch_network deapply
 
 		# Deconfigure chroot
-		#Patch_runlevel deapply
+		Patch_runlevel deapply
 		Patch_chroot deapply
 
 		# Touching stage file
 		touch "${LIVE_ROOT}"/.stage/chroot
-
-		echo "done."
 	fi
 }

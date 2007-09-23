@@ -1,1 +1,13 @@
-manpages manpages-de manpages-de-dev manpages-dev manpages-es manpages-es-extra  manpages-fi manpages-fr manpages-hu manpages-it manpages-ja manpages-ja-dev manpages-ko manpages-nl manpages-pl manpages-pl-dev manpages-pt manpages-pt-dev manpages-ru manpages-tr manpages-zh
+# /usr/share/make-live/lists/standard-i18n - package list for make-live(8)
+
+# Minimal
+sudo
+
+# Standard
+locales
+
+# Standard i18n
+manpages manpages-dev manpages-de manpages-de-dev manpages-es manpages-es-extra
+manpages-fi manpages-fr manpages-fr-dev manpages-fr-extra manpages-hu
+manpages-it manpages-ja manpages-ja-dev manpages-ko manpages-nl manpages-pl
+manpages-pl-dev manpages-pt manpages-pt-dev manpages-ru manpages-tr manpages-zh

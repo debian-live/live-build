@@ -1,5 +1,22 @@
+2006-09-03 Daniel Baumann <daniel@debian.org>
+
+	* Added dist parameter to easily pull images for live.debian.net.
+	* Added "--output" to specify the image name prefix.
+	* Exclude iso templates for minimal flavour.
+
+2006-09-02 Daniel Baumann <daniel@debian.org>
+
+	* Added experimental as distribution.
+	* Added source image generation.
+	* Using dpkg instead of dpkg-architecture, removed dpkg-dev dependency.
+
 2006-08-31 Daniel Baumann <daniel@debian.org>
 
+	* Added "--disable-generic-indices" and "--enable-generic-indices".
+	* Fixed i18n lists.
+	* Rewritten all lists, comments are now possible.
+	* Lists must be now explicitly given with --package-list, no longer as
+	  last argument of the make-live call.
 	* Setting default sources.list while the image generation, restoring
 	  customized ones afterwards.
 
@@ -37,7 +54,7 @@
 	* Reorganised sources.
 	* Added staging support.
 	* Cleaned up parameter names.
-	* testing is now supported, switched default distribution to etch.
+	* testing is now supported.
 
 2006-08-02 Marco Amadori <marco.amadori@gmail.com>
 
