@@ -1,3 +1,12 @@
+2006-10-01 Daniel Baumann <daniel@debian.org>
+
+	* Added multiple repositories.
+	* Using LIVE_PROXY_* also for bootstraping.
+
+2006-09-27 Daniel Baumann <daniel@debian.org>
+
+	* Changing manpage section.
+
 2006-09-26 Daniel Baumann <daniel@debian.org>
 
 	* Added default flavour hooks.

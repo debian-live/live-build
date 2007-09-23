@@ -93,6 +93,25 @@ EOF
 			;;
 	esac
 
+	# Add custom repositories
+	echo "" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+	echo "# Custom repositories" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+
+	for NAME in ${LIVE_REPOSITORIES}
+	do
+		eval REPOSITORY="$`echo LIVE_REPOSITORY_$NAME`"
+		eval REPOSITORY_DISTRIBUTION="$`echo LIVE_REPOSITORY_DISTRIBUTION_$NAME`"
+		eval REPOSITORY_SECTIONS="$`echo LIVE_REPOSITORY_SECTIONS_$NAME`"
+
+		# Configure /etc/apt/sources.list
+		if [ -n "${REPOSITORY_DISTRIBUTION}" ]
+		then
+			echo "deb ${REPOSITORY} ${REPOSITORY_DISTRIBUTION} ${REPOSITORY_SECTIONS}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+		else
+			echo "deb ${REPOSITORY} ${LIVE_DISTRIBUTION} ${REPOSITORY_SECTIONS}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+		fi
+	done
+
 	# Update indices
 	Chroot_exec "apt-get update"
 
@@ -192,6 +211,7 @@ Linuximage ()
 			then
 				mv "${LIVE_CHROOT}"/boot/vmlinuz-* "${LIVE_ROOT}"/binary/isolinux/vmlinuz
 				mv "${LIVE_CHROOT}"/boot/initrd.img-* "${LIVE_ROOT}"/binary/isolinux/initrd.gz
+				rm -f "${LIVE_CHROOT}"/vmlinuz "${LIVE_CHROOT}"/initrd.img
 			else
 				cp "${LIVE_CHROOT}"/boot/vmlinuz-* "${LIVE_ROOT}"/binary/isolinux/vmlinuz
 				cp "${LIVE_CHROOT}"/boot/initrd.img-* "${LIVE_ROOT}"/binary/isolinux/initrd.gz

@@ -30,8 +30,10 @@ install:
 	install -m 0644 doc/*.txt $(DESTDIR)/usr/share/doc/live-package
 
 	@# Install manpages
-	install -d -m 0755 $(DESTDIR)/usr/share/man/man8
-	install -m 0644 doc/man/*.8  $(DESTDIR)/usr/share/man/man8
+	install -d -m 0755 $(DESTDIR)/usr/share/man/man1
+	install -m 0644 doc/man/*.1  $(DESTDIR)/usr/share/man/man1
+	install -d -m 0755 $(DESTDIR)/usr/share/man/man5
+	install -m 0644 doc/man/*.5  $(DESTDIR)/usr/share/man/man5
 
 uninstall:
 	# Uninstalling make-live
@@ -48,6 +50,6 @@ uninstall:
 	rm -rf $(DESTDIR)/usr/share/doc/live-package
 
 	@# Remove manpages
-	rm -f $(DESTDIR)/usr/share/man/man8/make-live.*
+	rm -f $(DESTDIR)/usr/share/man/man1/make-live.*
 
 reinstall:	uninstall install

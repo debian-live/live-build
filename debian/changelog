@@ -1,3 +1,11 @@
+live-package (0.99.9-1) unstable; urgency=medium
+
+  * New upstream release:
+    - adds support for custom repositories (Closes: #387068).
+    - using proxy for chroot creating too (Closes: #390378).
+
+ -- Daniel Baumann <daniel@debian.org>  Mon,  2 Oct 2006 00:00:00 +0200
+
 live-package (0.99.8-1) unstable; urgency=medium
 
   * New upstream release.

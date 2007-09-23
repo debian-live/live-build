@@ -63,6 +63,28 @@
 # Chroots http_proxy		(Default: empty)
 #LIVE_PROXY_HTTP=""
 
+# Custom repositories		(Default: none)
+#LIVE_REPOSITORIES=""
+
+# Custom repository list
+LIVE_REPOSITORY_bpo="http://www.backports.org/debian/"
+LIVE_REPOSITORY_KEY_bpo="http://backports.org/debian/archive.key"
+LIVE_REPOSITORY_KEYRING_bpo=""
+LIVE_REPOSITORY_DISTRIBUTION=""
+LIVE_REPOSITORY_SECTIONS_bpo="main contrib non-free"
+
+LIVE_REPOSITORY_edu="http://ftp.skolelinux.org/skolelinux/"
+LIVE_REPOSITORY_KEY_edu=""
+LIVE_REPOSITORY_KEYRING_edu="debian-edu-archive-keyring"
+LIVE_REPOSITORY_DISTRIBUTION_edu="etch-test"
+LIVE_REPOSITORY_SECTIONS_edu="local"
+
+LIVE_REPOSITORY_duo="http://ftp.debian-unofficial.org/debian/"
+LIVE_REPOSITORY_KEY_duo="http://ftp-master.debian-unofficial.org/key_2006.asc"
+LIVE_REPOSITORY_KEYRING_duo=""
+LIVE_REPOSITORY_DISTRIBUTION=""
+LIVE_REPOSITORY_SECTIONS_duo="main contrib non-free restricted"
+
 # Debian section		(Default: main)
 #LIVE_SECTION="main"
 
