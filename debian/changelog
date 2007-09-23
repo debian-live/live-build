@@ -3,6 +3,8 @@ live-helper (1.0~a29-1) UNRELEASED; urgency=medium
   * New upstream release:
     - Adding preinst to take care about package upgrades with respect to
       directories that are symlinks now (Closes: #442408, #442922).
+    - Fixed typing error in lh_binary_syslinux, thanks to Jean Pierre LeJacq
+      <jp.lejacq@quoininc.com> (Closes: #443099).
 
  -- Daniel Baumann <daniel@debian.org>  Mon, 24 Sep 2007 00:00:00 +0200
 
