@@ -1,0 +1,14 @@
+Source: live-package
+Section: misc
+Priority: optional
+Maintainer: Daniel Baumann <daniel@debian.org>
+Uploaders: Marco Amadori <marco.amadori@gmail.com>
+Build-Depends: debhelper (>= 4)
+Standards-Version: 3.7.2
+
+Package: live-package
+Architecture: all
+Depends: cdebootstrap (>= 0.3.10) | debootstrap (>= 3.3), dpkg-dev, genext2fs, mkisofs, squashfs-tools
+Provides: make-live
+Description: Debian Live framework
+ The Debian Live framework lets you automagically create live system images.
