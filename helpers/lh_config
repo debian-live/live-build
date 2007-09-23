@@ -236,6 +236,10 @@ cat > "${LIVE_ROOT}"/config/chroot << EOF
 # (Default: ${LIVE_CHROOT_FILESYSTEM})
 LIVE_CHROOT_FILESYSTEM="${LIVE_CHROOT_FILESYSTEM}"
 
+# \$LIVE_UNION_FILESYSTEM: set union filesystem
+# (Default: ${LIVE_UNION_FILESYSTEM}
+LIVE_UNION_FILESYSTEM="${LIVE_UNION_FILESYSTEM}"
+
 # \$LIVE_HOOKS: set hook commands
 # (Default: empty)
 LIVE_HOOKS="${LIVE_HOOKS}"
@@ -291,6 +295,7 @@ EOF
 
 # Creating lh_binary_* configuration
 mkdir -p "${LIVE_ROOT}"/config/binary_grub
+mkdir -p "${LIVE_ROOT}"/config/binary_local-debs
 mkdir -p "${LIVE_ROOT}"/config/binary_local-hooks
 mkdir -p "${LIVE_ROOT}"/config/binary_local-includes
 mkdir -p "${LIVE_ROOT}"/config/binary_local-udebs

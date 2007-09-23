@@ -1,0 +1,84 @@
+#!/bin/sh
+
+# lh_source_disk (1) - install disk information into source
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
+do
+	. "${FUNCTION}"
+done
+
+# Setting static variables
+DESCRIPTION="install disk information into source"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/bootstrap
+Read_conffile config/chroot
+Read_conffile config/binary
+Read_conffile config/source
+Set_defaults
+
+if [ "${LIVE_SOURCE_IMAGES}" != "iso" ]
+then
+	exit 0
+fi
+
+Echo_message "Begin installing disk information..."
+
+# Requiring stage file
+Require_stagefile .stage/bootstrap
+
+# Checking stage file
+Check_stagefile .stage/source_disk
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+mkdir -p source/.disk
+
+ARCHITECTURE="`echo ${LIVE_ARCHITECTURE} | sed -e 's# #/#g'`"
+DISTRIBUTION="`echo ${LIVE_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]'`"
+DISTRIBUTION="${DISTRIBUTION}`echo ${LIVE_DISTRIBUTION} | cut -b 2-`"
+eval VERSION="$`echo VERSION_${LIVE_DISTRIBUTION}`"
+
+case "${LH_MODE}" in
+	debian)
+		if [ -d binary/pool/main/b/base-installer ]
+		then
+			if [ -d binary/pool/main/l/live-installer ]
+			then
+				TYPE="LIVE/INSTALL"
+			fi
+
+			TYPE="LIVE/NETINST"
+		else
+			TYPE="LIVE"
+		fi
+
+		echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} ${TYPE} Source `date +%Y%m%d-%H:%M`" > source/.disk/info
+		;;
+
+	ubuntu)
+		echo "Ubuntu Linux ${VERSION} \"${DISTRIBUTION}\" - Unofficial ${ARCHITECTURE} LIVE/NETINST Source `date +%Y%m%d-%H:%M`" > source/.disk/info
+		;;
+esac
+
+# Creating stage file
+Create_stagefile .stage/source_disk

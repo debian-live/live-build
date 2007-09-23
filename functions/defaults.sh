@@ -38,7 +38,7 @@ Set_defaults ()
 		fi
 	fi
 
-	# Setting distribution value
+	# Setting distribution name
 	if [ -z "${LIVE_DISTRIBUTION}" ]
 	then
 		case "${LH_MODE}" in
@@ -90,7 +90,7 @@ Set_defaults ()
 	LH_APT_SECURE="${LH_APT_SECURE:-enabled}"
 
 	# Setting bootstrap program
-	if [ -z "${LH_BOOTSTRAP}" ] || [ ! -x "${LH_BOOTSTRAP}" ]
+	if [ -z "${LH_BOOTSTRAP}" ] || [ ! -x "`which ${LH_BOOTSTRAP}`" ]
 	then
 		case "${LH_MODE}" in
 			debian)
@@ -318,6 +318,9 @@ Set_defaults ()
 	# Setting chroot filesystem
 	LIVE_CHROOT_FILESYSTEM="${LIVE_CHROOT_FILESYSTEM:-squashfs}"
 
+	# Setting union filesystem
+	LIVE_UNION_FILESYSTEM="${LIVE_UNION_FILESYSTEM:-unionfs}"
+
 	# LIVE_HOOKS
 
 	# Setting interactive shell/X11/Xnest
@@ -350,7 +353,7 @@ Set_defaults ()
 				;;
 
 			arm)
-				echo "E: You need to specify the linux kernel flavour manually on arm (FIXME)."
+				Echo_error "You need to specify the linux kernel flavour manually on arm (FIXME)."
 				exit 1
 				;;
 
@@ -375,7 +378,7 @@ Set_defaults ()
 				;;
 
 			m68k)
-				LIVE_LINUX_FLAVOURS="E: You need to specify the linux kernel flavour manually on m68k."
+				LIVE_LINUX_FLAVOURS="You need to specify the linux kernel flavour manually on m68k."
 				exit 1
 				;;
 
@@ -401,7 +404,7 @@ Set_defaults ()
 				;;
 
 			*)
-				echo "E: Architecture notyet supported (FIXME)"
+				Echo_error "Architecture notyet supported (FIXME)"
 				;;
 		esac
 	fi
@@ -411,7 +414,7 @@ Set_defaults ()
 	then
 		case "${LH_MODE}" in
 			debian)
-				LIVE_LINUX_PACKAGES="linux-image-2.6 unionfs-modules-2.6"
+				LIVE_LINUX_PACKAGES="linux-image-2.6 ${LIVE_UNION_FILESYSTEM}-modules-2.6"
 
 				if [ "${LIVE_CHROOT_FILESYSTEM}" = "squashfs" ]
 				then
@@ -506,9 +509,6 @@ Set_defaults ()
 
 	# Setting debian-installer option
 	LIVE_DEBIAN_INSTALLER="${LIVE_DEBIAN_INSTALLER:-disabled}"
-
-	# Setting live-installer option
-	LIVE_LIVE_INSTALLER="${LIVE_LIVE_INSTALLER:-disabled}"
 
 	# Setting encryption
 	# LIVE_ENCRYPTION

@@ -45,35 +45,17 @@ Require_stagefile .stage/bootstrap
 # Checking stage file
 Check_stagefile .stage/binary_grub
 
+# Checking grub templates
+Check_templates grub
+
 # Checking lock file
 Check_lockfile .lock
 
 # Creating lock file
 Create_lockfile .lock
 
-if [ "${LIVE_ARCHITECTURE}" != "amd64" ] && [ "${LIVE_ARCHITECTURE}" != "i386" ]
-then
-	Echo_warning "skipping binary_grub, foreign architecture."
-	exit 0
-fi
-
-# Check user templates
-if [ ! -d "${LIVE_TEMPLATES}" ]
-then
-	if [ -d ../"${LIVE_TEMPLATES}" ]
-	then
-		LIVE_TEMPLATES="../${LIVE_TEMPLATES}"
-	else
-		Echo_error "user specified templates not accessible in ${LIVE_TEMPLATES}"
-		exit 1
-	fi
-fi
-
-# Check local templates
-if [ -d config/templates/grub ]
-then
-	LIVE_TEMPLATES="config/templates"
-fi
+# Check architecture
+Check_architecture amd64 i386
 
 # Checking depends
 Check_package chroot/usr/sbin/grub grub
@@ -93,13 +75,22 @@ esac
 
 # Setting destination directory
 case "${LIVE_BINARY_IMAGES}" in
-	iso|tar|usb-hdd)
-		DESTDIR_LIVE="binary/live"
+	iso|tar)
+		case "${LH_INITRAMFS}" in
+			casper)
+				DESTDIR_LIVE="binary/casper"
+				;;
+
+			live-initramfs)
+				DESTDIR_LIVE="binary/live"
+				;;
+		esac
+
 		DESTDIR_INSTALL="binary/install"
 		;;
 
-	net)
-		Echo_error "not supported, aborting (FIXME)."
+	usb-hdd|net)
+		Echo_error "not yet supported, aborting (FIXME)."
 		exit 1
 	;;
 esac
@@ -165,6 +156,11 @@ then
 	esac
 fi
 
+if [ "${LIVE_UNION_FILESYSTEM}" != "unionfs" ]
+then
+	LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} union=${LIVE_UNION_FILESYSTEM}"
+fi
+
 LIVE_BOOTAPPEND="`echo ${LIVE_BOOTAPPEND} | sed -e 's/  //'`"
 
 # Parameters are listed at: linux/Documentation/kernel-parameters.txt
@@ -194,7 +190,7 @@ fi
 LINUX="`echo ${LINUX} | sed -e 's#//#/#g'`"
 
 # Assembling debian-installer configuration
-if [ "${LIVE_DEBIAN_INSTALLER}" = "enabled" ]
+if [ "${LIVE_DEBIAN_INSTALLER}" != "disabled" ]
 then
 	LINUX="title\t\tLive:\nroot\n\n${LINUX}"
 

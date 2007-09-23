@@ -1,3 +1,53 @@
+2007-07-01  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_debian-installer:
+	  - Added caching of udebs.
+	* functions/defaults.sh, helpers/lh_binary_grub, lh_binary_syslinux,
+	  lh_binary_grub, lh_config:
+	  - Added support for aufs.
+	* Uploaded 1.0~a17-1.
+
+2007-06-30  Daniel Baumann  <daniel@debian.org>
+
+	* functions/releases.sh, helpers/lh_binary_disk, lh_source_disk,
+	  lh_chroot_hostname:
+	  - Added.
+
+2007-06-29  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_syslinux:
+	  - Fixed damaged memtest entry.
+	  - Corrected code style.
+	  - Added NUMBER initaliazation to fixed wrong numbering when in compat
+	    mode.
+	  - Fixed bug with isolinux.cfg fuckup if flavours are in this order:
+	    686 686-bigmem.
+	* helpers/lh_binary_grub, lh_binary_linux-image, lh_binary_memtest,
+	  lh_binary_syslinux:
+	  - Added compat mode for casper/live directories.
+	* helpers/lh_binary_manifest, lh_binary_md5sum, lh_source_mdsum:
+	  - Added introductional text to the generated file.
+	* helpers/lh_binary_manifest:
+	  - Only create the correct manifest file for the respective initramfs.
+	* helpers/lh_binary_disk, lh_source_disk:
+	  - Added.
+
+2007-06-27  Otavio Salvador  <otavio@debian.org>
+
+	* helpers/lh_binary_syslinux:
+	  - Added new methods (syslinux_live_entry and syslinux_di_entry) and
+	    change whole code to use them making it much easier to read and
+	    modify.
+	* functions/arch.sh:
+	  - Added.
+	* helpers/lh_binary_grub, lh_binary_syslinux, lh_binary_yaboot:
+	  - Use the new Check_architecture method to avoid duplicated code.
+	* functions/templates.sh:
+	  - Added.
+	* helpers/lh_binary_grub, helpers/lh_binary_syslinux,
+	  helpers/lh_binary_yaboot:
+	  - Use the new Check_templates method to avoid duplicated code.
+
 2007-06-25  Daniel Baumann  <daniel@debian.org>
 
 	* helpers/lh_binary_local-hooks:

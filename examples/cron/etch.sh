@@ -7,8 +7,8 @@ BUILD="etch"
 # Begin custom defaults
 AUTOBUILD="enabled"
 
-DATE="r0_1.0~a16-1"
-DESTDIR="/srv/debian-unofficial/ftp/debian-live"
+DATE="r0_1.0~a17-1"
+DESTDIR="/srv/debian-unofficial/ftp/debian-live/cdimage"
 TEMPDIR="/srv/tmp/live-helper"
 
 OPTIONS="--binary-indices disabled --initramfs casper"
@@ -53,7 +53,7 @@ else
 	exit 1
 fi
 
-echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: begin etch build." >> /var/log/live
+echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: begin ${BUILD} build." >> /var/log/live
 
 for ARCHITECTURE in ${ARCHITECTURES}
 do
@@ -167,4 +167,4 @@ done
 rm -f "${DESTDIR}"/"${BUILD}"-builds/current
 ln -s ${DATE} "${DESTDIR}"/"${BUILD}"-builds/current
 
-echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: end etch build." >> /var/log/live
+echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: end ${BUILD} build." >> /var/log/live

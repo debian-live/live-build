@@ -108,7 +108,7 @@ lh_losetup $FREELO chroot/binary.img 1
 Chroot " mkfs.vfat -F 16 -n DEBIAN_LIVE ${FREELO}"
 mkdir -p chroot/binary.tmp
 ${LH_ROOT_COMMAND} mount ${FREELO} chroot/binary.tmp
-cp -r binary/* chroot/binary.tmp
+cp -rL binary/* chroot/binary.tmp
 
 FIXME()
 {
@@ -155,7 +155,7 @@ echo "!!! The above error/warning messages can be ignored !!!"
 
 if [ -n "${MAKEDEV}" ]
 then
-	rm -f chroot/dev
+	rm -rf chroot/dev
 	mv chroot/dev.tmp chroot/dev
 fi
 
