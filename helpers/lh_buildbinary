@@ -162,7 +162,7 @@ EOF
 			REAL_DIM="`expr ${DU_DIM} + ${DU_DIM} / 20`" # Just 5% more to be sure, need something more sophistcated here...
 			dd if=/dev/zero of="${LIVE_ROOT}"/binary.img bs=1024k count=${REAL_DIM}
 
-			FREELO="`losetup -f`"
+			FREELO="`lh_chroot 'losetup -f'`"
 
 			echo "!!! The following error/warning messages can be ignored !!!"
 			lh_losetup $FREELO "${LIVE_ROOT}"/binary.img 0

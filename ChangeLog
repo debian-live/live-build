@@ -1,6 +1,15 @@
+2007-03-10 Daniel Baumann <daniel@debian.org>
+
+	* Added knoppix and knoppix-dvd package lists.
+
+2007-03-09 Daniel Baumann <daniel@debian.org>
+
+	* Getting free loopdevice from inside the chroot, not outside.
+
 2007-03-09 Daniel Baumann <daniel@debian.org>
 
 	* Added kbd to all !minimal lists.
+	* Uploaded 0.99.25.
 
 2007-03-08 Otavio Salvador <otavio@debian.org>
 
