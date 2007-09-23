@@ -35,81 +35,84 @@ Set_defaults
 
 rm -f .lock
 
-case "${1}" in
-	all)
-		"${0}" chroot
-		"${0}" binary
-		"${0}" stage
-		"${0}" source
+for ARGUMENT in ${@}
+do
+	case "${ARGUMENT}" in
+		all)
+			"${0}" chroot
+			"${0}" binary
+			"${0}" stage
+			"${0}" source
 
-		if [ -d chroot ]
-		then
-			mkdir -p .stage
-			touch .stage/bootstrap
-		fi
-		;;
+			if [ -d chroot ]
+			then
+				mkdir -p .stage
+				touch .stage/bootstrap
+			fi
+			;;
 
-	cache)
-		${LH_ROOT_COMMAND} rm -rf cache
-		;;
+		cache)
+			${LH_ROOT_COMMAND} rm -rf cache
+			;;
 
-	chroot)
-		Echo_message "Cleaning chroot"
-		${LH_ROOT_COMMAND} umount -f chroot/sys > /dev/null 2>&1 || true
-		${LH_ROOT_COMMAND} umount -f chroot/proc/sys/fs/binfmt_misc > /dev/null 2>&1 || true
-		${LH_ROOT_COMMAND} umount -f chroot/proc > /dev/null 2>&1 || true
-		${LH_ROOT_COMMAND} umount -f chroot/lib/init/rw > /dev/null 2>&1 || true
-		${LH_ROOT_COMMAND} umount -f chroot/dev/shm > /dev/null 2>&1 || true
-		${LH_ROOT_COMMAND} umount -f chroot/dev/pts > /dev/null 2>&1 || true
-		${LH_ROOT_COMMAND} umount -f chroot/dev > /dev/null 2>&1 || true
+		chroot)
+			Echo_message "Cleaning chroot"
+			${LH_ROOT_COMMAND} umount -f chroot/sys > /dev/null 2>&1 || true
+			${LH_ROOT_COMMAND} umount -f chroot/proc/sys/fs/binfmt_misc > /dev/null 2>&1 || true
+			${LH_ROOT_COMMAND} umount -f chroot/proc > /dev/null 2>&1 || true
+			${LH_ROOT_COMMAND} umount -f chroot/lib/init/rw > /dev/null 2>&1 || true
+			${LH_ROOT_COMMAND} umount -f chroot/dev/shm > /dev/null 2>&1 || true
+			${LH_ROOT_COMMAND} umount -f chroot/dev/pts > /dev/null 2>&1 || true
+			${LH_ROOT_COMMAND} umount -f chroot/dev > /dev/null 2>&1 || true
 
-		${LH_ROOT_COMMAND} rm -rf chroot chroot.tmp
+			${LH_ROOT_COMMAND} rm -rf chroot chroot.tmp
 
-		if [ "${PURGE}" != "true" ] && [ -d cache/stages_bootstrap ]
-		then
-			${LH_ROOT_COMMAND} cp -a cache/stages_bootstrap chroot
-			mkdir -p .stage
-			touch .stage/bootstrap
-		fi
+			if [ "${PURGE}" != "true" ] && [ -d cache/stages_bootstrap ]
+			then
+				${LH_ROOT_COMMAND} cp -a cache/stages_bootstrap chroot
+				mkdir -p .stage
+				touch .stage/bootstrap
+			fi
 
-		rm -f .stage/chroot*
-		;;
+			rm -f .stage/chroot*
+			;;
 
-	binary)
-                ${LH_ROOT_COMMAND} umount -f binary.tmp > /dev/null 2>&1 || true
-		rm -rf binary.tmp binary.deb binary.udeb
-		rm -f binary.iso
-		rm -f binary.img
-		rm -f binary*.tar.gz
-		rm -f binary.sh
+		binary)
+	                ${LH_ROOT_COMMAND} umount -f binary.tmp > /dev/null 2>&1 || true
+			rm -rf binary.tmp binary.deb binary.udeb
+			rm -f binary.iso
+			rm -f binary.img
+			rm -f binary*.tar.gz
+			rm -f binary.sh
 
-		rm -rf binary
-		rm -rf tftpboot
+			rm -rf binary
+			rm -rf tftpboot
 
-		rm -f .stage/binary*
-		;;
+			rm -f .stage/binary*
+			;;
 
-	purge)
-		PURGE="true" "${0}" all
-		"${0}" cache
-		;;
+		purge)
+			PURGE="true" "${0}" all
+			"${0}" cache
+			;;
 
-	stage)
-		rm -rf .stage
-		;;
+		stage)
+			rm -rf .stage
+			;;
 
-	source)
-		rm -f source.iso
-		rm -f source.img
-		rm -f source*.tar
-		rm -f source*.tar.gz
+		source)
+			rm -f source.iso
+			rm -f source.img
+			rm -f source*.tar
+			rm -f source*.tar.gz
 
-		rm -rf source
+			rm -rf source
 
-		rm -f .stage/source*
-		;;
+			rm -f .stage/source*
+			;;
 
-	*)
-		"${0}" all
-		;;
-esac
+		*)
+			"${0}" all
+			;;
+	esac
+done
