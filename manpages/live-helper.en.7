@@ -1,4 +1,4 @@
-.TH LIVE\-HELPER 7 "2007\-06\-04" "1.0~a13" "live\-helper"
+.TH LIVE\-HELPER 7 "2007\-06\-11" "1.0~a14" "live\-helper"
 
 .SH NAME
 live\-helper \- Debian Live helper programs
@@ -35,7 +35,7 @@ copies debian-installer into the binary image.
 encrypts the root filesystem.
 .IP "\fIlh_binary_grub\fR(1)" 4
 copies grub into the binary image.
-.IP "\fIlh_binary_hdd\fR(1)" 4
+.IP "\fIlh_binary_tar\fR(1)" 4
 creates the harddisk binary tarball.
 .IP "\fIlh_binary_includes\fR(1)" 4
 copies files into the binary image.
@@ -102,7 +102,7 @@ installs packages lists in the chroot.
 .IP "\fIlh_chroot_proc\fR(1)" 4
 mounts /proc in the chroot.
 .IP "\fIlh_chroot_resolv\fR(1)" 4
-configures /etc/resolf.conf in the chroot.
+configures /etc/resolv.conf in the chroot.
 .IP "\fIlh_chroot_sources\fR(1)" 4
 configures /etc/apt/sources.list in the chroot.
 .IP "\fIlh_chroot_symlinks\fR(1)" 4
@@ -127,10 +127,6 @@ meta\-helper for lh_source_*.
 copies config into source directory.
 .IP "\fIlh_source_debian\fR(1)" 4
 downloads source packages.
-.IP "\fIlh_source_generic\fR(1)" 4
-creates generic source tarball.
-.IP "\fIlh_source_hdd\fR(1)" 4
-creates harddisk source tarball.
 .IP "\fIlh_source_iso\fR(1)" 4
 creates CD/DVD source image.
 .IP "\fIlh_source_net\fR(1)" 4

@@ -1,3 +1,10 @@
+live-helper (1.0~a14-1) unstable; urgency=medium
+
+  * New upstream release:
+    - fixes typo in manpage (Closes: #428192).
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 11 Jun 2007 00:00:00 +0200
+
 live-helper (1.0~a13-1) unstable; urgency=medium
 
   * New upstream release.

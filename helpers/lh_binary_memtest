@@ -81,7 +81,7 @@ case "${LIVE_BINARY_IMAGES}" in
 		DESTDIR="tftpboot"
 		;;
 
-	usb-hdd|hdd)
+	tar|usb-hdd)
 		# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
 		if [ "${LIVE_DISTRIBUTION}" = "etch" ] || [ "${LIVE_DISTRIBUTION}" = "lenny" ]
 		then

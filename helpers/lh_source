@@ -43,10 +43,9 @@ lh_source_debian ${*}
 lh_source_md5sum ${*}
 
 # Building images
-lh_source_generic ${*}
-lh_source_hdd ${*}
 lh_source_iso ${*}
 lh_source_net ${*}
+lh_source_tar ${*}
 lh_source_usb-hdd ${*}
 
 # Deconfiguring chroot

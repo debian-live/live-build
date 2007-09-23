@@ -44,6 +44,7 @@ lh_testroot
 
 # Checking stage file
 Check_stagefile .stage/bootstrap
+Check_stagefile .stage/bootstrap_cache.restore
 
 # Checking lock file
 Check_lockfile .lock
@@ -94,25 +95,6 @@ fi
 
 if [ -x "/usr/bin/cdebootstrap" ]
 then
-	for STAGE in ${LH_CACHE_STAGES}
-	do
-		if [ "${STAGE}" = "bootstrap" ] && [ -d cache/stages_bootstrap ]
-		then
-			# Restore old cache
-			${LH_ROOT_COMMAND} cp -a cache/stages_bootstrap/* chroot
-
-			if [ -n "${LH_ROOT_COMMAND}" ]
-			then
-				${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` chroot
-			fi
-
-			# Creating stage file
-			Create_stagefile .stage/bootstrap
-
-			exit 0
-		fi
-	done
-
 	if [ "${LH_CACHE_PACKAGES}" = "enabled" ]
 	then
 		if [ -d cache/packages_bootstrap ]
@@ -162,27 +144,6 @@ then
 
 	# Removing bootstrap cache
 	rm -rf chroot/var/cache/bootstrap
-
-	# Saving new cache
-	for STAGE in ${LH_CACHE_STAGES}
-	do
-		if [ "${STAGE}" = "bootstrap" ]
-		then
-			if [ -d cache/stages_bootstrap ]
-			then
-				rm -rf cache/stages_bootstrap
-			fi
-
-			mkdir -p cache
-
-			${LH_ROOT_COMMAND} cp -a chroot cache/stages_bootstrap
-
-			if [ -n "${LH_ROOT_COMMAND}" ]
-			then
-				${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` cache/stages_bootstrap
-			fi
-		fi
-	done
 
 	# Creating stage file
 	Create_stagefile .stage/bootstrap

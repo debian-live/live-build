@@ -51,9 +51,9 @@ lh_binary_local-includes ${*}
 lh_binary_md5sum ${*}
 
 # Building images
-lh_binary_hdd ${*}
 lh_binary_iso ${*}
 lh_binary_net ${*}
+lh_binary_tar ${*}
 lh_binary_usb-hdd ${*}
 
 # Deconfiguring chroot

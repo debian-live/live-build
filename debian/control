@@ -11,7 +11,7 @@ XS-VCS-Browse: http://svn.debian.org/wsvn/debian-live/dists/trunk/live-helper/
 Package: live-helper
 Architecture: all
 Depends: cdebootstrap (>= 0.3.15) | debootstrap (>= 0.3.3.2)
-Conflicts: live-package (<< 1.0)
+Conflicts: live-package (<< 1.0~a13)
 Replaces: live-package
 Provides: make-live
 Description: Debian Live helper programs
