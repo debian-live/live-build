@@ -79,7 +79,7 @@ do
 
 		# Restoring old cache
 		mkdir -p binary/"${INITFS}"
-		${LH_ROOT_COMMAND} cp -a cache/stages_rootfs/filesystem.* binary/"${INITFS}"
+		${LH_ROOT_COMMAND} cp -al cache/stages_rootfs/filesystem.* binary/"${INITFS}"
 
 		if [ -n "${LH_ROOT_COMMAND}" ]
 		then
@@ -187,7 +187,7 @@ do
 
 		mkdir -p cache/stages_rootfs
 
-		${LH_ROOT_COMMAND} cp -a binary/"${INITFS}"/filesystem.* cache/stages_rootfs
+		${LH_ROOT_COMMAND} cp -al binary/"${INITFS}"/filesystem.* cache/stages_rootfs
 
 		if [ -n "${LH_ROOT_COMMAND}" ]
 		then

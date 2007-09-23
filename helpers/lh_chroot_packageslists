@@ -55,8 +55,8 @@ then
 	do
 		if [ -f ${LH_BASE:-/usr/share/live-helper}/lists/"${LIST}" ]
 		then
-			# Copying package list
-			grep -v "^#" ${LH_BASE:-/usr/share/live-helper}/lists/"${LIST}" > chroot/root/"${LIST}"
+			# Generating package list
+			Expand_packagelist "${LIST}" "config/chroot_local-packageslists" "${LH_BASE:-/usr/share/live-helper}/lists" > chroot/root/${LIST}
 
 			# Installing package list
 			case "${LH_APT}" in

@@ -1,15 +1,9 @@
 # /usr/share/live-helper/lists/rescue - package list for live-helper(7)
 
-# Minimal
-eject file sudo vim-tiny
-
-# Standard
-console-common kbd locales
-
-#####  Rescue
+## LH: Rescue
+#<include> standard
 
 ## System
-
 gnupg dash discover gawk grub htop lilo ltrace pstack screen strace units
 
 ## Editors
