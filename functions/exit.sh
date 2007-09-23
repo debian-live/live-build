@@ -13,6 +13,7 @@ Exit ()
 {
 	if [ "${LH_DEBUG}" = "enabled" ]
 	then
+		# Dump variables
 		set | grep -e ^LH -e ^LIVE
 	fi
 

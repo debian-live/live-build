@@ -57,15 +57,28 @@ case "${1}" in
 
 		if [ "${LIVE_SECURITY}" = "enabled" ]
 		then
-			if [ "${LIVE_DISTRIBUTION}" != "sid" ] && [ "${LIVE_DISTRIBUTION}" != "unstable" ]
-			then
-				echo "deb ${LIVE_MIRROR_BUILD_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+			case "${LH_MODE}" in
+				debian)
+					if [ "${LIVE_DISTRIBUTION}" != "sid" ] && [ "${LIVE_DISTRIBUTION}" != "unstable" ]
+					then
+						echo "deb ${LIVE_MIRROR_BUILD_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 
-				if [ "${LIVE_SOURCE}" = "yes" ]
-				then
-					echo "deb-src ${LIVE_MIRROR_BUILD_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
-				fi
-			fi
+						if [ "${LIVE_SOURCE}" = "enabled" ]
+						then
+							echo "deb-src ${LIVE_MIRROR_BUILD_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+						fi
+					fi
+					;;
+
+				ubuntu)
+					echo "deb ${LIVE_MIRROR_BUILD_SECURITY} ${LIVE_DISTRIBUTION}-security ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+
+					if [ "${LIVE_SOURCE}" = "enabled" ]
+					then
+						echo "deb-src ${LIVE_MIRROR_BUILD_SECURITY} ${LIVE_DISTRIBUTION}-security ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+					fi
+					;;
+			esac
 		fi
 
 		# Check local sources.list
@@ -158,15 +171,28 @@ case "${1}" in
 
 			if [ "${LIVE_SECURITY}" = "enabled" ]
 			then
-				if [ "${LIVE_DISTRIBUTION}" = "etch" ] || [ "${LIVE_DISTRIBUTION}" = "testing" ]
-				then
-					echo "deb ${LIVE_MIRROR_IMAGE_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+				case "${LH_MODE}" in
+					debian)
+						if [ "${LIVE_DISTRIBUTION}" != "sid" ] && [ "${LIVE_DISTRIBUTION}" != "unstable" ]
+						then
+							echo "deb ${LIVE_MIRROR_IMAGE_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 
-					if [ "${LIVE_SOURCE}" = "yes" ]
-					then
-						echo "deb-src ${LIVE_MIRROR_IMAGE_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
-					fi
-				fi
+							if [ "${LIVE_SOURCE}" = "enabled" ]
+							then
+								echo "deb-src ${LIVE_MIRROR_IMAGE_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+							fi
+						fi
+						;;
+
+					ubuntu)
+						echo "deb ${LIVE_MIRROR_IMAGE_SECURITY} ${LIVE_DISTRIBUTION}-security ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+
+						if [ "${LIVE_SOURCE}" = "enabled" ]
+						then
+							echo "deb-src ${LIVE_MIRROR_IMAGE_SECURITY} ${LIVE_DISTRIBUTION}-security ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+						fi
+						;;
+				esac
 			fi
 
 			# Check local sources.list
@@ -175,7 +201,7 @@ case "${1}" in
 				echo "" >> chroot/etc/apt/sources.list
 				echo "# Custom repositories" >> chroot/etc/apt/sources.list
 
-				for FILE in config/chroot_sources/*.build
+				for FILE in config/chroot_sources/*.image
 				do
 					cat ${FILE} | grep -v "^##" >> chroot/etc/apt/sources.list
 				done

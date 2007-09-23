@@ -54,24 +54,11 @@ fi
 
 case "${LIVE_FILESYSTEM}" in
 	ext2)
-		if [ ! -f chroot/usr/bin/genext2fs ]
-		then
-			PACKAGES="${PACKAGES} genext2fs"
-		fi
+		# Checking depends
+		Check_package chroot/usr/bin/genext2fs genext2fs
 
-		if [ -n "${PACKAGES}" ]
-		then
-			# Installing packages
-			case "${LH_APT}" in
-				apt|apt-get)
-					Chroot "apt-get install --yes ${PACKAGES}"
-					;;
-
-				aptitude)
-					Chroot "aptitude install --assume-yes ${PACKAGES}"
-					;;
-			esac
-		fi
+		# Installing depends
+		Install_package
 
 		# Remove old ext2 image
 		if [ -f binary/casper/filesystem.ext2 ]
@@ -88,19 +75,8 @@ case "${LIVE_FILESYSTEM}" in
 		mv chroot/filesystem.ext2 binary/casper
 		rm -rf chroot/chroot
 
-		# Removing packages
-		if [ -n "${PACKAGES}" ]
-		then
-			case "${LH_APT}" in
-				apt|apt-get)
-					Chroot "apt-get remove --purge --yes ${PACKAGES}"
-					;;
-
-				aptitude)
-					Chroot "aptitude purge --assume-yes ${PACKAGES}"
-					;;
-			esac
-		fi
+		# Removing depends
+		Remove_package
 		;;
 
 	plain)
@@ -113,24 +89,11 @@ case "${LIVE_FILESYSTEM}" in
 		;;
 
 	squashfs)
-		if [ ! -f chroot/usr/sbin/mksquashfs ]
-		then
-			PACKAGES="${PACKAGES} squashfs-tools"
-		fi
+		# Checking depends
+		Check_package chroot/usr/sbin/mksquashfs squashfs-tools
 
-		if [ -n "${PACKAGES}" ]
-		then
-			# Installing packages
-			case "${LH_APT}" in
-				apt|apt-get)
-					Chroot "apt-get install --yes ${PACKAGES}"
-					;;
-
-				aptitude)
-					Chroot "aptitude install --assume-yes ${PACKAGES}"
-					;;
-			esac
-		fi
+		# Installing depends
+		Install_package
 
 		# Remove old squashfs image
 		if [ -f binary/casper/filesystem.squashfs ]
@@ -138,31 +101,35 @@ case "${LIVE_FILESYSTEM}" in
 			rm -f binary/casper/filesystem.squashfs
 		fi
 
+		if [ "${LH_QUIET}" = "enabled" ]
+		then
+			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -no-progress"
+		fi
+
+		if [ "${LH_VERBOSE}" = "enabled" ]
+		then
+			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -i"
+		fi
+
 		# Create image
 		if [ "${LIVE_PACKAGES_LISTS}" != "minimal" ] && [ "${LIVE_PACKAGES_LISTS}" != "mini" ]
 		then
-			Chroot "mksquashfs chroot filesystem.squashfs"
+			Chroot "mksquashfs ${MKSQUASHFS_OPTIONS} chroot filesystem.squashfs"
 		else
-			Chroot "mksquashfs chroot filesystem.squashfs -e chroot/boot/vmlinuz* chroot/boot/initrd.img* chroot/vmlinuz* chroot/initrd.img* chroot/boot/config-* chroot/boot/System.map-*"
+			Chroot "mksquashfs ${MKSQUASHFS_OPTIONS} chroot filesystem.squashfs -e chroot/boot/vmlinuz* chroot/boot/initrd.img* chroot/vmlinuz* chroot/initrd.img* chroot/boot/config-* chroot/boot/System.map-*"
 		fi
 
 		# Move image
-		mv chroot/filesystem.squashfs binary/casper
-		rm -rf chroot/chroot
+		${LH_ROOT_COMMAND} mv chroot/filesystem.squashfs binary/casper
+		${LH_ROOT_COMMAND} rm -rf chroot/chroot
 
-		# Removing packages
-		if [ -n "${PACKAGES}" ]
+		if [ -n "${LH_ROOT_COMMAND}" ]
 		then
-			case "${LH_APT}" in
-				apt|apt-get)
-					Chroot "apt-get remove --purge --yes ${PACKAGES}"
-					;;
-
-				aptitude)
-					Chroot "aptitude purge --assume-yes ${PACKAGES}"
-					;;
-			esac
+			${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` binary/casper
 		fi
+
+		# Removing depends
+		Remove_package
 		;;
 esac
 

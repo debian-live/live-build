@@ -50,48 +50,36 @@ then
 	# Restoring cache
 	Restore_cache cache/chroot_tasks
 
-	if [ ! -f chroot/usr/bin/aptitude ]
-	then
-		PACKAGES="${PACKAGES} aptitude"
-	fi
+	# Checking depends
+	case "${LH_TASKSEL}" in
+		aptitude)
+			Check_package chroot/usr/bin/aptitude aptitude
+			;;
 
-	if [ ! -f chroot/usr/bin/tasksel ]
-	then
-		PACKAGES="${PACKAGES} tasksel"
-	fi
+		tasksel)
+			Check_package chroot/usr/bin/tasksel tasksel
+			;;
+	esac
 
-	if [ -n "${PACKAGES}" ]
-	then
-		# Installing symlinks
-		case "${LH_APT}" in
-			apt|apt-get)
-				Chroot "apt-get install --yes ${PACKAGES}"
-				;;
+	# Installing depends
+	Install_package
 
-			aptitude)
-				Chroot "aptitude install --assume-yes ${PACKAGES}"
-				;;
-		esac
-	fi
+	# Installing tasks
+	case "${LH_TASKSEL}" in
+		aptitude)
+			Chroot "aptitude install --assume-yes ${LIVE_TASKS}"
+			;;
 
-	for TASK in ${LIVE_TASKS}
-	do
-		Chroot "tasksel --debconf-apt-progress --logstderr install ${TASK}"
-	done
+		tasksel)
+			for TASK in ${LIVE_TASKS}
+			do
+				Chroot "tasksel --debconf-apt-progress --logstderr install ${TASK}"
+			done
+			;;
+	esac
 
-	if [ -n "${PACKAGES}" ]
-	then
-		# Removing packages
-		case "${LH_APT}" in
-			apt|apt-get)
-				Chroot "apt-get remove --purge --yes ${PACKAGES}"
-				;;
-
-			aptitude)
-				Chroot "aptitude purge --assume-yes ${PACKAGES}"
-				;;
-		esac
-	fi
+	# Removing depends
+	Remove_package
 
 	# Saving cache
 	Save_cache cache/chroot_tasks

@@ -35,7 +35,7 @@ Breakpoint "losetup: Init"
 
 if [ -z "${1}" ]
 then
-	DEVICE="`${LH_LOSETUP} -f`"
+	DEVICE="`${LH_ROOT_COMMAND} ${LH_LOSETUP} -f`"
 else
 	DEVICE="${1}"
 fi
@@ -43,9 +43,9 @@ fi
 FILE="${2}"
 PARTITION="${3}"
 
-${LH_LOSETUP} "${DEVICE}" "${FILE}"
+${LH_ROOT_COMMAND} ${LH_LOSETUP} "${DEVICE}" "${FILE}"
 FDISK_OUT="`fdisk -l -u ${DEVICE} 2>&1`"
-${LH_LOSETUP} -d "${DEVICE}"
+${LH_ROOT_COMMAND} ${LH_LOSETUP} -d "${DEVICE}"
 
 LOOPDEVICE="`echo ${DEVICE}p${PARTITION:=1}`"
 CYL=`echo "$FDISK_OUT" | sed -ne "s_^$LOOPDEVICE[ *]*\([0-9]*\).*_\1_p"`
@@ -56,7 +56,7 @@ echo loop $DEVICE at offset $OFFSET
 
 if [ "${PARTITION}" = "0" ]
 then
-	${LH_LOSETUP} "${DEVICE}" "${FILE}"
+	${LH_ROOT_COMMAND} ${LH_LOSETUP} "${DEVICE}" "${FILE}"
 else
-	${LH_LOSETUP} -o "${OFFSET}" "${DEVICE}" "${FILE}"
+	${LH_ROOT_COMMAND} ${LH_LOSETUP} -o "${OFFSET}" "${DEVICE}" "${FILE}"
 fi

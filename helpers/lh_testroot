@@ -22,10 +22,14 @@ USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
 
+# Reading configuration files
+Read_conffile config/common
+Set_defaults
+
 Echo_debug "Init ${PROGRAM}"
 
 # Checking user account
-if [ "`id -u`" -ne "0" ]
+if [ "`${LH_ROOT_COMMAND} id -u`" -ne "0" ]
 then
 	Echo_error "need root privileges"
 	exit 1

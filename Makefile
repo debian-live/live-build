@@ -1,8 +1,14 @@
 #!/usr/bin/make -f
 
-all:	install
+all: install
 
-install:
+test:
+	set -e; for SCRIPT in functions/* examples/*.sh helpers/* hooks/*; \
+	do \
+		sh -n $$SCRIPT; \
+	done
+
+install: test
 	# Installing executables
 	mkdir -p $(DESTDIR)/usr/bin
 	cp helpers/lh_* helpers/make-live $(DESTDIR)/usr/bin
@@ -16,11 +22,25 @@ install:
 	cp -r COPYING doc/* $(DESTDIR)/usr/share/doc/live-helper
 
 	# Installing manpages
-	mkdir -p $(DESTDIR)/usr/share/man/man1
-	cp manpages/*.1 $(DESTDIR)/usr/share/man/man1
+	set -e; for MANPAGE in manpages/*.1.en; \
+	do \
+		install -D -m 0644 $$MANPAGE $(DESTDIR)/usr/share/man/man1/`basename $$MANPAGE .en`; \
+	done
 
-	mkdir -p $(DESTDIR)/usr/share/man/man7
-	cp manpages/*.7 $(DESTDIR)/usr/share/man/man7
+	set -e; for MANPAGE in manpages/*.7.en; \
+	do \
+		install -D -m 0644 $$MANPAGE $(DESTDIR)/usr/share/man/man7/`basename $$MANPAGE .en`; \
+	done
+
+	set -e; for MANPAGE in manpages/*.1.de; \
+	do \
+		install -D -m 0644 $$MANPAGE $(DESTDIR)/usr/share/man/de/man1/`basename $$MANPAGE .de`; \
+	done
+
+	set -e; for MANPAGE in manpages/*.7.de; \
+	do \
+		install -D -m 0644 $$MANPAGE $(DESTDIR)/usr/share/man/de/man7/`basename $$MANPAGE .de`; \
+	done
 
 uninstall:
 	# Uninstalling executables
@@ -36,16 +56,28 @@ uninstall:
 	rm -rf $(DESTDIR)/usr/share/doc/live-helper
 
 	# Uninstalling manpages
-	for MANPAGE in manpages/*.1; \
+	set -e; for MANPAGE in manpages/*.1.en; \
 	do \
-		rm -f $(DESTDIR)/usr/share/man/man1/`basename $$MANPAGE`; \
+		rm -f $(DESTDIR)/usr/share/man/man1/`basename $$MANPAGE .en`; \
 	done
 
-	for MANPAGE in manpages/*.7; \
+	set -e; for MANPAGE in manpages/*.7.en; \
 	do \
-		rm -f $(DESTDIR)/usr/share/man/man7/`basename $$MANPAGE`; \
+		rm -f $(DESTDIR)/usr/share/man/man7/`basename $$MANPAGE .en`; \
+	done
+
+	set -e; for MANPAGE in manpages/*.1.de; \
+	do \
+		rm -f $(DESTDIR)/usr/share/man/de/man1/`basename $$MANPAGE .de`; \
+	done
+
+	set -e; for MANPAGE in manpages/*.7.de; \
+	do \
+		rm -f $(DESTDIR)/usr/share/man/de/man7/`basename $$MANPAGE .de`; \
 	done
 
 clean:
 
-reinstall:      uninstall install
+distclean:
+
+reinstall: uninstall install

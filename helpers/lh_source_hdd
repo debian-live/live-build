@@ -61,6 +61,7 @@ do
 		fi
 
 		# Create tarball
+		Echo_message "Creating tarball, this can take a while."
 		tar cfz source-hdd.tar.gz source
 
 		# Creating stage file

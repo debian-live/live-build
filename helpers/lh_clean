@@ -47,22 +47,22 @@ case "${1}" in
 		;;
 
 	cache)
-		rm -rf cache
+		${LH_ROOT_COMMAND} rm -rf cache
 		;;
 
 	chroot)
-		umount -f chroot/sys > /dev/null 2>&1 || true
-		umount -f chroot/proc > /dev/null 2>&1 || true
-		umount -f chroot/lib/init/rw > /dev/null 2>&1 || true
-		umount -f chroot/dev/shm > /dev/null 2>&1 || true
-		umount -f chroot/dev/pts > /dev/null 2>&1 || true
-		umount -f chroot/dev > /dev/null 2>&1 || true
+		${LH_ROOT_COMMAND} umount -f chroot/sys > /dev/null 2>&1 || true
+		${LH_ROOT_COMMAND} umount -f chroot/proc > /dev/null 2>&1 || true
+		${LH_ROOT_COMMAND} umount -f chroot/lib/init/rw > /dev/null 2>&1 || true
+		${LH_ROOT_COMMAND} umount -f chroot/dev/shm > /dev/null 2>&1 || true
+		${LH_ROOT_COMMAND} umount -f chroot/dev/pts > /dev/null 2>&1 || true
+		${LH_ROOT_COMMAND} umount -f chroot/dev > /dev/null 2>&1 || true
 
-		rm -rf chroot chroot.tmp
+		${LH_ROOT_COMMAND} rm -rf chroot chroot.tmp
 
 		if [ "${PURGE}" != "true" ] && [ -d cache/chroot_bootstrap ]
 		then
-			cp -a cache/chroot_bootstrap chroot
+			${LH_ROOT_COMMAND} cp -a cache/chroot_bootstrap chroot
 			mkdir -p .stage
 			touch .stage/bootstrap
 		fi

@@ -1,0 +1,88 @@
+.TH MAKE\-LIVE 1 "2007\-04\-23" "1.0~a7" "live\-helper"
+
+.SH NAME
+make\-live \- build a Debian Live system
+
+.SH SYNOPSIS
+.B make\-live
+[config]
+[\-\-mode \fIMODE\fR]
+[\-\-config \fICONFIG\fR]
+[\-\-apt \fIapt\fR|\fIaptitude\fR]
+[\-\-apt\-ftpproxy \fIURL\fR]
+[\-\-apt\-httpproxy \fIURL\fR]
+[\-\-apt\-generic \fIenabled\fR|\fIdisabled\fR]
+[\-\-apt\-pdiffs \fIenabled\fR|\fIdisabled\fR]
+[\-\-apt\-recommends \fIenabled\fR|\fIdisabled]
+[\-\-apt\-secure \fIenabled\fR|\fIdisabled\fR]
+[\-\-bootstrap \fIcdebootstrap\fR|\fIdeboostrap\fR]
+[\-\-cache \fIenabled\fR|\fIdisabled\fR]
+[\-\-debconf\-frontend \fIdialog\fR|\fIreadline\fR|\fInoninteractive\fR]
+[\-\-debconf\-priority \fIlow\fR|\fImedium\fR|\fIhigh\fR|\fIcritical\fR]
+[\-\-debconf\-nowarnings \fIyes\fR|\fIno\fR]
+[\-\-genisoimage \fIgenisoimage\fR|\fImkisofs\fR]
+[\-\-losetup \fIlosetup\fR|\fIlosetup.org\fR]
+[\-\-tasksel \fIaptitude\fR|\fItasksel\fR]
+[\-r|\-\-root \fIDIRECTORY\fR]
+[\-a|\-\-archi\fItecture \fIARCHITECTURE\fR]
+[\-d|\-\-distribution \fIstable\fR|\fItesting\fR|\fIunstable\fR|\fIetch\fR|\fIlenny\fR|\fIsid\fR]
+[\-\-distribution\-config \fIDIRECTORY\fR]
+[\-f|\-\-bootstrap\-flavour \fIminimal\fR|\fIstandard\fR]
+[\-m|\-\-mirror\-build \fIURL\fR]
+[\-\-mirror\-build\-security \fIURL\fR]
+[\-\-mirror\-image \fIURL\fR]
+[\-\-mirror\-image\-security \fIURL\fR]
+[\-\-sections \fISECTION\fR|\fI\"SECTIONS\"\fR]
+[\-\-interactive \fIshell\fR|\fIx11\fR|\fIxnest\fR]
+[\-k|\-\-kernel\-flavour \fIFLAVOUR\fR]
+[\-\-kernel\-packages \fIPACKAGE\fR|\fI\"PACKAGES\"\fR]
+[\-\-keyring\-packages \fIPACKAGE\fR|\fI\"PACKAGES\"\fR]
+[\-\-hooks \fI\"COMMAND\"\fR|\fI\"COMMANDS\"\fR]
+[\-l|\-\-language \fILANGUAGE\fR]
+[\-\-packages \fIPACKAGE\fR|\fI\"PACKAGES\"\fR]
+[\-p|\-\-packages\-lists \fILIST\fR|\fI\"LISTS\"\fR]
+[\-\-tasks \fITASK\fR|\fI\"TASKS\"\fR]
+[\-\-security \fIenabled\fR|\fIdisabled\fR]
+[\-\-symlinks \fIenabled\fR|\fIdisabled\fR]
+[\-\-sysvinit \fIenabled\fR|\fIdisabled\fR]
+[\-\-bootappend \fIKERNEL_PARAMETER\fR|\fI\"KERNEL_PARAMETERS\"\fR]
+[\-e|\-\-encryption \fIALGORITHM\fR]
+[\-\-username \fINAME\fR]
+[\-\-hostname \fINAME\fR]
+[\-\-filesystem \fIext2\fR|\fIplain\fR|\fIsquashfs\fR]
+[\-\-memtest \fImemtest86\fR|\fImemtest86+\fR]
+[\-\-iso\-volume \fISTRING\fR]
+[\-\-server\-address \fIHOSTNAME\fR|\fIIP\fR]
+[\-\-server\-path \fIDIRECTORY\fR]
+[\-\-source \fIenabled\fR|\fIdisabled\fR]
+[\-\-bootloader \fIgrub\fR|\fIsyslinux\fR]
+[\-\-grub\-splash \fIFILE\fR]
+[\-\-syslinux\-splash \fIFILE\fR]
+[\-b|\-\-binary\-image \fIhdd\fR|\fIiso\fR|\fIusb\fR|\fInet\fR]
+[\-s|\-\-source\-image \fIgeneric\fR|\fIhdd\fR|\fIiso\fR|\fIusb\fR|\fInet\fR]
+[\-\-includes \fIPATH\fR]
+[\-\-templates \fIPATH\fR]
+[\-\-breakpoints]
+[\-\-debug]
+[\-\-force]
+[\-\-quiet]
+[\-\-verbose]
+
+.SH DESCRIPTION
+make\-live is a script calling all required live\-helper(7) programs to build a live system.
+
+.SH OPTIONS
+
+.SH SEE ALSO
+\fIlive\-helper\fR(7)
+.PP
+This program is a part of live\-helper.
+
+.SH BUGS
+Report bugs against live\-helper <\fIhttp://packages.qa.debian.org/live\-helper/\fR>.
+
+.SH HOMEPAGE
+More information about the Debian Live project can be found at <\fIhttp://debian\-live.alioth.debian.org/\fR> and <\fIhttp://wiki.debian.org/DebianLive/\fR>.
+
+.SH AUTHOR
+live\-helper was written by Daniel Baumann <\fIdaniel@debian.org\fR> for the Debian project.

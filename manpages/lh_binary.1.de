@@ -1,0 +1,59 @@
+.TH LH_BINARY 1 "23.04.2007" "1.0~a7" "live\-helper"
+
+.SH NAME
+lh_binary \- Meta\-Helper f\[:u]r lh_binary_*
+
+.SH SYNTAX
+.B lh_binary [\fIlive\-helper\ Optionen\fR\|]
+
+.SH BESCHREIBUNG
+lh_binary ist ein Meta\-Helper. Es ruft alle n\[:o]tigen Helper auf um die binary\-Stufe zu vervollst\[:a]ndigen.
+
+.SH BINARY HELPER
+Hier ist eine vollst\[:a]ndige Liste aller verf\[:u]gbaren binary\-Helper Kommandos. Siehe deren Hilfeseiten f\[:u]r zus\[:a]tzliche Dokumentation.
+.IP "\fIlh_binary_chroot\fR(1)" 4
+kopiert chroot in chroot.
+.IP "\fIlh_binary_encryption\fR(1)" 4
+verschl\[:u]sselt das Root\-Dateisystem.
+.IP "\fIlh_binary_grub\fR(1)" 4
+kopiert grub in das Binary\-Image.
+.IP "\fIlh_binary_hdd\fR(1)" 4
+erstellt den Festplatten Binary\-Tarball.
+.IP "\fIlh_binary_includes\fR(1)" 4
+kopiert Dateien in das Binary\-Image.
+.IP "\fIlh_binary_iso\fR(1)" 4
+erstell das CD/DVD Binary\-Image.
+.IP "\fIlh_binary_linuximage\fR(1)" 4
+kopiert linux\-image in das Binary\-Image.
+.IP "\fIlh_binary_localincludes\fR(1)" 4
+kopiert lokale Dateien in das Binary\-Image.
+.IP "\fIlh_binary_manifest\fR(1)" 4
+erstellt die Paketliste des Root\-Dateisystemes.
+.IP "\fIlh_binary_md5sum\fR(1)" 4
+erstellt md5sum.txt im Binary\-Image.
+.IP "\fIlh_binary_memtest\fR(1)" 4
+kopiert ein memtest in das Binary\-Image.
+.IP "\fIlh_binary_net\fR(1)" 4
+erstellt den Netboot Binary\-Tarball.
+.IP "\fIlh_binary_rootfs\fR(1)" 4
+erstell das Root\-Dateisystem.
+.IP "\fIlh_binary_syslinux\fR(1)" 4
+kopiert syslinux in das Binary\-Image.
+.IP "\fIlh_binary_usb\fR(1)" 4
+erstellt das USB Binary\-Image.
+.IP "\fIlh_binary_yaboot\fR(1)" 4
+kopiert yaboot in das Binary\-Image.
+
+.SH SIEHE AUCH
+\fIlive\-helper\fR(7)
+.PP
+Dieses Programm ist Teil von live\-helper.
+
+.SH FEHLER
+Fehler k\[:o]nnen gegen live\-helper <\fIhttp://packages.qa.debian.org/live\-helper/\fR> gemeldet werden.
+
+.SH HOMEPAGE
+Mehr Informationen \[:u]ber das Debian Live\-Projekt k\[:o]nnen auf <\fIhttp://debian\-live.alioth.debian.org/\fR> und <\fIhttp://wiki.debian.org/DebianLive/\fR> gefunden werden.
+
+.SH AUTOR
+live\-helper wurde von Daniel Baumann <\fIdaniel@debian.org\fR> f\[:u]r das Debian\-Projekt geschrieben.

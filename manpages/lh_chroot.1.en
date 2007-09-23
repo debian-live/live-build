@@ -1,13 +1,13 @@
-.TH LH_CHROOT 1 "2007\-04\-16" "1.0~a6" "live\-helper"
+.TH LH_CHROOT 1 "2007\-04\-23" "1.0~a7" "live\-helper"
 
 .SH NAME
-lh_chroot \- meta-helper for lh_chroot_*
+lh_chroot \- meta\-helper for lh_chroot_*
 
 .SH SYNOPSIS
 .B lh_chroot [\fIlive\-helper\ options\fR\|]
 
 .SH DESCRIPTION
-lh_chroot is a meta-helper. It calls all necessary helpers to complete the chroot stage.
+lh_chroot is a meta\-helper. It calls all necessary helpers to complete the chroot stage.
 
 .SH CHROOT HELPERS
 Here is the complete list of available chroot helper commands. See their man pages for additional documentation.
@@ -24,7 +24,7 @@ manages /etc/hosts.
 .IP "\fIlh_chroot_interactive\fR(1)" 4
 makes build interactive.
 .IP "\fIlh_chroot_linuximage\fR(1)" 4
-manage /etc/kernel-img.conf.
+manages /etc/kernel\-img.conf.
 .IP "\fIlh_chroot_localhooks\fR(1)" 4
 executes local hooks in chroot.
 .IP "\fIlh_chroot_localincludes\fR(1)" 4
@@ -52,14 +52,14 @@ mounts /sys.
 .IP "\fIlh_chroot_sysvinit\fR(1)" 4
 configures sysvinit.
 .IP "\fIlh_chroot_sysvrc\fR(1)" 4
-manages /usr/sbin/policy-rc.d.
+manages /usr/sbin/policy\-rc.d.
 .IP "\fIlh_chroot_tasks\fR(1)" 4
 installs tasks into chroot.
 
 .SH SEE ALSO
 \fIlive\-helper\fR(7)
 .PP
-This program is a part of live-helper.
+This program is a part of live\-helper.
 
 .SH BUGS
 Report bugs against live\-helper <\fIhttp://packages.qa.debian.org/live\-helper/\fR>.

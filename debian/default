@@ -1,0 +1,15 @@
+# Defaults for /etc/cron.daily/live-helper
+
+AUTOBUILD="disabled"
+
+AUTOBUILD_ARCHITECTURES="`dpkg --print-architecture`"
+AUTOBUILD_DISTRIBUTIONS="sid"
+AUTOBUILD_PACKAGES_LISTS="standard gnome-desktop kde-desktop xfce-desktop"
+AUTOBUILD_OPTIONS="--apt-recommends disabled"
+
+AUTOBUILD_DATE="`date +%Y%m%d`"
+AUTOBUILD_DESTDIR="/srv/debian-live"
+AUTOBUILD_TEMPDIR="/srv/tmp"
+
+AUTOBUILD_MIRROR="http://ftp.debian.org/debian/"
+AUTOBUILD_MIRROR_SECURITY="http://security.debian.org/"

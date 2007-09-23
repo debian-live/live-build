@@ -79,7 +79,12 @@ then
 		# Restore old cache
 		if [ -d cache/chroot_bootstrap ]
 		then
-			cp -a cache/chroot_bootstrap/* chroot
+			${LH_ROOT_COMMAND} cp -a cache/chroot_bootstrap/* chroot
+
+			if [ -n "${LH_ROOT_COMMAND}" ]
+			then
+				${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` chroot
+			fi
 
 			# Creating stage file
 			Create_stagefile .stage/bootstrap
@@ -94,7 +99,12 @@ then
 		fi
 
 		# Executing debootstrap (download-only)
-		debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_BUILD}" "${LIVE_DEBOOTSTRAP_SCRIPT}"
+		${LH_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_BUILD}" "${LIVE_DEBOOTSTRAP_SCRIPT}"
+
+		if [ -n "${LH_ROOT_COMMAND}" ]
+		then
+			${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` chroot
+		fi
 
 		# Removing old cache
 		if [ -d cache/bootstrap ]
@@ -112,7 +122,12 @@ then
 	fi
 
 	# Executing debootstrap (regular run)
-	debootstrap ${DEBOOTSTRAP_OPTIONS} "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_BUILD}" "${LIVE_DEBOOTSTRAP_SCRIPT}"
+	${LH_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_BUILD}" "${LIVE_DEBOOTSTRAP_SCRIPT}"
+
+	if [ -n "${LH_ROOT_COMMAND}" ]
+	then
+		${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` chroot
+	fi
 
 	# Removing bootstrap cache
 	rm -rf chroot/var/cache/apt/archives/*.deb
@@ -125,7 +140,12 @@ then
 			rm -rf cache/chroot_bootstrap
 		fi
 
-		cp -a chroot cache/chroot_bootstrap
+		${LH_ROOT_COMMAND} cp -a chroot cache/chroot_bootstrap
+
+		if [ -n "${LH_ROOT_COMMAND}" ]
+		then
+			${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` cache/chroot_bootstrap
+		fi
 	fi
 
 	# Creating stage file

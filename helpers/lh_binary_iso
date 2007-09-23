@@ -49,29 +49,21 @@ do
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ ! -f chroot/usr/bin/"${LH_GENISOIMAGE}" ]
-		then
-			PACKAGES="${PACKAGES} ${LH_GENISOIMAGE}"
-		fi
+		# Checking depends
+		Check_package chroot/usr/bin/"${LH_GENISOIMAGE}" ${LH_GENISOIMAGE}
 
-		if [ -n "${PACKAGES}" ]
-		then
-			# Installing packages
-			case "${LH_APT}" in
-				apt|apt-get)
-					Chroot "apt-get install --yes ${PACKAGES}"
-					;;
-
-				aptitude)
-					Chroot "aptitude install --assume-yes ${PACKAGES}"
-					;;
-			esac
-		fi
+		# Installing depends
+		Install_package
 
 		# Remove old iso image
 		if [ -f binary.iso ]
 		then
 			rm -f binary.iso
+		fi
+
+		if [ "${LH_VERBOSE}" = "enabled" ]
+		then
+			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -i"
 		fi
 
 		# Moving image
@@ -82,37 +74,26 @@ do
 		then
 			case "${LIVE_BOOTLOADER}" in
 				grub)
-					Chroot "${LH_GENISOIMAGE} -o binary.iso -r -J -l -b boot/grub/stage2_eltorito -m boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -boot-info-table binary"
+					Chroot "${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -o binary.iso -r -J -l -b boot/grub/stage2_eltorito -m boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -boot-info-table binary"
 					;;
 
 				syslinux)
 					#Chroot "${LH_GENISOIMAGE} -A \"Debian Live\" -p \"Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org\" -publisher \"Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org\" -o binary.iso -r -J -l -V \"${LIVE_ISO_VOLUME}\" -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table binary"
-					Chroot "${LH_GENISOIMAGE} -o binary.iso -r -J -l -b isolinux/isolinux.bin -m isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table binary"
+					Chroot "${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -o binary.iso -r -J -l -b isolinux/isolinux.bin -m isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table binary"
 					;;
 			esac
 		else
 			Echo_warning "Bootloader on your architecture not yet supported (Continuing in 5 seconds)."
 			sleep 5
 			#Chroot "${LH_GENISOIMAGE} -A 'Debian Live' -p 'Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org' -publisher 'Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org' -o binary.iso -r -J -l -V \"${LIVE_ISO_VOLUME}\" binary"
-			Chroot "${LH_GENISOIMAGE} -o binary.iso -r -J -l binary"
+			Chroot "${LH_GENISOIMAGE} ${GENISOIMAGE} -o binary.iso -r -J -l binary"
 		fi
 
 		# Move image
 		mv chroot/binary chroot/binary.iso ./
 
-		# Removing packages
-		if [ -n "${PACKAGES}" ]
-		then
-			case "${LH_APT}" in
-				apt|apt-get)
-					Chroot "apt-get remove --purge --yes ${PACKAGES}"
-					;;
-
-				aptitude)
-					Chroot "aptitude purge --assume-yes ${PACKAGES}"
-					;;
-			esac
-		fi
+		# Removing depends
+		Remove_package
 
 		# Creating stage file
 		Create_stagefile .stage/binary_iso

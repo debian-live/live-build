@@ -1,19 +1,19 @@
-.TH LH_BOOTSTRAP_CDEBOOTSTRAP 1 "2007\-04\-16" "1.0~a6" "live\-helper"
+.TH LH_BOOTSTRAP_DEBOOTSTRAP 1 "2007\-04\-23" "1.0~a7" "live\-helper"
 
 .SH NAME
-lh_bootstrap_cdebootstrap \- bootstrap a Debian system with \fIcdebootstrap\fR(1)
+lh_bootstrap_debootstrap \- bootstrap a Debian system with \fIdebootstrap\fR(8)
 
 .SH SYNOPSIS
-.B lh_bootstrap_cdebootstrap [\fIlive\-helper\ options\fR\|]
+.B lh_bootstrap_debootstrap [\fIlive\-helper\ options\fR\|]
 
 .SH DESCRIPTION
-lh_bootstrap_cdebootstrap uses \fIcdebootstrap\fR(1) to create a Debian base system from scratch.
+lh_bootstrap_debootstrap uses \fIdebootstrap\fR(8) to create a Debian base system from scratch.
 
 .SH CONFIGURATION FILE
-lh_bootstrap_cdebootstrap reads config/common and config/bootstrap if available. See ENVIRONMENT for the correct environment variables to use.
+lh_bootstrap_debootstrap reads config/common and config/bootstrap if available. See ENVIRONMENT for the correct environment variables to use.
 
 .SH ENVIRONMENT
-lh_bootstrap_cdebootstrap respects the following environment variables if available, otherwise uses default values for it.
+lh_bootstrap_debootstrap respects the following environment variables if available, otherwise uses default values for it.
 .IP "\fI$LH_BOOTSTRAP\fR" 4
 control the bootstrap program to be used (Default: cdebootstrap)
 .IP "\fI$LH_CACHE\fR" 4
@@ -31,11 +31,11 @@ select the distribution to use (Default: sid)
 set the mirror to use (Default: http://ftp.debian.org/debian/)
 
 .SH SEE ALSO
-\fIcdebootstrap\fR(1)
+\fIdebootstrap\fR(8)
 .PP
 \fIlive\-helper\fR(7)
 .PP
-This program is a part of live-helper.
+This program is a part of live\-helper.
 
 .SH BUGS
 Report bugs against live\-helper <\fIhttp://packages.qa.debian.org/live\-helper/\fR>.

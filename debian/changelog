@@ -1,3 +1,12 @@
+live-helper (1.0~a7-1) unstable; urgency=medium
+
+  * New upstream release:
+    - make-live unmounts proc and sys on exit and failures
+      (Closes: #394334, #410147).
+    - supporting sudo (Closes: #387069).
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 23 Apr 2007 00:00:00 +0200
+
 live-helper (1.0~a6-1) unstable; urgency=low
 
   * New upstream release.
@@ -18,7 +27,7 @@ live-helper (1.0~a4-1) unstable; urgency=low
 
 live-helper (1.0~a3-2) unstable; urgency=low
 
-  * Fixed typo in maintainer scripts.
+  * New upstream snapshot.
 
  -- Daniel Baumann <daniel@debian.org>  Mon, 26 Mar 2007 17:00:00 +0200
 
@@ -36,15 +45,13 @@ live-helper (1.0~a2-1) unstable; urgency=low
 
 live-helper (1.0~a1-3) unstable; urgency=low
 
-  * helpers/lh_chroot_hacks: Added removal of udev persistent-net rule.
+  * New upstream snapshot.
 
  -- Daniel Baumann <daniel@debian.org>  Wed, 14 Mar 2007 21:00:00 +0100
 
 live-helper (1.0~a1-2) unstable; urgency=low
 
-  * functions/defaults.sh: Fixed setting of LIVE_SYSVINIT.
-  * helpers/lh_chroot_sysvinit: Changed check for LIVE_SYSVINIT from disabled to
-    enabled.
+  * New upstream snapshot.
 
  -- Daniel Baumann <daniel@debian.org>  Wed, 14 Mar 2007 18:00:00 +0100
 
