@@ -615,8 +615,8 @@ Set_defaults ()
 	LH_BINARY_INDICES="${LH_BINARY_INDICES:-enabled}"
 
 	# Setting boot parameters
-	LH_BOOTAPPEND_INSTALL="${LH_BOOTAPPEND_INSTALL:---}"
 	# LH_BOOTAPPEND_LIVE
+	LH_BOOTAPPEND_INSTALL="${LH_BOOTAPPEND_INSTALL:--- \${LH_BOOTAPPEND_LIVE}}"
 
 	# Setting bootloader
 	if [ -z "${LH_BOOTLOADER}" ]
