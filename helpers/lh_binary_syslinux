@@ -381,7 +381,7 @@ case "${LH_BINARY_IMAGES}" in
 			if [ "${LH_SYSLINUX_SPLASH}" = "none" ]
 			then
 				rm -f binary/isolinux/splash.rle
-				sed -e "s/.*splash.*//" binary/isolinux/boot.txt
+				sed -i -e "s/.*splash.*//" binary/isolinux/boot.txt
 			else
 				cp -f "${LH_SYSLINUX_SPLASH}" binary/isolinux/splash.rle
 			fi
