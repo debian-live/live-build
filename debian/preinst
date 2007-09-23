@@ -1,0 +1,40 @@
+#!/bin/sh
+
+set -e
+
+case "${1}" in
+	install|upgrade)
+		if [ -h /usr/share/live-helper/data/debian-cd/lenny ]
+		then
+			rm -f /usr/share/live-helper/data/debian-cd/lenny
+		fi
+
+		if [ -h /usr/share/live-helper/data/debian-cd/sid ]
+		then
+			rm -f /usr/share/live-helper/data/debian-cd/sid
+		fi
+
+		if [ -d /usr/share/live-helper/includes ]
+		then
+			rm -rf /usr/share/live-helper/includes
+		fi
+
+		if [ -d /usr/share/live-helper/templates ]
+		then
+			rm -rf /usr/share/live-helper/templates
+		fi
+		;;
+
+	abort-upgrade)
+
+		;;
+
+	*)
+		echo "preinst called with unknown argument \`${1}'" >&2
+		exit 1
+		;;
+esac
+
+#DEBHELPER#
+
+exit 0
