@@ -42,7 +42,11 @@ Set_defaults ()
 	if [ -z "${LH_DISTRIBUTION}" ]
 	then
 		case "${LH_MODE}" in
-			debian|debian-edu)
+			debian)
+				LH_DISTRIBUTION="lenny"
+				;;
+
+			debian-edu)
 				LH_DISTRIBUTION="etch"
 				;;
 
