@@ -1,0 +1,73 @@
+# /etc/make-live.conf - configuration file for make-live(8)
+
+# make-live does work out of the box. However, if you want to customize it,
+# you can edit the variables below. Look make-live.conf(8) for more information.
+
+# Root directory		(Default: `pwd`/debian-live)
+#LIVE_ROOT="`pwd`/debian-live"
+
+# Image type			(Default: iso)
+#LIVE_TYPE="iso"
+
+# Bootstrap architecture	(Default: auto-detected)
+#LIVE_ARCHITECTURE="i386"
+
+# Boot parameters		(Default: empty)
+#LIVE_BOOTAPPEND=""
+
+# Chroot directory		(Default: ${LIVE_ROOT}/chroot)
+#LIVE_CHROOT="${LIVE_ROOT}/chroot"
+
+# Configuration file		(Default: /etc/make-live.conf)
+#LIVE_CONFIG="/etc/make-live.conf"
+
+# Debian distribution		(Default: sid)
+#LIVE_DISTRIBUTION="sid"
+
+# Image filesystem		(Default: squashfs for iso, plain for net)
+#LIVE_FILESYSTEM="squashfs"
+
+# Bootstrap flavour		(Default: standard)
+#LIVE_FLAVOUR="standard"
+
+# User command			(Default: empty)
+#LIVE_HOOK=""
+
+# Chroot includes		(Default: empty)
+#LIVE_INCLUDE_CHROOT=""
+
+# Image includes		(Default: empty)
+#LIVE_INCLUDE_IMAGE=""
+
+# Kernel flavour		(Default: auto-detected)
+#LIVE_KERNEL=""
+
+# Debian mirror			(Default: http://ftp.debian.org/debian)
+#LIVE_MIRROR="http://ftp.debian.org/debian"
+
+# Debian security mirror	(Default: http://security.debian.org/debian)
+#LIVE_MIRROR_SECURITY="http://ftp.debian.org/debian-security"
+
+# Packages			(Default: empty)
+LIVE_PACKAGES="cdebootstrap less locales screen sudo vim"
+
+# Package list			(Default: empty)
+#LIVE_PACKAGE_LIST=""
+
+# Chroots ftp_proxy		(Default: empty)
+#LIVE_PROXY_FTP=""
+
+# Chroots http_proxy		(Default: empty)
+#LIVE_PROXY_HTTP=""
+
+# Debian section		(Default: main)
+#LIVE_SECTION="main"
+
+# Netboot server		(Default: 192.168.1.1)
+#LIVE_SERVER_ADDRESS=""
+
+# Netboot path			(Default: /srv/debian-live/chroot)
+#LIVE_SERVER_PATH=""
+
+# Image templates		(Default: /usr/share/make-live/templates)
+#LIVE_TEMPLATES="/usr/share/make-live/templates"

@@ -3,7 +3,7 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-upstream:
+upstream: # Needs svn
 	cd .. && svn co svn://live.debian.net/live-package || exit 0
 	find . -type d -name .svn -exec rm -rf {} \; || exit 0
 

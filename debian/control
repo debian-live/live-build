@@ -8,7 +8,11 @@ Standards-Version: 3.7.2
 
 Package: live-package
 Architecture: all
-Depends: cdebootstrap (>= 0.3.10) | debootstrap (>= 3.3), dpkg-dev, genext2fs, mkisofs, squashfs-tools
+Depends: cdebootstrap (>= 0.3.10), dpkg-dev, genext2fs, mkisofs, squashfs-tools
 Provides: make-live
-Description: Debian Live framework
- The Debian Live framework lets you automagically create live system images.
+Description: utility to build Debian Live systems
+ The Debian Live framework provides all necessary tools to create Debian Live
+ systems. make-live is the utility used to automagically build CD/DVD images and
+ netboot tarballs.
+ .
+  Homepage: <http://live.debian.net/>

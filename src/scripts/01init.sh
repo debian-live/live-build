@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# make-live - utility to build Debian Live systems
+#
+# Copyright (C) 2006 Daniel Baumann <daniel@debian.org>
+# Copyright (C) 2006 Marco Amadori <marco.amadori@gmail.com>
+#
+# make-live comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+Init ()
+{
+	# Check if user is root
+	if [ "`id -u`" -ne "0" ]
+	then
+		echo "E: ${PROGRAM} requires superuser privilege."
+		exit 1
+	fi
+}

@@ -1,14 +1,23 @@
-# scripts/01-patches.sh
+#!/bin/sh
+
+# make-live - utility to build Debian Live systems
+#
+# Copyright (C) 2006 Daniel Baumann <daniel@debian.org>
+# Copyright (C) 2006 Marco Amadori <marco.amadori@gmail.com>
+#
+# make-live comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 Patch_chroot ()
 {
 	# Some maintainer scripts can detect if they are in a chrooted system.
-	# Therefore, we create the corresponding file.
+	# Therefore, we create the needed file.
 
 	case "${1}" in
 		apply)
 			# Create chroot file
-			echo "live" > "${LIVE_CHROOT}"/etc/debian_chroot
+			echo "debian-live" > "${LIVE_CHROOT}"/etc/debian_chroot
 			;;
 
 		deapply)
@@ -28,15 +37,13 @@ Patch_network ()
 			# Save host lookup table
 			if [ -f "${LIVE_CHROOT}"/etc/hosts ]
 			then
-				cp "${LIVE_CHROOT}"/etc/hosts \
-					"${LIVE_CHROOT}"/etc/hosts.orig
+				cp "${LIVE_CHROOT}"/etc/hosts "${LIVE_CHROOT}"/etc/hosts.orig
 			fi
 
 			# Save resolver configuration
 			if [ -f "${LIVE_CHROOT}"/etc/resolv.conf ]
 			then
-				cp "${LIVE_CHROOT}"/etc/resolv.conf \
-					"${LIVE_CHROOT}"/etc/resolv.conf.orig
+				cp "${LIVE_CHROOT}"/etc/resolv.conf "${LIVE_CHROOT}"/etc/resolv.conf.orig
 			fi
 
 			# Copy host lookup table
@@ -48,8 +55,7 @@ Patch_network ()
 			# Copy resolver configuration
 			if [ -f /etc/resolv.conf ]
 			then
-				cp /etc/resolv.conf \
-					"${LIVE_CHROOT}"/etc/resolv.conf
+				cp /etc/resolv.conf "${LIVE_CHROOT}"/etc/resolv.conf
 			fi
 			;;
 
@@ -57,30 +63,28 @@ Patch_network ()
 			# Restore host lookup table
 			if [ -f "${LIVE_CHROOT}"/etc/hosts.orig ]
 			then
-				mv "${LIVE_CHROOT}"/etc/hosts.orig \
-					"${LIVE_CHROOT}"/etc/hosts
+				mv "${LIVE_CHROOT}"/etc/hosts.orig "${LIVE_CHROOT}"/etc/hosts
 			fi
 
 			# Restore resolver configuration
 			if [ -f "${LIVE_CHROOT}"/etc/resolv.conf.orig ]
 			then
-				mv "${LIVE_CHROOT}"/etc/resolv.conf.orig \
-					"${LIVE_CHROOT}"/etc/resolv.conf
+				mv "${LIVE_CHROOT}"/etc/resolv.conf.orig "${LIVE_CHROOT}"/etc/resolv.conf
 			fi
 			;;
 	esac
 }
 
-Patch_linuximage ()
+Patch_linux ()
 {
 	# The linux-image package asks interactively for initial ramdisk
 	# creation. Therefore, we preconfigure /etc/kernel-img.conf.
+	# FIXME: preseeding?
 
 	case "${1}" in
 		apply)
 			# Write configuration option
-			echo "do_initrd = Yes"  >> \
-				"${LIVE_CHROOT}"/etc/kernel-img.conf
+			echo "do_initrd = Yes"  >> "${LIVE_CHROOT}"/etc/kernel-img.conf
 			;;
 
 		deapply)
