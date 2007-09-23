@@ -256,9 +256,9 @@ else
 fi
 
 # Including local debs
-if ls ../config/binary_local-debs/* > /dev/null 2>&1
+if ls ../config/binary_local-debs/*.deb > /dev/null 2>&1
 then
-	for FILE in ../config/binary_local-debs/*.deb
+	for FILE in ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".deb ../config/binary_local-debs/*_all.deb
 	do
 		SOURCE="`dpkg -f ${FILE} Source | awk '{ print $1 }'`"
 
@@ -325,9 +325,9 @@ mkdir -p ../cache/packages_debian-installer.udeb
 cp *.udeb ../cache/packages_debian-installer.udeb
 
 # Including local udebs
-if ls ../config/binary_local-udebs/* > /dev/null 2>&1
+if ls ../config/binary_local-udebs/*.udeb > /dev/null 2>&1
 then
-	for FILE in ../config/binary_local-udebs/*.udeb
+	for FILE in ../config/binary_local-udebs/*_"${LH_ARCHITECTURE}".udeb ../config/binary_local-udebs/*_all.udeb
 	do
 		SOURCE="`dpkg -f ${FILE} Source | awk '{ print $1 }'`"
 
