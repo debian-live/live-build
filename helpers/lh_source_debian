@@ -32,7 +32,7 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-if [ "${LIVE_SOURCE}" != "enabled" ]
+if [ "${LH_SOURCE}" != "enabled" ]
 then
 	exit 0
 fi
@@ -59,18 +59,32 @@ fi
 
 # Download sources
 Chroot "dpkg --get-selections" | awk '{ print $1 }' > chroot/root/dpkg-selection.txt
-echo "${LIVE_BOOTLOADER}" >> chroot/root/dpkg-selection.txt
 
-echo -e "live-helper\n${LH_INITRAMFS}" >> chroot/root/dpkg-selection.txt
-echo -e "dosfstools\n${LH_GENISOIMAGE}\nparted\nsquashfs-tools\ngenext2fs" >> chroot/root/dpkg-selection.txt
+cat >> chroot/root/dpkg-selection.txt << EOF
+${LH_BOOTLOADER}
+live-helper
+${LH_INITRAMFS}
+dosfstools
+${LH_GENISOIMAGE}
+parted
+squashfs-tools
+genext2fs
+EOF
 
-case "${LIVE_ARCHITECTURE}" in
+case "${LH_ARCHITECTURE}" in
 	amd64|i386)
-		echo -e "${LIVE_MEMTEST}\nmtools\nsyslinux\ngrub" >> chroot/root/dpkg-selection.txt
+
+cat >> chroot/root/dpkg-selection.txt << EOF
+${LH_MEMTEST}
+mtools
+syslinux
+grub
+EOF
+
 		;;
 
 	powerpc)
-		echo -e "yaboot" >> chroot/root/dpkg-selection.txt
+		echo "yaboot" >> chroot/root/dpkg-selection.txt
 		;;
 esac
 

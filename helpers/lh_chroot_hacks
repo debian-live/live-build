@@ -49,7 +49,7 @@ Create_lockfile .lock
 # Removing udev mac caching rule
 Chroot "rm -f /etc/udev/rules.d/z25_persistent-net.rules"
 
-case "${LIVE_BINARY_IMAGES}" in
+case "${LH_BINARY_IMAGES}" in
 	net)
 		if [ ! -f chroot/usr/bin/smbmount ]
 		then
@@ -80,6 +80,12 @@ EOF
 		;;
 esac
 
+# Remove resume
+if [ "${LH_DISTRIBUTION}" = "etch" ] && [ -e /etc/initramfs-tools/conf.d/resume ]
+then
+	rm -f /etc/initramfs-tools/conf.d/resume
+fi
+
 # Update initramfs
 Chroot "update-initramfs -k all -t -u"
 
@@ -99,9 +105,9 @@ then
 	${LH_ROOT_COMMAND} chown -R --quiet `whoami`:`whoami` chroot
 fi
 
-if [ -d chroot/home/${LIVE_USERNAME} ]
+if [ -d chroot/home/${LH_USERNAME} ]
 then
-	chown -R --quiet 999:999 chroot/home/${LIVE_USERNAME}
+	chown -R --quiet 999:999 chroot/home/${LH_USERNAME}
 fi
 
 # Creating stage file

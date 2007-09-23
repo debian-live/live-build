@@ -3,7 +3,7 @@
 0fAvailable boot methods:07
 
 0flive07
-  Start the live system -- this is the default LIVE_MEDIA method.
+  Start the live system -- this is the default LH_MEDIA method.
 0flive-failsafe07
   Start the live system in fail-safe mode.
 0finstall07 or 0finstallgui07

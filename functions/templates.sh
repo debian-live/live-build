@@ -14,22 +14,22 @@ Check_templates ()
 	PACKAGE="${1}"
 
 	# Check user defined templates directory
-	if [ ! -e "${LIVE_TEMPLATES}" ]
+	if [ ! -e "${LH_TEMPLATES}" ]
 	then
 		if [ -d config/templates ]
 		then
-			LIVE_TEMPLATES=config/templates
+			LH_TEMPLATES=config/templates
 		else
-			Echo_error "templates not accessible in ${LIVE_TEMPLATES} nor config/templates"
+			Echo_error "templates not accessible in ${LH_TEMPLATES} nor config/templates"
 			exit 1
 		fi
 	fi
 
-	if [ -d "${LIVE_TEMPLATES}/${PACKAGE}" ]
+	if [ -d "${LH_TEMPLATES}/${PACKAGE}" ]
 	then
-		TEMPLATES="${LIVE_TEMPLATES}/${PACKAGE}"
+		TEMPLATES="${LH_TEMPLATES}/${PACKAGE}"
 	else
-		Echo_error "${PACKAGE} templates not accessible in ${LIVE_TEMPLATES}"
+		Echo_error "${PACKAGE} templates not accessible in ${LH_TEMPLATES}"
 		exit 1
 	fi
 }

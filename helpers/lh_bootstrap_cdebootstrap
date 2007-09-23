@@ -58,22 +58,22 @@ Create_lockfile .lock
 mkdir -p chroot
 
 # Setting cdebootstrap options
-if [ -n "${LIVE_ARCHITECTURE}" ]
+if [ -n "${LH_ARCHITECTURE}" ]
 then
-	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --arch=${LIVE_ARCHITECTURE}"
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --arch=${LH_ARCHITECTURE}"
 fi
 
-if [ -n "${LIVE_BOOTSTRAP_CONFIG}" ]
+if [ -n "${LH_BOOTSTRAP_CONFIG}" ]
 then
-	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --suite-config=${LIVE_BOOTSTRAP_CONFIG}"
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --suite-config=${LH_BOOTSTRAP_CONFIG}"
 fi
 
-if [ -n "${LIVE_BOOTSTRAP_KEYRING}" ]
+if [ -n "${LH_BOOTSTRAP_KEYRING}" ]
 then
-    CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --keyring=${LIVE_BOOTSTRAP_KEYRING}"
+    CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --keyring=${LH_BOOTSTRAP_KEYRING}"
 fi
 
-if [ "${LIVE_PACKAGES_LISTS}" != "minimal" ] && [ "${LIVE_PACKAGES_LISTS}" != "mini" ]
+if [ "${LH_PACKAGES_LISTS}" != "minimal" ] && [ "${LH_PACKAGES_LISTS}" != "mini" ]
 then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=standard"
 else
@@ -106,7 +106,7 @@ then
 		fi
 
 		# Executing cdebootstrap (download-only)
-		${LH_ROOT_COMMAND} cdebootstrap ${CDEBOOTSTRAP_OPTIONS} --download-only "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_BOOTSTRAP}"
+		${LH_ROOT_COMMAND} cdebootstrap ${CDEBOOTSTRAP_OPTIONS} --download-only "${LH_DISTRIBUTION}" chroot "${LH_MIRROR_BOOTSTRAP}"
 
 		if [ -n "${LH_ROOT_COMMAND}" ]
 		then
@@ -126,7 +126,7 @@ then
 	fi
 
 	# Executing cdebootstrap (regular run)
-	${LH_ROOT_COMMAND} cdebootstrap ${CDEBOOTSTRAP_OPTIONS} "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_BOOTSTRAP}"
+	${LH_ROOT_COMMAND} cdebootstrap ${CDEBOOTSTRAP_OPTIONS} "${LH_DISTRIBUTION}" chroot "${LH_MIRROR_BOOTSTRAP}"
 
 	if [ -n "${LH_ROOT_COMMAND}" ]
 	then
@@ -134,7 +134,7 @@ then
 	fi
 
 	# Remove cdebootstrap-helper-diverts (needed at least for minimal flavours)
-	if [ "${LIVE_BOOTSTRAP_FLAVOUR}" = "minimal" ] || [ "${LIVE_BOOTSTRAP_FLAVOUR}" = "mini" ]
+	if [ "${LH_BOOTSTRAP_FLAVOUR}" = "minimal" ] || [ "${LH_BOOTSTRAP_FLAVOUR}" = "mini" ]
 	then
 		Chroot "dpkg -P cdebootstrap-helper-diverts"
 	fi

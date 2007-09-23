@@ -46,7 +46,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ -n "${LIVE_TASKS}" ] && [ "${LIVE_TASKS}" != "none" ]
+if [ -n "${LH_TASKS}" ] && [ "${LH_TASKS}" != "none" ]
 then
 	# Restoring cache
 	Restore_cache cache/packages_tasks
@@ -68,11 +68,11 @@ then
 	# Installing tasks
 	case "${LH_TASKSEL}" in
 		aptitude)
-			Chroot "aptitude install --assume-yes ${LIVE_TASKS}"
+			Chroot "aptitude install --assume-yes ${LH_TASKS}"
 			;;
 
 		tasksel)
-			for TASK in ${LIVE_TASKS}
+			for TASK in ${LH_TASKS}
 			do
 				Chroot "tasksel --debconf-apt-progress --logstderr install ${TASK}"
 			done

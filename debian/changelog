@@ -1,3 +1,13 @@
+live-helper (1.0~a22-1) unstable; urgency=medium
+
+  * New upstream release:
+    - Replacing make-live with lh_config and lh_build (Closes: #435484).
+    - Added workaround from matth in lh_binary_grub, lh_binary_syslinux and
+      lh_binary_yaboot to work under dash (Closes: #431748).
+    - Using fake hostname instead of setting it at build-time (Closes: #435699).
+
+ -- Daniel Baumann <daniel@debian.org>  Mon,  6 Aug 2007 00:00:00 +0200
+
 live-helper (1.0~a21-1) unstable; urgency=medium
 
   * New upstream release:

@@ -13,7 +13,7 @@ Restore_cache ()
 {
 	DIRECTORY="${1}"
 
-	if [ "${LH_CACHE_PACKAGES}" = "enabled" ]
+	if [ "${LH_CACHE}" = "enabled" ] && [ "${LH_CACHE_PACKAGES}" = "enabled" ]
 	then
 		if [ -d "${DIRECTORY}" ]
 		then
@@ -27,7 +27,7 @@ Save_cache ()
 {
 	DIRECTORY="${1}"
 
-	if [ "${LH_CACHE_PACKAGES}" = "enabled" ]
+	if [ "${LH_CACHE}" = "enabled" ] && [ "${LH_CACHE_PACKAGES}" = "enabled" ]
 	then
 		# Cleaning current cache
 		Chroot "apt-get autoclean"

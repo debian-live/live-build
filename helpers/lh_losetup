@@ -20,7 +20,7 @@ done
 # Setting static variables
 DESCRIPTION="wrapper around losetup"
 HELP=""
-USAGE="${PROGRAM} <device> <file> <partition>"
+USAGE="${PROGRAM} DEVICE FILE [PARTITION]"
 
 Arguments "${@}"
 
@@ -32,30 +32,26 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-if [ -z "${1}" ]
-then
-	DEVICE="`${LH_ROOT_COMMAND} ${LH_LOSETUP} -f`"
-else
-	DEVICE="${1}"
-fi
-
+DEVICE="${1}"
 FILE="${2}"
-PARTITION="${3}"
+PARTITION="${3:=1}"
 
 ${LH_ROOT_COMMAND} ${LH_LOSETUP} "${DEVICE}" "${FILE}"
 FDISK_OUT="`fdisk -l -u ${DEVICE} 2>&1`"
 ${LH_ROOT_COMMAND} ${LH_LOSETUP} -d "${DEVICE}"
 
-LOOPDEVICE="`echo ${DEVICE}p${PARTITION:=1}`"
-CYL=`echo "$FDISK_OUT" | sed -ne "s_^$LOOPDEVICE[ *]*\([0-9]*\).*_\1_p"`
-#OFFSET="`expr 512 '*' ${CYL}`"
-OFFSET="$((CYL*512))"
-
-echo loop $DEVICE at offset $OFFSET
+LOOPDEVICE="`echo ${DEVICE}p${PARTITION}`"
 
 if [ "${PARTITION}" = "0" ]
 then
+	Echo_message "Mounting ${DEVICE} with offset 0"
+
 	${LH_ROOT_COMMAND} ${LH_LOSETUP} "${DEVICE}" "${FILE}"
 else
+	CYLINDERS="`echo "$FDISK_OUT" | sed -ne "s_^$LOOPDEVICE[ *]*\([0-9]*\).*_\1_p"`"
+	OFFSET="`expr ${CYLINDERS} '*' 512`"
+
+	Echo_message "Mounting ${DEVICE} with offset ${OFFSET}"
+
 	${LH_ROOT_COMMAND} ${LH_LOSETUP} -o "${OFFSET}" "${DEVICE}" "${FILE}"
 fi
