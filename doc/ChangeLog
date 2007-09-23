@@ -1,4 +1,11 @@
+2007-03-14 Daniel Baumann <daniel@debian.org>
+
+  * functions/defaults.sh: Fixed setting of LIVE_SYSVINIT.
+  * helpers/lh_chroot_sysvinit: Changed check for LIVE_SYSVINIT from disabled to
+    enabled.
+  * Uploaded 1.0~a1-2.
+
 2007-03-12 Daniel Baumann <daniel@debian.org>
 
-	* Rewritten live-package.
-	* Uploaded 1.0~a1-1.
+  * Rewritten live-package.
+  * Uploaded 1.0~a1-1.

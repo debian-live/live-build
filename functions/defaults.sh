@@ -287,11 +287,14 @@ Set_defaults ()
 	fi
 
 	# Setting sysvinit option
-	if [ -z "${LIVE_SYSVINIT}" ] && [ "${LIVE_FLAVOUR}" != "mini" ]
+	if [ -z "${LIVE_SYSVINIT}" ]
 	then
-		LIVE_SYSVINIT="enabled"
-	else
-		LIVE_SYSVINIT="disabled"
+		if [ "${LIVE_FLAVOUR}" = "mini" ]
+		then
+			LIVE_SYSVINIT="enabled"
+		else
+			LIVE_SYSVINIT="disabled"
+		fi
 	fi
 
 	## config/image
