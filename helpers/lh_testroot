@@ -1,6 +1,8 @@
 #!/bin/sh
 
-# lh_testroot.sh
+# lh_testroot(1) - ensure that a system is built as root
+
+set -e
 
 # Checking user account
 if [ "`id -u`" -ne "0" ]

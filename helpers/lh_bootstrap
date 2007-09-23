@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# lh_bootstrap(1) - bootstrap a Debian system
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/bootstrap
+Set_defaults
+
+# Bootstrapping system
+lh_bootstrap_"${LH_BOOTSTRAP}"

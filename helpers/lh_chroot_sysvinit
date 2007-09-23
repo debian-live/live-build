@@ -1,0 +1,50 @@
+#!/bin/sh
+
+# lh_chroot_sysvinit(1) - configures sysvinit
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/chroot
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+# Checking stage file
+Check_stagefile "${LIVE_ROOT}"/.stage/chroot_sysvinit
+
+if [ "${LIVE_SYSVINIT}" = "disabled" ]
+then
+	# Disable all
+	for FILE in "${LIVE_CHROOT}"/etc/init.d/*
+	do
+		Chroot "update-rc.d -f `basename ${FILE}` remove"
+	done
+
+	# Re-enable all required (taken from -f standard chroot)
+	for PACKAGE in casper console-common cron dpkg ifupdown initscripts kbd klogd libc6 libdevmapper1.02 libselinux1 libsepol1 login makedev module-init-tools netbase openbsd-inetd procps sudo sysklogd udev util-linux
+	do
+		if [ -f "${LIVE_CHROOT}"/var/lib/dpkg/info/${PACKAGE}.postinst ]
+		then
+			# Re-configure if existing
+			Chroot "/var/lib/dpkg/info/${PACKAGE}.postinst configure"
+		fi
+	done
+
+	# Creating stage file
+	Create_stagefile "${LIVE_ROOT}"/.stage/chroot_sysvinit
+fi

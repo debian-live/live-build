@@ -1,0 +1,61 @@
+#!/bin/sh
+
+# lh_chroot_proc(1) - mount /proc
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/chroot
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+case "${1}" in
+	install)
+		# Checking stage file
+		Check_stagefile "${LIVE_ROOT}"/.stage/chroot_proc
+
+		if [ ! -d "${LIVE_CHROOT}"/proc ]
+		then
+			# Creating mountpoint
+			mkdir -p "${LIVE_CHROOT}"/proc
+		fi
+
+		# Mounting /proc
+		mount proc-live -t proc "${LIVE_CHROOT}"/proc
+
+		# Creating stage file
+		Create_stagefile "${LIVE_ROOT}"/.stage/chroot_proc
+		;;
+
+	remove)
+		# Workaround binfmt-support /proc locking
+		umount "${LIVE_CHROOT}"/proc/sys/fs/binfmt_misc > /dev/null 2>&1 || true
+
+		# Unmounting /proc
+		#fuser -km "${LIVE_CHROOT}"/proc
+		umount "${LIVE_CHROOT}"/proc > /dev/null 2>&1
+
+		# Removing stage file
+		rm -f "${LIVE_ROOT}"/.stage/chroot_proc
+		;;
+
+	*)
+		echo "Usage: ${0} {install|remove}"
+		exit 1
+		;;
+esac

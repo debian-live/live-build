@@ -1,0 +1,42 @@
+#!/bin/sh
+
+# lh_binary_includes(1) - copy files into binary
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/chroot
+Read_conffile config/image
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+# Checking stage file
+Check_stagefile "${LIVE_ROOT}"/.stage/binary_includes
+
+if ls /usr/share/live-helper/includes/common/* &> /dev/null
+then
+	cp -r /usr/share/live-helper/includes/common/* "${LIVE_ROOT}"/binary
+fi
+
+if ls /usr/share/live-helper/includes/"${LIVE_BINARY_IMAGE}"/* &> /dev/null
+then
+	cp -r /usr/share/live-helper/includes/"${LIVE_BINARY_IMAGE}"/* "${LIVE_ROOT}"/binary
+fi
+
+# Creating stage file
+Create_stagefile "${LIVE_ROOT}"/.stage/binary_includes

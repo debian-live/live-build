@@ -1,0 +1,13 @@
+# /usr/share/make-live/lists/xfce - package list for make-live(1)
+
+# Minimal
+eject file sudo vim-tiny
+
+# Standard
+console-common kbd locales
+
+# Xfce
+gdm xfce4
+desktop-base
+
+xorg xresprobe

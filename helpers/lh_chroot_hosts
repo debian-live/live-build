@@ -1,0 +1,66 @@
+#!/bin/sh
+
+# lh_chroot_hosts(1) - manage /etc/hosts
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/chroot
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+case "${1}" in
+	install)
+		# Checking stage file
+		Check_stagefile "${LIVE_ROOT}"/.stage/chroot_hosts
+
+		if [ -f "${LIVE_CHROOT}"/etc/hosts ]
+		then
+			# Save hosts file
+			cp "${LIVE_CHROOT}"/etc/hosts "${LIVE_CHROOT}"/etc/hosts.orig
+		fi
+
+		if [ -f /etc/hosts ]
+		then
+			# Copy hosts file
+			cp /etc/hosts "${LIVE_CHROOT}"/etc/hosts
+		fi
+
+		# Creating stage file
+		Create_stagefile "${LIVE_ROOT}"/.stage/chroot_hosts
+		;;
+
+	remove)
+		if [ -f "${LIVE_CHROOT}"/etc/hosts.orig ]
+		then
+			# Restore hosts file
+			mv "${LIVE_CHROOT}"/etc/hosts.orig "${LIVE_CHROOT}"/etc/hosts
+		else
+			# Remove hosts file
+			rm -f "${LIVE_CHROOT}"/etc/hosts
+		fi
+
+		# Removing stage file
+		rm -f "${LIVE_ROOT}"/.stage/chroot_hosts
+		;;
+
+	*)
+		echo "Usage: ${0} {install|remove}"
+		exit 1
+		;;
+esac

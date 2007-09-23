@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# lh_build(1) - build a Debian system
+
+set -e
+
+# Bootstrapping system
+lh_bootstrap
+
+# Customizing chroot
+lh_chroot
+
+# Building binary image
+lh_binary
+
+# Building source image
+lh_source

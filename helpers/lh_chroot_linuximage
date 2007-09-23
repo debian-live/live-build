@@ -1,0 +1,74 @@
+#!/bin/sh
+
+# lh_chroot_linuximage(1) - manage /etc/kernel-img.conf
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/chroot
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+case "${1}" in
+	install)
+		# Checking stage file
+		Check_stagefile "${LIVE_ROOT}"/.stage/chroot_linuximage
+
+		if [ -f "${LIVE_CHROOT}"/etc/kernel-img.conf ]
+		then
+			# Saving kernel-img.conf
+			cp "${LIVE_CHROOT}"/etc/kernel-img.conf "${LIVE_CHROOT}"/etc/kernel-img.conf.old
+		fi
+
+		# Configuring kernel-img.conf
+		echo "do_initrd = Yes"  >> "${LIVE_CHROOT}"/etc/kernel-img.conf
+
+		# Creating stage file
+		Create_stagefile "${LIVE_ROOT}"/.stage/chroot_linuximage
+
+		# Installing linux-image, modules and casper
+		case "${LH_APT}" in
+			apt)
+				Chroot "apt-get install --yes ${LIVE_KERNEL_PACKAGES}"
+				;;
+
+			aptitude)
+				Chroot "aptitude install --assume-yes ${LIVE_KERNEL_PACKAGES}"
+				;;
+		esac
+		;;
+
+	remove)
+		if [ -f "${LIVE_CHROOT}"/etc/kernel-img.conf.old ]
+		then
+			# Restoring kernel-img.conf file
+			mv "${LIVE_CHROOT}"/etc/kernel-img.conf.old "${LIVE_CHROOT}"/etc/kernel-img.conf
+		else
+			# Removing kernel-img.conf file
+			rm -f "${LIVE_CHROOT}"/etc/kernel-img.conf
+		fi
+
+		# Removing stage file
+		rm -f "${LIVE_ROOT}"/.stage/chroot_linuximage
+		;;
+
+	*)
+		echo "Usage: ${0} {install|remove}"
+		exit 1
+		;;
+esac

@@ -1,0 +1,22 @@
+# /usr/share/make-live/lists/gnome - package list for make-live(1)
+
+# Minimal
+eject file sudo vim-tiny
+
+# Standard
+console-common kbd locales
+
+# GNOME
+gdm gdm-themes gnome-desktop-environment gnome-cups-manager gnome-screensaver
+gnome-themes-extras
+desktop-base
+
+rhythmbox synaptic
+
+xorg xresprobe
+
+# Debian Junior
+junior-sound junior-typing junior-internet junior-gnome junior-toys
+junior-games-net junior-games-sim junior-games-gl junior-puzzle junior-arcade
+junior-math junior-writing junior-games-card junior-programming junior-system
+junior-art junior-doc junior-games-text

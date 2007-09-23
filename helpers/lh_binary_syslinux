@@ -1,0 +1,152 @@
+#!/bin/sh
+
+# lh_binary_syslinux(1) - installs syslinux
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/bootstrap
+Read_conffile config/image
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+# Checking stage file
+Check_stagefile "${LIVE_ROOT}"/.stage/binary_syslinux
+
+if [ "${LIVE_ARCHITECTURE}" != "amd64" ] && [ "${LIVE_ARCHITECTURE}" != "i386" ]
+then
+	echo "W: skipping binary_syslinux, foreign architecture."
+	exit 0
+fi
+
+if [ "${LIVE_SYSLINUX}" = "enabled" ]
+then
+	if [ ! -f "${LIVE_CHROOT}"/usr/bin/syslinux ]
+	then
+		PACKAGES="${PACKAGES} syslinux"
+	fi
+
+	if [ -n "${PACKAGES}" ]
+	then
+		# Installing symlinks
+		case "${LH_APT}" in
+			apt)
+				Chroot "apt-get install --yes ${PACKAGES}"
+				;;
+
+			aptitude)
+				Chroot "aptitude install --assume-yes ${PACKAGES}"
+				;;
+		esac
+	fi
+
+	if [ -n "${LIVE_ENCRYPTION}" ]
+	then
+		LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} encryption=${LIVE_ENCRYPTION}"
+	fi
+
+	case "${LIVE_BINARY_IMAGE}" in
+		iso)
+			# Copying syslinux
+			mkdir -p "${LIVE_ROOT}"/binary/isolinux
+			cp "${LIVE_CHROOT}"/usr/lib/syslinux/isolinux.bin "${LIVE_ROOT}"/binary/isolinux
+			cp -r "${LIVE_TEMPLATES}"/syslinux/* "${LIVE_ROOT}"/binary/isolinux
+
+			# Copying splash screen
+			if [ -n "${LIVE_SYSLINUX_SPLASH}" ]
+			then
+				cp "${LIVE_SYSLINUX_SPLASH}" "${LIVE_ROOT}/binary/isolinux/splash.rle"
+			fi
+
+			# Configure syslinux templates
+			sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" "${LIVE_ROOT}"/binary/isolinux/isolinux.cfg
+			sed -i -e "s/LIVE_DATE/${DATE}/" "${LIVE_ROOT}"/binary/isolinux/f1.txt
+			sed -i -e "s/LIVE_VERSION/${VERSION}/" "${LIVE_ROOT}"/binary/isolinux/f10.txt
+
+			# Remove unused files
+			rm -f "${LIVE_ROOT}"/binary/isolinux/pxelinux.cfg
+			;;
+
+		net)
+			# Copying syslinux
+			mkdir -p "${LIVE_ROOT}"/tftpboot
+			cp "${LIVE_CHROOT}"/usr/lib/syslinux/pxelinux.0 "${LIVE_ROOT}"/tftpboot
+
+			# Install syslinux templates
+			mkdir -p "${LIVE_ROOT}"/tftpboot/pxelinux.cfg
+			cp -r "${LIVE_TEMPLATES}"/syslinux/* "${LIVE_ROOT}"/tftpboot/pxelinux.cfg
+			mv "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/pxelinux.cfg "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/default
+			sed -i -e 's#splash.rle#pxelinux.cfg/splash.rle#' "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/isolinux.txt
+
+			# Copying splash screen
+			if [ -n "${LIVE_SYSLINUX_SPLASH}" ]
+			then
+				cp "${LIVE_SYSLINUX_SPLASH}" "${LIVE_ROOT}/tftpboot/pxelinux.cfg/splash.rle"
+			fi
+
+			# Configure syslinux templates
+			sed -i -e "s/LIVE_SERVER_ADDRESS/${LIVE_SERVER_ADDRESS}/" -e "s#LIVE_SERVER_PATH#${LIVE_SERVER_PATH}#" -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/default
+			sed -i -e "s/LIVE_DATE/${DATE}/" "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/f1.txt
+			sed -i -e "s/LIVE_VERSION/${VERSION}/" "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/f10.txt
+
+			# Remove unused files
+			rm -f "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/isolinux.cfg
+			;;
+
+		usb)
+			# Copying syslinux
+			mkdir -p "${LIVE_ROOT}"/binary
+			cp "${LIVE_CHROOT}"/usr/lib/syslinux/isolinux.bin "${LIVE_ROOT}"/binary/syslinux.bin
+			cp -r "${LIVE_TEMPLATES}"/syslinux/* "${LIVE_ROOT}"/binary
+			mv "${LIVE_ROOT}"/binary/isolinux.cfg "${LIVE_ROOT}"/binary/syslinux.cfg
+			mv "${LIVE_ROOT}"/binary/isolinux.txt "${LIVE_ROOT}"/binary/syslinux.txt
+			sed -i -e "s/isolinux.txt/syslinux.txt/" "${LIVE_ROOT}"/binary/syslinux.cfg
+
+			# Copying splash screen
+			if [ -n "${LIVE_SYSLINUX_SPLASH}" ]
+			then
+				cp "${LIVE_SYSLINUX_SPLASH}" "${LIVE_ROOT}/binary/splash.rle"
+			fi
+
+			# Configure syslinux templates
+			sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" "${LIVE_ROOT}"/binary/syslinux.cfg
+			sed -i -e "s/LIVE_DATE/${DATE}/" "${LIVE_ROOT}"/binary/f1.txt
+			sed -i -e "s/LIVE_VERSION/${VERSION}/" "${LIVE_ROOT}"/binary/f10.txt
+
+			# Remove unused files
+			rm -f "${LIVE_ROOT}"/binary/pxelinux.cfg
+			;;
+	esac
+
+	if [ -n "${PACKAGES}" ]
+	then
+		# Removing syslinux
+		case "${LH_APT}" in
+			apt)
+				Chroot "apt-get remove --purge --yes ${PACKAGES}"
+				;;
+
+			aptitude)
+				Chroot "aptitude purge --assume-yes ${PACKAGES}"
+				;;
+		esac
+	fi
+
+	# Creating stage file
+	Create_stagefile "${LIVE_ROOT}"/.stage/binary_syslinux
+fi

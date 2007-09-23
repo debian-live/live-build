@@ -1,0 +1,13 @@
+# /usr/share/make-live/lists/gnome-core - package list for make-live(1)
+
+# Minimal
+eject file sudo vim-tiny
+
+# Standard
+console-common kbd locales
+
+# GNOME Core
+gdm gnome-core
+desktop-base
+
+xorg xresprobe

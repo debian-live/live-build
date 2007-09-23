@@ -1,0 +1,53 @@
+#!/bin/sh
+
+# lh_binary_net(1) - build netboot binary image
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/bootstrap
+Read_conffile config/image
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+# Checking stage file
+Check_stagefile "${LIVE_ROOT}"/.stage/binary_net
+
+for IMAGE in ${LIVE_BINARY_IMAGE}
+do
+	if [ "${IMAGE}" = "net" ]
+	then
+		# Remove old binary
+		if [ -f "${LIVE_ROOT}"/binary.tar.gz ]
+		then
+			rm -f "${LIVE_ROOT}"/binary.tar.gz
+		fi
+
+		# Creating image file
+		cd "${LIVE_ROOT}" && \
+		mv binary "`basename ${LIVE_SERVER_PATH}`" && \
+		cd .. && \
+		tar cfz binary.tar.gz "`basename ${LIVE_ROOT}`/`basename ${LIVE_SERVER_PATH}`" "`basename ${LIVE_ROOT}`/tftpboot" && \
+		mv binary.tar.gz "${LIVE_ROOT}" && \
+		cd "${OLDPWD}" && \
+		mv "`basename ${LIVE_SERVER_PATH}`" binary
+
+		# Creating stage file
+		Create_stagefile "${LIVE_ROOT}"/.stage/binary_net
+	fi
+done

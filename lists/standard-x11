@@ -1,0 +1,10 @@
+# /usr/share/make-live/lists/x11 - package list for make-live(1)
+
+# Minimal
+eject file sudo vim-tiny
+
+# Standard
+console-common kbd locales
+
+# X11
+xorg xresprobe

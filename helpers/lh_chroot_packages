@@ -1,0 +1,65 @@
+#!/bin/sh
+
+# lh_chroot_packages(1) - install packages into chroot
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/bootstrap
+Read_conffile config/chroot
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking stage file
+Check_stagefile "${LIVE_ROOT}"/.stage/chroot_packages
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+if [ -n "${LIVE_PACKAGES}" ]
+then
+	# Restore old cache
+	if [ -d "${LIVE_ROOT}"/cache/chroot ]
+	then
+		cp "${LIVE_ROOT}"/cache/chroot_packages/*.deb "${LIVE_CHROOT}"/var/cache/apt/archives
+	fi
+
+	# Installing packages
+	case "${LH_APT}" in
+		apt)
+			Chroot "apt-get install --yes ${LIVE_PACKAGES}"
+			;;
+
+		aptitude)
+			Chroot "aptitude install --assume-yes ${LIVE_PACKAGES}"
+			;;
+	esac
+
+	# Saving new cache
+	Chroot "apt-get autoclean"
+
+	if ls "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb &> /dev/null
+	then
+		if [ ! -d "${LIVE_ROOT}"/cache/chroot_packages ]
+		then
+			mkdir -p "${LIVE_ROOT}"/cache/chroot_packages
+		fi
+
+		mv -f "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb "${LIVE_ROOT}"/cache/chroot_packages
+	fi
+
+	# Creating stage file
+	Create_stagefile "${LIVE_ROOT}"/.stage/chroot_packages
+fi

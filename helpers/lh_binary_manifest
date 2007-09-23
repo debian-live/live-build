@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# lh_binary_manifest(1) - create manifest
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/image
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+# Checking stage file
+Check_stagefile "${LIVE_ROOT}"/.stage/binary_manifest
+
+# Add filesystem.manifest
+Chroot "dpkg --get-selections" | awk '{ print $1 }' | sort -u > "${LIVE_ROOT}"/binary/casper/filesystem.manifest
+
+# Creating stage file
+Create_stagefile "${LIVE_ROOT}"/.stage/binary_manifest

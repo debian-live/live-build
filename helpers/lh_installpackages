@@ -1,9 +1,0 @@
-#!/bin/sh
-
-# lh_installpackages
-
-# Install extra packages
-if [ -n "${LIVE_PACKAGES}" ]
-then
-	lh_chroot "aptitude install --assume-yes ${LIVE_PACKAGES}"
-fi

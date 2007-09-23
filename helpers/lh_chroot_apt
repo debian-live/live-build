@@ -1,0 +1,141 @@
+#!/bin/sh
+
+# lh_chroot_apt(1) - manage /etc/apt/apt.conf
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/chroot
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+case "${1}" in
+	install)
+		# Checking stage file
+		Check_stagefile "${LIVE_ROOT}"/.stage/chroot_apt
+
+		if [ "${LH_APT}" = "aptitude" ] && [ ! -d "${LIVE_CHROOT}"/etc/apt/apt.conf.d ]
+		then
+			mkdir -p "${LIVE_CHROOT}"/etc/apt/apt.conf.d
+		fi
+
+		# Configuring apt ftp proxy
+		if [ -n "${LH_APT_FTPPROXY}" ]
+		then
+			case "${LH_APT}" in
+				apt)
+					echo "Acquire::ftp::Proxy \"${LH_APT_FTPPROXY}\";" >> "${LIVE_CHROOT}"/etc/apt/apt.conf
+					;;
+
+				aptitude)
+					echo "Acquire::ftp::Proxy \"${LH_APT_FTPPROXY}\";" > "${LIVE_CHROOT}"/etc/apt/apt.conf.d/ftp-proxy
+					;;
+			esac
+		fi
+
+		# Configuring apt http proxy
+		if [ -n "${LH_APT_HTTPPROXY}" ]
+		then
+			case "${LH_APT}" in
+				apt)
+					echo "Acquire::http::Proxy \"${LH_APT_HTTPPROXY}\";" >> "${LIVE_CHROOT}"/etc/apt/apt.conf
+					;;
+
+				aptitude)
+					echo "Acquire::http::Proxy \"${LH_APT_HTTPPROXY}\";" > "${LIVE_CHROOT}"/etc/apt/apt.conf.d/http-proxy
+					;;
+			esac
+		fi
+
+		# Configuring apt pdiffs
+		if [ "${LH_APT_PDIFFS}" = "enabled" ]
+		then
+			case "${LH_APT}" in
+				apt)
+		                        echo "Acquire::PDiffs \"true\";" >> "${LIVE_CHROOT}"/etc/apt/apt.conf
+					;;
+
+				aptitude)
+					echo "Acquire::PDiffs \"true\";" > "${LIVE_CHROOT}"/etc/apt/apt.conf.d/pdiffs
+					;;
+			esac
+		else
+			case "${LH_APT}" in
+				apt)
+		                        echo "Acquire::PDiffs \"false\";" >> "${LIVE_CHROOT}"/etc/apt/apt.conf
+					;;
+
+				aptitude)
+					echo "Acquire::PDiffs \"false\";" > "${LIVE_CHROOT}"/etc/apt/apt.conf.d/pdiffs
+					;;
+			esac
+		fi
+
+		# Configuring apt recommends
+		if [ "${LH_APT_RECOMMENDS}" = "enabled" ]
+		then
+			case "${LH_APT}" in
+				apt)
+		                        echo "Aptitude::Recommends-Important \"true\";" >> "${LIVE_CHROOT}"/etc/apt/apt.conf
+					;;
+
+				aptitude)
+					echo "Aptitude::Recommends-Important \"true\";" > "${LIVE_CHROOT}"/etc/apt/apt.conf.d/recommends
+					;;
+			esac
+		else
+			case "${LH_APT}" in
+				apt)
+		                        echo "Aptitude::Recommends-Important \"false\";" >> "${LIVE_CHROOT}"/etc/apt/apt.conf
+					;;
+
+				aptitude)
+					echo "Aptitude::Recommends-Important \"false\";" > "${LIVE_CHROOT}"/etc/apt/apt.conf.d/recommends
+					;;
+			esac
+		fi
+
+		# Creating stage file
+		Create_stagefile "${LIVE_ROOT}"/.stage/chroot_apt
+		;;
+
+	remove)
+		# Deconfiguring apt settings
+		rm -f "${LIVE_CHROOT}"/etc/apt/apt.conf
+
+		# Deconfiguring aptitude ftp proxy
+		rm -f "${LIVE_CHROOT}"/etc/apt/apt.conf.d/ftp-proxy
+
+		# Deconfiguring aptitude http proxy
+		rm -f "${LIVE_CHROOT}"/etc/apt/apt.conf.d/http-proxy
+
+		# Deconfiguring aptitude pdiffs
+		rm -f "${LIVE_CHROOT}"/etc/apt/apt.conf.d/pdiffs
+
+		# Deconfiguring aptitude recommends
+		rm -f "${LIVE_CHROOT}"/etc/apt/apt.conf.d/recommends
+
+		# Removing stage file
+		rm -f "${LIVE_ROOT}"/.stage/chroot_apt
+		;;
+
+	*)
+		echo "Usage: ${0} {install|remove}"
+		exit 1
+		;;
+esac

@@ -1,0 +1,72 @@
+#!/bin/sh
+
+# lh_chroot_sysvrc(1) - manage /usr/sbin/policy-rc.d
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/chroot
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+case "${1}" in
+	install)
+		# Checking stage file
+		Check_stagefile "${LIVE_ROOT}"/.stage/chroot_sysvrc
+
+		if [ -f "${LIVE_CHROOT}"/usr/sbin/policy-rc.d ]
+		then
+			# Save policy-rc.d file
+			mv "${LIVE_CHROOT}"/usr/sbin/policy-rc.d "${LIVE_CHROOT}"/usr/sbin/policy-rc.d.orig
+		fi
+
+		# Create policy-rc.d file
+cat  > "${LIVE_CHROOT}"/usr/sbin/policy-rc.d << EOF
+#!/bin/sh
+
+echo
+echo "Warning: invoke-rc.d policy in action. Skiping daemon starting"
+
+exit 101
+EOF
+
+		chmod 0755 "${LIVE_CHROOT}"/usr/sbin/policy-rc.d
+
+		# Creating stage file
+		Create_stagefile "${LIVE_ROOT}"/.stage/chroot_sysvrc
+		;;
+
+	remove)
+		if [ -f "${LIVE_CHROOT}"/usr/sbin/policy-rc.d.orig ]
+		then
+			# Restore policy-rc.d file
+			mv "${LIVE_CHROOT}"/usr/sbin/policy-rc.d.orig "${LIVE_CHROOT}"/usr/sbin/policy-rc.d
+		else
+			# Remove policy-rc.d file
+			rm -f "${LIVE_CHROOT}"/usr/sbin/policy-rc.d
+		fi
+
+		# Removing stage file
+		rm -f "${LIVE_ROOT}"/.stage/chroot_sysvrc
+		;;
+
+	*)
+		echo "Usage: ${0} {install|remove}"
+		exit 1
+		;;
+esac

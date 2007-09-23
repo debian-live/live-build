@@ -1,0 +1,525 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+
+<html>
+
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+
+<title>The Debian GNU/Linux FAQ - Getting support for Debian GNU/Linux</title>
+
+</head>
+
+<body>
+
+<p><a name="ch-support"></a></p>
+<hr>
+
+<p>
+[ <a href="ch-customizing.en.html">previous</a> ]
+[ <a href="index.en.html#contents">Contents</a> ]
+[ <a href="ch-basic_defs.en.html">1</a> ]
+[ <a href="ch-getting.en.html">2</a> ]
+[ <a href="ch-compat.en.html">3</a> ]
+[ <a href="ch-software.en.html">4</a> ]
+[ <a href="ch-ftparchives.en.html">5</a> ]
+[ <a href="ch-pkg_basics.en.html">6</a> ]
+[ <a href="ch-pkgtools.en.html">7</a> ]
+[ <a href="ch-uptodate.en.html">8</a> ]
+[ <a href="ch-kernel.en.html">9</a> ]
+[ <a href="ch-customizing.en.html">10</a> ]
+[ 11 ]
+[ <a href="ch-contributing.en.html">12</a> ]
+[ <a href="ch-redistrib.en.html">13</a> ]
+[ <a href="ch-nexttime.en.html">14</a> ]
+[ <a href="ch-faqinfo.en.html">15</a> ]
+[ <a href="ch-contributing.en.html">next</a> ]
+</p>
+
+<hr>
+
+<h1>
+The Debian GNU/Linux FAQ
+<br>Chapter 11 - Getting support for Debian GNU/Linux
+</h1>
+
+<hr>
+
+<h2><a name="s-debiandocs"></a>11.1 What other documentation exists on and for a Debian system?</h2>
+<ul>
+<li>
+<p>
+Installation instructions for the current release: see <code><a
+href="http://www.debian.org/releases/stable/installmanual">http://www.debian.org/releases/stable/installmanual</a></code>.
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+The Debian GNU/Linux reference covers many aspects of system administration
+through shell-command examples.  Basic tutorials, tips, and other information
+are provided for many different topics ranging from system administration to
+programming.
+</p>
+
+<p>
+Get it from the <code>debian-reference</code> package, or at <code><a
+href="http://www.debian.org/doc/user-manuals#quick-reference">http://www.debian.org/doc/user-manuals#quick-reference</a></code>.
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+Policy manual documents the policy requirements for the distribution, i.e.  the
+structure and contents of the Debian archive, several design issues of the
+operating system etc.  It also includes the technical requirements that each
+package must satisfy to be included in the distribution, and documents the
+basic technical aspects of Debian binary and source packages.
+</p>
+
+<p>
+Get it from the <code>debian-policy</code> package, or at <code><a
+href="http://www.debian.org/doc/devel-manuals#policy">http://www.debian.org/doc/devel-manuals#policy</a></code>.
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+Documentation developed by the Debian Documentation Project.  It is available
+at <code><a
+href="http://www.debian.org/doc/">http://www.debian.org/doc/</a></code> and
+includes user guides, administration guides and security guides for the Debian
+GNU/Linux operating system.
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+Documentation on installed Debian packages: Most packages have files that are
+unpacked into <samp>/usr/share/doc/PACKAGE</samp>.
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+Documentation on the Linux project: The Debian package <code>doc-linux</code>
+installs all of the most recent versions of the HOWTOs and mini-HOWTOs from the
+<code><a href="http://www.tldp.org/">Linux Documentation Project</a></code>.
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+Unix-style `man' pages: Most commands have manual pages written in the style of
+the original Unix 'man' files.  They are referenced by the section of the 'man'
+directory where they reside: e.g., foo(3) refers to a manual page which resides
+in /usr/share/man/man3/, and it can be called by executing the command:
+<samp>man 3 foo</samp>, or just <samp>man foo</samp> if section 3 is the first
+one containing a page on <samp>foo</samp>.
+</p>
+
+<p>
+One can learn which directory of <samp>/usr/share/man/</samp> contains a
+certain manual page by executing <samp>man -w foo</samp>.
+</p>
+
+<p>
+New Debian users should note that the 'man' pages of many general system
+commands are not available until they install these packages:
+</p>
+<ul>
+<li>
+<p>
+<samp>man-db</samp>, which contains the <samp>man</samp> program itself, and
+other programs for manipulating the manual pages.
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+<samp>manpages</samp>, which contains the system manual pages.  (see <a
+href="ch-software.en.html#s-nonenglish">How does Debian support non-English
+languages?, Section 4.8</a>).
+</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+GNU-style `info' pages: User documentation for many commands, particularly GNU
+tools, is available not in `man' pages, but in `info' files which can be read
+by the GNU tool <samp>info</samp>, by running <samp>M-x info</samp> within GNU
+Emacs, or with some other Info page viewer.
+</p>
+
+<p>
+Its main advantage over the original `man' pages are that it is a hypertext
+system.  It does <em>not</em> require the WWW, however; <samp>info</samp> can
+be run from a plain text console.  It was designed by Richard Stallman and
+preceded the WWW.
+</p>
+</li>
+</ul>
+
+<p>
+Note that you may access a lot of documentation on your system by using a WWW
+browser, through `dwww', `dhelp' or `doccentral' commands, found in respective
+packages.
+</p>
+
+<hr>
+
+<h2><a name="s-onlineresources"></a>11.2 Are there any on-line resources for discussing Debian?</h2>
+
+<p>
+Yes.  In fact, the main method of support Debian provides to our users is by
+the way of e-mail.
+</p>
+
+<hr>
+
+<h3><a name="s11.2.1"></a>11.2.1 Mailing lists</h3>
+
+<p>
+There are a lot of <code><a
+href="http://www.debian.org/MailingLists/">Debian-related mailing
+lists</a></code>.
+</p>
+
+<p>
+On a system with the <code>doc-debian</code> package installed there is a
+complete list of mailing lists in
+<code>/usr/share/doc/debian/mailing-lists.txt</code>.
+</p>
+
+<p>
+Debian mailing lists are named following the pattern
+debian-<var>list-subject</var>.  Examples are debian-announce, debian-user,
+debian-news.  To subscribe to any list debian-<var>list-subject</var>, send
+mail to debian-<var>list-subject</var>-request@lists.debian.org with the word
+&quot;subscribe&quot; in the Subject: header.  Be sure to remember to add
+<em>-request</em> to the e-mail address when using this method to subscribe or
+unsubscribe.  Otherwise your e-mail will go to the list itself, which could be
+embarrassing or annoying, depending on your point of view.
+</p>
+
+<p>
+If you have a forms-capable World Wide Web browser, you can subscribe to
+mailing lists using the <code><a
+href="http://www.debian.org/MailingLists/subscribe">WWW form</a></code>.  You
+can also un-subscribe using a <code><a
+href="http://www.debian.org/MailingLists/unsubscribe">WWW form</a></code>.
+</p>
+
+<p>
+The list manager's e-mail address is <code><a
+href="mailto:listmaster@lists.debian.org">listmaster@lists.debian.org</a></code>,
+in case you have any trouble.
+</p>
+
+<p>
+The mailing lists are public forums.  All e-mails sent to the lists are also
+copied to the public archive, for anybody (even non-subscribers) to browse or
+search.  Please make sure you never send any confidential or unlicensed
+material to the lists.  This includes things like e-mail addresses.  Of
+particular note is the fact that spammers have been known to abuse e-mail
+addresses posted to our mailing lists.  See the <code><a
+href="http://www.debian.org/MailingLists/index.en.html#disclaimer">Mailing
+Lists Privacy policy</a></code> for more information.
+</p>
+
+<p>
+Archives of the Debian mailing lists are available via WWW at <code><a
+href="http://lists.debian.org/">http://lists.debian.org/</a></code>.
+</p>
+
+<hr>
+
+<h4><a name="s-mailinglistconduct"></a>11.2.1.1 What is the code of conduct for the mailing lists?</h4>
+
+<p>
+When using the Debian mailing lists, please follow these rules:
+</p>
+<ul>
+<li>
+<p>
+Do not send spam.  See the <code><a
+href="http://www.debian.org/MailingLists/#ads">Debian mailing list advertising
+policy</a></code>.
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+Do not flame; it is not polite.  The people developing Debian are all
+volunteers, donating their time, energy and money in an attempt to bring the
+Debian project together.
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+Do not use foul language; besides, some people receive the lists via packet
+radio, where swearing is illegal.
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+Make sure that you are using the proper list.  <em>Never</em> post your
+(un)subscription requests to the mailing list itself[<a
+href="footnotes.en.html#f6" name="fr6">6</a>]
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+See section <a href="#s-bugreport">How do I report a bug in Debian?, Section
+11.5</a> for notes on reporting bugs.
+</p>
+</li>
+</ul>
+
+<hr>
+
+<h3><a name="s11.2.2"></a>11.2.2 Maintainers</h3>
+
+<p>
+Users can address questions to individual package maintainers using e-mail.  To
+reach a maintainer of a package called xyz, send e-mail to
+<em>xyz@packages.debian.org</em>.
+</p>
+
+<hr>
+
+<h3><a name="s11.2.3"></a>11.2.3 Usenet newsgroups</h3>
+
+<p>
+Users should post non-Debian-specific questions to one of the Linux USENET
+groups, which are named comp.os.linux.* or linux.*.  There are several lists of
+Linux Usenet newsgroups and other related resources on the WWW, e.g.  on the
+<code><a href="http://www.linux.org/docs/usenet.html">Linux Online</a></code>
+and <code><a
+href="http://www.linuxjournal.com/helpdesk.php">LinuxJournal</a></code> sites.
+</p>
+
+<hr>
+
+<h2><a name="s-searchtools"></a>11.3 Is there a quick way to search for information on Debian GNU/Linux?</h2>
+
+<p>
+There is a variety of search engines that serve documentation related to
+Debian:
+</p>
+<ul>
+<li>
+<p>
+<code><a href="http://search.debian.org/">Debian WWW search site</a></code>.
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+<code><a href="http://groups.google.com/">Google Groups</a></code>: a search
+engine for newsgroups.
+</p>
+
+<p>
+For example, to find out what experiences people have had with finding drivers
+for Promise controllers under Debian, try searching on the phrase <samp>Promise
+Linux driver</samp>.  This will show you all the postings that contain these
+strings, i.e.  those where people discussed these topics.  If you add
+<samp>Debian</samp> to those search strings, you'll also get the postings
+specifically related to Debian.
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+Any of the common web spidering engines, such as <code><a
+href="http://www.altavista.com/">AltaVista</a></code> or <code><a
+href="http://www.google.com/">Google</a></code>, as long as you use the right
+search terms.
+</p>
+
+<p>
+For example, searching on the string &quot;cgi-perl&quot; gives a more detailed
+explanation of this package than the brief description field in its control
+file.
+</p>
+</li>
+</ul>
+
+<hr>
+
+<h2><a name="s-buglogs"></a>11.4 Are there logs of known bugs?</h2>
+
+<p>
+Reports on unsolved (and closed) issues are publicly available: Debian
+promissed to do so by stating &quot;We will not hide problems&quot; in the
+<code><a href="http://www.debian.org/social_contract">Debian Social
+Contract</a></code>.
+</p>
+
+<p>
+The Debian GNU/Linux distribution has a bug tracking system (BTS) which files
+details of bugs reported by users and developers.  Each bug is given a number,
+and is kept on file until it is marked as having been dealt with.
+</p>
+
+<p>
+Copies of this information are available at <code><a
+href="http://www.debian.org/Bugs/">http://www.debian.org/Bugs/</a></code>.
+</p>
+
+<p>
+A mail server provides access to the bug tracking system database via e-mail.
+In order to get the instructions, send an e-mail to request@bugs.debian.org
+with &quot;help&quot; in the body.
+</p>
+
+<hr>
+
+<h2><a name="s-bugreport"></a>11.5 How do I report a bug in Debian?</h2>
+
+<p>
+If you have found a bug in Debian, please read the instructions for reporting a
+bug in Debian.  These instructions can be obtained in one of several ways:
+</p>
+<ul>
+<li>
+<p>
+By anonymous FTP.  Debian mirror sites contain the instructions in the file
+<samp>doc/bug-reporting.txt</samp>.
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+From the WWW.  A copy of the instructions is shown at <code><a
+href="http://www.debian.org/Bugs/Reporting">http://www.debian.org/Bugs/Reporting</a></code>.
+</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>
+On any Debian system with the <code>doc-debian</code> package installed.  The
+instructions are in the file
+<code>/usr/share/doc/debian/bug-reporting.txt</code>.
+</p>
+</li>
+</ul>
+
+<p>
+You can use the package <code>reportbug</code> that will guide you through the
+reporting process and mail the message to the proper address, with some extra
+details about your system added automatically.  It will also show you a list of
+bugs already reported to the package you are reporting against in case your bug
+has been reported previously, so that you can additional information to the
+existing bug report.
+</p>
+
+<p>
+If you want to mail the report with an e-mail program, send a message to
+<code><a
+href="mailto:submit@bugs.debian.org">submit@bugs.debian.org</a></code>.  The
+message's first line must be similar to
+</p>
+
+<pre>
+     Package: package-name
+</pre>
+
+<p>
+(replace <var>package-name</var> with the name of the package).  The next line
+should relate the package version number in a similar way:
+</p>
+
+<pre>
+     Version: version-number
+</pre>
+
+<p>
+The version number for any package installed on your system can be obtained
+using the command line
+</p>
+
+<pre>
+     dpkg -s <var>package-name</var>
+</pre>
+
+<p>
+This section is referred to as the pseudo-header.  The rest of the message
+should contain the description of the bug (please make it moderately detailed),
+the Debian release you are using, and versions of other relevant packages.  The
+Debian release number will be displayed by the command
+</p>
+
+<pre>
+     cat /etc/debian_version
+</pre>
+
+<p>
+Expect to get an automatic acknowledgement of your bug report.  It will also be
+automatically given a bug tracking number, entered into the bug log and
+forwarded to the debian-bugs-dist mailing list.
+</p>
+
+<hr>
+
+<p>
+[ <a href="ch-customizing.en.html">previous</a> ]
+[ <a href="index.en.html#contents">Contents</a> ]
+[ <a href="ch-basic_defs.en.html">1</a> ]
+[ <a href="ch-getting.en.html">2</a> ]
+[ <a href="ch-compat.en.html">3</a> ]
+[ <a href="ch-software.en.html">4</a> ]
+[ <a href="ch-ftparchives.en.html">5</a> ]
+[ <a href="ch-pkg_basics.en.html">6</a> ]
+[ <a href="ch-pkgtools.en.html">7</a> ]
+[ <a href="ch-uptodate.en.html">8</a> ]
+[ <a href="ch-kernel.en.html">9</a> ]
+[ <a href="ch-customizing.en.html">10</a> ]
+[ 11 ]
+[ <a href="ch-contributing.en.html">12</a> ]
+[ <a href="ch-redistrib.en.html">13</a> ]
+[ <a href="ch-nexttime.en.html">14</a> ]
+[ <a href="ch-faqinfo.en.html">15</a> ]
+[ <a href="ch-contributing.en.html">next</a> ]
+</p>
+
+<hr>
+
+<p>
+The Debian GNU/Linux FAQ
+</p>
+
+<address>
+version 3.1.3, 25 April 2006<br>
+<br>
+Authors are listed at <a href="ch-faqinfo.en.html#s-authors">Debian FAQ Authors</a><br>
+<br>
+</address>
+<hr>
+
+</body>
+
+</html>
+

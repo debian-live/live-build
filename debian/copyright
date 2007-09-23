@@ -1,9 +1,9 @@
 This package was debianized by Daniel Baumann <daniel@debian.org> on
-Mon, 17 Jul 2006 00:00:00 +0200.
+Mon, 12 Mar 2007 00:00:00 +0100.
 
 It was downloaded from <http://debian-live.alioth.debian.org/>.
 
-Upstream: Debian Live Project <debian-live-devel@lists.alioth.debian.org>
+Upstream Author: Debian Live <debian-live-devel@lists.alioth.debian.org>
 
 License:
 
@@ -27,7 +27,7 @@ License:
 On Debian systems, the complete text of the GNU General Public License
 can be found in /usr/share/common-licenses/GPL file.
 
-License (contrib/syslinux-splash/*, templates/isolinux/splash.rle):
+License (contrib/syslinux-splash/*, templates/syslinux/splash.rle):
 
 	The derivated splash for Debian Live was done by Daniel Baumann
 	<daniel@debian.org> from the original of Mark Riedesel. Daniels own

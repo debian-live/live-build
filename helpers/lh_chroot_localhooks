@@ -1,0 +1,53 @@
+#!/bin/sh
+
+# lh_chroot_localhooks(1) - execute hooks in chroot
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/chroot
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking stage file
+Check_stagefile "${LIVE_ROOT}"/.stage/chroot_localhooks
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+# Processing localhooks
+if ls "${LIVE_ROOT}"/config/chroot_localhooks/* &> /dev/null
+then
+	for HOOK in "${LIVE_ROOT}"/config/chroot_localhooks/*
+	do
+		# Copying hook
+		cp "${HOOK}" "${LIVE_CHROOT}"/root
+
+		# Making hook executable
+		if [ -x "${LIVE_CHROOT}"/root/"${HOOK}" ]
+		then
+			chmod +x "${LIVE_CHROOT}"/root/${HOOK}
+		fi
+
+		# Executing hook
+		Chroot "/root/`basename ${HOOK}`"
+
+		# Removing hook
+		rm -f "${LIVE_CHROOT}"/"`basename ${HOOK}`"
+	done
+
+	# Creating stage file
+	Create_stagefile "${LIVE_ROOT}"/.stage/chroot_localhooks
+fi
