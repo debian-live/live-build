@@ -35,7 +35,14 @@ Set_defaults
 
 rm -f .lock
 
-for ARGUMENT in ${@}
+if [ -z "${@}" ]
+then
+	ARGUMENTS="all"
+else
+	ARGUMENTS="${@}"
+fi
+
+for ARGUMENT in ${ARGUMENTS}
 do
 	case "${ARGUMENT}" in
 		all)
@@ -99,7 +106,7 @@ do
 			;;
 
 		*)
-			"${0}" all
+			"${0}" --usage
 			;;
 	esac
 done
