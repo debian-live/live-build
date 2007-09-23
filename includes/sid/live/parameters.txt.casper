@@ -1,0 +1,29 @@
+Boot Parameters for Debian Live
+-------------------------------
+
+Updated for casper 1.77+debian-7 on 2007-02-08.
+
+These options (can be combined) work from the syslinux bootprompt:
+
+casper casper-getty
+casper xdebconf
+casper hostname=HOSTNAME
+casper userfullname=USERFULLNAME
+casper username=USERNAME
+casper {keyb|kbd-chooser/method}=KEYBOARD
+casper {klayout|console-setup/layoutcode}=LAYOUT
+casper {kvariant|console-setup/variantcode}=VARIANT     ,
+casper {kmodel|console-setup/modelcode}=CODE ,  koptions=OPTIONS
+casper ip=IFACE,ADDRESS,NETMASK,GATEWAY[:IFACE,ADDRESS,NETMASK,GATEWAY]*
+casper ip[=frommedia]
+casper {live-media|bootfrom}=DEVICE
+casper live-media-offset=BYTES
+casper locale=LOCALE | debian-installer/locale=LOCALE
+casper netboot[=nfs|cifs]
+casper persistent
+casper nopersistent
+casper showmounts
+casper todisk=DEVICE
+casper toram
+casper {preseed/file|file}=FILE
+casper package/question=VALUE

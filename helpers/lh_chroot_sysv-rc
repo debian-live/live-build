@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_chroot_sysvrc(1) - manage /usr/sbin/policy-rc.d
+# lh_chroot_sysv-rc(1) - manage /usr/sbin/policy-rc.d
 # Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -40,7 +40,7 @@ case "${1}" in
 		Echo_message "Configuring file /usr/sbin/policy-rc.d"
 
 		# Checking stage file
-		Check_stagefile .stage/chroot_sysvrc
+		Check_stagefile .stage/chroot_sysv-rc
 
 		# Checking lock file
 		Check_lockfile .lock
@@ -67,7 +67,7 @@ EOF
 		chmod 0755 chroot/usr/sbin/policy-rc.d
 
 		# Creating stage file
-		Create_stagefile .stage/chroot_sysvrc
+		Create_stagefile .stage/chroot_sysv-rc
 		;;
 
 	remove)
@@ -89,7 +89,7 @@ EOF
 		fi
 
 		# Removing stage file
-		rm -f .stage/chroot_sysvrc
+		rm -f .stage/chroot_sysv-rc
 		;;
 
 	*)

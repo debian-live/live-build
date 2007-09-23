@@ -295,12 +295,6 @@ case "${1}" in
 		rm -rf chroot/var/cache/apt
 		mkdir -p chroot/var/cache/apt/archives/partial
 
-		# Removing old files
-		rm -f chroot/var/lib/dpkg/available-old
-		rm -f chroot/var/lib/dpkg/diversions-old
-		rm -f chroot/var/lib/dpkg/statoverride-old
-		rm -f chroot/var/lib/dpkg/status-old
-
 		# Removing stage file
 		rm -f .stage/chroot_sources
 		;;

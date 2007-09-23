@@ -7,7 +7,7 @@ BUILD="etch"
 # Begin custom defaults
 AUTOBUILD="enabled"
 
-DATE="r0_1.0~a17-1"
+DATE="r0_1.0~a18-1"
 DESTDIR="/srv/debian-unofficial/ftp/debian-live/cdimage"
 TEMPDIR="/srv/tmp/live-helper"
 

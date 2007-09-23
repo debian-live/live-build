@@ -37,7 +37,7 @@ lh_chroot_cache restore ${*}
 lh_chroot_proc install ${*}
 lh_chroot_sysfs install ${*}
 lh_chroot_debianchroot install ${*}
-lh_chroot_sysvrc install ${*}
+lh_chroot_sysv-rc install ${*}
 lh_chroot_hosts install ${*}
 lh_chroot_resolv install ${*}
 lh_chroot_hostname install ${*}
@@ -68,7 +68,7 @@ lh_chroot_apt remove ${*}
 lh_chroot_hostname remove ${*}
 lh_chroot_resolv remove ${*}
 lh_chroot_hosts remove ${*}
-lh_chroot_sysvrc remove ${*}
+lh_chroot_sysv-rc remove ${*}
 lh_chroot_debianchroot remove ${*}
 lh_chroot_sysfs remove ${*}
 lh_chroot_proc remove ${*}

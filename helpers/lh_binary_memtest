@@ -108,23 +108,7 @@ case "${LIVE_BINARY_IMAGES}" in
 		;;
 esac
 
-# Temporary check for broken syslinux
-if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
-then
-	# Assemble multi-arch
-	if [ -n "${MULTIARCH}" ]
-	then
-		case "${LIVE_ARCHITECTURE}" in
-			amd64)
-				DESTDIR="${DESTDIR}.amd"
-				;;
-
-			i386)
-				DESTDIR="${DESTDIR}.386"
-				;;
-		esac
-	fi
-fi
+Check_multiarchitecture
 
 # Creating directory
 mkdir -p "${DESTDIR}"

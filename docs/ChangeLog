@@ -1,3 +1,99 @@
+2007-07-12  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_grub, lh_binary_syslinux:
+	  - Also respect local menu.lst and syslinux.cfg.
+	* helpers/lh_binary_syslinux:
+	  - Cleaned up netboot specific parts as suggested by
+	    Vladimir Stavrinov <vs@inist.ru>.
+	* helpers/lh_binary_linux-image:
+	  - Skip vmlinuz/initrd symlinks.
+	* helpers/lh_chroot_hacks:
+	  - Setting correct permissions user home directory in case of includes.
+	* helpers/make-live:
+	  - Fixed typo in variable name.
+	* lists/rescue:
+	  - Added aide and tripwire.
+
+2007-07-09  Chris Lamb  <chris@chris-lamb.co.uk>
+
+	* functions/chroot.sh, functions/defaults.sh:
+	  - Altered LH_DEBCONF_NOWARNINGS so that it accepts "enabled/disabled"
+	  as well as "yes/no" for consistency.
+
+2007-07-09  Daniel Baumann  <daniel@debian.org>
+
+	* functions/architecture.sh, helpers/lh_binary_debian-installer,
+	  lh_binary_grub, lh_binary_linux-image, lh_binary_memtest,
+	  lh_binary_syslinux, lh_binary_yaboot:
+	  - Simplified multi-arch checks/overrides.
+	* helpers/lh_binary_grub, lh_binary_syslinux, lh_binary_yaboot:
+	  - Added priority=critical for auto/autogui boot labels.
+
+2007-07-07  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_chroot:
+	  - Going back to full copy instead of hardlinks.
+	* helpers/lh_binary_debian-installer:
+	  - Added architectures for daily images.
+	* helpers/lh_binary_grub:
+	  - Refactored.
+	* helpers/lh_binary_grub, lh_binary_syslinux, lh_binary_yaboot:
+	  - Added 'quiet' for everything newer than etch.
+	* helpers/lh_binary_hacks:
+	  - Merged into lh_binary_includes.
+	* helpers/lh_chroot_hacks:
+	  - Added removal of some build-system influenced files.
+	  - Cleaned up a bit.
+	* helpers/lh_chroot_localization:
+	  - Fixed typo.
+	  - Added k3b and gwenview.
+	* helpers/lh_chroot_sysvrc:
+	  - Renamed to lh_chroot_sysv-rc.
+	* hooks/mini, minimal:
+	  - Using apt-get autoremove.
+	* lists/devel-live:
+	  - Added.
+
+2007-07-06  Otavio Salvador  <otavio@debian.org>
+
+	* helpers/lh_binary_rootfs:
+	  - Fix parameters to allow the removal of kernels inside of
+	    squashfs.
+
+2007-07-05  Otavio Salvador  <otavio@debian.org>
+
+	* helpers/lh_binary_rootfs:
+	  - Fix inverted logic error to detect when exclude the kernel
+	    from the squashfs image.
+
+2007-07-04  Otavio Salvador  <otavio@debian.org>
+
+	* helpers/lh_binary_hacks:
+	  - Do not fail if binary/parameters.txt.${LH_INITRAMFS} doesn't
+	  exists.
+	* hooks/mini, hooks/minimal:
+	  - Do not fail if the package isn't installed.
+
+2007-07-04  Daniel Baumann  <daniel@debian.org>
+
+	* functions/defaults.sh:
+	  - Added architecture handling to mirror defaults.
+	* helpers/lh_binary_hacks,
+	  includes/includes/sid/live/parameters.txt.casper,
+	  parameters.txt.live-initramfs:
+	  - Added.
+
+2007-07-02  Otavio Salvador  <otavio@debian.org>
+
+	* helpers/lh_binary_syslinux:
+	  - Fix paths for kernel and initrd image loading.
+
+2007-07-02  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_grub:
+	  - Also respect splash.xpm and not just splash.xpm.gz as local grub
+	    splash images.
+
 2007-07-01  Daniel Baumann  <daniel@debian.org>
 
 	* helpers/lh_binary_debian-installer:

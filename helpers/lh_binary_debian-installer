@@ -34,7 +34,7 @@ Set_defaults
 
 # Setting remote d-i directories
 case "${LIVE_DEBIAN_INSTALLER}" in
-	netinst)
+	netboot)
 		DI="netboot/debian-installer/i386"
  		DI_GTK="netboot/gtk/debian-installer/i386"
 		DI_KERNEL="linux"
@@ -95,27 +95,7 @@ case "${LIVE_BINARY_IMAGES}" in
 		;;
 esac
 
-# Temporary check for broken syslinux
-if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
-then
-	# Assemble multi-arch
-	if [ -n "${MULTIARCH}" ]
-	then
-		case "${LIVE_ARCHITECTURE}" in
-			amd64)
-				DESTDIR="${DESTDIR}.amd"
-				;;
-
-			i386)
-				DESTDIR="${DESTDIR}.386"
-				;;
-
-			powerpc)
-				DESTDIR="${DESTDIR}.ppc"
-				;;
-		esac
-	fi
-fi
+Check_multiarchitecture
 
 VMLINUZ_DI="vmlinuz"
 INITRD_DI="initrd.gz"
@@ -140,22 +120,69 @@ then
 	fi
 fi
 
+# Debian Installer daily builds
+case "${LIVE_ARCHITECTURE}" in
+	alpha)
+		URL="http://people.debian.org/~vorlon/d-i/alpha/daily/"
+		;;
+
+	amd64)
+		URL="http://people.debian.org/~aba/d-i/images/daily/"
+		;;
+
+	arm)
+		URL="http://people.debian.org/~kmuto/d-i/images/daily/"
+		;;
+
+	hppa)
+		URL="http://people.debian.org/~kyle/d-i/hppa/daily/"
+		;;
+
+	i386)
+		URL="http://people.debian.org/~joeyh/d-i/images/daily/"
+		;;
+
+	ia64)
+		URL="http://people.debian.org/~dannf/d-i/images/daily/"
+		;;
+
+	m68k)
+		URL="http://people.debian.org/~smarenka/d-i/images-m68k/daily/"
+		;;
+
+	mips)
+		URL="http://people.debian.org/~ths/d-i/mips/images/daily/"
+		;;
+
+	mipsel)
+		URL="http://people.debian.org/~ths/d-i/mipsel/images/daily/"
+		;;
+
+	powerpc)
+		URL="http://people.debian.org/~wouter/d-i/powerpc/daily/"
+		;;
+
+	s390)
+		URL="http://lophos.multibuild.org/d-i/images/daily/"
+		;;
+
+	sparc)
+		URL="http://people.debian.org/~stappers/d-i/images/daily/"
+		;;
+
+	*)
+		Echo_error "No daily-builds found for your architecture."
+		exit 1
+		;;
+esac
+
 # Downloading debian-installer
 mkdir -p "${DESTDIR_DI}"
 
-if [ "${LIVE_DISTRIBUTION}" = "sid" ] # FIXME arch
+if [ "${LIVE_DISTRIBUTION}" = "sid" ]
 then
-	case "${LIVE_ARCHITECTURE}" in
-		amd64)
-			wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" http://people.debian.org/~aba/d-i/images/daily/${DI}/${DI_KERNEL}
-			wget --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" http://people.debian.org/~aba/d-i/images/daily/${DI}/initrd.gz
-			;;
-
-		i386)
-		 	wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" http://people.debian.org/~joeyh/d-i/images/daily/${DI}/${DI_KERNEL}
-			wget --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" http://people.debian.org/~joeyh/d-i/images/daily/${DI}/initrd.gz
-			;;
-	esac
+	wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI}/${DI_KERNEL}
+	wget --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI}/initrd.gz
 else
 	wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DI}"/"${DI_KERNEL}"
 	wget --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DI}"/initrd.gz
@@ -166,26 +193,17 @@ if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ] |
 then
 	mkdir -p "${DESTDIR_GI}"
 
-	if [ "${LIVE_DISTRIBUTION}" = "sid" ] # FIXME arch
+	if [ "${LIVE_DISTRIBUTION}" = "sid" ]
 	then
-		case "${LIVE_ARCHITECTURE}" in
-			amd64)
-				wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" http://people.debian.org/~aba/d-i/images/daily/${DI_GTK}/${DI_KERNEL}
-				wget --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" http://people.debian.org/~aba/d-i/images/daily/${DI_GTK}/initrd.gz
-				;;
-
-			i386)
-				wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" http://people.debian.org/~joeyh/d-i/images/daily/${DI_GTK}/${DI_KERNEL}
-				wget --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" http://people.debian.org/~joeyh/d-i/images/daily/${DI_GTK}/initrd.gz
-				;;
-		esac
+		wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_GTK}/${DI_KERNEL}
+		wget --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_GTK}/initrd.gz
 	else
 		wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DI_GTK}"/"${DI_KERNEL}"
 		wget --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DI_GTK}"/initrd.gz
 	fi
 fi
 
-if [ "${LIVE_DEBIAN_INSTALLER}" != "netinst" ]; then
+if [ "${LIVE_DEBIAN_INSTALLER}" != "netboot" ]; then
 	# Downloading additional packages
 	mkdir -p chroot/binary.deb/archives/partial
 	mv chroot/var/lib/dpkg/status chroot/var/lib/dpkg/status.tmp

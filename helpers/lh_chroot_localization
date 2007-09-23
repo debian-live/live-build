@@ -611,7 +611,7 @@ then
 	# Setting packages
 	for LOCALIZATION in ${LOCALIZATIONS}
 	do
-		case "${LOCALZATION}" in
+		case "${LOCALIZATION}" in
 			iceape)
 				Check_package chroot/usr/bin/iceape iceweasel-l10n-"${ICEAPE}"
 				;;
@@ -637,6 +637,9 @@ then
 				;;
 		esac
 	done
+
+	Check_package chroot/usr/bin/gwenview gwenview-i18n
+	Check_package chroot/usr/bin/k3b k3b-i18n
 
 	# Restoring cache
 	Restore_cache cache/packages_localization

@@ -51,7 +51,6 @@ lh_binary_disk ${*}
 lh_binary_includes ${*}
 lh_binary_local-includes ${*}
 lh_binary_local-hooks ${*}
-lh_binary_hacks ${*}
 lh_binary_md5sum ${*}
 
 # Building images

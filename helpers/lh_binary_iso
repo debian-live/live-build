@@ -114,7 +114,7 @@ case "${LIVE_BOOTLOADER}" in
 		;;
 
 	yaboot)
-		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} --iso-level 2 --netatalk -hfs -probe -map yaboot/hfs.map --chrp-boot -part -no-desktop -hfs-bless binary/yaboot -hfs-volid Debian/Live_powerpc"
+		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -r --iso-level 2 --netatalk -hfs -probe -map binary/yaboot/hfs.map --chrp-boot -part -no-desktop -hfs-bless binary/yaboot -hfs-volid Debian/Live_powerpc"
 
 		if [ "${LIVE_PACKAGES_LISTS}" = "mini" ] || [ "${LIVE_PACKAGES_LISTS}" = "minimal" ]
 		then
