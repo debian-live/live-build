@@ -31,7 +31,7 @@ Version ()
 	echo "Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA"
 	echo
 	echo "On Debian systems, the complete text of the GNU General Public License"
-	echo "can be found in /usr/share/common-licenses/GPL file."
+	echo "can be found in /usr/share/common-licenses/GPL-2 file."
 	echo
 	echo "Homepage: <http://debian-live.alioth.debian.org/>"
 

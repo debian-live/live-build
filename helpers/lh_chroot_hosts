@@ -51,13 +51,21 @@ case "${1}" in
 		if [ -f chroot/etc/hosts ]
 		then
 			# Save hosts file
-			cp chroot/etc/hosts chroot/etc/hosts.orig
+			mv chroot/etc/hosts chroot/etc/hosts.orig
 		fi
+
+		# Creating hosts file
+
+cat > chroot/etc/hosts << EOF
+127.0.0.1	localhost localhost.localdomain
+127.0.1.1	debian
+EOF
 
 		if [ -f /etc/hosts ]
 		then
-			# Copy hosts file
-			cp /etc/hosts chroot/etc/hosts
+			# Append hosts file
+			#grep -e "127.0.0.1" -e "127.0.1.1" /etc/hosts >> chroot/etc/hosts
+			cat /etc/hosts >> chroot/etc/hosts
 		fi
 
 		# Creating stage file

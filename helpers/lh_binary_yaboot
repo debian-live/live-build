@@ -45,35 +45,17 @@ Require_stagefile .stage/bootstrap
 # Checking stage file
 Check_stagefile .stage/binary_yaboot
 
+# Checking yaboot templates
+Check_templates yaboot
+
 # Checking lock file
 Check_lockfile .lock
 
 # Creating lock file
 Create_lockfile .lock
 
-if [ "${LIVE_ARCHITECTURE}" != "powerpc" ] && [ "${LIVE_ARCHITECTURE}" != "ppc64" ]
-then
-	Echo_warning "skipping binary_yaboot, foreign architecture."
-	#exit 0 # REMOVE_ME
-fi
-
-# Check user templates
-if [ ! -d "${LIVE_TEMPLATES}" ]
-then
-	if [ -d ../"${LIVE_TEMPLATES}" ]
-	then
-		LIVE_TEMPLATES="../${LIVE_TEMPLATES}"
-	else
-		Echo_error "user specified templates not accessible in ${LIVE_TEMPLATES}"
-		exit 1
-	fi
-fi
-
-# Checking local templates
-if [ -d config/templates/yaboot ]
-then
-	LIVE_TEMPLATES="config/templates"
-fi
+# Check architecture
+Check_architecture powerpc ppc64
 
 # Checking depends
 Check_package chroot/usr/lib/yaboot/yaboot yaboot
@@ -159,6 +141,11 @@ then
 	esac
 fi
 
+if [ "${LIVE_UNION_FILESYSTEM}" != "unionfs" ]
+then
+	LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} union=${LIVE_UNION_FILESYSTEM}"
+fi
+
 LIVE_BOOTAPPEND="`echo ${LIVE_BOOTAPPEND} | sed -e 's/  //'`"
 
 # Parameters are listed at: linux/Documentation/kernel-parameters.txt
@@ -202,7 +189,7 @@ fi
 LINUX="`echo ${LINUX} | sed -e 's#//#/#g'`"
 
 # Assembling debian-installer configuration
-if [ "${LIVE_DEBIAN_INSTALLER}" = "enabled" ]
+if [ "${LIVE_DEBIAN_INSTALLER}" != "disabled" ]
 then
 	VMLINUZ_DI="vmlinuz"
 	INITRD_DI="initrd.gz"

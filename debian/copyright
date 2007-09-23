@@ -28,7 +28,7 @@ License:
 	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 On Debian systems, the complete text of the GNU General Public License
-can be found in /usr/share/common-licenses/GPL file.
+can be found in /usr/share/common-licenses/GPL-2 file.
 
 License (contrib/grub-splash/*, contrib/syslinux-splash/*,
 templates/syslinux/splash.rle, templates/grub/splash.xpm.gz):
@@ -61,4 +61,4 @@ templates/syslinux/splash.rle, templates/grub/splash.xpm.gz):
 	http://www.debian.org/ if you use it on a web page.
 
 The Debian packaging is (C) 2006-2007, Daniel Baumann <daniel@debian.org> and
-is licensed under the GPL, see `/usr/share/common-licenses/GPL'.
+is licensed under the GPL, see `/usr/share/common-licenses/GPL-2'.

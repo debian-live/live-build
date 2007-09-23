@@ -8,7 +8,6 @@ ALPHA series:
 
 FIXME
   * xfce flavours seem to be damaged again
-  * multi-kernel syslinux breakage
   * yaboot (powerpc) boot support
   * grub (i386/amd64) boot support on usb* binary images
   * grub (i386/amd64) boot support on net binary images

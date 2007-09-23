@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_chroot_resolv(1) - manage /etc/resolv.conf
+# lh_chroot_hostname(1) - manage /etc/hostname
 # Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="manage /etc/resolv.conf"
+DESCRIPTION="manage /etc/hostname"
 HELP=""
 USAGE="${PROGRAM} {install|remove} [--force]"
 
@@ -37,10 +37,10 @@ Require_stagefile .stage/bootstrap
 
 case "${1}" in
 	install)
-		Echo_message "Configuring file /etc/resolv.conf"
+		Echo_message "Configuring file /etc/hostname"
 
 		# Checking stage file
-		Check_stagefile .stage/chroot_resolv
+		Check_stagefile .stage/chroot_hostname
 
 		# Checking lock file
 		Check_lockfile .lock
@@ -48,24 +48,24 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ -f chroot/etc/resolv.conf ]
+		if [ -f chroot/etc/hostname ]
 		then
-			# Save resolv file
-			mv chroot/etc/resolv.conf chroot/etc/resolv.conf.orig
+			# Save hostname file
+			mv chroot/etc/hostname chroot/etc/hostname.orig
 		fi
 
-		if [ -f /etc/resolv.conf ]
-		then
-			# Copy resolv file
-			cp /etc/resolv.conf chroot/etc/resolv.conf
-		fi
+		# Create hostname file
+		echo "localhost.localdomain" > chroot/etc/hostname
+
+		# Set hostname
+		Chroot "hostname -F /etc/hostname"
 
 		# Creating stage file
-		Create_stagefile .stage/chroot_resolv
+		Create_stagefile .stage/chroot_hostname
 		;;
 
 	remove)
-		Echo_message "Deconfiguring file /etc/resolv.conf"
+		Echo_message "Deconfiguring file /etc/hostname"
 
 		# Checking lock file
 		Check_lockfile .lock
@@ -73,17 +73,23 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ -f chroot/etc/resolv.conf.orig ]
+		if [ -f chroot/etc/hostname.orig ]
 		then
-			# Restore resolv file
-			mv chroot/etc/resolv.conf.orig chroot/etc/resolv.conf
+			# Restore hostname file
+			mv chroot/etc/hostname.orig chroot/etc/hostname
 		else
-			# Remove resolv file
-			rm -f chroot/etc/resolv.conf
+			# Remove hostname file
+			rm -f chroot/etc/hostname
+		fi
+
+		# Set hostname (somehow this seems to be really needed :/)
+		if [ -f /etc/hostname ]
+		then
+			hostname -F /etc/hostname
 		fi
 
 		# Removing stage file
-		rm -f .stage/chroot_resolv
+		rm -f .stage/chroot_hostname
 		;;
 
 	*)
