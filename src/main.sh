@@ -30,9 +30,9 @@ CONFIG="/etc/make-live.conf"
 PROGRAM="`basename ${0}`"
 VERSION="0.99.14"
 
-CODENAME_OLDSTABLE="woody"
-CODENAME_STABLE="sarge"
-CODENAME_TESTING="etch"
+CODENAME_OLDSTABLE="sarge"
+CODENAME_STABLE="etch"
+CODENAME_TESTING="lenny"
 CODENAME_UNSTABLE="sid"
 
 # Source sub scripts

@@ -156,9 +156,6 @@ Chroot ()
 			Chroot_exec "${LIVE_HOOK}"
 		fi
 
-		# Temporary hacks for broken packages
-		Hack_xorg
-
 		# Add filesystem.manifest
 		Chroot_exec "dpkg-query -W \*" | awk '$2 ~ /./ {print $1 " " $2 }' > "${LIVE_ROOT}"/filesystem.manifest
 

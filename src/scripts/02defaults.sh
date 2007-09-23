@@ -86,13 +86,7 @@ Defaults ()
 				;;
 
 			amd64)
-				if [ "${LIVE_DISTRIBUTION}" = "unstable" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_UNSTABLE}" ] || \
-				   [ "${LIVE_DISTRIBUTION}" = "testing" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_TESTING}" ]
-				then
-					LIVE_KERNEL="amd64"
-				else
-					LIVE_KERNEL="amd64-generic"
-				fi
+				LIVE_KERNEL="amd64"
 				;;
 
 			arm)
@@ -105,8 +99,7 @@ Defaults ()
 				;;
 
 			i386)
-				if [ "${LIVE_DISTRIBUTION}" = "oldstable" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_OLDSTABLE}" ] || \
-				   [ "${LIVE_DISTRIBUTION}" = "stable" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_STABLE}" ]
+				if [ "${LIVE_DISTRIBUTION}" = "oldstable" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_OLDSTABLE}" ]
 				then
 					LIVE_KERNEL="386"
 				else
