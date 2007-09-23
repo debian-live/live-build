@@ -1,0 +1,63 @@
+#!/bin/sh
+
+# lh_chroot_debianchroot(1) - manage /etc/debian_chroot
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/chroot
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+case "${1}" in
+	install)
+		# Checking stage file
+		Check_stagefile "${LIVE_ROOT}"/.stage/chroot_debianchroot
+
+		if [ -f "${LIVE_CHROOT}"/etc/debian_chroot ]
+		then
+			# Save chroot file
+			mv "${LIVE_CHROOT}"/etc/debian_chroot "${LIVE_CHROOT}"/etc/debian_chroot.orig
+		fi
+
+		# Create chroot file
+		echo "live" > "${LIVE_CHROOT}"/etc/debian_chroot
+
+		# Creating stage file
+		Create_stagefile "${LIVE_ROOT}"/.stage/chroot_debianchroot
+		;;
+
+	remove)
+		if [ -f "${LIVE_CHROOT}"/etc/debian_chroot.orig ]
+		then
+			# Restore chroot file
+			mv "${LIVE_CHROOT}"/etc/debian_chroot.orig "${LIVE_CHROOT}"/etc/debian_chroot
+		else
+			# Remove chroot file
+			rm -f "${LIVE_CHROOT}"/etc/debian_chroot
+		fi
+
+		# Removing stage file
+		rm -f "${LIVE_ROOT}"/.stage/chroot_debianchroot
+		;;
+
+	*)
+		echo "Usage: ${0} {install|remove}"
+		exit 1
+		;;
+esac

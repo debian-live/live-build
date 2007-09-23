@@ -1,0 +1,93 @@
+#!/bin/sh
+
+# lh_bootstrap_debootstrap(1) - bootstrap a Debian system with debootstrap(8)
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Ensure that a system is built as root
+lh_testroot
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/bootstrap
+Set_defaults
+
+# Checking stage file
+Check_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating root directory
+if [ ! -d "${LIVE_ROOT}" ]
+then
+	mkdir -p "${LIVE_ROOT}"
+fi
+
+# Creating chroot directory
+if [ ! -d "${LIVE_CHROOT}" ]
+then
+	mkdir -p "${LIVE_CHROOT}"
+fi
+
+# Setting debootstrap options
+if [ -n "${LIVE_ARCHITECTURE}" ]
+then
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --arch ${LIVE_ARCHITECTURE}"
+fi
+
+if [ -n "${LIVE_BOOTSTRAP_CONFIG}" ]
+then
+	LIVE_DEBOOTSTRAP_SCRIPT="/usr/lib/debootstrap/scripts/${LIVE_BOOTSTRAP_CONFIG}"
+fi
+
+if [ -x "/usr/sbin/debootstrap" ]
+then
+	# Restore old cache
+	if [ -d "${LIVE_ROOT}"/cache/bootstrap ]
+	then
+		mkdir -p "${LIVE_CHROOT}"/var/cache/apt/archives
+		cp "${LIVE_ROOT}"/cache/bootstrap/*.deb "${LIVE_CHROOT}"/var/cache/apt/archives
+	fi
+
+	if [ "${LH_CACHE}" = "enabled" ]
+	then
+		# Executing debootstrap (download-only)
+		debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LIVE_DISTRIBUTION}" "${LIVE_CHROOT}" "${LIVE_MIRROR}" "${LIVE_DEBOOTSTRAP_SCRIPT}"
+
+		# Removing old cache
+		if [ -d "${LIVE_ROOT}"/cache/bootstrap ]
+		then
+			rm -f "${LIVE_ROOT}"/cache/bootstrap/*.deb
+		fi
+
+		# Saving new cache
+		if [ ! -d "${LIVE_ROOT}"/cache/bootstrap ]
+		then
+			mkdir -p "${LIVE_ROOT}"/cache/bootstrap
+		fi
+
+		cp "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb "${LIVE_ROOT}"/cache/bootstrap
+	fi
+
+	# Executing debootstrap (regular run)
+	debootstrap ${DEBOOTSTRAP_OPTIONS} "${LIVE_DISTRIBUTION}" "${LIVE_CHROOT}" "${LIVE_MIRROR}" "${LIVE_DEBOOTSTRAP_SCRIPT}"
+else
+	echo "E: Can't process file /usr/bin/debootstrap (FIXME)"
+	exit 1
+fi
+
+# Removing bootstrap cache
+rm -rf "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb
+
+# Creating stage file
+Create_stagefile "${LIVE_ROOT}"/.stage/bootstrap

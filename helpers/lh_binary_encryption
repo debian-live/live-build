@@ -1,0 +1,73 @@
+#!/bin/sh
+
+# lh_binary_encryption(1) - encrypts rootfs
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/image
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Require_stagefile "${LIVE_ROOT}"/.stage/binary_rootfs
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+# Checking stage file
+Check_stagefile "${LIVE_ROOT}"/.stage/binary_encryption
+
+if [ -n "${LIVE_ENCRYPTION}" ]
+then
+	if [ ! -x /usr/bin/aespipe ]
+	then
+		echo "E: aespipe is missing (FIXME)."
+		exit 1
+	fi
+
+	case "${LIVE_FILESYSTEM}" in
+		ext2)
+			ROOTFS="ext2"
+			;;
+
+		plain)
+			echo "W: encryption not supported on plain filesystem."
+			exit 0
+			;;
+
+		squashfs)
+			ROOTFS="squashfs"
+			;;
+	esac
+
+	echo "Encrypting ${LIVE_ROOT}/binary/casper/filesystem.${ROOTFS} with ${LIVE_ENCRYPTION}..."
+
+	while true
+	do
+		cat ${LIVE_ROOT}/binary/casper/filesystem.${ROOTFS} | aespipe -e "${LIVE_ENCRYPTION}" -T > "${LIVE_ROOT}"/binary/casper/filesystem.${ROOTFS} && break
+
+		echo -n "Something went wrong... Retry? [YES/no] "
+
+		read ANSWER
+
+		if [ 'no' = "${ANSWER}" ]
+		then
+			unset ANSWER
+			break
+		fi
+	done
+
+	# Creating stage file
+	Create_stagefile "${LIVE_ROOT}"/.stage/binary_encryption
+fi

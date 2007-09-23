@@ -1,0 +1,3 @@
+@echo Starting "README.html"...
+@start README.html
+@exit

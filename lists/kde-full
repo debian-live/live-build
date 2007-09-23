@@ -1,0 +1,16 @@
+# /usr/share/make-live/lists/kde-full - package list for make-live(1)
+
+# Minimal
+eject file sudo vim-tiny
+
+# Standard
+console-common kbd locales
+
+# KDE
+kde kdm
+desktop-base
+
+xorg xresprobe
+
+# KDE Full
+koffice

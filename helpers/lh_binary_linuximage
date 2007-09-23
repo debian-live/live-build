@@ -1,0 +1,59 @@
+#!/bin/sh
+
+# lh_binary_linuximage(1) - install linux-image into binary
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/image
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+# Checking stage file
+Check_stagefile "${LIVE_ROOT}"/.stage/binary_linuximage
+
+# Removing initrd backup files
+rm -f "${LIVE_CHROOT}"/boot/initrd*bak*
+
+# Setting destination directory
+case "${LIVE_BINARY_IMAGE}" in
+	iso)
+		DESTDIR="${LIVE_ROOT}/binary/isolinux"
+		;;
+
+	net)
+		DESTDIR="${LIVE_ROOT}/tftpboot"
+		;;
+
+	usb)
+		DESTDIR="${LIVE_ROOT}/binary"
+		;;
+esac
+
+# Creating directory
+if [ ! -d "${DESTDIR}" ]
+then
+	mkdir -p "${DESTDIR}"
+fi
+
+# Installing linux-image
+cp "${LIVE_CHROOT}"/boot/vmlinuz* "${DESTDIR}"/vmlinuz
+cp "${LIVE_CHROOT}"/boot/initrd.img* "${DESTDIR}"/initrd.gz
+
+# Creating stage file
+Create_stagefile "${LIVE_ROOT}"/.stage/binary_linuximage

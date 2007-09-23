@@ -1,0 +1,695 @@
+#!/bin/sh
+
+# lh_chroot_localization(1) - install localization packages into chroot
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/chroot
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking stage file
+Check_stagefile "${LIVE_ROOT}"/.stage/chroot_localization
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+# Setting localizations
+if [ -n "${LIVE_LANGUAGE}" ]
+then
+	case "${LIVE_LANGUAGE}" in
+		af)
+			# Afrikaans
+			LOCALIZATIONS="iceweasel kde openoffice"
+			;;
+
+		as-in)
+			# Assamese
+			LOCALIZATIONS="openoffice"
+			;;
+
+		ar)
+			# Arabic
+			LOCALIZATIONS="iceweasel kde openoffice"
+			;;
+
+		az)
+			# Azerbaijani
+			LOCALIZATIONS="kde"
+			;;
+
+		be)
+			# Belarusian
+			LOCALIZATIONS="iceape iceweasel openoffice"
+
+			# Overrides
+			OPENOFFICE="be-by"
+			;;
+
+		bg)
+			# Bulgarian
+			LOCALIZATIONS="icedove iceweasel kde openoffice"
+			;;
+
+		bn)
+			# Bengali
+			LOCALIZATIONS="kde openoffice"
+			;;
+
+		br)
+			# Breton
+			LOCALIZATIONS="kde openoffice"
+			;;
+
+		bs)
+			# Bosnian
+			LOCALIZATION="kde openoffice"
+			;;
+
+		ca)
+			# Catalan
+			LOCALIZATIONS="iceape icedove iceweasel kde koffice openoffice"
+			;;
+
+		cs)
+			# Czech
+			LOCALIZATIONS="iceape icedove iceweasel kde koffice openoffice"
+			;;
+
+		cy-gb)
+			# Welsh
+			LOCALIZATIONS="iceweasel kde koffice openoffice"
+
+			# Overrides
+			KDE="cy"
+			KOFFICE="cy"
+			OPENOFFICE="cy"
+			;;
+
+		da)
+			# Danish
+			LOCALIZATIONS="icedove iceweasel kde koffice openoffice"
+			;;
+
+		de)
+			# German
+			LOCALIZATIONS="iceape icedove iceweasel kde koffice openoffice"
+			;;
+
+		dz-bt)
+			# Dzongkha
+			LOCALIZATIONS="iceweasel openoffice"
+
+			# Overrides
+			OPENOFFICE="dz"
+			;;
+
+		el)
+			# Greek
+			LOCALIZATIONS="icedove iceweasel kde koffice openoffice"
+			;;
+
+		en-gb)
+			# English (Great Britain)
+			LOCALIZATIONS="icedove iceweasel kde koffice openoffice"
+
+			# Overrides
+			KDE="engb"
+			KOFFICE="engb"
+			;;
+
+		en-za)
+			# English (South Africa)
+			LOCALIZATIONS="openoffice"
+			;;
+
+		eo)
+			# Esperanto
+			LOCALIZATIONS="kde openoffice"
+			;;
+
+		es-ar)
+			# Spanish (Argentina)
+			LOCALIZATIONS="icedove iceweasel kde koffice openoffice"
+
+			# Overrides
+			KDE="es"
+			KOFFICE="es"
+			OPENOFFICE="es"
+			;;
+
+		es-es)
+			# Spanish (Spain)
+			LOCALIZATIONS="icedove iceweasel kde koffice openoffice"
+
+			# Overrides
+			KDE="es"
+			KOFFICE="es"
+			OPENOFFICE="es"
+			;;
+
+		et-ee)
+			# Estonian
+			LOCALIZATIONS="iceweasel kde koffice openoffice"
+
+			# Overrides
+			KDE="et"
+			KOFFICE="et"
+			OPENOFFICE="et"
+			;;
+
+		eu)
+			# Basque
+			LOCALIZATIONS="icedove iceweasel kde koffice"
+			;;
+
+		fa-ir)
+			# Persian
+			LOCALIZATIONS="iceweasel kde openoffice"
+
+			# Overrides
+			KDE="fa"
+			OPENOFFICE="fa"
+			;;
+
+		fi)
+			# Finnish
+			LOCALIZATIONS="icedove iceweasel kde koffice openoffice"
+			;;
+
+		fr)
+			# French
+			LOCALIZATIONS="iceape icedove iceweasel kde koffice openoffice"
+			;;
+
+		fur-it)
+			# Furlan
+			LOCALIZATIONS="iceweasel"
+			;;
+
+		fy-nl)
+			# Frisian
+			LOCALIZATIONS="iceweasel kde"
+
+			# Overrides
+			KDE="fy"
+			;;
+
+		ga-ie)
+			# Irish (Ireland)
+			LOCALIZATIONS="icedove iceweasel kde openoffice"
+
+			# Overrides
+			ICEDOVE="ga"
+			KDE="ga"
+			OPENOFFICE="ga"
+			;;
+
+		gl)
+			# Galician
+			LOCALIZATIONS="kde"
+			;;
+
+		gu-in)
+			# Gujarati (India)
+			LOCALIZATIONS="icedove iceweasel openoffice"
+
+			# Overrides
+			ICEDOVE="gu"
+			;;
+
+		he)
+			# Hebrew
+			LOCALIZATIONS="iceape icedove iceweasel kde openoffice"
+			;;
+
+		hi)
+			# Hindi
+			LOCALIZATIONS="kde openoffice"
+			;;
+
+		hr)
+			# Croatian
+			LOCALIZATIONS="kde koffice openoffice"
+			;;
+
+		hu)
+			# Hungarian
+			LOCALIZATIONS="icedove iceweasel kde openoffice"
+			;;
+
+		in)
+			# Indic
+			LOCALIZATIONS="openoffice"
+			;;
+
+		is)
+			# Icelandic
+			LOCALIZATIONS="kde"
+			;;
+
+		it)
+			# Italian
+			LOCALIZATIONS="iceape icedove iceweasel kde koffice openoffice"
+			;;
+
+		ja)
+			# Japanese
+			LOCALIZATIONS="icedove iceweasel kde koffice openoffice"
+			;;
+
+		ka)
+			# Georgian
+			LOCALIZATIONS="iceweasel openoffice"
+			;;
+
+		km)
+			# Khmer
+			LOCALIZATIONS="kde openoffice"
+			;;
+
+		ko)
+			# Korean
+			LOCALIZATIONS="icedove iceweasel kde openoffice"
+			;;
+
+		ku)
+			# Kurdish
+			LOCALIZATIONS="iceweasel openoffice"
+			;;
+
+		lo)
+			# Lao
+			LOCALIZATIONS="openoffice"
+			;;
+
+		lt)
+			# Lithuanian
+			LOCALIZATIONS="icedove iceweasel kde openoffice"
+			;;
+
+		lv)
+			# Latvian
+			LOCALIZATIONS="kde koffice openoffice"
+			;;
+
+		mk)
+			# Macedonian
+			LOCALIZATIONS="icedove iceweasel kde openoffice"
+			;;
+
+		ml-in)
+			# Malayalam
+			LOCALIZATIONS="openoffice"
+			;;
+
+		mn)
+			# Mongolian
+			LOCALIZATIONS="iceweasel kde"
+			;;
+
+		ms)
+			# Malay
+			LOCALIZATIONS="kde koffice"
+			;;
+
+		nb-no)
+			# Bokmaal (Norway)
+			LOCALIZATIONS="icedove iceweasel kde koffice openoffice"
+
+			# Overrides
+			ICEDOVE="nb"
+			KDE="nb"
+			KOFFICE="nb"
+			OPENOFFICE="nb"
+			;;
+
+		nds)
+			# Low Saxon
+			LOCALIZATIONS="kde"
+			;;
+
+		ne)
+			# Nepalese
+			LOCALIZATIONS="openoffice"
+			;;
+
+		nl)
+			# Dutch
+			LOCALIZATIONS="icedove iceweasel kde koffice openoffice"
+			;;
+
+		nn-no)
+			# Nynorsk (Norway)
+			LOCALIZATIONS="iceweasel kde openoffice"
+
+			# Overrides
+			KDE="nn"
+			OPENOFFICE="nn"
+			;;
+
+		nr)
+			# Ndebele
+			LOCALIZATIONS="openoffice"
+			;;
+
+		ns)
+			# Northernsotho
+			LOCALIZATIONS="openoffice"
+			;;
+
+		or-in)
+			# Oriya
+			LOCALIZATIONS="openoffice"
+			;;
+
+		pa-in)
+			# Punjabi (India)
+			LOCALIZATIONS="icedove iceweasel kde openoffice"
+
+			# Overrides
+			ICEDOVE="pa"
+			KDE="pa"
+			;;
+
+		pl)
+			# Polish
+			LOCALIZATIONS="iceape icedove iceweasel kde koffice openoffice"
+			;;
+
+		pt-br)
+			# Portugese (Brazil)
+			LOCALIZATIONS="icedove iceweasel kde koffice openoffice"
+
+			# Overrides
+			KDE="ptbr"
+			KOFFICE="ptbr"
+			;;
+
+		pt-pt)
+			# Portugese (Portugal)
+			LOCALIZATIONS="iceweasel kde koffice openoffice"
+
+			# Overrides
+			KDE="pt"
+			KOFFICE="pt"
+			OPENOFFICE="pt"
+			;;
+
+		ro)
+			# Romanian
+			LOCALIZATIONS="iceweasel kde"
+			;;
+
+		roa-es-val)
+			# Valencian (Spain)
+			LOCALIZATIONS="iceweasel"
+			;;
+
+		ru)
+			# Russian
+			LOCALIZATIONS="iceape icedove iceweasel kde koffice openoffice"
+			;;
+
+		rw)
+			# Kinarwanda
+			LOCALIZATIONS="kde openoffice"
+			;;
+
+		se)
+			# Northern Sami
+			LOCALIZATIONS="kde"
+			;;
+
+		sk)
+			# Slovak
+			LOCALIZATIONS="icedove iceweasel kde koffice openoffice"
+			;;
+
+		sl)
+			# Slovenian
+			LOCALIZATIONS="icedove iceweasel kde koffice openoffice"
+			;;
+
+		sr-cs)
+			# Serbian
+			LOCALIZATIONS="kde koffice openoffice"
+
+			# Overrides
+			KDE="sr"
+			KOFFICE="sr"
+			;;
+
+		sr-latin)
+			# Latin Serbian
+			LOCALIZATIONS="kde koffice"
+
+			# Overrides
+			KDE="srlatin"
+			KOFFICE="srlatin"
+			;;
+
+		ss)
+			# Swazi
+			LOCALIZATIONS="kde openoffice"
+			;;
+
+		st)
+			# Southern_sotho
+			LOCALIZATIONS="openoffice"
+			;;
+
+		sv-se)
+			# Swedish
+			LOCALIZATIONS="icedove iceweasel kde koffice openoffice"
+
+			# Overrides
+			ICEDOVE="sv"
+			KDE="sv"
+			KOFFICE="sv"
+			OPENOFFICE="sv"
+			;;
+
+		ta-in)
+			# Tamil
+			LOCALIZATIONS="kde openoffice"
+
+			# Overrides
+			KDE="ta"
+			;;
+
+		te-in)
+			# Telugu
+			LOCALIZATIONS="openoffice"
+			;;
+
+		tg)
+			# Tajik
+			LOCALIZATIONS="kde openoffice"
+			;;
+
+		th)
+			# Thai
+			LOCALIZATIONS="openoffice"
+			;;
+
+		tn)
+			# Tswana
+			LOCALIZATIONS="openoffice"
+			;;
+
+		tr)
+			# Turkish
+			LOCALIZATIONS="icedove iceweasel kde kofffice openoffice"
+			;;
+
+		ts)
+			# Tsonga
+			LOCALIZATIONS="openoffice"
+			;;
+
+		uk-ua)
+			# Ukrainian
+			LOCALIZATIONS="icedove iceweasel kde kofffice openoffice"
+
+			# Overrides
+			ICEDOVE="uk"
+			KDE="uk"
+			KDE="uk"
+			OPENOFFICE="uk"
+			;;
+
+		uz)
+			# Uzbek
+			LOCALIZATIONS="kde"
+			;;
+
+		ve)
+			# Venda
+			LOCALIZATIONS="openoffice"
+			;;
+
+		vi)
+			# Vietnamese
+			LOCALIZATIONS="openoffice"
+			;;
+
+		xh)
+			# Xhosa
+			LOCALIZATIONS="openoffice"
+			;;
+
+		za)
+			# South African
+			LOCALIZATIONS="openoffice"
+			;;
+
+		zh-cn)
+			# Chinese (China)
+			LOCALIZATIONS="icedove iceweasel kde koffice openoffice"
+
+			# Overrides
+			KDE="zhcn"
+			KOFFICE="zhcn"
+			;;
+
+		zh-tw)
+			# Chinese (Taiwan)
+			LOCALIZATIONS="iceweasel kde koffice openoffice"
+
+			# Overrides
+			KDE="zhtw"
+			KOFFICE="zhtw"
+			;;
+
+		zu)
+			# Zulu
+			LOCALIZATIONS="openoffice"
+			;;
+	esac
+
+	# Setting languages
+	if [ -z "${ICEAPE}" ]
+	then
+		ICEAPE="${LIVE_LANGUAGE}"
+	fi
+
+	if [ -z "${ICEDOCE}" ]
+	then
+		ICEDOVE="${LIVE_LANGUAGE}"
+	fi
+
+	if [ -z "${ICEWEASEL}" ]
+	then
+		ICEWEASEL="${LIVE_LANGUAGE}"
+	fi
+
+	if [ -z "${KDE}" ]
+	then
+		KDE="${LIVE_LANGUAGE}"
+	fi
+
+	if [ -z "${KOFFICE}" ]
+	then
+		KOFFICE="${LIVE_LANGUAGE}"
+	fi
+
+	if [ -z "${OPENOFFICE}" ]
+	then
+		OPENOFFICE="${LIVE_LANGUAGE}"
+	fi
+
+	# Setting packages
+	for LOCALIZATION in ${LOCALIZATIONS}
+	do
+		case "${LOCALZATION}" in
+			iceape)
+				if [ -f "${LIVE_CHROOT}"/usr/bin/iceape ]
+				then
+					PACKAGES="${PACKAGES} iceweasel-l10n-${ICEAPE}"
+				fi
+				;;
+
+			icedove)
+				if [ -f "${LIVE_CHROOT}"/usr/bin/icedove ]
+				then
+					PACKAGES="${PACKAGES} icedove-locale-${ICEDOVE}"
+				fi
+				;;
+
+			iceweasel)
+				if [ -f "${LIVE_CHROOT}"/usr/bin/iceweasel ]
+				then
+					PACKAGES="${PACKAGES} iceweasel-l10n-${ICEWEASEL}"
+				fi
+				;;
+
+			kde)
+				if [ -f "${LIVE_CHROOT}"/usr/bin/kstart ]
+				then
+					PACKAGES="${PACKAGES} kde-i18n-${KDE}"
+				fi
+				;;
+
+			koffice)
+				if [ -f "${LIVE_CHROOT}" ]
+				then
+					PACKAGES="${PACKAGES} koffice-i18n-${KOFFICE}"
+				fi
+				;;
+
+			openoffice)
+				if [ -f "${LIVE_CHROOT}"/usr/bin/ooffice ]
+				then
+					PACKAGES="${PACKAGES} openoffice.org-l10n-${OPENOFFICE}"
+				fi
+				;;
+		esac
+	done
+
+	# Restore old cache
+	if [ -d "${LIVE_ROOT}"/cache/chroot_localization ]
+	then
+		cp "${LIVE_ROOT}"/cache/chroot_localization/*.deb "${LIVE_CHROOT}"/var/cache/apt/archives
+	fi
+
+	# Installing packages
+	case "${LH_APT}" in
+		apt)
+			Chroot "apt-get install --yes ${PACKAGES}"
+			;;
+
+		aptitude)
+			Chroot "apt-get install --assume-yes ${PACKAGES}"
+			;;
+	esac
+
+	# Saving new cache
+	Chroot "apt-get autoclean"
+
+	if ls "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb &> /dev/null
+	then
+		if [ ! -d "${LIVE_ROOT}"/cache/chroot_localization ]
+		then
+			mkdir -p "${LIVE_ROOT}"/cache/chroot_localization
+		fi
+
+		mv -f "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb "${LIVE_ROOT}"/cache/chroot_localization
+	fi
+
+	# Creating stage file
+	Create_stagefile "${LIVE_ROOT}"/.stage/chroot_localization
+fi

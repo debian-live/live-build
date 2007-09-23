@@ -1,6 +1,50 @@
 #!/bin/sh
 
-# lh_chroot.sh <command>
+# lh_chroot(1) - customize the Debian system
 
-# Execute commands chrooted
-chroot "${LIVE_CHROOT}" /usr/bin/env -i HOME="/root" PATH="/usr/sbin:/usr/bin:/sbin:/bin" TERM="${TERM}" ftp_proxy="${LIVE_PROXY_FTP}" http_proxy="${LIVE_PPROXY_HTTP}" DEBIAN_FRONTEND="${LIVE_DEBCONF_FRONTEND}" DEBIAN_PRIORITY="${LIVE_DEBCONF_PRIORITY}" ${1}
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/chroot
+Set_defaults
+
+# Configuring chroot
+lh_chroot_proc install
+lh_chroot_sysfs install
+lh_chroot_debianchroot install
+lh_chroot_sysvrc install
+lh_chroot_hosts install
+lh_chroot_resolv install
+lh_chroot_apt install
+lh_chroot_sources install
+lh_chroot_linuximage install
+
+# Customizing chroot
+lh_chroot_tasks
+lh_chroot_packageslist
+lh_chroot_packages
+lh_chroot_localpackages
+lh_chroot_localpackageslist
+lh_chroot_localization
+lh_chroot_hacks
+lh_chroot_localincludes
+lh_chroot_sysvinit
+lh_chroot_hooks
+lh_chroot_localhooks
+lh_chroot_symlinks
+
+# Deconfiguring chroot
+lh_chroot_linuximage remove
+lh_chroot_sources remove
+lh_chroot_apt remove
+lh_chroot_resolv remove
+lh_chroot_hosts remove
+lh_chroot_sysvrc remove
+lh_chroot_debianchroot remove
+lh_chroot_sysfs remove
+lh_chroot_proc remove

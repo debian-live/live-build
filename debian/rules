@@ -3,8 +3,9 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-upstream: # Needs svn
-	cd .. && svn co svn://svn.debian.org/debian-live/dists/trunk/live-package || exit 0
+upstream:
+	# Needs: subversion
+	cd .. && svn co svn://svn.debian.org/debian-live/dists/trunk/live-helper || exit 0
 	find . -type d -name .svn -exec rm -rf {} \; || exit 0
 
 build:
@@ -22,18 +23,22 @@ install: build
 	dh_installdirs
 
 	# Installing package
-	$(MAKE) install DESTDIR=$(CURDIR)/debian/live-package
-	install -D debian/default debian/live-package/etc/default/make-live
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/live-helper
+
+	# Removing double files
+	rm -f debian/live-helper/usr/share/doc/live-helper/COPYING
+	rm -f debian/live-helper/usr/share/doc/live-helper/ChangeLog
+	mv debian/live-helper/usr/share/doc/live-helper/ChangeLog.old \
+		debian/live-helper/usr/share/doc/live-helper/changelog.old
 
 binary-arch: build install
 
 binary-indep: build install
 	dh_testdir
 	dh_testroot
-	dh_installchangelogs ChangeLog
+	dh_installchangelogs doc/ChangeLog
 	dh_installdocs
 	dh_install
-	dh_installcron
 	dh_compress
 	dh_fixperms
 	dh_installdeb

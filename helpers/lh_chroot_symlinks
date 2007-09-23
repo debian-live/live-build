@@ -1,0 +1,70 @@
+#!/bin/sh
+
+# lh_chroot_symlinks(1) - convert symlinks
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/chroot
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+# Checking stage file
+Check_stagefile "${LIVE_ROOT}"/.stage/chroot_symlinks
+
+if [ "${LIVE_SYMLINKS}" = "enabled" ]
+then
+	if [ -f "${LIVE_CHROOT}"/usr/bin/symlinks ]
+	then
+		SYMLINKS="true"
+	fi
+
+	if [ -n "${SYMLINKS}" ]
+	then
+		# Installing symlinks
+		case "${LH_APT}" in
+			apt)
+				Chroot "apt-get install --yes symlinks"
+				;;
+
+			aptitude)
+				Chroot "aptitude install --assume-yes symlinks"
+				;;
+		esac
+	fi
+
+	# Converting symlinks
+	Chroot "symlinks -c -r -s /"
+
+	if [ -n "${SYMLINKS}" ]
+	then
+		# Removing symlinks
+		case "${LH_APT}" in
+			apt)
+				Chroot "apt-get remove --purge --yes symlinks"
+				;;
+
+			aptitude)
+				Chroot "aptitude purge --assume-yes symlinks"
+				;;
+		esac
+	fi
+
+	# Creating stage file
+	Create_stagefile "${LIVE_ROOT}"/.stage/chroot_symlinks
+fi

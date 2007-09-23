@@ -1,0 +1,58 @@
+#!/bin/sh
+
+# lh_chroot_sysfs(1) - mount /sys
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/chroot
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+case "${1}" in
+	install)
+		# Checking stage file
+		Check_stagefile "${LIVE_ROOT}"/.stage/chroot_sysfs
+
+		if [ ! -d "${LIVE_CHROOT}"/sys ]
+		then
+			# Create mountpoint
+			mkdir -p "${LIVE_CHROOT}"/sys
+		fi
+
+		# Mounting /sys
+		mount sys-live -t sysfs "${LIVE_CHROOT}"/sys
+
+		# Creating stage file
+		Create_stagefile "${LIVE_ROOT}"/.stage/chroot_sysfs
+		;;
+
+	remove)
+		# Unmounting /sys
+		#fuser -km "${LIVE_CHROOT}"/sys
+		umount "${LIVE_CHROOT}"/sys > /dev/null 2>&1
+
+		# Removing stage file
+		rm -f "${LIVE_ROOT}"/.stage/chroot_sysfs
+		;;
+
+	*)
+		echo "Usage: ${0} {install|remove}"
+		exit 1
+		;;
+esac

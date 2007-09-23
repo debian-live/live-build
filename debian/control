@@ -1,4 +1,4 @@
-Source: live-package
+Source: live-helper
 Section: misc
 Priority: optional
 Maintainer: Debian Live <debian-live-devel@lists.alioth.debian.org>
@@ -6,16 +6,21 @@ Uploaders: Daniel Baumann <daniel@debian.org>, Marco Amadori <marco.amadori@gmai
 Build-Depends: debhelper (>= 5)
 Standards-Version: 3.7.2
 
-Package: live-package
+Package: live-helper
 Architecture: all
-Depends: cdebootstrap, genext2fs, genisoimage | mkisofs, squashfs-tools
-Recommends: aespipe
+Depends: cdebootstrap | debootstrap, genext2fs, genisoimage | mkisofs, squashfs-tools
+Conflicts: live-package
+Replaces: live-package
+Suggests: aesloop
 Provides: make-live
-Description: utility to build Debian Live systems
- make-live is a utility to build Debian Live systems. It takes a Debian mirror
- as an input and outputs a live system image (ISO image for CDs and DVDs,
- tarballs for netboot, or images for USB sticks). make-live is still in the
- early stage of development, but has basic functionality and can be run
- successfully.
+Description: Debian Live helper programs
+ Live-helper is a collection of programs that can be used to build Debian Live
+ system images. The philosophy behind live-helper is to provide a collection of
+ small, simple, and easily understood tools that can be used in your own program
+ to automate building of a Live system.
+ .
+ A typical program that uses live-helper will call several live-helper commands
+ in sequence. Live-helper commands are all named with a "lh_" prefix. Examples
+ of such a program that uses live-helper is make-live (included here).
  .
   Homepage: <http://debian-live.alioth.debian.org/>

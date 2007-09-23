@@ -1,0 +1,103 @@
+#!/bin/sh
+
+# lh_bootstrap_cdebootstrap(1) - bootstrap a Debian system with cdebootstrap(1)
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Ensure that a system is built as root
+lh_testroot
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/bootstrap
+Set_defaults
+
+# Checking stage file
+Check_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating root directory
+if [ ! -d "${LIVE_ROOT}" ]
+then
+	mkdir -p "${LIVE_ROOT}"
+fi
+
+# Creating chroot directory
+if [ ! -d "${LIVE_CHROOT}" ]
+then
+	mkdir -p "${LIVE_CHROOT}"
+fi
+
+# Setting cdebootstrap options
+if [ -n "${LIVE_ARCHITECTURE}" ]
+then
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --arch=${LIVE_ARCHITECTURE}"
+fi
+
+if [ -n "${LIVE_DISTRIBUTION_CONFIG}" ]
+then
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --suite-config=${LIVE_DISTRIBUTION_CONFIG}"
+fi
+
+if [ "${LIVE_FLAVOUR}" = "mini" ] || [ "${LIVE_FLAVOUR}" = "minimal" ] || [ "${LIVE_FLAVOUR}" = "minimal-net" ]
+then
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=minimal"
+else
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=standard"
+fi
+
+if [ -x "/usr/bin/cdebootstrap" ]
+then
+	# Restore old cache
+	if [ -d "${LIVE_ROOT}"/cache/bootstrap ]
+	then
+		mkdir -p "${LIVE_CHROOT}"/var/cache/bootstrap
+		cp "${LIVE_ROOT}"/cache/bootstrap/*.deb "${LIVE_CHROOT}"/var/cache/bootstrap
+	fi
+
+	if [ "${LH_CACHE}" = "enabled" ]
+	then
+		# Executing cdebootstrap (download-only)
+		cdebootstrap ${CDEBOOTSTRAP_OPTIONS} --download-only "${LIVE_DISTRIBUTION}" "${LIVE_CHROOT}" "${LIVE_MIRROR}"
+
+		# Removing old cache
+		if [ -d "${LIVE_ROOT}"/cache/bootstrap ]
+		then
+			rm -f "${LIVE_ROOT}"/cache/bootstrap/*.deb
+		fi
+
+		# Saving new cache
+		if [ ! -d "${LIVE_ROOT}"/cache/bootstrap ]
+		then
+			mkdir -p "${LIVE_ROOT}"/cache/bootstrap
+		fi
+
+		cp "${LIVE_CHROOT}"/var/cache/bootstrap/*.deb "${LIVE_ROOT}"/cache/bootstrap
+	fi
+
+	# Executing cdebootstrap (regular run)
+	cdebootstrap ${CDEBOOTSTRAP_OPTIONS} "${LIVE_DISTRIBUTION}" "${LIVE_CHROOT}" "${LIVE_MIRROR}"
+else
+	echo "E: Can't process file /usr/bin/cdebootstrap (FIXME)"
+	exit 1
+fi
+
+# Removing bootstrap cache
+if [ -d "${LIVE_CHROOT}/var/cache/bootstrap" ]
+then
+	rm -rf "${LIVE_CHROOT}"/var/cache/bootstrap
+fi
+
+# Creating stage file
+Create_stagefile "${LIVE_ROOT}"/.stage/bootstrap
