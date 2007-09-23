@@ -89,17 +89,12 @@ uninstall:
 	done
 
 update:
-	set -e; for MANPAGE in manpages/*.de.* manpages/*.en.*; \
+	set -e; for FILE in functions/*.sh examples/cron/*.sh manpages/*.de.* manpages/*.en.*; \
 	do \
-		sed -i	-e 's/2007\\-07\\-02/2007\\-07\\-09/' \
-			-e 's/02.07.2007/09.07.2007/' \
-			-e 's/1.0~a17/1.0~a18/' \
-		$$MANPAGE; \
-	done
-
-	set -e; for SCRIPT in functions/*.sh examples/cron/*.sh; \
-	do \
-		sed -i -e 's/1.0~a17/1.0~a18/' $$SCRIPT; \
+		sed -i	-e 's/2007\\-07\\-16/2007\\-07\\-23/' \
+			-e 's/16.07.2007/23.07.2007/' \
+			-e 's/1.0~a19/1.0~a20/' \
+		$$FILE; \
 	done
 
 clean:

@@ -27,13 +27,16 @@ Arguments "${@}"
 # Preparing root filesystem
 lh_binary_chroot ${*}
 
-# Configuring chroot
-lh_chroot_proc install ${*}
-lh_chroot_sysfs install ${*}
-lh_chroot_hosts install ${*}
-lh_chroot_resolv install ${*}
-lh_chroot_hostname install ${*}
-lh_chroot_sources install ${*}
+if [ "${LIVE_CHROOT_BUILD}" = "enabled" ]
+then
+	# Configuring chroot
+	lh_chroot_proc install ${*}
+	lh_chroot_sysfs install ${*}
+	lh_chroot_hosts install ${*}
+	lh_chroot_resolv install ${*}
+	lh_chroot_hostname install ${*}
+	lh_chroot_sources install ${*}
+fi
 
 # Building root filesystem
 lh_binary_rootfs ${*}
@@ -59,10 +62,13 @@ lh_binary_net ${*}
 lh_binary_tar ${*}
 lh_binary_usb-hdd ${*}
 
-# Deconfiguring chroot
-rm -f .stage/chroot_sources
-lh_chroot_hostname remove ${*}
-lh_chroot_resolv remove ${*}
-lh_chroot_hosts remove ${*}
-lh_chroot_sysfs remove ${*}
-lh_chroot_proc remove ${*}
+if [ "${LIVE_CHROOT_BUILD}" = "enabled" ]
+then
+	# Deconfiguring chroot
+	rm -f .stage/chroot_sources
+	lh_chroot_hostname remove ${*}
+	lh_chroot_resolv remove ${*}
+	lh_chroot_hosts remove ${*}
+	lh_chroot_sysfs remove ${*}
+	lh_chroot_proc remove ${*}
+fi

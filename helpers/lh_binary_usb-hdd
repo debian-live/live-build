@@ -67,6 +67,9 @@ case "${LIVE_BOOTLOADER}" in
 		;;
 esac
 
+# Restoring cache
+Restore_cache cache/packages_binary
+
 # Installing depends
 Install_package
 
@@ -160,6 +163,9 @@ then
 fi
 
 mv chroot/binary.img ./
+
+# Saving cache
+Save_cache cache/packages_binary
 
 # Removing depends
 Remove_package

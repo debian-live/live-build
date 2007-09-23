@@ -79,7 +79,7 @@ do
 
 		# Restoring old cache
 		mkdir -p binary/"${INITFS}"
-		${LH_ROOT_COMMAND} cp -al cache/stages_rootfs/filesystem.* binary/"${INITFS}"
+		${LH_ROOT_COMMAND} cp -a cache/stages_rootfs/filesystem.* binary/"${INITFS}"
 
 		if [ -n "${LH_ROOT_COMMAND}" ]
 		then
@@ -97,6 +97,9 @@ case "${LIVE_CHROOT_FILESYSTEM}" in
 		# Checking depends
 		Check_package chroot/usr/bin/genext2fs genext2fs
 
+		# Restoring cache
+		Restore_cache cache/packages_binary
+
 		# Installing depends
 		Install_package
 
@@ -109,11 +112,22 @@ case "${LIVE_CHROOT_FILESYSTEM}" in
 		DU_DIM="`du -ks chroot/chroot | cut -f1`"
 		REAL_DIM="`expr ${DU_DIM} + ${DU_DIM} / 20`" # Just 5% more to be sure, need something more sophistcated here...
 
-		Chroot "genext2fs --size-in-blocks=${REAL_DIM} --reserved-blocks=0 --root=chroot filesystem.ext2"
+		case "${LIVE_CHROOT_BUILD}" in
+			enabled)
+				Chroot "genext2fs --size-in-blocks=${REAL_DIM} --reserved-blocks=0 --root=chroot filesystem.ext2"
 
-		# Move image
-		mv chroot/filesystem.ext2 binary/${INITFS}
-		rm -rf chroot/chroot
+				# Move image
+				mv chroot/filesystem.ext2 binary/${INITFS}
+				rm -rf chroot/chroot
+				;;
+
+			disabled)
+				genext2fs --size-in-blocks=${REAL_DIM} --reserved-blocks=0 --root=chroot binary/${INITFS}/filesystem.ext2
+				;;
+		esac
+
+		# Saving cache
+		Save_cache cache/packages_binary
 
 		# Removing depends
 		Remove_package
@@ -125,12 +139,23 @@ case "${LIVE_CHROOT_FILESYSTEM}" in
 			rm -rf binary/${INITFS}/filesystem.dir
 		fi
 
-		mv chroot/chroot binary/${INITFS}/filesystem.dir
+		case "${LIVE_CHROOT_BUILD}" in
+			enabled)
+				mv chroot/chroot binary/${INITFS}/filesystem.dir
+				;;
+
+			disabled)
+				cp -a chroot binary/${INITFS}/filesystem.dir
+				;;
+		esac
 		;;
 
 	squashfs)
 		# Checking depends
-		Check_package chroot/usr/sbin/mksquashfs squashfs-tools
+		Check_package chroot/usr/share/doc/squashfs-tools squashfs-tools
+
+		# Restoring cache
+		Restore_cache cache/packages_binary
 
 		# Installing depends
 		Install_package
@@ -159,20 +184,31 @@ case "${LIVE_CHROOT_FILESYSTEM}" in
 		if [ -f config/binary_rootfs/squashfs.sort ]
 		then
 			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -sort squashfs.sort"
-			cp config/binary_rootfs/squashfs.sort chroot
+			cp config/binary_rootfs/squashfs.sort chroot #FIXME
 		fi
 
-		# Create image
-		Chroot "mksquashfs chroot filesystem.squashfs ${MKSQUASHFS_OPTIONS}"
+		case "${LIVE_CHROOT_BUILD}" in
+			enabled)
+				# Create image
+				Chroot "mksquashfs chroot filesystem.squashfs ${MKSQUASHFS_OPTIONS}"
 
-		# Move image
-		${LH_ROOT_COMMAND} mv chroot/filesystem.squashfs binary/${INITFS}
-		${LH_ROOT_COMMAND} rm -rf chroot/chroot chroot/squashfs.sort
+				# Move image
+				${LH_ROOT_COMMAND} mv chroot/filesystem.squashfs binary/${INITFS}
+				${LH_ROOT_COMMAND} rm -rf chroot/chroot chroot/squashfs.sort
+				;;
+
+			disabled)
+				mksquashfs chroot binary/${INITFS}/filesystem.squashfs ${MKSQUASHFS_OPTIONS}
+				;;
+		esac
 
 		if [ -n "${LH_ROOT_COMMAND}" ]
 		then
 			${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` binary/${INITFS}
 		fi
+
+		# Saving cache
+		Save_cache cache/packages_binary
 
 		# Removing depends
 		Remove_package
@@ -187,7 +223,7 @@ do
 
 		mkdir -p cache/stages_rootfs
 
-		${LH_ROOT_COMMAND} cp -al binary/"${INITFS}"/filesystem.* cache/stages_rootfs
+		${LH_ROOT_COMMAND} cp -a binary/"${INITFS}"/filesystem.* cache/stages_rootfs
 
 		if [ -n "${LH_ROOT_COMMAND}" ]
 		then

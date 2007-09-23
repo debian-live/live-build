@@ -98,5 +98,21 @@ mkdir -p "${DESTDIR}"
 cp chroot/boot/"${LINUX}"-* "${DESTDIR}"
 cp chroot/boot/initrd.img-* "${DESTDIR}"
 
+# Including boot parameter documentation
+if [ "${LIVE_BINARY_IMAGES}" != "net" ]
+then
+	DESTDIR="binary"
+fi
+
+case "${LH_INITRAMFS}" in
+	casper)
+		cp "${LH_BASE:-/usr/share/live-helper}"/data/casper/parameters.txt "${DESTDIR}"/parameters.txt
+		;;
+
+	live-initramfs)
+		cp chroot/usr/share/doc/live-initramfs/parameters.txt "${DESTDIR}"/parameters.txt
+		;;
+esac
+
 # Creating stage file
 Create_stagefile .stage/binary_linux-image

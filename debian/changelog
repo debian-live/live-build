@@ -1,3 +1,11 @@
+live-helper (1.0~a19-1) unstable; urgency=medium
+
+  * New upstream release:
+    - Supports using packages from the build host (Closes: #433611).
+    - Adds destdir to default entries in grub (Closes: #433612).
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 16 Jul 2007 00:00:00 +0200
+
 live-helper (1.0~a18-1) unstable; urgency=medium
 
   * New upstream release:

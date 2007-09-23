@@ -54,6 +54,9 @@ Create_lockfile .lock
 # Checking depends
 Check_package chroot/usr/bin/"${LH_GENISOIMAGE}" ${LH_GENISOIMAGE}
 
+# Restoring cache
+Restore_cache cache/packages_binary
+
 # Installing depends
 Install_package
 
@@ -87,9 +90,6 @@ if [ -n "${LIVE_ISO_VOLUME}" ] && [ "${LIVE_ISO_VOLUME}" != "none" ]
 then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -V \"${LIVE_ISO_VOLUME}\""
 fi
-
-# Moving image
-mv binary chroot
 
 # Create image
 case "${LIVE_BOOTLOADER}" in
@@ -128,15 +128,34 @@ case "${LIVE_BOOTLOADER}" in
 		;;
 esac
 
+case "${LIVE_CHROOT_BUILD}" in
+	enabled)
+		# Moving image
+		mv binary chroot
+
 cat > chroot/binary.sh << EOF
 ${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -o binary.iso -J -l -cache-inodes binary
 EOF
 
-Chroot "sh binary.sh"
+		Chroot "sh binary.sh"
 
-# Move image
-mv chroot/binary chroot/binary.iso ./
-rm -f chroot/binary.sh
+		# Move image
+		mv chroot/binary chroot/binary.iso ./
+		rm -f chroot/binary.sh
+		;;
+
+	disabled)
+cat > binary.sh << EOF
+${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -o binary.iso -J -l -cache-inodes binary
+EOF
+
+		sh binary.sh
+		rm -f binary.sh
+		;;
+esac
+
+# Saving cache
+Save_cache cache/packages_binary
 
 # Removing depends
 Remove_package

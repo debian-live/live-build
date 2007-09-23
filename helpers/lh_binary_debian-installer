@@ -34,13 +34,7 @@ Set_defaults
 
 # Setting remote d-i directories
 case "${LIVE_DEBIAN_INSTALLER}" in
-	netboot)
-		DI="netboot/debian-installer/i386"
- 		DI_GTK="netboot/gtk/debian-installer/i386"
-		DI_KERNEL="linux"
-		;;
-
-	cdrom|enabled)
+	enabled|cdrom|live)
 		DI="cdrom"
 		DI_GTK="${DI}/gtk"
 		DI_KERNEL="vmlinuz"
@@ -48,6 +42,12 @@ case "${LIVE_DEBIAN_INSTALLER}" in
 
 	disabled)
 		exit 0
+		;;
+
+	netboot)
+		DI="netboot/debian-installer/i386"
+ 		DI_GTK="netboot/gtk/debian-installer/i386"
+		DI_KERNEL="linux"
 		;;
 
 	*)
@@ -296,21 +296,10 @@ mkdir -p binary/dists/${LIVE_DISTRIBUTION}/main/binary-${LIVE_ARCHITECTURE}
 cd binary
 apt-ftparchive packages pool/main > dists/${LIVE_DISTRIBUTION}/main/binary-${LIVE_ARCHITECTURE}/Packages
 gzip -9 -c dists/${LIVE_DISTRIBUTION}/main/binary-${LIVE_ARCHITECTURE}/Packages > dists/${LIVE_DISTRIBUTION}/main/binary-${LIVE_ARCHITECTURE}/Packages.gz
-#apt-ftparchive sources pool/main > dists/${LIVE_DISTRIBUTION}/main/source/Sources
-#gzip -9 -c dists/${LIVE_DISTRIBUTION}/main/source/Sources > dists/${LIVE_DISTRIBUTION}/main/source/Sources
 cd "${OLDPWD}"
 
 # Fetching release
 wget "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/binary-"${LIVE_ARCHITECTURE}"/Release -O binary/dists/${LIVE_DISTRIBUTION}/main/binary-${LIVE_ARCHITECTURE}/Release
-
-#cat > binary/dists/${LIVE_DISTRIBUTION}/main/source/Release << EOF
-#Archive: stable
-#Version: 4.0r0
-#Component: main
-#Origin: Debian
-#Label: Debian
-#Architecture: source
-#EOF
 
 mkdir binary.udeb
 cd binary.udeb
@@ -328,7 +317,7 @@ do
 	if [ -f ../cache/packages_debian-installer.udeb/"`basename ${UDEB}`" ]
 	then
 		# Copying cached udebs
-		cp -l ../cache/packages_debian-installer.udeb/"`basename ${UDEB}`" ./
+		cp ../cache/packages_debian-installer.udeb/"`basename ${UDEB}`" ./
 	else
 		# Downloading udebs
 		wget "${LIVE_MIRROR_BOOTSTRAP}"/${UDEB}
@@ -338,7 +327,7 @@ done
 # Caching udebs
 rm -rf ../cache/packages_debian-installer.udeb
 mkdir -p ../cache/packages_debian-installer.udeb
-cp -l *.udeb ../cache/packages_debian-installer.udeb
+cp *.udeb ../cache/packages_debian-installer.udeb
 
 # Including local udebs
 if ls ../config/binary_local-udebs/* &> /dev/null
@@ -375,7 +364,7 @@ fi
 
 # Excluding udebs
 grep -v "^#" ${LH_BASE:-/usr/share/live-helper}/data/debian-cd/"${LIVE_DISTRIBUTION}"/udeb_exclude > exclude
-grep -v "^#" ${LH_BASE:-/usr/share/live-helper}/data/debian-cd/"${LIVE_DISTRIBUTION}"/exclude-udebs > exclude
+grep -v "^#" ${LH_BASE:-/usr/share/live-helper}/data/debian-cd/"${LIVE_DISTRIBUTION}"/exclude-udebs >> exclude
 grep -v "^#" ${LH_BASE:-/usr/share/live-helper}/data/debian-cd/"${LIVE_DISTRIBUTION}"/exclude-udebs-${LIVE_ARCHITECTURE} >> exclude
 
 for EXCLUDE in `cat exclude`
