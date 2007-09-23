@@ -335,7 +335,8 @@ case "${LH_BINARY_IMAGES}" in
 				;;
 		esac
 
-		cp -r "${TEMPLATES}"/* binary/isolinux
+		cp -r "${TEMPLATES}"/common/* binary/isolinux
+		cp -r "${TEMPLATES}"/"${LH_LANGUAGE}"/* binary/isolinux
 
 		for FILE in binary/isolinux/*.live
 		do
@@ -436,7 +437,8 @@ case "${LH_BINARY_IMAGES}" in
 		esac
 
 		mkdir -p tftpboot/pxelinux.cfg
-		cp -r "${TEMPLATES}"/* tftpboot/pxelinux.cfg
+		cp -r "${TEMPLATES}"/common/* tftpboot/pxelinux.cfg
+		cp -r "${TEMPLATES}"/"${LH_LANGUAGE}"/* tftpboot/pxelinux.cfg
 
 		for FILE in tftpboot/pxelinux.cfg/*.live
 		do
@@ -533,7 +535,8 @@ case "${LH_BINARY_IMAGES}" in
 				;;
 		esac
 
-		cp -r "${TEMPLATES}"/* "${DESTDIR}"
+		cp -r "${TEMPLATES}"/common/* "${DESTDIR}"
+		cp -r "${TEMPLATES}"/"${LH_LANGUAGE}"/* "${DESTDIR}"
 
 		for FILE in "${DESTDIR}"/*.live
 		do
