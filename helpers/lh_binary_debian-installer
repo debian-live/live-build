@@ -362,6 +362,12 @@ grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DISTRIBUTION}"/udeb_exclude > exc
 grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DISTRIBUTION}"/exclude-udebs >> exclude
 grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DISTRIBUTION}"/exclude-udebs-${LH_ARCHITECTURE} >> exclude
 
+# Local exclude file
+if [ -e ../config/binary_debian-installer/udeb_exclude ]
+then
+	cat ../config/binary_debian-installer/udeb_exclude >> exclude
+fi
+
 for EXCLUDE in `cat exclude`
 do
 	rm -f "${EXCLUDE}"_*.udeb
