@@ -27,6 +27,30 @@ Patch_chroot ()
 	esac
 }
 
+Patch_runlevel ()
+{
+	# Disabling all init scripts with a blocking policy as in
+	# /usr/share/doc/sysv-rc/README.policy-rc.d.gz.
+
+	case "${1}" in
+		apply)
+			# Create init policy
+			echo > "${LIVE_CHROOT}"/usr/sbin/policy-rc.d <<EOF
+#!/bin/sh
+
+exit 101
+EOF
+
+			chmod 0755 "${LIVE_CHROOT}"/usr/sbin/policy-rc.d
+			;;
+
+		deapply)
+			# Removing init policy
+			rm -f "${LIVE_CHROOT}"/usr/sbin/policy-rc.d
+			;;
+	esac
+}
+
 Patch_network ()
 {
 	# Packages which are manually installed inside the chroot are installed

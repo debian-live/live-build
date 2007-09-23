@@ -136,13 +136,13 @@ Defaults ()
 	# Set debian mirror
 	if [ -z "${LIVE_MIRROR}" ]
 	then
-		LIVE_MIRROR="http://ftp.debian.org/debian"
+		LIVE_MIRROR="http://ftp.debian.org/debian/"
 	fi
 
 	# Set debian security mirror
 	if [ -z "${LIVE_MIRROR_SECURITY}" ]
 	then
-		LIVE_MIRROR_SECURITY="http://security.debian.org/debian"
+		LIVE_MIRROR_SECURITY="http://security.debian.org/"
 	fi
 
 	# Set debian sections

@@ -1,8 +1,8 @@
 Source: live-package
 Section: misc
 Priority: optional
-Maintainer: Daniel Baumann <daniel@debian.org>
-Uploaders: Marco Amadori <marco.amadori@gmail.com>
+Maintainer: Debian Live <debian-live-devel@lists.alioth.debian.org>
+Uploaders: Daniel Baumann <daniel@debian.org>, Marco Amadori <marco.amadori@gmail.com>
 Build-Depends: debhelper (>= 4)
 Standards-Version: 3.7.2
 
@@ -11,8 +11,9 @@ Architecture: all
 Depends: cdebootstrap (>= 0.3.10), dpkg-dev, genext2fs, mkisofs, squashfs-tools
 Provides: make-live
 Description: utility to build Debian Live systems
- The Debian Live framework provides all necessary tools to create Debian Live
- systems. make-live is the utility used to automagically build CD/DVD images and
- netboot tarballs.
+ make-live is a utility to build Debian Live systems. It takes a Debian mirror
+ as an input and outputs a live system image (ISO image for CDs and DVDs, or
+ tarball for netboot). make-live is still in the early stage of development, but
+ has basic functionality and can be run successfully.
  .
   Homepage: <http://live.debian.net/>

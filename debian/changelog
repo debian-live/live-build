@@ -1,3 +1,13 @@
+live-package (0.99.4-1) unstable; urgency=low
+
+  * New upstream release:
+    - Added patch from Alex Owen <r.a.owen@qmul.ac.uk> to update pxelinux.cfg
+      for NFS root in casper (Closes: #380512).
+    - Temporarily hacks xorg configuration file to remove BusID and set
+      default driver to vesa (Closes: #382391).
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 28 Aug 2006 00:00:00 +0200
+
 live-package (0.99.3-1) unstable; urgency=low
 
   * New upstream release:

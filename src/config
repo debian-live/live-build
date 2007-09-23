@@ -42,11 +42,11 @@
 # Kernel flavour		(Default: auto-detected)
 #LIVE_KERNEL=""
 
-# Debian mirror			(Default: http://ftp.debian.org/debian)
-#LIVE_MIRROR="http://ftp.debian.org/debian"
+# Debian mirror			(Default: http://ftp.debian.org/debian/)
+#LIVE_MIRROR="http://ftp.debian.org/debian/"
 
-# Debian security mirror	(Default: http://security.debian.org/debian)
-#LIVE_MIRROR_SECURITY="http://ftp.debian.org/debian-security"
+# Debian security mirror	(Default: http://security.debian.org/)
+#LIVE_MIRROR_SECURITY="http://security.debian.org/"
 
 # Packages			(Default: empty)
 LIVE_PACKAGES="cdebootstrap less locales screen sudo vim"

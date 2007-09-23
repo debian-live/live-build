@@ -9,6 +9,54 @@
 # This is free software, and you are welcome to redistribute it
 # under certain conditions; see COPYING for details.
 
+Indices ()
+{
+	case "${1}" in
+		default)
+			# Configure default sources.list
+			echo "deb http://ftp.debian.org/debian/ ${LIVE_DISTRIBUTION} ${LIVE_SECTION}" > "${LIVE_CHROOT}"/etc/apt/sources.list
+
+			case "${LIVE_DISTRIBUTION}" in
+				"${CODENAME_TESTING}")
+					echo "deb http://ftp.debian.org/debian/ ${CODENAME_TESTING}-proposed-updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+					echo "deb http://security.debian.org/ ${CODENAME_TESTING}/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+					;;
+
+				"${CODENAME_STABLE}")
+					echo "deb ${LIVE_MIRROR_SECURITY} ${CODENAME_STABLE}/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+					;;
+
+				"${CODENAME_OLDSTABLE}")
+					echo "deb ${LIVE_MIRROR_SECURITY} ${CODENAME_OLDSTABLE}/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+					;;
+			esac
+			;;
+
+		custom)
+			# Configure custom sources.list
+			echo "deb ${LIVE_MIRROR} ${LIVE_DISTRIBUTION} ${LIVE_SECTION}" > "${LIVE_CHROOT}"/etc/apt/sources.list
+
+			case "${LIVE_DISTRIBUTION}" in
+				"${CODENAME_TESTING}")
+					echo "deb ${LIVE_MIRROR} ${CODENAME_TESTING}-proposed-updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+					echo "deb ${LIVE_MIRROR_SECURITY} ${CODENAME_TESTING}/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+					;;
+
+				"${CODENAME_STABLE}")
+					echo "deb ${LIVE_MIRROR_SECURITY} ${CODENAME_STABLE}/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+					;;
+
+				"${CODENAME_OLDSTABLE}")
+					echo "deb ${LIVE_MIRROR_SECURITY} ${CODENAME_OLDSTABLE}/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+					;;
+			esac
+			;;
+	esac
+
+	# Update indices
+	Chroot_exec "apt-get update"
+}
+
 Md5sum ()
 {
 	# Calculating md5sums

@@ -29,9 +29,15 @@ NFSROOT=auto
 EOF
 		Chroot_exec "update-initramfs -tu"
 	fi
+
+	# Switching package indices to default
+	Indices default
 	
-	# Generating rootfs
+	# Generating rootfs image
 	Genrootfs
+
+	# Switching package indices to custom
+	Indices custom
 
 	# Installing syslinux
 	Syslinux net
