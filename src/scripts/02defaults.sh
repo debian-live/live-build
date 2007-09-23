@@ -372,5 +372,5 @@ Defaults ()
 
 	# Variables that do not have defaults but need to be exported to
 	# allow other helpers to use their values
-	export LIVE_BOOTAPPEND LIVE_BOOTSTRAP_CONFIG LIVE_INCLUDE_CHROOT LIVE_PRESEED
+	export LIVE_BOOTAPPEND LIVE_BOOTSTRAP_CONFIG LIVE_INCLUDE_CHROOT LIVE_PRESEED LIVE_ISOLINUX_SPLASH
 }

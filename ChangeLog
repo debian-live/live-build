@@ -1,3 +1,13 @@
+2007-03-09 Daniel Baumann <daniel@debian.org>
+
+	* Added kbd to all !minimal lists.
+
+2007-03-08 Otavio Salvador <otavio@debian.org>
+
+	* helpers/lh_configapt: Fix aptitude configuration to really avoid
+	  recommended packages to get installed.
+	* src/scripts/02defaults.sh: Export LIVE_ISOLINUX_SPLASH.
+
 2007-03-04 Daniel Baumann <daniel@debian.org>
 
 	* Replaced removal of kernel on minimal flavours with excludes on the

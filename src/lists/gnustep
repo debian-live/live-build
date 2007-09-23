@@ -4,7 +4,7 @@
 eject file sudo vim-tiny
 
 # Standard
-console-common locales
+console-common kbd locales
 
 # X11
 wdm x-window-system-core

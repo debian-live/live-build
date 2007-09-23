@@ -4,7 +4,7 @@
 eject file sudo vim-tiny
 
 # Standard
-console-common locales
+console-common kbd locales
 
 # KDE Core
 kde-core kdm

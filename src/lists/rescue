@@ -4,7 +4,7 @@
 eject file sudo vim-tiny
 
 # Standard
-console-common locales
+console-common kbd locales
 
 # Rescue
 
@@ -54,3 +54,4 @@ clamav
 clamav-data
 wipe
 secure-delete
+minicom

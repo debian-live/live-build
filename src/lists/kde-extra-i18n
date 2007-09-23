@@ -4,7 +4,7 @@
 eject file sudo vim-tiny
 
 # Standard
-console-common locales
+console-common kbd locales
 
 # Standard i18n
 manpages manpages-dev manpages-de manpages-de-dev manpages-es manpages-es-extra
