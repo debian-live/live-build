@@ -107,7 +107,7 @@ Defaults ()
 				;;
 
 			amd64)
-				if [ "${LIVE_DISTRIBUTION}" = "unstable" ]
+				if [ "${LIVE_DISTRIBUTION}" = "unstable" ] || [ "${LIVE_DISTRIBUTION}" = "testing" ]
 				then
 					LIVE_KERNEL="amd64"
 				else
@@ -176,18 +176,21 @@ Defaults ()
 	# Check for package lists
 	if [ -z "${LIVE_PACKAGE_LIST}" ]
 	then
-		LIVE_PACKAGE_LIST="${BASE}/lists/standard"
-	else
 		if [ "${LIVE_FLAVOUR}" = "minimal" ]
 		then
 			LIVE_PACKAGE_LIST="${BASE}/lists/minimal"
-		fi
-
-		if [ -r "${BASE}/lists/${LIVE_PACKAGE_LIST}" ]
-		then
-			LIVE_PACKAGE_LIST="${BASE}/lists/${LIVE_PACKAGE_LIST}"
 		else
 			LIVE_PACKAGE_LIST="${BASE}/lists/standard"
+		fi
+	else
+		if [ ! -r "${LIVE_PACKAGE_LIST}" ]
+		then
+			if [ -r "${BASE}/lists/${LIVE_PACKAGE_LIST}" ]
+			then
+				LIVE_PACKAGE_LIST="${BASE}/lists/${LIVE_PACKAGE_LIST}"
+			else
+				LIVE_PACKAGE_LIST="${BASE}/lists/standard"
+			fi
 		fi
 	fi
 

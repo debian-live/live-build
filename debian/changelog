@@ -1,3 +1,15 @@
+live-package (0.99.7-1) unstable; urgency=medium
+
+  * New upstream release:
+    - removes the now outdated handling of testing specific kernels
+      (Closes: #387562).
+    - added fix from Bas Wijnen <wijnen@debian.org> for space handling in
+      arguments (Closes: #388204).
+    - fixes package list handling similar to the fix suggested by Alex Owen
+      <r.alex.owen@gmail.com> (Closes: #388060).
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 18 Sep 2006 00:00:00 +0200
+
 live-package (0.99.6-1) unstable; urgency=medium
 
   * New upstream release:

@@ -11,7 +11,8 @@
 
 Hack_xorg ()
 {
-	if [ -f "${LIVE_CHROOT}/etc/X11/xorg.conf" ] #&& [ "${LIVE_DISTRIBUTION_EXPERIMENTAL}" != "yes" ]
+	# xserver-xorg << 7.1
+	if [ -f "${LIVE_CHROOT}/etc/X11/xorg.conf" ] && [ "${LIVE_DISTRIBUTION}" = "testing" ]
 	then
 		# Comment "BusID" line and set driver to "vesa"
 		sed -i -e 's/\(^.*BusID.*\)/#\1/g' -e '/Section "Device"/,/EndSection/ s/\(.*Driver.*"\).*\(".*\)/\1vesa\2/g' "${LIVE_CHROOT}"/etc/X11/xorg.conf

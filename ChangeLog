@@ -1,3 +1,24 @@
+2006-09-25 Daniel Baumann <daniel@debian.org>
+
+	* Removed now unused initramfs-tools hack.
+	* Simplified xorg check based on distribution rather than version.
+	* Added fix from Bas Wijnen <wijnen@debian.org> for space handling in
+	  arguments.
+	* Fixed package list handling similar to the fix suggested by Alex Owen
+	  <r.alex.owen@gmail.com>.
+
+2006-09-08 Marco Amadori <marco.amadori@gmail.com>
+
+	* 13hack.sh: initramfs-tools hack, check added for xorg.
+
+2006-09-15 Daniel Baumann <daniel@debian.org>
+
+	* Added eject to minimal package selection.
+
+2006-09-14 Daniel Baumann <daniel@debian.org>
+
+	* Adjustements for linux 2.6.17 testing propagation.
+
 2006-09-08 Marco Amadori <marco.amadori@gmail.com>
 
 	* 23net.sh: Fixed binary missing directory creation.

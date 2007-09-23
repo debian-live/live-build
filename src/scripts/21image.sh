@@ -32,8 +32,6 @@ Indices ()
 				testing)
 					echo "deb ${LIVE_MIRROR} testing ${LIVE_SECTION}" > "${LIVE_CHROOT}"/etc/apt/sources.list
 					echo "deb-src ${LIVE_MIRROR} testing ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb ${LIVE_MIRROR} testing-proposed-updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb-src ${LIVE_MIRROR} testing-proposed-updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
 					echo "deb ${LIVE_MIRROR_SECURITY} testing/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
 					echo "deb-src ${LIVE_MIRROR_SECURITY} testing/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
 					;;
@@ -77,8 +75,6 @@ EOF
 				testing)
 					echo "deb http://ftp.debian.org/debian/ testing ${LIVE_SECTION}" > "${LIVE_CHROOT}"/etc/apt/sources.list
 					echo "deb-src http://ftp.debian.org/debian/ testing ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb http://ftp.debian.org/debian/ testing-proposed-updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb-src http://ftp.debian.org/debian/ testing-proposed-updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
 					echo "deb http://security.debian.org/ testing/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
 					echo "deb-src http://security.debian.org/ testing/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
 					;;
