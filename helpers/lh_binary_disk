@@ -81,7 +81,7 @@ EOF
 
 				;;
 
-			netinst)
+			enabled|netinst)
 				echo "main" > binary/.disk/base_components
 
 				touch binary/.disk/base_installable
