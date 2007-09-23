@@ -1,3 +1,289 @@
+commit 7163ef77391c94992fdc4a7843428228aa22a602
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Mon Sep 17 10:07:19 2007 +0200
+
+    helpers/lh_binary_local-hooks
+    
+      * Making binary hooks executable in case the are not.
+
+commit 60271c791721f8c419f808cf14875d0c20067d8e
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Sun Sep 16 19:19:38 2007 +0200
+
+    helpers/lh_binary_debian-installer
+    
+      * Do not remove pkgsel anymore.
+
+commit d0c26d3d70583d859ee041d355fb73444bb8d1d6
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Sun Sep 16 08:45:31 2007 +0200
+
+    helpers/lh_binary_syslinux
+    
+      * Fixed wrong sed call.
+
+commit f661dd2636157610f6b4a5c93c70639cac0836d8
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Sat Sep 15 14:21:41 2007 +0200
+
+    helpers/lh_binary_debian-installer
+    
+      * Do not create symlinks on usb-hdd images.
+
+commit fe9f0bd0a6ea7d8a942d8a4a61f2eff783f27612
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Sat Sep 15 11:17:10 2007 +0200
+
+    functions/defaults.sh
+    helpers/lh_binary_grub
+    helpers/lh_binary_syslinux
+    helpers/lh_binary_yaboot
+    helpers/lh_config
+    
+      * Adding LH_BOOTAPPEND_INSTALL.
+
+commit 195c0c61cd9f4cbb4db44641dcbba858a1f6bd98
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Sat Sep 15 10:57:22 2007 +0200
+
+    functions/defaults.sh
+    helpers/lh_binary_grub
+    helpers/lh_binary_syslinux
+    helpers/lh_binary_yaboot
+    helpers/lh_config
+    
+      * Renaming LH_BOOTAPPEND to LH_BOOTAPPEND_LIVE.
+
+commit cc4e22a27a2037abf3c67afb119166b02b0dc30b
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Sat Sep 15 10:45:17 2007 +0200
+
+    helpers/lh_binary_debian-installer
+    
+      * Making local udebs/local debs architecture aware.
+
+commit 8675c2a904db652e9bf5e1129102d4e704c11e96
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Fri Sep 14 19:06:19 2007 +0200
+
+    functions/defaults.sh
+    
+      * Setting default distribution to lenny.
+
+commit fd4f95e8e9f7da4056f28bc2a8cab2477f4c33a6
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Fri Sep 14 09:59:49 2007 +0200
+
+    helpers/lh_binary_debian-installer
+    
+      * Removing both required local and d-i udebs when using live-installer.
+
+commit 662aea0ac5287087cc081b43397977bcb5602200
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Fri Sep 14 09:58:11 2007 +0200
+
+    helpers/lh_binary_debian-installer
+    
+      * Also removing pkgsel.
+
+commit e789f3869ea83228bdfa3f0c649dce65932e3393
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Thu Sep 13 11:07:51 2007 +0200
+
+    helpers/lh_binary_debian-installer
+    
+      * Added forgotten path to bootstrap-base removal.
+
+commit f197e4787dc5974d8dd0c1d9709e30cb64dba2aa
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Thu Sep 13 09:43:41 2007 +0200
+
+    helpers/lh_binary_debian-installer
+    
+      * Simplifying debian-installer download.
+
+commit 65bd75147deea57c0b0b890074a21238cc431a7d
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Thu Sep 13 09:38:29 2007 +0200
+
+    helpers/lh_binary_debian-installer
+    helpers/lh_binary_disk
+    
+      * Adding support for live-installer.
+
+commit 56019bbac5d8c52a3520b1c65da4c99402b7c423
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Thu Sep 13 08:49:16 2007 +0200
+
+    docs/NEWS
+    
+      * Polishing and updating with recent news.
+
+commit 662ef3f2488fcf032a8358a031b8a2b2889d3371
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Thu Sep 13 08:01:37 2007 +0200
+
+    templates/syslinux/common/syslinux.cfg
+    
+      * Temporarily disabling extended options, they seem to make problems and need
+        testing.
+
+commit 7ea35b82acc66d798bf90d32493e8b7f1e1024bf
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Thu Sep 13 08:00:23 2007 +0200
+
+    docs/CREDITS
+    
+      * Adding Rene Merou <ochominutosdearco@gmail.com>.
+
+commit 73a2a9a5a5f9e4705714f26ef1b7db4b1b5b0d0b
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Thu Sep 13 07:59:49 2007 +0200
+
+    templates/syslinux/es/*
+    
+     [ Rene Merou <ochominutosdearco@gmail.com> ]
+     * Translated syslinux templates to Spanish.
+
+commit a251756d551557733faa54a5cc1f68acf58cd862
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Thu Sep 13 07:58:06 2007 +0200
+
+    templates/syslinux/ca/*
+    
+      [ Rene Merou <ochominutosdearco@gmail.com> ]
+      * Translated syslinux templates to Catalan.
+
+commit 9bb89083c1fb3377fc9be6cf01bdf8bf205f6455
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Thu Sep 13 07:55:05 2007 +0200
+
+    functions/defaults.sh
+    
+      * Setting default language to 'en'.
+
+commit 8f7224173db44a630686d3c0ebad78baf6db0ce0
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Thu Sep 13 07:54:10 2007 +0200
+
+    helpers/lh_binary_syslinux
+    templates/syslinux/*
+    
+      * Supporting localized syslinux templates based on LH_LANGUAGE.
+
+commit 727d6649df0b09f6ebc6f1ec4692a83a6e24b121
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Thu Sep 13 07:47:18 2007 +0200
+
+    helpers/lh_binary_disk
+    
+      * Adding forgotten cp call.
+
+commit fe3a6d4579bb9186729344868605e066f308ae18
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Wed Sep 12 21:42:42 2007 +0200
+
+    templates/syslinux/f7.txt
+    templates/syslinux/f8.txt.install
+    templates/syslinux/f8.txt.live
+    templates/syslinux/f9.txt.install
+    templates/syslinux/f9.txt.live
+    
+      * Removing cruft from debian-cd templates.
+
+commit 9bc78694ce30cd2e478ea2bc1c9d50e51f8aaeb6
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Wed Sep 12 20:39:30 2007 +0200
+
+    debian/control
+    
+      * Using new Homepage field now.
+
+commit 3f5d23c9159bdf6c5df5d6ab74ff98ad443f9093
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Wed Sep 12 20:39:02 2007 +0200
+
+    docs/CREDITS
+    
+      * Adding Marco Amadori <marco.amadori@gmail.com>.
+
+commit 49de0c8bb9f3283bafb953d2cbe6c8708654cc13
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Wed Sep 12 20:38:47 2007 +0200
+
+    functions/defaults.sh
+    
+      * Downgrading Ubuntu minimal requirements from gutsy to feisty.
+
+commit db4cf9fa91813c2db1912988e3d7c92a75ac97d4
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Wed Sep 12 20:38:12 2007 +0200
+
+    helpers/lh_binary_debian-installer
+    
+      * Simplyfing LH_BASE calls.
+
+commit e29bda3233f06250f6e4075fabc397a7f1d55edd
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Wed Sep 12 20:37:59 2007 +0200
+
+    helpers/lh_binary_disk
+    
+      * Using udeb_include files from debian-cd.
+
+commit 75f80b83434b41df3cf5c6037f0182fe7586a946
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Wed Sep 12 20:37:43 2007 +0200
+
+    functions/releases.sh
+    helpers/lh_binary_disk
+    
+      * Using Debian terminology for images of unreleased suites.
+
+commit bcd4dabacdf9474b4a1afd9ac30a71b2372a4999
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Wed Sep 12 20:37:28 2007 +0200
+
+    helpers/lh_binary_debian-installer
+    helpers/lh_binary_disk
+    
+      * Setting debian-installer default flavour to netinst.
+
+commit 662051684075d9c234a8b2ec10f2d7fb34b25001
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Wed Sep 12 20:36:57 2007 +0200
+
+    helpers/lh_clean
+    
+      * Adding forgotten handling of default case.
+
+commit 37889867bfc42b73d9dcf4a93b7d35fb0ce56e70
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Wed Sep 12 20:36:40 2007 +0200
+
+    examples/cron/snapshots.sh
+    
+      * Only removing old packages if they exist.
+
+commit 6b76dcfe41c6aa401fdc661123afd5ef1d48859d
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Wed Sep 12 20:36:14 2007 +0200
+
+    debian/control
+    
+      * Fixing typing error.
+
+commit 27f36af5f2faa9509a22819243493ee09a9540f3
+Author: Daniel Baumann <daniel@debian.org>
+Date:   Wed Sep 12 20:36:02 2007 +0200
+
+    Makefile
+    debian/changelog
+    functions/common.sh
+    manpages/*
+    
+      * Preparing live-helper 1.0~a28-1.
+
 2007-09-09  Daniel Baumann  <daniel@debian.org>
 
 	* functions/defaults.sh:
