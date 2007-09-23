@@ -17,14 +17,15 @@ Check_stagefile ()
 	# Checking stage file
 	if [ -f "${FILE}" ]
 	then
-		if [ "${LH_FORCE}" = "enabled" ]
+		if [ "${LH_FORCE}" != "enabled" ]
 		then
-			# Forcing execution
-			rm -f "${FILE}"
-		else
 			# Skipping execution
 			Echo_warning "skipping ${NAME}"
 			exit 0
+		else
+			# Forcing execution
+			Echo_message "forcing ${NAME}"
+			rm -f "${FILE}"
 		fi
 	fi
 }

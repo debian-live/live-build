@@ -47,41 +47,17 @@ Create_lockfile .lock
 
 if [ "${LIVE_SYMLINKS}" = "enabled" ]
 then
-	if [ -f chroot/usr/bin/symlinks ]
-	then
-		SYMLINKS="true"
-	fi
+	# Checking depends
+	Check_package chroot/usr/bin/symlinks symlinks
 
-	if [ -n "${SYMLINKS}" ]
-	then
-		# Installing symlinks
-		case "${LH_APT}" in
-			apt|apt-get)
-				Chroot "apt-get install --yes symlinks"
-				;;
-
-			aptitude)
-				Chroot "aptitude install --assume-yes symlinks"
-				;;
-		esac
-	fi
+	# Installing depends
+	Install_package
 
 	# Converting symlinks
 	Chroot "symlinks -c -r -s /"
 
-	if [ -n "${SYMLINKS}" ]
-	then
-		# Removing symlinks
-		case "${LH_APT}" in
-			apt|apt-get)
-				Chroot "apt-get remove --purge --yes symlinks"
-				;;
-
-			aptitude)
-				Chroot "aptitude purge --assume-yes symlinks"
-				;;
-		esac
-	fi
+	# Removing depends
+	Remove_package
 
 	# Creating stage file
 	Create_stagefile .stage/chroot_symlinks

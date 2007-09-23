@@ -1,4 +1,4 @@
-.TH LH_CLEAN 1 "2007\-04\-16" "1.0~a6" "live\-helper"
+.TH LH_CLEAN 1 "2007\-04\-23" "1.0~a7" "live\-helper"
 
 .SH NAME
 lh_clean \- clean up system build directories
@@ -32,7 +32,7 @@ removes all source related caches, directories, and stage files.
 .SH SEE ALSO
 \fIlive\-helper\fR(7)
 .PP
-This program is a part of live-helper.
+This program is a part of live\-helper.
 
 .SH BUGS
 Report bugs against live\-helper <\fIhttp://packages.qa.debian.org/live\-helper/\fR>.

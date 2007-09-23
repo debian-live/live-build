@@ -6,17 +6,6 @@
 # To enable it, copy this hook into your config/chroot_localhooks directory.
 # At boot prompt, type 'live aixgl', press enter and have fun.
 
-# Update sources.list
-cat >> /etc/apt/sources.list << EOF
-# beryl-project
-deb http://debian.beryl-project.org/ etch main
-EOF
-
-if grep deb-src /etc/apt/sources.list
-then
-	echo "deb-src http://debian.beryl-project.org/ etch main" >> /etc/apt/sources.list
-fi
-
 # Import archive signing key
 wget -O - http://debian.beryl-project.org/root@lupine.me.uk.gpg | apt-key add -
 
@@ -24,7 +13,8 @@ wget -O - http://debian.beryl-project.org/root@lupine.me.uk.gpg | apt-key add -
 apt-get update
 
 # Install packages
-PACKAGES="beryl beryl-core beryl-manager beryl-plugins beryl-plugins-unsupported beryl-settings beryl-settings-bindings beryl-settings-simple"
+PACKAGES="beryl beryl-core beryl-manager beryl-plugins beryl-settings beryl-settings-bindings beryl-settings-simple"
+#beryl-plugins-unsupported
 
 if [ -f /usr/bin/gnome-session ]
 then

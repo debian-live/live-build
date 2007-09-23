@@ -51,12 +51,12 @@ lh_chroot_packages "${@}"
 lh_chroot_localpackages "${@}"
 lh_chroot_localpackageslists "${@}"
 lh_chroot_localization "${@}"
-lh_chroot_hacks "${@}"
 lh_chroot_localincludes "${@}"
 lh_chroot_sysvinit "${@}"
 lh_chroot_hooks "${@}"
 lh_chroot_localhooks "${@}"
 lh_chroot_symlinks "${@}"
+lh_chroot_hacks "${@}"
 lh_chroot_interactive "${@}"
 
 # Deconfiguring chroot

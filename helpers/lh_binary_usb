@@ -50,50 +50,23 @@ do
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ ! -f chroot/sbin/mkdosfs ]
-		then
-			PACKAGES="${PACKAGES} dosfstools"
-		fi
-
-		if [ ! -f chroot/usr/bin/mtools ]
-		then
-			PACKAGES="${PACKAGES} mtools"
-		fi
-
-		if [ ! -f chroot/sbin/parted ]
-		then
-			PACKAGES="${PACKAGES} parted"
-		fi
+		# Checking depends
+		Check_package chroot/sbin/mkdosfs dosfstools
+		Check_package chroot/usr/sbin/mtools mtools
+		Check_package chroot/sbin/parted parted
 
 		case "${LIVE_BOOTLOADER}" in
 			grub)
-				if [ ! -f chroot/usr/sbin/grub ]
-				then
-					PACKAGES="${PACKAGES} grub"
-				fi
+				Check_package chroot/usr/sbin/grub grub
 				;;
 
 			syslinux)
-				if [ ! -f chroot/usr/bin/syslinux ]
-				then
-					PACKAGES="${PACKAGES} syslinux"
-				fi
+				Check_package chroot/usr/bin/syslinux syslinux
 				;;
 		esac
 
-		if [ -n "${PACKAGES}" ]
-		then
-			# Installing packages
-			case "${LH_APT}" in
-				apt|apt-get)
-					Chroot "apt-get install --yes ${PACKAGES}"
-					;;
-
-				aptitude)
-					Chroot "aptitude install --assume-yes ${PACKAGES}"
-					;;
-			esac
-		fi
+		# Installing depends
+		Install_package
 
 		# Remove old binary
 		if [ -f binary.img ]
@@ -145,9 +118,9 @@ do
 		lh_losetup $FREELO binary.img 1
 		Chroot "mkfs.msdos -n DEBIAN_LIVE ${FREELO}"
 		mkdir -p binary.tmp
-		mount ${FREELO} binary.tmp
+		${LH_ROOT_COMMAND} mount ${FREELO} binary.tmp
 		cp -r binary/* binary.tmp
-		umount binary.tmp
+		${LH_ROOT_COMMAND} umount binary.tmp
 		rmdir binary.tmp
 
 		if [ "${LIVE_BOOTLOADER}" = "syslinux" ]
@@ -175,19 +148,8 @@ do
 			mv chroot/dev.tmp chroot/dev
 		fi
 
-		if [ -n "${PACKAGES}" ]
-		then
-			# Removing packages
-			case "${LH_APT}" in
-				apt|apt-get)
-					Chroot "apt-get remove --purge --yes ${PACKAGES}"
-					;;
-
-				aptitude)
-					Chroot "aptitude purge --assume-yes ${PACKAGES}"
-					;;
-			esac
-		fi
+		# Removing depends
+		Remove_package
 
 		# Creating stage file
 		Create_stagefile .stage/binary_usb

@@ -1,13 +1,13 @@
-.TH LH_BINARY 1 "2007\-04\-16" "1.0~a6" "live\-helper"
+.TH LH_BINARY 1 "2007\-04\-23" "1.0~a7" "live\-helper"
 
 .SH NAME
-lh_binary \- meta-helper for lh_binary_*
+lh_binary \- meta\-helper for lh_binary_*
 
 .SH SYNOPSIS
 .B lh_binary [\fIlive\-helper\ options\fR\|]
 
 .SH DESCRIPTION
-lh_binary is a meta-helper. It calls all necessary helpers to complete the binary stage.
+lh_binary is a meta\-helper. It calls all necessary helpers to complete the binary stage.
 
 .SH BINARY HELPERS
 Here is the complete list of available binary helper commands. See their man pages for additional documentation.
@@ -24,7 +24,7 @@ copies files into the binary image.
 .IP "\fIlh_binary_iso\fR(1)" 4
 creates the CD/DVD binary image.
 .IP "\fIlh_binary_linuximage\fR(1)" 4
-copies linux-image into the binary image.
+copies linux\-image into the binary image.
 .IP "\fIlh_binary_localincludes\fR(1)" 4
 copies local files into the binary image.
 .IP "\fIlh_binary_manifest\fR(1)" 4
@@ -47,7 +47,7 @@ copies yaboot into the binary image.
 .SH SEE ALSO
 \fIlive\-helper\fR(7)
 .PP
-This program is a part of live-helper.
+This program is a part of live\-helper.
 
 .SH BUGS
 Report bugs against live\-helper <\fIhttp://packages.qa.debian.org/live\-helper/\fR>.

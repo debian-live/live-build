@@ -1,0 +1,43 @@
+Download of prebuilt images
+===========================
+
+Although Debian Live is about creating your own customized Live system, we offer
+some prebuilt images as well. Currently, builds for the three desktop
+environments GNOME[0], KDE[1] and Xfce[2] as well as the standard system are
+available. Builds based on testing are created every week and the ones based on
+unstable are build daily. For stable, we build update them when needed.
+
+Currently, the following flavours are autobuilt here (.iso for CD/DVD images,
+.img for USB stick images):
+
+  * debian-live-${DIST}-${ARCH}-standard
+
+    only packages of priority standard or higher and a few live specific
+    packages (eject, file and sudo).
+
+  * debian-live-${DIST}-${ARCH}-gnome-desktop
+
+    the standard system, laptop related packages (laptop task) and the GNOME[1]
+    desktop environment (desktop and gnome-desktop tasks).
+
+  * debian-live-${DIST}-${ARCH}-kde-desktop
+
+    the standard system, laptop related packages (laptop task) and the KDE[2]
+    desktop environment (desktop and kde-desktop tasks).
+
+  * debian-live-${DIST}-${ARCH}-xfce-desktop
+
+    the standard system, laptop related packages (laptop task) and the Xfce[3]
+    desktop environment (desktop and xfce-desktop tasks).
+
+Note: Currently, we build images for lenny (aka "testing") and sid (aka
+"unstable"). Due to the nature of unreleased Debian versions, it is possible
+that no or not all images could be built because of uninstallable packages.
+Please be patient then and wait for the next builds, use the previous, or do it
+on your own by using live-helper. If you want something which works for sure,
+use the etch (aka "stable") builds.
+
+ [0] http://packages.debian.org/live-helper
+ [1] http://www.gnome.org/
+ [2] http://www.kde.org/
+ [3] http://www.xfce.org/

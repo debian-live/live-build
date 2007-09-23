@@ -11,7 +11,7 @@ set -e
 
 Arguments ()
 {
-	ARGUMENTS="`getopt --longoptions breakpoints,conffile:,debug,force,help,logfile:,quiet,usage,verbose,version --name=${PROGRAM} --options huv --shell sh -- "${@}"`"
+	ARGUMENTS="`getopt --longoptions breakpoints,conffile:,debug,force,help,logfile:,trace,root-command:,quiet,usage,verbose,version --name=${PROGRAM} --options huv --shell sh -- "${@}"`"
 
 	if [ "${?}" != "0" ]
 	then
@@ -46,6 +46,14 @@ Arguments ()
 
 			--logfile)
 				LH_LOGFILE="${2}"; shift 2
+				;;
+
+			--trace)
+				LH_TRACE="enabled"; shift
+				;;
+
+			--root-command)
+				LH_ROOT_COMMAND="${2}"; shift
 				;;
 
 			--quiet)

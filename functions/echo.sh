@@ -11,34 +11,44 @@ set -e
 
 Echo_debug ()
 {
+	STRING="${1}"
+
 	if [ "${LH_DEBUG}" = "enabled" ]
 	then
-		echo "D: ${@}"
+		echo "D: ${STRING}"
 	fi
 }
 
 Echo_error ()
 {
-	echo "E: ${@}"
+	STRING="${1}"
+
+	echo "E: ${STRING}"
 }
 
 Echo_message ()
 {
+	STRING="${1}"
+
 	if [ "${LH_QUIET}" != "enabled" ]
 	then
-		echo "P: ${@}"
+		echo "P: ${STRING}"
 	fi
 }
 
 Echo_verbose ()
 {
+	STRING="${1}"
+
 	if [ "${LH_VERBOSE}" = "enabled" ]
 	then
-		echo "I: ${@}"
+		echo "I: ${STRING}"
 	fi
 }
 
 Echo_warning ()
 {
-	echo "W: ${@}"
+	STRING="${1}"
+
+	echo "W: ${STRING}"
 }
