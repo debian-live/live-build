@@ -72,10 +72,10 @@ Defaults ()
 	then
 		LIVE_DISTRIBUTION="unstable"
 		LIVE_DISTRIBUTION_EXPERIMENTAL="yes"
-		export LIVE_DISTRIBUTION_EXPERIMENTAL
 	fi
 
 	export LIVE_DISTRIBUTION
+	export LIVE_DISTRIBUTION_EXPERIMENTAL
 
 	# Set bootstrap flavour
 	if [ -z "${LIVE_FLAVOUR}" ]
@@ -170,8 +170,9 @@ Defaults ()
  			LIVE_KERNEL_PACKAGES="${LIVE_KERNEL_PACKAGES} loop-aes-modules-2.6-${LIVE_KERNEL} loop-aes-utils"
  		fi
 
-		export LIVE_KERNEL_PACKAGES
 	fi
+
+	export LIVE_KERNEL_PACKAGES
 
 	# Set debian mirror
 	if [ -z "${LIVE_MIRROR}" ]
@@ -185,33 +186,34 @@ Defaults ()
 	if [ -z "${LIVE_REPOSITORY_KEYRING}" ]
 	then
 		LIVE_REPOSITORY_KEYRING="debian-archive-keyring"
-		export LIVE_REPOSITORY_KEYRING
 	fi
+
+	export LIVE_REPOSITORY_KEYRING
 
 	# Set debian security mirror
 	if [ -z "${LIVE_MIRROR_SECURITY}" ]
 	then
 		LIVE_MIRROR_SECURITY="http://security.debian.org/"
-		export LIVE_MIRROR_SECURITY
 	fi
+
+	export LIVE_MIRROR_SECURITY
 
 	# Set default aptitude tasks
 	if [ "${LIVE_PACKAGE_LIST}" = "gnome-desktop" ]
 	then
 		LIVE_PACKAGE_LIST="gnome"
 		LIVE_TASKS="${LIVE_TASKS} standard laptop desktop gnome-desktop"
-		export LIVE_PACKAGE_LIST LIVE_TASKS
 	elif [ "${LIVE_PACKAGE_LIST}" = "kde-desktop" ]
 	then
 		LIVE_PACKAGE_LIST="kde"
 		LIVE_TASKS="${LIVE_TASKS} standard laptop desktop kde-desktop"
-		export LIVE_PACKAGE_LIST LIVE_TASKS
 	elif [ "${LIVE_PACKAGE_LIST}" = "xfce-desktop" ]
 	then
 		LIVE_PACKAGE_LIST="xfce"
 		LIVE_TASKS="${LIVE_TASKS} standard laptop desktop xfce-desktop"
-		export LIVE_PACKAGE_LIST LIVE_TASKS
 	fi
+
+	export LIVE_PACKAGE_LIST LIVE_TASKS
 
 	# Check for package lists
 	if [ -z "${LIVE_PACKAGE_LIST}" ]
@@ -241,6 +243,11 @@ Defaults ()
 	fi
 
 	export LIVE_PACKAGE_LIST
+
+	if [ -n "${LIVE_PACKAGES}" ]
+	then
+		export LIVE_PACKAGES
+	fi
 
 	# Set FTP proxy
 	if [ -z "${LIVE_PROXY_FTP}" ] && [ -n "${ftp_proxy}" ]
@@ -365,5 +372,5 @@ Defaults ()
 
 	# Variables that do not have defaults but need to be exported to
 	# allow other helpers to use their values
-	export LIVE_BOOTSTRAP_CONFIG
+	export LIVE_BOOTAPPEND LIVE_BOOTSTRAP_CONFIG LIVE_INCLUDE_CHROOT LIVE_PRESEED
 }

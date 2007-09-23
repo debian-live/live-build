@@ -1,3 +1,11 @@
+live-package (0.99.24-1) unstable; urgency=low
+
+  * New upstream release:
+    - adds LIVE_INCLUDE_CHROOT to the manual exported variables as reported by
+      Mathieu Geli <mathieu.geli@gmail.com> (Closes: #412325).
+
+ -- Daniel Baumann <daniel@debian.org>  Sun,  3 Mar 2007 12:25:00 +0100
+
 live-package (0.99.23-1) unstable; urgency=low
 
   * New upstream release.

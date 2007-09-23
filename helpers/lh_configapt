@@ -19,6 +19,11 @@ case "${1}" in
 
 	apply-recommends)
 		# Configure recommends
+		if [ ! -d "${LIVE_CHROOT}"/etc/apt/apt.conf.d ]
+		then
+			mkdir -p "${LIVE_CHROOT}"/etc/apt/apt.conf.d
+		fi
+
 		if [ "${LIVE_RECOMMENDS}" = "yes" ]
 		then
 			echo "Aptitude::Recommends-Important \"true\";" > "${LIVE_CHROOT}"/etc/apt/apt.conf.d/00make-live_recommends.conf

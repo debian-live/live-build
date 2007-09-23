@@ -8,7 +8,12 @@ then
 		mkdir -p "${LIVE_CHROOT}"
 	fi
 
-	debootstrap --arch="${LIVE_ARCHITECTURE}" --variant=buildd "${LIVE_DISTRIBUTION}" "${LIVE_CHROOT}" "${LIVE_MIRROR}"
+	if [ -n "${LIVE_BOOTSTRAP_CONFIG}" ];
+	then
+		LIVE_DEBOOTSTRAP_SCRIPT="/usr/lib/debootstrap/scripts/${LIVE_BOOTSTRAP_CONFIG}"
+	fi
+
+	debootstrap --arch="${LIVE_ARCHITECTURE}" --variant=buildd "${LIVE_DISTRIBUTION}" "${LIVE_CHROOT}" "${LIVE_MIRROR}" "${LIVE_DEBOOTSTRAP_SCRIPT}"
 
 	# Touching stage file
 	if [ ! -d "${LIVE_ROOT}"/.stage ]

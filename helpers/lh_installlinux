@@ -21,12 +21,5 @@ case "${1}" in
 esac
 
 # Installing linux image
-if [ "${LIVE_FLAVOUR}" = "minimal" ] || [ "${LIVE_FLAVOUR}" = "mini" ]
-then
-	mv "${LIVE_CHROOT}"/boot/vmlinuz* "${DESTDIR}"/vmlinuz
-	mv "${LIVE_CHROOT}"/boot/initrd.img* "${DESTDIR}"/initrd.gz
-	rm -f "${LIVE_CHROOT}"/vmlinuz "${LIVE_CHROOT}"/initrd.img
-else
-	cp "${LIVE_CHROOT}"/boot/vmlinuz* "${DESTDIR}"/vmlinuz
-	cp "${LIVE_CHROOT}"/boot/initrd.img* "${DESTDIR}"/initrd.gz
-fi
+cp "${LIVE_CHROOT}"/boot/vmlinuz* "${DESTDIR}"/vmlinuz
+cp "${LIVE_CHROOT}"/boot/initrd.img* "${DESTDIR}"/initrd.gz
