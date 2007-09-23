@@ -66,6 +66,20 @@ Iso ()
 		# Switching package indices to custom
 		Indices custom
 
+		# Install depends
+		if [ -z "${KEEP_MEMTEST86}" ]
+		then
+			if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
+			then
+				Chroot_exec "aptitude install --assume-yes memtest86+"
+			fi
+		fi
+
+		if [ -z "${KEEP_SYSLINUX}" ]
+		then
+			Chroot_exec "aptitude install --assume-yes syslinux"
+		fi
+
 		# Installing syslinux
 		Syslinux iso
 
@@ -75,6 +89,20 @@ Iso ()
 		# Installing memtest
 		Memtest iso
 
+		# Remove depends
+		if [ -z "${KEEP_MEMTEST86}" ]
+		then
+			if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
+			then
+				Chroot_exec "aptitude purge --assume-yes memtest86+"
+			fi
+		fi
+
+		if [ -z "${KEEP_SYSLINUX}" ]
+		then
+			Chroot_exec "aptitude purge --assume-yes syslinux"
+		fi
+
 		# Deconfigure network
 		Patch_network deapply
 
@@ -83,7 +111,7 @@ Iso ()
 		Patch_chroot deapply
 
 		# Installing templates
-		if [ "${LIVE_FLAVOUR}" != "minimal" ]
+		if [ "${LIVE_FLAVOUR}" != "minimal" ] || [ "${LIVE_FLAVOUR}" != "mini" ]
 		then
 			cp -r "${LIVE_TEMPLATES}"/iso/* "${LIVE_ROOT}"/binary
 			cp -r "${LIVE_TEMPLATES}"/common/* "${LIVE_ROOT}"/binary
@@ -93,7 +121,7 @@ Iso ()
 		Md5sum
 
 		# Creating image
-		Mkisofs binary
+		Genisoimage binary
 
 		# Touching stage file
 		touch "${LIVE_ROOT}"/.stage/image_binary
@@ -119,7 +147,7 @@ Iso ()
 		Patch_chroot deapply
 
 		# Creating image
-		Mkisofs source
+		Genisoimage source
 
 		# Touching stage file
 		touch "${LIVE_ROOT}"/.stage/image_source

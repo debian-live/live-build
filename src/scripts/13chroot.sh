@@ -50,7 +50,7 @@ EOF
 		if [ "${LIVE_DISTRIBUTION}" = "unstable" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_UNSTABLE}" ] || \
 		   [ "${LIVE_DISTRIBUTION}" = "testing" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_TESTING}" ]
 		then
-			if [ "${LIVE_FLAVOUR}" != "minimal" ]
+			if [ "${LIVE_FLAVOUR}" != "minimal" ] || [ "${LIVE_FLAVOUR}" != "mini" ]
 			then
 				Chroot_exec "apt-get install --yes --force-yes ${LIVE_REPOSITORY_KEYRING}"
 
@@ -229,7 +229,7 @@ EOF
 		rm -rf "${LIVE_CHROOT}"/var/cache/apt
 		mkdir -p "${LIVE_CHROOT}"/var/cache/apt/archives/partial
 
-		if [ "${LIVE_FLAVOUR}" = "minimal" ]
+		if [ "${LIVE_FLAVOUR}" = "minimal" ] || [ "${LIVE_FLAVOUR}" = "mini" ]
 		then
 			rm -rf "${LIVE_CHROOT}"/var/lib/apt/lists/*
 			rm -f "${LIVE_CHROOT}"/var/lib/dpkg/available-old
@@ -256,5 +256,31 @@ EOF
 
 		# Touching stage file
 		touch "${LIVE_ROOT}"/.stage/chroot
+	fi
+
+	# Check depends
+	if [ "`grep dosfstools ${LIVE_ROOT}/packages.txt`" ]
+	then
+		KEEP_DOSFSTOOLS="true"
+	fi
+
+	if [ "`grep memtest86+ ${LIVE_ROOT}/packages.txt`" ]
+	then
+		KEEP_MEMTEST86="true"
+	fi
+
+	if [ "`grep mtools ${LIVE_ROOT}/packages.txt`" ]
+	then
+		KEEP_MTOOLS="true"
+	fi
+
+	if [ "`grep parted ${LIVE_ROOT}/packages.txt`" ]
+	then
+		KEEP_PARTED="true"
+	fi
+
+	if [ "`grep syslinux ${LIVE_ROOT}/packages.txt`" ]
+	then
+		KEEP_SYSLINUX="true"
 	fi
 }

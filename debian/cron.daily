@@ -38,7 +38,7 @@ for AUTOBUILD_DISTRIBUTION in ${AUTOBUILD_DISTRIBUTIONS}
 do
 	for AUTOBUILD_FLAVOUR in ${AUTOBUILD_FLAVOURS}
 	do
-		if [ ! -f "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/log/debian-live-${AUTOBUILD_DISTRIBUTION}-${AUTOBUILD_ARCHITECTURE}-${AUTOBUILD_FLAVOUR}_${AUTOBUILD_DATE}-iso-log.txt ]
+		if [ ! -f "${AUTOBUILD_SERVER}"/daily-builds/${AUTOBUILD_DATE}/log/debian-live-${AUTOBUILD_DISTRIBUTION}-${AUTOBUILD_ARCHITECTURE}-${AUTOBUILD_FLAVOUR}_${AUTOBUILD_DATE}-iso-log.txt ]
 		then
 			# Generating images
 			mkdir debian-live
@@ -48,22 +48,22 @@ do
 		if [ -f debian-live/binary.iso ] && [ -f debian-live/source.iso ]
 		then
 			# Moving logs
-			mkdir -p "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/log
-			mv debian-live/log.txt "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/log/debian-live-${AUTOBUILD_DISTRIBUTION}-${AUTOBUILD_ARCHITECTURE}-${AUTOBUILD_FLAVOUR}_${AUTOBUILD_DATE}-iso-log.txt
-			mv debian-live/packages.txt "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/log/debian-live-${AUTOBUILD_DISTRIBUTION}-${AUTOBUILD_ARCHITECTURE}-${AUTOBUILD_FLAVOUR}_${AUTOBUILD_DATE}-iso-packages.txt
+			mkdir -p "${AUTOBUILD_SERVER}"/daily-builds/${AUTOBUILD_DATE}/log
+			mv debian-live/log.txt "${AUTOBUILD_SERVER}"/daily-builds/${AUTOBUILD_DATE}/log/debian-live-${AUTOBUILD_DISTRIBUTION}-${AUTOBUILD_ARCHITECTURE}-${AUTOBUILD_FLAVOUR}_${AUTOBUILD_DATE}-iso-log.txt
+			mv debian-live/packages.txt "${AUTOBUILD_SERVER}"/daily-builds/${AUTOBUILD_DATE}/log/debian-live-${AUTOBUILD_DISTRIBUTION}-${AUTOBUILD_ARCHITECTURE}-${AUTOBUILD_FLAVOUR}_${AUTOBUILD_DATE}-iso-packages.txt
 
 			# Moving images
-			mkdir -p "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/${AUTOBUILD_ARCHITECTURE}
-			mv debian-live/binary.iso "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/${AUTOBUILD_ARCHITECTURE}/debian-live-${AUTOBUILD_DISTRIBUTION}-${AUTOBUILD_ARCHITECTURE}-${AUTOBUILD_FLAVOUR}.iso
+			mkdir -p "${AUTOBUILD_SERVER}"/daily-builds/${AUTOBUILD_DATE}/${AUTOBUILD_ARCHITECTURE}
+			mv debian-live/binary.iso "${AUTOBUILD_SERVER}"/daily-builds/${AUTOBUILD_DATE}/${AUTOBUILD_ARCHITECTURE}/debian-live-${AUTOBUILD_DISTRIBUTION}-${AUTOBUILD_ARCHITECTURE}-${AUTOBUILD_FLAVOUR}.iso
 
-			mkdir -p "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/source
-			mv debian-live/source.iso "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/source/debian-live-${AUTOBUILD_DISTRIBUTION}-source-${AUTOBUILD_FLAVOUR}.iso
+			mkdir -p "${AUTOBUILD_SERVER}"/daily-builds/${AUTOBUILD_DATE}/source
+			mv debian-live/source.iso "${AUTOBUILD_SERVER}"/daily-builds/${AUTOBUILD_DATE}/source/debian-live-${AUTOBUILD_DISTRIBUTION}-source-${AUTOBUILD_FLAVOUR}.iso
 		fi
 
 		# Cleanup
 		rm -rf debian-live
 
-		if [ ! -f "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/log/debian-live-${AUTOBUILD_DISTRIBUTION}-${AUTOBUILD_ARCHITECTURE}-${AUTOBUILD_FLAVOUR}_${AUTOBUILD_DATE}-usb-log.txt ]
+		if [ ! -f "${AUTOBUILD_SERVER}"/daily-builds/${AUTOBUILD_DATE}/log/debian-live-${AUTOBUILD_DISTRIBUTION}-${AUTOBUILD_ARCHITECTURE}-${AUTOBUILD_FLAVOUR}_${AUTOBUILD_DATE}-usb-log.txt ]
 		then
 			# Generating images
 			mkdir debian-live
@@ -73,13 +73,13 @@ do
 		if [ -f debian-live/binary.img ]
 		then
 			# Moving logs
-			mkdir -p "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/log
-			mv debian-live/log.txt "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/log/debian-live-${AUTOBUILD_DISTRIBUTION}-${AUTOBUILD_ARCHITECTURE}-${AUTOBUILD_FLAVOUR}_${AUTOBUILD_DATE}-usb-log.txt
-			mv debian-live/packages.txt "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/log/debian-live-${AUTOBUILD_DISTRIBUTION}-${AUTOBUILD_ARCHITECTURE}-${AUTOBUILD_FLAVOUR}_${AUTOBUILD_DATE}-usb-packages.txt
+			mkdir -p "${AUTOBUILD_SERVER}"/daily-builds/${AUTOBUILD_DATE}/log
+			mv debian-live/log.txt "${AUTOBUILD_SERVER}"/daily-builds/${AUTOBUILD_DATE}/log/debian-live-${AUTOBUILD_DISTRIBUTION}-${AUTOBUILD_ARCHITECTURE}-${AUTOBUILD_FLAVOUR}_${AUTOBUILD_DATE}-usb-log.txt
+			mv debian-live/packages.txt "${AUTOBUILD_SERVER}"/daily-builds/${AUTOBUILD_DATE}/log/debian-live-${AUTOBUILD_DISTRIBUTION}-${AUTOBUILD_ARCHITECTURE}-${AUTOBUILD_FLAVOUR}_${AUTOBUILD_DATE}-usb-packages.txt
 
 			# Moving images
-			mkdir -p "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/${AUTOBUILD_ARCHITECTURE}
-			mv debian-live/binary.img "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/${AUTOBUILD_ARCHITECTURE}/debian-live-${AUTOBUILD_DISTRIBUTION}-${AUTOBUILD_ARCHITECTURE}-${AUTOBUILD_FLAVOUR}.img
+			mkdir -p "${AUTOBUILD_SERVER}"/daily-builds/${AUTOBUILD_DATE}/${AUTOBUILD_ARCHITECTURE}
+			mv debian-live/binary.img "${AUTOBUILD_SERVER}"/daily-builds/${AUTOBUILD_DATE}/${AUTOBUILD_ARCHITECTURE}/debian-live-${AUTOBUILD_DISTRIBUTION}-${AUTOBUILD_ARCHITECTURE}-${AUTOBUILD_FLAVOUR}.img
 		fi
 
 		# Cleanup
@@ -92,7 +92,7 @@ umount -f "${AUTOBUILD_DIRECTORY}"/debian-live/chroot/proc > /dev/null 2>&1
 rm -rf "${AUTOBUILD_DIRECTORY}"
 
 # MD5SUMS
-for DIRECTORY in "${AUTOBUILD_SERVER}"/daily-release/${AUTOBUILD_DATE}/*
+for DIRECTORY in "${AUTOBUILD_SERVER}"/daily-builds/${AUTOBUILD_DATE}/*
 do
 	cd "${DIRECTORY}"
 	md5sum * > MD5SUMS

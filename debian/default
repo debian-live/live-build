@@ -3,7 +3,7 @@
 AUTOBUILD="false"
 
 AUTOBUILD_DISTRIBUTIONS="etch sid"
-AUTOBUILD_FLAVOURS="minimal standard kde-desktop gnome-desktop xfce-desktop"
+AUTOBUILD_FLAVOURS="standard kde-desktop gnome-desktop xfce-desktop"
 AUTOBUILD_OPTIONS="--with-source"
 
 AUTOBUILD_DIRECTORY="/srv/tmp/make-live"
