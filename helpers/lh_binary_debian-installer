@@ -184,29 +184,15 @@ fi
 
 # Downloading debian-installer
 mkdir -p "${DESTDIR_DI}"
-
-if [ "${LH_DISTRIBUTION}" = "sid" ]
-then
-	wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI}/${DI_KERNEL}
-	wget --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI}/initrd.gz
-else
-	wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" "${LH_MIRROR_BOOTSTRAP}"/dists/"${LH_DISTRIBUTION}"/main/installer-"${LH_ARCHITECTURE}"/current/images/"${DI}"/"${DI_KERNEL}"
-	wget --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" "${LH_MIRROR_BOOTSTRAP}"/dists/"${LH_DISTRIBUTION}"/main/installer-"${LH_ARCHITECTURE}"/current/images/"${DI}"/initrd.gz
-fi
+wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI}/${DI_KERNEL}
+wget --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI}/initrd.gz
 
 # Downloading graphical-installer
 if [ "${LH_ARCHITECTURE}" = "amd64" ] || [ "${LH_ARCHITECTURE}" = "i386" ] || [ "${LH_ARCHITECTURE}" = "powerpc" ]
 then
 	mkdir -p "${DESTDIR_GI}"
-
-	if [ "${LH_DISTRIBUTION}" = "sid" ]
-	then
-		wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_GTK}/${DI_KERNEL}
-		wget --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_GTK}/initrd.gz
-	else
-		wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" "${LH_MIRROR_BOOTSTRAP}"/dists/"${LH_DISTRIBUTION}"/main/installer-"${LH_ARCHITECTURE}"/current/images/"${DI_GTK}"/"${DI_KERNEL}"
-		wget --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" "${LH_MIRROR_BOOTSTRAP}"/dists/"${LH_DISTRIBUTION}"/main/installer-"${LH_ARCHITECTURE}"/current/images/"${DI_GTK}"/initrd.gz
-	fi
+	wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_GTK}/${DI_KERNEL}
+	wget --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_GTK}/initrd.gz
 fi
 
 if [ "${LH_DEBIAN_INSTALLER}" != "netboot" ]; then
