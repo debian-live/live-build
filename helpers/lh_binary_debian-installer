@@ -35,7 +35,7 @@ Set_defaults
 
 # Setting remote d-i directories
 case "${LH_DEBIAN_INSTALLER}" in
-	enabled|cdrom|netinst|businesscard)
+	enabled|cdrom|netinst|businesscard|live)
 		DI="cdrom"
 		DI_GTK="${DI}/gtk"
 		DI_KERNEL="vmlinuz"
@@ -380,6 +380,12 @@ for EXCLUDE in `cat exclude`
 do
 	rm -f "${EXCLUDE}"_*.udeb
 done
+
+# Enable live-installer
+if [ "${LH_DEBIAN_INSTALLER}" = "live" ]
+then
+	rm -f bootstrap-base_*.udeb
+fi
 
 # Moving udebs
 for UDEB in ${UDEBS}
