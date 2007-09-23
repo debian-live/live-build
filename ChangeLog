@@ -1,3 +1,12 @@
+2006-07-28 Daniel Baumann <daniel@debian.org>
+
+	* Added DEBIAN_FRONTEND to chroots(), now completely non-interactive.
+	* Fixed wrong chroot patch.
+
+2006-07-27 Marco Amadori <marco.amadori@gmail.com>
+
+	* Changed amd64 kernel naming scheme.
+
 2006-07-19 Daniel Baumann <daniel@debian.org>
 
 	* Bugfixes.
