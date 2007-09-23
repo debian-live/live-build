@@ -6,6 +6,7 @@ Uploaders: Daniel Baumann <daniel@debian.org>, Marco Amadori <marco.amadori@gmai
 Build-Depends: debhelper (>= 5)
 Standards-Version: 3.7.2
 XS-Vcs-Svn: svn://svn.debian.org/debian-live/dists/trunk/live-helper/
+XS-VCS-Browse: http://svn.debian.org/wsvn/debian-live/dists/trunk/live-helper/
 
 Package: live-helper
 Architecture: all

@@ -33,7 +33,7 @@ Read_conffile config/source
 Set_defaults
 
 
-for IMAGE in ${LIVE_BINARY_IMAGE}
+for IMAGE in ${LIVE_BINARY_IMAGES}
 do
 	if [ "${IMAGE}" = "hdd" ]
 	then

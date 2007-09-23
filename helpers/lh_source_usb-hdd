@@ -39,12 +39,12 @@ then
 	exit 0
 fi
 
-for IMAGE in ${LIVE_SOURCE_IMAGE}
+for IMAGE in ${LIVE_SOURCE_IMAGES}
 do
 	if [ "${IMAGE}" = "usb-hdd" ]
 	then
 		# Requiring stage file
-		Require_stagefile .stage/source_download
+		Require_stagefile .stage/source_debian
 
 		# Checking stage file
 		Check_stagefile .stage/source_usb-hdd

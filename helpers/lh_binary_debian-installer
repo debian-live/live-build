@@ -52,7 +52,7 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Setting destination directory
-case "${LIVE_BINARY_IMAGE}" in
+case "${LIVE_BINARY_IMAGES}" in
 	iso)
 		DESTDIR="binary/install"
 		DESTDIR_INSTALLER="cdrom"
@@ -67,13 +67,13 @@ case "${LIVE_BINARY_IMAGE}" in
 		;;
 
 	usb-hdd|hdd)
-		DESTDIR="binary"
+		DESTDIR="binary/install"
 		DESTDIR_INSTALLER="hd-media"
 		;;
 esac
 
 # Temporary check for broken syslinux
-if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
 then
 	# Assemble multi-arch
 	if [ -n "${MULTIARCH}" ]
@@ -97,16 +97,16 @@ fi
 # Downloading debian-installer
 mkdir -p "${DESTDIR}"
 
-wget --no-clobber -O "${DESTDIR}"/vmlinuz "${LIVE_MIRROR_BUILD}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/vmlinuz
-wget --no-clobber -O "${DESTDIR}"/initrd.gz "${LIVE_MIRROR_BUILD}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/initrd.gz
+wget --no-clobber -O "${DESTDIR}"/vmlinuz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/vmlinuz
+wget --no-clobber -O "${DESTDIR}"/initrd.gz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/initrd.gz
 
 # Downloading graphical-installer
 if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ] || [ "${LIVE_ARCHITECTURE}" = "powerpc" ]
 then
 	mkdir -p "${DESTDIR}"/gtk
 
-	wget --no-clobber -O "${DESTDIR}"/gtk/vmlinuz "${LIVE_MIRROR_BUILD}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/gtk/vmlinuz
-	wget --no-clobber -O "${DESTDIR}"/gtk/initrd.gz "${LIVE_MIRROR_BUILD}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/gtk/initrd.gz
+	wget --no-clobber -O "${DESTDIR}"/gtk/vmlinuz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/gtk/vmlinuz
+	wget --no-clobber -O "${DESTDIR}"/gtk/initrd.gz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/gtk/initrd.gz
 fi
 
 FIXME ()
@@ -114,7 +114,7 @@ FIXME ()
 # Downloading udebs
 mkdir -p binary/dists/"${LIVE_DISTRIBUTION}"/main/debian-installer/binary-"${LIVE_ARCHITECTURE}"
 cd binary/dists/"${LIVE_DISTRIBUTION}"/main/debian-installer/binary-"${LIVE_ARCHITECTURE}"
-wget "${LIVE_MIRROR_BUILD}"/dists/"${LIVE_DISTRIBUTION}"/main/debian-installer/binary-"${LIVE_ARCHITECTURE}"/Packages.gz
+wget "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/debian-installer/binary-"${LIVE_ARCHITECTURE}"/Packages.gz
 gunzip -c Packages.gz > Packages
 cd "${OLDPWD}"
 
@@ -132,7 +132,7 @@ for UDEB in ${UDEBS}
 do
 	mkdir -p binary/`dirname ${UDEB}`
 	cd binary/`dirname ${UDEB}`
-	wget "${LIVE_MIRROR_BUILD}"/${UDEB}
+	wget "${LIVE_MIRROR_BOOTSTRAP}"/${UDEB}
 	cd "${OLDPWD}"
 done
 

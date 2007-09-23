@@ -32,19 +32,19 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-Breakpoint "source_iso: Init"
-
 if [ "${LIVE_SOURCE}" != "enabled" ]
 then
 	exit 0
 fi
 
-for IMAGE in ${LIVE_SOURCE_IMAGE}
+for IMAGE in ${LIVE_SOURCE_IMAGES}
 do
 	if [ "${IMAGE}" = "iso" ]
 	then
+		Breakpoint "source_iso: Init"
+
 		# Requiring stage file
-		Require_stagefile .stage/source_download
+		Require_stagefile .stage/source_debian
 
 		# Checking stage file
 		Check_stagefile .stage/source_iso
@@ -55,14 +55,38 @@ do
 		# Creating lock file
 		Create_lockfile .lock
 
+		# Checking depends
+		Check_package chroot/usr/bin/"${LH_GENISOIMAGE}" ${LH_GENISOIMAGE}
+
+		# Installing depends
+		Install_package
+
 		# Remove old source
 		if [ -f source.iso ]
 		then
 			rm -f source.iso
 		fi
 
-		# Create image
-		${LH_GENISOIMAGE} -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -o source.iso -r -J -l -V "${LIVE_DISK_VOLUME}" source
+		if [ "${LH_VERBOSE}" = "enabled" ]
+		then
+			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -v"
+		fi
+
+		# Moving image
+		mv source chroot
+
+cat >> chroot/source.sh << EOF
+${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -V "${LIVE_ISO_VOLUME}" -o source.iso -r -J -l -cache-inodes source
+EOF
+
+		Chroot "sh source.sh"
+
+		# Move image
+		mv chroot/source chroot/source.iso ./
+		rm -f chroot/source.sh
+
+		# Removing depends
+		Remove_package
 
 		# Creating stage file
 		Create_stagefile .stage/source_iso

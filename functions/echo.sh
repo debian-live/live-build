@@ -23,7 +23,7 @@ Echo_error ()
 {
 	STRING="${1}"
 
-	echo "E: ${STRING}"
+	echo "E: ${STRING}" >&2
 }
 
 Echo_message ()

@@ -1,0 +1,71 @@
+.TH LH_CHROOT 1 "14.05.2007" "1.0~a10" "live\-helper"
+
+.SH NAME
+lh_chroot \- Meta\-Helper f\[:u]r lh_chroot_*
+
+.SH SYNOPSIS
+.B lh_chroot [\fIlive\-helper\ Optionen\fR\|]
+
+.SH BESCHREIBUNG
+lh_chroot ist ein Meta\-Helper. Es ruft alle n\[:o]tigen Helper auf um die chroot\-Stufe zu vervollst\[:a]ndigen.
+
+.SH CHROOT HELPER
+Hier ist eine vollst\[:a]ndige Liste aller verf\[:u]gbaren chroot\-Helper Kommandos. Siehe deren Hilfeseiten f\[:u]r zus\[:a]tzliche Dokumentation.
+.IP "\fIlh_chroot_apt\fR(1)" 4
+verwaltet /etc/apt/apt.conf.
+.IP "\fIlh_chroot_debianchroot\fR(1)" 4
+verwaltet /etc/debian_chroot.
+.IP "\fIlh_chroot_hacks\fR(1)" 4
+f\[:u]hrt Hacks im chroot aus.
+.IP "\fIlh_chroot_hooks\fR(1)" 4
+f\[:u]hrt Hooks im chroot aus.
+.IP "\fIlh_chroot_hosts\fR(1)" 4
+verwaltet /etc/hosts.
+.IP "\fIlh_chroot_interactive\fR(1)" 4
+macht Bauprozess interaktiv.
+.IP "\fIlh_chroot_linux-image\fR(1)" 4
+verwaltet /etc/kernel\-img.conf.
+.IP "\fIlh_chroot_local-hooks\fR(1)" 4
+f\[:u]hrt lokale Hooks im chroot aus.
+.IP "\fIlh_chroot_local-includes\fR(1)" 4
+kopiert lokale Dateien in den chroot.
+.IP "\fIlh_chroot_localization\fR(1)" 4
+installiert Lokalisierungspakete im chroot.
+.IP "\fIlh_chroot_local-packages\fR(1)" 4
+installiert lokale Pakete im chroot.
+.IP "\fIlh_chroot_local-packageslists\fR(1)" 4
+installiert lokale Paketlisten im chroot.
+.IP "\fIlh_chroot_packages\fR(1)" 4
+installiert Pakete im chroot.
+.IP "\fIlh_chroot_packageslists\fR(1)" 4
+installiert Paketlisten im chroot.
+.IP "\fIlh_chroot_proc\fR(1)" 4
+bindet /proc ein.
+.IP "\fIlh_chroot_resolv\fR(1)" 4
+verwaltet /etc/resolv.conf.
+.IP "\fIlh_chroot_sources\fR(1)" 4
+verwaltet /etc/apt/apt.conf.
+.IP "\fIlh_chroot_symlinks\fR(1)" 4
+konvertiert symbolische Links.
+.IP "\fIlh_chroot_sysfs\fR(1)" 4
+bindet /sys ein.
+.IP "\fIlh_chroot_sysvinit\fR(1)" 4
+konfiguriert sysvinit.
+.IP "\fIlh_chroot_sysvrc\fR(1)" 4
+verwaltet /usr/sbin/policy\-rc.d.
+.IP "\fIlh_chroot_tasks\fR(1)" 4
+installiert Paket-Tasks im chroot.
+
+.SH SIEHE AUCH
+\fIlive\-helper\fR(7)
+.PP
+Dieses Programm ist Teil von live\-helper.
+
+.SH FEHLER
+Fehler k\[:o]nnen gegen live\-helper <\fIhttp://packages.qa.debian.org/live\-helper/\fR> gemeldet werden.
+
+.SH HOMEPAGE
+Mehr Informationen \[:u]ber das Debian Live\-Projekt k\[:o]nnen auf <\fIhttp://debian\-live.alioth.debian.org/\fR> und <\fIhttp://wiki.debian.org/DebianLive/\fR> gefunden werden.
+
+.SH AUTOR
+live\-helper wurde von Daniel Baumann <\fIdaniel@debian.org\fR> f\[:u]r das Debian\-Projekt geschrieben.

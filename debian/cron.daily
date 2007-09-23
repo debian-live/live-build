@@ -1,16 +1,16 @@
-#!/bin/sh -x
+#!/bin/sh
 
 set -e
 
 BUILD="daily"
 
-# Check for live-helper availability
+# Checking for live-helper availability
 if [ ! -x /usr/bin/make-live ]
 then
 	exit 0
 fi
 
-# Check for live-helper defaults
+# Checking for live-helper defaults
 if [ -r /etc/default/live-helper ]
 then
 	. /etc/default/live-helper
@@ -19,114 +19,130 @@ else
 	exit 1
 fi
 
-# Check for autobuild
+# Checking for autobuild
 if [ "${AUTOBUILD}" != "enabled" ]
 then
 	exit 0
 fi
 
-# Check for build directory
-if [ ! -d "${AUTOBUILD_TEMPDIR}" ]
+# Checking for build directory
+if [ ! -d "${TEMPDIR}" ]
 then
-	mkdir -p "${AUTOBUILD_TEMPDIR}"/debian-live
+	mkdir -p "${TEMPDIR}"/debian-live
 else
 	# FIXME: maybe we should just remove the left overs.
-	echo "E: ${AUTOBUILD_TEMPDIR} needs cleanup."
+	echo "E: ${TEMPDIR} needs cleanup."
 	exit 1
 fi
 
-for ARCHITECTURE in ${AUTOBUILD_ARCHITECTURES}
+for ARCHITECTURE in ${ARCHITECTURES}
 do
-	for DISTRIBUTION in ${AUTOBUILD_DISTRIBUTIONS}
+	for DISTRIBUTION in ${DISTRIBUTIONS}
 	do
-		for PACKAGES_LIST in ${AUTOBUILD_PACKAGES_LISTS}
+		for PACKAGES_LIST in ${PACKAGES_LISTS}
 		do
-			if [ ! -f "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${AUTOBUILD_DATE}-iso-log.txt ]
-		then
-			# Generating images
-			mkdir -p "${AUTOBUILD_TEMPDIR}"/debian-live
-			cd "${AUTOBUILD_TEMPDIR}"
-			echo "Begin: `date -R`" > "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt
-			make-live -b iso -s generic --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-build ${AUTOBUILD_MIRROR} --mirror-build-security ${AUTOBUILD_MIRROR_SECURITY} --source enabled ${AUTOBUILD_OPTIONS} >> "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt 2>&1
-			echo "End: `date -R`" >> "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt
-		fi
+			if [ ! -f "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${DATE}-iso-log.txt ]
+			then
+				# Creating build directory
+				mkdir -p "${TEMPDIR}"/debian-live
 
-		if [ -f "${AUTOBUILD_TEMPDIR}"/debian-live/binary.iso ] && [ -f "${AUTOBUILD_TEMPDIR}"/debian-live/source.tar ]
-		then
-			# Moving logs
-			mkdir -p "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/log
-			mv "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${AUTOBUILD_DATE}-iso-log.txt
-			mv "${AUTOBUILD_TEMPDIR}"/debian-live/packages.txt "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${AUTOBUILD_DATE}-iso-packages.txt
+				cd "${TEMPDIR}"
+				echo "Begin: `date -R`" > "${TEMPDIR}"/debian-live/log.txt
 
-			# Moving images
-			mkdir -p "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/${ARCHITECTURE}
-			mv "${AUTOBUILD_TEMPDIR}"/debian-live/binary.iso "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/${ARCHITECTURE}/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}.iso
+				# Generating images
+				make-live -b iso -s generic --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-bootstrap ${MIRROR_BOOTSTRAP} --mirror-bootstrap-security ${MIRROR_BOOTSTRAP_SECURITY} --mirror-binary ${MIRROR_BINARY} --mirror-binary-security ${MIRROR_BINARY_SECURITY} --source enabled ${OPTIONS} >> "${TEMPDIR}"/debian-live/log.txt 2>&1
 
-			mkdir -p "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/source
-			mv "${AUTOBUILD_TEMPDIR}"/debian-live/source.tar "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/source/debian-live-${DISTRIBUTION}-source-${PACKAGES_LIST}.tar
-		fi
+				echo "End: `date -R`" >> "${TEMPDIR}"/debian-live/log.txt
+			fi
 
-		if [ ! -f "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${AUTOBUILD_DATE}-usb-log.txt ]
-		then
-			# Workaround of missing multi-binary support in live-helper
-			mv "${AUTOBUILD_TEMPDIR}"/debian-live/binary/casper "${AUTOBUILD_TEMPDIR}"/debian-live/casper.tmp
-			rm -rf "${AUTOBUILD_TEMPDIR}"/debian-live/binary* "${AUTOBUILD_TEMPDIR}"/debian-live/.stage/binary_*
-			mkdir "${AUTOBUILD_TEMPDIR}"/debian-live/binary
-			mv "${AUTOBUILD_TEMPDIR}"/debian-live/casper.tmp "${AUTOBUILD_TEMPDIR}"/debian-live/binary/casper
-			touch "${AUTOBUILD_TEMPDIR}"/debian-live/.stage/binary_chroot
-			touch "${AUTOBUILD_TEMPDIR}"/debian-live/.stage/binary_rootfs
+			if [ -f "${TEMPDIR}"/debian-live/binary.iso ] && [ -f "${TEMPDIR}"/debian-live/source.tar ]
+			then
+				# Creating log directory
+				mkdir -p "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log
 
-			# Generating images
-			mkdir -p "${AUTOBUILD_TEMPDIR}"/debian-live
-			cd "${AUTOBUILD_TEMPDIR}"
-			echo "Begin: `date -R`" > "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt
-			make-live -b usb -s generic --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-build ${AUTOBUILD_MIRROR} --mirror-build-security ${AUTOBUILD_MIRROR_SECURITY} --source disabled ${AUTOBUILD_OPTIONS} >> "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt 2>&1
-			echo "End: `date -R`" >> "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt
-		fi
+				# Moving logs
+				mv "${TEMPDIR}"/debian-live/log.txt "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${DATE}-iso-log.txt
+				mv "${TEMPDIR}"/debian-live/packages.txt "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${DATE}-iso-packages.txt
 
-		if [ -f "${AUTOBUILD_TEMPDIR}"/debian-live/binary.img ]
-		then
-			# Moving logs
-			mkdir -p "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/log
-			mv "${AUTOBUILD_TEMPDIR}"/debian-live/log.txt "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${AUTOBUILD_DATE}-usb-log.txt
-			cp "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${AUTOBUILD_DATE}-iso-packages.txt "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${AUTOBUILD_DATE}-usb-packages.txt
+				# Creating images directory
+				mkdir -p "${DESTDIR}"/"${BUILD}"-builds/${DATE}/${ARCHITECTURE}
+				mkdir -p "${DESTDIR}"/"${BUILD}"-builds/${DATE}/source
 
-			# Moving images
-			mkdir -p "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/${ARCHITECTURE}
-			mv "${AUTOBUILD_TEMPDIR}"/debian-live/binary.img "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/${ARCHITECTURE}/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}.img
-		fi
+				# Moving images
+				mv "${TEMPDIR}"/debian-live/binary.iso "${DESTDIR}"/"${BUILD}"-builds/${DATE}/${ARCHITECTURE}/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}.iso
+				mv "${TEMPDIR}"/debian-live/source.tar "${DESTDIR}"/"${BUILD}"-builds/${DATE}/source/debian-live-${DISTRIBUTION}-source-${PACKAGES_LIST}.tar
+			fi
 
-		# Cleanup
-		cd "${AUTOBUILD_TEMPDIR}"/debian-live
-		lh_clean
+			if [ ! -f "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${DATE}-usb-hdd-log.txt ]
+			then
+				# Workaround of missing multi-binary support in live-helper
+				mv "${TEMPDIR}"/debian-live/binary/casper "${TEMPDIR}"/debian-live/casper.tmp
+				rm -rf "${TEMPDIR}"/debian-live/binary* "${TEMPDIR}"/debian-live/.stage/binary_*
+				mkdir "${TEMPDIR}"/debian-live/binary
+				mv "${TEMPDIR}"/debian-live/casper.tmp "${TEMPDIR}"/debian-live/binary/casper
+				touch "${TEMPDIR}"/debian-live/.stage/binary_chroot
+				touch "${TEMPDIR}"/debian-live/.stage/binary_rootfs
+
+				# Creating build directory
+				mkdir -p "${TEMPDIR}"/debian-live
+
+				cd "${TEMPDIR}"
+				echo "Begin: `date -R`" > "${TEMPDIR}"/debian-live/log.txt
+
+				# Generating images
+				make-live -b usb-hdd -s generic --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-bootstrap ${MIRROR_BOOTSTRAP} --mirror-bootstrap-security ${MIRROR_BOOTSTRAP_SECURITY} --mirror-binary ${MIRROR_BINARY} --mirror-binary-security ${MIRROR_BINARY_SECURITY} --source disabled ${OPTIONS} >> "${TEMPDIR}"/debian-live/log.txt 2>&1
+
+				echo "End: `date -R`" >> "${TEMPDIR}"/debian-live/log.txt
+			fi
+
+			if [ -f "${TEMPDIR}"/debian-live/binary.img ]
+			then
+				# Creating log directory
+				mkdir -p "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log
+
+				# Moving logs
+				mv "${TEMPDIR}"/debian-live/log.txt "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${DATE}-usb-hdd-log.txt
+				cp "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${DATE}-iso-packages.txt "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${DATE}-usb-hdd-packages.txt
+
+				# Creating image directory
+				mkdir -p "${DESTDIR}"/"${BUILD}"-builds/${DATE}/${ARCHITECTURE}
+
+				# Moving images
+				mv "${TEMPDIR}"/debian-live/binary.img "${DESTDIR}"/"${BUILD}"-builds/${DATE}/${ARCHITECTURE}/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}.img
+			fi
+
+			# Cleanup
+			cd "${TEMPDIR}"/debian-live
+			lh_clean
 		done
 
-	# Cleanup
-	cd "${AUTOBUILD_TEMPDIR}"/debian-live
-	lh_clean purge
+		# Cleanup
+		cd "${TEMPDIR}"/debian-live
+		lh_clean purge
 	done
 done
 
-# Cleanup
-if [ -e "${AUTOBUILD_TEMPDIR}"/debian-live/chroot/proc/version ]
+# Cleaning up
+if [ -f "${TEMPDIR}"/debian-live/chroot/proc/version ]
 then
-	umount "${AUTOBUILD_TEMPDIR}"/debian-live/chroot/proc
+	umount "${TEMPDIR}"/debian-live/chroot/proc
 fi
 
-if [ -d "${AUTOBUILD_TEMPDIR}"/debian-live/chroot/sys/kernel ]
+if [ -d "${TEMPDIR}"/debian-live/chroot/sys/kernel ]
 then
-	umount "${AUTOBUILD_TEMPDIR}"/debian-live/chroot/sys
+	umount "${TEMPDIR}"/debian-live/chroot/sys
 fi
 
-rm -rf "${AUTOBUILD_TEMPDIR}"
+# Removing build directory
+rm -rf "${TEMPDIR}"
 
-# md5sums
-for DIRECTORY in "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/${AUTOBUILD_DATE}/*
+# Creating md5sums
+for DIRECTORY in "${DESTDIR}"/"${BUILD}"-builds/${DATE}/*
 do
 	cd "${DIRECTORY}"
 	md5sum * > MD5SUMS
 done
 
-# Current symlink
-rm -f "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/current
-ln -s ${AUTOBUILD_DATE} "${AUTOBUILD_DESTDIR}"/"${BUILD}"-builds/current
+# Creating current symlink
+rm -f "${DESTDIR}"/"${BUILD}"-builds/current
+ln -s ${DATE} "${DESTDIR}"/"${BUILD}"-builds/current

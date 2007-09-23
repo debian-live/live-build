@@ -40,8 +40,8 @@ lh_chroot_resolv install ${*}
 lh_chroot_sources install ${*}
 
 # Preparing images
-lh_source_config ${*}
-lh_source_download ${*}
+lh_source_debian-live ${*}
+lh_source_debian ${*}
 lh_source_md5sum ${*}
 
 # Building images

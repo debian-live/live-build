@@ -103,7 +103,7 @@ then
 		fi
 
 		# Executing debootstrap (download-only)
-		${LH_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_BUILD}" "${LIVE_DEBOOTSTRAP_SCRIPT}"
+		${LH_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_BOOTSTRAP}" "${LIVE_DEBOOTSTRAP_SCRIPT}"
 
 		if [ -n "${LH_ROOT_COMMAND}" ]
 		then
@@ -126,7 +126,7 @@ then
 	fi
 
 	# Executing debootstrap (regular run)
-	${LH_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_BUILD}" "${LIVE_DEBOOTSTRAP_SCRIPT}"
+	${LH_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_BOOTSTRAP}" "${LIVE_DEBOOTSTRAP_SCRIPT}"
 
 	if [ -n "${LH_ROOT_COMMAND}" ]
 	then
@@ -144,6 +144,11 @@ then
 			if [ -d cache/stages_bootstrap ]
 			then
 				rm -rf cache/stages_bootstrap
+			fi
+
+			if [ ! -d cache ]
+			then
+				mkdir cache
 			fi
 
 			${LH_ROOT_COMMAND} cp -a chroot cache/stages_bootstrap

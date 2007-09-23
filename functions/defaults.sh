@@ -61,9 +61,9 @@ Set_defaults ()
 	fi
 
 	# Setting apt indices
-	if [ -z "${LH_APT_GENERIC}" ]
+	if [ -z "${LIVE_BINARY_INDICES}" ]
 	then
-		LH_APT_GENERIC="enabled"
+		LIVE_BINARY_INDICES="enabled"
 	fi
 
 	# Setting apt pdiffs
@@ -189,7 +189,12 @@ Set_defaults ()
 	# Setting initramfs generator
 	if [ -z "${LH_INITRAMFS}" ]
 	then
-		LH_INITRAMFS="casper"
+		if [ "${LIVE_DISTRIBUTION}" = "etch" ]
+		then
+			LH_INITRAMFS="casper"
+		else
+			LH_INITRAMFS="live-initramfs"
+		fi
 	fi
 
 	# Setting root directory
@@ -287,57 +292,57 @@ Set_defaults ()
 	fi
 
 	# Setting mirror to fetch packages from
-	if [ -z "${LIVE_MIRROR_BUILD}" ]
+	if [ -z "${LIVE_MIRROR_BOOTSTRAP}" ]
 	then
 		case "${LH_MODE}" in
 			debian)
-				LIVE_MIRROR_BUILD="http://ftp.debian.org/debian/"
+				LIVE_MIRROR_BOOTSTRAP="http://ftp.debian.org/debian/"
 				;;
 
 			ubuntu)
-				LIVE_MIRROR_BUILD="http://archive.ubuntu.com/ubuntu/"
+				LIVE_MIRROR_BOOTSTRAP="http://archive.ubuntu.com/ubuntu/"
 				;;
 		esac
 	fi
 
 	# Setting security mirror to fetch packages from
-	if [ -z "${LIVE_MIRROR_BUILD_SECURITY}" ]
+	if [ -z "${LIVE_MIRROR_BOOTSTRAP_SECURITY}" ]
 	then
 		case "${LH_MODE}" in
 			debian)
-				LIVE_MIRROR_BUILD_SECURITY="http://security.debian.org/"
+				LIVE_MIRROR_BOOTSTRAP_SECURITY="http://security.debian.org/"
 				;;
 
 			ubuntu)
-				LIVE_MIRROR_BUILD_SECURITY="http://security.ubuntu.org/ubuntu/"
+				LIVE_MIRROR_BOOTSTRAP_SECURITY="http://security.ubuntu.org/ubuntu/"
 				;;
 		esac
 	fi
 
 	# Setting mirror which ends up in the image
-	if [ -z "${LIVE_MIRROR_IMAGE}" ]
+	if [ -z "${LIVE_MIRROR_BINARY}" ]
 	then
 		case "${LH_MODE}" in
 			debian)
-				LIVE_MIRROR_IMAGE="http://ftp.debian.org/debian/"
+				LIVE_MIRROR_BINARY="http://ftp.debian.org/debian/"
 				;;
 
 			ubuntu)
-				LIVE_MIRROR_IMAGE="http://archive.ubuntu.com/ubuntu/"
+				LIVE_MIRROR_BINARY="http://archive.ubuntu.com/ubuntu/"
 				;;
 		esac
 	fi
 
 	# Setting security mirror which ends up in the image
-	if [ -z "${LIVE_MIRROR_IMAGE_SECURITY}" ]
+	if [ -z "${LIVE_MIRROR_BINARY_SECURITY}" ]
 	then
 		case "${LH_MODE}" in
 			debian)
-				LIVE_MIRROR_IMAGE_SECURITY="http://security.debian.org/"
+				LIVE_MIRROR_BINARY_SECURITY="http://security.debian.org/"
 				;;
 
 			ubuntu)
-				LIVE_MIRROR_IMAGE_SECURITY="http://security.ubuntu.com/ubuntu/"
+				LIVE_MIRROR_BINARY_SECURITY="http://security.ubuntu.com/ubuntu/"
 				;;
 		esac
 	fi
@@ -365,21 +370,21 @@ Set_defaults ()
 	fi
 
 	# Setting kernel flavour string
-	if [ -z "${LIVE_KERNEL_FLAVOUR}" ]
+	if [ -z "${LIVE_LINUX_FLAVOURS}" ]
 	then
 		case "${LIVE_ARCHITECTURE}" in
 			alpha)
-				LIVE_KERNEL_FLAVOUR="alpha-generic"
+				LIVE_LINUX_FLAVOURS="alpha-generic"
 				;;
 
 			amd64)
 				case "${LH_MODE}" in
 					debian)
-						LIVE_KERNEL_FLAVOUR="amd64"
+						LIVE_LINUX_FLAVOURS="amd64"
 						;;
 
 					ubuntu)
-						LIVE_KERNEL_FLAVOUR="amd64-generic"
+						LIVE_LINUX_FLAVOURS="amd64-generic"
 						;;
 				esac
 				;;
@@ -390,46 +395,46 @@ Set_defaults ()
 				;;
 
 			hppa)
-				LIVE_KERNEL_FLAVOUR="parisc"
+				LIVE_LINUX_FLAVOURS="parisc"
 				;;
 
 			i386)
 				case "${LH_MODE}" in
 					debian)
-						LIVE_KERNEL_FLAVOUR="486"
+						LIVE_LINUX_FLAVOURS="486"
 						;;
 
 					ubuntu)
-						LIVE_KERNEL_FLAVOUR="386"
+						LIVE_LINUX_FLAVOURS="386"
 						;;
 				esac
 				;;
 
 			ia64)
-				LIVE_KERNEL_FLAVOUR="itanium"
+				LIVE_LINUX_FLAVOURS="itanium"
 				;;
 
 			m68k)
-				LIVE_KERNEL_FLAVOUR="E: You need to specify the linux kernel flavour manually on m68k."
+				LIVE_LINUX_FLAVOURS="E: You need to specify the linux kernel flavour manually on m68k."
 				exit 1
 				;;
 
 			powerpc)
-				LIVE_KERNEL_FLAVOUR="powerpc"
+				LIVE_LINUX_FLAVOURS="powerpc"
 				;;
 
 			s390)
-				LIVE_KERNEL_FLAVOUR="s390"
+				LIVE_LINUX_FLAVOURS="s390"
 				;;
 
 			sparc)
 				case "${LH_MODE}" in
 					debian)
-						LIVE_KERNEL_FLAVOUR="sparc32"
+						LIVE_LINUX_FLAVOURS="sparc32"
 						;;
 
 					ubuntu)
-						LIVE_KERNEL_FLAVOUR="sparc64"
+						LIVE_LINUX_FLAVOURS="sparc64"
 						;;
 				esac
 				;;
@@ -441,21 +446,21 @@ Set_defaults ()
 	fi
 
 	# Set kernel packages
-	if [ -z "${LIVE_KERNEL_PACKAGES}" ]
+	if [ -z "${LIVE_LINUX_PACKAGES}" ]
 	then
 		case "${LH_MODE}" in
 			debian)
-				LIVE_KERNEL_PACKAGES="linux-image-2.6 squashfs-modules-2.6 unionfs-modules-2.6"
+				LIVE_LINUX_PACKAGES="linux-image-2.6 squashfs-modules-2.6 unionfs-modules-2.6"
 				;;
 
 			ubuntu)
-				LIVE_KERNEL_PACKAGES="linux-image"
+				LIVE_LINUX_PACKAGES="linux-image"
 				;;
 		esac
 
 		if [ -n "${LIVE_ENCRYPTION}" ]
 		then
-			LIVE_KERNEL_PACKAGES="${LIVE_KERNEL_PACKAGES} loop-aes-modules-2.6"
+			LIVE_LINUX_PACKAGES="${LIVE_LINUX_PACKAGES} loop-aes-modules-2.6"
 		fi
 	fi
 
@@ -554,21 +559,21 @@ Set_defaults ()
 	fi
 
 	# Setting image type
-	if [ -z "${LIVE_BINARY_IMAGE}" ]
+	if [ -z "${LIVE_BINARY_IMAGES}" ]
 	then
-		LIVE_BINARY_IMAGE="iso"
+		LIVE_BINARY_IMAGES="iso"
 	fi
 
 	# Setting image type
-	if [ -z "${LIVE_SOURCE_IMAGE}" ]
+	if [ -z "${LIVE_SOURCE_IMAGES}" ]
 	then
-		LIVE_SOURCE_IMAGE="generic"
+		LIVE_SOURCE_IMAGES="generic"
 	fi
 
-	# Setting filesystem
-	if [ -z "${LIVE_FILESYSTEM}" ]
+	# Setting chroot filesystem
+	if [ -z "${LIVE_CHROOT_FILESYSTEM}" ]
 	then
-		LIVE_FILESYSTEM="squashfs"
+		LIVE_CHROOT_FILESYSTEM="squashfs"
 	fi
 
 	# Setting memtest option
@@ -598,21 +603,21 @@ Set_defaults ()
 	fi
 
 	# Setting netboot server address
-	if [ -z "${LIVE_SERVER_ADDRESS}" ]
+	if [ -z "${LIVE_NET_SERVER}" ]
 	then
-		LIVE_SERVER_ADDRESS="192.168.1.1"
+		LIVE_NET_SERVER="192.168.1.1"
 	fi
 
 	# Setting netboot server path
-	if [ -z "${LIVE_SERVER_PATH}" ]
+	if [ -z "${LIVE_NET_PATH}" ]
 	then
 		case "${LH_MODE}" in
 			debian)
-				LIVE_SERVER_PATH="/srv/debian-live"
+				LIVE_NET_PATH="/srv/debian-live"
 				;;
 
 			ubuntu)
-				LIVE_SERVER_PATH="/srv/ubuntu-live"
+				LIVE_NET_PATH="/srv/ubuntu-live"
 				;;
 		esac
 	fi

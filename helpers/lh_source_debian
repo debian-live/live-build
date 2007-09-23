@@ -1,0 +1,90 @@
+#!/bin/sh
+
+# lh_source_debian(1) - download sources
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Set static variables
+DESCRIPTION="debian sources"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+Echo_debug "Init ${PROGRAM}"
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/bootstrap
+Read_conffile config/chroot
+Read_conffile config/binary
+Read_conffile config/source
+Set_defaults
+
+Breakpoint "source_debian: Init"
+
+if [ "${LIVE_SOURCE}" != "enabled" ]
+then
+	exit 0
+fi
+
+# Requiring stage file
+Require_stagefile .stage/bootstrap
+
+# Checking stage file
+Check_stagefile .stage/source_debian
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+# Remove old sources
+if [ -d source/debian ]
+then
+	rm -rf source/debian
+fi
+
+# Download sources
+Chroot "dpkg --get-selections" | awk '{ print $1 }' > chroot/root/dpkg-selection.txt
+echo "${LIVE_BOOTLOADER}" >> chroot/root/dpkg-selection.txt
+#echo "live-helper" >> chroot/root/dpkg-selection.txt
+Chroot "xargs --arg-file=/root/dpkg-selection.txt apt-get source --download-only"
+rm -f chroot/root/dpkg-selection.txt
+
+# Sort sources
+for DSC in chroot/*.dsc
+do
+	SOURCE="`sed  -n 's/^Source: //p' ${DSC}`"
+
+	case "${SOURCE}" in
+		lib?*)
+			LETTER="`echo ${SOURCE} | sed 's/\(....\).*/\1/'`"
+			;;
+
+		*)
+			LETTER="`echo ${SOURCE} | sed 's/\(.\).*/\1/'`"
+			;;
+	esac
+
+	# Install directory
+	mkdir -p source/debian/"${LETTER}"/"${SOURCE}"
+
+	# Move files
+	mv chroot/"${SOURCE}"_* source/debian/"${LETTER}"/"${SOURCE}"
+done
+
+# Creating stage file
+Create_stagefile .stage/source_debian

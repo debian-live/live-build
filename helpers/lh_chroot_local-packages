@@ -1,0 +1,81 @@
+#!/bin/sh
+
+# lh_chroot_local-packages(1) - install local packages into chroot
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Set static variables
+DESCRIPTION="install local packages into chroot"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+Echo_debug "Init ${PROGRAM}"
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/bootstrap
+Read_conffile config/chroot
+Read_conffile config/binary
+Read_conffile config/source
+Set_defaults
+
+Breakpoint "chroot_local-packages: Init"
+
+# Requiring stage file
+Require_stagefile .stage/bootstrap
+
+# Checking stage file
+Check_stagefile .stage/chroot_local-packages
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+if ls config/chroot_local-packages/*.deb &> /dev/null
+then
+	# Restoring cache
+	Restore_cache cache/packages_local-packages
+
+	# Copying packages
+	cp config/chroot_local-packages/*.deb chroot/root
+
+	# Installing packages
+        Chroot "find /root -name *.deb" > chroot/root/local-packages
+	Chroot "xargs --arg-file=/root/local-packages dpkg -i" || true
+
+	# Cleaning dependencies
+	case "${LH_APT}" in
+		apt|apt-get)
+			Chroot "apt-get install -f --yes"
+			;;
+
+		aptitude)
+			Chroot "aptitude install -f --assume-yes"
+			;;
+	esac
+
+	# Removing package files
+	rm -f chroot/root/*.deb
+	rm -f chroot/root/local-packages
+
+	# Saving cache
+	Save_cache cache/packages_local-packages
+
+	# Creating stage file
+	Create_stagefile .stage/chroot_local-packages
+fi

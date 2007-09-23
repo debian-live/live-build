@@ -57,7 +57,7 @@ then
 	exit 0
 fi
 
-# Check templates
+# Check user templates
 if [ ! -d "${LIVE_TEMPLATES}" ]
 then
 	if [ -d ../"${LIVE_TEMPLATES}" ]
@@ -67,6 +67,12 @@ then
 		Echo_error "user specified templates not accessible in ${LIVE_TEMPLATES}"
 		exit 1
 	fi
+fi
+
+# Check local templates
+if [ -d config/templates/grub ]
+then
+	LIVE_TEMPLATES="config/templates"
 fi
 
 # Checking depends
@@ -86,7 +92,7 @@ case "${LH_INITRAMFS}" in
 esac
 
 # Setting destination directory
-case "${LIVE_BINARY_IMAGE}" in
+case "${LIVE_BINARY_IMAGES}" in
 	iso|usb-hdd|hdd)
 		DESTDIR_LIVE="binary/live"
 		DESTDIR_INSTALL="binary/install"
@@ -99,7 +105,7 @@ case "${LIVE_BINARY_IMAGE}" in
 esac
 
 # Temporary check for broken syslinux
-if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
 then
 	# Assemble multi-arch
 	if [ -n "${MULTIARCH}" ]
@@ -146,12 +152,12 @@ LIVE_BOOTAPPEND="`echo ${LIVE_BOOTAPPEND} | sed -e 's/  //'`"
 FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=normal"
 
 # Assembling kernel configuration
-DEFAULT_FLAVOUR="`echo ${LIVE_KERNEL_FLAVOUR} | awk '{ print $1 }'`"
+DEFAULT_FLAVOUR="`echo ${LIVE_LINUX_FLAVOURS} | awk '{ print $1 }'`"
 
 LINUX="title\t\tDebian GNU/Linux - live\nkernel\t\t/`basename ${DESTDIR_LIVE}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}` boot=${INITFS} LIVE_BOOTAPPEND\ninitrd\t\t/`basename ${DESTDIR_LIVE}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'`"
 LINUX="${LINUX}\n\ntitle\t\tDebian GNU/Linux - live (fail-safe mode)\nkernel\t\t/`basename ${DESTDIR_LIVE}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}\ninitrd\t\t/`basename ${DESTDIR_LIVE}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'`"
 
-if [ "`echo ${LIVE_KERNEL_FLAVOUR} | wc -w`" -gt "1" ]
+if [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
 then
 	for KERNEL in chroot/boot/vmlinuz*
 	do
@@ -173,15 +179,15 @@ if [ "${LIVE_DEBIAN_INSTALLER}" = "enabled" ]
 then
 	LINUX="title\t\tLive:\nroot\n\n${LINUX}"
 
-	LIVE_KERNEL_INSTALL="title\t\tInstaller:\nroot"
-	LIVE_KERNEL_INSTALL="${LIVE_KERNEL_INSTALL}\n\ntitle\t\tDebian GNU/Linux - install\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz vga=normal -- \ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/initrd.gz"
-	LIVE_KERNEL_INSTALL="${LIVE_KERNEL_INSTALL}\n\ntitle\t\tDebian GNU/Linux - installgui\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz video=vesa:ywrap,mtrr vga=788 -- \ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz"
-	LIVE_KERNEL_INSTALL="${LIVE_KERNEL_INSTALL}\n\ntitle\t\tDebian GNU/Linux - expert\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz priority=low vga=normal -- \ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/initrd.gz"
-	LIVE_KERNEL_INSTALL="${LIVE_KERNEL_INSTALL}\n\ntitle\t\tDebian GNU/Linux - expertgui\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz priority=low video=vesa:ywrap,mtrr vga=788\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz"
-	LIVE_KERNEL_INSTALL="${LIVE_KERNEL_INSTALL}\n\ntitle\t\tDebian GNU/Linux - rescue\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz vga=normal rescue/enable=true -- \ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/initrd.gz"
-	LIVE_KERNEL_INSTALL="${LIVE_KERNEL_INSTALL}\n\ntitle\t\tDebian GNU/Linux - rescuegui\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz video=vesa:ywrap,mtrr vga=788 rescue/enable=true --\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz"
-	LIVE_KERNEL_INSTALL="${LIVE_KERNEL_INSTALL}\n\ntitle\t\tDebian GNU/Linux - auto\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz auto=true priority=critical vga=normal -- \ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/initrd.gz"
-	LIVE_KERNEL_INSTALL="${LIVE_KERNEL_INSTALL}\n\ntitle\t\tDebian GNU/Linux - autogui\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz auto=true priority=critical video=vesa:ywrap,mtrr vga=788 -- \ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz"
+	LIVE_LINUX_INSTALL="title\t\tInstaller:\nroot"
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - install\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz vga=normal -- \ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/initrd.gz"
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - installgui\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz video=vesa:ywrap,mtrr vga=788 -- \ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz"
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - expert\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz priority=low vga=normal -- \ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/initrd.gz"
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - expertgui\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz priority=low video=vesa:ywrap,mtrr vga=788\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz"
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - rescue\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz vga=normal rescue/enable=true -- \ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/initrd.gz"
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - rescuegui\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz video=vesa:ywrap,mtrr vga=788 rescue/enable=true --\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz"
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - auto\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz auto=true priority=critical vga=normal -- \ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/initrd.gz"
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - autogui\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz auto=true priority=critical video=vesa:ywrap,mtrr vga=788 -- \ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz"
 fi
 
 # Assembling memtest configuration
@@ -196,7 +202,7 @@ mkdir -p binary/boot/grub
 cp -r "${LIVE_TEMPLATES}"/grub/* binary/boot/grub
 
 # Copyring grub
-case ${LIVE_BINARY_IMAGE} in
+case ${LIVE_BINARY_IMAGES} in
 	iso)
 		cp chroot/usr/lib/grub/*/stage2_eltorito binary/boot/grub
 		;;
@@ -236,7 +242,7 @@ root
 LIVE_MEMTEST
 EOF
 
-sed -i -e "s#LIVE_KERNEL_LIVE#${LINUX}#" -e "s#LIVE_KERNEL_INSTALL#${LIVE_KERNEL_INSTALL}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" binary/boot/grub/menu.lst
+sed -i -e "s#LIVE_LINUX_LIVE#${LINUX}#" -e "s#LIVE_LINUX_INSTALL#${LIVE_LINUX_INSTALL}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" binary/boot/grub/menu.lst
 sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" binary/boot/grub/menu.lst
 
 # Removing depends

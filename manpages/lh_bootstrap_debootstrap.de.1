@@ -1,0 +1,47 @@
+.TH LH_BOOTSTRAP_DEBOOTSTRAP 1 "14.05.2007" "1.0~a10" "live\-helper"
+
+.SH NAME
+lh_bootstrap_debootstrap \- erstellt ein Debian-System mit \fIdebootstrap\fR(8)
+
+.SH SYNTAX
+.B lh_bootstrap_debootstrap [\fIlive\-helper\ Optionen\fR\|]
+
+.SH BESCHREIBUNG
+lh_bootstrap_debootstrap benutzt \fIdebootstrap\fR(8) um ein Debian Grundsystem zu erstellen.
+
+.SH KONFIGURATIONSDATEI
+lh_bootstrap_debootstrap liest config/common und config/bootstrap wenn verf\[:u]gbar. Siehe UMGEBUNG zur Benutzung der korrekten Umgebungsvariablen.
+
+.SH UMGEBUNG
+lh_bootstrap_debootstrap respektiert die folgenden Umgebungsvariablen, sofern verf\[:u]gbar, andernfalls werden Standardwerte benutzt.
+.IP "\fI$LH_BOOTSTRAP\fR" 4
+kontrolliert das zu benutzende bootstrap-Programm (Standard: debootstrap)
+.IP "\fI$LH_CACHE\fR" 4
+kontrolliert ob heruntergeladene Pakete zwischengespeichert werden sollen (Standard: enabled)
+.PP
+.IP "\fI$LIVE_ARCHITECTURE\fR" 4
+w\[:a]hlt die chroot-Architektur aus (Standard: automatisch)
+.IP "\fI$LIVE_BOOTSTRAP_CONFIG\fR" 4
+bestimmt das Distributions-Konfiguration Verzeichnis (Standard: leer)
+.IP "\fI$LIVE_BOOTSTRAP_FLAVOUR\fR" 4
+w\[:a]hlt die Bootstrap-Variante aus (Standard: standard)
+.IP "\fI$LIVE_DISTRIBUTION\fR" 4
+w\[:a]hlt die Distribution aus (Standard: etch)
+.IP "\fI$LIVE_MIRROR_BUILD\fR" 4
+bestimmt den Spiegelserver (Standard: http://ftp.debian.org/debian/)
+
+.SH SIEHE AUCH
+\fIdebootstrap\fR(8)
+.PP
+\fIlive\-helper\fR(7)
+.PP
+Dieses Programm ist Teil von live\-helper.
+
+.SH FEHLER
+Fehler k\[:o]nnen gegen live\-helper <\fIhttp://packages.qa.debian.org/live\-helper/\fR> gemeldet werden.
+
+.SH HOMEPAGE
+Mehr Informationen \[:u]ber das Debian Live\-Projekt k\[:o]nnen auf <\fIhttp://debian\-live.alioth.debian.org/\fR> und <\fIhttp://wiki.debian.org/DebianLive/\fR> gefunden werden.
+
+.SH AUTOR
+live\-helper wurde von Daniel Baumann <\fIdaniel@debian.org\fR> f\[:u]r das Debian\-Projekt geschrieben.

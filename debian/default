@@ -2,14 +2,16 @@
 
 AUTOBUILD="disabled"
 
-AUTOBUILD_ARCHITECTURES="`dpkg --print-architecture`"
-AUTOBUILD_DISTRIBUTIONS="sid"
-AUTOBUILD_PACKAGES_LISTS="standard gnome-desktop kde-desktop xfce-desktop"
-AUTOBUILD_OPTIONS="--apt-recommends disabled"
+DATE="`date +%Y%m%d`"
+DESTDIR="/srv/debian-live"
+TEMPDIR="/srv/tmp/live-helper"
 
-AUTOBUILD_DATE="`date +%Y%m%d`"
-AUTOBUILD_DESTDIR="/srv/debian-live"
-AUTOBUILD_TEMPDIR="/srv/tmp"
+OPTIONS="--binary-indices disabled"
 
-AUTOBUILD_MIRROR="http://ftp.debian.org/debian/"
-AUTOBUILD_MIRROR_SECURITY="http://security.debian.org/"
+ARCHITECTURES="`dpkg --print-architecture`"
+DISTRIBUTIONS="sid"
+MIRROR_BOOTSTRAP="http://ftp.debian.org/debian/"
+MIRROR_BOOTSTRAP_SECURITY="http://security.debian.org/"
+MIRROR_BINARY="http://ftp.debian.org/debian/"
+MIRROR_BINARY_SECURITY="http://security.debian.org/"
+PACKAGES_LISTS="standard gnome-desktop kde-desktop xfce-desktop"
