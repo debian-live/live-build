@@ -393,13 +393,13 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--bootappend-install)
-				LH_BOOTAPPEND_INSTALL="${2}"
+			--bootappend-live)
+				LH_BOOTAPPEND_LIVE="${2}"
 				shift 2
 				;;
 
-			--bootappend-live)
-				LH_BOOTAPPEND_LIVE="${2}"
+			--bootappend-install)
+				LH_BOOTAPPEND_INSTALL="${2}"
 				shift 2
 				;;
 
@@ -842,13 +842,13 @@ LH_BINARY_IMAGES="${LH_BINARY_IMAGES}"
 # (Default: ${LH_BINARY_INDICES})
 LH_BINARY_INDICES="${LH_BINARY_INDICES}"
 
-# \$LH_BOOTAPPEND_INSTALL: set boot parameters
-# (Default: empty)
-LH_BOOTAPPEND_INSTALL="${LH_BOOTAPPEND_INSTALL}"
-
 # \$LH_BOOTAPPEND_LIVE: set boot parameters
 # (Default: empty)
 LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE}"
+
+# \$LH_BOOTAPPEND_INSTALL: set boot parameters
+# (Default: empty)
+LH_BOOTAPPEND_INSTALL="${LH_BOOTAPPEND_INSTALL}"
 
 # \$LH_BOOTLOADER: set bootloader
 # (Default: ${LH_BOOTLOADER})
