@@ -588,7 +588,7 @@ case "${LH_BINARY_IMAGES}" in
 
 		# Configure syslinux templates
 		sed -i -e "s@LINUX_LIVE@${LINUX_LIVE}@" -e "s@LINUX_INSTALL@${LINUX_INSTALL}@" -e "s@MEMTEST@${MEMTEST}@" "${DESTDIR}"/syslinux.cfg
-		sed -i -e -e "s#LH_BOOTAPPEND_INSTALL#${LH_BOOTAPPEND_INSTALL}#" "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" "${DESTDIR}"/syslinux.cfg
+		sed -i -e "s#LH_BOOTAPPEND_INSTALL#${LH_BOOTAPPEND_INSTALL}#" -e "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" "${DESTDIR}"/syslinux.cfg
 		sed -i -e "s/LH_DISTRIBUTION/${LH_DISTRIBUTION}/" -e "s/LH_DATE/`date +%Y%m%d`/" -e "s/LH_MEDIA/hd-media/" "${DESTDIR}"/f1.txt #FIXME
 		sed -i -e "s/LH_MEDIA/hd-media/" "${DESTDIR}"/f3.txt #FIXME
 		sed -i -e "s/LH_VERSION/${VERSION}/" "${DESTDIR}"/f10.txt
