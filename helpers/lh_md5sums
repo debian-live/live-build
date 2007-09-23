@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# lh_md5sums.sh
+
+# Calculating md5sums
+cd "${LIVE_ROOT}"/binary
+find . -type f -print0 | xargs -0 md5sum > "${LIVE_ROOT}"/md5sum.txt
+cd "${OLDPWD}"
+
+if [ -d "${LIVE_INCLUDE_IMAGE}" ]
+then
+	cd "${LIVE_INCLUDE_IMAGE}"
+	find . -type f -print0 | xargs -0 md5sum >> "${LIVE_ROOT}"/md5sum.txt
+	cd "${OLDPWD}"
+fi
+
+mv "${LIVE_ROOT}"/md5sum.txt "${LIVE_ROOT}"/binary

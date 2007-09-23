@@ -1,0 +1,71 @@
+#!/bin/sh
+
+# lh_genrootfs.sh <filesystem>
+
+case "${LIVE_FILESYSTEM}" in
+	ext2)
+		DU_DIM="`du -ks ${LIVE_CHROOT} | cut -f1`"
+		REAL_DIM="`expr ${DU_DIM} + ${DU_DIM} / 20`" # Just 5% more to be sure, need something more sophistcated here...
+
+		if [ -z "${LIVE_ENCRYPTION}" ]
+		then
+			genext2fs --size-in-blocks=${REAL_DIM} --reserved-blocks=0 --root="${LIVE_CHROOT}" "${LIVE_ROOT}"/binary/casper/filesystem.ext2
+		else
+			echo "Encrypting ${LIVE_ROOT}/binary/casper/filesystem.ext2 with ${LIVE_ENCRYPTION}..."
+
+			while true
+			do
+				genext2fs --size-in-blocks=${REAL_DIM} --reserved-blocks=0 --root="${LIVE_CHROOT}" | aespipe -e "${LIVE_ENCRYPTION}" -T > "${LIVE_ROOT}"/binary/casper/filesystem.ext2 && break
+
+				echo -n "Something went wrong... Retry? [YES/no] "
+				read ANSWER
+
+				if [ 'no' = "${ANSWER}" ]
+				then
+					unset ANSWER
+					break
+ 				fi
+ 			done
+ 		fi
+		;;
+
+	plain)
+		if [ -n "${LIVE_ENCRYPTION}" ]
+		then
+			echo "Error: encryption is not supported for filesystem type 'plain'"
+			exit 1
+		fi
+
+		cd "${LIVE_CHROOT}"
+		find . | cpio -pumd "${LIVE_ROOT}"/binary/casper/filesystem.dir
+		cd "${OLDPWD}"
+		;;
+
+	squashfs)
+		if [ -f "${LIVE_ROOT}"/binary/casper/filesystem.squashfs ]
+		then
+			rm "${LIVE_ROOT}"/binary/casper/filesystem.squashfs
+		fi
+
+		mksquashfs "${LIVE_CHROOT}" "${LIVE_ROOT}"/binary/casper/filesystem.squashfs
+
+		if [ -n "$LIVE_ENCRYPTION" ]
+		then
+			echo "Encrypting ${LIVE_ROOT}/binary/casper/filesystem.squashfs with ${LIVE_ENCRYPTION}..."
+
+			while true
+			do
+				cat "${LIVE_ROOT}"/binary/casper/filesystem.squashfs | aespipe -e "${LIVE_ENCRYPTION}" -T > "${LIVE_ROOT}"/binary/casper/filesystem.squashfs.encrypted && mv "${LIVE_ROOT}"/binary/casper/filesystem.squashfs.encrypted "${LIVE_ROOT}"/binary/casper/filesystem.squashfs && break
+
+				echo -n "Something went wrong... Retry? [YES/no] "
+				read ANSWER
+
+				if [ 'no' = "${ANSWER}" ]
+				then
+					unset ANSWER
+					break
+				fi
+			done
+		fi
+		;;
+esac

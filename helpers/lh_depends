@@ -1,0 +1,86 @@
+#!/bin/sh
+
+# lh_depends.sh <action> <type>
+
+case "${1}" in
+	install)
+		if [ -z "${KEEP_MEMTEST86}" ]
+		then
+			if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
+			then
+				lh_chroot "aptitude install --assume-yes memtest86+"
+			fi
+		fi
+
+		if [ -z "${KEEP_SYSLINUX}" ]
+		then
+			lh_chroot "aptitude install --assume-yes syslinux"
+		fi
+
+		case "${2}" in
+			usb)
+				if [ -z "${KEEP_DOSFSTOOLS}" ]
+				then
+					lh_chroot "aptitude install --assume-yes dosfstools"
+				fi
+
+				if [ -z "${KEEP_MTOOLS}" ]
+					then
+					lh_chroot "aptitude install --assume-yes mtools"
+				fi
+
+				if [ -z "${KEEP_PARTED}" ]
+				then
+					lh_chroot "aptitude install --assume-yes parted"
+				fi
+				;;
+		esac
+		;;
+
+	remove)
+		if [ -z "${KEEP_MEMTEST86}" ]
+		then
+			if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
+			then
+				lh_chroot "aptitude purge --assume-yes memtest86+"
+			fi
+		fi
+
+		if [ -z "${KEEP_SYSLINUX}" ]
+		then
+			lh_chroot "aptitude purge --assume-yes syslinux"
+		fi
+
+		case "${2}" in
+			usb)
+				if [ -z "${KEEP_DOSFSTOOLS}" ]
+				then
+					lh_chroot "aptitude purge --assume-yes dosfstools"
+				fi
+
+				if [ -z "${KEEP_MEMTEST86}" ]
+				then
+					if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
+					then
+						lh_chroot "aptitude purge --assume-yes memtest86+"
+					fi
+				fi
+
+				if [ -z "${KEEP_MTOOLS}" ]
+				then
+					lh_chroot "aptitude purge --assume-yes mtools"
+				fi
+
+				if [ -z "${KEEP_PARTED}" ]
+				then
+					lh_chroot "aptitude purge --assume-yes parted"
+				fi
+
+				if [ -z "${KEEP_SYSLINUX}" ]
+				then
+					lh_chroot "aptitude purge --assume-yes syslinux"
+				fi
+				;;
+		esac
+		;;
+esac

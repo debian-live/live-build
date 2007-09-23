@@ -1,0 +1,79 @@
+#!/bin/sh
+
+# lh_installsyslinux.sh <type>
+
+if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
+then
+	if [ -n "${LIVE_ENCRYPTION}" ]
+	then
+		LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} live-media-encryption=${LIVE_ENCRYPTION}"
+	fi
+
+	case "${1}" in
+		iso)
+			# Copy syslinux
+			mkdir -p "${LIVE_ROOT}"/binary/isolinux
+			cp "${LIVE_CHROOT}"/usr/lib/syslinux/isolinux.bin "${LIVE_ROOT}"/binary/isolinux
+			cp -r "${LIVE_TEMPLATES}"/syslinux/* "${LIVE_ROOT}"/binary/isolinux
+
+			# Copy splash screen
+			if [ -n "${LIVE_ISOLINUX_SPLASH}" ]; then
+				cp "${LIVE_ISOLINUX_SPLASH}" "${LIVE_ROOT}/binary/isolinux/splash.rle"
+			fi
+
+			# Configure syslinux templates
+			sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" "${LIVE_ROOT}"/binary/isolinux/isolinux.cfg
+			sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" "${LIVE_ROOT}"/binary/isolinux/f1.txt
+			sed -i -e "s/LIVE_VERSION/${VERSION}/" "${LIVE_ROOT}"/binary/isolinux/f10.txt
+
+			# Remove unused files
+			rm -f "${LIVE_ROOT}"/binary/isolinux/pxelinux.cfg
+			;;
+
+		net)
+			# Copy syslinux
+			mkdir -p "${LIVE_ROOT}"/tftpboot
+			cp "${LIVE_ROOT}"/chroot/usr/lib/syslinux/pxelinux.0 "${LIVE_ROOT}"/tftpboot
+
+			# Install syslinux templates
+			mkdir -p "${LIVE_ROOT}"/tftpboot/pxelinux.cfg
+			cp -r "${LIVE_TEMPLATES}"/syslinux/* "${LIVE_ROOT}"/tftpboot/pxelinux.cfg
+			mv "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/pxelinux.cfg "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/default
+			sed -i -e 's#splash.rle#pxelinux.cfg/splash.rle#' "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/isolinux.txt
+
+			# Copy splash screen
+			if [ -n "${LIVE_ISOLINUX_SPLASH}" ]; then
+				cp "${LIVE_ISOLINUX_SPLASH}" "${LIVE_ROOT}/tftpboot/pxelinux.cfg/splash.rle"
+			fi
+
+			# Configure syslinux templates
+			sed -i -e "s/LIVE_SERVER_ADDRESS/${LIVE_SERVER_ADDRESS}/" -e "s#LIVE_SERVER_PATH#${LIVE_SERVER_PATH}#" -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/default
+			sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/f1.txt
+			sed -i -e "s/LIVE_VERSION/${VERSION}/" "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/f10.txt
+
+			# Remove unused files
+			rm -f "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/isolinux.cfg
+			;;
+
+		usb)
+			# Copy syslinux
+			mkdir -p "${LIVE_ROOT}"/binary
+			cp "${LIVE_CHROOT}"/usr/lib/syslinux/isolinux.bin "${LIVE_ROOT}"/binary/syslinux.bin
+			cp -r "${LIVE_TEMPLATES}"/syslinux/* "${LIVE_ROOT}"/binary
+			mv "${LIVE_ROOT}"/binary/isolinux.cfg "${LIVE_ROOT}"/binary/syslinux.cfg
+
+			# Copy splash screen
+			if [ -n "${LIVE_ISOLINUX_SPLASH}" ]; then
+				cp "${LIVE_ISOLINUX_SPLASH}" "${LIVE_ROOT}/binary/splash.rle"
+			fi
+
+			# Configure syslinux templates
+			sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" "${LIVE_ROOT}"/binary/syslinux.cfg
+			sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" "${LIVE_ROOT}"/binary/f1.txt
+			sed -i -e "s/LIVE_VERSION/${VERSION}/" "${LIVE_ROOT}"/binary/f10.txt
+
+			# Remove unused files
+			rm -f "${LIVE_ROOT}"/binary/isolinux/pxelinux.cfg
+			;;
+	esac
+fi

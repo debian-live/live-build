@@ -1,0 +1,33 @@
+#!/bin/sh
+
+if [ ! -f "${LIVE_ROOT}"/.stage/bootstrap ]
+then
+	# Create chroot directory
+	if [ ! -d "${LIVE_CHROOT}" ]
+	then
+		mkdir -p "${LIVE_CHROOT}"
+	fi
+
+	if [ -n "${LIVE_BOOTSTRAP_CONFIG}" ]; then
+		SUITE_CONFIG="--suite-config ${LIVE_BOOTSTRAP_CONFIG}"
+	fi
+
+	# Bootstrap system
+	if [ "${LIVE_FLAVOUR}" = "mini" ]
+	then
+		cdebootstrap --arch="${LIVE_ARCHITECTURE}" --flavour=minimal ${SUITE_CONFIG} "${LIVE_DISTRIBUTION}" "${LIVE_CHROOT}" "${LIVE_MIRROR}"
+	else
+		cdebootstrap --arch="${LIVE_ARCHITECTURE}" --flavour="${LIVE_FLAVOUR}" ${SUITE_CONFIG} "${LIVE_DISTRIBUTION}" "${LIVE_CHROOT}" "${LIVE_MIRROR}"
+	fi
+
+	# Remove package cache
+	rm -rf "${LIVE_CHROOT}"/var/cache/bootstrap
+
+	# Touching stage file
+	if [ ! -d "${LIVE_ROOT}"/.stage ]
+	then
+		mkdir "${LIVE_ROOT}"/.stage
+	fi
+
+	touch "${LIVE_ROOT}"/.stage/bootstrap
+fi

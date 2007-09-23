@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# lh_testroot.sh
+
+# Checking user account
+if [ "`id -u`" -ne "0" ]
+then
+	echo "E: need root privileges"
+	exit 1
+fi

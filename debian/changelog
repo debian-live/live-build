@@ -1,3 +1,10 @@
+live-package (0.99.22-1) unstable; urgency=low
+
+  * New upstream release:
+    - updates manpage (Closes: #411008).
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 16 Feb 2007 20:38:00 +0100
+
 live-package (0.99.21-1) unstable; urgency=low
 
   * New upstream release.

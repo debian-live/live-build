@@ -17,6 +17,8 @@ make-live \- utility to build Debian Live systems
 .IR DIRECTORY \|]
 .RB [\| \-d \||\| \-\-distribution
 .IR DISTRIBUTION \|]
+.RB [\| \-e \||\| \-\-encryption
+.IR ALGORITHM \|]
 .RB [\| \-\-filesystem
 .IR FILESYSTEM \|]
 .RB [\| \-f \||\| \-\-flavour
@@ -97,6 +99,9 @@ specifies the chroot directory. Instead of this flag, the environment variable L
 .BI "\-d, \-\-distribution " DISTRIBUTION
 specifies the distribution to be used. Allowed values are distributions names like unstable and testing, or codenames like sid and etch. Instead of this flag, the environment variable LIVE_DISTRIBUTION can be used (Default: sid).
 .TP
+.BI "\-e, \-\-encryption " ALGORITHM
+specifies the filesystem encryption algorithm. Does not work if -t is set to plain. Instead of this flag, the environment variable LIVE_ENCRYPTION can be used (Default: empty). Valid algorithms are: AES128, AES192 and AES256.
+.TP
 .BI "\-\-filesystem " FILESYSTEM
 Specifies the filesystem for the compressed image. At the moment, ext2, plain and squashfs are supported. Instead of this flag, the environment variable LIVE_FILESYSTEM can be used (Default: squashfs for iso, plain for net).
 .TP
@@ -156,7 +161,7 @@ specifies the directory on the server, where you have unpacked the netboot image
 specifies a templates directory to use instead of the default one. Instead of this flag, the environment variable LIVE_TEMPLATES can be used (Default: /usr/share/make-live/templates).
 .TP
 .BI "\-t, \-\-type " TYPE
-specifies the image type to generate. Currently, only iso and net are available. Instead of this flag, the environment variable LIVE_TYPE can be used (Default: iso).
+specifies the image type to generate. TYPE can be one of: iso, net, or usb.  Instead of this flag, the environment variable LIVE_TYPE can be used (Default: iso).
 .TP
 .B \-\-with-generic-indices
 enables use of generic Debian package indices. Instead of this flag, the environment variable LIVE_GENERIC_INDICES can be used (Default: yes).

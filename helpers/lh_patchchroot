@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# lh_patchchroot.sh <action>
+
+# Some maintainer scripts can detect if they are in a chrooted system.
+# Therefore, we create the needed file.
+
+case "${1}" in
+	apply)
+		# Create chroot file
+		echo "debian-live" > "${LIVE_CHROOT}"/etc/debian_chroot
+		;;
+
+	deapply)
+		# Remove chroot file
+		rm -f "${LIVE_CHROOT}"/etc/debian_chroot
+		;;
+esac

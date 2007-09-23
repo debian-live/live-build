@@ -17,6 +17,8 @@ Defaults ()
 		LIVE_ROOT="`pwd`/debian-live"
 	fi
 
+	export LIVE_ROOT
+
 	# Set image type
 	if [ -n "${LIVE_TYPE}" ]
 	then
@@ -42,17 +44,23 @@ Defaults ()
 		LIVE_TYPE="Iso"
 	fi
 
+	export LIVE_TYPE
+
 	# Set bootstrap architecture
 	if [ -z "${LIVE_ARCHITECTURE}" ]
 	then
 		LIVE_ARCHITECTURE="`dpkg --print-architecture`"
 	fi
 
+	export LIVE_ARCHITECTURE
+
 	# Set chroot directory
 	if [ -z "${LIVE_CHROOT}" ]
 	then
 		LIVE_CHROOT="${LIVE_ROOT}/chroot"
 	fi
+
+	export LIVE_CHROOT
 
 	# Set debian distribution
 	if [ -z "${LIVE_DISTRIBUTION}" ]
@@ -64,13 +72,18 @@ Defaults ()
 	then
 		LIVE_DISTRIBUTION="unstable"
 		LIVE_DISTRIBUTION_EXPERIMENTAL="yes"
+		export LIVE_DISTRIBUTION_EXPERIMENTAL
 	fi
+
+	export LIVE_DISTRIBUTION
 
 	# Set bootstrap flavour
 	if [ -z "${LIVE_FLAVOUR}" ]
 	then
 		LIVE_FLAVOUR="standard"
 	fi
+
+	export LIVE_FLAVOUR
 
 	# Set filesystem
 	if [ -z "${LIVE_FILESYSTEM}" ] && [ "${LIVE_TYPE}" = "Iso" ]
@@ -83,6 +96,8 @@ Defaults ()
 	then
 		LIVE_FILESYSTEM="plain"
 	fi
+
+	export LIVE_FILESYSTEM
 
 	# Set kernel flavour
 	if [ -z "${LIVE_KERNEL}" ]
@@ -143,10 +158,19 @@ Defaults ()
 		esac
 	fi
 
+	export LIVE_KERNEL
+
 	# Set kernel packages
 	if [ -z "${LIVE_KERNEL_PACKAGES}" ]
 	then
 		LIVE_KERNEL_PACKAGES="linux-image-2.6-${LIVE_KERNEL} squashfs-modules-2.6-${LIVE_KERNEL} unionfs-modules-2.6-${LIVE_KERNEL}"
+
+ 		if [ -n "${LIVE_ENCRYPTION}" ]
+ 		then
+ 			LIVE_KERNEL_PACKAGES="${LIVE_KERNEL_PACKAGES} loop-aes-modules-2.6-${LIVE_KERNEL} loop-aes-utils"
+ 		fi
+
+		export LIVE_KERNEL_PACKAGES
 	fi
 
 	# Set debian mirror
@@ -155,16 +179,20 @@ Defaults ()
 		LIVE_MIRROR="http://ftp.debian.org/debian/"
 	fi
 
+	export LIVE_MIRROR
+
 	# Set debian keyring
 	if [ -z "${LIVE_REPOSITORY_KEYRING}" ]
 	then
 		LIVE_REPOSITORY_KEYRING="debian-archive-keyring"
+		export LIVE_REPOSITORY_KEYRING
 	fi
 
 	# Set debian security mirror
 	if [ -z "${LIVE_MIRROR_SECURITY}" ]
 	then
 		LIVE_MIRROR_SECURITY="http://security.debian.org/"
+		export LIVE_MIRROR_SECURITY
 	fi
 
 	# Set default aptitude tasks
@@ -172,14 +200,17 @@ Defaults ()
 	then
 		LIVE_PACKAGE_LIST="gnome"
 		LIVE_TASKS="${LIVE_TASKS} standard laptop desktop gnome-desktop"
+		export LIVE_PACKAGE_LIST LIVE_TASKS
 	elif [ "${LIVE_PACKAGE_LIST}" = "kde-desktop" ]
 	then
 		LIVE_PACKAGE_LIST="kde"
 		LIVE_TASKS="${LIVE_TASKS} standard laptop desktop kde-desktop"
+		export LIVE_PACKAGE_LIST LIVE_TASKS
 	elif [ "${LIVE_PACKAGE_LIST}" = "xfce-desktop" ]
 	then
 		LIVE_PACKAGE_LIST="xfce"
 		LIVE_TASKS="${LIVE_TASKS} standard laptop desktop xfce-desktop"
+		export LIVE_PACKAGE_LIST LIVE_TASKS
 	fi
 
 	# Check for package lists
@@ -208,6 +239,8 @@ Defaults ()
 			fi
 		fi
 	fi
+
+	export LIVE_PACKAGE_LIST
 
 	# Set FTP proxy
 	if [ -z "${LIVE_PROXY_FTP}" ] && [ -n "${ftp_proxy}" ]
@@ -241,11 +274,15 @@ Defaults ()
 		LIVE_SECTIONS="main"
 	fi
 
+	export LIVE_SECTIONS
+
 	# Set netboot server
 	if [ -z "${LIVE_SERVER_ADDRESS}" ]
 	then
 		LIVE_SERVER_ADDRESS="192.168.1.1"
 	fi
+
+	export LIVE_SERVER_ADDRESS
 
 	# Set netboot path
 	if [ -z "${LIVE_SERVER_PATH}" ]
@@ -253,11 +290,15 @@ Defaults ()
 		LIVE_SERVER_PATH="/srv/debian-live"
 	fi
 
+	export LIVE_SERVER_PATH
+
 	# Set templates directory
 	if [ -z "${LIVE_TEMPLATES}" ]
 	then
 		LIVE_TEMPLATES="${BASE}/templates"
 	fi
+
+	export LIVE_TEMPLATES
 
 	# Set package indices
 	if [ -z "${LIVE_GENERIC_INDICES}" ] && [ "${LIVE_FLAVOUR}" != "minimal" ] && [ "${LIVE_FLAVOUR}" != "mini" ]
@@ -265,11 +306,15 @@ Defaults ()
 		LIVE_GENERIC_INDICES="yes"
 	fi
 
+	export LIVE_GENERIC_INDICES
+
 	# Set recommends
 	if [ -z "${LIVE_RECOMMENDS}" ]
 	then
 		LIVE_RECOMMENDS="no"
 	fi
+
+	export LIVE_RECOMMENDS
 
 	# Set source image
 	if [ -z "${LIVE_SOURCE}" ]
@@ -277,26 +322,36 @@ Defaults ()
 		LIVE_SOURCE="no"
 	fi
 
+	export LIVE_SOURCE
+
 	# Set disk volume
 	if [ -z "${LIVE_DISK_VOLUME}" ]
 	then
 		LIVE_DISK_VOLUME="Debian Live `date +%Y%m%d`"
 	fi
 
+	export LIVE_DISK_VOLUME
+
 	if [ -z "${LIVE_DEBCONF_FRONTEND}" ]
 	then
 		LIVE_DEBCONF_FRONTEND="noninteractive"
 	fi
+
+	export LIVE_DEBCONF_FRONTEND
 
 	if [ -z "${LIVE_DEBCONF_PRIORITY}" ]
 	then
 		LIVE_DEBCONF_PRIORITY="critical"
 	fi
 
+	export LIVE_DEBCONF_PRIORITY
+
 	if [ -z "${LIVE_DAEMONS}" ]
 	then
 		LIVE_DAEMONS="yes"
 	fi
+
+	export LIVE_DAEMONS
 
 	# This is a hack because Ubuntu does not ship cdrkit already
 	if [ -x /usr/bin/genisoimage ]
@@ -305,4 +360,10 @@ Defaults ()
 	else
 		GENISOIMAGE="/usr/bin/mkisofs"
 	fi
+
+	export GENISOIMAGE
+
+	# Variables that do not have defaults but need to be exported to
+	# allow other helpers to use their values
+	export LIVE_BOOTSTRAP_CONFIG
 }

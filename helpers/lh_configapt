@@ -1,0 +1,51 @@
+#!/bin/sh
+
+# lh_configapt.sh <action>
+
+case "${1}" in
+	apply-proxy)
+		# Configure ftp proxy
+		if [ -n "${LIVE_PROXY_FTP}" ]
+		then
+			echo "Acquire::ftp::Proxy \"${LIVE_PROXY_FTP}\";" > "${LIVE_CHROOT}"/etc/apt/apt.conf.d/00make-live_ftp-proxy.conf
+		fi
+
+		# Configure http proxy
+		if [ -n "${LIVE_PROXY_HTTP}" ]
+		then
+			echo "Acquire::http::Proxy \"${LIVE_PROXY_HTTP}\";" > "${LIVE_CHROOT}"/etc/apt/apt.conf.d/00make-live_http-proxy.conf
+		fi
+		;;
+
+	apply-recommends)
+		# Configure recommends
+		if [ "${LIVE_RECOMMENDS}" = "yes" ]
+		then
+			echo "Aptitude::Recommends-Important \"true\";" > "${LIVE_CHROOT}"/etc/apt/apt.conf.d/00make-live_recommends.conf
+		else
+			echo "Aptitude::Recommends-Important \"false\";" > "${LIVE_CHROOT}"/etc/apt/apt.conf.d/00make-live_recommends.conf
+		fi
+		;;
+
+	deapply-proxy)
+		# Deconfigure ftp proxy
+		if [ -f "${LIVE_CHROOT}"/etc/apt/apt.conf.d/00make-live_ftp-proxy.conf ]
+		then
+			rm -f "${LIVE_CHROOT}"/etc/apt/apt.conf.d/00make-live_ftp-proxy.conf
+		fi
+
+		# Deconfigure http proxy
+		if [ -f "${LIVE_CHROOT}"/etc/apt/apt.conf.d/00make-live_http-proxy.conf ]
+		then
+			rm -f "${LIVE_CHROOT}"/etc/apt/apt.conf.d/00make-live_http-proxy.conf
+		fi
+		;;
+
+	deapply-recommends)
+		# Deconfigure recommends
+		if [ -f "${LIVE_CHROOT}"/etc/apt/apt.conf.d/00make-live_recommends.conf ]
+		then
+			rm -f "${LIVE_CHROOT}"/etc/apt/apt.conf.d/00make-live_recommends.conf
+		fi
+		;;
+esac
