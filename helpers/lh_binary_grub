@@ -194,38 +194,22 @@ fi
 LINUX="`echo ${LINUX} | sed -e 's#//#/#g'`"
 
 # Assembling debian-installer configuration
-if [ "${LIVE_DEBIAN_INSTALLER}" = "enabled" ]
+if [ "${LIVE_DEBIAN_INSTALLER}" = "enabled" ] || [ "${LIVE_LIVE_INSTALLER}" = "enabled" ]
 then
 	LINUX="title\t\tLive:\nroot\n\n${LINUX}"
 
 	LIVE_LINUX_INSTALL="title\t\tInstaller:\nroot"
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - install\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz vga=normal -- \ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/initrd.gz"
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - install\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz vga=normal --\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/initrd.gz"
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - installgui\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz video=vesa:ywrap,mtrr vga=788 --\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz"
 
-	if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ] || [ "${LIVE_ARCHITECTURE}" = "powerpc" ]
-	then
-		LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - installgui\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz video=vesa:ywrap,mtrr vga=788 -- \ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz"
-	fi
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - expert\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz priority=low vga=normal --\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/initrd.gz"
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - expertgui\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz priority=low video=vesa:ywrap,mtrr vga=788\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz"
 
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - expert\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz priority=low vga=normal -- \ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/initrd.gz"
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - rescue\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz vga=normal rescue/enable=true --\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/initrd.gz"
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - rescuegui\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz video=vesa:ywrap,mtrr vga=788 rescue/enable=true --\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz"
 
-	if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ] || [ "${LIVE_ARCHITECTURE}" = "powerpc" ]
-	then
-		LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - expertgui\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz priority=low video=vesa:ywrap,mtrr vga=788\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz"
-	fi
-
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - rescue\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz vga=normal rescue/enable=true -- \ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/initrd.gz"
-
-	if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ] || [ "${LIVE_ARCHITECTURE}" = "powerpc" ]
-	then
-		LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - rescuegui\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz video=vesa:ywrap,mtrr vga=788 rescue/enable=true --\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz"
-	fi
-
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - auto\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz auto=true priority=critical vga=normal -- \ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/initrd.gz"
-
-	if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ] || [ "${LIVE_ARCHITECTURE}" = "powerpc" ]
-	then
-		LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - autogui\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz auto=true priority=critical video=vesa:ywrap,mtrr vga=788 -- \ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz"
-	fi
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - auto\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz auto=true priority=critical vga=normal --\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/initrd.gz"
+	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - autogui\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz auto=true priority=critical video=vesa:ywrap,mtrr vga=788 --\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz"
 fi
 
 # Assembling memtest configuration
@@ -246,7 +230,7 @@ case ${LIVE_BINARY_IMAGES} in
 		;;
 
 	tar|usb-hdd)
-		cp chroot/usr/lib/grub/*/stage1 chroot/usr/lib/grub/*/stage2 binary/boot/grub
+		cp chroot/usr/lib/grub/*/stage1 chroot/usr/lib/grub/*/e2fs_stage1_5 chroot/usr/lib/grub/*/stage2 binary/boot/grub
 		;;
 esac
 

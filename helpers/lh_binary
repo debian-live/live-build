@@ -42,6 +42,7 @@ lh_binary_encryption ${*}
 # Prepare images
 lh_binary_linux-image ${*}
 lh_binary_debian-installer ${*}
+lh_binary_live-installer ${*}
 lh_binary_memtest ${*}
 lh_binary_grub ${*}
 lh_binary_syslinux ${*}

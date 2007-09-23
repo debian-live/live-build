@@ -4,6 +4,6 @@
 ## To enable it, copy this file to your config/chroot_sources directory, once
 ## as e.g. fai.bootstrap and once as fai.binary.
 
-# FAI - Fully Automated Install
+# FAI - Fully Automatic Installation
 deb http://www.informatik.uni-koeln.de/fai/download/ etch koeln
 deb-src http://www.informatik.uni-koeln.de/fai/download/ etch koeln

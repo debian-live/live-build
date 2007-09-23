@@ -47,6 +47,16 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
+case "${LIVE_ARCHITECTURE}" in
+	amd64|i386)
+		LINUX="vmlinuz"
+		;;
+
+	powerpc)
+		LINUX="vmlinux"
+		;;
+esac
+
 case "${LH_INITRAMFS}" in
 	casper)
 		INITFS="casper"
@@ -59,6 +69,28 @@ esac
 
 # Creating directory
 mkdir -p binary/${INITFS}
+
+for STAGE in ${LH_CACHE_STAGES}
+do
+	if [ "${STAGE}" = "rootfs" ] && [ -d cache/stages_rootfs ]
+	then
+		# Removing old chroot
+		rm -rf binary/"${INITFS}"/filesystem.*
+
+		# Restoring old cache
+		mkdir -p binary/"${INITFS}"
+		${LH_ROOT_COMMAND} cp -a cache/stages_rootfs/filesystem.* binary/"${INITFS}"
+
+		if [ -n "${LH_ROOT_COMMAND}" ]
+		then
+			${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` binary
+		fi
+
+		# Creating stage file
+		Create_stagefile .stage/binary_rootfs
+		exit 0
+	fi
+done
 
 case "${LIVE_CHROOT_FILESYSTEM}" in
 	ext2)
@@ -121,7 +153,7 @@ case "${LIVE_CHROOT_FILESYSTEM}" in
 
 		if [ "${LIVE_PACKAGES_LISTS}" != "minimal" ] && [ "${LIVE_PACKAGES_LISTS}" != "mini" ]
 		then
-			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -e chroot/boot/vmlinuz* chroot/boot/initrd.img* chroot/vmlinuz* chroot/initrd.img* chroot/boot/config-* chroot/boot/System.map-*"
+			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -e chroot/boot/${LINUX}* chroot/boot/initrd.img* chroot/${LINUX}* chroot/initrd.img* chroot/boot/config-* chroot/boot/System.map-*"
 		fi
 
 		if [ -f config/binary_rootfs/squashfs.sort ]
@@ -146,6 +178,23 @@ case "${LIVE_CHROOT_FILESYSTEM}" in
 		Remove_package
 		;;
 esac
+
+for STAGE in ${LH_CACHE_STAGES}
+do
+	if [ "${STAGE}" = "rootfs" ]
+	then
+		rm -rf cache/stages_rootfs
+
+		mkdir -p cache/stages_rootfs
+
+		${LH_ROOT_COMMAND} cp -a binary/"${INITFS}"/filesystem.* cache/stages_rootfs
+
+		if [ -n "${LH_ROOT_COMMAND}" ]
+		then
+			${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` cache/stages_rootfs
+		fi
+	fi
+done
 
 # Creating stage file
 Create_stagefile .stage/binary_rootfs

@@ -20,7 +20,7 @@ done
 # Setting static variables
 DESCRIPTION="clean up system build directories"
 HELP=""
-USAGE="${PROGRAM} [all|cache|chroot|binary|lock|purge|stage|source]"
+USAGE="${PROGRAM} [all|cache|chroot|binary|purge|stage|source]"
 
 Arguments "${@}"
 
@@ -32,11 +32,12 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
+rm -f .lock
+
 case "${1}" in
 	all)
 		"${0}" chroot
 		"${0}" binary
-		"${0}" lock
 		"${0}" stage
 		"${0}" source
 
@@ -53,6 +54,7 @@ case "${1}" in
 
 	chroot)
 		${LH_ROOT_COMMAND} umount -f chroot/sys > /dev/null 2>&1 || true
+		${LH_ROOT_COMMAND} umount -f chroot/proc/sys/fs/binfmt_misc > /dev/null 2>&1 || true
 		${LH_ROOT_COMMAND} umount -f chroot/proc > /dev/null 2>&1 || true
 		${LH_ROOT_COMMAND} umount -f chroot/lib/init/rw > /dev/null 2>&1 || true
 		${LH_ROOT_COMMAND} umount -f chroot/dev/shm > /dev/null 2>&1 || true
@@ -72,19 +74,16 @@ case "${1}" in
 		;;
 
 	binary)
+                ${LH_ROOT_COMMAND} umount -f binary.tmp > /dev/null 2>&1 || true
+		rm -rf binary.tmp binary.deb binary.udeb
 		rm -f binary.iso
 		rm -f binary.img
 		rm -f binary*.tar.gz
-		rm -f packages.txt
 
 		rm -rf binary
 		rm -rf tftpboot
 
 		rm -f .stage/binary*
-		;;
-
-	lock)
-		rm -f .lock
 		;;
 
 	purge)

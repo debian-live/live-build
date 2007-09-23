@@ -82,7 +82,7 @@ do
 
 				# Moving logs
 				mv "${TEMPDIR}"/debian-live/log.txt "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${DATE}-iso-log.txt
-				mv "${TEMPDIR}"/debian-live/packages.txt "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${DATE}-iso-packages.txt
+				mv "${TEMPDIR}"/debian-live/binary/packages.txt "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${DATE}-iso-packages.txt
 
 				# Creating images directory
 				mkdir -p "${DESTDIR}"/"${BUILD}"-builds/${DATE}/${ARCHITECTURE}
