@@ -1,6 +1,11 @@
 #!/bin/sh
 
-# lh_losetup <device> <file> <partition>
+# lh_losetup - wrapper around losetup
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -9,6 +14,13 @@ for FUNCTION in /usr/share/live-helper/functions/*.sh
 do
 	. ${FUNCTION}
 done
+
+# Set static variables
+DESCRIPTION="wrapper around losetup"
+HELP=""
+USAGE="${PROGRAM} <device> <file> <partition>"
+
+Arguments "${@}"
 
 # Reading configuration files
 Read_conffile config/common

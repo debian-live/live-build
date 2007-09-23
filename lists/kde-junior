@@ -10,7 +10,8 @@ console-common kbd locales
 kde kdm
 desktop-base
 
-xorg xresprobe
+xorg xresprobe discover
+alsa-base alsa-oss alsa-utils
 
 # Debian Junior
 junior-sound junior-typing junior-internet junior-toys junior-games-net

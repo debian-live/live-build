@@ -1,6 +1,11 @@
 #!/bin/sh
 
 # lh_binary_iso(1) - build iso binary image
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -10,42 +15,90 @@ do
 	. ${FUNCTION}
 done
 
+# Set static variables
+DESCRIPTION="build iso binary image"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
 # Reading configuration files
 Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/image
 Set_defaults
 
-# Requiring stage file
-Require_stagefile .stage/bootstrap
-
-# Checking lock file
-Check_lockfile .lock
-
-# Creating lock file
-Create_lockfile .lock
-
-# Checking stage file
-Check_stagefile .stage/binary_iso
-
 for IMAGE in ${LIVE_BINARY_IMAGE}
 do
 	if [ "${IMAGE}" = "iso" ]
 	then
-		# Remove old binary
+		# Requiring stage file
+		Require_stagefile .stage/bootstrap
+
+		# Checking lock file
+		Check_lockfile .lock
+
+		# Creating lock file
+		Create_lockfile .lock
+
+		# Checking stage file
+		Check_stagefile .stage/binary_iso
+
+		if [ ! -f chroot/usr/bin/"${LH_GENISOIMAGE}" ]
+		then
+			PACKAGES="${PACKAGES} ${LH_GENISOIMAGE}"
+		fi
+
+		if [ -n "${PACKAGES}" ]
+		then
+			# Installing packages
+			case "${LH_APT}" in
+				apt|apt-get)
+					Chroot "apt-get install --yes ${PACKAGES}"
+					;;
+
+				aptitude)
+					Chroot "aptitude install --assume-yes ${PACKAGES}"
+					;;
+			esac
+		fi
+
+		# Remove old iso image
 		if [ -f binary.iso ]
 		then
 			rm -f binary.iso
 		fi
 
+		# Moving image
+		mv binary chroot
+
 		# Create image
 		if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
 		then
-			${LH_GENISOIMAGE} -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -o "${LIVE_IMAGE}"binary.iso -r -J -l -V "${LIVE_ISO_VOLUME}" -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table binary ${LIVE_INCLUDE_IMAGE}
+			#Chroot "${LH_GENISOIMAGE} -A \"Debian Live\" -p \"Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org\" -publisher \"Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org\" -o binary.iso -r -J -l -V \"${LIVE_ISO_VOLUME}\" -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table binary"
+			Chroot "${LH_GENISOIMAGE} -o binary.iso -r -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table binary"
 		else
 			echo "W: Bootloader on your architecture not yet supported (Continuing in 5 seconds)."
 			sleep 5
-			${LH_GENISOIMAGE} -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -o "${LIVE_IMAGE}"binary.iso -r -J -l -V "${LIVE_ISO_VOLUME}" binary ${LIVE_INCLUDE_IMAGE}
+			#Chroot "${LH_GENISOIMAGE} -A 'Debian Live' -p 'Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org' -publisher 'Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org' -o binary.iso -r -J -l -V \"${LIVE_ISO_VOLUME}\" binary"
+			Chroot "${LH_GENISOIMAGE} -o binary.iso -r -J -l binary"
+		fi
+
+		# Move image
+		mv chroot/binary chroot/binary.iso ./
+
+		# Removing packages
+		if [ -n "${PACKAGES}" ]
+		then
+			case "${LH_APT}" in
+				apt|apt-get)
+					Chroot "apt-get remove --purge --yes ${PACKAGES}"
+					;;
+
+				aptitude)
+					Chroot "aptitude purge --assume-yes ${PACKAGES}"
+					;;
+			esac
 		fi
 
 		# Creating stage file

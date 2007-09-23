@@ -1,0 +1,25 @@
+#!/bin/sh
+
+set -e
+
+case "${1}" in
+	install)
+		for FILE in /usr/share/man/man7/casper.7 /usr/share/man/man1/casper-snapshot.1
+		do
+			dpkg-divert --package live-helper --add --rename --divert ${FILE}.casper ${FILE}
+		done
+		;;
+
+	upgrade|abort-upgrade)
+
+		;;
+
+	*)
+		echo "preinst called with unknown argument \`${1}'" >&2
+		exit 1
+		;;
+esac
+
+#DEBHELPER#
+
+exit 0

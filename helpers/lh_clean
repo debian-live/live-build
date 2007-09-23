@@ -1,6 +1,11 @@
 #!/bin/sh
 
 # lh_clean(1) - clean up system build directories
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -9,6 +14,13 @@ for FUNCTION in /usr/share/live-helper/functions/*.sh
 do
 	. ${FUNCTION}
 done
+
+# Set static variables
+DESCRIPTION="clean up system build directories"
+HELP=""
+USAGE="${PROGRAM} [all|cache|chroot|binary|lock|purge|stage|source]"
+
+Arguments "${@}"
 
 # Ensure that a system is built as root
 lh_testroot
@@ -21,6 +33,7 @@ case "${1}" in
 	all)
 		"${0}" chroot
 		"${0}" binary
+		"${0}" lock
 		"${0}" stage
 		"${0}" source
 		;;
@@ -38,30 +51,41 @@ case "${1}" in
 		umount -f chroot/dev > /dev/null 2>&1 || true
 
 		rm -rf chroot
+
+		rm -f .stage/chroot*
 		;;
 
 	binary)
-		rm -rf binary
-
 		rm -f binary.iso
 		rm -f binary.img
 		rm -f binary*.tar.gz
 		rm -f packages.txt
 
+		rm -rf binary
+		rm -rf tftpboot
+
 		rm -f .stage/binary*
+		;;
+
+	lock)
+		rm -f .lock
+		;;
+
+	purge)
+		"${0}" all
+		"${0}" cache
 		;;
 
 	stage)
 		rm -rf .stage
-		rm -f .lock
 		;;
 
 	source)
-		rm -rf source
-
 		rm -f source.iso
 		rm -f source.img
 		rm -f source*.tar.gz
+
+		rm -rf source
 
 		rm -f .stage/source*
 		;;

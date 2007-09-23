@@ -1,6 +1,11 @@
 #!/bin/sh
 
 # lh_binary_encryption(1) - encrypts rootfs
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -10,31 +15,32 @@ do
 	. ${FUNCTION}
 done
 
+# Set static variables
+DESCRIPTION="encrypts rootfs"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
 # Reading configuration files
 Read_conffile config/common
 Read_conffile config/image
 Set_defaults
 
-# Requiring stage file
-Require_stagefile .stage/bootstrap
-Require_stagefile .stage/binary_rootfs
-
-# Checking lock file
-Check_lockfile .lock
-
-# Creating lock file
-Create_lockfile .lock
-
-# Checking stage file
-Check_stagefile .stage/binary_encryption
-
 if [ -n "${LIVE_ENCRYPTION}" ]
 then
-	if [ ! -x /usr/bin/aespipe ]
-	then
-		echo "E: aespipe is missing (FIXME)."
-		exit 1
-	fi
+	# Requiring stage file
+	Require_stagefile .stage/bootstrap
+	Require_stagefile .stage/binary_rootfs
+
+	# Checking lock file
+	Check_lockfile .lock
+
+	# Creating lock file
+	Create_lockfile .lock
+
+	# Checking stage file
+	Check_stagefile .stage/binary_encryption
 
 	case "${LIVE_FILESYSTEM}" in
 		ext2)
@@ -51,22 +57,65 @@ then
 			;;
 	esac
 
+	if [ ! -f chroot/usr/bin/aespipe ]
+	then
+		PACKAGES="${PACKAGES} aespipe"
+	fi
+
+	if [ -n "${PACKAGES}" ]
+	then
+		# Installing packages
+		case "${LH_APT}" in
+			apt|apt-get)
+				Chroot "apt-get install --yes ${PACKAGES}"
+				;;
+
+			aptitude)
+				Chroot "aptitude install --assume-yes ${PACKAGES}"
+				;;
+		esac
+	fi
+
+	# Moving image
+	mv binary/casper/filesystem.${LIVE_FILESYSTEM} chroot
+
 	echo "Encrypting binary/casper/filesystem.${ROOTFS} with ${LIVE_ENCRYPTION}..."
 
-	while true
-	do
-		cat binary/casper/filesystem.${ROOTFS} | aespipe -e "${LIVE_ENCRYPTION}" -T > binary/casper/filesystem.${ROOTFS} && break
+cat >> chroot/encrypt << EOF
+while true
+do
+	cat filesystem.${ROOTFS} | aespipe -e ${LIVE_ENCRYPTION} -T > filesystem.${ROOTFS} && break
 
-		echo -n "Something went wrong... Retry? [YES/no] "
+	echo -n "Something went wrong... Retry? [YES/no] "
 
-		read ANSWER
+	read ANSWER
 
-		if [ 'no' = "${ANSWER}" ]
-		then
-			unset ANSWER
-			break
-		fi
-	done
+	if [ "no" = "${ANSWER}" ]
+	then
+		unset ANSWER
+		break
+	fi
+done
+EOF
+
+	Chroot "sh encrypt"
+
+	# Move image
+	mv chroot/filesystem.${LIVE_FILESYSTEM} binary/casper
+	rm -f chroot/encrypt
+
+	# Removing packages
+	if [ -n "${PACKAGES}" ]
+	then
+		case "${LH_APT}" in
+			apt|apt-get)
+				Chroot "apt-get remove --purge --yes ${PACKAGES}"
+				;;
+				aptitude)
+				Chroot "aptitude purge --assume-yes ${PACKAGES}"
+				;;
+		esac
+	fi
 
 	# Creating stage file
 	Create_stagefile .stage/binary_encryption

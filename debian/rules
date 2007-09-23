@@ -25,6 +25,8 @@ install: build
 	# Installing package
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/live-helper
 
+	install -m 644 debian/changelog.old debian/live-helper/usr/share/doc/live-helper/changelog.Debian.old
+
 	# Removing double files
 	rm -f debian/live-helper/usr/share/doc/live-helper/COPYING
 	rm -f debian/live-helper/usr/share/doc/live-helper/ChangeLog
@@ -39,6 +41,7 @@ binary-indep: build install
 	dh_installchangelogs doc/ChangeLog
 	dh_installdocs
 	dh_install
+	dh_installman
 	dh_compress
 	dh_fixperms
 	dh_installdeb

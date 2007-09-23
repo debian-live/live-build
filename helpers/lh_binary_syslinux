@@ -1,6 +1,11 @@
 #!/bin/sh
 
-# lh_binary_syslinux(1) - installs syslinux
+# lh_binary_syslinux(1) - installs syslinux into binary
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -10,9 +15,17 @@ do
 	. ${FUNCTION}
 done
 
+# Set static variables
+DESCRIPTION="installs syslinux into binary"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
 # Reading configuration files
 Read_conffile config/common
 Read_conffile config/bootstrap
+Read_conffile config/chroot
 Read_conffile config/image
 Set_defaults
 
@@ -55,9 +68,100 @@ then
 		esac
 	fi
 
+	# Setting destination directory
+	case "${LIVE_BINARY_IMAGE}" in
+		iso)
+			DESTDIR="binary/live"
+			;;
+
+		net)
+			DESTDIR="tftpboot"
+			;;
+
+		usb|hdd)
+			DESTDIR="binary"
+			;;
+	esac
+
+	# Temporary check for broken syslinux
+	if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+	then
+		case "${LIVE_ARCHITECTURE}" in
+			i386)
+				DESTDIR="${DESTDIR}.386"
+				;;
+		esac
+	fi
+
+	# Creating directory
+	if [ ! -d "${DESTDIR}" ]
+	then
+		mkdir -p "${DESTDIR}"
+	fi
+
+	# Setting boot parameters
 	if [ -n "${LIVE_ENCRYPTION}" ]
 	then
 		LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} encryption=${LIVE_ENCRYPTION}"
+	fi
+
+	if [ -n "${LIVE_USERNAME}" ]
+	then
+		LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} username=${LIVE_USERNAME}"
+	fi
+
+	if [ -n "${LIVE_HOSTNAME}" ]
+	then
+		LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} hostname=${LIVE_HOSTNAME}"
+	fi
+
+	LIVE_BOOTAPPEND="`echo ${LIVE_BOOTAPPEND} | sed -e 's/  //'`"
+
+	# Assembling kernel configuration
+	if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+	then
+		DEFAULT_FLAVOUR="`echo ${LIVE_KERNEL_FLAVOUR} | awk '{ print $1 }'`"
+		LINUX="label linux\n  kernel /`basename ${DESTDIR}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n  append initrd=/`basename ${DESTDIR}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
+	else
+		DEFAULT_FLAVOUR="`echo ${LIVE_KERNEL_FLAVOUR} | awk '{ print $1 }'`"
+		LINUX="label linux\n  kernel `basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n  append initrd=initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
+	fi
+
+	if [ "`echo ${LIVE_KERNEL_FLAVOUR} | wc -w`" -gt "1" ]
+	then
+		for KERNEL in chroot/boot/vmlinuz*
+		do
+			if [ -z "${LINUX}" ]
+			then
+				if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+				then
+					LINUX="label linux-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n  kernel /`basename ${DESTDIR}`/`basename ${KERNEL}`\n  append initrd=/`basename ${DESTDIR}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
+				else
+					LINUX="label linux-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n  kernel `basename ${KERNEL}`\n  append initrd=initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
+				fi
+			else
+				if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+				then
+					LINUX="${LINUX}\nlabel linux-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n  kernel /`basename ${DESTDIR}`/`basename ${KERNEL}`\n  append initrd=/`basename ${DESTDIR}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
+				else
+					LINUX="${LINUX}\nlabel linux-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n  kernel `basename ${KERNEL}`\n  append initrd=initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
+				fi
+			fi
+		done
+	fi
+
+	LINUX="`echo ${LINUX} | sed -e 's#//#/#g'`"
+
+	# Assembling memtest configuration
+	if [ -f "${DESTDIR}"/memtest ]
+	then
+		if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+		then
+			MEMTEST="label memtest\n  kernel /`basename ${DESTDIR}`/memtest"
+			MEMTEST="`echo ${MEMTEST} | sed -e 's#//#/#g'`"
+		else
+			MEMTEST="label memtest\n  kernel memtest"
+		fi
 	fi
 
 	case "${LIVE_BINARY_IMAGE}" in
@@ -74,17 +178,34 @@ then
 			fi
 
 			# Configure syslinux templates
+			sed -i -e "s#LIVE_KERNEL#${LINUX}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" binary/isolinux/isolinux.cfg
 			sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" binary/isolinux/isolinux.cfg
 			sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" binary/isolinux/f1.txt
 			sed -i -e "s/LIVE_VERSION/${VERSION}/" binary/isolinux/f10.txt
 
 			# Remove unused files
 			rm -f binary/isolinux/pxelinux.cfg
+
+			# Working arround syslinux 8.3 limitation
+			if [ "`echo ${LIVE_KERNEL_FLAVOUR} | wc -w`" -gt "1" ]
+			then
+				for FLAVOUR in ${LIVE_KERNEL_FLAVOUR}
+				do
+					NUMBER=$(($NUMBER + 1))
+
+					mv "${DESTDIR}"/vmlinuz-*-${FLAVOUR} "${DESTDIR}"/vmlinuz${NUMBER}
+					mv "${DESTDIR}"/initrd.img-*-${FLAVOUR} "${DESTDIR}"/initrd${NUMBER}.img
+					sed -i -e "s/linux.*-${FLAVOUR}/linux${NUMBER}/g" -e "s/vmlinuz-.*-${FLAVOUR}/vmlinuz${NUMBER}/g" -e "s/initrd.img-.*-${FLAVOUR}/initrd${NUMBER}.img/g" binary/isolinux/isolinux.cfg
+				done
+			else
+				mv "${DESTDIR}"/vmlinuz-*-${LIVE_KERNEL_FLAVOUR} "${DESTDIR}"/vmlinuz
+				mv "${DESTDIR}"/initrd.img-*-${LIVE_KERNEL_FLAVOUR} "${DESTDIR}"/initrd.img
+				sed -i -e "s/linux.*-${LIVE_KERNEL_FLAVOUR}/linux/g" -e "s/vmlinuz-.*-${LIVE_KERNEL_FLAVOUR}/vmlinuz/g" -e "s/initrd.img-.*-${LIVE_KERNEL_FLAVOUR}/initrd.img/g" binary/isolinux/isolinux.cfg
+			fi
 			;;
 
 		net)
 			# Copying syslinux
-			mkdir -p tftpboot
 			cp chroot/usr/lib/syslinux/pxelinux.0 tftpboot
 
 			# Install syslinux templates
@@ -96,16 +217,34 @@ then
 			# Copying splash screen
 			if [ -n "${LIVE_SYSLINUX_SPLASH}" ]
 			then
-				cp "${LIVE_SYSLINUX_SPLASH}" ftpboot/pxelinux.cfg/splash.rle
+				cp "${LIVE_SYSLINUX_SPLASH}" tftpboot/pxelinux.cfg/splash.rle
 			fi
 
 			# Configure syslinux templates
+			sed -i -e "s#LIVE_KERNEL#${LINUX}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" tftpboot/pxelinux.cfg/default
 			sed -i -e "s/LIVE_SERVER_ADDRESS/${LIVE_SERVER_ADDRESS}/" -e "s#LIVE_SERVER_PATH#${LIVE_SERVER_PATH}#" -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" tftpboot/pxelinux.cfg/default
 			sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" tftpboot/pxelinux.cfg/f1.txt
 			sed -i -e "s/LIVE_VERSION/${VERSION}/" tftpboot/pxelinux.cfg/f10.txt
 
 			# Remove unused files
 			rm -f tftpboot/pxelinux.cfg/isolinux.cfg
+
+			# Working arround syslinux 8.3 limitation
+			if [ "`echo ${LIVE_KERNEL_FLAVOUR} | wc -w`" -gt "1" ]
+			then
+				for FLAVOUR in ${LIVE_KERNEL_FLAVOUR}
+				do
+					NUMBER=$(($NUMBER + 1))
+
+					mv "${DESTDIR}"/vmlinuz-*-${FLAVOUR} "${DESTDIR}"/vmlinuz${NUMBER}
+					mv "${DESTDIR}"/initrd.img-*-${FLAVOUR} "${DESTDIR}"/initrd${NUMBER}.img
+					sed -i -e "s/linux.*-${FLAVOUR}/linux${NUMBER}/g" -e "s/vmlinuz-.*-${FLAVOUR}/vmlinuz${NUMBER}/g" -e "s/initrd.img-.*-${FLAVOUR}/initrd${NUMBER}.img/g" tftpboot/pxelinux.cfg/default
+				done
+			else
+				mv "${DESTDIR}"/vmlinuz-*-${LIVE_KERNEL_FLAVOUR} "${DESTDIR}"/vmlinuz
+				mv "${DESTDIR}"/initrd.img-*-${LIVE_KERNEL_FLAVOUR} "${DESTDIR}"/initrd.img
+				sed -i -e "s/linux.*-${LIVE_KERNEL_FLAVOUR}/linux/g" -e "s/vmlinuz-.*-${LIVE_KERNEL_FLAVOUR}/vmlinuz/g" -e "s/initrd.img-.*-${LIVE_KERNEL_FLAVOUR}/initrd.img/g" tftpboot/pxelinux.cfg/default
+			fi
 			;;
 
 		usb|hdd)
@@ -124,18 +263,36 @@ then
 			fi
 
 			# Configure syslinux templates
+			sed -i -e "s#LIVE_KERNEL#${LINUX}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" binary/syslinux.cfg
 			sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" binary/syslinux.cfg
 			sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" binary/f1.txt
 			sed -i -e "s/LIVE_VERSION/${VERSION}/" binary/f10.txt
 
 			# Remove unused files
 			rm -f binary/pxelinux.cfg
+
+			# Working arround syslinux 8.3 limitation
+			if [ "`echo ${LIVE_KERNEL_FLAVOUR} | wc -w`" -gt "1" ]
+			then
+				for FLAVOUR in ${LIVE_KERNEL_FLAVOUR}
+				do
+					NUMBER=$(($NUMBER + 1))
+
+					mv "${DESTDIR}"/vmlinuz-*-${FLAVOUR} "${DESTDIR}"/vmlinuz${NUMBER}
+					mv "${DESTDIR}"/initrd.img-*-${FLAVOUR} "${DESTDIR}"/initrd${NUMBER}.img
+					sed -i -e "s/linux.*-${FLAVOUR}/linux${NUMBER}/g" -e "s/vmlinuz-.*-${FLAVOUR}/vmlinuz${NUMBER}/g" -e "s/initrd.img-.*-${FLAVOUR}/initrd${NUMBER}.img/g" binary/syslinux.cfg
+				done
+			else
+				mv "${DESTDIR}"/vmlinuz-*-${LIVE_KERNEL_FLAVOUR} "${DESTDIR}"/vmlinuz
+				mv "${DESTDIR}"/initrd.img-*-${LIVE_KERNEL_FLAVOUR} "${DESTDIR}"/initrd.img
+				sed -i -e "s/linux.*-${LIVE_KERNEL_FLAVOUR}/linux/g" -e "s/vmlinuz-.*-${LIVE_KERNEL_FLAVOUR}/vmlinuz/g" -e "s/initrd.img-.*-${LIVE_KERNEL_FLAVOUR}/initrd.img/g" binary/syslinux.cfg
+			fi
 			;;
 	esac
 
 	if [ -n "${PACKAGES}" ]
 	then
-		# Removing syslinux
+		# Removing packages
 		case "${LH_APT}" in
 			apt|apt-get)
 				Chroot "apt-get remove --purge --yes ${PACKAGES}"

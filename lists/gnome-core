@@ -10,4 +10,5 @@ console-common kbd locales
 gdm gnome-core
 desktop-base
 
-xorg xresprobe
+xorg xresprobe discover
+alsa-base alsa-oss alsa-utils

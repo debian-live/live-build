@@ -1,6 +1,11 @@
 #!/bin/sh
 
-# lh_binary_memtest86(1) - installs memtest86+
+# lh_binary_memtest86(1) - installs memtest86+ into binary
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -9,6 +14,13 @@ for FUNCTION in /usr/share/live-helper/functions/*.sh
 do
 	. ${FUNCTION}
 done
+
+# Set static variables
+DESCRIPTION="installs memtest86+ into binary"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -55,9 +67,10 @@ then
 		esac
 	fi
 
+	# Setting destination directory
 	case "${LIVE_BINARY_IMAGE}" in
 		iso)
-			DESTDIR="binary/isolinux"
+			DESTDIR="binary/live"
 			;;
 
 		net)
@@ -68,6 +81,16 @@ then
 			DESTDIR="binary"
 			;;
 	esac
+
+	# Temporary check for broken syslinux
+	if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+	then
+		case "${LIVE_ARCHITECTURE}" in
+			i386)
+				DESTDIR="${DESTDIR}.386"
+				;;
+		esac
+	fi
 
 	# Creating directory
 	if [ ! -d "${DESTDIR}" ]
@@ -80,7 +103,7 @@ then
 
 	if [ -n "${PACKAGES}" ]
 	then
-		# Removing syslinux
+		# Removing packages
 		case "${LH_APT}" in
 			apt|apt-get)
 				Chroot "apt-get remove --purge --yes ${PACKAGES}"

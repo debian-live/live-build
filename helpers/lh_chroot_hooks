@@ -1,6 +1,11 @@
 #!/bin/sh
 
 # lh_chroot_hooks(1) - execute hooks in chroot
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -9,6 +14,13 @@ for FUNCTION in /usr/share/live-helper/functions/*.sh
 do
 	. ${FUNCTION}
 done
+
+# Set static variables
+DESCRIPTION="execute hooks in chroot"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -28,19 +40,19 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Processing hooks
-if [ -n "${LIVE_PACKAGES_LIST}" ] && [ -f /usr/share/live-helper/hooks/"${LIVE_PACKAGES_LIST}" ]
+if [ -n "${LIVE_PACKAGES_LISTS}" ] && [ -f /usr/share/live-helper/hooks/"${LIVE_PACKAGES_LISTS}" ]
 then
 	# Copying hook
-	cp /usr/share/live-helper/hooks/"${LIVE_PACKAGES_LIST}" chroot/root
+	cp /usr/share/live-helper/hooks/"${LIVE_PACKAGES_LISTS}" chroot/root
 
 	# Making hook executable
-	if [ ! -x chroot/root/${LIVE_PACKAGES_LIST} ]
+	if [ ! -x chroot/root/${LIVE_PACKAGES_LISTS} ]
 	then
-		chmod +x chroot/root/${LIVE_PACKAGES_LIST}
+		chmod +x chroot/root/${LIVE_PACKAGES_LISTS}
 	fi
 
 	# Executing hook
-	Chroot "/root/${LIVE_PACKAGES_LIST}"
+	Chroot "/root/${LIVE_PACKAGES_LISTS}"
 
 	# Removing hook
 	rm -f chroot/root/"${LIVE_PACKAGE_LIST}"
