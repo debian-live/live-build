@@ -32,7 +32,7 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-if [ "${LIVE_INTERACTIVE}" = "disabled" ]
+if [ "${LH_INTERACTIVE}" = "disabled" ]
 then
 	exit 0
 fi
@@ -51,7 +51,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-case "${LIVE_INTERACTIVE}" in
+case "${LH_INTERACTIVE}" in
 	enabled|shell)
 		echo "Pausing build: starting interactive shell..."
 			Chroot "/bin/bash --login"

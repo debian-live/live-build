@@ -70,11 +70,11 @@ EOF
 		#	mv chroot/usr/sbin/update-initramfs chroot/usr/sbin/update-initramfs.live-helper
 		#fi
 
-		if [ "${LIVE_LINUX_PACKAGES}" != "none" ]
+		if [ "${LH_LINUX_PACKAGES}" != "none" ]
 		then
-			for FLAVOUR in ${LIVE_LINUX_FLAVOURS}
+			for FLAVOUR in ${LH_LINUX_FLAVOURS}
 			do
-				for PACKAGE in ${LIVE_LINUX_PACKAGES}
+				for PACKAGE in ${LH_LINUX_PACKAGES}
 				do
 					PACKAGES="${PACKAGES} ${PACKAGE}-${FLAVOUR}"
 				done

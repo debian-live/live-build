@@ -3,28 +3,28 @@
 ## LH: Rescue
 #<include> standard
 
-## System
+# System
 gnupg dash discover gawk grub htop lilo ltrace pstack screen strace units
 
-## Editors
+# Editors
 aview mc nano-tiny qemacs-nox mg vim wdiff
 
-## Harddisk
+# Harddisk
 dosfstools dvd+rw-tools e2fsprogs ext2resize genisoimage hdparm blktool ntfsprogs parted partimage reiserfsprogs secure-delete scsitools smartmontools testdisk wodim wipe xfsprogs
 
-## System
+# System
 dmidecode lshw pciutils procinfo read-edid sysutils usbutils mcelog
 
-## Browser
+# Browser
 lynx links2 w3m
 
-## Compression
+# Compression
 bzip2 rar unace unrar unzip zip
 
-## Backup
-#dar ddrescue gddrescue
+# Backup
+dar gddrescue
 
-## GENERAL
+# General
 chrootuid
 cryptcat
 directvnc
@@ -33,6 +33,7 @@ etherwake
 ftp
 ifenslave-2.6
 ifrename
+ethtool
 ipcalc
 mailx
 mii-diag
@@ -48,7 +49,7 @@ socat
 ssh
 telnet
 
-## FIREWALLING
+# Firewalling
 denyhosts
 fail2ban
 iptables
@@ -58,12 +59,12 @@ reaim
 vlan
 zorp
 
-## BRIDGING
+# Bridging
 bridge-utils
 ebtables
 parprouted
 
-## ROUTING
+# Routing
 cutter
 iproute
 iproute-doc
@@ -75,7 +76,7 @@ traceproto
 traceroute
 spinner
 
-## MONITORING
+# Monitoring
 arpalert
 arpwatch
 atsar
@@ -109,7 +110,7 @@ tcpreen
 tcpreplay
 tshark
 
-## TESTING
+# Testing
 crashme
 dbench
 doscan
@@ -134,13 +135,13 @@ paketto
 sing
 xprobe
 
-## LOG-ANALIZERS
+# Log Analzisers
 fwanalog
 fwlogwatch
 lwatch
 multitail
 
-#unsorted
+# unsorted
 
 hwinfo hwtools x86info cpuid
 tofrodos rpncalc

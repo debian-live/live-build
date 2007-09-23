@@ -1,4 +1,4 @@
-.TH LH_BOOTSTRAP_DEBOOTSTRAP 1 "2007\-07\-30" "1.0~a21" "live\-helper"
+.TH LH_BOOTSTRAP_DEBOOTSTRAP 1 "2007\-08\-06" "1.0~a22" "live\-helper"
 
 .SH NAME
 lh_bootstrap_debootstrap \- bootstrap a Debian system with \fIdebootstrap\fR(8)
@@ -19,15 +19,15 @@ control the bootstrap program to be used (Default: cdebootstrap)
 .IP "\fI$LH_CACHE\fR" 4
 control if downloaded packages should be cached (Default: enabled)
 .PP
-.IP "\fI$LIVE_ARCHITECTURE\fR" 4
+.IP "\fI$LH_ARCHITECTURE\fR" 4
 select the chroot architecture (Default: autodetected)
-.IP "\fI$LIVE_BOOTSTRAP_CONFIG\fR" 4
+.IP "\fI$LH_BOOTSTRAP_CONFIG\fR" 4
 set distribution config directory (Default: empty)
-.IP "\fI$LIVE_BOOTSTRAP_FLAVOUR\fR" 4
+.IP "\fI$LH_BOOTSTRAP_FLAVOUR\fR" 4
 select the flavour to use (Default: standard)
-.IP "\fI$LIVE_DISTRIBUTION\fR" 4
+.IP "\fI$LH_DISTRIBUTION\fR" 4
 select the distribution to use (Default: sid)
-.IP "\fI$LIVE_MIRROR_BUILD\fR" 4
+.IP "\fI$LH_MIRROR_BUILD\fR" 4
 set the mirror to use (Default: http://ftp.debian.org/debian/)
 
 .SH SEE ALSO
@@ -38,7 +38,7 @@ set the mirror to use (Default: http://ftp.debian.org/debian/)
 This program is a part of live\-helper.
 
 .SH BUGS
-Report bugs against live\-helper <\fIhttp://packages.qa.debian.org/live\-helper/\fR>.
+Report bugs against live\-helper <\fIhttp://packages.qa.debian.org/live\-helper\fR>.
 
 .SH HOMEPAGE
 More information about the Debian Live project can be found at <\fIhttp://debian\-live.alioth.debian.org/\fR> and <\fIhttp://wiki.debian.org/DebianLive/\fR>.

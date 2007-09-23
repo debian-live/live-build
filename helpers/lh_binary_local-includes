@@ -54,7 +54,7 @@ then
 	cd "${OLDPWD}"
 
 	# Removing symlinks
-	if [ "${LIVE_BINARY_IMAGES}" = "usb-hdd" ]
+	if [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
 	then
 		find binary -type l | xargs rm -f
 	fi

@@ -32,7 +32,7 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-if [ "${LIVE_BOOTLOADER}" != "yaboot" ]
+if [ "${LH_BOOTLOADER}" != "yaboot" ]
 then
 	exit 0
 fi
@@ -79,7 +79,7 @@ Yaboot_live_entry ()
 	LINUX_LIVE="${LINUX_LIVE}\nimage=${DIRECTORY}/${KERNEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\tlabel=${LABEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\tinitrd=${DIRECTORY}/${INITRD}\n"
-	LINUX_LIVE="${LINUX_LIVE}\tappend=\"boot=${INITFS} LIVE_BOOTAPPEND ${APPEND}\"\n"
+	LINUX_LIVE="${LINUX_LIVE}\tappend=\"boot=${INITFS} LH_BOOTAPPEND ${APPEND}\"\n"
 	LINUX_LIVE="${LINUX_LIVE}\tinitrd-size=10240\n"
 }
 
@@ -92,7 +92,7 @@ Yaboot_install_entry ()
 
 	DIRECTORY="/`basename ${DESTDIR_LIVE}`"
 
-	if [ "${LIVE_DISTRIBUTION}" != "etch" ] && [ "${LABEL}" != "rescue" ] && [ "${LABEL}" != "rescuegui" ]
+	if [ "${LH_DISTRIBUTION}" != "etch" ] && [ "${LABEL}" != "rescue" ] && [ "${LABEL}" != "rescuegui" ]
 	then
 		APPEND="${APPEND} quiet"
 	fi
@@ -100,7 +100,7 @@ Yaboot_install_entry ()
 	LINUX_INSTALL="${LINUX_INSTALL}\nimage=${DIRECTORY}/${KERNEL}\n"
 	LINUX_INSTALL="${LINUX_INSTALL}\tlabel=${LABEL}\n"
 	LINUX_INSTALL="${LINUX_INSTALL}\tinitrd=${DIRECTORY}/${INITRD}\n"
-	LINUX_INSTALL="${LINUX_INSTALL}\tappend=\"LIVE_BOOTAPPEND ${APPEND} --\"\n"
+	LINUX_INSTALL="${LINUX_INSTALL}\tappend=\"LH_BOOTAPPEND ${APPEND} --\"\n"
 	LINUX_INSTALL="${LINUX_INSTALL}\tinitrd-size=10240\n"
 }
 
@@ -115,7 +115,7 @@ case "${LH_INITRAMFS}" in
 esac
 
 # Setting destination directory
-case "${LIVE_BINARY_IMAGES}" in
+case "${LH_BINARY_IMAGES}" in
 	iso)
 		case "${LH_INITRAMFS}" in
 			casper)
@@ -142,49 +142,49 @@ Check_multiarchitecture
 mkdir -p "${DESTDIR_LIVE}"
 
 # Setting boot parameters
-if [ -n "${LIVE_ENCRYPTION}" ]
+if [ -n "${LH_ENCRYPTION}" ]
 then
-	LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} encryption=${LIVE_ENCRYPTION}"
+	LH_BOOTAPPEND="${LH_BOOTAPPEND} encryption=${LH_ENCRYPTION}"
 fi
 
-if [ -n "${LIVE_USERNAME}" ]
+if [ -n "${LH_USERNAME}" ]
 then
 	case "${LH_INITRAMFS}" in
 		casper)
-			LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} username=${LIVE_USERNAME}"
+			LH_BOOTAPPEND="${LH_BOOTAPPEND} username=${LH_USERNAME}"
 			;;
 
 		live-initramfs)
-			if [ "${LIVE_USERNAME}" != "user" ]
+			if [ "${LH_USERNAME}" != "user" ]
 			then
-				LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} username=${LIVE_USERNAME}"
+				LH_BOOTAPPEND="${LH_BOOTAPPEND} username=${LH_USERNAME}"
 			fi
 			;;
 	esac
 fi
 
-if [ -n "${LIVE_HOSTNAME}" ]
+if [ -n "${LH_HOSTNAME}" ]
 then
 	case "${LH_INITRAMFS}" in
 		casper)
-			LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} hostname=${LIVE_HOSTNAME}"
+			LH_BOOTAPPEND="${LH_BOOTAPPEND} hostname=${LH_HOSTNAME}"
 			;;
 
 		live-initramfs)
-			if [ "${LIVE_HOSTNAME}" != "debian" ]
+			if [ "${LH_HOSTNAME}" != "debian" ]
 			then
-				LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} hostname=${LIVE_HOSTNAME}"
+				LH_BOOTAPPEND="${LH_BOOTAPPEND} hostname=${LH_HOSTNAME}"
 			fi
 			;;
 	esac
 fi
 
-if [ "${LIVE_UNION_FILESYSTEM}" != "unionfs" ]
+if [ "${LH_UNION_FILESYSTEM}" != "unionfs" ]
 then
-	LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} union=${LIVE_UNION_FILESYSTEM}"
+	LH_BOOTAPPEND="${LH_BOOTAPPEND} union=${LH_UNION_FILESYSTEM}"
 fi
 
-LIVE_BOOTAPPEND="`echo ${LIVE_BOOTAPPEND} | sed -e 's/  //'`"
+LH_BOOTAPPEND="`echo ${LH_BOOTAPPEND} | sed -e 's/  //'`"
 
 # Parameters are listed at: linux/Documentation/kernel-parameters.txt
 FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=ofonly"
@@ -192,14 +192,14 @@ FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=ofonly"
 # Assembling kernel configuration
 
 # Default entries
-DEFAULT_FLAVOUR="`echo ${LIVE_LINUX_FLAVOURS} | awk '{ print $1 }'`"
+DEFAULT_FLAVOUR="`echo ${LH_LINUX_FLAVOURS} | awk '{ print $1 }'`"
 DEFAULT_KERNEL="`basename chroot/boot/vmlinux-*${DEFAULT_FLAVOUR}`"
 DEFAULT_INITRD="initrd.img-`echo ${DEFAULT_KERNEL} | sed -e 's/vmlinux-//'`"
 
 Yaboot_live_entry "live" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
 Yaboot_live_entry "live-failsafe" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}" "${FAILSAFE}"
 
-if [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
+if [ "`echo ${LH_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
 then
 	for KERNEL in chroot/boot/vmlinux-*
 	do
@@ -212,10 +212,10 @@ then
 	done
 fi
 
-LINUX_LIVE="`echo ${LINUX_LIVE} | sed -e 's/binary//g' -e 's#//#/#g'`"
+LINUX_LIVE="`/bin/echo ${LINUX_LIVE} | sed -e 's/binary//g' -e 's#//#/#g'`"
 
 # Assembling debian-installer configuration
-if [ "${LIVE_DEBIAN_INSTALLER}" != "disabled" ]
+if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
 then
 	VMLINUZ_DI="vmlinuz"
 	INITRD_DI="initrd.gz"
@@ -236,14 +236,14 @@ then
 	Yaboot_install_entry "autogui" "${VMLINUZ_GI}" "${INITRD_GI}" "auto=true priority=critical ${APPEND_GI}"
 fi
 
-LINUX_INSTALL="`echo ${LINUX_INSTALL} | sed -e 's/binary//g' -e 's#//#/#g'`"
+LINUX_INSTALL="`/bin/echo ${LINUX_INSTALL} | sed -e 's/binary//g' -e 's#//#/#g'`"
 
-case "${LIVE_BINARY_IMAGES}" in
+case "${LH_BINARY_IMAGES}" in
 	iso|usb-hdd)
 		# Copying yaboot
 		mkdir -p binary/yaboot
 
-		case "${LIVE_CHROOT_BUILD}" in
+		case "${LH_CHROOT_BUILD}" in
 			enabled)
 				cp chroot/usr/lib/yaboot/yaboot binary/yaboot
 				;;
@@ -255,7 +255,7 @@ case "${LIVE_BINARY_IMAGES}" in
 
 		cp -r "${TEMPLATES}"/* binary/yaboot
 
-		if [ "${LIVE_BINARY_IMAGES}" = "usb-hdd" ]
+		if [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
 		then
 			mv binary/yaboot/yaboot.conf binary/yaboot/yaboot.conf.tmp
 			echo "root=/dev/ram" > binary/yaboot/yaboot.conf
@@ -265,8 +265,8 @@ case "${LIVE_BINARY_IMAGES}" in
 
 		# Configure yaboot templates
 		sed -i -e "s#LINUX_LIVE#${LINUX_LIVE}#" -e "s#LINUX_INSTALL#${LINUX_INSTALL}#" binary/yaboot/yaboot.conf
-		sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" binary/yaboot/yaboot.conf
-		sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" -e "s/LIVE_VERSION/${VERSION}/" binary/yaboot/boot.msg
+		sed -i -e "s#LH_BOOTAPPEND#${LH_BOOTAPPEND}#" binary/yaboot/yaboot.conf
+		sed -i -e "s/LH_DATE/`date +%Y%m%d`/" -e "s/LH_VERSION/${VERSION}/" binary/yaboot/boot.msg
 		;;
 esac
 

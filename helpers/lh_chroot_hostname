@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_chroot_hostname(1) - manage /etc/hostname
+# lh_chroot_hostname(1) - manage /bin/hostname
 # Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="manage /etc/hostname"
+DESCRIPTION="manage /bin/hostname"
 HELP=""
 USAGE="${PROGRAM} {install|remove} [--force]"
 
@@ -48,17 +48,23 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ -f chroot/etc/hostname ]
-		then
-			# Save hostname file
-			mv chroot/etc/hostname chroot/etc/hostname.orig
-		fi
+		# Save hostname
+		mv chroot/bin/hostname chroot/bin/hostname.orig
 
 		# Create hostname file
 		echo "localhost.localdomain" > chroot/etc/hostname
 
-		# Set hostname
-		Chroot "hostname -F /etc/hostname"
+		Echo_message "Configuring file /bin/hostname"
+
+		# Create hostname program
+
+cat > chroot/bin/hostname << EOF
+#!/bin/sh
+
+echo "localhost.localdomain"
+EOF
+
+		chmod 755 chroot/bin/hostname
 
 		# Creating stage file
 		Create_stagefile .stage/chroot_hostname
@@ -73,20 +79,10 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ -f chroot/etc/hostname.orig ]
-		then
-			# Restore hostname file
-			mv chroot/etc/hostname.orig chroot/etc/hostname
-		else
-			# Remove hostname file
-			rm -f chroot/etc/hostname
-		fi
+		Echo_message "Deconfiguring file /bin/hostname"
 
-		# Set hostname (somehow this seems to be really needed :/)
-		if [ -f /etc/hostname ]
-		then
-			hostname -F /etc/hostname
-		fi
+		# Restore hostname file
+		mv chroot/bin/hostname.orig chroot/bin/hostname
 
 		# Removing stage file
 		rm -f .stage/chroot_hostname

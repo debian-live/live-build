@@ -32,12 +32,12 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-if [ "${LIVE_SOURCE}" != "enabled" ]
+if [ "${LH_SOURCE}" != "enabled" ]
 then
 	exit 0
 fi
 
-if ! echo "${LIVE_SOURCE_IMAGES}" | grep -qs iso
+if ! echo "${LH_SOURCE_IMAGES}" | grep -qs iso
 then
         exit 0
 fi
@@ -73,24 +73,24 @@ then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -v"
 fi
 
-if [ -n "${LIVE_ISO_APPLICATION}" ] && [ "${LIVE_ISO_APPLICATION}" != "none" ]
+if [ -n "${LH_ISO_APPLICATION}" ] && [ "${LH_ISO_APPLICATION}" != "none" ]
 then
-	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -A \"${LIVE_ISO_APPLICATION}\""
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -A \"${LH_ISO_APPLICATION}\""
 fi
 
-if [ -n "${LIVE_ISO_PREPARER}" ] && [ "${LIVE_ISO_PREPARER}" != "none" ]
+if [ -n "${LH_ISO_PREPARER}" ] && [ "${LH_ISO_PREPARER}" != "none" ]
 then
-	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -p \"${LIVE_ISO_PREPARER}\""
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -p \"${LH_ISO_PREPARER}\""
 fi
 
-if [ -n "${LIVE_ISO_PUBLISHER}" ] && [ "${LIVE_ISO_PUBLISHER}" != "none" ]
+if [ -n "${LH_ISO_PUBLISHER}" ] && [ "${LH_ISO_PUBLISHER}" != "none" ]
 then
-	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -publisher \"${LIVE_ISO_PUBLISHER}\""
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -publisher \"${LH_ISO_PUBLISHER}\""
 fi
 
-if [ -n "${LIVE_ISO_VOLUME}" ] && [ "${LIVE_ISO_VOLUME}" != "none" ]
+if [ -n "${LH_ISO_VOLUME}" ] && [ "${LH_ISO_VOLUME}" != "none" ]
 then
-	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -V \"${LIVE_ISO_VOLUME}\""
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -V \"${LH_ISO_VOLUME}\""
 fi
 
 # Moving image

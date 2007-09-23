@@ -47,9 +47,9 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Setting localizations
-if [ -n "${LIVE_LANGUAGE}" ]
+if [ -n "${LH_LANGUAGE}" ]
 then
-	case "${LIVE_LANGUAGE}" in
+	case "${LH_LANGUAGE}" in
 		af)
 			# Afrikaans
 			LOCALIZATIONS="iceweasel kde openoffice"
@@ -601,45 +601,45 @@ then
 	esac
 
 	# Setting languages
-	ICEAPE="${ICEAPE:-$LIVE_LANGUAGE}"
-	ICEDOVE="${ICEDOVE:-$LIVE_LANGUAGE}"
-	ICEWEASEL="${ICEWEASEL:-$LIVE_LANGUAGE}"
-	KDE="${KDE:-$LIVE_LANGUAGE}"
-	KOFFICE="${KOFFICE:-$LIVE_LANGUAGE}"
-	OPENOFFICE="${OPENOFFICE:-$LIVE_LANGUAGE}"
+	ICEAPE="${ICEAPE:-$LH_LANGUAGE}"
+	ICEDOVE="${ICEDOVE:-$LH_LANGUAGE}"
+	ICEWEASEL="${ICEWEASEL:-$LH_LANGUAGE}"
+	KDE="${KDE:-$LH_LANGUAGE}"
+	KOFFICE="${KOFFICE:-$LH_LANGUAGE}"
+	OPENOFFICE="${OPENOFFICE:-$LH_LANGUAGE}"
 
 	# Setting packages
 	for LOCALIZATION in ${LOCALIZATIONS}
 	do
 		case "${LOCALIZATION}" in
 			iceape)
-				Check_package chroot/usr/bin/iceape iceweasel-l10n-"${ICEAPE}"
+				Check_installed chroot/usr/bin/iceape iceape; [ $INSTALL_STATUS -eq 0 ] && Check_package "" iceweasel-l10n-"${ICEAPE}"
 				;;
 
 			icedove)
-				Check_package chroot/usr/bin/icedove icedove-locale-"${ICEDOVE}"
+				Check_installed chroot/usr/bin/icedove icedove; [ $INSTALL_STATUS -eq 0 ] && Check_package "" icedove-locale-"${ICEDOVE}"
 				;;
 
 			iceweasel)
-				Check_package chroot/usr/bin/iceweasel iceweasel-l10n-"${ICEWEASEL}"
+				Check_installed chroot/usr/bin/iceweasel iceweasel; [ $INSTALL_STATUS -eq 0 ] && Check_package "" iceweasel-l10n-"${ICEWEASEL}" 
 				;;
 
 			kde)
-				Check_package chroot/usr/bin/kstart kde-i18n-"${KDE}"
+				Check_installed chroot/usr/bin/kstart kdebase-bin; [ $INSTALL_STATUS -eq 0 ] && Check_package "" kde-i18n-"${KDE}" 
 				;;
 
 			koffice)
-				Check_package chroot/usr/bin/usr/bin/koconverter koffice-i18n-"${KOFFICE}"
+				Check_installed chroot/usr/bin/koconverter koffice; [ $INSTALL_STATUS -eq 0 ] && Check_package "" koffice-i18n-"${KOFFICE}"
 				;;
 
 			openoffice)
-				Check_package chroot/usr/bin/ooffice openoffice.org-l10n-"${OPENOFFICE}"
+				Check_installed chroot/usr/bin/ooffice openoffice.org-common; [ $INSTALL_STATUS -eq 0 ] && Check_package "" openoffice.org-l10n-"${OPENOFFICE}" 
 				;;
 		esac
 	done
 
-	Check_package chroot/usr/bin/gwenview gwenview-i18n
-	Check_package chroot/usr/bin/k3b k3b-i18n
+	Check_installed chroot/usr/bin/gwenview gwenview; [ $INSTALL_STATUS -eq 0 ] && Check_package "" gwenview-i18n 
+	Check_installed chroot/usr/bin/k3b k3b; [ $INSTALL_STATUS -eq 0 ] && Check_package "" k3b-i18n
 
 	# Restoring cache
 	Restore_cache cache/packages_localization

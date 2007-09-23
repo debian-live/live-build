@@ -32,7 +32,7 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-if ! echo "${LIVE_BINARY_IMAGES}" | grep -qs iso
+if ! echo "${LH_BINARY_IMAGES}" | grep -qs iso
 then
 	exit 0
 fi
@@ -71,33 +71,33 @@ then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -v"
 fi
 
-if [ -n "${LIVE_ISO_APPLICATION}" ] && [ "${LIVE_ISO_APPLICATION}" != "none" ]
+if [ -n "${LH_ISO_APPLICATION}" ] && [ "${LH_ISO_APPLICATION}" != "none" ]
 then
-	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -A \"${LIVE_ISO_APPLICATION}\""
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -A \"${LH_ISO_APPLICATION}\""
 fi
 
-if [ -n "${LIVE_ISO_PREPARER}" ] && [ "${LIVE_ISO_PREPARER}" != "none" ]
+if [ -n "${LH_ISO_PREPARER}" ] && [ "${LH_ISO_PREPARER}" != "none" ]
 then
-	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -p \"${LIVE_ISO_PREPARER}\""
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -p \"${LH_ISO_PREPARER}\""
 fi
 
-if [ -n "${LIVE_ISO_PUBLISHER}" ] && [ "${LIVE_ISO_PUBLISHER}" != "none" ]
+if [ -n "${LH_ISO_PUBLISHER}" ] && [ "${LH_ISO_PUBLISHER}" != "none" ]
 then
-	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -publisher \"${LIVE_ISO_PUBLISHER}\""
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -publisher \"${LH_ISO_PUBLISHER}\""
 fi
 
-if [ -n "${LIVE_ISO_VOLUME}" ] && [ "${LIVE_ISO_VOLUME}" != "none" ]
+if [ -n "${LH_ISO_VOLUME}" ] && [ "${LH_ISO_VOLUME}" != "none" ]
 then
-	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -V \"${LIVE_ISO_VOLUME}\""
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -V \"${LH_ISO_VOLUME}\""
 fi
 
 # Create image
-case "${LIVE_BOOTLOADER}" in
+case "${LH_BOOTLOADER}" in
 	grub)
 		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -no-emul-boot -boot-load-size 4 -boot-info-table"
 		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -r -b boot/grub/stage2_eltorito"
 
-		if [ "${LIVE_PACKAGES_LISTS}" = "mini" ] || [ "${LIVE_PACKAGES_LISTS}" = "minimal" ]
+		if [ "${LH_PACKAGES_LISTS}" = "mini" ] || [ "${LH_PACKAGES_LISTS}" = "minimal" ]
 		then
 			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m boot/grub/stage2_eltorito"
 		fi
@@ -107,7 +107,7 @@ case "${LIVE_BOOTLOADER}" in
 		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -no-emul-boot -boot-load-size 4 -boot-info-table"
 		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -r -b isolinux/isolinux.bin -c isolinux/boot.cat"
 
-		if [ "${LIVE_PACKAGES_LISTS}" = "mini" ] || [ "${LIVE_PACKAGES_LISTS}" = "minimal" ]
+		if [ "${LH_PACKAGES_LISTS}" = "mini" ] || [ "${LH_PACKAGES_LISTS}" = "minimal" ]
 		then
 			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m isolinux/isolinux.bin"
 		fi
@@ -116,7 +116,7 @@ case "${LIVE_BOOTLOADER}" in
 	yaboot)
 		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -r --iso-level 2 --netatalk -hfs -probe -map binary/yaboot/hfs.map --chrp-boot -part -no-desktop -hfs-bless binary/yaboot -hfs-volid Debian/Live_powerpc"
 
-		if [ "${LIVE_PACKAGES_LISTS}" = "mini" ] || [ "${LIVE_PACKAGES_LISTS}" = "minimal" ]
+		if [ "${LH_PACKAGES_LISTS}" = "mini" ] || [ "${LH_PACKAGES_LISTS}" = "minimal" ]
 		then
 			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m yaboot/hfs.map"
 		fi
@@ -128,7 +128,7 @@ case "${LIVE_BOOTLOADER}" in
 		;;
 esac
 
-case "${LIVE_CHROOT_BUILD}" in
+case "${LH_CHROOT_BUILD}" in
 	enabled)
 		# Moving image
 		mv binary chroot

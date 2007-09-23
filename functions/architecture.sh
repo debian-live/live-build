@@ -16,7 +16,7 @@ Check_architecture ()
 
 	for ARCHITECTURE in ${ARCHITECTURES}
 	do
-		if [ "`echo ${LIVE_ARCHITECTURE} | grep ${ARCHITECTURE}`" ]
+		if [ "`echo ${LH_ARCHITECTURE} | grep ${ARCHITECTURE}`" ]
 		then
 			VALID="true"
 			break
@@ -32,13 +32,13 @@ Check_architecture ()
 
 Check_multiarchitecture ()
 {
-	if [ "`echo ${LIVE_ARCHITECTURE} | wc -w`" -gt "1" ]
+	if [ "`echo ${LH_ARCHITECTURE} | wc -w`" -gt "1" ]
 	then
 		# First, only support multiarch on iso
-		if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
+		if [ "${LH_BINARY_IMAGES}" = "iso" ]
 		then
 			# Assemble multi-arch
-			case "${LIVE_CURRENT_ARCHITECTURE}" in
+			case "${LH_CURRENT_ARCHITECTURE}" in
 				amd64)
 					DESTDIR="${DESTDIR}.amd"
 					DESTDIR_LIVE="${DESTDIR_LIVE}.amd"

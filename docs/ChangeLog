@@ -1,3 +1,60 @@
+2007-08-12  Daniel Baumann  <daniel@debian.org>
+
+	* Uploaded 1.0~a22-1.
+
+2007-08-08  Daniel Baumann  <daniel@debian.org>
+
+	* functions/lh_chroot_hacks:
+	  - Remove resume partition configuration in initramfs on etch.
+
+2007-08-07  Daniel Baumann  <daniel@debian.org>
+
+	* functions/defaults.sh:
+	  - Added auto mode for LH_INITRAMFS.
+
+2007-08-05  Daniel Baumann  <daniel@debian.org>
+
+	* functions/defaults.sh:
+	  - Added debian-edu mode.
+	* lists/knoppix, knoppix-dvd:
+	  - Added.
+
+2007-08-05  Mathieu Geli  <mathieu.geli@gmail.com>
+
+	* lists/studio, studio-gnome, studio-kde, studio-xfce:
+	  - Added.
+
+2007-08-04  Daniel Baumann  <daniel@debian.org>
+
+	* functions/*, helpers/*:
+	  - Renaming LIVE_* variables to LH_*.
+	* excamples/cron/*:
+	  - Updated to make-live removal.
+	* helpers/lh_binary_chroot:
+	  - Exit earlier when rootfs was cached.
+	* helpers/lh_binary_debian-installer, lh_binary_includes:
+	  - Fixed some bashisms.
+	* helpers/lh_binary_grub, lh_binary_syslinux, lh_binary_yaboot:
+	  - Workaround from matth over /bin/echo to avoid wrong expansion
+	    of entries when using dash (Closes: #431748).
+	* helpers/lh_chroot_hostname:
+	  - Installing fake hostname, less intrusive approach for the build
+	    system (Closes: #435699).
+	* helpers/lh_config:
+	  - Added argument handling.
+	* helpers/lh_losetup:
+	  - Simplified and corrected to make it actually work.
+	* helpers/lh_source:
+	  - Not using 'echo -e' anymore.
+	* helpers/make-live:
+	  - Replaced with a dummy: make-live is deprecated now, use lh_config
+	    and lh_build instead.
+
+2007-08-03  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_chroot_apt:
+	  - Updated configuration of recommends handling for apt.
+
 2007-07-29  Daniel Baumann  <daniel@debian.org>
 
 	* functions/packages.sh:
@@ -5,6 +62,7 @@
 	    and on systems where dpkg-query is available.
 	* functions/stagefile.sh:
 	  - Added missing NAME.
+	* Uploaded 1.0~a21-1.
 
 2007-07-28  Daniel Baumann  <daniel@debian.org>
 

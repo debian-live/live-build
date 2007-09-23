@@ -32,7 +32,7 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-if ! echo "${LIVE_BINARY_IMAGES}" | grep -qs tar
+if ! echo "${LH_BINARY_IMAGES}" | grep -qs tar
 then
 	exit 0
 fi

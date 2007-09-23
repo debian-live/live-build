@@ -47,7 +47,7 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Processing preseeds
-for PRESEED in ${LIVE_PACKAGES_LISTS} ${LIVE_TASKS}
+for PRESEED in ${LH_PACKAGES_LISTS} ${LH_TASKS}
 do
 	if [ -f ${LH_BASE:-/usr/share/live-helper}/preseed/"${PRESEED}" ]
 	then

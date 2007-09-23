@@ -32,7 +32,7 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-if [ "${LIVE_SOURCE}" != "enabled" ]
+if [ "${LH_SOURCE}" != "enabled" ]
 then
 	exit 0
 fi

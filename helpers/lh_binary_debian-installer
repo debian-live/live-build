@@ -33,7 +33,7 @@ Read_conffile config/source
 Set_defaults
 
 # Setting remote d-i directories
-case "${LIVE_DEBIAN_INSTALLER}" in
+case "${LH_DEBIAN_INSTALLER}" in
 	enabled|cdrom|live)
 		DI="cdrom"
 		DI_GTK="${DI}/gtk"
@@ -51,7 +51,7 @@ case "${LIVE_DEBIAN_INSTALLER}" in
 		;;
 
 	*)
-		Echo_error "debian-installer flavor ${LIVE_DEBIAN_INSTALLER} not supported."
+		Echo_error "debian-installer flavor ${LH_DEBIAN_INSTALLER} not supported."
 		exit 1
 		;;
 esac
@@ -71,7 +71,7 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Setting destination directory
-case "${LIVE_BINARY_IMAGES}" in
+case "${LH_BINARY_IMAGES}" in
 	iso)
 		DESTDIR="binary/install"
 		;;
@@ -88,7 +88,7 @@ case "${LIVE_BINARY_IMAGES}" in
 		DESTDIR="binary/install"
 
 		# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
-		if [ "${LIVE_DISTRIBUTION}" = "etch" ] && [ "${LIVE_BOOTLOADER}" = "syslinux" ]
+		if [ "${LH_DISTRIBUTION}" = "etch" ] && [ "${LH_BOOTLOADER}" = "syslinux" ]
 		then
 			DESTDIR="binary"
 		fi
@@ -106,9 +106,9 @@ INITRD_GI="gtk/initrd.gz"
 DESTDIR_GI="${DESTDIR}/gtk"
 
 # Workaround for syslinux (<< 3.36) which doesn't support long file/path names
-if [ "${LIVE_DISTRIBUTION}" = "etch" ]
+if [ "${LH_DISTRIBUTION}" = "etch" ]
 then
-	if [ "${LIVE_BINARY_IMAGES}" = "tar" ] || [ "${LIVE_BINARY_IMAGES}" = "usb-hdd" ]
+	if [ "${LH_BINARY_IMAGES}" = "tar" ] || [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
 	then
 		VMLINUZ_DI="vmlinuz.di"
 		INITRD_DI="initrddi.gz"
@@ -121,7 +121,7 @@ then
 fi
 
 # Debian Installer daily builds
-case "${LIVE_ARCHITECTURE}" in
+case "${LH_ARCHITECTURE}" in
 	alpha)
 		URL="http://people.debian.org/~vorlon/d-i/alpha/daily/"
 		;;
@@ -179,37 +179,37 @@ esac
 # Downloading debian-installer
 mkdir -p "${DESTDIR_DI}"
 
-if [ "${LIVE_DISTRIBUTION}" = "sid" ]
+if [ "${LH_DISTRIBUTION}" = "sid" ]
 then
 	wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI}/${DI_KERNEL}
 	wget --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI}/initrd.gz
 else
-	wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DI}"/"${DI_KERNEL}"
-	wget --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DI}"/initrd.gz
+	wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" "${LH_MIRROR_BOOTSTRAP}"/dists/"${LH_DISTRIBUTION}"/main/installer-"${LH_ARCHITECTURE}"/current/images/"${DI}"/"${DI_KERNEL}"
+	wget --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" "${LH_MIRROR_BOOTSTRAP}"/dists/"${LH_DISTRIBUTION}"/main/installer-"${LH_ARCHITECTURE}"/current/images/"${DI}"/initrd.gz
 fi
 
 # Downloading graphical-installer
-if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ] || [ "${LIVE_ARCHITECTURE}" = "powerpc" ]
+if [ "${LH_ARCHITECTURE}" = "amd64" ] || [ "${LH_ARCHITECTURE}" = "i386" ] || [ "${LH_ARCHITECTURE}" = "powerpc" ]
 then
 	mkdir -p "${DESTDIR_GI}"
 
-	if [ "${LIVE_DISTRIBUTION}" = "sid" ]
+	if [ "${LH_DISTRIBUTION}" = "sid" ]
 	then
 		wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_GTK}/${DI_KERNEL}
 		wget --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_GTK}/initrd.gz
 	else
-		wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DI_GTK}"/"${DI_KERNEL}"
-		wget --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DI_GTK}"/initrd.gz
+		wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" "${LH_MIRROR_BOOTSTRAP}"/dists/"${LH_DISTRIBUTION}"/main/installer-"${LH_ARCHITECTURE}"/current/images/"${DI_GTK}"/"${DI_KERNEL}"
+		wget --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" "${LH_MIRROR_BOOTSTRAP}"/dists/"${LH_DISTRIBUTION}"/main/installer-"${LH_ARCHITECTURE}"/current/images/"${DI_GTK}"/initrd.gz
 	fi
 fi
 
-if [ "${LIVE_DEBIAN_INSTALLER}" != "netboot" ]; then
+if [ "${LH_DEBIAN_INSTALLER}" != "netboot" ]; then
 	# Downloading additional packages
 	mkdir -p chroot/binary.deb/archives/partial
 	mv chroot/var/lib/dpkg/status chroot/var/lib/dpkg/status.tmp
 	touch chroot/var/lib/dpkg/status
 
-	case "${LIVE_ARCHITECTURE}" in
+	case "${LH_ARCHITECTURE}" in
 		amd64)
 			DI_PACKAGES="linux-image-2.6-amd64 lilo grub"
 			;;
@@ -261,7 +261,7 @@ then
 fi
 
 # Including local debs
-if ls ../config/binary_local-debs/* &> /dev/null
+if ls ../config/binary_local-debs/* > /dev/null 2>&1
 then
 	for FILE in ../config/binary_local-debs/*.deb
 	do
@@ -291,21 +291,21 @@ then
 fi
 
 # Generating deb indices
-mkdir -p binary/dists/${LIVE_DISTRIBUTION}/main/binary-${LIVE_ARCHITECTURE}
+mkdir -p binary/dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}
 
 cd binary
-apt-ftparchive packages pool/main > dists/${LIVE_DISTRIBUTION}/main/binary-${LIVE_ARCHITECTURE}/Packages
-gzip -9 -c dists/${LIVE_DISTRIBUTION}/main/binary-${LIVE_ARCHITECTURE}/Packages > dists/${LIVE_DISTRIBUTION}/main/binary-${LIVE_ARCHITECTURE}/Packages.gz
+apt-ftparchive packages pool/main > dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages
+gzip -9 -c dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages > dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages.gz
 cd "${OLDPWD}"
 
 # Fetching release
-wget "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/binary-"${LIVE_ARCHITECTURE}"/Release -O binary/dists/${LIVE_DISTRIBUTION}/main/binary-${LIVE_ARCHITECTURE}/Release
+wget "${LH_MIRROR_BOOTSTRAP}"/dists/"${LH_DISTRIBUTION}"/main/binary-"${LH_ARCHITECTURE}"/Release -O binary/dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Release
 
 mkdir binary.udeb
 cd binary.udeb
 
 # Downloading udeb indices
-wget "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/debian-installer/binary-"${LIVE_ARCHITECTURE}"/Packages.gz
+wget "${LH_MIRROR_BOOTSTRAP}"/dists/"${LH_DISTRIBUTION}"/main/debian-installer/binary-"${LH_ARCHITECTURE}"/Packages.gz
 gunzip -c Packages.gz > Packages
 
 # Sorting udebs
@@ -320,7 +320,7 @@ do
 		cp ../cache/packages_debian-installer.udeb/"`basename ${UDEB}`" ./
 	else
 		# Downloading udebs
-		wget "${LIVE_MIRROR_BOOTSTRAP}"/${UDEB}
+		wget "${LH_MIRROR_BOOTSTRAP}"/${UDEB}
 	fi
 done
 
@@ -330,7 +330,7 @@ mkdir -p ../cache/packages_debian-installer.udeb
 cp *.udeb ../cache/packages_debian-installer.udeb
 
 # Including local udebs
-if ls ../config/binary_local-udebs/* &> /dev/null
+if ls ../config/binary_local-udebs/* > /dev/null 2>&1
 then
 	for FILE in ../config/binary_local-udebs/*.udeb
 	do
@@ -363,9 +363,9 @@ then
 fi
 
 # Excluding udebs
-grep -v "^#" ${LH_BASE:-/usr/share/live-helper}/data/debian-cd/"${LIVE_DISTRIBUTION}"/udeb_exclude > exclude
-grep -v "^#" ${LH_BASE:-/usr/share/live-helper}/data/debian-cd/"${LIVE_DISTRIBUTION}"/exclude-udebs >> exclude
-grep -v "^#" ${LH_BASE:-/usr/share/live-helper}/data/debian-cd/"${LIVE_DISTRIBUTION}"/exclude-udebs-${LIVE_ARCHITECTURE} >> exclude
+grep -v "^#" ${LH_BASE:-/usr/share/live-helper}/data/debian-cd/"${LH_DISTRIBUTION}"/udeb_exclude > exclude
+grep -v "^#" ${LH_BASE:-/usr/share/live-helper}/data/debian-cd/"${LH_DISTRIBUTION}"/exclude-udebs >> exclude
+grep -v "^#" ${LH_BASE:-/usr/share/live-helper}/data/debian-cd/"${LH_DISTRIBUTION}"/exclude-udebs-${LH_ARCHITECTURE} >> exclude
 
 for EXCLUDE in `cat exclude`
 do
@@ -383,9 +383,9 @@ do
 done
 
 # Creating udeb indices
-mkdir -p dists/"${LIVE_DISTRIBUTION}"/main/debian-installer/binary-"${LIVE_ARCHITECTURE}"
-apt-ftparchive packages pool/main > dists/"${LIVE_DISTRIBUTION}"/main/debian-installer/binary-"${LIVE_ARCHITECTURE}"/Packages
-gzip -9 -c dists/${LIVE_DISTRIBUTION}/main/debian-installer/binary-${LIVE_ARCHITECTURE}/Packages > dists/${LIVE_DISTRIBUTION}/main/debian-installer/binary-${LIVE_ARCHITECTURE}/Packages.gz
+mkdir -p dists/"${LH_DISTRIBUTION}"/main/debian-installer/binary-"${LH_ARCHITECTURE}"
+apt-ftparchive packages pool/main > dists/"${LH_DISTRIBUTION}"/main/debian-installer/binary-"${LH_ARCHITECTURE}"/Packages
+gzip -9 -c dists/${LH_DISTRIBUTION}/main/debian-installer/binary-${LH_ARCHITECTURE}/Packages > dists/${LH_DISTRIBUTION}/main/debian-installer/binary-${LH_ARCHITECTURE}/Packages.gz
 
 rm -f Packages* exclude
 find . | cpio -dmpu "${OLDPWD}"/binary
@@ -398,19 +398,19 @@ rm -rf binary.deb
 apt-ftparchive \
 	-o APT::FTPArchive::Release::Origin="Debian" \
 	-o APT::FTPArchive::Release::Label="Debian" \
-	-o APT::FTPArchive::Release::Suite="${LIVE_DISTRIBUTION}" \
+	-o APT::FTPArchive::Release::Suite="${LH_DISTRIBUTION}" \
 	-o APT::FTPArchive::Release::Version="4.0" \
-	-o APT::FTPArchive::Release::Codename="${LIVE_DISTRIBUTION}" \
+	-o APT::FTPArchive::Release::Codename="${LH_DISTRIBUTION}" \
 	-o APT::FTPArchive::Release::Date="`date -R`" \
-	-o APT::FTPArchive::Release::Architectures="${LIVE_ARCHITECTURE}" \
+	-o APT::FTPArchive::Release::Architectures="${LH_ARCHITECTURE}" \
 	-o APT::FTPArchive::Release::Components="main" \
 	-o APT::FTPArchive::Release::Description="Last updated: `date -R`" \
-release binary/dists/${LIVE_DISTRIBUTION} > binary/dists/${LIVE_DISTRIBUTION}/Release
+release binary/dists/${LH_DISTRIBUTION} > binary/dists/${LH_DISTRIBUTION}/Release
 
 # Creating dist symlinks
 for DISTRIBUTION in frozen stable testing unstable
 do
-	ln -s ${LIVE_DISTRIBUTION} binary/dists/${DISTRIBUTION}
+	ln -s ${LH_DISTRIBUTION} binary/dists/${DISTRIBUTION}
 done
 
 ln -s . binary/debian

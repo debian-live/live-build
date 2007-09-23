@@ -19,60 +19,505 @@ done
 
 # Setting static variables
 DESCRIPTION="create configuration for live-helper(7)"
-HELP=""
-USAGE="${PROGRAM} [--force]"
+HELP="FIXME"
+USAGE="${PROGRAM} [--apt apt|aptitude] [--apt-ftp-proxy URL] [--apt-http-proxy URL] [--apt-pdiffs enabled|disabled] [--apt-pipeline FIXME] [--apt-recommends enabled|disabled] [--apt-secure enabled|disabled] [-a|--architecture ARCHITECTURE] [-b|--binary-images iso|net|tar|usb-hdd] [--binary-indices enabled|disabled] [--bootappend PARAMETER|\"PARAMETERS\"] [--bootloader grub|syslinux|yaboot] [--bootstrap cdebootstrap|debootstrap] [--bootstrap-config FILE] [-f|--bootstrap-flavour minimal|standard] [--bootstrap-keyring PACKAGE] [--breakpoints] [--cache enabled|disabled] [--cache-indices enabled|disabled] [--cache-packages enabled|disabled] [--cache-stages STAGE|\"STAGES\"] [--chroot-build enabled|disabled] [--chroot-filesystem ext2|ext3|squashfs|plain] [-c|--conffile FILE] [--debconf-frontend dialog|editor|noninteractive|readline] [--debconf-nowarnings enabled|disabled] [--debconf-priority low|medium|high|critical] [--debian-installer enabled|disabled] [--debug] [-d|--distribution CODENAME] [-e|--encryption aes128|aes192|aes256] [--force] [--genisoimage genisomage|mkisofs] [--grub-splash FILE] [--hooks FILE] [--hostname NAME] [--includes PATH] [--initramfs auto|live-initramfs|casper] [--interactive shell] [--iso-application NAME] [--iso-preparer NAME] [--iso-publisher NAME] [--iso-volume NAME] [--keyring-packages PACKAGE|\"PACKAGES\"] [-l|--language LANGUAGE] [-k|--linux-flavours FLAVOUR|\"FLAVOURS\"] [--linux-packages \"PACKAGES\"] [--losetup losetup|losetup.orig] [--memtest memtest86+|memtest86] [-m|--mirror-binary-security URL] [--mirror-binary URL] [--mirror-bootstrap-security URL] [--mirror-bootstrap URL] [--mode debian|debian-edu|ubuntu] [--net-filesystem nfs|cfs] [--net-mountoptions OPTIONS] [--net-path PATH] [--net-server IP|HOSTNAME] [-p|--packages-lists FILE] [--packages PACKAGE|\"PACKAGES\"] [--quiet] [--root-command sudo] [--sections SECTION|\"SECTIONS\"] [--security enabled|disabled] [--source enabled|disabled] [-s|--source-images iso|net|tar|usb-hdd] [--symlinks enabled|disabled] [--syslinux-splash FILE] [--syslinux-timeout MILISECONDS] [--sysvinit enabled|disabled] [--tasksel aptitude|tasksel] [--tasks TASK] [--templates PATH] [--union-filesystem aufs|unionfs] [--username NAME] [--verbose]"
 
-Arguments "${@}"
+Local_arguments ()
+{
+	ARGUMENTS="`getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,losetup:,mode:,root-command:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-images:,binary-indices:,bootappend:,bootloader:,chroot-build:,debian-installer:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,iso-memtest:,net-filesystem:,net-mountoptions:,net-path:,net-server:,syslinux-splash:,syslinux-timeout:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}"`"
 
-CONFIG="${1}"
-
-if [ -n "${LH_CONFIG}" ]
-then
-	if [ -d ${LH_BASE:-/usr/share/live-helper}/configs/"${LH_CONFIG}" ]
+	if [ "${?}" != "0" ]
 	then
-		mkdir "${LH_CONFIG}"
-		cp -r ${LH_BASE:-/usr/share/live-helper}/configs/"${LH_CONFIG}" "${LH_CONFIG}"/config
-
-		LIVE_ROOT="${LH_CONFIG}"
-		CONFIG=""
-	else
-		Echo_error "Couldn't find config ${LH_CONFIG} in ${LH_BASE:-/usr/share/live-helper}/configs/."
+		Echo_error "terminating" >&2
+		exit 1
 	fi
-fi
 
-if [ "${CONFIG}" != "newconfig" ]
-then
-	# Source existing configuration
-	Read_conffile "${LIVE_ROOT}"/config/common
-	Read_conffile "${LIVE_ROOT}"/config/bootstrap
-	Read_conffile "${LIVE_ROOT}"/config/chroot
-	Read_conffile "${LIVE_ROOT}"/config/binary
-	Read_conffile "${LIVE_ROOT}"/config/source
-fi
+	eval set -- "${ARGUMENTS}"
+
+	while true
+	do
+		case "${1}" in
+			# config/common
+			--apt)
+				LH_APT="${2}"
+				shift 2
+				;;
+
+			--apt-ftp-proxy)
+				LH_APT_FTP_PROXY="${2}"
+				shift 2
+				;;
+
+			--apt-http-proxy)
+				LH_APT_HTTP_PROXY="${2}"
+				shift 2
+				;;
+
+			--apt-pdiffs)
+				LH_APT_PDIFFS="${2}"
+				shift 2
+				;;
+
+			--apt-pipeline)
+				LH_APT_PIPELINE="${2}"
+				shift 2
+				;;
+
+			--apt-recommends)
+				LH_APT_RECOMMENDS="${2}"
+				shift 2
+				;;
+
+			--apt-secure)
+				LH_APT_SECURE="${2}"
+				shift 2
+				;;
+
+			--bootstrap)
+				LH_BOOTSTRAP="${2}"
+				shift 2
+				;;
+
+			--cache)
+				LH_CACHE="${2}"
+				shift 2
+				;;
+
+			--cache-indices)
+				LH_CACHE_INDICES="${2}"
+				shift 2
+				;;
+
+			--cache-packages)
+				LH_CACHE_PACKAGES="${2}"
+				shift 2
+				;;
+
+			--cache-stages)
+				LH_CACHE_STAGES="${2}"
+				shift 2
+				;;
+
+			--debconf-frontend)
+				LH_DEBCONF_FRONTEND="${2}"
+				shift 2
+				;;
+
+			--debconf-nowarnings)
+				LH_DEBCONF_NOWARNINGS="${2}"
+				shift 2
+				;;
+
+			--debconf-priority)
+				LH_DEBCONF_PRIORITY="${2}"
+				shift 2
+				;;
+
+			--genisoimage)
+				LH_GENISOIMAGE="${2}"
+				shift 2
+				;;
+
+			--initramfs)
+				LH_INITRAMFS="${2}"
+				shift 2
+				;;
+
+			--losetup)
+				LH_LOSETUP="${2}"
+				shift 2
+				;;
+
+			--mode)
+				LH_MODE="${2}"
+				shift 2
+				;;
+
+			--root-command)
+				LH_ROOT_COMMAND="${2}"
+				shift 2
+				;;
+
+			--tasksel)
+				LH_TASKSEL="${2}"
+				shift 2
+				;;
+
+			--includes)
+				LH_INCLUDES="${2}"
+				shift 2
+				;;
+
+			--templates)
+				LH_TEMPLATES="${2}"
+				shift 2
+				;;
+
+			--breakpoints)
+				LH_BREAKPOINTS="enabled"
+				shift
+				;;
+
+			--debug)
+				LH_DEBUG="enabled"
+				shift
+				;;
+
+			--force)
+				LH_FORCE="enabled"
+				shift
+				;;
+
+			--quiet)
+				LH_QUIET="enabled"
+				shift
+				;;
+
+			--verbose)
+				LH_VERBOSE="enabled"
+				shift
+				;;
+
+			-v|--version)
+			 	Version
+				shift
+				;;
+
+			# config/bootstrap
+			-a|--architecture)
+				LH_ARCHITECTURE="${2}"
+				shift 2
+				;;
+
+			--bootstrap-config)
+				LH_BOOTSTRAP_CONFIG="${2}"
+				shift 2
+				;;
+
+			-f|--bootstrap-flavour)
+				LH_BOOTSTRAP_FLAVOUR="${2}"
+				shift 2
+				;;
+
+			--bootstrap-keyring)
+				LH_BOOTSTRAP_KEYRING="${2}"
+				shift 2
+				;;
+
+			-d|--distribution)
+				LH_DISTRIBUTION="${2}"
+				shift 2
+				;;
+
+			-m|--mirror-bootstrap)
+				LH_MIRROR_BOOTSTRAP="${2}"
+				shift 2
+				;;
+
+			--mirror-bootstrap-security)
+				LH_MIRROR_BOOTSTRAP_SECURITY="${2}"
+				shift 2
+				;;
+
+			--mirror-binary)
+				LH_MIRROR_BINARY="${2}"
+				shift 2
+				;;
+
+			--mirror-binary-security)
+				LH_MIRROR_BINARY_SECURITY="${2}"
+				shift 2
+				;;
+
+			--sections)
+				LH_SECTIONS="${2}"
+				shift 2
+				;;
+
+			# config/chroot
+			--chroot-filesystem)
+				LH_CHROOT_FILESYSTEM="${2}"
+				shift 2
+				;;
+
+			--union-filesystem)
+				LH_UNION_FILESYSTEM="${2}"
+				shift 2
+				;;
+
+			--hooks)
+				LH_HOOKS="${2}"
+				shift 2
+				;;
+
+			--interactive)
+				LH_INTERACTIVE="${2}"
+				shift 2
+				;;
+
+			--keyring-packages)
+				LH_KEYRING_PACKAGES="${2}"
+				shift 2
+				;;
+
+			-l|--language)
+				LH_LANGUAGE="${2}"
+				shift 2
+				;;
+
+			-k|--linux-flavours)
+				LH_LINUX_FLAVOURS="${2}"
+				shift 2
+				;;
+
+			--linux-packages)
+				LH_LINUX_PACKAGES="${2}"
+				shift 2
+				;;
+
+			--packages)
+				LH_PACKAGES="${2}"
+				shift 2
+				;;
+
+			-p|--packages-lists)
+				LH_PACKAGES_LISTS="${2}"
+				shift 2
+				;;
+
+			--tasks)
+				LH_TASKS="${2}"
+				shift 2
+				;;
+
+			--security)
+				LH_SECURITY="${2}"
+				shift 2
+				;;
+
+			--symlinks)
+				LH_SYMLINKS="${2}"
+				shift 2
+				;;
+
+			--sysvinit)
+				LH_SYSVINIT="${2}"
+				shift 2
+				;;
+
+			# config/binary
+			-b|--binary-images)
+				LH_BINARY_IMAGES="${2}"
+				shift 2
+				;;
+
+			--binary-indices)
+				LH_BINARY_INDICES="${2}"
+				shift 2
+				;;
+
+			--bootappend)
+				LH_BOOTAPPEND="${2}"
+				shift 2
+				;;
+
+			--bootloader)
+				LH_BOOTLOADER="${2}"
+				shift 2
+				;;
+
+			--chroot-build)
+				LH_CHROOT_BUILD="${2}"
+				shift 2
+				;;
+
+			--debian-installer)
+				LH_DEBIAN_INSTALLER="${2}"
+				shift 2
+				;;
+
+			-e|--encryption)
+				LH_ENCRYPTION="${2}"
+				shift 2
+				;;
+
+			--grub-splash)
+				LH_GRUB_SPLASH="${2}"
+				shift 2
+				;;
+
+			--hostname)
+				LH_HOSTNAME="${2}"
+				shift 2
+				;;
+
+			--iso-application)
+				LH_ISO_APPLICATION="${2}"
+				shift 2
+				;;
+
+			--iso-preparer)
+				LH_ISO_PREPARER="${2}"
+				shift 2
+				;;
+
+			--iso-publisher)
+				LH_ISO_PUBLISHER="${2}"
+				shift 2
+				;;
+
+			--iso-volume)
+				LH_ISO_VOLUME="${2}"
+				shift 2
+				;;
+
+			--iso-memtest)
+				LH_ISO_MEMTEST="${2}"
+				shift 2
+				;;
+
+			--net-filesystem)
+				LH_NET_FILESYSTEM="${2}"
+				shift 2
+				;;
+
+			--net-mountoptions)
+				LH_NET_MOUNTOPTIONS="${2}"
+				shift 2
+				;;
+
+			--net-path)
+				LH_NET_PATH="${2}"
+				shift 2
+				;;
+
+			--net-server)
+				LH_NET_SERVER="${2}"
+				shift 2
+				;;
+
+			--syslinux-splash)
+				LH_SYSLINUX_SPLASH="${2}"
+				shift 2
+				;;
+
+			--syslinux-timeout)
+				LH_SYSLINUX_TIMEOUT="${2}"
+				shift 2
+				;;
+
+			--username)
+				LH_USERNAME="${2}"
+				shift 2
+				;;
+
+			# config/source
+			--source)
+				LH_SOURCE="${2}"
+				shift 2
+				;;
+
+			-s|--source-images)
+				LH_SOURCE_IMAGES="${2}"
+				shift 2
+				;;
+
+			# other
+			--breakpoints)
+				LH_BREAKPOINTS="enabled"
+				shift
+				;;
+
+			-c|-conffile)
+				LH_CONFFILE="${2}"
+				shift 2
+				;;
+
+			--debug)
+				LH_DEBUG="enabled"
+				shift
+				;;
+
+			--force)
+				LH_FORCE="enabled"
+				shift
+				;;
+
+			-h|--help)
+				Help
+				shift
+				;;
+
+			--quiet)
+				LH_QUIET="enabled"
+				shift
+				;;
+
+			-u|--usage)
+				Usage
+				shift
+				;;
+
+			--verbose)
+				LH_VERBOSE="enabled"
+				shift
+				;;
+
+			-v|--version)
+				Version
+				shift
+				;;
+
+			--)
+				shift
+				break
+				;;
+
+			*)
+				Echo_error "internal error"
+				exit 1
+				;;
+		esac
+	done
+}
+
+# Reading existing configuration
+Read_conffile config/common
+Read_conffile config/bootstrap
+Read_conffile config/chroot
+Read_conffile config/binary
+Read_conffile config/source
 
 # Setting defaults
 Set_defaults
 
+Local_arguments "${@}"
+
+if [ -n "${LH_CONFFILE}" ]
+then
+	Read_conffile "${LH_CONFFILE}"
+fi
+
 # Creating bootstrap configuration
-mkdir -p "${LIVE_ROOT}"/config
-mkdir -p "${LIVE_ROOT}"/config/includes
-mkdir -p "${LIVE_ROOT}"/config/templates
+mkdir -p config
+mkdir -p config/includes
+mkdir -p config/templates
 
 # Creating live-helper configuration
-cat > "${LIVE_ROOT}"/config/common << EOF
+cat > config/common << EOF
 # config/common - common options for live-helper(7)
 
 # \$LH_APT: set package manager
 # (Default: ${LH_APT})
 LH_APT="${LH_APT}"
 
-# \$LH_APT_FTPPROXY: set apt/aptitude ftp proxy
+# \$LH_APT_FTP_PROXY: set apt/aptitude ftp proxy
 # (Default: autodetected or empty)
-LH_APT_FTPPROXY="${LH_APT_FTPPROXY}"
+LH_APT_FTP_PROXY="${LH_APT_FTP_PROXY}"
 
-# \$LH_APT_HTTPPROXY: set apt/aptitude http proxy
+# \$LH_APT_HTTP_PROXY: set apt/aptitude http proxy
 # (Default: autodetected or empty)
-LH_APT_HTTPPROXY="${LH_APT_HTTPPROXY}"
+LH_APT_HTTP_PROXY="${LH_APT_HTTP_PROXY}"
 
 # \$LH_APT_PDIFFS: set apt/aptitude pdiff indices
 # (Default: ${LH_APT_PDIFFS})
@@ -93,6 +538,10 @@ LH_APT_SECURE="${LH_APT_SECURE}"
 # \$LH_BOOTSTRAP: set bootstrap program
 # (Default: ${LH_BOOTSTRAP})
 LH_BOOTSTRAP="${LH_BOOTSTRAP}"
+
+# \$LH_CACHE: control cache
+# (Default: ${LH_CACHE})
+LH_CACHE="${LH_CACHE}"
 
 # \$LH_CACHE_INDICES: control if downloaded package indices should be cached
 # (Default: ${LH_CACHE_INDICES})
@@ -142,17 +591,13 @@ LH_MODE="${LH_MODE}"
 # (Default: ${LH_TASKSEL})
 LH_TASKSEL="${LH_TASKSEL}"
 
-# \$LIVE_ROOT: set root directory
-# (Default: ${LIVE_ROOT})
-LIVE_ROOT="${LIVE_ROOT}"
+# \$LH_INCLUDES: set includes
+# (Default: ${LH_INCLUDES})
+LH_INCLUDES="${LH_INCLUDES}"
 
-# \$LIVE_INCLUDES: set includes
-# (Default: ${LIVE_INCLUDES})
-LIVE_INCLUDES="${LIVE_INCLUDES}"
-
-# \$LIVE_TEMPLATES: set templates
-# (Default: ${LIVE_TEMPLATES})
-LIVE_TEMPLATES="${LIVE_TEMPLATES}"
+# \$LH_TEMPLATES: set templates
+# (Default: ${LH_TEMPLATES})
+LH_TEMPLATES="${LH_TEMPLATES}"
 
 # Live-helper options
 
@@ -178,225 +623,225 @@ LIVE_TEMPLATES="${LIVE_TEMPLATES}"
 EOF
 
 # Creating lh_bootstrap_* configuration
-cat > "${LIVE_ROOT}"/config/bootstrap << EOF
+cat > config/bootstrap << EOF
 # config/bootstrap - options for live-helper(7), bootstrap stage
 
-# \$LIVE_ARCHITECTURE: select chroot architecture
+# \$LH_ARCHITECTURE: select chroot architecture
 # (Default: autodetected)
-LIVE_ARCHITECTURE="${LIVE_ARCHITECTURE}"
+LH_ARCHITECTURE="${LH_ARCHITECTURE}"
 
-# \$LIVE_BOOTSTRAP_CONFIG: set distribution config directory
+# \$LH_BOOTSTRAP_CONFIG: set distribution config directory
 # (Default: empty)
-LIVE_BOOTSTRAP_CONFIG="${LIVE_BOOTSTRAP_CONFIG}"
+LH_BOOTSTRAP_CONFIG="${LH_BOOTSTRAP_CONFIG}"
 
-# \$LIVE_BOOTSTRAP_FLAVOUR: select flavour to use
-# (Default: ${LIVE_BOOTSTRAP_FLAVOUR})
-LIVE_BOOTSTRAP_FLAVOUR="${LIVE_BOOTSTRAP_FLAVOUR}"
+# \$LH_BOOTSTRAP_FLAVOUR: select flavour to use
+# (Default: ${LH_BOOTSTRAP_FLAVOUR})
+LH_BOOTSTRAP_FLAVOUR="${LH_BOOTSTRAP_FLAVOUR}"
 
-# \$LIVE_BOOTSTRAP_KEYRING: set distribution keyring
+# \$LH_BOOTSTRAP_KEYRING: set distribution keyring
 # (Default: empty)
-LIVE_BOOTSTRAP_KEYRING="${LIVE_BOOTSTRAP_KEYRING}"
+LH_BOOTSTRAP_KEYRING="${LH_BOOTSTRAP_KEYRING}"
 
-# \$LIVE_DISTRIBUTION: select distribution to use
-# (Default: ${LIVE_DISTRIBUTION})
-LIVE_DISTRIBUTION="${LIVE_DISTRIBUTION}"
+# \$LH_DISTRIBUTION: select distribution to use
+# (Default: ${LH_DISTRIBUTION})
+LH_DISTRIBUTION="${LH_DISTRIBUTION}"
 
-# \$LIVE_MIRROR_BOOTSTRAP: set mirror to fetch packages from
-# (Default: ${LIVE_MIRROR_BOOTSTRAP})
-LIVE_MIRROR_BOOTSTRAP="${LIVE_MIRROR_BOOTSTRAP}"
+# \$LH_MIRROR_BOOTSTRAP: set mirror to fetch packages from
+# (Default: ${LH_MIRROR_BOOTSTRAP})
+LH_MIRROR_BOOTSTRAP="${LH_MIRROR_BOOTSTRAP}"
 
-# \$LIVE_MIRROR_BOOTSTRAP_SECURITY: set security mirror to fetch packages from
-# (Default: ${LIVE_MIRROR_BOOTSTRAP_SECURITY})
-LIVE_MIRROR_BOOTSTRAP_SECURITY="${LIVE_MIRROR_BOOTSTRAP_SECURITY}"
+# \$LH_MIRROR_BOOTSTRAP_SECURITY: set security mirror to fetch packages from
+# (Default: ${LH_MIRROR_BOOTSTRAP_SECURITY})
+LH_MIRROR_BOOTSTRAP_SECURITY="${LH_MIRROR_BOOTSTRAP_SECURITY}"
 
-# \$LIVE_MIRROR_BINARY: set mirror which ends up in the image
-# (Default: ${LIVE_MIRROR_BINARY})
-LIVE_MIRROR_BINARY="${LIVE_MIRROR_BINARY}"
+# \$LH_MIRROR_BINARY: set mirror which ends up in the image
+# (Default: ${LH_MIRROR_BINARY})
+LH_MIRROR_BINARY="${LH_MIRROR_BINARY}"
 
-# \$LIVE_MIRROR_BINARY_SECURITY: set security mirror which ends up in the image
-# (Default: ${LIVE_MIRROR_BINARY_SECURITY})
-LIVE_MIRROR_BINARY_SECURITY="${LIVE_MIRROR_BINARY_SECURITY}"
+# \$LH_MIRROR_BINARY_SECURITY: set security mirror which ends up in the image
+# (Default: ${LH_MIRROR_BINARY_SECURITY})
+LH_MIRROR_BINARY_SECURITY="${LH_MIRROR_BINARY_SECURITY}"
 
-# \$LIVE_SECTIONS: select section(s) to use
-# (Default: ${LIVE_SECTIONS})
-LIVE_SECTIONS="${LIVE_SECTIONS}"
+# \$LH_SECTIONS: select section(s) to use
+# (Default: ${LH_SECTIONS})
+LH_SECTIONS="${LH_SECTIONS}"
 EOF
 
 # Creating lh_chroot_* configuration
-mkdir -p "${LIVE_ROOT}"/config/chroot_local-hooks
-mkdir -p "${LIVE_ROOT}"/config/chroot_local-includes
-mkdir -p "${LIVE_ROOT}"/config/chroot_local-packages
-mkdir -p "${LIVE_ROOT}"/config/chroot_local-packageslists
-mkdir -p "${LIVE_ROOT}"/config/chroot_sources
+mkdir -p config/chroot_local-hooks
+mkdir -p config/chroot_local-includes
+mkdir -p config/chroot_local-packages
+mkdir -p config/chroot_local-packageslists
+mkdir -p config/chroot_sources
 
-cat > "${LIVE_ROOT}"/config/chroot << EOF
+cat > config/chroot << EOF
 # config/chroot - options for live-helper(7), chroot stage
 
-# \$LIVE_CHROOT_FILESYSTEM: set chroot filesystem
-# (Default: ${LIVE_CHROOT_FILESYSTEM})
-LIVE_CHROOT_FILESYSTEM="${LIVE_CHROOT_FILESYSTEM}"
+# \$LH_CHROOT_FILESYSTEM: set chroot filesystem
+# (Default: ${LH_CHROOT_FILESYSTEM})
+LH_CHROOT_FILESYSTEM="${LH_CHROOT_FILESYSTEM}"
 
-# \$LIVE_UNION_FILESYSTEM: set union filesystem
-# (Default: ${LIVE_UNION_FILESYSTEM}
-LIVE_UNION_FILESYSTEM="${LIVE_UNION_FILESYSTEM}"
+# \$LH_UNION_FILESYSTEM: set union filesystem
+# (Default: ${LH_UNION_FILESYSTEM}
+LH_UNION_FILESYSTEM="${LH_UNION_FILESYSTEM}"
 
-# \$LIVE_HOOKS: set hook commands
+# \$LH_HOOKS: set hook commands
 # (Default: empty)
-LIVE_HOOKS="${LIVE_HOOKS}"
+LH_HOOKS="${LH_HOOKS}"
 
-# \$LIVE_INTERACTIVE: set interactive build
-# (Default: ${LIVE_INTERACTIVE})
-LIVE_INTERACTIVE="${LIVE_INTERACTIVE}"
+# \$LH_INTERACTIVE: set interactive build
+# (Default: ${LH_INTERACTIVE})
+LH_INTERACTIVE="${LH_INTERACTIVE}"
 
-# \$LIVE_KEYRING_PACKAGES: set keyring packages
+# \$LH_KEYRING_PACKAGES: set keyring packages
 # (Default: empty)
-LIVE_KEYRING_PACKAGES="${LIVE_KEYRING_PACKAGES}"
+LH_KEYRING_PACKAGES="${LH_KEYRING_PACKAGES}"
 
-# \$LIVE_LANGUAGE: set language to use
+# \$LH_LANGUAGE: set language to use
 # (Default: empty)
-LIVE_LANGUAGE="${LIVE_LANGUAGE}"
+LH_LANGUAGE="${LH_LANGUAGE}"
 
-# \$LIVE_LINUX_FLAVOURS: set kernel flavour to use
+# \$LH_LINUX_FLAVOURS: set kernel flavour to use
 # (Default: autodetected)
-LIVE_LINUX_FLAVOURS="${LIVE_LINUX_FLAVOURS}"
+LH_LINUX_FLAVOURS="${LH_LINUX_FLAVOURS}"
 
-# \$LIVE_LINUX_PACKAGES: set kernel packages to use
+# \$LH_LINUX_PACKAGES: set kernel packages to use
 # (Default: autodetected)
-LIVE_LINUX_PACKAGES="${LIVE_LINUX_PACKAGES}"
+LH_LINUX_PACKAGES="${LH_LINUX_PACKAGES}"
 
-# \$LIVE_PACKAGES: set packages to install
+# \$LH_PACKAGES: set packages to install
 # (Default: empty)
-LIVE_PACKAGES="${LIVE_PACKAGES}"
+LH_PACKAGES="${LH_PACKAGES}"
 
-# \$LIVE_PACKAGES_LISTS: set package list to install
-# (Default: ${LIVE_PACKAGES_LISTS})
-LIVE_PACKAGES_LISTS="${LIVE_PACKAGES_LISTS}"
+# \$LH_PACKAGES_LISTS: set package list to install
+# (Default: ${LH_PACKAGES_LISTS})
+LH_PACKAGES_LISTS="${LH_PACKAGES_LISTS}"
 
-# \$LIVE_TASKS: set tasks to install
+# \$LH_TASKS: set tasks to install
 # (Default: empty)
-LIVE_TASKS="${LIVE_TASKS}"
+LH_TASKS="${LH_TASKS}"
 
-# \$LIVE_SECURITY: enable security updates
-# (Default: ${LIVE_SECURITY})
-LIVE_SECURITY="${LIVE_SECURITY}"
+# \$LH_SECURITY: enable security updates
+# (Default: ${LH_SECURITY})
+LH_SECURITY="${LH_SECURITY}"
 
-# \$LIVE_SYMLINKS: enable symlink convertion
-# (Default: ${LIVE_SYMLINKS})
-LIVE_SYMLINKS="${LIVE_SYMLINKS}"
+# \$LH_SYMLINKS: enable symlink convertion
+# (Default: ${LH_SYMLINKS})
+LH_SYMLINKS="${LH_SYMLINKS}"
 
-# \$LIVE_SYSVINIT: enable sysvinit
-# (Default: ${LIVE_SYSVINIT})
-LIVE_SYSVINIT="${LIVE_SYSVINIT}"
+# \$LH_SYSVINIT: enable sysvinit
+# (Default: ${LH_SYSVINIT})
+LH_SYSVINIT="${LH_SYSVINIT}"
 EOF
 
 # Creating lh_binary_* configuration
-mkdir -p "${LIVE_ROOT}"/config/binary_grub
-mkdir -p "${LIVE_ROOT}"/config/binary_local-debs
-mkdir -p "${LIVE_ROOT}"/config/binary_local-hooks
-mkdir -p "${LIVE_ROOT}"/config/binary_local-includes
-mkdir -p "${LIVE_ROOT}"/config/binary_local-udebs
-mkdir -p "${LIVE_ROOT}"/config/binary_rootfs
-mkdir -p "${LIVE_ROOT}"/config/binary_syslinux
+mkdir -p config/binary_grub
+mkdir -p config/binary_local-debs
+mkdir -p config/binary_local-hooks
+mkdir -p config/binary_local-includes
+mkdir -p config/binary_local-udebs
+mkdir -p config/binary_rootfs
+mkdir -p config/binary_syslinux
 
-cat > "${LIVE_ROOT}"/config/binary << EOF
+cat > config/binary << EOF
 # config/binary - options for live-helper(7), binary stage
 
-# \$LIVE_BINARY_IMAGES: set image type
-# (Default: ${LIVE_BINARY_IMAGES})
-LIVE_BINARY_IMAGES="${LIVE_BINARY_IMAGES}"
+# \$LH_BINARY_IMAGES: set image type
+# (Default: ${LH_BINARY_IMAGES})
+LH_BINARY_IMAGES="${LH_BINARY_IMAGES}"
 
-# \$LIVE_BINARY_INDICES: set apt/aptitude generic indices
-# (Default: ${LIVE_BINARY_INDICES})
-LIVE_BINARY_INDICES="${LIVE_BINARY_INDICES}"
+# \$LH_BINARY_INDICES: set apt/aptitude generic indices
+# (Default: ${LH_BINARY_INDICES})
+LH_BINARY_INDICES="${LH_BINARY_INDICES}"
 
-# \$LIVE_BOOTAPPEND: set boot parameters
+# \$LH_BOOTAPPEND: set boot parameters
 # (Default: empty)
-LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND}"
+LH_BOOTAPPEND="${LH_BOOTAPPEND}"
 
-# \$LIVE_BOOTLOADER: set bootloader
-# (Default: ${LIVE_BOOTLOADER})
-LIVE_BOOTLOADER="${LIVE_BOOTLOADER}"
+# \$LH_BOOTLOADER: set bootloader
+# (Default: ${LH_BOOTLOADER})
+LH_BOOTLOADER="${LH_BOOTLOADER}"
 
-# \${LIVE_CHROOT_BUILD: control if we build binary images chrooted
-# (Default: ${LIVE_CHROOT_BUILD})
+# \${LH_CHROOT_BUILD: control if we build binary images chrooted
+# (Default: ${LH_CHROOT_BUILD})
 # DO NEVER, *NEVER*, *N*E*V*E*R* SET THIS OPTION to disabled.
-LIVE_CHROOT_BUILD="${LIVE_CHROOT_BUILD}"
+LH_CHROOT_BUILD="${LH_CHROOT_BUILD}"
 
-# \$LIVE_DEBIAN_INSTALLER: set debian-installer
-# (Default: ${LIVE_DEBIAN_INSTALLER})
-LIVE_DEBIAN_INSTALLER="${LIVE_DEBIAN_INSTALLER}"
+# \$LH_DEBIAN_INSTALLER: set debian-installer
+# (Default: ${LH_DEBIAN_INSTALLER})
+LH_DEBIAN_INSTALLER="${LH_DEBIAN_INSTALLER}"
 
-# \$LIVE_ENCRYPTION: set encrytion
+# \$LH_ENCRYPTION: set encrytion
 # (Default: empty)
-LIVE_ENCRYPTION="${LIVE_ENCRYPTION}"
+LH_ENCRYPTION="${LH_ENCRYPTION}"
 
-# \$LIVE_GRUB_SPLASH: set custom grub splash
+# \$LH_GRUB_SPLASH: set custom grub splash
 # (Default: empty)
-LIVE_GRUB_SPLASH="${LIVE_GRUB_SPLASH}"
+LH_GRUB_SPLASH="${LH_GRUB_SPLASH}"
 
-# \$LIVE_HOSTNAME: set hostname
-# (Default: ${LIVE_HOSTNAME})
-LIVE_HOSTNAME="${LIVE_HOSTNAME}"
+# \$LH_HOSTNAME: set hostname
+# (Default: ${LH_HOSTNAME})
+LH_HOSTNAME="${LH_HOSTNAME}"
 
-# \$LIVE_ISO_APPLICATION: set iso author
-# (Default: ${LIVE_ISO_APPLICATION})
-LIVE_ISO_APPLICATION="${LIVE_ISO_APPLICATION}"
+# \$LH_ISO_APPLICATION: set iso author
+# (Default: ${LH_ISO_APPLICATION})
+LH_ISO_APPLICATION="${LH_ISO_APPLICATION}"
 
-# \$LIVE_ISO_PREPARER: set iso preparer
-# (Default: ${LIVE_ISO_PREPARER})
-LIVE_ISO_PREPARER="${LIVE_ISO_PREPARER}"
+# \$LH_ISO_PREPARER: set iso preparer
+# (Default: ${LH_ISO_PREPARER})
+LH_ISO_PREPARER="${LH_ISO_PREPARER}"
 
-# \$LIVE_ISO_PUBLISHER: set iso preparer
-# (Default: ${LIVE_ISO_PUBLISHER})
-LIVE_ISO_PUBLISHER="${LIVE_ISO_PUBLISHER}"
+# \$LH_ISO_PUBLISHER: set iso preparer
+# (Default: ${LH_ISO_PUBLISHER})
+LH_ISO_PUBLISHER="${LH_ISO_PUBLISHER}"
 
-# \$LIVE_ISO_VOLUME: set iso volume (max 32 chars)
-# (Default: ${LIVE_ISO_VOLUME})
-LIVE_ISO_VOLUME="${LIVE_ISO_VOLUME}"
+# \$LH_ISO_VOLUME: set iso volume (max 32 chars)
+# (Default: ${LH_ISO_VOLUME})
+LH_ISO_VOLUME="${LH_ISO_VOLUME}"
 
-# \$LIVE_MEMTEST: set memtest
-# (Default: ${LIVE_MEMTEST})
-LIVE_MEMTEST="${LIVE_MEMTEST}"
+# \$LH_MEMTEST: set memtest
+# (Default: ${LH_MEMTEST})
+LH_MEMTEST="${LH_MEMTEST}"
 
-# \$LIVE_NET_FILESYSTEM: set netboot filesystem
-# (Default: ${LIVE_NET_FILESYSTEM})
-LIVE_NET_FILESYSTEM="${LIVE_NET_FILESYSTEM}"
+# \$LH_NET_FILESYSTEM: set netboot filesystem
+# (Default: ${LH_NET_FILESYSTEM})
+LH_NET_FILESYSTEM="${LH_NET_FILESYSTEM}"
 
-# \$LIVE_NET_MOUNTOPTIONS: set nfsopts
+# \$LH_NET_MOUNTOPTIONS: set nfsopts
 # (Default: empty)
-LIVE_NET_MOUNTOPTIONS="${LIVE_NET_MOUNTOPTIONS}"
+LH_NET_MOUNTOPTIONS="${LH_NET_MOUNTOPTIONS}"
 
-# \$LIVE_NET_PATH: set netboot server directory
-# (Default: ${LIVE_NET_PATH})
-LIVE_NET_PATH="${LIVE_NET_PATH}"
+# \$LH_NET_PATH: set netboot server directory
+# (Default: ${LH_NET_PATH})
+LH_NET_PATH="${LH_NET_PATH}"
 
-# \$LIVE_NET_SERVER: set netboot server address
-# (Default: ${LIVE_NET_SERVER})
-LIVE_NET_SERVER="${LIVE_NET_SERVER}"
+# \$LH_NET_SERVER: set netboot server address
+# (Default: ${LH_NET_SERVER})
+LH_NET_SERVER="${LH_NET_SERVER}"
 
-# \$LIVE_SYSLINUX_SPLASH: set custom syslinux splash
+# \$LH_SYSLINUX_SPLASH: set custom syslinux splash
 # (Default: empty)
-LIVE_SYSLINUX_SPLASH="${LIVE_SYSLINUX_SPLASH}"
+LH_SYSLINUX_SPLASH="${LH_SYSLINUX_SPLASH}"
 
-# \$LIVE_USERNAME: set username
-# (Default: ${LIVE_USERNAME})
-LIVE_USERNAME="${LIVE_USERNAME}"
+# \$LH_USERNAME: set username
+# (Default: ${LH_USERNAME})
+LH_USERNAME="${LH_USERNAME}"
 EOF
 
 # Creating lh_source_* configuration
-cat > "${LIVE_ROOT}"/config/source << EOF
+cat > config/source << EOF
 # config/source - options for live-helper(7), source stage
 
-# \$LIVE_SOURCE: set source option
-# (Default: ${LIVE_SOURCE})
-LIVE_SOURCE="${LIVE_SOURCE}"
+# \$LH_SOURCE: set source option
+# (Default: ${LH_SOURCE})
+LH_SOURCE="${LH_SOURCE}"
 
-# \$LIVE_SOURCE_IMAGES: set image type
-# (Default: ${LIVE_SOURCE_IMAGES})
-LIVE_SOURCE_IMAGES="${LIVE_SOURCE_IMAGES}"
+# \$LH_SOURCE_IMAGES: set image type
+# (Default: ${LH_SOURCE_IMAGES})
+LH_SOURCE_IMAGES="${LH_SOURCE_IMAGES}"
 EOF
 
-if [ "${CONFIG}" = "clone" ]
+if [ "${CONFIG}" = "clone" ] # FIXME
 then
 	# Read package selection
 	echo `dpkg --get-selections | awk '{ print $1 }'` > config/chroot_local-packageslists/local-system

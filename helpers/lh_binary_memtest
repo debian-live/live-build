@@ -32,7 +32,7 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-if [ "${LIVE_MEMTEST}" = "disabled" ]
+if [ "${LH_MEMTEST}" = "disabled" ]
 then
 	exit 0
 fi
@@ -51,13 +51,13 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ "${LIVE_ARCHITECTURE}" != "amd64" ] && [ "${LIVE_ARCHITECTURE}" != "i386" ]
+if [ "${LH_ARCHITECTURE}" != "amd64" ] && [ "${LH_ARCHITECTURE}" != "i386" ]
 then
 	Echo_warning "skipping binary_memtest, foreign architecture."
 	exit 0
 fi
 
-if [ "${LIVE_CHROOT_BUILD}" = "enabled" ]
+if [ "${LH_CHROOT_BUILD}" = "enabled" ]
 then
 
 	if [ -f chroot/usr/sbin/grub ] && [ ! -d chroot/boot/grub ]
@@ -69,7 +69,7 @@ then
 fi
 
 # Checking depends
-case "${LIVE_MEMTEST}" in
+case "${LH_MEMTEST}" in
 	memtest86)
 		Check_package chroot/boot/memtest86.bin memtest86
 		;;
@@ -86,7 +86,7 @@ Restore_cache cache/packages_binary
 Install_package
 
 # Setting destination directory
-case "${LIVE_BINARY_IMAGES}" in
+case "${LH_BINARY_IMAGES}" in
 	iso)
 		case "${LH_INITRAMFS}" in
 			casper)
@@ -115,7 +115,7 @@ case "${LIVE_BINARY_IMAGES}" in
 		esac
 
 		# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
-		if [ "${LIVE_DISTRIBUTION}" = "etch" ] && [ "${LIVE_BOOTLOADER}" = "syslinux" ]
+		if [ "${LH_DISTRIBUTION}" = "etch" ] && [ "${LH_BOOTLOADER}" = "syslinux" ]
 		then
 			DESTDIR="binary"
 		fi
@@ -128,13 +128,13 @@ Check_multiarchitecture
 mkdir -p "${DESTDIR}"
 
 # Installing memtest
-case "${LIVE_CHROOT_BUILD}" in
+case "${LH_CHROOT_BUILD}" in
 	enabled)
-		cp chroot/boot/${LIVE_MEMTEST}.bin "${DESTDIR}"/memtest
+		cp chroot/boot/${LH_MEMTEST}.bin "${DESTDIR}"/memtest
 		;;
 
 	disabled)
-		cp /boot/${LIVE_MEMTEST}.bin "${DESTDIR}"/memtest
+		cp /boot/${LH_MEMTEST}.bin "${DESTDIR}"/memtest
 		;;
 esac
 
