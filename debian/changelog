@@ -1,4 +1,4 @@
-live-helper (1.0~a29-1) UNRELEASED; urgency=medium
+live-helper (1.0~a29-1) unstable; urgency=medium
 
   * New upstream release:
     - Adding preinst to take care about package upgrades with respect to
