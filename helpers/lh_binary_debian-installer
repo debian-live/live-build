@@ -372,9 +372,9 @@ then
 fi
 
 # Excluding udebs
-grep -v "^#" ${LH_BASE:-/usr/share/live-helper}/data/debian-cd/"${LH_DISTRIBUTION}"/udeb_exclude > exclude
-grep -v "^#" ${LH_BASE:-/usr/share/live-helper}/data/debian-cd/"${LH_DISTRIBUTION}"/exclude-udebs >> exclude
-grep -v "^#" ${LH_BASE:-/usr/share/live-helper}/data/debian-cd/"${LH_DISTRIBUTION}"/exclude-udebs-${LH_ARCHITECTURE} >> exclude
+grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DISTRIBUTION}"/udeb_exclude > exclude
+grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DISTRIBUTION}"/exclude-udebs >> exclude
+grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DISTRIBUTION}"/exclude-udebs-${LH_ARCHITECTURE} >> exclude
 
 for EXCLUDE in `cat exclude`
 do
