@@ -15,7 +15,7 @@ manpages-pl-dev manpages-pt manpages-pt-dev manpages-ru manpages-tr manpages-zh
 # KDE Core
 kde-core kdm
 
-x-window-system-core
+x-window-system-core xserver-xorg-input-all xserver-xorg-video-all xdebconfigurator
 
 # KDE i18n
 kde-i18n-af kde-i18n-ar kde-i18n-az kde-i18n-bg kde-i18n-bn kde-i18n-br

@@ -7,7 +7,7 @@ eject sudo
 console-common locales
 
 # X11
-wdm x-window-system-core
+wdm x-window-system-core xserver-xorg-input-all xserver-xorg-video-all xdebconfigurator
 
 # GNUstep
 gnustep gnumail.app talksoup.app viewpdf.app wmaker gnustep-icons

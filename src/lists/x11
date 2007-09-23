@@ -7,4 +7,4 @@ eject sudo
 console-common locales
 
 # X11
-xdm x-window-system
+xdm x-window-system xserver-xorg-input-all xserver-xorg-video-all xdebconfigurator

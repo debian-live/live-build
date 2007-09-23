@@ -12,4 +12,4 @@ gnome-themes-extras
 
 rhythmbox synaptic
 
-x-window-system-core
+x-window-system-core xserver-xorg-input-all xserver-xorg-video-all xdebconfigurator

@@ -9,4 +9,4 @@ console-common locales
 # Xfce
 gdm xfce4
 
-x-window-system-core
+x-window-system-core xserver-xorg-input-all xserver-xorg-video-all xdebconfigurator

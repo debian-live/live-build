@@ -1,3 +1,12 @@
+live-package (0.99.14-3) unstable; urgency=high
+
+  * Adding workaround for new xorg packages by including xserver-xorg-input-all
+    and xserver-xorg-video-all in all X11 package lists. See #405639 for more
+    information.
+  * Adding xdebconfigurator to all X11 package lists.
+
+ -- Daniel Baumann <daniel@debian.org>  Fri,  5 Jan 2007 22:34:00 +0100
+
 live-package (0.99.14-2) unstable; urgency=high
 
   * Adding workaround for initrd backup files (Closes: #404314).
