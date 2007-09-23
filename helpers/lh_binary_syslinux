@@ -486,7 +486,7 @@ case "${LH_BINARY_IMAGES}" in
 			if [ "${LH_SYSLINUX_SPLASH}" = "none" ]
 			then
 				rm -f tftpboot/pxelinux.cfg/splash.rle
-				sed -e "s/.*splash.*//" tftpboot/pxelinux.cfg/boot.txt
+				sed -i -e "s/.*splash.*//" tftpboot/pxelinux.cfg/boot.txt
 			else
 				cp -f "${LH_SYSLINUX_SPLASH}" tftpboot/pxelinux.cfg/splash.rle
 			fi
@@ -580,7 +580,7 @@ case "${LH_BINARY_IMAGES}" in
 			if [ "${LH_SYSLINUX_SPLASH}" = "none" ]
 			then
 				rm -f "${DESTDIR}"/splash.rle
-				sed -e "s/.*splash.*//" "${DESTDIR}"/boot.txt
+				sed -i -e "s/.*splash.*//" "${DESTDIR}"/boot.txt
 			else
 				cp -f "${LH_SYSLINUX_SPLASH}" "${DESTDIR}"/splash.rle
 			fi
