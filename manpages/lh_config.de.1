@@ -1,0 +1,171 @@
+.TH LH_CONFIG 1 "13.08.2007" "1.0~a23" "live\-helper"
+
+.SH NAME
+lh_config \- erstellt live-helper(7) Konfiguration
+
+.SH SYNTAX
+.B lh_config [\fIlive\-helper\ Optionen\fR\|]
+
+.SH BESCHREIBUNG
+lh_source ist ein Script um das Konfigurationsverzeichnis fuer live\-helper zu erstellen. Standardm\[:a]ssig wird das Konfigurationsverzeichnis 'config' genannt und im aktuellen Verzeichnis angelegt.
+
+.SH OPTIONEN
+Hier ist eine vollst\[:a]ndige Liste aller verf\[:u]gbaren Optionen f\[:u]r lh_config.
+.IP "\fB\-\-apt\fR apt|aptitude" 4
+
+.IP "\fB\-\-apt\-ftp\-proxy\fR \fIURL\fR" 4
+
+.IP "\fB\-\-apt\-http\-proxy\fR \fIURL\fR" 4
+
+.IP "\fB\-\-apt\-pdiffs\fR enabled|disabled" 4
+
+.IP "\fB\-\-apt\-pipeline\fR FIXME" 4
+
+.IP "\fB\-\-apt\-recommends\fR enabled|disabled" 4
+
+.IP "\fB\-\-apt\-secure\fR enabled|disabled" 4
+
+.IP "\fB\-a|\-\-architecture\fR \fIARCHITECTURE\fR" 4
+
+.IP "\fB\-b|\-\-binary\-images\fR iso|net|tar|usb\-hdd" 4
+
+.IP "\fB\-\-binary\-indices\fR enabled|disabled" 4
+
+.IP "\fB\-\-bootappend\fR \fIPARAMETER\fR|""\fIPARAMETERS\fR""" 4
+
+.IP "\fB\-\-bootloader\fR grub|syslinux|yaboot" 4
+
+.IP "\fB\-\-bootstrap\fR cdebootstrap|debootstrap" 4
+
+.IP "\fB\-\-bootstrap\-config\fR \fIFILE\fR" 4
+
+.IP "\fB\-f|\-\-bootstrap\-flavour\fR minimal|standard" 4
+
+.IP "\fB\-\-bootstrap\-keyring\fR \fIPACKAGE\fR" 4
+
+.IP "\fB\-\-cache\fR enabled|disabled" 4
+
+.IP "\fB\-\-cache\-indices\fR enabled|disabled" 4
+
+.IP "\fB\-\-cache\-packages\fR enabled|disabled" 4
+
+.IP "\fB\-\-cache\-stages\fR \fISTAGE\fR|""\fISTAGES\fR""" 4
+
+.IP "\fB\-\-chroot\-build\fR enabled|disabled" 4
+
+.IP "\fB\-\-chroot\-filesystem\fR ext2|ext3|squashfs|plain" 4
+
+.IP "\fB\-c|\-\-conffile\fR \fIFILE\fR" 4
+
+.IP "\fB\-\-debconf\-frontend\fR dialog|editor|noninteractive|readline" 4
+
+.IP "\fB\-\-debconf\-nowarnings\fR enabled|disabled" 4
+
+.IP "\fB\-\-debconf\-priority\fR low|medium|high|critical" 4
+
+.IP "\fB\-\-debian\-installer\fR enabled|disabled" 4
+
+.IP "\fB\-d|\-\-distribution\fR \fICODENAME\fR" 4
+
+.IP "\fB\-e|\-\-encryption\fR aes128|aes192|aes256" 4
+
+.IP "\fB\-\-genisoimage\fR genisomage|mkisofs" 4
+
+.IP "\fB\-\-grub\-splash\fR \fIFILE\fR" 4
+
+.IP "\fB\-\-hooks\fR \fIFILE\fR" 4
+
+.IP "\fB\-\-hostname\fR \fINAME\fR" 4
+
+.IP "\fB\-\-includes\fR \fIPATH\fR" 4
+
+.IP "\fB\-\-initramfs\fR auto|live\-initramfs|casper" 4
+
+.IP "\fB\-\-interactive\fR shell" 4
+
+.IP "\fB\-\-iso\-application\fR \fINAME\fR" 4
+
+.IP "\fB\-\-iso\-preparer\fR \fINAME\fR" 4
+
+.IP "\fB\-\-iso\-publisher\fR \fINAME\fR" 4
+
+.IP "\fB\-\-iso\-volume\fR \fINAME\fR" 4
+
+.IP "\fB\-\-keyring\-packages\fR \fIPACKAGE\fR|""\fIPACKAGES\fR""" 4
+
+.IP "\fB\-l|\-\-language\fR \fILANGUAGE\fR" 4
+
+.IP "\fB\-k|\-\-linux\-flavours\fR \fIFLAVOUR\fR|""\fIFLAVOURS\fR""" 4
+
+.IP "\fB\-\-linux\-packages\fR \fIPACKAGE\fR|""\fIPACKGAGES\fR""" 4
+
+.IP "\fB\-\-losetup\fR losetup|losetup.orig" 4
+
+.IP "\fB\-\-memtest\fR memtest86+|memtest86" 4
+
+.IP "\fB\-m|\-\-mirror\-binary\-security\fR \fIURL\fR" 4
+
+.IP "\fB\-\-mirror\-binary\fR \fIURL\fR" 4
+
+.IP "\fB\-\-mirror\-bootstrap\-security\fR \fIURL\fR" 4
+
+.IP "\fB\-\-mirror\-bootstrap\fR \fIURL\fR" 4
+
+.IP "\fB\-\-mode\fR debian|debian\-edu|ubuntu" 4
+
+.IP "\fB\-\-net\-filesystem\fR nfs|cfs" 4
+
+.IP "\fB\-\-net\-mountoptions\fR \fIOPTION\fR|""\fIOPTIONS\fR""" 4
+
+.IP "\fB\-\-net\-path\fR \fIPATH\fR" 4
+
+.IP "\fB\-\-net\\-server\fR \fIIP\fR|\fIHOSTNAME\fR" 4
+
+.IP "\fB\-p|\-\-packages\-lists\fR \fIFILE\fR" 4
+
+.IP "\fB\-\-packages\fR \fIPACKAGE\fR|""\fIPACKAGES\fR""" 4
+
+.IP "\fB\-\-root\-command\fR sudo" 4
+
+.IP "\fB\-\-sections\fR \fISECTION\fR|""\fISECTIONS\fR""" 4
+
+.IP "\fB\-\-security\fR enabled|disabled" 4
+
+.IP "\fB\-\-source\fR enabled|disabled" 4
+
+.IP "\fB\-s|\-\-source\-images\fR iso|net|tar|usb\-hdd" 4
+
+.IP "\fB\-\-symlinks\fR enabled|disabled" 4
+
+.IP "\fB\-\-syslinux\-splash\fR \fIFILE\fR" 4
+
+.IP "\fB\-\-syslinux\-timeout\fR \fIMILISECONDS\fR" 4
+
+.IP "\fB\-\-sysvinit\fR enabled|disabled" 4
+
+.IP "\fB\-\-tasksel\fR aptitude|tasksel" 4
+
+.IP "\fB\-\-tasks\fR \fITASK\fR" 4
+
+.IP "\fB\-\-templates\fR \fIPATH\fR" 4
+
+.IP "\fB\-\-union\-filesystem\fR aufs|unionfs" 4
+
+.IP "\fB\-\-username\fR \fINAME\fR" 4
+
+.SH UMGEBUNG
+Alle Kommandozeilenoptionen k\[:o]nnen auch durch die ensprechende Umgebungsvariable spezifiziert werden. Umgebungsvariablen sind LH_FOO geannt, das heisst, z.B. \-\-apt\-ftp\-proxy wird zu LH_APT_FTP_PROXY.
+
+.SH SIEHE AUCH
+\fIlive\-helper\fR(7)
+.PP
+Dieses Programm ist Teil von live\-helper.
+
+.SH FEHLER
+Fehler k\[:o]nnen gegen live\-helper <\fIhttp://packages.qa.debian.org/live\-helper\fR> gemeldet werden.
+
+.SH HOMEPAGE
+Mehr Informationen \[:u]ber das Debian Live\-Projekt k\[:o]nnen auf <\fIhttp://debian\-live.alioth.debian.org/\fR> und <\fIhttp://wiki.debian.org/DebianLive/\fR> gefunden werden.
+
+.SH AUTOR
+live\-helper wurde von Daniel Baumann <\fIdaniel@debian.org\fR> f\[:u]r das Debian\-Projekt geschrieben.

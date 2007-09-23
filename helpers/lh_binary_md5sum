@@ -30,6 +30,7 @@ Read_conffile config/bootstrap
 Read_conffile config/chroot
 Read_conffile config/binary
 Read_conffile config/source
+Read_conffile "${LH_CONFIG}"
 Set_defaults
 
 Echo_message "Begin creating binary md5sum.txt..."
@@ -54,7 +55,7 @@ fi
 
 # Calculating md5sums
 cd binary
-find . -type f | sort | grep -v 'isolinux/isolinux.bin' | grep -v 'boot/grub/stage2_eltorito' | xargs md5sum > ../md5sum.txt
+find . -type f | sort | grep -v 'isolinux/isolinux.bin' | grep -v 'boot/grub/stage2_eltorito' | xargs -I{} md5sum "{}" > ../md5sum.txt
 
 cat > md5sum.txt << EOF
 This file contains the list of md5 checksums of all files on this medium.

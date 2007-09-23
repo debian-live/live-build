@@ -30,6 +30,7 @@ Read_conffile config/bootstrap
 Read_conffile config/chroot
 Read_conffile config/binary
 Read_conffile config/source
+Read_conffile "${LH_CONFIG}"
 Set_defaults
 
 if [ "${LH_MEMTEST}" = "disabled" ]
@@ -60,11 +61,12 @@ fi
 if [ "${LH_CHROOT_BUILD}" = "enabled" ]
 then
 
-	if [ -f chroot/usr/sbin/grub ] && [ ! -d chroot/boot/grub ]
+	if [ -f chroot/usr/sbin/grub ] && [ ! -f chroot/boot/grub/menu.lst ]
 	then
 		GRUB="yes"
 
 		mkdir -p chroot/boot/grub
+		touch chroot/boot/grub/menu.lst
 	fi
 fi
 
