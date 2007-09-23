@@ -1,7 +1,7 @@
 # /usr/share/make-live/lists/gnome-full - package list for make-live(1)
 
 # Minimal
-eject sudo
+eject file sudo vim-tiny
 
 # Standard
 console-common locales
@@ -9,4 +9,4 @@ console-common locales
 # GNOME Full
 gdm gnome
 
-x-window-system-core xserver-xorg-input-all xserver-xorg-video-all xdebconfigurator
+x-window-system-core

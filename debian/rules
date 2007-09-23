@@ -4,7 +4,7 @@
 #export DH_VERBOSE=1
 
 upstream: # Needs svn
-	cd .. && svn co svn://live.debian.net/live-package || exit 0
+	cd .. && svn co svn://svn.debian.org/debian-live/dists/trunk/live-package || exit 0
 	find . -type d -name .svn -exec rm -rf {} \; || exit 0
 
 build:

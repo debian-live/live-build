@@ -1,13 +1,13 @@
 # /usr/share/make-live/lists/x11-core - package list for make-live(1)
 
 # Minimal
-eject sudo
+eject file sudo vim-tiny
 
 # Standard
 console-common locales
 
 # X11
-wdm x-window-system-core xserver-xorg-input-all xserver-xorg-video-all xdebconfigurator
+wdm x-window-system-core
 
 # GNUstep
 gnustep gnumail.app talksoup.app viewpdf.app wmaker gnustep-icons

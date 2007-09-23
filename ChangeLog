@@ -1,3 +1,17 @@
+2007-01-16 Daniel Baumann <daniel@debian.org>
+
+	* Switched default distribution back to unstable, as unstable is usable
+	  again from the kernel point of view.
+	* Added file to the minimal package list.
+
+2007-01-04 Daniel Baumann <daniel@debian.org>
+
+	* Added workaround for new xorg packages by including
+	  xserver-xorg-input-all and xserver-xorg-video-all in all X11 package
+	  lists. See #405639 for more information.
+	* Added xdebconfigurator to all X11 package lists.
+	* Adding workaround for initrd backup files.
+
 2006-11-05 Daniel Baumann <daniel@debian.org>
 
 	* Applied patch from Markus Bauer <bauer-markus@web.de>:

@@ -1,11 +1,11 @@
-live-package (0.99.14-4) testing; urgency=medium
+live-package (0.99.15-1) unstable; urgency=low
 
-  * 02defaults.sh: Updated kernel flavours to match etch.
-  * 14chroot.sh: Removed xorg hack, not needed in etch.
-  * 14chroot.sh: Fixed misspelling of aptitude.
-  * main.sh: Updated release codenames to match etch.
+  * New upstream release:
+    - switched default distribution back to unstable, as unstable is usable
+      again from the kernel point of view (Closes: #400457).
+    - added file to the minimal package list (Closes: #400485).
 
- -- Daniel Baumann <daniel@debian.org>  Thu,  8 Mar 2007 10:55:00 +0100
+ -- Daniel Baumann <daniel@debian.org>  Tue, 16 Jan 2007 21:24:00 +0100
 
 live-package (0.99.14-3) unstable; urgency=high
 

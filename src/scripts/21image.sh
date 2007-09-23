@@ -215,20 +215,17 @@ Syslinux ()
 
 Linuximage ()
 {
-	# Removing initrd backup files
-	rm -f "${LIVE_CHROOT}"/boot/initrd*bak*
-
 	case "${1}" in
 		iso)
 			# Copy linux-image
 			if [ "${LIVE_FLAVOUR}" = "minimal" ]
 			then
-				mv "${LIVE_CHROOT}"/boot/vmlinuz-* "${LIVE_ROOT}"/binary/isolinux/vmlinuz
-				mv "${LIVE_CHROOT}"/boot/initrd.img-* "${LIVE_ROOT}"/binary/isolinux/initrd.gz
+				mv "${LIVE_CHROOT}"/boot/vmlinuz* "${LIVE_ROOT}"/binary/isolinux/vmlinuz
+				mv "${LIVE_CHROOT}"/boot/initrd.img* "${LIVE_ROOT}"/binary/isolinux/initrd.gz
 				rm -f "${LIVE_CHROOT}"/vmlinuz "${LIVE_CHROOT}"/initrd.img
 			else
-				cp "${LIVE_CHROOT}"/boot/vmlinuz-* "${LIVE_ROOT}"/binary/isolinux/vmlinuz
-				cp "${LIVE_CHROOT}"/boot/initrd.img-* "${LIVE_ROOT}"/binary/isolinux/initrd.gz
+				cp "${LIVE_CHROOT}"/boot/vmlinuz* "${LIVE_ROOT}"/binary/isolinux/vmlinuz
+				cp "${LIVE_CHROOT}"/boot/initrd.img* "${LIVE_ROOT}"/binary/isolinux/initrd.gz
 			fi
 			;;
 
@@ -236,10 +233,10 @@ Linuximage ()
 			# Copy linux-image
 			if [ "${LIVE_FLAVOUR}" = "minimal" ]
 			then
-				mv "${LIVE_ROOT}"/chroot/boot/vmlinuz-* "${LIVE_ROOT}"/tftpboot/vmlinuz
-				mv "${LIVE_ROOT}"/chroot/boot/initrd.img-* "${LIVE_ROOT}"/tftpboot/initrd.gz
+				mv "${LIVE_ROOT}"/chroot/boot/vmlinuz* "${LIVE_ROOT}"/tftpboot/vmlinuz
+				mv "${LIVE_ROOT}"/chroot/boot/initrd.img* "${LIVE_ROOT}"/tftpboot/initrd.gz
 			else
-				cp "${LIVE_ROOT}"/chroot/boot/vmlinuz-* "${LIVE_ROOT}"/tftpboot/vmlinuz
+				cp "${LIVE_ROOT}"/chroot/boot/vmlinuz* "${LIVE_ROOT}"/tftpboot/vmlinuz
 				cp "${LIVE_ROOT}"/chroot/boot/initrd.img-* "${LIVE_ROOT}"/tftpboot/initrd.gz
 			fi
 			;;

@@ -53,7 +53,7 @@ Defaults ()
 	# Set debian distribution
 	if [ -z "${LIVE_DISTRIBUTION}" ]
 	then
-		LIVE_DISTRIBUTION="testing"
+		LIVE_DISTRIBUTION="unstable"
 	fi
 
 	if [ "${LIVE_DISTRIBUTION}" = "experimental" ]
@@ -86,7 +86,13 @@ Defaults ()
 				;;
 
 			amd64)
-				LIVE_KERNEL="amd64"
+				if [ "${LIVE_DISTRIBUTION}" = "unstable" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_UNSTABLE}" ] || \
+				   [ "${LIVE_DISTRIBUTION}" = "testing" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_TESTING}" ]
+				then
+					LIVE_KERNEL="amd64"
+				else
+					LIVE_KERNEL="amd64-generic"
+				fi
 				;;
 
 			arm)
@@ -99,7 +105,8 @@ Defaults ()
 				;;
 
 			i386)
-				if [ "${LIVE_DISTRIBUTION}" = "oldstable" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_OLDSTABLE}" ]
+				if [ "${LIVE_DISTRIBUTION}" = "oldstable" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_OLDSTABLE}" ] || \
+				   [ "${LIVE_DISTRIBUTION}" = "stable" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_STABLE}" ]
 				then
 					LIVE_KERNEL="386"
 				else
