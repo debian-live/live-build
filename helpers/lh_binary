@@ -23,6 +23,7 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 Echo_debug "Init ${PROGRAM}"
+Breakpoint "binary: Init"
 
 # Preparing root filesystem
 lh_binary_chroot "${@}"

@@ -1,4 +1,4 @@
-.TH LH_BOOTSTRAP 1 "2007\-04\-02" "1.0~a4" "live\-helper"
+.TH LH_BOOTSTRAP 1 "2007\-04\-09" "1.0~a5" "live\-helper"
 
 .SH NAME
 lh_bootstrap \- meta-helper for lh_bootstrap_*
@@ -8,17 +8,6 @@ lh_bootstrap \- meta-helper for lh_bootstrap_*
 
 .SH DESCRIPTION
 lh_bootstrap is a meta-helper. It calls all necessary helpers to complete the bootstrap stage.
-
-.SH CONFIGURATION FILE
-lh_bootstrap reads config/common if available. See ENVIRONMENT for the correct environment variables to use.
-
-.SH ENVIRONMENT
-lh_bootstrap respects the following environment variables if available, otherwise uses default values for it.
-.IP "\fI$LH_BOOTSTRAP\fR" 4
-select the bootstrap program (Default: cdebootstrap)
-
-.SH OPTIONS
-lh_bootstrap has no options (FIXME).
 
 .SH BOOTSTRAP HELPERS
 Here is the complete list of available bootstrap helper commands. See their man pages for additional documentation.

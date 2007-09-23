@@ -22,10 +22,16 @@ USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
 
+Echo_debug "Init ${PROGRAM}"
+
 # Reading configuration files
+Read_conffile config/bootstrap
+Read_conffile config/chroot
 Read_conffile config/common
 Read_conffile config/image
 Set_defaults
+
+Breakpoint "source_iso: Init"
 
 if [ "${LIVE_SOURCE}" = "disabled" ]
 then
