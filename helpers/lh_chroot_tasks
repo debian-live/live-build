@@ -46,7 +46,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ -n "${LIVE_TASKS}" ]
+if [ -n "${LIVE_TASKS}" ] && [ "${LIVE_TASKS}" != "none" ]
 then
 	# Restoring cache
 	Restore_cache cache/packages_tasks

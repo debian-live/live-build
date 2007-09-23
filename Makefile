@@ -49,6 +49,9 @@ install: test
 		done; \
 	done
 
+	# Installing logfile
+	mkdir -p $(DESTDIR)/var/log
+
 uninstall:
 	# Uninstalling executables
 	for HELPER in helpers/*; \
@@ -85,19 +88,22 @@ uninstall:
 		done; \
 	done
 
+	# Uninstalling logfile
+	rm -f $(DESTDIR)/var/log/live*
+
 update:
 	set -e; for MANPAGE in manpages/*.de.* manpages/*.en.*; \
 	do \
-		sed -i	-e 's/2007\\-05\\-14/2007\\-05\\-21/' \
-			-e 's/14.05.2007/21.05.2007/' \
-			-e 's/1.0~a10/1.0~a11/' \
+		sed -i	-e 's/2007\\-05\\-21/2007\\-05\\-28/' \
+			-e 's/21.05.2007/28.05.2007/' \
+			-e 's/1.0~a11/1.0~a12/' \
 		$$MANPAGE; \
 	done
 
-	sed -i -e 's/1.0~a10/1.0~a11/' functions/common.sh
-
-	sed -i -e 's/1.0~a10/1.0~a11/' examples/cron/etch.sh
-	sed -i -e 's/1.0~a10/1.0~a11/' examples/cron/etch+beryl.sh
+	set -e; for SCRIPT in functions/common.sh examples/cron/etch.sh examples/cron/etch+beryl.sh; \
+	do \
+		sed -i -e 's/1.0~a11/1.0~a12/' $$SCRIPT; \
+	done
 
 clean:
 

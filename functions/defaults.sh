@@ -60,12 +60,6 @@ Set_defaults ()
 		fi
 	fi
 
-	# Setting apt indices
-	if [ -z "${LIVE_BINARY_INDICES}" ]
-	then
-		LIVE_BINARY_INDICES="enabled"
-	fi
-
 	# Setting apt pdiffs
 	if [ -z "${LH_APT_PDIFFS}" ]
 	then
@@ -102,17 +96,14 @@ Set_defaults ()
 			;;
 
 			ubuntu)
-				if [ -x "/usr/sbin/debootstrap" ]
+				if [ -x "/usr/bin/cdebootstrap" ] && [ -d /usr/share/cdebootstrap/generic-ubuntu ]
 				then
-					if [ -f /usr/lib/debootstrap/scripts/feisty ]
-					then
-						LH_BOOTSTRAP="debootstrap"
-					else
-						echo "E: Your version of debootstrap does not support ubuntu."
-						exit 1
-					fi
+					LH_BOOTSTRAP="cdebootstrap"
+				elif [ -x "/usr/sbin/debootstrap" ] && [ -f /usr/lib/debootstrap/scripts/feisty ]
+				then
+					LH_BOOTSTRAP="debootstrap"
 				else
-					echo "E: You need to install debootstrap from Ubuntu in order to bootstrap ubuntu."
+					echo "E: Your version of debootstrap or cdebootstrap is outdated and does not support ubuntu."
 					exit 1
 				fi
 				;;
@@ -141,14 +132,14 @@ Set_defaults ()
 		LH_DEBCONF_FRONTEND="noninteractive"
 	fi
 
-	if [ -z "${LH_DEBCONF_PRIORITY}" ]
-	then
-		LH_DEBCONF_PRIORITY="critical"
-	fi
-
 	if [ -z "${LH_DEBCONF_NOWARNINGS}" ]
 	then
 		LH_DEBCONF_NOWARNINGS="yes"
+	fi
+
+	if [ -z "${LH_DEBCONF_PRIORITY}" ]
+	then
+		LH_DEBCONF_PRIORITY="critical"
 	fi
 
 	# Setting genisoimage
@@ -165,10 +156,21 @@ Set_defaults ()
 		esac
 	fi
 
+	# Setting initramfs hook
+	if [ -z "${LH_INITRAMFS}" ]
+	then
+		if [ "${LIVE_DISTRIBUTION}" = "etch" ]
+		then
+			LH_INITRAMFS="casper"
+		else
+			LH_INITRAMFS="live-initramfs"
+		fi
+	fi
+
 	# Setting losetup
 	if [ -z "${LH_LOSETUP}" ] || [ ! -x "${LH_LOSETUP}" ]
 	then
-		# Check for loop-aes-utils divertion
+		# Workaround for loop-aes-utils divertion
 		if [ -x /sbin/losetup.orig ]
 		then
 			LH_LOSETUP="losetup.orig"
@@ -180,21 +182,17 @@ Set_defaults ()
 		fi
 	fi
 
+	# If we are root, disable root command
+	if [ "`id -u`" = "0" ]
+	then
+		# FIXME: this is disabled until considered save
+		LIVE_ROOT_COMMAND=""
+	fi
+
 	# Setting tasksel
 	if [ -z "${LH_TASKSEL}" ]
 	then
 		LH_TASKSEL="aptitude"
-	fi
-
-	# Setting initramfs generator
-	if [ -z "${LH_INITRAMFS}" ]
-	then
-		if [ "${LIVE_DISTRIBUTION}" = "etch" ]
-		then
-			LH_INITRAMFS="casper"
-		else
-			LH_INITRAMFS="live-initramfs"
-		fi
 	fi
 
 	# Setting root directory
@@ -249,12 +247,6 @@ Set_defaults ()
 		LH_VERBOSE="disabled"
 	fi
 
-	# If we are root, disable root command
-	if [ "`id -u`" = "0" ]
-	then
-		LIVE_ROOT_COMMAND=""
-	fi
-
 	## config/bootstrap
 
 	# Setting architecture value
@@ -264,7 +256,8 @@ Set_defaults ()
 		then
 			LIVE_ARCHITECTURE="`dpkg --print-architecture`"
 		else
-			echo "E: Can't process file /usr/bin/dpkg (FIXME)"
+			echo "W: Can't process file /usr/bin/dpkg, setting architecture to i386"
+			LIVE_ARCHITECTURE="i386"
 		fi
 	fi
 
@@ -363,13 +356,27 @@ Set_defaults ()
 
 	## config/chroot
 
+	# Setting chroot filesystem
+	if [ -z "${LIVE_CHROOT_FILESYSTEM}" ]
+	then
+		LIVE_CHROOT_FILESYSTEM="squashfs"
+	fi
+
+	# LIVE_HOOKS
+
 	# Setting interactive shell/X11/Xnest
 	if [ -z "${LIVE_INTERACTIVE}" ]
 	then
 		LIVE_INTERACTIVE="disabled"
 	fi
 
-	# Setting kernel flavour string
+	# Setting keyring packages
+	# LIVE_KEYRING_PACKAGES
+
+	# Setting language string
+	# LIVE_LANGUAGE
+
+	# Setting linux flavour string
 	if [ -z "${LIVE_LINUX_FLAVOURS}" ]
 	then
 		case "${LIVE_ARCHITECTURE}" in
@@ -431,6 +438,7 @@ Set_defaults ()
 				case "${LH_MODE}" in
 					debian)
 						LIVE_LINUX_FLAVOURS="sparc32"
+						# FIXME: needs update after etch
 						;;
 
 					ubuntu)
@@ -445,7 +453,7 @@ Set_defaults ()
 		esac
 	fi
 
-	# Set kernel packages
+	# Set linux packages
 	if [ -z "${LIVE_LINUX_PACKAGES}" ]
 	then
 		case "${LH_MODE}" in
@@ -463,15 +471,6 @@ Set_defaults ()
 			LIVE_LINUX_PACKAGES="${LIVE_LINUX_PACKAGES} loop-aes-modules-2.6"
 		fi
 	fi
-
-	# Setting keyring packages
-	# LIVE_KEYRING_PACKAGES
-
-	# Setting language string
-	# LIVE_LANGUAGE
-
-	# Setting tasks
-	# LIVE_TASKS
 
 	# Setting packages string
 	# LIVE_PACKAGES
@@ -510,7 +509,8 @@ Set_defaults ()
 	LIVE_PACKAGES_LISTS="`echo ${LIVE_PACKAGES_LISTS} | sed -e 's/  //g'`"
 	LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/  //g'`"
 
-	# LIVE_HOOKS
+	# Setting tasks
+	# LIVE_TASKS
 
 	# Setting security updates option
 	if [ -z "${LIVE_SECURITY}" ]
@@ -530,19 +530,48 @@ Set_defaults ()
 		LIVE_SYSVINIT="disabled"
 	fi
 
-	## config/image
+	## config/binary
+
+	# Setting image type
+	if [ -z "${LIVE_BINARY_IMAGES}" ]
+	then
+		LIVE_BINARY_IMAGES="iso"
+	fi
+
+	# Setting apt indices
+	if [ -z "${LIVE_BINARY_INDICES}" ]
+	then
+		LIVE_BINARY_INDICES="enabled"
+	fi
 
 	# Setting boot parameters
 	# LIVE_BOOTAPPEND
 
+	# Setting bootloader
+	if [ -z "${LIVE_BOOTLOADER}" ]
+	then
+		case "${LIVE_ARCHITECTURE}" in
+			amd64|i386)
+				LIVE_BOOTLOADER="syslinux"
+				;;
+
+			powerpc)
+				LIVE_BOOTLOADER="yaboot"
+				;;
+		esac
+	fi
+
+	# Setting debian-installer option
+	if [ -z "${LIVE_DEBIAN_INSTALLER}" ]
+	then
+		LIVE_DEBIAN_INSTALLER="disabled"
+	fi
+
 	# Setting encryption
 	# LIVE_ENCRYPTION
 
-	# Setting username
-	if [ -z "${LIVE_USERNAME}" ]
-	then
-		LIVE_USERNAME="user"
-	fi
+	# Setting grub splash
+	# LIVE_GRUB_SPLASH
 
 	# Setting hostname
 	if [ -z "${LIVE_HOSTNAME}" ]
@@ -558,34 +587,30 @@ Set_defaults ()
 		esac
 	fi
 
-	# Setting image type
-	if [ -z "${LIVE_BINARY_IMAGES}" ]
+	# Setting iso author
+	if [ -z "${LIVE_ISO_APPLICATION}" ]
 	then
-		LIVE_BINARY_IMAGES="iso"
+		case "${LH_MODE}" in
+			debian)
+				LIVE_ISO_APPLICATION="Debian Live"
+				;;
+
+			ubuntu)
+				LIVE_ISO_APPLICATION="Ubuntu Live"
+				;;
+		esac
 	fi
 
-	# Setting image type
-	if [ -z "${LIVE_SOURCE_IMAGES}" ]
+	# Set iso preparer
+	if [ -z "${LIVE_ISO_PREPARER}" ]
 	then
-		LIVE_SOURCE_IMAGES="generic"
+		LIVE_ISO_PREPARER="live-helper \${VERSION}; http://packages.qa.debian.org/live-helper"
 	fi
 
-	# Setting chroot filesystem
-	if [ -z "${LIVE_CHROOT_FILESYSTEM}" ]
+	# Set iso publisher
+	if [ -z "${LIVE_ISO_PUBLISHER}" ]
 	then
-		LIVE_CHROOT_FILESYSTEM="squashfs"
-	fi
-
-	# Setting memtest option
-	if [ -z "${LIVE_MEMTEST}" ]
-	then
-		LIVE_MEMTEST="memtest86+"
-	fi
-
-	# Setting debian-installer option
-	if [ -z "${LIVE_DEBIAN_INSTALLER}" ]
-	then
-		LIVE_DEBIAN_INSTALLER="disabled"
+		LIVE_ISO_PUBLISHER="Debian Live project; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org"
 	fi
 
 	# Setting iso volume
@@ -593,19 +618,19 @@ Set_defaults ()
 	then
 		case "${LH_MODE}" in
 			debian)
-				LIVE_ISO_VOLUME="Debian Live \`date +%Y%m%d\`"
+				LIVE_ISO_VOLUME="Debian Live \`date +%Y%m%d-%H:%M\`"
 				;;
 
 			ubuntu)
-				LIVE_ISO_VOLUME="Ubuntu Live \`date +%Y%m%d\`"
+				LIVE_ISO_VOLUME="Ubuntu Live \`date +%Y%m%d-%H:%M\`"
 				;;
 		esac
 	fi
 
-	# Setting netboot server address
-	if [ -z "${LIVE_NET_SERVER}" ]
+	# Setting memtest option
+	if [ -z "${LIVE_MEMTEST}" ]
 	then
-		LIVE_NET_SERVER="192.168.1.1"
+		LIVE_MEMTEST="memtest86+"
 	fi
 
 	# Setting netboot server path
@@ -622,29 +647,32 @@ Set_defaults ()
 		esac
 	fi
 
+	# Setting netboot server address
+	if [ -z "${LIVE_NET_SERVER}" ]
+	then
+		LIVE_NET_SERVER="192.168.1.1"
+	fi
+
+	# Setting syslinux splash
+	# LIVE_SYSLINUX_SPLASH
+
+	# Setting username
+	if [ -z "${LIVE_USERNAME}" ]
+	then
+		LIVE_USERNAME="user"
+	fi
+
+	## config/source
+
 	# Setting source option
 	if [ -z "${LIVE_SOURCE}" ]
 	then
 		LIVE_SOURCE="disabled"
 	fi
 
-	# Setting grub
-	if [ -z "${LIVE_BOOTLOADER}" ]
+	# Setting image type
+	if [ -z "${LIVE_SOURCE_IMAGES}" ]
 	then
-		case "${LIVE_ARCHITECTURE}" in
-			i386)
-				LIVE_BOOTLOADER="syslinux"
-				;;
-
-			powerpc)
-				LIVE_BOOTLOADER="yaboot"
-				;;
-		esac
+		LIVE_SOURCE_IMAGES="generic"
 	fi
-
-	# Setting grub splash
-	# LIVE_GRUB_SPLASH
-
-	# Setting syslinux splash
-	# LIVE_SYSLINUX_SPLASH
 }

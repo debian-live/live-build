@@ -4,9 +4,6 @@ TODO list for live-helper
 This file lists only outstanding tasks. Any additions/comments/questions and
 help is welcome. Write to <debian-live-devel@lists.alioth.debian.org>.
 
-1.0~a12-1:
-  * reordering content of configuration files
-
 ALPHA series:
 
 FIXME
@@ -16,9 +13,9 @@ FIXME
   * yaboot (powerpc) boot support
   * grub (i386/amd64) boot support on usb* binary images
   * grub (i386/amd64) boot support on net binary images
-  * multi-binary builds in one shot
+  * multi-{binary,architecture,distribution} builds in one shot
   * vmlinu[xz]
-  * breakpoints (yes/no/all/type)
+  * breakpoints (yes/no/all/type: soft ->interaction to stop/hard ->interaction to continue)
   * check unset variables
 
 ADDME
