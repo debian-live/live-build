@@ -11,7 +11,7 @@ set -e
 
 Arguments ()
 {
-	ARGUMENTS="`getopt --longoptions breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options c:huv --shell sh -- "${@}"`"
+	ARGUMENTS="$(getopt --longoptions breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options c:huv --shell sh -- "${@}")"
 
 	if [ "${?}" != "0" ]
 	then

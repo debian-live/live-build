@@ -54,10 +54,10 @@ Create_lockfile .lock
 
 mkdir -p binary/.disk
 
-ARCHITECTURE="`echo ${LH_ARCHITECTURE} | sed -e 's# #/#g'`"
-DISTRIBUTION="`echo ${LH_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]'`"
-DISTRIBUTION="${DISTRIBUTION}`echo ${LH_DISTRIBUTION} | cut -b 2-`"
-eval VERSION="$`echo VERSION_${LH_DISTRIBUTION}`"
+ARCHITECTURE="$(echo ${LH_ARCHITECTURE} | sed -e 's# #/#g')"
+DISTRIBUTION="$(echo ${LH_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]')"
+DISTRIBUTION="${DISTRIBUTION}$(echo ${LH_DISTRIBUTION} | cut -b 2-)"
+eval VERSION="$$(echo VERSION_${LH_DISTRIBUTION})"
 
 if [ "${LH_DISTRIBUTION}" != "etch" ]
 then
@@ -74,7 +74,7 @@ case "${LH_MODE}" in
 
 				echo "full_cd" > binary/.disk/cd_type
 
-				echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} CD Binary `date +%Y%m%d-%H:%M`" > binary/.disk/info
+				echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} CD Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
 
 				cp "${LH_BASE}"/data/debian-cd/${LH_DISTRIBUTION}/${LH_ARCHITECTURE}_udeb_include binary/.disk/udeb_include
 				;;
@@ -86,7 +86,7 @@ case "${LH_MODE}" in
 
 				echo "not_complete" > binary/.disk/cd_type
 
-				echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} NETINST Binary `date +%Y%m%d-%H:%M`" > binary/.disk/info
+				echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} NETINST Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
 
 				cp "${LH_BASE}"/data/debian-cd/${LH_DISTRIBUTION}/${LH_ARCHITECTURE}_netinst_udeb_include binary/.disk/udeb_include
 
@@ -101,20 +101,20 @@ case "${LH_MODE}" in
 
 				echo "not_complete" > binary/.disk/cd_type
 
-				echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} BC Binary `date +%Y%m%d-%H:%M`" > binary/.disk/info
+				echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} BC Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
 
 				cp "${LH_BASE}"/data/debian-cd/${LH_DISTRIBUTION}/${LH_ARCHITECTURE}_businesscard_udeb_include binary/.disk/udeb_include
 				;;
 
 			disabled)
-				echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} LIVE Binary `date +%Y%m%d-%H:%M`" > binary/.disk/info
+				echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} LIVE Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
 				;;
 		esac
 		;;
 
 	ubuntu)
 		# FIXME
-		echo "Ubuntu Linux ${VERSION} \"${DISTRIBUTION}\" - Unofficial ${ARCHITECTURE} LIVE/NETINST Binary `date +%Y%m%d-%H:%M`" > binary/.disk/info
+		echo "Ubuntu Linux ${VERSION} \"${DISTRIBUTION}\" - Unofficial ${ARCHITECTURE} LIVE/NETINST Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
 		# Ubuntu 7.04 "Feisty Fawn" - Release i386 (20070418)
 		;;
 esac

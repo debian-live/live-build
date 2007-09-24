@@ -89,7 +89,7 @@ then
 
 		if [ -n "${LH_ROOT_COMMAND}" ]
 		then
-			${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` chroot
+			${LH_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
 		fi
 
 		# Removing old cache
@@ -109,7 +109,7 @@ then
 
 	if [ -n "${LH_ROOT_COMMAND}" ]
 	then
-		${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` chroot
+		${LH_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
 	fi
 
 	# Removing bootstrap cache

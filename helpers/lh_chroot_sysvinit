@@ -52,7 +52,7 @@ then
 	# Disable all
 	for FILE in chroot/etc/init.d/*
 	do
-		Chroot "update-rc.d -f `basename ${FILE}` remove"
+		Chroot "update-rc.d -f $(basename ${FILE}) remove"
 	done
 
 	# Re-enable all required (taken from -f standard chroot)

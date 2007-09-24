@@ -8,7 +8,7 @@ PACKAGES="live-helper live-initramfs"
 TEMPDIR="/srv/tmp/manpages"
 SERVER="/srv/debian-live/www/other/manpages"
 
-DATE_START="`date -R`"
+DATE_START="$(date -R)"
 
 # Checking lock file
 if [ -f "${SERVER}"/lock ]
@@ -29,7 +29,7 @@ trap "test -f ${SERVER}/lock && rm -f ${SERVER}/lock; exit 0" 0 1 2 3 9 15
 # Creating lock file
 echo "${DATE_START}" > "${SERVER}"/lock
 
-echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: begin manpage build." >> /var/log/live
+echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper: begin manpage build." >> /var/log/live
 
 # Remove old manpages
 rm -f "${SERVER}"/*.html
@@ -66,7 +66,7 @@ do
 			    -e 's#HREF="../man8/#HREF="#g' \
 			    -e 's#HREF="../man9/#HREF="#g' \
 			    -e 's#/cgi-bin/man/man2html#http://packages.debian.org/man2html#' \
-			> "${SERVER}"/`basename ${MANPAGE}`.html
+			> "${SERVER}"/$(basename ${MANPAGE}).html
 	done
 
 	# Removing sources
@@ -82,7 +82,7 @@ do
 	do
 		if [ -f "${MANPAGE}" ]
 		then
-			ln -s `basename ${MANPAGE}` "${SERVER}"/`basename ${MANPAGE} .en.${NUMBER}.html`.${NUMBER}.html
+			ln -s $(basename ${MANPAGE}) "${SERVER}"/$(basename ${MANPAGE} .en.${NUMBER}.html).${NUMBER}.html
 		fi
 	done
 done
@@ -90,10 +90,10 @@ done
 # Writing timestamp
 cat > "${SERVER}"/LAST_BUILD << EOF
 Last run begin: ${DATE_START}
-Last run end:   `date -R`
+Last run end:   $(date -R)
 EOF
 
 # Removing build directory
 rm -rf "${TEMPDIR}"
 
-echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: end manpage build." >> /var/log/live
+echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper: end manpage build." >> /var/log/live

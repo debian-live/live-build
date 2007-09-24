@@ -18,7 +18,7 @@ Set_defaults ()
 	then
 		if [ -x /usr/bin/lsb_release ]
 		then
-			case "`lsb_release --short --id`" in
+			case "$(lsb_release --short --id)" in
 				Debian)
 					LH_MODE="debian"
 					;;
@@ -102,7 +102,7 @@ Set_defaults ()
 	LH_APT_SECURE="${LH_APT_SECURE:-enabled}"
 
 	# Setting bootstrap program
-	if [ -z "${LH_BOOTSTRAP}" ] || [ ! -x "`which ${LH_BOOTSTRAP}`" ]
+	if [ -z "${LH_BOOTSTRAP}" ] || [ ! -x "$(which ${LH_BOOTSTRAP})" ]
 	then
 		case "${LH_MODE}" in
 			debian|debian-edu)
@@ -211,7 +211,7 @@ Set_defaults ()
 		fi
 	fi
 
-	if [ "`id -u`" = "0" ]
+	if [ "$(id -u)" = "0" ]
 	then
 		# If we are root, disable root command
 		LH_ROOT_COMMAND=""
@@ -271,7 +271,7 @@ Set_defaults ()
 	then
 		if [ -x "/usr/bin/dpkg" ]
 		then
-			LH_ARCHITECTURE="`dpkg --print-architecture`"
+			LH_ARCHITECTURE="$(dpkg --print-architecture)"
 		else
 			echo "W: Can't process file /usr/bin/dpkg, setting architecture to i386"
 			LH_ARCHITECTURE="i386"
@@ -570,24 +570,24 @@ Set_defaults ()
 				;;
 
 			gnome-desktop)
-				LH_PACKAGES_LISTS="`echo ${LH_PACKAGES_LISTS} | sed -e 's/gnome-desktop//'` standard-x11"
-				LH_TASKS="`echo ${LH_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/gnome-desktop//' -e 's/desktop//'` standard laptop gnome-desktop desktop"
+				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's/gnome-desktop//') standard-x11"
+				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/gnome-desktop//' -e 's/desktop//') standard laptop gnome-desktop desktop"
 				;;
 
 			kde-desktop)
-				LH_PACKAGES_LISTS="`echo ${LH_PACKAGES_LISTS} | sed -e 's/kde-desktop//'` standard-x11"
-				LH_TASKS="`echo ${LH_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/kde-desktop//' -e 's/desktop//'` standard laptop kde-desktop desktop"
+				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's/kde-desktop//') standard-x11"
+				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/kde-desktop//' -e 's/desktop//') standard laptop kde-desktop desktop"
 				;;
 
 			xfce-desktop)
-				LH_PACKAGES_LISTS="`echo ${LH_PACKAGES_LISTS} | sed -e 's/xfce-desktop//'` standard-x11"
-				LH_TASKS="`echo ${LH_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/xfce-desktop//' -e 's/desktop//'` standard laptop xfce-desktop desktop"
+				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's/xfce-desktop//') standard-x11"
+				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/xfce-desktop//' -e 's/desktop//') standard laptop xfce-desktop desktop"
 				;;
 		esac
 	done
 
-	LH_PACKAGES_LISTS="`echo ${LH_PACKAGES_LISTS} | sed -e 's/  //g'`"
-	LH_TASKS="`echo ${LH_TASKS} | sed -e 's/  //g'`"
+	LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's/  //g')"
+	LH_TASKS="$(echo ${LH_TASKS} | sed -e 's/  //g')"
 
 	# Setting tasks
 	# LH_TASKS
@@ -690,15 +690,15 @@ Set_defaults ()
 	then
 		case "${LH_MODE}" in
 			debian)
-				LH_ISO_VOLUME="Debian Live \`date +%Y%m%d-%H:%M\`"
+				LH_ISO_VOLUME="Debian Live \$(date +%Y%m%d-%H:%M)"
 				;;
 
 			debian-edu)
-				LH_ISO_VOLUME="Debian Edu Live \`date +%Y%m%d-%H:%M\`"
+				LH_ISO_VOLUME="Debian Edu Live \$(date +%Y%m%d-%H:%M)"
 				;;
 
 			ubuntu)
-				LH_ISO_VOLUME="Ubuntu Live \`date +%Y%m%d-%H:%M\`"
+				LH_ISO_VOLUME="Ubuntu Live \$(date +%Y%m%d-%H:%M)"
 				;;
 		esac
 	fi

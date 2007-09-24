@@ -12,7 +12,7 @@ set -e
 Check_stagefile ()
 {
 	FILE="${1}"
-	NAME="`basename ${1}`"
+	NAME="$(basename ${1})"
 
 	# Checking stage file
 	if [ -f "${FILE}" ]
@@ -33,7 +33,7 @@ Check_stagefile ()
 Create_stagefile ()
 {
 	FILE="${1}"
-	DIRECTORY="`dirname ${1}`"
+	DIRECTORY="$(dirname ${1})"
 
 	# Creating stage directory
 	mkdir -p "${DIRECTORY}"
@@ -44,9 +44,9 @@ Create_stagefile ()
 
 Require_stagefile ()
 {
-	NAME="`basename ${0}`"
+	NAME="$(basename ${0})"
 	FILES="${@}"
-	NUMBER="`echo ${@} | wc -w`"
+	NUMBER="$(echo ${@} | wc -w)"
 
 	for FILE in ${FILES}
 	do
@@ -54,7 +54,7 @@ Require_stagefile ()
 		if [ -f ${FILE} ]
 		then
 			CONTINUE="true"
-			NAME="${NAME} `basename ${FILE}`"
+			NAME="${NAME} $(basename ${FILE})"
 		fi
 	done
 

@@ -55,21 +55,21 @@ then
 	for PACKAGESLIST in config/chroot_local-packageslists/*
 	do
 		# Generate package list
-		Expand_packagelist "`basename ${PACKAGESLIST}`" "config/chroot_local-packageslists" "${LH_BASE:-/usr/share/live-helper/lists}/lists" > chroot/root/"`basename ${PACKAGESLIST}`"
+		Expand_packagelist "$(basename ${PACKAGESLIST})" "config/chroot_local-packageslists" "${LH_BASE:-/usr/share/live-helper/lists}/lists" > chroot/root/"$(basename ${PACKAGESLIST})"
 
 		# Installing package list
 		case "${LH_APT}" in
 			apt|apt-get)
-				Chroot "xargs --arg-file=/root/`basename ${PACKAGESLIST}` apt-get install --yes"
+				Chroot "xargs --arg-file=/root/$(basename ${PACKAGESLIST}) apt-get install --yes"
 				;;
 
 			aptitude)
-				Chroot "xargs --arg-file=/root/`basename ${PACKAGESLIST}` aptitude install --assume-yes"
+				Chroot "xargs --arg-file=/root/$(basename ${PACKAGESLIST}) aptitude install --assume-yes"
 				;;
 		esac
 
 		# Removing package list
-		rm -f chroot/root/"`basename ${PACKAGESLIST}`"
+		rm -f chroot/root/"$(basename ${PACKAGESLIST})"
 	done
 
 	# Saving cache

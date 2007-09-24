@@ -35,7 +35,7 @@ else
 	exit 1
 fi
 
-echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: begin daily build." >> /var/log/live
+echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper: begin daily build." >> /var/log/live
 
 for ARCHITECTURE in ${ARCHITECTURES}
 do
@@ -49,13 +49,13 @@ do
 				mkdir -p "${TEMPDIR}"/debian-live
 
 				cd "${TEMPDIR}"/debian-live
-				echo "Begin: `date -R`" > "${TEMPDIR}"/debian-live/log.txt
+				echo "Begin: $(date -R)" > "${TEMPDIR}"/debian-live/log.txt
 
 				# Generating images
 				lh_config -b iso -s tar --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-bootstrap ${MIRROR_BOOTSTRAP} --mirror-bootstrap-security ${MIRROR_BOOTSTRAP_SECURITY} --mirror-binary ${MIRROR_BINARY} --mirror-binary-security ${MIRROR_BINARY_SECURITY} --source enabled ${OPTIONS}
 				lh_build >> "${TEMPDIR}"/debian-live/log.txt 2>&1
 
-				echo "End: `date -R`" >> "${TEMPDIR}"/debian-live/log.txt
+				echo "End: $(date -R)" >> "${TEMPDIR}"/debian-live/log.txt
 			fi
 
 			if [ -f "${TEMPDIR}"/debian-live/binary.iso ] && [ -f "${TEMPDIR}"/debian-live/source.tar ]
@@ -90,13 +90,13 @@ do
 				mkdir -p "${TEMPDIR}"/debian-live
 
 				cd "${TEMPDIR}"/debian-live
-				echo "Begin: `date -R`" > "${TEMPDIR}"/debian-live/log.txt
+				echo "Begin: $(date -R)" > "${TEMPDIR}"/debian-live/log.txt
 
 				# Generating images
 				lh_config -b usb-hdd -s tar --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-bootstrap ${MIRROR_BOOTSTRAP} --mirror-bootstrap-security ${MIRROR_BOOTSTRAP_SECURITY} --mirror-binary ${MIRROR_BINARY} --mirror-binary-security ${MIRROR_BINARY_SECURITY} --source disabled ${OPTIONS}
 				lh_build >> "${TEMPDIR}"/debian-live/log.txt 2>&1
 
-				echo "End: `date -R`" >> "${TEMPDIR}"/debian-live/log.txt
+				echo "End: $(date -R)" >> "${TEMPDIR}"/debian-live/log.txt
 			fi
 
 			if [ -f "${TEMPDIR}"/debian-live/binary.img ]
@@ -151,4 +151,4 @@ done
 rm -f "${DESTDIR}"/"${BUILD}"-builds/current
 ln -s ${DATE} "${DESTDIR}"/"${BUILD}"-builds/current
 
-echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: end daily build." >> /var/log/live
+echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper: end daily build." >> /var/log/live
