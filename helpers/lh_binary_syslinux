@@ -378,15 +378,18 @@ case "${LH_BINARY_IMAGES}" in
 				mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .install)
 			done
 
-			if [ "${LH_ARCHITECTURE}" = "amd64" ] || [ "${LH_ARCHITECTURE}" = "i386" ] || [ "${LH_ARCHITECTURE}" = "powerpc" ]
-			then
-				for FILE in binary/isolinux/*.install.g-i
-				do
-					mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .install.g-i)
-				done
-			else
-				rm -f binary/isolinux/*.install.g-i
-			fi
+			case "${LH_ARCHITECTURE}" in
+				amd64|i386|powerpc)
+					for FILE in binary/isolinux/*.install.g-i
+					do
+						mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .install.g-i)
+					done
+					;;
+
+				*)
+					rm -f binary/isolinux/*.install.g-i
+					;;
+			esac
 		else
 			rm -f binary/isolinux/*.install*
 		fi
