@@ -364,7 +364,12 @@ case "${LH_BINARY_IMAGES}" in
 		esac
 
 		cp -r "${TEMPLATES}"/common/* binary/isolinux
-		cp -r "${TEMPLATES}"/"${LH_LANGUAGE}"/* binary/isolinux
+		if [ -d "${TEMPLATES}"/"${LH_LANGUAGE}" ]
+		then
+			cp -r "${TEMPLATES}"/"${LH_LANGUAGE}"/* binary/isolinux
+		else
+			cp -r "${TEMPLATES}"/en/* binary/isolinux
+		fi
 
 		for FILE in binary/isolinux/*.live
 		do
