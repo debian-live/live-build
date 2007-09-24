@@ -287,7 +287,7 @@ DEFAULT_FLAVOUR="$(echo ${LH_LINUX_FLAVOURS} | awk '{ print $1 }')"
 DEFAULT_KERNEL="$(basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR})"
 DEFAULT_INITRD="initrd.img-$(echo ${DEFAULT_KERNEL} | sed -e 's/vmlinuz-//')"
 
-Syslinux_live_entry "live" "${LH_SYSLINUX_MENU_LH_ENTRY}" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
+Syslinux_live_entry "live" "${LH_SYSLINUX_MENU_LIVE_ENTRY}" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
 Syslinux_live_entry "live-failsafe" "${LH_SYSLINUX_MENU_LIVE_FAILSAFE_ENTRY}" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}" "${FAILSAFE}"
 
 if [ "$(echo ${LH_LINUX_FLAVOURS} | wc -w)" -gt "1" ]
