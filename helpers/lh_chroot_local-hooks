@@ -56,16 +56,16 @@ then
 		cp "${HOOK}" chroot/root
 
 		# Making hook executable
-		if [ ! -x chroot/root/"`basename ${HOOK}`" ]
+		if [ ! -x chroot/root/"$(basename ${HOOK})" ]
 		then
-			chmod +x chroot/root/"`basename ${HOOK}`"
+			chmod +x chroot/root/"$(basename ${HOOK})"
 		fi
 
 		# Executing hook
-		Chroot "/root/`basename ${HOOK}`"
+		Chroot "/root/$(basename ${HOOK})"
 
 		# Removing hook
-		rm -f chroot/root/"`basename ${HOOK}`"
+		rm -f chroot/root/"$(basename ${HOOK})"
 	done
 
 	# Creating stage file

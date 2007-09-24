@@ -54,10 +54,10 @@ Create_lockfile .lock
 
 mkdir -p source/.disk
 
-ARCHITECTURE="`echo ${LH_ARCHITECTURE} | sed -e 's# #/#g'`"
-DISTRIBUTION="`echo ${LH_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]'`"
-DISTRIBUTION="${DISTRIBUTION}`echo ${LH_DISTRIBUTION} | cut -b 2-`"
-eval VERSION="$`echo VERSION_${LH_DISTRIBUTION}`"
+ARCHITECTURE="$(echo ${LH_ARCHITECTURE} | sed -e 's# #/#g')"
+DISTRIBUTION="$(echo ${LH_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]')"
+DISTRIBUTION="${DISTRIBUTION}$(echo ${LH_DISTRIBUTION} | cut -b 2-)"
+eval VERSION="$$(echo VERSION_${LH_DISTRIBUTION})"
 
 case "${LH_MODE}" in
 	debian)
@@ -73,11 +73,11 @@ case "${LH_MODE}" in
 			TYPE="LIVE"
 		fi
 
-		echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} ${TYPE} Source `date +%Y%m%d-%H:%M`" > source/.disk/info
+		echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} ${TYPE} Source $(date +%Y%m%d-%H:%M)" > source/.disk/info
 		;;
 
 	ubuntu)
-		echo "Ubuntu Linux ${VERSION} \"${DISTRIBUTION}\" - Unofficial ${ARCHITECTURE} LIVE/NETINST Source `date +%Y%m%d-%H:%M`" > source/.disk/info
+		echo "Ubuntu Linux ${VERSION} \"${DISTRIBUTION}\" - Unofficial ${ARCHITECTURE} LIVE/NETINST Source $(date +%Y%m%d-%H:%M)" > source/.disk/info
 		;;
 esac
 

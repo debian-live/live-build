@@ -64,7 +64,7 @@ cp -a config source/debian-live
 
 # Create tarball
 cd source
-tar cfz debian-live-config_`date +%Y%m%d.%s`.tar.gz debian-live
+tar cfz debian-live-config_$(date +%Y%m%d.%s).tar.gz debian-live
 cd "${OLDPWD}"
 
 rm -rf source/debian-live/config

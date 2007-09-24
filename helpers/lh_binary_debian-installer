@@ -232,20 +232,20 @@ if [ -d cache/packages_bootstrap ]
 then
 	for FILE in cache/packages_bootstrap/*.deb binary.deb/archives/*.deb
 	do
-		SOURCE="`dpkg -f ${FILE} Source | awk '{ print $1 }'`"
+		SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
 
 		if [ -z "${SOURCE}" ]
 		then
-			SOURCE="`basename ${FILE} | awk -F_ '{ print $1 }'`"
+			SOURCE="$(basename ${FILE} | awk -F_ '{ print $1 }')"
 		fi
 
 		case "${SOURCE}" in
 			lib?*)
-				LETTER="`echo ${SOURCE} | sed 's/\(....\).*/\1/'`"
+				LETTER="$(echo ${SOURCE} | sed 's/\(....\).*/\1/')"
 				;;
 
 			*)
-				LETTER="`echo ${SOURCE} | sed 's/\(.\).*/\1/'`"
+				LETTER="$(echo ${SOURCE} | sed 's/\(.\).*/\1/')"
 				;;
 		esac
 
@@ -265,20 +265,20 @@ if ls ../config/binary_local-debs/*.deb > /dev/null 2>&1
 then
 	for FILE in ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".deb ../config/binary_local-debs/*_all.deb
 	do
-		SOURCE="`dpkg -f ${FILE} Source | awk '{ print $1 }'`"
+		SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
 
 		if [ -z "${SOURCE}" ]
 		then
-			SOURCE="`basename ${FILE} | awk -F_ '{ print $1 }'`"
+			SOURCE="$(basename ${FILE} | awk -F_ '{ print $1 }')"
 		fi
 
 		case "${SOURCE}" in
 			lib?*)
-				LETTER="`echo ${SOURCE} | sed 's/\(....\).*/\1/'`"
+				LETTER="$(echo ${SOURCE} | sed 's/\(....\).*/\1/')"
 				;;
 
 			*)
-				LETTER="`echo ${SOURCE} | sed 's/\(.\).*/\1/'`"
+				LETTER="$(echo ${SOURCE} | sed 's/\(.\).*/\1/')"
 				;;
 		esac
 
@@ -309,15 +309,15 @@ wget ${WGET_OPTIONS} "${LH_MIRROR_BOOTSTRAP}"/dists/"${LH_DISTRIBUTION}"/main/de
 gunzip -c Packages.gz > Packages
 
 # Sorting udebs
-UDEBS="`awk '/Filename: / { print $2 }' Packages`"
+UDEBS="$(awk '/Filename: / { print $2 }' Packages)"
 
 # Downloading udebs
 for UDEB in ${UDEBS}
 do
-	if [ -f ../cache/packages_debian-installer.udeb/"`basename ${UDEB}`" ]
+	if [ -f ../cache/packages_debian-installer.udeb/"$(basename ${UDEB})" ]
 	then
 		# Copying cached udebs
-		cp ../cache/packages_debian-installer.udeb/"`basename ${UDEB}`" ./
+		cp ../cache/packages_debian-installer.udeb/"$(basename ${UDEB})" ./
 	else
 		# Downloading udebs
 		wget ${WGET_OPTIONS} "${LH_MIRROR_BOOTSTRAP}"/${UDEB}
@@ -334,20 +334,20 @@ if ls ../config/binary_local-udebs/*.udeb > /dev/null 2>&1
 then
 	for FILE in ../config/binary_local-udebs/*_"${LH_ARCHITECTURE}".udeb ../config/binary_local-udebs/*_all.udeb
 	do
-		SOURCE="`dpkg -f ${FILE} Source | awk '{ print $1 }'`"
+		SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
 
 		if [ -z "${SOURCE}" ]
 		then
-			SOURCE="`basename ${FILE} | awk -F_ '{ print $1 }'`"
+			SOURCE="$(basename ${FILE} | awk -F_ '{ print $1 }')"
 		fi
 
 		case "${SOURCE}" in
 			lib?*)
-				LETTER="`echo ${SOURCE} | sed 's/\(....\).*/\1/'`"
+				LETTER="$(echo ${SOURCE} | sed 's/\(....\).*/\1/')"
 				;;
 
 			*)
-				LETTER="`echo ${SOURCE} | sed 's/\(.\).*/\1/'`"
+				LETTER="$(echo ${SOURCE} | sed 's/\(.\).*/\1/')"
 				;;
 		esac
 
@@ -358,7 +358,7 @@ then
 		cp "${FILE}" pool/main/"${LETTER}"/"${SOURCE}"
 
 		# Prefere local udebs over downloaded udebs
-		rm -f "`basename ${FILE} | awk -F_ '{ print $1 }'`"_*.udeb
+		rm -f "$(basename ${FILE} | awk -F_ '{ print $1 }')"_*.udeb
 	done
 fi
 
@@ -373,7 +373,7 @@ then
 	cat ../config/binary_debian-installer/udeb_exclude >> exclude
 fi
 
-for EXCLUDE in `cat exclude`
+for EXCLUDE in $(cat exclude)
 do
 	rm -f "${EXCLUDE}"_*.udeb
 done
@@ -391,10 +391,10 @@ fi
 # Moving udebs
 for UDEB in ${UDEBS}
 do
-	if [ -f "`basename ${UDEB}`" ]
+	if [ -f "$(basename ${UDEB})" ]
 	then
-		mkdir -p `dirname ${UDEB}`
-		mv "`basename ${UDEB}`" "`dirname ${UDEB}`"
+		mkdir -p $(dirname ${UDEB})
+		mv "$(basename ${UDEB})" "$(dirname ${UDEB})"
 	fi
 done
 
@@ -417,10 +417,10 @@ apt-ftparchive \
 	-o APT::FTPArchive::Release::Suite="${LH_DISTRIBUTION}" \
 	-o APT::FTPArchive::Release::Version="4.0" \
 	-o APT::FTPArchive::Release::Codename="${LH_DISTRIBUTION}" \
-	-o APT::FTPArchive::Release::Date="`date -R`" \
+	-o APT::FTPArchive::Release::Date="$(date -R)" \
 	-o APT::FTPArchive::Release::Architectures="${LH_ARCHITECTURE}" \
 	-o APT::FTPArchive::Release::Components="main" \
-	-o APT::FTPArchive::Release::Description="Last updated: `date -R`" \
+	-o APT::FTPArchive::Release::Description="Last updated: $(date -R)" \
 release binary/dists/${LH_DISTRIBUTION} > binary/dists/${LH_DISTRIBUTION}/Release
 
 # Creating dist symlinks

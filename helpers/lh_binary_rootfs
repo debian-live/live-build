@@ -84,7 +84,7 @@ do
 
 		if [ -n "${LH_ROOT_COMMAND}" ]
 		then
-			${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` binary
+			${LH_ROOT_COMMAND} chown -R $(whoami):$(whoami) binary
 		fi
 
 		# Creating stage file
@@ -110,8 +110,8 @@ case "${LH_CHROOT_FILESYSTEM}" in
 			rm -f binary/${INITFS}/filesystem.ext2
 		fi
 
-		DU_DIM="`du -ks chroot/chroot | cut -f1`"
-		REAL_DIM="`expr ${DU_DIM} + ${DU_DIM} / 20`" # Just 5% more to be sure, need something more sophistcated here...
+		DU_DIM="$(du -ks chroot/chroot | cut -f1)"
+		REAL_DIM="$(expr ${DU_DIM} + ${DU_DIM} / 20)" # Just 5% more to be sure, need something more sophistcated here...
 
 		case "${LH_CHROOT_BUILD}" in
 			enabled)
@@ -179,7 +179,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 
 		if [ "${LH_PACKAGES_LISTS}" = "minimal" ] || [ "${LH_PACKAGES_LISTS}" = "mini" ]
 		then
-			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -e `ls chroot/boot/${LINUX}* chroot/boot/initrd.img* chroot/${LINUX}* chroot/initrd.img* | sed 's,chroot/,,g'`"
+			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -e $(ls chroot/boot/${LINUX}* chroot/boot/initrd.img* chroot/${LINUX}* chroot/initrd.img* | sed 's,chroot/,,g')"
 		fi
 
 		if [ -f config/binary_rootfs/squashfs.sort ]
@@ -205,7 +205,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 
 		if [ -n "${LH_ROOT_COMMAND}" ]
 		then
-			${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` binary/${INITFS}
+			${LH_ROOT_COMMAND} chown -R $(whoami):$(whoami) binary/${INITFS}
 		fi
 
 		# Saving cache
@@ -228,7 +228,7 @@ do
 
 		if [ -n "${LH_ROOT_COMMAND}" ]
 		then
-			${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` cache/stages_rootfs
+			${LH_ROOT_COMMAND} chown -R $(whoami):$(whoami) cache/stages_rootfs
 		fi
 	fi
 done

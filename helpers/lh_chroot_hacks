@@ -69,7 +69,7 @@ case "${LH_BINARY_IMAGES}" in
 		then
 			mkdir chroot/etc/initramfs-tools
 		fi
-		if [ ! "`grep 'MODULES=netboot' chroot/etc/initramfs-tools/initramfs.conf`" ]
+		if [ ! "$(grep 'MODULES=netboot' chroot/etc/initramfs-tools/initramfs.conf)" ]
 		then
 			# Configuring initramfs for NFS
 cat >> chroot/etc/initramfs-tools/initramfs.conf << EOF
@@ -103,7 +103,7 @@ rm -f chroot/var/lib/dpkg/*-old
 
 if [ -n "${LH_ROOT_COMMAND}" ]
 then
-	${LH_ROOT_COMMAND} chown -R --quiet `whoami`:`whoami` chroot
+	${LH_ROOT_COMMAND} chown -R --quiet $(whoami):$(whoami) chroot
 fi
 
 if [ -d chroot/home/${LH_USERNAME} ]
