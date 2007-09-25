@@ -112,10 +112,16 @@ case "${LH_CHROOT_FILESYSTEM}" in
 
 		DU_DIM="$(du -ks chroot/chroot | cut -f1)"
 		REAL_DIM="$(expr ${DU_DIM} + ${DU_DIM} / 20)" # Just 5% more to be sure, need something more sophistcated here...
+		if [ "${LH_DISTRIBUTION}" = "etch" ]
+		then
+			RESERVED_PERCENTAGE="--reserved-blocks"
+		else
+			RESERVED_PERCENTAGE="--reserved-percentage"
+		fi
 
 		case "${LH_CHROOT_BUILD}" in
 			enabled)
-				Chroot "genext2fs --size-in-blocks=${REAL_DIM} --reserved-blocks=0 --root=chroot filesystem.ext2"
+				Chroot "genext2fs --size-in-blocks=${REAL_DIM} ${RESERVED_PERCENTAGE}=0 --root=chroot filesystem.ext2"
 
 				# Move image
 				mv chroot/filesystem.ext2 binary/${INITFS}
@@ -123,7 +129,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 				;;
 
 			disabled)
-				genext2fs --size-in-blocks=${REAL_DIM} --reserved-blocks=0 --root=chroot binary/${INITFS}/filesystem.ext2
+				genext2fs --size-in-blocks=${REAL_DIM} ${RESERVED_PERCENTAGE}=0 --root=chroot binary/${INITFS}/filesystem.ext2
 				;;
 		esac
 
