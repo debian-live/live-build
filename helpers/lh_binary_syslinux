@@ -354,8 +354,10 @@ case "${LH_BINARY_IMAGES}" in
 
 		# Syslinux templates
 		cp -r "${TEMPLATES}"/common/* binary/isolinux
-		if [ "${LH_SYSLINUX_MENU}" != "disabled" ]
+		if [ "${LH_SYSLINUX_MENU}" = "disabled" ]
 		then
+			cp -r "${TEMPLATES}"/normal/* binary/isolinux
+		else
 			cp -r "${TEMPLATES}"/menu/* binary/isolinux
 		fi
 
@@ -411,7 +413,7 @@ case "${LH_BINARY_IMAGES}" in
 		# Copying menu module
 		if [ "${LH_SYSLINUX_MENU}" != "disabled" ]
 		then
-			MENUPATH="$(grep 'menu.c32' binary/isolinux/isolinux.cfg | sed 's,DEFAULT\s*\(.*menu.c32\)$,\1,g')"
+			MENUPATH="$(grep 'menu.c32' binary/isolinux/header.cfg | sed 's,DEFAULT\s*\(.*menu.c32\)$,\1,g')"
 			MENUMODULE="$(basename ${MENUPATH})"
 
 			mkdir -p binary/isolinux/"$(dirname ${MENUPATH})"
@@ -426,7 +428,7 @@ case "${LH_BINARY_IMAGES}" in
 		else
 			if [ "${LH_SYSLINUX_MENU}" != "disabled" ]
 			then
-				SPLASHPATH="$(grep -i 'MENU BACKGROUND' binary/isolinux/isolinux.cfg | sed 's,MENU\sBACKGROUND\s*\(.*\)$,\1,g')"
+				SPLASHPATH="$(grep -i 'menu background' binary/isolinux/header.cfg | sed 's,menu\sbackground\s*\(.*\)$,\1,g')"
 				if [ ! -e "${LH_SYSLINUX_SPLASH}" ]
 				then
 					Echo_error "${LH_SYSLINUX_SPLASH} doen't exist"
@@ -440,8 +442,8 @@ case "${LH_BINARY_IMAGES}" in
 		fi
 
 		# Configure syslinux templates
-		sed -i -e "s@LINUX_LIVE@${LINUX_LIVE}@" -e "s@LINUX_INSTALL@${LINUX_INSTALL}@" -e "s@MEMTEST@${MEMTEST}@" binary/isolinux/isolinux.cfg
-		sed -i -e "s#LH_BOOTAPPEND_INSTALL#${LH_BOOTAPPEND_INSTALL}#" -e "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" binary/isolinux/isolinux.cfg
+		sed -i -e "s@LINUX_LIVE@${LINUX_LIVE}@" -e "s@LINUX_INSTALL@${LINUX_INSTALL}@" -e "s@MEMTEST@${MEMTEST}@" binary/isolinux/menu.cfg
+		sed -i -e "s#LH_BOOTAPPEND_INSTALL#${LH_BOOTAPPEND_INSTALL}#" -e "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" binary/isolinux/menu.cfg
 		if [ -e binary/isolinux/f1.txt ]
 		then
 			sed -i -e "s/LH_DISTRIBUTION/${LH_DISTRIBUTION}/" -e "s/LH_DATE/$(date +%Y%m%d)/" -e "s/LH_MEDIA/CD-ROM/" binary/isolinux/f1.txt
@@ -465,18 +467,18 @@ case "${LH_BINARY_IMAGES}" in
 
 				mv "${DESTDIR_LIVE}"/vmlinuz-*-${FLAVOUR} "${DESTDIR_LIVE}"/vmlinuz${NUMBER}
 				mv "${DESTDIR_LIVE}"/initrd.img-*-${FLAVOUR} "${DESTDIR_LIVE}"/initrd${NUMBER}.img
-				sed -i -e "s/vmlinuz-.*-${FLAVOUR}$/vmlinuz${NUMBER}/g" -e "s/initrd.img-.*-${FLAVOUR} /initrd${NUMBER}.img /g" binary/isolinux/isolinux.cfg
+				sed -i -e "s/vmlinuz-.*-${FLAVOUR}$/vmlinuz${NUMBER}/g" -e "s/initrd.img-.*-${FLAVOUR} /initrd${NUMBER}.img /g" binary/isolinux/menu.cfg
 			done
 		else
 			mv "${DESTDIR_LIVE}"/vmlinuz-*-${LH_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/vmlinuz
 			mv "${DESTDIR_LIVE}"/initrd.img-*-${LH_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/initrd.img
-			sed -i -e "s/vmlinuz-.*-${LH_LINUX_FLAVOURS}/vmlinuz/g" -e "s/initrd.img-.*-${LH_LINUX_FLAVOURS}/initrd.img/g" binary/isolinux/isolinux.cfg
+			sed -i -e "s/vmlinuz-.*-${LH_LINUX_FLAVOURS}/vmlinuz/g" -e "s/initrd.img-.*-${LH_LINUX_FLAVOURS}/initrd.img/g" binary/isolinux/menu.cfg
 		fi
 
-		sed -i -e "s/LINUX_TIMEOUT/${LH_SYSLINUX_TIMEOUT}/" binary/isolinux/isolinux.cfg
+		sed -i -e "s/LINUX_TIMEOUT/${LH_SYSLINUX_TIMEOUT}/" binary/isolinux/footer.cfg
 
 		# Remove whitespaces
-		sed -i -e 's/\ $//g' binary/isolinux/isolinux.cfg
+		sed -i -e 's/\ $//g' binary/isolinux/*.cfg
 		;;
 
 	net)
