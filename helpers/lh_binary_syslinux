@@ -47,12 +47,7 @@ Require_stagefile .stage/bootstrap
 Check_stagefile .stage/binary_syslinux
 
 # Checking syslinux templates
-if [ "${LH_SYSLINUX_MENU}" = "disabled" ]
-then
-	Check_templates syslinux
-else
-	Check_templates syslinux-menu
-fi
+Check_templates syslinux
 
 # Checking lock file
 Check_lockfile .lock
@@ -363,7 +358,13 @@ case "${LH_BINARY_IMAGES}" in
 				;;
 		esac
 
+		# Syslinux templates
 		cp -r "${TEMPLATES}"/common/* binary/isolinux
+		if [ "${LH_SYSLINUX_MENU}" != "disabled" ]
+		then
+			cp -r "${TEMPLATES}"/menu/* binary/isolinux
+		fi
+
 		if [ -d "${TEMPLATES}"/"${LH_LANGUAGE}" ]
 		then
 			cp -r "${TEMPLATES}"/"${LH_LANGUAGE}"/* binary/isolinux
