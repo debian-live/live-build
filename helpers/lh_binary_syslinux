@@ -83,10 +83,7 @@ Syslinux_memtest_entry ()
 	MEMTEST="${MEMTEST}\nLABEL ${LABEL}\n"
 
 	# Write the menu label if the syslinux menu is being use
-	if [ "${LH_SYSLINUX_MENU}" != "disabled" ]
-	then
-		MEMTEST="${MEMTEST}\tMENU LABEL ${MENULABEL}\n"
-	fi
+	MEMTEST="${MEMTEST}\tMENU LABEL ${MENULABEL}\n"
 
 	MEMTEST="${MEMTEST}\tkernel /${KERNEL}\n"
 	MEMTEST="$(/bin/echo ${MEMTEST} | sed -e 's#//#/#g')"
@@ -111,10 +108,7 @@ Syslinux_live_entry ()
 	LINUX_LIVE="${LINUX_LIVE}\nLABEL ${LABEL}\n"
 
 	# Write the menu label if the syslinux menu is being use
-	if [ "${LH_SYSLINUX_MENU}" != "disabled" ]
-	then
-		LINUX_LIVE="${LINUX_LIVE}\tMENU LABEL ${MENULABEL}\n"
-	fi
+	LINUX_LIVE="${LINUX_LIVE}\tMENU LABEL ${MENULABEL}\n"
 
 	LINUX_LIVE="${LINUX_LIVE}\tkernel /${KERNEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=/${INITRD} boot=${INITFS} LH_BOOTAPPEND_LIVE ${APPEND}\n"
