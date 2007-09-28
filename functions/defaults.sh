@@ -278,6 +278,12 @@ Set_defaults ()
 		fi
 	fi
 
+	# Include packages on base
+	# LH_BOOTSTRAP_INCLUDE
+
+	# Exclude packages on base
+	# LH_BOOTSTRAP_EXCLUDE
+
 	# Setting distribution configuration value
 	# LH_BOOTSTRAP_CONFIG
 
