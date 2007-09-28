@@ -226,7 +226,7 @@ then
 	Grub_install_entry "autogui" "${VMLINUZ_GI}" "${INITRD_GI}" "auto=true priority=critical ${APPEND_GI}"
 fi
 
-LINUX_INSTALL="$(/bin/echo ${LINUX_INSTALL} | sed -e 's/binary//g' -e 's#//#/#g'("
+LINUX_INSTALL="$(/bin/echo ${LINUX_INSTALL} | sed -e 's/binary//g' -e 's#//#/#g')"
 
 # Assembling memtest configuration
 if [ -f "${DESTDIR_LIVE}"/memtest ]
