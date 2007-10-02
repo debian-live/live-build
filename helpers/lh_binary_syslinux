@@ -75,7 +75,7 @@ Syslinux_memtest_entry ()
 	KERNEL="${3}"
 
 	# syslinux << 3.36 lacks support to file/path
-	if [ "$(basename ${DESTDIR_LIVE})" = "binary" ]
+	if [ "$(basename ${DESTDIR_LIVE})" != "binary" ]
 	then
 		KERNEL="${DIRECTORY}/${KERNEL}"
 	fi
