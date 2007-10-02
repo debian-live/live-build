@@ -413,7 +413,7 @@ case "${LH_BINARY_IMAGES}" in
 		# Copying menu module
 		if [ "${LH_SYSLINUX_MENU}" != "disabled" ]
 		then
-			MENUPATH="$(grep 'menu.c32' binary/isolinux/header.cfg | sed 's,DEFAULT\s*\(.*menu.c32\)$,\1,g')"
+			MENUPATH="$(grep 'menu.c32' binary/isolinux/header.cfg | sed 's,default\s*\(.*menu.c32\)$,\1,g')"
 			MENUMODULE="$(basename ${MENUPATH})"
 
 			mkdir -p binary/isolinux/"$(dirname ${MENUPATH})"
