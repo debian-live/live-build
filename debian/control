@@ -5,7 +5,7 @@ Maintainer: Debian Live <debian-live-maint@lists.alioth.debian.org>
 Uploaders: Daniel Baumann <daniel@debian.org>
 Build-Depends: debhelper (>= 5)
 Standards-Version: 3.7.2
-Homepage: http://debian-live.alioth.debian.org/
+XS-Homepage: http://debian-live.alioth.debian.org/
 XS-Upstream-Depends: git-core
 XS-Vcs-Git: git://git.debian.org/git/users/daniel/live-helper.git
 XS-Vcs-Browse: http://git.debian.org/?p=users/daniel/live-helper.git
