@@ -703,7 +703,7 @@ LH_TEMPLATES="${LH_TEMPLATES}"
 
 # \$LH_QUIET: enable quiet
 # (Default: ${LH_QUIET})
-#LH_QUIET="${LH_QUIET}"
+LH_QUIET="${LH_QUIET}"
 
 # \$LH_VERBOSE: enable verbose
 # (Default: ${LH_VERBOSE})
