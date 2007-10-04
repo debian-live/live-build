@@ -81,17 +81,17 @@ else
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=minimal"
 fi
 
-if [ "${LH_DEBUG}" = "true" ]
+if [ "${LH_DEBUG}" = "enabled" ]
 then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --debug"
 fi
 
-if [ "${LH_QUIET}" = "true" ]
+if [ "${LH_QUIET}" = "enabled" ]
 then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --quiet"
 fi
 
-if [ "${LH_VERBOSE}" = "true" ]
+if [ "${LH_VERBOSE}" = "enabled" ]
 then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --verbose"
 fi
@@ -127,7 +127,9 @@ then
 	fi
 
 	# Executing cdebootstrap (regular run)
+	[ "$LH_QUIET" = "enabled" ] && echo -n "Running cdebootstrap ... "
 	${LH_ROOT_COMMAND} cdebootstrap ${CDEBOOTSTRAP_OPTIONS} "${LH_DISTRIBUTION}" chroot "${LH_MIRROR_BOOTSTRAP}"
+	[ "$LH_QUIET" = "enabled" ] && echo "done."
 
 	if [ -n "${LH_ROOT_COMMAND}" ]
 	then
