@@ -130,14 +130,15 @@ case "${LH_PACKAGES_LISTS}" in
 		;;
 esac
 
+cat > binary.sh << EOF
+${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -o binary.iso -J -l -cache-inodes -allow-multidot binary
+EOF
+
 case "${LH_CHROOT_BUILD}" in
 	enabled)
 		# Moving image
+		mv binary.sh chroot
 		mv binary chroot
-
-cat > chroot/binary.sh << EOF
-${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -o binary.iso -J -l -cache-inodes binary
-EOF
 
 		Chroot "sh binary.sh"
 
@@ -147,10 +148,6 @@ EOF
 		;;
 
 	disabled)
-cat > binary.sh << EOF
-${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -o binary.iso -J -l -cache-inodes binary
-EOF
-
 		sh binary.sh
 		rm -f binary.sh
 		;;
