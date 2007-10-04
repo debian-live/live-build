@@ -1,6 +1,36 @@
-live-helper (1.0~a30-1) UNRELEASED; urgency=medium
+live-helper (1.0~a30-1) unstable; urgency=medium
 
+  [ Daniel Baumann ]
   * New upstream release.
+  * Preparing live-helper 1.0~a30-1.
+  * Replacing backticks with POSIX expression.
+  * Fixing typing error, thanks to Maarten ter Huurne
+    <maarten.ter.huurne@philips.com>.
+  * Fixing typing error, thanks to Jesse W. Hathaway <jesse@mbuki-
+    mvuki.org>.
+  * Respecting LH_QUIET for cdebootstrap calls, thanks to Justin Pryzby
+    <pryzbyj@justinpryzby.com>.
+
+  [ Ben Armstrong ]
+  * genext2fs: new switch name: --reserved-percentage; thanks, Zagiox
+
+  [ Otavio Salvador ]
+  * add template to be used by syslinux vesa menu support
+  * add new options to allow support for syslinux with vesa menu
+  * implements syslinux vesa menu support
+  * refactoring: simplified if/else case since the list of supported
+    arch were too long
+  * syslinux: defaults to english text if we lack the specified language
+  * syslinux: fix menu label usage for normal live boot
+  * templates: move syslinux-menu to syslinux/menu
+  * syslinux: always output MENU LABEL since they're ignored if menu.c32
+    isn't loaded
+  * syslinux: split syslinux configuration in multiple files
+  * templates: split syslinux templates to reduce diverting
+  * syslinux: fix memcheck path since it was using the wrong path
+  * syslinux: fix module detection otherwise it won't be copied
+  * debian/control: use XS-Homepage to avoid errors while calling dpkg-
+    gencontrol
 
  -- Daniel Baumann <daniel@debian.org>  Mon,  1 Oct 2007 00:00:00 +0200
 
