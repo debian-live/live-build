@@ -654,8 +654,8 @@ case "${LH_BINARY_IMAGES}" in
 		fi
 
 		# Configure syslinux templates
-		sed -i -e "s@LINUX_LIVE@${LINUX_LIVE}@" -e "s@LINUX_INSTALL@${LINUX_INSTALL}@" -e "s@MEMTEST@${MEMTEST}@" "${DESTDIR}"/syslinux.cfg
-		sed -i -e "s#LH_BOOTAPPEND_INSTALL#${LH_BOOTAPPEND_INSTALL}#" -e "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" "${DESTDIR}"/syslinux.cfg
+		sed -i -e "s@LINUX_LIVE@${LINUX_LIVE}@" -e "s@LINUX_INSTALL@${LINUX_INSTALL}@" -e "s@MEMTEST@${MEMTEST}@" "${DESTDIR}"/menu.cfg
+		sed -i -e "s#LH_BOOTAPPEND_INSTALL#${LH_BOOTAPPEND_INSTALL}#" -e "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" "${DESTDIR}"/menu.cfg
 		sed -i -e "s/LH_DISTRIBUTION/${LH_DISTRIBUTION}/" -e "s/LH_DATE/$(date +%Y%m%d)/" -e "s/LH_MEDIA/hd-media/" "${DESTDIR}"/f1.txt #FIXME
 		sed -i -e "s/LH_MEDIA/hd-media/" "${DESTDIR}"/f3.txt #FIXME
 		sed -i -e "s/LH_VERSION/${VERSION}/" "${DESTDIR}"/f10.txt
@@ -670,16 +670,16 @@ case "${LH_BINARY_IMAGES}" in
 				NUMBER="$(($NUMBER + 1))"
 				mv "${DESTDIR_LIVE}"/vmlinuz-*-${FLAVOUR} "${DESTDIR_LIVE}"/vmlinuz${NUMBER}
 				mv "${DESTDIR_LIVE}"/initrd.img-*-${FLAVOUR} "${DESTDIR_LIVE}"/initrd${NUMBER}.img
-				sed -i -e "s/vmlinuz-.*-${FLAVOUR}$/vmlinuz${NUMBER}/g" -e "s/initrd.img-.*-${FLAVOUR} /initrd${NUMBER}.img /g" "${DESTDIR}"/syslinux.cfg
+				sed -i -e "s/vmlinuz-.*-${FLAVOUR}$/vmlinuz${NUMBER}/g" -e "s/initrd.img-.*-${FLAVOUR} /initrd${NUMBER}.img /g" "${DESTDIR}"/menu.cfg
 			done
 		else
 			mv "${DESTDIR_LIVE}"/vmlinuz-*-${LH_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/vmlinuz
 			mv "${DESTDIR_LIVE}"/initrd.img-*-${LH_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/initrd.img
-			sed -i -e "s/vmlinuz-.*-${LH_LINUX_FLAVOURS}/vmlinuz/g" -e "s/initrd.img-.*-${LH_LINUX_FLAVOURS}/initrd.img/g" "${DESTDIR}"/syslinux.cfg
-			sed -i -e "s/LINUX_TIMEOUT/${LH_SYSLINUX_TIMEOUT}/" "${DESTDIR}"/syslinux.cfg
+			sed -i -e "s/vmlinuz-.*-${LH_LINUX_FLAVOURS}/vmlinuz/g" -e "s/initrd.img-.*-${LH_LINUX_FLAVOURS}/initrd.img/g" "${DESTDIR}"/menu.cfg
+			sed -i -e "s/LINUX_TIMEOUT/${LH_SYSLINUX_TIMEOUT}/" "${DESTDIR}"/menu.cfg
 
 			# Remove whitespaces
-			sed -i -e 's/\ $//g' "${DESTDIR}"/syslinux.cfg
+			sed -i -e 's/\ $//g' "${DESTDIR}"/menu.cfg
 		fi
 		;;
 esac
