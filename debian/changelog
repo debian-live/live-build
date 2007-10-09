@@ -1,6 +1,23 @@
-live-helper (1.0~a31-1) UNRELEASED; urgency=medium
+live-helper (1.0~a31-1) unstable; urgency=medium
 
+  [ Daniel Baumann ]
   * New upstream release.
+  * Preparing live-helper 1.0~a31-1.
+
+  [ Otavio Salvador ]
+  * cdebootstrap: simplified code using case instead of if's so it's
+    easier to read
+  * iso: move mini and minimal flavors assigment to a cannonical place
+  * hooks/mini: remove dselect package since it's mostly unused now
+  * bootstrap: add support to include and exclude packages
+  * syslinux: force latin1 encoding on texts used for labels
+  * iso: use -allow-multidot option when calling genisoimage
+  * templates: change font used on syslinux menu to a better one
+  * fix version guessing using proper evaluation
+  * syslinux: fix usb-hdd entries to use menu.cfg file
+  * syslinux: properly change timeout and do not fail if help files do
+    not exists
+  * syslinux: fix usb-hdd templates coping
 
  -- Daniel Baumann <daniel@debian.org>  Mon,  8 Oct 2007 00:00:00 +0200
 
