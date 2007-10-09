@@ -603,6 +603,12 @@ case "${LH_BINARY_IMAGES}" in
 		esac
 
 		cp -r "${TEMPLATES}"/common/* "${DESTDIR}"
+		if [ "${LH_SYSLINUX_MENU}" = "disabled" ]
+		then
+			cp -r "${TEMPLATES}"/normal/* "${DESTDIR}"
+		else
+			cp -r "${TEMPLATES}"/menu/* "${DESTDIR}"
+		fi
 		cp -r "${TEMPLATES}"/"${LH_LANGUAGE}"/* "${DESTDIR}"
 
 		for FILE in "${DESTDIR}"/*.live
