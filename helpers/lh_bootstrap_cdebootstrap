@@ -38,6 +38,9 @@ then
 	exit 0
 fi
 
+# Check architecture
+Check_crossarchitecture
+
 Echo_message "Begin bootstrapping system..."
 
 Check_package /usr/bin/cdebootstrap cdebootstrap

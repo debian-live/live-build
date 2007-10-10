@@ -30,6 +30,28 @@ Check_architecture ()
 	fi
 }
 
+Check_crossarchitecture ()
+{
+	if [ -x /usr/bin/dpkg ]
+	then
+		HOST="$(dpkg --print-architecture)"
+	else
+		HOST="$(uname -m)"
+	fi
+
+	case "${HOST}" in
+		amd64|i386)
+			CROSS="amd64 i386"
+			;;
+
+		powerpc|ppc64)
+			CROSS="powerpc ppc64"
+			;;
+	esac
+
+	Check_architecture "${CROSS}"
+}
+
 Check_multiarchitecture ()
 {
 	if [ "$(echo ${LH_ARCHITECTURE} | wc -w)" -gt "1" ]
