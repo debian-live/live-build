@@ -542,7 +542,7 @@ Set_defaults ()
 	then
 		case "${LH_MODE}" in
 			debian|debian-edu)
-				LH_LINUX_PACKAGES="linux-image-2.6 ${LH_UNION_FILESYSTEM}-modules-2.6"
+				LH_LINUX_PACKAGES="linux-image-2.6 \${LH_UNION_FILESYSTEM}-modules-2.6"
 
 				if [ "${LH_CHROOT_FILESYSTEM}" = "squashfs" ]
 				then
