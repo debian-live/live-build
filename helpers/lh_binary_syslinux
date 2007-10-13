@@ -239,7 +239,7 @@ Copy_syslinux_templates ()
 
 Configure_syslinux_templates ()
 {
-   templates=$(find ${SYSLINUX_PATH} -type f -name '*.cfg' -o -name '*.txt' -o -name 'default')
+   templates=$(find ${SYSLINUX_PATH} -type f -name '*.cfg' -o -name '*.txt')
    for template_file in ${templates}; do
 		sed -i -e "s@{\$LINUX_LIVE}@${LINUX_LIVE}@" \
              -e "s@{\$LINUX_INSTALL}@${LINUX_INSTALL}@" \
@@ -256,6 +256,28 @@ Configure_syslinux_templates ()
 		       -e 's/\ $//g' \
              $template_file
    done
+
+   # Syslinux v3.31 in etch does not support include statement
+	if [ "${LH_DISTRIBUTION}" = "etch" ]
+	then
+		while grep -q ^include ${SYSLINUX_PATH}/syslinux.cfg
+	   do
+			INCLUDES=$(grep ^include ${SYSLINUX_PATH}/syslinux.cfg |awk '{print $2}')
+			for FILE_PATH in ${INCLUDES}
+			do
+			   FILE_NAME=$(basename ${FILE_PATH})
+			   sed -i -e '\@include '${FILE_PATH}'@ {
+	         r '${SYSLINUX_PATH}/${FILE_NAME}'
+	         d  
+	         }' ${SYSLINUX_PATH}/syslinux.cfg
+            # remove the files, which were included
+            if [ -e ${SYSLINUX_PATH}/${FILE_NAME} ]
+            then
+               rm ${SYSLINUX_PATH}/${FILE_NAME}
+            fi
+			done
+      done
+   fi
 }
 
 # Setting up common variables
@@ -437,6 +459,9 @@ fi
 # Copy templates to base syslinux directory
 Copy_syslinux_templates
 
+# Fill in templates with created values
+Configure_syslinux_templates
+
 # Configure syslinux setup per boot method
 case "${LH_BINARY_IMAGES}" in
 	iso)
@@ -496,9 +521,6 @@ case "${LH_BINARY_IMAGES}" in
 		fi
 		;;
 esac
-
-# Fill in templates with created values
-Configure_syslinux_templates
 
 # Saving cache
 Save_cache cache/packages_binary
