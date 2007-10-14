@@ -142,7 +142,7 @@ case "${1}" in
 				for PACKAGE in config/chroot_sources/*.deb
 				do
 					cp ${PACKAGE} chroot/root
-					Chroot "dpkg -i $(basename ${PACKAGE})"
+					Chroot "dpkg -i /root/$(basename ${PACKAGE})"
 					rm -f chroot/root/$(basename ${PACKAGE})
 				done
 			fi
