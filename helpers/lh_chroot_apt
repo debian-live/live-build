@@ -106,6 +106,17 @@ case "${1}" in
 				;;
 		esac
 
+		# Configuring apt preferences
+		if [ -f config/chroot_apt/preferences ]
+		then
+			if [ -f chroot/etc/apt/preferences ]
+			then
+				mv chroot/etc/apt/preferences chroot/etc/apt/prefereces.orig
+			fi
+
+			cp config/chroot_apt/preferences chroot/etc/apt/preferences
+		fi
+
 		# Creating stage file
 		Create_stagefile .stage/chroot_apt
 		;;
@@ -136,6 +147,14 @@ case "${1}" in
 
 		# Deconfiguring aptitude secure
 		rm -f chroot/etc/apt/apt.conf.d/00secure
+
+		# Deconfiguring apt preferences
+		if [ -f config/chroot_apt/preferences.orig ]
+		then
+			mv chroot/etc/apt/preferences.orig chroot/etc/apt/preferences
+		else
+			rm -f chroot/etc/apt/preferences
+		fi
 
 		# Removing stage file
 		rm -f .stage/chroot_apt
