@@ -113,7 +113,7 @@ Set_defaults ()
 				then
 					LH_BOOTSTRAP="cdebootstrap"
 				else
-					echo "E: Can't process file /usr/bin/cdebootstrap or /usr/sbin/debootstrap (FIXME)"
+					echo "E: Can't process file /usr/sbin/debootstrap or /usr/bin/cdebootstrap (FIXME)"
 					exit 1
 				fi
 			;;
