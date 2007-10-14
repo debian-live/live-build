@@ -764,6 +764,7 @@ LH_SECTIONS="${LH_SECTIONS}"
 EOF
 
 # Creating lh_chroot_* configuration
+mkdir -p config/chroot_apt
 mkdir -p config/chroot_local-hooks
 mkdir -p config/chroot_local-includes
 mkdir -p config/chroot_local-packages
