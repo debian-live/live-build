@@ -88,39 +88,13 @@ Restore_cache cache/packages_binary
 Install_package
 
 # Setting destination directory
-case "${LH_BINARY_IMAGES}" in
-	iso)
-		case "${LH_INITRAMFS}" in
-			casper)
-				DESTDIR="binary/casper"
-				;;
-
-			live-initramfs)
-				DESTDIR="binary/live"
-				;;
-		esac
+case "${LH_INITRAMFS}" in
+	casper)
+		DESTDIR="binary/casper"
 		;;
 
-	net)
-		DESTDIR="tftpboot"
-		;;
-
-	tar|usb-hdd)
-		case "${LH_INITRAMFS}" in
-			casper)
-				DESTDIR="binary/casper"
-				;;
-
-			live-initramfs)
-				DESTDIR="binary/live"
-				;;
-		esac
-
-		# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
-		if [ "${LH_DISTRIBUTION}" = "etch" ] && [ "${LH_BOOTLOADER}" = "syslinux" ]
-		then
-			DESTDIR="binary"
-		fi
+	live-initramfs)
+		DESTDIR="binary/live"
 		;;
 esac
 
