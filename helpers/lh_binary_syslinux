@@ -433,11 +433,11 @@ LH_BOOTAPPEND_LIVE="$(echo ${LH_BOOTAPPEND_LIVE} | sed -e 's/  //')"
 FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=normal"
 
 # Moving kernels into place
-if [ "binary/${LH_INITRAMFS}" != "${KERNEL_PATH}" ]
+if [ "binary/${INITFS}" != "${KERNEL_PATH}" ]
 then
-	mv binary/${LH_INITRAMFS}/vmlinuz* ${KERNEL_PATH}
-	mv binary/${LH_INITRAMFS}/initrd* ${KERNEL_PATH}
-	mv binary/${LH_INITRAMFS}/memtest ${KERNEL_PATH}
+	mv binary/${INITFS}/vmlinuz* ${KERNEL_PATH}
+	mv binary/${INITFS}/initrd* ${KERNEL_PATH}
+	mv binary/${INITFS}/memtest ${KERNEL_PATH}
 fi
 
 # Default entries
