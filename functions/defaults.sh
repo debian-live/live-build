@@ -439,7 +439,7 @@ Set_defaults ()
 	LH_CHROOT_FILESYSTEM="${LH_CHROOT_FILESYSTEM:-squashfs}"
 
 	# Setting union filesystem
-	LH_UNION_FILESYSTEM="${LH_UNION_FILESYSTEM:-unionfs}"
+	LH_UNION_FILESYSTEM="${LH_UNION_FILESYSTEM:-aufs}"
 
 	# LH_HOOKS
 
