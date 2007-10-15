@@ -211,32 +211,31 @@ Copy_syslinux_templates ()
 		# Copying custom splash screen
 		if [ "${LH_SYSLINUX_SPLASH}" = "none" ] 
 		then
-         # no splash screen
+			# no splash screen
 			SPLASH=""
 			rm -f ${SCREEN_PATH}/splash.rle
 			rm -f ${DATA_PATH}/splash.png
 		else
-         if [ -z "${LH_SYSLINUX_SPLASH}" ]
-         then
-			   if [ "${LH_SYSLINUX_MENU}" = "disabled" ]
-			   then
-			      SPLASH="${LIVE_DATA_PATH}/splash.rle"
-			   else
-			      SPLASH="${LIVE_DATA_PATH}/splash.png"
+			if [ "${LH_SYSLINUX_MENU}" = "disabled" ]
+			then
+			    SPLASH="${LIVE_DATA_PATH}/splash.rle"
+			else
+			    SPLASH="${LIVE_DATA_PATH}/splash.png"
             fi
-         else
-			   if [ ! -e "${LH_SYSLINUX_SPLASH}" ]
-			   then
-			      Echo_error "${LH_SYSLINUX_SPLASH} doen't exist"
-				   exit 1
-            else
-			      rm -f ${SCREEN_PATH}/splash.rle
-			      rm -f ${DATA_PATH}/splash.png
-			      cp -f "${LH_SYSLINUX_SPLASH}" ${DATA_PATH}
-			      SPLASH="${LIVE_DATA_PATH}/$(basename ${LH_SYSLINUX_SPLASH})"
-			   fi
-		   fi
-      fi
+
+			if [ -n "${LH_SYSLINUX_SPLASH}" ]
+			then
+				if [ ! -e "${LH_SYSLINUX_SPLASH}" ]
+				then
+					Echo_error "${LH_SYSLINUX_SPLASH} doen't exist"
+					exit 1
+				else
+					rm -f ${SCREEN_PATH}/splash.rle
+					rm -f ${DATA_PATH}/splash.png
+					cp -f "${LH_SYSLINUX_SPLASH}" ${DATA_PATH}/`basename ${SPLASH}`
+				fi
+			fi
+		fi
 }
 
 Configure_syslinux_templates ()
