@@ -1,0 +1,103 @@
+#!/bin/sh
+
+# lh_binary_local-packageslists(1) - install local packages lists into binary
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
+do
+	. "${FUNCTION}"
+done
+
+# Setting static variables
+DESCRIPTION="install local packages into binary"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/bootstrap
+Read_conffile config/chroot
+Read_conffile config/binary
+Read_conffile config/source
+Read_conffile "${LH_CONFIG}"
+Set_defaults
+
+Echo_message "Begin installing local packages lists..."
+
+# Requiring stage file
+Require_stagefile .stage/bootstrap
+
+# Checking stage file
+Check_stagefile .stage/binary_local-packageslists
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+if ls config/binary_local-packageslists/* > /dev/null 2>&1
+then
+	mkdir -p chroot/binary.deb/archives/partial
+	mv chroot/var/lib/dpkg/status chroot/var/lib/dpkg/status.tmp
+	touch chroot/var/lib/dpkg/status
+
+	for PACKAGESLIST in config/binary_local-packageslists/*
+	do
+		# Generate package list
+		Expand_packagelist "$(basename ${PACKAGESLIST})" "config/binary_local-packageslists" "${LH_BASE:-/usr/share/live-helper/lists}/lists" > chroot/root/"$(basename ${PACKAGESLIST})"
+
+
+		# Downloading additional packages
+		Chroot "xargs --arg-file=/root/$(basename ${PACKAGESLIST}) apt-get -o Dir::Cache=/binary.deb --download-only install --yes"
+	done
+
+	for FILE in binary.deb/archives/*.deb
+	do
+		SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
+
+		if [ -z "${SOURCE}" ]
+		then
+			SOURCE="$(basename ${FILE} | awk -F_ '{ print $1 }')"
+		fi
+
+		case "${SOURCE}" in
+			lib?*)
+				LETTER="$(echo ${SOURCE} | sed 's/\(....\).*/\1/')"
+				;;
+
+			*)
+				LETTER="$(echo ${SOURCE} | sed 's/\(.\).*/\1/')"
+				;;
+		esac
+
+		# Install directory
+		mkdir -p binary/pool/main/"${LETTER}"/"${SOURCE}"
+
+		# Move files
+		mv "${FILE}" binary/pool/main/"${LETTER}"/"${SOURCE}"
+	done
+
+	cd binary
+	mkdir -p dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}
+	apt-ftparchive packages pool/main > dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages
+	gzip -9 -c dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages > dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages.gz
+	cd "${OLDPWD}"
+
+	rm -rf chroot/binary.deb
+	mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
+
+	# Creating stage file
+	Create_stagefile .stage/binary_local-packageslists
+fi

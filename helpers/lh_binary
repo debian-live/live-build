@@ -53,6 +53,7 @@ lh_binary_manifest ${*}
 lh_binary_encryption ${*}
 
 # Prepare images
+lh_binary_local-packageslists ${*}
 lh_binary_linux-image ${*}
 lh_binary_debian-installer ${*}
 lh_binary_memtest ${*}
