@@ -10,7 +10,7 @@
 set -e
 
 # Debian releases
-VERSION_etch="4.0 r0"
+VERSION_etch="4.0 r1"
 VERSION_lenny="testing"
 VERSION_sid="unstable"
 
