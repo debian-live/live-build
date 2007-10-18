@@ -1,8 +1,35 @@
-live-helper (1.0~a32-1) UNRELEASED; urgency=medium
+live-helper (1.0~a32-1) unstable; urgency=medium
 
+  [ Daniel Baumann ]
   * New upstream release.
+  * Preparing live-helper 1.0~a32-1.
+  * Fixing consistency error.
+  * Adding sudo and fakeroot to suggests.
+  * Adding check to fail if a cross build is started (Closes: #444669, #444670).
+  * Not interpreting LH_UNION_FILESYSTEM, so that it gets set with an actual
+    value at build-time (Closes: #446306).
+  * Adding support for a local /etc/apt/preferences file in
+    config/chroot_apt/preferences.
+  * Adjusting error message: debootstrap is default, hence listed first.
+  * Setting union filesystem default to aufs since default distribution is
+    lenny.
+  * Fixing typing error, thanks to Peter Skogström
+    <peter.skogstrom@bitrunner.com>.
+  * Updating Debian stable release number, thanks to Peter Skogström
+    <peter.skogstrom@bitrunner.com>.
+  * Adding lh_binary_local-packageslists.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 15 Oct 2007 00:00:00 +0200
+  [ Jesse Hathaway ]
+  * Unify syslinux code, so that pxelinux isolinux & usb-hdd
+  * readd support for booting etch via syslinux
+  * lh_binary_syslinux: fix usb-hdd etch images
+
+  [ Otavio Salvador ]
+  * lh_binary_syslinux: check for  and not  to detect wrong path
+  * lh_binary_syslinux: always put splash image as splash.{rle,png} to avoid
+    filename issues
+
+ -- Daniel Baumann <daniel@debian>  Mon, 15 Oct 2007 00:00:00 +0200
 
 live-helper (1.0~a31-1) unstable; urgency=medium
 
