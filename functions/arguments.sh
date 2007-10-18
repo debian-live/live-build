@@ -29,7 +29,7 @@ Arguments ()
 				shift
 				;;
 
-			-c|-conffile)
+			-c|--conffile)
 				LH_CONFFILE="${2}"
 				shift 2
 				;;
