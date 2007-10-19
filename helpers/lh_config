@@ -75,7 +75,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--mirror-binary URL]\n\
 \t    [--mirror-bootstrap-security URL]\n\
 \t    [--mirror-bootstrap URL]\n\
-\t    [--mode debian|debian-edu|ubuntu]\n\
+\t    [--mode debian|debian-edu]\n\
 \t    [--net-filesystem nfs|cfs]\n\
 \t    [--net-mountoptions OPTIONS]\n\
 \t    [--net-path PATH]\n\

@@ -16,26 +16,7 @@ Set_defaults ()
 	# Setting mode
 	if [ -z "${LH_MODE}" ]
 	then
-		if [ -x /usr/bin/lsb_release ]
-		then
-			case "$(lsb_release --short --id)" in
-				Debian)
-					LH_MODE="debian"
-					;;
-
-				Ubuntu)
-					LH_MODE="ubuntu"
-					;;
-
-				*)
-					Echo_verbose "Unexpected output from lsb_release"
-					Echo_verbose "Setting mode to debian."
-					LH_MODE="debian"
-					;;
-			esac
-		else
-			LH_MODE="debian"
-		fi
+		LH_MODE="debian"
 	fi
 
 	# Setting distribution name
@@ -48,10 +29,6 @@ Set_defaults ()
 
 			debian-edu)
 				LH_DISTRIBUTION="etch"
-				;;
-
-			ubuntu)
-				LH_DISTRIBUTION="feisty"
 				;;
 		esac
 	fi
@@ -104,33 +81,16 @@ Set_defaults ()
 	# Setting bootstrap program
 	if [ -z "${LH_BOOTSTRAP}" ] || [ ! -x "$(which ${LH_BOOTSTRAP})" ]
 	then
-		case "${LH_MODE}" in
-			debian|debian-edu)
-				if [ -x "/usr/sbin/debootstrap" ]
-				then
-					LH_BOOTSTRAP="debootstrap"
-				elif [ -x "/usr/bin/cdebootstrap" ]
-				then
-					LH_BOOTSTRAP="cdebootstrap"
-				else
-					echo "E: Can't process file /usr/sbin/debootstrap or /usr/bin/cdebootstrap (FIXME)"
-					exit 1
-				fi
-			;;
-
-			ubuntu)
-				if [ -x "/usr/sbin/debootstrap" ] && [ -f /usr/lib/debootstrap/scripts/feisty ]
-				then
-					LH_BOOTSTRAP="debootstrap"
-				elif [ -x "/usr/bin/cdebootstrap" ] && [ -d /usr/share/cdebootstrap/generic-ubuntu ]
-				then
-					LH_BOOTSTRAP="cdebootstrap"
-				else
-					echo "E: Your version of debootstrap or cdebootstrap is outdated and does not support ubuntu."
-					exit 1
-				fi
-				;;
-		esac
+		if [ -x "/usr/sbin/debootstrap" ]
+		then
+			LH_BOOTSTRAP="debootstrap"
+		elif [ -x "/usr/bin/cdebootstrap" ]
+		then
+			LH_BOOTSTRAP="cdebootstrap"
+		else
+			echo "E: Can't process file /usr/sbin/debootstrap or /usr/bin/cdebootstrap (FIXME)"
+			exit 1
+		fi
 	fi
 
 	# Setting cache option
@@ -157,15 +117,7 @@ Set_defaults ()
 	# Setting genisoimage
 	if [ -z "${LH_GENISOIMAGE}" ]
 	then
-		case "${LH_MODE}" in
-			debian|debian-edu)
-				LH_GENISOIMAGE="genisoimage"
-				;;
-
-			ubuntu)
-				LH_GENISOIMAGE="mkisofs"
-				;;
-		esac
+		LH_GENISOIMAGE="genisoimage"
 	fi
 
 	# Setting initramfs hook
@@ -186,10 +138,6 @@ Set_defaults ()
 					;;
 
 				debian-edu)
-					LH_INITRAMFS="live-initramfs"
-					;;
-
-				ubuntu)
 					LH_INITRAMFS="live-initramfs"
 					;;
 			esac
@@ -237,10 +185,6 @@ Set_defaults ()
 
 			debian-edu)
 				LH_ROOT="edu-live"
-				;;
-
-			ubuntu)
-				LH_ROOT="ubuntu-live"
 				;;
 		esac
 	fi
@@ -312,50 +256,13 @@ Set_defaults ()
 			debian-edu)
 				LH_MIRROR_BOOTSTRAP="http://ftp.skolelinux.no/debian/"
 				;;
-
-			ubuntu)
-				case "${LH_ARCHITECTURE}" in
-					amd64|i386|powerpc|sparc)
-						LH_MIRROR_BOOTSTRAP="http://archive.ubuntu.com/ubuntu/"
-						;;
-
-					hppa|ia64)
-						LH_MIRROR_BOOTSTRAP="http://ports.ubuntu.com/"
-						;;
-
-					*)
-						Echo_error "There is no port of Ubuntu available for your architecture."
-						exit 1
-						;;
-				esac
-				;;
 		esac
 	fi
 
 	# Setting security mirror to fetch packages from
 	if [ -z "${LH_MIRROR_BOOTSTRAP_SECURITY}" ]
 	then
-		case "${LH_MODE}" in
-			debian|debian-edu)
-				LH_MIRROR_BOOTSTRAP_SECURITY="http://security.debian.org/"
-				;;
-
-			ubuntu)
-				case "${LH_ARCHITECTURE}" in
-					amd64|i386|powerpc|sparc)
-						LH_MIRROR_BOOTSTRAP_SECURITY="http://archive.ubuntu.com/ubuntu/"
-						;;
-
-					hppa|ia64)
-						LH_MIRROR_BOOTSTRAP_SECURITY="http://ports.ubuntu.com/"
-						;;
-
-					*)
-						LH_MIRROR_BOOTSTRAP_SECURITY="none"
-						;;
-				esac
-				;;
-		esac
+		LH_MIRROR_BOOTSTRAP_SECURITY="http://security.debian.org/"
 	fi
 
 	# Setting mirror which ends up in the image
@@ -377,60 +284,19 @@ Set_defaults ()
 			debian-edu)
 				LH_MIRROR_BINARY="http://ftp.skolelinux.no/debian/"
 				;;
-
-			ubuntu)
-				case "${LH_ARCHITECTURE}" in
-					amd64|i386|powerpc|sparc)
-						LH_MIRROR_BINARY="http://archive.ubuntu.com/ubuntu/"
-						;;
-
-					hppa|ia64)
-						LH_MIRROR_BINARY="http://ports.ubuntu.com/"
-						;;
-
-					*)
-						Echo_error "There is no port of Ubuntu available for your architecture."
-						exit 1
-						;;
-				esac
-				;;
 		esac
 	fi
 
 	# Setting security mirror which ends up in the image
 	if [ -z "${LH_MIRROR_BINARY_SECURITY}" ]
 	then
-		case "${LH_MODE}" in
-			debian|debian-edu)
-				LH_MIRROR_BINARY_SECURITY="http://security.debian.org/"
-				;;
-
-			ubuntu)
-				case "${LH_ARCHITECTURE}" in
-					amd64|i386|powerpc|sparc)
-						LH_MIRROR_BINARY_SECURITY="http://security.ubuntu.com/ubuntu/"
-						;;
-
-					*)
-						LH_MIRROR_BINARY_SECURITY="none"
-						;;
-				esac
-				;;
-		esac
+		LH_MIRROR_BINARY_SECURITY="http://security.debian.org/"
 	fi
 
 	# Setting sections value
 	if [ -z "${LH_SECTIONS}" ]
 	then
-		case "${LH_MODE}" in
-			debian|debian-edu)
-				LH_SECTIONS="main"
-				;;
-
-			ubuntu)
-				LH_SECTIONS="main restricted"
-				;;
-		esac
+		LH_SECTIONS="main"
 	fi
 
 	## config/chroot
@@ -465,15 +331,7 @@ Set_defaults ()
 				;;
 
 			amd64)
-				case "${LH_MODE}" in
-					debian|debian-edu)
-						LH_LINUX_FLAVOURS="amd64"
-						;;
-
-					ubuntu)
-						LH_LINUX_FLAVOURS="amd64-generic"
-						;;
-				esac
+				LH_LINUX_FLAVOURS="amd64"
 				;;
 
 			arm)
@@ -486,15 +344,7 @@ Set_defaults ()
 				;;
 
 			i386)
-				case "${LH_MODE}" in
-					debian|debian-edu)
-						LH_LINUX_FLAVOURS="486"
-						;;
-
-					ubuntu)
-						LH_LINUX_FLAVOURS="386"
-						;;
-				esac
+				LH_LINUX_FLAVOURS="486"
 				;;
 
 			ia64)
@@ -515,20 +365,12 @@ Set_defaults ()
 				;;
 
 			sparc)
-				case "${LH_MODE}" in
-					debian|debian-edu)
-						if [ "${LH_DISTRIBUTION}" = "etch" ]
-						then
-							LH_LINUX_FLAVOURS="sparc32"
-						else
-							LH_LINUX_FLAVOURS="sparc64"
-						fi
-						;;
-
-					ubuntu)
-						LH_LINUX_FLAVOURS="sparc64"
-						;;
-				esac
+				if [ "${LH_DISTRIBUTION}" = "etch" ]
+				then
+					LH_LINUX_FLAVOURS="sparc32"
+				else
+					LH_LINUX_FLAVOURS="sparc64"
+				fi
 				;;
 
 			*)
@@ -540,20 +382,12 @@ Set_defaults ()
 	# Set linux packages
 	if [ -z "${LH_LINUX_PACKAGES}" ]
 	then
-		case "${LH_MODE}" in
-			debian|debian-edu)
-				LH_LINUX_PACKAGES="linux-image-2.6 \${LH_UNION_FILESYSTEM}-modules-2.6"
+		LH_LINUX_PACKAGES="linux-image-2.6 \${LH_UNION_FILESYSTEM}-modules-2.6"
 
-				if [ "${LH_CHROOT_FILESYSTEM}" = "squashfs" ]
-				then
-					LH_LINUX_PACKAGES="${LH_LINUX_PACKAGES} squashfs-modules-2.6"
-				fi
-				;;
-
-			ubuntu)
-				LH_LINUX_PACKAGES="linux-image"
-				;;
-		esac
+		if [ "${LH_CHROOT_FILESYSTEM}" = "squashfs" ]
+		then
+			LH_LINUX_PACKAGES="${LH_LINUX_PACKAGES} squashfs-modules-2.6"
+		fi
 
 		if [ -n "${LH_ENCRYPTION}" ]
 		then
@@ -656,15 +490,7 @@ Set_defaults ()
 	# Setting hostname
 	if [ -z "${LH_HOSTNAME}" ]
 	then
-		case "${LH_MODE}" in
-			debian|debian-edu)
-				LH_HOSTNAME="debian"
-				;;
-
-			ubuntu)
-				LH_HOSTNAME="ubuntu"
-				;;
-		esac
+		LH_HOSTNAME="debian"
 	fi
 
 	# Setting iso author
@@ -677,10 +503,6 @@ Set_defaults ()
 
 			debian-edu)
 				LH_ISO_APPLICATION="Debian Edu Live"
-				;;
-
-			ubuntu)
-				LH_ISO_APPLICATION="Ubuntu Live"
 				;;
 		esac
 	fi
@@ -702,10 +524,6 @@ Set_defaults ()
 			debian-edu)
 				LH_ISO_VOLUME="Debian Edu Live \$(date +%Y%m%d-%H:%M)"
 				;;
-
-			ubuntu)
-				LH_ISO_VOLUME="Ubuntu Live \$(date +%Y%m%d-%H:%M)"
-				;;
 		esac
 	fi
 
@@ -725,10 +543,6 @@ Set_defaults ()
 
 			debian-edu)
 				LH_NET_PATH="/srv/debian-edu-live"
-				;;
-
-			ubuntu)
-				LH_NET_PATH="/srv/ubuntu-live"
 				;;
 		esac
 	fi
