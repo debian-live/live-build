@@ -190,11 +190,6 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--genisoimage)
-				LH_GENISOIMAGE="${2}"
-				shift 2
-				;;
-
 			--initramfs)
 				LH_INITRAMFS="${2}"
 				shift 2
@@ -654,10 +649,6 @@ LH_DEBCONF_NOWARNINGS="${LH_DEBCONF_NOWARNINGS}"
 # \$LH_DEBCONF_PRIORITY: set debconf(1) priority to use
 # (Default: ${LH_DEBCONF_PRIORITY})
 LH_DEBCONF_PRIORITY="${LH_DEBCONF_PRIORITY}"
-
-# \$LH_GENISOIMAGE: set genisoimage program
-# (Default: ${LH_GENISOIMAGE})
-LH_GENISOIMAGE="${LH_GENISOIMAGE}"
 
 # \$LH_INITRAMFS: set initramfs hook
 # (Default: ${LH_INITRAMFS})

@@ -114,12 +114,6 @@ Set_defaults ()
 			;;
 	esac
 
-	# Setting genisoimage
-	if [ -z "${LH_GENISOIMAGE}" ]
-	then
-		LH_GENISOIMAGE="genisoimage"
-	fi
-
 	# Setting initramfs hook
 	if [ -z "${LH_INITRAMFS}" ]
 	then
