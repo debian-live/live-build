@@ -299,7 +299,15 @@ Set_defaults ()
 	LH_CHROOT_FILESYSTEM="${LH_CHROOT_FILESYSTEM:-squashfs}"
 
 	# Setting union filesystem
-	LH_UNION_FILESYSTEM="${LH_UNION_FILESYSTEM:-aufs}"
+	if [ -z "${LH_UNION_FILESYSTEM}" ]
+	then
+		if [ "${LH_DISTRIBUTION}" = "etch" ]
+		then
+			LH_UNION_FILESYSTEM="unionfs"
+		else
+			LH_UNION_FILESYSTEM="aufs"
+		fi
+	fi
 
 	# LH_HOOKS
 
