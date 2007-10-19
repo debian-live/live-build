@@ -53,7 +53,7 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Checking depends
-Check_package chroot/usr/bin/"${LH_GENISOIMAGE}" ${LH_GENISOIMAGE}
+Check_package chroot/usr/bin/genisoimage genisoimage
 
 # Restoring cache
 Restore_cache cache/packages_binary
@@ -131,7 +131,7 @@ case "${LH_PACKAGES_LISTS}" in
 esac
 
 cat > binary.sh << EOF
-${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -o binary.iso -J -l -cache-inodes -allow-multidot binary
+genisoimage ${GENISOIMAGE_OPTIONS} -o binary.iso -J -l -cache-inodes -allow-multidot binary
 EOF
 
 case "${LH_CHROOT_BUILD}" in
