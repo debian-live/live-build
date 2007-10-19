@@ -59,27 +59,19 @@ DISTRIBUTION="$(echo ${LH_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]')"
 DISTRIBUTION="${DISTRIBUTION}$(echo ${LH_DISTRIBUTION} | cut -b 2-)"
 eval VERSION="$`echo VERSION_${LH_DISTRIBUTION}`"
 
-case "${LH_MODE}" in
-	debian)
-		if [ -d binary/pool/main/b/base-installer ]
-		then
-			if [ -d binary/pool/main/l/live-installer ]
-			then
-				TYPE="LIVE/INSTALL"
-			fi
+if [ -d binary/pool/main/b/base-installer ]
+then
+	if [ -d binary/pool/main/l/live-installer ]
+	then
+		TYPE="LIVE/INSTALL"
+	fi
 
-			TYPE="LIVE/NETINST"
-		else
-			TYPE="LIVE"
-		fi
+	TYPE="LIVE/NETINST"
+else
+	TYPE="LIVE"
+fi
 
-		echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} ${TYPE} Source $(date +%Y%m%d-%H:%M)" > source/.disk/info
-		;;
-
-	ubuntu)
-		echo "Ubuntu Linux ${VERSION} \"${DISTRIBUTION}\" - Unofficial ${ARCHITECTURE} LIVE/NETINST Source $(date +%Y%m%d-%H:%M)" > source/.disk/info
-		;;
-esac
+echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} ${TYPE} Source $(date +%Y%m%d-%H:%M)" > source/.disk/info
 
 # Creating stage file
 Create_stagefile .stage/source_disk
