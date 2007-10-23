@@ -298,6 +298,9 @@ Set_defaults ()
 	# Setting chroot filesystem
 	LH_CHROOT_FILESYSTEM="${LH_CHROOT_FILESYSTEM:-squashfs}"
 
+	# Setting whether to expose root filesystem as read only
+	LH_EXPOSED_ROOT="${LH_EXPOSED_ROOT:-disabled}"
+
 	# Setting union filesystem
 	if [ -z "${LH_UNION_FILESYSTEM}" ]
 	then

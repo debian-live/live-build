@@ -403,6 +403,11 @@ then
 	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} union=${LH_UNION_FILESYSTEM}"
 fi
 
+if [ "${LH_EXPOSED_ROOT}" != "disabled" ]
+then
+	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} exposedroot"
+fi
+
 if [ "${LH_BINARY_IMAGES}" = "net" ]
 then
 	case "${LH_NET_FILESYSTEM}" in

@@ -111,5 +111,44 @@ then
 	chown -R --quiet 999:999 chroot/home/${LH_USERNAME}
 fi
 
+if [ "${LH_EXPOSED_ROOT}" = "enabled" ]
+then
+	# Make sure RW dirs exist so that the initramfs script has
+	# a directory in which to bind the tmpfs filesystems
+	COW_DIRS='/tmp /var/tmp /var/lock /var/run /var/lib/live /var/log
+		/var/spool /home /live'
+	for DIR in ${COW_DIRS}; do
+		mkdir -p chroot${DIR}
+	done
+
+	# Config files which need to be RW
+	CONFIG_FILES='/etc/hostname /etc/hosts /etc/resolv.conf /etc/fstab
+		/etc/live.conf /etc/network/interfaces /etc/X11/xorg.conf
+		/etc/udev/rules.d/z25_persistent-net.rules
+		/etc/udev/rules.d/z25_persistent-cd.rules'
+
+	# Where we will store RW config files
+	RW_DIR='/var/lib/live'
+
+	for FILE_PATH in ${CONFIG_FILES}
+	do
+		# Touch files in case they don't yet exist
+		FILE_DIR=$(dirname ${FILE_PATH})
+		mkdir -p chroot${FILE_DIR}
+		touch chroot${FILE_PATH}
+		FILE_NAME=$(basename ${FILE_PATH})
+		mkdir -p chroot${RW_DIR}${FILE_DIR}
+		mv chroot${FILE_PATH} chroot${RW_DIR}${FILE_DIR}
+		# Create a symbolic link to RW config file
+		RELATIVE_PATH=$(echo ${FILE_DIR}|sed 's/[^\/]\+/../g; s/^\///g')
+		ln -s ${RELATIVE_PATH}${RW_DIR}${FILE_PATH} chroot${FILE_PATH}
+	done
+
+	# Mount doesn't write to a symlink so use /proc/mounts instead,
+	# see debian bug #154438 for more info
+	rm chroot/etc/mtab
+	ln -s /proc/mounts chroot/etc/mtab
+fi
+
 # Creating stage file
 Create_stagefile .stage/chroot_hacks
