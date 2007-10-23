@@ -186,6 +186,11 @@ then
 	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} union=${LH_UNION_FILESYSTEM}"
 fi
 
+if [ "${LH_EXPOSED_ROOT}" != "disabled" ]
+then
+	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} exposedroot"
+fi
+
 LH_BOOTAPPEND_LIVE="$(echo ${LH_BOOTAPPEND_LIVE} | sed -e 's/  //')"
 
 # Parameters are listed at: linux/Documentation/kernel-parameters.txt
