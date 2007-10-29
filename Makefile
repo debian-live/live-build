@@ -91,9 +91,9 @@ uninstall:
 update:
 	set -e; for FILE in functions/*.sh examples/cron/*.sh manpages/*.de.* manpages/*.en.*; \
 	do \
-		sed -i	-e 's/2007\\-10\\-22/2007\\-10\\-29/' \
-			-e 's/22.10.2007/29.10.2007/' \
-			-e 's/1.0~a33/1.0~a34/' \
+		sed -i	-e 's/2007\\-10\\-29/2007\\-11\\-05/' \
+			-e 's/29.10.2007/05.11.2007/' \
+			-e 's/1.0~a34/1.0~a35/' \
 		$$FILE; \
 	done
 

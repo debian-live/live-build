@@ -10,4 +10,4 @@
 set -e
 
 PROGRAM="$(basename ${0})"
-VERSION="1.0~a33"
+VERSION="1.0~a34"
