@@ -1,6 +1,23 @@
-live-helper (1.0~a33-1) UNRELEASED; urgency=medium
+live-helper (1.0~a33-1) unstable; urgency=medium
 
+  [ Daniel Baumann ]
   * New upstream release.
+  * Preparing live-helper 1.0~a33-1.
+  * Adding cryptsetup.
+  * Removing ubuntu support.
+  * Removing mkisofs support.
+  * Setting default union filesystem to for etch to unionfs.
+
+  [ Alex Owen ]
+  * fix lh_chroot_sources to actually install *.deb from
+    config/chroot_sources
+
+  [ Jesse Hathaway ]
+  * add exposedroot option which exposes the root fs as ro
+
+  [ Maarten ter Huurne ]
+  * Remove ".img" from kernel image file name.
+  * Added feature to exclude paths from the root filesystem.
 
  -- Daniel Baumann <daniel@debian>  Mon, 22 Oct 2007 00:00:00 +0200
 
