@@ -776,7 +776,7 @@ cat > config/chroot << EOF
 LH_CHROOT_FILESYSTEM="${LH_CHROOT_FILESYSTEM}"
 
 # \$LH_UNION_FILESYSTEM: set union filesystem
-# (Default: ${LH_UNION_FILESYSTEM}
+# (Default: ${LH_UNION_FILESYSTEM})
 LH_UNION_FILESYSTEM="${LH_UNION_FILESYSTEM}"
 
 # \$LH_EXPOSED_ROOT: expose root as read only
