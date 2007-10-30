@@ -50,6 +50,10 @@ Create_lockfile .lock
 # Removing udev mac caching rule
 Chroot "rm -f /etc/udev/rules.d/z25_persistent-net.rules"
 
+# Blanking out fstab, so the live-initramfs will know to populate it
+Chroot "rm -f /etc/fstab"
+Chroot "touch /etc/fstab"
+
 case "${LH_BINARY_IMAGES}" in
 	net)
 		if [ ! -f chroot/usr/bin/smbmount ]
