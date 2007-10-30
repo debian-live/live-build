@@ -87,14 +87,19 @@ then
     CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --keyring=${LH_BOOTSTRAP_KEYRING}"
 fi
 
-case "${LH_PACKAGES_LISTS}" in
-	minimal|mini)
-		CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=minimal"
-		;;
-	*)
-		CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=standard"
-		;;
-esac
+if [ -z "${LH_BOOTSTRAP_FLAVOUR}" ]
+then
+	case "${LH_PACKAGES_LISTS}" in
+		minimal|mini)
+			CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=minimal"
+			;;
+		*)
+			CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=standard"
+			;;
+	esac
+else
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=${LH_BOOTSTRAP_FLAVOUR}"
+fi
 
 if [ "${LH_DEBUG}" = "enabled" ]
 then
