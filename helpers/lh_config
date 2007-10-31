@@ -94,7 +94,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [-s|--source-images iso|net|tar|usb-hdd]\n\
 \t    [--symlinks enabled|disabled]\n\
 \t    [--syslinux-splash FILE]\n\
-\t    [--syslinux-timeout MILISECONDS]\n\
+\t    [--syslinux-timeout SECONDS]\n\
 \t    [--sysvinit enabled|disabled]\n\
 \t    [--tasksel aptitude|tasksel]\n\
 \t    [--tasks TASK]\n\
@@ -971,7 +971,7 @@ LH_NET_COW_SERVER="${LH_NET_COW_SERVER}"
 # (Default: empty)
 LH_SYSLINUX_SPLASH="${LH_SYSLINUX_SPLASH}"
 
-# \$LH_SYSLINUX_TIMEOUT: set custom syslinux timeout
+# \$LH_SYSLINUX_TIMEOUT: set custom syslinux timeout in seconds
 # (Default: 0)
 LH_SYSLINUX_TIMEOUT="${LH_SYSLINUX_TIMEOUT}"
 
