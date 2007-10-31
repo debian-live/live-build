@@ -59,21 +59,28 @@ then
 fi
 
 # Creating image file
-if [ "$(basename ${LH_NET_ROOT_PATH})" = "chroot" ]
+ROOT_DIR=$(basename ${LH_NET_ROOT_PATH})
+if [ "${ROOT_DIR}" = "chroot" ]
 then
 	mv chroot chroot.tmp
 fi
 
-mv binary "$(basename ${LH_NET_ROOT_PATH})"
+if [ "${ROOT_DIR}" != "binary" ]
+then
+	mv binary ${ROOT_DIR}
+fi
 
 cd ..
-tar cfz binary-net.tar.gz "$(basename ${OLDPWD})/$(basename ${LH_NET_ROOT_PATH})" "$(basename ${OLDPWD})/tftpboot"
+tar cfz binary-net.tar.gz "$(basename ${OLDPWD})/${ROOT_DIR}" "$(basename ${OLDPWD})/tftpboot"
 mv binary-net.tar.gz "${OLDPWD}"
 cd "${OLDPWD}"
 
-mv "$(basename ${LH_NET_ROOT_PATH})" binary
+if [ "${ROOT_DIR}" != "binary" ]
+then
+	mv ${ROOT_DIR} binary
+fi
 
-if [ "$(basename ${LH_NET_ROOT_PATH})" = "chroot" ]
+if [ "${ROOT_DIR}" = "chroot" ]
 then
 	mv chroot.tmp chroot
 fi
