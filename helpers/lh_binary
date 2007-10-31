@@ -39,6 +39,7 @@ lh_binary_chroot ${*}
 if [ "${LH_CHROOT_BUILD}" = "enabled" ]
 then
 	# Configuring chroot
+	lh_chroot_devpts install ${*}
 	lh_chroot_proc install ${*}
 	lh_chroot_sysfs install ${*}
 	lh_chroot_hosts install ${*}
@@ -81,4 +82,5 @@ then
 	lh_chroot_hosts remove ${*}
 	lh_chroot_sysfs remove ${*}
 	lh_chroot_proc remove ${*}
+	lh_chroot_devpts remove ${*}
 fi
