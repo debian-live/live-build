@@ -226,7 +226,11 @@ Set_defaults ()
 	# LH_BOOTSTRAP_CONFIG
 
 	# Setting flavour value
-	LH_BOOTSTRAP_FLAVOUR="${LH_BOOTSTRAP_FLAVOUR:-standard}"
+	case "${LH_BOOTSTRAP}" in
+		cdebootstrap)
+			LH_BOOTSTRAP_FLAVOUR="${LH_BOOTSTRAP_FLAVOUR:-standard}"
+			;;
+	esac
 
 	# Setting boostrap keyring
 	# LH_BOOTSTRAP_KEYRING
