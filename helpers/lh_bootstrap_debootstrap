@@ -86,11 +86,11 @@ if [ -z "${LH_BOOTSTRAP_FLAVOUR}" ]
 then
 	case "${LH_PACKAGES_LISTS}" in
 		minimal|mini)
-			DEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --variant=buildd"
+			DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=buildd"
 			;;
 	esac
 else
-	DEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --variant=${LH_BOOTSTRAP_FLAVOUR}"
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=${LH_BOOTSTRAP_FLAVOUR}"
 fi
 
 if [ "${LH_VERBOSE}" = "true" ]
