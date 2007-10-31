@@ -188,8 +188,8 @@ fi
 
 if [ -n "${LH_NET_COW_PATH}" ]
 then
-   Echo_error "Net cow not yet supported on yaboot"
-   exit 1
+	Echo_error "Net cow not yet supported on yaboot"
+	exit 1
 fi
 
 if [ "${LH_EXPOSED_ROOT}" != "disabled" ]
