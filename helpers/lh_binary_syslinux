@@ -100,7 +100,7 @@ Syslinux_live_entry ()
 
    if [ ${LH_BINARY_IMAGES} = "iso" ] || [ ${LH_BINARY_IMAGES} = "usb-hdd" ]
    then
-      num=$(ls -1 ${KERNEL_PATH}|grep 'vmlinuz.\.img$'|wc -l)
+      num=$(ls -1 ${KERNEL_PATH}|grep 'vmlinuz[0-9]\+$'|wc -l)
       num=$(($num +1))
       # Note: ISOLINUX will not find the kernel if the name ends in ".img".
       mv ${KERNEL_PATH}/${KERNEL} ${KERNEL_PATH}/vmlinuz${num}
@@ -473,13 +473,14 @@ Syslinux_live_entry "live" "${LH_SYSLINUX_MENU_LIVE_ENTRY}" "${DEFAULT_KERNEL}" 
 
 if [ "$(echo ${LH_LINUX_FLAVOURS} | wc -w)" -gt "1" ]
 then
-	for KERNEL in chroot/boot/vmlinuz-*
+	for FLAVOUR in ${LH_LINUX_FLAVOURS}
 	do
-		KERNEL_IMAGE="$(basename ${KERNEL})"
-		KERNEL_VERSION="$(echo ${KERNEL_IMAGE} | sed -e 's/vmlinuz-//')"
-		INITRD="initrd.img-${KERNEL_VERSION}"
-
-		Syslinux_live_entry "live-${KERNEL_VERSION}" "${LH_SYSLINUX_MENU_LIVE_ENTRY}" "${KERNEL_IMAGE}" "${INITRD}"
+		if [ "${FLAVOUR}" != "${DEFAULT_FLAVOUR}" ]
+		then
+			FLAVOUR_KERNEL="$(basename chroot/boot/vmlinuz-*${FLAVOUR})"
+			FLAVOUR_INITRD="initrd.img-$(echo ${FLAVOUR_KERNEL} | sed -e 's/vmlinuz-//')"
+			Syslinux_live_entry "live-${FLAVOUR}" "${LH_SYSLINUX_MENU_LIVE_ENTRY} ${FLAVOUR}" "${FLAVOUR_KERNEL}" "${FLAVOUR_INITRD}"
+		fi
 	done
 fi
 
