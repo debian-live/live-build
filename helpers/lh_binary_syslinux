@@ -435,17 +435,19 @@ fi
 if [ -n "${LH_NET_COW_PATH}" ]
 then
 	case "${LH_NET_COW_FILESYSTEM}" in
-	   nfs)
+		nfs)
 			if [ -n "${LH_NET_COW_MOUNTOPTIONS}" ]
 			then
 				LH_NET_COW_MOUNTOPTIONS=",${LH_NET_COW_MOUNTOPTIONS}"
 			fi
+
 			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} nfscow=${LH_NET_COW_SERVER}:${LH_NET_COW_PATH}${LH_NET_COW_MOUNTOPTIONS}"
-	      ;;
-	   *)
-	      Echo_error "Unsupported net filesystem"
-	      exit 1
-	      ;;
+			;;
+
+		*)
+			Echo_error "Unsupported net filesystem"
+			exit 1
+			;;
 	esac
 fi
 
