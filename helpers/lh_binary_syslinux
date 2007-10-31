@@ -254,7 +254,7 @@ Configure_syslinux_templates ()
              -e "s/{\$LH_DATE}/$(date +%Y%m%d)/" \
              -e "s/{\$LH_MEDIA}/${MEDIA}/" \
 		       -e "s/{\$LH_VERSION}/${VERSION}/" \
-		       -e "s/{\$LINUX_TIMEOUT}/${LH_SYSLINUX_TIMEOUT}/" \
+		       -e "s/{\$LH_SYSLINUX_TIMEOUT}/${LH_SYSLINUX_TIMEOUT}0/" \
 		       -e 's/\ $//g' \
              $template_file
    done
