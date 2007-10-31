@@ -1,6 +1,22 @@
-live-helper (1.0~a34-1) UNRELEASED; urgency=medium
+live-helper (1.0~a34-1) unstable; urgency=medium
 
+  [ Daniel Baumann ]
   * New upstream release.
+  * Correcting homepage field.
+  * Respecting LH_BOOTSTRAP_FLAVOUR (Closes: #448034).
+  * Fixing typing error (missing paranthese).
+  * Correcting vcs fields.
+  * Fixing typing error (wrong variable name).
+  * Setting LH_BOOTSTRAP_FLAVOUR only when using cdebootstrap.
+  * Fixing indenting.
+  * Adding lh_chroot_devpts.
+
+  [ Jesse Hathaway ]
+  * add new option to mount cow device on nfs volume
+
+  [ Maarten ter Huurne ]
+  * Fixed lh_config tool name in manpage.
+  * Avoid [Y/n] query on package autoremove in "mini" hook.
 
  -- Daniel Baumann <daniel@debian>  Mon, 29 Oct 2007 00:00:00 +0100
 
