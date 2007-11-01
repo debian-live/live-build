@@ -63,7 +63,7 @@ then
 		Chroot "xargs --arg-file=/root/$(basename ${PACKAGESLIST}) apt-get -o Dir::Cache=/binary.deb --download-only install --yes"
 	done
 
-	for FILE in binary.deb/archives/*.deb
+	for FILE in chroot/binary.deb/archives/*.deb
 	do
 		SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
 
