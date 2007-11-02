@@ -95,6 +95,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--symlinks enabled|disabled]\n\
 \t    [--syslinux-splash FILE]\n\
 \t    [--syslinux-timeout SECONDS]\n\
+\t    [--syslinux-menu enabled|disabled]\n\
 \t    [--sysvinit enabled|disabled]\n\
 \t    [--tasksel aptitude|tasksel]\n\
 \t    [--tasks TASK]\n\
@@ -106,7 +107,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 
 Local_arguments ()
 {
-	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,losetup:,mode:,root-command:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,memtest:,net-root-filesystem:,net-root-mountoptions:,net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,net-cow-server:,syslinux-splash:,syslinux-timeout:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
+	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,losetup:,mode:,root-command:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,memtest:,net-root-filesystem:,net-root-mountoptions:,net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,net-cow-server:,syslinux-splash:,syslinux-timeout:,syslinux-menu:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
 
 	if [ "${?}" != "0" ]
 	then
@@ -515,6 +516,11 @@ Local_arguments ()
 
 			--syslinux-timeout)
 				LH_SYSLINUX_TIMEOUT="${2}"
+				shift 2
+				;;
+
+			--syslinux-menu)
+				LH_SYSLINUX_MENU="${2}"
 				shift 2
 				;;
 
