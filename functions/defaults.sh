@@ -590,4 +590,7 @@ Set_defaults ()
 
 	# Setting image type
 	LH_SOURCE_IMAGES="${LH_SOURCE_IMAGES:-tar}"
+
+	# Setting fakeroot/fakechroot
+	LH_USE_FAKEROOT="${LH_USE_FAKEROOT:-disabled}"
 }

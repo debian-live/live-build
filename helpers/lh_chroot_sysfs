@@ -52,11 +52,17 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		# Create mountpoint
-		mkdir -p chroot/sys
+		if [ "${LH_USE_FAKEROOT}" != "enabled" ]
+		then
+			# Create mountpoint
+			mkdir -p chroot/sys
 
-		# Mounting /sys
-		${LH_ROOT_COMMAND} mount sysfs-live -t sysfs chroot/sys
+			# Mounting /sys
+			${LH_ROOT_COMMAND} mount sysfs-live -t sysfs chroot/sys
+		else
+			rm -rf chroot/sys
+			ln -s /sys chroot/
+		fi
 
 		# Creating stage file
 		Create_stagefile .stage/chroot_sysfs
@@ -69,9 +75,15 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		# Unmounting /sys
-		#fuser -km chroot/sys
-		${LH_ROOT_COMMAND} umount chroot/sys > /dev/null 2>&1
+		if [ "${LH_USE_FAKEROOT}" != "enabled" ]
+		then
+			# Unmounting /sys
+			#fuser -km chroot/sys
+			${LH_ROOT_COMMAND} umount chroot/sys > /dev/null 2>&1
+		else
+			rm -rf chroot/sys
+			mkdir -p chroot/sys
+		fi
 
 		# Removing stage file
 		rm -f .stage/chroot_sysfs
