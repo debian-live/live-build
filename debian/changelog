@@ -1,6 +1,26 @@
-live-helper (1.0~a35-1) UNRELEASED; urgency=medium
+live-helper (1.0~a35-1) unstable; urgency=medium
 
+  [ Daniel Baumann ]
   * New upstream release.
+  * Preparing live-helper 1.0~a35-1.
+  * Corrected wrong path, thanks to Ben Armstrong <synrg@debian.org>.
+  * Renaming live-failsafe boot target to livefailsafe (Closes:
+    #450576).
+  * Using shell redirection to truncate rather than additional
+    commands/forks/files, thanks to Justin Pryzby
+    <jpryzby@quoininc.com>.
+  * Documenting preseeding for sun-java hooks, thanks to Antonio Amorim
+    <Antonio.Amorim@sim.fc.ul.pt>.
+  * Adding option to allow building in fakeroot/fakechroot environment,
+    thanks to An-Cheng Huang <ancheng@vyatta.com>.
+
+  [ Jesse Hathaway ]
+  * add force flag when removing /etc/mtab for exposedroot mode
+  * allow basename of net-root-path to be binary
+  * add /etc/adjtime to list of writable files in exposed root mode
+  * fix syslinux timeout option
+  * fix isolinux when booting multiple kernel flavours
+  * add new option --syslinux-menu to enable syslinux menu
 
  -- Daniel Baumann <daniel@debian>  Mon,  5 Nov 2007 00:00:00 +0100
 
