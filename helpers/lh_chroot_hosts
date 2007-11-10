@@ -89,7 +89,7 @@ EOF
 		else
 			# Blank out hosts file, don't remove in case
 			# its a symlink, as in the case of exposedroot mode
-			cat /dev/null > chroot/etc/hosts
+			Truncate chroot/etc/hosts
 		fi
 
 		# Removing stage file

@@ -80,7 +80,7 @@ case "${1}" in
 			mv chroot/etc/resolv.conf.orig chroot/etc/resolv.conf
 		else
 			# Truncating resolv file
-			cat < /dev/null > chroot/etc/resolv.conf
+			Truncate chroot/etc/resolv.conf
 		fi
 
 		# Removing stage file
