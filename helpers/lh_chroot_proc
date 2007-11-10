@@ -52,14 +52,20 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		# Creating mountpoint
-		mkdir -p chroot/proc
+		if [ "${LH_USE_FAKEROOT}" != "enabled" ]
+		then
+			# Creating mountpoint
+			mkdir -p chroot/proc
 
-		# Mounting /proc
-		${LH_ROOT_COMMAND} mount proc-live -t proc chroot/proc
+			# Mounting /proc
+			${LH_ROOT_COMMAND} mount proc-live -t proc chroot/proc
 
-		# Creating stage file
-		Create_stagefile .stage/chroot_proc
+			# Creating stage file
+			Create_stagefile .stage/chroot_proc
+		else
+			rm -rf chroot/proc
+			ln -s /proc chroot/
+		fi
 		;;
 
 	remove)
@@ -69,15 +75,21 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		# Workaround binfmt-support /proc locking
-		if [ -e chroot/proc/sys/fs/binfmt_misc/status ]
+		if [ "${LH_USE_FAKEROOT}" != "enabled" ]
 		then
-			${LH_ROOT_COMMAND} umount chroot/proc/sys/fs/binfmt_misc
-		fi
+			# Workaround binfmt-support /proc locking
+			if [ -e chroot/proc/sys/fs/binfmt_misc/status ]
+			then
+				${LH_ROOT_COMMAND} umount chroot/proc/sys/fs/binfmt_misc
+			fi
 
-		# Unmounting /proc
-		#fuser -km chroot/proc
-		${LH_ROOT_COMMAND} umount chroot/proc > /dev/null 2>&1
+			# Unmounting /proc
+			#fuser -km chroot/proc
+			${LH_ROOT_COMMAND} umount chroot/proc > /dev/null 2>&1
+		else
+			rm -rf chroot/proc
+			mkdir -p chroot/proc
+		fi
 
 		# Removing stage file
 		rm -f .stage/chroot_proc
