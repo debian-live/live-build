@@ -92,7 +92,14 @@ then
 				;;
 		esac
 	else
-		DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=${LH_BOOTSTRAP_FLAVOUR}"
+		case "${LH_BOOTSTRAP_FLAVOUR}" in
+			minimal|mini)
+				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=buildd"
+				;;
+
+			*)
+				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=${LH_BOOTSTRAP_FLAVOUR}"
+		esac
 	fi
 else
 	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=fakechroot"
