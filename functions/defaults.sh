@@ -361,7 +361,7 @@ Set_defaults ()
 				;;
 
 			m68k)
-				LH_LINUX_FLAVOURS="You need to specify the linux kernel flavour manually on m68k (FIXME)."
+				Echo_error "You need to specify the linux kernel flavour manually on m68k (FIXME)."
 				exit 1
 				;;
 
