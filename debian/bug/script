@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Checking depends
+dpkg -l debootstrap cdebootstrap
+
+# Checking suggests
+dpkg -l dosfstools genisoimage memtest86+ memtest86 mtools parted squashfs-tools genext2fs sudo fakeroot syslinux grub
