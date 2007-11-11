@@ -59,13 +59,13 @@ case "${1}" in
 
 			# Mounting /proc
 			${LH_ROOT_COMMAND} mount proc-live -t proc chroot/proc
-
-			# Creating stage file
-			Create_stagefile .stage/chroot_proc
 		else
 			rm -rf chroot/proc
 			ln -s /proc chroot/
 		fi
+
+		# Creating stage file
+		Create_stagefile .stage/chroot_proc
 		;;
 
 	remove)
