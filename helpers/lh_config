@@ -613,10 +613,10 @@ Read_conffile config/binary
 Read_conffile config/source
 Read_conffile "${LH_CONFIG}"
 
+Local_arguments "${@}"
+
 # Setting defaults
 Set_defaults
-
-Local_arguments "${@}"
 
 if [ -n "${LH_CONFFILE}" ]
 then
