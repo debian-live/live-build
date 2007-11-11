@@ -100,7 +100,7 @@ ${LH_ROOT_COMMAND} mv chroot.tmp chroot/chroot
 if [ -f config/binary_rootfs/exclude ]
 then
 	# Read exclude file and expand wildcards.
-	for EXCLUDE in `cat config/binary_rootfs/exclude`
+	for EXCLUDE in $(cat config/binary_rootfs/exclude)
 	do
 		if [ -e chroot/chroot/"${EXCLUDE}" ]
 		then

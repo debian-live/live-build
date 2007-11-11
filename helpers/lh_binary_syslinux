@@ -79,7 +79,7 @@ Utf8_to_latin1 ()
 Syslinux_memtest_entry ()
 {
 	LABEL="${1}"
-	MENULABEL=`Utf8_to_latin1 "${2}"`
+	MENULABEL="$(Utf8_to_latin1 "${2}")"
 	KERNEL="${3}"
 
 	MEMTEST="${MEMTEST}\nLABEL ${LABEL}\n"
@@ -92,7 +92,7 @@ Syslinux_memtest_entry ()
 Syslinux_live_entry ()
 {
 	LABEL="${1}"
-	MENULABEL=`Utf8_to_latin1 "${2}"`
+	MENULABEL="$(Utf8_to_latin1 "${2}")"
 	MENULABEL="${2}"
 	KERNEL="${3}"
 	INITRD="${4}"
@@ -233,7 +233,7 @@ Copy_syslinux_templates ()
 				else
 					rm -f ${SCREEN_PATH}/splash.rle
 					rm -f ${DATA_PATH}/splash.png
-					cp -f "${LH_SYSLINUX_SPLASH}" ${DATA_PATH}/`basename ${SPLASH}`
+					cp -f "${LH_SYSLINUX_SPLASH}" ${DATA_PATH}/$(basename ${SPLASH})
 				fi
 			fi
 		fi
