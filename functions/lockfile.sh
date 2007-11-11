@@ -30,7 +30,7 @@ Create_lockfile ()
 	mkdir -p "${DIRECTORY}"
 
 	# Creating lock trap
-	trap 'ret=${?}; '"rm -f \"${FILE}\";"' exit ${ret}' EXIT
+	trap 'ret=${?}; '"rm -f \"${FILE}\"; for FILESYSTEM in devpts proc sys; do lh_chroot_${FILESYSTEM} remove || continue; done"' exit ${ret}' EXIT
 
 	# Creating lock file
 	touch "${FILE}"
