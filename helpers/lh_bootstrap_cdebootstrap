@@ -98,7 +98,15 @@ then
 			;;
 	esac
 else
-	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=${LH_BOOTSTRAP_FLAVOUR}"
+	case "${LH_BOOTSTRAP_FLAVOUR}" in
+		minimal|mini)
+			CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=minimal"
+			;;
+
+		*)
+			CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=${LH_BOOTSTRAP_FLAVOUR}"
+			;;
+	esac
 fi
 
 if [ "${LH_DEBUG}" = "enabled" ]
