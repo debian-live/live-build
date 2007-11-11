@@ -623,6 +623,9 @@ then
 	Read_conffile "${LH_CONFFILE}"
 fi
 
+# Checking defaults
+Check_defaults
+
 # Creating bootstrap configuration
 mkdir -p config
 mkdir -p config/includes
