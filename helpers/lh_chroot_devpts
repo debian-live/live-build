@@ -52,11 +52,14 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		# Creating mountpoint
-		mkdir -p chroot/dev/pts
+		if [ "${LH_USE_FAKEROOT}" != "enabled" ]
+		then
+			# Creating mountpoint
+			mkdir -p chroot/dev/pts
 
-		# Mounting /dev/pts
-		${LH_ROOT_COMMAND} mount devpts-live -t devpts chroot/dev/pts
+			# Mounting /dev/pts
+			${LH_ROOT_COMMAND} mount devpts-live -t devpts chroot/dev/pts
+		fi
 
 		# Creating stage file
 		Create_stagefile .stage/chroot_devpts
@@ -70,9 +73,12 @@ case "${1}" in
 		Create_lockfile .lock
 
 		# Unmounting /dev/pts
-		if [ -e chroot/dev/pts/0 ]
+		if [ "${LH_USE_FAKEROOT}" != "enabled" ]
 		then
-			${LH_ROOT_COMMAND} umount chroot/dev/pts
+			if [ -e chroot/dev/pts/0 ]
+			then
+				${LH_ROOT_COMMAND} umount chroot/dev/pts
+			fi
 		fi
 
 		# Removing stage file
