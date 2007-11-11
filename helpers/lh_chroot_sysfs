@@ -79,7 +79,10 @@ case "${1}" in
 		then
 			# Unmounting /sys
 			#fuser -km chroot/sys
-			${LH_ROOT_COMMAND} umount chroot/sys > /dev/null 2>&1
+			if [ -e chroot/sys/kernel ]
+			then
+				${LH_ROOT_COMMAND} umount chroot/sys
+			fi
 		else
 			rm -rf chroot/sys
 			mkdir -p chroot/sys
