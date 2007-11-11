@@ -361,7 +361,7 @@ Set_defaults ()
 				;;
 
 			m68k)
-				LH_LINUX_FLAVOURS="You need to specify the linux kernel flavour manually on m68k."
+				LH_LINUX_FLAVOURS="You need to specify the linux kernel flavour manually on m68k (FIXME)."
 				exit 1
 				;;
 
@@ -383,7 +383,7 @@ Set_defaults ()
 				;;
 
 			*)
-				Echo_error "Architecture notyet supported (FIXME)"
+				Echo_error "Architecture not yet supported (FIXME)"
 				;;
 		esac
 	fi
