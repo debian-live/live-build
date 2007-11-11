@@ -37,6 +37,9 @@ install: build
 	rm -f debian/live-helper/usr/share/doc/live-helper/ChangeLog
 	mv debian/live-helper/usr/share/doc/live-helper/ChangeLog.live-package debian/live-helper/usr/share/doc/live-helper/changelog.live-package
 
+	# Installing bug control
+	install -D -m 0755 debian/bug/script debian/live-helper/usr/share/bug/live-helper
+
 binary-arch: build install
 
 binary-indep: build install
