@@ -602,14 +602,14 @@ Check_defaults ()
 		if [ "${LH_INITRAMFS}" = "live-initramfs" ]
 		then
 			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_INITRAMFS='live-initramfs'"
-			Echo_warning "This is a possible unsave configuration as live-initramfs is not"
+			Echo_warning "This is a possible unsafe configuration as live-initramfs is not"
 			Echo_warning "part of the etch distribution."
 		fi
 
 		if [ "${LH_UNION_FILESYSTEM}" = "aufs" ]
 		then
 			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_UNION_FILESYSTEM='aufs'"
-			Echo_warning "This is a possible unsave configuration as aufs is not"
+			Echo_warning "This is a possible unsafe configuration as aufs is not"
 			Echo_warning "part of the etch distribution."
 		fi
 	fi
