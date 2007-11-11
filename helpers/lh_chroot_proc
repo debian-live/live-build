@@ -85,7 +85,10 @@ case "${1}" in
 
 			# Unmounting /proc
 			#fuser -km chroot/proc
-			${LH_ROOT_COMMAND} umount chroot/proc > /dev/null 2>&1
+			if [ -e chroot/proc/version ]
+			then
+				${LH_ROOT_COMMAND} umount chroot/proc
+			fi
 		else
 			rm -rf chroot/proc
 			mkdir -p chroot/proc

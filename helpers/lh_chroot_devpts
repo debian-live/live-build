@@ -70,7 +70,10 @@ case "${1}" in
 		Create_lockfile .lock
 
 		# Unmounting /dev/pts
-		${LH_ROOT_COMMAND} umount chroot/dev/pts > /dev/null 2>&1
+		if [ -e chroot/dev/pts/0 ]
+		then
+			${LH_ROOT_COMMAND} umount chroot/dev/pts
+		fi
 
 		# Removing stage file
 		rm -f .stage/chroot_devpts
