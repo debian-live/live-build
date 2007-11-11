@@ -30,7 +30,7 @@ Create_lockfile ()
 	mkdir -p "${DIRECTORY}"
 
 	# Creating lock trap
-	trap "test -f ${FILE} && rm -f ${FILE}; exit 0" 0 1 2 3 9 15
+	trap 'ret=${?}; '"rm -f \"${FILE}\";"' exit ${ret}' EXIT
 
 	# Creating lock file
 	touch "${FILE}"
