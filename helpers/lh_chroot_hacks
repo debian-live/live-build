@@ -99,7 +99,7 @@ echo "0.0 0 0.0" > chroot/etc/adjtime
 
 # Remove cruft
 rm -f chroot/boot/initrd*bak*
-rm -f /etc/apt/trusted.gpg~
+rm -f chroot/etc/apt/trusted.gpg~
 rm -f chroot/etc/group- chroot/etc/passwd-
 rm -f chroot/etc/gshadow- chroot/etc/shadow-
 rm -f chroot/var/cache/debconf/*-old
