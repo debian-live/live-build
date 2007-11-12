@@ -33,6 +33,11 @@ Read_conffile config/source
 Read_conffile "${LH_CONFIG}"
 Set_defaults
 
+if [ "${LH_CHECKSUMS}" != "enabled" ]
+then
+	exit 0
+fi
+
 Echo_message "Begin creating binary md5sum.txt..."
 
 # Requiring stage file
