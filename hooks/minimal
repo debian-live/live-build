@@ -25,9 +25,13 @@ find . -name *~ | xargs rm -f
 
 rm -rf /var/cache/man/*
 
-# Cleaning apt
+# Cleaning apt lists
 rm -rf /var/lib/apt/lists
 mkdir -p /var/lib/apt/lists/partial
+
+# Cleaning apt cache
+rm -rf /var/cache/apt
+mkdir -p /var/cache/apt/archives/partial
 
 # Truncating logs
 for FILE in $(find /var/log/ -type f)
