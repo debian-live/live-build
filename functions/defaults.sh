@@ -138,10 +138,27 @@ Set_defaults ()
 		fi
 	fi
 
+	# Setting fdisk
+	if [ -z "${LH_FDISK}" ] || [ ! -x "${LH_FDISK}" ]
+	then
+		# Workaround for gnu-fdisk divertion
+		# (gnu-fdisk is buggy, #445304).
+		if [ -x /sbin/fdisk.distrib ]
+		then
+			LH_FDISK="fdisk.distrib"
+		elif [ -x /sbin/fdisk ]
+		then
+			LH_FDISK="fdisk"
+		else
+			echo "E: Can't proces file /sbin/fdisk (FIXME)"
+		fi
+	fi
+
 	# Setting losetup
 	if [ -z "${LH_LOSETUP}" ] || [ ! -x "${LH_LOSETUP}" ]
 	then
 		# Workaround for loop-aes-utils divertion
+		# (loop-aes-utils' losetup lacks features).
 		if [ -x /sbin/losetup.orig ]
 		then
 			LH_LOSETUP="losetup.orig"
