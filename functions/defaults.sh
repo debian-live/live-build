@@ -498,6 +498,9 @@ Set_defaults ()
 		esac
 	fi
 
+	# Setting checksums
+	LH_CHECKSUMS="${LH_CHECKSUMS:-enabled}"
+
 	# Setting chroot option
 	LH_CHROOT_BUILD="${LH_CHROOT_BUILD:-enabled}"
 
