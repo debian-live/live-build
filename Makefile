@@ -5,10 +5,19 @@ TRANSLATIONS="de"
 all: build
 
 test:
+	# Checking for syntax errors
 	set -e; for SCRIPT in functions/* examples/*/*.sh helpers/* hooks/*; \
 	do \
 		sh -n $$SCRIPT; \
 	done
+
+	# Checking for bashisms (temporary not failing, but only listing)
+	if [ -x /usr/bin/checkbashisms ]; \
+	then \
+		checkbashisms functions/* examples/*/*.sh helpers/* hooks/* || true; \
+	else \
+		echo "bashism test skipped - you need to install devscripts."; \
+	fi
 
 build:
 	@echo "Nothing to build."
