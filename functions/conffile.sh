@@ -11,16 +11,22 @@ set -e
 
 Read_conffile ()
 {
-	FILE="${1}"
+	FILES="${1} ${1}.${LH_ARCHITECTURE} ${1}.${DISTRIBUTION}"
+	FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's/^lh_//')"
+	FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's/^lh_//').${ARCHITECTURE}"
+	FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's/^lh_//').${DISTRIBUTION}"
 
-	if [ -f "${FILE}" ]
-	then
-		if [ -r "${FILE}" ]
+	for FILE in ${FILES}
+	do
+		if [ -f "${FILE}" ]
 		then
-			Echo_debug "Reading configuration file ${FILE}"
-			. "${FILE}"
-		else
-			Echo_warning "Failed to read configuration file ${FILE}"
+			if [ -r "${FILE}" ]
+			then
+				Echo_debug "Reading configuration file ${FILE}"
+				. "${FILE}"
+			else
+				Echo_warning "Failed to read configuration file ${FILE}"
+			fi
 		fi
-	fi
+	done
 }
