@@ -14,6 +14,6 @@ Breakpoint ()
 	if [ "${LH_BREAKPOINTS}" = "enabled" ]
 	then
 		Echo_message "Waiting at ${NAME}"
-		read
+		read WAIT
 	fi
 }
