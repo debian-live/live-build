@@ -92,6 +92,11 @@ do
 			rm -f .stage/binary*
 			;;
 
+		remove)
+			"${0}" all
+			rm -rf cache/packages_*
+			;;
+
 		purge)
 			"${0}" all
 			"${0}" cache
