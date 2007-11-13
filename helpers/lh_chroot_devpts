@@ -36,13 +36,13 @@ Read_conffile config/source
 Read_conffile "${LH_CONFIG}"
 Set_defaults
 
-Echo_message "Begin mounting /dev/pts..."
-
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
 case "${1}" in
 	install)
+		Echo_message "Begin mounting /dev/pts..."
+
 		# Checking stage file
 		Check_stagefile .stage/chroot_devpts
 
@@ -66,6 +66,8 @@ case "${1}" in
 		;;
 
 	remove)
+		Echo_message "Begin unmounting /dev/pts..."
+
 		# Checking lock file
 		Check_lockfile .lock
 
