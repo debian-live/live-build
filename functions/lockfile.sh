@@ -23,18 +23,15 @@ Check_lockfile ()
 
 Create_lockfile ()
 {
-	if [ "${LH_FORCE}" != "enabled" ]
-	then
-		FILE="${1}"
-		DIRECTORY="$(dirname ${1})"
+	FILE="${1}"
+	DIRECTORY="$(dirname ${1})"
 
-		# Creating lock directory
-		mkdir -p "${DIRECTORY}"
+	# Creating lock directory
+	mkdir -p "${DIRECTORY}"
 
-		# Creating lock trap
-		trap 'ret=${?}; '"rm -f \"${FILE}\"; "'for FILESYSTEM in devpts proc sysfs; do lh_chroot_${FILESYSTEM} remove --force; done; exit ${ret}' EXIT
+	# Creating lock trap
+	trap 'ret=${?}; '"rm -f \"${FILE}\";"' exit ${ret}' EXIT
 
-		# Creating lock file
-		touch "${FILE}"
-	fi
+	# Creating lock file
+	touch "${FILE}"
 }
