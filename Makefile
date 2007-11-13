@@ -1,6 +1,6 @@
 # Makefile
 
-TRANSLATIONS="de"
+#TRANSLATIONS="de"
 
 all: build
 
