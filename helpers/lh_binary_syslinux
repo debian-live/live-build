@@ -83,6 +83,7 @@ Syslinux_memtest_entry ()
 	KERNEL="${3}"
 
 	MEMTEST="${MEMTEST}\nLABEL ${LABEL}\n"
+
 	# Write the menu label if the syslinux menu is being use
 	MEMTEST="${MEMTEST}\tMENU LABEL ${MENULABEL}\n"
 	MEMTEST="${MEMTEST}\tkernel ${LIVE_KERNEL_PATH}/${KERNEL}\n"
@@ -98,26 +99,30 @@ Syslinux_live_entry ()
 	INITRD="${4}"
 	APPEND="${5}"
 
-   if [ ${LH_BINARY_IMAGES} = "iso" ] || [ ${LH_BINARY_IMAGES} = "usb-hdd" ]
-   then
-      num=$(ls -1 ${KERNEL_PATH}|grep 'vmlinuz[0-9]\+$'|wc -l)
-      num=$(($num +1))
-      # Note: ISOLINUX will not find the kernel if the name ends in ".img".
-      mv ${KERNEL_PATH}/${KERNEL} ${KERNEL_PATH}/vmlinuz${num}
-      mv ${KERNEL_PATH}/${INITRD} ${KERNEL_PATH}/initrd${num}.img
-      KERNEL=vmlinuz${num}
-      INITRD=initrd${num}.img
-   fi
+	if [ ${LH_BINARY_IMAGES} = "iso" ] || [ ${LH_BINARY_IMAGES} = "usb-hdd" ]
+	then
+		NUMBER="$(ls -1 ${KERNEL_PATH} | grep 'vmlinuz[0-9]\+$' | wc -l)"
+		NUMBER="$((${NUMBER} +1))"
 
-   # Regular kernel
+		# Note: ISOLINUX will not find the kernel if the name ends in ".img".
+		mv ${KERNEL_PATH}/${KERNEL} ${KERNEL_PATH}/vmlinuz${NUMBER}
+		mv ${KERNEL_PATH}/${INITRD} ${KERNEL_PATH}/initrd${NUMBER}.img
+
+		KERNEL=vmlinuz${NUMBER}
+		INITRD=initrd${NUMBER}.img
+	fi
+
+	# Regular kernel
 	LINUX_LIVE="${LINUX_LIVE}\nLABEL ${LABEL}\n"
+
 	# Write the menu label if the syslinux menu is being use
 	LINUX_LIVE="${LINUX_LIVE}\tMENU LABEL ${MENULABEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\tkernel ${LIVE_KERNEL_PATH}/${KERNEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=${LIVE_KERNEL_PATH}/${INITRD} boot=${INITFS} ${LH_BOOTAPPEND_LIVE} ${APPEND}\n"
 
-   # Failsafe kernel
+	# Failsafe kernel
 	LINUX_LIVE="${LINUX_LIVE}\nLABEL ${LABEL}failsafe\n"
+
 	# Write the menu label if the syslinux menu is being use
 	LINUX_LIVE="${LINUX_LIVE}\tMENU LABEL ${MENULABEL} Failsafe\n"
 	LINUX_LIVE="${LINUX_LIVE}\tkernel ${LIVE_KERNEL_PATH}/${KERNEL}\n"
@@ -137,148 +142,158 @@ Syslinux_install_entry ()
 		APPEND="${APPEND} quiet"
 	fi
 
-   for TYPE in Install Expert Rescue Auto
-   do
+	for TYPE in Install Expert Rescue Auto
+	do
 		case "${TYPE}" in
 			Install)
-				TAPPEND="${APPEND}" 
+				TAPPEND="${APPEND}"
 				;;
+
 			Expert)
-				TAPPEND="priority=low ${APPEND}" 
+				TAPPEND="priority=low ${APPEND}"
 				;;
+
 			Rescue)
-				TAPPEND="rescue/enable=true ${APPEND}" 
+				TAPPEND="rescue/enable=true ${APPEND}"
 				;;
+
 			Auto)
-				TAPPEND="rescue/enable=true ${APPEND}" 
+				TAPPEND="rescue/enable=true ${APPEND}"
 				;;
 		esac
 
-	   LINUX_INSTALL="${LINUX_INSTALL}\nLABEL ${LABEL}${TYPE}\n"
-	   LINUX_INSTALL="${LINUX_INSTALL}\tMENU LABEL Start ${LABEL} ${TYPE}\n"
-	   LINUX_INSTALL="${LINUX_INSTALL}\tkernel ${LIVE_INSTALL_KERNEL_PATH}/${KERNEL}\n"
-	   LINUX_INSTALL="${LINUX_INSTALL}\tappend initrd=${LIVE_INSTALL_KERNEL_PATH}/${INITRD} ${TAPPEND} ${LH_BOOTAPPEND_INSTALL}\n"
-   done
+		LINUX_INSTALL="${LINUX_INSTALL}\nLABEL ${LABEL}${TYPE}\n"
+		LINUX_INSTALL="${LINUX_INSTALL}\tMENU LABEL Start ${LABEL} ${TYPE}\n"
+		LINUX_INSTALL="${LINUX_INSTALL}\tkernel ${LIVE_INSTALL_KERNEL_PATH}/${KERNEL}\n"
+		LINUX_INSTALL="${LINUX_INSTALL}\tappend initrd=${LIVE_INSTALL_KERNEL_PATH}/${INITRD} ${TAPPEND} ${LH_BOOTAPPEND_INSTALL}\n"
+	done
 }
 
 Copy_syslinux_templates ()
 {
-		cp -r "${TEMPLATES}"/common/* ${SCREEN_PATH}
+	cp -r "${TEMPLATES}"/common/* ${SCREEN_PATH}
 
-		if [ "${LH_SYSLINUX_MENU}" = "disabled" ]
-		then
-			cp "${TEMPLATES}"/normal/*.cfg ${SCREEN_PATH}
-			cp "${TEMPLATES}"/normal/data/* ${DATA_PATH}
-		else
-			cp "${TEMPLATES}"/menu/*.cfg ${SCREEN_PATH}
-			cp "${TEMPLATES}"/menu/data/* ${DATA_PATH}
+	if [ "${LH_SYSLINUX_MENU}" = "disabled" ]
+	then
+		cp "${TEMPLATES}"/normal/*.cfg ${SCREEN_PATH}
+		cp "${TEMPLATES}"/normal/data/* ${DATA_PATH}
+	else
+		cp "${TEMPLATES}"/menu/*.cfg ${SCREEN_PATH}
+		cp "${TEMPLATES}"/menu/data/* ${DATA_PATH}
+
          # Grab menu binary from chroot
          MENUMODULE=$(grep 'menu.c32' ${TEMPLATES}/menu/header.cfg | sed 's,default\s*.*/\(.*menu.c32\)$,\1,g')
-			cp chroot/usr/lib/syslinux/"${MENUMODULE}" ${DATA_PATH}
-		fi
+		cp chroot/usr/lib/syslinux/"${MENUMODULE}" ${DATA_PATH}
+	fi
 
-		if [ -d "${TEMPLATES}"/"${LH_LANGUAGE}" ]
-		then
-			cp -r "${TEMPLATES}"/"${LH_LANGUAGE}"/* ${SCREEN_PATH}
-		else
-			cp -r "${TEMPLATES}"/en/* ${SCREEN_PATH}
-		fi
+	if [ -d "${TEMPLATES}"/"${LH_LANGUAGE}" ]
+	then
+		cp -r "${TEMPLATES}"/"${LH_LANGUAGE}"/* ${SCREEN_PATH}
+	else
+		cp -r "${TEMPLATES}"/en/* ${SCREEN_PATH}
+	fi
 
-		for FILE in ${SCREEN_PATH}/*.live
+	for FILE in ${SCREEN_PATH}/*.live
+	do
+		mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .live)
+	done
+
+	if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
+	then
+		for FILE in ${SCREEN_PATH}/*.install
 		do
-			mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .live)
+			mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .install)
 		done
 
-		if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
+		if [ "${LH_ARCHITECTURE}" = "amd64" ] || [ "${LH_ARCHITECTURE}" = "i386" ] || [ "${LH_ARCHITECTURE}" = "powerpc" ]
 		then
-			for FILE in ${SCREEN_PATH}/*.install
+			for FILE in ${SCREEN_PATH}/*.install.g-i
 			do
-				mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .install)
+				mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .install.g-i)
 			done
-
-			if [ "${LH_ARCHITECTURE}" = "amd64" ] || [ "${LH_ARCHITECTURE}" = "i386" ] || [ "${LH_ARCHITECTURE}" = "powerpc" ]
-			then
-				for FILE in ${SCREEN_PATH}/*.install.g-i
-				do
-					mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .install.g-i)
-				done
-			else
-				rm -f ${SCREEN_PATH}/*.install.g-i
-			fi
 		else
-			rm -f ${SCREEN_PATH}/*.install*
+			rm -f ${SCREEN_PATH}/*.install.g-i
 		fi
+	else
+		rm -f ${SCREEN_PATH}/*.install*
+	fi
 
-		# Copying custom splash screen
-		if [ "${LH_SYSLINUX_SPLASH}" = "none" ] 
+	# Copying custom splash screen
+	if [ "${LH_SYSLINUX_SPLASH}" = "none" ]
+	then
+		# no splash screen
+		SPLASH=""
+		rm -f ${SCREEN_PATH}/splash.rle
+		rm -f ${DATA_PATH}/splash.png
+	else
+		if [ "${LH_SYSLINUX_MENU}" = "disabled" ]
 		then
-			# no splash screen
-			SPLASH=""
-			rm -f ${SCREEN_PATH}/splash.rle
-			rm -f ${DATA_PATH}/splash.png
+		    SPLASH="${LIVE_DATA_PATH}/splash.rle"
 		else
-			if [ "${LH_SYSLINUX_MENU}" = "disabled" ]
-			then
-			    SPLASH="${LIVE_DATA_PATH}/splash.rle"
-			else
-			    SPLASH="${LIVE_DATA_PATH}/splash.png"
-            fi
+		    SPLASH="${LIVE_DATA_PATH}/splash.png"
+		fi
 
-			if [ -n "${LH_SYSLINUX_SPLASH}" ]
+		if [ -n "${LH_SYSLINUX_SPLASH}" ]
+		then
+			if [ ! -e "${LH_SYSLINUX_SPLASH}" ]
 			then
-				if [ ! -e "${LH_SYSLINUX_SPLASH}" ]
-				then
-					Echo_error "${LH_SYSLINUX_SPLASH} doen't exist"
-					exit 1
-				else
-					rm -f ${SCREEN_PATH}/splash.rle
-					rm -f ${DATA_PATH}/splash.png
-					cp -f "${LH_SYSLINUX_SPLASH}" ${DATA_PATH}/$(basename ${SPLASH})
-				fi
+				Echo_error "${LH_SYSLINUX_SPLASH} doen't exist"
+				exit 1
+			else
+				rm -f ${SCREEN_PATH}/splash.rle
+				rm -f ${DATA_PATH}/splash.png
+				cp -f "${LH_SYSLINUX_SPLASH}" ${DATA_PATH}/$(basename ${SPLASH})
 			fi
 		fi
+	fi
 }
 
 Configure_syslinux_templates ()
 {
-   templates=$(find ${SYSLINUX_PATH} -type f -name '*.cfg' -o -name '*.txt')
-   for template_file in ${templates}; do
+	templates="$(find ${SYSLINUX_PATH} -type f -name '*.cfg' -o -name '*.txt')"
+
+	for template_file in ${templates}
+	do
 		sed -i -e "s@{\$LINUX_LIVE}@${LINUX_LIVE}@" \
-             -e "s@{\$LINUX_INSTALL}@${LINUX_INSTALL}@" \
-             -e "s@{\$MEMTEST}@${MEMTEST}@" \
-             -e "s@{\$LIVE_SCREEN_PATH}@${LIVE_SCREEN_PATH}@" \
-             -e "s@{\$LIVE_DATA_PATH}@${LIVE_DATA_PATH}@" \
-             -e "s@{\$LIVE_KERNEL_PATH}@${LIVE_KERNEL_PATH}@" \
-             -e "s@{\$SPLASH}@${SPLASH}@" \
-             -e "s/{\$LH_DISTRIBUTION}/${LH_DISTRIBUTION}/" \
-             -e "s/{\$LH_DATE}/$(date +%Y%m%d)/" \
-             -e "s/{\$LH_MEDIA}/${MEDIA}/" \
+		       -e "s@{\$LINUX_INSTALL}@${LINUX_INSTALL}@" \
+		       -e "s@{\$MEMTEST}@${MEMTEST}@" \
+		       -e "s@{\$LIVE_SCREEN_PATH}@${LIVE_SCREEN_PATH}@" \
+		       -e "s@{\$LIVE_DATA_PATH}@${LIVE_DATA_PATH}@" \
+		       -e "s@{\$LIVE_KERNEL_PATH}@${LIVE_KERNEL_PATH}@" \
+		       -e "s@{\$SPLASH}@${SPLASH}@" \
+		       -e "s/{\$LH_DISTRIBUTION}/${LH_DISTRIBUTION}/" \
+		       -e "s/{\$LH_DATE}/$(date +%Y%m%d)/" \
+		       -e "s/{\$LH_MEDIA}/${MEDIA}/" \
 		       -e "s/{\$LH_VERSION}/${VERSION}/" \
 		       -e "s/{\$LH_SYSLINUX_TIMEOUT}/${LH_SYSLINUX_TIMEOUT}0/" \
 		       -e 's/\ $//g' \
-             $template_file
-   done
+		$template_file
+	done
 
 	# Syslinux v3.31 in etch does not support include statements
 	if [ "${LH_DISTRIBUTION}" = "etch" ]
 	then
 		while grep -q ^include ${SCREEN_PATH}/syslinux.cfg
-	   do
+		do
 			INCLUDES=$(grep ^include ${SCREEN_PATH}/syslinux.cfg |awk '{print $2}')
+
 			for FILE_PATH in ${INCLUDES}
 			do
-			   FILE_NAME=$(basename ${FILE_PATH})
-			   sed -i -e '\@include '${FILE_PATH}'@ {
-				r '${SCREEN_PATH}/${FILE_NAME}'
-				d  
+				FILE_NAME=$(basename ${FILE_PATH})
+
+				sed -i -e '\@include '${FILE_PATH}'@ {
+					r '${SCREEN_PATH}/${FILE_NAME}'
+					d
 				}' ${SCREEN_PATH}/syslinux.cfg
-            # remove the files, which were included
+
+				#  remove the files, which were included
 				if [ -e ${SCREEN_PATH}/${FILE_NAME} ]
-            then
-					rm ${SCREEN_PATH}/${FILE_NAME}
-            fi
+				then
+					rm -f ${SCREEN_PATH}/${FILE_NAME}
+				fi
 			done
-      done
+		done
+
 		# Syslinux v3.31 in etch does not support sub directories, /path/kernel,
 		# when using FAT hard drive images, remove leading /'s
 		if [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
@@ -306,37 +321,38 @@ esac
 case "${LH_BINARY_IMAGES}" in
 	iso)
 		SYSLINUX_PATH="binary/isolinux"
-      KERNEL_PATH="binary/${INITFS}"
-      SCREEN_PATH="${SYSLINUX_PATH}"
-      DATA_PATH="${SCREEN_PATH}/data"
-      LIVE_KERNEL_PATH="/${INITFS}"
-      LIVE_INSTALL_KERNEL_PATH="/install"
-      LIVE_SCREEN_PATH="/isolinux"
-      LIVE_DATA_PATH="${LIVE_SCREEN_PATH}/data"
-      MEDIA="CD-ROM"
+		KERNEL_PATH="binary/${INITFS}"
+		SCREEN_PATH="${SYSLINUX_PATH}"
+		DATA_PATH="${SCREEN_PATH}/data"
+		LIVE_KERNEL_PATH="/${INITFS}"
+		LIVE_INSTALL_KERNEL_PATH="/install"
+		LIVE_SCREEN_PATH="/isolinux"
+		LIVE_DATA_PATH="${LIVE_SCREEN_PATH}/data"
+		MEDIA="CD-ROM"
 		;;
 
 	net)
 		SYSLINUX_PATH="tftpboot"
-      KERNEL_PATH="${SYSLINUX_PATH}/debian-live/${LH_ARCHITECTURE}"
-      SCREEN_PATH="${SYSLINUX_PATH}/debian-live/${LH_ARCHITECTURE}/boot-screens"
-      DATA_PATH="${SCREEN_PATH}/data"
-      LIVE_KERNEL_PATH="debian-live/${LH_ARCHITECTURE}"
-      LIVE_INSTALL_KERNEL_PATH="debian-install/${LH_ARCHITECTURE}"
-      LIVE_SCREEN_PATH="debian-live/${LH_ARCHITECTURE}/boot-screens"
-      LIVE_DATA_PATH="${LIVE_SCREEN_PATH}/data"
-      MEDIA="netboot"
+		KERNEL_PATH="${SYSLINUX_PATH}/debian-live/${LH_ARCHITECTURE}"
+		SCREEN_PATH="${SYSLINUX_PATH}/debian-live/${LH_ARCHITECTURE}/boot-screens"
+		DATA_PATH="${SCREEN_PATH}/data"
+		LIVE_KERNEL_PATH="debian-live/${LH_ARCHITECTURE}"
+		LIVE_INSTALL_KERNEL_PATH="debian-install/${LH_ARCHITECTURE}"
+		LIVE_SCREEN_PATH="debian-live/${LH_ARCHITECTURE}/boot-screens"
+		LIVE_DATA_PATH="${LIVE_SCREEN_PATH}/data"
+		MEDIA="netboot"
 		;;
 
 	tar|usb-hdd)
 		SYSLINUX_PATH="binary/syslinux"
-      KERNEL_PATH="binary/${INITFS}"
-      SCREEN_PATH="${SYSLINUX_PATH}"
-      DATA_PATH="${SCREEN_PATH}/data"
-      LIVE_KERNEL_PATH="/${INITFS}"
-      LIVE_INSTALL_KERNEL_PATH="/install"
-      LIVE_SCREEN_PATH="/syslinux"
-      LIVE_DATA_PATH="${LIVE_SCREEN_PATH}/data"
+		KERNEL_PATH="binary/${INITFS}"
+		SCREEN_PATH="${SYSLINUX_PATH}"
+		DATA_PATH="${SCREEN_PATH}/data"
+		LIVE_KERNEL_PATH="/${INITFS}"
+		LIVE_INSTALL_KERNEL_PATH="/install"
+		LIVE_SCREEN_PATH="/syslinux"
+		LIVE_DATA_PATH="${LIVE_SCREEN_PATH}/data"
+
 		# Syslinux v3.31 in etch does not support sub directories, /path/kernel,
 		# when using FAT hard drive images
 		if [ "${LH_DISTRIBUTION}" = "etch" ] && [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
@@ -350,6 +366,7 @@ case "${LH_BINARY_IMAGES}" in
 			LIVE_SCREEN_PATH=""
 			LIVE_DATA_PATH=""
 		fi
+
 		MEDIA="hd-media"
 		;;
 esac
@@ -531,6 +548,7 @@ case "${LH_BINARY_IMAGES}" in
 			cp "${LH_SYSLINUX_CFG}" ${SCREEN_PATH}/isolinux.cfg
 		fi
 		;;
+
 	net)
 		case "${LH_CHROOT_BUILD}" in
 			enabled)
@@ -542,8 +560,8 @@ case "${LH_BINARY_IMAGES}" in
 		esac
 
 		mkdir -p ${KERNEL_PATH}/pxelinux.cfg
-      ln -s ${LIVE_KERNEL_PATH}/pxelinux.cfg ${SYSLINUX_PATH}/pxelinux.cfg
-      ln -s ${LIVE_KERNEL_PATH}/pxelinux.0 ${SYSLINUX_PATH}/pxelinux.0
+		ln -s ${LIVE_KERNEL_PATH}/pxelinux.cfg ${SYSLINUX_PATH}/pxelinux.cfg
+		ln -s ${LIVE_KERNEL_PATH}/pxelinux.0 ${SYSLINUX_PATH}/pxelinux.0
 
 		mv ${SCREEN_PATH}/syslinux.cfg ${KERNEL_PATH}/pxelinux.cfg/default
 
@@ -553,6 +571,7 @@ case "${LH_BINARY_IMAGES}" in
 			cp "${LH_SYSLINUX_CFG}" ${KERNEL_PATH}/pxelinux.cfg/default
 		fi
 		;;
+
 	tar|usb-hdd)
 		case "${LH_CHROOT_BUILD}" in
 			enabled)
