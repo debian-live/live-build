@@ -1,8 +1,48 @@
-live-helper (1.0~a36-1) UNRELEASED; urgency=medium
+live-helper (1.0~a36-1) unstable; urgency=medium
 
   * New upstream release.
+  * Preparing live-helper 1.0~a36-1.
+  * Fixing trap call as suggested by Justin Pryzby
+    <jpryzby@quoininc.com> (Closes: #431160, #449087).
+  * Correcting some language shortcommings.
+  * Fixing wrong kernel flavour warning message on m68k.
+  * Evaluating local arguments befor setting the defaults (Closes:
+    #444985).
+  * Adding custom reportbug script.
+  * Allowing LH_BOOTSTRAP_FLAVOUR to be minimal or mini.
+  * Fixing some coding style issues.
+  * Added warning about etch compatibility of lh_config options.
+  * Adding generic lh wrapper.
+  * Fixing spelling mistake, thanks to Kel Modderman <kel@otaku42.de>.
+  * Improving trap call to unmount pseudo filesystem when failing as
+    suggested by Justin Pryzby <jpryzby@quoininc.com>.
+  * Updating to install the generic wrapper.
+  * Fixing trap call, thanks to An-Cheng Huang <ancheng@vyatta.com>.
+  * Making umount calls check if they are actually necessary.
+  * Extending --force to also cover lockfiles to avoid recursive loop
+    within trap.
+  * Fixing typing error, thanks to An-Cheng Huang <ancheng@vyatta.com>.
+  * Adding some more fakeroot related fixes from An-Cheng Huang
+    <ancheng@vyatta.com>.
+  * Adding a check to see if user is running lh_clean from a sane
+    location (i.e. not config/), thanks to Kai Hendry
+    <hendry@webconverger.com>.
+  * Adding check to detect gnu-fdisk and using the original fdisk,
+    thanks to Peter Skogström <peter.skogstrom@bitrunner.com> for the
+    report.
+  * Removing the whole cache, not just the .deb cache in mini and
+    minimal hooks, thanks to Franklin Piat <fpiat@bigfoot.com>.
+  * Adding option to disable md5sum generation.
+  * Fixed a few bashisms, thanks to Trent W. Buck <trentbuck@gmail.com>.
+  * Adding checkbashsms call to test target of the Makefile as suggested
+    by Trent W. Buck <trentbuck@gmail.com>.
+  * Outputting an own message when having more than one case in a
+    helper, instead of a global one.
+  * Removing the unmounting of pseudo filesystems from the trap call,
+    needs some other changes before it can safely be done.
+  * Adding 'remove' case, which is in between of all and purge.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 12 Nov 2007 00:00:00 +0200
+ -- Daniel Baumann <daniel@debian.org>  Mon, 12 Nov 2007 00:00:00 +0100
 
 live-helper (1.0~a35-1) unstable; urgency=medium
 
@@ -28,7 +68,7 @@ live-helper (1.0~a35-1) unstable; urgency=medium
   * fix isolinux when booting multiple kernel flavours
   * add new option --syslinux-menu to enable syslinux menu
 
- -- Daniel Baumann <daniel@debian>  Mon,  5 Nov 2007 00:00:00 +0100
+ -- Daniel Baumann <daniel@debian.org>  Mon,  5 Nov 2007 00:00:00 +0100
 
 live-helper (1.0~a34-1) unstable; urgency=medium
 
@@ -50,7 +90,7 @@ live-helper (1.0~a34-1) unstable; urgency=medium
   * Fixed lh_config tool name in manpage.
   * Avoid [Y/n] query on package autoremove in "mini" hook.
 
- -- Daniel Baumann <daniel@debian>  Mon, 29 Oct 2007 00:00:00 +0100
+ -- Daniel Baumann <daniel@debian.org>  Mon, 29 Oct 2007 00:00:00 +0100
 
 live-helper (1.0~a33-1) unstable; urgency=medium
 
@@ -73,7 +113,7 @@ live-helper (1.0~a33-1) unstable; urgency=medium
   * Remove ".img" from kernel image file name.
   * Added feature to exclude paths from the root filesystem.
 
- -- Daniel Baumann <daniel@debian>  Mon, 22 Oct 2007 00:00:00 +0200
+ -- Daniel Baumann <daniel@debian.org>  Mon, 22 Oct 2007 00:00:00 +0200
 
 live-helper (1.0~a32-1) unstable; urgency=medium
 
@@ -106,7 +146,7 @@ live-helper (1.0~a32-1) unstable; urgency=medium
   * lh_binary_syslinux: always put splash image as splash.{rle,png} to avoid
     filename issues
 
- -- Daniel Baumann <daniel@debian>  Mon, 15 Oct 2007 00:00:00 +0200
+ -- Daniel Baumann <daniel@debian.org>  Mon, 15 Oct 2007 00:00:00 +0200
 
 live-helper (1.0~a31-1) unstable; urgency=medium
 
