@@ -86,7 +86,7 @@ fi
 echo "!!! The following error/warning messages can be ignored !!!"
 Losetup $FREELO source.img 0
 Chroot "parted -s ${FREELO} mklabel msdos" || true
-Chroot "parted -s ${FREELO} mkpartfs primary fat16 0.0 100%" || true
+Chroot "parted -s ${FREELO} mkpart primary fat16 0.0 100%" || true
 Chroot "parted -s ${FREELO} set 1 lba off" || true
 ${LH_LOSETUP} -d ${FREELO}
 

@@ -99,7 +99,7 @@ Losetup $FREELO chroot/binary.img 0
 case "${LH_CHROOT_BUILD}" in
 	enabled)
 		Chroot "parted -s ${FREELO} mklabel msdos" || true
-		Chroot "parted -s ${FREELO} mkpartfs primary fat16 0.0 100%" || true
+		Chroot "parted -s ${FREELO} mkpart primary fat16 0.0 100%" || true
 		Chroot "parted -s ${FREELO} set 1 boot on" || true
 		Chroot "parted -s ${FREELO} set 1 lba off" || true
 
@@ -111,7 +111,7 @@ case "${LH_CHROOT_BUILD}" in
 
 	disabled)
 		parted -s ${FREELO} mklabel msdos || true
-		parted -s ${FREELO} mkpartfs primary fat16 0.0 100% || true
+		parted -s ${FREELO} mkpart primary fat16 0.0 100% || true
 		parted -s ${FREELO} set 1 boot on || true
 		parted -s ${FREELO} set 1 lba off || true
 
