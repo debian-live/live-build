@@ -94,7 +94,7 @@ then
 fi
 
 echo "!!! The following error/warning messages can be ignored !!!"
-lh_losetup $FREELO chroot/binary.img 0
+Losetup $FREELO chroot/binary.img 0
 
 case "${LH_CHROOT_BUILD}" in
 	enabled)
@@ -125,7 +125,7 @@ esac
 ${LH_LOSETUP} -d ${FREELO}
 
 FREELO="$(${LH_LOSETUP} -f)"
-lh_losetup $FREELO chroot/binary.img 1
+Losetup $FREELO chroot/binary.img 1
 
 case "${LH_CHROOT_BUILD}" in
 	enabled)

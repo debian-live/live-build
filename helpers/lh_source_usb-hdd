@@ -84,13 +84,13 @@ then
 fi
 
 echo "!!! The following error/warning messages can be ignored !!!"
-lh_losetup $FREELO source.img 0
+Losetup $FREELO source.img 0
 Chroot "parted -s ${FREELO} mklabel msdos" || true
 Chroot "parted -s ${FREELO} mkpartfs primary fat16 0.0 100%" || true
 Chroot "parted -s ${FREELO} set 1 lba off" || true
 ${LH_LOSETUP} -d ${FREELO}
 
-lh_losetup $FREELO source.img 1
+Losetup $FREELO source.img 1
 Chroot " mkfs.vfat -F 16 -n DEBIAN_LIVE ${FREELO}"
 mkdir -p source.tmp
 ${LH_ROOT_COMMAND} mount ${FREELO} source.tmp
