@@ -474,6 +474,9 @@ Set_defaults ()
 
 	## config/binary
 
+	# Setting image filesystem
+	LH_BINARY_FILESYSTEM="${LH_BINARY_FILESYSTEM:-fat16}"
+
 	# Setting image type
 	LH_BINARY_IMAGES="${LH_BINARY_IMAGES:-iso}"
 
