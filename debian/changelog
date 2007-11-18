@@ -1,8 +1,46 @@
-live-helper (1.0~a37-1) UNRELEASED; urgency=medium
+live-helper (1.0~a37-1) unstable; urgency=medium
 
   * New upstream release.
+  * Preparing live-helper 1.0~a37-1.
+  * Fixing some coding style issues.
+  * Removing German manpages, they will be re-translated after the
+    English manpages are finished.
+  * Rewritten live-helper manpage.
+  * Fixing typing errors.
+  * Extending conffiles to allow config/., config/., as well as config/,
+    config/. and config/..
+  * Adding manpage for lh.
+  * Fixed wrapping.
+  * Rewritten lh_binary manpage.
+  * Rewritten lh_bootstrap manpage.
+  * Rewritten lh_chroot manpage.
+  * Rewritten lh_source manpage.
+  * Rewritten lh_build manpage.
+  * Fixing fstab handling.
+  * Moving lh_losetup into an internal function, avoiding helper failure
+    with return value due to new trap.
+  * Fixing typing error.
+  * Mounting pseudo filesystems before creating binary images in non-
+    chrooted builds.
+  * Do not create the filesystem with parted.
+  * Do really not create the filesystem with parted.
+  * Speeding up the dd call, thanks to Peter Skogstroem
+    <peter.skogstrom@bitrunner.com>.
+  * Adding binary filesystem option, currently only supporting fat16 and
+    fat32.
+  * Adding an upgrade and dist-upgrade to lh_chroot_sources, so that
+    security updates gets pulled into the base system. Thanks to Kai
+    Hendry <hendry@iki.fi>.
+  * Fixing wrong parted call.
+  * Removing lh_bootstrap_* manpages temporarily.
+  * Switching lh_clean to proper command line arguments.
+  * Moving sanity check in lh_clean to the earliest possibility.
+  * Rewriting lh_clean manpage.
+  * Fixing lh_clean manpage synopsis formatting.
+  * Rewritten lh_config manpage.
+  * Rewritten lh_testroot manpage.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 19 Nov 2007 00:00:00 +0100
+ -- Daniel Baumann <daniel@debian>  Mon, 19 Nov 2007 00:00:00 +0100
 
 live-helper (1.0~a36-1) unstable; urgency=medium
 
