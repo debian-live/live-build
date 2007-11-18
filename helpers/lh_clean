@@ -33,6 +33,13 @@ Read_conffile config/source
 Read_conffile "${LH_CONFIG}"
 Set_defaults
 
+# Avoid cases were users accidentally nuke their config/binary
+if [ ! -d config ] || [ "$(basename ${PWD})" = "config" ]
+then
+	Echo_error "${PWD} is not a good Debian Live working directory to clean."
+	exit 1
+fi
+
 rm -f .lock
 
 if [ -z "${@}" ]
@@ -40,13 +47,6 @@ then
 	ARGUMENTS="--all"
 else
 	ARGUMENTS="${@}"
-fi
-
-# Avoid cases were users accidentally nuke their config/binary
-if [ ! -d config ] || [ "$(basename ${PWD})" = "config" ]
-then
-	Echo_error "${PWD} is not a good Debian Live working directory to clean."
-	exit 1
 fi
 
 for ARGUMENT in ${ARGUMENTS}
