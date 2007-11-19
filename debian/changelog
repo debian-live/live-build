@@ -1,3 +1,9 @@
+live-helper (1.0~a37-2) unstable; urgency=medium
+
+  * Disabling global arguments in lh_clean (Closes: #451960).
+
+ -- Daniel Baumann <daniel@debian>  Mon, 19 Nov 2007 18:00:00 +0100
+
 live-helper (1.0~a37-1) unstable; urgency=medium
 
   * New upstream release.
