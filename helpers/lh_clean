@@ -22,7 +22,7 @@ DESCRIPTION="clean up system build directories"
 HELP=""
 USAGE="${PROGRAM} [--all] [--cache] [--chroot] [--binary] [--purge] [--remove] [--stage] [--source]"
 
-Arguments "${@}"
+#Arguments "${@}"
 
 # Reading configuration files
 Read_conffile config/common
