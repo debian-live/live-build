@@ -93,7 +93,7 @@ uninstall:
 		done; \
 		for MANPAGE in manpages/*.$$TRANSLATION.7; \
 		do \
-			rm -f $(DESTDIR)/usr/share/man/$$TRANSLATION/man7/`basename $$MANPAGE .de.7`.7; \
+			rm -f $(DESTDIR)/usr/share/man/$$TRANSLATION/man7/`basename $$MANPAGE .$$TRANSLATION.7`.7; \
 		done; \
 	done
 
