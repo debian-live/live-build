@@ -55,7 +55,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--debug]\n\
 \t    [-d|--distribution CODENAME]\n\
 \t    [-e|--encryption aes128|aes192|aes256]\n\
-\t    [--fdisk\n\
+\t    [--fdisk fdisk|fdisk.dist]\n\
 \t    [--force]\n\
 \t    [--genisoimage genisomage|mkisofs]\n\
 \t    [--grub-splash FILE]\n\
