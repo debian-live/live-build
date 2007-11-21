@@ -79,7 +79,7 @@ Set_defaults ()
 	LH_APT_SECURE="${LH_APT_SECURE:-enabled}"
 
 	# Setting bootstrap program
-	if [ -z "${LH_BOOTSTRAP}" ] || [ ! -x "$(which ${LH_BOOTSTRAP})" ]
+	if [ -z "${LH_BOOTSTRAP}" ]
 	then
 		if [ -x "/usr/sbin/debootstrap" ]
 		then
@@ -139,7 +139,7 @@ Set_defaults ()
 	fi
 
 	# Setting fdisk
-	if [ -z "${LH_FDISK}" ] || [ ! -x "${LH_FDISK}" ]
+	if [ -z "${LH_FDISK}" ]
 	then
 		# Workaround for gnu-fdisk divertion
 		# (gnu-fdisk is buggy, #445304).
@@ -155,7 +155,7 @@ Set_defaults ()
 	fi
 
 	# Setting losetup
-	if [ -z "${LH_LOSETUP}" ] || [ ! -x "${LH_LOSETUP}" ]
+	if [ -z "${LH_LOSETUP}" ]
 	then
 		# Workaround for loop-aes-utils divertion
 		# (loop-aes-utils' losetup lacks features).
