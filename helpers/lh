@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 
 # live-helper(1) - utility to build Debian Live systems
 # Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
@@ -49,9 +49,9 @@ case "${1}" in
 		;;
 
 	*)
-		if [ -x /usr/bin/lh_"${1}" ]
+		if [ ! -z "$(whereis lh_${1})" ]
 		then
-			exec /usr/bin/lh_"${1}" $(echo ${@} | sed -e "s/${1}//")
+			exec lh_"${1}" $(echo ${@} | sed -e "s/${1}//")
 		else
 			Echo_error "no such helper"
 			exit 1
