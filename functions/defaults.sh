@@ -636,4 +636,14 @@ Check_defaults ()
 			Echo_warning "part of the etch distribution."
 		fi
 	fi
+
+	if [ "${LH_PACKAGES_LISTS}" = "mini" ] || [ "${LH_PACKAGES_LISTS}" = "minimal" ]
+	then
+		if [ "${LH_APT}" = "aptitude" ]
+		then
+			Echo_warning "You selected LH_PACKAGES_LISTS='"${LH_PACKAGES_LIST}"' and LH_APT='aptitude'"
+			Echo_warning "This is a possible unsafe configuration as aptitude is not"
+			Echo_warning "used in the mini/minimal package lists."
+		fi
+	fi
 }
