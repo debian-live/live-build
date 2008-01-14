@@ -117,8 +117,13 @@ do
 			rm -f .stage/source*
 			;;
 
+		-u|--usage)
+			Usage
+			;;
+
 		*)
-			"${0}" --usage
+			Usage
+			exit 1
 			;;
 	esac
 done
