@@ -113,6 +113,7 @@ DESTDIR_GI="${DESTDIR}/gtk"
 
 Install_file() {
 	local FILE="${1}"
+	local TARGET="${2}"
 
 	SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
 
@@ -132,10 +133,10 @@ Install_file() {
 	esac
 
 	# Install directory
-	mkdir -p binary/pool/main/"${LETTER}"/"${SOURCE}"
+	mkdir -p "${TARGET}"/"${LETTER}"/"${SOURCE}"
 
 	# Move files
-	cp "${FILE}" binary/pool/main/"${LETTER}"/"${SOURCE}"
+	cp "${FILE}" "${TARGET}"/"${LETTER}"/"${SOURCE}"
 }
 
 # Workaround for syslinux (<< 3.36) which doesn't support long file/path names
@@ -255,7 +256,7 @@ if [ "${LH_DEBIAN_INSTALLER}" != "netboot" ]; then
 	
 	for FILE in binary.deb/archives/*.deb
 	do
-		Install_file "${FILE}"
+		Install_file "${FILE}" "binary/pool/main"
 	done
 fi
 
@@ -264,7 +265,7 @@ if [ -d cache/packages_bootstrap ]
 then
 	for FILE in cache/packages_bootstrap/*.deb
 	do
-		Install_file "${FILE}"
+		Install_file "${FILE}" "binary/pool/main"
 	done
 else
 	Echo_error "E: Could not find cache/packages_bootstrap"
@@ -274,12 +275,12 @@ fi
 # Including local debs
 for FILE in ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".deb
 do
-	Install_file "${FILE}"
+	Install_file "${FILE}" "binary/pool/main"
 done
 
 for FILE in ../config/binary_local-debs/*_all.deb
 do
-	Install_file "${FILE}"
+	Install_file "${FILE}" "binary/pool/main"
 done
 
 # Generating deb indices
@@ -326,30 +327,9 @@ if ls ../config/binary_local-udebs/*.udeb > /dev/null 2>&1
 then
 	for FILE in ../config/binary_local-udebs/*_"${LH_ARCHITECTURE}".udeb ../config/binary_local-udebs/*_all.udeb
 	do
-		SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
+		Install_file "${FILE}" "pool/main"
 
-		if [ -z "${SOURCE}" ]
-		then
-			SOURCE="$(basename ${FILE} | awk -F_ '{ print $1 }')"
-		fi
-
-		case "${SOURCE}" in
-			lib?*)
-				LETTER="$(echo ${SOURCE} | sed 's|\(....\).*|\1|')"
-				;;
-
-			*)
-				LETTER="$(echo ${SOURCE} | sed 's|\(.\).*|\1|')"
-				;;
-		esac
-
-		# Install directory
-		mkdir -p pool/main/"${LETTER}"/"${SOURCE}"
-
-		# Copy files
-		cp "${FILE}" pool/main/"${LETTER}"/"${SOURCE}"
-
-		# Prefere local udebs over downloaded udebs
+		# Prefer local udebs over downloaded udebs
 		rm -f "$(basename ${FILE} | awk -F_ '{ print $1 }')"_*.udeb
 	done
 fi
