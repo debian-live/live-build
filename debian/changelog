@@ -4,6 +4,7 @@ live-helper (1.0~a38-1) UNRELEASED; urgency=medium
 
   * Implement -u/--usage, -v/--version and -h/--help options in lh_clean
     (Closes: #454553)
+  * Remove 'ssl' package references from mini and minimal hooks.
 
  -- Daniel Baumann <daniel@debian.org>  Mon, 14 Jan 2008 23:32:58 +0000
 
