@@ -323,9 +323,9 @@ mkdir -p ../cache/packages_debian-installer.udeb
 cp *.udeb ../cache/packages_debian-installer.udeb
 
 # Including local udebs
-if ls ../config/binary_local-udebs/*.udeb > /dev/null 2>&1
+if ls ../config/binary_local-udebs/*_"${LH_ARCHITECTURE}".udeb > /dev/null 2>&1
 then
-	for FILE in ../config/binary_local-udebs/*_"${LH_ARCHITECTURE}".udeb ../config/binary_local-udebs/*_all.udeb
+	for FILE in ../config/binary_local-udebs/*_"${LH_ARCHITECTURE}".udeb
 	do
 		Install_file "${FILE}" "pool/main"
 
@@ -333,7 +333,16 @@ then
 		rm -f "$(basename ${FILE} | awk -F_ '{ print $1 }')"_*.udeb
 	done
 fi
+if ls ../config/binary_local-udebs/*_all.udeb > /dev/null 2>&1
+then
+	for FILE in ../config/binary_local-udebs/*_all.udeb
+	do
+		Install_file "${FILE}" "pool/main"
 
+		# Prefer local udebs over downloaded udebs
+		rm -f "$(basename ${FILE} | awk -F_ '{ print $1 }')"_*.udeb
+	done
+fi
 # Excluding udebs
 grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DISTRIBUTION}"/udeb_exclude > exclude
 grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DISTRIBUTION}"/exclude-udebs >> exclude
