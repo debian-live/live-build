@@ -18,7 +18,7 @@ do
 	fi
 done
 
-apt-get autoremove || true
+apt-get autoremove --yes || true
 
 # Removing unused files
 find . -name *~ | xargs rm -f
