@@ -133,7 +133,7 @@ then
 	fi
 
 	# Adjusting install templates
-	ARCHITECTURE="$(echo ${LH_ARCHITECTURE} | sed -e 's# #/#g')"
+	ARCHITECTURE="$(echo ${LH_ARCHITECTURE} | sed -e 's| |/|g')"
 	DISTRIBUTION="$(echo ${LH_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]')"
 	DISTRIBUTION="${DISTRIBUTION}$(echo ${LH_DISTRIBUTION} | cut -b 2-)"
 	eval VERSION="$`echo VERSION_${LH_DISTRIBUTION}`"
@@ -157,8 +157,8 @@ then
 		DEBIAN_TOOLS_TXT="/tools/"
 	fi
 
-	sed -i -e "s#DEBIAN_NAME#${DEBIAN_NAME}#g" -e "s/DEBIAN_DATE/${DEBIAN_DATE}/g" -e "s#DEBIAN_TOOLS#${DEBIAN_TOOLS_HTML}#g" binary/README.html
-	sed -i -e "s#DEBIAN_NAME#${DEBIAN_NAME}#g" -e "s/DEBIAN_DATE/${DEBIAN_DATE}/g" -e "s#DEBIAN_TOOLS#${DEBIAN_TOOLS_TXT}#g" binary/README.txt
+	sed -i -e "s|DEBIAN_NAME|${DEBIAN_NAME}|g" -e "s|DEBIAN_DATE|${DEBIAN_DATE}|g" -e "s|DEBIAN_TOOLS|${DEBIAN_TOOLS_HTML}|g" binary/README.html
+	sed -i -e "s|DEBIAN_NAME|${DEBIAN_NAME}|g" -e "s|DEBIAN_DATE|${DEBIAN_DATE}|g" -e "s|DEBIAN_TOOLS|${DEBIAN_TOOLS_TXT}|g" binary/README.txt
 fi
 
 # Creating stage file

@@ -74,11 +74,11 @@ then
 
 		case "${SOURCE}" in
 			lib?*)
-				LETTER="$(echo ${SOURCE} | sed 's/\(....\).*/\1/')"
+				LETTER="$(echo ${SOURCE} | sed 's|\(....\).*|\1|')"
 				;;
 
 			*)
-				LETTER="$(echo ${SOURCE} | sed 's/\(.\).*/\1/')"
+				LETTER="$(echo ${SOURCE} | sed 's|\(.\).*|\1|')"
 				;;
 		esac
 

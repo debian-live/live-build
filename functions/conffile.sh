@@ -12,9 +12,9 @@ set -e
 Read_conffile ()
 {
 	FILES="${1} ${1}.${LH_ARCHITECTURE} ${1}.${DISTRIBUTION}"
-	FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's/^lh_//')"
-	FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's/^lh_//').${ARCHITECTURE}"
-	FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's/^lh_//').${DISTRIBUTION}"
+	FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's|^lh_||')"
+	FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's|^lh_||').${ARCHITECTURE}"
+	FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's|^lh_||').${DISTRIBUTION}"
 
 	for FILE in ${FILES}
 	do

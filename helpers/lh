@@ -50,7 +50,7 @@ case "${1}" in
 	*)
 		if [ ! -z "$(whereis lh_${1})" ]
 		then
-			exec lh_"${1}" $(echo ${@} | sed -e "s/${1}//")
+			exec lh_"${1}" $(echo ${@} | sed -e "s|${1}||")
 		else
 			Echo_error "no such helper"
 			exit 1
