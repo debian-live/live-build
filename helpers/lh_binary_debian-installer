@@ -252,12 +252,12 @@ if [ "${LH_DEBIAN_INSTALLER}" != "netboot" ]; then
 	Chroot "apt-get -o Dir::Cache=/binary.deb --download-only install --yes ${DI_PACKAGES}"
 	mv chroot/binary.deb ./
 	mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
+	
+	for FILE in binary.deb/archives/*.deb
+	do
+		Install_file "${FILE}"
+	done
 fi
-
-for FILE in binary.deb/archives/*.deb
-do
-	Install_file "${FILE}"
-done
 
 # Including base debian packages
 if [ -d cache/packages_bootstrap ]
