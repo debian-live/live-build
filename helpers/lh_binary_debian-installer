@@ -254,13 +254,10 @@ if [ "${LH_DEBIAN_INSTALLER}" != "netboot" ]; then
 	mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
 fi
 
-if ls binary.deb/archives/*.deb > /dev/null 2>&1
-then
-	for FILE in binary.deb/archives/*.deb
-	do
-		Install_file "${FILE}"
-	done
-fi
+for FILE in binary.deb/archives/*.deb
+do
+	Install_file "${FILE}"
+done
 
 # Including base debian packages
 if [ -d cache/packages_bootstrap ]
@@ -275,21 +272,15 @@ else
 fi
 
 # Including local debs
-if ls ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".deb > /dev/null 2>&1
-then
-	for FILE in ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".deb
-	do
-		Install_file "${FILE}"
-	done
-fi
+for FILE in ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".deb
+do
+	Install_file "${FILE}"
+done
 
-if ls ../config/binary_local-debs/*_all.deb > /dev/null 2>&1
-then
-	for FILE in ../config/binary_local-debs/*_all.deb
-	do
-		Install_file "${FILE}"
-	done
-fi
+for FILE in ../config/binary_local-debs/*_all.deb
+do
+	Install_file "${FILE}"
+done
 
 # Generating deb indices
 mkdir -p binary/dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}
