@@ -436,24 +436,24 @@ Set_defaults ()
 				;;
 
 			gnome-desktop)
-				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's/gnome-desktop//') standard-x11"
-				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/gnome-desktop//' -e 's/desktop//') standard laptop gnome-desktop desktop"
+				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|gnome-desktop||') standard-x11"
+				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|laptop||' -e 's|gnome-desktop||' -e 's|desktop||') standard laptop gnome-desktop desktop"
 				;;
 
 			kde-desktop)
-				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's/kde-desktop//') standard-x11"
-				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/kde-desktop//' -e 's/desktop//') standard laptop kde-desktop desktop"
+				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|kde-desktop||') standard-x11"
+				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|laptop||' -e 's|kde-desktop||' -e 's|desktop||') standard laptop kde-desktop desktop"
 				;;
 
 			xfce-desktop)
-				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's/xfce-desktop//') standard-x11"
-				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/xfce-desktop//' -e 's/desktop//') standard laptop xfce-desktop desktop"
+				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|xfce-desktop||') standard-x11"
+				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|laptop||' -e 's|xfce-desktop||' -e 's|desktop||') standard laptop xfce-desktop desktop"
 				;;
 		esac
 	done
 
-	LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's/  //g')"
-	LH_TASKS="$(echo ${LH_TASKS} | sed -e 's/  //g')"
+	LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|  ||g')"
+	LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|  ||g')"
 
 	# Setting tasks
 	# LH_TASKS

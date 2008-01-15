@@ -185,7 +185,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 
 		if [ "${LH_PACKAGES_LISTS}" = "minimal" ] || [ "${LH_PACKAGES_LISTS}" = "mini" ]
 		then
-			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -e $(ls chroot/boot/${LINUX}* chroot/boot/initrd.img* chroot/${LINUX}* chroot/initrd.img* | sed 's,chroot/,,g')"
+			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -e $(ls chroot/boot/${LINUX}* chroot/boot/initrd.img* chroot/${LINUX}* chroot/initrd.img* | sed 's|chroot/||g')"
 		fi
 
 		if [ -f config/binary_rootfs/squashfs.sort ]

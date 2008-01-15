@@ -54,7 +54,7 @@ Create_lockfile .lock
 
 mkdir -p binary/.disk
 
-ARCHITECTURE="$(echo ${LH_ARCHITECTURE} | sed -e 's# #/#g')"
+ARCHITECTURE="$(echo ${LH_ARCHITECTURE} | sed -e 's| |/|g')"
 DISTRIBUTION="$(echo ${LH_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]')"
 DISTRIBUTION="${DISTRIBUTION}$(echo ${LH_DISTRIBUTION} | cut -b 2-)"
 eval VERSION="$`echo VERSION_${LH_DISTRIBUTION}`"
