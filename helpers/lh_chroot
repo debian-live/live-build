@@ -59,8 +59,8 @@ lh_chroot_local-packages ${*}
 lh_chroot_localization ${*}
 lh_chroot_local-includes ${*}
 lh_chroot_sysvinit ${*}
-lh_chroot_hooks ${*}
 lh_chroot_local-hooks ${*}
+lh_chroot_hooks ${*}
 lh_chroot_symlinks ${*}
 lh_chroot_hacks ${*}
 lh_chroot_interactive ${*}
