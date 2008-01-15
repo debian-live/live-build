@@ -227,10 +227,39 @@ if [ "${LH_DEBIAN_INSTALLER}" != "netboot" ]; then
 	mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
 fi
 
+if ls binary.deb/archives/*.deb > /dev/null 2>&1
+then
+	for FILE in binary.deb/archives/*.deb
+	do
+		SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
+
+		if [ -z "${SOURCE}" ]
+		then
+			SOURCE="$(basename ${FILE} | awk -F_ '{ print $1 }')"
+		fi
+
+		case "${SOURCE}" in
+			lib?*)
+				LETTER="$(echo ${SOURCE} | sed 's/\(....\).*/\1/')"
+				;;
+
+			*)
+				LETTER="$(echo ${SOURCE} | sed 's/\(.\).*/\1/')"
+				;;
+		esac
+
+		# Install directory
+		mkdir -p binary/pool/main/"${LETTER}"/"${SOURCE}"
+
+		# Move files
+		cp "${FILE}" binary/pool/main/"${LETTER}"/"${SOURCE}"
+	done
+fi
+
 # Including base debian packages
 if [ -d cache/packages_bootstrap ]
 then
-	for FILE in cache/packages_bootstrap/*.deb binary.deb/archives/*.deb
+	for FILE in cache/packages_bootstrap/*.deb
 	do
 		SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
 
@@ -261,9 +290,38 @@ else
 fi
 
 # Including local debs
-if ls ../config/binary_local-debs/*.deb > /dev/null 2>&1
+if ls ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".deb > /dev/null 2>&1
 then
-	for FILE in ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".deb ../config/binary_local-debs/*_all.deb
+	for FILE in ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".deb
+	do
+		SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
+
+		if [ -z "${SOURCE}" ]
+		then
+			SOURCE="$(basename ${FILE} | awk -F_ '{ print $1 }')"
+		fi
+
+		case "${SOURCE}" in
+			lib?*)
+				LETTER="$(echo ${SOURCE} | sed 's/\(....\).*/\1/')"
+				;;
+
+			*)
+				LETTER="$(echo ${SOURCE} | sed 's/\(.\).*/\1/')"
+				;;
+		esac
+
+		# Install directory
+		mkdir -p binary/pool/main/"${LETTER}"/"${SOURCE}"
+
+		# Move files
+		cp "${FILE}" binary/pool/main/"${LETTER}"/"${SOURCE}"
+	done
+fi
+
+if ls ../config/binary_local-debs/*_all.deb > /dev/null 2>&1
+then
+	for FILE in ../config/binary_local-debs/*_all.deb
 	do
 		SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
 
