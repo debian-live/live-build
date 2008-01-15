@@ -117,8 +117,16 @@ do
 			rm -f .stage/source*
 			;;
 
+		-h|--help)
+			Help
+			;;
+
 		-u|--usage)
 			Usage
+			;;
+
+		-v|--version)
+			Version
 			;;
 
 		*)
