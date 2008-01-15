@@ -111,6 +111,33 @@ VMLINUZ_GI="gtk/vmlinuz"
 INITRD_GI="gtk/initrd.gz"
 DESTDIR_GI="${DESTDIR}/gtk"
 
+Install_file() {
+	local FILE="${1}"
+
+	SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
+
+	if [ -z "${SOURCE}" ]
+	then
+		SOURCE="$(basename ${FILE} | awk -F_ '{ print $1 }')"
+	fi
+
+	case "${SOURCE}" in
+		lib?*)
+			LETTER="$(echo ${SOURCE} | sed 's/\(....\).*/\1/')"
+			;;
+
+		*)
+			LETTER="$(echo ${SOURCE} | sed 's/\(.\).*/\1/')"
+			;;
+	esac
+
+	# Install directory
+	mkdir -p binary/pool/main/"${LETTER}"/"${SOURCE}"
+
+	# Move files
+	cp "${FILE}" binary/pool/main/"${LETTER}"/"${SOURCE}"
+}
+
 # Workaround for syslinux (<< 3.36) which doesn't support long file/path names
 if [ "${LH_DISTRIBUTION}" = "etch" ]
 then
@@ -231,28 +258,7 @@ if ls binary.deb/archives/*.deb > /dev/null 2>&1
 then
 	for FILE in binary.deb/archives/*.deb
 	do
-		SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
-
-		if [ -z "${SOURCE}" ]
-		then
-			SOURCE="$(basename ${FILE} | awk -F_ '{ print $1 }')"
-		fi
-
-		case "${SOURCE}" in
-			lib?*)
-				LETTER="$(echo ${SOURCE} | sed 's/\(....\).*/\1/')"
-				;;
-
-			*)
-				LETTER="$(echo ${SOURCE} | sed 's/\(.\).*/\1/')"
-				;;
-		esac
-
-		# Install directory
-		mkdir -p binary/pool/main/"${LETTER}"/"${SOURCE}"
-
-		# Move files
-		cp "${FILE}" binary/pool/main/"${LETTER}"/"${SOURCE}"
+		Install_file "${FILE}"
 	done
 fi
 
@@ -261,28 +267,7 @@ if [ -d cache/packages_bootstrap ]
 then
 	for FILE in cache/packages_bootstrap/*.deb
 	do
-		SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
-
-		if [ -z "${SOURCE}" ]
-		then
-			SOURCE="$(basename ${FILE} | awk -F_ '{ print $1 }')"
-		fi
-
-		case "${SOURCE}" in
-			lib?*)
-				LETTER="$(echo ${SOURCE} | sed 's/\(....\).*/\1/')"
-				;;
-
-			*)
-				LETTER="$(echo ${SOURCE} | sed 's/\(.\).*/\1/')"
-				;;
-		esac
-
-		# Install directory
-		mkdir -p binary/pool/main/"${LETTER}"/"${SOURCE}"
-
-		# Move files
-		cp "${FILE}" binary/pool/main/"${LETTER}"/"${SOURCE}"
+		Install_file "${FILE}"
 	done
 else
 	Echo_error "E: Could not find cache/packages_bootstrap"
@@ -294,28 +279,7 @@ if ls ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".deb > /dev/null 2>&1
 then
 	for FILE in ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".deb
 	do
-		SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
-
-		if [ -z "${SOURCE}" ]
-		then
-			SOURCE="$(basename ${FILE} | awk -F_ '{ print $1 }')"
-		fi
-
-		case "${SOURCE}" in
-			lib?*)
-				LETTER="$(echo ${SOURCE} | sed 's/\(....\).*/\1/')"
-				;;
-
-			*)
-				LETTER="$(echo ${SOURCE} | sed 's/\(.\).*/\1/')"
-				;;
-		esac
-
-		# Install directory
-		mkdir -p binary/pool/main/"${LETTER}"/"${SOURCE}"
-
-		# Move files
-		cp "${FILE}" binary/pool/main/"${LETTER}"/"${SOURCE}"
+		Install_file "${FILE}"
 	done
 fi
 
@@ -323,28 +287,7 @@ if ls ../config/binary_local-debs/*_all.deb > /dev/null 2>&1
 then
 	for FILE in ../config/binary_local-debs/*_all.deb
 	do
-		SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
-
-		if [ -z "${SOURCE}" ]
-		then
-			SOURCE="$(basename ${FILE} | awk -F_ '{ print $1 }')"
-		fi
-
-		case "${SOURCE}" in
-			lib?*)
-				LETTER="$(echo ${SOURCE} | sed 's/\(....\).*/\1/')"
-				;;
-
-			*)
-				LETTER="$(echo ${SOURCE} | sed 's/\(.\).*/\1/')"
-				;;
-		esac
-
-		# Install directory
-		mkdir -p binary/pool/main/"${LETTER}"/"${SOURCE}"
-
-		# Move files
-		cp "${FILE}" binary/pool/main/"${LETTER}"/"${SOURCE}"
+		Install_file "${FILE}"
 	done
 fi
 
