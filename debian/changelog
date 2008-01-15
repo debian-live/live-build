@@ -1,13 +1,8 @@
 live-helper (1.0~a38-1) UNRELEASED; urgency=medium
 
-  [Chris Lamb]
+  * New upstream release.
 
-  * Implement -u/--usage, -v/--version and -h/--help options in lh_clean
-    (Closes: #454553)
-  * Remove 'ssl' package references from mini and minimal hooks.
-  * Don't prompt when autoremoving packages in minimal hooks.
-
- -- Daniel Baumann <daniel@debian.org>  Mon, 14 Jan 2008 23:32:58 +0000
+ -- Daniel Baumann <daniel@debian.org>  Mon, 14 Jan 2008 00:00:00 +0100
 
 live-helper (1.0~a37-2) unstable; urgency=medium
 
