@@ -1,7 +1,7 @@
 # /usr/share/live-helper/lists/kde-core - package list for live-helper(7)
 
 ## LH: KDE Core
-#<include> standard-x11
+#include <standard-x11>
 
 kde-core kdm
 desktop-base
