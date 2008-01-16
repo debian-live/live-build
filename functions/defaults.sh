@@ -259,7 +259,7 @@ Set_defaults ()
 			debian)
 				case "${LH_ARCHITECTURE}" in
 					amd64|i386)
-						LH_MIRROR_BOOTSTRAP="http://ftp.debian.org/debian/"
+						LH_MIRROR_BOOTSTRAP="http://ftp.us.debian.org/debian/"
 						;;
 
 					*)
@@ -287,7 +287,7 @@ Set_defaults ()
 			debian)
 				case "${LH_ARCHITECTURE}" in
 					amd64|i386)
-						LH_MIRROR_BINARY="http://ftp.debian.org/debian/"
+						LH_MIRROR_BINARY="http://ftp.us.debian.org/debian/"
 						;;
 
 					*)
