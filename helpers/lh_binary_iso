@@ -125,7 +125,7 @@ case "${LH_BOOTLOADER}" in
 esac
 
 case "${LH_PACKAGES_LISTS}" in
-	minimal|mini)
+	stripped|minimal)
 		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m ${GENISOIMAGE_EXCLUDE}"
 		;;
 esac

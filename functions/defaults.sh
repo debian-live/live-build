@@ -431,7 +431,7 @@ Set_defaults ()
 	for LIST in ${LH_PACKAGES_LISTS}
 	do
 		case "${LIST}" in
-			mini|minimal)
+			stripped|minimal)
 				LH_APT="apt-get"
 				;;
 
@@ -637,13 +637,13 @@ Check_defaults ()
 		fi
 	fi
 
-	if [ "${LH_PACKAGES_LISTS}" = "mini" ] || [ "${LH_PACKAGES_LISTS}" = "minimal" ]
+	if [ "${LH_PACKAGES_LISTS}" = "stripped" ] || [ "${LH_PACKAGES_LISTS}" = "minimal" ]
 	then
 		if [ "${LH_APT}" = "aptitude" ]
 		then
 			Echo_warning "You selected LH_PACKAGES_LISTS='"${LH_PACKAGES_LIST}"' and LH_APT='aptitude'"
 			Echo_warning "This is a possible unsafe configuration as aptitude is not"
-			Echo_warning "used in the mini/minimal package lists."
+			Echo_warning "used in the stripped/minimal package lists."
 		fi
 	fi
 }

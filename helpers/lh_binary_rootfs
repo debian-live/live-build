@@ -183,7 +183,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -info"
 		fi
 
-		if [ "${LH_PACKAGES_LISTS}" = "minimal" ] || [ "${LH_PACKAGES_LISTS}" = "mini" ]
+		if [ "${LH_PACKAGES_LISTS}" = "stripped" ] || [ "${LH_PACKAGES_LISTS}" = "minimal" ]
 		then
 			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -e $(ls chroot/boot/${LINUX}* chroot/boot/initrd.img* chroot/${LINUX}* chroot/initrd.img* | sed 's|chroot/||g')"
 		fi
