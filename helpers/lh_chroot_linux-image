@@ -102,7 +102,9 @@ EOF
 		then
 			cp config/chroot_local-packages/${LH_INITRAMFS}*.deb chroot/root
 
-			Chroot "dpkg -i /root/${LH_INITRAMFS}*.deb" || true
+			# Installing package
+			Chroot "find /root -name *.deb" > chroot/root/initfs
+			Chroot "xargs --arg-file=/root/initfs dpkg -i" || true
 
 			# Cleaning dependencies
 			case "${LH_APT}" in
@@ -115,7 +117,9 @@ EOF
 					;;
 			esac
 
+			# Removing package files
 			rm -f chroot/root/${LH_INITRAMFS}*.deb
+			rm -f chroot/root/initfs
 		fi
 
 		# Saving cache
