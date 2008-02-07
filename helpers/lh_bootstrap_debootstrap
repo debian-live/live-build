@@ -69,7 +69,12 @@ fi
 
 if [ -n "${LH_BOOTSTRAP_CONFIG}" ]
 then
-	LH_DEBOOTSTRAP_SCRIPT="/usr/lib/debootstrap/scripts/${LH_BOOTSTRAP_CONFIG}"
+	if [ -d "/usr/share/debootstrap/scripts/" ]
+	then
+		LH_DEBOOTSTRAP_SCRIPT="/usr/share/debootstrap/scripts/${LH_BOOTSTRAP_CONFIG}"
+	else
+		LH_DEBOOTSTRAP_SCRIPT="/usr/lib/debootstrap/scripts/${LH_BOOTSTRAP_CONFIG}"
+	fi
 fi
 
 if [ -n "${LH_BOOTSTRAP_INCLUDE}" ]
