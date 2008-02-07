@@ -93,13 +93,13 @@ then
 	then
 		case "${LH_PACKAGES_LISTS}" in
 			stripped|minimal)
-				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=buildd"
+				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=minbase"
 				;;
 		esac
 	else
 		case "${LH_BOOTSTRAP_FLAVOUR}" in
 			stripped|minimal)
-				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=buildd"
+				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=minbase"
 				;;
 
 			*)
