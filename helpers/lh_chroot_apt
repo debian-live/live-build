@@ -111,7 +111,7 @@ case "${1}" in
 		then
 			if [ -f chroot/etc/apt/preferences ]
 			then
-				mv chroot/etc/apt/preferences chroot/etc/apt/prefereces.orig
+				mv chroot/etc/apt/preferences chroot/etc/apt/preferences.orig
 			fi
 
 			cp config/chroot_apt/preferences chroot/etc/apt/preferences
