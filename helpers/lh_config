@@ -45,7 +45,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--cache-stages STAGE|\"STAGES\"]\n\
 \t    [--checksums enabled|disabled]\n\
 \t    [--chroot-build enabled|disabled]\n\
-\t    [--chroot-filesystem ext2|ext3|squashfs|plain]\n\
+\t    [--chroot-filesystem ext2|ext3|squashfs|plain|jffs2]\n\
 \t    [-c|--conffile FILE]\n\
 \t    [--debconf-frontend dialog|editor|noninteractive|readline]\n\
 \t    [--debconf-nowarnings enabled|disabled]\n\
