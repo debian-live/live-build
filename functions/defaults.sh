@@ -64,6 +64,9 @@ Set_defaults ()
 	# Setting apt pipeline
 	# LH_APT_PIPELINE
 
+	APT_OPTIONS="${APT_OPTIONS:---yes}"
+	APTITUDE_OPTIONS="${APTITUDE_OPTIONS:---assume-yes}"
+
 	# Setting apt recommends
 	case "${LH_MODE}" in
 		debian-edu)

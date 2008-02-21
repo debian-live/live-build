@@ -62,11 +62,11 @@ then
 			# Installing package list
 			case "${LH_APT}" in
 				apt|apt-get)
-					Chroot "xargs --arg-file=/root/${LIST} apt-get install --yes"
+					Chroot "xargs --arg-file=/root/${LIST} apt-get ${APT_OPTIONS} install"
 					;;
 
 				aptitude)
-					Chroot "xargs --arg-file=/root/${LIST} aptitude install --assume-yes"
+					Chroot "xargs --arg-file=/root/${LIST} aptitude ${APTITUDE_OPTIONS} install"
 					;;
 			esac
 

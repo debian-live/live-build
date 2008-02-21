@@ -122,7 +122,7 @@ case "${1}" in
 
 			if [ "${LH_APT}" = "aptitude" ] && [ ! -x /usr/bin/aptitude ]
 			then
-				Chroot "apt-get install --yes --force-yes aptitude"
+				Chroot "apt-get ${APT_OPTIONS} install aptitude"
 			fi
 		else # Get fresh indices
 			# Check local gpg keys
@@ -148,29 +148,20 @@ case "${1}" in
 			fi
 
 			# Installing aptitude
-			if [ "${LH_APT}" = "apt" ] || [ "${LH_APT}" = "apt-get" ]
+			if [ "${LH_APT}" = "aptitude" ] && [ ! -x /usr/bin/aptitude ]
 			then
-				Chroot "apt-get update"
-				Chroot "apt-get --yes upgrade"
-				Chroot "apt-get --yes dist-upgrade"
-			elif [ "${LH_APT}" = "aptitude" ]
-			then
-				if [ ! -x /usr/bin/aptitude ]
-				then
-					Chroot "apt-get update"
-					Chroot "apt-get install --yes --force-yes aptitude"
-				fi
-
-				Chroot "aptitude update"
-				Chroot "aptitude --assume-yes upgrade"
-				Chroot "aptitude --assume-yes dist-upgrade"
+				Chroot "apt-get ${APT_OPTIONS} update"
+				Chroot "apt-get ${APT_OPTIONS} install aptitude"
 			fi
+
+			Apt upgrade
+			Apt dist-upgrade
 
 			# Installing keyring packages
 			if [ -n "${LH_KEYRING_PACKAGES}" ]
 			then
-				Chroot "apt-get install --yes --force-yes ${LH_KEYRING_PACKAGES}"
-				Chroot "apt-get update"
+				Apt --force-yes install "${LH_KEYRING_PACKAGES}"
+				Apt update
 			fi
 
 			if [ "${LH_CACHE_INDICES}" = "enabled" ]
@@ -262,15 +253,8 @@ case "${1}" in
 				done
 			fi
 
-			case "${LH_APT}" in
-				apt|apt-get)
-					Chroot "apt-get update"
-					;;
-
-				aptitude)
-					Chroot "aptitude update"
-					;;
-			esac
+			# Updating indices
+			Apt update
 		fi
 
 		# Cleaning apt packages cache

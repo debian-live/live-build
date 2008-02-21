@@ -88,15 +88,7 @@ EOF
 		fi
 
 		# Installing linux-image, modules and ${LH_INITRAMFS}
-		case "${LH_APT}" in
-			apt|apt-get)
-				Chroot "apt-get install --yes ${PACKAGES}"
-				;;
-
-			aptitude)
-				Chroot "aptitude install --assume-yes ${PACKAGES}"
-				;;
-		esac
+		Apt install ${PACKAGES}
 
 		if ls config/chroot_local-packages/${LH_INITRAMFS}*.deb > /dev/null 2>&1
 		then
@@ -107,15 +99,7 @@ EOF
 			Chroot "xargs --arg-file=/root/initfs dpkg -i" || true
 
 			# Cleaning dependencies
-			case "${LH_APT}" in
-				apt|apt-get)
-					Chroot "apt-get install -f --yes"
-					;;
-
-				aptitude)
-					Chroot "aptitude install --assume-yes ${LH_INITRAMFS}"
-					;;
-			esac
+			Apt install -f
 
 			# Removing package files
 			rm -f chroot/root/${LH_INITRAMFS}*.deb

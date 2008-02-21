@@ -54,15 +54,7 @@ case "${LH_BINARY_IMAGES}" in
 	net)
 		if [ ! -f chroot/usr/bin/smbmount ]
 		then
-			case "${LH_APT}" in
-				apt|apt-get)
-					Chroot "apt-get install --yes smbfs"
-					;;
-
-				aptitude)
-					Chroot "aptitude install --assume-yes smbfs"
-					;;
-			esac
+			Apt install smbfs
 		fi
 
 		if [ ! -d chroot/etc/initramfs-tools ]

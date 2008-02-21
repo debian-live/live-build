@@ -69,7 +69,7 @@ then
 	# Installing tasks
 	case "${LH_TASKSEL}" in
 		aptitude)
-			Chroot "aptitude install --assume-yes ${LH_TASKS}"
+			Chroot "aptitude ${APTITUDE_OPTIONS} install ${LH_TASKS}"
 			;;
 
 		tasksel)
