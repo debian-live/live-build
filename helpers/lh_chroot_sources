@@ -71,12 +71,12 @@ case "${1}" in
 		fi
 
 		# Check local sources.list
-		if ls config/chroot_sources/*.bootstrap > /dev/null 2>&1
+		if ls config/chroot_sources/*.chroot > /dev/null 2>&1
 		then
 			echo "" >> chroot/etc/apt/sources.list
 			echo "# Custom repositories" >> chroot/etc/apt/sources.list
 
-			for FILE in config/chroot_sources/*.bootstrap
+			for FILE in config/chroot_sources/*.chroot
 			do
 				cat ${FILE} | grep -v "^##" >> chroot/etc/apt/sources.list
 			done
@@ -126,9 +126,9 @@ case "${1}" in
 			fi
 		else # Get fresh indices
 			# Check local gpg keys
-			if ls config/chroot_sources/*.bootstrap.gpg > /dev/null 2>&1
+			if ls config/chroot_sources/*.chroot.gpg > /dev/null 2>&1
 			then
-				for FILE in config/chroot_sources/*.bootstrap.gpg
+				for FILE in config/chroot_sources/*.chroot.gpg
 				do
 					cp ${FILE} chroot/root
 					Chroot "apt-key add /root/$(basename ${FILE})"
