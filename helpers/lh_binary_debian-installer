@@ -212,7 +212,7 @@ then
 			;;
 	esac
 else
-	URL="${LH_MIRROR_BOOTSTRAP}/dists/${LH_DISTRIBUTION}/main/installer-${LH_ARCHITECTURE}/current/images/"
+	URL="${LH_MIRROR_CHROOT}/dists/${LH_DISTRIBUTION}/main/installer-${LH_ARCHITECTURE}/current/images/"
 fi
 
 # Downloading debian-installer
@@ -301,13 +301,13 @@ gzip -9 -c dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages > di
 cd "${OLDPWD}"
 
 # Fetching release
-wget ${WGET_OPTIONS} "${LH_MIRROR_BOOTSTRAP}"/dists/"${LH_DISTRIBUTION}"/main/binary-"${LH_ARCHITECTURE}"/Release -O binary/dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Release
+wget ${WGET_OPTIONS} "${LH_MIRROR_CHROOT}"/dists/"${LH_DISTRIBUTION}"/main/binary-"${LH_ARCHITECTURE}"/Release -O binary/dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Release
 
 mkdir binary.udeb
 cd binary.udeb
 
 # Downloading udeb indices
-wget ${WGET_OPTIONS} "${LH_MIRROR_BOOTSTRAP}"/dists/"${LH_DISTRIBUTION}"/main/debian-installer/binary-"${LH_ARCHITECTURE}"/Packages.gz
+wget ${WGET_OPTIONS} "${LH_MIRROR_CHROOT}"/dists/"${LH_DISTRIBUTION}"/main/debian-installer/binary-"${LH_ARCHITECTURE}"/Packages.gz
 gunzip -c Packages.gz > Packages
 
 # Sorting udebs
@@ -322,7 +322,7 @@ do
 		cp ../cache/packages_debian-installer.udeb/"$(basename ${UDEB})" ./
 	else
 		# Downloading udebs
-		wget ${WGET_OPTIONS} "${LH_MIRROR_BOOTSTRAP}"/${UDEB}
+		wget ${WGET_OPTIONS} "${LH_MIRROR_CHROOT}"/${UDEB}
 	fi
 done
 
