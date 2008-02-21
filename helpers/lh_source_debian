@@ -70,6 +70,7 @@ genisoimage
 parted
 squashfs-tools
 genext2fs
+mtd-tools
 EOF
 
 case "${LH_ARCHITECTURE}" in
