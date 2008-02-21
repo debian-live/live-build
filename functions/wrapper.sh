@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# wrapper.sh - external command wrappers
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+Apt ()
+{
+	case "${LH_APT}" in
+		apt|apt-get)
+			Chroot "apt-get ${APT_OPTIONS} ${@}"
+			;;
+
+		aptitude)
+			Chroot "aptittude ${APTITUDE_OPTIONS} ${@}"
+			;;
+	esac
+}

@@ -93,7 +93,7 @@ fi
 		;;
 esac
 
-Chroot "xargs --arg-file=/root/dpkg-selection.txt apt-get source --download-only"
+Chroot "xargs --arg-file=/root/dpkg-selection.txt apt-get ${APT_OPTIONS} --download-only source"
 rm -f chroot/root/dpkg-selection.txt
 
 # Sort sources

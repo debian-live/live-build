@@ -24,6 +24,8 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--apt-ftp-proxy URL]\n\
 \t    [--apt-http-proxy URL]\n\
 \t    [--apt-pdiffs enabled|disabled]\n\
+\t    [--apt-options OPTION|\"OPTIONS\"]\n\
+\t    [--aptitude-options OPTION|\"OPTIONS\"]\n\
 \t    [--apt-pipeline FIXME]\n\
 \t    [--apt-recommends enabled|disabled]\n\
 \t    [--apt-secure enabled|disabled]\n\
@@ -111,7 +113,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 
 Local_arguments ()
 {
-	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,memtest:,net-root-filesystem:,net-root-mountoptions:,net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,net-cow-server:,syslinux-splash:,syslinux-timeout:,syslinux-menu:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
+	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-options:,aptitute-options:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,memtest:,net-root-filesystem:,net-root-mountoptions:,net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,net-cow-server:,syslinux-splash:,syslinux-timeout:,syslinux-menu:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
 
 	if [ "${?}" != "0" ]
 	then
@@ -141,7 +143,16 @@ Local_arguments ()
 				;;
 
 			--apt-pdiffs)
-				LH_APT_PDIFFS="${2}"
+				APT_PDIFFS="${2}"
+				shift 2
+				;;
+			--apt-options)
+				APT_OPTIONS="${2}"
+				shift 2
+				;;
+
+			--aptitude-options)
+				LH_APTITUDE_OPTIONS="${2}"
 				shift 2
 				;;
 
@@ -770,6 +781,10 @@ LH_QUIET="${LH_QUIET}"
 # \$LH_VERBOSE: enable verbose
 # (Default: ${LH_VERBOSE})
 #LH_VERBOSE="${LH_VERBOSE}"
+
+# Internal stuff (FIXME)
+APT_OPTIONS="${APT_OPTIONS}"
+APTITUDE_OPTIONS="${APTITUDE_OPTIONS}"
 EOF
 
 # Creating lh_bootstrap_* configuration

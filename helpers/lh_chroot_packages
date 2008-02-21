@@ -53,15 +53,7 @@ then
 	Restore_cache cache/packages_packages
 
 	# Installing packages
-	case "${LH_APT}" in
-		apt|apt-get)
-			Chroot "apt-get install --yes ${LH_PACKAGES}"
-			;;
-
-		aptitude)
-			Chroot "aptitude install --assume-yes ${LH_PACKAGES}"
-			;;
-	esac
+	Apt install ${LH_PACKAGES}
 
 	# Saving cache
 	Save_cache cache/packages_packages
