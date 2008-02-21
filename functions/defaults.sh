@@ -277,10 +277,12 @@ Set_defaults ()
 		esac
 	fi
 
+	LH_MIRROR_CHROOT="${LH_MIRROR_CHROOT:-${LH_MIRROR_BOOTSTRAP}}"
+
 	# Setting security mirror to fetch packages from
-	if [ -z "${LH_MIRROR_BOOTSTRAP_SECURITY}" ]
+	if [ -z "${LH_MIRROR_CHROOT_SECURITY}" ]
 	then
-		LH_MIRROR_BOOTSTRAP_SECURITY="http://security.debian.org/"
+		LH_MIRROR_CHROOT_SECURITY="http://security.debian.org/"
 	fi
 
 	# Setting mirror which ends up in the image
@@ -462,7 +464,7 @@ Set_defaults ()
 	# LH_TASKS
 
 	# Setting security updates option
-	if [ "${LH_MIRROR_BOOTSTRAP_SECURITY}" = "none" ] || [ "${LH_MIRROR_BINARY_SECURITY}" = "none" ]
+	if [ "${LH_MIRROR_CHROOT_SECURITY}" = "none" ] || [ "${LH_MIRROR_BINARY_SECURITY}" = "none" ]
 	then
 		LH_SECURITY="disabled"
 	fi

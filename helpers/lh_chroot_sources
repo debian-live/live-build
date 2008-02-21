@@ -50,22 +50,22 @@ case "${1}" in
 		Create_lockfile .lock
 
 		# Configure custom sources.list
-		echo "deb ${LH_MIRROR_BOOTSTRAP} ${LH_DISTRIBUTION} ${LH_SECTIONS}" > chroot/etc/apt/sources.list
+		echo "deb ${LH_MIRROR_CHROOT} ${LH_DISTRIBUTION} ${LH_SECTIONS}" > chroot/etc/apt/sources.list
 
 		if [ "${LH_SOURCE}" = "enabled" ]
 		then
-			echo "deb-src ${LH_MIRROR_BOOTSTRAP} ${LH_DISTRIBUTION} ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
+			echo "deb-src ${LH_MIRROR_CHROOT} ${LH_DISTRIBUTION} ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
 		fi
 
 		if [ "${LH_SECURITY}" = "enabled" ]
 		then
 			if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
 			then
-				echo "deb ${LH_MIRROR_BOOTSTRAP_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
+				echo "deb ${LH_MIRROR_CHROOT_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
 
 				if [ "${LH_SOURCE}" = "enabled" ]
 				then
-					echo "deb-src ${LH_MIRROR_BOOTSTRAP_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
+					echo "deb-src ${LH_MIRROR_CHROOT_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
 				fi
 			fi
 		fi
@@ -197,8 +197,8 @@ case "${1}" in
 		if [ "${LH_BINARY_INDICES}" = "enabled" ]
 		then
 			# Don't do anything if it's not required
-			if [ "${LH_MIRROR_BOOTSTRAP}" = "${LH_MIRROR_BINARY}" ] && \
-			[ "${LH_MIRROR_BOOTSTRAP_SECURITY}" = "${LH_MIRROR_BINARY_SECURITY}" ]
+			if [ "${LH_MIRROR_CHROOT}" = "${LH_MIRROR_BINARY}" ] && \
+			[ "${LH_MIRROR_CHROOT_SECURITY}" = "${LH_MIRROR_BINARY_SECURITY}" ]
 			then
 				# Removing stage file
 				rm -f .stage/chroot_sources
