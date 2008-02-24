@@ -13,11 +13,11 @@ Apt ()
 {
 	case "${LH_APT}" in
 		apt|apt-get)
-			Chroot "apt-get ${APT_OPTIONS} ${@}"
+			Chroot apt-get ${APT_OPTIONS} ${@}
 			;;
 
 		aptitude)
-			Chroot "aptitude ${APTITUDE_OPTIONS} ${@}"
+			Chroot aptitude ${APTITUDE_OPTIONS} ${@}
 			;;
 	esac
 }
