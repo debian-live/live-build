@@ -17,7 +17,7 @@ Apt ()
 			;;
 
 		aptitude)
-			Chroot "aptittude ${APTITUDE_OPTIONS} ${@}"
+			Chroot "aptitude ${APTITUDE_OPTIONS} ${@}"
 			;;
 	esac
 }
