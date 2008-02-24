@@ -632,6 +632,10 @@ Check_defaults ()
 			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_INITRAMFS='live-initramfs'"
 			Echo_warning "This is a possible unsafe configuration as live-initramfs is not"
 			Echo_warning "part of the etch distribution."
+			Echo_warning "Either make sure that live-initramfs is installable (e.g. through setting up"
+			Echo_warning "etch-backports repository as third-party source or putting a valid live-initramfs"
+			Echo_warning "deb into config/chroot_local-packages) or switch change your config to etch"
+			Echo_warning "default (casper)."
 		fi
 
 		if [ "${LH_UNION_FILESYSTEM}" = "aufs" ]
@@ -639,6 +643,11 @@ Check_defaults ()
 			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_UNION_FILESYSTEM='aufs'"
 			Echo_warning "This is a possible unsafe configuration as aufs is not"
 			Echo_warning "part of the etch distribution."
+			Echo_warning "Either make sure that aufs modules for your kernel are installable (e.g. through"
+			Echo_warning "setting up etch-backports repository as third-party source or putting a valid"
+			Echo_warning "aufs-modules deb into config/chroot_local-packages) or switch change your config"
+			Echo_warning "to etch default (unionfs)."
+
 		fi
 	fi
 
