@@ -30,9 +30,9 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-binary\-indices\fR enabled|disabled]
 .br
-	[\fB\-\-bootappend\-install\fR \fIPARAMETER\fR|\fI"PARAMETERS"\fR]
+	[\fB\-\-bootappend\-install\fR \fIPARAMETER\fR|\fI\"PARAMETERS\"\fR]
 .br
-	[\fB\-\-bootappend\-live\fR \fIPARAMETER\fR|\fI"PARAMETERS"\fR]
+	[\fB\-\-bootappend\-live\fR \fIPARAMETER\fR|\fI\"PARAMETERS\"\fR]
 .br
 	[\fB\-\-bootloader\fR grub|syslinux|yaboot]
 .br
@@ -50,7 +50,7 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-cache\-packages\fR enabled|disabled]
 .br
-	[\fB\-\-cache\-stages\fR \fISTAGE\fR|\fI"STAGES"\fR]
+	[\fB\-\-cache\-stages\fR \fISTAGE\fR|\fI\"STAGES\"\fR]
 .br
 	[\fB\-\-checksums\fR enabled|disabled]
 .br
@@ -96,13 +96,13 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-iso\-volume\fR \fINAME\fR]
 .br
-	[\fB\-\-keyring\-packages\fR \fIPACKAGE\fI|\fI"PACKAGES"\fR]
+	[\fB\-\-keyring\-packages\fR \fIPACKAGE\fI|\fI\"PACKAGES\"\fR]
 .br
 	[\-l|\fB\-\-language\fR \fILANGUAGE\fR]
 .br
-	[\-k|\fB\-\-linux\-flavours\fR \fIFLAVOUR\fR|\fI"FLAVOURS"\fR]
+	[\-k|\fB\-\-linux\-flavours\fR \fIFLAVOUR\fR|\fI\"FLAVOURS\"\fR]
 .br
-	[\fB\-\-linux\-packages\fR \fI"PACKAGES"\fR]
+	[\fB\-\-linux\-packages\fR \fI\"PACKAGES\"\fR]
 .br
 	[\fB\-\-losetup\fR losetup|losetup.orig]
 .br
@@ -136,13 +136,13 @@ lh_config \- create configuration for live\-helper
 .br
 	[\-p|\fB\-\-packages\-lists\fR \fIFILE\fR]
 .br
-	[\fB\-\-packages\fR \fIPACKAGE\fR|\fI"PACKAGES"\fR]
+	[\fB\-\-packages\fR \fIPACKAGE\fR|\fI\"PACKAGES\"\fR]
 .br
 	[\fB\-\-root-command\fR sudo]
 .br
 	[\fB\-\-use-fakeroot\fR enabled|disabled]
 .br
-	[\fB\-\-sections\fR \fISECTION\fR|\fI"SECTIONS"\fR]
+	[\fB\-\-sections\fR \fISECTION\fR|\fI\"SECTIONS\"\fR]
 .br
 	[\fB\-\-security\fR enabled|disabled]
 .br
@@ -189,8 +189,8 @@ directory.
 .IP "\-b|\fB\-\-binary\-images\fR iso|net|tar|usb\-hdd" 4
 .IP "\fB\-\-binary\-filesystem\fR fat16|fat32" 4
 .IP "\fB\-\-binary\-indices\fR enabled|disabled" 4
-.IP "\fB\-\-bootappend\-install\fR \fIPARAMETER\fR|\fI"PARAMETERS"\fR" 4
-.IP "\fB\-\-bootappend\-live\fR \fIPARAMETER\fR|\fI"PARAMETERS"\fR" 4
+.IP "\fB\-\-bootappend\-install\fR \fIPARAMETER\fR|\fI\"PARAMETERS\"\fR" 4
+.IP "\fB\-\-bootappend\-live\fR \fIPARAMETER\fR|\fI\"PARAMETERS\"\fR" 4
 .IP "\fB\-\-bootloader\fR grub|syslinux|yaboot" 4
 .IP "\fB\-\-bootstrap\fR cdebootstrap|debootstrap" 4
 .IP "\fB\-\-bootstrap\-config\fR \fIFILE\fR" 4
@@ -199,7 +199,7 @@ directory.
 .IP "\fB\-\-cache\fR enabled|disabled" 4
 .IP "\fB\-\-cache\-indices\fR enabled|disabled" 4
 .IP "\fB\-\-cache\-packages\fR enabled|disabled" 4
-.IP "\fB\-\-cache\-stages\fR \fISTAGE\fR|\fI"STAGES"\fR" 4
+.IP "\fB\-\-cache\-stages\fR \fISTAGE\fR|\fI\"STAGES\"\fR" 4
 .IP "\fB\-\-checksums\fR enabled|disabled" 4
 .IP "\fB\-\-chroot\-build\fR enabled|disabled" 4
 .IP "\fB\-\-chroot\-filesystem\fR ext2|ext3|squashfs|plain" 4
@@ -222,10 +222,10 @@ directory.
 .IP "\fB\-\-iso\-preparer\fR \fINAME\fR" " 4
 .IP "\fB\-\-iso\-publisher\fR \fINAME\fR" 4
 .IP "\fB\-\-iso\-volume\fR \fINAME\fR" 4
-.IP "\fB\-\-keyring\-packages\fR \fIPACKAGE\fI|\fI"PACKAGES"\fR" 4
+.IP "\fB\-\-keyring\-packages\fR \fIPACKAGE\fI|\fI\"PACKAGES\"\fR" 4
 .IP "\-l|\fB\-\-language\fR \fILANGUAGE\fR" 4
-.IP "\-k|\fB\-\-linux\-flavours\fR \fIFLAVOUR\fR|\fI"FLAVOURS"\fR" 4
-.IP "\fB\-\-linux\-packages\fR \fI"PACKAGES"\fR" 4
+.IP "\-k|\fB\-\-linux\-flavours\fR \fIFLAVOUR\fR|\fI\"FLAVOURS\"\fR" 4
+.IP "\fB\-\-linux\-packages\fR \fI\"PACKAGES\"\fR" 4
 .IP "\fB\-\-losetup\fR losetup|losetup.orig" 4
 .IP "\fB\-\-memtest\fR memtest86+|memtest86" 4
 .IP "\-m|\fB\-\-mirror\-binary\-security\fR \fIURL\fR" 4
@@ -254,10 +254,10 @@ Example:
 
 .IP "\fB\-\-net\-cow\-server\fR \fIIP\fR|\fIHOSTNAME\fR" 4
 .IP "\-p|\fB\-\-packages\-lists\fR \fIFILE\fR" 4
-.IP "\fB\-\-packages\fR \fIPACKAGE\fR|\fI"PACKAGES"\fR" 4
+.IP "\fB\-\-packages\fR \fIPACKAGE\fR|\fI\"PACKAGES\"\fR" 4
 .IP "\fB\-\-root\-command\fR sudo" 4
 .IP "\fB\-\-use\-fakeroot\fR enabled|disabled" 4
-.IP "\fB\-\-sections\fR \fISECTION\fR|\fI"SECTIONS"\fR" 4
+.IP "\fB\-\-sections\fR \fISECTION\fR|\fI\"SECTIONS\"\fR" 4
 .IP "\fB\-\-security\fR enabled|disabled" 4
 .IP "\fB\-\-source\fR enabled|disabled" 4
 .IP "\-s|\fB\-\-source\-images\fR iso|net|tar|usb\-hdd" 4
