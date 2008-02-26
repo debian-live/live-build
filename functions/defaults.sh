@@ -590,6 +590,9 @@ Set_defaults ()
 	# Setting net cow filesystem
 	LH_NET_COW_FILESYSTEM="${LH_NET_COW_FILESYSTEM:-nfs}"
 
+	# Setting net tarball
+	LH_NET_TARBALL="gzip"
+
 	# Setting syslinux configuration file
 	# LH_SYSLINUX_CFG
 
