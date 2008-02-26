@@ -83,7 +83,7 @@ live-helper (1.0~a38-1) unstable; urgency=medium
   * binary: do not fail if parameters.txt isn't available
   * chroot: don't fail if /dev/pts is already mounted
   * debian: add mtd-tools in suggests field since it's used when jffs2
-    is choosen
+    is chosen
   * lh_source_debian: add mtd-tools since it provides mkfs.jffs2
     application
   * lh_config: add jffs2 in supported filesystems
