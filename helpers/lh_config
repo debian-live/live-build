@@ -638,7 +638,7 @@ Local_arguments ()
 				;;
 
 			*)
-				Echo_error "internal error"
+				Echo_error "internal error ${0}"
 				exit 1
 				;;
 		esac
