@@ -64,21 +64,21 @@ do
 	REVISION="$(date -d "${REVISION}" +%Y%m%d.%H%M%S)"
 
 	# Check for existing package
-	if [ ! -f "${SERVER}"/${PACKAGE}_${VERSION}~${REVISION}.dsc ] || [ "${1}" = "--force" ]
+	if [ ! -f "${SERVER}"/${PACKAGE}_${VERSION}+${REVISION}.dsc ] || [ "${1}" = "--force" ]
 	then
 		UPDATE_INDICES="true"
 
 		# Renaming directory
-		mv "${TEMPDIR}"/${PACKAGE} "${TEMPDIR}"/${PACKAGE}-${VERSION}~${REVISION}
+		mv "${TEMPDIR}"/${PACKAGE} "${TEMPDIR}"/${PACKAGE}-${VERSION}+${REVISION}
 
 		# Building package
-		cd "${TEMPDIR}"/${PACKAGE}-${VERSION}~${REVISION}
+		cd "${TEMPDIR}"/${PACKAGE}-${VERSION}+${REVISION}
 		rm -rf .git
-		dch --force-bad-version --newversion ${VERSION}~${REVISION} --distribution UNRELEASED Autobuild snapshot of SVN r${REVISION}.
+		dch --force-bad-version --newversion ${VERSION}+${REVISION} --distribution UNRELEASED Autobuild snapshot of SVN r${REVISION}.
 		dpkg-buildpackage -rfakeroot -sa -uc -us
 
 		# Removing sources
-		rm -rf "${TEMPDIR}"/${PACKAGE}-${VERSION}~${REVISION}
+		rm -rf "${TEMPDIR}"/${PACKAGE}-${VERSION}+${REVISION}
 
 		# Creating directory
 		mkdir -p "${SERVER}"
