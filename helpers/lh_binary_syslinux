@@ -260,7 +260,7 @@ Configure_syslinux_templates ()
 		       -e "s|{\$LIVE_SCREEN_PATH}|${LIVE_SCREEN_PATH}|" \
 		       -e "s|{\$LIVE_DATA_PATH}|${LIVE_DATA_PATH}|" \
 		       -e "s|{\$LIVE_KERNEL_PATH}|${LIVE_KERNEL_PATH}|" \
-		       -e "s|{\$SPLASH}@|{SPLASH}|" \
+		       -e "s|{\$SPLASH}|${SPLASH}|" \
 		       -e "s|{\$LH_DISTRIBUTION}|${LH_DISTRIBUTION}|" \
 		       -e "s|{\$LH_DATE}|$(date +%Y%m%d)|" \
 		       -e "s|{\$LH_MEDIA}|${MEDIA}|" \
