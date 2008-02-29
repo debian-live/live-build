@@ -128,22 +128,7 @@ EOF
 			mv chroot/etc/kernel-img.conf.old chroot/etc/kernel-img.conf
 		else
 			# Removing kernel-img.conf file
-			#rm -f chroot/etc/kernel-img.conf
-
-# Default file taken from debian-installer etchr2
-cat > chroot/etc/kernel-img.conf << EOF
-# Kernel Image management overrides
-# See kernel-img.conf(5) for details
-do_symlinks = yes
-relative_links = yes
-do_bootloader = no
-do_bootfloppy = no
-do_initrd = yes
-link_in_boot = no
-postinst_hook = update-grub
-postrm_hook   = update-grub
-EOF
-
+			Truncate chroot/etc/kernel-img.conf
 		fi
 
 		# Removing stage file
