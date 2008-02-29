@@ -424,10 +424,10 @@ then
 	ln -s . binary/debian
 fi
 
-# Including preseeding file
-if [ -e config/binary_debian-installer/preseed.cfg ]
+# Including preseeding files
+if [ -e config/binary_debian-installer/preseed*.cfg ]
 then
-	cp config/binary_debian-installer/preseed.cfg binary/install
+	cp config/binary_debian-installer/preseed*.cfg binary/install
 fi
 
 # Creating stage file
