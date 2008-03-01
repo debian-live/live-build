@@ -150,15 +150,20 @@ case "${LH_CHROOT_FILESYSTEM}" in
 		# Installing depends
 		Install_package
 
-		# Remove old ext2 image
+		# Remove old jffs2 image
 		if [ -f binary/${INITFS}/filesystem.jffs2 ]
 		then
 			rm -f binary/${INITFS}/filesystem.jffs2
 		fi
 
+		if [ -n "${LH_JFFS2_ERASEBLOCK}" ]
+		then
+			JFFS2_OPTIONS="--eraseblock=${LH_JFFS2_ERASEBLOCK}"
+		fi
+
 		case "${LH_CHROOT_BUILD}" in
 			enabled)
-				Chroot "mkfs.jffs2 --root=chroot --output filesystem.jffs2"
+				Chroot "mkfs.jffs2 ${JFFS2_OPTIONS} --root=chroot --output filesystem.jffs2"
 
 				# Move image
 				mv chroot/filesystem.jffs2 binary/${INITFS}
@@ -166,7 +171,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 				;;
 
 			disabled)
-				mkfs.jffs2 --root=chroot --output binary/${INITFS}/filesystem.jffs2
+				mkfs.jffs2 ${JFFS2_OPTIONS} --root=chroot --output binary/${INITFS}/filesystem.jffs2
 				;;
 		esac
 
