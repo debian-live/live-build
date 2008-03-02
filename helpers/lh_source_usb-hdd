@@ -72,7 +72,7 @@ fi
 
 # Everything which comes here needs to be cleaned up,
 DU_DIM="$(du -ms source | cut -f1)"
-REAL_DIM="$(expr ${DU_DIM} + ${DU_DIM} / 50)" # Just 2% more to be sure, need something more sophistcated here...
+REAL_DIM="$(expr ${DU_DIM} + ${DU_DIM} / 50 + 1)" # Just 2% more to be sure, need something more sophistcated here...
 dd if=/dev/zero of=source.img bs=1024k count=0 seek=${REAL_DIM}
 FREELO="$(${LH_LOSETUP} -f)"
 if [ ! -b chroot/${FREELO} ]
