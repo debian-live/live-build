@@ -42,7 +42,7 @@ fi
 
 rm -f .lock
 
-if [ -z "${@}" ]
+if [ -z "${*}" ]
 then
 	ARGUMENTS="--all"
 else
