@@ -1,3 +1,35 @@
+live-helper (1.0~a39-1) unstable; urgency=medium
+
+  [ Bas Wijnen ]
+  * Making usb-hdd images large enough (Closes: #468855).
+
+  [ Chris Lamb ]
+  * Use  instead of  for checking for no arguments in lh_clean.
+
+  [ Daniel Baumann ]
+  * Fixing spelling mistake in changelog.
+  * Fixing manpage quoting errors.
+  * Rewriting copyright in machine-interpretable format.
+  * Adding option to set binary-net compression (or disable it).
+  * When a wrong argument is passed, that argument should be listed
+    (Closes: #468201).
+  * Added forgotten getopts arguments for chroot mirror.
+  * Adding lzma modules on sid.
+  * Changing version scheme for snapshots.
+  * Fixing typo in sed call to set isolinux splash file.
+  * Honor local preseeding file for debian-installer.
+  * Using wildcards to support more than one preseeding file.
+  * Including default kernel-img.conf in live-systems.
+  * It's actually enough to just truncate kernel-img.conf and also less
+    invasive than including a default configuration.
+  * Adding --jffs2-eraseblock parameter.
+  * Adding temporary hack to remove fstab when using live-installer.
+  * Fixed accidental overwriting of LH_NET_TARBALL value in defaults.
+  * Also handling ext3 in lh_binary_rootfs, thanks to Bas Wijnen
+    <wijnen@debian.org> (Closes: #468902).
+
+ -- Daniel Baumann <daniel@debian.org>  Mon,  3 Mar 2008 00:00:00 +0100
+
 live-helper (1.0~a38-1) unstable; urgency=medium
 
   [ Chris Lamb ]
