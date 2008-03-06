@@ -12,7 +12,7 @@ clean:
 
 build:
 
-install: build
+install:
 	dh_testdir
 	dh_testroot
 	dh_clean -k
@@ -36,11 +36,11 @@ install: build
 	install -D -m 0644 debian/bug/presubj debian/live-helper/usr/share/bug/live-helper
 	install -D -m 0755 debian/bug/script debian/live-helper/usr/share/bug/live-helper
 
-binary: binary-indep binary-arch
+binary: binary-indep
 
-binary-arch: build install
+binary-arch:
 
-binary-indep: build install
+binary-indep: install
 	dh_testdir
 	dh_testroot
 	dh_installchangelogs docs/ChangeLog
