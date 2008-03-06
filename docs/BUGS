@@ -6,8 +6,20 @@ How to report a bug in Debian Live
 Debian Live is far from being perfect, but we want to make it as close as
 possible to perfect - with your help.
 
-Do not hesitate to report a bug: it is better to fill a report twice than never.
-However, here are some recommendations how to file good bug reports.
+As such, do not hesitate to report a bug: it is better to fill a report twice or
+even to report a potential non-bug than no bug at all.
+
+However, here are some recommendations how to file good bug reports so that they
+are the most effective.
+
+For the impatient:
+
+  * Do always reproduce with the most current version of live-helper and
+    live-initramfs before submitting a bugreport.
+
+  * Do always try to give as *specific* as possible information about the bug.
+    This not just includes the version of live-helper and live-initramfs used,
+    the distribution of the live system you are building.
 
 
 1. Where does the bug appear?
@@ -15,26 +27,36 @@ However, here are some recommendations how to file good bug reports.
 
 ...at build time while bootstrapping?
 
-make-live first bootstraps a basic Debian system with cdebootstrap(1) or
-debootstrap(8). Depending on both cdebootstrap/debootstrap and the Debian
+live-helper first bootstraps a basic Debian system with debootstrap(8) or
+cdebootstrap(1). Depending on both debootstrap/cdebootstrap and the Debian
 distribution it is bootstrapping, it runs sucessful or not. If a bug appears
 here, check if the error is related to a specific Debian package (most likely),
-or if it is related to cdebootstrap/debootstrap itself. Running lh_bootstrap
+or if it is related to debootstrap/cdebootstrap itself. Running lh_bootstrap
 with --debug gives you more information.
 
-In both cases, this is not a bug in Debian Live, but rather in Debian itself. We
-can not fix this directly. Instead, report such a bug against the cdebootstrap
-package, or the failing package.
+Also, if you are using a local mirror or any of sort of (package) proxy and you
+are experiencing a problem with bootstrapping, always reproduce it first by
+bootstrapping from an official Debian mirror.
+
+In all cases above, these are not a bug in live-helper, but rather in Debian
+itself. We can not fix this directly. Instead, report such a bug against the
+failing package, or in case of a bug in the bootstrapping tool, against
+debootstrap or cdebootstrap, or the (package) proxy software you are using.
 
 
 ...at build time while installing packages?
 
-Debian Live installs additional packages from the Debian archive. Depending on
+live-helper installs additional packages from the Debian archive. Depending on
 the Debian distribution used and the daily archive state, it can fail. If a bug
-appears here, check if the error is also reproducible on a normal system.
+appears here, check if the error is also reproducible on a normal installed
+(non-live) system.
 
-If this is the case, this is not a bug in Debian Live, but rather in Debian
-again. Report it against the failing package.
+Also, if you are including any sort of unofficial package to your live system
+and you are experiencing problems, rebuild without those before filling a bug
+to make sure that they are not the cause of the failure.
+
+In all cases above, these are not a bug in live-helper, but rather in Debian
+again. Report it against the failing package(s).
 
 
 ...at boot time?
@@ -67,12 +89,12 @@ information:
 	* Architecture of the host system
 	* Version of live-helper on the host system
 	* Version of live-initramfs on the live system
-	* Version of cdebootstrap and/or debootstrap on the host system
+	* Version of debootstrap and/or cdebootstrap on the host system
 
 	* Architecture of the live system
 	* Distribution of the live system
 	* Version of the kernel on the live system
 
 Additionally, to rule out other errors, it is always a good idea to tar up your
-config directory and upload it somewhere (do *NOT* send it as an attachment to
+config directory and upload it somewhere (do *not* send it as an attachment to
 the mailinglist), so that we can try to reproduce the errors you encountered.
