@@ -4,7 +4,7 @@ live-helper (1.0~a39-1) unstable; urgency=medium
   * Making usb-hdd images large enough (Closes: #468855).
 
   [ Chris Lamb ]
-  * Use  instead of  for checking for no arguments in lh_clean.
+  * Use ${*} instead of ${@} for checking for no arguments in lh_clean.
 
   [ Daniel Baumann ]
   * Fixing spelling mistake in changelog.
