@@ -136,21 +136,21 @@ Syslinux_install_entry ()
 	INITRD="${3}"
 	APPEND="${4}"
 
-	# Boot in quiet mode
-	if [ "${LH_DISTRIBUTION}" != "etch" ] && [ "${LABEL}" != "rescue" ] && [ "${LABEL}" != "rescuegui" ]
+	# Boot in quiet mode where appropriate
+	if [ "${LH_DISTRIBUTION}" != "etch" ]
 	then
-		APPEND="${APPEND} quiet"
+		QAPPEND="quiet"
 	fi
 
 	for TYPE in Install Expert Rescue Auto
 	do
 		case "${TYPE}" in
 			Install)
-				TAPPEND="${APPEND}"
+				TAPPEND="${APPEND} ${QAPPEND}"
 				;;
 
 			Expert)
-				TAPPEND="priority=low ${APPEND}"
+				TAPPEND="priority=low ${APPEND} ${QAPPEND}"
 				;;
 
 			Rescue)
