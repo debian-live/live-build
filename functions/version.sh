@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # version.sh - print version information
-# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+# Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 # This is free software, and you are welcome to redistribute it
@@ -14,7 +14,7 @@ Version ()
 	echo "${PROGRAM}, version ${VERSION}"
 	echo "This program is a part of live-helper."
 	echo
-	echo "Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>"
+	echo "Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>"
 	echo
 	echo "This program is free software: you can redistribute it and/or modify"
 	echo "it under the terms of the GNU General Public License as published by"
