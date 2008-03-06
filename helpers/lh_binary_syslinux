@@ -162,7 +162,16 @@ Syslinux_install_entry ()
 				;;
 		esac
 
-		LINUX_INSTALL="${LINUX_INSTALL}\nLABEL ${LABEL}${TYPE}\n"
+		case "${LABEL}" in
+			Text)
+				TYPE_SUFFIX=""
+				;;
+			GUI)
+				TYPE_SUFFIX="gui"
+				;;
+		esac
+
+		LINUX_INSTALL="${LINUX_INSTALL}\nLABEL $(echo "${TYPE}" | tr A-Z a-z)${TYPE_SUFFIX}\n"
 		LINUX_INSTALL="${LINUX_INSTALL}\tMENU LABEL Start ${LABEL} ${TYPE}\n"
 		LINUX_INSTALL="${LINUX_INSTALL}\tkernel ${LIVE_INSTALL_KERNEL_PATH}/${KERNEL}\n"
 		LINUX_INSTALL="${LINUX_INSTALL}\tappend initrd=${LIVE_INSTALL_KERNEL_PATH}/${INITRD} ${TAPPEND} ${LH_BOOTAPPEND_INSTALL}\n"
