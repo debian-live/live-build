@@ -158,7 +158,7 @@ Syslinux_install_entry ()
 				;;
 
 			Auto)
-				TAPPEND="rescue/enable=true ${APPEND} ${QAPPEND}"
+				TAPPEND="auto=true priority=critical ${APPEND} ${QAPPEND}"
 				;;
 		esac
 
