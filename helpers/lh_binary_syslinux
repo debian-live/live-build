@@ -150,15 +150,15 @@ Syslinux_install_entry ()
 				;;
 
 			Expert)
-				TAPPEND="priority=low ${APPEND} ${QAPPEND}"
+				TAPPEND="priority=low ${APPEND}"
 				;;
 
 			Rescue)
-				TAPPEND="rescue/enable=true ${APPEND}"
+				TAPPEND="rescue/enable=true ${APPEND} ${QAPPEND}"
 				;;
 
 			Auto)
-				TAPPEND="rescue/enable=true ${APPEND}"
+				TAPPEND="rescue/enable=true ${APPEND} ${QAPPEND}"
 				;;
 		esac
 
