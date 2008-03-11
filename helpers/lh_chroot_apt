@@ -96,12 +96,12 @@ case "${1}" in
 		# Configuring apt secure
 		case "${LH_APT_SECURE}" in
 			enabled)
-				echo "APT::Get::AllowUnauthenticated \"true\";" > chroot/etc/apt/apt.conf.d/00secure
+				echo "APT::Get::AllowUnauthenticated \"false\";" > chroot/etc/apt/apt.conf.d/00secure
 				echo "Aptitude::CmdLine::Ignore-Trust-Violations \"false\";" >> chroot/etc/apt/apt.conf.d/00secure
 				;;
 
 			disabled)
-				echo "APT::Get::AllowUnauthenticated \"false\";" > chroot/etc/apt/apt.conf.d/00secure
+				echo "APT::Get::AllowUnauthenticated \"true\";" > chroot/etc/apt/apt.conf.d/00secure
 				echo "Aptitude::CmdLine::Ignore-Trust-Violations \"true\";" >> chroot/etc/apt/apt.conf.d/00secure
 				;;
 		esac
