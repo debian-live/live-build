@@ -375,7 +375,7 @@ Set_defaults ()
 				;;
 
 			i386)
-				LH_LINUX_FLAVOURS="486"
+				LH_LINUX_FLAVOURS="486 686"
 				;;
 
 			ia64)
