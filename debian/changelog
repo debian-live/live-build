@@ -1,3 +1,33 @@
+live-helper (1.0~a40-1) unstable; urgency=medium
+
+  [ Chris Lamb ]
+  * Ensure syslinux entry names match templates and standard d-i names
+  * Don't append 'quiet' kernel parameter in rescue modes
+
+  [ Daniel Baumann ]
+  * Updating bug script to also check for recently added packages to
+    suggests.
+  * Adding bug presubj message.
+  * Fixing incomplete changelog entry from git-dch.
+  * Reworded package description.
+  * Improved wording of debian-live splash license.
+  * Removing (temporary) preinst, not needed anymore.
+  * Cleaning up target depends in rules.
+  * Updating documentation about how to report bugs.
+  * Updating copyright years to 2008.
+  * Bumping live-helper version.
+  * Re-adding quiet on all d-i install targets in post-etch, except
+    expert (and keeping Chris fixed quiet handling).
+  * Adjusting wrong variable convention in syslinux templates for
+    LH_VERSION (Closes: #468841).
+  * Fixing wrong debian-installer auto target configuration.
+
+  [ Otavio Salvador ]
+  * functions/losetup.sh: use SECTORS as variable name to reflect the
+    real usage
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 10 Mar 2008 00:00:00 +0100
+
 live-helper (1.0~a39-1) unstable; urgency=medium
 
   [ Bas Wijnen ]
