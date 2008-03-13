@@ -5,7 +5,7 @@ Although Debian Live is about creating your own customized Live system, we offer
 some prebuilt images as well. Currently, builds for the three desktop
 environments GNOME[0], KDE[1] and Xfce[2] as well as the standard system are
 available. Builds based on testing are created every week and the ones based on
-unstable are build daily. For stable, we build update them when needed.
+unstable are built daily. For stable, we update them when needed.
 
 Currently, the following flavours are autobuilt here (.iso for CD/DVD images,
 .img for USB stick images):
