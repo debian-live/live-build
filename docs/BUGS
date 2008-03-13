@@ -65,7 +65,7 @@ If your image does not boot, please report it to the mailing list together with
 the information requested in 2. Do not forget to mention, how/when the image
 failed, in qemu, vmware or real hardware. If you are using a virtualization
 technology of any kind, do always run it on real hardware before reporting a
-bug. Nevertheless, providing a screenshot of the failure is also very helpfull.
+bug. Nevertheless, providing a screenshot of the failure is also very helpful.
 
 
 ...at run time?
