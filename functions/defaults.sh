@@ -34,7 +34,12 @@ Set_defaults ()
 	fi
 
 	# Setting package manager
-	LH_APT="${LH_APT:-aptitude}"
+	if [ "${LH_DISTRIBUTION}" = "etch" ]
+	then
+		LH_APT="${LH_APT:-aptitude}"
+	else
+		LH_APT="${LH_APT:-apt}"
+	fi
 
 	# Setting apt ftp proxy
 	if [ -z "${LH_APT_FTP_PROXY}" ] && [ -n "${ftp_proxy}" ]
