@@ -91,11 +91,27 @@ esac
 # Setting remote d-i directories
 case "${LH_BINARY_IMAGES}" in
 	net)
+		USE_NETBOOT_DI="yes"
+		;;
+	*)
+		case "${LH_DEBIAN_INSTALLER}" in
+			businesscard|netboot)
+				USE_NETBOOT_DI="yes"
+				;;
+			*)
+				USE_NETBOOT_DI="no"
+				;;
+		esac
+		;;
+esac
+
+case "${USE_NETBOOT_DI}" in
+	yes)
 		DI_REMOTE_BASE="netboot/debian-installer/${LH_ARCHITECTURE}"
 		DI_REMOTE_BASE_GTK="netboot/gtk/debian-installer/${LH_ARCHITECTURE}"
 		DI_REMOTE_KERNEL="linux"
 		;;
-	*)
+	no)
 		DI_REMOTE_BASE="cdrom"
 		DI_REMOTE_BASE_GTK="cdrom/gtk"
 		DI_REMOTE_KERNEL="vmlinuz"
@@ -233,24 +249,7 @@ then
 fi
 
 # Only download additional packages if appropriate
-case "${LH_DEBIAN_INSTALLER}" in
-	enabled|cdrom|netinst)
-		case "${LH_BINARY_IMAGES}" in
-			net)
-				DI_PACKAGE_POOL="no"
-				;;
-			*)
-				DI_PACKAGE_POOL="yes"
-				;;
-		esac
-		;;
-
-	*)
-		DI_PACKAGE_POOL="no"
-		;;
-esac
-
-if [ "${DI_PACKAGE_POOL}" = "yes" ]
+if [ "${USE_NETBOOT_DI}" = "no" ]
 then
 	# Downloading additional packages
 	mkdir -p chroot/binary.deb/archives/partial
