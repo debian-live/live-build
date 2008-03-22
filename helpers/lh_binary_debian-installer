@@ -38,18 +38,9 @@ then
 	WGET_OPTIONS="${WGET_OPTIONS} --quiet"
 fi
 
-# Setting remote d-i directories
+# Check d-i configuration
 case "${LH_DEBIAN_INSTALLER}" in
-	enabled|cdrom|netinst|businesscard|live)
-		DI="cdrom"
-		DI_GTK="${DI}/gtk"
-		DI_KERNEL="vmlinuz"
-		;;
-
-	netboot)
-		DI="netboot/debian-installer/${LH_ARCHITECTURE}"
- 		DI_GTK="netboot/gtk/debian-installer/${LH_ARCHITECTURE}"
-		DI_KERNEL="linux"
+	enabled|cdrom|netinst|netboot|businesscard|live)
 		;;
 
 	disabled)
@@ -83,11 +74,7 @@ case "${LH_BINARY_IMAGES}" in
 		;;
 
 	net)
-		DESTDIR="tftpboot"
-		DI="netboot"
-
-		Echo_error "Not supported yet (FIXME)"
-		exit 1
+		DESTDIR="tftpboot/debian-install/${LH_ARCHITECTURE}"
 		;;
 
 	tar|usb-hdd)
@@ -98,6 +85,20 @@ case "${LH_BINARY_IMAGES}" in
 		then
 			DESTDIR="binary"
 		fi
+		;;
+esac
+
+# Setting remote d-i directories
+case "${LH_BINARY_IMAGES}" in
+	net)
+		DI_REMOTE_BASE="netboot/debian-installer/${LH_ARCHITECTURE}"
+		DI_REMOTE_BASE_GTK="netboot/gtk/debian-installer/${LH_ARCHITECTURE}"
+		DI_REMOTE_KERNEL="linux"
+		;;
+	*)
+		DI_REMOTE_BASE="cdrom"
+		DI_REMOTE_BASE_GTK="cdrom/gtk"
+		DI_REMOTE_KERNEL="vmlinuz"
 		;;
 esac
 
@@ -217,15 +218,15 @@ fi
 
 # Downloading debian-installer
 mkdir -p "${DESTDIR_DI}"
-wget ${WGET_OPTIONS} --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI}/${DI_KERNEL}
-wget ${WGET_OPTIONS} --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI}/initrd.gz
+wget ${WGET_OPTIONS} --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI_REMOTE_BASE}/${DI_REMOTE_KERNEL}
+wget ${WGET_OPTIONS} --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI_REMOTE_BASE}/initrd.gz
 
 # Downloading graphical-installer
 if [ "${LH_ARCHITECTURE}" = "amd64" ] || [ "${LH_ARCHITECTURE}" = "i386" ] || [ "${LH_ARCHITECTURE}" = "powerpc" ]
 then
 	mkdir -p "${DESTDIR_GI}"
-	wget ${WGET_OPTIONS} --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_GTK}/${DI_KERNEL}
-	wget ${WGET_OPTIONS} --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_GTK}/initrd.gz
+	wget ${WGET_OPTIONS} --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/${DI_REMOTE_KERNEL}
+	wget ${WGET_OPTIONS} --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/initrd.gz
 fi
 
 if [ "${LH_DEBIAN_INSTALLER}" != "netboot" ]; then
