@@ -113,8 +113,11 @@ INITRD_GI="gtk/initrd.gz"
 DESTDIR_GI="${DESTDIR}/gtk"
 
 Install_file() {
-	local FILE="${1}"
-	local TARGET="${2}"
+	local FILE
+	FILE="${1}"
+
+	local TARGET
+	TARGET="${2}"
 
 	SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
 
