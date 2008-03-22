@@ -218,15 +218,15 @@ fi
 
 # Downloading debian-installer
 mkdir -p "${DESTDIR_DI}"
-wget ${WGET_OPTIONS} --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI_REMOTE_BASE}/${DI_REMOTE_KERNEL}
-wget ${WGET_OPTIONS} --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI_REMOTE_BASE}/initrd.gz
+wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI_REMOTE_BASE}/${DI_REMOTE_KERNEL}
+wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI_REMOTE_BASE}/initrd.gz
 
 # Downloading graphical-installer
 if [ "${LH_ARCHITECTURE}" = "amd64" ] || [ "${LH_ARCHITECTURE}" = "i386" ] || [ "${LH_ARCHITECTURE}" = "powerpc" ]
 then
 	mkdir -p "${DESTDIR_GI}"
-	wget ${WGET_OPTIONS} --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/${DI_REMOTE_KERNEL}
-	wget ${WGET_OPTIONS} --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/initrd.gz
+	wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/${DI_REMOTE_KERNEL}
+	wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/initrd.gz
 fi
 
 # Only download additional packages if appropriate
