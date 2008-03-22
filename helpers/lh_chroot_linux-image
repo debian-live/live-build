@@ -98,8 +98,15 @@ EOF
 			Chroot "find /root -name *.deb" > chroot/root/initfs
 			Chroot "xargs --arg-file=/root/initfs dpkg -i" || true
 
-			# Cleaning dependencies
-			Apt install -f
+			# Install dependencies
+			case "${LH_APT}" in
+				aptitude)
+					Apt install ${LH_INITRAMFS}
+					;;
+				apt-get)
+					Apt install -f
+					;;
+			esac
 
 			# Removing package files
 			rm -f chroot/root/${LH_INITRAMFS}*.deb
