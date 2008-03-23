@@ -82,6 +82,10 @@ fi
 # Update initramfs
 Chroot "update-initramfs -k all -t -u"
 
+# Ensure readable permissions on initramfs. loop-aes-utils sets umask to
+# protect GPG keys, which live-helper does not support.
+chmod go+r chroot/boot/initrd*
+
 # Remove build systems clock drift
 echo "0.0 0 0.0" > chroot/etc/adjtime
 
