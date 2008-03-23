@@ -33,10 +33,27 @@ Read_conffile config/source
 Read_conffile "${LH_CONFIG}"
 Set_defaults
 
-if [ -z "${LH_ENCRYPTION}" ]
-then
-	exit 0
-fi
+case "${LH_ENCRYPTION}" in
+	aes128|aes192|aes256)
+		;;
+	""|disabled)
+		exit 0
+		;;
+	*)
+		Echo_error "Encryption type \"${LH_ENCRYPTION}\" not supported."
+		exit 1
+		;;
+esac
+
+case "${LH_CHROOT_FILESYSTEM}" in
+	ext2|squashfs)
+		;;
+
+	*)
+		Echo_error "Encryption not yet supported on ${LH_CHROOT_FILESYSTEM} filesystems."
+		exit 1
+		;;
+esac
 
 Echo_message "Begin encrypting root filesystem image..."
 
@@ -60,26 +77,6 @@ case "${LH_INITRAMFS}" in
 
 	live-initramfs)
 		INITFS="live"
-		;;
-esac
-
-case "${LH_CHROOT_FILESYSTEM}" in
-	ext2)
-		ROOTFS="ext2"
-		;;
-
-	jffs2)
-		Echo_warning "encryption not yet supported on jffs2 filesystem."
-		exit 0
-		;;
-
-	plain)
-		Echo_warning "encryption not supported on plain filesystem."
-		exit 0
-		;;
-
-	squashfs)
-		ROOTFS="squashfs"
 		;;
 esac
 

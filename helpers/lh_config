@@ -56,7 +56,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--debian-installer-daily enabled|disabled]\n\
 \t    [--debug]\n\
 \t    [-d|--distribution CODENAME]\n\
-\t    [-e|--encryption aes128|aes192|aes256]\n\
+\t    [-e|--encryption disabled|aes128|aes192|aes256]\n\
 \t    [--fdisk fdisk|fdisk.dist]\n\
 \t    [--force]\n\
 \t    [--genisoimage genisomage|mkisofs]\n\
@@ -989,7 +989,7 @@ LH_DEBIAN_INSTALLER="${LH_DEBIAN_INSTALLER}"
 LH_DEBIAN_INSTALLER_DAILY="${LH_DEBIAN_INSTALLER_DAILY}"
 
 # \$LH_ENCRYPTION: set encrytion
-# (Default: empty)
+# (Default: ${LH_ENCRYPTION})
 LH_ENCRYPTION="${LH_ENCRYPTION}"
 
 # \$LH_GRUB_SPLASH: set custom grub splash
