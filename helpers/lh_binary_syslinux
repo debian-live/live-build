@@ -388,10 +388,13 @@ mkdir -p "${SCREEN_PATH}"
 mkdir -p "${DATA_PATH}"
 
 # Setting boot parameters
-if [ -n "${LH_ENCRYPTION}" ]
-then
-	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} encryption=${LH_ENCRYPTION}"
-fi
+case "${LH_ENCRYPTION}" in
+	""|disabled)
+		;;
+	*)
+		LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} encryption=${LH_ENCRYPTION}"
+		;;
+esac
 
 if [ -n "${LH_USERNAME}" ]
 then

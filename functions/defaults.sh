@@ -430,10 +430,13 @@ Set_defaults ()
 			fi
 		fi
 
-		if [ -n "${LH_ENCRYPTION}" ]
-		then
-			LH_LINUX_PACKAGES="${LH_LINUX_PACKAGES} loop-aes-modules-2.6"
-		fi
+		case "${LH_ENCRYPTION}" in
+			""|disabled)
+				;;
+			*)
+				LH_LINUX_PACKAGES="${LH_LINUX_PACKAGES} loop-aes-modules-2.6"
+				;;
+		esac
 	fi
 
 	# Setting packages string
@@ -529,7 +532,7 @@ Set_defaults ()
 	LH_DEBIAN_INSTALLER_DAILY="${LH_DEBIAN_INSTALLER_DAILY:-disabled}"
 
 	# Setting encryption
-	# LH_ENCRYPTION
+	LH_ENCRYPTION="${LH_ENCRYPTION:-disabled}"
 
 	# Setting grub splash
 	# LH_GRUB_SPLASH
