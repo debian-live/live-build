@@ -2,7 +2,7 @@
 ## Debian Live Snapshot repository.
 ##
 ## To enable it, copy this file to your config/chroot_sources directory, once
-## as e.g. live-snapshots.bootstrap and once as live-snapshots.binary.
+## as e.g. live-snapshots.chroot and once as live-snapshots.binary.
 
 # Debian Live Snapshots
 deb http://live.debian.net/debian-snapshots/ ./

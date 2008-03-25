@@ -2,7 +2,7 @@
 ## Debian Edu/Skolelinux repository.
 ##
 ## To enable it, copy this file to your config/chroot_sources directory, once
-## as e.g. edu.bootstrap and once as edu.binary.
+## as e.g. edu.chroot and once as edu.binary.
 ##
 ## Remeber to add debian-edu-archive-keyring to your package selection.
 
