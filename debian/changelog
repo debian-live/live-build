@@ -1,3 +1,41 @@
+live-helper (1.0~a41-1) unstable; urgency=medium
+
+  [ Daniel Baumann ]
+  * Fixing md5sum.txt creation to not fail on filenames with
+    whitespaces, thanks to Bas Wijnen <wijnen@debian.org> (Closes:
+    #469085).
+  * Updating copy instructions in example sources to match current
+    state.
+  * Updating credits.
+  * Switching default of LH_APT from aptitude to apt for >= lenny.
+  * Correcting wrong logic on handling secure apt.
+  * Including 686 kernel flavour on i386 too, but defaulting (still) to
+    486 for compatibility reasons.
+
+  [ Chris Lamb ]
+  * lh_chroot_hacks: Ensure initrds are group- and world- readable
+  * Allow LH_ENCRYPTION="disabled" to disable encryption
+  * lh_binary_encryption: Rework and fix broken AES encryption routines
+  * lh_binary_rootfs: Remove
+  * lh_binary_debian-installer: Preseed by repacking initrd in some
+    situations
+  * lh_binary_debian-installer: Merge pool/netboot determining logic
+  * lh_binary_debian-installer: Remove "local"-oriented bashisms
+    (Closes: #471873).
+  * lists/gnome-core: Add gnome-themes
+  * lh_chroot_linux-image: Install dependencies differently when using
+    aptitude
+  * lh_binary_debian-installer: Don't use --no-clobber for downloading
+    files
+  * lh_binary_debian-installer: Only create package pools when necessary
+  * lh_binary_debian-installer: Re-enable d-i on netboot images
+  * hooks/stripped: Clean Lintian and Linda overrides in 'stripped' hook
+
+  [ Cyril Brulebois ]
+  * Fix various typos.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 24 Mar 2008 00:00:00 +0100
+
 live-helper (1.0~a40-1) unstable; urgency=medium
 
   [ Chris Lamb ]
