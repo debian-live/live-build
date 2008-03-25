@@ -2,7 +2,7 @@
 ## Debian Etch backports repository.
 ##
 ## To enable it, copy this file to your config/chroot_sources directory, once
-## as e.g. debian-backports.bootstrap and once as debian-backports.binary.
+## as e.g. debian-backports.chroot and once as debian-backports.binary.
 
 # Debian backports for Etch
 deb http://www.backports.org/debian/ etch-backports main

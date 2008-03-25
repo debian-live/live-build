@@ -2,7 +2,7 @@
 ## Beryl Etch repository.
 ##
 ## To enable it, copy this file to your config/chroot_sources directory, once
-## as e.g. beryl.bootstrap and once as beryl.binary.
+## as e.g. beryl.chroot and once as beryl.binary.
 ## Additionally, you need to copy the beryl.sh file to your
 ## config/chroot_local-hooks directory.
 ##
