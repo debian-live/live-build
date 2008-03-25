@@ -65,7 +65,7 @@ fi
 
 # Calculating md5sums
 cd source
-find . -type f | sort | xargs md5sum > ../md5sum.txt
+find . -type f -print0 | xargs -0 md5sum > ../md5sum.txt
 
 cat > md5sum.txt << EOF
 This file contains the list of md5 checksums of all files on this medium.
@@ -76,7 +76,7 @@ or, manually with: 'md5sum -c md5sum.txt'.
 
 EOF
 
-cat ../md5sum.txt >> md5sum.txt
+sort ../md5sum.txt >> md5sum.txt
 rm -f ../md5sum.txt
 
 cd "${OLDPWD}"
