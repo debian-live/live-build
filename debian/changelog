@@ -1,3 +1,14 @@
+live-helper (1.0~a42-1) unstable; urgency=medium
+
+  * Also including lzma modules on lenny temporarily.
+  * Applying patch from Bas Wijnen <wijnen@debian.org> to correct error
+    messages in Require_stagefile (Closes: #472774).
+  * Applying patch from Bas Wijnen <wijnen@debian.org> to make
+    Check_crossarchitecture() working on non-listed architectures
+    (Closes: #472775).
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 31 Mar 2008 00:00:00 +0200
+
 live-helper (1.0~a41-1) unstable; urgency=medium
 
   [ Daniel Baumann ]
