@@ -257,7 +257,7 @@ Set_defaults ()
 			;;
 	esac
 
-	# Setting boostrap keyring
+	# Setting bootstrap keyring
 	# LH_BOOTSTRAP_KEYRING
 
 	# Setting mirror to fetch packages from
