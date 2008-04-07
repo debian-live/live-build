@@ -11,10 +11,15 @@ set -e
 
 Read_conffile ()
 {
-	FILES="${1} ${1}.${LH_ARCHITECTURE} ${1}.${DISTRIBUTION}"
-	FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's|^lh_||')"
-	FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's|^lh_||').${ARCHITECTURE}"
-	FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's|^lh_||').${DISTRIBUTION}"
+	if [ -n "${LH_CONFIG}" ]
+	then
+		FILES="${LH_CONFIG}"
+	else
+		FILES="${1} ${1}.${LH_ARCHITECTURE} ${1}.${DISTRIBUTION}"
+		FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's|^lh_||')"
+		FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's|^lh_||').${ARCHITECTURE}"
+		FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's|^lh_||').${DISTRIBUTION}"
+	fi
 
 	for FILE in ${FILES}
 	do
