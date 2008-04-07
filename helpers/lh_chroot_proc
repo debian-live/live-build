@@ -28,6 +28,7 @@ Arguments "${@}"
 lh_testroot
 
 # Reading configuration files
+Read_conffile config/all
 Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/chroot
