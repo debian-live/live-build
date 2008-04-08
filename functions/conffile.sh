@@ -17,7 +17,7 @@ Read_conffile ()
 	else
 		for FILE in ${@}
 		do
-			FILES="${FILE} ${FILE}.${LH_ARCHITECTURE} ${FILE}.${DISTRIBUTION}"
+			FILES="${FILES} ${FILE} ${FILE}.${LH_ARCHITECTURE} ${FILE}.${DISTRIBUTION}"
 			FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's|^lh_||')"
 			FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's|^lh_||').${ARCHITECTURE}"
 			FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's|^lh_||').${DISTRIBUTION}"
