@@ -1,3 +1,19 @@
+live-helper (1.0~a43-1) unstable; urgency=medium
+
+  * Sort md5sum.txt files again after filename.
+  * Fixing forgotten variable in conffile loop.
+  * Updating help output of lh_config.
+  * Applied patch from Erwan Le Gall <elegall@linagora.com> to give a
+    warning when installing local packages with wrong naming scheme.
+  * Using new Read_conffile(); now.
+  * Allowing multiple arguments for Read_conffile();.
+  * Centraly evaluate LH_CONFIG for custom configuration file.
+  * Adding 'all' configuration file.
+  * Removing temporary workaround of adding lzma-modules2.6 to linux
+    packages, all fixed squashfs are now in sid and lenny.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon,  7 Apr 2008 00:00:00 +0200
+
 live-helper (1.0~a42-1) unstable; urgency=medium
 
   * Also including lzma modules on lenny temporarily.
