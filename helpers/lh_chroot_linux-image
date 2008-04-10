@@ -98,7 +98,7 @@ EOF
 				aptitude)
 					Apt install ${LH_INITRAMFS}
 					;;
-				apt-get)
+				apt|apt-get)
 					Apt install -f
 					;;
 			esac
