@@ -8,7 +8,14 @@
 # Building kernel modules
 which module-assistant || apt-get install --yes module-assistant
 module-assistant update
-module-assistant auto-install rt2x00-source
+
+for KERNEL in /boot/vmlinuz-*
+do
+	VERSION="$(basename ${KERNEL} | sed -e 's|vmlinuz-||')"
+
+	module-assistant --non-inter --quiet auto-install rt2x00-source -l ${VERSION}
+done
+
 module-assistant clean rt2x00-source
 
 # Installing firmware for rt73usb

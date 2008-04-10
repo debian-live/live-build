@@ -5,13 +5,18 @@
 #
 # Note: This hook requires packages from the contrib and non-free section. Make
 # sure you enabled it in your configuration.
-#
-# FIXME: it runs in interactive mode
 
 # Building kernel module
 which module-assistant || apt-get install --yes module-assistant
 module-assistant update
-module-assistant auto-install ipw3945
+
+for KERNEL in /boot/vmlinuz-*
+do
+	VERSION="$(basename ${KERNEL} | sed -e 's|vmlinuz-||')"
+
+	module-assistant --non-inter --quiet auto-install ipw3945 -l ${VERSION}
+done
+
 module-assistant clean ipw3945
 
 # Installing additional stuff

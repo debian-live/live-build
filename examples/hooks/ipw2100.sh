@@ -9,7 +9,14 @@
 # Building kernel module
 which module-assistant || apt-get install --yes module-assistant
 module-assistant update
-module-assistant --non-inter --quiet auto-install ipw2100
+
+for KERNEL in /boot/vmlinuz-*
+do
+	VERSION="$(basename ${KERNEL} | sed -e 's|vmlinuz-||')"
+
+	module-assistant --non-inter --quiet auto-install ipw2100 -l ${VERSION}
+done
+
 module-assistant clean ipw2100
 
 # Installing firmware (http://ipw2100.sourceforge.net/firmware.php)

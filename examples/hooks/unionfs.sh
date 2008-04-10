@@ -9,5 +9,12 @@
 # Building kernel module
 which module-assistant || apt-get install --yes module-assistant
 module-assistant update
-module-assistant --non-inter --quiet auto-install unionfs
+
+for KERNEL in /boot/vmlinuz-*
+do
+	VERSION="$(basename ${KERNEL} | sed -e 's|vmlinuz-||')"
+
+	module-assistant --non-inter --quiet auto-install unionfs -l ${VERSION}
+done
+
 module-assistant clean unionfs
