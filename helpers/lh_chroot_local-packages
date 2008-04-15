@@ -59,7 +59,7 @@ then
 	fi
 
 	# Installing packages
-        Chroot "find /root -name *.deb" > chroot/root/local-packages
+        Chroot "find /root -name \\*.deb" > chroot/root/local-packages
 
 	if [ -s chroot/root/local-packages ]
 	then
