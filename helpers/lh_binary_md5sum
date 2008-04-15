@@ -70,7 +70,7 @@ cat ../md5sum.txt >> md5sum.txt
 rm -f ../md5sum.txt
 
 # File list
-find . | sed -e 's|^.||g' | grep "^/" > ../binary.list
+find . | sed -e 's|^.||g' | grep "^/" | sort > ../binary.list
 
 cd "${OLDPWD}"
 

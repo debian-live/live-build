@@ -75,7 +75,7 @@ cat ../md5sum.txt >> md5sum.txt
 rm -f ../md5sum.txt
 
 # File list
-find . | sed -e 's|^.||g' | grep "^/" > ../source.list
+find . | sed -e 's|^.||g' | grep "^/" | sort > ../source.list
 
 cd "${OLDPWD}"
 
