@@ -48,7 +48,7 @@ Save_cache ()
 			if [ "$(stat --printf %d ${DIRECTORY})" = "$(stat --printf %d chroot/var/cache/apt/archives)" ]
 			then
 				# with hardlinks
-				cp --force -l chroot/var/cache/apt/archives/*.deb "${DIRECTORY}"
+				cp -fl chroot/var/cache/apt/archives/*.deb "${DIRECTORY}"
 			else
 				# without hardlinks
 				mv -f chroot/var/cache/apt/archives/*.deb "${DIRECTORY}"
