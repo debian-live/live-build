@@ -28,7 +28,7 @@ Arguments "${@}"
 Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-Echo_message "Begin executing locale preseed..."
+Echo_message "Begin executing local preseeds..."
 
 # Requiring stage file
 Require_stagefile .stage/bootstrap
