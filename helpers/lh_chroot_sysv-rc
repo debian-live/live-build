@@ -55,7 +55,7 @@ cat  > chroot/usr/sbin/policy-rc.d << EOF
 #!/bin/sh
 
 echo
-echo "Warning: invoke-rc.d policy in action. Skiping daemon starting"
+echo "Warning: invoke-rc.d policy in action. Skipping daemon starting"
 
 exit 101
 EOF
