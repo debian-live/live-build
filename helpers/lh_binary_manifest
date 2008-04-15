@@ -57,5 +57,7 @@ EOF
 
 Chroot "dpkg -l" >> binary/packages.txt
 
+cp binary/packages.txt binary.packages
+
 # Creating stage file
 Create_stagefile .stage/binary_manifest
