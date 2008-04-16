@@ -77,36 +77,8 @@ EOF
 			done
 		fi
 
-		if ! ls config/chroot_local-packages/${LH_INITRAMFS}*.deb > /dev/null 2>&1
-		then
-			PACKAGES="${PACKAGES} ${LH_INITRAMFS}"
-		fi
-
 		# Installing linux-image, modules and ${LH_INITRAMFS}
-		Apt install ${PACKAGES}
-
-		if ls config/chroot_local-packages/${LH_INITRAMFS}*.deb > /dev/null 2>&1
-		then
-			cp config/chroot_local-packages/${LH_INITRAMFS}*.deb chroot/root
-
-			# Installing package
-			Chroot "find /root -name *.deb" > chroot/root/initfs
-			Chroot "xargs --arg-file=/root/initfs dpkg -i" || true
-
-			# Install dependencies
-			case "${LH_APT}" in
-				aptitude)
-					Apt install ${LH_INITRAMFS}
-					;;
-				apt|apt-get)
-					Apt install -f
-					;;
-			esac
-
-			# Removing package files
-			rm -f chroot/root/${LH_INITRAMFS}*.deb
-			rm -f chroot/root/initfs
-		fi
+		Apt install ${PACKAGES} ${LH_INITRAMFS}
 
 		# Saving cache
 		Save_cache cache/packages_linux-image
