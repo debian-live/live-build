@@ -62,6 +62,15 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
+# Checking depends
+Check_package chroot/usr/bin/wget wget
+
+# Restoring cache
+Restore_cache cache/packages_binary
+
+# Installing depends
+Install_package
+
 # Setting destination directory
 case "${LH_BINARY_IMAGES}" in
 	iso)
@@ -475,6 +484,12 @@ then
 		repack_initrd "${DESTDIR}"/"${INITRD_GI}"
 	fi
 fi
+
+# Saving cache
+Save_cache cache/packages_binary
+
+# Removing depends
+Remove_package
 
 # Creating stage file
 Create_stagefile .stage/binary_debian-installer
