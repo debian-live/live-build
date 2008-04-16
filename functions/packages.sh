@@ -34,11 +34,11 @@ Install_package ()
 	then
 		case "${LH_APT}" in
 			apt|apt-get)
-				Chroot "apt-get install --yes ${PACKAGES}"
+				Chroot "apt-get install --no-install-recommends --yes ${PACKAGES}"
 				;;
 
 			aptitude)
-				Chroot "aptitude install --assume-yes ${PACKAGES}"
+				Chroot "aptitude install --without-recommends --assume-yes ${PACKAGES}"
 				;;
 		esac
 	fi
