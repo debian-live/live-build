@@ -270,7 +270,6 @@ Configure_syslinux_templates ()
 		       -e "s|{\$LH_MEDIA}|${MEDIA}|" \
 		       -e "s|{\$LH_VERSION}|${VERSION}|" \
 		       -e "s|{\$LH_SYSLINUX_TIMEOUT}|${LH_SYSLINUX_TIMEOUT}0|" \
-		       -e 's|\ $||g' \
 		$template_file
 	done
 
