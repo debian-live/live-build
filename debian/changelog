@@ -1,3 +1,31 @@
+live-helper (1.0~a44-1) unstable; urgency=medium
+
+  [ Chris Lamb ]
+  * lh_chroot_linux-image: Catch missing case in local live-initramfs
+    handling
+  * helpers/lh_config, functions/defaults.sh: Correct "boostrap" ->
+    "bootstrap"
+  * lh_binary_debian-installer: Add dependency on 'wget'
+  * Don't install "Recommends:" when installing local tools
+  * Fix a number of issues with Syslinux templates (Closes: #476204)
+  * Use "find -path" for matching "path/to/file" files (Closes: #476206)
+  * Fix quoting when installing local packages (Closes: #470683)
+  * Fix typo in policy-rc.d
+
+  [ Daniel Baumann ]
+  * Updating oot example hooks to loop through all install kernel
+    flavours.
+  * Sorting image file lists.
+  * Consistenly using short options rather than long options in function
+    files.
+  * Improving .deb caching by using hardlinks (if possible).
+  * Creating binary and source file lists in build directory.
+  * Also copying binary package list to build directory.
+  * Also adding a packages.txt when building etch images, although there
+    is a casper/filesystem.manifest already.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 14 Apr 2008 00:00:00 +0200
+
 live-helper (1.0~a43-1) unstable; urgency=medium
 
   * Sort md5sum.txt files again after filename.
