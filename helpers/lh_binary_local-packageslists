@@ -51,7 +51,7 @@ then
 	for PACKAGESLIST in config/binary_local-packageslists/*
 	do
 		# Generate package list
-		Expand_packagelist "${PACKAGESLIST}" "config/binary_local-packageslists" > chroot/root/"$(basename ${PACKAGESLIST})"
+		Expand_packagelist "${PACKAGESLIST}" "config/binary_local-packageslists" "config/chroot_local-packageslists" > chroot/root/"$(basename ${PACKAGESLIST})"
 
 		# Downloading additional packages
 		Chroot "xargs --arg-file=/root/$(basename ${PACKAGESLIST}) apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb --download-only install"
