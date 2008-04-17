@@ -11,32 +11,41 @@ set -e
 
 Expand_packagelist ()
 {
-	# ${1} List name
-	# ${2} Default path to search
-	# ${3} Fallback path to search (optional)
+	_LH_EXPAND_QUEUE="$(basename "${1}")"
 
-	# Does list exist in default path?
-	if [ -e "${2}/${1}" ];
-	then
-		Expand_packagelist_file "${2}/${1}" "${@}"
-	else
-		# If list exists in fallback, include it.
-		if [ -n "${3}" ] && [ -e "${3}/${1}" ]
-		then
-			Expand_packagelist_file "${3}/${1}" "${@}"
-		fi
-	fi
-}
-
-Expand_packagelist_file ()
-{
-	local FILE="${1}"
-	shift
 	shift
 
-	for INCLUDE in $(sed -ne 's|^#<include> \(.*\)|\1|gp' -e 's|^#include <\(.*\)>|\1|gp' "${FILE}")
+	while [ -n "${_LH_EXPAND_QUEUE}" ]
 	do
-		Expand_packagelist "${INCLUDE}" "${@}"
+		_LH_LIST_NAME="$(echo ${_LH_EXPAND_QUEUE} | cut -d" " -f1)"
+		_LH_EXPAND_QUEUE="$(echo ${_LH_EXPAND_QUEUE} | cut -s -d" " -f2-)"
+		_LH_LIST_LOCATION=""
+
+		for _LH_SEARCH_PATH in ${@} "${LH_BASE:-/usr/share/live-helper}/lists"
+		do
+			if [ -e "${_LH_SEARCH_PATH}/${_LH_LIST_NAME}" ]
+			then
+				_LH_LIST_LOCATION="${_LH_SEARCH_PATH}/${_LH_LIST_NAME}"
+			fi
+		done
+
+		if [ -z "${_LH_LIST_LOCATION}" ]
+		then
+			echo "W: Unknown package list '${_LH_LIST_NAME}'" >&2
+			continue
+		fi
+
+		# Output packages
+		grep -v "^#" ${_LH_LIST_LOCATION} | grep .
+
+		# Find includes
+		_LH_INCLUDES="$(sed -n \
+			-e 's|^#<include> \([^ ]*\)|\1|gp' \
+			-e 's|^#include <\([^ ]*\)>|\1|gp' \
+			"${_LH_LIST_LOCATION}")"
+
+		# Add to queue
+		_LH_EXPAND_QUEUE="$(echo ${_LH_EXPAND_QUEUE} ${_LH_INCLUDES} | \
+			sed -e 's|[ ]*$||' -e 's|^[ ]*||')"
 	done
-	sed -ne 's|^\([^#].*\)|\1\n|gp' "${FILE}"
 }
