@@ -33,9 +33,6 @@ Require_stagefile .stage/bootstrap
 
 case "${1}" in
 	install)
-		# Restoring cache
-		Restore_cache cache/packages_linux-image
-
 		Echo_message "Configuring file /etc/kernel-img.conf"
 
 		# Checking stage file
@@ -72,16 +69,13 @@ EOF
 			do
 				for PACKAGE in ${LH_LINUX_PACKAGES}
 				do
-					PACKAGES="${PACKAGES} ${PACKAGE}-${FLAVOUR}"
+					echo ${PACKAGE}-${FLAVOUR} >> chroot/root/chroot_packages
 				done
 			done
 		fi
 
-		# Installing linux-image, modules and ${LH_INITRAMFS}
-		Apt install ${PACKAGES} ${LH_INITRAMFS}
-
-		# Saving cache
-		Save_cache cache/packages_linux-image
+		# Queue installation of linux-image and ${LH_INITRAMFS}
+		echo ${LH_INITRAMFS} >> chroot/root/chroot_packages
 
 		# Creating stage file
 		Create_stagefile .stage/chroot_linux-image
