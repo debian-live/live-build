@@ -47,17 +47,9 @@ then
 
 	for LIST in ${LH_PACKAGES_LISTS}
 	do
-		if [ -f ${LH_BASE:-/usr/share/live-helper}/lists/"${LIST}" ]
-		then
-			# Generating package list
-			Expand_packagelist \
-				"${LIST}" \
-				"config/chroot_local-packageslists" \
-				"${LH_BASE:-/usr/share/live-helper}/lists" \
-					>> chroot/root/chroot_packages
-		else
-			Echo_warning "skipping installation of unknown packages list '${LIST}'."
-		fi
+		# Generating package list
+		Expand_packagelist "${LIST}" "config/chroot_local-packageslists" \
+			>> chroot/root/chroot_packages
 	done
 
 	# Creating stage file
