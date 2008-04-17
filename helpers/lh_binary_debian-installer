@@ -279,7 +279,7 @@ then
 	Chroot "apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb --download-only install ${DI_PACKAGES}"
 	mv chroot/binary.deb ./
 	mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
-	
+
 	if ls binary.deb/archives/*.deb > /dev/null 2>&1
 	then
 		for FILE in binary.deb/archives/*.deb
@@ -367,6 +367,7 @@ then
 			rm -f "$(basename ${FILE} | awk -F_ '{ print $1 }')"_*.udeb
 		done
 	fi
+
 	if ls ../config/binary_local-udebs/*_all.udeb > /dev/null 2>&1
 	then
 		for FILE in ../config/binary_local-udebs/*_all.udeb
@@ -457,18 +458,19 @@ then
 	fi
 fi
 
-repack_initrd() {
+Repack_initrd()
+{
 	local TARGET_INITRD
 	TARGET_INITRD="${1}"
 	REPACK_TMPDIR="unpacked-initrd"
-	
+
 	# cpio does not have a "extract to directory", so we must change directory
 	mkdir -p ${REPACK_TMPDIR}
 	cd ${REPACK_TMPDIR}
 
 	gzip -d < ../${TARGET_INITRD} | cpio -i --make-directories --no-absolute-filenames
 	cp ../config/binary_debian-installer/preseed.cfg .
-	find | cpio -H newc -o | gzip -9 > ../${TARGET_INITRD} 
+	find | cpio -H newc -o | gzip -9 > ../${TARGET_INITRD}
 
 	cd ..
 	rm -rf ${REPACK_TMPDIR}
@@ -477,11 +479,11 @@ repack_initrd() {
 # Preseed d-i by repacking the initrd in certain situations
 if [ "${USE_NETBOOT_DI}" = "yes" ] && [ -e config/binary_debian-installer/preseed.cfg ]
 then
-	repack_initrd "${DESTDIR}"/"${INITRD_DI}"
+	Repack_initrd "${DESTDIR}"/"${INITRD_DI}"
 
 	if [ -e "${DESTDIR}"/"${INITRD_GI}" ]
 	then
-		repack_initrd "${DESTDIR}"/"${INITRD_GI}"
+		Repack_initrd "${DESTDIR}"/"${INITRD_GI}"
 	fi
 fi
 
