@@ -638,13 +638,13 @@ then
 	Check_installed chroot/usr/bin/k3b k3b; [ $INSTALL_STATUS -eq 0 ] && Check_package "" k3b-i18n
 
 	# Restoring cache
-	Restore_cache cache/packages_localization
+	Restore_cache cache/packages_chroot
 
 	# Installing packages
 	Install_package
 
 	# Saving cache
-	Save_cache cache/packages_localization
+	Save_cache cache/packages_chroot
 
 	# Creating stage file
 	Create_stagefile .stage/chroot_localization
