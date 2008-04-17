@@ -36,16 +36,17 @@ do
 		lh build | tee debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.iso.log
 
 		mv binary.iso debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.iso
-		mv source.tar.gz debian-live-${DISTRIBUTION}-source-${FLAVOUR}.tar.gz
-		mv binary.packages debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.iso.packages
 		mv binary.list debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.iso.list
+		mv binary.packages debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.iso.packages
+		mv source.tar.gz debian-live-${DISTRIBUTION}-source-${FLAVOUR}.tar.gz
+		mv source.list debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.tar.gz.list
 
 		lh clean --binary
 		lh config -b usb-hdd
 		lh binary | tee debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.img.log
 
 		mv binary.img debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.img
-		mv binary.packages debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.img.packages
 		mv binary.list debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.img.list
+		mv binary.packages debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.img.packages
 	done
 done
