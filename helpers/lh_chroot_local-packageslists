@@ -47,11 +47,8 @@ then
 	for PACKAGES_LIST in config/chroot_local-packageslists/*
 	do
 		# Generate package list
-		Expand_packagelist \
-			"$(basename ${PACKAGES_LIST})" \
-			"config/chroot_local-packageslists" \
-			"${LH_BASE:-/usr/share/live-helper/lists}/lists" \
-				>> chroot/root/chroot_packages
+		Expand_packagelist "${PACKAGES_LIST}" "config/chroot_local-packageslists" \
+			>> chroot/root/chroot_packages
 	done
 
 	# Creating stage file
