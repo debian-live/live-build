@@ -45,7 +45,7 @@ Create_lockfile .lock
 if [ -e chroot/root/chroot_packages ] && [ -s chroot/root/chroot_packages ]
 then
 	# Restoring cache
-	Restore_cache cache/packages_packages
+	Restore_cache cache/packages_chroot
 
 	# Installing packages
 	case "${LH_APT}" in
@@ -61,7 +61,7 @@ then
 	rm -f chroot/root/chroot_packages
 
 	# Saving cache
-	Save_cache cache/packages_packages
+	Save_cache cache/packages_chroot
 
 	# Creating stage file
 	Create_stagefile .stage/chroot_install-packages
