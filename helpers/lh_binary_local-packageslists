@@ -55,6 +55,9 @@ then
 
 		# Downloading additional packages
 		Chroot "xargs --arg-file=/root/$(basename ${PACKAGESLIST}) apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb --download-only install"
+
+		# Remove package list
+		rm chroot/root/"$(basename ${PACKAGESLIST})"
 	done
 
 	for FILE in chroot/binary.deb/archives/*.deb
