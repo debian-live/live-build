@@ -86,12 +86,12 @@ case "${1}" in
 			# Copy packages
 			if ls config/chroot_local-packages/*_"${LH_ARCHITECTURE}".deb > /dev/null 2>&1
 			then
-				cp config/chroot_local-packages/*_"${LH_ARCHITECTURE}".deb chroot/root/local-packages
+				cp -l config/chroot_local-packages/*_"${LH_ARCHITECTURE}".deb chroot/root/local-packages
 			fi
 
 			if ls config/chroot_local-packages/*_all.deb > /dev/null 2>&1
 			then
-				cp config/chroot_local-packages/*_all.deb chroot/root/local-packages
+				cp -l config/chroot_local-packages/*_all.deb chroot/root/local-packages
 			fi
 
 			if ls chroot/root/local-packages/*.deb > /dev/null 2>&1
