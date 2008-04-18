@@ -1,19 +1,24 @@
 #!/bin/sh
 
-# Needs: build-essential fakeroot lsb-release git-core [...]
-
 # Static variables
-PACKAGES="live-helper live-initramfs live-initscripts live-webhelper"
+if [ -n "${1}" ]
+then
+	PACKAGES="${@}"
+else
+	PACKAGES="live-helper live-initramfs live-initscripts live-webhelper"
+fi
 
 DEBEMAIL="debian-live-devel@lists.alioth.debian.org"
 EMAIL="debian-live-devel@lists.alioth.debian.org"
 DEBFULLNAME="Debian Live Autobuilder"
 NAME="Debian Live Autobuilder"
+KEY="FDB8D39A"
 
-export DEBEMAIL EMAIL DEBFULLNAME NAME
+export DEBEMAIL EMAIL DEBFULLNAME NAME KEY
 
-TEMPDIR="/srv/tmp/snapshots"
-SERVER="/srv/debian-unofficial/ftp/debian-live-snapshots"
+TEMPDIR="$(mktemp -d -t debian-live.XXXXXXXX)"
+SERVER="/mnt/daniel1/srv/debian-unofficial/live/debian"
+LOGFILE="${SERVER}/build.log"
 
 DATE_START="$(date -R)"
 
@@ -36,7 +41,7 @@ trap "test -f ${SERVER}/Archive-Update-in-Progress && rm -f ${SERVER}/Archive-Up
 # Creating lock file
 echo "${DATE_START}" > "${SERVER}"/Archive-Update-in-Progress
 
-echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper: begin snapshot build." >> /var/log/live
+echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-snapshots: begin build." >> "${LOGFILE}"
 
 # Processing packages
 for PACKAGE in ${PACKAGES}
@@ -74,8 +79,8 @@ do
 		# Building package
 		cd "${TEMPDIR}"/${PACKAGE}-${VERSION}+${REVISION}
 		rm -rf .git
-		dch --force-bad-version --newversion ${VERSION}+${REVISION} --distribution UNRELEASED Autobuild snapshot of SVN r${REVISION}.
-		dpkg-buildpackage -rfakeroot -sa -uc -us
+		dch --force-bad-version --newversion ${VERSION}+${REVISION} --distribution UNRELEASED Autobuild snapshot of git ${REVISION}.
+		dpkg-buildpackage -rfakeroot -k${KEY} -sa
 
 		# Removing sources
 		rm -rf "${TEMPDIR}"/${PACKAGE}-${VERSION}+${REVISION}
@@ -113,13 +118,22 @@ then
 
 	cd "${SERVER}"
 
-	# Updating binary indices
-	apt-ftparchive packages ./ > Packages
+	apt-ftparchive packages . /dev/null > Packages
 	gzip -9 -c Packages > Packages.gz
+	bzip2 -9 -c Packages > Packages.bz2
 
-	# Updating source indices
-	apt-ftparchive sources ./ > Sources
+	apt-ftparchive sources . /dev/null > Sources
 	gzip -9 -c Sources > Sources.gz
+	bzip2 -9 -c Sources > Sources.bz2
+
+	if [ -f release.conf ]
+	then
+		apt-ftparchive -c release.conf -o APT::FTPArchive::Release::Description="Last updated: `date -R`" release ./ >> Release.tmp
+		mv Release.tmp Release
+
+		rm -f Release.gpg
+		gpg --default-key ${KEY} --quiet --output Release.gpg -ba Release
+	fi
 fi
 
 # Reading timestamp
@@ -139,4 +153,4 @@ EOF
 # Removing build directory
 rm -rf "${TEMPDIR}"
 
-echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper: end snapshot build." >> /var/log/live
+echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-snapshots: end build." >> "${LOGFILE}"
