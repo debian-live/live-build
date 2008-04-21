@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/bin/sh -e
 
 # Static variables
 if [ -n "${1}" ]
 then
 	PACKAGES="${@}"
 else
-	PACKAGES="live-helper live-initramfs live-initscripts live-webhelper debian-unofficial-archive-keyring"
+	PACKAGES="live-helper live-initramfs live-initscripts live-webhelper live-magic debian-unofficial-archive-keyring"
 fi
 
 DEBEMAIL="debian-live-devel@lists.alioth.debian.org"
@@ -61,6 +61,10 @@ do
 	case "${PACKAGE}" in
 		debian-unofficial-archive-keyring)
 			git clone git://git.debian.net/git/${PACKAGE}.git
+			;;
+
+		live-magic)
+			git clone git://git.chris-lamb.co.uk/live-magic.git
 			;;
 
 		*)
