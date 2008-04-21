@@ -25,8 +25,8 @@ do
 
 		if [ "${DISTRIBUTION}" = "sid" ]
 		then
-			echo 'deb http://live.debian.net/debian-snapshots/ ./' > config/chroot_sources/live-snapshots.chroot
-			echo 'deb http://live.debian.net/debian-snapshots/ ./' > config/chroot_sources/live-snapshots.boot
+			echo 'deb http://live.debian.net/debian/ ./' > config/chroot_sources/live-snapshots.chroot
+			echo 'deb http://live.debian.net/debian/ ./' > config/chroot_sources/live-snapshots.boot
 
 			wget http://ftp-master.debian-unofficial.org/other/openpgp/archive-key-2008.asc -O config/chroot_sources/live-snapshots.chroot.gpg
 			wget http://ftp-master.debian-unofficial.org/other/openpgp/archive-key-2008.asc -O config/chroot_sources/live-snapshots.binary.gpg
