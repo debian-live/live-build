@@ -175,4 +175,8 @@ EOF
 # Removing build directory
 rm -rf "${TEMPDIR}"
 
+# Fixing permissions
+chmod 0644 "${SERVER}"/*
+chmod 0766 "${SERVER}"/*.sh
+
 echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-snapshots: end build." >> "${LOGFILE}"
