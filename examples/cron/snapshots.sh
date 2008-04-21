@@ -64,7 +64,7 @@ do
 			;;
 
 		live-magic)
-			git clone git://git.chris-lamb.co.uk/live-magic.git
+			git clone git://git.debian.org/git/users/lamby-guest/${PACKAGE}.git
 			;;
 
 		*)
