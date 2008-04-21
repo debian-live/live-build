@@ -1,3 +1,37 @@
+live-helper (1.0~a45-1) unstable; urgency=medium
+
+  [ Tiago Bortoletto Vaz ]
+  * lh_chroot_local-preseed: fix minor typo
+
+  [ Chris Lamb ]
+  * Install most chroot packages in one  call (Closes: #475739)
+  * Install local packages using a local APT repo instead of using "dpkg -i"
+  * hooks/minimal: Use "find -print0 | xargs -0" idiom over "find | xargs"
+  * Allow fallback to chroot_package-lists inside binary lists
+  * Remove temporary binary package list files
+  * Tidy calls to new Expand_packagelist
+  * Rewrite Expand_packagelist to not be recursive
+
+  [ Daniel Baumann ]
+  * Updating snapshot build script.
+  * When building snapshot images, also storing source.list away.
+  * Building snapshot images with --apt-recommends disabled.
+  * Adding example script to build a row of images.
+  * Some formating and style cleanups.
+  * Using one single packages cache directory for all chroot packages.
+  * Using hardlinks to copy local packages into chroot.
+  * Moving lh_chroot_packages call in lh_chroot to old place.
+  * Updating snapshots url.
+  * Adding live-magic to snapshots.
+  * Adding debian-unofficial-archive-keyring to snapshots.
+  * Updating live-snapshots example sources.
+  * Removing non anymore existing live-backports example sources.
+  * Renaming image build script.
+  * Adjusting Save_cache(); to skip already cached .deb files and only
+    copying new packages to it.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 21 Apr 2008 00:00:00 +0200
+
 live-helper (1.0~a44-1) unstable; urgency=medium
 
   [ Chris Lamb ]
