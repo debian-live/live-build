@@ -2,6 +2,7 @@
 
 set -e
 
+ARCHITECTURE="$(dpkg --print-architecture)"
 DATE="$(date +%Y%m%d)"
 
 for DISTRIBUTION in etch lenny sid
@@ -33,20 +34,20 @@ do
 
 		fi
 
-		lh build | tee debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.iso.log
+		lh build | tee debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.log
 
-		mv binary.iso debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.iso
-		mv binary.list debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.iso.list
-		mv binary.packages debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.iso.packages
+		mv binary.iso debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso
+		mv binary.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.list
+		mv binary.packages debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.packages
 		mv source.tar.gz debian-live-${DISTRIBUTION}-source-${FLAVOUR}.tar.gz
-		mv source.list debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.tar.gz.list
+		mv source.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.tar.gz.list
 
 		lh clean --binary
 		lh config -b usb-hdd
-		lh binary | tee debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.img.log
+		lh binary | tee debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.img.log
 
-		mv binary.img debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.img
-		mv binary.list debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.img.list
-		mv binary.packages debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.img.packages
+		mv binary.img debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.img
+		mv binary.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.img.list
+		mv binary.packages debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.img.packages
 	done
 done
