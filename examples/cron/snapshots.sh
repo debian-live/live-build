@@ -5,7 +5,7 @@ if [ -n "${1}" ]
 then
 	PACKAGES="${@}"
 else
-	PACKAGES="live-helper live-initramfs live-initscripts live-webhelper"
+	PACKAGES="live-helper live-initramfs live-initscripts live-webhelper debian-unofficial-archive-keyring"
 fi
 
 DEBEMAIL="debian-live-devel@lists.alioth.debian.org"
@@ -57,10 +57,28 @@ do
 
 	# Getting sources
 	cd "${TEMPDIR}"
-	git clone git://git.debian.org/git/users/daniel/${PACKAGE}.git
+
+	case "${PACKAGE}" in
+		debian-unofficial-archive-keyring)
+			git clone git://git.debian.net/git/${PACKAGE}.git
+			;;
+
+		*)
+			git clone git://git.debian.org/git/users/daniel/${PACKAGE}.git
+			;;
+	esac
 
 	# Getting version
 	cd "${TEMPDIR}"/${PACKAGE}
+
+	for BRANCH in debian
+	do
+		if [ -n "$(git branch -r | grep ${BRANCH})" ]
+		then
+			git checkout -b ${BRANCH} origin/${BRANCH} || true
+		fi
+	done
+
 	VERSION="$(dpkg-parsechangelog | awk '/Version:/ { print $2 }' | awk -F- '{ print $1 }')"
 
 	# Getting revision
