@@ -1,15 +1,19 @@
-#!/bin/sh -x
+#!/bin/sh -e
 
-set -e
+# Static variables
+DISTRIBUTIONS="${DISTRIBUTIONS:-etch lenny sid}"
+FLAVOURS="${FLAVOURS:-standard gnome-desktop kde-desktop xfce-desktop}"
+SOURCE="${SOURCE:-enabled}"
 
+# Dynamic variables
 ARCHITECTURE="$(dpkg --print-architecture)"
 DATE="$(date +%Y%m%d)"
 
-for DISTRIBUTION in etch lenny sid
+for DISTRIBUTION in ${DISTRIBUTIONS}
 do
 	rm -rf cache/stages*
 
-	for FLAVOUR in standard gnome-desktop kde-desktop xfce-desktop
+	for FLAVOUR in ${FLAVOURS}
 	do
 		mkdir -p config
 
@@ -22,7 +26,7 @@ do
 		rm -rf cache/packages*
 		rm -rf cache/stages_rootfs
 
-		if [ "${1}" != "nosource" ]
+		if [ "${SOURCE}" = "enabled" ]
 		then
 			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --source enabled --mirror-bootstrap http://mirror/ftp.debian.org/debian/ --mirror-chroot http://mirror/ftp.debian.org/debian/ --mirror-chroot-security http://mirror/ftp.debian.org/debian-security/
 		else
@@ -45,7 +49,7 @@ do
 		mv binary.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.list
 		mv binary.packages debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.packages
 
-		if [ "${1}" != "nosource" ]
+		if [ "${SOURCE}" = "enabled" ]
 		then
 			mv source.tar.gz debian-live-${DISTRIBUTION}-source-${FLAVOUR}.tar.gz
 			mv source.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.tar.gz.list
