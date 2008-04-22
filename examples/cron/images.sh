@@ -5,6 +5,9 @@ DISTRIBUTIONS="${DISTRIBUTIONS:-etch lenny sid}"
 FLAVOURS="${FLAVOURS:-standard gnome-desktop kde-desktop xfce-desktop}"
 SOURCE="${SOURCE:-enabled}"
 
+MIRROR="${MIRROR:-http://mirror/ftp.debian.org/debian/}"
+MIRROR_SECURITY="${MIRROR_SECURITY:-http://mirror/ftp.debian.org/debian-security/}"
+
 # Dynamic variables
 ARCHITECTURE="$(dpkg --print-architecture)"
 DATE="$(date +%Y%m%d)"
@@ -28,9 +31,9 @@ do
 
 		if [ "${SOURCE}" = "enabled" ]
 		then
-			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --source enabled --mirror-bootstrap http://mirror/ftp.debian.org/debian/ --mirror-chroot http://mirror/ftp.debian.org/debian/ --mirror-chroot-security http://mirror/ftp.debian.org/debian-security/
+			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --source enabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
 		else
-			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --source disabled --mirror-bootstrap http://mirror/ftp.debian.org/debian/ --mirror-chroot http://mirror/ftp.debian.org/debian/ --mirror-chroot-security http://mirror/ftp.debian.org/debian-security/
+			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --source disabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
 		fi
 
 		if [ "${DISTRIBUTION}" = "sid" ]
