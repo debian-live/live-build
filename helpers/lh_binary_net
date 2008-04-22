@@ -78,7 +78,14 @@ case "${LH_NET_TARBALL}" in
 		;;
 
 	gzip)
-		tar cfz binary-net.tar.gz "$(basename ${OLDPWD})/${ROOT_DIR}" "$(basename ${OLDPWD})/tftpboot"
+		if gzip --help | grep -q "\-\-rsyncable"
+		then
+			tar cf binary-net.tar "$(basename ${OLDPWD})/${ROOT_DIR}" "$(basename ${OLDPWD})/tftpboot"
+			gzip --rsyncable --best binary-net.tar
+		else
+			tar cfz binary-net.tar.gz "$(basename ${OLDPWD})/${ROOT_DIR}" "$(basename ${OLDPWD})/tftpboot"
+		fi
+
 		mv binary-net.tar.gz "${OLDPWD}"
 		;;
 
