@@ -7,10 +7,10 @@
 gnupg dash discover gawk grub htop lilo ltrace pstack screen strace units
 
 # Editors
-aview mc nano-tiny qemacs-nox mg vim wdiff
+aview mc nano-tiny qemacs-nox mg vim wdiff hexedit
 
 # Harddisk
-dosfstools dvd+rw-tools e2fsprogs ext2resize genisoimage hdparm blktool ntfsprogs parted partimage reiserfsprogs secure-delete scsitools smartmontools testdisk wodim wipe xfsprogs
+dvd+rw-tools genisoimage sdparm hdparm blktool parted partimage secure-delete scsitools smartmontools testdisk wodim wipe hddtemp
 
 # System
 dmidecode lshw pciutils procinfo read-edid sysutils usbutils mcelog
@@ -22,13 +22,13 @@ lynx links2 w3m
 bzip2 rar unace unrar unzip zip
 
 # Backup
-dar gddrescue
+dar gddrescue dump
 
 # General
 chrootuid
+cpio
 cryptcat
 directvnc
-dnstracer
 etherwake
 ftp
 ifenslave-2.6
@@ -140,6 +140,44 @@ fwlogwatch
 lwatch
 multitail
 
+# Net Analzisers
+httping
+arping
+dnstracer
+netselect
+
+# FS tools
+ext2resize
+reiserfsprogs
+scrounge-ntfs
+squashfs-tools
+sshfs
+sysfsutils
+udftools
+unionfs-tools
+xfsdump
+xfsprogs
+btrfs-tools
+cryptsetup
+dmraid
+dosfstools
+e2fsprogs
+evms
+fuse-utils
+hfsplus
+hfsutils
+jfsutils
+lde
+lsscsi
+lvm2
+mdadm
+mtools
+ntfs3g
+ntfsprogs
+reiser4progs
+
+
+
 # unsorted
 
 hwinfo hwtools x86info cpuid
@@ -156,7 +194,7 @@ clamav-data
 smbclient
 nfs-common
 wireless-tools
-cryptsetup
 
 aide
 tripwire
+sleuthkit
