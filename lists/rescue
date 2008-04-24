@@ -134,13 +134,13 @@ paketto
 sing
 xprobe
 
-# Log Analzisers
+# Log Analizers
 fwanalog
 fwlogwatch
 lwatch
 multitail
 
-# Net Analzisers
+# Net Analizers
 httping
 arping
 dnstracer
@@ -176,10 +176,7 @@ ntfs3g
 ntfsprogs
 reiser4progs
 
-
-
 # unsorted
-
 hwinfo hwtools x86info cpuid
 tofrodos rpncalc
 hal
