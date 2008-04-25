@@ -393,7 +393,7 @@ Set_defaults ()
 				;;
 
 			powerpc)
-				LH_LINUX_FLAVOURS="powerpc"
+				LH_LINUX_FLAVOURS="powerpc powerpc64"
 				;;
 
 			s390)
