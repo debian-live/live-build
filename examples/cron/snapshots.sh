@@ -87,7 +87,7 @@ do
 
 	# Getting revision
 	cd "${TEMPDIR}"/${PACKAGE}
-	REVISION="$(git log | grep -m1 Date | awk -FDate: '{ print $2 }' | sed -e 's/+.*$//')"
+	REVISION="$(git log | grep -m1 Date | awk -FDate: '{ print $2 }' | awk '{ print $1 ",", $3, $2, $5, $4, $6 }')"
 	REVISION="$(date -d "${REVISION}" +%Y%m%d.%H%M%S)"
 
 	# Check for existing package
