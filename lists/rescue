@@ -4,7 +4,11 @@
 #include <standard>
 
 # System
-gnupg dash discover gawk grub htop lilo ltrace pstack screen strace units
+gnupg dash discover gawk grub htop lilo ltrace screen strace units
+
+#if ARCHITECTURE i386
+pstack
+#endif
 
 # Editors
 aview mc nano-tiny qemacs-nox mg vim wdiff hexedit
