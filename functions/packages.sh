@@ -34,7 +34,7 @@ Install_package ()
 	then
 		case "${LH_APT}" in
 			apt|apt-get)
-				Chroot "apt-get install --no-install-recommends --yes ${PACKAGES}"
+				Chroot "apt-get install -o APT::Install-Recommends=false --yes ${PACKAGES}"
 				;;
 
 			aptitude)
