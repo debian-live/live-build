@@ -1,3 +1,22 @@
+live-helper (1.0~a46-2) unstable; urgency=medium
+
+  [ Chris Lamb ]
+  * Allow needle and haystack parts of packagelist #if constructs to be
+    lists
+  * Conditionally add non-free rar and unrar. Add unrar-free
+    unconditionally.
+  * Remove buggy ext2resize
+  * Remove oldstable-only hwtools from rescue list
+  * Remove removed/non-Debian packages pasd, irpas and nsed from rescue
+    list
+  * Correct typo of "ntfs3g" -> "ntfs-3g" in rescue list
+  * Only install reaim on Etch in rescue list
+  * Correct typo of "geopip-bin" => "geoip-bin"
+  * Only install sysutils on Etch in rescue list
+  * Only install read-edid on i386 and powerpc in rescue list
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 28 Apr 2008 18:00:00 +0200
+
 live-helper (1.0~a46-1) unstable; urgency=low
 
   [ Tiago Bortoletto Vaz ]
