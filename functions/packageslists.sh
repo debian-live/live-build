@@ -46,16 +46,22 @@ Expand_packagelist ()
 						echo "E: Nesting conditionals is not supported" >&2
 						exit 1
 					fi
-
 					_LH_NESTED=1
-					_LH_VAR="$(echo "${_LH_LINE}" | cut -d' ' -f2)"
-					_LH_VAL="$(echo "${_LH_LINE}" | cut -d' ' -f3-)"
-					_LH_MATCH="$(echo ${_LH_VAL} |grep "\(^\| \)$(eval "echo \$LH_${_LH_VAR}")\($\| \)")" || true
 
-					if [ -n "${_LH_VAR}" ] &&  [ -z "${_LH_MATCH}" ]
-					then
-						_LH_ENABLED=0
-					fi
+					_LH_NEEDLE="$(echo "${_LH_LINE}" | cut -d' ' -f3-)"
+					_LH_HAYSTACK="$(eval "echo \$LH_$(echo "${_LH_LINE}" | cut -d' ' -f2)")"
+
+					_LH_ENABLED=0
+					for _LH_NEEDLE_PART in ${_LH_NEEDLE}
+					do
+						for _LH_HAYSTACK_PART in ${_LH_HAYSTACK}
+						do
+							if [ "${_LH_NEEDLE_PART}" = "${_LH_HAYSTACK_PART}" ]
+							then
+								_LH_ENABLED=1
+							fi
+						done
+					done
 					;;
 
 				\#endif*)
