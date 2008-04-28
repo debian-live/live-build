@@ -54,8 +54,8 @@ do
 
 		if [ "${SOURCE}" = "enabled" ]
 		then
-			mv source.tar.gz debian-live-${DISTRIBUTION}-source-${FLAVOUR}.tar.gz
-			mv source.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.tar.gz.list
+			mv source.tar.gz debian-live-${DISTRIBUTION}-source-${FLAVOUR}-source.tar.gz
+			mv source.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}-source.tar.gz.list
 		fi
 
 		lh clean --binary
@@ -65,5 +65,15 @@ do
 		mv binary.img debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.img
 		mv binary.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.img.list
 		mv binary.packages debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.img.packages
+
+		lh clean --binary
+		lh config -b net
+		lh binary | tee debian-live-${DISTRIBUTION}-i386-${FLAVOUR}-net.tar.gz.log
+
+		mv binary-net.tar.gz debian-live-${DISTRIBUTION}-i386-${FLAVOUR}-net.tar.gz
+		mv binary.list debian-live-${DISTRIBUTION}-i386-${FLAVOUR}-net.tar.gz.list
+		mv binary.packages debian-live-${DISTRIBUTION}-i386-${FLAVOUR}-net.tar.gz.packages
+
+		mv binary/*/filesystem.squashfs debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.squashfs
 	done
 done
