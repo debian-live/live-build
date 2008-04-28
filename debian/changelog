@@ -1,3 +1,37 @@
+live-helper (1.0~a46-1) unstable; urgency=low
+
+  [ Tiago Bortoletto Vaz ]
+  * Support list of items for conditionals in package lists
+  * Fixed minor typographical error in rescue flavor file.
+  * Improving rescue flavor: added a set of missing tools, mainly for
+    file system
+
+  [ Chris Lamb ]
+  * Only install pstack on i386 (Closes: #477815)
+  * Support simple conditionals in package lists (Closes: #478273)
+  * Use APT::Install-Recommends to disable installation of recommends
+    for Etch
+
+  [ Daniel Baumann ]
+  * Adding netboot tarballs and plain squashfs images to images build
+    script.
+  * Adding powerpc64 to default kernel flavours (in addition to the
+    normal 32 bit one).
+  * Adjusting obtaining of the date string in snapshots.sh to new git
+    log date format.
+  * Updating Richards email address.
+  * Producing rsyncable tarballs where possible.
+  * Also taking mirrors from environment in image.sh.
+  * Taking config variables for images.sh from environment.
+  * Handling sourceless builds in images.sh.
+  * Removing old cron example scripts for image building, they are
+    obsoleted by images.sh.
+  * Updating live-magic git location.
+  * Getting architecture dynamically in images cron script.
+  * Correcting permissions in snapshot script.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 28 Apr 2008 00:00:00 +0200
+
 live-helper (1.0~a45-1) unstable; urgency=medium
 
   [ Tiago Bortoletto Vaz ]
