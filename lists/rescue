@@ -67,9 +67,12 @@ fail2ban
 iptables
 knockd
 portsentry
-reaim
 vlan
 zorp
+
+#if DISTRIBUTION etch
+reaim
+#endif
 
 # Bridging
 bridge-utils
