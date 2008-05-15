@@ -863,6 +863,7 @@ mkdir -p config/chroot_local-hooks
 mkdir -p config/chroot_local-includes
 mkdir -p config/chroot_local-packages
 mkdir -p config/chroot_local-packageslists
+mkdir -p config/chroot_local-preseed
 mkdir -p config/chroot_sources
 
 cat > config/chroot << EOF
