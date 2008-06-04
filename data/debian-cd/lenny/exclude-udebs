@@ -45,8 +45,7 @@ cdebconf-gtk-udeb
 fontconfig-udeb
 libatk1.0-udeb
 libcairo-directfb2-udeb
-libdirectfb-0.9-22-udeb
-libdirectfb-0.9-25-udeb
+libdirectfb-*-udeb
 libexpat1-udeb
 libfreetype6-udeb
 libglib2.0-udeb
@@ -64,9 +63,9 @@ dash-udeb
 cdebootstrap-udeb
 hdparm-udeb
 laptop-detect-udeb
-# These dhcp clients are not the currently preferred one.
-# Exclusion disabled during switchover from DHCP v2 to v3.
-#dhcp3-client-udeb
+multipath-udeb
+libaio1-udeb
+dhcp-client-udeb
 # This package is only useful in the d-i-demo.
 di-utils-exit-installer
 # No need for these loaders.
@@ -122,4 +121,6 @@ discover1-data-udeb
 libdiscover1-udeb
 # Eh?
 gnumach-udeb
-# Exclude apt-setup components; they will be included 
+# Exclude kbd and console-setup udebs, they're not currently used
+kbd-udeb
+console-setup-*-udeb
