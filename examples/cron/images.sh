@@ -47,7 +47,6 @@ do
 		fi
 
 		lh build | tee debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.log
-		gzip -9 debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.log
 
 		mv binary.iso debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso
 		mv binary.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.list
@@ -62,7 +61,6 @@ do
 		lh clean --binary
 		lh config -b usb-hdd
 		lh binary | tee debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.img.log
-		gzip -9 debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.img.log
 
 		mv binary.img debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.img
 		mv binary.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.img.list
@@ -71,7 +69,6 @@ do
 		lh clean --binary
 		lh config -b net
 		lh binary | tee debian-live-${DISTRIBUTION}-i386-${FLAVOUR}-net.tar.gz.log
-		gzip -9 debian-live-${DISTRIBUTION}-i386-${FLAVOUR}-net.tar.gz.log
 
 		mv binary-net.tar.gz debian-live-${DISTRIBUTION}-i386-${FLAVOUR}-net.tar.gz
 		mv binary.list debian-live-${DISTRIBUTION}-i386-${FLAVOUR}-net.tar.gz.list
