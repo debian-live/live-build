@@ -285,7 +285,7 @@ Local_arguments ()
 				;;
 
 			-v|--version)
-			 	Version
+				Version
 				shift
 				;;
 
