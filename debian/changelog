@@ -1,3 +1,24 @@
+live-helper (1.0~a47-1) unstable; urgency=medium
+
+  [ Antonio Ospite ]
+  * Fix formatting problems in lh_config man page
+
+  [ Chris Lamb ]
+  * Create chroot_local-preseed/ directory when building config/ in
+    lh_config
+  * Fix minor typographical error in live-helper(7)
+  * Compress build logs. Thanks to Mathieu Geli for the suggestion.
+
+  [ Daniel Baumann ]
+  * Updating vcs fields in control file.
+  * Adding uuid-runtime to suggests.
+  * Moving bugs document to live-manual.
+  * Updating to standards 3.8.0.
+  * Updating udeb include/exclude files from debian-cd.
+  * Reverting previous commit to compress build logs.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon,  9 Jun 2008 00:00:00 +0200
+
 live-helper (1.0~a46-2) unstable; urgency=medium
 
   [ Chris Lamb ]
