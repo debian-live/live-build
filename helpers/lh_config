@@ -653,6 +653,13 @@ Local_arguments ()
 	done
 }
 
+# Reading system configuration
+if [ -f "${SYSTEM_LH_CONFFILE}" ]
+then
+	Echo_verbose "Using system defaults from ${SYSTEM_LH_CONFFILE}"
+	Read_conffile "${SYSTEM_LH_CONFFILE}"
+fi
+
 # Reading existing configuration
 Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
 
@@ -660,12 +667,6 @@ Local_arguments "${@}"
 
 # Setting defaults
 Set_defaults
-
-if [ -f "${SYSTEM_LH_CONFFILE}" ]
-then
-	Echo_verbose "Using system defaults from ${SYSTEM_LH_CONFFILE}"
-	Read_conffile "${SYSTEM_LH_CONFFILE}"
-fi
 
 if [ -n "${LH_CONFFILE}" ]
 then
