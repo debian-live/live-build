@@ -656,7 +656,7 @@ Local_arguments ()
 # Reading system configuration
 if [ -f "${SYSTEM_LH_CONFFILE}" ]
 then
-	Echo_verbose "Using system defaults from ${SYSTEM_LH_CONFFILE}"
+	Echo_message "Using system defaults from ${SYSTEM_LH_CONFFILE}"
 	Read_conffile "${SYSTEM_LH_CONFFILE}"
 fi
 
