@@ -301,7 +301,7 @@ then
 	fi
 
 	# Including local debs
-	if ls ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".udeb > /dev/null 2>&1
+	if ls ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".deb > /dev/null 2>&1
 	then
 		for FILE in ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".deb
 		do
@@ -309,7 +309,7 @@ then
 		done
 	fi
 
-	if ls ../config/binary_local-debs/*_all.udeb > /dev/null 2>&1
+	if ls ../config/binary_local-debs/*_all.deb > /dev/null 2>&1
 	then
 		for FILE in ../config/binary_local-debs/*_all.deb
 		do
@@ -452,7 +452,7 @@ then
 	fi
 
 	# Including preseeding files
-	if [ -e config/binary_debian-installer/preseed*.cfg ]
+	if ls config/binary_debian_installer/preseed*.cfg > /dev/null 2>&1
 	then
 		cp config/binary_debian-installer/preseed*.cfg binary/install
 	fi
