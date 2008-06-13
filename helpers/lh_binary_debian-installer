@@ -392,6 +392,11 @@ then
 
 	for EXCLUDE in $(cat exclude)
 	do
+		if [ "${LH_DEBIAN_INSTALLER}" = "live" ] && [ "${EXCLUDE}" = "live-installer" ]
+		then
+			continue
+		fi
+
 		rm -f "${EXCLUDE}"_*.udeb
 	done
 
