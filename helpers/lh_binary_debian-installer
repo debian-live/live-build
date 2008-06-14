@@ -95,27 +95,27 @@ esac
 # Setting remote d-i directories
 case "${LH_BINARY_IMAGES}" in
 	net)
-		USE_NETBOOT_DI="yes"
+		DI_IMAGE_TYPE="netboot"
 		;;
 	*)
 		case "${LH_DEBIAN_INSTALLER}" in
 			businesscard|netboot)
-				USE_NETBOOT_DI="yes"
+				DI_IMAGE_TYPE="netboot"
 				;;
 			*)
-				USE_NETBOOT_DI="no"
+				DI_IMAGE_TYPE="cdrom"
 				;;
 		esac
 		;;
 esac
 
-case "${USE_NETBOOT_DI}" in
-	yes)
+case "${DI_IMAGE_TYPE}" in
+	netboot)
 		DI_REMOTE_BASE="netboot/debian-installer/${LH_ARCHITECTURE}"
 		DI_REMOTE_BASE_GTK="netboot/gtk/debian-installer/${LH_ARCHITECTURE}"
 		DI_REMOTE_KERNEL="linux"
 		;;
-	no)
+	cdrom)
 		DI_REMOTE_BASE="cdrom"
 		DI_REMOTE_BASE_GTK="cdrom/gtk"
 		DI_REMOTE_KERNEL="vmlinuz"
@@ -253,7 +253,7 @@ then
 fi
 
 # Only download additional packages if appropriate
-if [ "${USE_NETBOOT_DI}" = "no" ]
+if [ "${DI_IMAGE_TYPE}" != "netboot" ]
 then
 	# Downloading additional packages
 	mkdir -p chroot/binary.deb/archives/partial
@@ -482,7 +482,7 @@ Repack_initrd()
 }
 
 # Preseed d-i by repacking the initrd in certain situations
-if [ "${USE_NETBOOT_DI}" = "yes" ] && [ -e config/binary_debian-installer/preseed.cfg ]
+if [ "${DI_IMAGE_TYPE}" = "netboot" ] && [ -e config/binary_debian-installer/preseed.cfg ]
 then
 	Repack_initrd "${DESTDIR}"/"${INITRD_DI}"
 
