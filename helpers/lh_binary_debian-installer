@@ -43,7 +43,7 @@ case "${LH_DEBIAN_INSTALLER}" in
 		;;
 
 	*)
-		Echo_error "debian-installer flavor ${LH_DEBIAN_INSTALLER} not supported."
+		Echo_error "debian-installer flavour ${LH_DEBIAN_INSTALLER} not supported."
 		exit 1
 		;;
 esac
