@@ -131,14 +131,6 @@ esac
 
 Check_multiarchitecture
 
-VMLINUZ_DI="vmlinuz"
-INITRD_DI="initrd.gz"
-DESTDIR_DI="${DESTDIR}"
-
-VMLINUZ_GI="gtk/vmlinuz"
-INITRD_GI="gtk/initrd.gz"
-DESTDIR_GI="${DESTDIR}/gtk"
-
 Install_file() {
 	local FILE
 	FILE="${1}"
@@ -169,6 +161,14 @@ Install_file() {
 	# Move files
 	cp "${FILE}" "${TARGET}"/"${LETTER}"/"${SOURCE}"
 }
+
+VMLINUZ_DI="vmlinuz"
+INITRD_DI="initrd.gz"
+DESTDIR_DI="${DESTDIR}"
+
+VMLINUZ_GI="gtk/vmlinuz"
+INITRD_GI="gtk/initrd.gz"
+DESTDIR_GI="${DESTDIR}/gtk"
 
 # Workaround for syslinux (<< 3.36) which doesn't support long file/path names
 if [ "${LH_DISTRIBUTION}" = "etch" ]
