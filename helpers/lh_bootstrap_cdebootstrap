@@ -119,6 +119,11 @@ then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --verbose"
 fi
 
+if [ "${LH_APT_SECURE}" = "disabled" ]
+then
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --allow-unauthenticated"
+fi
+
 if [ -x "/usr/bin/cdebootstrap" ]
 then
 	if [ "${LH_CACHE_PACKAGES}" = "enabled" ]
