@@ -134,7 +134,7 @@ then
 			cp cache/packages_bootstrap/*.deb chroot/var/cache/bootstrap
 		fi
 
-		# Executing cdebootstrap (download-only)
+		Echo_breakage "Running cdebootstrap (download-only)... "
 		${LH_ROOT_COMMAND} cdebootstrap ${CDEBOOTSTRAP_OPTIONS} --download-only "${LH_DISTRIBUTION}" chroot "${LH_MIRROR_BOOTSTRAP}"
 
 		if [ -n "${LH_ROOT_COMMAND}" ]
@@ -154,7 +154,7 @@ then
 		cp chroot/var/cache/bootstrap/*.deb cache/packages_bootstrap
 	fi
 
-	# Executing cdebootstrap (regular run)
+	Echo_breakage "Running cdebootstrap... "
 	${LH_ROOT_COMMAND} cdebootstrap ${CDEBOOTSTRAP_OPTIONS} "${LH_DISTRIBUTION}" chroot "${LH_MIRROR_BOOTSTRAP}"
 
 	if [ -n "${LH_ROOT_COMMAND}" ]

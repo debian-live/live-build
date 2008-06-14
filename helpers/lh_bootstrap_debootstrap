@@ -120,7 +120,7 @@ then
 			cp cache/packages_bootstrap/*.deb chroot/var/cache/apt/archives
 		fi
 
-		# Executing debootstrap (download-only)
+		Echo_breakage "Running debootstrap (download-only)... "
 		${LH_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LH_DISTRIBUTION}" chroot "${LH_MIRROR_BOOTSTRAP}" "${LH_DEBOOTSTRAP_SCRIPT}"
 
 		if [ -n "${LH_ROOT_COMMAND}" ]
@@ -140,7 +140,7 @@ then
 		cp chroot/var/cache/apt/archives/*.deb cache/packages_bootstrap
 	fi
 
-	# Executing debootstrap (regular run)
+	Echo_breakage "Running debootstrap... "
 	${LH_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} "${LH_DISTRIBUTION}" chroot "${LH_MIRROR_BOOTSTRAP}" "${LH_DEBOOTSTRAP_SCRIPT}"
 
 	if [ -n "${LH_ROOT_COMMAND}" ]
