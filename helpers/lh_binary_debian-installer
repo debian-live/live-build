@@ -92,18 +92,19 @@ case "${LH_BINARY_IMAGES}" in
 		;;
 esac
 
-# Setting remote d-i directories
-case "${LH_BINARY_IMAGES}" in
-	net)
+# Set d-i image type
+case "${LH_DEBIAN_INSTALLER}" in
+	businesscard|netboot|netinst)
 		DI_IMAGE_TYPE="netboot"
 		;;
 	*)
-		case "${LH_DEBIAN_INSTALLER}" in
-			businesscard|netboot)
-				DI_IMAGE_TYPE="netboot"
-				;;
-			*)
+		case "${LH_BINARY_IMAGES}" in
+			iso)
 				DI_IMAGE_TYPE="cdrom"
+				;;
+
+			*)
+				DI_IMAGE_TYPE="netboot"
 				;;
 		esac
 		;;
