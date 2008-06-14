@@ -118,13 +118,13 @@ then
 	if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install ] && \
 	ls "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install/* > /dev/null 2>&1
 	then
-		cp -r -L ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install/* binary
+		cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install/* binary
 	fi
 
 	if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install."${ARCH}" ] && \
 	ls "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install."${ARCH}"/* > /dev/null 2>&1
 	then
-		cp -r -L ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install."${ARCH}"/* binary
+		cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install."${ARCH}"/* binary
 	fi
 
 	# Adjusting install templates
