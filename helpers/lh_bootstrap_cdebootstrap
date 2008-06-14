@@ -155,9 +155,7 @@ then
 	fi
 
 	# Executing cdebootstrap (regular run)
-	[ "$LH_QUIET" = "enabled" ] && echo -n "Running cdebootstrap ... "
 	${LH_ROOT_COMMAND} cdebootstrap ${CDEBOOTSTRAP_OPTIONS} "${LH_DISTRIBUTION}" chroot "${LH_MIRROR_BOOTSTRAP}"
-	[ "$LH_QUIET" = "enabled" ] && echo "done."
 
 	if [ -n "${LH_ROOT_COMMAND}" ]
 	then
