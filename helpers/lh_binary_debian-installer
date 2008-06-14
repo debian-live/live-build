@@ -123,6 +123,12 @@ case "${DI_IMAGE_TYPE}" in
 		;;
 esac
 
+case "${LH_ARCHITECTURE}" in
+	powerpc)
+		DI_REMOTE_BASE="${LH_ARCHITECTURE}/${DI_REMOTE_BASE}"
+		;;
+esac
+
 Check_multiarchitecture
 
 VMLINUZ_DI="vmlinuz"
