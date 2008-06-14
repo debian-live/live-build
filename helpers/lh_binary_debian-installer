@@ -173,16 +173,17 @@ DESTDIR_GI="${DESTDIR}/gtk"
 # Workaround for syslinux (<< 3.36) which doesn't support long file/path names
 if [ "${LH_DISTRIBUTION}" = "etch" ]
 then
-	if [ "${LH_BINARY_IMAGES}" = "tar" ] || [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
-	then
-		VMLINUZ_DI="vmlinuz.di"
-		INITRD_DI="initrddi.gz"
-		DESTDIR_DI="${DESTDIR}"
+	case "${LH_BINARY_IMAGES}" in
+		usb-hdd|tar)
+			VMLINUZ_DI="vmlinuz.di"
+			INITRD_DI="initrddi.gz"
+			DESTDIR_DI="${DESTDIR}"
 
-		VMLINUZ_GI="vmlinuz.gi"
-		INITRD_GI="initrdgi.gz"
-		DESTDIR_GI="${DESTDIR}"
-	fi
+			VMLINUZ_GI="vmlinuz.gi"
+			INITRD_GI="initrdgi.gz"
+			DESTDIR_GI="${DESTDIR}"
+			;;
+	esac
 fi
 
 if [ "${LH_DEBIAN_INSTALLER_DAILY}" = "enabled" ]
@@ -252,12 +253,13 @@ wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI_REMOTE_BASE}/${
 wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI_REMOTE_BASE}/initrd.gz
 
 # Downloading graphical-installer
-if [ "${LH_ARCHITECTURE}" = "amd64" ] || [ "${LH_ARCHITECTURE}" = "i386" ] || [ "${LH_ARCHITECTURE}" = "powerpc" ]
-then
-	mkdir -p "${DESTDIR_GI}"
-	wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/${DI_REMOTE_KERNEL}
-	wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/initrd.gz
-fi
+case "${LH_ARCHITECTURE}" in
+	amd64|i386|powerpc)
+		mkdir -p "${DESTDIR_GI}"
+		wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/${DI_REMOTE_KERNEL}
+		wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/initrd.gz
+	;;
+esac
 
 # Only download additional packages if appropriate
 if [ "${DI_IMAGE_TYPE}" != "netboot" ]
