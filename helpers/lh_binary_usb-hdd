@@ -91,6 +91,12 @@ fi
 echo "!!! The following error/warning messages can be ignored !!!"
 Losetup $FREELO chroot/binary.img 0
 
+case "${LH_ARCHITECTURE}" in
+	*)
+		PARTITION_TABLE_TYPE="msdos"
+		;;
+esac
+
 case "${LH_BINARY_FILESYSTEM}" in
 	fat16|fat32)
 		PARTITION_TYPE="${LH_BINARY_FILESYSTEM}"
@@ -104,7 +110,7 @@ esac
 
 case "${LH_CHROOT_BUILD}" in
 	enabled)
-		Chroot "parted -s ${FREELO} mklabel msdos" || true
+		Chroot "parted -s ${FREELO} mklabel ${PARTITION_TABLE_TYPE}" || true
 		Chroot "parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100%" || true
 		Chroot "parted -s ${FREELO} set 1 boot on" || true
 		Chroot "parted -s ${FREELO} set 1 lba off" || true
@@ -116,7 +122,7 @@ case "${LH_CHROOT_BUILD}" in
 		;;
 
 	disabled)
-		parted -s ${FREELO} mklabel msdos || true
+		parted -s ${FREELO} mklabel ${PARTITION_TABLE_TYPE} || true
 		parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100%
 		parted -s ${FREELO} set 1 boot on || true
 		parted -s ${FREELO} set 1 lba off || true
