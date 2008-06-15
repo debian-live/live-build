@@ -141,21 +141,23 @@ Losetup $FREELO chroot/binary.img 1
 
 case "${LH_BINARY_FILESYSTEM}" in
 	fat16)
-		MKFS_OPTIONS="-F 16"
+		MKFS="vfat"	
+		MKFS_OPTIONS="-F 16 -n DEBIAN_LIVE"
 		;;
 
 	fat32)
-		MKFS_OPTIONS="-F 32"
+		MKFS="vfat"	
+		MKFS_OPTIONS="-F 32 -n DEBIAN_LIVE"
 		;;
 esac
 
 case "${LH_CHROOT_BUILD}" in
 	enabled)
-		Chroot "mkfs.vfat ${MKFS_OPTIONS} -n DEBIAN_LIVE ${FREELO}"
+		Chroot "mkfs.${MKFS} ${MKFS_OPTIONS} ${FREELO}"
 		;;
 
 	disabled)
-		mkfs.vfat ${MKFS_OPTIONS} -n DEBIAN_LIVE ${FREELO}
+		mkfs.${MKFS} ${MKFS_OPTIONS} ${FREELO}
 		;;
 esac
 
