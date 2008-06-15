@@ -100,6 +100,11 @@ case "${LH_BOOTLOADER}" in
 		GENISOIMAGE_EXCLUDE="boot/grub/stage2_eltorito"
 		;;
 
+	silo)
+		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -r -G boot/isofs.b -B ..."
+		GENISOIMAGE_EXCLUDE="boot/isofs.b"
+		;;
+
 	syslinux)
 		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -no-emul-boot -boot-load-size 4 -boot-info-table"
 		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -r -b isolinux/isolinux.bin -c isolinux/boot.cat"
