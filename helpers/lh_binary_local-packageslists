@@ -44,6 +44,15 @@ Create_lockfile .lock
 
 if ls config/binary_local-packageslists/* > /dev/null 2>&1
 then
+	# Restoring cache
+	Restore_cache cache/packages_chroot
+
+	# Check depends
+	Check_package chroot/usr/bin/apt-ftparchive apt-utils
+
+	# Installing depends
+	Install_package
+
 	mkdir -p chroot/binary.deb/archives/partial
 	mv chroot/var/lib/dpkg/status chroot/var/lib/dpkg/status.tmp
 	touch chroot/var/lib/dpkg/status
@@ -94,6 +103,12 @@ then
 
 	rm -rf chroot/binary.deb
 	mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
+
+	# Removing depends
+	Remove_package
+
+	# Saving cache
+	Save_cache cache/packages_chroot
 
 	# Creating stage file
 	Create_stagefile .stage/binary_local-packageslists
