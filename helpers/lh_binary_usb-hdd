@@ -187,9 +187,15 @@ case "${LH_CHROOT_BUILD}" in
 		;;
 esac
 
+case "${LH_BINARY_FILESYSTEM}" in
+	fat*)
+		CP_OPTIONS="-L"
+		;;
+esac
+
 mkdir -p chroot/binary.tmp
 ${LH_ROOT_COMMAND} mount ${FREELO} chroot/binary.tmp
-cp -rL binary/* chroot/binary.tmp
+cp -r ${CP_OPTIONS} binary/* chroot/binary.tmp
 
 FIXME()
 {
