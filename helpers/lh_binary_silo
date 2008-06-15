@@ -111,7 +111,7 @@ esac
 
 # Setting destination directory
 case "${LH_BINARY_IMAGES}" in
-	iso)
+	iso|usb-hdd)
 		case "${LH_INITRAMFS}" in
 			casper)
 				DESTDIR_LIVE="binary/casper"
@@ -125,7 +125,7 @@ case "${LH_BINARY_IMAGES}" in
 		DESTDIR_INSTALL="binary/install"
 		;;
 
-	net|tar|usb-hdd)
+	net|tar)
 		Echo_error "not yet supported, aborting (FIXME)."
 		exit 1
 	;;
