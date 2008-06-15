@@ -488,7 +488,14 @@ Set_defaults ()
 	## config/binary
 
 	# Setting image filesystem
-	LH_BINARY_FILESYSTEM="${LH_BINARY_FILESYSTEM:-fat16}"
+	case "${LH_ARCHITECTURE}" in
+		sparc)
+			LH_BINARY_FILESYSTEM="${LH_BINARY_FILESYSTEM:-ext2}"
+			;;
+		*)
+			LH_BINARY_FILESYSTEM="${LH_BINARY_FILESYSTEM:-fat16}"
+			;;
+	esac
 
 	# Setting image type
 	LH_BINARY_IMAGES="${LH_BINARY_IMAGES:-iso}"

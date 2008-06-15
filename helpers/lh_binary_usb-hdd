@@ -53,6 +53,20 @@ Check_package chroot/sbin/mkdosfs dosfstools
 Check_package chroot/usr/share/doc/mtools mtools
 Check_package chroot/sbin/parted parted
 
+if [ "${LH_ARCHITECTURE}" = "sparc" ]
+then
+	case "${LH_BINARY_FILESYSTEM}" in
+		ext2|ext3)
+			Check_package chroot/sbin/mkfs.ext2 e2fsprogs
+			;;
+
+		*)
+			Echo_error "Sparc only supports booting from ext2, ext3 (or ufs)"
+			exit 1
+			;;
+	esac
+fi
+
 case "${LH_BOOTLOADER}" in
 	grub)
 		Check_package chroot/usr/sbin/grub grub
@@ -92,12 +106,19 @@ echo "!!! The following error/warning messages can be ignored !!!"
 Losetup $FREELO chroot/binary.img 0
 
 case "${LH_ARCHITECTURE}" in
+	sparc)
+		PARTITION_TABLE_TYPE="sun"
+		;;
 	*)
 		PARTITION_TABLE_TYPE="msdos"
 		;;
 esac
 
 case "${LH_BINARY_FILESYSTEM}" in
+	ext2|ext3)
+		PARTITION_TYPE="ext2"
+		;;		
+
 	fat16|fat32)
 		PARTITION_TYPE="${LH_BINARY_FILESYSTEM}"
 		;;
@@ -140,6 +161,11 @@ FREELO="$(${LH_LOSETUP} -f)"
 Losetup $FREELO chroot/binary.img 1
 
 case "${LH_BINARY_FILESYSTEM}" in
+	ext2|ext3)
+		MKFS="${LH_BINARY_FILESYSTEM}"
+		MKFS_OPTIONS="-L DEBIAN_LIVE -m 0"
+		;;
+
 	fat16)
 		MKFS="vfat"	
 		MKFS_OPTIONS="-F 16 -n DEBIAN_LIVE"
