@@ -66,5 +66,5 @@ Echo_breakage ()
 			;;
 	esac
 
-	Echo_message ${@}
+	Echo_message "${@}"
 }
