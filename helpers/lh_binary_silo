@@ -42,7 +42,7 @@ Require_stagefile .stage/bootstrap
 Check_stagefile .stage/binary_silo
 
 # Checking silo templates
-Check_templates silo 
+Check_templates silo
 
 # Checking lock file
 Check_lockfile .lock
