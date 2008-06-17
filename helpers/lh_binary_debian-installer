@@ -272,7 +272,7 @@ fi
 
 mkdir -p "${DESTDIR_DI}"
 
-if  [ "${LH_ARCHITECTURE}" = "sparc" ] && [ "${DI_IMAGE_TYPE}" = "netboot" ] 
+if  [ "${LH_ARCHITECTURE}" = "sparc" ] && [ "${DI_IMAGE_TYPE}" = "netboot" ]
 then
 	# There are no prepared kernel/initrd pairs for sparc netboot so we
 	# must unpack them from a mini.iso

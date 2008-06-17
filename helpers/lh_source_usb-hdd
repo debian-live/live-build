@@ -81,7 +81,7 @@ fi
 case "${LH_BINARY_FILESYSTEM}" in
 	ext2|ext3)
 		PARTITION_TYPE="ext2"
-		;;		
+		;;
 
 	fat16|fat32)
 		PARTITION_TYPE="${LH_BINARY_FILESYSTEM}"
@@ -109,12 +109,12 @@ case "${LH_BINARY_FILESYSTEM}" in
 		;;
 
 	fat16)
-		MKFS="vfat"	
+		MKFS="vfat"
 		MKFS_OPTIONS="-F 16 -n DEBIAN_LIVE"
 		;;
 
 	fat32)
-		MKFS="vfat"	
+		MKFS="vfat"
 		MKFS_OPTIONS="-F 32 -n DEBIAN_LIVE"
 		;;
 esac
