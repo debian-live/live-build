@@ -74,7 +74,7 @@ do
 			;;
 
 		--binary)
-	                ${LH_ROOT_COMMAND} umount -f binary.tmp > /dev/null 2>&1 || true
+			${LH_ROOT_COMMAND} umount -f binary.tmp > /dev/null 2>&1 || true
 			rm -rf binary.tmp binary.deb binary.udeb
 			rm -f binary.iso
 			rm -f binary.img

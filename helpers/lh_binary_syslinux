@@ -186,8 +186,8 @@ Copy_syslinux_templates ()
 		cp "${TEMPLATES}"/menu/*.cfg ${SCREEN_PATH}
 		cp "${TEMPLATES}"/menu/data/* ${DATA_PATH}
 
-         # Grab menu binary from chroot
-         MENUMODULE=$(grep 'menu.c32' ${TEMPLATES}/menu/header.cfg | sed 's|default\s*.*/\(.*menu.c32\)$|\1|g')
+		# Grab menu binary from chroot
+		MENUMODULE=$(grep 'menu.c32' ${TEMPLATES}/menu/header.cfg | sed 's|default\s*.*/\(.*menu.c32\)$|\1|g')
 		cp chroot/usr/lib/syslinux/"${MENUMODULE}" ${DATA_PATH}
 	fi
 
@@ -236,9 +236,9 @@ Copy_syslinux_templates ()
 	else
 		if [ "${LH_SYSLINUX_MENU}" = "disabled" ]
 		then
-		    SPLASH="${LIVE_DATA_PATH}/splash.rle"
+			SPLASH="${LIVE_DATA_PATH}/splash.rle"
 		else
-		    SPLASH="${LIVE_DATA_PATH}/splash.png"
+			SPLASH="${LIVE_DATA_PATH}/splash.png"
 		fi
 
 		if [ -n "${LH_SYSLINUX_SPLASH}" ]
@@ -293,7 +293,7 @@ Configure_syslinux_templates ()
 					d
 				}' ${SCREEN_PATH}/syslinux.cfg
 
-				#  remove the files, which were included
+				# remove the files, which were included
 				if [ -e ${SCREEN_PATH}/${FILE_NAME} ]
 				then
 					rm -f ${SCREEN_PATH}/${FILE_NAME}
