@@ -35,20 +35,11 @@ fi
 
 # Check d-i configuration
 case "${LH_DEBIAN_INSTALLER}" in
-	enabled|cdrom|netinst|netboot|businesscard)
+	enabled|cdrom|netinst|netboot|businesscard|live)
 		;;
 
 	disabled)
 		exit 0
-		;;
-
-	live)
-		case "${LH_PACKAGES_LISTS}" in
-			stripped|minimal)
-				Echo_error "live d-i installation is incompatbile with stripped and minimal"
-				exit 1
-			;;
-		esac
 		;;
 
 	*)
