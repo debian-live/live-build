@@ -16,3 +16,22 @@ Truncate ()
 		: > ${FILE}
 	done
 }
+
+In_list ()
+{
+	NEEDLES="${1}"
+	shift
+
+	for ITEM in ${@}
+	do
+		for NEEDLE in ${NEEDLES}
+		do
+			if [ "${NEEDLE}" = "${ITEM}" ]
+			then
+				return 0
+			fi
+		done
+	done
+
+	return 1
+}
