@@ -60,7 +60,7 @@ then
 fi
 
 # Create tarball
-if gzip --help | grep -q '\-\-rsyncable'
+if gzip --help | grep -qs '\-\-rsyncable'
 then
 	tar cf source.tar source
 	gzip --rsyncable --best source.tar
