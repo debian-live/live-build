@@ -50,7 +50,7 @@ Create_lockfile .lock
 # Remove old binary
 rm -f binary.tar.gz
 
-if gzip --help | grep -q '\-\-rsyncable'
+if gzip --help | grep -qs '\-\-rsyncable'
 then
 	tar cf binary-tar.tar binary
 	gzip --rsyncable --best binary-tar.tar
