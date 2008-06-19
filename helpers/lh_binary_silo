@@ -78,7 +78,6 @@ Silo_live_entry ()
 	LINUX_LIVE="${LINUX_LIVE}\t  append=\"boot=${INITFS} LH_BOOTAPPEND_LIVE ${APPEND}\"\n"
 }
 
-
 Silo_install_entry ()
 {
 	LABEL="${1}"
