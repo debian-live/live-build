@@ -124,11 +124,14 @@ case "${LH_BOOTLOADER}" in
 		;;
 esac
 
-case "${LH_PACKAGES_LISTS}" in
-	stripped|minimal)
-		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m ${GENISOIMAGE_EXCLUDE}"
-		;;
-esac
+if [ "${LH_DEBIAN_INSTALLER}" != "live" ]
+then
+	case "${LH_PACKAGES_LISTS}" in
+		stripped|minimal)
+			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m ${GENISOIMAGE_EXCLUDE}"
+			;;
+	esac
+fi
 
 cat > binary.sh << EOF
 genisoimage ${GENISOIMAGE_OPTIONS} -o binary.iso -J -l -cache-inodes -allow-multidot binary

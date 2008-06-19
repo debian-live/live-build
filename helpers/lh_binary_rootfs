@@ -223,11 +223,14 @@ case "${LH_CHROOT_FILESYSTEM}" in
 			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -info"
 		fi
 
-		case "${LH_PACKAGES_LISTS}" in
-			stripped|minimal)
-				MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -e $(ls chroot/boot/${LINUX}* chroot/boot/initrd.img* chroot/${LINUX}* chroot/initrd.img* | sed 's|chroot/||g')"
-				;;
-		esac
+		if [ "${LH_DEBIAN_INSTALLER}" != "live" ]
+		then
+			case "${LH_PACKAGES_LISTS}" in
+				stripped|minimal)
+					MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -e $(ls chroot/boot/${LINUX}* chroot/boot/initrd.img* chroot/${LINUX}* chroot/initrd.img* | sed 's|chroot/||g')"
+					;;
+			esac
+		fi
 
 		if [ -f config/binary_rootfs/squashfs.sort ]
 		then
