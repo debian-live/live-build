@@ -24,6 +24,11 @@ USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
 
+if [ ! -d config ]
+then
+	Echo_warning "No config/ directory; using defaults for all options"
+fi
+
 # Bootstrapping system
 lh_bootstrap ${*}
 
