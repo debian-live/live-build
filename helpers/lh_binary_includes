@@ -75,12 +75,12 @@ case "${LH_ARCHITECTURE}" in
 		ARCH="386"
 		;;
 
-	sparc)
-		ARCH="spa"
-		;;
-
 	powerpc)
 		ARCH="ppc"
+		;;
+
+	sparc)
+		ARCH="spa"
 		;;
 esac
 
