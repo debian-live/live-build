@@ -29,6 +29,12 @@ then
 	Echo_warning "No config/ directory; using defaults for all options"
 fi
 
+if [ "$(pwd)" = "/" ]
+then
+	Echo_error "Cannot build live image from the root directory (/)"
+	exit 1
+fi
+
 # Bootstrapping system
 lh_bootstrap ${*}
 
