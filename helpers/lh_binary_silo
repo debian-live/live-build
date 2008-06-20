@@ -33,6 +33,17 @@ then
 	exit 0
 fi
 
+# Check image type
+case "${LH_BINARY_IMAGES}" in
+	iso|usb-hdd)
+		;;
+
+	net|tar)
+		Echo_error "not yet supported, aborting (FIXME)."
+		exit 1
+		;;
+esac
+
 Echo_message "Begin installing silo..."
 
 # Requiring stage file
@@ -98,36 +109,18 @@ Silo_install_entry ()
 	LINUX_INSTALL="${LINUX_INSTALL}\t  append=\"LH_BOOTAPPEND_LIVE ${APPEND} LH_BOOTAPPEND_INSTALL\"\n"
 }
 
+# Setting destination directories
+DESTDIR_INSTALL="binary/install"
 case "${LH_INITRAMFS}" in
 	casper)
 		INITFS="casper"
+		DESTDIR_LIVE="binary/casper"
 		;;
 
 	live-initramfs)
 		INITFS="live"
+		DESTDIR_LIVE="binary/live"
 		;;
-esac
-
-# Setting destination directory
-case "${LH_BINARY_IMAGES}" in
-	iso|usb-hdd)
-		case "${LH_INITRAMFS}" in
-			casper)
-				DESTDIR_LIVE="binary/casper"
-				;;
-
-			live-initramfs)
-				DESTDIR_LIVE="binary/live"
-				;;
-		esac
-
-		DESTDIR_INSTALL="binary/install"
-		;;
-
-	net|tar)
-		Echo_error "not yet supported, aborting (FIXME)."
-		exit 1
-	;;
 esac
 
 # Creating directory
