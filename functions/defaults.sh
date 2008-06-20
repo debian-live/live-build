@@ -673,7 +673,7 @@ Check_defaults ()
 		fi
 	fi
 
-	if [ "${LH_PACKAGES_LISTS}" = "stripped" ] || [ "${LH_PACKAGES_LISTS}" = "minimal" ]
+	if echo ${LH_PACKAGES_LISTS} | grep -qs -E "(stripped|minimal)\b"
 	then
 		if [ "${LH_APT}" = "aptitude" ]
 		then
