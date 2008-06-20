@@ -75,7 +75,7 @@ case "${LH_ARCHITECTURE}" in
 		ARCH="386"
 		;;
 
-	spa)
+	sparc)
 		ARCH="spa"
 		;;
 
