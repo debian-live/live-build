@@ -86,11 +86,10 @@ if [ "${LH_USE_FAKEROOT}" != "enabled" ]
 then
 	if [ -z "${LH_BOOTSTRAP_FLAVOUR}" ]
 	then
-		case "${LH_PACKAGES_LISTS}" in
-			stripped|minimal)
-				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=minbase"
-				;;
-		esac
+		if In_list "stripped minimal" "${LH_PACKAGES_LISTS}"
+		then
+			DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=minbase"
+		fi
 	else
 		case "${LH_BOOTSTRAP_FLAVOUR}" in
 			stripped|minimal)
