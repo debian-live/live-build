@@ -33,7 +33,7 @@ then
 	exit 0
 fi
 
-if ! echo "${LH_SOURCE_IMAGES}" | grep -qs net
+if ! In_list net "${LH_SOURCE_IMAGES}"
 then
 	exit 0
 fi
