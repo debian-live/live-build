@@ -35,10 +35,10 @@ fi
 
 # Check image type
 case "${LH_BINARY_IMAGES}" in
-	iso|usb-hdd)
+	iso|usb-hdd|tar)
 		;;
 
-	net|tar)
+	net)
 		Echo_error "not yet supported, aborting (FIXME)."
 		exit 1
 		;;
