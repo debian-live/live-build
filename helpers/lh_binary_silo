@@ -39,8 +39,8 @@ case "${LH_BINARY_IMAGES}" in
 		;;
 
 	net)
-		Echo_error "not yet supported, aborting (FIXME)."
-		exit 1
+		# silo not required for sparc netbooting
+		exit 0
 		;;
 esac
 
