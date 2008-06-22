@@ -96,7 +96,8 @@ Set_defaults ()
 		then
 			LH_BOOTSTRAP="cdebootstrap"
 		else
-			echo "E: Can't process file /usr/sbin/debootstrap or /usr/bin/cdebootstrap (FIXME)"
+			echo "E: Cannot find /usr/sbin/debootstrap or /usr/bin/cdebootstrap. Please install"
+			echo "E: debootstrap or cdebootstrap, or specify an alternative bootstrapping utility."
 			exit 1
 		fi
 	fi
