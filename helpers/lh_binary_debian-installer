@@ -111,24 +111,39 @@ case "${LH_DEBIAN_INSTALLER}" in
 		;;
 esac
 
-case "${DI_IMAGE_TYPE}" in
-	netboot)
-		DI_REMOTE_BASE="netboot/debian-installer/${LH_ARCHITECTURE}"
-		DI_REMOTE_BASE_GTK="netboot/gtk/debian-installer/${LH_ARCHITECTURE}"
-		DI_REMOTE_KERNEL="linux"
-		;;
-	cdrom)
-		DI_REMOTE_BASE="cdrom"
-		DI_REMOTE_BASE_GTK="cdrom/gtk"
-		DI_REMOTE_KERNEL="vmlinuz"
-		;;
-esac
-
 # Varous architecture-specific hacks
 case "${LH_ARCHITECTURE}" in
-	powerpc)
-		DI_REMOTE_BASE="${LH_ARCHITECTURE}/${DI_REMOTE_BASE}"
+	i386|amd64)
+		case "${DI_IMAGE_TYPE}" in
+			netboot)
+				DI_REMOTE_BASE="netboot/debian-installer/${LH_ARCHITECTURE}"
+				DI_REMOTE_BASE_GTK="netboot/gtk/debian-installer/${LH_ARCHITECTURE}"
+				DI_REMOTE_KERNEL="linux"
+				;;
+
+			cdrom)
+				DI_REMOTE_BASE="cdrom"
+				DI_REMOTE_BASE_GTK="cdrom/gtk"
+				DI_REMOTE_KERNEL="vmlinuz"
+				;;
+		esac
 		;;
+
+	powerpc)
+		case "${DI_IMAGE_TYPE}" in
+			cdrom)
+				DI_REMOTE_BASE="${LH_ARCHITECTURE}/cdrom"
+			;;
+
+			netboot)
+				DI_REMOTE_BASE="${LH_ARCHITECTURE}/netboot"
+				;;
+		esac
+
+		DI_REMOTE_KERNEL="vmlinux"
+		DI_REMOTE_BASE_GTK="${DI_REMOTE_BASE}/gtk"
+		;;
+
 	sparc)
 		DEFAULT_FLAVOUR="$(echo ${LH_LINUX_FLAVOURS} | awk '{ print $1 }')"
 		DI_REMOTE_KERNEL="$(basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR})"
