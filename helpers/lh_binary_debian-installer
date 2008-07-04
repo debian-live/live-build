@@ -304,13 +304,25 @@ else
 	wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI_REMOTE_BASE}/initrd.gz
 
 	# Downloading graphical-installer
+	DOWNLOAD_GTK_INSTALLER=0
 	case "${LH_ARCHITECTURE}" in
-		amd64|i386|powerpc)
-			mkdir -p "${DESTDIR_GI}"
-			wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/${DI_REMOTE_KERNEL}
-			wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/initrd.gz
-		;;
+		amd64|i386)
+			DOWNLOAD_GTK_INSTALLER=1
+			;;
+		powerpc)
+			if [ "${LH_DEBIAN_INSTALLER}" = "netboot" ]
+			then
+				DOWNLOAD_GTK_INSTALLER=1
+			fi
+			;;
 	esac
+
+	if [ ${DOWNLOAD_GTK_INSTALLER} -eq 1 ]
+	then
+		mkdir -p "${DESTDIR_GI}"
+		wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/${DI_REMOTE_KERNEL}
+		wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/initrd.gz
+	fi
 fi
 
 # Only download additional packages if appropriate
