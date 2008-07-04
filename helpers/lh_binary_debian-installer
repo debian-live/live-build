@@ -340,7 +340,12 @@ then
 			;;
 
 		powerpc)
-			DI_PACKAGES="linux-image-2.6-powerpc linux-image-2.6-powerpc64 linux-image-2.6-powerpc-smp linux-image-2.6-prep yaboot" # FIXME bootloader?
+			DI_PACKAGES="linux-image-2.6-powerpc linux-image-2.6-powerpc64 linux-image-2.6-powerpc-smp yaboot" # FIXME bootloader?
+
+			if [ "${LH_DISTRIBUTION}" = "etch" ]
+			then
+				DI_PACKAGES="${DI_PACKAGES} linux-image-2.6-prep"
+			fi
 			;;
 	esac
 
