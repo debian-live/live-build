@@ -31,6 +31,8 @@ Set_defaults
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
+_LH_DUMMY_KEY_EMAIL="live-helper-local-key@dummy"
+
 case "${1}" in
 	install)
 		Echo_message "Configuring file /etc/apt/sources.list"
@@ -105,9 +107,75 @@ case "${1}" in
 				# Installing depends
 				Install_package
 
-				# Generate Packages.gz
+				# Generate Packages and Packages.gz 
 				echo "cd /root/local-packages && apt-ftparchive packages . > Packages" | Chroot sh
-				gzip -9 chroot/root/local-packages/Packages
+				gzip -9 -c chroot/root/local-packages/Packages > chroot/root/local-packages/Packages.gz
+
+				if [ "${LH_APT_SECURE}" = "enabled" ]
+				then
+					# Generate Release
+					echo "cd /root/local-packages && apt-ftparchive \
+						-o APT::FTPArchive::Release::Label=local-packages \
+						release . > Release" | Chroot sh
+
+					_LH_DOTGNUPG_EXISTED=0
+					if [ -d chroot/root/.gnupg ]
+					then
+						_LH_DOTGNUPG_EXISTED=1
+					fi
+
+					if ls cache/local-package-keyring.* >/dev/null 2>&1
+					then
+						cp cache/local-package-keyring.* chroot/root
+					else	
+						# Generate temporary key
+						echo "Key-Type: RSA
+						      Key-Length: 1024
+						      Subkey-Type: ELG-E
+						      Subkey-Length: 1024
+						      Name-Real: live-helper local packages key
+						      Name-Email: ${_LH_DUMMY_KEY_EMAIL}
+						      Expire-Date: 0
+						      %secring /root/local-package-keyring.sec
+						      %pubring /root/local-package-keyring.pub
+						      %commit" | Chroot "gpg --batch --gen-key" || _LH_RET=${?}
+
+						case "${_LH_RET}" in
+							""|2)
+								# Gnupg sometimes seems to return with a status of 2 when there was not
+								# enough entropy (and key creation blocks temporarily) even if the
+								# operation was ultimately successful.
+								;;
+							*)
+								Echo_error "GPG exited with error status ${_LH_RET}"
+								exit ${_LH_RET}
+								;;
+						esac
+
+						# Save keyrings to avoid regeneration
+						cp chroot/root/local-package-keyring.* cache/
+					fi
+
+					# Sign release
+					Chroot "gpg --no-default-keyring --secret-keyring /root/local-package-keyring.sec \
+						--keyring /root/local-package-keyring.pub -abs -o \
+						/root/local-packages/Release.gpg /root/local-packages/Release"
+
+					# Import key
+					Chroot "gpg --no-default-keyring --secret-keyring /root/local-package-keyring.sec \
+						--keyring /root/local-package-keyring.pub --armor \
+						--export ${_LH_DUMMY_KEY_EMAIL}" | Chroot "apt-key add -"
+
+					# Remove temporary keyrings
+					rm chroot/root/local-package-keyring.pub
+					rm chroot/root/local-package-keyring.sec
+
+					# Remove /root/.gnupg if we created it during the signing process
+					if [ "${_LH_DOTGNUPG_EXISTED}" -eq 0 ]
+					then
+						rm -rf chroot/root/.gnupg
+					fi
+				fi
 
 				# Add to sources.list
 				echo "" >> chroot/etc/apt/sources.list
@@ -316,6 +384,12 @@ case "${1}" in
 
 		# Remove local package repository
 		rm -rf chroot/root/local-packages
+
+		# Remove local packages key if it exists
+		if apt-key list | grep -q ${_LH_DUMMY_KEY_EMAIL}
+		then
+			apt-key del ${_LH_DUMMY_KEY_EMAIL}
+		fi
 
 		# Removing stage file
 		rm -f .stage/chroot_sources
