@@ -228,7 +228,7 @@ case "${1}" in
 					cp -f chroot/var/lib/apt/lists/*_Sources cache/indices_bootstrap
 				fi
 
-				cp -f chroot/var/lib/apt/*_Release* cache/indices_bootstrap
+				cp -f chroot/var/lib/apt/lists/*_Release* cache/indices_bootstrap
 			fi
 		fi
 
