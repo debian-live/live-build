@@ -506,7 +506,10 @@ Set_defaults ()
 
 	# Setting boot parameters
 	# LH_BOOTAPPEND_LIVE
-	LH_BOOTAPPEND_INSTALL="${LH_BOOTAPPEND_INSTALL:--- \${LH_BOOTAPPEND_LIVE}}"
+	if [ -z "${LH_BOOTAPPEND_INSTALL}" ]
+	then
+		LH_BOOTAPPEND_INSTALL="-- \${LH_BOOTAPPEND_LIVE}"
+	fi
 
 	# Setting bootloader
 	if [ -z "${LH_BOOTLOADER}" ]
