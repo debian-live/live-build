@@ -82,6 +82,8 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-hostname\fR \fINAME\fR]
 .br
+	[\fB\-\-ignore\-system\-defaults\fR]
+.br
 	[\fB\-\-includes\fR \fIPATH\fR]
 .br
 	[\fB\-\-initramfs\fR auto|live\-initramfs|casper]
@@ -282,7 +284,8 @@ environment variable. Environment variables are name LH_FOO, means, e.g.
 .I /etc/default/live-helper
 .PP
 An optional conffile for lh_config defaults, useful to specify a few system wide defaults, like
-LH_MIRROR_BOOTSTRAP.
+LH_MIRROR_BOOTSTRAP. This feature can be disabled by specifying the
+\fB\-\-ignore\-system\-defaults\fR option.
 
 .SH SEE ALSO
 \fIlive\-helper\fR(7)
