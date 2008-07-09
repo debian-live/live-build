@@ -622,7 +622,6 @@ Local_arguments ()
 				;;
 
 			--ignore-system-defaults)
-				_LH_IGNORE_SYSTEM_DEFAULTS="enabled"
 				shift
 				;;
 
@@ -660,7 +659,7 @@ Local_arguments ()
 }
 
 # Reading system configuration
-if [ -f "${SYSTEM_LH_CONFFILE}" ] && [ "${_LH_IGNORE_SYSTEM_DEFAULTS}" != "enabled" ]
+if [ -f "${SYSTEM_LH_CONFFILE}" ] && if ! In_list "--ignore-system-defaults" "${@}"
 then
 	Echo_message "Using system defaults from ${SYSTEM_LH_CONFFILE}"
 	Read_conffile "${SYSTEM_LH_CONFFILE}"
