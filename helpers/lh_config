@@ -64,7 +64,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--grub-splash FILE]\n\
 \t    [--hooks FILE]\n\
 \t    [--hostname NAME]\n\
-\t    [--ignore-system-defaults]\n
+\t    [--ignore-system-defaults]\n\
 \t    [--includes PATH]\n\
 \t    [--initramfs auto|live-initramfs|casper]\n\
 \t    [--interactive shell]\n\
