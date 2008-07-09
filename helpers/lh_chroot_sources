@@ -124,6 +124,9 @@ case "${1}" in
 						_LH_DOTGNUPG_EXISTED=1
 					fi
 
+					# Ensure ~/.gnupg exists (required for gnupg >= ~1.4.9)
+					mkdir -p chroot/root/.gnupg
+
 					if ls cache/local-package-keyring.* >/dev/null 2>&1
 					then
 						cp cache/local-package-keyring.* chroot/root
