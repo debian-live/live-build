@@ -218,12 +218,12 @@ then
 	LINUX_LIVE="title\t\tLive:\nroot\n\n${LINUX_LIVE}"
 	LINUX_INSTALL="title\t\tInstaller:\nroot"
 
-	VMLINUZ_DI="vmlinuz"
-	INITRD_DI="initrd.gz"
+	VMLINUZ_DI="install/vmlinuz"
+	INITRD_DI="install/initrd.gz"
 	APPEND_DI="vga=normal"
 
-	VMLINUZ_GI="gtk/vmlinuz"
-	INITRD_GI="gtk/initrd.gz"
+	VMLINUZ_GI="install/gtk/vmlinuz"
+	INITRD_GI="install/gtk/initrd.gz"
 	APPEND_GI="video=vesa:ywrap,mtrr vga=788"
 
 	Grub_install_entry "install" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
