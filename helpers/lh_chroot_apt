@@ -144,7 +144,7 @@ case "${1}" in
 		rm -f chroot/etc/apt/apt.conf.d/00secure
 
 		# Deconfiguring apt preferences
-		if [ -f config/chroot_apt/preferences.orig ]
+		if [ -f chroot/etc/apt/preferences.orig ]
 		then
 			mv chroot/etc/apt/preferences.orig chroot/etc/apt/preferences
 		else
