@@ -136,7 +136,7 @@ case "${1}" in
 					if ls cache/local-package-keyring.* >/dev/null 2>&1
 					then
 						cp cache/local-package-keyring.* chroot/root
-					else	
+					else
 						# Generate temporary key
 						echo "Key-Type: RSA
 						      Key-Length: 1024
