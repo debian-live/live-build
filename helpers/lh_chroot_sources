@@ -127,6 +127,12 @@ case "${1}" in
 					# Ensure ~/.gnupg exists (required for gnupg >= ~1.4.9)
 					mkdir -p chroot/root/.gnupg
 
+					# Temporarily replace /dev/urandom with /dev/random so as not
+					# to block automated image builds; we don't care about the
+					# security of this key anyway.
+					mv chroot/dev/random chroot/dev/random.orig
+					cp -a chroot/dev/urandom chroot/dev/random
+
 					if ls cache/local-package-keyring.* >/dev/null 2>&1
 					then
 						cp cache/local-package-keyring.* chroot/root
@@ -172,6 +178,9 @@ case "${1}" in
 					# Remove temporary keyrings
 					rm chroot/root/local-package-keyring.pub
 					rm chroot/root/local-package-keyring.sec
+
+					# Revert /dev/random
+					mv chroot/dev/random.orig chroot/dev/random
 
 					# Remove /root/.gnupg if we created it during the signing process
 					if [ "${_LH_DOTGNUPG_EXISTED}" -eq 0 ]
