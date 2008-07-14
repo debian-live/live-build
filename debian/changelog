@@ -1,3 +1,111 @@
+live-helper (1.0~a48-1) unstable; urgency=medium
+
+  [ Chris Lamb ]
+  * Additionally clean md5sum.txt temporary file.
+  * Remove pointless whitespace.
+  * Temporarily replace /dev/urandom with /dev/random when creating local
+    packages key.
+  * Correct d-i kernel and initrd locations in grub entries. Thanks to Jun
+    NOGATA <nogajun@gmail.com> for the patch. (Closes: #490245)
+  * Fix a bug where a /etc/apt/preferences supplied in chroot_local-includes was
+    always being deleted when used in conjunction with
+    config/chroot_apt/preferences.
+  * Abort build if working directory contains spaces - not supported by (at
+    least) debootstrap and cdebootstrap.
+  * Replace spaces in LH_BOOTSTRAP_{IN,EX}CLUDE variables with commas on use.
+    Thanks to Cyril Brulebois <cyril.brulebois@kerlabs.com>. (Closes: #490114)
+  * Fix syntax error in --ignore-system-defaults handling.
+  * Ensure ~/.gnupg exists (required for gnupg >= ~1.4.9)
+  * Fix bug where command-line argument --ignore-system-default was not seen
+    before it was required.
+  * Fix formatting error with --ignore-system-defaults in "lh_config --help"
+  * Add --ignore-system-defaults option to not source /etc/default/live-helper.
+  * Correct location of /etc/default/live-helper in lh_config(1) manpage.
+  * Perform in LH_BOOTAPPEND_INSTALL conditional expansion manually to avoid
+    expansion bug/feature on repetitive calls to lh_config (Closes: #488672)
+  * Use a temporary apt key when installing local packages (Closes: #488257)
+  * Fix caching of APT indices (Closes: #478744)
+  * Refactor d-i GTK image selection, ensuring the GTK installer is only chosen
+    on the netboot variant when building on powerpc.
+  * Only consider linux-image-2.6-prep powerpc kernel image on Etch.
+  * Refactor remote d-i location handling and ensure correct locations for
+    powerpc.
+  * Print a friendlier message if debootstrap or cdebootstrap cannot be found.
+  * Re-order a case statement for consistency.
+  * Fix incorrect test for sparc architecture in binary include handling.
+  * Add support for generation of sparc netboot images.
+  * Add support for sparc "tar" binary image type.
+  * Add support for sparc install includes.
+  * Refactor destination setting in lh_binary_silo to check arguments at
+    beginning of the script.
+  * Abort build if building from the root directory (/) as this causes misc
+    build failures.
+  * Emit a warning when running lh_build without a config/ directory.
+  * Migrate a In_list candidate to grep -E.
+  * Migrate a few uses of grep to In_list.
+  * Add In_list function to extract various bits of code that did (or should
+    have done) the same job.
+  * Remove a useless space
+  * Consolidate grep text searching predicates to use "grep -qs"
+  * Revert aborting live d-i installation if minimal/stripped is selected and
+    instead attempt to not break the chroot too much in this case
+  * Replace another unweildy "if P1 || P2" statement with its "case" equivalent.
+  * Remove more imported whitespaces.
+  * Adjust "lh_config --help" and lh_config(1) so that the -m option corresponds
+    with --mirror-bootstrap isntead of --mirror-binary-security.
+  * Only deference symlinks on usb-hdd filesystems that do not support symlinks.
+  * Add support for ext2 and ext3 to lh_source_usb-hdd.
+  * Add support for usb-hdd on sparc (requires parted 1.8 from experimental).
+  * Refactor mkfs handling.
+  * Refactor partition table type handling.
+  * Refactor partition type handling.
+  * Prefix mount and unmount in lh_binary_debian-installer with LH_ROOT_COMMAND.
+  * Add support for sparc to lh_binary_debian-installer.
+  * Add support for the sparc architecture.
+  * Add lh_binary_silo and associated templates to support the SILO bootloader.
+  * Ensure apt-utils is installed in the helpers it is required.
+  * Abort if "live" d-i installation is attempted with minimal or stripped
+    LH_PACKAGES_LISTS
+  * Fix truncated Echo_breakage messages.
+  * Fix d-i locations in yaboot entries.
+  * Fix trivial typographic error ("flavor" => "flavour")
+  * Only deference symlinks on FAT{16,32} partitions on usb-hdd.
+  * Replace install.amd/install -> install.386/install symlink with a real copy.
+  * Revert always deferencing symlinks when installing some binary includes.
+  * Add Echo_breakage for messages preceeding often-breaking stages and use
+    before {c,}debootstrap calls
+  * Replace a few unweildy "if" statements with their "case" equivalents
+  * Move Etch syslinux workaround closer to the original definitions
+  * Use correct location of powerpc d-i images.
+  * Set correct d-i image type on usb-hdd and tar image types
+  * Remove pointless "echo" statements pre- and post- cdebootstrap
+  * Allow LH_APT_SECURE to disable package cdebootstrap package authentication
+  * Rename USE_NETBOOT_DI to DI_IMAGE_TYPE
+  * Always deference symlinks when installing some binary includes to fix
+    breakage on amd64.
+  * Ensure "Using system defaults" message appears when calling lh_config
+    without --verbose
+  * Don't skip single dot-files in the root directory of binary and chroot local
+    includes
+  * Don't exclude live-installer when LH_DEBIAN_INSTALLER=live
+  * Fix a few bogus guards in lh_binary_debian-installer
+  * Show contents of /etc/default/live-helper in bug info collection script
+
+  [ Daniel Baumann ]
+  * Removing imported whitespaces.
+  * Parsing local arguments to lh_config last.
+  * Correcting order where system-wide lh_config defaults file is read, thanks
+    to Juergen Fiedler <juergen.fiedler@gmail.com>.
+  * Only saving source indices to indices cache if source indices are actually
+    existing, thanks to Thanatermesis <thanatermesis.ecvs@elivecd.net>.
+  * Correcting path for system-wide lh_config defaults file.
+
+  [ Marco Amadori ]
+  * Added support for /etc/live-helper.
+  * Removed a useless space.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 14 Jul 2008 00:00:00 +0200
+
 live-helper (1.0~a47-1) unstable; urgency=medium
 
   [ Antonio Ospite ]
