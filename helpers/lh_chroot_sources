@@ -31,7 +31,7 @@ Set_defaults
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
-_LH_LOCAL_KEY_EMAIL="live-helper-local-key@dummy"
+_LH_LOCAL_KEY_EMAIL="live-helper-local-key@invalid"
 
 case "${1}" in
 	install)
