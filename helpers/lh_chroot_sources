@@ -31,7 +31,7 @@ Set_defaults
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
-_LH_DUMMY_KEY_EMAIL="live-helper-local-key@dummy"
+_LH_LOCAL_KEY_EMAIL="live-helper-local-key@dummy"
 
 case "${1}" in
 	install)
@@ -143,7 +143,7 @@ case "${1}" in
 						      Subkey-Type: ELG-E
 						      Subkey-Length: 1024
 						      Name-Real: live-helper local packages key
-						      Name-Email: ${_LH_DUMMY_KEY_EMAIL}
+						      Name-Email: ${_LH_LOCAL_KEY_EMAIL}
 						      Expire-Date: 0
 						      %secring /root/local-package-keyring.sec
 						      %pubring /root/local-package-keyring.pub
@@ -173,7 +173,7 @@ case "${1}" in
 					# Import key
 					Chroot "gpg --no-default-keyring --secret-keyring /root/local-package-keyring.sec \
 						--keyring /root/local-package-keyring.pub --armor \
-						--export ${_LH_DUMMY_KEY_EMAIL}" | Chroot "apt-key add -"
+						--export ${_LH_LOCAL_KEY_EMAIL}" | Chroot "apt-key add -"
 
 					# Remove temporary keyrings
 					rm chroot/root/local-package-keyring.pub
@@ -398,9 +398,9 @@ case "${1}" in
 		rm -rf chroot/root/local-packages
 
 		# Remove local packages key if it exists
-		if apt-key list | grep -q ${_LH_DUMMY_KEY_EMAIL}
+		if apt-key list | grep -q ${_LH_LOCAL_KEY_EMAIL}
 		then
-			apt-key del ${_LH_DUMMY_KEY_EMAIL}
+			apt-key del ${_LH_LOCAL_KEY_EMAIL}
 		fi
 
 		# Removing stage file
