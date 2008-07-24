@@ -191,6 +191,10 @@ Install_file() {
 	cp "${FILE}" "${TARGET}"/"${LETTER}"/"${SOURCE}"
 }
 
+# Set absolute directory for caching; we require it when we call Download_file
+# from a non-standard cwd.
+_LH_CACHE_DIR="$(pwd)/cache/binary_debian-installer"
+
 Download_file () {
 	local _LH_TARGET
 	_LH_TARGET="${1}"
@@ -198,7 +202,15 @@ Download_file () {
 	local _LH_URL
 	_LH_URL="${2}"
 
-	wget ${WGET_OPTIONS} -O "${_LH_TARGET}" "${_LH_URL}"
+	_LH_CACHE_FILE="${_LH_CACHE_DIR}/$(echo "${_LH_URL}" | sed 's|/|_|g')"
+
+	if [ ! -f "${_LH_CACHE_FILE}" ]
+	then
+		mkdir -p ${_LH_CACHE_DIR}
+		wget ${WGET_OPTIONS} -O "${_LH_CACHE_FILE}" "${_LH_URL}"
+	fi
+
+	cp -fl "${_LH_CACHE_FILE}" "${_LH_TARGET}"
 }
 
 VMLINUZ_DI="vmlinuz"
