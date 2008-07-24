@@ -191,6 +191,16 @@ Install_file() {
 	cp "${FILE}" "${TARGET}"/"${LETTER}"/"${SOURCE}"
 }
 
+Download_file () {
+	local _LH_TARGET
+	_LH_TARGET="${1}"
+
+	local _LH_URL
+	_LH_URL="${2}"
+
+	wget ${WGET_OPTIONS} -O "${_LH_TARGET}" "${_LH_URL}"
+}
+
 VMLINUZ_DI="vmlinuz"
 INITRD_DI="initrd.gz"
 DESTDIR_DI="${DESTDIR}"
@@ -285,9 +295,9 @@ then
 
 	if [ "${LH_DISTRIBUTION}" = "etch" ]
 	then
-		wget ${WGET_OPTIONS} -O mini.iso ${URL}/combined/2.6/mini.iso
+		Download_file mini.iso ${URL}/combined/2.6/mini.iso
 	else
-		wget ${WGET_OPTIONS} -O mini.iso ${URL}/mini.iso
+		Download_file mini.iso ${URL}/mini.iso
 	fi
 
 	mkdir mini.tmp
@@ -300,8 +310,8 @@ then
 	rm -rf mini.tmp mini.iso
 else
 	# Downloading debian-installer
-	wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI_REMOTE_BASE}/${DI_REMOTE_KERNEL}
-	wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI_REMOTE_BASE}/initrd.gz
+	Download_file "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI_REMOTE_BASE}/${DI_REMOTE_KERNEL}
+	Download_file "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI_REMOTE_BASE}/initrd.gz
 
 	# Downloading graphical-installer
 	DOWNLOAD_GTK_INSTALLER=0
@@ -320,8 +330,8 @@ else
 	if [ ${DOWNLOAD_GTK_INSTALLER} -eq 1 ]
 	then
 		mkdir -p "${DESTDIR_GI}"
-		wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/${DI_REMOTE_KERNEL}
-		wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/initrd.gz
+		Download_file "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/${DI_REMOTE_KERNEL}
+		Download_file "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/initrd.gz
 	fi
 fi
 
@@ -413,13 +423,13 @@ then
 	cd "${OLDPWD}"
 
 	# Fetching release
-	wget ${WGET_OPTIONS} "${LH_MIRROR_CHROOT}"/dists/"${LH_DISTRIBUTION}"/main/binary-"${LH_ARCHITECTURE}"/Release -O binary/dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Release
+	Download_file binary/dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Release "${LH_MIRROR_CHROOT}"/dists/"${LH_DISTRIBUTION}"/main/binary-"${LH_ARCHITECTURE}"/Release
 
 	mkdir binary.udeb
 	cd binary.udeb
 
 	# Downloading udeb indices
-	wget ${WGET_OPTIONS} "${LH_MIRROR_CHROOT}"/dists/"${LH_DISTRIBUTION}"/main/debian-installer/binary-"${LH_ARCHITECTURE}"/Packages.gz
+	Download_file Packages.gz "${LH_MIRROR_CHROOT}"/dists/"${LH_DISTRIBUTION}"/main/debian-installer/binary-"${LH_ARCHITECTURE}"/Packages.gz
 	gunzip -c Packages.gz > Packages
 
 	# Sorting udebs
