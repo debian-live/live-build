@@ -510,7 +510,7 @@ then
 	done
 
 	# Enable live-installer
-	if [ "${LH_DEBIAN_INSTALLER}" = "live" ]
+	if [ "${LH_DEBIAN_INSTALLER}" = "live" ] && [ "${LH_DISTRIBUTION}" != "etch" ]
 	then
 		# Remove local udebs
 		rm -f pool/main/b/base-installer/bootstrap-base_*.udeb
