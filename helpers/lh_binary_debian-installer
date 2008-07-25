@@ -207,7 +207,13 @@ Download_file () {
 	if [ ! -f "${_LH_CACHE_FILE}" ]
 	then
 		mkdir -p ${_LH_CACHE_DIR}
-		wget ${WGET_OPTIONS} -O "${_LH_CACHE_FILE}" "${_LH_URL}"
+		if ! wget ${WGET_OPTIONS} -O "${_LH_CACHE_FILE}" "${_LH_URL}"
+		then
+			rm -f "${_LH_CACHE_FILE}"
+
+			Echo_error "Could not download file: ${_LH_URL}"
+			exit 1
+		fi
 	fi
 
 	cp -fl "${_LH_CACHE_FILE}" "${_LH_TARGET}"
