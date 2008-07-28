@@ -226,6 +226,13 @@ then
 	INITRD_GI="install/gtk/initrd.gz"
 	APPEND_GI="video=vesa:ywrap,mtrr vga=788"
 
+	if cmp -s ${VMLINUZ_DI} ${VMLINUZ_GI}
+	then
+		# Kernels are identical; we can save space by removing one of them.
+		rm ${VMLINUZ_GI}
+		VMLINUZ_GI="${VMLINUZ_DI}"
+	fi
+
 	Grub_install_entry "install" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
 	Grub_install_entry "installgui" "${VMLINUZ_GI}" "${INITRD_GI}" "${APPEND_GI}"
 	Grub_install_entry "expert" "${VMLINUZ_DI}" "${INITRD_DI}" "priority=low ${APPEND_DI}"
