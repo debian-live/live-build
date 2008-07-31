@@ -874,6 +874,7 @@ EOF
 mkdir -p config/chroot_apt
 mkdir -p config/chroot_local-hooks
 mkdir -p config/chroot_local-includes
+mkdir -p config/chroot_local-patches
 mkdir -p config/chroot_local-packages
 mkdir -p config/chroot_local-packageslists
 mkdir -p config/chroot_local-preseed
