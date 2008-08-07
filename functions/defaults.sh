@@ -686,4 +686,15 @@ Check_defaults ()
 			Echo_warning "used in the stripped/minimal package lists."
 		fi
 	fi
+
+	if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
+	then
+		if ! echo ${LH_CACHE_STAGES} | grep -qs "bootstrap\b" || [ "${LH_CACHE}" != "enabled" ] || [ "${LH_CACHE_PACKAGES}" != "enabled" ]
+		then
+			Echo_warning "You have selected values of LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES and"
+			Echo_warning "LH_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being"
+			Echo_warning "cached. This is a possible unsafe configuration as the bootstrap packages"
+			Echo_warning "are re-used when integrating the Debian Installer."
+		fi
+	fi
 }
