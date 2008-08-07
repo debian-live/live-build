@@ -216,7 +216,12 @@ Download_file () {
 		fi
 	fi
 
-	cp -fl "${_LH_CACHE_FILE}" "${_LH_TARGET}"
+	if [ "$(stat --printf %d "${_LH_CACHE_DIR}")" = "$(stat --printf %d ./)" ]
+	then
+		CP_OPTIONS="-l"
+	fi
+
+	cp -f ${CP_OPTIONS} -- "${_LH_CACHE_FILE}" "${_LH_TARGET}"
 }
 
 VMLINUZ_DI="vmlinuz"
