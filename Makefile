@@ -111,3 +111,11 @@ clean:
 distclean:
 
 reinstall: uninstall install
+
+po4a:
+	# Automatic generation of translated manpages
+	set -e; if [ $$(which po4a) ]; then \
+	  cd manpages/ ; po4a po4a/live-helper.cfg; \
+	else \
+	  echo "Please install po4a (http://po4a.alioth.debian.org/)."; \
+	fi;
