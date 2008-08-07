@@ -85,15 +85,20 @@ case "${1}" in
 			rm -rf chroot/root/local-packages
 			mkdir -p chroot/root/local-packages
 
+			if [ "$(stat --printf %d config/chroot_local-packages)" = "$(stat --printf %d chroot/root/local-packages)" ]
+			then
+				CP_OPTIONS="-l"
+			fi
+
 			# Copy packages
 			if ls config/chroot_local-packages/*_"${LH_ARCHITECTURE}".deb > /dev/null 2>&1
 			then
-				cp -l config/chroot_local-packages/*_"${LH_ARCHITECTURE}".deb chroot/root/local-packages
+				cp ${CP_OPTIONS} config/chroot_local-packages/*_"${LH_ARCHITECTURE}".deb chroot/root/local-packages
 			fi
 
 			if ls config/chroot_local-packages/*_all.deb > /dev/null 2>&1
 			then
-				cp -l config/chroot_local-packages/*_all.deb chroot/root/local-packages
+				cp ${CP_OPTIONS} config/chroot_local-packages/*_all.deb chroot/root/local-packages
 			fi
 
 			if ls chroot/root/local-packages/*.deb > /dev/null 2>&1
