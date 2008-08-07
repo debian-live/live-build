@@ -391,7 +391,7 @@ then
 
 	DI_PACKAGES="${DI_PACKAGES} cryptsetup lvm2"
 
-	Chroot "apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb --download-only install ${DI_PACKAGES}"
+	Chroot "apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb -o APT::Install-Recommends=false --download-only install ${DI_PACKAGES}"
 	mv chroot/binary.deb ./
 	mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
 
