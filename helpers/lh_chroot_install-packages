@@ -47,18 +47,32 @@ then
 	# Restoring cache
 	Restore_cache cache/packages_chroot
 
+	# Ensure chroot_local-packages override all other packages
+	if [ -e chroot/etc/apt/preferences ]
+	then
+		cp chroot/etc/apt/preferences chroot/etc/apt/preferences.live
+	fi
+
+	cat >> chroot/etc/apt/preferences.live <<EOF
+Package: *
+Pin: release o=chroot_local-packages
+Pin-Priority: 1001
+EOF
+
 	# Installing packages
 	case "${LH_APT}" in
 		apt|apt-get)
-			Chroot "xargs --arg-file=/root/chroot_packages apt-get ${APT_OPTIONS} install"
+			Chroot "xargs --arg-file=/root/chroot_packages apt-get ${APT_OPTIONS} -o Dir::Etc::preferences=preferences.live install"
 			;;
 
 		aptitude)
-			Chroot "xargs --arg-file=/root/chroot_packages aptitude ${APTITUDE_OPTIONS} install"
+			Chroot "xargs --arg-file=/root/chroot_packages aptitude ${APTITUDE_OPTIONS} -o Dir::Etc::preferences=preferences.live install"
 			;;
 	esac
 
+	# Tidying up
 	rm -f chroot/root/chroot_packages
+	rm -f chroot/etc/apt/preferences.live
 
 	# Saving cache
 	Save_cache cache/packages_chroot

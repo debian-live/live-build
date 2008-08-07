@@ -120,7 +120,7 @@ case "${1}" in
 				then
 					# Generate Release
 					echo "cd /root/local-packages && apt-ftparchive \
-						-o APT::FTPArchive::Release::Label=local-packages \
+						-o APT::FTPArchive::Release::Origin=chroot_local-packages \
 						release . > Release" | Chroot sh
 
 					_LH_DOTGNUPG_EXISTED=0
