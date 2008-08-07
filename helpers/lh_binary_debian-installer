@@ -411,7 +411,7 @@ then
 			Install_file "${FILE}" "binary/pool/main"
 		done
 	else
-		Echo_error "E: Could not find cache/packages_bootstrap"
+		Echo_error "Could not find cache/packages_bootstrap."
 		exit 1
 	fi
 
