@@ -159,3 +159,13 @@ case "${1}" in
 		Usage
 		;;
 esac
+
+if ls config/chroot_local-packages/*.deb > /dev/null 2>&1
+then
+	cat >>chroot/etc/apt/preferences <<EOF
+
+Package: *
+Pin: release o=chroot_local-packages
+Pin-Priority: 1001
+EOF
+fi
