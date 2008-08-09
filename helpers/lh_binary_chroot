@@ -77,7 +77,7 @@ then
 	exit 0
 fi
 
-if [ "${LH_CACHE}" = "enabled" ] && ls cache/stages_rootfs/filesystem* > /dev/null 2>&1
+if [ "${LH_CACHE}" = "enabled" ] && Find_files cache/stages_rootfs/filesystem*
 then
 	exit 0
 fi

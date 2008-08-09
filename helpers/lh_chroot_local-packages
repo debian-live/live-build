@@ -42,7 +42,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if ls chroot/root/local-packages/*.deb > /dev/null 2>&1
+if Find_files chroot/root/local-packages/*.deb
 then
 	gunzip < chroot/root/local-packages/Packages.gz | awk '/^Package: / { print $2 }' \
 		>> chroot/root/chroot_packages
