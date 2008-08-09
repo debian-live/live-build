@@ -17,6 +17,11 @@ Truncate ()
 	done
 }
 
+Find_files ()
+{
+	(ls "${@}" | grep -qs .) > /dev/null 2>&1
+}
+
 In_list ()
 {
 	NEEDLES="${1}"

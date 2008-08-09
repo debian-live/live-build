@@ -400,7 +400,7 @@ then
 	mv chroot/binary.deb ./
 	mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
 
-	if ls binary.deb/archives/*.deb > /dev/null 2>&1
+	if Find_files binary.deb/archives/*.deb
 	then
 		for FILE in binary.deb/archives/*.deb
 		do
@@ -424,7 +424,7 @@ then
 	fi
 
 	# Including local debs
-	if ls ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".deb > /dev/null 2>&1
+	if Find_files ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".deb
 	then
 		for FILE in ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".deb
 		do
@@ -432,7 +432,7 @@ then
 		done
 	fi
 
-	if ls ../config/binary_local-debs/*_all.deb > /dev/null 2>&1
+	if Find_files ../config/binary_local-debs/*_all.deb
 	then
 		for FILE in ../config/binary_local-debs/*_all.deb
 		do
@@ -480,7 +480,7 @@ then
 	cp *.udeb ../cache/packages_debian-installer.udeb
 
 	# Including local udebs
-	if ls ../config/binary_local-udebs/*_"${LH_ARCHITECTURE}".udeb > /dev/null 2>&1
+	if Find_files ../config/binary_local-udebs/*_"${LH_ARCHITECTURE}".udeb
 	then
 		for FILE in ../config/binary_local-udebs/*_"${LH_ARCHITECTURE}".udeb
 		do
@@ -491,7 +491,7 @@ then
 		done
 	fi
 
-	if ls ../config/binary_local-udebs/*_all.udeb > /dev/null 2>&1
+	if Find_files ../config/binary_local-udebs/*_all.udeb
 	then
 		for FILE in ../config/binary_local-udebs/*_all.udeb
 		do
@@ -580,7 +580,7 @@ then
 	fi
 
 	# Including preseeding files
-	if ls config/binary_debian_installer/preseed*.cfg > /dev/null 2>&1
+	if Find_files config/binary_debian_installer/preseed*.cfg
 	then
 		cp config/binary_debian-installer/preseed*.cfg binary/install
 	fi

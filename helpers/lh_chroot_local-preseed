@@ -42,7 +42,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if ls config/chroot_local-preseed/* > /dev/null 2>&1
+if Find_files config/chroot_local-preseed/*
 then
 	# Check dependency
 	Check_package chroot/usr/bin/debconf-set-selections debconf

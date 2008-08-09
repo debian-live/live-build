@@ -68,7 +68,7 @@ case "${1}" in
 		fi
 
 		# Check local sources.list
-		if ls config/chroot_sources/*.chroot > /dev/null 2>&1
+		if Find_files config/chroot_sources/*.chroot
 		then
 			echo "" >> chroot/etc/apt/sources.list
 			echo "# Custom repositories" >> chroot/etc/apt/sources.list
@@ -80,7 +80,7 @@ case "${1}" in
 		fi
 
 		# Configure local package repository
-		if ls config/chroot_local-packages/*.deb > /dev/null 2>&1
+		if Find_files config/chroot_local-packages/*.deb
 		then
 			rm -rf chroot/root/local-packages
 			mkdir -p chroot/root/local-packages
@@ -91,17 +91,17 @@ case "${1}" in
 			fi
 
 			# Copy packages
-			if ls config/chroot_local-packages/*_"${LH_ARCHITECTURE}".deb > /dev/null 2>&1
+			if Find_files config/chroot_local-packages/*_"${LH_ARCHITECTURE}".deb
 			then
 				cp ${CP_OPTIONS} config/chroot_local-packages/*_"${LH_ARCHITECTURE}".deb chroot/root/local-packages
 			fi
 
-			if ls config/chroot_local-packages/*_all.deb > /dev/null 2>&1
+			if Find_files config/chroot_local-packages/*_all.deb
 			then
 				cp ${CP_OPTIONS} config/chroot_local-packages/*_all.deb chroot/root/local-packages
 			fi
 
-			if ls chroot/root/local-packages/*.deb > /dev/null 2>&1
+			if Find_files chroot/root/local-packages/*.deb
 			then
 				# Restoring cache
 				Restore_cache cache/packages_chroot
@@ -138,7 +138,7 @@ case "${1}" in
 					mv chroot/dev/random chroot/dev/random.orig
 					cp -a chroot/dev/urandom chroot/dev/random
 
-					if ls cache/local-package-keyring.* >/dev/null 2>&1
+					if Find_files cache/local-package-keyring.*
 					then
 						cp cache/local-package-keyring.* chroot/root
 					else
@@ -212,12 +212,12 @@ case "${1}" in
 		# Update indices from cache
 		if [ "${LH_CACHE_INDICES}" = "enabled" ] && [ -d cache/indices_bootstrap ]
 		then
-			if ls cache/indices_bootstrap/secring.gpg* > /dev/null 2>&1
+			if Find_files cache/indices_bootstrap/secring.gpg*
 			then
 				cp -f cache/indices_bootstrap/secring.gpg* chroot/etc/apt
 			fi
 
-			if ls cache/indices_bootstrap/trusted.gpg* > /dev/null 2>&1
+			if Find_files cache/indices_bootstrap/trusted.gpg*
 			then
 				cp -f cache/indices_bootstrap/trusted.gpg* chroot/etc/apt
 			fi
@@ -232,17 +232,17 @@ case "${1}" in
 				cp -f cache/indices_bootstrap/srcpkgcache.bin chroot/var/cache/apt
 			fi
 
-			if ls cache/indices_bootstrap/*_Packages > /dev/null 2>&1
+			if Find_files cache/indices_bootstrap/*_Packages
 			then
 				cp -f cache/indices_bootstrap/*_Packages chroot/var/lib/apt/lists
 			fi
 
-			if ls cache/indices_bootstrap/*_Sources > /dev/null 2>&1
+			if Find_files cache/indices_bootstrap/*_Sources
 			then
 				cp -f cache/indices_bootstrap/*_Sources chroot/var/lib/apt/lists
 			fi
 
-			if ls cache/indices_bootstrap/*_Release* > /dev/null 2>&1
+			if Find_files cache/indices_bootstrap/*_Release*
 			then
 				cp -f cache/indices_bootstrap/*_Release* chroot/var/lib/apt/lists
 			fi
@@ -253,7 +253,7 @@ case "${1}" in
 			fi
 		else # Get fresh indices
 			# Check local gpg keys
-			if ls config/chroot_sources/*.chroot.gpg > /dev/null 2>&1
+			if Find_files config/chroot_sources/*.chroot.gpg
 			then
 				for FILE in config/chroot_sources/*.chroot.gpg
 				do
@@ -264,7 +264,7 @@ case "${1}" in
 			fi
 
 			# Check local keyring packages
-			if ls config/chroot_sources/*.deb > /dev/null 2>&1
+			if Find_files config/chroot_sources/*.deb
 			then
 				for PACKAGE in config/chroot_sources/*.deb
 				do
@@ -301,14 +301,14 @@ case "${1}" in
 
 				cp -f chroot/var/cache/apt/pkgcache.bin cache/indices_bootstrap
 
-				if ls chroot/var/cache/apt/srcpkgcache.bin > /dev/null 2>&1
+				if Find_files chroot/var/cache/apt/srcpkgcache.bin
 				then
 					cp -f chroot/var/cache/apt/srcpkgcache.bin cache/indices_bootstrap
 				fi
 
 				cp -f chroot/var/lib/apt/lists/*_Packages cache/indices_bootstrap
 
-				if ls chroot/var/lib/apt/lists/*_Sources > /dev/null 2>&1
+				if Find_files chroot/var/lib/apt/lists/*_Sources
 				then
 					cp -f chroot/var/lib/apt/lists/*_Sources cache/indices_bootstrap
 				fi
@@ -369,7 +369,7 @@ case "${1}" in
 			fi
 
 			# Check local sources.list
-			if ls config/chroot_sources/*.binary > /dev/null 2>&1
+			if Find_files config/chroot_sources/*.binary
 			then
 				echo "" >> chroot/etc/apt/sources.list
 				echo "# Custom repositories" >> chroot/etc/apt/sources.list
@@ -381,7 +381,7 @@ case "${1}" in
 			fi
 
 			# Check local gpg keys
-			if ls config/chroot_sources/*.binary.gpg > /dev/null 2>&1
+			if Find_files config/chroot_sources/*.binary.gpg
 			then
 				for FILE in config/chroot_sources/*.binary.gpg
 				do

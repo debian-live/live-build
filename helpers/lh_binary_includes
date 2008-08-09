@@ -96,26 +96,26 @@ fi
 
 # Copying common templates
 if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common ] && \
-ls "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common/* > /dev/null 2>&1
+Find_files "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common/*
 then
 	cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common/* binary
 fi
 
 if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common."${ARCH}" ] && \
-ls "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common."${ARCH}"/* > /dev/null 2>&1
+Find_files "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common."${ARCH}"/*
 then
 	cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common."${ARCH}"/* binary
 fi
 
 # Copying live templates
 if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live ] && \
-ls "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live/* > /dev/null 2>&1
+Find_files "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live/*
 then
 	cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live/* binary
 fi
 
 if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live."${ARCH}" ] && \
-ls "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live."${ARCH}"/* > /dev/null 2>&1
+Find_files "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live."${ARCH}"/*
 then
 	cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live."${ARCH}"/* binary
 fi
@@ -124,13 +124,13 @@ if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
 then
 	# Copying install templates
 	if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install ] && \
-	ls "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install/* > /dev/null 2>&1
+	Find_files "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install/*
 	then
 		cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install/* binary
 	fi
 
 	if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install."${ARCH}" ] && \
-	ls "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install."${ARCH}"/* > /dev/null 2>&1
+	Find_files "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install."${ARCH}"/*
 	then
 		cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install."${ARCH}"/* binary
 	fi

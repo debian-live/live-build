@@ -42,7 +42,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if ls config/chroot_local-packageslists/* > /dev/null 2>&1
+if Find_files config/chroot_local-packageslists/*
 then
 	for PACKAGES_LIST in config/chroot_local-packageslists/*
 	do
