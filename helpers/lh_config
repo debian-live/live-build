@@ -53,7 +53,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--debconf-frontend dialog|editor|noninteractive|readline]\n\
 \t    [--debconf-nowarnings enabled|disabled]\n\
 \t    [--debconf-priority low|medium|high|critical]\n\
-\t    [--debian-installer enabled|disabled]\n\
+\t    [--debian-installer enabled|cdrom|netinst|netboot|businesscard|live|disabled]\n\
 \t    [--debian-installer-daily enabled|disabled]\n\
 \t    [--debug]\n\
 \t    [-d|--distribution CODENAME]\n\
