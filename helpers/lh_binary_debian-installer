@@ -370,6 +370,7 @@ if [ "${DI_IMAGE_TYPE}" != "netboot" ]
 then
 	# Downloading additional packages
 	mkdir -p chroot/binary.deb/archives/partial
+	mkdir -p binary/pool/main
 	mv chroot/var/lib/dpkg/status chroot/var/lib/dpkg/status.tmp
 	touch chroot/var/lib/dpkg/status
 
