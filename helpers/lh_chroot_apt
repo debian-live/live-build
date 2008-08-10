@@ -112,6 +112,15 @@ case "${1}" in
 			cp config/chroot_apt/preferences chroot/etc/apt/preferences
 		fi
 
+		if Find_files config/chroot_local-packages/*.deb
+		then
+			# Ensure local packages have priority
+			echo >> chroot/etc/apt/preferences
+			echo "Package: *" >> chroot/etc/apt/preferences
+			echo "Pin: release o=chroot_local-packages" >> chroot/etc/apt/preferences
+			echo "Pin-Priority: 1001" >> chroot/etc/apt/preferences
+		fi
+
 		# Creating stage file
 		Create_stagefile .stage/chroot_apt
 		;;
@@ -151,6 +160,20 @@ case "${1}" in
 			rm -f chroot/etc/apt/preferences
 		fi
 
+		if Find_files config/chroot_local-packages/*.deb
+		then
+			# Ensure local packages are not re-installed during lh_binary
+			echo >> chroot/etc/apt/preferences
+			echo "Package: *" >> chroot/etc/apt/preferences
+			echo "Pin: release o=chroot_local-packages" >> chroot/etc/apt/preferences
+			echo "Pin-Priority: 99" >> chroot/etc/apt/preferences
+
+			echo >> chroot/etc/apt/preferences
+			echo "Package: *" >> chroot/etc/apt/preferences
+			echo "Pin: release o=debian" >> chroot/etc/apt/preferences
+			echo "Pin-Priority: 99" >> chroot/etc/apt/preferences
+		fi
+
 		# Removing stage file
 		rm -f .stage/chroot_apt
 		;;
@@ -159,13 +182,3 @@ case "${1}" in
 		Usage
 		;;
 esac
-
-if ls config/chroot_local-packages/*.deb > /dev/null 2>&1
-then
-	cat >>chroot/etc/apt/preferences <<EOF
-
-Package: *
-Pin: release o=chroot_local-packages
-Pin-Priority: 1001
-EOF
-fi
