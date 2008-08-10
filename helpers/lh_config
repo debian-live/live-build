@@ -55,6 +55,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--debconf-priority low|medium|high|critical]\n\
 \t    [--debian-installer enabled|cdrom|netinst|netboot|businesscard|live|disabled]\n\
 \t    [--debian-installer-daily enabled|disabled]\n\
+\t    [--debian-installer-distribution CODENAME]\n\
 \t    [--debug]\n\
 \t    [-d|--distribution CODENAME]\n\
 \t    [-e|--encryption disabled|aes128|aes192|aes256]\n\
@@ -118,7 +119,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 
 Local_arguments ()
 {
-	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-options:,aptitute-options:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,net-cow-server:,net-tarball:,syslinux-splash:,syslinux-timeout:,syslinux-menu:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,ignore-system-defaults,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
+	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-options:,aptitute-options:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,debian-installer:,debian-installer-daily:,debian-installer-distribution:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,net-cow-server:,net-tarball:,syslinux-splash:,syslinux-timeout:,syslinux-menu:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,ignore-system-defaults,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
 
 	if [ "${?}" != "0" ]
 	then
@@ -471,6 +472,11 @@ Local_arguments ()
 
 			--debian-installer-daily)
 				LH_DEBIAN_INSTALLER_DAILY="${2}"
+				shift 2
+				;;
+
+			--debian-installer-distribution)
+				LH_DEBIAN_INSTALLER_DISTRIBUTION="${2}"
 				shift 2
 				;;
 
@@ -998,6 +1004,10 @@ LH_DEBIAN_INSTALLER="${LH_DEBIAN_INSTALLER}"
 # \$LH_DEBIAN_INSTALLER_DAILY: set daily images
 # (Default: ${LH_DEBIAN_INSTALLER_DAILY})
 LH_DEBIAN_INSTALLER_DAILY="${LH_DEBIAN_INSTALLER_DAILY}"
+
+# \$LH_DEBIAN_INSTALLER_DISTRIBUTION: set debian-installer suite
+# (Default: empty)
+LH_DEBIAN_INSTALLER_DISTRIBUTION="${LH_DEBIAN_INSTALLER_DISTRIBUTION}"
 
 # \$LH_ENCRYPTION: set encrytion
 # (Default: ${LH_ENCRYPTION})

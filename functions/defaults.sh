@@ -541,6 +541,9 @@ Set_defaults ()
 	# Setting debian-install daily images
 	LH_DEBIAN_INSTALLER_DAILY="${LH_DEBIAN_INSTALLER_DAILY:-disabled}"
 
+	# Setting debian-installer distribution
+	LH_DEBIAN_INSTALLER_DISTRIBUTION="${LH_DEBIAN_INSTALLER_DISTRIBUTION:-${LH_DISTRIBUTION}}"
+
 	# Setting encryption
 	LH_ENCRYPTION="${LH_ENCRYPTION:-disabled}"
 
