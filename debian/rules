@@ -8,11 +8,16 @@ clean:
 	dh_testdir
 	dh_testroot
 
+	# Cleaning message catalogs
+	$(MAKE) -C po clean
+
 	dh_clean
 
 build:
+	# Updating message catalogs
+	$(MAKE) -C po update-po
 
-install:
+install: build
 	dh_testdir
 	dh_testroot
 	dh_clean -k
@@ -20,6 +25,9 @@ install:
 
 	# Installing package
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/live-helper
+
+	# Installing message catalogs
+	$(MAKE) -C po install DESTDIR=$(CURDIR)/debian/live-helper
 
 	install -D -m 0644 debian/default debian/live-helper/etc/default/live-helper
 
