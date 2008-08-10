@@ -248,7 +248,7 @@ then
 	esac
 fi
 
-if [ "${LH_DEBIAN_INSTALLER_DAILY}" = "enabled" ]
+if [ "${LH_DEBIAN_INSTALLER_DISTRIBUTION}" = "daily" ]
 then
 	# Debian Installer daily builds
 	case "${LH_ARCHITECTURE}" in
