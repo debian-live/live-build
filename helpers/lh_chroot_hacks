@@ -74,9 +74,6 @@ then
 	rm -f /etc/initramfs-tools/conf.d/resume
 fi
 
-# Update initramfs
-Chroot "update-initramfs -k all -t -u"
-
 # Ensure readable permissions on initramfs. loop-aes-utils sets umask to
 # protect GPG keys, which live-helper does not support.
 chmod go+r chroot/boot/initrd*
