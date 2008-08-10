@@ -54,8 +54,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--debconf-nowarnings enabled|disabled]\n\
 \t    [--debconf-priority low|medium|high|critical]\n\
 \t    [--debian-installer enabled|cdrom|netinst|netboot|businesscard|live|disabled]\n\
-\t    [--debian-installer-daily enabled|disabled]\n\
-\t    [--debian-installer-distribution CODENAME]\n\
+\t    [--debian-installer-distribution CODENAME|daily]\n\
 \t    [--debug]\n\
 \t    [-d|--distribution CODENAME]\n\
 \t    [-e|--encryption disabled|aes128|aes192|aes256]\n\
@@ -467,11 +466,6 @@ Local_arguments ()
 
 			--debian-installer)
 				LH_DEBIAN_INSTALLER="${2}"
-				shift 2
-				;;
-
-			--debian-installer-daily)
-				LH_DEBIAN_INSTALLER_DAILY="${2}"
 				shift 2
 				;;
 
@@ -1000,10 +994,6 @@ LH_CHROOT_BUILD="${LH_CHROOT_BUILD}"
 # \$LH_DEBIAN_INSTALLER: set debian-installer
 # (Default: ${LH_DEBIAN_INSTALLER})
 LH_DEBIAN_INSTALLER="${LH_DEBIAN_INSTALLER}"
-
-# \$LH_DEBIAN_INSTALLER_DAILY: set daily images
-# (Default: ${LH_DEBIAN_INSTALLER_DAILY})
-LH_DEBIAN_INSTALLER_DAILY="${LH_DEBIAN_INSTALLER_DAILY}"
 
 # \$LH_DEBIAN_INSTALLER_DISTRIBUTION: set debian-installer suite
 # (Default: empty)

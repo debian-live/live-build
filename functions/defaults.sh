@@ -538,9 +538,6 @@ Set_defaults ()
 	# Setting debian-installer option
 	LH_DEBIAN_INSTALLER="${LH_DEBIAN_INSTALLER:-disabled}"
 
-	# Setting debian-install daily images
-	LH_DEBIAN_INSTALLER_DAILY="${LH_DEBIAN_INSTALLER_DAILY:-disabled}"
-
 	# Setting debian-installer distribution
 	LH_DEBIAN_INSTALLER_DISTRIBUTION="${LH_DEBIAN_INSTALLER_DISTRIBUTION:-${LH_DISTRIBUTION}}"
 
