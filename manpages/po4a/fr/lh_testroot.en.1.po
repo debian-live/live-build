@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Debconf 8\n"
-"POT-Creation-Date: 2008-08-07 22:08+0300\n"
+"POT-Creation-Date: 2008-08-10 03:43+0300\n"
 "PO-Revision-Date: 2008-08-07 22:08+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -19,16 +19,16 @@ msgstr ""
 #: lh_binary.en.1:1 lh_bootstrap.en.1:1 lh_build.en.1:1 lh_chroot.en.1:1
 #: lh_clean.en.1:1 lh_config.en.1:1 lh.en.1:1 lh_source.en.1:1
 #: lh_testroot.en.1:1 live-helper.en.7:1
-#, no-wrap
-msgid "2007-11-26"
+#, fuzzy, no-wrap
+msgid "2008-08-11"
 msgstr "2007-11-26"
 
 # type: TH
 #: lh_binary.en.1:1 lh_bootstrap.en.1:1 lh_build.en.1:1 lh_chroot.en.1:1
 #: lh_clean.en.1:1 lh_config.en.1:1 lh.en.1:1 lh_source.en.1:1
 #: lh_testroot.en.1:1 live-helper.en.7:1
-#, no-wrap
-msgid "1.0~a38"
+#, fuzzy, no-wrap
+msgid "1.0"
 msgstr "1.0~a38"
 
 # type: TH
