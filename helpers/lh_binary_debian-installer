@@ -28,9 +28,14 @@ Arguments "${@}"
 Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_QUIET}" = "enabled" ]
+if [ "${LH_DEBUG}" = "enabled" ]
+then
+	WGET_OPTIONS="${WGET_OPTIONS} --verbose"
+elif [ "${LH_QUIET}" = "enabled" ]
 then
 	WGET_OPTIONS="${WGET_OPTIONS} --quiet"
+else
+	WGET_OPTIONS="${WGET_OPTIONS} --no-verbose"
 fi
 
 # Check d-i configuration
