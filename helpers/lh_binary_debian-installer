@@ -250,6 +250,8 @@ fi
 
 if [ "${LH_DEBIAN_INSTALLER_DISTRIBUTION}" = "daily" ]
 then
+	LH_DEBIAN_INSTALLER_DISTRIBUTION="sid"
+
 	# Debian Installer daily builds
 	case "${LH_ARCHITECTURE}" in
 		alpha)
