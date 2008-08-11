@@ -69,6 +69,7 @@ Create_lockfile .lock
 
 # Checking depends
 Check_package chroot/usr/bin/wget wget
+Check_package chroot/usr/bin/awk mawk
 Check_package chroot/usr/bin/apt-ftparchive apt-utils
 
 # Restoring cache
@@ -376,15 +377,18 @@ then
 
 	case "${LH_ARCHITECTURE}" in
 		amd64)
-			DI_PACKAGES="linux-image-2.6-amd64 lilo grub"
+			DI_REQ_PACKAGES="lilo grub"
+			DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-amd64"
 			;;
 
 		i386)
-			DI_PACKAGES="linux-image-2.6-486 linux-image-2.6-686 elilo lilo grub"
+			DI_REQ_PACKAGES="elilo lilo grub"
+			DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-486 linux-image-2.6-686"
 			;;
 
 		sparc)
-			DI_PACKAGES="linux-image-2.6-sparc64 linux-image-2.6-sparc64-smp silo"
+			DI_REQ_PACKAGES="silo"	
+			DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-sparc64 linux-image-2.6-sparc64-smp"
 
 			if [ "${LH_DEBIAN_INSTALLER_DISTRIBUTION}" = "etch" ]
 			then
@@ -393,7 +397,8 @@ then
 			;;
 
 		powerpc)
-			DI_PACKAGES="linux-image-2.6-powerpc linux-image-2.6-powerpc64 linux-image-2.6-powerpc-smp yaboot" # FIXME bootloader?
+			DI_REQ_PACKAGES="yaboot"
+			DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-powerpc linux-image-2.6-powerpc64 linux-image-2.6-powerpc-smp"
 
 			if [ "${LH_DEBIAN_INSTALLER_DISTRIBUTION}" = "etch" ]
 			then
@@ -404,9 +409,47 @@ then
 
 	DI_PACKAGES="${DI_PACKAGES} cryptsetup lvm2"
 
-	Chroot "apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb -o APT::Install-Recommends=false --download-only install ${DI_PACKAGES}"
+	# Set apt command prefix
+	_LH_APT_COMMAND="apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb -o APT::Install-Recommends=false --download-only"
+
+	if [ "${LH_DEBIAN_INSTALLER}" = "live" ]
+	then
+		# We don't want to duplicate .debs of packages in binary/pool that are already
+		# installed to target/ via live-installer.
+		#
+		# However, we need to force various packages' inclusion in binary/pool/main as
+		# d-i does not support (for example) re-installing grub from target/ - the grub
+		# .deb must actually exist.
+
+		# Modify dpkg status to show the required packages are not installed.
+		cp chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
+		for PACKAGE in ${DI_REQ_PACKAGES}
+		do
+			awk -v f=0 '
+				f == 1 { print "Status: purge ok not-installed"; f=0; next }
+				/Package: '"${PACKAGE}"'/ { f=1; }
+				{ print }
+				' chroot/var/lib/dpkg/status > chroot/var/lib/dpkg/status.awk
+			mv chroot/var/lib/dpkg/status.awk chroot/var/lib/dpkg/status
+		done
+
+		# Download .deb's that we just marked as "purged" which caused broken dependencies
+		Chroot ${_LH_APT_COMMAND} -f dist-upgrade
+
+		# Revert dpkg status file
+		mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
+
+		# Download .debs of the required packages
+		Chroot ${_LH_APT_COMMAND} install ${DI_REQ_PACKAGES}
+	else
+		# Download .debs of the required packages
+		Chroot ${_LH_APT_COMMAND} install ${DI_PACKAGES}
+
+		# Revert dpkg status file
+		mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
+	fi
+
 	mv chroot/binary.deb ./
-	mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
 
 	if Find_files binary.deb/archives/*.deb
 	then
