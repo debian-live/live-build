@@ -55,7 +55,7 @@ then
 
 	for PATCH in config/chroot_local-patches/*
 	do
-		Echo_message "Applying patch ${PATCH}..."
+		Echo_message "Applying patch %s..." "${PATCH}"
 		Chroot "patch -p1" < ${PATCH}
 	done
 

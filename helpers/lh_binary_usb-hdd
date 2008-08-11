@@ -124,7 +124,7 @@ case "${LH_BINARY_FILESYSTEM}" in
 		;;
 
 	*)
-		Echo_error "Unsupported binary filesystem ${LH_BINARY_FILESYSTEM}"
+		Echo_error "Unsupported binary filesystem %s" "${LH_BINARY_FILESYSTEM}"
 		exit 1
 		;;
 esac

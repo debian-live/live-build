@@ -54,7 +54,7 @@ then
 	then
 		LH_INCLUDES="../${LH_INCLUDES}"
 	else
-		Echo_error "user specified includes not accessible in ${LH_INCLUDES}"
+		Echo_error "user specified includes not accessible in %s" "${LH_INCLUDES}"
 		exit 1
 	fi
 fi

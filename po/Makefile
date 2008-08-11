@@ -1,12 +1,12 @@
 # Makefile to manage gettext files
 
 DOMAIN=live-helper
-ECHO_FUNCTIONS="Echo_message Echo_verbose Echo_warning Echo_debug Echo_error"
+ECHO_FUNCTIONS="Echo_message Echo_verbose Echo_warning Echo_debug Echo_error Echo_breakage"
 
 POFILES=$(wildcard *.po)
 MOFILES=$(patsubst %.po,%.mo,$(POFILES))
 LINGUAS=$(basename $(POFILES))
-GETTEXTFILES=$(shell find ../helpers -type f)
+GETTEXTFILES=$(shell find ../helpers ../functions -type f)
 POTFILE=$(DOMAIN).pot
 DESTDIR=/
 XGETTEXT_KEYWORDS=$(shell echo $(ECHO_FUNCTIONS) |sed -e 's,\S\+,-k&,g')
@@ -20,7 +20,7 @@ XGETTEXT_KEYWORDS=$(shell echo $(ECHO_FUNCTIONS) |sed -e 's,\S\+,-k&,g')
 $(DOMAIN).pot: $(GETTEXTFILES)
 	$(shell xgettext $(XGETTEXT_KEYWORDS) -L Shell -o $(DOMAIN).pot $(GETTEXTFILES))
 
-update-po:
+update-po: live-helper.pot
 	-for lang in $(LINGUAS); do\
 	    msgmerge -U $$lang.po $(DOMAIN).pot; \
 	done

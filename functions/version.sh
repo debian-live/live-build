@@ -9,6 +9,7 @@
 
 set -e
 
+#FIXME: put this in l10n standard
 Version ()
 {
 	echo "${PROGRAM}, version ${VERSION}"

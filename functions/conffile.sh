@@ -30,10 +30,10 @@ Read_conffile ()
 		then
 			if [ -r "${CONFFILE}" ]
 			then
-				Echo_debug "Reading configuration file ${CONFFILE}"
+				Echo_debug "Reading configuration file %s" "${CONFFILE}"
 				. "${CONFFILE}"
 			else
-				Echo_warning "Failed to read configuration file ${CONFFILE}"
+				Echo_warning "Failed to read configuration file %s" "${CONFFILE}"
 			fi
 		fi
 	done
