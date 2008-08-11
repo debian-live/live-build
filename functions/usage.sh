@@ -9,6 +9,7 @@
 
 set -e
 
+#FIXME: put this in l10n standard
 Usage ()
 {
 	echo "${PROGRAM} - ${DESCRIPTION}"

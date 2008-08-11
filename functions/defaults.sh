@@ -681,7 +681,7 @@ Check_defaults ()
 	then
 		if [ "${LH_APT}" = "aptitude" ]
 		then
-			Echo_warning "You selected LH_PACKAGES_LISTS='"${LH_PACKAGES_LIST}"' and LH_APT='aptitude'"
+			Echo_warning "You selected LH_PACKAGES_LISTS='%s' and LH_APT='aptitude'" "${LH_PACKAGES_LIST}"
 			Echo_warning "This is a possible unsafe configuration as aptitude is not"
 			Echo_warning "used in the stripped/minimal package lists."
 		fi

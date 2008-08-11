@@ -651,7 +651,7 @@ Local_arguments ()
 				;;
 
 			*)
-				Echo_error "internal error ${0}"
+				Echo_error "internal error %s" "${0}"
 				exit 1
 				;;
 		esac
@@ -661,7 +661,7 @@ Local_arguments ()
 # Reading system configuration
 if [ -f "${SYSTEM_LH_CONFFILE}" ] && ! In_list "--ignore-system-defaults" "${@}"
 then
-	Echo_message "Considering defaults defined in ${SYSTEM_LH_CONFFILE}"
+	Echo_message "Considering defaults defined in %s" "${SYSTEM_LH_CONFFILE}"
 	Read_conffile "${SYSTEM_LH_CONFFILE}"
 fi
 

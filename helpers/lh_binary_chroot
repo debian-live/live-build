@@ -102,7 +102,7 @@ then
 			# Run "rm" inside the chroot so it cannot possibly remove host files.
 			Chroot "rm -r chroot/${EXCLUDE}"
 		else
-			Echo_warning "Excluded path does not exist: ${EXCLUDE}"
+			Echo_warning "Excluded path does not exist: %s" "${EXCLUDE}"
 		fi
 	done
 fi

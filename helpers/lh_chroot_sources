@@ -161,7 +161,7 @@ case "${1}" in
 								# operation was ultimately successful.
 								;;
 							*)
-								Echo_error "GPG exited with error status ${_LH_RET}"
+								Echo_error "GPG exited with error status %s" "${_LH_RET}"
 								exit ${_LH_RET}
 								;;
 						esac

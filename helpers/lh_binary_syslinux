@@ -245,7 +245,7 @@ Copy_syslinux_templates ()
 		then
 			if [ ! -e "${LH_SYSLINUX_SPLASH}" ]
 			then
-				Echo_error "${LH_SYSLINUX_SPLASH} doen't exist"
+				Echo_error "%s doen't exist" "${LH_SYSLINUX_SPLASH}"
 				exit 1
 			else
 				rm -f ${SCREEN_PATH}/splash.rle

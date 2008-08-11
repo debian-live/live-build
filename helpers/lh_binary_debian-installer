@@ -48,7 +48,7 @@ case "${LH_DEBIAN_INSTALLER}" in
 		;;
 
 	*)
-		Echo_error "debian-installer flavour ${LH_DEBIAN_INSTALLER} not supported."
+		Echo_error "debian-installer flavour %s not supported." "${LH_DEBIAN_INSTALLER}"
 		exit 1
 		;;
 esac
@@ -217,7 +217,7 @@ Download_file () {
 		then
 			rm -f "${_LH_CACHE_FILE}"
 
-			Echo_error "Could not download file: ${_LH_URL}"
+			Echo_error "Could not download file: %s" "${_LH_URL}"
 			exit 1
 		fi
 	fi

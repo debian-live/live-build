@@ -20,7 +20,7 @@ Check_templates ()
 		then
 			LH_TEMPLATES=config/templates
 		else
-			Echo_error "templates not accessible in ${LH_TEMPLATES} nor config/templates"
+			Echo_error "templates not accessible in %s nor config/templates" "${LH_TEMPLATES}"
 			exit 1
 		fi
 	fi
@@ -29,7 +29,7 @@ Check_templates ()
 	then
 		TEMPLATES="${LH_TEMPLATES}/${PACKAGE}"
 	else
-		Echo_error "${PACKAGE} templates not accessible in ${LH_TEMPLATES}"
+		Echo_error "%s templates not accessible in %s" "${PACKAGE}" "${LH_TEMPLATES}"
 		exit 1
 	fi
 }

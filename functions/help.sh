@@ -9,6 +9,7 @@
 
 set -e
 
+#FIXME: put this in l10n standard
 Help ()
 {
 	echo "${PROGRAM} - ${DESCRIPTION}"
