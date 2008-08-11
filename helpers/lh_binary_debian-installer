@@ -106,12 +106,12 @@ case "${LH_DEBIAN_INSTALLER}" in
 		;;
 	*)
 		case "${LH_BINARY_IMAGES}" in
-			iso)
-				DI_IMAGE_TYPE="cdrom"
+			net)
+				DI_IMAGE_TYPE="netboot"
 				;;
 
 			*)
-				DI_IMAGE_TYPE="netboot"
+				DI_IMAGE_TYPE="cdrom"
 				;;
 		esac
 		;;
