@@ -407,7 +407,7 @@ then
 			;;
 	esac
 
-	DI_PACKAGES="${DI_PACKAGES} cryptsetup lvm2"
+	DI_PACKAGES="${DI_PACKAGES} busybox cryptsetup lvm2"
 
 	# Set apt command prefix
 	_LH_APT_COMMAND="apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb -o APT::Install-Recommends=false --download-only"
