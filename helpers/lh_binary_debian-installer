@@ -634,9 +634,9 @@ then
 	fi
 
 	# Including preseeding files
-	if Find_files config/binary_debian_installer/preseed*.cfg
+	if Find_files config/binary_debian_installer/*.cfg
 	then
-		cp config/binary_debian-installer/preseed*.cfg binary/install
+		cp config/binary_debian-installer/*.cfg binary/install
 	fi
 fi
 
