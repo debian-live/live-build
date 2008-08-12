@@ -504,13 +504,6 @@ Set_defaults ()
 	# Setting apt indices
 	LH_BINARY_INDICES="${LH_BINARY_INDICES:-enabled}"
 
-	# Setting boot parameters
-	# LH_BOOTAPPEND_LIVE
-	if [ -z "${LH_BOOTAPPEND_INSTALL}" ]
-	then
-		LH_BOOTAPPEND_INSTALL="-- \${LH_BOOTAPPEND_LIVE}"
-	fi
-
 	# Setting bootloader
 	if [ -z "${LH_BOOTLOADER}" ]
 	then
@@ -540,6 +533,45 @@ Set_defaults ()
 
 	# Setting debian-installer distribution
 	LH_DEBIAN_INSTALLER_DISTRIBUTION="${LH_DEBIAN_INSTALLER_DISTRIBUTION:-${LH_DISTRIBUTION}}"
+
+	# Setting debian-installer preseed filename
+	if [ -z "${LH_DEBIAN_INSTALLER_PRESEEDFILE}" ]
+	then
+		if Find_files config/binary_debian-installer/preseed.cfg
+		then
+			LH_DEBIAN_INSTALLER_PRESEEDFILE="/install/preseed.cfg"
+		fi
+
+		if Find_files config/binary_debian-installer/*.cfg && [ ! -e config/binary_debian-installer/preseed.cfg ]
+		then
+			Echo_warning "You have placed some preseeding files into config/binary_debian-installer"
+			Echo_warning "but you didn't specify the default preseeding file through"
+			Echo_warning "LH_DEBIAN_INSTALLER_PRESEEDFILE. This means that debian-installer will not"
+			Echo_warning "take up a preseeding file by default."
+		fi
+	fi
+
+	# Setting boot parameters
+	# LH_BOOTAPPEND_LIVE
+	if [ -n "${LH_DEBIAN_INSTALLER_PRESEEDFILE}" ]
+	then
+		case "${LH_BINARY_IMAGES}" in
+			iso)
+				LH_BOOTAPPEND_PRESEED="file=/cdrom${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
+				;;
+
+			usb-hdd)
+				LH_BOOTAPPEND_PRESEED="file=/hd-media${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
+				;;
+		esac
+	fi
+
+	if [ -z "${LH_BOOTAPPEND_INSTALL}" ] && [ -n ${LH_BOOTAPPEND_PRESEED} ]
+	then
+		LH_BOOTAPPEND_INSTALL="${LH_BOOTAPPEND_PRESEED} -- \${LH_BOOTAPPEND_LIVE}"
+	else
+		LH_BOOTAPPEND_INSTALL="-- \${LH_BOOTAPPEND_LIVE}"
+	fi
 
 	# Setting encryption
 	LH_ENCRYPTION="${LH_ENCRYPTION:-disabled}"
