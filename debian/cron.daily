@@ -11,11 +11,11 @@ then
 fi
 
 # Checking for live-helper defaults
-if [ -r /etc/default/live-helper ]
+if [ -r /etc/default/live-helper_autobuild ]
 then
-	. /etc/default/live-helper
+	. /etc/default/live-helper_autobuild
 else
-	echo "E: /etc/default/live-helper missing."
+	echo "E: /etc/default/live-helper_autobuild missing."
 	exit 1
 fi
 
