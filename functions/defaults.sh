@@ -612,7 +612,7 @@ Set_defaults ()
 	fi
 
 	# Set iso preparer
-	LH_ISO_PREPARER="${LH_ISO_PREPARER:-live-helper ${VERSION}; http://packages.qa.debian.org/live-helper}"
+	LH_ISO_PREPARER="${LH_ISO_PREPARER:-live-helper \${VERSION}; http://packages.qa.debian.org/live-helper}"
 
 	# Set iso publisher
 	LH_ISO_PUBLISHER="${LH_ISO_PUBLISHER:-Debian Live project; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org}"
