@@ -11,10 +11,10 @@ test:
 		sh -n $$SCRIPT; \
 	done
 
-	# Checking for bashisms (temporary not failing, but only listing)
-	if [ -x /usr/bin/checkbashisms ]; \
+	# Checking for bashisms
+	set -e; if [ -x /usr/bin/checkbashisms ]; \
 	then \
-		checkbashisms functions/* examples/*/*.sh helpers/* hooks/* || true; \
+		checkbashisms functions/* examples/*/*.sh helpers/* hooks/*; \
 	else \
 		echo "bashism test skipped - you need to install devscripts."; \
 	fi
