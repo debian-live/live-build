@@ -1,4 +1,4 @@
-# Defaults for /etc/cron.daily/live-helper
+# Defaults for /etc/cron.daily/live-helper_autobuild
 
 AUTOBUILD="disabled"
 
