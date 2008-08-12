@@ -159,7 +159,7 @@ Set_defaults ()
 		then
 			LH_FDISK="fdisk"
 		else
-			Echo_error "Can't proces file /sbin/fdisk"
+			Echo_error "Can't process file /sbin/fdisk"
 		fi
 	fi
 
