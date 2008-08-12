@@ -36,7 +36,7 @@ then
 fi
 
 # Creating lock trap
-trap "test -f ${SERVER}/Archive-Update-in-Progress && rm -f ${SERVER}/Archive-Update-in-Progress; exit 0" 0 1 2 3 9 15
+trap "test -f ${SERVER}/Archive-Update-in-Progress && rm -f ${SERVER}/Archive-Update-in-Progress; exit 0" 0 HUP INT QUIT KILL TERM
 
 # Creating lock file
 echo "${DATE_START}" > "${SERVER}"/Archive-Update-in-Progress
