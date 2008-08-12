@@ -651,7 +651,7 @@ Repack_initrd()
 	cd ${REPACK_TMPDIR}
 
 	gzip -d < ../${TARGET_INITRD} | cpio -i --make-directories --no-absolute-filenames
-	cp ../config/binary_debian-installer/preseed.cfg .
+	cp ../config/binary_debian-installer/*.cfg .
 	find | cpio -H newc -o | gzip -9 > ../${TARGET_INITRD}
 
 	cd ..
