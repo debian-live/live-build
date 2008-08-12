@@ -539,7 +539,7 @@ Set_defaults ()
 	then
 		if Find_files config/binary_debian-installer/preseed.cfg
 		then
-			LH_DEBIAN_INSTALLER_PRESEEDFILE="/install/preseed.cfg"
+			LH_DEBIAN_INSTALLER_PRESEEDFILE="/preseed.cfg"
 		fi
 
 		if Find_files config/binary_debian-installer/*.cfg && [ ! -e config/binary_debian-installer/preseed.cfg ]
@@ -557,11 +557,15 @@ Set_defaults ()
 	then
 		case "${LH_BINARY_IMAGES}" in
 			iso)
-				LH_BOOTAPPEND_PRESEED="file=/cdrom${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
+				LH_BOOTAPPEND_PRESEED="file=/cdrom/install/${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
 				;;
 
 			usb-hdd)
-				LH_BOOTAPPEND_PRESEED="file=/hd-media${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
+				LH_BOOTAPPEND_PRESEED="file=/hd-media/install/${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
+				;;
+
+			net)
+				LH_BOOTAPPEND_PRESEED="file=/${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
 				;;
 		esac
 	fi
