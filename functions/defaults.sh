@@ -96,8 +96,8 @@ Set_defaults ()
 		then
 			LH_BOOTSTRAP="cdebootstrap"
 		else
-			echo "E: Cannot find /usr/sbin/debootstrap or /usr/bin/cdebootstrap. Please install"
-			echo "E: debootstrap or cdebootstrap, or specify an alternative bootstrapping utility."
+			Echo_error "Cannot find /usr/sbin/debootstrap or /usr/bin/cdebootstrap. Please install"
+			Echo_error "E: debootstrap or cdebootstrap, or specify an alternative bootstrapping utility."
 			exit 1
 		fi
 	fi
@@ -159,7 +159,7 @@ Set_defaults ()
 		then
 			LH_FDISK="fdisk"
 		else
-			echo "E: Can't proces file /sbin/fdisk (FIXME)"
+			Echo_error "Can't proces file /sbin/fdisk"
 		fi
 	fi
 
@@ -175,7 +175,7 @@ Set_defaults ()
 		then
 			LH_LOSETUP="losetup"
 		else
-			echo "E: Can't process file /sbin/losetup (FIXME)"
+			Echo_error "Can't process file /sbin/losetup"
 		fi
 	fi
 
@@ -237,7 +237,7 @@ Set_defaults ()
 		then
 			LH_ARCHITECTURE="$(dpkg --print-architecture)"
 		else
-			echo "W: Can't process file /usr/bin/dpkg, setting architecture to i386"
+			Echo_warning "Can't process file /usr/bin/dpkg, setting architecture to i386"
 			LH_ARCHITECTURE="i386"
 		fi
 	fi
