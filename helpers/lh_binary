@@ -40,6 +40,7 @@ then
 	lh_chroot_hosts install ${*}
 	lh_chroot_resolv install ${*}
 	lh_chroot_hostname install ${*}
+	lh_chroot_apt install-binary ${*}
 	lh_chroot_sources install ${*}
 fi
 
