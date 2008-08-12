@@ -565,7 +565,15 @@ Set_defaults ()
 				;;
 
 			net)
-				LH_BOOTAPPEND_PRESEED="file=/${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
+				case "${LH_DEBIAN_INSTALLER_PRESEEDFILE}" in
+					*://*)
+						LH_BOOTAPPEND_PRESEED="file=${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
+						;;
+
+					*)
+						LH_BOOTAPPEND_PRESEED="file=/${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
+						;;
+				esac
 				;;
 		esac
 	fi
