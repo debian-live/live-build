@@ -3,7 +3,7 @@ Section: misc
 Priority: optional
 Maintainer: Debian Live <debian-live-maint@lists.alioth.debian.org>
 Uploaders: Daniel Baumann <daniel@debian.org>
-Build-Depends: debhelper (>= 5), gettext (>= 0.13)
+Build-Depends: debhelper (>= 5)
 Build-Depends-Indep: gettext (>= 0.13)
 Standards-Version: 3.8.0
 Homepage: http://debian-live.alioth.debian.org/
