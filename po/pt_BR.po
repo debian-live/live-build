@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-12 22:37+0200\n"
+"POT-Creation-Date: 2008-08-13 05:10+0200\n"
 "PO-Revision-Date: 2008-08-11 00:30-0300\n"
 "Last-Translator: Tiago Bortoletto Vaz <tiago@debian-ba.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -550,7 +550,7 @@ msgstr ""
 
 #: ../functions/defaults.sh:162
 #, fuzzy
-msgid "Can't proces file /sbin/fdisk"
+msgid "Can't process file /sbin/fdisk"
 msgstr "Não posso processar o arquivo /usr/bin/cdebootstrap (FIXME)"
 
 #: ../functions/defaults.sh:178
