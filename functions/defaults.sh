@@ -97,7 +97,7 @@ Set_defaults ()
 			LH_BOOTSTRAP="cdebootstrap"
 		else
 			Echo_error "Cannot find /usr/sbin/debootstrap or /usr/bin/cdebootstrap. Please install"
-			Echo_error "E: debootstrap or cdebootstrap, or specify an alternative bootstrapping utility."
+			Echo_error "debootstrap or cdebootstrap, or specify an alternative bootstrapping utility."
 			exit 1
 		fi
 	fi
