@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-13 05:10+0200\n"
+"POT-Creation-Date: 2008-08-14 05:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -352,7 +352,7 @@ msgstr ""
 msgid "Configuring file /etc/apt/apt.conf"
 msgstr ""
 
-#: ../helpers/lh_chroot_apt:144
+#: ../helpers/lh_chroot_apt:150
 msgid "Deconfiguring file /etc/apt/apt.conf"
 msgstr ""
 
@@ -535,8 +535,7 @@ msgstr ""
 
 #: ../functions/defaults.sh:100
 msgid ""
-"E: debootstrap or cdebootstrap, or specify an alternative bootstrapping "
-"utility."
+"debootstrap or cdebootstrap, or specify an alternative bootstrapping utility."
 msgstr ""
 
 #: ../functions/defaults.sh:162
