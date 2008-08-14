@@ -634,6 +634,17 @@ Set_defaults ()
 	# Setting memtest option
 	LH_MEMTEST="${LH_MEMTEST:-memtest86+}"
 
+	# Setting win32-loader option
+	case "${LH_ARCHITECTURE}" in
+		amd64|i386)
+			LH_WIN32_LOADER="enabled"
+			;;
+
+		*)
+			LH_WIN32_LOADER="disabled"
+			;;
+	esac
+
 	# Setting netboot filesystem
 	LH_NET_ROOT_FILESYSTEM="${LH_NET_ROOT_FILESYSTEM:-nfs}"
 
