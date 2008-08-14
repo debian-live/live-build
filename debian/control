@@ -14,7 +14,7 @@ XS-Upstream-Depends: git-core
 Package: live-helper
 Architecture: all
 Depends: debootstrap | cdebootstrap, gettext-base (>= 0.13)
-Suggests: dosfstools, genisoimage, memtest86+ | memtest86, mtools, parted, squashfs-tools | genext2fs | mtd-tools, sudo | fakeroot, syslinux | grub, uuid-runtime
+Suggests: dosfstools, genisoimage, memtest86+ | memtest86, mtools, parted, squashfs-tools | genext2fs | mtd-tools, sudo | fakeroot, syslinux | grub, uuid-runtime, win32-loader
 Description: Debian Live build scripts
  live-helper is a set of scripts to build Debian Live system images.
  .
