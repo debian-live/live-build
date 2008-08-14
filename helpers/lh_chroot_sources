@@ -116,13 +116,13 @@ case "${1}" in
 				echo "cd /root/local-packages && apt-ftparchive packages . > Packages" | Chroot sh
 				gzip -9 -c chroot/root/local-packages/Packages > chroot/root/local-packages/Packages.gz
 
+				# Generate Release
+				echo "cd /root/local-packages && apt-ftparchive \
+					-o APT::FTPArchive::Release::Origin=chroot_local-packages \
+					release . > Release" | Chroot sh
+
 				if [ "${LH_APT_SECURE}" = "enabled" ]
 				then
-					# Generate Release
-					echo "cd /root/local-packages && apt-ftparchive \
-						-o APT::FTPArchive::Release::Origin=chroot_local-packages \
-						release . > Release" | Chroot sh
-
 					_LH_DOTGNUPG_EXISTED=0
 					if [ -d chroot/root/.gnupg ]
 					then
