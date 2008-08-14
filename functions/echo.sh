@@ -9,6 +9,14 @@
 
 set -e
 
+Echo ()
+{
+	STRING="${1}"
+	shift
+
+	printf "$(eval_gettext "${STRING}")" "${@}"; echo;
+}
+
 Echo_debug ()
 {
 	STRING="${1}"
