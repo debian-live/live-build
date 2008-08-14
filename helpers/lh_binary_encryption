@@ -95,10 +95,10 @@ fi
 while true
 do
 	echo
-	echo " **************************************"
-	echo " ** Configuring encrypted filesystem **"
-	echo " **************************************"
-	echo " (Passwords must be at least 20 characters long)"
+	Echo " **************************************"
+	Echo " ** Configuring encrypted filesystem **"
+	Echo " **************************************"
+	Echo " (Passwords must be at least 20 characters long)"
 	echo
 
 	case "${LH_CHROOT_BUILD}" in
