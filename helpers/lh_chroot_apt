@@ -120,6 +120,7 @@ case "${1}" in
 			fi
 
 			echo >> chroot/etc/apt/preferences
+			echo "# Added by lh_chroot_apt ${@}" >> chroot/etc/apt/preferences
 			echo "Package: *" >> chroot/etc/apt/preferences
 			echo "Pin: release o=chroot_local-packages" >> chroot/etc/apt/preferences
 
@@ -184,6 +185,7 @@ case "${1}" in
 		then
 			# Ensure local packages are not replaced.
 			echo >> chroot/etc/apt/preferences
+			echo "# Added by lh_chroot_apt ${@}" >> chroot/etc/apt/preferences
 			echo "Package: *" >> chroot/etc/apt/preferences
 			echo "Pin: release o=chroot_local-packages" >> chroot/etc/apt/preferences
 			echo "Pin-Priority: 99" >> chroot/etc/apt/preferences
