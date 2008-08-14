@@ -20,7 +20,7 @@ done
 # Setting static variables
 DESCRIPTION="manage /etc/apt/apt.conf"
 HELP=""
-USAGE="${PROGRAM} {install|remove} [--force]"
+USAGE="${PROGRAM} {install|install-binary|remove} [--force]"
 
 Arguments "${@}"
 
@@ -32,7 +32,7 @@ Set_defaults
 Require_stagefile .stage/bootstrap
 
 case "${1}" in
-	install*)
+	install|install-binary)
 		Echo_message "Configuring file /etc/apt/apt.conf"
 
 		# Checking stage file
