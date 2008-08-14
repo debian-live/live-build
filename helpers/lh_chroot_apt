@@ -114,6 +114,11 @@ case "${1}" in
 
 		if Find_files config/chroot_local-packages/*.deb
 		then
+			if [ ! -f config/chroot_apt/preferences ] && [ "${1}" = "install-binary" ]
+			then
+				rm -f chroot/etc/apt/preferences
+			fi
+
 			echo >> chroot/etc/apt/preferences
 			echo "Package: *" >> chroot/etc/apt/preferences
 			echo "Pin: release o=chroot_local-packages" >> chroot/etc/apt/preferences
