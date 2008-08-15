@@ -114,7 +114,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--union-filesystem aufs|unionfs]\n\
 \t    [--exposed-root enabled|disabled]\n\
 \t    [--username NAME]\n\
-\t    [--verbose]\n\"
+\t    [--verbose]\n\
 \t    [--win32-loader enabled|disabled]"
 
 Local_arguments ()
