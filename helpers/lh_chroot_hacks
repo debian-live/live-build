@@ -43,7 +43,7 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Removing udev mac caching rule
-Chroot "rm -f /etc/udev/rules.d/z25_persistent-net.rules"
+Chroot "rm -f /etc/udev/rules.d/*persistent-net.rules"
 
 case "${LH_BINARY_IMAGES}" in
 	net)
@@ -119,7 +119,7 @@ then
 	done
 
 	# Config files which need to be RW
-	COW_FILES="/etc/adjtime /etc/fstab /etc/hostname /etc/hosts /etc/live.conf /etc/network/interfaces /etc/resolv.conf /etc/udev/rules.d/z25_persistent-net.rules /etc/udev/rules.d/z25_persistent-cd.rules' /etc/X11/xorg.conf"
+	COW_FILES="/etc/adjtime /etc/fstab /etc/hostname /etc/hosts /etc/live.conf /etc/network/interfaces /etc/resolv.conf /etc/udev/rules.d/*persistent-net.rules /etc/udev/rules.d/*persistent-cd.rules /etc/X11/xorg.conf"
 
 	# Where we will store RW config files
 	RW_DIRECTORY="/var/lib/live"
