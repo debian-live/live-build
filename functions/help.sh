@@ -18,7 +18,7 @@ Help ()
 
 	if [ -n "${USAGE}" ]
 	then
-		Echo "%s" "${USAGE}"
+		Echo "${USAGE}"
 		echo
 	fi
 	Echo "  %s [-h|--help]" "${PROGRAM}"
@@ -28,7 +28,7 @@ Help ()
 
 	if [ -n "${HELP}" ]
 	then
-		Echo "%s" "${HELP}"
+		Echo "${HELP}"
 		echo
 	fi
 

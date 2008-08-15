@@ -18,7 +18,7 @@ Usage ()
 
 	if [ -n "${USAGE}" ]
 	then
-		Echo "  %s" "${USAGE}"
+		Echo " ${USAGE}"
 		echo
 	fi
 
