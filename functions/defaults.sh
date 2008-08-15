@@ -637,11 +637,11 @@ Set_defaults ()
 	# Setting win32-loader option
 	case "${LH_ARCHITECTURE}" in
 		amd64|i386)
-			LH_WIN32_LOADER="enabled"
+			LH_WIN32_LOADER="${LH_WIN32_LOADER:-enabled}"
 			;;
 
 		*)
-			LH_WIN32_LOADER="disabled"
+			LH_WIN32_LOADER="${LH_WIN32_LOADER:-disabled}"
 			;;
 	esac
 
