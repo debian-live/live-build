@@ -49,7 +49,6 @@ lh_chroot_local-preseed ${*}
 lh_chroot_tasks ${*}
 lh_chroot_packageslists ${*}
 lh_chroot_packages ${*}
-lh_chroot_local-packageslists ${*}
 lh_chroot_local-packages ${*}
 lh_chroot_install-packages ${*}
 lh_chroot_localization ${*}
