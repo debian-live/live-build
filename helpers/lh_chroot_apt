@@ -162,16 +162,25 @@ case "${1}" in
 		rm -f chroot/etc/apt/apt.conf.d/00http-proxy
 
 		# Deconfiguring aptitude pdiffs
-		rm -f chroot/etc/apt/apt.conf.d/00pdiffs
+		if [ "${LH_APT_PDIFFS}" = "enabled" ]
+		then
+			rm -f chroot/etc/apt/apt.conf.d/00pdiffs
+		fi
 
 		# Deconfiguring aptitude pipeline
 		rm -f chroot/etc/apt/apt.conf.d/00pipeline
 
 		# Deconfiguring aptitude recommends
-		rm -f chroot/etc/apt/apt.conf.d/00recommends
+		if [ "${LH_APT_RECOMMENDS}" = "enabled" ]
+		then
+			rm -f chroot/etc/apt/apt.conf.d/00recommends
+		fi
 
 		# Deconfiguring aptitude secure
-		rm -f chroot/etc/apt/apt.conf.d/00secure
+		if [ "${LH_APT_SECURE}" = "enabled" ]
+		then
+			rm -f chroot/etc/apt/apt.conf.d/00secure
+		fi
 
 		# Deconfiguring apt preferences
 		if [ -f chroot/etc/apt/preferences.orig ]
