@@ -1140,6 +1140,7 @@ if [ "${CONFIG}" = "clone" ] # FIXME
 then
 	# Read package selection
 	echo $(dpkg --get-selections | awk '{ print $1 }') > config/chroot_local-packageslists/local-system
+	LH_PACKAGES_LISTS="${LH_PACKAGES_LISTS} local-system"
 
 	# Read debconf questions
 	if [ ! -f /usr/bin/debconf-get-selections ]
