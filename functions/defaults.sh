@@ -578,11 +578,14 @@ Set_defaults ()
 		esac
 	fi
 
-	if [ -z "${LH_BOOTAPPEND_INSTALL}" ] && [ -n ${_LH_BOOTAPPEND_PRESEED} ]
+	if [ -z "${LH_BOOTAPPEND_INSTALL}" ]
 	then
-		LH_BOOTAPPEND_INSTALL="${_LH_BOOTAPPEND_PRESEED} -- \${LH_BOOTAPPEND_LIVE}"
-	else
-		LH_BOOTAPPEND_INSTALL=" -- \${LH_BOOTAPPEND_LIVE}"
+		if [ -n ${_LH_BOOTAPPEND_PRESEED} ]
+		then
+			LH_BOOTAPPEND_INSTALL="${_LH_BOOTAPPEND_PRESEED} -- \${LH_BOOTAPPEND_LIVE}"
+		else
+			LH_BOOTAPPEND_INSTALL=" -- \${LH_BOOTAPPEND_LIVE}"
+		fi
 	fi
 
 	# Setting encryption
