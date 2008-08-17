@@ -387,7 +387,7 @@ then
 			;;
 
 		sparc)
-			DI_REQ_PACKAGES="silo"	
+			DI_REQ_PACKAGES="silo"
 			DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-sparc64 linux-image-2.6-sparc64-smp"
 
 			if [ "${LH_DEBIAN_INSTALLER_DISTRIBUTION}" = "etch" ]
@@ -419,7 +419,7 @@ then
 		#
 		# However, we need to force various packages' inclusion in binary/pool/main as
 		# d-i does not support (for example) re-installing grub from target/ - the grub
-		# .deb must actually exist.
+		# .debs must actually exist.
 
 		# Modify dpkg status to show the required packages are not installed.
 		cp chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
