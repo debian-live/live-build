@@ -51,6 +51,11 @@ Remove_package ()
 		case "${LH_APT}" in
 			apt|apt-get)
 				Chroot "apt-get remove --purge --yes ${PACKAGES}"
+
+				if [ "${LH_DISTRIBUTION}" != "etch" ]
+				then
+					Chroot "apt-get autoremove --purge --yes"
+				fi
 				;;
 
 			aptitude)
