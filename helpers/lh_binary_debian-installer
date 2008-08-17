@@ -567,15 +567,15 @@ then
 		cat ../config/binary_debian-installer/udeb_exclude >> exclude
 	fi
 
-	for EXCLUDE in $(cat exclude)
+	while read EXCLUDE
 	do
 		if [ "${LH_DEBIAN_INSTALLER}" = "live" ] && [ "${EXCLUDE}" = "live-installer" ]
 		then
 			continue
 		fi
 
-		rm -f "${EXCLUDE}"_*.udeb
-	done
+		rm -f ${EXCLUDE}_*.udeb
+	done < exclude
 
 	# Enable live-installer
 	if [ "${LH_DEBIAN_INSTALLER}" = "live" ] && [ "${LH_DEBIAN_INSTALLER_DISTRIBUTION}" != "etch" ]
