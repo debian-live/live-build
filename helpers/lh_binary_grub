@@ -220,27 +220,18 @@ then
 
 	VMLINUZ_DI="install/vmlinuz"
 	INITRD_DI="install/initrd.gz"
-	APPEND_DI="vga=normal"
 
-	VMLINUZ_GI="install/gtk/vmlinuz"
-	INITRD_GI="install/gtk/initrd.gz"
+	APPEND_DI="vga=normal DEBIAN_FRONTEND=newt"
 	APPEND_GI="video=vesa:ywrap,mtrr vga=788"
 
-	if cmp -s ${VMLINUZ_DI} ${VMLINUZ_GI}
-	then
-		# Kernels are identical; we can save space by removing one of them.
-		rm ${VMLINUZ_GI}
-		VMLINUZ_GI="${VMLINUZ_DI}"
-	fi
-
 	Grub_install_entry "install" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
-	Grub_install_entry "installgui" "${VMLINUZ_GI}" "${INITRD_GI}" "${APPEND_GI}"
+	Grub_install_entry "installgui" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_GI}"
 	Grub_install_entry "expert" "${VMLINUZ_DI}" "${INITRD_DI}" "priority=low ${APPEND_DI}"
-	Grub_install_entry "expertgui" "${VMLINUZ_GI}" "${INITRD_GI}" "priority=low ${APPEND_GI}"
+	Grub_install_entry "expertgui" "${VMLINUZ_DI}" "${INITRD_DI}" "priority=low ${APPEND_GI}"
 	Grub_install_entry "rescue" "${VMLINUZ_DI}" "${INITRD_DI}" "rescue/enable=true ${APPEND_DI}"
-	Grub_install_entry "rescuegui" "${VMLINUZ_GI}" "${INITRD_GI}" "rescue/enable=true ${APPEND_GI}"
+	Grub_install_entry "rescuegui" "${VMLINUZ_DI}" "${INITRD_DI}" "rescue/enable=true ${APPEND_GI}"
 	Grub_install_entry "auto" "${VMLINUZ_DI}" "${INITRD_DI}" "auto=true priority=critical ${APPEND_DI}"
-	Grub_install_entry "autogui" "${VMLINUZ_GI}" "${INITRD_GI}" "auto=true priority=critical ${APPEND_GI}"
+	Grub_install_entry "autogui" "${VMLINUZ_DI}" "${INITRD_DI}" "auto=true priority=critical ${APPEND_GI}"
 fi
 
 LINUX_INSTALL="$(/bin/echo ${LINUX_INSTALL} | sed -e 's|binary||g' -e 's|//|/|g')"

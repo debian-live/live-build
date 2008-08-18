@@ -516,21 +516,12 @@ if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
 then
 	VMLINUZ_DI="vmlinuz"
 	INITRD_DI="initrd.gz"
-	APPEND_DI="vga=normal"
 
-	VMLINUZ_GI="gtk/vmlinuz"
-	INITRD_GI="gtk/initrd.gz"
+	APPEND_DI="vga=normal DEBIAN_FRONTEND=newt"
 	APPEND_GI="video=vesa:ywrap,mtrr vga=788"
 
-	if cmp -s ${VMLINUZ_DI} ${VMLINUZ_GI}
-	then
-		# Kernels are identical; we can save space by removing one of them.
-		rm ${VMLINUZ_GI}
-		VMLINUZ_GI="${VMLINUZ_DI}"
-	fi
-
 	Syslinux_install_entry "Text" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
-	Syslinux_install_entry "GUI" "${VMLINUZ_GI}" "${INITRD_GI}" "${APPEND_GI}"
+	Syslinux_install_entry "GUI" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_GI}"
 fi
 
 # Assembling memtest configuration

@@ -234,10 +234,6 @@ VMLINUZ_DI="vmlinuz"
 INITRD_DI="initrd.gz"
 DESTDIR_DI="${DESTDIR}"
 
-VMLINUZ_GI="gtk/vmlinuz"
-INITRD_GI="gtk/initrd.gz"
-DESTDIR_GI="${DESTDIR}/gtk"
-
 # Workaround for syslinux (<< 3.36) which doesn't support long file/path names
 if [ "${LH_DEBIAN_INSTALLER_DISTRIBUTION}" = "etch" ]
 then
@@ -246,10 +242,6 @@ then
 			VMLINUZ_DI="vmlinuz.di"
 			INITRD_DI="initrddi.gz"
 			DESTDIR_DI="${DESTDIR}"
-
-			VMLINUZ_GI="vmlinuz.gi"
-			INITRD_GI="initrdgi.gz"
-			DESTDIR_GI="${DESTDIR}"
 			;;
 	esac
 fi
@@ -340,11 +332,6 @@ then
 	${LH_ROOT_COMMAND} umount mini.tmp
 	rm -rf mini.tmp mini.iso
 else
-	# Downloading debian-installer
-	Download_file "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI_REMOTE_BASE}/${DI_REMOTE_KERNEL}
-	Download_file "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI_REMOTE_BASE}/initrd.gz
-
-	# Downloading graphical-installer
 	DOWNLOAD_GTK_INSTALLER=0
 	case "${LH_ARCHITECTURE}" in
 		amd64|i386)
@@ -360,9 +347,11 @@ else
 
 	if [ ${DOWNLOAD_GTK_INSTALLER} -eq 1 ]
 	then
-		mkdir -p "${DESTDIR_GI}"
-		Download_file "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/${DI_REMOTE_KERNEL}
-		Download_file "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/initrd.gz
+		Download_file "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI_REMOTE_BASE_GTK}/${DI_REMOTE_KERNEL}
+		Download_file "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI_REMOTE_BASE_GTK}/initrd.gz
+	else
+		Download_file "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI_REMOTE_BASE}/${DI_REMOTE_KERNEL}
+		Download_file "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI_REMOTE_BASE}/initrd.gz
 	fi
 fi
 
@@ -662,11 +651,6 @@ Repack_initrd()
 if [ "${DI_IMAGE_TYPE}" = "netboot" ] && [ -e config/binary_debian-installer/preseed.cfg ]
 then
 	Repack_initrd "${DESTDIR}"/"${INITRD_DI}"
-
-	if [ -e "${DESTDIR}"/"${INITRD_GI}" ]
-	then
-		Repack_initrd "${DESTDIR}"/"${INITRD_GI}"
-	fi
 fi
 
 # Saving cache
