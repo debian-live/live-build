@@ -1,3 +1,141 @@
+live-helper (1.0.0-1) unstable; urgency=medium
+
+  [ Antonio Terceiro ]
+  * Sorting functions alphabetically.
+  * Replacing file checking with ls by function calls
+
+  [ Chris Lamb ]
+  * Install loop-aes-utils if we are using encryption.
+  * Support expanding wildcards in udeb excludes.
+  * Remove pointless whitespace.
+  * Only install unionfs-tools under Etch in rescue list.
+  * Correct logic in LH_BOOTAPPEND_INSTALL handling
+  * Removing surrounded braces from LH_BOOTAPPEND_INSTALL - it is expanded by
+    sed, not the shell.
+  * Correcting typo LH_BOOTSTRAP_INSTALL -> LH_BOOTAPPEND_INSTALL in Grub kernel
+    parameters.
+  * Correct bogus path for d-i preseed files.
+  * Don't install lists from chroot_local-packageslists without them being
+    specified in LH_PACKAGES_LISTS (Closes: #490755)
+  * Don't use interpolation to print usage and help as it breaks newlines and
+    tabs.
+  * Remove accidental trailing '"' (quote) package from lh_config usage.
+  * Tidy "install" / "install-binary" handling in lh_chroot_apt.
+  * Add informational comments to generated /etc/apt/preferences stanzas.
+  * Generate Release file for chroot_local-packages when APT_SECURE is disabled.
+  * Prevent (harmless) duplicate entries appearing in /etc/apt/preferences
+  * Remove gettext from Build-Depends (it's already in Build-Depends-Indep).
+  * Correcting aesthetic typo "proces" -> "process".
+  * Add leading space to prevent unnecessary diff when running lh_config
+    repeatedly.
+  * Rename internal LH_BOOTAPPEND_PRESEED variable to _LH_BOOTAPPEND_PRESEED
+  * Ensure the binary image does not inherit the binary stage's APT settings.
+  * Always create stagefile for chroot_install-packages and require it for
+    lh_source
+  * Correct indentation of conditional code.
+  * Clean source.list instead of binary.list when calling lh_clean --source.
+  * Move gettext to Build-Depends-Indep.
+  * Add busybox to DI_PACKAGES as its required to install kernels.
+  * Choose correct d-i install method for "live" and usb-hdd/tar image types.
+  * Don't duplicate .debs of packages in binary/pool that are installed via
+    live-installer.
+  * Create pool/main to prevent build failure when no local .debs are queued for
+    installation.
+  * Don't include the bootstrap .debs on live-installer based disks (saves
+    ~30MiB).
+  * Rework WGET_OPTIONS and use "--no-verbose" by default (just prints the URL).
+  * Fix "lh_config -c". Thanks to Simon Schiele <lists@codingmonkey.de>.
+  * Remove --debian-installer-daily from getopt call.
+  * Update lh_config(1) to match status of
+    LH_DEBIAN_INSTALLER_{DAILY,DISTRIBUTION}.
+  * Fix a bug in chroot_local-packages where packages were upgraded with
+    themselves during lh_binary stages.
+  * Fix bug in LH_DEBIAN_INSTALLER_DISTRIBUTION = "daily" handling.
+  * Disabling call to "update-initramfs" in lh_chroot_hacks.
+  * Always add our apt_preference(5) pinning stanza when using local-packages.
+  * Ensure packages in config/chroot_local-packages override all others.
+  * Test whether to use hard-links when caching d-i downloads.
+  * Print a warning when package caching is disabled but d-i integration is
+    enabled.
+  * Don't install Recommends of d-i packages.
+  * Call "Check_defaults" in lh_build.
+  * Print nicer error message when bootstrap missing from LH_CACHE_STAGES.
+  * Remove 'E:' prefix in call to Echo_error - it gets added later too.
+  * Don't attempt install deprecated helpers/make-live.
+  * Add lh_chroot_local-patches helper to apply local patches against chroot.
+  * Fix cache poisoning issue in lh_binary_debian-installer with 404 downloads
+  * Don't attempt to use live-installer on Etch; it would simply result in no
+    bootstrap method.
+  * Cache d-i kernel, initrd and mini.iso downloads (Closes: #492085)
+  * Wrap most calls to wget in lh_binary_debian-installer.
+  * Add system-config-printer as a replacement to gnome-cups-manager.
+  * Removed "gnome-cups-manager" from package lists as it has been removed from
+    Lenny due to being obsolete. (Closes: #491695)
+
+  [ Daniel Baumann ]
+  * Preserve changed apt settings (pdiffs, recommends, and secure) in binary
+    image (Closes: #494640).
+  * Updating chroot hacks to reflect namechange of the udev persistent rules.
+  * Correcting typo in win32-loader config.
+  * Correcting win32-loader default values.
+  * Moving win32-loader inclusion support from external hook into main program
+    (Closes: #476546).
+  * Adding generic echo function.
+  * Removing currently unused help message in lh_config.
+  * Sorting authors file.
+  * Removing superfluous echo type from echo call.
+  * Correcting escaping of $VERSION in LH_ISO_PREPARER defaults.
+  * Updating po files.
+  * Replacing remaining echo calls with proper echo functions.
+  * Don't expand version in default configuration, but rather use it
+    dynamically.
+  * Moving live-helper defaults file for cron autobuilder from
+    /etc/default/live-helper to /etc/default/live-helper_autobuild in order to
+    not conflict with the system-wide default file for helper configuration.
+  * Adding guessing of the preseeding filename, and way to manually overwrite it
+    (or select it in case of multiple available preseeding files).
+  * Switching chechbashism call to now fail and abort rather than just give a
+    warning if bashishms are detected.
+  * Using $HOST rather than $HOSTNAME to avoid false positive in checkbashisms.
+  * Using signal names rather than signal numbers in trap calls.
+  * Merging debian-installer-daily option into debian-installer-distribution.
+  * Bumping version number to 1.0.0.
+  * Updating credits file.
+  * Only using hardlinks for local-packages when hardlinks are possible.
+  * Removing make-live legacy helper.
+  * Updating debian release information.
+  * Making check for local-patches silent.
+  * Making check for local-includes silent.
+  * Using rfc2606 invalid tld instead of dummy.
+  * Using better suited variable name for live-helpers local key.
+
+  [ Frederic Daniel Luc Lehobey ]
+  * Added po4a support for manpages. Use case: 'make po4a'.
+
+  [ Marco Amadori ]
+  * Removing evms from rescue list, package got removed from debian.
+
+  [ Tiago Bortoletto Vaz ]
+  * Making help.sh and version.sh messages translatable.
+  * Making lh_chroot_interactive and lh_source_usb-hdd messages translatable.
+  * Making lh_binary_usb-hdd messages translatable.
+  * Making usage.sh messages translatable.
+  * Supporting remote preseeding files.
+  * Also allowing multiple preseeding files for netboot.
+  * Allowing to use more than one preseeding file to be on the media.
+  * Adding last modifications in order to have localization fully working in
+    live-helper. This commit goes with some pt_BR translations just for testing.
+    Thanks to Antonio Terceiro for helping and coding in some shell stuff.
+  * Adding the basic infrastructure to provide l10n support for live-helper.
+  * Minor typo fix for encryption parameter in lh_config help message.
+  * Suporting debian-installer distribution choice, which makes possible to
+    build a image using a system-independent debian-installer suite. The config
+    option for this is --debian-installer-distribution CODENAME.
+  * Adding missing debian-installer options in lh_config --help message.
+  * Improving message when using default values in /etc/default/live-helper.
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 24 Aug 2008 00:00:00 +0200
+
 live-helper (1.0~a48-1) unstable; urgency=medium
 
   [ Chris Lamb ]
