@@ -14,6 +14,8 @@ clean:
 	dh_clean
 
 build:
+	$(MAKE) test
+
 	# Updating message catalogs
 	$(MAKE) -C po update-po
 
