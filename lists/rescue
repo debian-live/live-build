@@ -174,7 +174,9 @@ unionfs-tools
 #endif
 xfsdump
 xfsprogs
+#if DISTRIBUTION sid
 btrfs-tools
+#endif
 cryptsetup
 dmraid
 dosfstools
