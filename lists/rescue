@@ -33,7 +33,7 @@ lynx links2 w3m
 # Compression
 bzip2 unace unrar-free unzip zip
 
-#if SECTIONS non-free
+#if CATEGORIES non-free
 rar unrar
 #endif
 

@@ -47,22 +47,22 @@ case "${1}" in
 		Create_lockfile .lock
 
 		# Configure custom sources.list
-		echo "deb ${LH_MIRROR_CHROOT} ${LH_DISTRIBUTION} ${LH_SECTIONS}" > chroot/etc/apt/sources.list
+		echo "deb ${LH_MIRROR_CHROOT} ${LH_DISTRIBUTION} ${LH_CATEGORIES}" > chroot/etc/apt/sources.list
 
 		if [ "${LH_SOURCE}" = "enabled" ]
 		then
-			echo "deb-src ${LH_MIRROR_CHROOT} ${LH_DISTRIBUTION} ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
+			echo "deb-src ${LH_MIRROR_CHROOT} ${LH_DISTRIBUTION} ${LH_CATEGORIES}" >> chroot/etc/apt/sources.list
 		fi
 
 		if [ "${LH_SECURITY}" = "enabled" ]
 		then
 			if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
 			then
-				echo "deb ${LH_MIRROR_CHROOT_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
+				echo "deb ${LH_MIRROR_CHROOT_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_CATEGORIES}" >> chroot/etc/apt/sources.list
 
 				if [ "${LH_SOURCE}" = "enabled" ]
 				then
-					echo "deb-src ${LH_MIRROR_CHROOT_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
+					echo "deb-src ${LH_MIRROR_CHROOT_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_CATEGORIES}" >> chroot/etc/apt/sources.list
 				fi
 			fi
 		fi
@@ -348,22 +348,22 @@ case "${1}" in
 			rm -rf chroot/var/lib/apt/lists
 			mkdir -p chroot/var/lib/apt/lists/partial
 
-			echo "deb ${LH_MIRROR_BINARY} ${LH_DISTRIBUTION} ${LH_SECTIONS}" > chroot/etc/apt/sources.list
+			echo "deb ${LH_MIRROR_BINARY} ${LH_DISTRIBUTION} ${LH_CATEGORIES}" > chroot/etc/apt/sources.list
 
 			if [ "${LH_SOURCE}" = "enabled" ]
 			then
-				echo "deb-src ${LH_MIRROR_BINARY} ${LH_DISTRIBUTION} ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
+				echo "deb-src ${LH_MIRROR_BINARY} ${LH_DISTRIBUTION} ${LH_CATEGORIES}" >> chroot/etc/apt/sources.list
 			fi
 
 			if [ "${LH_SECURITY}" = "enabled" ]
 			then
 				if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
 				then
-					echo "deb ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
+					echo "deb ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_CATEGORIES}" >> chroot/etc/apt/sources.list
 
 					if [ "${LH_SOURCE}" = "enabled" ]
 					then
-						echo "deb-src ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
+						echo "deb-src ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_CATEGORIES}" >> chroot/etc/apt/sources.list
 					fi
 				fi
 			fi

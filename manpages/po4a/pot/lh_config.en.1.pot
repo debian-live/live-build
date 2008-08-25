@@ -504,7 +504,7 @@ msgstr ""
 
 # type: Plain text
 #: lh_config.en.1:148
-msgid "  [B<--sections> I<SECTION>|I<\"SECTIONS\">]"
+msgid "  [B<--categories> I<CATEGORY>|I<\"CATEGORIES\">]"
 msgstr ""
 
 # type: Plain text
@@ -1013,7 +1013,7 @@ msgstr ""
 # type: IP
 #: lh_config.en.1:262
 #, no-wrap
-msgid "B<--sections> I<SECTION>|I<\"SECTIONS\">"
+msgid "B<--categories> I<CATEGORY>|I<\"CATEGORIES\">"
 msgstr ""
 
 # type: IP

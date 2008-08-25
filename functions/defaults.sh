@@ -319,10 +319,10 @@ Set_defaults ()
 		LH_MIRROR_BINARY_SECURITY="http://security.debian.org/"
 	fi
 
-	# Setting sections value
-	if [ -z "${LH_SECTIONS}" ]
+	# Setting categories value
+	if [ -z "${LH_CATEGORIES}" ]
 	then
-		LH_SECTIONS="main"
+		LH_CATEGORIES="main"
 	fi
 
 	## config/chroot

@@ -3,7 +3,7 @@
 # This is a hook for live-helper(7) to install ipw3945 drivers
 # To enable it, copy this hook into your config/chroot_local-hooks directory.
 #
-# Note: This hook requires packages from the contrib and non-free section. Make
+# Note: This hook requires packages from the contrib and non-free category. Make
 # sure you enabled it in your configuration.
 
 # Building kernel module
