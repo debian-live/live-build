@@ -88,6 +88,37 @@ do
 	fi
 done
 
+# Handling chroot excludes
+if [ "${LH_CHROOT_BUILD}" = "enabled" ]
+then
+	if [ -f config/binary_rootfs/excludes ]
+	then
+		cp config/binary_rootfs/excludes chroot/chroot/excludes
+		Chroot chroot/chroot "cat /excludes | xargs rm -rf"
+		rm -f chroot/chroot/excludes
+	fi
+
+	if [ "${LH_DEBIAN_INSTALLER}" != "live" ]
+	then
+		case "${LH_PACKAGES_LISTS}" in
+			stripped|minimal)
+				# kernel images
+				rm -f chroot/chroot/boot/${LINUX}*
+				rm -f chroot/chroot/boot/initrd.img*
+
+				# kernel symlinks
+				rm -f chroot/chroot/${LINUX}*
+				rm -f chroot/chroot/initrd.img*
+				;;
+		esac
+	fi
+else
+	if [ "${LH_CHROOT_FILESYSTEM}" != "squashfs" ]
+	then
+		Echo_warning "rootfs excludes are not supported on non-chrooted builds unless squashfs as chroot filesystem is used, thus ignoring excludes now."
+	fi
+fi
+
 case "${LH_CHROOT_FILESYSTEM}" in
 	ext2|ext3)
 		# Checking depends
@@ -223,15 +254,6 @@ case "${LH_CHROOT_FILESYSTEM}" in
 			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -info"
 		fi
 
-		if [ "${LH_DEBIAN_INSTALLER}" != "live" ]
-		then
-			case "${LH_PACKAGES_LISTS}" in
-				stripped|minimal)
-					MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -e $(ls chroot/boot/${LINUX}* chroot/boot/initrd.img* chroot/${LINUX}* chroot/initrd.img* | sed 's|chroot/||g')"
-					;;
-			esac
-		fi
-
 		if [ -f config/binary_rootfs/squashfs.sort ]
 		then
 			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -sort squashfs.sort"
@@ -249,6 +271,11 @@ case "${LH_CHROOT_FILESYSTEM}" in
 				;;
 
 			disabled)
+				if [ -f config/binary_rootfs/excludes ]
+				then
+					MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -ef config/binary_rootfs/excludes"
+				fi
+
 				mksquashfs chroot binary/${INITFS}/filesystem.squashfs ${MKSQUASHFS_OPTIONS}
 				;;
 		esac
