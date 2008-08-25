@@ -18,7 +18,7 @@ Check_package ()
 
 	case "${INSTALL_STATUS}" in
 		1)
-			PACKAGES="${PACKAGES} ${PACKAGE}"
+			_LH_PACKAGES="${_LH_PACKAGES} ${PACKAGE}"
 			;;
 
 		2)
@@ -30,15 +30,15 @@ Check_package ()
 
 Install_package ()
 {
-	if [ -n "${PACKAGES}" ] && [ "${LH_CHROOT_BUILD}" != "disabled" ]
+	if [ -n "${_LH_PACKAGES}" ] && [ "${LH_CHROOT_BUILD}" != "disabled" ]
 	then
 		case "${LH_APT}" in
 			apt|apt-get)
-				Chroot "apt-get install -o APT::Install-Recommends=false --yes ${PACKAGES}"
+				Chroot "apt-get install -o APT::Install-Recommends=false --yes ${_LH_PACKAGES}"
 				;;
 
 			aptitude)
-				Chroot "aptitude install --without-recommends --assume-yes ${PACKAGES}"
+				Chroot "aptitude install --without-recommends --assume-yes ${_LH_PACKAGES}"
 				;;
 		esac
 	fi
@@ -46,15 +46,15 @@ Install_package ()
 
 Remove_package ()
 {
-	if [ -n "${PACKAGES}" ] && [ "${LH_CHROOT_BUILD}" != "disabled" ]
+	if [ -n "${_LH_PACKAGES}" ] && [ "${LH_CHROOT_BUILD}" != "disabled" ]
 	then
 		case "${LH_APT}" in
 			apt|apt-get)
-				Chroot "apt-get remove --purge --yes ${PACKAGES}"
+				Chroot "apt-get remove --purge --yes ${_LH_PACKAGES}"
 				;;
 
 			aptitude)
-				Chroot "aptitude purge --assume-yes ${PACKAGES}"
+				Chroot "aptitude purge --assume-yes ${_LH_PACKAGES}"
 				;;
 		esac
 	fi
