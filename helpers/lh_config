@@ -119,7 +119,26 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 
 Local_arguments ()
 {
-	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-options:,aptitute-options:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,mirror-binary-security:,categories:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,net-cow-server:,net-tarball:,syslinux-splash:,syslinux-timeout:,syslinux-menu:,username:,win32-loader:,source:,source-images:,breakpoints,conffile:,debug,force,help,ignore-system-defaults,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
+	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-options:,aptitute-options:,
+		apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,
+		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,
+		initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,
+		templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,
+		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,
+		mirror-binary-security:,categories:,chroot-filesystem:,union-filesystem:,exposed-root:,
+		hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
+		packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,
+		binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,
+		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,
+		encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,
+		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
+		net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,
+		net-cow-server:,net-tarball:,syslinux-splash:,syslinux-timeout:,syslinux-menu:,
+		username:,win32-loader:,source:,source-images:,breakpoints,conffile:,debug,force,
+		help,ignore-system-defaults,quiet,usage,verbose,version"
+	# Remove spaces added by indentation
+	LONG_OPTIONS="$(echo ${LONG_OPTIONS} | tr -d ' ')"
+	ARGUMENTS="$(getopt --longoptions ${LONG_OPTIONS} --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
 
 	if [ "${?}" != "0" ]
 	then
