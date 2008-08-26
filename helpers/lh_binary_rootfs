@@ -273,7 +273,20 @@ case "${LH_CHROOT_FILESYSTEM}" in
 			disabled)
 				if [ -f config/binary_rootfs/excludes ]
 				then
-					MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -ef config/binary_rootfs/excludes"
+					case "${LH_DISTRIBUTION}" in
+						etch)
+							MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -ef config/binary_rootfs/excludes"
+
+							if grep '*' config/binary_rootfs/excludes > /dev/null
+							then
+								Echo_warning "etch squashfs does not support wildcard excludes in config/binary_rootfs/excludes and are ignored. Please build in chrooted mode or adjust your exclude file."
+							fi
+							;;
+
+						lenny|sid)
+							MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -wildcards -ef config/binary_rootfs/excludes"
+							;;
+					esac
 				fi
 
 				mksquashfs chroot binary/${INITFS}/filesystem.squashfs ${MKSQUASHFS_OPTIONS}
