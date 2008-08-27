@@ -43,7 +43,7 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Removing udev mac caching rule
-Chroot "rm -f /etc/udev/rules.d/*persistent-net.rules"
+rm -f chroot/etc/udev/rules.d/*persistent-net.rules
 
 case "${LH_BINARY_IMAGES}" in
 	net)
