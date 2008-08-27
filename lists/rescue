@@ -3,6 +3,25 @@
 ## LH: Rescue
 #include <standard>
 
+# Debian Forensics
+# http://qa.debian.org/developer.php?login=forensics-devel@lists.alioth.debian.org
+# if DISTRIBUTION sid
+ext3grep
+#endif
+# if DISTRIBUTION lenny
+galleta
+grokevt
+memdump
+missidentify
+myrescue
+pasco
+reglookup
+scrounge-ntfs
+ssdeep
+tableau-parm
+#endif
+wipe
+
 # System
 gnupg dash discover gawk grub htop lilo ltrace screen strace units
 
@@ -164,7 +183,6 @@ netselect
 
 # FS tools
 reiserfsprogs
-scrounge-ntfs
 squashfs-tools
 sshfs
 sysfsutils
