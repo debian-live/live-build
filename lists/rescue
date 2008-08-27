@@ -50,7 +50,7 @@ sysutils
 lynx links2 w3m
 
 # Compression
-bzip2 unace unrar-free unzip zip
+arj bzip2 lzma p7zip-full unace unrar-free unzip zip
 
 #if CATEGORIES non-free
 rar unrar
@@ -128,6 +128,7 @@ ifstat
 iftop
 ipgrab
 iptstate
+iptraf
 lft
 nast
 nbtscan
@@ -232,3 +233,7 @@ wireless-tools
 aide
 tripwire
 sleuthkit
+
+rsync
+ncftp
+rpm
