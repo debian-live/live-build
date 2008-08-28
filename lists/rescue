@@ -23,7 +23,7 @@ tableau-parm
 wipe
 
 # System
-gnupg dash discover gawk grub htop lilo ltrace screen strace units
+gnupg dash discover gawk grub htop less lilo ltrace psmisc screen strace units
 
 #if ARCHITECTURE i386
 pstack
