@@ -94,7 +94,7 @@ then
 	if [ -f config/binary_rootfs/excludes ]
 	then
 		cp config/binary_rootfs/excludes chroot/chroot/excludes
-		Chroot chroot/chroot "cat /excludes | xargs rm -rf"
+		chroot chroot/chroot /usr/bin/env -i xargs --arg-file=/excludes rm -rf
 		rm -f chroot/chroot/excludes
 	fi
 
