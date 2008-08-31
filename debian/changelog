@@ -1,3 +1,38 @@
+live-helper (1.0.0-2) unstable; urgency=medium
+
+  [ Daniel Baumann ]
+  * Adding nilfs2-tools to rescue list.
+  * Including btrfs-tools in rescue list only when building sid.
+  * Using internal prefix for PACKAGES variable in function/packages.sh
+    (Closes: #468900).
+  * Improving check for a mounted chroot/dev/pts to cover all terminals, not
+    just the 0th (Closes: #459697, #459779).
+  * Renaming sections to categories in order to use the same names as Debian
+    Policy does (Closes: #483777).
+  * Since #433076 is fixed in live-initramfs, we only need to adjust owner of
+    the live-user when using casper for etch builds.
+  * Moving the automatic run of the script tests to package build-time
+    invokation.
+  * Introducing config/binary_rootfs/excludes as a generic way to exclude files
+    manually from the binary image.
+  * Passing -wildcards to mksquashfs call when having excludes, thanks to
+    Phillip Lougher <phillip@lougher.demon.co.uk>.
+  * Adding Debian Forensics packages to rescue list.
+  * Replacing Chroot(); call for removing the udev persistent-net rules with a
+    direct rm call to avoid beeing expanded by the shell based on the build
+    systems files.
+  * Adding some more packages to the rescue list.
+  * Adding some more packages to the rescue list again.
+  * Setting project email address to the new debian-live@lists.debian.org.
+  * Adding lsusb to rescue list.
+  * Correcting chroot call to process config/binary_rootfs/excludes in chrooted
+    builds.
+
+  [ Marco Amadori ]
+  * Fixed 2 typos in getopt longoptions string.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon,  1 Sep 2008 00:00:00 +0200
+
 live-helper (1.0.0-1) unstable; urgency=medium
 
   [ Antonio Terceiro ]
