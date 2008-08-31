@@ -237,8 +237,18 @@ Set_defaults ()
 		then
 			LH_ARCHITECTURE="$(dpkg --print-architecture)"
 		else
-			Echo_warning "Can't process file /usr/bin/dpkg, setting architecture to i386"
-			LH_ARCHITECTURE="i386"
+			case "$(uname -m)" in
+				sparc|powerpc)
+					LH_ARCHITECTURE="$(uname -m)"
+					;;
+				x86_64)
+					LH_ARCHITECTURE="amd64"
+					;;
+				*)
+					Echo_warning "Can't determine architecture, assuming i386"
+					LH_ARCHITECTURE="i386"
+					;;
+			esac
 		fi
 	fi
 
