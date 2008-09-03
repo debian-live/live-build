@@ -103,6 +103,15 @@ case "${1}" in
 
 			if Find_files chroot/root/local-packages/*.deb
 			then
+				# If we bootstrapped a minimal chroot, we need
+				# to install apt-utils before we have have
+				# completed all the indices.
+				case "${LH_PACKAGES_LISTS}" in
+					stripped|minimal)
+						Chroot "apt-get update"
+						;;
+				esac
+
 				# Restoring cache
 				Restore_cache cache/packages_chroot
 
