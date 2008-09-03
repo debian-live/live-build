@@ -9,7 +9,6 @@ Standards-Version: 3.8.0
 Homepage: http://debian-live.alioth.debian.org/
 Vcs-Browser: http://git.debian.net/?p=live-helper.git
 Vcs-Git: git://git.debian.net/git/live-helper.git
-XS-Upstream-Depends: git-core
 
 Package: live-helper
 Architecture: all
