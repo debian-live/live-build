@@ -36,7 +36,7 @@ aview mc nano-tiny qemacs-nox mg vim wdiff hexedit
 dvd+rw-tools genisoimage sdparm hdparm blktool parted partimage secure-delete scsitools smartmontools testdisk wodim wipe hddtemp
 
 # System
-dmidecode lshw lsusb pciutils procinfo usbutils mcelog
+dmidecode lshw pciutils procinfo usbutils mcelog
 
 #if ARCHITECTURE i386 powerpc
 read-edid
@@ -110,7 +110,9 @@ iputils-tracepath
 mrt
 mtr-tiny
 tcptraceroute
+#if DISTRIBUTION etch
 traceproto
+#endif
 traceroute
 spinner
 
@@ -167,6 +169,7 @@ ngrep
 p0f
 packit
 paketto
+python-scapy
 sing
 xprobe
 
@@ -233,6 +236,7 @@ wireless-tools
 aide
 tripwire
 sleuthkit
+autopsy
 
 rsync
 ncftp
