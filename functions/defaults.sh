@@ -391,7 +391,15 @@ Set_defaults ()
 				;;
 
 			i386)
-				LH_LINUX_FLAVOURS="486 686"
+				case "${LIST}" in
+					stripped|minimal)
+						LH_LINUX_FLAVOURS="486"
+						;;
+
+					*)
+						LH_LINUX_FLAVOURS="486 686"
+						;;
+				esac
 				;;
 
 			ia64)
@@ -404,7 +412,15 @@ Set_defaults ()
 				;;
 
 			powerpc)
-				LH_LINUX_FLAVOURS="powerpc powerpc64"
+				case "${LIST}" in
+					stripped|minimal)
+						LH_LINUX_FLAVOURS="powerpc"
+						;;
+
+					*)
+						LH_LINUX_FLAVOURS="powerpc powerpc64"
+						;;
+				esac
 				;;
 
 			s390)
