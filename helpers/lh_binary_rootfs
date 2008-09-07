@@ -137,7 +137,8 @@ case "${LH_CHROOT_FILESYSTEM}" in
 		fi
 
 		DU_DIM="$(du -ks chroot/chroot | cut -f1)"
-		REAL_DIM="$(expr ${DU_DIM} + ${DU_DIM} / 20)" # Just 5% more to be sure, need something more sophistcated here...
+		REAL_DIM="$(Calculate_partition_size ${DU_DIM} ${LH_CHROOT_FILESYSTEM})"
+
 		if [ "${LH_DISTRIBUTION}" = "etch" ]
 		then
 			RESERVED_PERCENTAGE="--reserved-blocks"
