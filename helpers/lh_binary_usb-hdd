@@ -195,7 +195,7 @@ esac
 
 mkdir -p chroot/binary.tmp
 ${LH_ROOT_COMMAND} mount ${FREELO} chroot/binary.tmp
-cp -r ${CP_OPTIONS} binary/* chroot/binary.tmp
+cp -r -T ${CP_OPTIONS} binary/ chroot/binary.tmp
 
 FIXME()
 {
