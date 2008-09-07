@@ -785,4 +785,16 @@ Check_defaults ()
 			Echo_warning "are re-used when integrating the Debian Installer."
 		fi
 	fi
+
+	if [ "${LH_BOOTLOADER}" = "syslinux" ]
+	then
+		case "${LH_BINARY_FILESYSTEM}" in
+			fat*)
+				;;
+			*)
+				Echo_warning "You have selected values of LH_BOOTLOADER and LH_BINARY_FILESYSTEM"
+				Echo_warning "which are incompatible - syslinux only supports FAT filesystems."
+				;;
+		esac
+	fi
 }
