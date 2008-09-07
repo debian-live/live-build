@@ -7,8 +7,8 @@ Build-Depends: debhelper (>= 5)
 Build-Depends-Indep: gettext
 Standards-Version: 3.8.0
 Homepage: http://debian-live.alioth.debian.org/
-Vcs-Browser: http://git.debian.net/?p=live-helper.git
-Vcs-Git: git://git.debian.net/git/live-helper.git
+Vcs-Browser: http://git.debian.net/?p=debian-live/live-helper.git
+Vcs-Git: git://git.debian.net/git/debian-live/live-helper.git
 
 Package: live-helper
 Architecture: all
