@@ -120,7 +120,7 @@ Syslinux_live_entry ()
 	LINUX_LIVE="${LINUX_LIVE}\nLABEL ${LABEL}failsafe\n"
 
 	# Write the menu label if the syslinux menu is being use
-	LINUX_LIVE="${LINUX_LIVE}\tMENU LABEL ${MENULABEL} Failsafe\n"
+	LINUX_LIVE="${LINUX_LIVE}\tMENU LABEL ${MENULABEL} (fail-safe mode)\n"
 	LINUX_LIVE="${LINUX_LIVE}\tkernel ${LIVE_KERNEL_PATH}/${KERNEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=${LIVE_KERNEL_PATH}/${INITRD} boot=${INITFS} ${LH_BOOTAPPEND_LIVE} ${APPEND} ${FAILSAFE}\n"
 }
