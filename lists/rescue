@@ -22,6 +22,11 @@ tableau-parm
 #endif
 wipe
 
+# Other forensic packages
+#if DISTRIBUTION lenny sid
+scalpel
+#endif
+
 # System
 gnupg dash discover gawk grub htop less lilo ltrace psmisc screen strace units
 tcsh
