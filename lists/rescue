@@ -37,7 +37,7 @@ syslinux-common
 #endif
 #if ARCHITECTURE i386
 pstack
-grub-pc syslinux mbr
+syslinux mbr
 #endif
 
 # Editors
@@ -116,7 +116,6 @@ strongswan
 sipcalc
 socat
 ssh
-telnet
 telnet-ssl
 whois
 irssi
