@@ -163,7 +163,11 @@ parprouted
 
 # Special hardware
 br2684ctl
-madwifi
+
+#if CATEGORIES non-free
+madwifi-source
+madwifi-tools
+#endif
 
 # Routing
 cutter
