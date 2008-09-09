@@ -83,7 +83,7 @@ b43-fwcutter bcm43xx-fwcutter
 #endif
 
 # Backup
-dar gddrescue dump dd_rescue
+dar gddrescue dump ddrescue
 mt-st
 afio dar duplicity tob
 
