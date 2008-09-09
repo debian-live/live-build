@@ -24,19 +24,28 @@ wipe
 
 # System
 gnupg dash discover gawk grub htop less lilo ltrace psmisc screen strace units
+tcsh
+vlock
 
 #if ARCHITECTURE i386
 pstack
+grub-pc syslinux mbr
 #endif
 
 # Editors
-aview mc nano-tiny qemacs-nox mg vim wdiff hexedit
+aview mc nano-tiny mg vim wdiff hexedit nvi tweak
 
 # Harddisk
 dvd+rw-tools genisoimage sdparm hdparm blktool parted partimage secure-delete scsitools smartmontools testdisk wodim wipe hddtemp
+par2 dvd+rw-tools
+
+# for /usr/bin/summer:
+chiark-utils-bin
 
 # System
 dmidecode lshw pciutils procinfo usbutils mcelog
+sysstat
+cpuburn stress
 
 #if ARCHITECTURE i386 powerpc
 read-edid
@@ -50,14 +59,29 @@ sysutils
 lynx links2 w3m
 
 # Compression
-arj bzip2 lzma p7zip-full unace unrar-free unzip zip
+arj bzip2 lzma p7zip-full unace unrar-free unzip zip lzop ncompress
+unace pax
 
 #if CATEGORIES non-free
 rar unrar
+sl-lmodem-daemon
+atmel-firmware linux-wlan-ng-firmware firmware-ralink bluez-firmware
+libertas-firmware firmware-iwlwifi zd1211-firmware
+firmware-qlogic firmware-bnx2
+
+# These two are from contrib but the idea is the same: non-free firmware.
+b43-fwcutter bcm43xx-fwcutter
+
 #endif
 
 # Backup
-dar gddrescue dump
+dar gddrescue dump dd_rescue
+mt-st
+afio dar duplicity tob
+
+# File comparison
+rdiff rdiff-backup rsnapshot
+colordiff
 
 # General
 chrootuid
@@ -73,16 +97,30 @@ ipcalc
 mailx
 mii-diag
 minicom
+gkermit
 netcat
 netcat6
 netmask
 openntpd
 openssl
 openvpn
+strongswan
 sipcalc
 socat
 ssh
 telnet
+telnet-ssl
+whois
+irssi
+debootstrap
+pv
+manpages
+
+acl
+symlinks
+
+# for hexdump if nothing else:
+bsdmainutils
 
 # Firewalling
 denyhosts
@@ -97,10 +135,27 @@ zorp
 reaim
 #endif
 
+# Essential networking
+netbase
+rdate
+ntpdate
+msntp
+dhcp3-client
+ppp
+pppconfig
+pppoe
+pppoeconf
+atm-tools
+ipppd
+
 # Bridging
 bridge-utils
 ebtables
 parprouted
+
+# Special hardware
+br2684ctl
+madwifi
 
 # Routing
 cutter
@@ -173,17 +228,20 @@ python-scapy
 sing
 xprobe
 
-# Log Analizers
+# Log Analysers
 fwanalog
 fwlogwatch
 lwatch
 multitail
 
-# Net Analizers
+# Net Analysers
 httping
 arping
 dnstracer
 netselect
+dnsutils
+adns-tools
+fping
 
 # FS tools
 reiserfsprogs
@@ -201,7 +259,6 @@ btrfs-tools
 #endif
 cryptsetup
 dmraid
-dosfstools
 e2fsprogs
 fuse-utils
 hfsplus
@@ -216,14 +273,24 @@ nilfs2-tools
 ntfs-3g
 ntfsprogs
 reiser4progs
+dmsetup
+cryptsetup
+
+# Forensics
+foremost
+magicrescue
+sleuthkit
+
+# Tools for managing M$ and its ilk
+dosfstools mscompress chntpw pptpd pptp-linux
 
 # unsorted
 hwinfo x86info cpuid
 tofrodos rpncalc
 hal
 dc
+bc
 rlwrap
-posh
 chkrootkit
 
 rkhunter
@@ -237,7 +304,28 @@ aide
 tripwire
 sleuthkit
 autopsy
+pwgen
 
 rsync
 ncftp
 rpm
+curl
+wget
+lftp
+net-tools
+
+expect
+
+# Network servers:
+thttpd
+dhcp3-server
+hostap-utils
+hostapd
+
+# Flab
+emacs22-nox
+build-essential
+
+#if ARCHITECTURE i386
+bin86
+#endif
