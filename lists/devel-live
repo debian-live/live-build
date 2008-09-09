@@ -23,7 +23,7 @@ dhcp3-server nfs-kernel-server tftp-hpa
 apache2
 
 # some other stuff
-vim less screen gnupg
+vim less screen gnupg dash posh
 
 # build
 build-essential debhelper dh-make lintian fakeroot devscripts wdiff
