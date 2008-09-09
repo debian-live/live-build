@@ -5,10 +5,10 @@
 
 # Debian Forensics
 # http://qa.debian.org/developer.php?login=forensics-devel@lists.alioth.debian.org
-# if DISTRIBUTION sid
+#if DISTRIBUTION sid
 ext3grep
 #endif
-# if DISTRIBUTION lenny
+#if DISTRIBUTION lenny
 galleta
 grokevt
 memdump
