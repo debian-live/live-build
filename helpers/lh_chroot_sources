@@ -297,7 +297,7 @@ case "${1}" in
 			# Installing keyring packages
 			if [ -n "${LH_KEYRING_PACKAGES}" ]
 			then
-				Apt --force-yes install "${LH_KEYRING_PACKAGES}"
+				Chroot "apt-get --force-yes install ${LH_KEYRING_PACKAGES}"
 				Apt update
 			fi
 
