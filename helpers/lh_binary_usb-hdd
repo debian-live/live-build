@@ -89,6 +89,15 @@ then
 	rm -f binary.img
 fi
 
+# Enforce fat32 if we find individual files bigger than 2GB
+if [ "${LH_BINARY_FILESYSTEM}" = "fat16" ] && [ -n "$(find binary -size +1999M)" ]
+then
+	Echo_warning "FAT16 doesn't support files larger than 2GB, automatically enforcing FAT32."
+
+	LH_BINARY_FILESYSTEM="fat32"
+	export LH_BINARY_FILESYSTEM
+fi
+
 # Everything which comes here needs to be cleaned up,
 DU_DIM="$(du -ms binary | cut -f1)"
 REAL_DIM="$(Calculate_partition_size ${DU_DIM} ${LH_BINARY_FILESYSTEM})"
