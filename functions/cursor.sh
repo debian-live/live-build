@@ -9,13 +9,25 @@
 
 set -e
 
-Cursor_position ()
+Cursor_goto_position ()
 {
 	__LINE="${1}"
 	__COLUMN="${2}"
 
 	#echo -e "[${__LINE};${__COLUMN};H\c"
 	printf "[${__LINE};${__COLUMN};H"
+}
+
+Cursor_save_position ()
+{
+	#echo -e "[s\c"
+	printf "[s"
+}
+
+Cursor_restore_position ()
+{
+	#echo -e "[u\c"
+	printf "[u"
 }
 
 Cursor_line_up ()
@@ -48,4 +60,16 @@ Cursor_columns_backward ()
 
 	#echo -e "[${__COLUMNS}D\c"
 	printf "[${__COLUMNS}D"
+}
+
+Cursor_clear_screen ()
+{
+	#echo -e "[2J\c"
+	printf "[2J"
+}
+
+Cursor_erase_EOL ()
+{
+	#echo -e "[K\c"
+	printf "[K"
 }
