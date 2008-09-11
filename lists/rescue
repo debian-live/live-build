@@ -32,7 +32,7 @@ gnupg dash discover gawk grub htop less lilo ltrace psmisc screen strace units
 tcsh
 vlock
 
-#if DISTRIBUTION sid
+#if DISTRIBUTION lenny sid
 syslinux-common
 #endif
 #if ARCHITECTURE i386
