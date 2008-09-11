@@ -99,7 +99,7 @@ then
 fi
 
 # Enforce fat32 if we have images in total bigger than 2GB
-if [ "${LH_BINARY_FILESYSTEM}" = "fat16" ] && [ "$(cd binary && du -s | awk '{ print $1 }')" -gt "1900000" ]
+if [ "${LH_BINARY_FILESYSTEM}" = "fat16" ] && [ "$(du -s binary | awk '{ print $1 }')" -gt "1900000" ]
 then
 	Echo_warning "FAT16 doesn't support partitions larger than 2GB, automatically enforcing FAT32"
 
