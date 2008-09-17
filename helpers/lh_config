@@ -1136,6 +1136,8 @@ LH_SOURCE="${LH_SOURCE}"
 LH_SOURCE_IMAGES="${LH_SOURCE_IMAGES}"
 EOF
 
+mkdir -p scripts
+
 if [ "${CONFIG}" = "clone" ] # FIXME
 then
 	# Read package selection
