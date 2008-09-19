@@ -1,3 +1,76 @@
+live-helper (1.0.1-1) unstable; urgency=medium
+
+  [ Chris Lamb ]
+  * Improve architecture auto-detection.
+  * mksquashfs in Lenny supports -no-progress, so remove (broken) check.
+  * Standardise on appending " (fail-safe mode)" for all bootloaders.
+  * Use cp's "-T" option instead of shell globbing to ensure dotfiles in the
+    binary image's / are copied.
+  * Add "/.disk" metadata on usb-hdd images.
+  * Unmount chroot/dev.tmp/pts filestems created by lh_binary_usb-hdd in
+    lh_clean.
+  * Additionally unmount chroot/binary.tmp in lh_clean --chroot.
+  * Refactor partition size calculation, ensuring a uniform increase for ext
+    partitions.
+  * Warn when using syslinux with a non-FAT LH_BINARY_FILESYSTEM.
+  * Use tar to perform lh_bootstrap_copy (Closes: #498385)
+  * Add silo to sparc source package selection.
+  * Correcting package name "dd_rescue" -> "ddrescue".
+  * Correcting package names for "madwifi", only installing if non-free
+    selected.
+  * Removing packages from rescue list where they 'Conflict:' with each other.
+  * Fix handling of --version and getopt program name.
+
+  [ Daniel Baumann ]
+  * Adding support for squeeze (lenny+1).
+  * Don't install more than one kernel image when building minimal or stripped
+    images.
+  * Removing currently unused Upstream-Depends field in control.
+  * Making gettext depends unversioned.
+  * Fixing a chicken-egg problem with package indices when using
+    minimal/stripped list *and* including local-packages.
+  * Adding color functions for future usage.
+  * Adding cursor functions for future usage.
+  * Updating vcs fields in control file.
+  * Applying patch from Ian Jackson <ian@davenant.greenend.org.uk> to update
+    package selection of the rescue list.
+  * Removing unsupported, unmaintained and unused knoppix package lists.
+  * Adding syslinux-common to rescue list.
+  * Adding scalpel to rescue list as suggested by Mathieu Geli
+    <mathieu.geli@gmail.com>.
+  * Correcting typo with if/endif statements in the rescue list.
+  * Removing alsa-oss from standard-x11 package list, this should not really be
+    in a default list.
+  * Adding posh and dash to devel-live packages list.
+  * Not including syslinux-common on lenny just yet, it still neds 1.5 days to
+    migrate.
+  * Adding rescue flavour to autobuild images.
+  * Always using apt to install keyring packages (Closes: #498531).
+  * Correcting wrong logic in lh_cleans check for beeing in the config directory
+    or not (in order to prevent accidental cleaning by the user).
+  * Automatically enforcing fat32 on usb-hdd when detecting files bigger than
+    2GB.
+  * Automatically enforcing fat32 on usb-hdd when detecting partitions bigger
+    than 2GB.
+  * Simplyfing partition size check when enforcing fat32.
+  * Removing example hook for qemu-launcher, this is now in the archive as
+    autorun4linuxcd package.
+  * Adding example hook to update initramfs.
+  * Updating cursor.sh with additional functions.
+  * Re-including syslinux-common for lenny in the rescue list.
+  * Adding lxde list, thanks to Kam Salisbury <kam@kamsalisbury.com>.
+  * Adding moreutils to rescue list.
+  * Adding scripts directory to to include custom helper scripts.
+  * Removing sbm, not needed anymore.
+
+  [ Mathieu Geli ]
+  * Correcting some little glitches building with the rescue list.
+
+  [ Marco Amadori ]
+  * Splitted "longoptions" in various lines.
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 19 Sep 2008 14:00:00 +0200
+
 live-helper (1.0.0-2) unstable; urgency=medium
 
   [ Daniel Baumann ]
