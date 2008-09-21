@@ -28,6 +28,7 @@ Expand_packagelist ()
 			if [ -e "${_LH_SEARCH_PATH}/${_LH_LIST_NAME}" ]
 			then
 				_LH_LIST_LOCATION="${_LH_SEARCH_PATH}/${_LH_LIST_NAME}"
+				break
 			fi
 		done
 
