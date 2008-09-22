@@ -57,6 +57,11 @@ fi
 mkdir -p source/debian-live
 cp -a config source/debian-live
 
+if Find_files scripts/*
+then
+	cp -a scripts source/debian-live
+fi
+
 # Create tarball
 cd source
 
