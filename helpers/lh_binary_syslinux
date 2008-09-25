@@ -488,7 +488,11 @@ if [ "binary/${INITFS}" != "${KERNEL_PATH}" ]
 then
 	mv binary/${INITFS}/vmlinuz* ${KERNEL_PATH}
 	mv binary/${INITFS}/initrd* ${KERNEL_PATH}
-	mv binary/${INITFS}/memtest ${KERNEL_PATH}
+
+	if [ "${LH_MEMTEST}" != "disabled" ] && [ "${LH_MEMTEST}" != "none" ]
+	then
+		mv binary/${INITFS}/memtest ${KERNEL_PATH}
+	fi
 fi
 
 # Default entries
