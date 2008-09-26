@@ -79,7 +79,10 @@ libertas-firmware firmware-iwlwifi zd1211-firmware
 firmware-qlogic firmware-bnx2
 
 # These two are from contrib but the idea is the same: non-free firmware.
-b43-fwcutter bcm43xx-fwcutter
+b43-fwcutter
+#if DISTRIBUTION etch
+bcm43xx-fwcutter
+#endif
 
 #endif
 
