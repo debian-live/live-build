@@ -73,7 +73,7 @@ unace pax
 
 #if CATEGORIES non-free
 rar unrar
-sl-lmodem-daemon
+sl-modem-daemon
 atmel-firmware linux-wlan-ng-firmware firmware-ralink bluez-firmware
 libertas-firmware firmware-iwlwifi zd1211-firmware
 firmware-qlogic firmware-bnx2
