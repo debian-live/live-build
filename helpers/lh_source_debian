@@ -88,7 +88,12 @@ EOF
 		;;
 
 	sparc)
-		echo "silo" >> source-selection.txt
+
+cat >> source-selection.txt << EOF
+silo
+sparc-utils
+EOF
+
 		;;
 esac
 
