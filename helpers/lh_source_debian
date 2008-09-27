@@ -92,7 +92,31 @@ EOF
 		;;
 esac
 
-Chroot "xargs --arg-file=/root/dpkg-selection.txt apt-get ${APT_OPTIONS} --download-only source"
+MISSING=""
+
+grep . chroot/root/dpkg-selection.txt | \
+while read PACKAGE
+do
+	if ! Chroot "apt-get ${APT_OPTIONS} --download-only source ${PACKAGE}"
+	then
+		MISSING="${MISSING} ${PACKAGE}"
+	fi
+done
+
+if [ -n "${MISSING}" ]
+then
+	cat > source/missing-source.txt << EOF
+This file contains the list of binary packages that are installed on this live
+system that do not have a corresponding source package.
+
+EOF
+
+	for PACKAGE in ${MISSING}
+	do
+		Chroot "dpkg -l ${PACKAGE}" | tail -n1 >> source/missing-source.txt
+	done
+fi
+
 rm -f chroot/root/dpkg-selection.txt
 
 # Sort sources
