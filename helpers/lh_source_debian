@@ -87,7 +87,7 @@ EOF
 		echo "yaboot" >> source-selection.txt
 		;;
 
-	silo)
+	sparc)
 		echo "silo" >> source-selection.txt
 		;;
 esac
