@@ -92,6 +92,11 @@ EOF
 		;;
 esac
 
+if [ -n "${LH_TASKS}" ]
+then
+	echo "${LH_TASKSEL}" >> source-selection.txt
+fi
+
 MISSING=""
 
 grep . source-selection.txt | \
