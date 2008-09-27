@@ -54,9 +54,9 @@ then
 fi
 
 # Download sources
-Chroot "dpkg --get-selections" | awk '{ print $1 }' > chroot/root/dpkg-selection.txt
+Chroot "dpkg --get-selections" | awk '{ print $1 }' > source-selection.txt
 
-cat >> chroot/root/dpkg-selection.txt << EOF
+cat >> source-selection.txt << EOF
 ${LH_BOOTLOADER}
 live-helper
 ${LH_INITRAMFS}
@@ -71,7 +71,7 @@ EOF
 case "${LH_ARCHITECTURE}" in
 	amd64|i386)
 
-cat >> chroot/root/dpkg-selection.txt << EOF
+cat >> source-selection.txt << EOF
 mtools
 syslinux
 grub
@@ -79,22 +79,22 @@ EOF
 
 		if [ "${LH_MEMTEST}" != "disabled" ] && [ "${LH_MEMTEST}" != "none" ]
 		then
-			echo "${LH_MEMTEST}" >> chroot/root/dpkg-selection.txt
+			echo "${LH_MEMTEST}" >> source-selection.txt
 		fi
 		;;
 
 	powerpc)
-		echo "yaboot" >> chroot/root/dpkg-selection.txt
+		echo "yaboot" >> source-selection.txt
 		;;
 
 	silo)
-		echo "silo" >> chroot/root/dpkg-selection.txt
+		echo "silo" >> source-selection.txt
 		;;
 esac
 
 MISSING=""
 
-grep . chroot/root/dpkg-selection.txt | \
+grep . source-selection.txt | \
 while read PACKAGE
 do
 	if ! Chroot "apt-get ${APT_OPTIONS} --download-only source ${PACKAGE}"
@@ -117,7 +117,7 @@ EOF
 	done
 fi
 
-rm -f chroot/root/dpkg-selection.txt
+rm -f source-selection.txt
 
 # Sort sources
 for DSC in chroot/*.dsc
