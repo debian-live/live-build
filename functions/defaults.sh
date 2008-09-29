@@ -164,7 +164,7 @@ Set_defaults ()
 	fi
 
 	# Setting losetup
-	if [ -z "${LH_LOSETUP}" ]
+	if [ -z "${LH_LOSETUP}" ] || [ ! -x /sbin/${LH_LOSETUP} ]
 	then
 		# Workaround for loop-aes-utils divertion
 		# (loop-aes-utils' losetup lacks features).
