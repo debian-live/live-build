@@ -40,7 +40,7 @@ Check_crossarchitecture ()
 	fi
 
 	case "${HOST}" in
-		amd64|i386)
+		amd64|i386|x86_64)
 			CROSS="amd64 i386"
 			;;
 
