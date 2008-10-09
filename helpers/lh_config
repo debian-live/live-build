@@ -36,7 +36,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--bootappend-install PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootappend-live PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootloader grub|syslinux|yaboot]\n\
-\t    [--bootstrap cdebootstrap|debootstrap]\n\
+\t    [--bootstrap cdebootstrap|debootstrap|copy]\n\
 \t    [--bootstrap-config FILE]\n\
 \t    [-f|--bootstrap-flavour minimal|standard]\n\
 \t    [--bootstrap-keyring PACKAGE]\n\
