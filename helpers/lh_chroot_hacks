@@ -100,14 +100,6 @@ then
 	chown -R --quiet 999:999 chroot/home/${LH_USERNAME}
 fi
 
-# Setting ownership for /etc/skel - this is where people often include stuff
-# through local includes.
-chown -R --quiet 0:0 chroot/home/etc/skel
-
-# Making sure /etc/sudoers has right owner/permissions
-chown --quiet 0:0 chroot/home/etc/sudoers
-chmod 0440 chroot/etc/sudoers
-
 # This is a temporary hack to get rid of fstab;
 # needs cleanup in live-initramfs first to proper fix.
 if [ "${LH_DEBIAN_INSTALLER}" = "live" ]

@@ -46,7 +46,7 @@ if Find_files config/chroot_local-includes/
 then
 	# Copying includes
 	cd config/chroot_local-includes
-	find . | cpio -dmpu "${OLDPWD}"/chroot
+	find . | cpio -dmpu --no-preserve-owner "${OLDPWD}"/chroot
 	cd "${OLDPWD}"
 
 	# Creating stage file
