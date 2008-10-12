@@ -36,6 +36,7 @@ then
 	# Configuring chroot
 	lh_chroot_devpts install ${*}
 	lh_chroot_proc install ${*}
+	lh_chroot_selinuxfs install ${*}
 	lh_chroot_sysfs install ${*}
 	lh_chroot_hosts install ${*}
 	lh_chroot_resolv install ${*}
@@ -68,6 +69,7 @@ if [ "${LH_CHROOT_BUILD}" != "enabled" ]
 then
 	lh_chroot_devpts install ${*}
 	lh_chroot_proc install ${*}
+	lh_chroot_selinuxfs install ${*}
 	lh_chroot_sysfs install ${*}
 fi
 
@@ -87,5 +89,6 @@ then
 fi
 
 lh_chroot_sysfs remove ${*}
+lh_chroot_selinuxfs remove ${*}
 lh_chroot_proc remove ${*}
 lh_chroot_devpts remove ${*}
