@@ -84,8 +84,11 @@ case "${1}" in
 				${LH_ROOT_COMMAND} umount chroot/selinux
 			fi
 		else
-			rm -rf chroot/selinux
-			mkdir -p chroot/selinux
+			if [ -e chroot/selinux ]
+			then
+				rm -rf chroot/selinux
+				mkdir -p chroot/selinux
+			fi
 		fi
 
 		# Removing stage file
