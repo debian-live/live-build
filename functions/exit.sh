@@ -14,7 +14,7 @@ Exit ()
 	if [ "${LH_DEBUG}" = "enabled" ]
 	then
 		# Dump variables
-		set | grep -e ^LH -e ^LIVE
+		set | grep -e ^LH
 	fi
 
 	# FIXME: Add /proc et al cleanup on failure
