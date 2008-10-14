@@ -41,7 +41,7 @@ fi
 Echo_message "Begin building binary netboot image..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
+Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
 Check_stagefile .stage/binary_net

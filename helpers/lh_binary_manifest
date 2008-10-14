@@ -31,7 +31,7 @@ Set_defaults
 Echo_message "Begin creating manifest..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
+Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
 Check_stagefile .stage/binary_manifest

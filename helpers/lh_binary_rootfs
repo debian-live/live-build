@@ -31,7 +31,7 @@ Set_defaults
 Echo_message "Begin building root filesystem image..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap .stage/binary_chroot
+Require_stagefile .stage/config .stage/bootstrap .stage/binary_chroot
 
 # Checking stage file
 Check_stagefile .stage/binary_rootfs

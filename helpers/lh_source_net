@@ -41,7 +41,7 @@ fi
 Echo_message "Begin building source netboot image..."
 
 # Requiring stage file
-Require_stagefile .stage/source_debian
+Require_stagefile .stage/config .stage/source_debian
 
 # Checking stage file
 Check_stagefile .stage/source_net
