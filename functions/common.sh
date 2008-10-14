@@ -10,6 +10,6 @@
 set -e
 
 PROGRAM="$(basename ${0})"
-VERSION="1.0.0"
+VERSION="1.0.1"
 
 PATH="${PWD}/scripts:${PATH}"
