@@ -36,8 +36,7 @@ fi
 Echo_message "Begin building binary usb-hdd image..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
-Require_stagefile .stage/chroot_proc
+Require_stagefile .stage/bootstrap .stage/chroot_proc
 
 # Checking stage file
 Check_stagefile .stage/binary_usb-hdd
