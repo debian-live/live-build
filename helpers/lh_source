@@ -30,6 +30,9 @@ Set_defaults
 
 Require_stagefile .stage/chroot_install-packages
 
+# Setup cleanup function
+Setup_cleanup
+
 # Enabling network in chroot
 lh_chroot_hosts install ${*}
 lh_chroot_resolv install ${*}
