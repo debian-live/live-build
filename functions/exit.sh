@@ -19,6 +19,7 @@ Exit ()
 
 	# Always exit true in case we are not able to unmount
 	# (e.g. due to running processes in chroot from user customizations)
+	Echo_message "Begin unmounting filesystems..."
 	umount chroot/dev/pts > /dev/null 2>&1 || true
 	umount chroot/proc > /dev/null 2>&1 || true
 	umount chroot/selinux > /dev/null 2>&1 || true
