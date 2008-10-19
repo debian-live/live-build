@@ -157,7 +157,7 @@ pppconfig
 pppoe
 pppoeconf
 atm-tools
-ipppd
+#ipppd
 
 # Bridging
 bridge-utils
