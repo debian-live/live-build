@@ -24,3 +24,9 @@ Exit ()
 	umount chroot/selinux > /dev/null 2>&1 || true
 	umount chroot/sys > /dev/null 2>&1 || true
 }
+
+Setup_cleanup ()
+{
+	Echo_message "Setting up cleanup function"
+	trap 'Exit' INT TERM HUP EXIT
+}
