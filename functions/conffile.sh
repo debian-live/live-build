@@ -9,7 +9,7 @@
 
 set -e
 
-Read_conffile ()
+Get_conffiles ()
 {
 	if [ -n "${LH_CONFIG}" ]
 	then
@@ -24,7 +24,12 @@ Read_conffile ()
 		done
 	fi
 
-	for CONFFILE in ${FILES}
+	echo ${FILES}
+}
+
+Read_conffile ()
+{
+	for CONFFILE in Get_conffiles "${@}"
 	do
 		if [ -f "${CONFFILE}" ]
 		then
