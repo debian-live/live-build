@@ -79,3 +79,11 @@ Echo_breakage ()
 
 	Echo_message "${@}"
 }
+
+Echo_file ()
+{
+	while read LINE
+	do
+		echo "${1}: ${LINE}"
+	done < "${1}"
+}
