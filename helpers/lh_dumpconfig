@@ -1,0 +1,60 @@
+#!/bin/sh
+
+# lh_dumpconfig(1) - dump build configuration for remote debugging
+# Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
+do
+	. "${FUNCTION}"
+done
+
+# Setting static variables
+DESCRIPTION="dump build configuration"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+# Checking defaults
+Check_defaults
+
+# Dump version
+echo "${0}: This is live-helper version ${VERSION}"
+dpkg -l live-helper || true
+
+# Dump conffile contents
+Print_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+
+# Dump contents of directories that contain text files
+for DIR in config/binary_local-packageslists config/chroot_local-packageslists config/chroot_apt config/chroot_local-patches config/chroot_local-preseed config/binary_rootfs
+do
+	if Find_files "${DIR}"
+	then
+		Echo_file "${DIR}"/*
+	fi
+done
+
+# Dump directory listings of all directories under config/
+for DIR in $(find config/ -mindepth 1 -maxdepth 1 -type d )
+do
+	if Find_files "${DIR}"
+	then
+		ls -lR "${DIR}" | while read LINE
+			do
+				echo "${DIR}: ${LINE}"
+			done
+	fi
+done
