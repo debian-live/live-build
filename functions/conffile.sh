@@ -43,3 +43,13 @@ Read_conffile ()
 		fi
 	done
 }
+
+Print_conffiles () {
+	for CONFFILE in Get_conffiles "${@}"
+	do
+		if [ -f "${CONFFILE}" ]
+		then
+			Echo_file "${CONFFILE}"
+		fi
+	done
+}
