@@ -39,22 +39,22 @@ dpkg -l live-helper || true
 Print_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 
 # Dump contents of directories that contain text files
-for DIR in config/binary_local-packageslists config/chroot_local-packageslists config/chroot_apt config/chroot_local-patches config/chroot_local-preseed config/binary_rootfs
+for DIRECTORY in config/binary_local-packageslists config/chroot_local-packageslists config/chroot_apt config/chroot_local-patches config/chroot_local-preseed config/binary_rootfs
 do
-	if Find_files "${DIR}"
+	if Find_files "${DIRECTORY}"
 	then
-		Echo_file "${DIR}"/*
+		Echo_file "${DIRECTORY}"/*
 	fi
 done
 
 # Dump directory listings of all directories under config/
-for DIR in $(find config/ -mindepth 1 -maxdepth 1 -type d )
+for DIRECTORY in $(find config/ -type d -mindepth 1 -maxdepth 1)
 do
-	if Find_files "${DIR}"
+	if Find_files "${DIRECTORY}"
 	then
-		ls -lR "${DIR}" | while read LINE
-			do
-				echo "${DIR}: ${LINE}"
-			done
+		ls -lR "${DIRECTORY}" | while read LINE
+		do
+			echo "${DIRECTORY}: ${LINE}"
+		done
 	fi
 done
