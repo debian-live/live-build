@@ -44,7 +44,8 @@ Read_conffile ()
 	done
 }
 
-Print_conffiles () {
+Print_conffiles ()
+{
 	for CONFFILE in Get_conffiles "${@}"
 	do
 		if [ -f "${CONFFILE}" ]
