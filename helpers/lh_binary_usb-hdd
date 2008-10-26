@@ -155,7 +155,7 @@ case "${LH_CHROOT_BUILD}" in
 
 		if [ "${LH_BOOTLOADER}" = "syslinux" ]
 		then
-			cat chroot/usr/lib/syslinux/mbr.bin > ${FREELO}
+			dd if=chroot/usr/lib/syslinux/mbr.bin of=${FREELO} bs=440 count=1
 		fi
 		;;
 
@@ -167,7 +167,7 @@ case "${LH_CHROOT_BUILD}" in
 
 		if [ "${LH_BOOTLOADER}" = "syslinux" ]
 		then
-			cat /usr/lib/syslinux/mbr.bin > ${FREELO}
+			dd if=/usr/lib/syslinux/mbr.bin of=${FREELO} bs=440 count=1
 		fi
 		;;
 esac
