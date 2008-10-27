@@ -20,7 +20,7 @@ scalpel
 #endif
 
 # System
-gnupg dash discover gawk grub htop less lilo ltrace psmisc screen strace units
+gnupg dash discover gawk grub htop less lilo lsof ltrace psmisc screen strace units
 tcsh
 vlock
 moreutils
