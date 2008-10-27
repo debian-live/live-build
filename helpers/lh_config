@@ -153,8 +153,12 @@ Local_arguments ()
 		case "${1}" in
 			--dump)
 				# Dump version
-				echo "${0}: This is live-helper version ${VERSION}"
-				dpkg -l live-helper || true
+				if [ -x "$(which dpkg 2>/dev/null)" ]
+				then
+					echo "${0}: This is live-helper version $(dpkg-query --show -f='${Version}')"
+				else
+					echo "${0}: This is live-helper version ${VERSION}"
+				fi
 
 				# Dump conffile contents
 				Print_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
