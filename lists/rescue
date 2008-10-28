@@ -26,6 +26,9 @@ syslinux-common
 #if ARCHITECTURE amd64 i386
 grub lilo mbr syslinux
 #endif
+#if ARCHITECTURE hppa
+palo
+#endif
 
 # System
 gnupg dash discover gawk htop less lsof ltrace psmisc screen strace units
