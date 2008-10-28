@@ -101,7 +101,7 @@ cat >> chroot/source.sh << EOF
 genisoimage ${GENISOIMAGE_OPTIONS} -o source.iso -r -J -l -cache-inodes source
 EOF
 
-Chroot "sh source.sh"
+Chroot chroot "sh source.sh"
 
 # Move image
 mv chroot/source chroot/source.iso ./

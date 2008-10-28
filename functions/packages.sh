@@ -34,11 +34,11 @@ Install_package ()
 	then
 		case "${LH_APT}" in
 			apt|apt-get)
-				Chroot "apt-get install -o APT::Install-Recommends=false --yes ${_LH_PACKAGES}"
+				Chroot chroot "apt-get install -o APT::Install-Recommends=false --yes ${_LH_PACKAGES}"
 				;;
 
 			aptitude)
-				Chroot "aptitude install --without-recommends --assume-yes ${_LH_PACKAGES}"
+				Chroot chroot "aptitude install --without-recommends --assume-yes ${_LH_PACKAGES}"
 				;;
 		esac
 	fi
@@ -50,11 +50,11 @@ Remove_package ()
 	then
 		case "${LH_APT}" in
 			apt|apt-get)
-				Chroot "apt-get remove --purge --yes ${_LH_PACKAGES}"
+				Chroot chroot "apt-get remove --purge --yes ${_LH_PACKAGES}"
 				;;
 
 			aptitude)
-				Chroot "aptitude purge --assume-yes ${_LH_PACKAGES}"
+				Chroot chroot "aptitude purge --assume-yes ${_LH_PACKAGES}"
 				;;
 		esac
 	fi
@@ -72,7 +72,7 @@ Check_installed ()
 
 	case "${LH_CHROOT_BUILD}" in
 		enabled)
-			if Chroot "dpkg-query -s ${PACKAGE}" 2> /dev/null | grep -qs "Status: install"
+			if Chroot chroot "dpkg-query -s ${PACKAGE}" 2> /dev/null | grep -qs "Status: install"
 			then
 				INSTALL_STATUS=0
 			else
@@ -82,7 +82,7 @@ Check_installed ()
 		disabled)
 			if which dpkg-query > /dev/null 2>&1
 			then
-				if Chroot "dpkg-query -s ${PACKAGE}" 2> /dev/null | grep -qs "Status: install"
+				if Chroot chroot "dpkg-query -s ${PACKAGE}" 2> /dev/null | grep -qs "Status: install"
 				then
 					INSTALL_STATUS=0
 				else

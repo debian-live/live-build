@@ -165,7 +165,7 @@ then
 	# Remove cdebootstrap-helper-diverts (needed at least for minimal flavours)
 	case "${LH_PACKAGES_LISTS}" in
 		stripped|minimal)
-			Chroot "dpkg -P cdebootstrap-helper-diverts"
+			Chroot chroot "dpkg -P cdebootstrap-helper-diverts"
 			;;
 	esac
 

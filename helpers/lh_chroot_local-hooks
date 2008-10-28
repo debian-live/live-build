@@ -57,7 +57,7 @@ then
 		fi
 
 		# Executing hook
-		Chroot "/root/$(basename ${HOOK})"
+		Chroot chroot "/root/$(basename ${HOOK})"
 
 		# Removing hook
 		rm -f chroot/root/"$(basename ${HOOK})"

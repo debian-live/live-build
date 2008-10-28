@@ -434,16 +434,16 @@ then
 		done
 
 		# Download .deb's that we just marked as "purged" which caused broken dependencies
-		Chroot ${_LH_APT_COMMAND} -f dist-upgrade
+		Chroot chroot ${_LH_APT_COMMAND} -f dist-upgrade
 
 		# Revert dpkg status file
 		mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
 
 		# Download .debs of the required packages
-		Chroot ${_LH_APT_COMMAND} install ${DI_REQ_PACKAGES}
+		Chroot chroot ${_LH_APT_COMMAND} install ${DI_REQ_PACKAGES}
 	else
 		# Download .debs of the required packages
-		Chroot ${_LH_APT_COMMAND} install ${DI_PACKAGES}
+		Chroot chroot ${_LH_APT_COMMAND} install ${DI_PACKAGES}
 
 		# Revert dpkg status file
 		mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status

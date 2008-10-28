@@ -47,7 +47,7 @@ then
 	# Disable all
 	for FILE in chroot/etc/init.d/*
 	do
-		Chroot "update-rc.d -f $(basename ${FILE}) remove"
+		Chroot chroot "update-rc.d -f $(basename ${FILE}) remove"
 	done
 
 	# Re-enable all required (taken from -f standard chroot)
@@ -56,7 +56,7 @@ then
 		if [ -f chroot/var/lib/dpkg/info/${PACKAGE}.postinst ]
 		then
 			# Re-configure if existing
-			Chroot "/var/lib/dpkg/info/${PACKAGE}.postinst configure"
+			Chroot chroot "/var/lib/dpkg/info/${PACKAGE}.postinst configure"
 		fi
 	done
 

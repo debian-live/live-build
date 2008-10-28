@@ -54,7 +54,7 @@ Check_package chroot/usr/bin/symlinks symlinks
 Install_package
 
 # Converting symlinks
-Chroot "symlinks -c -r -s /"
+Chroot chroot "symlinks -c -r -s /"
 
 # Removing depends
 Remove_package

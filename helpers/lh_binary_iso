@@ -142,7 +142,7 @@ case "${LH_CHROOT_BUILD}" in
 		mv binary.sh chroot
 		mv binary chroot
 
-		Chroot "sh binary.sh"
+		Chroot chroot "sh binary.sh"
 
 		# Move image
 		mv chroot/binary chroot/binary.iso ./

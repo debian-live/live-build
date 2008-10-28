@@ -54,7 +54,7 @@ then
 fi
 
 # Download sources
-Chroot "dpkg --get-selections" | awk '{ print $1 }' > source-selection.txt
+Chroot chroot "dpkg --get-selections" | awk '{ print $1 }' > source-selection.txt
 
 cat >> source-selection.txt << EOF
 ${LH_BOOTLOADER}
@@ -107,7 +107,7 @@ MISSING=""
 grep . source-selection.txt | \
 while read PACKAGE
 do
-	if ! Chroot "apt-get ${APT_OPTIONS} --download-only source ${PACKAGE}"
+	if ! Chroot chroot "apt-get ${APT_OPTIONS} --download-only source ${PACKAGE}"
 	then
 		MISSING="${MISSING} ${PACKAGE}"
 	fi
@@ -123,7 +123,7 @@ EOF
 
 	for PACKAGE in ${MISSING}
 	do
-		Chroot "dpkg -l ${PACKAGE}" | tail -n1 >> source/missing-source.txt
+		Chroot chroot "dpkg -l ${PACKAGE}" | tail -n1 >> source/missing-source.txt
 	done
 fi
 

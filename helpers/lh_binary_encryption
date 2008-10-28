@@ -102,7 +102,7 @@ do
 
 	case "${LH_CHROOT_BUILD}" in
 		enabled)
-			if Chroot aespipe -e ${LH_ENCRYPTION} -T \
+			if Chroot chroot aespipe -e ${LH_ENCRYPTION} -T \
 				< chroot/filesystem.${LH_CHROOT_FILESYSTEM} \
 				> chroot/filesystem.${LH_CHROOT_FILESYSTEM}.tmp
 			then

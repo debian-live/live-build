@@ -50,11 +50,11 @@ then
 	# Installing packages
 	case "${LH_APT}" in
 		apt|apt-get)
-			Chroot "xargs --arg-file=/root/chroot_packages apt-get ${APT_OPTIONS} install"
+			Chroot chroot "xargs --arg-file=/root/chroot_packages apt-get ${APT_OPTIONS} install"
 			;;
 
 		aptitude)
-			Chroot "xargs --arg-file=/root/chroot_packages aptitude ${APTITUDE_OPTIONS} install"
+			Chroot chroot "xargs --arg-file=/root/chroot_packages aptitude ${APTITUDE_OPTIONS} install"
 			;;
 	esac
 

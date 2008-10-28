@@ -63,7 +63,7 @@ then
 		Expand_packagelist "${PACKAGESLIST}" "config/binary_local-packageslists" "config/chroot_local-packageslists" > chroot/root/"$(basename ${PACKAGESLIST})"
 
 		# Downloading additional packages
-		Chroot "xargs --arg-file=/root/$(basename ${PACKAGESLIST}) apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb --download-only install"
+		Chroot chroot "xargs --arg-file=/root/$(basename ${PACKAGESLIST}) apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb --download-only install"
 
 		# Remove package list
 		rm chroot/root/"$(basename ${PACKAGESLIST})"

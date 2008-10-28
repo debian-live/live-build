@@ -108,7 +108,7 @@ case "${1}" in
 				# completed all the indices.
 				case "${LH_BOOTSTRAP_FLAVOUR}" in
 					stripped|minimal)
-						Chroot "apt-get update"
+						Chroot chroot "apt-get update"
 						;;
 				esac
 
@@ -122,13 +122,13 @@ case "${1}" in
 				Install_package
 
 				# Generate Packages and Packages.gz 
-				echo "cd /root/local-packages && apt-ftparchive packages . > Packages" | Chroot sh
+				echo "cd /root/local-packages && apt-ftparchive packages . > Packages" | Chroot chroot sh
 				gzip -9 -c chroot/root/local-packages/Packages > chroot/root/local-packages/Packages.gz
 
 				# Generate Release
 				echo "cd /root/local-packages && apt-ftparchive \
 					-o APT::FTPArchive::Release::Origin=chroot_local-packages \
-					release . > Release" | Chroot sh
+					release . > Release" | Chroot chroot
 
 				if [ "${LH_APT_SECURE}" = "enabled" ]
 				then
@@ -161,7 +161,7 @@ case "${1}" in
 						      Expire-Date: 0
 						      %secring /root/local-package-keyring.sec
 						      %pubring /root/local-package-keyring.pub
-						      %commit" | Chroot "gpg --batch --gen-key" || _LH_RET=${?}
+						      %commit" | Chroot chroot "gpg --batch --gen-key" || _LH_RET=${?}
 
 						case "${_LH_RET}" in
 							""|2)
@@ -180,14 +180,14 @@ case "${1}" in
 					fi
 
 					# Sign release
-					Chroot "gpg --no-default-keyring --secret-keyring /root/local-package-keyring.sec \
+					Chroot chroot "gpg --no-default-keyring --secret-keyring /root/local-package-keyring.sec \
 						--keyring /root/local-package-keyring.pub -abs -o \
 						/root/local-packages/Release.gpg /root/local-packages/Release"
 
 					# Import key
-					Chroot "gpg --no-default-keyring --secret-keyring /root/local-package-keyring.sec \
+					Chroot chroot "gpg --no-default-keyring --secret-keyring /root/local-package-keyring.sec \
 						--keyring /root/local-package-keyring.pub --armor \
-						--export ${_LH_LOCAL_KEY_EMAIL}" | Chroot "apt-key add -"
+						--export ${_LH_LOCAL_KEY_EMAIL}" | Chroot chroot "apt-key add -"
 
 					# Remove temporary keyrings
 					rm chroot/root/local-package-keyring.pub
@@ -258,7 +258,7 @@ case "${1}" in
 
 			if [ "${LH_APT}" = "aptitude" ] && [ ! -x /usr/bin/aptitude ]
 			then
-				Chroot "apt-get ${APT_OPTIONS} install aptitude"
+				Chroot chroot "apt-get ${APT_OPTIONS} install aptitude"
 			fi
 		else # Get fresh indices
 			# Check local gpg keys
@@ -267,7 +267,7 @@ case "${1}" in
 				for FILE in config/chroot_sources/*.chroot.gpg
 				do
 					cp ${FILE} chroot/root
-					Chroot "apt-key add /root/$(basename ${FILE})"
+					Chroot chroot "apt-key add /root/$(basename ${FILE})"
 					rm -f chroot/root/$(basename ${FILE})
 				done
 			fi
@@ -278,7 +278,7 @@ case "${1}" in
 				for PACKAGE in config/chroot_sources/*.deb
 				do
 					cp ${PACKAGE} chroot/root
-					Chroot "dpkg -i /root/$(basename ${PACKAGE})"
+					Chroot chroot "dpkg -i /root/$(basename ${PACKAGE})"
 					rm -f chroot/root/$(basename ${PACKAGE})
 				done
 			fi
@@ -286,8 +286,8 @@ case "${1}" in
 			# Installing aptitude
 			if [ "${LH_APT}" = "aptitude" ] && [ ! -x /usr/bin/aptitude ]
 			then
-				Chroot "apt-get ${APT_OPTIONS} update"
-				Chroot "apt-get ${APT_OPTIONS} install aptitude"
+				Chroot chroot "apt-get ${APT_OPTIONS} update"
+				Chroot chroot "apt-get ${APT_OPTIONS} install aptitude"
 			fi
 
 			Apt update
@@ -297,7 +297,7 @@ case "${1}" in
 			# Installing keyring packages
 			if [ -n "${LH_KEYRING_PACKAGES}" ]
 			then
-				Chroot "apt-get --yes --force-yes install ${LH_KEYRING_PACKAGES}"
+				Chroot chroot "apt-get --yes --force-yes install ${LH_KEYRING_PACKAGES}"
 				Apt update
 			fi
 
@@ -395,7 +395,7 @@ case "${1}" in
 				for FILE in config/chroot_sources/*.binary.gpg
 				do
 					cp ${FILE} chroot/root
-					Chroot "apt-key add /root/$(basename ${FILE})"
+					Chroot chroot "apt-key add /root/$(basename ${FILE})"
 					rm -f chroot/root/$(basename ${FILE})
 				done
 			fi

@@ -147,7 +147,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 
 		case "${LH_CHROOT_BUILD}" in
 			enabled)
-				Chroot "genext2fs --size-in-blocks=${REAL_DIM} ${RESERVED_PERCENTAGE}=0 --root=chroot filesystem.${LH_CHROOT_FILESYSTEM}"
+				Chroot chroot "genext2fs --size-in-blocks=${REAL_DIM} ${RESERVED_PERCENTAGE}=0 --root=chroot filesystem.${LH_CHROOT_FILESYSTEM}"
 
 				# Move image
 				mv chroot/filesystem.${LH_CHROOT_FILESYSTEM} binary/${INITFS}
@@ -189,7 +189,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 
 		case "${LH_CHROOT_BUILD}" in
 			enabled)
-				Chroot "mkfs.jffs2 ${JFFS2_OPTIONS} --root=chroot --output filesystem.jffs2"
+				Chroot chroot "mkfs.jffs2 ${JFFS2_OPTIONS} --root=chroot --output filesystem.jffs2"
 
 				# Move image
 				mv chroot/filesystem.jffs2 binary/${INITFS}
@@ -263,7 +263,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 		case "${LH_CHROOT_BUILD}" in
 			enabled)
 				# Create image
-				Chroot "mksquashfs chroot filesystem.squashfs ${MKSQUASHFS_OPTIONS}"
+				Chroot chroot "mksquashfs chroot filesystem.squashfs ${MKSQUASHFS_OPTIONS}"
 
 				# Move image
 				${LH_ROOT_COMMAND} mv chroot/filesystem.squashfs binary/${INITFS}

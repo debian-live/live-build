@@ -56,7 +56,7 @@ do
 		# Copying preseed
 		cp "${PRESEED}" chroot/root/preseed
 
-		Chroot "debconf-set-selections /root/preseed"
+		Chroot chroot "debconf-set-selections /root/preseed"
 
 		# Removing preseed file
 		rm -f chroot/root/preseed
