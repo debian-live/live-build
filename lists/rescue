@@ -19,19 +19,20 @@ md5deep pipebench recoverdm rifiuti
 scalpel
 #endif
 
-# System
-gnupg dash discover gawk htop less lsof ltrace psmisc screen strace units
-tcsh
-vlock
-moreutils
-
+# Bootloaders
 #if DISTRIBUTION lenny sid
 syslinux-common
 #endif
-#if ARCHITECTURE i386
-pstack
+#if ARCHITECTURE amd64 i386
 grub lilo mbr syslinux
 #endif
+
+# System
+gnupg dash discover gawk htop less lsof ltrace psmisc screen strace units
+pstack
+tcsh
+vlock
+moreutils
 
 # Editors
 aview mc nano-tiny mg vim wdiff hexedit nvi tweak
