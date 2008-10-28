@@ -27,7 +27,7 @@ Get_conffiles ()
 	echo ${FILES}
 }
 
-Read_conffile ()
+Read_conffiles ()
 {
 	for CONFFILE in Get_conffiles "${@}"
 	do

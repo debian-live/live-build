@@ -728,17 +728,17 @@ Local_arguments ()
 if [ -f "${SYSTEM_LH_CONFFILE}" ] && ! In_list "--ignore-system-defaults" "${@}"
 then
 	Echo_message "Considering defaults defined in %s" "${SYSTEM_LH_CONFFILE}"
-	Read_conffile "${SYSTEM_LH_CONFFILE}"
+	Read_conffiles "${SYSTEM_LH_CONFFILE}"
 fi
 
 # Reading existing configuration
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 
 Local_arguments "${@}"
 
 if [ -n "${LH_CONFFILE}" ]
 then
-	Read_conffile "${LH_CONFFILE}"
+	Read_conffiles "${LH_CONFFILE}"
 fi
 
 # Setting defaults
