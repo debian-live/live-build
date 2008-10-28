@@ -20,7 +20,7 @@ scalpel
 #endif
 
 # System
-gnupg dash discover gawk grub htop less lilo lsof ltrace psmisc screen strace units
+gnupg dash discover gawk htop less lsof ltrace psmisc screen strace units
 tcsh
 vlock
 moreutils
@@ -30,7 +30,7 @@ syslinux-common
 #endif
 #if ARCHITECTURE i386
 pstack
-syslinux mbr
+grub lilo mbr syslinux
 #endif
 
 # Editors
