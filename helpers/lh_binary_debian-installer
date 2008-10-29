@@ -268,7 +268,7 @@ then
 			URL="http://people.debian.org/~aba/d-i/images/daily/"
 			;;
 
-		arm)
+		arm|armel)
 			URL="http://people.debian.org/~kmuto/d-i/images/daily/"
 			;;
 

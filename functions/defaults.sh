@@ -379,11 +379,6 @@ Set_defaults ()
 				LH_LINUX_FLAVOURS="amd64"
 				;;
 
-			arm)
-				Echo_error "You need to specify the linux kernel flavour manually on arm (FIXME)."
-				exit 1
-				;;
-
 			hppa)
 				LH_LINUX_FLAVOURS="parisc"
 				;;
@@ -402,11 +397,6 @@ Set_defaults ()
 
 			ia64)
 				LH_LINUX_FLAVOURS="itanium"
-				;;
-
-			m68k)
-				Echo_error "You need to specify the linux kernel flavour manually on m68k (FIXME)."
-				exit 1
 				;;
 
 			powerpc)
@@ -432,6 +422,11 @@ Set_defaults ()
 				else
 					LH_LINUX_FLAVOURS="sparc64"
 				fi
+				;;
+
+			arm|armel|m68k)
+				Echo_error "You need to specify the linux kernel flavour manually on ${LH_ARCHITECTURE} (FIXME)."
+				exit 1
 				;;
 
 			*)
