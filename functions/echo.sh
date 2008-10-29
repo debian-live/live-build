@@ -12,7 +12,12 @@ Echo ()
 	STRING="${1}"
 	shift
 
-	printf "$(eval_gettext "${STRING}")" "${@}"; echo;
+	if [ "${LH_L10N}" = "false" ]
+	then
+		printf "${STRING}\n"
+	else
+		printf "$(eval_gettext "${STRING}")" "${@}"; echo;
+	fi
 }
 
 Echo_debug ()
@@ -22,7 +27,12 @@ Echo_debug ()
 
 	if [ "${LH_DEBUG}" = "enabled" ]
 	then
-		printf "D: $(eval_gettext "${STRING}")" "${@}"; echo;
+		if [ "${LH_L10N}" = "false" ]
+		then
+			printf "D: ${STRING}\n"
+		else
+			printf "D: $(eval_gettext "${STRING}")" "${@}"; echo;
+		fi
 	fi
 }
 
@@ -31,7 +41,12 @@ Echo_error ()
 	STRING="${1}"
 	shift
 
-	(printf "E: $(eval_gettext "${STRING}")" "${@}"; echo;) >&2
+	if [ "${LH_L10N}" = "false" ]
+	then
+		printf "E: ${STRING}\n" >&2
+	else
+		(printf "E: $(eval_gettext "${STRING}")" "${@}"; echo;) >&2
+	fi
 }
 
 Echo_message ()
@@ -41,7 +56,12 @@ Echo_message ()
 
 	if [ "${LH_QUIET}" != "enabled" ]
 	then
-		printf "P: $(eval_gettext "${STRING}")" "${@}"; echo;
+		if [ "${LH_L10N}" = "false" ]
+		then
+			printf "P: ${STRING}\n"
+		else
+			printf "P: $(eval_gettext "${STRING}")" "${@}"; echo;
+		fi
 	fi
 }
 
@@ -52,7 +72,12 @@ Echo_verbose ()
 
 	if [ "${LH_VERBOSE}" = "enabled" ]
 	then
-		printf "I: $(eval_gettext "${STRING}")" "${@}"; echo;
+		if [ "${LH_L10N}" = "false" ]
+		then
+			printf "I: ${STRING}\n"
+		else
+			printf "I: $(eval_gettext "${STRING}")" "${@}"; echo;
+		fi
 	fi
 }
 
@@ -61,7 +86,12 @@ Echo_warning ()
 	STRING="${1}"
 	shift
 
-	printf "W: $(eval_gettext "${STRING}")" "${@}"; echo;
+	if [ "${LH_L10N}" = "false" ]
+	then
+		printf "W: ${STRING}\n"
+	else
+		printf "W: $(eval_gettext "${STRING}")" "${@}"; echo;
+	fi
 }
 
 Echo_breakage ()
