@@ -7,8 +7,6 @@
 # This is free software, and you are welcome to redistribute it
 # under certain conditions; see COPYING for details.
 
-set -e
-
 # Debian releases
 RELEASE_etch="4.0 r4"
 RELEASE_lenny="5.0 r0"

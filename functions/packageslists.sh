@@ -7,8 +7,6 @@
 # This is free software, and you are welcome to redistribute it
 # under certain conditions; see COPYING for details.
 
-set -e
-
 Expand_packagelist ()
 {
 	_LH_EXPAND_QUEUE="$(basename "${1}")"

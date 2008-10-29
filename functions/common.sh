@@ -7,8 +7,6 @@
 # This is free software, and you are welcome to redistribute it
 # under certain conditions; see COPYING for details.
 
-set -e
-
 PROGRAM="$(basename ${0})"
 VERSION="1.0.1"
 
