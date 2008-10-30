@@ -120,7 +120,8 @@ case "${LH_BINARY_IMAGES}" in
 		;;
 
 	usb-hdd|net)
-		Echo_error "not yet supported, aborting (FIXME)."
+		Echo_warning "Bootloader in this image type not yet supported by live-helper."
+		Echo_warning "This would produce a not bootable image, aborting (FIXME)."
 		exit 1
 	;;
 esac

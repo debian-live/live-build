@@ -131,7 +131,8 @@ case "${LH_BOOTLOADER}" in
 		;;
 
 	*)
-		Echo_warning "Bootloader on your architecture not yet supported (Continuing in 5 seconds)."
+		Echo_warning "Bootloader on your architecture not yet supported by live-helper."
+		Echo_warning "This will produce a most likely not bootable image (Continuing in 5 seconds)."
 		sleep 5
 		;;
 esac
