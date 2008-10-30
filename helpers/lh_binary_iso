@@ -62,6 +62,10 @@ then
 	rm -f binary.iso
 fi
 
+# Handle genisoimage generic options
+GENISOIMAGE_OPTIONS="-J -l -cache-inodes -allow-multidot"
+
+# Handle genisoimage live-helper specific options
 if [ "${LH_QUIET}" = "enabled" ]
 then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -quiet"
@@ -92,7 +96,15 @@ then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -V \"${LH_ISO_VOLUME}\""
 fi
 
-# Create image
+if In_list "stripped minimal" "${LH_PACKAGES_LISTS}"
+then
+	if [ "${LH_DEBIAN_INSTALLER}" != "live" ]
+	then
+		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m ${GENISOIMAGE_EXCLUDE}"
+	fi
+fi
+
+# Handle genisoimage architecture specific options
 case "${LH_BOOTLOADER}" in
 	grub)
 		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -no-emul-boot -boot-load-size 4 -boot-info-table"
@@ -124,16 +136,8 @@ case "${LH_BOOTLOADER}" in
 		;;
 esac
 
-if In_list "stripped minimal" "${LH_PACKAGES_LISTS}"
-then
-	if [ "${LH_DEBIAN_INSTALLER}" != "live" ]
-	then
-		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m ${GENISOIMAGE_EXCLUDE}"
-	fi
-fi
-
 cat > binary.sh << EOF
-genisoimage ${GENISOIMAGE_OPTIONS} -o binary.iso -J -l -cache-inodes -allow-multidot binary
+genisoimage ${GENISOIMAGE_OPTIONS} -o binary.iso binary
 EOF
 
 case "${LH_CHROOT_BUILD}" in
