@@ -27,5 +27,5 @@ Exit ()
 Setup_cleanup ()
 {
 	Echo_message "Setting up cleanup function"
-	trap 'Exit' INT TERM HUP EXIT
+	trap 'Exit' EXIT HUP INT QUIT TERM
 }
