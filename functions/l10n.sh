@@ -9,7 +9,7 @@
 
 if [ -x "$(which gettext.sh 2>/dev/null)" ]
 then
-	LH_L10N="enabled"
+	_L10N="enabled"
 
 	# gettext domain (.mo file name)
 	TEXTDOMAIN="${PROGRAM}"
@@ -22,5 +22,5 @@ then
 	# load gettext functions
 	. gettext.sh
 else
-	LH_L10N="disabled"
+	_L10N="disabled"
 fi

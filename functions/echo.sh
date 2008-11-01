@@ -12,7 +12,7 @@ Echo ()
 	STRING="${1}"
 	shift
 
-	if [ "${LH_L10N}" = "false" ]
+	if [ "${_L10N}" = "false" ]
 	then
 		printf "${STRING}\n"
 	else
@@ -27,7 +27,7 @@ Echo_debug ()
 
 	if [ "${LH_DEBUG}" = "enabled" ]
 	then
-		if [ "${LH_L10N}" = "false" ]
+		if [ "${_L10N}" = "false" ]
 		then
 			printf "D: ${STRING}\n"
 		else
@@ -41,7 +41,7 @@ Echo_error ()
 	STRING="${1}"
 	shift
 
-	if [ "${LH_L10N}" = "false" ]
+	if [ "${_L10N}" = "false" ]
 	then
 		printf "E: ${STRING}\n" >&2
 	else
@@ -56,7 +56,7 @@ Echo_message ()
 
 	if [ "${LH_QUIET}" != "enabled" ]
 	then
-		if [ "${LH_L10N}" = "false" ]
+		if [ "${_L10N}" = "false" ]
 		then
 			printf "P: ${STRING}\n"
 		else
@@ -72,7 +72,7 @@ Echo_verbose ()
 
 	if [ "${LH_VERBOSE}" = "enabled" ]
 	then
-		if [ "${LH_L10N}" = "false" ]
+		if [ "${_L10N}" = "false" ]
 		then
 			printf "I: ${STRING}\n"
 		else
@@ -86,7 +86,7 @@ Echo_warning ()
 	STRING="${1}"
 	shift
 
-	if [ "${LH_L10N}" = "false" ]
+	if [ "${_L10N}" = "false" ]
 	then
 		printf "W: ${STRING}\n"
 	else
