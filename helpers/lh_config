@@ -322,11 +322,6 @@ Local_arguments ()
 				shift
 				;;
 
-			--debug)
-				LH_DEBUG="enabled"
-				shift
-				;;
-
 			--quiet)
 				LH_QUIET="enabled"
 				shift
@@ -668,7 +663,7 @@ Local_arguments ()
 				;;
 
 			--debug)
-				LH_DEBUG="enabled"
+				_DEBUG="enabled"
 				shift
 				;;
 
@@ -853,9 +848,9 @@ LH_TEMPLATES="${LH_TEMPLATES}"
 # (Default: ${LH_BREAKPOINTS})
 #LH_BREAKPOINTS="${LH_BREAKPOINTS}"
 
-# \$LH_DEBUG: enable debug
-# (Default: ${LH_DEBUG})
-#LH_DEBUG="${LH_DEBUG}"
+# \$_DEBUG: enable debug
+# (Default: ${_DEBUG})
+#_DEBUG="${_DEBUG}"
 
 # \$_FORCE: enable force
 # (Default: ${_FORCE})

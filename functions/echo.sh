@@ -25,7 +25,7 @@ Echo_debug ()
 	STRING="${1}"
 	shift
 
-	if [ "${LH_DEBUG}" = "enabled" ]
+	if [ "${_DEBUG}" = "enabled" ]
 	then
 		if [ "${_L10N}" = "false" ]
 		then

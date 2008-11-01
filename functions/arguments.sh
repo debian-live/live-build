@@ -33,7 +33,7 @@ Arguments ()
 				;;
 
 			--debug)
-				LH_DEBUG="enabled"
+				_DEBUG="enabled"
 				shift
 				;;
 

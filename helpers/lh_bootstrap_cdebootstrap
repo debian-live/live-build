@@ -104,7 +104,7 @@ else
 	esac
 fi
 
-if [ "${LH_DEBUG}" = "enabled" ]
+if [ "${_DEBUG}" = "enabled" ]
 then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --debug"
 fi
