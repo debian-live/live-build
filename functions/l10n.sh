@@ -12,10 +12,12 @@ then
 	LH_L10N="enabled"
 
 	# gettext domain (.mo file name)
-	export TEXTDOMAIN="live-helper"
+	TEXTDOMAIN="${PROGRAM}"
+	export TEXTDOMAIN
 
 	# locale dir for gettext codes
-	export TEXTDOMAINDIR="/usr/share/locale"
+	TEXTDOMAINDIR="/usr/share/locale"
+	export TEXTDOMAINDIR
 
 	# load gettext functions
 	. gettext.sh
