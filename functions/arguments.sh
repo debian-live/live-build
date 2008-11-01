@@ -38,7 +38,7 @@ Arguments ()
 				;;
 
 			--force)
-				LH_FORCE="enabled"
+				_FORCE="enabled"
 				shift
 				;;
 

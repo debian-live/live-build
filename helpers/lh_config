@@ -327,11 +327,6 @@ Local_arguments ()
 				shift
 				;;
 
-			--force)
-				LH_FORCE="enabled"
-				shift
-				;;
-
 			--quiet)
 				LH_QUIET="enabled"
 				shift
@@ -678,7 +673,7 @@ Local_arguments ()
 				;;
 
 			--force)
-				LH_FORCE="enabled"
+				_FORCE="enabled"
 				shift
 				;;
 
@@ -862,9 +857,9 @@ LH_TEMPLATES="${LH_TEMPLATES}"
 # (Default: ${LH_DEBUG})
 #LH_DEBUG="${LH_DEBUG}"
 
-# \$LH_FORCE: enable force
-# (Default: ${LH_FORCE})
-#LH_FORCE="${LH_FORCE}"
+# \$_FORCE: enable force
+# (Default: ${_FORCE})
+#_FORCE="${_FORCE}"
 
 # \$LH_QUIET: enable quiet
 # (Default: ${LH_QUIET})
