@@ -317,11 +317,6 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--breakpoints)
-				LH_BREAKPOINTS="enabled"
-				shift
-				;;
-
 			-v|--version)
 				Version
 				shift
@@ -643,7 +638,7 @@ Local_arguments ()
 
 			# other
 			--breakpoints)
-				LH_BREAKPOINTS="enabled"
+				_BREAKPOINTS="enabled"
 				shift
 				;;
 
@@ -834,9 +829,9 @@ LH_TEMPLATES="${LH_TEMPLATES}"
 
 # Live-helper options
 
-# \$LH_BREAKPOINTS: enable breakpoints
-# (Default: ${LH_BREAKPOINTS})
-#LH_BREAKPOINTS="${LH_BREAKPOINTS}"
+# \$_BREAKPOINTS: enable breakpoints
+# (Default: ${_BREAKPOINTS})
+#_BREAKPOINTS="${_BREAKPOINTS}"
 
 # \$_DEBUG: enable debug
 # (Default: ${_DEBUG})

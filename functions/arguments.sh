@@ -23,7 +23,7 @@ Arguments ()
 	do
 		case "${1}" in
 			--breakpoints)
-				LH_BREAKPOINTS="enabled"
+				_BREAKPOINTS="enabled"
 				shift
 				;;
 

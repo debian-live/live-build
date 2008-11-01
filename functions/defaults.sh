@@ -220,7 +220,7 @@ Set_defaults ()
 	fi
 
 	# Setting live helper options
-	LH_BREAKPOINTS="${LH_BREAKPOINTS:-disabled}"
+	_BREAKPOINTS="${_BREAKPOINTS:-disabled}"
 	_DEBUG="${_DEBUG:-disabled}"
 	_FORCE="${_FORCE:-disabled}"
 	_QUIET="${_QUIET:-disabled}"
