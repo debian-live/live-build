@@ -58,7 +58,7 @@ Arguments ()
 				;;
 
 			--verbose)
-				LH_VERBOSE="enabled"
+				_VERBOSE="enabled"
 				shift
 				;;
 

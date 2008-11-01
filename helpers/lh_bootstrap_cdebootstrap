@@ -114,7 +114,7 @@ then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --quiet"
 fi
 
-if [ "${LH_VERBOSE}" = "enabled" ]
+if [ "${_VERBOSE}" = "enabled" ]
 then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --verbose"
 fi

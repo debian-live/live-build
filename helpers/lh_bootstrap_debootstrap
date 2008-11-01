@@ -104,7 +104,7 @@ else
 	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=fakechroot"
 fi
 
-if [ "${LH_VERBOSE}" = "true" ]
+if [ "${_VERBOSE}" = "true" ]
 then
 	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --verbose"
 fi

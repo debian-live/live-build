@@ -322,11 +322,6 @@ Local_arguments ()
 				shift
 				;;
 
-			--verbose)
-				LH_VERBOSE="enabled"
-				shift
-				;;
-
 			-v|--version)
 				Version
 				shift
@@ -687,7 +682,7 @@ Local_arguments ()
 				;;
 
 			--verbose)
-				LH_VERBOSE="enabled"
+				_VERBOSE="enabled"
 				shift
 				;;
 
@@ -855,9 +850,9 @@ LH_TEMPLATES="${LH_TEMPLATES}"
 # (Default: ${_QUIET})
 _QUIET="${_QUIET}"
 
-# \$LH_VERBOSE: enable verbose
-# (Default: ${LH_VERBOSE})
-#LH_VERBOSE="${LH_VERBOSE}"
+# \$_VERBOSE: enable verbose
+# (Default: ${_VERBOSE})
+#_VERBOSE="${_VERBOSE}"
 
 # Internal stuff (FIXME)
 APT_OPTIONS="${APT_OPTIONS}"

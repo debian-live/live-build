@@ -70,7 +70,7 @@ Echo_verbose ()
 	STRING="${1}"
 	shift
 
-	if [ "${LH_VERBOSE}" = "enabled" ]
+	if [ "${_VERBOSE}" = "enabled" ]
 	then
 		if [ "${_L10N}" = "false" ]
 		then

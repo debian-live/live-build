@@ -224,7 +224,7 @@ Set_defaults ()
 	_DEBUG="${_DEBUG:-disabled}"
 	_FORCE="${_FORCE:-disabled}"
 	_QUIET="${_QUIET:-disabled}"
-	LH_VERBOSE="${LH_VERBOSE:-disabled}"
+	_VERBOSE="${_VERBOSE:-disabled}"
 
 	## config/bootstrap
 

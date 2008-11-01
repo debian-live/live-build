@@ -71,7 +71,7 @@ then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -quiet"
 fi
 
-if [ "${LH_VERBOSE}" = "enabled" ]
+if [ "${_VERBOSE}" = "enabled" ]
 then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -v"
 fi
