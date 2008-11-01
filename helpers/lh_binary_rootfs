@@ -244,7 +244,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 		# Remove stale squashfs image
 		rm -f chroot/filesystem.squashfs
 
-		if [ "${LH_QUIET}" = "enabled" ] && [ "${LH_DISTRIBUTION}" != "etch" ]
+		if [ "${_QUIET}" = "enabled" ] && [ "${LH_DISTRIBUTION}" != "etch" ]
 		then
 			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -no-progress"
 		fi

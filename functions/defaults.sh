@@ -223,7 +223,7 @@ Set_defaults ()
 	LH_BREAKPOINTS="${LH_BREAKPOINTS:-disabled}"
 	_DEBUG="${_DEBUG:-disabled}"
 	_FORCE="${_FORCE:-disabled}"
-	LH_QUIET="${LH_QUIET:-disabled}"
+	_QUIET="${_QUIET:-disabled}"
 	LH_VERBOSE="${LH_VERBOSE:-disabled}"
 
 	## config/bootstrap

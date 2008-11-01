@@ -31,7 +31,7 @@ Set_defaults
 if [ "${_DEBUG}" = "enabled" ]
 then
 	WGET_OPTIONS="${WGET_OPTIONS} --verbose"
-elif [ "${LH_QUIET}" = "enabled" ]
+elif [ "${_QUIET}" = "enabled" ]
 then
 	WGET_OPTIONS="${WGET_OPTIONS} --quiet"
 else

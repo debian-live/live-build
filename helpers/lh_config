@@ -322,11 +322,6 @@ Local_arguments ()
 				shift
 				;;
 
-			--quiet)
-				LH_QUIET="enabled"
-				shift
-				;;
-
 			--verbose)
 				LH_VERBOSE="enabled"
 				shift
@@ -682,7 +677,7 @@ Local_arguments ()
 				;;
 
 			--quiet)
-				LH_QUIET="enabled"
+				_QUIET="enabled"
 				shift
 				;;
 
@@ -856,9 +851,9 @@ LH_TEMPLATES="${LH_TEMPLATES}"
 # (Default: ${_FORCE})
 #_FORCE="${_FORCE}"
 
-# \$LH_QUIET: enable quiet
-# (Default: ${LH_QUIET})
-LH_QUIET="${LH_QUIET}"
+# \$_QUIET: enable quiet
+# (Default: ${_QUIET})
+_QUIET="${_QUIET}"
 
 # \$LH_VERBOSE: enable verbose
 # (Default: ${LH_VERBOSE})

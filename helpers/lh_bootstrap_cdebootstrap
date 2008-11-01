@@ -109,7 +109,7 @@ then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --debug"
 fi
 
-if [ "${LH_QUIET}" = "enabled" ]
+if [ "${_QUIET}" = "enabled" ]
 then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --quiet"
 fi

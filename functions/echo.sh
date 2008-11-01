@@ -54,7 +54,7 @@ Echo_message ()
 	STRING="${1}"
 	shift
 
-	if [ "${LH_QUIET}" != "enabled" ]
+	if [ "${_QUIET}" != "enabled" ]
 	then
 		if [ "${_L10N}" = "false" ]
 		then

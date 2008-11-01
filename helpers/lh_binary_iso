@@ -66,7 +66,7 @@ fi
 GENISOIMAGE_OPTIONS="-J -l -cache-inodes -allow-multidot"
 
 # Handle genisoimage live-helper specific options
-if [ "${LH_QUIET}" = "enabled" ]
+if [ "${_QUIET}" = "enabled" ]
 then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -quiet"
 fi

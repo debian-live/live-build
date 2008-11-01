@@ -48,7 +48,7 @@ Arguments ()
 				;;
 
 			--quiet)
-				LH_QUIET="enabled"
+				_QUIET="enabled"
 				shift
 				;;
 
