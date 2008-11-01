@@ -647,6 +647,11 @@ Local_arguments ()
 				shift 2
 				;;
 
+			--color)
+				_COLOR="enabled"
+				shift
+				;;
+
 			--debug)
 				_DEBUG="enabled"
 				shift
@@ -836,6 +841,10 @@ LH_TEMPLATES="${LH_TEMPLATES}"
 # \$_DEBUG: enable debug
 # (Default: ${_DEBUG})
 #_DEBUG="${_DEBUG}"
+
+# \$_COLOR: enable color
+# (Default: ${_COLOR})
+#_COLOR="${_COLOR}"
 
 # \$_FORCE: enable force
 # (Default: ${_FORCE})

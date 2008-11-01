@@ -221,6 +221,7 @@ Set_defaults ()
 
 	# Setting live helper options
 	_BREAKPOINTS="${_BREAKPOINTS:-disabled}"
+	_COLOR="${_COLOR:-disabled}"
 	_DEBUG="${_DEBUG:-disabled}"
 	_FORCE="${_FORCE:-disabled}"
 	_QUIET="${_QUIET:-disabled}"

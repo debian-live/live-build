@@ -22,11 +22,11 @@ Echo ()
 
 Echo_debug ()
 {
-	STRING="${1}"
-	shift
-
 	if [ "${_DEBUG}" = "enabled" ]
 	then
+		STRING="${1}"
+		shift
+
 		if [ "${_L10N}" = "false" ]
 		then
 			printf "D: ${STRING}\n"
@@ -36,42 +36,109 @@ Echo_debug ()
 	fi
 }
 
+Echo_debug_running ()
+{
+	if [ "${_DEBUG}" = "enabled" ]
+	then
+		STRING="${1}"
+		shift
+
+		if [ "${_L10N}" = "false" ]
+		then
+			printf "D: ${STRING}"
+		else
+			printf "D: $(eval_gettext "${STRING}")" "${@}"
+		fi
+
+		if [ "${_COLOR}" = "false" ]
+		then
+			printf "..."
+		else
+			printf "... ${YELLOW}${BLINK}running${NO_COLOR}"
+		fi
+	fi
+}
+
 Echo_error ()
 {
 	STRING="${1}"
 	shift
 
+	if [ "${_COLOR}" = "false" ]
+	then
+		printf "E:"
+	else
+		printf "${RED}E${NO_COLOR}:"
+	fi
+
 	if [ "${_L10N}" = "false" ]
 	then
-		printf "E: ${STRING}\n" >&2
+		printf " ${STRING}" >&2
 	else
-		(printf "E: $(eval_gettext "${STRING}")" "${@}"; echo;) >&2
+		(printf " $(eval_gettext "${STRING}")" "${@}";) >&2
 	fi
 }
 
 Echo_message ()
 {
-	STRING="${1}"
-	shift
-
 	if [ "${_QUIET}" != "enabled" ]
 	then
+		STRING="${1}"
+		shift
+
+		if [ "${_COLOR}" = "false" ]
+		then
+			printf "P:"
+		else
+			printf "${WHITE}P${NO_COLOR}:"
+		fi
+
 		if [ "${_L10N}" = "false" ]
 		then
-			printf "P: ${STRING}\n"
+			printf " ${STRING}\n"
 		else
-			printf "P: $(eval_gettext "${STRING}")" "${@}"; echo;
+			printf " $(eval_gettext "${STRING}")" "${@}"; echo;
+		fi
+	fi
+}
+
+Echo_message_running ()
+{
+	if [ "${_QUIET}" != "enabled" ]
+	then
+		STRING="${1}"
+		shift
+
+		if [ "${_COLOR}" = "false" ]
+		then
+			printf "P:"
+		else
+			printf "${WHITE}P${NO_COLOR}:"
+		fi
+
+		if [ "${_L10N}" = "false" ]
+		then
+			printf " ${STRING}"
+		else
+			printf " $(eval_gettext "${STRING}")" "${@}";
+		fi
+
+		if [ "${_COLOR}" = "false" ]
+		then
+			printf "...\n"
+		else
+			printf "... ${YELLOW}${BLINK}running${NO_COLOR}"
 		fi
 	fi
 }
 
 Echo_verbose ()
 {
-	STRING="${1}"
-	shift
-
 	if [ "${_VERBOSE}" = "enabled" ]
 	then
+		STRING="${1}"
+		shift
+
 		if [ "${_L10N}" = "false" ]
 		then
 			printf "I: ${STRING}\n"
@@ -81,10 +148,40 @@ Echo_verbose ()
 	fi
 }
 
+Echo_verbose_running ()
+{
+	if [ "${_VERBOSE}" != "enabled" ]
+	then
+		STRING="${1}"
+		shift
+
+		if [ "${_L10N}" = "false" ]
+		then
+			printf "I: ${STRING}"
+		else
+			printf "I: $(eval_gettext "${STRING}")" "${@}";
+		fi
+
+		if [ "${_COLOR}" = "false" ]
+		then
+			printf "...\n"
+		else
+			printf "... ${YELLOW}${BLINK}running${NO_COLOR}"
+		fi
+	fi
+}
+
 Echo_warning ()
 {
 	STRING="${1}"
 	shift
+
+	if [ "${_COLOR}" = "false" ]
+	then
+		printf "W:"
+	else
+		printf "${YELLOW}W${NO_COLOR}:"
+	fi
 
 	if [ "${_L10N}" = "false" ]
 	then
@@ -92,6 +189,50 @@ Echo_warning ()
 	else
 		printf "W: $(eval_gettext "${STRING}")" "${@}"; echo;
 	fi
+}
+
+Echo_status ()
+{
+	__RETURN="${?}"
+
+	if [ "${_COLOR}" = "false" ]
+	then
+		if [ "${__RETURN}" = "0" ]
+		then
+			printf " done.\n"
+		else
+			printf " failed.\n"
+		fi
+	else
+		Cursor_columns_backward 8
+
+		if [ "${__RETURN}" = "0" ]
+		then
+			printf " ${GREEN}done${NO_COLOR}.  \n"
+		else
+			printf " ${RED}failed${NO_COLOR}.\n"
+		fi
+	fi
+}
+
+Echo_done ()
+{
+	if [ "${_COLOR}" = "false" ]
+	then
+		printf " already done.\n"
+	else
+		Cursor_columns_backward 8
+
+		printf " ${GREEN}already done${NO_COLOR}.\n"
+	fi
+}
+
+Echo_file ()
+{
+	while read LINE
+	do
+		echo "${1}: ${LINE}"
+	done < "${1}"
 }
 
 Echo_breakage ()
@@ -106,12 +247,4 @@ Echo_breakage ()
 	esac
 
 	Echo_message "${@}"
-}
-
-Echo_file ()
-{
-	while read LINE
-	do
-		echo "${1}: ${LINE}"
-	done < "${1}"
 }
