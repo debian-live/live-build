@@ -185,9 +185,9 @@ Echo_warning ()
 
 	if [ "${_L10N}" = "false" ]
 	then
-		printf "W: ${STRING}\n"
+		printf " ${STRING}\n"
 	else
-		printf "W: $(eval_gettext "${STRING}")" "${@}"; echo;
+		printf " $(eval_gettext "${STRING}")" "${@}"; echo;
 	fi
 }
 
