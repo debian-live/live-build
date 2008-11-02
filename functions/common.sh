@@ -8,6 +8,7 @@
 # under certain conditions; see COPYING for details.
 
 PROGRAM="$(basename ${0})"
+PACKAGE="live-helper"
 VERSION="1.0.1"
 
 PATH="${PWD}/scripts:${PATH}"
