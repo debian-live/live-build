@@ -643,7 +643,7 @@ Local_arguments ()
 				;;
 
 			-c|--conffile)
-				LH_CONFFILE="${2}"
+				_CONFFILE="${2}"
 				shift 2
 				;;
 
@@ -716,9 +716,9 @@ Read_conffiles config/all config/common config/bootstrap config/chroot config/bi
 
 Local_arguments "${@}"
 
-if [ -n "${LH_CONFFILE}" ]
+if [ -n "${_CONFFILE}" ]
 then
-	Read_conffiles "${LH_CONFFILE}"
+	Read_conffiles "${_CONFFILE}"
 fi
 
 # Setting defaults
