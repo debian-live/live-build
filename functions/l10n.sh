@@ -7,7 +7,7 @@
 # This is free software, and you are welcome to redistribute it
 # under certain conditions; see COPYING for details.
 
-if [ -x "$(which gettext.sh 2>/dev/null)" ]
+if [ -x "$(which gettext.sh 2>/dev/null)" ] && Find_files /usr/share/locale/*/LC_MESSAGES/${PROGRAM}.mo
 then
 	_L10N="enabled"
 
