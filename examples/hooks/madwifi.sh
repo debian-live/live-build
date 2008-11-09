@@ -20,4 +20,4 @@ done
 module-assistant clean madwifi
 
 # Installing additional stuff
-apt-get install --yes madwifi-tools madwifi-doc
+apt-get install --yes madwifi-tools
