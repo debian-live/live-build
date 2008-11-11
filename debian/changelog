@@ -1,3 +1,121 @@
+live-helper (1.0.1-2) unstable; urgency=medium
+
+  [ An-Cheng Huang ]
+  * ignore harmless warnings from parted.
+
+  [ Chris Lamb ]
+  * Really fix LH_BOOTSTRAP="copy". Thanks to Andreas Teuchert
+    <ant+bdo@hsg-kl.de>. (Closes: #498385)
+  * Ensure local packages lists are sourced over global ones (Closes: #499656)
+  * Fix timing issue in create of source tarballs. Patch by Sebastian H
+    <shbugreport@online.de>. (Closes: #499793)
+  * Additionally save the 'scripts/' subdirectory if it contains files when
+    building source images.
+  * Syncing options in lh_config(1) with lh_config, etc. Thanks to Luca Bruno.
+  * Create a "missing-source.txt" file containing missing source packages
+    instead of exiting.
+  * Don't build up source package list inside chroot.
+  * Install appropriate tasksel program.
+  * Correcting sparc architecture detection to ensure correct source package
+    contents.
+  * Include source for sparc-utils on that architecture.
+  * Ensure all files installed via chroot_local-includes are owned by root:root.
+    Thanks to Julien Cristau <jcristau@debian.org>.
+  * For consistency, don't preserve uid/gid for files in binary_local-includes.
+  * Add utility function to call 'Exit' when script exits.
+  * Print message when Exit is called.
+  * Setup cleanup hook in the high-level helpers.
+  * Refactor utility to locate conffiles.
+  * Add utility to dump specified file to stdout.
+  * Add utility to dump all conffiles to stdout.
+  * Add lh_dumpconfig helper to print suitable output for pastebins and other
+    remote debugging.
+
+
+  [ Daniel Baumann ]
+  * Adding explicit --yes to apt-get call when installing keyring packages
+    (previously, this was inherited through Apt(); wrapper) (Closes: #499625).
+  * Correcting wrong spelling of sl-modem-daemon in rescue list.
+  * Fixing bcm43xx-fwcutter entry in rescue list, only available in etch.
+  * Automatically correct LH_SETUP value if the configured losetup cannot be
+    found.
+  * Improving indices workaround by checking LH_BOOTSTRAP_FLAVOUR rather than
+    LH_PACKAGES_LISTS in order to handle chicken-egg problem for installing
+    apt-utils when having bootstrapped a minimal chroot.
+  * Also accept x86_64 as alias for amd64 when checking for cross architecture
+    support.
+  * Adding virtualbox-ose hook.
+  * Adding lh_chroot_selinuxfs helper to support building live images on a
+    selinux enabled host (Closes: #501652).
+  * Applying patch from Frederic Boiteux <fboiteux@calistel.com> to support
+    wildcards in rootfs exclude lists (Closes: #500677).
+  * Making removal stage of lh_chroot_selinuxfs dependent on the existence of
+    /selinux, otherwise that directory would be always created in the chroot.
+  * Manually setting owner of /etc/skel to root.
+  * Making sure /etc/sudoers has right owner/permissions.
+  * Using simplified Require_stagefile(); calls by passing multiple arguments.
+  * Enforcing lh_config to be run before lh_build, see also
+    http://lists.debian.org/debian-live/2008/10/msg00102.html (Closes: #500740).
+  * Updating version number in common.sh.
+  * Removing LIVE_* grep from Exit(); as we have switched to LH_* variables long
+    time ago.
+  * Adding unmount calls for pseudo-filesystems in Exit();.
+  * Excluding ipppd from rescue list due to #502693.
+  * Correcting intendation in conffile.sh.
+  * Adjusting code style of lh_dumpconfig.
+  * Merging lh_dumpconfig into lh_config as --dump parameter.
+  * Updating Debian Forensics packages in rescue list.
+  * Using dd rather than cat to write mbr.bin to usb-hdd images; dd is more
+    robust in case mbr.bin is corrupted.
+  * Improving version output of lh_config --dump.
+  * Removing double cryptsetup entry in rescue list.
+  * Adding lsof in rescue list.
+  * Updating releases.sh to match internal namespace of included functions.
+  * Marking grub and lilo in rescue list as amd64 and i386 only.
+  * Grouping bootloaders in rescue list.
+  * Adding hppa bootloader to rescue list.
+  * Renaming internal Read_conffile(); to Read_conffiles(); for consistency
+    reasons.
+  * Generalizing internal Chroot(); by requiring its first argument to be the
+    chroot directory.
+  * Don't use set -e in sourced functions, this is the job of the actual
+    executed script.
+  * Check for availability of gettext at runtime, and only use it if existing.
+  * Updating color functions.
+  * Adding armel to architecture specific checks.
+  * Slightly reordering genisoimage option assembling.
+  * Slightely improving wording of the 'bootloader not yet supported' when
+    creating images.
+  * Updating signals in exit and lockfile traps.
+  * Syncing internal lockfile functions.
+  * Syncing internal l10n functions.
+  * Generalizing internal LH_L10N variable.
+  * Generalizing internal LH_FORCE variable.
+  * Generalizing internal LH_DEBUG variable.
+  * Generalizing internal LH_QUIET variable.
+  * Generalizing internal LH_VERBOSE variable.
+  * Generalizing internal LH_BREAKPOINTS variable.
+  * Implementing colorful output (currently disabled by default, though).
+  * Cleaning up code of 'lh' short helper.
+  * Correcting manpage section reference in a comment in lh.
+  * Removing double warning symbol.
+  * Also checking for gettext catalogs to be installed before enabling l10n.
+  * Using package variable to refere internally to live-helper.
+  * Generalizing internal LH_CONFFILE variable.
+  * Replacing obsolete dh_clean -k with dh_prep.
+
+  [ Marco Amadori ]
+  * lh_config --help and manpage 'copy' mention.
+  * Ensure lh_binary_debian-installer includes local debs (Closes: #502877)
+
+  [ Maximilian Gass ]
+  * Only install memtest in lh_binary_syslinux if enabled.
+
+  [ Kai Hendry ]
+  * Removing etch-only madwifi-doc package from madwifi example hook.
+
+ -- Daniel Baumann <daniel@debian.org>  Tue, 11 Nov 2008 13:00:00 +0100
+
 live-helper (1.0.1-1) unstable; urgency=medium
 
   [ Chris Lamb ]
