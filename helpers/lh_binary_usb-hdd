@@ -161,7 +161,7 @@ case "${LH_CHROOT_BUILD}" in
 
 	disabled)
 		parted -s ${FREELO} mklabel ${PARTITION_TABLE_TYPE} || true
-		parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100%
+		parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100% || true
 		parted -s ${FREELO} set 1 boot on || true
 		parted -s ${FREELO} set 1 lba off || true
 
