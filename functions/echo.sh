@@ -14,7 +14,7 @@ Echo ()
 
 	if [ "${_L10N}" = "false" ]
 	then
-		printf "${STRING}\n"
+		printf "${STRING}\n" "${@}"
 	else
 		printf "$(eval_gettext "${STRING}")" "${@}"; echo;
 	fi
@@ -29,7 +29,7 @@ Echo_debug ()
 
 		if [ "${_L10N}" = "false" ]
 		then
-			printf "D: ${STRING}\n"
+			printf "D: ${STRING}\n" "${@}"
 		else
 			printf "D: $(eval_gettext "${STRING}")" "${@}"; echo;
 		fi
@@ -45,7 +45,7 @@ Echo_debug_running ()
 
 		if [ "${_L10N}" = "false" ]
 		then
-			printf "D: ${STRING}"
+			printf "D: ${STRING}" "${@}"
 		else
 			printf "D: $(eval_gettext "${STRING}")" "${@}"
 		fi
@@ -73,7 +73,7 @@ Echo_error ()
 
 	if [ "${_L10N}" = "false" ]
 	then
-		printf " ${STRING}" >&2
+		printf " ${STRING}" "${@}" >&2
 	else
 		(printf " $(eval_gettext "${STRING}")" "${@}";) >&2
 	fi
@@ -95,7 +95,7 @@ Echo_message ()
 
 		if [ "${_L10N}" = "false" ]
 		then
-			printf " ${STRING}\n"
+			printf " ${STRING}\n" "${@}"
 		else
 			printf " $(eval_gettext "${STRING}")" "${@}"; echo;
 		fi
@@ -118,7 +118,7 @@ Echo_message_running ()
 
 		if [ "${_L10N}" = "false" ]
 		then
-			printf " ${STRING}"
+			printf " ${STRING}" "${@}"
 		else
 			printf " $(eval_gettext "${STRING}")" "${@}";
 		fi
@@ -141,7 +141,7 @@ Echo_verbose ()
 
 		if [ "${_L10N}" = "false" ]
 		then
-			printf "I: ${STRING}\n"
+			printf "I: ${STRING}\n" "${@}"
 		else
 			printf "I: $(eval_gettext "${STRING}")" "${@}"; echo;
 		fi
@@ -157,7 +157,7 @@ Echo_verbose_running ()
 
 		if [ "${_L10N}" = "false" ]
 		then
-			printf "I: ${STRING}"
+			printf "I: ${STRING}" "${@}"
 		else
 			printf "I: $(eval_gettext "${STRING}")" "${@}";
 		fi
@@ -185,7 +185,7 @@ Echo_warning ()
 
 	if [ "${_L10N}" = "false" ]
 	then
-		printf " ${STRING}\n"
+		printf " ${STRING}\n" "${@}"
 	else
 		printf " $(eval_gettext "${STRING}")" "${@}"; echo;
 	fi
