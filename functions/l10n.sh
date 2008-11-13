@@ -9,7 +9,7 @@
 
 if [ -x "$(which gettext.sh 2>/dev/null)" ] && Find_files /usr/share/locale/*/LC_MESSAGES/${PACKAGE}.mo
 then
-	_L10N="enabled"
+	_L10N="true"
 
 	# gettext domain (.mo file name)
 	TEXTDOMAIN="${PACKAGE}"
@@ -22,5 +22,5 @@ then
 	# load gettext functions
 	. gettext.sh
 else
-	_L10N="disabled"
+	_L10N="false"
 fi
