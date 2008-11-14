@@ -128,7 +128,7 @@ case "${1}" in
 				# Generate Release
 				echo "cd /root/local-packages && apt-ftparchive \
 					-o APT::FTPArchive::Release::Origin=chroot_local-packages \
-					release . > Release" | Chroot chroot
+					release . > Release" | Chroot chroot sh
 
 				if [ "${LH_APT_SECURE}" = "enabled" ]
 				then
