@@ -186,9 +186,16 @@ Copy_syslinux_templates ()
 		cp "${TEMPLATES}"/menu/*.cfg ${SCREEN_PATH}
 		cp "${TEMPLATES}"/menu/data/* ${DATA_PATH}
 
-		# Grab menu binary from chroot
+		# Grab menu binary
 		MENUMODULE=$(grep 'menu.c32' ${TEMPLATES}/menu/header.cfg | sed 's|default\s*.*/\(.*menu.c32\)$|\1|g')
-		cp chroot/usr/lib/syslinux/"${MENUMODULE}" ${DATA_PATH}
+		case "${LH_CHROOT_BUILD}" in
+			enabled)
+				cp chroot/usr/lib/syslinux/"${MENUMODULE}" ${DATA_PATH}
+				;;
+			disabled)
+				cp /usr/lib/syslinux/"${MENUMODULE}" ${DATA_PATH}
+				;;
+		esac
 	fi
 
 	if [ -d "${TEMPLATES}"/"${LH_LANGUAGE}" ]
