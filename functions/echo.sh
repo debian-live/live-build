@@ -125,7 +125,7 @@ Echo_message_running ()
 
 		if [ "${_COLOR}" = "false" ]
 		then
-			printf "...\n"
+			printf "..."
 		else
 			printf "... ${YELLOW}${BLINK}running${NO_COLOR}"
 		fi
@@ -164,7 +164,7 @@ Echo_verbose_running ()
 
 		if [ "${_COLOR}" = "false" ]
 		then
-			printf "...\n"
+			printf "..."
 		else
 			printf "... ${YELLOW}${BLINK}running${NO_COLOR}"
 		fi
