@@ -1,3 +1,25 @@
+live-helper (1.0.1-3) unstable; urgency=medium
+
+  [ An-Cheng Huang ]
+  * Copy menu binary from the correct directory
+
+  [ Antonio Terceiro ]
+  * Adding missing arguments to printf (l10n disabled)
+
+  [ Daniel Baumann ]
+  * Correcting typo in dh_prep call in rules.
+  * Correcting wrong defaults setting for internal _L10N variable.
+  * Applied patch from Maximilian Gass <mxey@cloudconnected.org> to fix
+    typo in generation of release files in lh_chroot_sources.
+  * Removing wrong 'new-line' in running echo functions when using no
+    color output.
+  * Removing scripts directory through lh_clean, if it's not empty.
+  * Even though users are supposed to have any local-includes with the
+    correct owner and permissions, we set them manually on /home/user as
+    it's likely that anybody will forget it (Closes: #506553).
+
+ -- Daniel Baumann <daniel@debian.org>  Tue, 25 Nov 2008 12:00:00 +0100
+
 live-helper (1.0.1-2) unstable; urgency=medium
 
   [ An-Cheng Huang ]
