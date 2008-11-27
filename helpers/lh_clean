@@ -52,7 +52,11 @@ do
 			"${0}" --binary
 			"${0}" --stage
 			"${0}" --source
-			rmdir --ignore-fail-on-non-empty scripts
+
+			if [ -d scripts ]
+			then
+				rmdir --ignore-fail-on-non-empty scripts
+			fi
 			;;
 
 		--cache)
