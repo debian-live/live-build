@@ -5,7 +5,7 @@
 
 # Debian Forensics
 # http://qa.debian.org/developer.php?login=forensics-devel@lists.alioth.debian.org
-gpart wipe
+gpart tct wipe
 #if DISTRIBUTION lenny sid
 ext3grep galleta grokevt memdump missidentify myrescue pasco reglookup
 scrounge-ntfs ssdeep tableau-parm
