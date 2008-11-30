@@ -73,6 +73,7 @@ sl-modem-daemon
 atmel-firmware linux-wlan-ng-firmware firmware-ralink bluez-firmware
 libertas-firmware firmware-iwlwifi zd1211-firmware
 firmware-qlogic firmware-bnx2
+#endif
 
 # These two are from contrib but the idea is the same: non-free firmware.
 b43-fwcutter
