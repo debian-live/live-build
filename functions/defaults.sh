@@ -483,6 +483,11 @@ Set_defaults ()
 				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|laptop||' -e 's|kde-desktop||' -e 's|desktop||') standard laptop kde-desktop desktop"
 				;;
 
+			lxde-desktop)
+				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|lxde-desktop||') standard-x11"
+				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|laptop||' -e 's|lxde-desktop||' -e 's|desktop||') standard laptop lxde-desktop desktop"
+				;;
+
 			xfce-desktop)
 				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|xfce-desktop||') standard-x11"
 				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|laptop||' -e 's|xfce-desktop||' -e 's|desktop||') standard laptop xfce-desktop desktop"
