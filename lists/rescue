@@ -76,11 +76,11 @@ firmware-qlogic firmware-bnx2
 #endif
 
 # These two are from contrib but the idea is the same: non-free firmware.
+#if CATEGORIES contrib
 b43-fwcutter
+#endif
 #if DISTRIBUTION etch
 bcm43xx-fwcutter
-#endif
-
 #endif
 
 # Backup
