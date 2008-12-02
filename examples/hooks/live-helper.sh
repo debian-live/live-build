@@ -2,7 +2,8 @@
 
 # This is a hook for live-helper(7) to install live-helper and its config into
 # the binary image.
-# To enable it, copy this hook into your config/binary_local-hooks directory.
+# To enable it, copy or symlink this hook into your config/chroot_local-hooks
+# directory.
 
 DIRECTORY="binary/tools/live"
 

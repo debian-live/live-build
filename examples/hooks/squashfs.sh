@@ -1,7 +1,8 @@
 #!/bin/sh
 
 # This is a hook for live-helper(7) to install squashfs drivers
-# To enable it, copy this hook into your config/chroot_local-hooks directory.
+# To enable it, copy or symlink this hook into your config/chroot_local-hooks
+# directory.
 #
 # Note: You only want to use this hook if there is no prebuild
 # squashfs-modules-* package available for your kernel flavour.
