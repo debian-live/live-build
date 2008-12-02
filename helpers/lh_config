@@ -996,6 +996,7 @@ EOF
 
 # Creating lh_binary_* configuration
 mkdir -p config/binary_debian-installer
+mkdir -p config/binary_debian-installer-includes
 mkdir -p config/binary_grub
 mkdir -p config/binary_local-debs
 mkdir -p config/binary_local-hooks

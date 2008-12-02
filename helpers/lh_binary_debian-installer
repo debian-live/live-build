@@ -643,16 +643,33 @@ fi
 Repack_initrd()
 {
 	local TARGET_INITRD
+	local INCLUDE_PATH
 	TARGET_INITRD="${1}"
+	INCLUDE_PATH="${2}"
 	REPACK_TMPDIR="unpacked-initrd"
+
+	if [ -d "${INCLUDE_PATH}" ]
+	then
+		INCLUDE_PATH=$(readlink -f ${INCLUDE_PATH})
+	fi
 
 	# cpio does not have a "extract to directory", so we must change directory
 	mkdir -p ${REPACK_TMPDIR}
 	cd ${REPACK_TMPDIR}
 
 	gzip -d < ../${TARGET_INITRD} | cpio -i --make-directories --no-absolute-filenames
-	cp ../config/binary_debian-installer/*.cfg .
-	find | cpio -H newc -o | gzip -9 > ../${TARGET_INITRD}
+	if [ ! -d "${INCLUDE_PATH}" ]
+	then
+		# Invoked the old way, just copy the preseeds
+		cp ../config/binary_debian-installer/*.cfg .
+	else
+		# New way, include target directory content in the initrd
+		REPACK_TMPDIR_ABS="${PWD}"
+		cd "${INCLUDE_PATH}"
+		find -print0 | cpio -pumd0 --no-preserve-owner "${REPACK_TMPDIR_ABS}/"
+		cd "${OLDPWD}"
+	fi
+	find -print0 | cpio -H newc -o0 | gzip -9 > ../${TARGET_INITRD}
 
 	cd ..
 	rm -rf ${REPACK_TMPDIR}
@@ -666,6 +683,17 @@ then
 	if [ -e "${DESTDIR}"/"${INITRD_GI}" ]
 	then
 		Repack_initrd "${DESTDIR}"/"${INITRD_GI}"
+	fi
+fi
+
+# Include content of config/binary_debian-installer-includes if exists and not empty
+if [ -d config/binary_debian-installer-includes ] && [ -n "$(ls -A config/binary_debian-installer-includes)" ]
+then
+	Repack_initrd "${DESTDIR}"/"${INITRD_DI}" config/binary_debian-installer-includes
+
+	if [ -e "${DESTDIR}"/"${INITRD_GI}" ]
+	then
+		Repack_initrd "${DESTDIR}"/"${INITRD_GI}" config/binary_debian-installer-includes
 	fi
 fi
 
