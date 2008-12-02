@@ -7,6 +7,8 @@
 # Note: You only want to use this hook if there is no prebuild aufs-modules-*
 # package available for your kernel flavour.
 
+apt-get install --yes build-essential
+
 # Building kernel module
 which module-assistant || apt-get install --yes module-assistant
 module-assistant update

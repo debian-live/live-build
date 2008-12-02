@@ -4,6 +4,8 @@
 # To enable it, copy or symlink this hook into your config/chroot_local-hooks
 # directory.
 
+apt-get install --yes build-essential
+
 which module-assistant || apt-get install --yes module-assistant
 module-assistant update
 

@@ -6,6 +6,8 @@
 #
 # FIXME: it runs in interactive mode
 
+apt-get install --yes build-essential
+
 # Building kernel modules
 which module-assistant || apt-get install --yes module-assistant
 module-assistant update

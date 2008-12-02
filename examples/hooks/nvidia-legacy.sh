@@ -7,6 +7,8 @@
 # Note: This hook requires packages from the non-free category. Make sure you
 # enabled it in your configuration.
 
+apt-get install --yes build-essential
+
 # Building kernel module
 which module-assistant || apt-get install --yes module-assistant nvidia-kernel-common
 module-assistant update

@@ -7,6 +7,8 @@
 # Note: This hook requires packages from the contrib category. Make sure you enabled
 # it in your configuration.
 
+apt-get install --yes build-essential
+
 # Building kernel module
 which module-assistant || apt-get install --yes module-assistant
 module-assistant update
