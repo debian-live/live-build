@@ -24,10 +24,6 @@ Set_defaults ()
 			debian)
 				LH_DISTRIBUTION="lenny"
 				;;
-
-			debian-edu)
-				LH_DISTRIBUTION="etch"
-				;;
 		esac
 	fi
 
@@ -72,10 +68,6 @@ Set_defaults ()
 
 	# Setting apt recommends
 	case "${LH_MODE}" in
-		debian-edu)
-			LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS:-disabled}"
-			;;
-
 		*)
 			LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS:-enabled}"
 			;;
@@ -137,10 +129,6 @@ Set_defaults ()
 						LH_INITRAMFS="live-initramfs"
 					fi
 					;;
-
-				debian-edu)
-					LH_INITRAMFS="live-initramfs"
-					;;
 			esac
 		fi
 	fi
@@ -199,10 +187,6 @@ Set_defaults ()
 		case "${LH_MODE}" in
 			debian)
 				LH_ROOT="debian-live"
-				;;
-
-			debian-edu)
-				LH_ROOT="edu-live"
 				;;
 		esac
 	fi
@@ -285,10 +269,6 @@ Set_defaults ()
 						;;
 				esac
 				;;
-
-			debian-edu)
-				LH_MIRROR_BOOTSTRAP="http://ftp.skolelinux.no/debian/"
-				;;
 		esac
 	fi
 
@@ -314,10 +294,6 @@ Set_defaults ()
 						LH_MIRROR_BINARY="http://ftp.de.debian.org/debian/"
 						;;
 				esac
-				;;
-
-			debian-edu)
-				LH_MIRROR_BINARY="http://ftp.skolelinux.no/debian/"
 				;;
 		esac
 	fi
@@ -360,8 +336,8 @@ Set_defaults ()
 
 	# Setting keyring packages
 	case "${LH_MODE}" in
-		debian-edu)
-			LH_KEYRING_PACKAGES="debian-edu-archive-keyring"
+		debian)
+			LH_KEYRING_PACKAGES="debian-archive-keyring"
 			;;
 	esac
 
@@ -636,10 +612,6 @@ Set_defaults ()
 			debian)
 				LH_ISO_APPLICATION="Debian Live"
 				;;
-
-			debian-edu)
-				LH_ISO_APPLICATION="Debian Edu Live"
-				;;
 		esac
 	fi
 
@@ -655,10 +627,6 @@ Set_defaults ()
 		case "${LH_MODE}" in
 			debian)
 				LH_ISO_VOLUME="Debian Live \$(date +%Y%m%d-%H:%M)"
-				;;
-
-			debian-edu)
-				LH_ISO_VOLUME="Debian Edu Live \$(date +%Y%m%d-%H:%M)"
 				;;
 		esac
 	fi
@@ -686,10 +654,6 @@ Set_defaults ()
 		case "${LH_MODE}" in
 			debian)
 				LH_NET_ROOT_PATH="/srv/debian-live"
-				;;
-
-			debian-edu)
-				LH_NET_ROOT_PATH="/srv/debian-edu-live"
 				;;
 		esac
 	fi
