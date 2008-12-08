@@ -24,6 +24,10 @@ Set_defaults ()
 			debian)
 				LH_DISTRIBUTION="lenny"
 				;;
+
+			emdebian)
+				LH_DISTRIBUTION="sid"
+				;;
 		esac
 	fi
 
@@ -68,8 +72,12 @@ Set_defaults ()
 
 	# Setting apt recommends
 	case "${LH_MODE}" in
-		*)
+		debian)
 			LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS:-enabled}"
+			;;
+
+		emdebian)
+			LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS:-disabled}"
 			;;
 	esac
 
@@ -129,6 +137,10 @@ Set_defaults ()
 						LH_INITRAMFS="live-initramfs"
 					fi
 					;;
+
+				*)
+					LH_INITRAMFS="live-initramfs"
+					;;
 			esac
 		fi
 	fi
@@ -187,6 +199,10 @@ Set_defaults ()
 		case "${LH_MODE}" in
 			debian)
 				LH_ROOT="debian-live"
+				;;
+
+			emdebian)
+				LH_ROOT="emdebian-live"
 				;;
 		esac
 	fi
@@ -269,6 +285,10 @@ Set_defaults ()
 						;;
 				esac
 				;;
+
+			emdebian)
+				LH_MIRROR_BOOTSTRAP="http://buildd.emdebian.org/grip/"
+				;;
 		esac
 	fi
 
@@ -277,7 +297,15 @@ Set_defaults ()
 	# Setting security mirror to fetch packages from
 	if [ -z "${LH_MIRROR_CHROOT_SECURITY}" ]
 	then
-		LH_MIRROR_CHROOT_SECURITY="http://security.debian.org/"
+		case "${LH_MODE}" in
+			debian)
+				LH_MIRROR_CHROOT_SECURITY="http://security.debian.org/"
+				;;
+
+			emdebian)
+				LH_MIRROR_CHROOT_SECURITY="none"
+				;;
+		esac
 	fi
 
 	# Setting mirror which ends up in the image
@@ -295,13 +323,25 @@ Set_defaults ()
 						;;
 				esac
 				;;
+
+			emdebian)
+				LH_MIRROR_BINARY="http://buildd.emdebian.org/grip/"
+				;;
 		esac
 	fi
 
 	# Setting security mirror which ends up in the image
 	if [ -z "${LH_MIRROR_BINARY_SECURITY}" ]
 	then
-		LH_MIRROR_BINARY_SECURITY="http://security.debian.org/"
+		case "${LH_MODE}" in
+			debian)
+				LH_MIRROR_BINARY_SECURITY="http://security.debian.org/"
+				;;
+
+			emdebian)
+				LH_MIRROR_BINARY_SECURITY="none"
+				;;
+		esac
 	fi
 
 	# Setting categories value
@@ -337,6 +377,10 @@ Set_defaults ()
 	# Setting keyring packages
 	case "${LH_MODE}" in
 		debian)
+			LH_KEYRING_PACKAGES="debian-archive-keyring"
+			;;
+
+		emdebian)
 			LH_KEYRING_PACKAGES="debian-archive-keyring"
 			;;
 	esac
@@ -612,6 +656,10 @@ Set_defaults ()
 			debian)
 				LH_ISO_APPLICATION="Debian Live"
 				;;
+
+			emdebian)
+				LH_ISO_APPLICATION="Emdebian Live"
+				;;
 		esac
 	fi
 
@@ -627,6 +675,10 @@ Set_defaults ()
 		case "${LH_MODE}" in
 			debian)
 				LH_ISO_VOLUME="Debian Live \$(date +%Y%m%d-%H:%M)"
+				;;
+
+			emdebian)
+				LH_ISO_VOLUME="Emdebian Live \$(date +%Y%m%d-%H:%M)"
 				;;
 		esac
 	fi
@@ -654,6 +706,10 @@ Set_defaults ()
 		case "${LH_MODE}" in
 			debian)
 				LH_NET_ROOT_PATH="/srv/debian-live"
+				;;
+
+			emdebian)
+				LH_NET_ROOT_PATH="/srv/emdebian-live"
 				;;
 		esac
 	fi
