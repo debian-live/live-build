@@ -1,3 +1,27 @@
+live-helper (1.0.1-4) unstable; urgency=medium
+
+  [ Daniel Baumann ]
+  * Don't attempt to remove scripts directory in lh_clean if it doesn't exist.
+  * Adding tct to rescue list.
+  * Updating lxde-desktop support.
+  * Adding missing endif in rescue list.
+  * Removing nested ifdefs in rescue list.
+  * Correcting defaults check for diverted losetup binary to also cope with
+    host systems that do install loop-aes-utils after populating live-helper
+    config.
+  * Correcting update-initramfs example hook description.
+  * Mention possibility to symlink example hooks in their descriptions.
+  * Also installing build-essential manually in module example hooks, as
+    module-assistant doesn't do it automatically.
+  * Adding Debian Science package list.
+  * Removing debian-edu mode, outdated and apparently not used anymore.
+  * Adding emdebian grip mode.
+
+  [ Marco Amadori ]
+  * NEW: "binary_debian-installer-includes" config directory.
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 11 Dec 2008 06:00:00 +0100
+
 live-helper (1.0.1-3) unstable; urgency=medium
 
   [ An-Cheng Huang ]
