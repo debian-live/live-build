@@ -7,4 +7,9 @@
 # Note: You only want to use this hook if you have modified any initramfs-script
 # during the build and need to refresh the initrd.img for that purpose.
 
-update-initramfs -k all -t -u
+for KERNEL in /boot/vmlinuz-*
+do
+	VERSION="$(basename ${KERNEL} | sed -e 's|vmlinuz-||')"
+
+	update-initramfs -k ${VERSION} -t -u
+done
