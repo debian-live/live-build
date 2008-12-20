@@ -1,3 +1,12 @@
+live-helper (1.0.2-1) unstable; urgency=medium
+
+  * Marking ardour-gtk in studio package list as etch and sid only.
+  * Iterating over all installed kernel images in update-initramfs example hook.
+  * Updating udeb data.
+  * Updating cd includes.
+
+ -- Daniel Baumann <daniel@debian.org>  Sat, 20 Dec 2008 15:00:00 +0100
+
 live-helper (1.0.1-4) unstable; urgency=medium
 
   [ Daniel Baumann ]

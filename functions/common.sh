@@ -9,6 +9,6 @@
 
 PROGRAM="$(basename ${0})"
 PACKAGE="live-helper"
-VERSION="1.0.1-4"
+VERSION="1.0.2-1"
 
 PATH="${PWD}/scripts:${PATH}"
