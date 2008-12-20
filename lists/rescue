@@ -221,7 +221,9 @@ crashme
 dbench
 doscan
 dsniff
+#if DISTRIBUTION etch
 fragrouter
+#endif
 honeyd
 hping3
 icmpush
