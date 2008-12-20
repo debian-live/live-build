@@ -54,8 +54,8 @@ do
 
 		if [ "${SOURCE}" = "enabled" ]
 		then
-			mv source.tar.gz debian-live-${DISTRIBUTION}-source-${FLAVOUR}-source.tar.gz
-			mv source.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}-source.tar.gz.list
+			mv source.tar.gz debian-live-${DISTRIBUTION}-source-${FLAVOUR}.tar.gz
+			mv source.list debian-live-${DISTRIBUTION}-source-${FLAVOUR}.tar.gz.list
 		fi
 
 		lh clean --binary
