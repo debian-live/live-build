@@ -32,7 +32,9 @@ palo
 
 # System
 gnupg dash discover gawk htop less lsof ltrace psmisc screen strace units
+#if ARCHITECTURE i386
 pstack
+#endif
 tcsh
 vlock
 moreutils
