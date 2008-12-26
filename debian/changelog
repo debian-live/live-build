@@ -1,3 +1,12 @@
+live-helper (1.0.2-2) unstable; urgency=medium
+
+  * Marking fragrouter in rescue list as etch only.
+  * Correcting naming of source tarballs in image autobuild script.
+  * Marking pstack in rescuelist as i386 only.
+  * Updating location of archive key in in image autobuild script.
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 26 Dec 2008 09:00:00 +0100
+
 live-helper (1.0.2-1) unstable; urgency=medium
 
   * Marking ardour-gtk in studio package list as etch and sid only.
