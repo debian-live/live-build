@@ -121,7 +121,7 @@ Local_arguments ()
 {
 	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-options:,aptitute-options:,
 		apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,
-		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,
+		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,genisoimage:,
 		initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,
 		templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,
 		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,
