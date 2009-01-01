@@ -173,7 +173,7 @@ Local_arguments ()
 				done
 
 				# Dump directory listings of all directories under config/
-				for DIRECTORY in $(find config/ -type d -mindepth 1 -maxdepth 1)
+				for DIRECTORY in $(find config/ -mindepth 1 -maxdepth 1 -type d)
 				do
 					if Find_files "${DIRECTORY}"
 					then
