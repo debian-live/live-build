@@ -153,7 +153,7 @@ Local_arguments ()
 		case "${1}" in
 			--dump)
 				# Dump version
-				if [ -x "$(which dpkg 2>/dev/null)" ]
+				if [ -x "$(which dpkg-query 2>/dev/null)" ]
 				then
 					echo "${0}: This is live-helper version $(dpkg-query -f='${Version}') --show live-helper"
 				else
