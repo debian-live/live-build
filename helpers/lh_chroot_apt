@@ -101,6 +101,17 @@ case "${1}" in
 				;;
 		esac
 
+		# Configuring apt config
+		if [ -f config/chroot_apt/apt.conf ]
+		then
+			if [ -f chroot/etc/apt/apt.conf ]
+			then
+				mv chroot/etc/apt/apt.conf chroot/etc/apt/apt.conf.orig
+			fi
+
+			cp config/chroot_apt/apt.conf chroot/etc/apt/apt.conf
+		fi
+
 		# Configuring apt preferences
 		if [ -f config/chroot_apt/preferences ]
 		then
@@ -180,6 +191,17 @@ case "${1}" in
 		if [ "${LH_APT_SECURE}" = "enabled" ]
 		then
 			rm -f chroot/etc/apt/apt.conf.d/00secure
+		fi
+
+		# Configuring apt config
+		if [ -f config/chroot_apt/apt.conf ]
+		then
+			if [ -f chroot/etc/apt/apt.conf ]
+			then
+				mv chroot/etc/apt/apt.conf chroot/etc/apt/apt.conf.orig
+			fi
+
+			cp config/chroot_apt/apt.conf chroot/etc/apt/apt.conf
 		fi
 
 		# Deconfiguring apt preferences
