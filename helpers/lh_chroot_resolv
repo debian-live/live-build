@@ -48,6 +48,13 @@ case "${1}" in
 		then
 			# Save resolv file or symlink
 			mv chroot/etc/resolv.conf chroot/etc/resolv.conf.orig
+
+			# Also truncate it, otherwise we'll end up with the one
+			# created by debootstrap in the final image.
+			#
+			# If you want to have a custom resolv.conf, please
+			# overwrite it with normal local_includes mechanism.
+			Truncate chroot/etc/resolv.conf.orig
 		fi
 
 		if [ -f /etc/resolv.conf ]
