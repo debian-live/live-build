@@ -1,3 +1,27 @@
+live-helper (1.0.2-3) unstable; urgency=medium
+
+  [ Chris Lamb ]
+  * Add 'dump' as a getopt longoption so as not to prevent rejection of --dump
+    argument to lh_config.
+  * Only print versions of live-helper in --dump output, not every package
+    installed.
+  * Test for dpkg-query instead of dpkg if we are only going to run dpkg-query
+    within that scope.
+  * Don't assume that if dpkg is installed, we'll actually get a live-helper
+    version number from it.
+  * Re-order arguments to find(1) to silence warning about sub-optimal ordering.
+  * Set default value of _COLOR to "false" from "disabled".
+
+  [ Daniel Baumann ]
+  * Also handling custom apt.conf in config/chroot_apt/apt.conf to allow further
+    apt configuration (Closes: #511247).
+  * Adding sample hook to add custom /etc/modules entries.
+  * Truncating resolv.conf created during bootstrap stage, otherwise we'll end
+    up with a local resolv.conf in the final image. Thanks to Ben Armstrong
+    <synrg@debian.org>.
+
+ -- Daniel Baumann <daniel@debian.org>  Sat, 10 Jan 2009 15:00:00 -0500
+
 live-helper (1.0.2-2) unstable; urgency=medium
 
   * Marking fragrouter in rescue list as etch only.
