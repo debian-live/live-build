@@ -404,9 +404,20 @@ case "${1}" in
 			Apt update
 		fi
 
-		# Cleaning apt packages cache
+		# Cleaning apt package cache
 		rm -rf chroot/var/cache/apt
 		mkdir -p chroot/var/cache/apt/archives/partial
+
+		for LIST in ${LH_PACKAGES_LISTS}
+		do
+			case "${LIST}" in
+				stripped|minimal)
+					# Cleaning apt package lists
+					rm -rf chroot/var/lib/apt/lists
+					mkdir -p chroot/var/lib/apt/lists/partial
+					;;
+			esac
+		done
 
 		# Remove local package repository
 		rm -rf chroot/root/local-packages
