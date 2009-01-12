@@ -1,3 +1,12 @@
+live-helper (1.0.2-4) unstable; urgency=low
+
+  * Prefering local resolv.conf over truncated one.
+  * Prefering local hosts over truncated one.
+  * Moving removal of apt packages lists from minimal and stripped hook
+    to lh_chroot_sources, thanks to Ben Armstrong <synrg@debian.org>.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 12 Jan 2009 13:00:00 -0500
+
 live-helper (1.0.2-3) unstable; urgency=medium
 
   [ Chris Lamb ]
