@@ -760,6 +760,7 @@ Check_defaults ()
 {
 	if [ "${LH_DISTRIBUTION}" = "etch" ]
 	then
+		# etch + live-initramfs
 		if [ "${LH_INITRAMFS}" = "live-initramfs" ]
 		then
 			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_INITRAMFS='live-initramfs'"
@@ -771,6 +772,7 @@ Check_defaults ()
 			Echo_warning "default (casper)."
 		fi
 
+		# etch + aufs
 		if [ "${LH_UNION_FILESYSTEM}" = "aufs" ]
 		then
 			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_UNION_FILESYSTEM='aufs'"
@@ -786,6 +788,7 @@ Check_defaults ()
 
 	if echo ${LH_PACKAGES_LISTS} | grep -qs -E "(stripped|minimal)\b"
 	then
+		# aptitude + stripped|minimal
 		if [ "${LH_APT}" = "aptitude" ]
 		then
 			Echo_warning "You selected LH_PACKAGES_LISTS='%s' and LH_APT='aptitude'" "${LH_PACKAGES_LIST}"
@@ -796,6 +799,7 @@ Check_defaults ()
 
 	if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
 	then
+		# d-i enabled, no caching
 		if ! echo ${LH_CACHE_STAGES} | grep -qs "bootstrap\b" || [ "${LH_CACHE}" != "enabled" ] || [ "${LH_CACHE_PACKAGES}" != "enabled" ]
 		then
 			Echo_warning "You have selected values of LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES and"
@@ -807,6 +811,7 @@ Check_defaults ()
 
 	if [ "${LH_BOOTLOADER}" = "syslinux" ]
 	then
+		# syslinux + fat
 		case "${LH_BINARY_FILESYSTEM}" in
 			fat*)
 				;;
