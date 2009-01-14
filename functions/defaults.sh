@@ -821,4 +821,17 @@ Check_defaults ()
 				;;
 		esac
 	fi
+
+	if [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
+	then
+		# grub or yaboot + usb-hdd
+		case "${LH_BOOTLOADER}" in
+			grub|yaboot)
+				Echo_warning "You have selected a combination of bootloader and image type that is currently"
+				Echo_warning "not supported by live-helper. Please use either another bootloader or a"
+				Echo_warning "different image type."
+				exit 1
+				;;
+		esac
+	fi
 }
