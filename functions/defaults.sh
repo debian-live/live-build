@@ -593,10 +593,7 @@ Set_defaults ()
 
 		if Find_files config/binary_debian-installer/*.cfg && [ ! -e config/binary_debian-installer/preseed.cfg ]
 		then
-			Echo_warning "You have placed some preseeding files into config/binary_debian-installer"
-			Echo_warning "but you didn't specify the default preseeding file through"
-			Echo_warning "LH_DEBIAN_INSTALLER_PRESEEDFILE. This means that debian-installer will not"
-			Echo_warning "take up a preseeding file by default."
+			Echo_warning "You have placed some preseeding files into config/binary_debian-installer but you didn't specify the default preseeding file through LH_DEBIAN_INSTALLER_PRESEEDFILE. This means that debian-installer will not take up a preseeding file by default."
 		fi
 	fi
 
@@ -763,25 +760,13 @@ Check_defaults ()
 		# etch + live-initramfs
 		if [ "${LH_INITRAMFS}" = "live-initramfs" ]
 		then
-			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_INITRAMFS='live-initramfs'"
-			Echo_warning "This is a possible unsafe configuration as live-initramfs is not"
-			Echo_warning "part of the etch distribution."
-			Echo_warning "Either make sure that live-initramfs is installable (e.g. through setting up"
-			Echo_warning "etch-backports repository as third-party source or putting a valid live-initramfs"
-			Echo_warning "deb into config/chroot_local-packages) or switch change your config to etch"
-			Echo_warning "default (casper)."
+			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_INITRAMFS='live-initramfs' This is a possible unsafe configuration as live-initramfs is not part of the etch distribution. Either make sure that live-initramfs is installable (e.g. through setting up etch-backports repository as third-party source or putting a valid live-initramfs deb into config/chroot_local-packages) or switch change your config to etch default (casper)."
 		fi
 
 		# etch + aufs
 		if [ "${LH_UNION_FILESYSTEM}" = "aufs" ]
 		then
-			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_UNION_FILESYSTEM='aufs'"
-			Echo_warning "This is a possible unsafe configuration as aufs is not"
-			Echo_warning "part of the etch distribution."
-			Echo_warning "Either make sure that aufs modules for your kernel are installable (e.g. through"
-			Echo_warning "setting up etch-backports repository as third-party source or putting a valid"
-			Echo_warning "aufs-modules deb into config/chroot_local-packages) or switch change your config"
-			Echo_warning "to etch default (unionfs)."
+			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_UNION_FILESYSTEM='aufs' This is a possible unsafe configuration as aufs is not part of the etch distribution. Either make sure that aufs modules for your kernel are installable (e.g. through setting up etch-backports repository as third-party source or putting a valid aufs-modules deb into config/chroot_local-packages) or switch change your config to etch default (unionfs)."
 
 		fi
 	fi
@@ -791,9 +776,7 @@ Check_defaults ()
 		# aptitude + stripped|minimal
 		if [ "${LH_APT}" = "aptitude" ]
 		then
-			Echo_warning "You selected LH_PACKAGES_LISTS='%s' and LH_APT='aptitude'" "${LH_PACKAGES_LIST}"
-			Echo_warning "This is a possible unsafe configuration as aptitude is not"
-			Echo_warning "used in the stripped/minimal package lists."
+			Echo_warning "You selected LH_PACKAGES_LISTS='%s' and LH_APT='aptitude'" "${LH_PACKAGES_LIST}. This is a possible unsafe configuration as aptitude is not used in the stripped/minimal package lists."
 		fi
 	fi
 
@@ -802,10 +785,7 @@ Check_defaults ()
 		# d-i enabled, no caching
 		if ! echo ${LH_CACHE_STAGES} | grep -qs "bootstrap\b" || [ "${LH_CACHE}" != "enabled" ] || [ "${LH_CACHE_PACKAGES}" != "enabled" ]
 		then
-			Echo_warning "You have selected values of LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES and"
-			Echo_warning "LH_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being"
-			Echo_warning "cached. This is a possible unsafe configuration as the bootstrap packages"
-			Echo_warning "are re-used when integrating the Debian Installer."
+			Echo_warning "You have selected values of LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES an dLH_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being cached. This is a possible unsafe configuration as the bootstrap packages are re-used when integrating the Debian Installer."
 		fi
 	fi
 
@@ -816,8 +796,7 @@ Check_defaults ()
 			fat*)
 				;;
 			*)
-				Echo_warning "You have selected values of LH_BOOTLOADER and LH_BINARY_FILESYSTEM"
-				Echo_warning "which are incompatible - syslinux only supports FAT filesystems."
+				Echo_warning "You have selected values of LH_BOOTLOADER and LH_BINARY_FILESYSTEM which are incompatible - syslinux only supports FAT filesystems."
 				;;
 		esac
 	fi
@@ -827,9 +806,7 @@ Check_defaults ()
 		# grub or yaboot + usb-hdd
 		case "${LH_BOOTLOADER}" in
 			grub|yaboot)
-				Echo_warning "You have selected a combination of bootloader and image type that is currently"
-				Echo_warning "not supported by live-helper. Please use either another bootloader or a"
-				Echo_warning "different image type."
+				Echo_warning "You have selected a combination of bootloader and image type that is currently not supported by live-helper. Please use either another bootloader or a different image type."
 				exit 1
 				;;
 		esac

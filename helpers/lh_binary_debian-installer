@@ -470,9 +470,7 @@ then
 			done
 		else
 			Echo_error "Could not find cache/packages_bootstrap."
-			Echo_error "You selected values of LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES and"
-			Echo_error "LH_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being"
-			Echo_error "cached - these are required when integrating the Debian Installer."
+			Echo_error "You selected values of LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES and LH_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being cached - these are required when integrating the Debian Installer."
 			exit 1
 		fi
 	fi
