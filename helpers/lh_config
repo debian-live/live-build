@@ -714,7 +714,12 @@ fi
 # Reading existing configuration
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 
-Local_arguments "${@}"
+if [ -e config.cfg ]
+then
+	Local_arguments $(cat config.cfg) "${@}"
+else
+	Local_arguments "${@}"
+fi
 
 if [ -n "${_CONFFILE}" ]
 then
