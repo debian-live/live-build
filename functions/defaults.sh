@@ -806,7 +806,7 @@ Check_defaults ()
 		# grub or yaboot + usb-hdd
 		case "${LH_BOOTLOADER}" in
 			grub|yaboot)
-				Echo_warning "You have selected a combination of bootloader and image type that is currently not supported by live-helper. Please use either another bootloader or a different image type."
+				Echo_error "You have selected a combination of bootloader and image type that is currently not supported by live-helper. Please use either another bootloader or a different image type."
 				exit 1
 				;;
 		esac
