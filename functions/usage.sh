@@ -20,9 +20,9 @@ Usage ()
 		echo
 	fi
 
-	echo "  %s [-h|--help]" "${PROGRAM}"
-	echo "  %s [-u|--usage]" "${PROGRAM}"
-	echo "  %s [-v|--version]" "${PROGRAM}"
+	printf "  %s [-h|--help]\n" "${PROGRAM}"
+	printf "  %s [-u|--usage]\n" "${PROGRAM}"
+	printf "  %s [-v|--version]\n" "${PROGRAM}"
 	echo
 	Echo "Try \" %s--help\" for more information." "${PROGRAM}"
 
