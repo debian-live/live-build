@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="build rootfs image"
+DESCRIPTION="$(Echo 'build rootfs image')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

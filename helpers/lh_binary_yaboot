@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="installs yaboot into binary"
+DESCRIPTION="$(Echo 'installs yaboot into binary')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

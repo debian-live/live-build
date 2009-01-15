@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="manage /etc/debian_chroot"
+DESCRIPTION="$(Echo 'manage /etc/debian_chroot')"
 HELP=""
 USAGE="${PROGRAM} {install|remove} [--force]"
 

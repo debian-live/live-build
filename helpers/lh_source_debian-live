@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="copy debian-live config into source"
+DESCRIPTION="$(Echo 'copy debian-live config into source')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

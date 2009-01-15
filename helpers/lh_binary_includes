@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="copy files into binary"
+DESCRIPTION="$(Echo 'copy files into binary')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

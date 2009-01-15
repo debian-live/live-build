@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="installs a memtest into binary"
+DESCRIPTION="$(Echo 'installs a memtest into binary')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="clean up system build directories"
+DESCRIPTION="$(Echo 'clean up system build directories')"
 HELP=""
 USAGE="${PROGRAM} [--all] [--cache] [--chroot] [--binary] [--purge] [--remove] [--stage] [--source]"
 

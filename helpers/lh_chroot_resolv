@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="manage /etc/resolv.conf"
+DESCRIPTION="$(Echo 'manage /etc/resolv.conf')"
 HELP=""
 USAGE="${PROGRAM} {install|remove} [--force]"
 

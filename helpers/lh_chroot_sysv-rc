@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="manage /usr/sbin/policy-rc.d"
+DESCRIPTION="$(Echo 'manage /usr/sbin/policy-rc.d')"
 HELP=""
 USAGE="${PROGRAM} {install|remove} [--force]"
 

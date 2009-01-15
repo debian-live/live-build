@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="copy local files into chroot"
+DESCRIPTION="$(Echo 'copy local files into chroot')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

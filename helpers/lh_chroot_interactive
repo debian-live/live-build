@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="make build interactive"
+DESCRIPTION="$(Echo 'make build interactive')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

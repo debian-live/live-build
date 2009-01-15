@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="create binary md5sums"
+DESCRIPTION="$(Echo 'create binary md5sums')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

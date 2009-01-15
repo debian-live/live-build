@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="cache chroot stage"
+DESCRIPTION="$(Echo 'cache chroot stage')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

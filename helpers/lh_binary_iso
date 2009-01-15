@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="build iso binary image"
+DESCRIPTION="$(Echo 'build iso binary image')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="install disk information into binary"
+DESCRIPTION="$(Echo 'install disk information into binary')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="debian sources"
+DESCRIPTION="$(Echo 'debian sources')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="manage /etc/hosts"
+DESCRIPTION="$(Echo 'manage /etc/hosts')"
 HELP=""
 USAGE="${PROGRAM} {install|remove} [--force]"
 

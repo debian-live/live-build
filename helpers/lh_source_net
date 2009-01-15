@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="build source net image"
+DESCRIPTION="$(Echo 'build source net image')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

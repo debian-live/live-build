@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="manage /etc/kernel-img.conf"
+DESCRIPTION="$(Echo 'manage /etc/kernel-img.conf')"
 HELP=""
 USAGE="${PROGRAM} {install|remove} [--force]"
 

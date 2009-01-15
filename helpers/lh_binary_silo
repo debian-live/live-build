@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="installs silo into binary"
+DESCRIPTION="$(Echo 'installs silo into binary')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

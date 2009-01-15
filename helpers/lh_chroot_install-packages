@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="install queued packages into chroot"
+DESCRIPTION="$(Echo 'install queued packages into chroot')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

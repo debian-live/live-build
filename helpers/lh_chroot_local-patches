@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="apply local patches against chroot"
+DESCRIPTION="$(Echo 'apply local patches against chroot')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

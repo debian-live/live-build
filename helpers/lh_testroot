@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="ensure that a system is built as root"
+DESCRIPTION="$(Echo 'ensure that a system is built as root')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

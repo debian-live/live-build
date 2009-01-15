@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="install linux-image into binary"
+DESCRIPTION="$(Echo 'install linux-image into binary')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

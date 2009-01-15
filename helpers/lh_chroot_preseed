@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="execute preseed in chroot"
+DESCRIPTION="$(Echo 'execute preseed in chroot')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

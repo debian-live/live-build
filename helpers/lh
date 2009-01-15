@@ -30,7 +30,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="utility to build Debian Live systems"
+DESCRIPTION="$(Echo 'utility to build Debian Live systems')"
 HELP="FIXME"
 USAGE="FIXME"
 

@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="build source tarball"
+DESCRIPTION="$(Echo 'build source tarball')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

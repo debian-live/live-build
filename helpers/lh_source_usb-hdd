@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="build source image"
+DESCRIPTION="$(Echo 'build source image')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

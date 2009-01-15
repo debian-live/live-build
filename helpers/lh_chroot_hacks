@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="execute hacks in chroot"
+DESCRIPTION="$(Echo 'execute hacks in chroot')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

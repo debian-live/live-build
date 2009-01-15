@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="manage /sbin/dpkg"
+DESCRIPTION="$(Echo 'manage /sbin/dpkg')"
 HELP=""
 USAGE="${PROGRAM} {install|remove} [--force]"
 

@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="build a Debian Live system"
+DESCRIPTION="$(Echo 'build a Debian Live system')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

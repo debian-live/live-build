@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="manage /etc/apt/sources.list"
+DESCRIPTION="$(Echo 'manage /etc/apt/sources.list')"
 HELP=""
 USAGE="${PROGRAM} {install|remove} [--force]"
 

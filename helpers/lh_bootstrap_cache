@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="cache bootstrap stage"
+DESCRIPTION="$(Echo 'cache bootstrap stage')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

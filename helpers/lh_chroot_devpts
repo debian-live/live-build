@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="mount /dev/pts"
+DESCRIPTION="$(Echo 'mount /dev/pts')"
 HELP=""
 USAGE="${PROGRAM} {install|remove} [--force]"
 

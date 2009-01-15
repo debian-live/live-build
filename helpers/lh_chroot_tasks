@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="install tasks into chroot"
+DESCRIPTION="$(Echo 'install tasks into chroot')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

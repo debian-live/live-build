@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="bootstrap by copying the host system"
+DESCRIPTION="$(Echo 'bootstrap by copying the host system')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

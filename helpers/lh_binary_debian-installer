@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="install debian-installer into binary"
+DESCRIPTION="$(Echo 'install debian-installer into binary')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

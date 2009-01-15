@@ -19,7 +19,7 @@ done
 
 # Setting static variables
 SYSTEM_LH_CONFFILE="/etc/default/live-helper"
-DESCRIPTION="create configuration for live-helper(7)"
+DESCRIPTION="$(Echo 'create configuration for live-helper(7)')"
 USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--apt-ftp-proxy URL]\n\
 \t    [--apt-http-proxy URL]\n\

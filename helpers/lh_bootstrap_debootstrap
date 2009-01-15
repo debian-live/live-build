@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="bootstrap a Debian system with debootstrap(8)"
+DESCRIPTION="$(Echo 'bootstrap a Debian system with debootstrap(8)')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

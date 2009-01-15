@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="execute local hooks in binary"
+DESCRIPTION="$(Echo 'execute local hooks in binary')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

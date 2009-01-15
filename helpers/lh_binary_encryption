@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="encrypts rootfs"
+DESCRIPTION="$(Echo 'encrypts rootfs')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
