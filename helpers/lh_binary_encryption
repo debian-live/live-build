@@ -94,9 +94,9 @@ fi
 while true
 do
 	echo
-	Echo " **************************************"
+	echo " **************************************"
 	Echo " ** Configuring encrypted filesystem **"
-	Echo " **************************************"
+	echo " **************************************"
 	Echo " (Passwords must be at least 20 characters long)"
 	echo
 
