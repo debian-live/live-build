@@ -10,7 +10,7 @@
 Version ()
 {
 	Echo "%s, version %s" "${PROGRAM}" "${VERSION}"
-	Echo "This program is a part of %s" "${PACKAGE}" "."
+	Echo "This program is a part of %s" "${PACKAGE}"
 	echo
 	Echo "Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>"
 	echo
