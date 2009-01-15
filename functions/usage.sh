@@ -9,7 +9,7 @@
 
 Usage ()
 {
-	Echo "%s - %s" "${PROGRAM}" "${DESCRIPTION}"
+	printf "%s - %s\n" "${PROGRAM}" "${DESCRIPTION}"
 	echo
 	Echo "Usage:"
 	echo
@@ -20,9 +20,9 @@ Usage ()
 		echo
 	fi
 
-	Echo "  %s [-h|--help]" "${PROGRAM}"
-	Echo "  %s [-u|--usage]" "${PROGRAM}"
-	Echo "  %s [-v|--version]" "${PROGRAM}"
+	echo "  %s [-h|--help]" "${PROGRAM}"
+	echo "  %s [-u|--usage]" "${PROGRAM}"
+	echo "  %s [-v|--version]" "${PROGRAM}"
 	echo
 	Echo "Try \" %s--help\" for more information." "${PROGRAM}"
 
