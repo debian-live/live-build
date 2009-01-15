@@ -73,9 +73,9 @@ Echo_error ()
 
 	if [ "${_L10N}" = "false" ]
 	then
-		printf " ${STRING}" "${@}" >&2
+		printf " ${STRING}\n" "${@}" >&2
 	else
-		(printf " $(eval_gettext "${STRING}")" "${@}";) >&2
+		(printf " $(eval_gettext "${STRING}")" "${@}"; echo;) >&2
 	fi
 }
 
