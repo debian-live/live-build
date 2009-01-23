@@ -84,7 +84,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--mirror-chroot-security URL]\n\
 \t    [--mirror-binary URL]\n\
 \t    [--mirror-binary-security URL]\n\
-\t    [--mode debian|debian-edu]\n\
+\t    [--mode debian|emdebian]\n\
 \t    [--net-root-filesystem nfs|cfs]\n\
 \t    [--net-root-mountoptions OPTIONS]\n\
 \t    [--net-root-path PATH]\n\
