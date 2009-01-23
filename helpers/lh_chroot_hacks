@@ -76,7 +76,9 @@ fi
 
 # Ensure readable permissions on initramfs. loop-aes-utils sets umask to
 # protect GPG keys, which live-helper does not support.
-chmod go+r chroot/boot/initrd*
+# Note: Use find rather than chmod on the wildcard, one never knows what
+# people might do in local hooks, and there might be no initrds at all.
+find chroot/boot -name 'initrd*' -print0 | xargs -0 chmod go+r
 
 # Remove build systems clock drift
 echo "0.0 0 0.0" > chroot/etc/adjtime
