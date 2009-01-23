@@ -191,7 +191,7 @@ Set_defaults ()
 	fi
 
 	# Setting tasksel
-	LH_TASKSEL="${LH_TASKSEL:-taskel}"
+	LH_TASKSEL="${LH_TASKSEL:-tasksel}"
 
 	# Setting root directory
 	if [ -z "${LH_ROOT}" ]
