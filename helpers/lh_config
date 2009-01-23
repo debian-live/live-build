@@ -716,13 +716,13 @@ Read_conffiles config/all config/common config/bootstrap config/chroot config/bi
 
 if [ -x config.cfg ]
 then
-	EXTRA_ARGUMENTS="./config.cfg"
+	EXTRA_ARGUMENTS="$(./config.cfg)"
 elif [ -r config.cfg ]
 then
-	EXTRA_ARGUMENTS="$(cat config.cfg)"
+	EXTRA_ARGUMENTS="$(sed -e '/^$/d' -e '/^#/d' config.cfg | sed -e '$!N;s/\n/ /g')"
 fi
 
-Local_arguments ${EXTRA_ARGUMENTS} "${@}"
+Local_arguments "${EXTRA_ARGUMENTS} ${@}"
 
 if [ -n "${_CONFFILE}" ]
 then
