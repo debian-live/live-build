@@ -57,6 +57,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--debian-installer-preseedfile FILE|URL]\n\
 \t    [--debug]\n\
 \t    [-d|--distribution CODENAME]\n\
+\t    [--dump]\n\
 \t    [-e|--encryption disabled|aes128|aes192|aes256]\n\
 \t    [--fdisk fdisk|fdisk.dist]\n\
 \t    [--force]\n\
