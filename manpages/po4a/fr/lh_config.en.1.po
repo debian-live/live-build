@@ -437,11 +437,6 @@ msgid "  [B<--mirror-binary> I<URL>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:118
-msgid "  [B<--mirror-bootstrap-security> I<URL>]"
-msgstr ""
-
-# type: Plain text
 #: lh_config.en.1:120
 msgid "  [-m|B<--mirror-bootstrap> I<URL>]"
 msgstr ""
@@ -904,12 +899,6 @@ msgstr ""
 #: lh_config.en.1:234
 #, no-wrap
 msgid "B<--mirror-binary> I<URL>"
-msgstr ""
-
-# type: IP
-#: lh_config.en.1:235
-#, no-wrap
-msgid "B<--mirror-bootstrap-security> I<URL>"
 msgstr ""
 
 # type: IP

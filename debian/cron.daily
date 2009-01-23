@@ -52,7 +52,7 @@ do
 				echo "Begin: $(date -R)" > "${TEMPDIR}"/debian-live/log.txt
 
 				# Generating images
-				lh_config -b iso -s tar --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-bootstrap ${MIRROR_BOOTSTRAP} --mirror-bootstrap-security ${MIRROR_BOOTSTRAP_SECURITY} --mirror-binary ${MIRROR_BINARY} --mirror-binary-security ${MIRROR_BINARY_SECURITY} --source enabled ${OPTIONS}
+				lh_config -b iso -s tar --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-bootstrap ${MIRROR_BOOTSTRAP} --mirror-binary ${MIRROR_BINARY} --mirror-binary-security ${MIRROR_BINARY_SECURITY} --source enabled ${OPTIONS}
 				lh_build >> "${TEMPDIR}"/debian-live/log.txt 2>&1
 
 				echo "End: $(date -R)" >> "${TEMPDIR}"/debian-live/log.txt
@@ -93,7 +93,7 @@ do
 				echo "Begin: $(date -R)" > "${TEMPDIR}"/debian-live/log.txt
 
 				# Generating images
-				lh_config -b usb-hdd -s tar --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-bootstrap ${MIRROR_BOOTSTRAP} --mirror-bootstrap-security ${MIRROR_BOOTSTRAP_SECURITY} --mirror-binary ${MIRROR_BINARY} --mirror-binary-security ${MIRROR_BINARY_SECURITY} --source disabled ${OPTIONS}
+				lh_config -b usb-hdd -s tar --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-bootstrap ${MIRROR_BOOTSTRAP} --mirror-binary ${MIRROR_BINARY} --mirror-binary-security ${MIRROR_BINARY_SECURITY} --source disabled ${OPTIONS}
 				lh_build >> "${TEMPDIR}"/debian-live/log.txt 2>&1
 
 				echo "End: $(date -R)" >> "${TEMPDIR}"/debian-live/log.txt
