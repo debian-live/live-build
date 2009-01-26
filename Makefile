@@ -6,7 +6,7 @@ all: build
 
 test:
 	# Checking for syntax errors
-	set -e; for SCRIPT in functions/* examples/*/*.sh helpers/* hooks/*; \
+	set -e; for SCRIPT in functions.sh functions/* examples/*/*.sh helpers/* hooks/*; \
 	do \
 		sh -n $$SCRIPT; \
 	done
@@ -14,7 +14,7 @@ test:
 	# Checking for bashisms
 	set -e; if [ -x /usr/bin/checkbashisms ]; \
 	then \
-		checkbashisms functions/* examples/*/*.sh helpers/* hooks/*; \
+		checkbashisms functions.sh functions/* examples/*/*.sh helpers/* hooks/*; \
 	else \
 		echo "bashism test skipped - you need to install devscripts."; \
 	fi
@@ -29,7 +29,7 @@ install:
 
 	# Installing shared data
 	mkdir -p $(DESTDIR)/usr/share/live-helper
-	cp -r data examples functions hooks includes lists templates $(DESTDIR)/usr/share/live-helper
+	cp -r data examples functions.sh functions hooks includes lists templates $(DESTDIR)/usr/share/live-helper
 
 	# Installing documentation
 	mkdir -p $(DESTDIR)/usr/share/doc/live-helper
@@ -98,7 +98,7 @@ uninstall:
 	done
 
 update:
-	set -e; for FILE in functions/*.sh examples/cron/*.sh manpages/*.en.*; \
+	set -e; for FILE in functions.sh functions/*.sh examples/cron/*.sh manpages/*.en.*; \
 	do \
 		sed -i	-e 's/2007\\-11\\-26/2007\\-12\\-03/' \
 			-e 's/26.11.2007/03.12.2007/' \
