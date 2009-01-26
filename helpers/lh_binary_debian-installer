@@ -495,10 +495,13 @@ then
 	# Generating deb indices
 	mkdir -p binary/dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}
 
-	cd binary
-	apt-ftparchive packages pool/main > dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages
-	gzip -9 -c dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages > dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages.gz
-	cd "${OLDPWD}"
+	mv binary chroot/root
+	echo "cd /root/binary && apt-ftparchive packages pool/main > dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages" > chroot/binary.sh
+	Chroot chroot "sh binary.sh"
+	rm -f chroot/binary.sh
+	mv chroot/root/binary ./
+
+	gzip -9 -c binary/dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages > binary/dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages.gz
 
 	# Fetching release
 	Download_file binary/dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Release "${LH_MIRROR_CHROOT}"/dists/"${LH_DEBIAN_INSTALLER_DISTRIBUTION}"/main/binary-"${LH_ARCHITECTURE}"/Release
@@ -597,7 +600,15 @@ then
 
 	# Creating udeb indices
 	mkdir -p dists/"${LH_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LH_ARCHITECTURE}"
-	apt-ftparchive packages pool/main > dists/"${LH_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LH_ARCHITECTURE}"/Packages
+	cd "${OLDPWD}"
+
+	mv binary.udeb chroot/root
+	echo "cd /root/binary.udeb && apt-ftparchive packages pool/main > dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LH_ARCHITECTURE}/Packages" > chroot/binary.sh
+	Chroot chroot "sh binary.sh"
+	rm -f chroot/binary.sh
+	mv chroot/root/binary.udeb ./
+
+	cd binary.udeb
 	gzip -9 -c dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LH_ARCHITECTURE}/Packages > dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LH_ARCHITECTURE}/Packages.gz
 
 	rm -f Packages* exclude
@@ -608,17 +619,25 @@ then
 	rm -rf binary.deb
 
 	# Generating release file
-	apt-ftparchive \
-		-o APT::FTPArchive::Release::Origin="Debian" \
-		-o APT::FTPArchive::Release::Label="Debian" \
-		-o APT::FTPArchive::Release::Suite="${LH_DEBIAN_INSTALLER_DISTRIBUTION}" \
-		-o APT::FTPArchive::Release::Version="4.0" \
-		-o APT::FTPArchive::Release::Codename="${LH_DEBIAN_INSTALLER_DISTRIBUTION}" \
-		-o APT::FTPArchive::Release::Date="$(date -R)" \
-		-o APT::FTPArchive::Release::Architectures="${LH_ARCHITECTURE}" \
-		-o APT::FTPArchive::Release::Components="main" \
-		-o APT::FTPArchive::Release::Description="Last updated: $(date -R)" \
-	release binary/dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION} > binary/dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/Release
+	mv binary chroot/root
+
+cat > chroot/binary.sh << EOF
+cd /root/binary && apt-ftparchive \
+	-o APT::FTPArchive::Release::Origin="Debian" \
+	-o APT::FTPArchive::Release::Label="Debian" \
+	-o APT::FTPArchive::Release::Suite="${LH_DEBIAN_INSTALLER_DISTRIBUTION}" \
+	-o APT::FTPArchive::Release::Version="4.0" \
+	-o APT::FTPArchive::Release::Codename="${LH_DEBIAN_INSTALLER_DISTRIBUTION}" \
+	-o APT::FTPArchive::Release::Date="$(date -R)" \
+	-o APT::FTPArchive::Release::Architectures="${LH_ARCHITECTURE}" \
+	-o APT::FTPArchive::Release::Components="main" \
+	-o APT::FTPArchive::Release::Description="Last updated: $(date -R)" \
+	release dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION} > dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/Release
+EOF
+
+	Chroot chroot "sh binary.sh"
+	rm -f chroot/binary.sh
+	mv chroot/root/binary ./
 
 	# Creating dist symlinks
 	for DISTRIBUTION in frozen stable testing unstable
