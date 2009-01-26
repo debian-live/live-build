@@ -43,7 +43,9 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Processing hooks
-for HOOK in ${LH_PACKAGES_LISTS} ${LH_TASKS}
+HOOKS="$(echo ${LH_HOOKS} ${LH_PACKAGES_LISTS} ${LH_TASKS} | sed -e 's| |\n|g' | sort -u)"
+
+for HOOK in ${HOOKS}
 do
 	if [ -f ${LH_BASE:-/usr/share/live-helper}/hooks/"${HOOK}" ]
 	then
@@ -57,7 +59,7 @@ do
 		fi
 
 		# Executing hook
-		Chroot chroot "/root/${HOOK}"
+		Chroot chroot "./root/${HOOK}"
 
 		# Removing hook
 		rm -f chroot/root/"${HOOK}"
@@ -66,8 +68,3 @@ do
 		Create_stagefile .stage/chroot_hooks
 	fi
 done
-
-if [ -n "${LH_HOOKS}" ] && [ "${LH_HOOKS}" != "none" ]
-then
-	LH_DEBCONF_FRONTEND="readline" LH_DEBCONF_PRIORITY="low" LH_DEBCONF_NOWARNINGS="no" Chroot chroot "${LH_HOOKS}"
-fi
