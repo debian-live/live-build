@@ -77,23 +77,23 @@ uninstall:
 	# Uninstalling manpages
 	set -e; for MANPAGE in manpages/*.en.1; \
 	do \
-		rm -f $(DESTDIR)/usr/share/man/man1/`basename $$MANPAGE .en.1`.1; \
+		rm -f $(DESTDIR)/usr/share/man/man1/`basename $$MANPAGE .en.1`.1*; \
 	done
 
 	set -e; for MANPAGE in manpages/*.en.7; \
 	do \
-		rm -f $(DESTDIR)/usr/share/man/man7/`basename $$MANPAGE .en.7`.7; \
+		rm -f $(DESTDIR)/usr/share/man/man7/`basename $$MANPAGE .en.7`.7*; \
 	done
 
 	set -e; for TRANSLATIONS in $$TRANSLATIONS; \
 	do \
 		for MANPAGE in manpages/*.$$TRANSLATION.1; \
 		do \
-			rm -f $(DESTDIR)/usr/share/man/$$TRANSLATION/man1/`basename $$MANPAGE .$$TRANSLATION.1`.1; \
+			rm -f $(DESTDIR)/usr/share/man/$$TRANSLATION/man1/`basename $$MANPAGE .$$TRANSLATION.1`.1*; \
 		done; \
 		for MANPAGE in manpages/*.$$TRANSLATION.7; \
 		do \
-			rm -f $(DESTDIR)/usr/share/man/$$TRANSLATION/man7/`basename $$MANPAGE .$$TRANSLATION.7`.7; \
+			rm -f $(DESTDIR)/usr/share/man/$$TRANSLATION/man7/`basename $$MANPAGE .$$TRANSLATION.7`.7*; \
 		done; \
 	done
 
