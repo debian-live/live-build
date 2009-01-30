@@ -25,7 +25,7 @@ build:
 install:
 	# Installing executables
 	mkdir -p $(DESTDIR)/usr/bin
-	cp helpers/lh* $(DESTDIR)/usr/bin
+	cp helpers/* $(DESTDIR)/usr/bin
 
 	# Installing shared data
 	mkdir -p $(DESTDIR)/usr/share/live-helper
