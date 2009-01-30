@@ -9,6 +9,14 @@
 
 set -e
 
+# Read meta config
+if [ "${1}" != "autoconfig" ] && [ -e scripts/clean.sh ]
+then
+	sh scripts/clean.sh ${@}
+else
+	shift
+fi
+
 # Including common functions
 . "${LH_BASE:-/usr/share/live-helper}"/functions.sh
 

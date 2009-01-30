@@ -9,6 +9,14 @@
 
 set -e
 
+# Read meta config
+if [ "${1}" != "autoconfig" ] && [ -e scripts/config.sh ]
+then
+	sh scripts/config.sh ${@}
+else
+	shift
+fi
+
 # Including common functions
 . "${LH_BASE:-/usr/share/live-helper}"/functions.sh
 
@@ -710,15 +718,7 @@ fi
 # Reading existing configuration
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 
-if [ -x config.cfg ]
-then
-	Local_arguments "$(./config.cfg) ${@}"
-elif [ -r config.cfg ]
-then
-	Local_arguments "$(sed -e '/^$/d' -e '/^#/d' config.cfg | sed -e '$!N;s/\n/ /g') ${@}"
-else
-	Local_arguments "${@}"
-fi
+Local_arguments "${@}"
 
 if [ -n "${_CONFFILE}" ]
 then
