@@ -43,7 +43,7 @@ Arguments ()
 				;;
 
 			-h|--help)
-				Help
+				Man
 				shift
 				;;
 
