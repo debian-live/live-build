@@ -41,8 +41,8 @@ do
 			echo 'deb http://live.debian.net/debian/ ./' > config/chroot_sources/live-snapshots.chroot
 			echo 'deb http://live.debian.net/debian/ ./' > config/chroot_sources/live-snapshots.boot
 
-			wget http://live.debian.net/debian/archive.gpg -O config/chroot_sources/live-snapshots.chroot.gpg
-			wget http://live.debian.net/debian/archive.gpg -O config/chroot_sources/live-snapshots.binary.gpg
+			wget http://live.debian.net/debian/archive-key.asc -O config/chroot_sources/live-snapshots.chroot.gpg
+			wget http://live.debian.net/debian/archive-key.asc -O config/chroot_sources/live-snapshots.binary.gpg
 
 		fi
 
