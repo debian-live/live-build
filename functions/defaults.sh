@@ -85,7 +85,7 @@ Set_defaults ()
 	LH_APT_SECURE="${LH_APT_SECURE:-enabled}"
 
 	# Setting bootstrap program
-	if [ -z "${LH_BOOTSTRAP}" ]
+	if [ -z "${LH_BOOTSTRAP}" ] || [ ! -x "${LH_BOOTSTRAP}" ]
 	then
 		if [ -x "/usr/sbin/debootstrap" ]
 		then
@@ -94,8 +94,7 @@ Set_defaults ()
 		then
 			LH_BOOTSTRAP="cdebootstrap"
 		else
-			Echo_error "Cannot find /usr/sbin/debootstrap or /usr/bin/cdebootstrap. Please install"
-			Echo_error "debootstrap or cdebootstrap, or specify an alternative bootstrapping utility."
+			Echo_error "Cannot find /usr/sbin/debootstrap or /usr/bin/cdebootstrap. Please install debootstrap or cdebootstrap, or specify an alternative bootstrapping utility."
 			exit 1
 		fi
 	fi
@@ -146,7 +145,7 @@ Set_defaults ()
 	fi
 
 	# Setting fdisk
-	if [ -z "${LH_FDISK}" ]
+	if [ -z "${LH_FDISK}" ] || [ ! -x "${LH_FDISK}" ]
 	then
 		# Workaround for gnu-fdisk divertion
 		# (gnu-fdisk is buggy, #445304).
