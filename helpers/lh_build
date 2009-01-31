@@ -12,6 +12,17 @@ set -e
 # Including common functions
 . "${LH_BASE:-/usr/share/live-helper}"/functions.sh
 
+# Read meta config
+if [ "${1}" != "noautoconfig" ] && [ -x scripts/build ]
+then
+	./scripts/build ${@}
+fi
+
+if [ "${1}" = "noautoconfig" ]
+then
+	shift
+fi
+
 # Setting static variables
 DESCRIPTION="$(Echo 'build a Debian Live system')"
 HELP=""
