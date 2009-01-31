@@ -11,7 +11,7 @@ ext3grep galleta grokevt memdump missidentify myrescue pasco reglookup
 scrounge-ntfs ssdeep tableau-parm
 #endif
 #if DISTRIBUTION sid
-libewf md5deep pipebench recoverdm rifiuti
+libewf1 md5deep pipebench recoverdm rifiuti
 #endif
 
 # Other forensic packages
