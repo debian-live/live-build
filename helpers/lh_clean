@@ -10,9 +10,9 @@
 set -e
 
 # Read meta config
-if [ "${1}" != "autoconfig" ] && [ -e scripts/clean.sh ]
+if [ "${1}" != "autoconfig" ] && [ -x scripts/clean ]
 then
-	sh scripts/clean.sh ${@}
+	./scripts/clean ${@}
 else
 	shift
 fi
