@@ -10,10 +10,13 @@
 set -e
 
 # Read meta config
-if [ "${1}" != "autoconfig" ] && [ -x scripts/clean ]
+if [ "${1}" != "noautoconfig" ] && [ -x scripts/clean ]
 then
 	./scripts/clean ${@}
-else
+fi
+
+if [ "${1}" = "noautoconfig" ]
+then
 	shift
 fi
 
@@ -51,10 +54,10 @@ for ARGUMENT in ${ARGUMENTS}
 do
 	case "${ARGUMENT}" in
 		--all)
-			"${0}" --chroot
-			"${0}" --binary
-			"${0}" --stage
-			"${0}" --source
+			"${0}" noautoconfig --chroot
+			"${0}" noautoconfig --binary
+			"${0}" noautoconfig --stage
+			"${0}" noautoconfig --source
 
 			if [ -d scripts ]
 			then
