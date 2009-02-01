@@ -476,10 +476,17 @@ Set_defaults ()
 
 	# Setting packages string
 	# LH_PACKAGES
-	if [ -z "${LH_PACKAGES}" ] && [ "${LH_ENCRYPTION}" != "disabled" ]
-	then
-		LH_PACKAGES="loop-aes-utils"
-	fi
+	case "${LH_ENCRYPTION}" in
+		""|disabled)
+			;;
+
+		*)
+			if ! In_list loop-aes-utils "${LH_PACKAGES}"
+			then
+				LH_PACKAGES="${LH_PACKAGES} loop-aes-utils"
+			fi
+			;;
+	esac
 
 	# Setting packages list string
 	LH_PACKAGES_LISTS="${LH_PACKAGES_LISTS:-standard}"
