@@ -1,3 +1,80 @@
+live-helper (1.0.3-1) unstable; urgency=medium
+
+  [ Antonio Terceiro ]
+  * Don't break messages into parts; this make it impossible for translators
+  * Adding missing newlines in Echo_error
+  * Not considering some strings as translatable.
+  * Adding Echo function as translatable
+  * Don't ask for translators to translate a bunch of asterisks
+  * Removing incorrect extra argument
+  * Translating the description of the helpers
+  * Must be printf instead of echo!
+  * Fixing message for i18n compatibiliy
+
+  [ Cyril Brulebois ]
+  * Get rid of MIRROR_BOOTSTRAP_SECURITY in documentation.
+  * Document LH_BOOTSTRAP_FLAVOUR as empty by default.
+  * Fix --apt-pdiffs disabled being ignored.
+  * Make hacks not break if there are no initrds.
+  * Actually fix initrd-related breakage in chroot hacks.
+
+  [ Daniel Baumann ]
+  * Adding short comments to the different cases in Check_defaults();.
+  * Adding check for currently not supported bootloader/image-type combinations.
+  * Unsupported bootloader/image type combinations are errors, not warning.
+  * Parsing lh_config flags from config.cfg, if available.
+  * If config.cfg is executable, we execute it and accept its output as extra
+    arguments. This makes dynamic configuration possible.
+  * Adding support for using cdebootstra-static as bootstrap program.
+  * Setting default taskel program from aptitude to tasksel.
+  * Correcting typo in previous aptitude->tasksel commit.
+  * Updating mode help message in lh_config.
+  * Adding missing --dump to help output of lh_config.
+  * Making sure that /tmp has the right permissions after installing
+    sun-java*-doc through sun-java example hooks. Apparently, sun-java*-doc
+    packages are tampering with it.
+  * Actually doing apt-ftparchive operations in chroot as it was originally
+    intended to be, otherwise apt-utils would be need to be a depends of
+    live-helper.
+  * Adding temporary workaround to 'failed to install grub' error when using
+    live-installer.
+  * Removing enforced installation of mawk in the chroot in
+    lh_binary_debian-installer, mawk is priority required and therefore always
+    there anyway. Additionally, this would unnecessarily blow up images that
+    have gawk (or any other awk implementation) installed.
+  * Fixing and unifying handling of hooks.
+  * Using common function file to source shell includes.
+  * Updating year in copyright notices for 2009.
+  * Including functions.sh, forgot to add it before.
+  * Marking aufs and unionfs in devel-live packages list as lenny and sid,
+    resp. etch-only.
+  * Updating forensic packages in rescue list.
+  * Removing vim-tiny from minimal packages list, it's not a requirement for
+    live-initramfs :)
+  * Correcting lh_configs config.cfg handling, so that it's at least working
+    when not using config.cfg. Will have to be fixed properly later.
+  * Rewriting all existent manpages.
+  * Running po4a for manpages.
+  * Adding simple manpages for every other live-helper command.
+  * Also covering compressed manpages in uninstall target of Makefile.
+  * Automatically displaying manpage when calling a helper with -h or --help.
+  * Replacing previous attempt of using config.cfg, now using scripts/config.sh
+    and scripts/clean.sh instead.
+  * Adding dummy live-helper command to make any confused user aware that
+    live-helper is a set of commands starting with the lh_ prefix.
+  * Removing shell specific extensions and call of scripts/config and
+    scripts/clean, thanks to Tzafrir Cohen <tzafrir.cohen@xorcom.com>.
+  * Overwriting the debootstrap or fdisk program if it is set to a value that
+    is not on the host system anymore, but another alternative of it is.
+  * Correcting typo for libewf in rescue list.
+  * Updating name of arhive keys in image autobuild script.
+  * Fixing infinit loop when using autoconfig for lh_config and lh_clean.
+  * Adding autoconfig support to lh_build as well.
+  * Correcting wrong logic in defaults.sh which resultet in having
+    loop-aes-utils always installed.
+
+ -- Daniel Baumann <daniel@debian.org>  Sun,  1 Feb 2009 17:00:00 +0100
+
 live-helper (1.0.2-4) unstable; urgency=low
 
   * Prefering local resolv.conf over truncated one.
