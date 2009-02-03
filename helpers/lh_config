@@ -55,6 +55,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--chroot-build enabled|disabled]\n\
 \t    [--chroot-filesystem ext2|ext3|squashfs|plain|jffs2]\n\
 \t    [-c|--conffile FILE]\n\
+\t    [--clean\n\
 \t    [--debconf-frontend dialog|editor|noninteractive|readline]\n\
 \t    [--debconf-nowarnings enabled|disabled]\n\
 \t    [--debconf-priority low|medium|high|critical]\n\
@@ -130,7 +131,7 @@ Local_arguments ()
 		apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,
 		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,genisoimage:,
 		initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,
-		templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,
+		templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,clean,
 		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,
 		mirror-binary-security:,categories:,chroot-filesystem:,union-filesystem:,exposed-root:,
 		hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
@@ -192,6 +193,19 @@ Local_arguments ()
 				done
 
 				exit 0
+				;;
+
+			clean)
+				# Remove empty directories in config tree
+				if ls config/*/ > /dev/null 2>&1
+				then
+					rmdir --ignore-fail-on-non-empty config/*/
+				fi
+
+				if [ -d config ]
+				then
+					rmdir --ignore-fail-on-non-empty config
+				fi
 				;;
 
 			# config/common
