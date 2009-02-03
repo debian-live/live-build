@@ -91,14 +91,6 @@ then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -V \"${LH_ISO_VOLUME}\""
 fi
 
-if In_list "stripped minimal" "${LH_PACKAGES_LISTS}"
-then
-	if [ "${LH_DEBIAN_INSTALLER}" != "live" ]
-	then
-		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m ${GENISOIMAGE_EXCLUDE}"
-	fi
-fi
-
 # Handle genisoimage architecture specific options
 case "${LH_BOOTLOADER}" in
 	grub)
@@ -131,6 +123,14 @@ case "${LH_BOOTLOADER}" in
 		sleep 5
 		;;
 esac
+
+if In_list "stripped minimal" "${LH_PACKAGES_LISTS}"
+then
+	if [ "${LH_DEBIAN_INSTALLER}" != "live" ]
+	then
+		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m ${GENISOIMAGE_EXCLUDE}"
+	fi
+fi
 
 cat > binary.sh << EOF
 genisoimage ${GENISOIMAGE_OPTIONS} -o binary.iso binary
