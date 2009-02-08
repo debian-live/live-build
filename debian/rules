@@ -22,7 +22,7 @@ build:
 install: build
 	dh_testdir
 	dh_testroot
-	dh_prep
+	dh_clean -k
 	dh_installdirs
 
 	# Installing package
