@@ -21,7 +21,7 @@ Set_defaults ()
 	if [ -z "${LH_DISTRIBUTION}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
+			debian|debian-release)
 				LH_DISTRIBUTION="lenny"
 				;;
 
@@ -72,7 +72,7 @@ Set_defaults ()
 
 	# Setting apt recommends
 	case "${LH_MODE}" in
-		debian)
+		debian|debian-release)
 			LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS:-enabled}"
 			;;
 
@@ -128,7 +128,7 @@ Set_defaults ()
 		if [ "${LH_INITRAMFS}" = "auto" ]
 		then
 			case "${LH_MODE}" in
-				debian)
+				debian|debian-release)
 					if [ "${LH_DISTRIBUTION}" = "etch" ]
 					then
 						LH_INITRAMFS="casper"
@@ -196,7 +196,7 @@ Set_defaults ()
 	if [ -z "${LH_ROOT}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
+			debian|debian-release)
 				LH_ROOT="debian-live"
 				;;
 
@@ -273,7 +273,7 @@ Set_defaults ()
 	if [ -z "${LH_MIRROR_BOOTSTRAP}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
+			debian|debian-release)
 				case "${LH_ARCHITECTURE}" in
 					amd64|i386)
 						LH_MIRROR_BOOTSTRAP="http://ftp.us.debian.org/debian/"
@@ -297,7 +297,7 @@ Set_defaults ()
 	if [ -z "${LH_MIRROR_CHROOT_SECURITY}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
+			debian|debian-release)
 				LH_MIRROR_CHROOT_SECURITY="http://security.debian.org/"
 				;;
 
@@ -311,7 +311,7 @@ Set_defaults ()
 	if [ -z "${LH_MIRROR_BINARY}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
+			debian|debian-release)
 				case "${LH_ARCHITECTURE}" in
 					amd64|i386)
 						LH_MIRROR_BINARY="http://ftp.us.debian.org/debian/"
@@ -333,7 +333,7 @@ Set_defaults ()
 	if [ -z "${LH_MIRROR_BINARY_SECURITY}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
+			debian|debian-release)
 				LH_MIRROR_BINARY_SECURITY="http://security.debian.org/"
 				;;
 
@@ -375,7 +375,7 @@ Set_defaults ()
 
 	# Setting keyring packages
 	case "${LH_MODE}" in
-		debian)
+		debian|debian-release)
 			LH_KEYRING_PACKAGES="debian-archive-keyring"
 			;;
 
@@ -656,7 +656,7 @@ Set_defaults ()
 	if [ -z "${LH_ISO_APPLICATION}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
+			debian|debian-release)
 				LH_ISO_APPLICATION="Debian Live"
 				;;
 
@@ -676,7 +676,7 @@ Set_defaults ()
 	if [ -z "${LH_ISO_VOLUME}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
+			debian|debian-release)
 				LH_ISO_VOLUME="Debian Live \$(date +%Y%m%d-%H:%M)"
 				;;
 
@@ -707,7 +707,7 @@ Set_defaults ()
 	if [ -z "${LH_NET_ROOT_PATH}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
+			debian|debian-release)
 				LH_NET_ROOT_PATH="/srv/debian-live"
 				;;
 
