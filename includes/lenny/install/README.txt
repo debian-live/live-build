@@ -1,6 +1,6 @@
 
-      Debian GNU/Linux testing "Lenny" - Official RC i386 BC Binary-1
-                               20081104-23:45
+     Debian GNU/Linux testing "Lenny" - Official Snapshot i386 NETINST
+                          Binary-1 20090208-03:19
 
                                             (HTML version in README.html)
 
@@ -48,14 +48,14 @@ About This Disc
 
    This disc is labeled
 
-      Debian GNU/Linux testing "Lenny" - Official RC i386 BC Binary-1
-                               20081104-23:45
+     Debian GNU/Linux testing "Lenny" - Official Snapshot i386 NETINST
+                          Binary-1 20090208-03:19
 
    It contains programs ("binaries") for `i386' computers.
 
-   This disc is a business card image. It contains only the installer and
-   will download the base system and the remaining packages from the
-   network.
+   This disc is a netinst image. It contains the installer and a very
+   basic system. Any other packages you might want to install will be
+   downloaded from the network.
 
    The Release Notes for "lenny" are available on the Debian web site.
 
@@ -69,9 +69,6 @@ Installing
    An Installation Guide for this disc is available from the Debian web
    site.
 
-   Programs and other files that are needed for the installation can be
-   found on this disc under /tools/ and /install/floppy/
-
    For the impatient ones: you can start the installation program easily
    by booting off this disc. Note that not all (esp. older) systems
    support this.
@@ -82,10 +79,14 @@ Installing
 Last-Minute Notes
 =================
 
-     * You should keep in mind that this is an unofficial disc of the
-       Debian system. This means that all sorts of bugs may be present
-       anywhere in the system. Please report any bugs you find to the
-       person that gave you this disc, not Debian.
+     * You should keep in mind that this is a beta disc of the current
+       development version of the Debian system. This means that all
+       sorts of bugs may be present anywhere in the system. Please report
+       any bugs you find in the Debian Bug Tracking System; details at
+       bugs.debian.org.
+     * If you're reporting bugs against this disc or the installation
+       system, please also mention the version of this disc; this can be
+       found in the file /.disk/info.
 
 Installing software using Apt
 =============================
