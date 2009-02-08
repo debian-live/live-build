@@ -54,6 +54,24 @@ then
 			cp chroot/usr/lib/win32-loader/* binary
 			mv binary/win32-loader.exe binary/setup.exe
 
+			if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
+			then
+
+cat > binary/win32-loader.ini << EOF
+[installer]
+arch=${LH_ARCHITECTURE}
+i386/linux=install/vmlinuz
+i386/initrd=install/initrd.gz
+i386/gtk/linux=install/vmlinuz
+i386/gtk/initrd=install/gtk/initrd.gz
+
+[grub]
+g2ldr=g2ldr
+g2ldr.mbr=g2ldr.mbr
+EOF
+
+			fi
+
 			# Saving cache
 			Save_cache cache/packages_binary
 
