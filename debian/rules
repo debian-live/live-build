@@ -1,22 +1,15 @@
 #!/usr/bin/make -f
 
-upstream:
-	cd .. && git clone git://git.debian.org/git/users/daniel/live-helper.git
-	rm -rf ../live-helper/.git
-
 clean:
 	dh_testdir
 	dh_testroot
 
-	# Cleaning message catalogs
 	$(MAKE) -C po clean
 
 	dh_clean
 
 build:
 	$(MAKE) test
-
-	# Updating message catalogs
 	$(MAKE) -C po update-po
 
 install: build
@@ -55,7 +48,6 @@ binary-indep: install
 	dh_testroot
 	dh_installchangelogs docs/ChangeLog
 	dh_installdocs
-	dh_install
 	dh_installlogrotate
 	dh_installcron
 	dh_installman
@@ -66,4 +58,4 @@ binary-indep: install
 	dh_md5sums
 	dh_builddeb
 
-.PHONY: upstream clean build install binary binary-arch binary-indep
+.PHONY: clean build install binary binary-arch binary-indep
