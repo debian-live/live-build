@@ -74,12 +74,6 @@ mkdir -p "${DESTDIR}"
 cp chroot/boot/"${LINUX}"-* "${DESTDIR}"
 cp chroot/boot/initrd.img-* "${DESTDIR}"
 
-# Including boot parameter documentation
-if [ "${LH_BINARY_IMAGES}" != "net" ]
-then
-	DESTDIR="binary"
-fi
-
 case "${LH_INITRAMFS}" in
 	casper)
 		# Checking casper templates
