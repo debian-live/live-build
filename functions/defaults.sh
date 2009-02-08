@@ -85,7 +85,7 @@ Set_defaults ()
 	LH_APT_SECURE="${LH_APT_SECURE:-enabled}"
 
 	# Setting bootstrap program
-	if [ -z "${LH_BOOTSTRAP}" ] || [ ! -x "${LH_BOOTSTRAP}" ]
+	if [ -z "${LH_BOOTSTRAP}" ] || [ ! -x "${LH_BOOTSTRAP}" ] || [ "${LH_BOOTSTRAP}" != "copy" ]
 	then
 		if [ -x "/usr/sbin/debootstrap" ]
 		then
