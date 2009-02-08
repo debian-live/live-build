@@ -29,11 +29,21 @@ do
 		rm -rf cache/packages*
 		rm -rf cache/stages_rootfs
 
+		case "${FLAVOUR}" in
+			standard|rescue|lxde-desktop|xfce-desktop)
+				KERNEL="486 686"
+				;;
+
+			gnome-desktop|kde-desktop)
+				KERNEL="686"
+				;;
+		esac
+
 		if [ "${SOURCE}" = "enabled" ]
 		then
-			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --source enabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
+			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --tasksel aptitude -k ${KERNEL} --source enabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
 		else
-			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --source disabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
+			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --tasksel aptitude -k ${KERNEL} --source disabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
 		fi
 
 		if [ "${DISTRIBUTION}" = "sid" ]
