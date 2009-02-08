@@ -43,8 +43,8 @@ install: build
 	mv debian/live-helper/usr/share/doc/live-helper/ChangeLog.live-package debian/live-helper/usr/share/doc/live-helper/changelog.live-package
 
 	# Installing bug control
-	install -D -m 0644 debian/bug/presubj debian/live-helper/usr/share/bug/live-helper
-	install -D -m 0755 debian/bug/script debian/live-helper/usr/share/bug/live-helper
+	install -D -m 0644 debian/bug/live-helper.presubj debian/live-helper/usr/share/bug/live-helper
+	install -D -m 0755 debian/bug/live-helper.script debian/live-helper/usr/share/bug/live-helper
 
 binary: binary-indep
 
