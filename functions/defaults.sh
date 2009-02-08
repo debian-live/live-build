@@ -682,7 +682,7 @@ Set_defaults ()
 
 			debian-release)
 				eval VERSION="$`echo RELEASE_${LH_DISTRIBUTION}`"
-				LH_ISO_VOLUME="Debian ${VERSION} ${ARCHITECTURE} live"
+				LH_ISO_VOLUME="Debian ${VERSION} ${LH_ARCHITECTURE} live"
 				;;
 
 			emdebian)
