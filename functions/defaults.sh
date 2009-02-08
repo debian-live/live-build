@@ -676,8 +676,13 @@ Set_defaults ()
 	if [ -z "${LH_ISO_VOLUME}" ]
 	then
 		case "${LH_MODE}" in
-			debian|debian-release)
+			debian)
 				LH_ISO_VOLUME="Debian Live \$(date +%Y%m%d-%H:%M)"
+				;;
+
+			debian-release)
+				eval VERSION="$`echo RELEASE_${LH_DISTRIBUTION}`"
+				LH_ISO_VOLUME="Debian ${VERSION} ${ARCHITECTURE} live"
 				;;
 
 			emdebian)
