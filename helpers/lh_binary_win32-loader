@@ -52,6 +52,7 @@ then
 
 			# Copying win32-loader
 			cp chroot/usr/lib/win32-loader/* binary
+			mv binary/win32-loader.exe binary/setup.exe
 
 			# Saving cache
 			Save_cache cache/packages_binary
