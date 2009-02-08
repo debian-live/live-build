@@ -29,15 +29,18 @@ do
 		rm -rf cache/packages*
 		rm -rf cache/stages_rootfs
 
-		case "${FLAVOUR}" in
-			standard|rescue|lxde-desktop|xfce-desktop)
-				KERNEL="486 686"
-				;;
+		if [ "${ARCHITECTURE}" = "i386" ]
+		then
+			case "${FLAVOUR}" in
+				standard|rescue|lxde-desktop|xfce-desktop)
+					KERNEL="486 686"
+					;;
 
-			gnome-desktop|kde-desktop)
-				KERNEL="686"
-				;;
-		esac
+				gnome-desktop|kde-desktop)
+					KERNEL="686"
+					;;
+			esac
+		fi
 
 		if [ "${SOURCE}" = "enabled" ]
 		then
