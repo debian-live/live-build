@@ -24,7 +24,7 @@ install: build
 	# Installing message catalogs
 	$(MAKE) -C po install DESTDIR=$(CURDIR)/debian/live-helper
 
-	install -D -m 0644 debian/default debian/live-helper/etc/default/live-helper_autobuild
+	install -D -m 0644 debian/live-helper.default debian/live-helper/etc/default/live-helper_autobuild
 
 	# Preparing alternatives
 	mv debian/live-helper/usr/share/live-helper/includes debian/live-helper/usr/share/live-helper/includes.debian
