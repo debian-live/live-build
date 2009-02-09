@@ -1,3 +1,47 @@
+live-helper (1.0.3-2) unstable; urgency=medium
+
+  [ Daniel Baumann ]
+  * Regenerationg live-helper pot file.
+  * Fixing typo in changelog.
+  * Correcting order of genisoimage option assembling, the exludes do have to be
+    processed last.
+  * Adding clean parameter to lh_config to minimize config directory by
+    automatically removing unused and thus empty subdirectories.
+  * Splitting out win32-loader handling into own helper script.
+  * Take win32-loader from the target distribution by using the chroot.
+  * Revert using debhelper 7 command in rules.
+  * Prefixing debhelper files with package name.
+  * Updating copyright file.
+  * Cleaning up rules file.
+  * Moving binary manifest to live subdirectory on the images.
+  * Moving live-initramfs or casper parameter list to live subdirectory on the
+    images.
+  * Introducing debian-release mode.
+  * Adding own iso volume when beeing in release mode.
+  * Correcting typo in iso volume.
+  * Including the distribution name in iso volume when being in debian mode.
+  * Renaming win32-loader executable as debian-cd does.
+  * Creating win32-loader.ini in win32-loader helper script.
+  * Updating .disk/info generation when building iso images.
+  * Updating lenny cd includes.
+  * Updating install call for live-helper defaults file.
+  * Updating syslinux help screens.
+  * Correcting bootstrap default logic to not overwrite the 'copy' method.
+  * Really correcting bootstrap default logic to not overwrite the 'copy'
+    method.
+  * Updating image example build script.
+  * Overwriting default kernels in image autobuild script only when being on
+    i386.
+  * Updating binary-filesystem reference in lh_config manpage.
+  * For space consideration, don't install laptop task in desktop images by
+    default anymore.
+  * Only enabling win32-loader by default if we also include debian-installer.
+
+  [ Tiago Bortoletto Vaz ]
+  * Updating pt_br localization (Closes: #514196).
+
+ -- Daniel Baumann <daniel@debian.org>  Tue, 10 Feb 2009 00:00:00 +0100
+
 live-helper (1.0.3-1) unstable; urgency=medium
 
   [ Antonio Terceiro ]
