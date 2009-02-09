@@ -697,7 +697,12 @@ Set_defaults ()
 	# Setting win32-loader option
 	case "${LH_ARCHITECTURE}" in
 		amd64|i386)
-			LH_WIN32_LOADER="${LH_WIN32_LOADER:-enabled}"
+			if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
+			then
+				LH_WIN32_LOADER="${LH_WIN32_LOADER:-enabled}"
+			else
+				LH_WIN32_LOADER="${LH_WIN32_LOADER:-disabled}"
+			fi
 			;;
 
 		*)
