@@ -501,22 +501,22 @@ Set_defaults ()
 
 			gnome-desktop)
 				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|gnome-desktop||') standard-x11"
-				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|laptop||' -e 's|gnome-desktop||' -e 's|desktop||') standard laptop gnome-desktop desktop"
+				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|gnome-desktop||' -e 's|desktop||') standard gnome-desktop desktop"
 				;;
 
 			kde-desktop)
 				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|kde-desktop||') standard-x11"
-				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|laptop||' -e 's|kde-desktop||' -e 's|desktop||') standard laptop kde-desktop desktop"
+				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|kde-desktop||' -e 's|desktop||') standard kde-desktop desktop"
 				;;
 
 			lxde-desktop)
 				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|lxde-desktop||') standard-x11"
-				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|laptop||' -e 's|lxde-desktop||' -e 's|desktop||') standard laptop lxde-desktop desktop"
+				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|lxde-desktop||' -e 's|desktop||') standard lxde-desktop desktop"
 				;;
 
 			xfce-desktop)
 				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|xfce-desktop||') standard-x11"
-				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|laptop||' -e 's|xfce-desktop||' -e 's|desktop||') standard laptop xfce-desktop desktop"
+				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|xfce-desktop||' -e 's|desktop||') standard xfce-desktop desktop"
 				;;
 		esac
 	done
