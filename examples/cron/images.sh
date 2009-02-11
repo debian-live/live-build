@@ -33,20 +33,20 @@ do
 		then
 			case "${FLAVOUR}" in
 				standard|rescue|lxde-desktop|xfce-desktop)
-					KERNEL="486 686"
+					KERNEL="-p '486 686'"
 					;;
 
 				gnome-desktop|kde-desktop)
-					KERNEL="686"
+					KERNEL="-p '686'"
 					;;
 			esac
 		fi
 
 		if [ "${SOURCE}" = "enabled" ]
 		then
-			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --tasksel aptitude -k ${KERNEL} --source enabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
+			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --tasksel aptitude ${KERNEL} --source enabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
 		else
-			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --tasksel aptitude -k ${KERNEL} --source disabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
+			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --tasksel aptitude ${KERNEL} --source disabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
 		fi
 
 		if [ "${DISTRIBUTION}" = "sid" ]
