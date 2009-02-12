@@ -70,7 +70,6 @@ libvte9-udeb
 # Not currently used
 cdebootstrap-udeb
 hdparm-udeb
-libaio1-udeb
 dhcp-client-udeb
 # This package is only useful in the d-i-demo.
 di-utils-exit-installer
