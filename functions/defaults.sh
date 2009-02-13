@@ -557,7 +557,12 @@ Set_defaults ()
 	LH_BINARY_IMAGES="${LH_BINARY_IMAGES:-iso}"
 
 	# Setting apt indices
-	LH_BINARY_INDICES="${LH_BINARY_INDICES:-enabled}"
+	if echo ${LH_PACKAGES_LISTS} | grep -qs -E "(stripped|minimal)\b"
+	then
+		LH_BINARY_INDICES="${LH_BINARY_INDICES:-none}"
+	else
+		LH_BINARY_INDICES="${LH_BINARY_INDICES:-enabled}"
+	fi
 
 	# Setting bootloader
 	if [ -z "${LH_BOOTLOADER}" ]

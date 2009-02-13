@@ -38,7 +38,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [-a|--architecture ARCHITECTURE]\n\
 \t    [-b|--binary-images iso|net|tar|usb-hdd]\n\
 \t    [--binary-filesystem fat16|fat32]\n\
-\t    [--binary-indices enabled|disabled]\n\
+\t    [--binary-indices enabled|disabled|none]\n\
 \t    [--bootappend-install PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootappend-live PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootloader grub|syslinux|yaboot]\n\

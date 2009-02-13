@@ -30,7 +30,7 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-binary\-filesystem\fR fat16|fat32|ext2]
 .br
-	[\fB\-\-binary\-indices\fR enabled|disabled]
+	[\fB\-\-binary\-indices\fR enabled|disabled|none]
 .br
 	[\fB\-\-bootappend\-install\fR \fIPARAMETER\fR|\fI"PARAMETERS"\fR]
 .br
@@ -226,8 +226,8 @@ defines the architecture of the to be build image. By default, this is set to th
 defines the image type to build. By default this is set to iso to build CD/DVD images.
 .IP "\fB\-\-binary\-filesystem\fR fat16|fat32|ext2" 4
 defines the filesystem to be used in the image type. This only has an effect if the selected binary image type does allow to choose a filesystem. For example, when selection iso the resulting CD/DVD has always the filesystem ISO9660. When building usb-hdd images for usb sticks, this is active. Note that it defaults to fat16 on all architectures except sparc where it defaults to ext2. Also note that if you choose fat16 and your resulting binary image gets bigger than 2GB, the binary filesystem automatically gets switched to fat32.
-.IP "\fB\-\-binary\-indices\fR enabled|disabled" 4
-defines if the resulting images should have binary indices or not and defaults to enabled.
+.IP "\fB\-\-binary\-indices\fR enabled|disabled|none" 4
+defines if the resulting images should have binary indices or not and defaults to enabled. If set to none, no indices are included at all.
 .IP "\fB\-\-bootappend\-install\fR \fIPARAMETER\fR|\fI""PARAMETERS""\fR" 4
 sets boot parameters specific to debian-installer, if included.
 .IP "\fB\-\-bootappend\-live\fR \fIPARAMETER\fR|\fI""PARAMETERS""\fR" 4
