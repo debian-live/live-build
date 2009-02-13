@@ -29,24 +29,44 @@ do
 		rm -rf cache/packages*
 		rm -rf cache/stages_rootfs
 
-		if [ "${ARCHITECTURE}" = "i386" ]
-		then
-			case "${FLAVOUR}" in
-				standard|rescue|lxde-desktop|xfce-desktop)
-					KERNEL="-p '486 686'"
-					;;
+		case "${ARCHITECTURE}" in
+			amd64)
+				case "${FLAVOUR}" in
+					gnome-desktop)
+						mkdir -p config/chroot_local-hooks
+						echo "apt-get remove --yes --purge openoffice.org-help-en-us" > config/chroot_local-hooks/package-removals
+						echo "apt-get remove --yes --purge epiphany-browser epiphany-browser-data epiphany-extensions epiphany-gecko" >> config/chroot_local-hooks/package-removals
+						echo "apt-get remove --yes --purge gnome-user-guide" >> config/chroot_local-hooks/package-removals
 
-				gnome-desktop|kde-desktop)
-					KERNEL="-p '686'"
-					;;
-			esac
-		fi
+						INDICES="none"
+						;;
+
+					kde-desktop)
+						INDICES="none"
+						;;
+				esac
+				;;
+
+			i386)
+				case "${FLAVOUR}" in
+					standard|rescue|lxde-desktop|xfce-desktop)
+						KERNEL="-p '486 686'"
+						INDICES="enabled"
+						;;
+
+					gnome-desktop|kde-desktop)
+						KERNEL="-p '686'"
+						INDICES="none"
+						;;
+				esac
+				;;
+		esac
 
 		if [ "${SOURCE}" = "enabled" ]
 		then
-			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --tasksel aptitude ${KERNEL} --source enabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
+			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --binary-indices ${INDICES} --tasksel aptitude ${KERNEL} --source enabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
 		else
-			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --tasksel aptitude ${KERNEL} --source disabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
+			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --binary-indices ${INDICES} --tasksel aptitude ${KERNEL} --source disabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
 		fi
 
 		if [ "${DISTRIBUTION}" = "sid" ]
