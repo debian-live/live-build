@@ -1,3 +1,23 @@
+live-helper (1.0.4-1) unstable; urgency=low
+
+  * Handling kernel selection properly in example images build script.
+  * Updating udeb exclude lists.
+  * Adding new setting for binary indices: If set to none, no indices
+    are included at all.
+  * Trimming down gnome-desktop images to fit cd size in example build
+    script.
+  * Updating release numbers.
+  * Updating syslinux menu configuration.
+  * Updating boot menu title when using syslinux menu.
+  * Correcting typo in example image build script.
+  * Removing explicit defaults from example image build script.
+  * Updating doc includes.
+  * Updating debian-cd doc includes.
+  * Correcting path within netboot tarballs.
+  * Redirecting stderr to log as well in example image build script.
+
+ -- Daniel Baumann <daniel@debian.org>  Sat, 14 Feb 2009 18:00:00 +0100
+
 live-helper (1.0.3-2) unstable; urgency=medium
 
   [ Daniel Baumann ]
