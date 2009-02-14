@@ -238,7 +238,11 @@ Tags for bug reports
           This bug particularly applies to the woody distribution.
 
    sarge
-          This bug should not be archived until it is fixed in sarge.
+          This is a distribution tag, which has two effects. When set on
+          a bug, the bug can only affect sarge (though it may also affect
+          other distributions if other distribution tags are set) but
+          otherwise normal buggy/fixed/absent rules apply. The bug also
+          should not be archived until it is fixed in sarge.
 
    sarge-ignore
           This release-critical bug is to be ignored for the purposes of
@@ -247,7 +251,11 @@ Tags for bug reports
           from them.
 
    etch
-          This bug should not be archived until it is fixed in etch.
+          This is a distribution tag, which has two effects. When set on
+          a bug, the bug can only affect etch (though it may also affect
+          other distributions if other distribution tags are set) but
+          otherwise normal buggy/fixed/absent rules apply. The bug also
+          should not be archived until it is fixed in etch.
 
    etch-ignore
           This release-critical bug is to be ignored for the purposes of
@@ -256,7 +264,11 @@ Tags for bug reports
           from them.
 
    lenny
-          This bug should not be archived until it is fixed in lenny.
+          This is a release tag, which has two effects. When set on a
+          bug, the bug can only affect lenny (though it may also affect
+          other releases if other release tags are set) but otherwise
+          normal buggy/fixed/absent rules apply. The bug also should not
+          be archived until it is fixed in lenny.
 
    lenny-ignore
           This release-critical bug is to be ignored for the purposes of
@@ -264,19 +276,38 @@ Tags for bug reports
           manager(s); do not set it yourself without explicit
           authorization from them.
 
+   squeeze
+          This is a release tag, which has two effects. When set on a
+          bug, the bug can only affect squeeze (though it may also affect
+          other releases if other release tags are set) but otherwise
+          normal buggy/fixed/absent rules apply. The bug also should not
+          be archived until it is fixed in squeeze.
+
+   squeeze-ignore
+          This release-critical bug is to be ignored for the purposes of
+          releasing squeeze. This tag should only be used by the release
+          manager(s); do not set it yourself without explicit
+          authorization from them.
+
    sid
-          This bug should not be archived until it is fixed in sid.
+          This is a release tag, which has two effects. When set on a
+          bug, the bug can only affect sid (though it may also affect
+          other releases if other release tags are set) but otherwise
+          normal buggy/fixed/absent rules apply. The bug also should not
+          be archived until it is fixed in sid.
 
    experimental
-          This bug should not be archived until it is fixed in
-          experimental.
+          This is a release tag, which has two effects. When set on a
+          bug, the bug can only affect experimental (though it may also
+          affect other releases if other release tags are set) but
+          otherwise normal buggy/fixed/absent rules apply. The bug also
+          should not be archived until it is fixed in experimental.
 
    The meanings of the latter 8 tags have changed recently; the ignore
    tags ignore the bug for the purpose of a testing propagation. The
    release tags, which used to only indicate which bugs affected a
-   specific release, now indicate when a bug can be archived, and are
-   otherwise ignored by the BTS. However, they may be utilized by other
-   tools like the testing propagation scripts.
+   specific release, now indicate when a bug can be archived and the set
+   of releases for which a bug can be considered to be found or fixed.
 
 Recording that you have passed on a bug report
 
