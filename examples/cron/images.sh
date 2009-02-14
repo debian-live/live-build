@@ -50,12 +50,11 @@ do
 			i386)
 				case "${FLAVOUR}" in
 					standard|rescue|lxde-desktop|xfce-desktop)
-						KERNEL="-k '486 686'"
 						INDICES="enabled"
 						;;
 
 					gnome-desktop|kde-desktop)
-						KERNEL="-k '686'"
+						KERNEL="-k 686"
 						INDICES="none"
 						;;
 				esac
