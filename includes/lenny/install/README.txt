@@ -1,6 +1,6 @@
 
-     Debian GNU/Linux testing "Lenny" - Official Snapshot i386 NETINST
-                          Binary-1 20090208-03:19
+      Debian GNU/Linux 5.0.0 "Lenny" - Official i386 NETINST Binary-1
+                               20090214-14:36
 
                                             (HTML version in README.html)
 
@@ -48,8 +48,8 @@ About This Disc
 
    This disc is labeled
 
-     Debian GNU/Linux testing "Lenny" - Official Snapshot i386 NETINST
-                          Binary-1 20090208-03:19
+      Debian GNU/Linux 5.0.0 "Lenny" - Official i386 NETINST Binary-1
+                               20090214-14:36
 
    It contains programs ("binaries") for `i386' computers.
 

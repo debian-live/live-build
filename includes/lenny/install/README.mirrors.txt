@@ -530,9 +530,8 @@ debian.prunk.si                 /debian/                        /debian/        
 SK Slovakia
 -----------
 ftp.sk.debian.org               /debian/                        /debian/                        alpha amd64 arm armel hppa hurd-i386 i386 ia64 mips mipsel powerpc s390 sparc
-  (ftp.tuke.sk)
+  (ftp.debian.sk)
 debian.ynet.sk                  /debian/                                                        alpha amd64 arm armel hppa hurd-i386 i386 ia64 mips mipsel powerpc s390 sparc
-ftp.debian.sk                   /debian/                        /debian/                        alpha amd64 arm armel hppa hurd-i386 i386 ia64 mips mipsel powerpc s390 sparc
 ftp.antik.sk                    /debian/                        /debian/                        alpha amd64 arm armel hppa hurd-i386 i386 ia64 mips mipsel powerpc s390 sparc
 
 SV El Salvador
@@ -642,4 +641,4 @@ debian.mirror.ac.za             /debian/                        /debian/        
 ftp.is.co.za                    /debian/                                                        alpha amd64 arm armel hppa hurd-i386 i386 ia64 mips mipsel powerpc s390 sparc
 
 -------------------------------------------------------------------------------
-Last modified: Sun Feb  8 01:52:17 2009             Number of sites listed: 415
+Last modified: Fri Feb 13 19:52:18 2009             Number of sites listed: 414
