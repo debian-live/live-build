@@ -72,10 +72,10 @@ Syslinux_memtest_entry ()
 	MENULABEL="$(Utf8_to_latin1 "${2}")"
 	KERNEL="${3}"
 
-	MEMTEST="${MEMTEST}\nLABEL ${LABEL}\n"
+	MEMTEST="${MEMTEST}\nlabel ${LABEL}\n"
 
 	# Write the menu label if the syslinux menu is being use
-	MEMTEST="${MEMTEST}\tMENU LABEL ${MENULABEL}\n"
+	MEMTEST="${MEMTEST}\tmenu label ${MENULABEL}\n"
 	MEMTEST="${MEMTEST}\tkernel ${LIVE_KERNEL_PATH}/${KERNEL}\n"
 	MEMTEST="$(/bin/echo ${MEMTEST} | sed -e 's|//|/|g')"
 }
@@ -104,18 +104,18 @@ Syslinux_live_entry ()
 	esac
 
 	# Regular kernel
-	LINUX_LIVE="${LINUX_LIVE}\nLABEL ${LABEL}\n"
+	LINUX_LIVE="${LINUX_LIVE}\nlabel ${LABEL}\n"
 
 	# Write the menu label if the syslinux menu is being use
-	LINUX_LIVE="${LINUX_LIVE}\tMENU LABEL ${MENULABEL}\n"
+	LINUX_LIVE="${LINUX_LIVE}\tmenu label ${MENULABEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\tkernel ${LIVE_KERNEL_PATH}/${KERNEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=${LIVE_KERNEL_PATH}/${INITRD} boot=${INITFS} ${LH_BOOTAPPEND_LIVE} ${APPEND}\n"
 
 	# Failsafe kernel
-	LINUX_LIVE="${LINUX_LIVE}\nLABEL ${LABEL}failsafe\n"
+	LINUX_LIVE="${LINUX_LIVE}\nlabel ${LABEL}failsafe\n"
 
 	# Write the menu label if the syslinux menu is being use
-	LINUX_LIVE="${LINUX_LIVE}\tMENU LABEL ${MENULABEL} (fail-safe mode)\n"
+	LINUX_LIVE="${LINUX_LIVE}\tmenu label ${MENULABEL} (failsafe)\n"
 	LINUX_LIVE="${LINUX_LIVE}\tkernel ${LIVE_KERNEL_PATH}/${KERNEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=${LIVE_KERNEL_PATH}/${INITRD} boot=${INITFS} ${LH_BOOTAPPEND_LIVE} ${APPEND} ${FAILSAFE}\n"
 }
@@ -162,8 +162,8 @@ Syslinux_install_entry ()
 				;;
 		esac
 
-		LINUX_INSTALL="${LINUX_INSTALL}\nLABEL $(echo "${TYPE}" | tr A-Z a-z)${TYPE_SUFFIX}\n"
-		LINUX_INSTALL="${LINUX_INSTALL}\tMENU LABEL Start ${LABEL} ${TYPE}\n"
+		LINUX_INSTALL="${LINUX_INSTALL}\nlabel $(echo "${TYPE}" | tr A-Z a-z)${TYPE_SUFFIX}\n"
+		LINUX_INSTALL="${LINUX_INSTALL}\tmenu label ${LABEL} ${TYPE}\n"
 		LINUX_INSTALL="${LINUX_INSTALL}\tkernel ${LIVE_INSTALL_KERNEL_PATH}/${KERNEL}\n"
 		LINUX_INSTALL="${LINUX_INSTALL}\tappend initrd=${LIVE_INSTALL_KERNEL_PATH}/${INITRD} ${TAPPEND} ${LH_BOOTAPPEND_INSTALL}\n"
 	done
@@ -175,14 +175,12 @@ Copy_syslinux_templates ()
 
 	if [ "${LH_SYSLINUX_MENU}" = "disabled" ]
 	then
-		cp "${TEMPLATES}"/normal/*.cfg ${SCREEN_PATH}
-		cp "${TEMPLATES}"/normal/data/* ${DATA_PATH}
+		cp "${TEMPLATES}"/normal/* ${SCREEN_PATH}
 	else
-		cp "${TEMPLATES}"/menu/*.cfg ${SCREEN_PATH}
-		cp "${TEMPLATES}"/menu/data/* ${DATA_PATH}
+		cp "${TEMPLATES}"/menu/* ${SCREEN_PATH}
 
 		# Grab menu binary
-		MENUMODULE=$(grep 'menu.c32' ${TEMPLATES}/menu/header.cfg | sed 's|default\s*.*/\(.*menu.c32\)$|\1|g')
+		MENUMODULE=$(grep 'menu.c32' ${TEMPLATES}/menu/syslinux.cfg | sed 's|default\s*.*/\(.*menu.c32\)$|\1|g')
 		case "${LH_CHROOT_BUILD}" in
 			enabled)
 				cp chroot/usr/lib/syslinux/"${MENUMODULE}" ${DATA_PATH}
@@ -226,6 +224,11 @@ Copy_syslinux_templates ()
 		esac
 	else
 		rm -f ${SCREEN_PATH}/*.install*
+	fi
+
+	if [ "${LH_SYSLINUX_MENU}" = "enabled" ]
+	then
+		rm -f ${DATA_PATH}/boot.txt
 	fi
 
 	# Copying custom splash screen
@@ -332,11 +335,11 @@ case "${LH_BINARY_IMAGES}" in
 		SYSLINUX_PATH="binary/isolinux"
 		KERNEL_PATH="binary/${INITFS}"
 		SCREEN_PATH="${SYSLINUX_PATH}"
-		DATA_PATH="${SCREEN_PATH}/data"
+		DATA_PATH="${SCREEN_PATH}"
 		LIVE_KERNEL_PATH="/${INITFS}"
 		LIVE_INSTALL_KERNEL_PATH="/install"
 		LIVE_SCREEN_PATH="/isolinux"
-		LIVE_DATA_PATH="${LIVE_SCREEN_PATH}/data"
+		LIVE_DATA_PATH="${LIVE_SCREEN_PATH}"
 		MEDIA="CD-ROM"
 		;;
 
@@ -344,11 +347,11 @@ case "${LH_BINARY_IMAGES}" in
 		SYSLINUX_PATH="tftpboot"
 		KERNEL_PATH="${SYSLINUX_PATH}/debian-live/${LH_ARCHITECTURE}"
 		SCREEN_PATH="${SYSLINUX_PATH}/debian-live/${LH_ARCHITECTURE}/boot-screens"
-		DATA_PATH="${SCREEN_PATH}/data"
+		DATA_PATH="${SCREEN_PATH}"
 		LIVE_KERNEL_PATH="debian-live/${LH_ARCHITECTURE}"
 		LIVE_INSTALL_KERNEL_PATH="debian-install/${LH_ARCHITECTURE}"
 		LIVE_SCREEN_PATH="debian-live/${LH_ARCHITECTURE}/boot-screens"
-		LIVE_DATA_PATH="${LIVE_SCREEN_PATH}/data"
+		LIVE_DATA_PATH="${LIVE_SCREEN_PATH}"
 		MEDIA="netboot"
 		;;
 
@@ -356,11 +359,11 @@ case "${LH_BINARY_IMAGES}" in
 		SYSLINUX_PATH="binary/syslinux"
 		KERNEL_PATH="binary/${INITFS}"
 		SCREEN_PATH="${SYSLINUX_PATH}"
-		DATA_PATH="${SCREEN_PATH}/data"
+		DATA_PATH="${SCREEN_PATH}"
 		LIVE_KERNEL_PATH="/${INITFS}"
 		LIVE_INSTALL_KERNEL_PATH="/install"
 		LIVE_SCREEN_PATH="/syslinux"
-		LIVE_DATA_PATH="${LIVE_SCREEN_PATH}/data"
+		LIVE_DATA_PATH="${LIVE_SCREEN_PATH}"
 
 		# Syslinux v3.31 in etch does not support sub directories, /path/kernel,
 		# when using FAT hard drive images
