@@ -682,7 +682,7 @@ Set_defaults ()
 	then
 		case "${LH_MODE}" in
 			debian)
-				LH_ISO_VOLUME="Debian Live ${LH_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)"
+				LH_ISO_VOLUME="Debian ${LH_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)"
 				;;
 
 			debian-release)
@@ -691,7 +691,7 @@ Set_defaults ()
 				;;
 
 			emdebian)
-				LH_ISO_VOLUME="Emdebian Live \$(date +%Y%m%d-%H:%M)"
+				LH_ISO_VOLUME="Emdebian ${LH_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)"
 				;;
 		esac
 	fi
