@@ -865,7 +865,7 @@ Check_defaults ()
 		Echo_warning "You have specified a too long string for iso publisher, the maximum lenght is 128 characters."
 	fi
 
-	if [ "$(echo ${LH_ISO_VOLUME} | wc -c)" -ge 33 ]
+	if [ "$(eval "echo ${LH_ISO_VOLUME}" | wc -c)" -ge 33 ]
 	then
 		Echo_warning "You have specified a too long string for iso volume, the maximum lenght is 32 characters."
 	fi
