@@ -354,6 +354,9 @@ Set_defaults ()
 	# Setting chroot filesystem
 	LH_CHROOT_FILESYSTEM="${LH_CHROOT_FILESYSTEM:-squashfs}"
 
+	# Setting virtual root size
+	LH_VIRTUAL_ROOT_SIZE="${LH_VIRTUAL_ROOT_SIZE:-10000}"
+
 	# Setting whether to expose root filesystem as read only
 	LH_EXPOSED_ROOT="${LH_EXPOSED_ROOT:-disabled}"
 

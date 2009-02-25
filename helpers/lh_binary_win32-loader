@@ -23,6 +23,11 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
+if [ "${LH_WIN32_LOADER}" != "enabled" ] || [ "${LH_BINARY_IMAGES}" = "virtual-hdd" ]
+then
+	exit 0
+fi
+
 Echo_message "Begin copying win32-loader..."
 
 # Requiring stage file
@@ -37,7 +42,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ "${LH_WIN32_LOADER}" = "enabled" ] && [ "${LH_DISTRIBUTION}" != "etch" ]
+if [ "${LH_DISTRIBUTION}" != "etch" ]
 then
 	case "${LH_ARCHITECTURE}" in
 		amd64|i386)

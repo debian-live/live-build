@@ -299,6 +299,25 @@ case "${LH_CHROOT_FILESYSTEM}" in
 		# Removing depends
 		Remove_package
 		;;
+
+	none)
+		if [ -d binary ]
+		then
+			rm -rf binary
+		fi
+
+		case "${LH_CHROOT_BUILD}" in
+			enabled)
+				mv chroot/chroot binary
+				;;
+
+			disabled)
+				Echo_message "This may take a while."
+				cp -a chroot binary
+				;;
+		esac
+		;;
+
 esac
 
 for STAGE in ${LH_CACHE_STAGES}
@@ -309,7 +328,10 @@ do
 
 		mkdir -p cache/stages_rootfs
 
-		${LH_ROOT_COMMAND} cp -a binary/"${INITFS}"/filesystem.* cache/stages_rootfs
+		if [ "${LH_CHROOT_FILESYSTEM}" != "none" ]
+		then
+			${LH_ROOT_COMMAND} cp -a binary/"${INITFS}"/filesystem.* cache/stages_rootfs
+		fi
 
 		if [ -n "${LH_ROOT_COMMAND}" ]
 		then

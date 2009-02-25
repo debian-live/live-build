@@ -23,7 +23,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_MEMTEST}" = "disabled" ] || [ "${LH_MEMTEST}" = "none" ]
+if [ "${LH_BINARY_IMAGES}" = "virtual-hdd" ] || [ "${LH_MEMTEST}" = "disabled" ] || [ "${LH_MEMTEST}" = "none" ]
 then
 	exit 0
 fi

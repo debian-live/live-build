@@ -45,6 +45,7 @@ lh_source_iso ${*}
 lh_source_net ${*}
 lh_source_tar ${*}
 lh_source_usb-hdd ${*}
+lh_source_virtual-hdd ${*}
 
 # Deconfiguring chroot
 rm -f .stage/chroot_sources

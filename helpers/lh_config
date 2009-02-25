@@ -120,6 +120,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--tasks TASK]\n\
 \t    [--templates PATH]\n\
 \t    [--union-filesystem aufs|unionfs]\n\
+\t    [--virtual-root-size MB]\n\
 \t    [--exposed-root enabled|disabled]\n\
 \t    [--username NAME]\n\
 \t    [--verbose]\n\
@@ -133,7 +134,7 @@ Local_arguments ()
 		initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,
 		templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,clean,
 		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,
-		mirror-binary-security:,categories:,chroot-filesystem:,union-filesystem:,exposed-root:,
+		mirror-binary-security:,categories:,chroot-filesystem:,union-filesystem:,exposed-root:,virtual-root-size:,
 		hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
 		packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,
 		binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,
@@ -407,6 +408,11 @@ Local_arguments ()
 
 			--union-filesystem)
 				LH_UNION_FILESYSTEM="${2}"
+				shift 2
+				;;
+
+			--virtual-root-size)
+				LH_VIRTUAL_ROOT_SIZE="${2}"
 				shift 2
 				;;
 
@@ -961,6 +967,10 @@ LH_CHROOT_FILESYSTEM="${LH_CHROOT_FILESYSTEM}"
 # \$LH_UNION_FILESYSTEM: set union filesystem
 # (Default: ${LH_UNION_FILESYSTEM})
 LH_UNION_FILESYSTEM="${LH_UNION_FILESYSTEM}"
+
+# \$LH_VIRTUAL_ROOT_SIZE: set virtual-hdd filesystem size
+# (Default: ${LH_VIRTUAL_ROOT_SIZE})
+LH_VIRTUAL_ROOT_SIZE="${LH_VIRTUAL_ROOT_SIZE}"
 
 # \$LH_EXPOSED_ROOT: expose root as read only
 # (Default: ${LH_EXPOSED_ROOT})

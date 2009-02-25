@@ -186,6 +186,10 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-union\-filesystem\fR aufs|unionfs]
 .br
+	[\fB\-\-virtual\-root\-filesystem\fR ext3]
+.br
+	[\fB\-\-virtual\-root\-size \fIMB\fR]
+.br
 	[\fB\-\-exposed\-root\fR enabled|disabled]
 .br
 	[\fB\-\-username\fR \fINAME\fR]
@@ -389,6 +393,10 @@ defines one or more package tasks to be installed in the live system. This is a 
 sets the path to the templates that live\-helper is going to use, e.g. for bootloaders. By default, this is set to /usr/share/live-helper/templates/.
 .IP "\fB\-\-union\-filesystem\fR aufs|unionfs" 4
 defines whetever to use UnionFS or Aufs as stackable unification filesystem. When building etch images, this defaults to unionfs, everywhere else to aufs.
+.IP "\fB\-\-virtual\-root\-filesystem\fR ext3" 4
+defines what filesystem to format the root filesystem when building virtual-hdd images.
+.IP "\fB\-\-virtual\-root\-size\fR MB" 4
+defines what size the virtual-hdd image should be. Note that although the default is set to 10000 (= 10GB), it will not need 10GB space on your harddisk as the files are created as sparse files.
 .IP "\fB\-\-exposed\-root\fR enabled|disabled" 4
 FIXME
 .IP "\fB\-\-username\fR \fINAME\fR" 4
