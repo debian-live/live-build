@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Debconf 8\n"
-"POT-Creation-Date: 2009-01-29 22:56+0100\n"
+"POT-Creation-Date: 2009-03-01 12:42+0100\n"
 "PO-Revision-Date: 2008-08-07 22:08+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -14,22 +14,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-# type: TH
-#: lh_binary.en.1:1 lh_bootstrap.en.1:1 lh_build.en.1:1 lh_chroot.en.1:1
-#: lh_clean.en.1:1 lh_config.en.1:1 lh.en.1:1 lh_source.en.1:1
-#: lh_testroot.en.1:1 live-helper.en.7:1
-#, fuzzy, no-wrap
-msgid "2009-01-23"
-msgstr "2007-11-26"
-
-# type: TH
-#: lh_binary.en.1:1 lh_bootstrap.en.1:1 lh_build.en.1:1 lh_chroot.en.1:1
-#: lh_clean.en.1:1 lh_config.en.1:1 lh.en.1:1 lh_source.en.1:1
-#: lh_testroot.en.1:1 live-helper.en.7:1
-#, fuzzy, no-wrap
-msgid "1.0.2"
-msgstr "1.0~a38"
 
 # type: TH
 #: lh_binary.en.1:1 lh_bootstrap.en.1:1 lh_build.en.1:1 lh_chroot.en.1:1
@@ -57,7 +41,7 @@ msgstr "SYNOPSIS"
 
 # type: SH
 #: lh_binary.en.1:9 lh_bootstrap.en.1:9 lh_build.en.1:9 lh_chroot.en.1:9
-#: lh_clean.en.1:11 lh_config.en.1:195 lh.en.1:11 lh_source.en.1:9
+#: lh_clean.en.1:11 lh_config.en.1:201 lh.en.1:11 lh_source.en.1:9
 #: lh_testroot.en.1:9 live-helper.en.7:13
 #, no-wrap
 msgid "DESCRIPTION"
@@ -65,7 +49,7 @@ msgstr "DESCRIPTION"
 
 # type: SH
 #: lh_binary.en.1:12 lh_bootstrap.en.1:12 lh_build.en.1:12 lh_chroot.en.1:12
-#: lh_clean.en.1:14 lh_config.en.1:200 lh.en.1:14 lh_source.en.1:12
+#: lh_clean.en.1:14 lh_config.en.1:206 lh.en.1:14 lh_source.en.1:12
 #: lh_testroot.en.1:14 live-helper.en.7:20
 #, no-wrap
 msgid "OPTIONS"
@@ -73,24 +57,24 @@ msgstr ""
 
 # type: SH
 #: lh_binary.en.1:15 lh_bootstrap.en.1:15 lh_build.en.1:15 lh_chroot.en.1:15
-#: lh_clean.en.1:34 lh_config.en.1:403 lh.en.1:17 lh_source.en.1:15
-#: lh_testroot.en.1:17 live-helper.en.7:223
+#: lh_clean.en.1:34 lh_config.en.1:415 lh.en.1:17 lh_source.en.1:15
+#: lh_testroot.en.1:17 live-helper.en.7:229
 #, no-wrap
 msgid "SEE ALSO"
 msgstr "VOIR AUSSI"
 
 # type: SH
 #: lh_binary.en.1:20 lh_bootstrap.en.1:20 lh_build.en.1:20 lh_chroot.en.1:20
-#: lh_clean.en.1:39 lh_config.en.1:408 lh.en.1:22 lh_source.en.1:20
-#: lh_testroot.en.1:22 live-helper.en.7:226
+#: lh_clean.en.1:39 lh_config.en.1:420 lh.en.1:22 lh_source.en.1:20
+#: lh_testroot.en.1:22 live-helper.en.7:232
 #, no-wrap
 msgid "HOMEPAGE"
 msgstr "HÉBERGEMENT"
 
 # type: Plain text
 #: lh_binary.en.1:22 lh_bootstrap.en.1:22 lh_build.en.1:22 lh_chroot.en.1:22
-#: lh_clean.en.1:41 lh_config.en.1:410 lh.en.1:24 lh_source.en.1:22
-#: lh_testroot.en.1:24 live-helper.en.7:228
+#: lh_clean.en.1:41 lh_config.en.1:422 lh.en.1:24 lh_source.en.1:22
+#: lh_testroot.en.1:24 live-helper.en.7:234
 #, fuzzy
 msgid ""
 "More information about live-helper and the Debian Live project can be found "
@@ -103,16 +87,16 @@ msgstr ""
 
 # type: SH
 #: lh_binary.en.1:23 lh_bootstrap.en.1:23 lh_build.en.1:23 lh_chroot.en.1:23
-#: lh_clean.en.1:42 lh_config.en.1:411 lh.en.1:25 lh_source.en.1:23
-#: lh_testroot.en.1:25 live-helper.en.7:229
+#: lh_clean.en.1:42 lh_config.en.1:423 lh.en.1:25 lh_source.en.1:23
+#: lh_testroot.en.1:25 live-helper.en.7:235
 #, no-wrap
 msgid "BUGS"
 msgstr "ANOMALIES"
 
 # type: Plain text
 #: lh_binary.en.1:25 lh_bootstrap.en.1:25 lh_build.en.1:25 lh_chroot.en.1:25
-#: lh_clean.en.1:44 lh_config.en.1:413 lh.en.1:27 lh_source.en.1:25
-#: lh_testroot.en.1:27 live-helper.en.7:231
+#: lh_clean.en.1:44 lh_config.en.1:425 lh.en.1:27 lh_source.en.1:25
+#: lh_testroot.en.1:27 live-helper.en.7:237
 msgid ""
 "Report bugs by submitting a bugreport for the live-helper package in the "
 "Debian Bug Tracking System at E<lt>I<http://bugs.debian.org/>E<gt> or write "
@@ -121,16 +105,16 @@ msgstr ""
 
 # type: SH
 #: lh_binary.en.1:26 lh_bootstrap.en.1:26 lh_build.en.1:26 lh_chroot.en.1:26
-#: lh_clean.en.1:45 lh_config.en.1:414 lh.en.1:28 lh_source.en.1:26
-#: lh_testroot.en.1:28 live-helper.en.7:232
+#: lh_clean.en.1:45 lh_config.en.1:426 lh.en.1:28 lh_source.en.1:26
+#: lh_testroot.en.1:28 live-helper.en.7:238
 #, no-wrap
 msgid "AUTHOR"
 msgstr "AUTEUR"
 
 # type: Plain text
 #: lh_binary.en.1:27 lh_bootstrap.en.1:27 lh_build.en.1:27 lh_chroot.en.1:27
-#: lh_clean.en.1:46 lh_config.en.1:415 lh.en.1:29 lh_source.en.1:27
-#: lh_testroot.en.1:29 live-helper.en.7:233
+#: lh_clean.en.1:46 lh_config.en.1:427 lh.en.1:29 lh_source.en.1:27
+#: lh_testroot.en.1:29 live-helper.en.7:239
 msgid ""
 "live-helper was written by Daniel Baumann E<lt>I<daniel@debian.org>E<gt> for "
 "the Debian project."
@@ -143,6 +127,18 @@ msgstr ""
 #, no-wrap
 msgid "LIVE-HELPER"
 msgstr ""
+
+# type: TH
+#: live-helper.en.7:1
+#, fuzzy, no-wrap
+msgid "2009-01-23"
+msgstr "2007-11-26"
+
+# type: TH
+#: live-helper.en.7:1
+#, fuzzy, no-wrap
+msgid "1.0.2"
+msgstr "1.0~a38"
 
 # type: Plain text
 #: live-helper.en.7:5
@@ -1113,119 +1109,152 @@ msgstr ""
 msgid "build binary usb-hdd image"
 msgstr ""
 
-# type: IP
+# type: Plain text
 #: live-helper.en.7:192
+#, fuzzy, no-wrap
+msgid "B<lh_binary_virtual-hdd>(1)"
+msgstr "B<lh_binary> [I<options pour live-helper>]"
+
+# type: Plain text
+#: live-helper.en.7:194
+msgid "build binary virtual-hdd image"
+msgstr ""
+
+# type: Plain text
+#: live-helper.en.7:194
+#, fuzzy, no-wrap
+msgid "B<lh_binary_win32-loader>(1)"
+msgstr "B<lh_binary> [I<options pour live-helper>]"
+
+# type: Plain text
+#: live-helper.en.7:196
+msgid "installs win32-loader into binary"
+msgstr ""
+
+# type: IP
+#: live-helper.en.7:196
 #, no-wrap
 msgid "B<lh_binary_yaboot>(1)"
 msgstr ""
 
 # type: Plain text
-#: live-helper.en.7:194
+#: live-helper.en.7:198
 msgid "installs yaboot into binary"
 msgstr ""
 
 # type: SS
-#: live-helper.en.7:194
+#: live-helper.en.7:198
 #, no-wrap
 msgid "Source commands"
 msgstr ""
 
 # type: IP
-#: live-helper.en.7:195
+#: live-helper.en.7:199
 #, no-wrap
 msgid "B<lh_source_debian>(1)"
 msgstr ""
 
 # type: Plain text
-#: live-helper.en.7:197
+#: live-helper.en.7:201
 msgid "download sources"
 msgstr ""
 
 # type: IP
-#: live-helper.en.7:197
+#: live-helper.en.7:201
 #, no-wrap
 msgid "B<lh_source_debian-live>(1)"
 msgstr ""
 
 # type: Plain text
-#: live-helper.en.7:199
+#: live-helper.en.7:203
 msgid "copy debian-live config into source"
 msgstr ""
 
 # type: IP
-#: live-helper.en.7:199
+#: live-helper.en.7:203
 #, no-wrap
 msgid "B<lh_source_disk>(1)"
 msgstr ""
 
 # type: Plain text
-#: live-helper.en.7:201
+#: live-helper.en.7:205
 msgid "install disk information into source"
 msgstr ""
 
 # type: IP
-#: live-helper.en.7:201
+#: live-helper.en.7:205
 #, no-wrap
 msgid "B<lh_source_iso>(1)"
 msgstr ""
 
 # type: Plain text
-#: live-helper.en.7:203
+#: live-helper.en.7:207
 msgid "build iso source image"
 msgstr ""
 
 # type: IP
-#: live-helper.en.7:203
+#: live-helper.en.7:207
 #, no-wrap
 msgid "B<lh_source_md5sum>(1)"
 msgstr ""
 
 # type: Plain text
-#: live-helper.en.7:205
+#: live-helper.en.7:209
 msgid "create source md5sum"
 msgstr ""
 
 # type: IP
-#: live-helper.en.7:205
+#: live-helper.en.7:209
 #, no-wrap
 msgid "B<lh_source_net>(1)"
 msgstr ""
 
 # type: Plain text
-#: live-helper.en.7:207
+#: live-helper.en.7:211
 msgid "build source net image"
 msgstr ""
 
 # type: IP
-#: live-helper.en.7:207
+#: live-helper.en.7:211
 #, no-wrap
 msgid "B<lh_source_tar>(1)"
 msgstr ""
 
 # type: Plain text
-#: live-helper.en.7:209
+#: live-helper.en.7:213
 msgid "build source tarball"
 msgstr ""
 
 # type: IP
-#: live-helper.en.7:209
+#: live-helper.en.7:213
 #, no-wrap
 msgid "B<lh_source_usb-hdd>(1)"
 msgstr ""
 
 # type: Plain text
-#: live-helper.en.7:211
+#: live-helper.en.7:215
 msgid "build source usb-hdd image"
 msgstr ""
 
+# type: IP
+#: live-helper.en.7:215
+#, no-wrap
+msgid "B<lh_source_virtual-hdd>(1)"
+msgstr ""
+
+# type: Plain text
+#: live-helper.en.7:217
+msgid "build source virtual-hdd image"
+msgstr ""
+
 # type: SH
-#: live-helper.en.7:212
+#: live-helper.en.7:218
 #, no-wrap
 msgid "CONFIG FILES"
 msgstr ""
 
 # type: Plain text
-#: live-helper.en.7:214
+#: live-helper.en.7:220
 msgid ""
 "Many live-helper commands make use of files in the I<config/> directory to "
 "control what they do. Besides the common I<config/common>, which is used by "
@@ -1237,7 +1266,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: live-helper.en.7:216
+#: live-helper.en.7:222
 msgid ""
 "For example, lh_bootstrap_debootstrap uses files named config/bootstrap and "
 "config/bootstrap_debootstrap to read the options it will use. See the man "
@@ -1248,7 +1277,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: live-helper.en.7:218
+#: live-helper.en.7:224
 msgid ""
 "Note that live-helper will respect environment variables which are present "
 "in the context of the shell it is running. If variables can be read from "
@@ -1259,7 +1288,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: live-helper.en.7:220
+#: live-helper.en.7:226
 msgid ""
 "In some rare cases, you may want to have different versions of these files "
 "for different architectures or distributions. If files named config/stage."
@@ -1271,7 +1300,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: live-helper.en.7:222
+#: live-helper.en.7:228
 msgid ""
 "All config files are shell scripts which are sourced by a live-helper "
 "program. That means they have to follow the normal shell syntax. You can "
@@ -1279,7 +1308,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: live-helper.en.7:225
+#: live-helper.en.7:231
 #, fuzzy
 msgid "I<live-initramfs>(7)"
 msgstr "I<live-helper>(7)"
