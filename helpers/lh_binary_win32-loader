@@ -46,17 +46,23 @@ if [ "${LH_DISTRIBUTION}" != "etch" ]
 then
 	case "${LH_ARCHITECTURE}" in
 		amd64|i386)
-			# Checking depends
-			Check_package chroot/usr/lib/win32-loader/win32-loader.exe win32-loader
+			if [ "${LH_CHROOT_BUILD}" = "enabled" ]
+			then
+				# Checking depends
+				Check_package chroot/usr/lib/win32-loader/win32-loader.exe win32-loader
 
-			# Restoring cache
-			Restore_cache cache/packages_binary
+				# Restoring cache
+				Restore_cache cache/packages_binary
 
-			# Installing depends
-			Install_package
+				# Installing depends
+				Install_package
 
-			# Copying win32-loader
-			cp chroot/usr/lib/win32-loader/* binary
+				# Copying win32-loader
+				cp chroot/usr/lib/win32-loader/* binary
+			else
+				cp /usr/lib/win32-loader/* binary
+			fi
+
 			mv binary/win32-loader.exe binary/setup.exe
 
 			if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
