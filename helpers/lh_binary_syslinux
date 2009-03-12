@@ -195,7 +195,10 @@ Copy_syslinux_templates ()
 	then
 		cp -r "${TEMPLATES}"/"${LH_LANGUAGE}"/* ${SCREEN_PATH}
 	else
-		cp -r "${TEMPLATES}"/en/* ${SCREEN_PATH}
+		if [ -d "${TEMPLATES}"/en/* ]
+		then
+			cp -r "${TEMPLATES}"/en/* ${SCREEN_PATH}
+		fi
 	fi
 
 	for FILE in ${SCREEN_PATH}/*.live
