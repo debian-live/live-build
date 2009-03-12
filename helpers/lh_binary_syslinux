@@ -201,24 +201,33 @@ Copy_syslinux_templates ()
 		fi
 	fi
 
-	for FILE in ${SCREEN_PATH}/*.live
-	do
-		mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .live)
-	done
+	if ls ${SCREEN_PATH}/*.live > /dev/null 2>&1
+	then
+		for FILE in ${SCREEN_PATH}/*.live
+		do
+			mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .live)
+		done
+	fi
 
 	if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
 	then
-		for FILE in ${SCREEN_PATH}/*.install
-		do
-			mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .install)
-		done
+		if ls ${SCREEN_PATH}/*.install > /dev/null 2>&1
+		then
+			for FILE in ${SCREEN_PATH}/*.install
+			do
+				mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .install)
+			done
+		fi
 
 		case "${LH_ARCHITECTURE}" in
 			amd64|i386|powerpc)
-				for FILE in ${SCREEN_PATH}/*.install.g-i
-				do
-					mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .install.g-i)
-				done
+				if ls ${SCREEN_PATH}/*.install.g-i > /dev/null 2>&1
+				then
+					for FILE in ${SCREEN_PATH}/*.install.g-i
+					do
+						mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .install.g-i)
+					done
+				fi
 				;;
 
 			*)
