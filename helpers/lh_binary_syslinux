@@ -191,11 +191,11 @@ Copy_syslinux_templates ()
 		esac
 	fi
 
-	if [ -d "${TEMPLATES}"/"${LH_LANGUAGE}" ]
+	if ls "${TEMPLATES}/${LH_LANGUAGE}"/* > /dev/null 2>&1
 	then
 		cp -r "${TEMPLATES}"/"${LH_LANGUAGE}"/* ${SCREEN_PATH}
 	else
-		if [ -d "${TEMPLATES}"/en/* ]
+		if ls "${TEMPLATES}"/en/* > /dev/null 2>&1
 		then
 			cp -r "${TEMPLATES}"/en/* ${SCREEN_PATH}
 		fi
