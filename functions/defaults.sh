@@ -379,11 +379,11 @@ Set_defaults ()
 	# Setting keyring packages
 	case "${LH_MODE}" in
 		debian|debian-release)
-			LH_KEYRING_PACKAGES="debian-archive-keyring"
+			LH_KEYRING_PACKAGES="${LH_KEYRING_PACKAGES:-debian-archive-keyring}"
 			;;
 
 		emdebian)
-			LH_KEYRING_PACKAGES="debian-archive-keyring"
+			LH_KEYRING_PACKAGES="${LH_kEYRING_PACKAGES:-debian-archive-keyring}"
 			;;
 	esac
 
