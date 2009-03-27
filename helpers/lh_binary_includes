@@ -155,8 +155,11 @@ then
 		DEBIAN_TOOLS_TXT="/tools/"
 	fi
 
-	sed -i -e "s|DEBIAN_NAME|${DEBIAN_NAME}|g" -e "s|DEBIAN_DATE|${DEBIAN_DATE}|g" -e "s|DEBIAN_TOOLS|${DEBIAN_TOOLS_HTML}|g" binary/README.html
-	sed -i -e "s|DEBIAN_NAME|${DEBIAN_NAME}|g" -e "s|DEBIAN_DATE|${DEBIAN_DATE}|g" -e "s|DEBIAN_TOOLS|${DEBIAN_TOOLS_TXT}|g" binary/README.txt
+	if [ -f binary/README.html ]
+	then
+		sed -i -e "s|DEBIAN_NAME|${DEBIAN_NAME}|g" -e "s|DEBIAN_DATE|${DEBIAN_DATE}|g" -e "s|DEBIAN_TOOLS|${DEBIAN_TOOLS_HTML}|g" binary/README.html
+		sed -i -e "s|DEBIAN_NAME|${DEBIAN_NAME}|g" -e "s|DEBIAN_DATE|${DEBIAN_DATE}|g" -e "s|DEBIAN_TOOLS|${DEBIAN_TOOLS_TXT}|g" binary/README.txt
+	fi
 fi
 
 # Creating stage file
