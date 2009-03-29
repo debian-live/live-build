@@ -43,7 +43,7 @@ moreutils
 aview mc nano-tiny mg vim wdiff hexedit nvi tweak
 
 # Harddisk
-dvd+rw-tools genisoimage sdparm hdparm blktool parted partimage secure-delete scsitools smartmontools testdisk wodim wipe hddtemp
+dvd+rw-tools genisoimage sdparm hdparm blktool parted partimage secure-delete scsitools smartmontools testdisk wodim wipe hddtemp bonnie++
 par2 dvd+rw-tools
 
 # for /usr/bin/summer:
