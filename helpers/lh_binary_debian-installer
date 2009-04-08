@@ -557,9 +557,9 @@ then
 	fi
 
 	# Excluding udebs
-	grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DEBIAN_INSTALLER_DISTRIBUTION}"/udeb_exclude > exclude
-	grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DEBIAN_INSTALLER_DISTRIBUTION}"/exclude-udebs >> exclude
-	grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DEBIAN_INSTALLER_DISTRIBUTION}"/exclude-udebs-${LH_ARCHITECTURE} >> exclude
+	grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DEBIAN_INSTALLER_DISTRIBUTION}"/udeb_exclude > exclude || true
+	grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DEBIAN_INSTALLER_DISTRIBUTION}"/exclude-udebs >> exclude || true
+	grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DEBIAN_INSTALLER_DISTRIBUTION}"/exclude-udebs-${LH_ARCHITECTURE} >> exclude || true
 
 	# Local exclude file
 	if [ -e ../config/binary_debian-installer/udeb_exclude ]
