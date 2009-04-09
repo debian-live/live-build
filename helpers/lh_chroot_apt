@@ -207,21 +207,6 @@ case "${1}" in
 			rm -f chroot/etc/apt/preferences
 		fi
 
-		if Find_files config/chroot_local-packages/*.deb
-		then
-			# Ensure local packages are not replaced.
-			echo >> chroot/etc/apt/preferences
-			echo "# Added by lh_chroot_apt ${@}" >> chroot/etc/apt/preferences
-			echo "Package: *" >> chroot/etc/apt/preferences
-			echo "Pin: release o=chroot_local-packages" >> chroot/etc/apt/preferences
-			echo "Pin-Priority: 99" >> chroot/etc/apt/preferences
-
-			echo >> chroot/etc/apt/preferences
-			echo "Package: *" >> chroot/etc/apt/preferences
-			echo "Pin: release o=debian" >> chroot/etc/apt/preferences
-			echo "Pin-Priority: 99" >> chroot/etc/apt/preferences
-		fi
-
 		# Removing stage file
 		rm -f .stage/chroot_apt
 		;;
