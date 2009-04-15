@@ -28,6 +28,10 @@ Set_defaults ()
 			emdebian)
 				LH_DISTRIBUTION="sid"
 				;;
+
+			ubuntu)
+				LH_DISTRIBUTION="jaunty"
+				;;
 		esac
 	fi
 
@@ -72,7 +76,7 @@ Set_defaults ()
 
 	# Setting apt recommends
 	case "${LH_MODE}" in
-		debian|debian-release)
+		debian|debian-release|ubuntu)
 			LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS:-enabled}"
 			;;
 
@@ -135,6 +139,10 @@ Set_defaults ()
 					else
 						LH_INITRAMFS="live-initramfs"
 					fi
+					;;
+
+				ubuntu)
+					LH_INITRAMFS="casper"
 					;;
 
 				*)
@@ -202,6 +210,10 @@ Set_defaults ()
 
 			emdebian)
 				LH_ROOT="emdebian-live"
+				;;
+
+			ubuntu)
+				LH_ROOT="ubuntu-live"
 				;;
 		esac
 	fi
@@ -288,6 +300,18 @@ Set_defaults ()
 			emdebian)
 				LH_MIRROR_BOOTSTRAP="http://buildd.emdebian.org/grip/"
 				;;
+
+			ubuntu)
+				case "${LH_ARCHITECTURE}" in
+					amd64|i386)
+						LH_MIRROR_BOOTSTRAP="http://archive.ubuntu.com/ubuntu/"
+						;;
+
+					*)
+						LH_MIRROR_BOOTSTRAP="http://ports.ubuntu.com/"
+						;;
+				esac
+				;;
 		esac
 	fi
 
@@ -303,6 +327,18 @@ Set_defaults ()
 
 			emdebian)
 				LH_MIRROR_CHROOT_SECURITY="none"
+				;;
+
+			ubuntu)
+				case "${LH_ARCHITECTURE}" in
+					amd64|i386)
+						LH_MIRROR_CHROOT_SECURITY="http://archive.ubuntu.com/ubuntu/"
+						;;
+
+					*)
+						LH_MIRROR_CHROOT_SECURITY="http://ports.ubuntu.com/"
+						;;
+				esac
 				;;
 		esac
 	fi
@@ -326,6 +362,18 @@ Set_defaults ()
 			emdebian)
 				LH_MIRROR_BINARY="http://buildd.emdebian.org/grip/"
 				;;
+
+			ubuntu)
+				case "${LH_ARCHITECTURE}" in
+					amd64|i386)
+						LH_MIRROR_BINARY="http://archive.ubuntu.com/ubuntu/"
+						;;
+
+					*)
+						LH_MIRROR_BINARY="http://ports.ubuntu.com/"
+						;;
+				esac
+				;;
 		esac
 	fi
 
@@ -339,6 +387,18 @@ Set_defaults ()
 
 			emdebian)
 				LH_MIRROR_BINARY_SECURITY="none"
+				;;
+
+			ubuntu)
+				case "${LH_ARCHITECTURE}" in
+					amd64|i386)
+						LH_MIRROR_BINARY_SECURITY="http://archive.ubuntu.com/ubuntu/"
+						;;
+
+					*)
+						LH_MIRROR_BINARY_SECURITY="http://ports.ubuntu.com/"
+						;;
+				esac
 				;;
 		esac
 	fi
@@ -385,6 +445,10 @@ Set_defaults ()
 		emdebian)
 			LH_KEYRING_PACKAGES="${LH_kEYRING_PACKAGES:-debian-archive-keyring}"
 			;;
+
+		ubuntu)
+			LH_KEYRING_PACKAGES="${LH_KEYRING_PACKAGES:-ubuntu-keyring}"
+			;;
 	esac
 
 	# Setting language string
@@ -395,25 +459,57 @@ Set_defaults ()
 	then
 		case "${LH_ARCHITECTURE}" in
 			alpha)
-				LH_LINUX_FLAVOURS="alpha-generic"
-				;;
-
-			amd64)
-				LH_LINUX_FLAVOURS="amd64"
-				;;
-
-			hppa)
-				LH_LINUX_FLAVOURS="parisc"
-				;;
-
-			i386)
-				case "${LIST}" in
-					stripped|minimal)
-						LH_LINUX_FLAVOURS="486"
+				case "${LH_MODE}" in
+					ubuntu)
+						Echo_error "Architecture ${LH_ARCHITECTURE} not supported on Ubuntu."
 						;;
 
 					*)
-						LH_LINUX_FLAVOURS="486 686"
+						LH_LINUX_FLAVOURS="alpha-generic"
+						;;
+				esac
+				;;
+
+			amd64)
+				case "${LH_MODE}" in
+					ubuntu)
+						LH_LINUX_FLAVOURS="generic"
+						;;
+
+					*)
+						LH_LINUX_FLAVOURS="amd64"
+						;;
+				esac
+				;;
+
+			hppa)
+				case "${LH_MODE}" in
+					ubuntu)
+						LH_LINUX_FLAVOURS="hppa32 hppa64"
+						;;
+
+					*)
+						LH_LINUX_FLAVOURS="parisc"
+						;;
+				esac
+				;;
+
+			i386)
+				case "${LH_MODE}" in
+					ubuntu)
+						LH_LINUX_FLAVOURS="generic"
+						;;
+
+					*)
+						case "${LIST}" in
+							stripped|minimal)
+								LH_LINUX_FLAVOURS="486"
+								;;
+
+							*)
+								LH_LINUX_FLAVOURS="486 686"
+								;;
+						esac
 						;;
 				esac
 				;;
@@ -435,7 +531,15 @@ Set_defaults ()
 				;;
 
 			s390)
-				LH_LINUX_FLAVOURS="s390"
+				case "${LH_MODE}" in
+					ubuntu)
+						Echo_error "Architecture ${LH_ARCHITECTURE} not supported on Ubuntu."
+						;;
+
+					*)
+						LH_LINUX_FLAVOURS="s390"
+						;;
+				esac
 				;;
 
 			sparc)
@@ -453,7 +557,7 @@ Set_defaults ()
 				;;
 
 			*)
-				Echo_error "Architecture not yet supported (FIXME)"
+				Echo_error "Architecture ${LH_ARCHITECTURE} not yet supported (FIXME)"
 				;;
 		esac
 	fi
@@ -461,26 +565,46 @@ Set_defaults ()
 	# Set linux packages
 	if [ -z "${LH_LINUX_PACKAGES}" ]
 	then
-		LH_LINUX_PACKAGES="linux-image-2.6 \${LH_UNION_FILESYSTEM}-modules-2.6"
+		case "${LH_MODE}" in
+			debian|debian-release|embedian)
+				LH_LINUX_PACKAGES="linux-image-2.6 \${LH_UNION_FILESYSTEM}-modules-2.6"
 
-		if [ "${LH_CHROOT_FILESYSTEM}" = "squashfs" ]
-		then
-			LH_LINUX_PACKAGES="${LH_LINUX_PACKAGES} squashfs-modules-2.6"
-		fi
+				if [ "${LH_CHROOT_FILESYSTEM}" = "squashfs" ]
+				then
+					LH_LINUX_PACKAGES="${LH_LINUX_PACKAGES} squashfs-modules-2.6"
+				fi
 
-		case "${LH_ENCRYPTION}" in
-			""|disabled)
+				case "${LH_ENCRYPTION}" in
+					""|disabled)
+
+						;;
+
+					*)
+						LH_LINUX_PACKAGES="${LH_LINUX_PACKAGES} loop-aes-modules-2.6"
+						;;
+				esac
 				;;
-			*)
-				LH_LINUX_PACKAGES="${LH_LINUX_PACKAGES} loop-aes-modules-2.6"
+
+			ubuntu)
+				LH_LINUX_PACKAGES="linux"
 				;;
 		esac
 	fi
 
 	# Setting packages string
-	# LH_PACKAGES
+	case "${LH_MODE}" in
+		ubuntu)
+			LH_PACKAGES="${LH_PACKAGES:-ubuntu-standard}"
+			;;
+
+		*)
+			LH_PACKAGES_LISTS="${LH_PACKAGES_LISTS:-standard}"
+			;;
+	esac
+
 	case "${LH_ENCRYPTION}" in
 		""|disabled)
+
 			;;
 
 		*)
@@ -490,9 +614,6 @@ Set_defaults ()
 			fi
 			;;
 	esac
-
-	# Setting packages list string
-	LH_PACKAGES_LISTS="${LH_PACKAGES_LISTS:-standard}"
 
 	# Setting tasks string
 	for LIST in ${LH_PACKAGES_LISTS}
@@ -527,9 +648,6 @@ Set_defaults ()
 	LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|  ||g')"
 	LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|  ||g')"
 
-	# Setting tasks
-	# LH_TASKS
-
 	# Setting security updates option
 	if [ "${LH_MIRROR_CHROOT_SECURITY}" = "none" ] || [ "${LH_MIRROR_BINARY_SECURITY}" = "none" ]
 	then
@@ -551,6 +669,7 @@ Set_defaults ()
 		sparc)
 			LH_BINARY_FILESYSTEM="${LH_BINARY_FILESYSTEM:-ext2}"
 			;;
+
 		*)
 			LH_BINARY_FILESYSTEM="${LH_BINARY_FILESYSTEM:-fat16}"
 			;;
@@ -648,6 +767,13 @@ Set_defaults ()
 		fi
 	fi
 
+	# Ubuntu's d-i is patched to be able to use usb-hdd block devices for
+	# install media if enabled by preseeding cdrom-detect/try-usb to true.
+	if [ "${LH_MODE}" = "ubuntu" ] && [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
+	then
+		LH_BOOTAPPEND_INSTALL="cdrom-detect/try-usb=true -- \${LH_BOOTAPPEND_LIVE}"
+	fi
+
 	# Setting encryption
 	LH_ENCRYPTION="${LH_ENCRYPTION:-disabled}"
 
@@ -657,7 +783,19 @@ Set_defaults ()
 	# Setting hostname
 	if [ -z "${LH_HOSTNAME}" ]
 	then
-		LH_HOSTNAME="debian"
+		case "${LH_MODE}" in
+			embedian)
+				LH_HOSTNAME="embedian"
+				;;
+
+			ubuntu)
+				LH_HOSTNAME="ubuntu"
+				;;
+
+			*)
+				LH_HOSTNAME="debian"
+				;;
+		esac
 	fi
 
 	# Setting iso author
@@ -670,6 +808,10 @@ Set_defaults ()
 
 			emdebian)
 				LH_ISO_APPLICATION="Emdebian Live"
+				;;
+
+			ubuntu)
+				LH_ISO_APPLICATION="Ubuntu Live"
 				;;
 		esac
 	fi
@@ -695,6 +837,10 @@ Set_defaults ()
 
 			emdebian)
 				LH_ISO_VOLUME="Emdebian ${LH_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)"
+				;;
+
+			ubuntu)
+				LH_ISO_VOLUME="Ubuntu ${LH_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)"
 				;;
 		esac
 	fi
@@ -731,6 +877,10 @@ Set_defaults ()
 
 			emdebian)
 				LH_NET_ROOT_PATH="/srv/emdebian-live"
+				;;
+
+			ubuntu)
+				LH_NET_ROOT_PATH="/srv/ubuntu-live"
 				;;
 		esac
 	fi
@@ -780,7 +930,15 @@ Set_defaults ()
 	LH_SYSLINUX_MENU_MEMTEST_ENTRY="${LH_SYSLINUX_MENU_MEMTEST_ENTRY:-Memory test}"
 
 	# Setting username
-	LH_USERNAME="${LH_USERNAME:-user}"
+	case "${LH_MODE}" in
+		ubuntu)
+			LH_USERNAME="${LH_USERNAME:-ubuntu}"
+			;;
+
+		*)
+			LH_USERNAME="${LH_USERNAME:-user}"
+			;;
+	esac
 
 	## config/source
 

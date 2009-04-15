@@ -52,6 +52,7 @@ DISTRIBUTION="$(echo ${LH_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]')"
 DISTRIBUTION="${DISTRIBUTION}$(echo ${LH_DISTRIBUTION} | cut -b 2-)"
 eval VERSION="$`echo RELEASE_${LH_DISTRIBUTION}`"
 
+TITLE="Debian GNU/Linux"
 case "${LH_MODE}" in
 	debian)
 		STRING="Official Snapshot ${ARCHITECTURE}"
@@ -59,6 +60,11 @@ case "${LH_MODE}" in
 
 	debian-release)
 		STRING="Official ${ARCHITECTURE}"
+		;;
+
+	ubuntu)
+		TITLE="Ubuntu GNU/Linux"
+		STRING="Build ${ARCHITECTURE}"
 		;;
 
 	*)
@@ -74,7 +80,7 @@ case "${LH_DEBIAN_INSTALLER}" in
 
 		echo "full_cd" > binary/.disk/cd_type
 
-		echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/CD Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
+		echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/CD Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
 
 		cp "${LH_BASE}"/data/debian-cd/${LH_DISTRIBUTION}/${LH_ARCHITECTURE}_udeb_include binary/.disk/udeb_include
 		;;
@@ -88,9 +94,9 @@ case "${LH_DEBIAN_INSTALLER}" in
 
 		if [ "${LH_DEBIAN_INSTALLER}" = "live" ]
 		then
-			echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/INSTALL Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
+			echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/INSTALL Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
 		else
-			echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/NETINST Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
+			echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/NETINST Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
 
 		fi
 
@@ -107,13 +113,13 @@ case "${LH_DEBIAN_INSTALLER}" in
 
 		echo "not_complete" > binary/.disk/cd_type
 
-		echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/BC Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
+		echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/BC Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
 
 		cp "${LH_BASE}"/data/debian-cd/${LH_DISTRIBUTION}/${LH_ARCHITECTURE}_businesscard_udeb_include binary/.disk/udeb_include
 		;;
 
 	disabled)
-		echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
+		echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
 		;;
 esac
 

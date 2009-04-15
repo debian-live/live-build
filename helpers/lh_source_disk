@@ -44,43 +44,49 @@ Create_lockfile .lock
 
 mkdir -p source/.disk
 
+TITLE="Debian GNU/Linux"
 DISTRIBUTION="$(echo ${LH_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]')"
 DISTRIBUTION="${DISTRIBUTION}$(echo ${LH_DISTRIBUTION} | cut -b 2-)"
 eval VERSION="$`echo RELEASE_${LH_DISTRIBUTION}`"
 
 case "${LH_MODE}" in
 	debian)
-		STRING="Official Snapshot"
+		STRING="Official Snapshot ${ARCHITECTURE}"
 		;;
 
 	debian-release)
-		STRING="Official"
+		STRING="Official ${ARCHITECTURE}"
+		;;
+
+	ubuntu)
+		TITLE="Ubuntu GNU/Linux"
+		STRING="Build ${ARCHITECTURE}"
 		;;
 
 	*)
-		STRING="Snapshot"
+		STRING="Snapshot ${ARCHITECTURE}"
 		;;
 esac
 
 case "${LH_DEBIAN_INSTALLER}" in
 	cdrom)
-		echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/CD Source $(date +%Y%m%d-%H:%M)" > source/.disk/info
+		echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/CD Source $(date +%Y%m%d-%H:%M)" > source/.disk/info
 		;;
 
 	enabled|netinst)
-		echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/NETINST Source $(date +%Y%m%d-%H:%M)" > source/.disk/info
+		echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/NETINST Source $(date +%Y%m%d-%H:%M)" > source/.disk/info
 		;;
 
 	live)
-		echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/INSTALL Source $(date +%Y%m%d-%H:%M)" > source/.disk/info
+		echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/INSTALL Source $(date +%Y%m%d-%H:%M)" > source/.disk/info
 		;;
 
 	businesscard)
-		echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/BC Source $(date +%Y%m%d-%H:%M)" > source/.disk/info
+		echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/BC Source $(date +%Y%m%d-%H:%M)" > source/.disk/info
 		;;
 
 	disabled)
-		echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE Source $(date +%Y%m%d-%H:%M)" > source/.disk/info
+		echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE Source $(date +%Y%m%d-%H:%M)" > source/.disk/info
 		;;
 esac
 
