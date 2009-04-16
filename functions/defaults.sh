@@ -571,7 +571,11 @@ Set_defaults ()
 
 				if [ "${LH_CHROOT_FILESYSTEM}" = "squashfs" ]
 				then
-					LH_LINUX_PACKAGES="${LH_LINUX_PACKAGES} squashfs-modules-2.6"
+					case "${LH_DISTRIBUTION}" in
+						etch|lenny|squeeze)
+							LH_LINUX_PACKAGES="${LH_LINUX_PACKAGES} squashfs-modules-2.6"
+							;;
+					esac
 				fi
 
 				case "${LH_ENCRYPTION}" in
