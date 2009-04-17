@@ -406,7 +406,15 @@ Set_defaults ()
 	# Setting categories value
 	if [ -z "${LH_CATEGORIES}" ]
 	then
-		LH_CATEGORIES="main"
+		case "${LH_MODE}" in
+			ubuntu)
+				LH_CATEGORIES="main restricted"
+				;;
+
+			*)
+				LH_CATEGORIES="main"
+				;;
+		esac
 	fi
 
 	## config/chroot
