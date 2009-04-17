@@ -38,7 +38,7 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 case "${LH_ARCHITECTURE}" in
-	amd64|i386)
+	amd64|i386|lpia)
 		LINUX="vmlinuz"
 		;;
 

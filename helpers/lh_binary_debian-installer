@@ -118,7 +118,7 @@ esac
 
 # Varous architecture-specific hacks
 case "${LH_ARCHITECTURE}" in
-	i386|amd64)
+	i386|amd64|lpia)
 		case "${DI_IMAGE_TYPE}" in
 			netboot)
 				DI_REMOTE_BASE="netboot/debian-installer/${LH_ARCHITECTURE}"
@@ -346,9 +346,10 @@ else
 	# Downloading graphical-installer
 	DOWNLOAD_GTK_INSTALLER=0
 	case "${LH_ARCHITECTURE}" in
-		amd64|i386)
+		amd64|i386|lpia)
 			DOWNLOAD_GTK_INSTALLER=1
 			;;
+
 		powerpc)
 			if [ "${LH_DEBIAN_INSTALLER}" = "netboot" ]
 			then
@@ -380,7 +381,7 @@ then
 			DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-amd64"
 			;;
 
-		i386)
+		i386|lpia)
 			DI_REQ_PACKAGES="elilo lilo grub"
 			DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-486 linux-image-2.6-686"
 			;;

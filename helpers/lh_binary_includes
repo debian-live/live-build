@@ -70,6 +70,10 @@ case "${LH_ARCHITECTURE}" in
 		ARCH="386"
 		;;
 
+	lpia)
+		ARCH="lpi"
+		;;
+
 	powerpc)
 		ARCH="ppc"
 		;;

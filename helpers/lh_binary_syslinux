@@ -46,7 +46,7 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Check architecture
-Check_architecture amd64 i386
+Check_architecture amd64 i386 lpia
 Check_crossarchitecture
 
 # Checking depends
@@ -220,7 +220,7 @@ Copy_syslinux_templates ()
 		fi
 
 		case "${LH_ARCHITECTURE}" in
-			amd64|i386|powerpc)
+			amd64|i386|powerpc|lpia)
 				if ls ${SCREEN_PATH}/*.install.g-i > /dev/null 2>&1
 				then
 					for FILE in ${SCREEN_PATH}/*.install.g-i

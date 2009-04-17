@@ -42,7 +42,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ "${LH_ARCHITECTURE}" != "amd64" ] && [ "${LH_ARCHITECTURE}" != "i386" ]
+if [ "${LH_ARCHITECTURE}" != "amd64" ] && [ "${LH_ARCHITECTURE}" != "i386" ] && [ "${LH_ARCHITECTURE}" != "lpia" ]
 then
 	Echo_warning "skipping binary_memtest, foreign architecture."
 	exit 0

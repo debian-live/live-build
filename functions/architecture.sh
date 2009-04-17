@@ -38,8 +38,8 @@ Check_crossarchitecture ()
 	fi
 
 	case "${HOST}" in
-		amd64|i386|x86_64)
-			CROSS="amd64 i386"
+		amd64|i386|lpia|x86_64)
+			CROSS="amd64 i386 lpia"
 			;;
 
 		powerpc|ppc64)
@@ -73,6 +73,12 @@ Check_multiarchitecture ()
 					DESTDIR="${DESTDIR}.386"
 					DESTDIR_LIVE="${DESTDIR_LIVE}.386"
 					DESTDIR_INSTALL="${DESTDIR_INSTALL}.386"
+					;;
+
+				lpia)
+					DESTDIR="${DESTDIR}.lpi"
+					DESTDIR_LIVE="${DESTDIR_LIVE}.lpi"
+					DESTDIR_INSTALL="${DESTDIR_INSTALL}.lpi"
 					;;
 
 				powerpc)

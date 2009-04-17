@@ -45,7 +45,7 @@ Create_lockfile .lock
 if [ "${LH_DISTRIBUTION}" != "etch" ]
 then
 	case "${LH_ARCHITECTURE}" in
-		amd64|i386)
+		amd64|i386|lpia)
 			if [ "${LH_CHROOT_BUILD}" = "enabled" ]
 			then
 				# Checking depends

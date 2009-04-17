@@ -46,7 +46,7 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Check architecture
-Check_architecture amd64 i386
+Check_architecture amd64 i386 lpia
 Check_crossarchitecture
 
 # Checking depends

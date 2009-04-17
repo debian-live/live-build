@@ -121,7 +121,7 @@ then
 	# bootloader is already installed in the image. Very ugly, but it's to
 	# late to fix it in d-i because lenny rc2 has been already released.
 	case "${LH_ARCHITECTURE}" in
-		amd64|i386)
+		amd64|i386|lpia)
 			Apt install grub
 			;;
 
