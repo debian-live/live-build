@@ -263,6 +263,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 				# Move image
 				${LH_ROOT_COMMAND} mv chroot/filesystem.squashfs binary/${INITFS}
 				${LH_ROOT_COMMAND} rm -rf chroot/chroot chroot/squashfs.sort
+				${LH_ROOT_COMMAND} chmod 0644 binary/${INITFS}/filesystem.squashfs
 				;;
 
 			disabled)
