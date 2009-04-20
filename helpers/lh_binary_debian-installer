@@ -296,7 +296,7 @@ then
 			;;
 
 		powerpc)
-			URL="http://people.debian.org/~wouter/d-i/powerpc/daily/"
+			URL="http://d-i.debian.org/daily-images/powerpc/daily/"
 			;;
 
 		s390)
