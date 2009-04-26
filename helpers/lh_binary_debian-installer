@@ -259,20 +259,12 @@ then
 
 	# Debian Installer daily builds
 	case "${LH_ARCHITECTURE}" in
-		alpha)
-			URL="http://d-i.debian.org/daily-images/alpha/daily/"
-			;;
-
-		amd64)
-			URL="http://d-i.debian.org/daily-images/amd64/daily/"
+		alpha|amd64|hppa|mips|mipsel|powerpc)
+			URL="http://d-i.debian.org/daily-images/${LH_ARCHITECTURE}/daily/"
 			;;
 
 		arm|armel)
 			URL="http://people.debian.org/~kmuto/d-i/images/daily/"
-			;;
-
-		hppa)
-			URL="http://d-i.debian.org/daily-images/hppa/daily/"
 			;;
 
 		i386)
@@ -285,18 +277,6 @@ then
 
 		m68k)
 			URL="http://people.debian.org/~smarenka/d-i/images-m68k/daily/"
-			;;
-
-		mips)
-			URL="http://d-i.debian.org/daily-images/mips/daily/"
-			;;
-
-		mipsel)
-			URL="http://d-i.debian.org/daily-images/mipsel/daily/"
-			;;
-
-		powerpc)
-			URL="http://d-i.debian.org/daily-images/powerpc/daily/"
 			;;
 
 		s390)
