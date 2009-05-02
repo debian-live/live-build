@@ -40,6 +40,12 @@ Create_lockfile .lock
 # Removing udev mac caching rule
 rm -f chroot/etc/udev/rules.d/*persistent-net.rules
 
+# Remove resume
+if [ "${LH_DISTRIBUTION}" = "etch" ] && [ -e /etc/initramfs-tools/conf.d/resume ]
+then
+	rm -f /etc/initramfs-tools/conf.d/resume
+fi
+
 case "${LH_BINARY_IMAGES}" in
 	net)
 		if [ ! -f chroot/usr/bin/smbmount ]
@@ -60,14 +66,11 @@ BOOT=nfs
 NFSROOT=auto
 EOF
 		fi
+
+		# Update initramfs
+		Chroot "update-initramfs -k all -t -u"
 		;;
 esac
-
-# Remove resume
-if [ "${LH_DISTRIBUTION}" = "etch" ] && [ -e /etc/initramfs-tools/conf.d/resume ]
-then
-	rm -f /etc/initramfs-tools/conf.d/resume
-fi
 
 # Ensure readable permissions on initramfs. loop-aes-utils sets umask to
 # protect GPG keys, which live-helper does not support.
