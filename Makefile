@@ -18,7 +18,7 @@ test:
 	then \
 		checkbashisms functions.sh functions/* examples/*/*.sh helpers/* hooks/*; \
 	else \
-		echo "WARNING: skipping bashism test - you need to install devscripts.";
+		echo "WARNING: skipping bashism test - you need to install devscripts."; \
 	fi
 
 build:
