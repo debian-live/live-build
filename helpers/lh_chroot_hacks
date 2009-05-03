@@ -68,7 +68,7 @@ EOF
 		fi
 
 		# Update initramfs
-		Chroot "update-initramfs -k all -t -u"
+		Chroot chroot "update-initramfs -k all -t -u"
 		;;
 esac
 
