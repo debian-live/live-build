@@ -196,7 +196,7 @@ Local_arguments ()
 				exit 0
 				;;
 
-			clean)
+			--clean)
 				# Remove empty directories in config tree
 				if ls config/*/ > /dev/null 2>&1
 				then
@@ -207,6 +207,13 @@ Local_arguments ()
 				then
 					rmdir --ignore-fail-on-non-empty config
 				fi
+
+				if [ -d scripts ]
+				then
+					rmdir --ignore-fail-on-non-empty scripts
+				fi
+
+				exit 0
 				;;
 
 			# config/common
