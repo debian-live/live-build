@@ -259,7 +259,7 @@ then
 
 	# Debian Installer daily builds
 	case "${LH_ARCHITECTURE}" in
-		alpha|amd64|hppa|mips|mipsel|powerpc)
+		alpha|amd64|hppa|ia64|mips|mipsel|powerpc)
 			URL="http://d-i.debian.org/daily-images/${LH_ARCHITECTURE}/daily/"
 			;;
 
@@ -269,10 +269,6 @@ then
 
 		i386)
 			URL="http://people.debian.org/~joeyh/d-i/images/daily/"
-			;;
-
-		ia64)
-			URL="http://people.debian.org/~dannf/d-i/images/daily/"
 			;;
 
 		m68k)
