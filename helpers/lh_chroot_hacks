@@ -87,7 +87,6 @@ rm -f chroot/etc/apt/trusted.gpg~
 rm -f chroot/etc/group- chroot/etc/passwd-
 rm -f chroot/etc/gshadow- chroot/etc/shadow-
 rm -f chroot/var/cache/debconf/*-old
-rm -f chroot/var/cache/man/index.db
 rm -f chroot/var/lib/dpkg/*-old
 
 if [ -n "${LH_ROOT_COMMAND}" ]
