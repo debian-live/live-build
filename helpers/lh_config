@@ -770,6 +770,9 @@ mkdir -p config/templates
 cat > config/common << EOF
 # config/common - common options for live-helper(7)
 
+# LH_CONFIG_VERSION: internal version of the configuration file format
+LH_CONFIG_VERSION="1"
+
 # \$LH_APT: set package manager
 # (Default: ${LH_APT})
 LH_APT="${LH_APT}"
