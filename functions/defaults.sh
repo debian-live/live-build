@@ -1057,4 +1057,13 @@ Check_defaults ()
 	then
 		Echo_warning "You have specified a value of LH_ISO_VOLUME that is too long; the maximum length is 32 characters."
 	fi
+
+	if echo ${LH_PACKAGES_LISTS} | grep -qs -E "(stripped|minimal)\b"
+	then
+		if [ "${LH_BINARY_INDICES}" = "enabled" ]
+		then
+			Echo_warning "You have selected hook to minimise image size but you are still including package indices with your value of LH_BINARY_INDICES."
+		fi
+	fi
+
 }
