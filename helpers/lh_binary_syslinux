@@ -294,6 +294,8 @@ Configure_syslinux_templates ()
 		$template_file
 	done
 
+	sed -i -e 's/isolinux.cfg/syslinux.cfg/' ${SYSLINUX_PATH}/exithelp.cfg
+
 	# Syslinux v3.31 in etch does not support include statements
 	if [ "${LH_DISTRIBUTION}" = "etch" ]
 	then
