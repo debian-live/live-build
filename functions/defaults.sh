@@ -767,7 +767,12 @@ Set_defaults ()
 				;;
 
 			usb-hdd)
-				_LH_BOOTAPPEND_PRESEED="file=/hd-media/install/${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
+				if [ "${LH_MODE}" = "ubuntu" ]
+				then
+					_LH_BOOTAPPEND_PRESEED="file=/cdrom/install/${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
+				else
+					_LH_BOOTAPPEND_PRESEED="file=/hd-media/install/${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
+				fi
 				;;
 
 			net)
@@ -786,19 +791,19 @@ Set_defaults ()
 
 	if [ -z "${LH_BOOTAPPEND_INSTALL}" ]
 	then
+		# Ubuntu's d-i is patched to be able to use usb-hdd block devices for
+		# install media if enabled by preseeding cdrom-detect/try-usb to true.
+		if [ "${LH_MODE}" = "ubuntu" ] && [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
+		then
+			LH_BOOTAPPEND_INSTALL="cdrom-detect/try-usb=true"
+		fi
+
 		if [ -n ${_LH_BOOTAPPEND_PRESEED} ]
 		then
-			LH_BOOTAPPEND_INSTALL="${_LH_BOOTAPPEND_PRESEED} -- \${LH_BOOTAPPEND_LIVE}"
-		else
-			LH_BOOTAPPEND_INSTALL=" -- \${LH_BOOTAPPEND_LIVE}"
+			LH_BOOTAPPEND_INSTALL="${LH_BOOTAPPEND_INSTALL} ${_LH_BOOTAPPEND_PRESEED}"
 		fi
-	fi
 
-	# Ubuntu's d-i is patched to be able to use usb-hdd block devices for
-	# install media if enabled by preseeding cdrom-detect/try-usb to true.
-	if [ "${LH_MODE}" = "ubuntu" ] && [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
-	then
-		LH_BOOTAPPEND_INSTALL="cdrom-detect/try-usb=true -- \${LH_BOOTAPPEND_LIVE}"
+		LH_BOOTAPPEND_INSTALL="${LH_BOOTAPPEND_INSTALL} -- \${LH_BOOTAPPEND_LIVE}"
 	fi
 
 	# Setting encryption
