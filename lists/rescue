@@ -168,11 +168,6 @@ parprouted
 # Special hardware
 br2684ctl
 
-#if CATEGORIES non-free
-madwifi-source
-madwifi-tools
-#endif
-
 # Routing
 cutter
 iproute
