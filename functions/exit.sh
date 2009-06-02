@@ -18,10 +18,10 @@ Exit ()
 	# Always exit true in case we are not able to unmount
 	# (e.g. due to running processes in chroot from user customizations)
 	Echo_message "Begin unmounting filesystems..."
-	umount chroot/dev/pts > /dev/null 2>&1 || true
-	umount chroot/proc > /dev/null 2>&1 || true
-	umount chroot/selinux > /dev/null 2>&1 || true
-	umount chroot/sys > /dev/null 2>&1 || true
+	for DIRECTORY in $(awk -v dir="${PWD}/chroot/" '$2 ~ dir { print $2 }' /proc/mounts | sort -r)
+	do
+		umount ${DIRECTORY} > /dev/null 2>&1 || true
+	done
 }
 
 Setup_cleanup ()
