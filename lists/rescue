@@ -236,9 +236,11 @@ ndisc6
 ngrep
 p0f
 packit
+#if DISTRIBUTION etch lenny
 paketto
-python-scapy
 sing
+#endif
+python-scapy
 xprobe
 
 # Log Analysers
