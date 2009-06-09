@@ -174,5 +174,13 @@ then
 	ln -s /proc/mounts chroot/etc/mtab
 fi
 
+# Show popular warnings
+if [ -e chroot/etc/init.d/resolvconf ]
+then
+	Echo_warning "Your live system appears to include resolvconf which is by its nature incompatible in most ways with debian-live."
+	Echo_warning "Keeping resolvconf installed *can* lead to broken network support in the resulting live system."
+	Echo_warning "Unless you really know what you are doing, we recommend that you neither install resolvconf explicitly nor implicitly through another package's relation (e.g. by having automatic installation of recommended packages enabled)."
+fi
+
 # Creating stage file
 Create_stagefile .stage/chroot_hacks
