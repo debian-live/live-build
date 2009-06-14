@@ -1,3 +1,131 @@
+live-helper (1.0.5-1) unstable; urgency=medium
+
+  [ Daniel Baumann ]
+  * Shortening LH_ISO_VOLUME defaults to not exceed max lenght (Closes:
+    #515974).
+  * Adding checks for exceeding lenght of the iso header strings.
+  * Emitting a warning rather than an error when iso strings are too
+    long.
+  * Evalualting iso volume before checking their lenght, thanks to
+    Roberto C. Morano <rcmorano@emergya.es>.
+
+  [ Chris Lamb ]
+  * Correcting spelling of s/lenght/length/ in warning messages.
+  * Improving grammar and clarity of LH_ISO_APPLICATION etc. warnings
+
+  [ Daniel Baumann ]
+  * Adding initial support for virtual-hdd binary image type.
+  * Updating manpage headers.
+  * Updating manpage po4a.
+  * Adding missing use of which in defaults setting of bootstrap
+    program.
+  * Correcting win32-loader copy call to work with non-chrooted builds
+    too.
+  * Only trying to copy syslinux english templates if they are actually
+    available.
+  * Only trying to handle syslinux help screens if they are actually
+    available.
+  * Improving check for syslinux templates by checking actual content,
+    not just the directory.
+  * Don't always overwrite keyring package option on debian or emedebian
+    mode.
+
+  [ Cody A.W. Somerville ]
+  * Checking for installer README.html to prevent build failure.
+
+  [ Daniel Baumann ]
+  * Adding gpm to rescue list (Closes: #521557).
+  * Adding bonnie++ to rescue list.
+  * Updating first bunch of architectures to new location of d-i daily
+    images.
+
+  [ Cody A.W. Somerville ]
+  * Do not fail build when greps to generate udeb exclusion list return
+    no results or grepped files do not exist.
+
+  [ Daniel Baumann ]
+  * Removing some code in chroot_apt helper that left over the
+    preferences files in the final image.
+  * Removing old todo file.
+  * Updating internal release numbers to current state in debian.
+
+  [ Cody A.W. Somerville ]
+  * Adding Ubuntu mode.
+
+  [ Daniel Baumann ]
+  * Not adding squashfs-modules to linux-packages on sid anymore, there
+    it's mainlined.
+
+  [ Cody A.W. Somerville ]
+  * Adding lpia support.
+  * Updating defaults.sh to correctly set default LH_CATEGORIES when in
+    Ubuntu mode.
+
+  [ Daniel Baumann ]
+  * Manually ensuring correct permissions of filesystem.squashfs in
+    order to prevent unbootable systems in some nutcases.
+  * Updating location of powerpc d-i daily images.
+  * Cleaning up makefile.
+  * Simplyfing architecture handling for d-i daily URLs.
+  * Adding update-initramfs call back in lh_chroot_hacks, but only for
+    netboot.
+  * Correcting typo in Makefile about line wrapping.
+  * Correcting chroot call for update-initramfs in lh_chroot_hacks.
+  * Correcting clean option of lh_config to tidy configuration tree.
+
+  [ Chris Lamb ]
+  * Update location of ia64 d-i dailies. Thanks to Luk Claes.
+
+  [ Daniel Baumann ]
+  * Not removing man/index.db in lh_chroot_hacks to keep man -k aka
+    apropos working, thanks to Juliusz Chroboczek
+    <Juliusz.Chroboczek@pps.jussieu.fr> (Closes: #527311).
+  * Updating credits file.
+  * Adding cdebootstrap and rinse to rescue list.
+  * Exporting LH_CONFIG_VERSION for the configuration tree format.
+
+  [ Chris Lamb ]
+  * Print a warning if you are using "stripped" or "minimal" but you
+    have set LH_BINARY_INCICES="enabled" (Closes: #527974)
+
+  [ Tzafrir Cohen ]
+  * Returning to menu in syslinux.
+
+  [ Daniel Baumann ]
+  * Always rebuilding initrd in chroot_hacks to avoid inclusion of
+    previously removed udev rules (such as persistent devices).
+  * Removing madwifi from rescue list; packages are removed from debian,
+    and currently we don't support nested ifdefs in packages lists.
+
+  [ Cody A.W. Somerville ]
+  * Fixing LH_BOOTAPPEND_INSTALL issues for Ubuntu based builds.
+
+  [ Daniel Baumann ]
+  * Adding kpdf-nodrm example hook from Tzafrir Cohen
+    <tzafrir.cohen@xorcom.com>.
+  * Updating kpdf-nodrm hook to also work with KDE4.
+  * Correcting spelling mistake in kde-no-pdf-drm example hook.
+  * Correcting another spelling mistake in kde-no-pdf-drm example hook.
+
+  [ Cody A.W. Somerville ]
+  * Unmounting all mounts in chroot.
+
+  [ Daniel Baumann ]
+  * Marking paketto and sing in rescue list as etch and lenny only
+    (Closes: #531795).
+
+  [ Cody A.W. Somerville ]
+  * Also respecting general apt/aptitude options for the install
+    functions used during binary stage.
+  * Fixing build failure in lh_binary_syslinux that occurs if
+    exithelp.cfg does not exist.
+
+  [ Daniel Baumann ]
+  * Emitting a warning if resolvconf is detected on the to be generated
+    live system. Beware of resolvconf, it's broken beyond repair.
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 14 Jun 2009 15:00:00 +0200
+
 live-helper (1.0.4-1) unstable; urgency=low
 
   * Handling kernel selection properly in example images build script.
