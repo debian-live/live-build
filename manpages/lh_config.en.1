@@ -18,7 +18,7 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-aptitude\-options\fR \fIOPTION\fR|"\fIOPTIONS\fR"]
 .br
-	[\fB\-\-apt\-pipeline\fR \fIFIXME\fR]
+	[\fB\-\-apt\-pipeline\fR \fIDEPTH\fR]
 .br
 	[\fB\-\-apt\-recommends\fR enabled|disabled]
 .br
@@ -132,7 +132,7 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-mirror\-chroot\-security\fR \fIURL\fR]
 .br
-	[\fB\-\-mode\fR debian|emdebian]
+	[\fB\-\-mode\fR debian|emdebian|ubuntu]
 .br
 	[\fB\-\-net\-root\-filesystem\fR nfs|cfs]
 .br
@@ -180,7 +180,7 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-tasksel\fR aptitude|tasksel]
 .br
-	[\fB\-\-tasks\fR \fITASK\fR]
+	[\fB\-\-tasks\fR \fITASK\fR|"\fITASKS\fR"]
 .br
 	[\fB\-\-templates\fR \fIPATH\fR]
 .br
@@ -218,10 +218,10 @@ defines whetever apt should use incremental package indices feature or not. This
 defines the default options that will be appended to every apt call that is made inside chroot during the building of the image. By default, this is set to \-\-yes to allow non-interactive installation of packages.
 .IP "\fB\-\-aptitude\-options\fR \fIOPTION\fR|""\fIOPTIONS\fR""" 4
 defines the default options that will be appended to every aptitude call that is made inside chroot during building of the image. By default, this is set to \-\-assume\-yes to allow non-interactive installation of packages.
-.IP "\fB\-\-apt\-pipeline\fR \fIFIXME\fR" 4
-FIXME
+.IP "\fB\-\-apt\-pipeline\fR \fIDEPTH\fR" 4
+sets the depth of the apt/aptitude pipeline. In cases where the remote server is not RFC conforming or buggy (such as Squid 2.0.2) this option can be a value from 0 to 5 indicating how many outstanding requests APT should send. A value of zero MUST be specified if the remote host does not properly linger on TCP connections - otherwise data corruption will occur. Hosts which require this are in violation of RFC 2068. By default, live-helper does not set this option.
 .IP "\fB\-\-apt\-recommends\fR enabled|disabled" 4
-defines if apt should install recommended packages automatically. By default, this is enable in the debian mode and disabled in emdebian mode.
+defines if apt should install recommended packages automatically. By default, this is enabled except in emdebian mode.
 .IP "\fB\-\-apt\-secure\fR enabled|disabled" 4
 defines if apt should check repository signatures. This is enabled by default.
 .IP "\-a|\fB\-\-architecture\fR \fIARCHITECTURE\fR" 4
@@ -301,15 +301,15 @@ sets the name of package that contains the live system specific initramfs modifi
 .IP "\fB\-\-interactive\fR shell" 4
 defines if after the chroot stage and before the beginning of the binary stage, a interactive shell login should be spawned in the chroot in order to allow you to do manual customizations. Once you close the shell with logout or exit, the build will continue as usual. Note that it's strongly discouraged to use this for anything else than testing. Modifications that should be present in all builds of a live system should be properly made through hooks. Everything else destroys the beauty of being able to completely automatise the build process and making it non interactive. By default, this is of course disabled.
 .IP "\fB\-\-iso\-application\fR \fINAME\fR" 4
-sets the APPLICATION field in the header of a resulting CD/DVD image and defaults to "Debian Live" in debian mode, and to "Emdebian Live" in emdebian mode.
+sets the APPLICATION field in the header of a resulting CD/DVD image and defaults to "Debian Live" in debian mode, and to "Emdebian Live" in emdebian mode, and "Ubuntu Live" in ubuntu mode.
 .IP "\fB\-\-iso\-preparer\fR \fINAME\fR" 4
 sets the PREPARER field in the header of a resulting CD/DVD image. By default this is set to "live-helper \fIVERSION\fR; http://packages.qa.debian.org/live-helper", whereas VERSION is exanded to the version of live-helper that was used to build the image.
 .IP "\fB\-\-iso\-publisher\fR \fINAME\fR" 4
 sets the PUBLISHED field in the header of a resulting CD/DVD image. By default, this is set to 'Debian Live project; http://debian-live.alioth.debian.org/; debian-live@lists.debian.org'. Remember to change this to the appropriate values at latest when you distributing custom and unofficial images.
 .IP "\fB\-\-iso\-volume\fR \fINAME\fR" 4
-sets the VOLUME field in the header of a resulting CD/DVD and defaults to 'Debian Live (\fIDATE\fR)' in debian mode, and 'Emdebian Live (\fIDATE\fR)' in emdebian mode, whereas DATE is expanded with the current date and time of the generation.
+sets the VOLUME field in the header of a resulting CD/DVD and defaults to '(\fIMODE\fR) (\fIDISTRIBUTION\fR) (\fIDATE\fR)' whereas MODE is expanded to the name of the mode in use, DISTRIBUTION the distribution name, and DATE with the current date and time of the generation. When running in debian-release mode however, it will instead default to 'Debian (\fIVERSION\fR) (\fIARCHITECTURE\fR) live' where VERSION becomes the numerical version of the release being built and ARCHITECTURE becomes the name of the architecture.
 .IP "\fB\-\-jffs2\-eraseblock\fR \fISIZE\fR" 4
-FIXME
+sets the eraseblock size for a JFFS2 (Second Journalling Flash File System) filesystem. The default is 64 KiB. If you use an erase block size different than the erase block size of the target MTD device, JFFS2 may not perform optimally. If the SIZE specified is below 4096, the units are assumed to be KiB.
 .IP "[\fB\-\-keyring\-packages\fR \fIPACKAGE\fI|\fI"PACKAGES"\fR" 4
 sets the keyring package or additional keyring packages. By default this is set to debian-archive-keyring.
 .IP "\-l|\fB\-\-language\fR \fILANGUAGE\fR" 4
@@ -332,14 +332,14 @@ sets the location of the debian security package mirror that should end up confi
 sets the location of the debian package mirror that will be used to fetch the packages in order to build the live system. By default, this points to http://ftp.us.debian.org/debian/ which may not be a good default if you live outside the U.S.
 .IP "\fB\-\-mirror\-chroot\-security\fR \fIURL\fR" 4
 sets the location of the debian security package mirror that will be used to fetch the packages in order to build the live system. By default, this points to http://security.debian.org/debian/.
-.IP "\fB\-\-mode\fR debian|emdebian" 4
+.IP "\fB\-\-mode\fR debian|emdebian|ubuntu" 4
 defines a global mode to load project specific defaults. By default this is set to debian.
 .IP "\fB\-\-net\-root\-filesystem\fR nfs|cfs" 4
 defines the filesystem that will be configured in the bootloader configuration for your netboot image. This defaults to nfs.
 .IP "\fB\-\-net\-root\-mountoptions\fR \fIOPTIONS\fR" 4
 sets additional options for mounting the root filesystem in netboot images and is by default empty.
 .IP "\fB\-\-net\-root\-path\fR \fIPATH\fR" 4
-sets the file path that will be configured in the bootloader configuration for your netboot image. This defaults to /srv/debian-live in debian mode and to /srv/emebian-live when being in emdebian mode.
+sets the file path that will be configured in the bootloader configuration for your netboot image. This defaults to /srv/debian-live in debian mode and to /srv/emebian-live when being in emdebian mode, and /srv/ubuntu-live when in ubuntu mode.
 .IP "\fB\-\-net\-root\-server\fR \fIIP\fR|\fIHOSTNAME\fR" 4
 sets the IP or hostname that will be configured in the bootloader configuration for the root filesystem of your netboot image. This defaults to 192.168.1.1.
 .IP "\fB\-\-net\-cow\-filesystem\fR nfs|cfs" 4
@@ -366,7 +366,7 @@ defines one or more packages to be installed in the live system. This is a quick
 .IP "\fB\-\-root-command\fR sudo" 4
 controls if live-helper should use sudo internally to build the live image. Note that this is not well tested and that you should, when relaying on sudo, call the individual live\-helper command with sudo itself.
 .IP "\fB\-\-use-fakeroot\fR enabled|disabled" 4
-FIXME
+controls if live-helper should utilize fakeroot and fakechroot to try and avoid requiring root privillages where possible. By default, this option is disabled.
 .IP "\fB\-\-categories\fR \fICATEGORY\fR|\fI""CATEGORIES""\fR" 4
 defines which package categories of a debian packages archive should be used for configured debian package mirrors. By default, this is set to main. Remember to check the licenses of each packages with respect to their redistributability in your juristiction when enabling contrib or non-free with this mechanism.
 .IP "\fB\-\-security\fR enabled|disabled" 4
@@ -387,7 +387,7 @@ defines if syslinux should be make use of the vgamenu capabilities or not.
 defines it the sysvinit hack should be enabled or disabled. The sysvinit hack disables all non-essential services from starting up at bootup in order to reduce overall boottime. By default this is disabled and in general there you don't want to enable it.
 .IP "\fB\-\-tasksel\fR aptitude|tasksel" 4
 selects which program is used to install tasks. By default, this is set to tasksel.
-.IP "\fB\-\-tasks\fR \fITASK\fR" 4
+.IP "\fB\-\-tasks\fR \fITASK\fR|""\fITASKS\fR""" 4
 defines one or more package tasks to be installed in the live system. This is a quick and convenient way to get a reasonable default selection of packages suitable for most users when building an image, but it results in quite big images. If you want to have finer grained package selections,  local packages lists should be used instead.
 .IP "\fB\-\-templates\fR \fIPATH\fR" 4
 sets the path to the templates that live\-helper is going to use, e.g. for bootloaders. By default, this is set to /usr/share/live-helper/templates/.
@@ -398,7 +398,7 @@ defines what filesystem to format the root filesystem when building virtual-hdd 
 .IP "\fB\-\-virtual\-root\-size\fR MB" 4
 defines what size the virtual-hdd image should be. Note that although the default is set to 10000 (= 10GB), it will not need 10GB space on your harddisk as the files are created as sparse files.
 .IP "\fB\-\-exposed\-root\fR enabled|disabled" 4
-FIXME
+defines whether to expose the root filesystem as read only and not covered by the union filesystem. This has useful implications for certain speciality setups such as LTSP. By default, this option is disabled.
 .IP "\fB\-\-username\fR \fINAME\fR" 4
 sets the name of the account of the default user in the live system.
 .IP "\fB\-\-win32\-loader enabled|disabled" 4
