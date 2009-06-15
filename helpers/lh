@@ -36,7 +36,7 @@ case "${1}" in
 
 		if [ -x "$(which lh_${COMMAND} 2>/dev/null)" ]
 		then
-			exec lh_"${COMMAND}" ${@}
+			exec lh_"${COMMAND}" "${@}"
 		else
 			Echo_error "no such helper"
 			exit 1
