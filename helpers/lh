@@ -22,7 +22,7 @@ case "${1}" in
 		Man
 		;;
 
-	-u|--usage)
+	""|-u|--usage)
 		Usage
 		;;
 
