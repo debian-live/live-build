@@ -1,7 +1,9 @@
-# /usr/share/live-helper/lists/devel-live - package list for live-helper(7)
+# /usr/share/live-helper/lists/debian-live - package list for live-helper(7)
 
-## LH: Development (Debian Live)
+## LH: Debian Live
 #include <standard>
+
+# http://qa.debian.org/developer.php?login=debian-live@lists.debian.org
 
 # debian-live
 live-helper git-core
