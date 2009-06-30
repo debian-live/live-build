@@ -544,6 +544,9 @@ then
 		cat ../config/binary_debian-installer/udeb_exclude >> exclude
 	fi
 
+	# Excluding udebs from excludes because we want them to be in the image on purpose
+	sed -i -e 's|di-utils-exit-installer||' exclude # used for live-installer-launcher
+
 	while read EXCLUDE
 	do
 		if [ "${LH_DEBIAN_INSTALLER}" = "live" ] && [ "${EXCLUDE}" = "live-installer" ]
