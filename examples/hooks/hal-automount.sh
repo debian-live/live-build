@@ -11,6 +11,6 @@ rm -f /usr/share/hal/fdi/policy/10osvendor/debian-storage-policy-fixed-drives.fd
 # Use ntfs-3g by default to mount ntfs partitions
 if [ -x /usr/bin/ntfs-3g ]
 then
-	rm -f /sbin/mount.nfs
+	rm -f /sbin/mount.ntfs
 	ln -s /usr/bin/ntfs-3g /sbin/mount.ntfs
 fi
