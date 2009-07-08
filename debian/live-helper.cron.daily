@@ -3,6 +3,7 @@
 set -e
 
 BUILD="daily"
+HOST="$(hostname)"
 
 # Checking for live-helper availability
 if [ ! -x /usr/bin/lh_config ]
@@ -35,7 +36,7 @@ else
 	exit 1
 fi
 
-echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper: begin daily build." >> /var/log/live
+echo "$(date +%b\ %d\ %H:%M:%S) ${HOST} live-helper: begin daily build." >> /var/log/live
 
 for ARCHITECTURE in ${ARCHITECTURES}
 do
@@ -151,4 +152,4 @@ done
 rm -f "${DESTDIR}"/"${BUILD}"-builds/current
 ln -s ${DATE} "${DESTDIR}"/"${BUILD}"-builds/current
 
-echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper: end daily build." >> /var/log/live
+echo "$(date +%b\ %d\ %H:%M:%S) ${HOST} live-helper: end daily build." >> /var/log/live
