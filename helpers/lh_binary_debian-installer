@@ -79,10 +79,6 @@ Install_package
 
 # Setting destination directory
 case "${LH_BINARY_IMAGES}" in
-	iso)
-		DESTDIR="binary/install"
-		;;
-
 	net)
 		DESTDIR="tftpboot/debian-install/${LH_ARCHITECTURE}"
 		;;
@@ -95,6 +91,10 @@ case "${LH_BINARY_IMAGES}" in
 		then
 			DESTDIR="binary"
 		fi
+		;;
+
+	*)
+		DESTDIR="binary/install"
 		;;
 esac
 
