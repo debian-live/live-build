@@ -621,7 +621,7 @@ Set_defaults ()
 	# Setting packages string
 	case "${LH_MODE}" in
 		ubuntu)
-			LH_PACKAGES="${LH_PACKAGES:-ubuntu-standard}"
+			LH_PACKAGES="${LH_PACKAGES:-ubuntu-minimal}"
 			;;
 
 		*)
