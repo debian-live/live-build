@@ -110,6 +110,11 @@ do
 		--purge)
 			"${0}" --all
 			"${0}" --cache
+
+			if [ -e scripts/config ]
+			then
+				rm -f .stage/config
+			fi
 			;;
 
 		--stage)
