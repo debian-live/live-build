@@ -791,9 +791,8 @@ Set_defaults ()
 
 	if [ -z "${LH_BOOTAPPEND_INSTALL}" ]
 	then
-		# Ubuntu's d-i is patched to be able to use usb-hdd block devices for
-		# install media if enabled by preseeding cdrom-detect/try-usb to true.
-		if [ "${LH_MODE}" = "ubuntu" ] && [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
+		# Try USB block devices for install media
+		if [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
 		then
 			LH_BOOTAPPEND_INSTALL="cdrom-detect/try-usb=true"
 		fi
