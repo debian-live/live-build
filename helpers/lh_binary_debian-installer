@@ -116,24 +116,8 @@ case "${LH_DEBIAN_INSTALLER}" in
 		;;
 esac
 
-# Varous architecture-specific hacks
+# Set architecture-specific variables
 case "${LH_ARCHITECTURE}" in
-	i386|amd64|lpia)
-		case "${DI_IMAGE_TYPE}" in
-			netboot)
-				DI_REMOTE_BASE="netboot/debian-installer/${LH_ARCHITECTURE}"
-				DI_REMOTE_BASE_GTK="netboot/gtk/debian-installer/${LH_ARCHITECTURE}"
-				DI_REMOTE_KERNEL="linux"
-				;;
-
-			cdrom)
-				DI_REMOTE_BASE="cdrom"
-				DI_REMOTE_BASE_GTK="cdrom/gtk"
-				DI_REMOTE_KERNEL="vmlinuz"
-				;;
-		esac
-		;;
-
 	powerpc)
 		case "${DI_IMAGE_TYPE}" in
 			cdrom)
@@ -160,6 +144,21 @@ case "${LH_ARCHITECTURE}" in
 		else
 			DI_REMOTE_BASE="cdrom"
 		fi
+		;;
+	*)
+		case "${DI_IMAGE_TYPE}" in
+			netboot)
+				DI_REMOTE_BASE="netboot/debian-installer/${LH_ARCHITECTURE}"
+				DI_REMOTE_BASE_GTK="netboot/gtk/debian-installer/${LH_ARCHITECTURE}"
+				DI_REMOTE_KERNEL="linux"
+				;;
+
+			cdrom)
+				DI_REMOTE_BASE="cdrom"
+				DI_REMOTE_BASE_GTK="cdrom/gtk"
+				DI_REMOTE_KERNEL="vmlinuz"
+				;;
+		esac
 		;;
 esac
 
