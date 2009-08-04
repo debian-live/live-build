@@ -90,6 +90,8 @@ then
 			stripped|minimal)
 				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=minbase"
 				;;
+			standard)
+				;;
 
 			*)
 				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=${LH_BOOTSTRAP_FLAVOUR}"
