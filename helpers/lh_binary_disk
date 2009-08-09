@@ -56,21 +56,31 @@ TITLE="Debian GNU/Linux"
 case "${LH_MODE}" in
 	debian)
 		STRING="Official Snapshot ${ARCHITECTURE}"
+		TRACE="project/trace/ftp-master.debian.org"
 		;;
 
 	debian-release)
 		STRING="Official ${ARCHITECTURE}"
+		TRACE="project/trace/ftp-master.debian.org"
 		;;
 
 	ubuntu)
 		TITLE="Ubuntu GNU/Linux"
 		STRING="Build ${ARCHITECTURE}"
+		TRACE=""
 		;;
 
 	*)
 		STRING="Snapshot ${ARCHITECTURE}"
+		TRACE=""
 		;;
 esac
+
+if [ -n "${TRACE}" ]
+then
+	echo "$(wget -q ${LH_MIRROR_BOOTSTRAP}/${TRACE} -O - | head -n 1)" \
+	> binary/.disk/archive_trace
+fi
 
 case "${LH_DEBIAN_INSTALLER}" in
 	cdrom)
