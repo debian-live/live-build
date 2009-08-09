@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # This is an binary hook for live-helper(7) to overwrite the banner
-# in the graphical Debian Installer. To enable it, coppy or symlink
-# this hook into your config/binary_local-hooks directory and add a
-# replacement banner.png at:
-# 
+# in the graphical Debian Installer.
+# To enable it, coppy or symlink this hook into your config/binary_local-hooks
+# directory and add a replacement banner.png at:
+#
 #  config/binary_local-includes/binary/install/banner.png
 #
 # The file should be a PNG image of dimensions 800 x 75.
