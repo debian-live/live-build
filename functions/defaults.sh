@@ -767,7 +767,7 @@ Set_defaults ()
 				;;
 
 			usb-hdd)
-				if [ "${LH_MODE}" = "ubuntu" ]
+				if [ "${LH_MODE}" = "ubuntu" ] || [ "${LH_DEBIAN_INSTALLER}" = "live" ]
 				then
 					_LH_BOOTAPPEND_PRESEED="file=/cdrom/install/${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
 				else
