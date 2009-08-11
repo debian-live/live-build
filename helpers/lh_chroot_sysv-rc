@@ -48,10 +48,7 @@ case "${1}" in
 		# Create policy-rc.d file
 cat > chroot/usr/sbin/policy-rc.d << EOF
 #!/bin/sh
-
-echo
-echo "Warning: invoke-rc.d policy in action. Skipping daemon starting"
-
+echo "All runlevel operations denied by policy" >&2
 exit 101
 EOF
 
