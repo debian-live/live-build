@@ -3,5 +3,5 @@
 ## LH: Xfce
 #include <standard-x11>
 
-xfce4 gdm
-desktop-base
+xfce4
+gdm desktop-base

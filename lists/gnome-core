@@ -3,6 +3,6 @@
 ## LH: GNOME Core
 #include <standard-x11>
 
-gdm gnome-core
-desktop-base
+gnome-core
+gdm desktop-base
 gnome-themes
