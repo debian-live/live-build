@@ -348,15 +348,7 @@ Set_defaults ()
 	then
 		case "${LH_MODE}" in
 			debian|debian-release)
-				case "${LH_ARCHITECTURE}" in
-					amd64|i386)
-						LH_MIRROR_BINARY="http://ftp.us.debian.org/debian/"
-						;;
-
-					*)
-						LH_MIRROR_BINARY="http://ftp.de.debian.org/debian/"
-						;;
-				esac
+				LH_MIRROR_BINARY="http://cdn.debian.net/debian/"
 				;;
 
 			emdebian)
