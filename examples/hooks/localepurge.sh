@@ -5,20 +5,18 @@
 # directory.
 #
 
-apt-get install --yes localepurge
-
 cat > /tmp/localepurge.preseed << EOF
-localepurge localepurge/nopurge en
-#localepurge localepurge/mandelete true
-#localepurge localepurge/dontbothernew false
-localepurge localepurge/showfreedspace false
-#localepurge localepurge/quickndirtycalc true
-#localepurge localepurge/verbose false
+localepurge localepurge/nopurge multiselect en
+#localepurge localepurge/mandelete boolean true
+#localepurge localepurge/dontbothernew boolean false
+localepurge localepurge/showfreedspace boolean false
+#localepurge localepurge/quickndirtycalc boolean true
+#localepurge localepurge/verbose boolean false
 EOF
-
 debconf-set-selections < /tmp/localepurge.preseed
 rm -f /tmp/localepurge.preseed
 
+apt-get install --yes localepurge
 dpkg-reconfigure localepurge
 
 localepurge
