@@ -320,18 +320,21 @@ else
 
 	# Downloading graphical-installer
 	DOWNLOAD_GTK_INSTALLER=0
-	case "${LH_ARCHITECTURE}" in
-		amd64|i386|lpia)
-			DOWNLOAD_GTK_INSTALLER=1
-			;;
-
-		powerpc)
-			if [ "${LH_DEBIAN_INSTALLER}" = "netboot" ]
-			then
+	if [ "${LH_DEBIAN_INSTALLER_GUI}" = "enabled" ]
+	then
+		case "${LH_ARCHITECTURE}" in
+			amd64|i386|lpia)
 				DOWNLOAD_GTK_INSTALLER=1
-			fi
-			;;
-	esac
+				;;
+
+			powerpc)
+				if [ "${LH_DEBIAN_INSTALLER}" = "netboot" ]
+				then
+					DOWNLOAD_GTK_INSTALLER=1
+				fi
+				;;
+		esac
+	fi
 
 	if [ ${DOWNLOAD_GTK_INSTALLER} -eq 1 ]
 	then

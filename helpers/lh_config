@@ -62,6 +62,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--debian-installer enabled|cdrom|netinst|netboot|businesscard|live|disabled]\n\
 \t    [--debian-installer-distribution CODENAME|daily]\n\
 \t    [--debian-installer-preseedfile FILE|URL]\n\
+\t    [--debian-installer-gui enabled|disabled]\n\
 \t    [--debug]\n\
 \t    [-d|--distribution CODENAME]\n\
 \t    [--dump]\n\
@@ -138,7 +139,7 @@ Local_arguments ()
 		hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
 		packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,
 		binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,
-		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,
+		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
 		encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
 		net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,
@@ -541,6 +542,11 @@ Local_arguments ()
 
 			--debian-installer-preseedfile)
 				LH_DEBIAN_INSTALLER_PRESEEDFILE="${2}"
+				shift 2
+				;;
+
+			--debian-installer-gui)
+				LH_DEBIAN_INSTALLER_GUI="${2}"
 				shift 2
 				;;
 
@@ -1094,6 +1100,10 @@ LH_DEBIAN_INSTALLER_DISTRIBUTION="${LH_DEBIAN_INSTALLER_DISTRIBUTION}"
 # \$LH_DEBIAN_INSTALLER_PRESEEDFILE: set debian-installer preseed filename/url
 # (Default: ${LH_DEBIAN_INSTALLER_PRESEEDFILE})
 LH_DEBIAN_INSTALLER_PRESEEDFILE="${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
+
+# \$LH_DEBIAN_INSTALLER_GUI: toggle use of GUI debian-installer
+# (Default: ${LH_DEBIAN_INSTALLER_GUI})
+LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI}"
 
 # \$LH_ENCRYPTION: set encryption
 # (Default: ${LH_ENCRYPTION})

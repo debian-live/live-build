@@ -76,6 +76,8 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-debian\-installer\-preseedfile\fR \fIFILE\fR|\fIURL\fR]
 .br
+	[\fB\-\-debian\-installer\-gui\fR enabled|disabled]
+.br
 	[\-d|\fB\-\-distribution\fR \fICODENAME\fR]
 .br
 	[\-\-\fBdump\fR]
@@ -276,6 +278,8 @@ defines which type, if any, of the debian\-installer should be included in the r
 defines the distribution where the debian\-installer files should be taken out from. Normally, this should be set to the same distribution as the live system. However, some times, one wants to use a newer or even daily built installer.
 .IP "\fB\-\-debian\-installer\-preseedfile\fR \fIFILE\fR|\fIURL\fR" 4
 sets the filename or URL for an optionally used and included preseeding file for debian\-installer.
+.IP "\fB\-\-debian\-installer\-gui\fR enabled|disabled" 4
+defines if the debian\-installer graphical GTK interface should be enabled or not. In Debian mode and for most versions of Ubuntu, this option is enabled, whereas otherwise disabled, by default.
 .IP "\-d|\fB\-\-distribution\fR \fICODENAME\fR" 4
 defines the distribution of the resulting live system.
 .IP "\-\-\fBdump\fR" 4

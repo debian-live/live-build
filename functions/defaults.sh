@@ -735,6 +735,30 @@ Set_defaults ()
 	# Setting debian-installer distribution
 	LH_DEBIAN_INSTALLER_DISTRIBUTION="${LH_DEBIAN_INSTALLER_DISTRIBUTION:-${LH_DISTRIBUTION}}"
 
+	# Setting debian-installer-gui
+	case "${LH_MODE}" in
+		debian)
+			LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-enabled}"
+			;;
+
+		ubuntu)
+			case "${LH_DEBIAN_INSTALLER_DISTRIBUTION}" in
+				karmic)
+					# Not available for Karmic currently.
+					LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-disabled}"
+					;;
+
+				*)
+					LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-enabled}"
+					;;
+			esac
+			;;
+
+		*)
+			LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-disabled}"
+			;;
+	esac
+
 	# Setting debian-installer preseed filename
 	if [ -z "${LH_DEBIAN_INSTALLER_PRESEEDFILE}" ]
 	then
