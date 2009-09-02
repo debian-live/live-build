@@ -11,8 +11,8 @@
 # won't be executed if any persistent option is given on boot.
 #
 # NOTE 2: if using an USB key, it will eventualy end up failing someday.
-# You should backup regularly the data on the encrypted file or the
-# disk image file itself (luks-home.img) to prevent loosing data.
+# You should backup the encrypted disk image file itself (luks-home.img) to
+# prevent loosing your data.
 #
 # This hook will create 3 files:
 #
@@ -35,65 +35,101 @@
 # HOWTO lukshome
 # --------------
 #
-# First build your live system with this hook present in
-# config/chroot_local-hooks/. If you have an existing live-helper build directory
-# with a previous live build, you might have to run:
+# First build your live system with this hook inside config/chroot_local-hooks/.
+# If you have an existing live-helper build directory with a previous live
+# build, you might have to run
 #
 #	lh_clean
 #	lh_clean --stage
 #
-# to make sure this hook is included in the live system. Then (re)build your live system.
+# to make sure this hook is included in the live system. Then (re)build your
+# live system.
 #
-# Boot your live system normally and run as root or with sudo:
+#	lh_build
 #
-#	sudo -i
-#	create-lukshome-file.sh
-#	# the script is located in /usr/local/sbin/, so it's in root $PATH.
+# After booting your (re)built live system, setup the encrypted losetup
+# filesystem to be used as /home using the instructions present in the
+# create-lukshome-file.sh script.
 #
-# This script will create the disk file image with an encrypted filesystem for you.
-#
-# Then copy the file to a partition (on USB pen or harddisk) and label that partition with
-# lukshome.
-#
-####### THIS CAN WIPE YOUR DATA, backup first!
-####### Be sure to understand what you will do, or you can end up
-####### wiping disks or partitions you don't want to.
-#
-#	# Here we are using ext2 (no journaling), but any partition
-#	# format that Debian Live *can* mount *should* work.
-#	# The partition labeled lukshome is very important!
-#	mkfs.ext2 -L lukshome /dev/the_partition_to_be_used
-#	mount /dev/the_partition_to_be_used /mnt
-#	cp luks-home.img /mnt
-#	umount /mnt
-#
-# Reboot and now use the lukshome boot option to mount the encrypted /home, like in
-# persistent=nofiles with a home-rw file/partition.
+# Reboot and now use the "lukshome" boot option to mount the encrypted /home,
+# like in using "persistent" boot option with a home-rw file in some partition.
 #
 
 
-
+echo "I: to see how use lukshome hook run create-lukshome-file.sh as root."
 echo "I: creating script /usr/local/sbin/create-lukshome-file.sh"
 cat > /usr/local/sbin/create-lukshome-file.sh << 'EOF'
 #!/bin/sh
 
-# Script to create an encrypted filesystem in a disk file image to
-# be used in a Debian Live Helper built live system with lukshome hook.
+# This script is to create an encrypted filesystem in a file to
+# be used as /home in a live system built with Debian Live Helper with
+# the lukshome hook in config/chroot_local-hooks/.
+#
+# The lukshome boot option will do the following:
+#	- search for a partition with label 'lukshome'
+#	  (btw, you can't use the live system partition itself)
+#	- mount the partition as /luks-home in the live system
+#	- open /luks-home/luks-home.img file as a loopback device (/dev/loop)
+#	- open the loopback device with cryptsetup
+#	- mount the encrypted filesystem as /home
+#
+# This script will only create the luks-home.img file. Next are details of how
+# to use this script.
+#
+# CAUTION! THIS CAN WIPE YOUR DATA, backup first!
+# Be sure to understand what you will do, or you can end up
+# wiping disks or partitions you don't want to!
+#
+# Login as root:
+#	$ sudo -i
+#
+# Create a mountpoint (don't use /mnt, it will be used by this script):
+#	# mkdir /media/target
+#
+# !!! ***  Skip the next line if you don't want to wipe a partition  *** !!!
+# !!! * Just change the partition label to 'lukshome' (without quotes) * !!!
+# Create an ext2 filesystem in a partition with 'lukshome' label:
+#	# mkfs.ext2 -L lukshome /dev/the_partition_to_be_used
+#
+# Mount the partition and cd into it:
+#	# mount /dev/the_partition_to_be_used /media/target
+#	# cd /media/target
+#
+# Create the encrypted file:
+#	# create-lukshome-file.sh
+#
+# The script is located in /usr/local/sbin/, so it's in root $PATH.
+# It will copy the directories in /home/* into the file.
+# Now return to $HOME to be able to umount the target partition:
+#	# cd
+#
+# Umount the target partition:
+#	# umount /media/target
+#
+# Reboot and use the "lukshome" boot option to mount the encrypted /home,
+# like in using "persistent" boot option with a home-rw file in some partition.
+#
+# Press Shift-PgUp/Shift-PgDn to scrool the instructions on the screen.
+
 
 # check if root/sudo
 if [ "${USER}" != "root" ]
 then
 	echo " ** Please run this script as root or with sudo."
-	echo ""
 	exit 1
 fi
 
-# check if /mnt is available
+# check if /mnt is available and empty
 mount | grep "/mnt" > /dev/null
 MNT_IS_MOUNTED=${?}
 if [ "${MNT_IS_MOUNTED}" == 0 ]
 then
 	echo "** ERROR: /mnt is mounted at the moment. Please umount it to use this script."
+	exit 1
+fi
+if [ "$(ls -A /mnt)" ]
+then
+	echo "** ERROR: /mnt is not empty. An empty /mnt is needed to use this script."
 	exit 1
 fi
 
@@ -104,6 +140,28 @@ then
 	exit 1
 fi
 
+
+# show instructions
+echo ""
+echo "** Instructions to use create-lukshome-file.sh (this script):"
+sed -n '2,51p' /usr/local/sbin/create-lukshome-file.sh | sed 's/^.//'
+echo ""
+
+
+# proceed?
+echo "** Do you want to proceed with this script? (y/N)"
+read CONFIRM
+
+case "${CONFIRM}" in
+	y*|Y*)
+		echo ""
+	;;
+	*)
+		exit 0
+	;;
+esac
+
+
 # create file
 echo ""
 echo "** Please type the size of the file disk image."
@@ -111,10 +169,15 @@ echo "Size of the file in MB: "
 read FILE_SIZE
 
 echo ""
-echo "** Creating file."
+echo "** Creating file luks-home.img."
 echo "** Filling file image with /dev/urandom output. It will take some time."
-echo "(Please change this script to use /dev/random instead. It's more secure but will take a *very* long time to complete."
+echo "(Edit this script to use /dev/random. It's know to more secure but "
+echo "it will take a *very* long time to complete."
 dd if=/dev/urandom of=luks-home.img bs=1M count=${FILE_SIZE}
+# To use /dev/random comment the line above and uncomment the next line
+#dd if=/dev/random of=luks-home.img ibs=128 obs=128 count=$((8192*${FILE_SIZE}))
+# You might have to increase kernel entropy by moving the mouse, typing keyboard,
+# make the computer read disk or use network connections.
 echo "** Done."
 echo ""
 
@@ -130,8 +193,8 @@ echo "** Running cryptsetup."
 echo ""
 echo "** luksFormat"
 cryptsetup luksFormat ${FREE_LOSETUP}
-ERROR_LEVEL=${?}
-if [ "${ERROR_LEVEL}" != 0 ]
+EXIT_CODE=${?}
+if [ "${EXIT_CODE}" != 0 ]
 then
 	echo "** ERROR: Error while trying to format disk file image."
 	losetup -d ${FREE_LOSETUP}
@@ -141,8 +204,8 @@ echo ""
 
 echo "** luksOpen"
 cryptsetup luksOpen ${FREE_LOSETUP} luks-home
-ERROR_LEVEL=${?}
-if [ "${ERROR_LEVEL}" != 0 ]
+EXIT_CODE=${?}
+if [ "${EXIT_CODE}" != 0 ]
 then
 	echo "** ERROR: Error while trying to open LUKS file image."
 	losetup -d ${FREE_LOSETUP}
@@ -153,10 +216,11 @@ echo ""
 # format encrypted filesystem
 echo "** Now formating /dev/mapper/luks-home"
 mkfs.ext2 /dev/mapper/luks-home
-ERROR_LEVEL=${?}
-if [ "${ERROR_LEVEL}" != 0 ]
+EXIT_CODE=${?}
+if [ "${EXIT_CODE}" != 0 ]
 then
 	echo "** ERROR: Error while trying to format LUKS file."
+	cryptsetup remove luks-home
 	losetup -d ${FREE_LOSETUP}
 	exit 1
 fi
@@ -165,57 +229,33 @@ echo ""
 # mount in /mnt
 echo "** Now mounting luks-home.img in /mnt"
 mount /dev/mapper/luks-home /mnt
-ERROR_LEVEL=${?}
-if [ "${ERROR_LEVEL}" != 0 ]
+EXIT_CODE=${?}
+if [ "${EXIT_CODE}" != 0 ]
 then
 	echo "** ERROR: Error while trying to mount LUKS file in /mnt."
 	umount /mnt
+	cryptsetup remove luks-home
 	losetup -d ${FREE_LOSETUP}
 	exit 1
 fi
 echo ""
 
 # copy files
-echo "** To copy the actual /home/* directory to the encrypted disk image filesystem, press ENTER and"
-echo "** answer -> Y <- when asked to confirm."
-echo ""
-echo "** If using an other external /home partition be aware that UID and username must match with the ones used by the live system."
-echo "** If you don't want to copy anything now, just press ENTER twice. No copying will be done, file will be an empty encrypted ext2 filesystem."
-echo "** Later, after this script ends, use losetup, cryptsetup, mount and chown to copy manually the files/directory you want."
-echo ""
-echo "** Please type the location of /home directories to be copied."
-echo "Where are the directiories you want to copy? [/home/*]"
-read HOME_DIR
+HOME_DIR="/home/*"
 
-if [ -z "${HOME_DIR}" ]
+echo "** Copying ${HOME_DIR}."
+cp -rav ${HOME_DIR} /mnt
+EXIT_CODE=${?}
+if [ "${EXIT_CODE}" != 0 ]
 then
-	HOME_DIR="/home/*"
+	echo "** ERROR: Error while trying to copy files to /mnt."
+	umount /mnt
+	cryptsetup remove luks-home
+	losetup -d ${FREE_LOSETUP}
+	exit 1
 fi
-
-echo "** Please confirm. Press ENTER if you don't want any file to be copied now."
-echo "Copy directories and files from "${HOME_DIR}"? (y/N)"
-read CONFIRM_COPY
-
-case "${CONFIRM_COPY}" in
-	y*|Y*)
-		echo "** Copying from ${HOME_DIR}."
-		cp -rav ${HOME_DIR} /mnt
-		ERROR_LEVEL=${?}
-		if [ "${ERROR_LEVEL}" != 0 ]
-		then
-			echo "** ERROR: Error while trying to copy files to /mnt."
-			umount /mnt
-			losetup -d ${FREE_LOSETUP}
-			exit 1
-		fi
-		echo "** Done."
-		echo ""
-	;;
-	*)
-		echo "Not copying anything."
-		echo ""
-	;;
-esac
+echo "** Done."
+echo ""
 
 echo "** All done."
 echo "** Closing losetup, cryptsetup and mounted /mnt."
@@ -223,7 +263,8 @@ echo "** Closing losetup, cryptsetup and mounted /mnt."
 umount /mnt
 cryptsetup remove luks-home
 losetup -d ${FREE_LOSETUP}
-echo "** The disk file image luks-home.img is done and ready."
+echo "** The disk file image luks-home.img is done and ready. Move it into a partition"
+echo "** with 'lukshome' as label and reboot with lukshome boot option to use it."
 echo ""
 
 EOF
@@ -233,13 +274,15 @@ chmod 0755 /usr/local/sbin/create-lukshome-file.sh
 
 
 echo "I: creating script /usr/local/sbin/lukshome.sh"
-
 cat > /usr/local/sbin/lukshome.sh << 'EOF'
 #!/bin/sh
 
-# this script is executed by a hook in live-initramfs. It searches
-# for an ext2 partition with lukshome label, mounts loop file and saves location
-# in /etc/live.conf. It also creates a script in /etc/init.d/ for umounting /home on shutdown.
+# this script is to be executed by a hook in live-initramfs. It searches
+# for a partition with 'lukshome' label, mounts it as /luks-home, then opens an
+# encrypted disk image file called luks-home.img as a loopback device, opens it
+# with cryptsetup and finally mounts the present filesystem as /home.
+# It also changes /etc/init.d/umountfs to umount the lukshome partition
+#  (/luks-home) and clear the loopback device on shutdown.
 
 # functions taken from live-helpers
 . /usr/share/initramfs-tools/scripts/live-helpers
@@ -269,7 +312,8 @@ done
 # if no partition found, exit
 if [ -z "${CRYPTHOME}" ]
 then
-	echo "Could not find any partition with lukshome label."
+	echo "Could not find any partition with lukshome label. "
+	echo "Proceeding with no encrypted /home."
 	exit 0
 fi
 
@@ -280,7 +324,7 @@ mount -t $(get_fstype "${CRYPTHOME}") "${CRYPTHOME}" /luks-home
 
 # mount losetup encrypted file
 FREE_LOOP="$(/sbin/losetup -f)"
-echo "Mounting /luks-home/luks-home.img in ${FREE_LOOP}."
+echo "Opening /luks-home/luks-home.img in ${FREE_LOOP}."
 
 if [ -f /luks-home/luks-home.img ]
 then
@@ -293,9 +337,14 @@ then
 
 	# update fstab
 	echo "/dev/mapper/home	/home	ext2	defaults,noatime	0	0" >> /etc/fstab
+else
+	echo "Did not found any luks-home.img file in ${CRYPTHOME}!"
+	echo "Proceeding with no encrypted /home."
+	umount -r /luks-home
+	exit 0
 fi
 
-# changes to /etc/init.d/umountfs to make /luks-home been umounted too
+# changes to /etc/init.d/umountfs to make /luks-home being umounted on shutdown
 sed -i 's/[\t]do_stop/CHANGE_HERE/' /etc/init.d/umountfs
 sed -i 's|CHANGE_HERE|	\
 	# added by lukshome hook -  umount \/luks-home to prevent busy device on shutdown \
@@ -343,11 +392,11 @@ esac
 
 . /scripts/live-functions
 
-# live-initramfs hook to add the lukshome partition to crypttab and fstab
+# live-initramfs hook to use an disk image file with encrypted filesystem as /home.
 
 log_begin_msg "Executing losetup-lukshome"
 
-# get boot option lukshome without persistent- adapted from live-helpers
+# get boot option lukshome - adapted from live-helpers
 for ARGUMENT in $(cat /proc/cmdline)
 do
 	case "${ARGUMENT}" in
@@ -361,7 +410,7 @@ done
 if [ -n "${PERSISTENT}" ] && [  -n "${LUKSHOME}" ]
 then
 	echo "You should not use persistent and lukshome at the same time."
-	echo "Skipping lukshome. Persistent medium will be used instead."
+	echo "Skipping lukshome. Persistent medium, if any, will be used instead."
 	log_end_msg
 	exit 0
 fi
@@ -369,7 +418,6 @@ fi
 # if no lukshome boot option, exit
 if [ -z "${LUKSHOME}" ]
 then
-	echo "Nothing to do."
 	log_end_msg
 	exit 0
 fi
@@ -381,7 +429,7 @@ mount -o bind /proc /root/proc
 mount -o bind /dev /root/dev
 
 # lukshome.sh detects lukshome partition and file location, mounts it
-# and updates fstab and crypttab.
+# and opens the file and then updates fstab and crypttab to use it as /home.
 chroot /root /usr/local/sbin/lukshome.sh
 
 umount /root/sys
@@ -401,7 +449,8 @@ chmod 0755 /usr/share/initramfs-tools/scripts/live-bottom/13live_luks_home
 
 
 echo "I: update-initramfs to include 13live_luks_home."
-# if you already have installed the update-initramfs.sh hook, you can remove this.
+# if you already have installed the update-initramfs.sh hook, you can remove
+# this.
 
 for KERNEL in /boot/vmlinuz-*
 do
