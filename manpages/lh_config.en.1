@@ -239,7 +239,7 @@ sets boot parameters specific to debian-live. A complete list of boot parameters
 .IP "\fB\-\-bootloader\fR grub|syslinux|yaboot" 4
 defines which bootloader is beeing used in the generated image. This has only an effect if the selected binary image type does allow to choose the bootloader. For example, if you build a iso, always syslinux (or more precise, isolinux) is being used. Also note that some combinations of binary images types and bootloaders may be possible but live\-helper does not support them yet. lh_config will fail to create such a not yet supported configuration and give a explanation about it. For usb-hdd images on amd64 and i386, the default is syslinux. yaboot is only used on powerpc.
 .IP "\fB\-\-bootstrap\fR cdebootstrap|cdebootstrap-static|debootstrap|copy" 4
-defines which program is used to bootstrap the debian chroot, default is debootstrap. Note that if you set the bootstrap program to copy, then your host system is copied. This can be usefull if you want to convert/clone your existing host system into a live system, however, make sure you do have enough free space as this can, depending on your host system, get quite big.
+defines which program is used to bootstrap the debian chroot, default is debootstrap. Note that if you set the bootstrap program to copy, then your host system is copied. This can be useful if you want to convert/clone your existing host system into a live system, however, make sure you do have enough free space as this can, depending on your host system, get quite big.
 .IP "\fB\-\-bootstrap\-config\fR \fIFILE\fR" 4
 sets a custom configuration file for the boostrap programm of choice and is empty by default. Refere to the documentation of debootstrap or cdebootstrap for more information about that. When the bootstrap program is set to copy, this has no effect.
 .IP "\-f|\fB\-\-bootstrap\-flavour\fR minimal|standard" 4
@@ -253,7 +253,7 @@ defines if downloaded package indices and lists should be cached which is disabl
 .IP "\fB\-\-cache\-packages\fR enabled|disabled" 4
 defines if downloaded packages files should be cached which is enabled by default. Disabling it does save space consumtion in your build directory, but remember that you will cause much unnecessary traffic if you do a couple of rebuilds. In general you should always leave it enabled, however, in some particular rare build setups, it can be faster to refetch packages from the local network mirror rather than to utilize the local disk.
 .IP "\fB\-\-cache\-stages\fR enabled|disabled|\fISTAGE\fR|\fI""STAGES""\fR" 4
-sets which stages should be cached. By default set to bootstrap. As an exception to the normal stage names, also rootfs can be used here which does only cache the generated root filesystem in filesystem.{dir,ext*,squashfs}. This is usefull during development if you want to rebuild the binary stage but not regenerate the root filesystem all the time.
+sets which stages should be cached. By default set to bootstrap. As an exception to the normal stage names, also rootfs can be used here which does only cache the generated root filesystem in filesystem.{dir,ext*,squashfs}. This is useful during development if you want to rebuild the binary stage but not regenerate the root filesystem all the time.
 .IP "\fB\-\-checksums\fR enabled|disabled" 4
 defines if the binary image should contain a file called md5sums.txt that lists all files on the image together with their md5 checksums. This in turn can be used by live-initramfs' built-in integrity-check to verify the medium if specified at boot prompt. In general, this should not be disabled and is an important feature of live system released to the public. However, during development of very big images it can save some time by not calculating the checksums.
 .IP "\fB\-\-chroot\-build\fR enabled|disabled" 4
@@ -269,7 +269,7 @@ defines what value the debconf frontend should be set to inside the chroot. Note
 .IP "\fB\-\-debconf\-nowarnings\fR enabled|disabled" 4
 defines if warnings of debconf should be displayed or not. Warnings from debconf are generally very rare and by default, we skipp them, if any, in order to keep the build process entirely non interactive.
 .IP "\fB\-\-debconf\-priority\fR low|medium|high|critical" 4
-defines what value the debconf priority shoul dbe set to inside the chroot. By default, it is set to critical, which means that almost none questions are displayed. Note that this only has an effect if you use any debconf frontend different from noninteractive.
+defines what value the debconf priority shoul dbe set to inside the chroot. By default, it is set to critical, which means that almost no questions are displayed. Note that this only has an effect if you use any debconf frontend different from noninteractive.
 .IP "\fB\-\-debian\-installer\fR enabled|cdrom|netinst|netboot|businesscard|live|disabled" 4
 defines which type, if any, of the debian\-installer should be included in the resulting binary image. By default, no installer is included. All available flavours except live are the identical configurations used on the installer media produced by regular debian\-cd. When live is choosen, the live\-installer udeb is included so that debian\-installer will behave different than usual - instead of installing the debian system from packages from the medium or the network, it installs the live system to the disk.
 .IP "\fB\-\-debian\-installer\-distribution\fR daily|\fICODENAME\fR" 4
@@ -279,7 +279,7 @@ sets the filename or URL for an optionally used and included preseeding file for
 .IP "\-d|\fB\-\-distribution\fR \fICODENAME\fR" 4
 defines the distribution of the resulting live system.
 .IP "\-\-\fBdump\fR" 4
-prepares a report of the currently present live system configuration and the version of live\-helper used. This is usefull to provide if you submit bug reports, we do get all informations required for us to locate and replicate an error.
+prepares a report of the currently present live system configuration and the version of live\-helper used. This is useful to provide if you submit bug reports, we do get all informations required for us to locate and replicate an error.
 .IP "\-e|\fB\-\-encryption\fR disabled|aes128|aes192|aes256" 4
 defines if the root filesystem should be encrypted or not. By default, this is disabled.
 .IP "\fB\-\-fdisk\fR fdisk|fdisk.dist" 4
@@ -293,7 +293,7 @@ defines which hooks available in /usr/share/live-helper/examples/hooks should be
 .IP "\fB\-\-hostname\fR \fINAME\fR" 4
 sets the hostname of the live system.
 .IP "\fB\-\-ignore\-system\-defaults\fR" 4
-lh_config by default reads system defaults from /etc/default/live-helper when generating a new live system config directory. This is usefull if you want to set global settings, such as mirror locations, and don't want to specify them all of the time.
+lh_config by default reads system defaults from /etc/default/live-helper when generating a new live system config directory. This is useful if you want to set global settings, such as mirror locations, and don't want to specify them all of the time.
 .IP "\fB\-\-includes\fR \fIPATH\fR" 4
 sets the path to the includes that live\-helper is going to use, e.g. additional minimal documentation that you want to have on all live systems. By default, this is set to /usr/share/live-helper/includes/.
 .IP "\fB\-\-initramfs\fR auto|live\-initramfs|casper" 4
@@ -303,7 +303,7 @@ defines if after the chroot stage and before the beginning of the binary stage, 
 .IP "\fB\-\-iso\-application\fR \fINAME\fR" 4
 sets the APPLICATION field in the header of a resulting CD/DVD image and defaults to "Debian Live" in debian mode, and to "Emdebian Live" in emdebian mode, and "Ubuntu Live" in ubuntu mode.
 .IP "\fB\-\-iso\-preparer\fR \fINAME\fR" 4
-sets the PREPARER field in the header of a resulting CD/DVD image. By default this is set to "live-helper \fIVERSION\fR; http://packages.qa.debian.org/live-helper", whereas VERSION is exanded to the version of live-helper that was used to build the image.
+sets the PREPARER field in the header of a resulting CD/DVD image. By default this is set to "live-helper \fIVERSION\fR; http://packages.qa.debian.org/live-helper", whereas VERSION is expanded to the version of live-helper that was used to build the image.
 .IP "\fB\-\-iso\-publisher\fR \fINAME\fR" 4
 sets the PUBLISHED field in the header of a resulting CD/DVD image. By default, this is set to 'Debian Live project; http://debian-live.alioth.debian.org/; debian-live@lists.debian.org'. Remember to change this to the appropriate values at latest when you distributing custom and unofficial images.
 .IP "\fB\-\-iso\-volume\fR \fINAME\fR" 4
@@ -317,7 +317,7 @@ sets the language of a live system by installing l10n related packages and enabl
 .IP "\-k|\fB\-\-linux\-flavours\fR \fIFLAVOUR\fR|\fI"FLAVOURS"\fR" 4
 sets the kernel flavours to be installed. Note that in case you specify more than that the first will be configured the default kernel that gets bootet.
 .IP "\fB\-\-linux\-packages\fR \fI"PACKAGES"\fR" 4
-sets the internal name of the kernel packges naming scheme. If you use debian kernel packges, you will not have to adjust it. If you decide to use custom kernel packages that do not follow the debian naming scheme, remember to set this option to the stub of the packages only (for debian this is linux-image-2.6), so that \fISTUB\fR-\fIFLAVOUR\fR results in a valid package name (for debian e.g. linux-image-2.6-486). Preferably you use the meta package name, if any, for the stub, so that your configuration is ABI independent. Also don't forget that you have to include stubs of the binary modules packages for unionfs or aufs, and squashfs if you built them out-of-tree.
+sets the internal name of the kernel packages naming scheme. If you use debian kernel packages, you will not have to adjust it. If you decide to use custom kernel packages that do not follow the debian naming scheme, remember to set this option to the stub of the packages only (for debian this is linux-image-2.6), so that \fISTUB\fR-\fIFLAVOUR\fR results in a valid package name (for debian e.g. linux-image-2.6-486). Preferably you use the meta package name, if any, for the stub, so that your configuration is ABI independent. Also don't forget that you have to include stubs of the binary modules packages for unionfs or aufs, and squashfs if you built them out-of-tree.
 .IP "\fB\-\-losetup\fR losetup|losetup.orig" 4
 sets the filename of the losetup binary from the host system that should be used. This is autodetected and does generally not need any customization.
 .IP "\fB\-\-memtest\fR memtest86+|memtest86|none" 4
@@ -364,7 +364,7 @@ defines which lists available in /usr/share/live-helper/lists should be used. By
 .IP "\fB\-\-packages\fR \fIPACKAGE\fR|\fI""PACKAGES""\fR" 4
 defines one or more packages to be installed in the live system. This is a quick and convenient place to add a few packages when building an image (limited by the max length of shell). Packages that should be permanently installed should be put into a local packages list.
 .IP "\fB\-\-root-command\fR sudo" 4
-controls if live-helper should use sudo internally to build the live image. Note that this is not well tested and that you should, when relaying on sudo, call the individual live\-helper command with sudo itself.
+controls if live-helper should use sudo internally to build the live image. Note that this is not well tested and that you should, when relying on sudo, call the individual live\-helper command with sudo itself.
 .IP "\fB\-\-use-fakeroot\fR enabled|disabled" 4
 controls if live-helper should utilize fakeroot and fakechroot to try and avoid requiring root privillages where possible. By default, this option is disabled.
 .IP "\fB\-\-categories\fR \fICATEGORY\fR|\fI""CATEGORIES""\fR" 4
