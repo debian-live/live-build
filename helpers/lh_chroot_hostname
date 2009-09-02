@@ -73,7 +73,10 @@ EOF
 		Echo_message "Deconfiguring file /bin/hostname"
 
 		# Restore hostname file
-		mv chroot/bin/hostname.orig chroot/bin/hostname
+		if [ -e chroot/bin/hostname.orig ]
+		then
+			mv chroot/bin/hostname.orig chroot/bin/hostname
+		fi
 
 		# Removing stage file
 		rm -f .stage/chroot_hostname
