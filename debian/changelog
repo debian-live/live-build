@@ -1,3 +1,89 @@
+live-helper (1.0.5-2) unstable; urgency=low
+
+  [ Cody A.W. Somerville ]
+  * Reflect addition of the ubuntu mode and add missing contents where
+    marked FIXME in lh_config manpage.
+
+  [ Daniel Baumann ]
+  * Preserve quoting in lh when passing through to sub commands (Closes:
+    #521824).
+  * Outputting usage if lh is called without argument.
+  * Adding example hook to allow hal automounting local partitions.
+
+  [ Cody A.W. Somerville ]
+  * Simplifying template precedence.
+
+  [ Daniel Baumann ]
+  * Using common prefix for packages lists of packaging teams.
+  * Updating version and date in manpage headers.
+  * Exclude di-utils-exit-installer from udeb_exclude, we want it on the
+    images on purpose.
+  * Correcting spelling typo in hal-automount.sh, thanks to Martin
+    Engelmann <martin.engelmann@gmx.de>.
+  * Installing gdm after lxde in lxde package list in order to not pull
+    in gnome depends uselessly, thanks to Fabian Greffrath
+    <greffrath@leat.rub.de> (Closes: #536230).
+  * Correcting typo in default values assignment of losetup functions.
+  * Avoid using HOSTNAME variable in order to not get false positives
+    from checkbashism.
+  * Cosmetical simplification of debian-installer DESTDIR assignement,
+    thanks to Cody A.W. Somerville <cody.somerville@canonical.com>.
+  * Updating ubuntu specific package preselection.
+  * Removing config stage file on purge, if the user is using an auto
+    script to generate the config.
+
+  [ Chris Lamb ]
+  * Support LH_BOOTSTRAP_FLAVOUR="standard" when using debootstrap
+  * Fix usb-hdd d-i installation.
+  * Remove potentially-expanding architecture list by making current x86
+    vars the fallback.
+  * Update my email address.
+  * Generate correct bootappend line for preseed/live-installer/usb-hdd
+    combination.
+  * Add replace-di-banner.sh example hook to replace the graphical d-i
+    banner.
+
+  [ Daniel Baumann ]
+  * Marking replace-di-banner.sh executable and adjust line wrapping.
+
+  [ Chris Lamb ]
+  * Fix s/coppy/copy/ typo
+
+  [ Daniel Baumann ]
+  * Including archive trace into .disk meta information.
+  * Consistenly installing gdm later than the desktop packages in order
+    to ensure non-inflated installs.
+  * Replacing policy-rc.d text that is used by sbuild too.
+  * Setting binary mirror default to cdn.debian.net.
+  * Setting bootstrap mirror default to ftp.de.debian.org,
+    ftp.us.debian.orgs is too unreliable (round-robin out of sync).
+  * Adding example hook from Rui Miguel Bernardo
+    <rui.bernardo.pt@gmail.com> to use home on a seperated luks
+    encrypted partition.
+  * Improving replace-di-banner example hook.
+  * Adding localepurge example hook.
+  * Simplyfing localepurge hook.
+  * Applying patch from Chris Leick <c.leick@vollbio.de> to fix some
+    spelling typos in the manpages (Closes: #543868).
+  * Adding German manpage translations from Chris Leick
+    <c.leick@vollbio.de> (Closes: #544512).
+
+  [ Cody A.W. Somerville ]
+  * Fix build failure when retrying build at deconfiguring file
+    /bin/hostname.
+  * Add option to disable use of GTK debian-installer.
+
+  [ Rui Miguel Bernardo ]
+  * Correcting some rough edges in lukshome example hook.
+
+  [ Daniel Baumann ]
+  * Updating kernel defaults for squeeze (removing squashfs, not
+    required anymore).
+  * Adding a message about which hook made a build fail, if any.
+  * Updating lenny point release number.
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 04 Sep 2009 13:21:04 +0200
+
 live-helper (1.0.5-1) unstable; urgency=medium
 
   [ Daniel Baumann ]
