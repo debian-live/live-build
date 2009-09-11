@@ -254,8 +254,15 @@ then
 	INITRD_GI="install/gtk/initrd.gz"
 	APPEND_GI="video=vesa:ywrap,mtrr vga=788"
 
-	Grub_install_entry "Text" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
-	Grub_install_entry "GUI" "${VMLINUZ_GI}" "${INITRD_GI}" "${APPEND_GI}"
+	if [ -f "binary/boot/${VMLINUZ_DI}" ] && [ -f "binary/boot/${INITRD_DI}" ]
+	then
+		Grub_install_entry "Text" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
+	fi
+
+	if [ -f "binary/boot/${VMLINUZ_GI}" ] && [ -f "binary/boot/${INITRD_GI}" ]
+	then
+		Grub_install_entry "GUI" "${VMLINUZ_GI}" "${INITRD_GI}" "${APPEND_GI}"
+	fi
 fi
 
 LINUX_INSTALL="$(/bin/echo ${LINUX_INSTALL} | sed -e 's|binary||g' -e 's|//|/|g')"

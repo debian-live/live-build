@@ -261,8 +261,15 @@ then
 	INITRD_GI="gtk/initrd.gz"
 	APPEND_GI="video=vesa:ywrap,mtrr vga=788"
 
-	Yaboot_install_entry "Text" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
-	Yaboot_install_entry "GUI" "${VMLINUZ_GI}" "${INITRD_GI}" "${APPEND_GI}"
+	if [ -f "binary/${DESTDIR_INSTALL}/${VMLINUZ_DI}" ] && [ -f "binary/${DESTDIR_INSTALL}/${INITRD_DI}" ]
+	then
+		Yaboot_install_entry "Text" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
+	fi
+
+	if [ -f "binary/${DESTDIR_INSTALL}/${VMLINUZ_GI}" ] && [ -f "binary/${DESTDIR_INSTALL}/${INITRD_GI}" ]
+	then
+		Yaboot_install_entry "GUI" "${VMLINUZ_GI}" "${INITRD_GI}" "${APPEND_GI}"
+	fi
 fi
 
 LINUX_INSTALL="$(/bin/echo ${LINUX_INSTALL} | sed -e 's|binary||g' -e 's|//|/|g')"

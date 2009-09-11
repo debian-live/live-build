@@ -548,8 +548,15 @@ then
 	INITRD_GI="gtk/initrd.gz"
 	APPEND_GI="video=vesa:ywrap,mtrr vga=788"
 
-	Syslinux_install_entry "Text" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
-	Syslinux_install_entry "GUI" "${VMLINUZ_GI}" "${INITRD_GI}" "${APPEND_GI}"
+	if [ -f "binary/${LIVE_INSTALL_KERNEL_PATH}/${VMLINUZ_DI}" ] && [ -f "binary/${LIVE_INSTALL_KERNEL_PATH}/${INITRD_DI}" ]
+	then
+		Syslinux_install_entry "Text" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
+	fi
+
+	if [ -f "binary/${LIVE_INSTALL_KERNEL_PATH}/${VMLINUZ_GI}" ] && [ -f "binary/${LIVE_INSTALL_KERNEL_PATH}/${INITRD_GI}" ]
+	then
+		Syslinux_install_entry "GUI" "${VMLINUZ_GI}" "${INITRD_GI}" "${APPEND_GI}"
+	fi
 fi
 
 # Assembling memtest configuration
