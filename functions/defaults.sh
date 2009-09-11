@@ -74,6 +74,16 @@ Set_defaults ()
 	APT_OPTIONS="${APT_OPTIONS:---yes}"
 	APTITUDE_OPTIONS="${APTITUDE_OPTIONS:---assume-yes}"
 
+	GZIP_OPTIONS="${GZIP_OPTIONS:---best}"
+
+	if gzip --help | grep -qs "\-\-rsyncable" && \
+	! echo ${GZIP_OPTIONS} | grep -q rsyncable
+	then
+		GZIP_OPTIONS="${GZIP_OPTIONS} --rsyncable"
+	else
+		GZIP_OPTIONS="$(echo ${GZIP_OPTIONS} | sed -e 's|--rsyncable||')"
+	fi
+
 	# Setting apt recommends
 	case "${LH_MODE}" in
 		debian|debian-release|ubuntu)

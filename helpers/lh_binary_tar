@@ -45,13 +45,8 @@ Create_lockfile .lock
 # Remove old binary
 rm -f binary.tar.gz
 
-if gzip --help | grep -qs '\-\-rsyncable'
-then
-	tar cf binary-tar.tar binary
-	gzip --rsyncable --best binary-tar.tar
-else
-	tar cfz binary-tar.tar.gz binary
-fi
+tar cf binary-tar.tar binary
+gzip ${GZIP_OPTIONS} binary-tar.tar
 
 # Creating stage file
 Create_stagefile .stage/binary_tar

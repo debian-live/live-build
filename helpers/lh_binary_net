@@ -140,13 +140,8 @@ case "${LH_NET_TARBALL}" in
 		;;
 
 	gzip)
-		if gzip --help | grep -qs "\-\-rsyncable"
-		then
-			tar cf ../binary-net.tar *
-			gzip --rsyncable --best ../binary-net.tar
-		else
-			tar cfz ../binary-net.tar.gz *
-		fi
+		tar cf ../binary-net.tar *
+		gzip ${GZIP_OPTIONS} ../binary-net.tar
 		;;
 
 	tar)
