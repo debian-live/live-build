@@ -78,14 +78,46 @@ Grub_install_entry ()
 	INITRD="${3}"
 	APPEND="${4}"
 
-	if [ "${LH_DISTRIBUTION}" != "etch" ] && [ "${LABEL}" != "rescue" ] && [ "${LABEL}" != "rescuegui" ]
+	# Boot in quiet mode where appropriate
+	if [ "${LH_DISTRIBUTION}" != "etch" ]
 	then
-		APPEND="${APPEND} quiet"
+		QAPPEND="quiet"
 	fi
 
-	LINUX_INSTALL="${LINUX_INSTALL}\ntitle\t\tDebian GNU/Linux - ${LABEL}"
-	LINUX_INSTALL="${LINUX_INSTALL}\nkernel\t\t/${KERNEL} ${APPEND} LH_BOOTAPPEND_INSTALL"
-	LINUX_INSTALL="${LINUX_INSTALL}\ninitrd\t\t/${INITRD}"
+	for TYPE in Install Expert Rescue Auto
+	do
+		case "${TYPE}" in
+			Install)
+				TAPPEND="${APPEND} ${QAPPEND}"
+				;;
+
+			Expert)
+				TAPPEND="priority=low ${APPEND}"
+				;;
+
+			Rescue)
+				TAPPEND="rescue/enable=true ${APPEND} ${QAPPEND}"
+				;;
+
+			Auto)
+				TAPPEND="auto=true priority=critical ${APPEND} ${QAPPEND}"
+				;;
+		esac
+
+		case "${LABEL}" in
+			Text)
+				TYPE_SUFFIX=""
+				;;
+			GUI)
+				TYPE_SUFFIX="gui"
+				;;
+		esac
+
+
+		LINUX_INSTALL="${LINUX_INSTALL}\ntitle\t\t${LABEL} ${TYPE}"
+		LINUX_INSTALL="${LINUX_INSTALL}\nkernel\t\t/${KERNEL} ${TAPPEND} ${LH_BOOTAPPEND_INSTALL}"
+		LINUX_INSTALL="${LINUX_INSTALL}\ninitrd\t\t/${INITRD}"
+	done
 }
 
 case "${LH_INITRAMFS}" in
@@ -222,14 +254,8 @@ then
 	INITRD_GI="install/gtk/initrd.gz"
 	APPEND_GI="video=vesa:ywrap,mtrr vga=788"
 
-	Grub_install_entry "install" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
-	Grub_install_entry "installgui" "${VMLINUZ_GI}" "${INITRD_GI}" "${APPEND_GI}"
-	Grub_install_entry "expert" "${VMLINUZ_DI}" "${INITRD_DI}" "priority=low ${APPEND_DI}"
-	Grub_install_entry "expertgui" "${VMLINUZ_GI}" "${INITRD_GI}" "priority=low ${APPEND_GI}"
-	Grub_install_entry "rescue" "${VMLINUZ_DI}" "${INITRD_DI}" "rescue/enable=true ${APPEND_DI}"
-	Grub_install_entry "rescuegui" "${VMLINUZ_GI}" "${INITRD_GI}" "rescue/enable=true ${APPEND_GI}"
-	Grub_install_entry "auto" "${VMLINUZ_DI}" "${INITRD_DI}" "auto=true priority=critical ${APPEND_DI}"
-	Grub_install_entry "autogui" "${VMLINUZ_GI}" "${INITRD_GI}" "auto=true priority=critical ${APPEND_GI}"
+	Grub_install_entry "Text" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
+	Grub_install_entry "GUI" "${VMLINUZ_GI}" "${INITRD_GI}" "${APPEND_GI}"
 fi
 
 LINUX_INSTALL="$(/bin/echo ${LINUX_INSTALL} | sed -e 's|binary||g' -e 's|//|/|g')"
