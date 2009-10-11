@@ -1,9 +1,0 @@
-## This is a sources.list for live-helper(7) to use packages from the
-## FAI - Fully Automated Install repository.
-##
-## To enable it, copy this file to your config/chroot_sources directory, once
-## as e.g. fai.chroot and once as fai.binary.
-
-# FAI - Fully Automatic Installation
-deb http://www.informatik.uni-koeln.de/fai/download/ etch koeln
-deb-src http://www.informatik.uni-koeln.de/fai/download/ etch koeln
