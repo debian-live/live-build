@@ -70,11 +70,11 @@ do
 
 		if [ "${DISTRIBUTION}" = "sid" ]
 		then
-			echo 'deb http://live.debian.net/debian/ ./' > config/chroot_sources/live-snapshots.chroot
-			echo 'deb http://live.debian.net/debian/ ./' > config/chroot_sources/live-snapshots.boot
+			echo 'deb http://live.debian.net/ sid/snapshots main' > config/chroot_sources/debian-live_sid-snapshots.chroot
+			echo 'deb http://live.debian.net/ sid/snapshots main' > config/chroot_sources/debian-live_sid-snapshots.boot
 
-			wget http://live.debian.net/debian/archive-key.asc -O config/chroot_sources/live-snapshots.chroot.gpg
-			wget http://live.debian.net/debian/archive-key.asc -O config/chroot_sources/live-snapshots.binary.gpg
+			wget http://live.debian.net/debian/project/openpgp/archive-key.asc -O config/chroot_sources/debian-live_sid-snapshots.chroot.gpg
+			wget http://live.debian.net/debian/project/openpgp/archive-key.asc -O config/chroot_sources/debian-live_sid-snapshots.binary.gpg
 
 		fi
 
