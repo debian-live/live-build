@@ -3,5 +3,12 @@
 ## LH: KDE Core
 #include <standard-x11>
 
-kde-core kdm
+#if DISTRIBUTION etch lenny
+kde-core
+#endif
+#if DISTRIBUTION squeeze sid
+kde-minimal
+#endif
+
+kdm
 desktop-base
