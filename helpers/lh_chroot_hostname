@@ -70,6 +70,12 @@ EOF
 		# Creating lock file
 		Create_lockfile .lock
 
+		# Copying hostname from local-includes, if existing
+		if [ -e config/chroot_local-includes/etc/hostname ]
+		then
+			cp -a config/chroot_local-includes/etc/hostname chroot/etc/hostname
+		fi
+
 		Echo_message "Deconfiguring file /bin/hostname"
 
 		# Restore hostname file
