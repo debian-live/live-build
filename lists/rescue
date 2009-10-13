@@ -7,12 +7,12 @@
 #include <debian-forensics>
 
 # Other forensic packages
-#if DISTRIBUTION lenny sid
+#if DISTRIBUTION lenny squeeze sid
 scalpel
 #endif
 
 # Bootloaders
-#if DISTRIBUTION lenny sid
+#if DISTRIBUTION lenny squeeze sid
 syslinux-common
 #endif
 #if ARCHITECTURE amd64 i386
