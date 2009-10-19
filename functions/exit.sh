@@ -9,6 +9,8 @@
 
 Exit ()
 {
+	VALUE="${?}"
+
 	if [ "${_DEBUG}" = "enabled" ]
 	then
 		# Dump variables
@@ -22,6 +24,8 @@ Exit ()
 	do
 		umount ${DIRECTORY} > /dev/null 2>&1 || true
 	done
+
+	return ${VALUE}
 }
 
 Setup_cleanup ()
