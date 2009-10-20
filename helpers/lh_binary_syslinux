@@ -193,7 +193,9 @@ Copy_syslinux_templates ()
 				;;
 
 			*)
-				MENUMODULE=$(grep 'menu.c32' ${TEMPLATES}/menu/syslinux.cfg | sed 's|default\s*.*/\(.*menu.c32\)$|\1|g')
+				LH_SYSLINUX_CFG="${LH_SYSLINUX_CFG:-${TEMPLATES}/menu/syslinux.cfg}"
+
+				MENUMODULE=$(grep 'menu.c32' ${LH_SYSLINUX_CFG} | sed 's|default\s*.*/\(.*menu.c32\)$|\1|g')
 				;;
 		esac
 
