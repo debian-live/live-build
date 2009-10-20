@@ -179,8 +179,24 @@ Copy_syslinux_templates ()
 	else
 		cp "${TEMPLATES}"/menu/* ${SCREEN_PATH}
 
-		# Grab menu binary
-		MENUMODULE=$(grep 'menu.c32' ${TEMPLATES}/menu/syslinux.cfg | sed 's|default\s*.*/\(.*menu.c32\)$|\1|g')
+		case "${LH_SYSLINUX_MENU}" in
+			gfxboot)
+				# to be implemented
+				;;
+
+			menu)
+				MENUMODULE="menu.c32"
+				;;
+
+			vesamenu)
+				MENUMODULE="vesamenu.c32"
+				;;
+
+			*)
+				MENUMODULE=$(grep 'menu.c32' ${TEMPLATES}/menu/syslinux.cfg | sed 's|default\s*.*/\(.*menu.c32\)$|\1|g')
+				;;
+		esac
+
 		case "${LH_CHROOT_BUILD}" in
 			enabled)
 				cp chroot/usr/lib/syslinux/"${MENUMODULE}" ${DATA_PATH}
