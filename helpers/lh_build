@@ -55,13 +55,13 @@ Set_defaults
 Check_defaults
 
 # Bootstrapping system
-lh_bootstrap ${*}
+lh bootstrap ${*}
 
 # Customizing chroot
-lh_chroot ${*}
+lh chroot ${*}
 
 # Building binary images
-lh_binary ${*}
+lh binary ${*}
 
 # Building source images
-lh_source ${*}
+lh source ${*}
