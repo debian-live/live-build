@@ -54,10 +54,10 @@ for ARGUMENT in ${ARGUMENTS}
 do
 	case "${ARGUMENT}" in
 		--all)
-			"${0}" noautoconfig --chroot
-			"${0}" noautoconfig --binary
-			"${0}" noautoconfig --stage
-			"${0}" noautoconfig --source
+			LH=1 "${0}" noautoconfig --chroot
+			LH=1 "${0}" noautoconfig --binary
+			LH=1 "${0}" noautoconfig --stage
+			LH=1 "${0}" noautoconfig --source
 
 			if [ -d scripts ]
 			then
@@ -103,13 +103,13 @@ do
 			;;
 
 		--remove)
-			"${0}" --all
+			LH=1 "${0}" --all
 			rm -rf cache/packages_*
 			;;
 
 		--purge)
-			"${0}" --all
-			"${0}" --cache
+			LH=1 "${0}" --all
+			LH=1 "${0}" --cache
 
 			if [ -e scripts/config ]
 			then
