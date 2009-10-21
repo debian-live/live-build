@@ -210,6 +210,11 @@ Local_arguments ()
 					rmdir --ignore-fail-on-non-empty config
 				fi
 
+				if [ -d scripts/functions ]
+				then
+					rmdir --ignore-fail-on-non-empty scripts/functions
+				fi
+
 				if [ -d scripts ]
 				then
 					rmdir --ignore-fail-on-non-empty scripts
