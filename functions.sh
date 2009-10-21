@@ -9,7 +9,7 @@ do
 done
 
 # Source local functions
-if [ -d scripts/functions ]
+if ls scripts/functions/*.sh > /dev/null 2>&1
 then
 	for FUNCTION in scripts/functions/*.sh
 	do
