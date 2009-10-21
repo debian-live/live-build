@@ -58,7 +58,7 @@ live-helper (1.0.5-2) unstable; urgency=low
   * Setting bootstrap mirror default to ftp.de.debian.org,
     ftp.us.debian.orgs is too unreliable (round-robin out of sync).
   * Adding example hook from Rui Miguel Bernardo
-    <rui.bernardo.pt@gmail.com> to use home on a seperated luks
+    <rui.bernardo.pt@gmail.com> to use home on a separated luks
     encrypted partition.
   * Improving replace-di-banner example hook.
   * Adding localepurge example hook.
