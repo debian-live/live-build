@@ -592,7 +592,15 @@ Set_defaults ()
 	then
 		case "${LH_MODE}" in
 			debian|debian-release|embedian)
-				LH_LINUX_PACKAGES="linux-image-2.6 \${LH_UNION_FILESYSTEM}-modules-2.6"
+				case "${LH_DISTRIBUTION}" in
+					etch|lenny|squeeze)
+						LH_LINUX_PACKAGES="linux-image-2.6 \${LH_UNION_FILESYSTEM}-modules-2.6"
+						;;
+
+					*)
+						LH_LINUX_PACKAGES="linux-image-2.6"
+						;;
+				esac
 
 				if [ "${LH_CHROOT_FILESYSTEM}" = "squashfs" ]
 				then
