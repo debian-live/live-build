@@ -54,6 +54,7 @@ lh binary_linux-image ${*}
 lh binary_debian-installer ${*}
 lh binary_memtest ${*}
 lh binary_grub ${*}
+lh binary_grub2 ${*}
 lh binary_syslinux ${*}
 lh binary_yaboot ${*}
 lh binary_silo ${*}

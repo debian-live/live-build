@@ -124,7 +124,15 @@ then
 	# late to fix it in d-i because lenny rc2 has been already released.
 	case "${LH_ARCHITECTURE}" in
 		amd64|i386|lpia)
-			Apt install grub
+			case "${LH_BOOTLOADER}" in
+				grub)
+					Apt install grub
+					;;
+
+				grub2)
+					Apt install grub2
+					;;
+			esac
 			;;
 
 		powerpc)
