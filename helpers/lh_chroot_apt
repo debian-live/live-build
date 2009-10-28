@@ -120,11 +120,6 @@ case "${1}" in
 
 		if Find_files config/chroot_local-packages/*.deb
 		then
-			if [ ! -f config/chroot_apt/preferences ] && [ "${1}" = "install-binary" ]
-			then
-				rm -f chroot/etc/apt/preferences
-			fi
-
 			echo >> chroot/etc/apt/preferences
 			echo "# Added by lh_chroot_apt ${@}" >> chroot/etc/apt/preferences
 			echo "Package: *" >> chroot/etc/apt/preferences
@@ -197,14 +192,44 @@ case "${1}" in
 			fi
 
 			cp config/chroot_apt/apt.conf chroot/etc/apt/apt.conf
+
+			if [ -f chroot/etc/apt/apt.conf.orig ]
+			then
+				mv chroot/etc/apt/apt.conf.orig chroot/etc/apt/apt.conf
+			fi
 		fi
 
 		# Deconfiguring apt preferences
-		if [ -f chroot/etc/apt/preferences.orig ]
+		if [ -f config/chroot_apt/preferences ]
 		then
-			mv chroot/etc/apt/preferences.orig chroot/etc/apt/preferences
-		else
-			rm -f chroot/etc/apt/preferences
+			if [ -f chroot/etc/apt/preferences ]
+			then
+				mv chroot/etc/apt/preferences chroot/etc/apt/preferences.orig
+			fi
+
+			cp config/chroot_apt/preferences chroot/etc/apt/preferences
+
+			if [ -f chroot/etc/apt/preferences.orig ]
+			then
+				mv chroot/etc/apt/preferences.orig chroot/etc/apt/preferences
+			fi
+		fi
+
+		if Find_files config/chroot_local-packages/*.deb
+		then
+			if [ -f chroot/etc/apt/preferences ]
+			then
+				# delete additions from lh_chroot_apt install|install-binary to preferences
+				sed -i '/# Added by lh_chroot_apt/,$d' chroot/etc/apt/preferences
+				# delete the last empty line
+				sed -i '${/^[[:blank:]]*$/d;}' chroot/etc/apt/preferences
+				# if the resulting preferences file is empty there was no user additions, remove it
+				if [ ! -s chroot/etc/apt/preferences ]
+				then
+					rm -rf chroot/etc/apt/preferences
+				fi
+			fi
+
 		fi
 
 		# Removing stage file
