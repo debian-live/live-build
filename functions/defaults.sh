@@ -1019,6 +1019,28 @@ Set_defaults ()
 
 Check_defaults ()
 {
+	if [ "${LH_CONFIG_VERSION}" ]
+	then
+		# We're only checking when we're actually running the checks
+		# that's why the check for emptyness of the version;
+		# however, as live-helper always declares LH_CONFIG_VERSION
+		# internally, this is safe assumption (no cases where it's unset,
+		# except when bootstrapping the functions/defaults etc.).
+		CURRENT_CONFIG_VERSION="$(echo ${LH_CONFIG_VERSION} | awk -F. '{ print $1 }')"
+
+		if [ ${CURRENT_CONFIG_VERSION} -ge 2 ]
+		then
+			Echo_error "This config tree is too new for this version of live-helper (${VERSION})."
+			Echo_error "Aborting build, please get a new version of live-helper."
+
+			exit 1
+		elif [ ${CURRENT_CONFIG_VERSION} -lt 1 ]
+		then
+			Echo_warning "This config tree does not specify a format version or has an unknown version number."
+			Echo_warning "Continueing build, but it could lead to errors or different results. Please repopulate the config tree."
+		fi
+	fi
+
 	if [ "${LH_DISTRIBUTION}" = "etch" ]
 	then
 		# etch + live-initramfs
