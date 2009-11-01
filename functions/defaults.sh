@@ -1099,22 +1099,22 @@ Check_defaults ()
 		esac
 	fi
 
-	if [ "$(echo ${LH_ISO_APPLICATION} | wc -c)" -ge 129 ]
+	if [ "$(echo ${LH_ISO_APPLICATION} | wc -c)" -gt 128 ]
 	then
 		Echo_warning "You have specified a value of LH_ISO_APPLICATION that is too long; the maximum length is 128 characters."
 	fi
 
-	if [ "$(echo ${LH_ISO_PREPARER} | wc -c)" -ge  129 ]
+	if [ "$(echo ${LH_ISO_PREPARER} | wc -c)" -gt  128 ]
 	then
 		Echo_warning "You have specified a value of LH_ISO_PREPARER that is too long; the maximum length is 128 characters."
 	fi
 
-	if [ "$(echo ${LH_ISO_PUBLISHER} | wc -c)" -ge 129 ]
+	if [ "$(echo ${LH_ISO_PUBLISHER} | wc -c)" -gt 128 ]
 	then
 		Echo_warning "You have specified a value of LH_ISO_PUBLISHER that is too long; the maximum length is 128 characters."
 	fi
 
-	if [ "$(eval "echo ${LH_ISO_VOLUME}" | wc -c)" -ge 33 ]
+	if [ "$(eval "echo ${LH_ISO_VOLUME}" | wc -c)" -gt 32 ]
 	then
 		Echo_warning "You have specified a value of LH_ISO_VOLUME that is too long; the maximum length is 32 characters."
 	fi
