@@ -315,10 +315,21 @@ Configure_syslinux_templates ()
 		$template_file
 	done
 
-	if [ -f "${SYSLINUX_PATH}/exithelp.cfg" ]
-	then
-		sed -i -e 's/isolinux.cfg/syslinux.cfg/' ${SYSLINUX_PATH}/exithelp.cfg
-	fi
+	case "${LH_BINARY_IMAGES}" in
+		usb-hdd)
+			if [ -f "${SYSLINUX_PATH}/exithelp.cfg" ]
+			then
+				sed -i -e "s|config isolinux.cfg|config syslinux.cfg|" "${SYSLINUX_PATH}"/exithelp.cfg
+			fi
+			;;
+
+		net)
+			if [ -f "${SCREEN_PATH}/exithelp.cfg" ]
+			then
+				sed -i -e "s|config isolinux.cfg|config ${LIVE_KERNEL_PATH}/pxelinux.cfg/default|" "${SCREEN_PATH}"/exithelp.cfg
+			fi
+			;;
+	esac
 
 	# Syslinux v3.31 in etch does not support include statements
 	if [ "${LH_DISTRIBUTION}" = "etch" ]
