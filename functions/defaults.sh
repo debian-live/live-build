@@ -1047,13 +1047,13 @@ Check_defaults ()
 		# etch + live-initramfs
 		if [ "${LH_INITRAMFS}" = "live-initramfs" ]
 		then
-			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_INITRAMFS='live-initramfs' This is a possible unsafe configuration as live-initramfs is not part of the etch distribution. Either make sure that live-initramfs is installable (e.g. through setting up etch-backports repository as third-party source or putting a valid live-initramfs deb into config/chroot_local-packages) or switch change your config to etch default (casper)."
+			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_INITRAMFS='live-initramfs'. This configuration is potentially unsafe as live-initramfs is not part of the etch distribution. Either make sure that live-initramfs is installable (e.g. through setting up etch-backports repository as third-party source or putting a valid live-initramfs deb into config/chroot_local-packages) or change your config to the etch default (casper)."
 		fi
 
 		# etch + aufs
 		if [ "${LH_UNION_FILESYSTEM}" = "aufs" ]
 		then
-			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_UNION_FILESYSTEM='aufs' This is a possible unsafe configuration as aufs is not part of the etch distribution. Either make sure that aufs modules for your kernel are installable (e.g. through setting up etch-backports repository as third-party source or putting a valid aufs-modules deb into config/chroot_local-packages) or switch change your config to etch default (unionfs)."
+			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_UNION_FILESYSTEM='aufs'. This configuration is potentially unsafe as live-initramfs is not part of the etch distribution. Either make sure that live-initramfs is installable (e.g. through setting up etch-backports repository as third-party source or putting a valid live-initramfs deb into config/chroot_local-packages) or change your config to the etch default (casper)."
 
 		fi
 	fi
@@ -1063,7 +1063,7 @@ Check_defaults ()
 		# aptitude + stripped|minimal
 		if [ "${LH_APT}" = "aptitude" ]
 		then
-			Echo_warning "You selected LH_PACKAGES_LISTS='%s' and LH_APT='aptitude'" "${LH_PACKAGES_LIST}. This is a possible unsafe configuration as aptitude is not used in the stripped/minimal package lists."
+			Echo_warning "You selected LH_PACKAGES_LISTS='%s' and LH_APT='aptitude'" "${LH_PACKAGES_LIST}. This configuration is potentially unsafe, as aptitude is not used in the stripped/minimal package lists."
 		fi
 	fi
 
@@ -1072,7 +1072,7 @@ Check_defaults ()
 		# d-i enabled, no caching
 		if ! echo ${LH_CACHE_STAGES} | grep -qs "bootstrap\b" || [ "${LH_CACHE}" != "enabled" ] || [ "${LH_CACHE_PACKAGES}" != "enabled" ]
 		then
-			Echo_warning "You have selected values of LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES an dLH_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being cached. This is a possible unsafe configuration as the bootstrap packages are re-used when integrating the Debian Installer."
+			Echo_warning "You have selected values of LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES and LH_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being cached. This configuration is potentially unsafe as the bootstrap packages are re-used when integrating the Debian Installer."
 		fi
 	fi
 
