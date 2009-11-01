@@ -627,6 +627,12 @@ case "${LH_BINARY_IMAGES}" in
 		ln -s ${LIVE_KERNEL_PATH}/pxelinux.cfg ${SYSLINUX_PATH}/pxelinux.cfg
 		ln -s ${LIVE_KERNEL_PATH}/pxelinux.0 ${SYSLINUX_PATH}/pxelinux.0
 
+		# Adjusting include pathes
+		for FILE in ${SCREEN_PATH}/*.cfg
+		do
+			sed -i -e "s|^include |include ${LIVE_SCREEN_PATH}/|g" "${FILE}"
+		done
+
 		mv ${SCREEN_PATH}/syslinux.cfg ${KERNEL_PATH}/pxelinux.cfg/default
 
 		# Copying configuration file
