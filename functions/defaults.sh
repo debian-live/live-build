@@ -472,6 +472,7 @@ Set_defaults ()
 				case "${LH_MODE}" in
 					ubuntu)
 						Echo_error "Architecture ${LH_ARCHITECTURE} not supported on Ubuntu."
+						exit 1
 						;;
 
 					*)
