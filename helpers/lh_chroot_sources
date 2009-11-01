@@ -149,7 +149,7 @@ case "${1}" in
 					# Ensure ~/.gnupg exists (required for gnupg >= ~1.4.9)
 					mkdir -p chroot/root/.gnupg
 
-					# Temporarily replace /dev/urandom with /dev/random so as not
+					# Temporarily replace /dev/random with /dev/urandom so as not
 					# to block automated image builds; we don't care about the
 					# security of this key anyway.
 					mv chroot/dev/random chroot/dev/random.orig
