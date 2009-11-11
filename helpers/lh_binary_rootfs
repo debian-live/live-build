@@ -152,14 +152,11 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					rm -f .lock
 					mv chroot/chroot chroot.tmp
 
-					lh chroot_linux-image remove ${*}
 					lh chroot_sources remove ${*}
 					lh chroot_apt remove ${*}
 					lh chroot_hostname remove ${*}
 					lh chroot_resolv remove ${*}
 					lh chroot_hosts remove ${*}
-					lh chroot_sysv-rc remove ${*}
-					lh chroot_debianchroot remove ${*}
 					lh chroot_sysfs remove ${*}
 					lh chroot_selinuxfs remove ${*}
 					lh chroot_proc remove ${*}
@@ -172,14 +169,11 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					lh chroot_proc install ${*}
 					lh chroot_selinuxfs install ${*}
 					lh chroot_sysfs install ${*}
-					lh chroot_debianchroot install ${*}
-					lh chroot_sysv-rc install ${*}
 					lh chroot_hosts install ${*}
 					lh chroot_resolv install ${*}
 					lh chroot_hostname install ${*}
 					lh chroot_apt install ${*}
 					lh chroot_sources install ${*}
-					lh chroot_linux-image install ${*}
 
 					touch .lock
 				else
@@ -232,14 +226,11 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					rm -f .lock
 					mv chroot/chroot chroot.tmp
 
-					lh chroot_linux-image remove ${*}
 					lh chroot_sources remove ${*}
 					lh chroot_apt remove ${*}
 					lh chroot_hostname remove ${*}
 					lh chroot_resolv remove ${*}
 					lh chroot_hosts remove ${*}
-					lh chroot_sysv-rc remove ${*}
-					lh chroot_debianchroot remove ${*}
 					lh chroot_sysfs remove ${*}
 					lh chroot_selinuxfs remove ${*}
 					lh chroot_proc remove ${*}
@@ -252,14 +243,11 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					lh chroot_proc install ${*}
 					lh chroot_selinuxfs install ${*}
 					lh chroot_sysfs install ${*}
-					lh chroot_debianchroot install ${*}
-					lh chroot_sysv-rc install ${*}
 					lh chroot_hosts install ${*}
 					lh chroot_resolv install ${*}
 					lh chroot_hostname install ${*}
 					lh chroot_apt install ${*}
 					lh chroot_sources install ${*}
-					lh chroot_linux-image install ${*}
 				else
 					rm -rf chroot/chroot
 				fi
@@ -343,14 +331,11 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					rm -f .lock
 					mv chroot/chroot chroot.tmp
 
-					lh chroot_linux-image remove ${*}
 					lh chroot_sources remove ${*}
 					lh chroot_apt remove ${*}
 					lh chroot_hostname remove ${*}
 					lh chroot_resolv remove ${*}
 					lh chroot_hosts remove ${*}
-					lh chroot_sysv-rc remove ${*}
-					lh chroot_debianchroot remove ${*}
 					lh chroot_sysfs remove ${*}
 					lh chroot_selinuxfs remove ${*}
 					lh chroot_proc remove ${*}
@@ -363,14 +348,11 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					lh chroot_proc install ${*}
 					lh chroot_selinuxfs install ${*}
 					lh chroot_sysfs install ${*}
-					lh chroot_debianchroot install ${*}
-					lh chroot_sysv-rc install ${*}
 					lh chroot_hosts install ${*}
 					lh chroot_resolv install ${*}
 					lh chroot_hostname install ${*}
 					lh chroot_apt install ${*}
 					lh chroot_sources install ${*}
-					lh chroot_linux-image install ${*}
 
 					touch .lock
 				else
