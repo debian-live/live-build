@@ -94,6 +94,12 @@ Syslinux_live_entry ()
 			NUMBER="$(ls -1 ${KERNEL_PATH} | grep 'vmlinuz[0-9]\+$' | wc -l)"
 			NUMBER="$((${NUMBER} +1))"
 
+			# Do not add numbering to filenames if first kernel/initrd
+			if [ "${NUMBER}" = "1" ]
+			then
+				NUMBER=""
+			fi
+
 			# Note: ISOLINUX will not find the kernel if the name ends in ".img".
 			mv ${KERNEL_PATH}/${KERNEL} ${KERNEL_PATH}/vmlinuz${NUMBER}
 			mv ${KERNEL_PATH}/${INITRD} ${KERNEL_PATH}/initrd${NUMBER}.img
