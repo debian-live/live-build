@@ -44,9 +44,9 @@ Calculate_partition_size ()
 			PERCENT="5"
 			;;
 		*)
-			PERCENT="2"
+			PERCENT="3"
 			;;
 	esac
 
-	echo $(expr ${ORIGINAL_SIZE} + ${ORIGINAL_SIZE} \* ${PERCENT} / 100)
+	echo $(expr ${ORIGINAL_SIZE} + ${ORIGINAL_SIZE} \* ${PERCENT} / 100 + 1)
 }
