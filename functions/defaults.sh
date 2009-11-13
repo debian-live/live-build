@@ -824,19 +824,19 @@ Set_defaults ()
 		esac
 	fi
 
-	if [ -z "${LH_BOOTAPPEND_INSTALL}" ]
+	if [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
 	then
 		# Try USB block devices for install media
-		if [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
-		then
-			LH_BOOTAPPEND_INSTALL="cdrom-detect/try-usb=true"
-		fi
+		LH_BOOTAPPEND_INSTALL="cdrom-detect/try-usb=true ${LH_BOOTAPPEND_INSTALL}"
+	fi
 
-		if [ -n ${_LH_BOOTAPPEND_PRESEED} ]
-		then
-			LH_BOOTAPPEND_INSTALL="${LH_BOOTAPPEND_INSTALL} ${_LH_BOOTAPPEND_PRESEED}"
-		fi
+	if [ -n ${_LH_BOOTAPPEND_PRESEED} ]
+	then
+		LH_BOOTAPPEND_INSTALL="${LH_BOOTAPPEND_INSTALL} ${_LH_BOOTAPPEND_PRESEED}"
+	fi
 
+	if [ -n "${LH_BOOTAPPEND_LIVE}" ]
+	then
 		LH_BOOTAPPEND_INSTALL="${LH_BOOTAPPEND_INSTALL} -- \${LH_BOOTAPPEND_LIVE}"
 	fi
 
