@@ -778,7 +778,12 @@ Set_defaults
 # Checking defaults
 Check_defaults
 
-Echo_message "Creating config tree"
+if [ ! -e config ]
+then
+	Echo_message "Creating config tree"
+else
+	Echo_message "Updating config tree"
+fi
 
 # Creating bootstrap configuration
 mkdir -p config
