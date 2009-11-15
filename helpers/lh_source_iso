@@ -69,6 +69,11 @@ then
 	rm -f source.iso
 fi
 
+if [ "${LH_QUIET}" = "enabled" ]
+then
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -quiet"
+fi
+
 if [ "${LH_VERBOSE}" = "enabled" ]
 then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -v"

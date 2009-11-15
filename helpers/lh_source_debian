@@ -76,12 +76,15 @@ case "${LH_ARCHITECTURE}" in
 	amd64|i386)
 
 cat >> chroot/root/dpkg-selection.txt << EOF
-${LH_MEMTEST}
 mtools
 syslinux
 grub
 EOF
 
+if [ "${LH_MEMTEST}" != "disabled" ] && [ "${LH_MEMTEST}" != "none" ]
+then
+	echo "${LH_MEMTEST}" >> chroot/root/dpkg-selection.txt
+fi
 		;;
 
 	powerpc)

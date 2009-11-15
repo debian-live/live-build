@@ -33,6 +33,11 @@ Read_conffile config/source
 Read_conffile "${LH_CONFIG}"
 Set_defaults
 
+if [ "${LH_QUIET}" = "enabled" ]
+then
+	WGET_OPTIONS="${WGET_OPTIONS} --quiet"
+fi
+
 # Setting remote d-i directories
 case "${LH_DEBIAN_INSTALLER}" in
 	enabled|cdrom|netinst|businesscard|live)
@@ -184,15 +189,15 @@ fi
 
 # Downloading debian-installer
 mkdir -p "${DESTDIR_DI}"
-wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI}/${DI_KERNEL}
-wget --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI}/initrd.gz
+wget ${WGET_OPTIONS} --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI}/${DI_KERNEL}
+wget ${WGET_OPTIONS} --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI}/initrd.gz
 
 # Downloading graphical-installer
 if [ "${LH_ARCHITECTURE}" = "amd64" ] || [ "${LH_ARCHITECTURE}" = "i386" ] || [ "${LH_ARCHITECTURE}" = "powerpc" ]
 then
 	mkdir -p "${DESTDIR_GI}"
-	wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_GTK}/${DI_KERNEL}
-	wget --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_GTK}/initrd.gz
+	wget ${WGET_OPTIONS} --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_GTK}/${DI_KERNEL}
+	wget ${WGET_OPTIONS} --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_GTK}/initrd.gz
 fi
 
 if [ "${LH_DEBIAN_INSTALLER}" != "netboot" ]; then
@@ -294,13 +299,13 @@ gzip -9 -c dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages > di
 cd "${OLDPWD}"
 
 # Fetching release
-wget "${LH_MIRROR_BOOTSTRAP}"/dists/"${LH_DISTRIBUTION}"/main/binary-"${LH_ARCHITECTURE}"/Release -O binary/dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Release
+wget ${WGET_OPTIONS} "${LH_MIRROR_BOOTSTRAP}"/dists/"${LH_DISTRIBUTION}"/main/binary-"${LH_ARCHITECTURE}"/Release -O binary/dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Release
 
 mkdir binary.udeb
 cd binary.udeb
 
 # Downloading udeb indices
-wget "${LH_MIRROR_BOOTSTRAP}"/dists/"${LH_DISTRIBUTION}"/main/debian-installer/binary-"${LH_ARCHITECTURE}"/Packages.gz
+wget ${WGET_OPTIONS} "${LH_MIRROR_BOOTSTRAP}"/dists/"${LH_DISTRIBUTION}"/main/debian-installer/binary-"${LH_ARCHITECTURE}"/Packages.gz
 gunzip -c Packages.gz > Packages
 
 # Sorting udebs
@@ -315,7 +320,7 @@ do
 		cp ../cache/packages_debian-installer.udeb/"`basename ${UDEB}`" ./
 	else
 		# Downloading udebs
-		wget "${LH_MIRROR_BOOTSTRAP}"/${UDEB}
+		wget ${WGET_OPTIONS} "${LH_MIRROR_BOOTSTRAP}"/${UDEB}
 	fi
 done
 
@@ -361,6 +366,12 @@ fi
 grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DISTRIBUTION}"/udeb_exclude > exclude
 grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DISTRIBUTION}"/exclude-udebs >> exclude
 grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DISTRIBUTION}"/exclude-udebs-${LH_ARCHITECTURE} >> exclude
+
+# Local exclude file
+if [ -e ../config/binary_debian-installer/udeb_exclude ]
+then
+	cat ../config/binary_debian-installer/udeb_exclude >> exclude
+fi
 
 for EXCLUDE in `cat exclude`
 do

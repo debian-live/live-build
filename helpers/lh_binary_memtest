@@ -33,7 +33,7 @@ Read_conffile config/source
 Read_conffile "${LH_CONFIG}"
 Set_defaults
 
-if [ "${LH_MEMTEST}" = "disabled" ]
+if [ "${LH_MEMTEST}" = "disabled" ] || [ "${LH_MEMTEST}" = "none" ]
 then
 	exit 0
 fi
