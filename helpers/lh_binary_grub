@@ -177,7 +177,7 @@ then
 	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} union=${LH_UNION_FILESYSTEM}"
 fi
 
-LH_BOOTAPPEND_LIVE="`echo ${LH_BOOTAPPEND_LIVE} | sed -e 's/  //'`"
+LH_BOOTAPPEND_LIVE="$(echo ${LH_BOOTAPPEND_LIVE} | sed -e 's/  //')"
 
 # Parameters are listed at: linux/Documentation/kernel-parameters.txt
 FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=normal"
@@ -185,22 +185,22 @@ FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=normal"
 # Assembling kernel configuration
 
 # Default entries
-DEFAULT_FLAVOUR="`echo ${LH_LINUX_FLAVOURS} | awk '{ print $1 }'`"
-DEFAULT_KERNEL="`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`"
-DEFAULT_INITRD="initrd.img-`echo ${DEFAULT_KERNEL} | sed -e 's/vmlinuz-//'`"
+DEFAULT_FLAVOUR="$(echo ${LH_LINUX_FLAVOURS} | awk '{ print $1 }')"
+DEFAULT_KERNEL="$(basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR})"
+DEFAULT_INITRD="initrd.img-$(echo ${DEFAULT_KERNEL} | sed -e 's/vmlinuz-//')"
 
-Grub_live_entry "live" "`basename ${DESTDIR_LIVE}`/${DEFAULT_KERNEL}" "`basename ${DESTDIR_LIVE}`/${DEFAULT_INITRD}"
-Grub_live_entry "live (fail-safe mode)" "`basename ${DESTDIR_LIVE}`/${DEFAULT_KERNEL}" "`basename ${DESTDIR_LIVE}`/${DEFAULT_INITRD}" "${FAILSAFE}"
+Grub_live_entry "live" "$(basename ${DESTDIR_LIVE})/${DEFAULT_KERNEL}" "$(basename ${DESTDIR_LIVE})/${DEFAULT_INITRD}"
+Grub_live_entry "live (fail-safe mode)" "$(basename ${DESTDIR_LIVE})/${DEFAULT_KERNEL}" "$(basename ${DESTDIR_LIVE})/${DEFAULT_INITRD}" "${FAILSAFE}"
 
 for KERNEL in chroot/boot/vmlinuz-*
 do
-	VERSION="`basename ${KERNEL} | sed -e 's/vmlinuz-//'`"
+	VERSION="$(basename ${KERNEL} | sed -e 's/vmlinuz-//')"
 
-	Grub_live_entry "live, kernel ${VERSION}" "`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}`" "`basename ${DESTDIR_LIVE}`/initrd.img-${VERSION}"
-	Grub_live_entry "live, kernel ${VERSION} (fail-safe mode)" "`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}`" "`basename ${DESTDIR_LIVE}`/initrd.img-${VERSION}" "${FAILSAFE}"
+	Grub_live_entry "live, kernel ${VERSION}" "$(basename ${DESTDIR_LIVE})/$(basename ${KERNEL})" "$(basename ${DESTDIR_LIVE})/initrd.img-${VERSION}"
+	Grub_live_entry "live, kernel ${VERSION} (fail-safe mode)" "$(basename ${DESTDIR_LIVE})/$(basename ${KERNEL})" "$(basename ${DESTDIR_LIVE})/initrd.img-${VERSION}" "${FAILSAFE}"
 done
 
-LINUX_LIVE="`/bin/echo ${LINUX_LIVE} | sed -e 's/binary//g' -e 's#//#/#g'`"
+LINUX_LIVE="$(/bin/echo ${LINUX_LIVE} | sed -e 's/binary//g' -e 's#//#/#g')"
 
 # Assembling debian-installer configuration
 if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
@@ -226,14 +226,14 @@ then
 	Grub_install_entry "autogui" "${VMLINUZ_GI}" "${INITRD_GI}" "auto=true priority=critical ${APPEND_GI}"
 fi
 
-LINUX_INSTALL="`/bin/echo ${LINUX_INSTALL} | sed -e 's/binary//g' -e 's#//#/#g'`"
+LINUX_INSTALL="$(/bin/echo ${LINUX_INSTALL} | sed -e 's/binary//g' -e 's#//#/#g')"
 
 # Assembling memtest configuration
 if [ -f "${DESTDIR_LIVE}"/memtest ]
 then
 	MEMTEST="title\t\tOther:\nroot"
-	MEMTEST="${MEMTEST}\n\ntitle\t\t${LH_MEMTEST}\nkernel\t\t/`basename ${DESTDIR_LIVE}`/memtest"
-	MEMTEST="`/bin/echo ${MEMTEST} | sed -e 's#//#/#g'`"
+	MEMTEST="${MEMTEST}\n\ntitle\t\t${LH_MEMTEST}\nkernel\t\t/$(basename ${DESTDIR_LIVE})/memtest"
+	MEMTEST="$(/bin/echo ${MEMTEST} | sed -e 's#//#/#g')"
 fi
 
 # Copying templates
@@ -252,7 +252,7 @@ esac
 
 if [ "${LH_CHROOT_BUILD}" = "disabled" ]
 then
-	FILES="`echo ${FILES} | sed -e 's/chroot//g'`"
+	FILES="$(echo ${FILES} | sed -e 's/chroot//g')"
 fi
 
 # Copying grub
@@ -285,7 +285,7 @@ then
 	else
 		# Overwriting splash file
 		cp -f "${LH_GRUB_SPLASH}" binary/boot/grub
-		sed -i -e "s#splashimage.*#splashimage /boot/grub/`basename ${LH_GRUB_SPLASH}`#" binary/boot/grub/menu.lst
+		sed -i -e "s#splashimage.*#splashimage /boot/grub/$(basename ${LH_GRUB_SPLASH})#" binary/boot/grub/menu.lst
 	fi
 fi
 

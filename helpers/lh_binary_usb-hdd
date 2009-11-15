@@ -81,10 +81,10 @@ then
 fi
 
 # Everything which comes here needs to be cleaned up,
-DU_DIM="`du -ms binary | cut -f1`"
-REAL_DIM="`expr ${DU_DIM} + ${DU_DIM} / 50`" # Just 2% more to be sure, need something more sophistcated here...
+DU_DIM="$(du -ms binary | cut -f1)"
+REAL_DIM="$(expr ${DU_DIM} + ${DU_DIM} / 50)" # Just 2% more to be sure, need something more sophistcated here...
 dd if=/dev/zero of=chroot/binary.img bs=1024k count=${REAL_DIM}
-FREELO="`${LH_LOSETUP} -f`"
+FREELO="$(${LH_LOSETUP} -f)"
 if [ ! -b chroot/${FREELO} ]
 then
 	MAKEDEV="true"
@@ -124,7 +124,7 @@ esac
 
 ${LH_LOSETUP} -d ${FREELO}
 
-FREELO="`${LH_LOSETUP} -f`"
+FREELO="$(${LH_LOSETUP} -f)"
 lh_losetup $FREELO chroot/binary.img 1
 
 case "${LH_CHROOT_BUILD}" in
@@ -153,8 +153,8 @@ find /live/vmlinuz
 EOM
 EOF
 
-	rootpartition="`Chroot 'sh grub.sh' 2>/dev/null | grep -A 1 'find /live/vmlinuz' | grep -v 'find /live/vmlinuz'`"
-	usbdev="`echo $rootpartition | sed -e 's/,[[:digit:]]//'`"
+	rootpartition="$(Chroot 'sh grub.sh' 2>/dev/null | grep -A 1 'find /live/vmlinuz' | grep -v 'find /live/vmlinuz')"
+	usbdev="$(echo $rootpartition | sed -e 's/,[[:digit:]]//')"
 	echo "Root partition is $rootpartition, device is: $usbdev"
 
 	echo "WAITING..." && read

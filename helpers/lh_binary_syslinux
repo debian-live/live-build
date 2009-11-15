@@ -68,22 +68,48 @@ Restore_cache cache/packages_binary
 Install_package
 
 # Local functions
+Syslinux_memtest_entry ()
+{
+	LABEL="${1}"
+	MENULABEL="${2}"
+	KERNEL="${3}"
+
+	# syslinux << 3.36 lacks support to file/path
+	if [ "$(basename ${DESTDIR_LIVE})" != "binary" ]
+	then
+		KERNEL="${DIRECTORY}/${KERNEL}"
+	fi
+
+	MEMTEST="${MEMTEST}\nLABEL ${LABEL}\n"
+
+	# Write the menu label if the syslinux menu is being use
+	MEMTEST="${MEMTEST}\tMENU LABEL ${MENULABEL}\n"
+
+	MEMTEST="${MEMTEST}\tkernel /${KERNEL}\n"
+	MEMTEST="$(/bin/echo ${MEMTEST} | sed -e 's#//#/#g')"
+}
+
 Syslinux_live_entry ()
 {
 	LABEL="${1}"
-	KERNEL="${2}"
-	INITRD="${3}"
-	APPEND="${4}"
+	MENULABEL="${2}"
+	KERNEL="${3}"
+	INITRD="${4}"
+	APPEND="${5}"
 
 	# syslinux << 3.36 lacks support to file/path
-	if [ "${LH_BINARY_IMAGES}" != "net" ] && [ "`basename ${DESTDIR_LIVE}`" != "binary" ]
+	if [ "${LH_BINARY_IMAGES}" != "net" ] && [ "$(basename ${DESTDIR_LIVE})" != "binary" ]
 	then
-		DIRECTORY="`basename ${DESTDIR_LIVE}`"
+		DIRECTORY="$(basename ${DESTDIR_LIVE})"
 		KERNEL="${DIRECTORY}/${KERNEL}"
 		INITRD="${DIRECTORY}/${INITRD}"
 	fi
 
 	LINUX_LIVE="${LINUX_LIVE}\nLABEL ${LABEL}\n"
+
+	# Write the menu label if the syslinux menu is being use
+	LINUX_LIVE="${LINUX_LIVE}\tMENU LABEL ${MENULABEL}\n"
+
 	LINUX_LIVE="${LINUX_LIVE}\tkernel /${KERNEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=/${INITRD} boot=${INITFS} LH_BOOTAPPEND_LIVE ${APPEND}\n"
 }
@@ -96,9 +122,9 @@ Syslinux_install_entry ()
 	APPEND="${4}"
 
 	# syslinux << 3.36 lacks support to file/path
-	if [ "${LH_BINARY_IMAGES}" != "net" ] && [ "`basename ${DESTDIR_INSTALL}`" != "binary" ]
+	if [ "${LH_BINARY_IMAGES}" != "net" ] && [ "$(basename ${DESTDIR_INSTALL})" != "binary" ]
 	then
-		DIRECTORY="`basename ${DESTDIR_INSTALL}`"
+		DIRECTORY="$(basename ${DESTDIR_INSTALL})"
 		KERNEL="${DIRECTORY}/${KERNEL}"
 		INITRD="${DIRECTORY}/${INITRD}"
 	fi
@@ -238,7 +264,7 @@ then
 	fi
 fi
 
-LH_BOOTAPPEND_LIVE="`echo ${LH_BOOTAPPEND_LIVE} | sed -e 's/  //'`"
+LH_BOOTAPPEND_LIVE="$(echo ${LH_BOOTAPPEND_LIVE} | sed -e 's/  //')"
 
 # Parameters are listed at: linux/Documentation/kernel-parameters.txt
 FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=normal"
@@ -246,27 +272,27 @@ FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=normal"
 # Assembling kernel configuration
 
 # Default entries
-DEFAULT_FLAVOUR="`echo ${LH_LINUX_FLAVOURS} | awk '{ print $1 }'`"
-DEFAULT_KERNEL="`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`"
-DEFAULT_INITRD="initrd.img-`echo ${DEFAULT_KERNEL} | sed -e 's/vmlinuz-//'`"
+DEFAULT_FLAVOUR="$(echo ${LH_LINUX_FLAVOURS} | awk '{ print $1 }')"
+DEFAULT_KERNEL="$(basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR})"
+DEFAULT_INITRD="initrd.img-$(echo ${DEFAULT_KERNEL} | sed -e 's/vmlinuz-//')"
 
-Syslinux_live_entry "live" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
-Syslinux_live_entry "live-failsafe" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}" "${FAILSAFE}"
+Syslinux_live_entry "live" "${LH_SYSLINUX_MENU_LIVE_ENTRY}" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
+Syslinux_live_entry "live-failsafe" "${LH_SYSLINUX_MENU_LIVE_FAILSAFE_ENTRY}" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}" "${FAILSAFE}"
 
-if [ "`echo ${LH_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
+if [ "$(echo ${LH_LINUX_FLAVOURS} | wc -w)" -gt "1" ]
 then
 	for KERNEL in chroot/boot/vmlinuz-*
 	do
-		KERNEL_IMAGE="`basename ${KERNEL}`"
-		KERNEL_VERSION="`echo ${KERNEL_IMAGE} | sed -e 's/vmlinuz-//'`"
+		KERNEL_IMAGE="$(basename ${KERNEL})"
+		KERNEL_VERSION="$(echo ${KERNEL_IMAGE} | sed -e 's/vmlinuz-//')"
 		INITRD="initrd.img-${KERNEL_VERSION}"
 
-		Syslinux_live_entry "live-${KERNEL_VERSION}" "${KERNEL_IMAGE}" "${INITRD}"
-		Syslinux_live_entry "live-${KERNEL_VERSION}-failsafe" "${KERNEL_IMAGE}" "${INITRD}" "${FAILSAFE}"
+		Syslinux_live_entry "live-${KERNEL_VERSION}" "${LH_SYSLINUX_MENU_LIVE_ENTRY}" "${KERNEL_IMAGE}" "${INITRD}"
+		Syslinux_live_entry "live-${KERNEL_VERSION}-failsafe" "${LH_SYSLINUX_MENU_LIVE_FAILSAFE_ENTRY}" "${KERNEL_IMAGE}" "${INITRD}" "${FAILSAFE}"
 	done
 fi
 
-LINUX_LIVE="`/bin/echo ${LINUX_LIVE} | sed -e 's/binary//g' -e 's#//#/#g'`"
+LINUX_LIVE="$(/bin/echo ${LINUX_LIVE} | sed -e 's/binary//g' -e 's#//#/#g')"
 
 # Assembling debian-installer configuration
 if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
@@ -303,21 +329,12 @@ then
 	Syslinux_install_entry "autogui" "${VMLINUZ_GI}" "${INITRD_GI}" "auto=true priority=critical ${APPEND_GI}"
 fi
 
-LINUX_INSTALL="`/bin/echo ${LINUX_INSTALL} | sed -e 's/binary//g' -e 's#//#/#g'`"
+LINUX_INSTALL="$(/bin/echo ${LINUX_INSTALL} | sed -e 's/binary//g' -e 's#//#/#g')"
 
 # Assembling memtest configuration
 if [ -f "${DESTDIR_LIVE}"/memtest ]
 then
-	KERNEL_PATH="/`basename ${DESTDIR_LIVE}`/"
-
-	# syslinux << 3.36 lacks support to file/path
-	if [ "`basename ${DESTDIR_LIVE}`" = "binary" ]
-	then
-		KERNEL_PATH=""
-	fi
-
-	MEMTEST="LABEL memtest\n\tkernel ${KERNEL_PATH}memtest"
-	MEMTEST="`/bin/echo ${MEMTEST} | sed -e 's#//#/#g'`"
+	Syslinux_memtest_entry "memtest" "${LH_SYSLINUX_MENU_MEMTEST_ENTRY}" "memtest"
 fi
 
 case "${LH_BINARY_IMAGES}" in
@@ -335,68 +352,110 @@ case "${LH_BINARY_IMAGES}" in
 				;;
 		esac
 
+		# Syslinux templates
 		cp -r "${TEMPLATES}"/common/* binary/isolinux
-		cp -r "${TEMPLATES}"/"${LH_LANGUAGE}"/* binary/isolinux
+		if [ "${LH_SYSLINUX_MENU}" = "disabled" ]
+		then
+			cp -r "${TEMPLATES}"/normal/* binary/isolinux
+		else
+			cp -r "${TEMPLATES}"/menu/* binary/isolinux
+		fi
+
+		if [ -d "${TEMPLATES}"/"${LH_LANGUAGE}" ]
+		then
+			cp -r "${TEMPLATES}"/"${LH_LANGUAGE}"/* binary/isolinux
+		else
+			cp -r "${TEMPLATES}"/en/* binary/isolinux
+		fi
 
 		for FILE in binary/isolinux/*.live
 		do
-			mv ${FILE} `dirname ${FILE}`/`basename ${FILE} .live`
+			mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .live)
 		done
 
 		if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
 		then
 			for FILE in binary/isolinux/*.install
 			do
-				mv ${FILE} `dirname ${FILE}`/`basename ${FILE} .install`
+				mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .install)
 			done
 
-			if [ "${LH_ARCHITECTURE}" = "amd64" ] || [ "${LH_ARCHITECTURE}" = "i386" ] || [ "${LH_ARCHITECTURE}" = "powerpc" ]
-			then
-				for FILE in binary/isolinux/*.install.g-i
-				do
-					mv ${FILE} `dirname ${FILE}`/`basename ${FILE} .install.g-i`
-				done
-			else
-				rm -f binary/isolinux/*.install.g-i
-			fi
+			case "${LH_ARCHITECTURE}" in
+				amd64|i386|powerpc)
+					for FILE in binary/isolinux/*.install.g-i
+					do
+						mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .install.g-i)
+					done
+					;;
+
+				*)
+					rm -f binary/isolinux/*.install.g-i
+					;;
+			esac
 		else
 			rm -f binary/isolinux/*.install*
 		fi
 
 		mv binary/isolinux/syslinux.cfg binary/isolinux/isolinux.cfg
 
-		# Copying local configuration file
-		if [ -f config/binary_syslinux/syslinux.cfg ]
+		# Copying configuration file
+		if [ -n "${LH_SYSLINUX_CFG}" ]
 		then
-			cp config/binary_syslinux/syslinux.cfg binary/isolinux/isolinux.cfg
+			cp "${LH_SYSLINUX_CFG}" binary/isolinux/isolinux.cfg
 		fi
 
-		# Copying splash screen
-		if [ -f config/binary_syslinux/splash.rle ]
+		# Copying local configuration file
+		if [ -f config/binary_syslinux/syslinux.cfg ]
 		then
 			LH_SYSLINUX_SPLASH="config/binary_syslinux/splash.rle"
 		fi
 
-		if [ -n "${LH_SYSLINUX_SPLASH}" ]
+		# Copying menu module
+		if [ "${LH_SYSLINUX_MENU}" != "disabled" ]
 		then
-			if [ "${LH_SYSLINUX_SPLASH}" = "none" ]
+			MENUPATH="$(grep 'menu.c32' binary/isolinux/header.cfg | sed 's,default\s*\(.*menu.c32\)$,\1,g')"
+			MENUMODULE="$(basename ${MENUPATH})"
+
+			mkdir -p binary/isolinux/"$(dirname ${MENUPATH})"
+			cp chroot/usr/lib/syslinux/"${MENUMODULE}" binary/isolinux/"$(dirname ${MENUPATH})"
+		fi
+
+		# Copying splash screen
+		if [ -z "${LH_SYSLINUX_SPLASH}" ] || [ "${LH_SYSLINUX_SPLASH}" = "none" ] 
+		then
+			rm -f binary/isolinux/splash.rle
+			sed -i -e "s/.*splash.*//" binary/isolinux/boot.txt
+		else
+			if [ "${LH_SYSLINUX_MENU}" != "disabled" ]
 			then
-				rm -f binary/isolinux/splash.rle
-				sed -i -e "s/.*splash.*//" binary/isolinux/boot.txt
+				SPLASHPATH="$(grep -i 'menu background' binary/isolinux/header.cfg | sed 's,menu\sbackground\s*\(.*\)$,\1,g')"
+				if [ ! -e "${LH_SYSLINUX_SPLASH}" ]
+				then
+					Echo_error "${LH_SYSLINUX_SPLASH} doen't exist"
+					exit 1
+				fi
+				mkdir -p binary/isolinux/"$(dirname ${SPLASHPATH})"
+				cp -f "${LH_SYSLINUX_SPLASH}" binary/isolinux/"${SPLASHPATH}"
 			else
 				cp -f "${LH_SYSLINUX_SPLASH}" binary/isolinux/splash.rle
 			fi
 		fi
 
 		# Configure syslinux templates
-		sed -i -e "s@LINUX_LIVE@${LINUX_LIVE}@" -e "s@LINUX_INSTALL@${LINUX_INSTALL}@" -e "s@MEMTEST@${MEMTEST}@" binary/isolinux/isolinux.cfg
-		sed -i -e "s#LH_BOOTAPPEND_INSTALL#${LH_BOOTAPPEND_INSTALL}#" -e "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" binary/isolinux/isolinux.cfg
-		sed -i -e "s/LH_DISTRIBUTION/${LH_DISTRIBUTION}/" -e "s/LH_DATE/`date +%Y%m%d`/" -e "s/LH_MEDIA/CD-ROM/" binary/isolinux/f1.txt
+		sed -i -e "s@LINUX_LIVE@${LINUX_LIVE}@" -e "s@LINUX_INSTALL@${LINUX_INSTALL}@" -e "s@MEMTEST@${MEMTEST}@" binary/isolinux/menu.cfg
+		sed -i -e "s#LH_BOOTAPPEND_INSTALL#${LH_BOOTAPPEND_INSTALL}#" -e "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" binary/isolinux/menu.cfg
+		if [ -e binary/isolinux/f1.txt ]
+		then
+			sed -i -e "s/LH_DISTRIBUTION/${LH_DISTRIBUTION}/" -e "s/LH_DATE/$(date +%Y%m%d)/" -e "s/LH_MEDIA/CD-ROM/" binary/isolinux/f1.txt
+		fi
 		sed -i -e "s/LH_MEDIA/CD-ROM/" binary/isolinux/f3.txt
-		sed -i -e "s/LH_VERSION/${VERSION}/" binary/isolinux/f10.txt
+		if [ -e binary/isolinux/f10.txt ]
+		then
+			sed -i -e "s/LH_VERSION/${VERSION}/" binary/isolinux/f10.txt
+		fi
 
 		# Working arround syslinux 8.3 limitation
-		if [ "`echo ${LH_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
+		if [ "$(echo ${LH_LINUX_FLAVOURS} | wc -w)" -gt "1" ]
 		then
 			NUMBER="0"
 
@@ -408,18 +467,18 @@ case "${LH_BINARY_IMAGES}" in
 
 				mv "${DESTDIR_LIVE}"/vmlinuz-*-${FLAVOUR} "${DESTDIR_LIVE}"/vmlinuz${NUMBER}
 				mv "${DESTDIR_LIVE}"/initrd.img-*-${FLAVOUR} "${DESTDIR_LIVE}"/initrd${NUMBER}.img
-				sed -i -e "s/vmlinuz-.*-${FLAVOUR}$/vmlinuz${NUMBER}/g" -e "s/initrd.img-.*-${FLAVOUR} /initrd${NUMBER}.img /g" binary/isolinux/isolinux.cfg
+				sed -i -e "s/vmlinuz-.*-${FLAVOUR}$/vmlinuz${NUMBER}/g" -e "s/initrd.img-.*-${FLAVOUR} /initrd${NUMBER}.img /g" binary/isolinux/menu.cfg
 			done
 		else
 			mv "${DESTDIR_LIVE}"/vmlinuz-*-${LH_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/vmlinuz
 			mv "${DESTDIR_LIVE}"/initrd.img-*-${LH_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/initrd.img
-			sed -i -e "s/vmlinuz-.*-${LH_LINUX_FLAVOURS}/vmlinuz/g" -e "s/initrd.img-.*-${LH_LINUX_FLAVOURS}/initrd.img/g" binary/isolinux/isolinux.cfg
+			sed -i -e "s/vmlinuz-.*-${LH_LINUX_FLAVOURS}/vmlinuz/g" -e "s/initrd.img-.*-${LH_LINUX_FLAVOURS}/initrd.img/g" binary/isolinux/menu.cfg
 		fi
 
-		sed -i -e "s/LINUX_TIMEOUT/${LH_SYSLINUX_TIMEOUT}/" binary/isolinux/isolinux.cfg
+		sed -i -e "s/LINUX_TIMEOUT/${LH_SYSLINUX_TIMEOUT}/" binary/isolinux/footer.cfg
 
 		# Remove whitespaces
-		sed -i -e 's/\ $//g' binary/isolinux/isolinux.cfg
+		sed -i -e 's/\ $//g' binary/isolinux/*.cfg
 		;;
 
 	net)
@@ -442,21 +501,21 @@ case "${LH_BINARY_IMAGES}" in
 
 		for FILE in tftpboot/pxelinux.cfg/*.live
 		do
-			mv ${FILE} `dirname ${FILE}`/`basename ${FILE} .live`
+			mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .live)
 		done
 
 		if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
 		then
 			for FILE in tftpboot/pxelinux.cfg/*.install
 			do
-				mv ${FILE} `dirname ${FILE}`/`basename ${FILE} .install`
+				mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .install)
 			done
 
 			if [ "${LH_ARCHITECTURE}" = "amd64" ] || [ "${LH_ARCHITECTURE}" = "i386" ] || [ "${LH_ARCHITECTURE}" = "powerpc" ]
 			then
 				for FILE in tftpboot/pxelinux.cfg/*.install.g-i
 				do
-					mv ${FILE} `dirname ${FILE}`/`basename ${FILE} .install.g-i`
+					mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .install.g-i)
 				done
 			else
 				rm -f tftpboot/pxelinux.cfg/*.install.g-i
@@ -495,12 +554,12 @@ case "${LH_BINARY_IMAGES}" in
 		# Configure syslinux templates
 		sed -i -e "s@LINUX_LIVE@${LINUX_LIVE}@" -e "s@LINUX_INSTALL@${LINUX_INSTALL}@" -e "s@MEMTEST@${MEMTEST}@" tftpboot/pxelinux.cfg/default
 		sed -i -e "s#LH_BOOTAPPEND_INSTALL#${LH_BOOTAPPEND_INSTALL}#" -e "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" -e "s/LH_NET_SERVER/${LH_NET_SERVER}/" -e "s#LH_NET_PATH#${LH_NET_PATH}#" tftpboot/pxelinux.cfg/default
-		sed -i -e "s/LH_DISTRIBUTION/${LH_DISTRIBUTION}/" -e "s/LH_DATE/`date +%Y%m%d`/" -e "s/LH_MEDIA/netboot/" tftpboot/pxelinux.cfg/f1.txt
+		sed -i -e "s/LH_DISTRIBUTION/${LH_DISTRIBUTION}/" -e "s/LH_DATE/$(date +%Y%m%d)/" -e "s/LH_MEDIA/netboot/" tftpboot/pxelinux.cfg/f1.txt
 		sed -i -e "s/LH_MEDIA/netboot/" tftpboot/pxelinux.cfg/f3.txt
 		sed -i -e "s/LH_VERSION/${VERSION}/" tftpboot/pxelinux.cfg/f10.txt
 
 		# Working arround syslinux 8.3 limitation
-		if [ "`echo ${LH_LINUX_FLAVOURS} | wc -w`" -eq "1" ]
+		if [ "$(echo ${LH_LINUX_FLAVOURS} | wc -w)" -eq "1" ]
 		then
 			mv "${DESTDIR_LIVE}"/vmlinuz-*-${LH_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/vmlinuz
 			mv "${DESTDIR_LIVE}"/initrd.img-*-${LH_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/initrd.img
@@ -540,21 +599,21 @@ case "${LH_BINARY_IMAGES}" in
 
 		for FILE in "${DESTDIR}"/*.live
 		do
-			mv ${FILE} `dirname ${FILE}`/`basename ${FILE} .live`
+			mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .live)
 		done
 
 		if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
 		then
 			for FILE in "${DESTDIR}"/*.install
 			do
-				mv ${FILE} `dirname ${FILE}`/`basename ${FILE} .install`
+				mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .install)
 			done
 
 			if [ "${LH_ARCHITECTURE}" = "amd64" ] || [ "${LH_ARCHITECTURE}" = "i386" ] || [ "${LH_ARCHITECTURE}" = "powerpc" ]
 			then
 				for FILE in "${DESTDIR}"/*.install.g-i
 				do
-					mv ${FILE} `dirname ${FILE}`/`basename ${FILE} .install.g-i`
+					mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .install.g-i)
 				done
 			else
 				rm -f "${DESTDIR}"/*.install.g-i
@@ -589,12 +648,12 @@ case "${LH_BINARY_IMAGES}" in
 		# Configure syslinux templates
 		sed -i -e "s@LINUX_LIVE@${LINUX_LIVE}@" -e "s@LINUX_INSTALL@${LINUX_INSTALL}@" -e "s@MEMTEST@${MEMTEST}@" "${DESTDIR}"/syslinux.cfg
 		sed -i -e "s#LH_BOOTAPPEND_INSTALL#${LH_BOOTAPPEND_INSTALL}#" -e "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" "${DESTDIR}"/syslinux.cfg
-		sed -i -e "s/LH_DISTRIBUTION/${LH_DISTRIBUTION}/" -e "s/LH_DATE/`date +%Y%m%d`/" -e "s/LH_MEDIA/hd-media/" "${DESTDIR}"/f1.txt #FIXME
+		sed -i -e "s/LH_DISTRIBUTION/${LH_DISTRIBUTION}/" -e "s/LH_DATE/$(date +%Y%m%d)/" -e "s/LH_MEDIA/hd-media/" "${DESTDIR}"/f1.txt #FIXME
 		sed -i -e "s/LH_MEDIA/hd-media/" "${DESTDIR}"/f3.txt #FIXME
 		sed -i -e "s/LH_VERSION/${VERSION}/" "${DESTDIR}"/f10.txt
 
 		# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
-		if [ "`echo ${LH_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
+		if [ "$(echo ${LH_LINUX_FLAVOURS} | wc -w)" -gt "1" ]
 		then
 			NUMBER="0"
 

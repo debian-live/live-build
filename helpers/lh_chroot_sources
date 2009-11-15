@@ -144,8 +144,8 @@ case "${1}" in
 				for FILE in config/chroot_sources/*.bootstrap.gpg
 				do
 					cp ${FILE} chroot/root
-					Chroot "apt-key add /root/`basename ${FILE}`"
-					rm -f chroot/root/`basename ${FILE}`
+					Chroot "apt-key add /root/$(basename ${FILE})"
+					rm -f chroot/root/$(basename ${FILE})
 				done
 			fi
 
@@ -155,8 +155,8 @@ case "${1}" in
 				for PACKAGE in config/chroot_sources/*.deb
 				do
 					cp ${PACKAGE} chroot/root
-					Chroot "dpkg -i `basename ${PACKAGE}`"
-					rm -f chroot/root/`basename ${PACKAGE}`
+					Chroot "dpkg -i $(basename ${PACKAGE})"
+					rm -f chroot/root/$(basename ${PACKAGE})
 				done
 			fi
 
@@ -279,8 +279,8 @@ case "${1}" in
 				for FILE in config/chroot_sources/*.binary.gpg
 				do
 					cp ${FILE} chroot/root
-					Chroot "apt-key add /root/`basename ${FILE}`"
-					rm -f chroot/root/`basename ${FILE}`
+					Chroot "apt-key add /root/$(basename ${FILE})"
+					rm -f chroot/root/$(basename ${FILE})
 				done
 			fi
 

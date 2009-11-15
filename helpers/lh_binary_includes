@@ -133,10 +133,10 @@ then
 	fi
 
 	# Adjusting install templates
-	ARCHITECTURE="`echo ${LH_ARCHITECTURE} | sed -e 's# #/#g'`"
-	DISTRIBUTION="`echo ${LH_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]'`"
-	DISTRIBUTION="${DISTRIBUTION}`echo ${LH_DISTRIBUTION} | cut -b 2-`"
-	eval VERSION="$`echo VERSION_${LH_DISTRIBUTION}`"
+	ARCHITECTURE="$(echo ${LH_ARCHITECTURE} | sed -e 's# #/#g')"
+	DISTRIBUTION="$(echo ${LH_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]')"
+	DISTRIBUTION="${DISTRIBUTION}$(echo ${LH_DISTRIBUTION} | cut -b 2-)"
+	eval VERSION="$$(echo VERSION_${LH_DISTRIBUTION})"
 
 	if [ -d binary/pool/main/l/live-installer ]
 	then
@@ -145,8 +145,8 @@ then
 
 	TYPE="LIVE/NETINST"
 
-	DEBIAN_NAME="Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} ${TYPE} Binary `date +%Y%m%d-%H:%M`"
-	DEBIAN_DATE="`date +%Y%m%d-%H:%M`"
+	DEBIAN_NAME="Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} ${TYPE} Binary $(date +%Y%m%d-%H:%M)"
+	DEBIAN_DATE="$(date +%Y%m%d-%H:%M)"
 
 	if [ "${LH_ARCHITECTURE}" = "i386" ]
 	then

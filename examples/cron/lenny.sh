@@ -7,13 +7,13 @@ BUILD="weekly"
 # Begin custom defaults
 AUTOBUILD="enabled"
 
-DATE="`date +%Y%m%d`"
+DATE="$(date +%Y%m%d)"
 DESTDIR="/srv/debian-live/www/cdimage"
 TEMPDIR="/srv/tmp/live-helper"
 
 OPTIONS="--apt-recommends disabled --security disabled"
 
-ARCHITECTURES="`dpkg --print-architecture`"
+ARCHITECTURES="$(dpkg --print-architecture)"
 DISTRIBUTIONS="lenny"
 MIRROR_BOOTSTRAP="http://ftp.de.debian.org/debian/"
 MIRROR_BOOTSTRAP_SECURITY="http://ftp.de.debian.org/debian-security/"
@@ -53,7 +53,7 @@ else
 	exit 1
 fi
 
-echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: begin ${BUILD} build." >> /var/log/live
+echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper: begin ${BUILD} build." >> /var/log/live
 
 for ARCHITECTURE in ${ARCHITECTURES}
 do
@@ -67,13 +67,13 @@ do
 				mkdir -p "${TEMPDIR}"/debian-live
 
 				cd "${TEMPDIR}"/debian-live
-				echo "Begin: `date -R`" > "${TEMPDIR}"/debian-live/log.txt
+				echo "Begin: $(date -R)" > "${TEMPDIR}"/debian-live/log.txt
 
 				# Generating images
 				lh_config --binary-images iso --source-images tar --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-bootstrap ${MIRROR_BOOTSTRAP} --mirror-bootstrap-security ${MIRROR_BOOTSTRAP_SECURITY} --mirror-binary ${MIRROR_BINARY} --mirror-binary-security ${MIRROR_BINARY_SECURITY} --source enabled ${OPTIONS}
 				lh_build >> "${TEMPDIR}"/debian-live/log.txt 2>&1
 
-				echo "End: `date -R`" >> "${TEMPDIR}"/debian-live/log.txt
+				echo "End: $(date -R)" >> "${TEMPDIR}"/debian-live/log.txt
 			fi
 
 			if [ -f "${TEMPDIR}"/debian-live/binary.iso ] && [ -f "${TEMPDIR}"/debian-live/source.tar.gz ]
@@ -108,13 +108,13 @@ do
 				mkdir -p "${TEMPDIR}"/debian-live
 
 				cd "${TEMPDIR}"/debian-live
-				echo "Begin: `date -R`" > "${TEMPDIR}"/debian-live/log.txt
+				echo "Begin: $(date -R)" > "${TEMPDIR}"/debian-live/log.txt
 
 				# Generating images
 				lh_config --binary-images usb-hdd --source-images tar --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-bootstrap ${MIRROR_BOOTSTRAP} --mirror-bootstrap-security ${MIRROR_BOOTSTRAP_SECURITY} --mirror-binary ${MIRROR_BINARY} --mirror-binary-security ${MIRROR_BINARY_SECURITY} --source disabled ${OPTIONS}
 				lh_build >> "${TEMPDIR}"/debian-live/log.txt 2>&1
 
-				echo "End: `date -R`" >> "${TEMPDIR}"/debian-live/log.txt
+				echo "End: $(date -R)" >> "${TEMPDIR}"/debian-live/log.txt
 			fi
 
 			if [ -f "${TEMPDIR}"/debian-live/binary.img ]
@@ -169,4 +169,4 @@ done
 rm -f "${DESTDIR}"/"${BUILD}"-builds/current
 ln -s ${DATE} "${DESTDIR}"/"${BUILD}"-builds/current
 
-echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: end ${BUILD} build." >> /var/log/live
+echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper: end ${BUILD} build." >> /var/log/live

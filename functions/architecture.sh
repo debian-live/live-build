@@ -16,7 +16,7 @@ Check_architecture ()
 
 	for ARCHITECTURE in ${ARCHITECTURES}
 	do
-		if [ "`echo ${LH_ARCHITECTURE} | grep ${ARCHITECTURE}`" ]
+		if [ "$(echo ${LH_ARCHITECTURE} | grep ${ARCHITECTURE})" ]
 		then
 			VALID="true"
 			break
@@ -32,7 +32,7 @@ Check_architecture ()
 
 Check_multiarchitecture ()
 {
-	if [ "`echo ${LH_ARCHITECTURE} | wc -w`" -gt "1" ]
+	if [ "$(echo ${LH_ARCHITECTURE} | wc -w)" -gt "1" ]
 	then
 		# First, only support multiarch on iso
 		if [ "${LH_BINARY_IMAGES}" = "iso" ]

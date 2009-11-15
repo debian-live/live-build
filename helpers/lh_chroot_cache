@@ -60,7 +60,7 @@ do
 
 					if [ -n "${LH_ROOT_COMMAND}" ]
 					then
-						${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` chroot
+						${LH_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
 					fi
 
 					# Creating stage file
@@ -88,7 +88,7 @@ do
 
 				if [ -n "${LH_ROOT_COMMAND}" ]
 				then
-					${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` cache/stages_chroot
+					${LH_ROOT_COMMAND} chown -R $(whoami):$(whoami) cache/stages_chroot
 				fi
 
 				# Creating stage file

@@ -75,7 +75,7 @@ Yaboot_live_entry ()
 	INITRD="${3}"
 	APPEND="${4}"
 
-	DIRECTORY="/`basename ${DESTDIR_LIVE}`"
+	DIRECTORY="/$(basename ${DESTDIR_LIVE})"
 
 	LINUX_LIVE="${LINUX_LIVE}\nimage=${DIRECTORY}/${KERNEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\tlabel=${LABEL}\n"
@@ -91,7 +91,7 @@ Yaboot_install_entry ()
 	INITRD="${3}"
 	APPEND="${4}"
 
-	DIRECTORY="/`basename ${DESTDIR_LIVE}`"
+	DIRECTORY="/$(basename ${DESTDIR_LIVE})"
 
 	if [ "${LH_DISTRIBUTION}" != "etch" ] && [ "${LABEL}" != "rescue" ] && [ "${LABEL}" != "rescuegui" ]
 	then
@@ -185,7 +185,7 @@ then
 	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} union=${LH_UNION_FILESYSTEM}"
 fi
 
-LH_BOOTAPPEND_LIVE="`echo ${LH_BOOTAPPEND_LIVE} | sed -e 's/  //'`"
+LH_BOOTAPPEND_LIVE="$(echo ${LH_BOOTAPPEND_LIVE} | sed -e 's/  //')"
 
 # Parameters are listed at: linux/Documentation/kernel-parameters.txt
 FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=ofonly"
@@ -193,19 +193,19 @@ FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=ofonly"
 # Assembling kernel configuration
 
 # Default entries
-DEFAULT_FLAVOUR="`echo ${LH_LINUX_FLAVOURS} | awk '{ print $1 }'`"
-DEFAULT_KERNEL="`basename chroot/boot/vmlinux-*${DEFAULT_FLAVOUR}`"
-DEFAULT_INITRD="initrd.img-`echo ${DEFAULT_KERNEL} | sed -e 's/vmlinux-//'`"
+DEFAULT_FLAVOUR="$(echo ${LH_LINUX_FLAVOURS} | awk '{ print $1 }')"
+DEFAULT_KERNEL="$(basename chroot/boot/vmlinux-*${DEFAULT_FLAVOUR})"
+DEFAULT_INITRD="initrd.img-$(echo ${DEFAULT_KERNEL} | sed -e 's/vmlinux-//')"
 
 Yaboot_live_entry "live" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
 Yaboot_live_entry "live-failsafe" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}" "${FAILSAFE}"
 
-if [ "`echo ${LH_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
+if [ "$(echo ${LH_LINUX_FLAVOURS} | wc -w)" -gt "1" ]
 then
 	for KERNEL in chroot/boot/vmlinux-*
 	do
-		KERNEL_IMAGE="`basename ${KERNEL}`"
-		KERNEL_VERSION="`echo ${KERNEL_IMAGE} | sed -e 's/vmlinux-//'`"
+		KERNEL_IMAGE="$(basename ${KERNEL})"
+		KERNEL_VERSION="$(echo ${KERNEL_IMAGE} | sed -e 's/vmlinux-//')"
 		INITRD="initrd.img-${KERNEL_VERSION}"
 
 		Yaboot_live_entry "live-${KERNEL_VERSION}" "${KERNEL_IMAGE}" "${INITRD}"
@@ -213,7 +213,7 @@ then
 	done
 fi
 
-LINUX_LIVE="`/bin/echo ${LINUX_LIVE} | sed -e 's/binary//g' -e 's#//#/#g'`"
+LINUX_LIVE="$(/bin/echo ${LINUX_LIVE} | sed -e 's/binary//g' -e 's#//#/#g')"
 
 # Assembling debian-installer configuration
 if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
@@ -237,7 +237,7 @@ then
 	Yaboot_install_entry "autogui" "${VMLINUZ_GI}" "${INITRD_GI}" "auto=true priority=critical ${APPEND_GI}"
 fi
 
-LINUX_INSTALL="`/bin/echo ${LINUX_INSTALL} | sed -e 's/binary//g' -e 's#//#/#g'`"
+LINUX_INSTALL="$(/bin/echo ${LINUX_INSTALL} | sed -e 's/binary//g' -e 's#//#/#g')"
 
 case "${LH_BINARY_IMAGES}" in
 	iso|usb-hdd)
@@ -267,7 +267,7 @@ case "${LH_BINARY_IMAGES}" in
 		# Configure yaboot templates
 		sed -i -e "s#LINUX_LIVE#${LINUX_LIVE}#" -e "s#LINUX_INSTALL#${LINUX_INSTALL}#" binary/yaboot/yaboot.conf
 		sed -i -e "s#LH_BOOTAPPEND_INSTALL#${LH_BOOTAPPEND_INSTALL}#" -e "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" binary/yaboot/yaboot.conf
-		sed -i -e "s/LH_DATE/`date +%Y%m%d`/" -e "s/LH_VERSION/${VERSION}/" binary/yaboot/boot.msg
+		sed -i -e "s/LH_DATE/$(date +%Y%m%d)/" -e "s/LH_VERSION/${VERSION}/" binary/yaboot/boot.msg
 		;;
 esac
 

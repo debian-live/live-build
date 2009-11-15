@@ -24,7 +24,7 @@ Check_lockfile ()
 Create_lockfile ()
 {
 	FILE="${1}"
-	DIRECTORY="`dirname ${1}`"
+	DIRECTORY="$(dirname ${1})"
 
 	# Creating lock directory
 	mkdir -p "${DIRECTORY}"

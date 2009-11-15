@@ -101,7 +101,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 
 Local_arguments ()
 {
-	ARGUMENTS="`getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,losetup:,mode:,root-command:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,iso-memtest:,net-filesystem:,net-mountoptions:,net-path:,net-server:,syslinux-splash:,syslinux-timeout:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}"`"
+	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,losetup:,mode:,root-command:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,iso-memtest:,net-filesystem:,net-mountoptions:,net-path:,net-server:,syslinux-splash:,syslinux-timeout:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
 
 	if [ "${?}" != "0" ]
 	then
@@ -515,7 +515,7 @@ Local_arguments ()
 				shift
 				;;
 
-			-c|-conffile)
+			-c|--conffile)
 				LH_CONFFILE="${2}"
 				shift 2
 				;;
@@ -703,7 +703,7 @@ LH_TEMPLATES="${LH_TEMPLATES}"
 
 # \$LH_QUIET: enable quiet
 # (Default: ${LH_QUIET})
-#LH_QUIET="${LH_QUIET}"
+LH_QUIET="${LH_QUIET}"
 
 # \$LH_VERBOSE: enable verbose
 # (Default: ${LH_VERBOSE})
@@ -924,6 +924,26 @@ LH_SYSLINUX_SPLASH="${LH_SYSLINUX_SPLASH}"
 # (Default: 0)
 LH_SYSLINUX_TIMEOUT="${LH_SYSLINUX_TIMEOUT}"
 
+# \$LH_SYSLINUX_CFG: set custom syslinux configuration file
+# (Default: empty)
+LH_SYSLINUX_CFG="${LH_SYSLINUX_CFG}"
+
+# \$LH_SYSLINUX_MENU: set syslinux menu
+# (Default: ${LH_SYSLINUX_MENU})
+LH_SYSLINUX_MENU="${LH_SYSLINUX_MENU}"
+
+# \$LH_SYSLINUX_MENU_LIVE_ENTRY: set text to be used on the menu for live entries
+# (Default: ${LH_SYSLINUX_MENU_LIVE_ENTRY})
+LH_SYSLINUX_MENU_LIVE_ENTRY="${LH_SYSLINUX_MENU_LIVE_ENTRY}"
+
+# \$LH_SYSLINUX_MENU_LIVE_FAILSAFE_ENTRY: set text to be used on the menu for live entries (failsafe ones)
+# (Default: ${LH_SYSLINUX_MENU_LIVE_FAILSAFE_ENTRY})
+LH_SYSLINUX_MENU_LIVE_FAILSAFE_ENTRY="${LH_SYSLINUX_MENU_LIVE_FAILSAFE_ENTRY}"
+
+# \$LH_SYSLINUX_MENU_MEMTEST_ENTRY: set text to be used on the menu for memtest entry
+# (Default: ${LH_SYSLINUX_MENU_MEMTEST_ENTRY})
+LH_SYSLINUX_MENU_MEMTEST_ENTRY="${LH_SYSLINUX_MENU_MEMTEST_ENTRY}"
+
 # \$LH_USERNAME: set username
 # (Default: ${LH_USERNAME})
 LH_USERNAME="${LH_USERNAME}"
@@ -945,7 +965,7 @@ EOF
 if [ "${CONFIG}" = "clone" ] # FIXME
 then
 	# Read package selection
-	echo `dpkg --get-selections | awk '{ print $1 }'` > config/chroot_local-packageslists/local-system
+	echo $(dpkg --get-selections | awk '{ print $1 }') > config/chroot_local-packageslists/local-system
 
 	# Read debconf questions
 	if [ ! -f /usr/bin/debconf-get-selections ]

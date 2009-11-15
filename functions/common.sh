@@ -9,5 +9,5 @@
 
 set -e
 
-PROGRAM="`basename ${0}`"
-VERSION="1.0~a29"
+PROGRAM="$(basename ${0})"
+VERSION="1.0~a30"

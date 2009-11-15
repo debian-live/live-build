@@ -15,7 +15,7 @@ export DEBEMAIL EMAIL DEBFULLNAME NAME
 TEMPDIR="/srv/tmp/snapshots"
 SERVER="/srv/debian-unofficial/ftp/debian-live-snapshots"
 
-DATE_START="`date -R`"
+DATE_START="$(date -R)"
 
 # Checking lock file
 if [ -f "${SERVER}"/Archive-Update-in-Progress ]
@@ -36,7 +36,7 @@ trap "test -f ${SERVER}/Archive-Update-in-Progress && rm -f ${SERVER}/Archive-Up
 # Creating lock file
 echo "${DATE_START}" > "${SERVER}"/Archive-Update-in-Progress
 
-echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: begin snapshot build." >> /var/log/live
+echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper: begin snapshot build." >> /var/log/live
 
 # Processing packages
 for PACKAGE in ${PACKAGES}
@@ -56,12 +56,12 @@ do
 
 	# Getting version
 	cd "${TEMPDIR}"/${PACKAGE}
-	VERSION="`dpkg-parsechangelog | awk '/Version:/ { print $2 }' | awk -F- '{ print $1 }'`"
+	VERSION="$(dpkg-parsechangelog | awk '/Version:/ { print $2 }' | awk -F- '{ print $1 }')"
 
 	# Getting revision
 	cd "${TEMPDIR}"/${PACKAGE}
-	REVISION="`git log | grep -m1 Date | awk -FDate: '{ print $2 }' | sed -e 's/+.*$//'`"
-	REVISION="`date -d "${REVISION}" +%Y%m%d.%H%M%S`"
+	REVISION="$(git log | grep -m1 Date | awk -FDate: '{ print $2 }' | sed -e 's/+.*$//')"
+	REVISION="$(date -d "${REVISION}" +%Y%m%d.%H%M%S)"
 
 	# Check for existing package
 	if [ ! -f "${SERVER}"/${PACKAGE}_${VERSION}~${REVISION}.dsc ] || [ "${1}" = "--force" ]
@@ -86,7 +86,7 @@ do
 		# Removing old packages
 		if [ -f "${SERVER}"/"${PACKAGE}"*.changes ]
 		then
-			for FILE in `awk {'print $5'} "${SERVER}"/"${PACKAGE}"*.changes | grep -e ".*\.deb$" -e ".*\.diff.gz$" -e ".*\.dsc$" -e ".*\.tar.gz$" -e ".*\.udeb$"`
+			for FILE in $(awk {'print $5'} "${SERVER}"/"${PACKAGE}"*.changes | grep -e ".*\.deb$" -e ".*\.diff.gz$" -e ".*\.dsc$" -e ".*\.tar.gz$" -e ".*\.udeb$")
 			do
 				rm -f "${SERVER}"/"${FILE}"
 			done
@@ -95,7 +95,7 @@ do
 		rm -f "${SERVER}"/"${PACKAGE}"*.changes
 
 		# Installing new packages
-		for FILE in `awk {'print $5'} "${TEMPDIR}"/"${PACKAGE}"*.changes | grep -e ".*\.deb$" -e ".*\.diff.gz$" -e ".*\.dsc$" -e ".*\.tar.gz$" -e ".*\.udeb$"`
+		for FILE in $(awk {'print $5'} "${TEMPDIR}"/"${PACKAGE}"*.changes | grep -e ".*\.deb$" -e ".*\.diff.gz$" -e ".*\.dsc$" -e ".*\.tar.gz$" -e ".*\.udeb$")
 		do
 			mv "${TEMPDIR}"/"${FILE}" "${SERVER}"
 		done
@@ -109,7 +109,7 @@ done
 
 if [ "${UPDATE_INDICES}" = "true" ]
 then
-	LAST_UPDATE="`date -R`"
+	LAST_UPDATE="$(date -R)"
 
 	cd "${SERVER}"
 
@@ -125,13 +125,13 @@ fi
 # Reading timestamp
 if [ -z "${LAST_UPDATE}" ]
 then
-	LAST_UPDATE="`awk -F: '/Last update:/ { print $2":"$3":"$4 }' ${SERVER}/LAST_BUILD | sed -e 's/    //'`"
+	LAST_UPDATE="$(awk -F: '/Last update:/ { print $2":"$3":"$4 }' ${SERVER}/LAST_BUILD | sed -e 's/    //')"
 fi
 
 # Writing timestamp
 cat > "${SERVER}"/LAST_BUILD << EOF
 Last run begin: ${DATE_START}
-Last run end:   `date -R`
+Last run end:   $(date -R)
 
 Last update:    ${LAST_UPDATE}
 EOF
@@ -139,4 +139,4 @@ EOF
 # Removing build directory
 rm -rf "${TEMPDIR}"
 
-echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: end snapshot build." >> /var/log/live
+echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper: end snapshot build." >> /var/log/live
