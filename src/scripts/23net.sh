@@ -15,7 +15,11 @@ Net ()
 	then
 		mkdir -p "${LIVE_ROOT}"/binary/casper
 		cp -r "${LIVE_TEMPLATES}"/common/* "${LIVE_ROOT}"/binary
-		mv "${LIVE_ROOT}"/filesystem.manifest* "${LIVE_ROOT}"/binary/casper
+		
+		for manifest in "${LIVE_ROOT}"/filesystem.manifest*
+		do
+			mv "${manifest}" "${LIVE_ROOT}"/binary/casper/
+		done
 
 		# Installing smbfs
 		Chroot_exec "apt-get install --yes smbfs"

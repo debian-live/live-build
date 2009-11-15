@@ -14,7 +14,10 @@ Iso ()
 	if [ ! -f "${LIVE_ROOT}"/.stage/image_binary ]
 	then
 		mkdir -p "${LIVE_ROOT}"/binary/casper
-		mv "${LIVE_ROOT}"/filesystem.manifest* "${LIVE_ROOT}"/binary/casper/
+		for manifest in "${LIVE_ROOT}"/filesystem.manifest*
+		do
+			mv "${manifest}" "${LIVE_ROOT}"/binary/casper/
+		done
 
 		# Switching package indices to default
 		if [ "${LIVE_GENERIC_INDICES}" = "yes" ]

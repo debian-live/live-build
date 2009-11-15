@@ -28,7 +28,7 @@ set -e
 BASE="/usr/share/make-live"
 CONFIG="/etc/make-live.conf"
 PROGRAM="`basename ${0}`"
-VERSION="0.99.6"
+VERSION="0.99.7"
 
 CODENAME_OLDSTABLE="woody"
 CODENAME_STABLE="sarge"
@@ -158,7 +158,7 @@ Configuration ()
 
 Main ()
 {
-	ARGUMENTS="`getopt --longoptions root:,type:,architecture:,bootappend:,config:,chroot:,distribution:,filesystem:,flavour:,hook:,include-chroot:,include-image:,kernel:,manifest:,mirror:,mirror-security:,output:,packages:,package-list:,proxy-ftp:,proxy-http:,section:,server-address:,server-path:,templates:,with-generic-indices,without-generic-indices,with-source,without-source,help,usage,version --name=${PROGRAM} --options r:t:a:b:c:d:f:k:m:o:p:s:huv --shell sh -- ${@}`"
+	ARGUMENTS="`getopt --longoptions root:,type:,architecture:,bootappend:,config:,chroot:,distribution:,filesystem:,flavour:,hook:,include-chroot:,include-image:,kernel:,manifest:,mirror:,mirror-security:,output:,packages:,package-list:,proxy-ftp:,proxy-http:,section:,server-address:,server-path:,templates:,with-generic-indices,without-generic-indices,with-source,without-source,help,usage,version --name=${PROGRAM} --options r:t:a:b:c:d:f:k:m:o:p:s:huv --shell sh -- "${@}"`"
 
 	if [ "${?}" != "0" ]
 	then

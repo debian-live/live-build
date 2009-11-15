@@ -1,7 +1,7 @@
 # /usr/share/make-live/lists/kde - package list for make-live(8)
 
 # Minimal
-sudo
+eject sudo
 
 # Standard
 locales
