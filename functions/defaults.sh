@@ -21,7 +21,7 @@ Set_defaults ()
 	if [ -z "${LH_DISTRIBUTION}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
+			debian|debian-release)
 				LH_DISTRIBUTION="lenny"
 				;;
 
@@ -72,7 +72,7 @@ Set_defaults ()
 
 	# Setting apt recommends
 	case "${LH_MODE}" in
-		debian)
+		debian|debian-release)
 			LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS:-enabled}"
 			;;
 
@@ -85,7 +85,7 @@ Set_defaults ()
 	LH_APT_SECURE="${LH_APT_SECURE:-enabled}"
 
 	# Setting bootstrap program
-	if [ -z "${LH_BOOTSTRAP}" ] || [ ! -x "${LH_BOOTSTRAP}" ]
+	if [ -z "${LH_BOOTSTRAP}" ] || ( [ ! -x "${LH_BOOTSTRAP}" ] && [ "${LH_BOOTSTRAP}" != "copy" ] )
 	then
 		if [ -x "/usr/sbin/debootstrap" ]
 		then
@@ -128,7 +128,7 @@ Set_defaults ()
 		if [ "${LH_INITRAMFS}" = "auto" ]
 		then
 			case "${LH_MODE}" in
-				debian)
+				debian|debian-release)
 					if [ "${LH_DISTRIBUTION}" = "etch" ]
 					then
 						LH_INITRAMFS="casper"
@@ -196,7 +196,7 @@ Set_defaults ()
 	if [ -z "${LH_ROOT}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
+			debian|debian-release)
 				LH_ROOT="debian-live"
 				;;
 
@@ -273,7 +273,7 @@ Set_defaults ()
 	if [ -z "${LH_MIRROR_BOOTSTRAP}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
+			debian|debian-release)
 				case "${LH_ARCHITECTURE}" in
 					amd64|i386)
 						LH_MIRROR_BOOTSTRAP="http://ftp.us.debian.org/debian/"
@@ -297,7 +297,7 @@ Set_defaults ()
 	if [ -z "${LH_MIRROR_CHROOT_SECURITY}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
+			debian|debian-release)
 				LH_MIRROR_CHROOT_SECURITY="http://security.debian.org/"
 				;;
 
@@ -311,7 +311,7 @@ Set_defaults ()
 	if [ -z "${LH_MIRROR_BINARY}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
+			debian|debian-release)
 				case "${LH_ARCHITECTURE}" in
 					amd64|i386)
 						LH_MIRROR_BINARY="http://ftp.us.debian.org/debian/"
@@ -333,7 +333,7 @@ Set_defaults ()
 	if [ -z "${LH_MIRROR_BINARY_SECURITY}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
+			debian|debian-release)
 				LH_MIRROR_BINARY_SECURITY="http://security.debian.org/"
 				;;
 
@@ -375,7 +375,7 @@ Set_defaults ()
 
 	# Setting keyring packages
 	case "${LH_MODE}" in
-		debian)
+		debian|debian-release)
 			LH_KEYRING_PACKAGES="debian-archive-keyring"
 			;;
 
@@ -501,22 +501,22 @@ Set_defaults ()
 
 			gnome-desktop)
 				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|gnome-desktop||') standard-x11"
-				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|laptop||' -e 's|gnome-desktop||' -e 's|desktop||') standard laptop gnome-desktop desktop"
+				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|gnome-desktop||' -e 's|desktop||') standard gnome-desktop desktop"
 				;;
 
 			kde-desktop)
 				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|kde-desktop||') standard-x11"
-				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|laptop||' -e 's|kde-desktop||' -e 's|desktop||') standard laptop kde-desktop desktop"
+				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|kde-desktop||' -e 's|desktop||') standard kde-desktop desktop"
 				;;
 
 			lxde-desktop)
 				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|lxde-desktop||') standard-x11"
-				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|laptop||' -e 's|lxde-desktop||' -e 's|desktop||') standard laptop lxde-desktop desktop"
+				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|lxde-desktop||' -e 's|desktop||') standard lxde-desktop desktop"
 				;;
 
 			xfce-desktop)
 				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|xfce-desktop||') standard-x11"
-				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|laptop||' -e 's|xfce-desktop||' -e 's|desktop||') standard laptop xfce-desktop desktop"
+				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|xfce-desktop||' -e 's|desktop||') standard xfce-desktop desktop"
 				;;
 		esac
 	done
@@ -557,7 +557,12 @@ Set_defaults ()
 	LH_BINARY_IMAGES="${LH_BINARY_IMAGES:-iso}"
 
 	# Setting apt indices
-	LH_BINARY_INDICES="${LH_BINARY_INDICES:-enabled}"
+	if echo ${LH_PACKAGES_LISTS} | grep -qs -E "(stripped|minimal)\b"
+	then
+		LH_BINARY_INDICES="${LH_BINARY_INDICES:-none}"
+	else
+		LH_BINARY_INDICES="${LH_BINARY_INDICES:-enabled}"
+	fi
 
 	# Setting bootloader
 	if [ -z "${LH_BOOTLOADER}" ]
@@ -656,7 +661,7 @@ Set_defaults ()
 	if [ -z "${LH_ISO_APPLICATION}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
+			debian|debian-release)
 				LH_ISO_APPLICATION="Debian Live"
 				;;
 
@@ -677,7 +682,12 @@ Set_defaults ()
 	then
 		case "${LH_MODE}" in
 			debian)
-				LH_ISO_VOLUME="Debian Live \$(date +%Y%m%d-%H:%M)"
+				LH_ISO_VOLUME="Debian Live ${LH_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)"
+				;;
+
+			debian-release)
+				eval VERSION="$`echo RELEASE_${LH_DISTRIBUTION}`"
+				LH_ISO_VOLUME="Debian ${VERSION} ${LH_ARCHITECTURE} live"
 				;;
 
 			emdebian)
@@ -692,7 +702,12 @@ Set_defaults ()
 	# Setting win32-loader option
 	case "${LH_ARCHITECTURE}" in
 		amd64|i386)
-			LH_WIN32_LOADER="${LH_WIN32_LOADER:-enabled}"
+			if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
+			then
+				LH_WIN32_LOADER="${LH_WIN32_LOADER:-enabled}"
+			else
+				LH_WIN32_LOADER="${LH_WIN32_LOADER:-disabled}"
+			fi
 			;;
 
 		*)
@@ -707,7 +722,7 @@ Set_defaults ()
 	if [ -z "${LH_NET_ROOT_PATH}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
+			debian|debian-release)
 				LH_NET_ROOT_PATH="/srv/debian-live"
 				;;
 
@@ -735,11 +750,28 @@ Set_defaults ()
 	LH_SYSLINUX_TIMEOUT="${LH_SYSLINUX_TIMEOUT:-0}"
 
 	# Setting syslinux menu
-	LH_SYSLINUX_MENU="${LH_SYSLINUX_MENU:-disabled}"
+	case "${LH_DISTRIBUTION}" in
+		etch)
+			LH_SYSLINUX_MENU="${LH_SYSLINUX_MENU:-disabled}"
+			;;
+
+		*)
+			LH_SYSLINUX_MENU="${LH_SYSLINUX_MENU:-enabled}"
+			;;
+	esac
 
 	# Setting syslinux menu live entries
-	LH_SYSLINUX_MENU_LIVE_ENTRY="${LH_SYSLINUX_MENU_LIVE_ENTRY:-Start ${LH_ISO_APPLICATION}}"
-	LH_SYSLINUX_MENU_LIVE_ENTRY_FAILSAFE="${LH_SYSLINUX_MENU_LIVE_ENTRY_FAILSAFE:-${LH_SYSLINUX_MENU_LIVE_ENTRY} - Fail Safe}"
+	case "${LH_MODE}" in
+		debian|debian-release)
+			LH_SYSLINUX_MENU_LIVE_ENTRY="${LH_SYSLINUX_MENU_LIVE_ENTRY:-Live}"
+			LH_SYSLINUX_MENU_LIVE_ENTRY_FAILSAFE="${LH_SYSLINUX_MENU_LIVE_ENTRY_FAILSAFE:-${LH_SYSLINUX_MENU_LIVE_ENTRY} (failsafe)}"
+			;;
+
+		*)
+			LH_SYSLINUX_MENU_LIVE_ENTRY="${LH_SYSLINUX_MENU_LIVE_ENTRY:-Start ${LH_ISO_APPLICATION}}"
+			LH_SYSLINUX_MENU_LIVE_ENTRY_FAILSAFE="${LH_SYSLINUX_MENU_LIVE_ENTRY_FAILSAFE:-${LH_SYSLINUX_MENU_LIVE_ENTRY} (failsafe)}"
+			;;
+	esac
 
 	# Settings memtest menu entry
 	LH_SYSLINUX_MENU_MEMTEST_ENTRY="${LH_SYSLINUX_MENU_MEMTEST_ENTRY:-Memory test}"

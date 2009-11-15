@@ -1,5 +1,7 @@
 What's in /debian/doc?
 
+dedication/                 Dedications of Debian Releases
+
 --- General Documentation
 FAQ/                        Debian FAQ List in html, postscript, and plain text
 constitution.txt            Debian Constitution
@@ -7,7 +9,6 @@ debian-manifesto            How it all started...
 mailing-lists.txt           How to subscribe to the Debian mailing lists
 social-contract.txt         Debian Social Contract and Free Software Guidelines
 source-unpack.txt           How to unpack a Debian source package
-debian-keyring.tar.gz       PGP keys of all the developers.
 
 
 --- The Bug Tracking System for users

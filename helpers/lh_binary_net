@@ -130,33 +130,33 @@ then
 	mv binary ${ROOT_DIR}
 fi
 
-cd ..
+mkdir binary.tmp
+mv ${ROOT_DIR} tftpboot binary.tmp
+cd binary.tmp
 
 case "${LH_NET_TARBALL}" in
 	bzip2)
-		tar cfj binary-net-tar.bz2 "$(basename ${OLDPWD})/${ROOT_DIR}" "$(basename ${OLDPWD})/tftpboot"
-		mv binary-net.tar.bz2 "${OLDPWD}"
+		tar cfj ../binary-net-tar.bz2 *
 		;;
 
 	gzip)
 		if gzip --help | grep -qs "\-\-rsyncable"
 		then
-			tar cf binary-net.tar "$(basename ${OLDPWD})/${ROOT_DIR}" "$(basename ${OLDPWD})/tftpboot"
-			gzip --rsyncable --best binary-net.tar
+			tar cf ../binary-net.tar *
+			gzip --rsyncable --best ../binary-net.tar
 		else
-			tar cfz binary-net.tar.gz "$(basename ${OLDPWD})/${ROOT_DIR}" "$(basename ${OLDPWD})/tftpboot"
+			tar cfz ../binary-net.tar.gz *
 		fi
-
-		mv binary-net.tar.gz "${OLDPWD}"
 		;;
 
 	tar)
-		tar cf binary-net.tar "$(basename ${OLDPWD})/${ROOT_DIR}" "$(basename ${OLDPWD})/tftpboot"
-		mv binary-net.tar "${OLDPWD}"
+		tar cf ../binary-net.tar *
 		;;
 esac
 
+mv * ../
 cd "${OLDPWD}"
+rmdir binary.tmp
 
 if [ "${ROOT_DIR}" != "binary" ]
 then

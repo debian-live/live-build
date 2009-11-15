@@ -159,20 +159,5 @@ then
 	sed -i -e "s|DEBIAN_NAME|${DEBIAN_NAME}|g" -e "s|DEBIAN_DATE|${DEBIAN_DATE}|g" -e "s|DEBIAN_TOOLS|${DEBIAN_TOOLS_TXT}|g" binary/README.txt
 fi
 
-# Copying win32-loader
-if [ "${LH_WIN32_LOADER}" = "enabled" ]
-then
-	case "${LH_ARCHITECTURE}" in
-		amd64|i386)
-			if Find_files /usr/lib/win32-loader/*
-			then
-				cp /usr/lib/win32-loader/* binary
-			else
-				Echo_warning "win32-loader inclusion is enabled but not found, ignoring."
-			fi
-		;;
-	esac
-fi
-
 # Creating stage file
 Create_stagefile .stage/binary_includes

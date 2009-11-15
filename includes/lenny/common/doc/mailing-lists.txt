@@ -385,12 +385,6 @@ Development lists
       Moderated   : no
       Subscription: open
 
-  debian-ddtp@lists.debian.org
-
-      Description : DDTP coordination
-      Moderated   : no
-      Subscription: open
-
   debian-debbugs-cvs@lists.debian.org
 
       Description : debbugs CVS commits
@@ -811,6 +805,13 @@ Internationalization and Translations
       Moderated   : no
       Subscription: open
 
+  debian-l10n-belarusian@lists.debian.org
+
+      Description : Belarusian Localization
+      Language    : Belarusian
+      Moderated   : no
+      Subscription: open
+
   debian-l10n-catalan@lists.debian.org
 
       Description : Catalan Localization
@@ -1026,6 +1027,12 @@ Ports to non-i386 Linux architectures and to non-Linux kernels
   debian-ia64@lists.debian.org
 
       Description : Debian port to Intel IA-64
+      Moderated   : no
+      Subscription: open
+
+  debian-interix@lists.debian.org
+
+      Description : Debian port to Interix
       Moderated   : no
       Subscription: open
 
