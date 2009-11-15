@@ -418,6 +418,11 @@ Set_defaults ()
 		if [ "${LH_CHROOT_FILESYSTEM}" = "squashfs" ]
 		then
 			LH_LINUX_PACKAGES="${LH_LINUX_PACKAGES} squashfs-modules-2.6"
+
+			if [ "${LH_DISTRIBUTION}" = "sid" ]
+			then
+				LH_LINUX_PACKAGES="${LH_LINUX_PACKAGES} lzma-modules-2.6"
+			fi
 		fi
 
 		if [ -n "${LH_ENCRYPTION}" ]
@@ -589,6 +594,9 @@ Set_defaults ()
 
 	# Setting net cow filesystem
 	LH_NET_COW_FILESYSTEM="${LH_NET_COW_FILESYSTEM:-nfs}"
+
+	# Setting net tarball
+	LH_NET_TARBALL="${LH_NET_TARBALL:-gzip}"
 
 	# Setting syslinux configuration file
 	# LH_SYSLINUX_CFG

@@ -94,7 +94,7 @@ do
 done
 
 case "${LH_CHROOT_FILESYSTEM}" in
-	ext2)
+	ext2|ext3)
 		# Checking depends
 		Check_package chroot/usr/bin/genext2fs genext2fs
 
@@ -104,10 +104,10 @@ case "${LH_CHROOT_FILESYSTEM}" in
 		# Installing depends
 		Install_package
 
-		# Remove old ext2 image
-		if [ -f binary/${INITFS}/filesystem.ext2 ]
+		# Remove old image
+		if [ -f binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM} ]
 		then
-			rm -f binary/${INITFS}/filesystem.ext2
+			rm -f binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM}
 		fi
 
 		DU_DIM="$(du -ks chroot/chroot | cut -f1)"
@@ -121,15 +121,15 @@ case "${LH_CHROOT_FILESYSTEM}" in
 
 		case "${LH_CHROOT_BUILD}" in
 			enabled)
-				Chroot "genext2fs --size-in-blocks=${REAL_DIM} ${RESERVED_PERCENTAGE}=0 --root=chroot filesystem.ext2"
+				Chroot "genext2fs --size-in-blocks=${REAL_DIM} ${RESERVED_PERCENTAGE}=0 --root=chroot filesystem.${LH_CHROOT_FILESYSTEM}"
 
 				# Move image
-				mv chroot/filesystem.ext2 binary/${INITFS}
+				mv chroot/filesystem.${LH_CHROOT_FILESYSTEM} binary/${INITFS}
 				rm -rf chroot/chroot
 				;;
 
 			disabled)
-				genext2fs --size-in-blocks=${REAL_DIM} ${RESERVED_PERCENTAGE}=0 --root=chroot binary/${INITFS}/filesystem.ext2
+				genext2fs --size-in-blocks=${REAL_DIM} ${RESERVED_PERCENTAGE}=0 --root=chroot binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM}
 				;;
 		esac
 
@@ -150,15 +150,20 @@ case "${LH_CHROOT_FILESYSTEM}" in
 		# Installing depends
 		Install_package
 
-		# Remove old ext2 image
+		# Remove old jffs2 image
 		if [ -f binary/${INITFS}/filesystem.jffs2 ]
 		then
 			rm -f binary/${INITFS}/filesystem.jffs2
 		fi
 
+		if [ -n "${LH_JFFS2_ERASEBLOCK}" ]
+		then
+			JFFS2_OPTIONS="--eraseblock=${LH_JFFS2_ERASEBLOCK}"
+		fi
+
 		case "${LH_CHROOT_BUILD}" in
 			enabled)
-				Chroot "mkfs.jffs2 --root=chroot --output filesystem.jffs2"
+				Chroot "mkfs.jffs2 ${JFFS2_OPTIONS} --root=chroot --output filesystem.jffs2"
 
 				# Move image
 				mv chroot/filesystem.jffs2 binary/${INITFS}
@@ -166,7 +171,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 				;;
 
 			disabled)
-				mkfs.jffs2 --root=chroot --output binary/${INITFS}/filesystem.jffs2
+				mkfs.jffs2 ${JFFS2_OPTIONS} --root=chroot --output binary/${INITFS}/filesystem.jffs2
 				;;
 		esac
 

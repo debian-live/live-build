@@ -128,7 +128,7 @@ EOF
 			mv chroot/etc/kernel-img.conf.old chroot/etc/kernel-img.conf
 		else
 			# Removing kernel-img.conf file
-			rm -f chroot/etc/kernel-img.conf
+			Truncate chroot/etc/kernel-img.conf
 		fi
 
 		# Removing stage file

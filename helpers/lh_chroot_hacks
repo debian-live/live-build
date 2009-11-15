@@ -104,6 +104,13 @@ then
 	chown -R --quiet 999:999 chroot/home/${LH_USERNAME}
 fi
 
+# This is a temporary hack to get rid of fstab;
+# needs cleanup in live-initramfs first to proper fix.
+if [ "${LH_DEBIAN_INSTALLER}" = "live" ]
+then
+	rm -f chroot/etc/fstab
+fi
+
 if [ "${LH_EXPOSED_ROOT}" = "enabled" ]
 then
 	# Make sure RW dirs exist so that the initramfs script has

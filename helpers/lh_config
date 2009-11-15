@@ -70,6 +70,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--iso-preparer NAME]\n\
 \t    [--iso-publisher NAME]\n\
 \t    [--iso-volume NAME]\n\
+\t    [--jffs2-eraseblock SIZE]\n\
 \t    [--keyring-packages PACKAGE|\"PACKAGES\"]\n\
 \t    [-l|--language LANGUAGE]\n\
 \t    [-k|--linux-flavours FLAVOUR|\"FLAVOURS\"]\n\
@@ -89,6 +90,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--net-cow-mountoptions OPTIONS]\n\
 \t    [--net-cow-path PATH]\n\
 \t    [--net-cow-server IP|HOSTNAME]\n\
+\t    [--net-tarball bzip2|gzip|tar|none]\n\
 \t    [-p|--packages-lists FILE]\n\
 \t    [--packages PACKAGE|\"PACKAGES\"]\n\
 \t    [--quiet]\n\
@@ -113,7 +115,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 
 Local_arguments ()
 {
-	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-options:,aptitute-options:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,memtest:,net-root-filesystem:,net-root-mountoptions:,net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,net-cow-server:,syslinux-splash:,syslinux-timeout:,syslinux-menu:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
+	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-options:,aptitute-options:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,net-cow-server:,net-tarball:,syslinux-splash:,syslinux-timeout:,syslinux-menu:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
 
 	if [ "${?}" != "0" ]
 	then
@@ -504,6 +506,11 @@ Local_arguments ()
 				shift 2
 				;;
 
+			--jffs2-eraseblock)
+				LH_JFFS2_ERASEBLOCK="${2}"
+				shift 2
+				;;
+
 			--memtest)
 				LH_MEMTEST="${2}"
 				shift 2
@@ -546,6 +553,11 @@ Local_arguments ()
 
 			--net-cow-server)
 				LH_NET_COW_SERVER="${2}"
+				shift 2
+				;;
+
+			--net-tarball)
+				LH_NET_TARBALL="${2}"
 				shift 2
 				;;
 
@@ -632,7 +644,7 @@ Local_arguments ()
 				;;
 
 			*)
-				Echo_error "internal error"
+				Echo_error "internal error ${0}"
 				exit 1
 				;;
 		esac
@@ -1004,6 +1016,10 @@ LH_ISO_PUBLISHER="${LH_ISO_PUBLISHER}"
 # (Default: ${LH_ISO_VOLUME})
 LH_ISO_VOLUME="${LH_ISO_VOLUME}"
 
+# \$LH_JFFS2_ERASEBLOCK: set jffs2 eraseblock size
+# (Default: unset)
+LH_JFFS2_ERASEBLOCK=""
+
 # \$LH_MEMTEST: set memtest
 # (Default: ${LH_MEMTEST})
 LH_MEMTEST="${LH_MEMTEST}"
@@ -1039,6 +1055,10 @@ LH_NET_COW_PATH="${LH_NET_COW_PATH}"
 # \$LH_NET_COW_SERVER: set cow server
 # (Default: ${LH_NET_COW_SERVER})
 LH_NET_COW_SERVER="${LH_NET_COW_SERVER}"
+
+# \$LH_NET_TARBALL: set net tarball
+# (Default: ${LH_NET_TARBALL})
+LH_NET_TARBALL="${LH_NET_TARBALL}"
 
 # \$LH_SYSLINUX_SPLASH: set custom syslinux splash
 # (Default: empty)

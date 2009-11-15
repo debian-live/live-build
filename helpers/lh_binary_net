@@ -38,6 +38,11 @@ then
 	exit 0
 fi
 
+if [ "${LH_NET_TARBALL}" = "none" ]
+then
+	exit 0
+fi
+
 Echo_message "Begin building binary netboot image..."
 
 # Requiring stage file
@@ -53,10 +58,9 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Remove old binary
-if [ -f binary-net.tar.gz ]
-then
-	rm -f binary-net.tar.gz
-fi
+rm -f binary-net.tar.bz2
+rm -f binary-net.tar.gz
+rm -f binary-net.tar
 
 # Creating image file
 ROOT_DIR=$(basename ${LH_NET_ROOT_PATH})
@@ -71,8 +75,24 @@ then
 fi
 
 cd ..
-tar cfz binary-net.tar.gz "$(basename ${OLDPWD})/${ROOT_DIR}" "$(basename ${OLDPWD})/tftpboot"
-mv binary-net.tar.gz "${OLDPWD}"
+
+case "${LH_NET_TARBALL}" in
+	bzip2)
+		tar cfj binary-net-tar.bz2 "$(basename ${OLDPWD})/${ROOT_DIR}" "$(basename ${OLDPWD})/tftpboot"
+		mv binary-net.tar.bz2 "${OLDPWD}"
+		;;
+
+	gzip)
+		tar cfz binary-net.tar.gz "$(basename ${OLDPWD})/${ROOT_DIR}" "$(basename ${OLDPWD})/tftpboot"
+		mv binary-net.tar.gz "${OLDPWD}"
+		;;
+
+	tar)
+		tar cf binary-net.tar "$(basename ${OLDPWD})/${ROOT_DIR}" "$(basename ${OLDPWD})/tftpboot"
+		mv binary-net.tar "${OLDPWD}"
+		;;
+esac
+
 cd "${OLDPWD}"
 
 if [ "${ROOT_DIR}" != "binary" ]
