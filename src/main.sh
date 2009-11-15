@@ -25,10 +25,10 @@
 set -e
 
 # Set static variables
-BASE="/usr/share/make-live"
+BASE=${LIVE_BASE:-"/usr/share/make-live"}
 CONFIG="/etc/make-live.conf"
 PROGRAM="`basename ${0}`"
-VERSION="0.99.11"
+VERSION="0.99.12"
 
 CODENAME_OLDSTABLE="woody"
 CODENAME_STABLE="sarge"
@@ -36,12 +36,12 @@ CODENAME_TESTING="etch"
 CODENAME_UNSTABLE="sid"
 
 # Source sub scripts
-for SCRIPT in "${BASE}"/scripts/*
+for SCRIPT in `find ${BASE}/scripts/ -not -name '*~' -and -type f`
 do
 	. "${SCRIPT}"
 done
 
-USAGE="Usage: ${PROGRAM} [-a|--architecture ARCHITECTURE] [-b|--bootappend KERNEL_PARAMETER|\"KERNEL_PARAMETERS\"] [--clone DIRECTORY] [--config FILE] [-c|--chroot DIRECTORY] [-d|--distribution DISTRIBUTION] [--disable-generic-indices] [--enable-generic-indices] [--filesystem FILESYSTEM] [-f|--flavour BOOTSTRAP_FLAVOUR] [--hook COMMAND|\"COMMANDS\"] [--include-chroot FILE|DIRECTORY] [--include-image FILE|DIRECTORY] [-k|--kernel KERNEL_FLAVOUR] [--manifest PACKAGE] [-m|--mirror URL] [--mirror-security URL] [--packages PACKAGE|\"PACKAGES\"] [-p|--package-list LIST|FILE] [--preseed FILE] [--proxy-ftp URL] [--proxy-http URL] [--repositories NAME] [-r|--root DIRECTORY] [-s|--section SECTION|\"SECTIONS\"] [--server-address HOSTNAME|IP] [--server-path DIRECTORY] [--templates DIRECTORY] [-t|--type TYPE]"
+USAGE="Usage: ${PROGRAM} [-a|--architecture ARCHITECTURE] [-b|--bootappend KERNEL_PARAMETER|\"KERNEL_PARAMETERS\"] [--clone DIRECTORY] [--config FILE] [-c|--chroot DIRECTORY] [-d|--distribution DISTRIBUTION] [--with-generic-indices] [--without-generic-indices] [--filesystem FILESYSTEM] [-f|--flavour BOOTSTRAP_FLAVOUR] [--hook COMMAND|\"COMMANDS\"] [--include-chroot FILE|DIRECTORY] [--include-image FILE|DIRECTORY] [-k|--kernel KERNEL_FLAVOUR] [--manifest PACKAGE] [-m|--mirror URL] [--mirror-security URL] [--packages PACKAGE|\"PACKAGES\"] [-p|--package-list LIST|FILE] [--preseed FILE] [--proxy-ftp URL] [--proxy-http URL] [--repositories NAME] [-r|--root DIRECTORY] [-s|--section SECTION|\"SECTIONS\"] [--server-address HOSTNAME|IP] [--server-path DIRECTORY] [--templates DIRECTORY] [-t|--type TYPE]"
 
 Help ()
 {
@@ -67,11 +67,11 @@ Help ()
 	echo "  -b, --bootappend: specifies the kernel parameter(s)."
 	echo "  --config: specifies an alternate configuration file."
 	echo "  -c, --chroot: specifies the chroot directory."
+	echo "  --clone: specifies a chroot directory to clone."
 	echo "  -d, --distribution: specifies the debian distribution."
-	echo "  --disable-generic-indices: disables generic debian package indices."
-	echo "  --enable-generic-indices: enables generic debian package indices (default)."
 	echo "  --filesystem: specifies the chroot filesystem."
 	echo "  -f, --flavour: specifies the bootstrap flavour."
+	echo "  --bootstrap-config: specifies the suite configuration to be used for bootstraping."
 	echo "  --hook: specifies extra command(s)."
 	echo "  --include-chroot: specifies file or directory for chroot inclusion."
 	echo "  --include-image: specifies file or directory for image inclusion."
@@ -83,6 +83,7 @@ Help ()
 	echo "  -p, --package-list: specifies additonal package list."
 	echo "  --repositories: specifies custom repositories."
 	echo "  -r, --root: specifies build root."
+	echo "  --preseed: specifies a debconf preseeding file."
 	echo "  --proxy-ftp: specifies \${ftp_proxy}."
 	echo "  --proxy-http: specifies \${http_proxy}."
 	echo "  -s, --section: specifies the debian sections."
@@ -90,6 +91,8 @@ Help ()
 	echo "  --server-path: specifies the netboot server path for chroot."
 	echo "  --templates: specifies location of the templates."
 	echo "  -t, --type: specifies live system type."
+	echo "  --with-generic-indices: enables generic debian package indices (default)."
+	echo "  --without-generic-indices: disables generic debian package indices."
 	echo
 	echo "Environment:"
 	echo "  All settings can be also specified trough environment variables. Please see make-live.conf(8) for more information."
@@ -159,7 +162,7 @@ Configuration ()
 
 Main ()
 {
-	ARGUMENTS="`getopt --longoptions root:,type:,architecture:,bootappend:,clone:,config:,chroot:,distribution:,filesystem:,flavour:,hook:,include-chroot:,include-image:,kernel:,manifest:,mirror:,mirror-security:,output:,packages:,package-list:,proxy-ftp:,preseed:,proxy-http:,repositories:,section:,server-address:,server-path:,templates:,with-generic-indices,without-generic-indices,with-source,without-source,help,usage,version --name=${PROGRAM} --options r:t:a:b:c:d:f:k:m:o:p:s:huv --shell sh -- "${@}"`"
+	ARGUMENTS="`getopt --longoptions root:,type:,architecture:,bootappend:,clone:,config:,chroot:,distribution:,filesystem:,flavour:,bootstrap-config:,hook:,include-chroot:,include-image:,kernel:,manifest:,mirror:,mirror-security:,output:,packages:,package-list:,proxy-ftp:,preseed:,proxy-http:,repositories:,section:,server-address:,server-path:,templates:,with-generic-indices,without-generic-indices,with-source,without-source,help,usage,version --name=${PROGRAM} --options r:t:a:b:c:d:f:k:m:o:p:s:huv --shell sh -- "${@}"`"
 
 	if [ "${?}" != "0" ]
 	then
@@ -210,6 +213,9 @@ Main ()
 
 			-f|--flavour)
 				LIVE_FLAVOUR="${2}"; shift 2
+				;;
+			--bootstrap-config)
+				LIVE_BOOTSTRAP_CONFIG="${2}"; shift 2
 				;;
 			--hook)
 				LIVE_HOOK="${2}"; shift 2

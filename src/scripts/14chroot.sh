@@ -34,7 +34,7 @@ Chroot ()
 		Indices custom
 
 		# Install secure apt
-		if [ "${LIVE_DISTRIBUTION}" = "testing" ] || [ "${LIVE_DISTRIBUTION}" = "unstable" ]
+		if [ "${LIVE_DISTRIBUTION}" = "testing" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_TESTING}" ] || [ "${LIVE_DISTRIBUTION}" = "unstable" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_UNSTABLE}" ]
 		then
 			if [ "${LIVE_FLAVOUR}" != "minimal" ]
 			then
@@ -65,7 +65,7 @@ Chroot ()
 		Patch_linux apply
 
 		# Install linux-image, modules and casper
-		Chroot_exec "apt-get install --yes --force-yes linux-image-2.6-${LIVE_KERNEL} squashfs-modules-2.6-${LIVE_KERNEL} unionfs-modules-2.6-${LIVE_KERNEL} casper"
+		Chroot_exec "apt-get install --yes --force-yes ${LIVE_KERNEL_PACKAGES} casper"
 
 		# Deconfigure linux-image
 		Patch_linux deapply
@@ -159,15 +159,9 @@ Chroot ()
 			Chroot_exec "dpkg-query -W \*" | awk '$2 ~ /./ {print $1 " " $2 }' > "${LIVE_ROOT}"/filesystem.manifest-desktop
 		fi
 
-		# Remove unused packages
-		Chroot_exec "apt-get remove --purge --yes cdebootstrap-helper-diverts"
-
 		# Clean apt packages cache
 		rm -rf "${LIVE_CHROOT}"/var/cache/apt
 		mkdir -p "${LIVE_CHROOT}"/var/cache/apt/archives/partial
-
-		# Remove cdebootstrap packages cache
-		rm -rf "${LIVE_CHROOT}"/var/cache/bootstrap
 
 		# Unmount proc
 		umount "${LIVE_CHROOT}"/proc

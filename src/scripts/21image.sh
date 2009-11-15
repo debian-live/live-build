@@ -15,35 +15,38 @@ Indices ()
 		custom)
 			# Configure custom sources.list
 			case "${LIVE_DISTRIBUTION}" in
-				oldstable)
-					echo "deb ${LIVE_MIRROR} oldstable ${LIVE_SECTION}" > "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb-src ${LIVE_MIRROR} oldstable ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb ${LIVE_MIRROR_SECURITY} oldstable/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb-src ${LIVE_MIRROR_SECURITY} oldstable/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+				oldstable|"${CODENAME_OLDSTABLE}"|stable|"${CODENAME_STABLE}"|testing|"${CODENAME_TESTING}")
+					echo "deb ${LIVE_MIRROR} ${LIVE_DISTRIBUTION} ${LIVE_SECTION}" > "${LIVE_CHROOT}"/etc/apt/sources.list
+
+					if [ "${LIVE_SOURCE}" = "yes" ]
+					then
+						echo "deb-src ${LIVE_MIRROR} ${LIVE_DISTRIBUTION} ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+					fi
+
+					echo "deb ${LIVE_MIRROR_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+
+					if [ "${LIVE_SOURCE}" = "yes" ]
+					then
+						echo "deb-src ${LIVE_MIRROR_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+					fi
 					;;
 
-				stable)
-					echo "deb ${LIVE_MIRROR} stable ${LIVE_SECTION}" > "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb-src ${LIVE_MIRROR} stable ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb ${LIVE_MIRROR_SECURITY} stable/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb-src ${LIVE_MIRROR_SECURITY} stable/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-					;;
-
-				testing)
-					echo "deb ${LIVE_MIRROR} testing ${LIVE_SECTION}" > "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb-src ${LIVE_MIRROR} testing ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb ${LIVE_MIRROR_SECURITY} testing/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb-src ${LIVE_MIRROR_SECURITY} testing/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-					;;
-
-				unstable)
+				unstable|"${CODENAME_UNSTABLE}")
 					echo "deb ${LIVE_MIRROR} unstable ${LIVE_SECTION}" > "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb-src ${LIVE_MIRROR} unstable ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+
+					if [ "${LIVE_SOURCE}" = "yes" ]
+					then
+						echo "deb-src ${LIVE_MIRROR} unstable ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+					fi
 
 					if [ "${LIVE_DISTRIBUTION_EXPERIMENTAL}" = "yes" ]
 					then
 						echo "deb ${LIVE_MIRROR} experimental ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-						echo "deb-src ${LIVE_MIRROR} experimental ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+
+						if [ "${LIVE_SOURCE}" = "yes" ]
+						then
+							echo "deb-src ${LIVE_MIRROR} experimental ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+						fi
 
 cat > "${LIVE_CHROOT}"/etc/apt/preferences << EOF
 Package: *
@@ -58,35 +61,38 @@ EOF
 		default)
 			# Configure default sources.list
 			case "${LIVE_DISTRIBUTION}" in
-				oldstable)
-					echo "deb http://ftp.debian.org/debian/ oldstable ${LIVE_SECTION}" > "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb-src http://ftp.debian.org/debian/ oldstable ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb http://security.debian.org/ oldstable/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb-src http://security.debian.org/ oldstable/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+				oldstable|"${CODENAME_OLDSTABLE}"|stable|"${CODENAME_STABLE}"|testing|"${CODENAME_TESTING}")
+					echo "deb http://ftp.debian.org/debian/ ${LIVE_DISTRIBUTION} ${LIVE_SECTION}" > "${LIVE_CHROOT}"/etc/apt/sources.list
+
+					if [ "${LIVE_SOURCE}" = "yes" ]
+					then
+						echo "deb-src http://ftp.debian.org/debian/ ${LIVE_DISTRIBUTION} ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+					fi
+
+					echo "deb http://security.debian.org/ ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+
+					if [ "${LIVE_SOURCE}" = "yes" ]
+					then
+						echo "deb-src http://security.debian.org/ ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+					fi
 					;;
 
-				stable)
-					echo "deb http://ftp.debian.org/debian/ stable ${LIVE_SECTION}" > "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb-src http://ftp.debian.org/debian/ stable ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb http://security.debian.org/ stable/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb-src http://security.debian.org/ stable/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-					;;
-
-				testing)
-					echo "deb http://ftp.debian.org/debian/ testing ${LIVE_SECTION}" > "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb-src http://ftp.debian.org/debian/ testing ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb http://security.debian.org/ testing/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb-src http://security.debian.org/ testing/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-					;;
-
-				unstable)
+				unstable|"${CODENAME_UNSTABLE}")
 					echo "deb http://ftp.debian.org/debian/ unstable ${LIVE_SECTION}" > "${LIVE_CHROOT}"/etc/apt/sources.list
-					echo "deb-src http://ftp.debian.org/debian/ unstable ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+
+					if [ "${LIVE_SOURCE}" = "yes" ]
+					then
+						echo "deb-src http://ftp.debian.org/debian/ unstable ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+					fi
 
 					if [ "${LIVE_DISTRIBUTION_EXPERIMENTAL}" = "yes" ]
 					then
 						echo "deb http://ftp.debian.org/debian/ experimental ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-						echo "deb-src http://ftp.debian.org/debian/ experimental ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+
+						if [ "${LIVE_SOURCE}" = "yes" ]
+						then
+							echo "deb-src http://ftp.debian.org/debian/ experimental ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+						fi
 					fi
 					;;
 			esac

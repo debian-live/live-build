@@ -1,3 +1,21 @@
+2006-10-25 Daniel Baumann <daniel@debian.org>
+
+	* Applied patch from Marcelo D. Re <mdre@rectorado.unl.edu.ar>:
+	  - skip deb-src source-list entries when building images with
+	    --without-source.
+	* Applied patches from Otavio Salvador <otavio@debian.org>:
+	  - adding '--bootstrap-config' to support cdebootstraps
+	    '--suite-config'.
+	  - allowing override of ${BASE}.
+	  - adjust sourcing of scripts, so that only the real scripts are
+	    sourced and not other (backup) files.
+	  - allowing override of kernel-packages.
+	* Reverted mangling of LIVE_DISTRIBUTION for sources.list generation.
+
+2006-10-18 Daniel Baumann <daniel@debian.org>
+
+	* Autodetecting proxy now.
+
 2006-10-16 Daniel Baumann <daniel@debian.org>
 
 	* Readded and slightly changed --clone and --preseed.

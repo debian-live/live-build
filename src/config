@@ -30,6 +30,9 @@
 # Bootstrap flavour		(Default: standard)
 #LIVE_FLAVOUR="standard"
 
+# Bootstrap config      (Default: empty)
+#LIVE_BOOTSTRAP_CONFIG=""
+
 # User command			(Default: empty)
 #LIVE_HOOK=""
 
@@ -41,6 +44,9 @@
 
 # Kernel flavour		(Default: auto-detected)
 #LIVE_KERNEL=""
+
+# Kernel packages       (Default: auto-detected)
+#LIVE_KERNEL_PACKAGES=""
 
 # Desktop package manifest	(Default: empty)
 #LIVE_MANIFEST=""
