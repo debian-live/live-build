@@ -28,7 +28,7 @@ set -e
 BASE="/usr/share/make-live"
 CONFIG="/etc/make-live.conf"
 PROGRAM="`basename ${0}`"
-VERSION="0.99.5"
+VERSION="0.99.6"
 
 CODENAME_OLDSTABLE="woody"
 CODENAME_STABLE="sarge"
@@ -41,11 +41,13 @@ do
 	. "${SCRIPT}"
 done
 
+USAGE="Usage: ${PROGRAM} [-a|--architecture ARCHITECTURE] [-b|--bootappend KERNEL_PARAMETER|\"KERNEL_PARAMETERS\"] [--config FILE] [-c|--chroot DIRECTORY] [-d|--distribution DISTRIBUTION] [--disable-generic-indices] [--enable-generic-indices] [--filesystem FILESYSTEM] [-f|--flavour BOOTSTRAP_FLAVOUR] [--hook COMMAND|\"COMMANDS\"] [--include-chroot FILE|DIRECTORY] [--include-image FILE|DIRECTORY] [-k|--kernel KERNEL_FLAVOUR] [--manifest PACKAGE] [-m|--mirror URL] [--mirror-security URL] [--packages PACKAGE|\"PACKAGES\"] [-p|--package-list LIST|FILE] [--proxy-ftp URL] [--proxy-http URL] [-r|--root DIRECTORY] [-s|--section SECTION|\"SECTIONS\"] [--server-address HOSTNAME|IP] [--server-path DIRECTORY] [--templates DIRECTORY] [-t|--type TYPE]"
+
 Help ()
 {
 	echo "${PROGRAM} - utility to build Debian Live systems"
 	echo
-	echo "Usage: ${PROGRAM} [-a|--architecture ARCHITECTURE] [-b|--bootappend KERNEL_PARAMETER|\"KERNEL_PARAMETERS\"] [--config FILE] [-c|--chroot DIRECTORY] [-d|--distribution DISTRIBUTION] [--disable-generic-indices] [--enable-generic-indices] [--filesystem FILESYSTEM] [-f|--flavour BOOTSTRAP_FLAVOUR] [--hook COMMAND|\"COMMANDS\"] [--include-chroot FILE|DIRECTORY] [--include-image FILE|DIRECTORY] [-k|--kernel KERNEL_FLAVOUR] [-m|--mirror URL] [--mirror-security URL] [--packages PACKAGE|\"PACKAGES\"] [-p|--package-list LIST|FILE] [--proxy-ftp URL] [--proxy-http URL] [-r|--root DIRECTORY] [-s|--section SECTION|\"SECTIONS\"] [--server-address HOSTNAME|IP] [--server-path DIRECTORY] [--templates DIRECTORY] [-t|--type TYPE]"
+	echo "${USAGE}"
 	echo "Usage: ${PROGRAM} [-h|--help]"
 	echo "Usage: ${PROGRAM} [-u|--usage]"
 	echo "Usage: ${PROGRAM} [-v|--version]"
@@ -74,6 +76,7 @@ Help ()
 	echo "  --include-chroot: specifies file or directory for chroot inclusion."
 	echo "  --include-image: specifies file or directory for image inclusion."
 	echo "  -k, --kernel: specifies debian kernel flavour."
+	echo "  --manifest: specifies the pivot package to create filesystem.manifest-desktop upon (mostly \"ubuntu-live\")."
 	echo "  -m, --mirror: specifies debian mirror."
 	echo "  --mirror-security: specifies debian security mirror."
 	echo "  --packages: specifies aditional packages."
@@ -91,20 +94,20 @@ Help ()
 	echo "  All settings can be also specified trough environment variables. Please see make-live.conf(8) for more information."
 	echo
 	echo "Report bugs to Debian Live project <http://live.debian.net>."
-	exit 1
+	exit 0
 }
 
 Usage ()
 {
 	echo "${PROGRAM} - utility to build Debian Live systems"
 	echo
-	echo "Usage: ${PROGRAM} [-a|--architecture ARCHITECTURE] [-b|--bootappend KERNEL_PARAMETER|\"KERNEL_PARAMETERS\"] [--config FILE] [-c|--chroot DIRECTORY] [-d|--distribution DISTRIBUTION] [--disable-generic-indices] [--enable-generic-indices] [--filesystem FILESYSTEM] [-f|--flavour BOOTSTRAP_FLAVOUR] [--hook COMMAND|\"COMMANDS\"] [--include-chroot FILE|DIRECTORY] [--include-image FILE|DIRECTORY] [-k|--kernel KERNEL_FLAVOUR] [-m|--mirror URL] [--mirror-security URL] [--packages PACKAGE|\"PACKAGES\"] [-p|--package-list LIST|FILE] [--proxy-ftp URL] [--proxy-http URL] [-r|--root DIRECTORY] [-s|--section SECTION|\"SECTIONS\"] [--server-address HOSTNAME|IP] [--server-path DIRECTORY] [--templates DIRECTORY] [-t|--type TYPE]"
+	echo "${USAGE}"
 	echo "Usage: ${PROGRAM} [-h|--help]"
 	echo "Usage: ${PROGRAM} [-u|--usage]"
 	echo "Usage: ${PROGRAM} [-v|--version]"
 	echo
 	echo "Try \"${PROGRAM} --help\" for more information."
-	exit 1
+	exit ${1}
 }
 
 Version ()
@@ -132,7 +135,7 @@ Version ()
 	echo "can be found in /usr/share/common-licenses/GPL file."
 	echo
 	echo "Homepage: <http://live.debian.net/>"
-	exit 1
+	exit 0
 }
 
 Configuration ()
@@ -155,7 +158,7 @@ Configuration ()
 
 Main ()
 {
-	ARGUMENTS="`getopt --longoptions root:,type:,architecture:,bootappend:,config:,chroot:,distribution:,filesystem:,flavour:,hook:,include-chroot:,include-image:,kernel:,mirror:,mirror-security:,output:,packages:,package-list:,proxy-ftp:,proxy-http:,section:,server-address:,server-path:,templates:,with-generic-indices,without-generic-indices,with-source,without-source,help,usage,version --name=${PROGRAM} --options r:t:a:b:c:d:f:k:m:o:p:s:huv --shell sh -- ${@}`"
+	ARGUMENTS="`getopt --longoptions root:,type:,architecture:,bootappend:,config:,chroot:,distribution:,filesystem:,flavour:,hook:,include-chroot:,include-image:,kernel:,manifest:,mirror:,mirror-security:,output:,packages:,package-list:,proxy-ftp:,proxy-http:,section:,server-address:,server-path:,templates:,with-generic-indices,without-generic-indices,with-source,without-source,help,usage,version --name=${PROGRAM} --options r:t:a:b:c:d:f:k:m:o:p:s:huv --shell sh -- ${@}`"
 
 	if [ "${?}" != "0" ]
 	then
@@ -193,34 +196,7 @@ Main ()
 				;;
 
 			-d|--distribution)
-				case "${2}" in
-					"${CODENAME_OLDSTABLE}")
-						LIVE_DISTRIBUTION="oldstable"
-						;;
-
-					"${CODENAME_STABLE}")
-						LIVE_DISTRIBUTION="stable"
-						;;
-
-					"${CODENAME_TESTING}")
-						LIVE_DISTRIBUTION="testing"
-						;;
-
-					"${CODENAME_UNSTABLE}")
-						LIVE_DISTRIBUTION="unstable"
-						;;
-
-					experimental)
-						LIVE_DISTRIBUTION="unstable"
-						LIVE_DISTRIBUTION_EXPERIMENTAL="yes"
-						;;
-
-					*)
-						LIVE_DISTRIBUTION="${2}"
-						;;
-				esac
-
-				shift 2
+				LIVE_DISTRIBUTION="${2}"; shift 2
 				;;
 
 			--filesystem)
@@ -244,6 +220,10 @@ Main ()
 
 			-k|--kernel)
 				LIVE_KERNEL="${2}"; shift 2
+				;;
+
+			--manifest)
+				LIVE_MANIFEST="${2}"; shift 2
 				;;
 
 			-m|--mirror)
@@ -311,7 +291,7 @@ Main ()
 				;;
 
 			-u|--usage)
-				Usage; shift
+				Usage 0; shift
 				;;
 
 			-v|--version)
@@ -340,7 +320,7 @@ Main ()
 		for FLAVOUR in minimal standard gnome kde xfce
 		do
 			( make-live -d testing -o "debian-live-${CODENAME_TESTING}-`dpkg --print-architecture`-${FLAVOUR}-" -p ${FLAVOUR} --with-source && cd "${LIVE_ROOT}" && cd .. && mv "${LIVE_ROOT}"/*.iso ./ && rm -rf "${LIVE_ROOT}" ) || rm -rf "${LIVE_ROOT}"
-			( make-live -d unstable -o "debian-live-${CODENAME_TESTING}-`dpkg --print-architecture`-${FLAVOUR}-" -p ${FLAVOUR} --with-source && cd "${LIVE_ROOT}" && cd .. && mv "${LIVE_ROOT}"/*.iso ./ && rm -rf "${LIVE_ROOT}" ) || rm -rf "${LIVE_ROOT}"
+			( make-live -d unstable -o "debian-live-${CODENAME_UNSTABLE}-`dpkg --print-architecture`-${FLAVOUR}-" -p ${FLAVOUR} --with-source && cd "${LIVE_ROOT}" && cd .. && mv "${LIVE_ROOT}"/*.iso ./ && rm -rf "${LIVE_ROOT}" ) || rm -rf "${LIVE_ROOT}"
 		done
 	fi
 

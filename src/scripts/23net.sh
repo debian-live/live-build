@@ -13,6 +13,10 @@ Net ()
 {
 	if [ ! -f "${LIVE_ROOT}"/.stage/image_binary ]
 	then
+		mkdir -p "${LIVE_ROOT}"/binary/casper
+		cp -r "${LIVE_TEMPLATES}"/common/* "${LIVE_ROOT}"/binary
+		mv "${LIVE_ROOT}"/filesystem.manifest* "${LIVE_ROOT}"/binary/casper
+
 		# Installing smbfs
 		Chroot_exec "apt-get install --yes smbfs"
 
