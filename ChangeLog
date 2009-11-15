@@ -1,9 +1,19 @@
+2007-02-15 Daniel Baumann <daniel@debian.org>
+
+	* Applied patch from Sebastian Raveau <sebastien.raveau@epita.fr> to
+	  add support for filesystem images encrypted with loop-aes.
+
+2007-02-13 Daniel Baumann <daniel@debian.org>
+
+	* Broken out scripts into modularized lh_* subscripts.
+
 2007-02-12 Daniel Baumann <daniel@debian.org>
 
 	* Added some code as suggested by Alex Owen <r.a.owen@qmul.ac.uk> to
 	  check if the depends (syslinux, memtest etc.) are intentionally
 	  installed in the chroot, and hence, don't remove them.
 	* Moved some depends into the chroot.
+	* Uploaded 0.99.21.
 
 2007-02-11 Daniel Baumann <daniel@debian.org>
 

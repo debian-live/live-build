@@ -28,7 +28,9 @@ set -e
 BASE=${LIVE_BASE:-"/usr/share/make-live"}
 CONFIG="/etc/make-live.conf"
 PROGRAM="`basename ${0}`"
-VERSION="0.99.21"
+VERSION="0.99.22"
+
+export VERSION
 
 CODENAME_OLDSTABLE="woody"
 CODENAME_STABLE="sarge"
@@ -41,7 +43,7 @@ do
 	. "${SCRIPT}"
 done
 
-USAGE="Usage: ${PROGRAM} [-a|--architecture ARCHITECTURE] [-b|--bootappend KERNEL_PARAMETER|\"KERNEL_PARAMETERS\"] [--clone DIRECTORY] [--config FILE] [-c|--chroot DIRECTORY] [-d|--distribution DISTRIBUTION] [--with-generic-indices] [--without-generic-indices] [--with-recommends] [--without-recommends] [--with-daemons] [--without-daemons] [--filesystem FILESYSTEM] [-f|--flavour BOOTSTRAP_FLAVOUR] [--hook COMMAND|\"COMMANDS\"] [--include-chroot FILE|DIRECTORY] [--include-image FILE|DIRECTORY] [-k|--kernel KERNEL_FLAVOUR] [--manifest PACKAGE] [-m|--mirror URL] [-k|--keyring] [--mirror-security URL] [--packages PACKAGE|\"PACKAGES\"] [-p|--package-list LIST|FILE] [--preseed FILE] [--proxy-ftp URL] [--proxy-http URL] [--repositories NAME] [-r|--root DIRECTORY] [-s|--section SECTION|\"SECTIONS\"] [--server-address HOSTNAME|IP] [--server-path DIRECTORY] [--templates DIRECTORY] [-t|--type TYPE] [--tasks TASK]"
+USAGE="Usage: ${PROGRAM} [-a|--architecture ARCHITECTURE] [-b|--bootappend KERNEL_PARAMETER|\"KERNEL_PARAMETERS\"] [--clone DIRECTORY] [--config FILE] [-c|--chroot DIRECTORY] [-d|--distribution DISTRIBUTION] [-e|--encryption ALGORITHM] [--with-generic-indices] [--without-generic-indices] [--with-recommends] [--without-recommends] [--with-daemons] [--without-daemons] [--filesystem FILESYSTEM] [-f|--flavour BOOTSTRAP_FLAVOUR] [--hook COMMAND|\"COMMANDS\"] [--include-chroot FILE|DIRECTORY] [--include-image FILE|DIRECTORY] [-k|--kernel KERNEL_FLAVOUR] [--manifest PACKAGE] [-m|--mirror URL] [-k|--keyring] [--mirror-security URL] [--packages PACKAGE|\"PACKAGES\"] [-p|--package-list LIST|FILE] [--preseed FILE] [--proxy-ftp URL] [--proxy-http URL] [--repositories NAME] [-r|--root DIRECTORY] [-s|--section SECTION|\"SECTIONS\"] [--server-address HOSTNAME|IP] [--server-path DIRECTORY] [--templates DIRECTORY] [-t|--type TYPE] [--tasks TASK]"
 
 Help ()
 {
@@ -69,6 +71,7 @@ Help ()
 	echo "  -c, --chroot: specifies the chroot directory."
 	echo "  --clone: specifies a chroot directory to clone."
 	echo "  -d, --distribution: specifies the debian distribution."
+	echo "  -e, --encryption: specifies the filesystem encryption algorithm."
 	echo "  --filesystem: specifies the chroot filesystem."
 	echo "  -f, --flavour: specifies the bootstrap flavour."
 	echo "  --bootstrap-config: specifies the suite configuration to be used for bootstraping."
@@ -168,7 +171,7 @@ Configuration ()
 
 Main ()
 {
-	ARGUMENTS="`getopt --longoptions root:,tasks:,type:,architecture:,bootappend:,clone:,config:,chroot:,distribution:,filesystem:,flavour:,bootstrap-config:,hook:,include-chroot:,include-image:,kernel:,manifest:,mirror:,keyring:,mirror-security:,output:,packages:,package-list:,proxy-ftp:,preseed:,proxy-http:,repositories:,section:,server-address:,server-path:,templates:,with-generic-indices,without-generic-indices,with-recommends,without-recommends,with-daemons,without-daemons,with-source,without-source,help,usage,version --name=${PROGRAM} --options r:t:a:b:c:d:f:k:m:o:p:s:huv --shell sh -- "${@}"`"
+	ARGUMENTS="`getopt --longoptions root:,tasks:,type:,architecture:,bootappend:,clone:,config:,chroot:,distribution:,encryption:,filesystem:,flavour:,bootstrap-config:,hook:,include-chroot:,include-image:,kernel:,manifest:,mirror:,keyring:,mirror-security:,output:,packages:,package-list:,proxy-ftp:,preseed:,proxy-http:,repositories:,section:,server-address:,server-path:,templates:,with-generic-indices,without-generic-indices,with-recommends,without-recommends,with-daemons,without-daemons,with-source,without-source,help,usage,version --name=${PROGRAM} --options r:t:a:b:c:d:e:f:k:m:o:p:s:huv --shell sh -- "${@}"`"
 
 	if [ "${?}" != "0" ]
 	then
@@ -183,156 +186,200 @@ Main ()
 		case "${1}" in
 			-r|--root)
 				LIVE_ROOT="${2}"; shift 2
+				export LIVE_ROOT
 				;;
 
 			-t|--type)
 				LIVE_TYPE="${2}"; shift 2
+				export LIVE_TYPE
 				;;
 
 			--tasks)
 				LIVE_TASKS="${2}"; shift 2
+				export LIVE_TASKS
 				;;
 
 			-a|--architecture)
 				LIVE_ARCHITECTURE="${2}"; shift 2
+				export LIVE_ARCHITECTURE
 				;;
 
 			-b|--bootappend)
 				LIVE_BOOTAPPEND="${2}"; shift 2
+				export LIVE_BOOTAPPEND
 				;;
 
 			--clone)
 				LIVE_CLONE="${2}"; shift 2
+				export LIVE_CLONE
 				;;
 
 			--config)
 				LIVE_CONFIG="${2}"; shift 2
+				export LIVE_CONFIG
 				;;
 
 			-c|--chroot)
 				LIVE_CHROOT="${2}"; shift 2
+				export LIVE_CHROOT
 				;;
 
 			-d|--distribution)
 				LIVE_DISTRIBUTION="${2}"; shift 2
+				export LIVE_DISTRIBUTION
+				;;
+
+			-e|--encryption)
+				LIVE_ENCRYPTION="${2}"; shift 2
+				export LIVE_ENCRYPTION
 				;;
 
 			--filesystem)
 				LIVE_FILESYSTEM="${2}"; shift 2
+				export LIVE_FILESYSTEM
 				;;
 
 			-f|--flavour)
 				LIVE_FLAVOUR="${2}"; shift 2
+				export LIVE_FLAVOUR
 				;;
 			--bootstrap-config)
 				LIVE_BOOTSTRAP_CONFIG="${2}"; shift 2
+				export LIVE_BOOTSTRAP_CONFIG
 				;;
 			--hook)
 				LIVE_HOOK="${2}"; shift 2
+				export LIVE_HOOK
 				;;
 
 			--include-chroot)
 				LIVE_INCLUDE_CHROOT="${2}"; shift 2
+				export LIVE_INCLUDE_CHROOT
 				;;
 
 			--include-image)
 				LIVE_INCLUDE_IMAGE="${2}"; shift 2
+				export LIVE_INCLUDE_IMAGE
 				;;
 
 			-k|--kernel)
 				LIVE_KERNEL="${2}"; shift 2
+				export LIVE_KERNEL
 				;;
 
 			--manifest)
 				LIVE_MANIFEST="${2}"; shift 2
+				export LIVE_MANIFEST
 				;;
 
 			-m|--mirror)
 				LIVE_MIRROR="${2}"; shift 2
+				export LIVE_MIRROR
 				;;
 
 			--keyring)
 				LIVE_REPOSITORY_KEYRING="${2}"; shift 2
+				export LIVE_REPOSITORY_KEYRING
 				;;
 
 			--mirror-security)
 				LIVE_MIRROR_SECURITY="${2}"; shift 2
+				export LIVE_MIRROR_SECURITY
 				;;
 
 			-o|--output)
 				LIVE_IMAGE="${2}"; shift 2
+				export LIVE_IMAGE
 				;;
 
 			--packages)
 				LIVE_PACKAGES="${2}"; shift 2
+				export LIVE_PACKAGES
 				;;
 
 			-p|--package-list)
 				LIVE_PACKAGE_LIST="${2}"; shift 2
+				export LIVE_PACKAGE_LIST
 				;;
 
 			--preseed)
 				LIVE_PRESEED="${2}"; shift 2
+				export LIVE_PRESEED
 				;;
 
 			--proxy-ftp)
 				LIVE_PROXY_FTP="${2}"; shift 2
+				export LIVE_PROXY_FTP
 				;;
 
 			--proxy-http)
 				LIVE_PROXY_HTTP="${2}"; shift 2
+				export LIVE_PROXY_HTTP
 				;;
 
 			--repositories)
 				LIVE_REPOSITORIES="${2}"; shift 2
+				export LIVE_REPOSITORIES
 				;;
 
 			-s|--section)
 				LIVE_SECTION="${2}"; shift 2
+				export LIVE_SECTION
 				;;
 
 			--server-address)
 				LIVE_SERVER_ADDRESS="${2}"; shift 2
+				export LIVE_SERVER_ADDRESS
 				;;
 
 			--server-path)
 				LIVE_SERVER_PATH="${2}"; shift 2
+				export LIVE_SERVER_PATH
 				;;
 
 			--templates)
 				LIVE_TEMPLATES="${2}"; shift 2
+				export LIVE_TEMPLATES
 				;;
 
 			--with-generic-indices)
 				LIVE_GENERIC_INDICES="yes"; shift
+				export LIVE_GENERIC_INDICES
 				;;
 
 			--without-generic-indices)
 				LIVE_GENERIC_INDICES="no"; shift
+				export LIVE_GENERIC_INDIDCES
 				;;
 
 			--with-recommends)
 				LIVE_RECOMMENDS="yes"; shift
+				export LIVE_RECOMMENDS
 				;;
 
 			--without-recommends)
 				LIVE_RECOMMENDS="no"; shift
+				export LIVE_RECOMMENDS
 				;;
 
 			--with-daemons)
 				LIVE_DAEMONS="yes"; shift
+				export LIVE_DAEMONS
 				;;
 
 			--without-daemons)
 				LIVE_DAEMONS="no"; shift
+				export LIVE_DEAMONS
 				;;
 
 			--with-source)
 				LIVE_SOURCE="yes"; shift
+				export LIVE_SOURCE
 				;;
 
 			--without-source)
 				LIVE_SOURCE="no"; shift
+				export LIVE_SOURCE
 				;;
 
 			-h|--help)
@@ -359,16 +406,17 @@ Main ()
 	done
 
 	# Initialising
-	Init
+	lh_testroot
 	Configuration
 	Defaults
 
 	# Building live system
-	Bootstrap
+	lh_cdebootstrap
 	Chroot
 
 	# Building live image
-	"${LIVE_TYPE}"
+	lh_buildbinary
+	lh_buildsource
 }
 
 Main "${@}"

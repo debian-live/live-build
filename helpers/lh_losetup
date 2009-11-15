@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# lh_losetup <device> <file> <partition>
+
+DEVICE="${1}"
+FILE="${2}"
+PARTITION="${3}"
+
+losetup "${DEVICE}" "${FILE}"
+FDISK_OUT="`fdisk -l -u ${DEVICE} 2>&1`"
+losetup -d "${DEVICE}"
+
+LOOPDEVICE="`echo ${DEVICE}p${PARTITION:=1}`"
+CYL="`echo ${FDISK_OUT} | sed -ne "s_^${LOOPDEVICE}[ *]*\([0-9]*\).*_\1_p" `"
+#OFFSET="`expr ${CYL}*512`"
+OFFSET="$((CYL*512))"
+
+echo loop $DEVICE at offset $OFFSET
+
+if [ "${PARTITION}" = "0" ]
+then
+	losetup "${DEVICE}" "${FILE}"
+else
+	losetup -o "${OFFSET}" "${DEVICE}" "${FILE}"
+fi

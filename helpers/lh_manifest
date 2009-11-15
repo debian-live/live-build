@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# lh_manifest
+
+# Add filesystem.manifest
+lh_chroot "dpkg-query -W \*" | awk '$2 ~ /./ {print $1 " " $2 }' > "${LIVE_ROOT}"/filesystem.manifest
+
+if [ ! -z "${LIVE_MANIFEST}" ]
+then
+	lh_chroot "aptitude install --assume-yes ${LIVE_MANIFEST}"
+	lh_chroot "dpkg-query -W \*" | awk '$2 ~ /./ {print $1 " " $2 }' > "${LIVE_ROOT}"/filesystem.manifest-desktop
+fi

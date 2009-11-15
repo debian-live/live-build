@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# lh_cleanapt
+
+# Clean apt packages cache
+rm -rf "${LIVE_CHROOT}"/var/cache/apt
+mkdir -p "${LIVE_CHROOT}"/var/cache/apt/archives/partial
+
+# Clean apt list cache
+rm -rf "${LIVE_CHROOT}"/var/lib/apt/lists/*
+mkdir -p "${LIVE_CHROOT}"/var/lib/apt/lists/partial
+
+# Remove old files
+rm -f "${LIVE_CHROOT}"/var/lib/dpkg/available-old
+rm -f "${LIVE_CHROOT}"/var/lib/dpkg/diversions-old
+rm -f "${LIVE_CHROOT}"/var/lib/dpkg/statoverride-old
+rm -f "${LIVE_CHROOT}"/var/lib/dpkg/status-old

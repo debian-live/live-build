@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# lh_patchlinux.sh <action>
+
+# The linux-image package asks interactively for initial ramdisk
+# creation. Therefore, we preconfigure /etc/kernel-img.conf.
+# FIXME: preseeding?
+
+case "${1}" in
+	apply)
+		# Save kernel configuration
+		if [ -f "${LIVE_CHROOT}"/etc/kernel-img.conf ]
+		then
+			cp "${LIVE_CHROOT}"/etc/kernel-img.conf \
+				"${LIVE_CHROOT}"/etc/kernel-img.conf.old
+		fi
+
+		# Configure kernel-img.conf
+		echo "do_initrd = Yes"  >> "${LIVE_CHROOT}"/etc/kernel-img.conf
+		;;
+
+	deapply)
+		# Restore kernel configuration
+		if [ -f "${LIVE_CHROOT}"/etc/kernel-img.conf.old ]
+		then
+			mv "${LIVE_CHROOT}"/etc/kernel-img.conf.old \
+				"${LIVE_CHROOT}"/etc/kernel-img.conf
+		else
+			rm -f "${LIVE_CHROOT}"/etc/kernel-img.conf
+		fi
+		;;
+esac

@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# lh_config
+
+case "${1}" in
+	disable-daemons)
+		if [ "${LIVE_DAEMONS}" = "no" ]
+		then
+			# Disable all
+			for FILE in "${LIVE_CHROOT}"/etc/init.d/*
+			do
+				lh_chroot "update-rc.d -f `basename ${FILE}` remove"
+			done
+
+			# Re-enable all required (taken from -f standard chroot)
+			for PACKAGE in casper console-common cron dpkg ifupdown initscripts kbd klogd libc6 libdevmapper1.02 libselinux1 libsepol1 login makedev module-init-tools netbase openbsd-inetd procps sudo sysklogd udev util-linux
+			do
+				# Re-configure if existing
+				if [ -f "${LIVE_CHROOT}"/var/lib/dpkg/info/${PACKAGE}.postinst ]
+				then
+					lh_chroot "/var/lib/dpkg/info/${PACKAGE}.postinst configure"
+				fi
+			done
+		fi
+		;;
+esac

@@ -1,0 +1,51 @@
+Overview
+========
+
+The basic concept is threefold:
+
+  1. Create a chroot
+  2. Install additional packages
+  3. Create images
+
+In detail:
+
+We start make-live, which handels configuration file, commandline paramters and defaults. Then, we start the helpers:
+
+  * lh_testroot
+
+    Tests if we are root, and fails if not.
+
+  * lh_cdebootstrap
+
+    Creates a bootstrap with cdebootstrap.
+
+  * Configure chroot
+  * Configure policy-id
+  * Configure network
+  * Mount proc
+  * Configure sources.list
+  * Configure apt: proxy and recommends
+  * install aptitude
+  * install secure apt
+  * aptitude update
+  * Configure linux-image
+  * Install linux-image squashfs/unionfs
+  * Deconfigure linux-image
+  * CLONING/PRESEEDING
+  * Install tasks lists
+  * Install packages lists
+  * Install LIVE_PACKAGES
+  * Copy INCLUDE_ROOT
+  * Process hooks
+  * Save packages list
+  * Disable daemons
+  * Add manifest
+  * Clean apt cache
+  * Binfmt hack
+  * Unmount proc
+  * Deconfigure network
+  * Deconfigure chroot
+  * Check the chroot for depends
+
+  build binary
+  build source

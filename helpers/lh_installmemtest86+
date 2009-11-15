@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# lh_installmemtest86+.sh <type>
+
+# Setting destination directory
+case "${1}" in
+	iso)
+		DESTDIR="${LIVE_ROOT}/binary/isolinux"
+		;;
+
+	net)
+		DESTDIR="${LIVE_ROOT}/tftpboot"
+		;;
+
+	usb)
+		DESTDIR="${LIVE_ROOT}/binary"
+		;;
+esac
+
+# Installing memtest86+
+if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
+then
+	cp "${LIVE_ROOT}"/chroot/boot/memtest86+.bin "${DESTDIR}"/memtest
+fi

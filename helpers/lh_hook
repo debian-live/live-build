@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# lh_hook
+
+# Process flavour specific hooks
+if [ -r "${BASE}"/hooks/"${LIVE_FLAVOUR}" ]
+then
+	grep -v "^#" "${BASE}"/hooks/"${LIVE_FLAVOUR}" > "${LIVE_CHROOT}"/root/"${LIVE_FLAVOUR}"
+	LIVE_DEBCONF_FRONTEND="readline" LIVE_DEBCONF_PRIORITY="low" lh_chroot "sh /root/${LIVE_FLAVOUR}"
+	rm -f "${LIVE_CHROOT}"/root/"${LIVE_FLAVOUR}"
+fi
+
+# Execute extra command in the chroot
+if [ -r "${LIVE_HOOK}" ]
+then
+	# FIXME
+	LIVE_DEBCONF_FRONTEND="readline" LIVE_DEBCONF_PRIORITY="low" lh_chroot "`cat ${LIVE_HOOK}`"
+elif [ -n "${LIVE_HOOK}" ]
+then
+	LIVE_DEBCONF_FRONTEND="readline" LIVE_DEBCONF_PRIORITY="low" lh_chroot "${LIVE_HOOK}"
+fi

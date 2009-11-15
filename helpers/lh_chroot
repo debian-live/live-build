@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# lh_chroot.sh <command>
+
+# Execute commands chrooted
+chroot "${LIVE_CHROOT}" /usr/bin/env -i HOME="/root" PATH="/usr/sbin:/usr/bin:/sbin:/bin" TERM="${TERM}" ftp_proxy="${LIVE_PROXY_FTP}" http_proxy="${LIVE_PPROXY_HTTP}" DEBIAN_FRONTEND="${LIVE_DEBCONF_FRONTEND}" DEBIAN_PRIORITY="${LIVE_DEBCONF_PRIORITY}" ${1}

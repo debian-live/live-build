@@ -34,6 +34,8 @@ install:
 	install -d -m 0755 $(DESTDIR)/usr/share/man/man8
 	install -m 0644 doc/man/*.8  $(DESTDIR)/usr/share/man/man8
 
+	$(MAKE) -C helpers install
+
 uninstall:
 	@# Remove main script
 	rm -f $(DESTDIR)/usr/sbin/make-live
@@ -50,5 +52,7 @@ uninstall:
 	@# Remove manpages
 	rm -f $(DESTDIR)/usr/share/man/man5/make-live.*
 	rm -f $(DESTDIR)/usr/share/man/man8/make-live.*
+
+	$(MAKE) -C helpers uninstall
 
 reinstall:	uninstall install

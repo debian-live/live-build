@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# lh_preseed
+
+# Restore preseed configuration
+if [ -f "${LIVE_PRESEED}" ]
+then
+	lh_chroot "aptitude install --assume-yes debconf-utils"
+	cp "${LIVE_PRESEED}" "${LIVE_CHROOT}"/root/preseed
+	lh_chroot "debconf-set-selections /root/preseed"
+	rm -f "${LIVE_CHROOT}"/root/preseed
+else
+	if [ -n "${LIVE_PRESEED}" ]; then
+		echo "'${LIVE_PRESEED}' file doesn't exists. Exiting..."
+		exit 1
+	fi
+fi
+
+# Restore cloned package selection
+if [ -f "${LIVE_PACKAGE_LIST_CLONED}" ]
+then
+	lh_chroot "xargs --arg-file=/root/`basename ${LIVE_PACKAGE_LIST_CLONED}` aptitude install --assume-yes"
+fi
