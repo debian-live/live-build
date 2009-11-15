@@ -1,0 +1,222 @@
+#!/bin/sh
+
+# lh_binary_grub(1) - installs grub into binary
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Set static variables
+DESCRIPTION="installs grub into binary"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/bootstrap
+Read_conffile config/chroot
+Read_conffile config/image
+Set_defaults
+
+# Requiring stage file
+Require_stagefile .stage/bootstrap
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+# Checking stage file
+Check_stagefile .stage/binary_grub
+
+if [ "${LIVE_ARCHITECTURE}" != "amd64" ] && [ "${LIVE_ARCHITECTURE}" != "i386" ]
+then
+	echo "W: skipping binary_grub, foreign architecture."
+	exit 0
+fi
+
+if [ "${LIVE_BOOTLOADER}" = "grub" ]
+then
+	# Check templates
+	if [ ! -d "${LIVE_TEMPLATES}" ]
+	then
+		if [ -d ../"${LIVE_TEMPLATES}" ]
+		then
+			LIVE_TEMPLATES="../${LIVE_TEMPLATES}"
+		else
+			Echo_error "user specified templates not accessible in ${LIVE_TEMPLATES}"
+			exit 1
+		fi
+	fi
+
+	if [ ! -f chroot/usr/sbin/grub ]
+	then
+		PACKAGES="${PACKAGES} grub"
+	fi
+
+	if [ -n "${PACKAGES}" ]
+	then
+		# Installing symlinks
+		case "${LH_APT}" in
+			apt|apt-get)
+				Chroot "apt-get install --yes ${PACKAGES}"
+				;;
+
+			aptitude)
+				Chroot "aptitude install --assume-yes ${PACKAGES}"
+				;;
+		esac
+	fi
+
+	# Setting destination directory
+	case "${LIVE_BINARY_IMAGE}" in
+		iso|usb|hdd)
+			DESTDIR="binary/live"
+			;;
+
+		net)
+			Echo_error "not supported, FIXME"
+			;;
+	esac
+
+	# Temporary check for broken syslinux
+	if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+	then
+		case "${LIVE_ARCHITECTURE}" in
+			i386)
+				DESTDIR="${DESTDIR}.386"
+				;;
+		esac
+	fi
+
+	# Creating directory
+	if [ ! -d "${DESTDIR}" ]
+	then
+		mkdir -p "${DESTDIR}"
+	fi
+
+	# Setting boot parameters
+	if [ -n "${LIVE_ENCRYPTION}" ]
+	then
+		LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} encryption=${LIVE_ENCRYPTION}"
+	fi
+
+	if [ -n "${LIVE_USERNAME}" ]
+	then
+		LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} username=${LIVE_USERNAME}"
+	fi
+
+	if [ -n "${LIVE_HOSTNAME}" ]
+	then
+		LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} hostname=${LIVE_HOSTNAME}"
+	fi
+
+	LIVE_BOOTAPPEND="`echo ${LIVE_BOOTAPPEND} | sed -e 's/  //'`"
+
+	# Assembling kernel configuration
+	if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+	then
+		DEFAULT_FLAVOUR="`echo ${LIVE_KERNEL_FLAVOUR} | awk '{ print $1 }'`"
+		LINUX="title\t\tDebian GNU/Linux - Live\nroot\t\t(cd)\nkernel\t\t/`basename ${DESTDIR}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\ninitrd\t\t/`basename ${DESTDIR}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
+	else
+		DEFAULT_FLAVOUR="`echo ${LIVE_KERNEL_FLAVOUR} | awk '{ print $1 }'`"
+		LINUX="title\t\tDebian GNU/Linux - Live\nroot\t\t(cd)\nkernel\t\t`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\ninitrd\t\tinitrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
+	fi
+
+	if [ "`echo ${LIVE_KERNEL_FLAVOUR} | wc -w`" -gt "1" ]
+	then
+		for KERNEL in chroot/boot/vmlinuz*
+		do
+			if [ -z "${LINUX}" ]
+			then
+				if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+				then
+					LINUX="title\t\tDebian GNU/Linux - Live, kernel `basename ${KERNEL} | sed -e 's/vmlinuz-//'`\nroot\t\t(cd)\nkernel\t\t/`basename ${DESTDIR}`/`basename ${KERNEL}`\ninitrd\t\t/`basename ${DESTDIR}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
+				else
+					LINUX="title\t\tDebian GNU/Linux - Live, kernel `basename ${KERNEL} | sed -e 's/vmlinuz-//'`\nroot\t\t(cd)\nkernel\t\t`basename ${KERNEL}`\ninitrd\t\tinitrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
+				fi
+			else
+				if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+				then
+					LINUX="${LINUX}\n\ntitle\t\tDebian GNU/Linux - Live, kernel `basename ${KERNEL} | sed -e 's/vmlinuz-//'`\nroot\t\t(cd)\nkernel /`basename ${DESTDIR}`/`basename ${KERNEL}`\ninitrd\t\t/`basename ${DESTDIR}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
+				else
+					LINUX="${LINUX}\n\ntitle\t\tDebian GNU/Linux - Live, kernel `basename ${KERNEL} | sed -e 's/vmlinuz-//'`\nroot\t\t(cd)\nkernel `basename ${KERNEL}`\ninitrd\t\tinitrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
+				fi
+			fi
+		done
+	fi
+
+	LINUX="`echo ${LINUX} | sed -e 's#//#/#g'`"
+
+	# Assembling memtest configuration
+	if [ -f "${DESTDIR}"/memtest ]
+	then
+		if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+		then
+			MEMTEST="title\t\tMemtest86+\nroot\t\t(cd)\nkernel\t\t/`basename ${DESTDIR}`/memtest"
+			MEMTEST="`echo ${MEMTEST} | sed -e 's#//#/#g'`"
+		else
+			MEMTEST="title\t\tMemtest86+\nroot\t\t(cd)\nkernel\t\tmemtest"
+		fi
+	fi
+
+	mkdir -p binary/boot/grub
+	cp -r "${LIVE_TEMPLATES}"/grub/* binary/boot/grub
+
+	if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+	then
+		cp chroot/usr/lib/grub/i386-pc/stage2_eltorito binary/boot/grub
+	fi
+
+	# Copying splash screen
+	if [ -n "${LIVE_GRUB_SPLASH}" ]
+	then
+		# FIXME
+		cp "${LIVE_GRUB_SPLASH}" binary/boot/grub
+
+		LIVE_SPLASH="splashimage /boot/grub/`basename ${LIVE_GRUB_SPLASH}`"
+	fi
+
+	# Configure grub templates
+cat >> binary/boot/grub/menu.lst << EOF
+# This is a divider, added to separate the menu items below from the Debian
+# ones.
+title		Other:
+root
+
+
+LIVE_MEMTEST
+EOF
+
+	sed -i -e "s#LIVE_SPLASH#${LIVE_SPLASH}#" -e "s#LIVE_KERNEL_LIVE#${LINUX}#" -e "s#LIVE_KERNEL_INSTALL#${LIVE_KERNEL_INSTALL}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" binary/boot/grub/menu.lst
+	sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" binary/boot/grub/menu.lst
+
+	if [ -n "${PACKAGES}" ]
+	then
+		# Removing packages
+		case "${LH_APT}" in
+			apt|apt-get)
+				Chroot "apt-get remove --purge --yes ${PACKAGES}"
+				;;
+
+			aptitude)
+				Chroot "aptitude purge --assume-yes ${PACKAGES}"
+				;;
+		esac
+	fi
+
+	# Creating stage file
+	Create_stagefile .stage/binary_grub
+fi

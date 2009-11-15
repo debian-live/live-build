@@ -48,7 +48,7 @@ case "${1}" in
 		fi
 
 		# Mounting /sys
-		mount sys-live -t sysfs chroot/sys
+		mount sysfs-live -t sysfs chroot/sys
 
 		# Creating stage file
 		Create_stagefile .stage/chroot_sysfs

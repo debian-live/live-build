@@ -167,7 +167,7 @@ LIVE_DISTRIBUTION_CONFIG="${LIVE_DISTRIBUTION_CONFIG}"
 
 # \$LIVE_BOOTSTRAP_FLAVOUR: select the flavour to use
 # (Default: ${LIVE_BOOTSTRAP_FLAVOUR})
-LIVE_BOOTSTRAP_FLAVOUR="${LIVE_BOOTSTRA_PFLAVOUR}"
+LIVE_BOOTSTRAP_FLAVOUR="${LIVE_BOOTSTRAP_FLAVOUR}"
 
 # \$LIVE_MIRROR_BUILD: set the mirror to fetch packages from
 # (Default: ${LIVE_MIRROR_BUILD})
@@ -234,9 +234,13 @@ LIVE_SERVER_PATH="${LIVE_SERVER_PATH}"
 # (Default: ${LH_SOURCE})
 LIVE_SOURCE="${LIVE_SOURCE}"
 
-# \$LIVE_SYSLINUX: set syslinux option
-# (Default: ${LIVE_SYSLINUX})
-LIVE_SYSLINUX="${LIVE_SYSLINUX}"
+# \$LIVE_BOOTLOADER: set bootloader
+# (Default: ${LIVE_BOOTLOADER})
+LIVE_BOOTLOADER="${LIVE_BOOTLOADER}"
+
+# \$LIVE_GRUB_SPLASH: set custom grub splash
+# (Default: empty)
+LIVE_GRUB_SPLASH="${LIVE_GRUB_SPLASH}"
 
 # \$LIVE_SYSLINUX_SPLASH: set custom syslinux splash
 # (Default: empty)

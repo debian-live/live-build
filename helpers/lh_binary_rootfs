@@ -103,11 +103,7 @@ case "${LIVE_FILESYSTEM}" in
 			rm -rf binary/casper/filesystem.dir
 		fi
 
-		cd chroot
-		find . | cpio -pumd ../binary/casper/filesystem.dir
-		cd "${OLDPWD}"
-
-		rm -rf chroot/chroot
+		mv chroot/chroot binary/casper/filesystem.dir
 		;;
 
 	squashfs)

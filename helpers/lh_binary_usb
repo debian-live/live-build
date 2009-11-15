@@ -60,7 +60,12 @@ do
 			PACKAGES="${PACKAGES} parted"
 		fi
 
-		if [ ! -f chroot/usr/bin/syslinux ]
+		if [ "${LIVE_BOOTLOADER}" = "grub" ] && [ ! -f chroot/usr/sbin/grub ]
+		then
+			PACKAGES="${PACKAGES} grub"
+		fi
+
+		if [ "${LIVE_BOOTLOADER}" = "syslinux" ] && [ ! -f chroot/usr/bin/syslinux ]
 		then
 			PACKAGES="${PACKAGES} syslinux"
 		fi
@@ -104,7 +109,17 @@ do
 		Chroot "parted -s ${FREELO} mkpartfs primary fat16 0.0 100%" || true
 		Chroot "parted -s ${FREELO} set 1 boot on" || true
 		Chroot "parted -s ${FREELO} set 1 lba off" || true
-		cat chroot/usr/lib/syslinux/mbr.bin > ${FREELO}
+
+		case "${LIVE_BOOTLOADER}" in
+			grub)
+				Chroot "grub-install --no-floppy ${FREELO}"
+				;;
+
+			syslinux)
+				cat chroot/usr/lib/syslinux/mbr.bin > ${FREELO}
+				;;
+		esac
+
 		${LH_LOSETUP} -d ${FREELO}
 
 		lh_losetup $FREELO binary.img 1

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_chroot_localpackageslists(1) - install local packages into chroot
+# lh_chroot_localpackageslists(1) - install local packages lists into chroot
 # Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
