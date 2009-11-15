@@ -60,7 +60,7 @@ fi
 # Download sources
 Chroot "dpkg --get-selections" | awk '{ print $1 }' > chroot/root/dpkg-selection.txt
 echo "${LIVE_BOOTLOADER}" >> chroot/root/dpkg-selection.txt
-echo "live-helper" >> chroot/root/dpkg-selection.txt
+#echo "live-helper" >> chroot/root/dpkg-selection.txt
 Chroot "xargs --arg-file=/root/dpkg-selection.txt apt-get source --download-only"
 rm -f chroot/root/dpkg-selection.txt
 

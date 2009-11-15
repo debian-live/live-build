@@ -26,13 +26,13 @@ Echo_debug "Init ${PROGRAM}"
 Breakpoint "build: Init"
 
 # Bootstrapping system
-lh_bootstrap "${@}"
+lh_bootstrap ${*}
 
 # Customizing chroot
-lh_chroot "${@}"
+lh_chroot ${*}
 
 # Building binary image
-lh_binary "${@}"
+lh_binary ${*}
 
 # Building source image
-lh_source "${@}"
+lh_source ${*}

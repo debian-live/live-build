@@ -83,7 +83,7 @@ then
 	# Working arround vfat limitations
 	if [ "${LIVE_BINARY_IMAGE}" = "usb-hdd" ]
 	then
-		CP_OPTIONS="--preserve=link,mode,timestamps"
+		CP_OPTIONS="-L"
 	fi
 
 	# Copying d-i templates
@@ -112,8 +112,8 @@ then
 		DEBIAN_TOOLS_TXT="/tools/"
 	fi
 
-	sed -i -e "s/DEBIAN_NAME/${DEBIAN_NAME}/g" -e "s/DEBIAN_DATE/${DEBIAN_DATE}/g" -e "s#DEBIAN_TOOLS#${DEBIAN_TOOLS_HTML}#g" binary/README.html
-	sed -i -e "s/DEBIAN_NAME/${DEBIAN_NAME}/g" -e "s/DEBIAN_DATE/${DEBIAN_DATE}/g" -e "s#DEBIAN_TOOLS#${DEBIAN_TOOLS_TXT}#g" binary/README.txt
+	sed -i -e "s#DEBIAN_NAME#${DEBIAN_NAME}#g" -e "s/DEBIAN_DATE/${DEBIAN_DATE}/g" -e "s#DEBIAN_TOOLS#${DEBIAN_TOOLS_HTML}#g" binary/README.html
+	sed -i -e "s#DEBIAN_NAME#${DEBIAN_NAME}#g" -e "s/DEBIAN_DATE/${DEBIAN_DATE}/g" -e "s#DEBIAN_TOOLS#${DEBIAN_TOOLS_TXT}#g" binary/README.txt
 fi
 
 # Creating stage file

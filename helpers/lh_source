@@ -35,23 +35,23 @@ Set_defaults
 Breakpoint "source: Init"
 
 # Enabling network in chroot
-lh_chroot_hosts install "${@}"
-lh_chroot_resolv install "${@}"
-lh_chroot_sources install "${@}"
+lh_chroot_hosts install ${*}
+lh_chroot_resolv install ${*}
+lh_chroot_sources install ${*}
 
 # Preparing images
-lh_source_config "${@}"
-lh_source_download "${@}"
-lh_source_md5sum "${@}"
+lh_source_config ${*}
+lh_source_download ${*}
+lh_source_md5sum ${*}
 
 # Building images
-lh_source_generic "${@}"
-lh_source_hdd "${@}"
-lh_source_iso "${@}"
-lh_source_net "${@}"
-lh_source_usb-hdd "${@}"
+lh_source_generic ${*}
+lh_source_hdd ${*}
+lh_source_iso ${*}
+lh_source_net ${*}
+lh_source_usb-hdd ${*}
 
 # Deconfiguring chroot
 rm -f .stage/chroot_sources
-lh_chroot_resolv remove "${@}"
-lh_chroot_hosts remove "${@}"
+lh_chroot_resolv remove ${*}
+lh_chroot_hosts remove ${*}

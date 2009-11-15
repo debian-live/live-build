@@ -109,6 +109,8 @@ then
 	wget --no-clobber -O "${DESTDIR}"/gtk/initrd.gz "${LIVE_MIRROR_BUILD}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/gtk/initrd.gz
 fi
 
+FIXME ()
+{
 # Downloading udebs
 mkdir -p binary/dists/"${LIVE_DISTRIBUTION}"/main/debian-installer/binary-"${LIVE_ARCHITECTURE}"
 cd binary/dists/"${LIVE_DISTRIBUTION}"/main/debian-installer/binary-"${LIVE_ARCHITECTURE}"
@@ -234,6 +236,7 @@ EOF
 
 apt-ftparchive generate cache/indices_debian-installer/archive
 apt-ftparchive -c cache/indices_debian-installer/release -o APT::FTPArchive::Release::Description="Last updated: `date -R`" release binary/dists/${LIVE_DISTRIBUTION} > binary/dists/${LIVE_DISTRIBUTION}/Release
+}
 
 mkdir binary/.disk
 echo "main" > binary/.disk/base_components

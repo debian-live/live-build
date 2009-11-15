@@ -1,3 +1,13 @@
+2007-05-06  Daniel Baumann  <daniel@debian.org>
+
+	* templates/syslinux:
+	  - Updated again.
+	* helpers/lh_config:
+	  - Fixed overwriting of LH_* options.
+	* helpers/lh_binary_includes:
+	  - Fixed a quoting typo.
+	  - Working arround symlinks on usb-hdd binary images.
+
 2007-04-31  Daniel Baumann  <daniel@debian.org>
 
 	* helpers/*:

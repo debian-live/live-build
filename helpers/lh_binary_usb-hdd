@@ -77,7 +77,7 @@ do
 
 		# Everything which comes here needs to be cleaned up,
 		DU_DIM="`du -ms binary | cut -f1`"
-		REAL_DIM="`expr ${DU_DIM} + ${DU_DIM} / 20`" # Just 5% more to be sure, need something more sophistcated here...
+		REAL_DIM="`expr ${DU_DIM} + ${DU_DIM} / 50`" # Just 2% more to be sure, need something more sophistcated here...
 		dd if=/dev/zero of=binary.img bs=1024k count=${REAL_DIM}
 		FREELO="`${LH_LOSETUP} -f`"
 		if [ ! -b chroot/${FREELO} ]

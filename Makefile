@@ -5,7 +5,7 @@ all: install
 test:
 	set -e; for SCRIPT in functions/* examples/*.sh helpers/* hooks/*; \
 	do \
-		sh -n $$SCRIPT; \
+		sh -n $$SCRIPT || exit 1; \
 	done
 
 install: test
@@ -75,6 +75,17 @@ uninstall:
 	do \
 		rm -f $(DESTDIR)/usr/share/man/de/man7/`basename $$MANPAGE .de`; \
 	done
+
+update:
+	for MANPAGE in manpages/*.de manpages/*.en; \
+	do \
+		sed -i	-e 's/30.04.2007/07.05.2007/' \
+			-e 's/2007\\-04\\-30/2007\\-05\\-07/' \
+			-e 's/1.0~a8/1.0~a9/' \
+		$$MANPAGE; \
+	done
+
+	sed -i -e 's/1.0~a8/1.0~a9/' functioins/common.sh
 
 clean:
 
