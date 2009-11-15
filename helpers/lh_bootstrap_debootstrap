@@ -69,7 +69,12 @@ fi
 
 if [ -n "${LH_BOOTSTRAP_CONFIG}" ]
 then
-	LH_DEBOOTSTRAP_SCRIPT="/usr/lib/debootstrap/scripts/${LH_BOOTSTRAP_CONFIG}"
+	if [ -d "/usr/share/debootstrap/scripts/" ]
+	then
+		LH_DEBOOTSTRAP_SCRIPT="/usr/share/debootstrap/scripts/${LH_BOOTSTRAP_CONFIG}"
+	else
+		LH_DEBOOTSTRAP_SCRIPT="/usr/lib/debootstrap/scripts/${LH_BOOTSTRAP_CONFIG}"
+	fi
 fi
 
 if [ -n "${LH_BOOTSTRAP_INCLUDE}" ]
@@ -87,14 +92,14 @@ then
 	if [ -z "${LH_BOOTSTRAP_FLAVOUR}" ]
 	then
 		case "${LH_PACKAGES_LISTS}" in
-			minimal|mini)
-				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=buildd"
+			stripped|minimal)
+				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=minbase"
 				;;
 		esac
 	else
 		case "${LH_BOOTSTRAP_FLAVOUR}" in
-			minimal|mini)
-				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=buildd"
+			stripped|minimal)
+				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=minbase"
 				;;
 
 			*)

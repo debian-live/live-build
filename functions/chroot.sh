@@ -11,7 +11,7 @@ set -e
 
 Chroot ()
 {
-	COMMANDS="${1}"
+	COMMANDS="${@}"
 
 	# Executing commands in chroot
 	Echo_debug "Executing: ${COMMANDS}"

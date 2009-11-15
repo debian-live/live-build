@@ -89,7 +89,7 @@ Check_installed ()
 					INSTALL_STATUS=1
 				fi
 			else
-				FILE="$(echo ${FILE} | sed -e 's/chroot//')"
+				FILE="$(echo ${FILE} | sed -e 's|chroot||')"
 
 				if [ ! -e "${FILE}" ]
 				then

@@ -49,9 +49,9 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ -f chroot/etc/resolv.conf ]
+		if [ -e chroot/etc/resolv.conf ]
 		then
-			# Save resolv file
+			# Save resolv file or symlink
 			mv chroot/etc/resolv.conf chroot/etc/resolv.conf.orig
 		fi
 
@@ -74,9 +74,9 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ -f chroot/etc/resolv.conf.orig ]
+		if [ -e chroot/etc/resolv.conf.orig ]
 		then
-			# Restoring resolv file
+			# Restoring resolv file or symlink
 			mv chroot/etc/resolv.conf.orig chroot/etc/resolv.conf
 		else
 			# Truncating resolv file

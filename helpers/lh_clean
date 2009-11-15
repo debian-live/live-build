@@ -22,7 +22,7 @@ DESCRIPTION="clean up system build directories"
 HELP=""
 USAGE="${PROGRAM} [--all] [--cache] [--chroot] [--binary] [--purge] [--remove] [--stage] [--source]"
 
-Arguments "${@}"
+#Arguments "${@}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -117,8 +117,21 @@ do
 			rm -f .stage/source*
 			;;
 
+		-h|--help)
+			Help
+			;;
+
+		-u|--usage)
+			Usage
+			;;
+
+		-v|--version)
+			Version
+			;;
+
 		*)
-			"${0}" --usage
+			Usage
+			exit 1
 			;;
 	esac
 done

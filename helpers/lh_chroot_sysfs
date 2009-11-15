@@ -81,7 +81,7 @@ case "${1}" in
 		then
 			# Unmounting /sys
 			#fuser -km chroot/sys
-			if [ -e chroot/sys/kernel ]
+			if [ -e chroot/sys/class ]
 			then
 				${LH_ROOT_COMMAND} umount chroot/sys
 			fi

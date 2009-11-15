@@ -70,6 +70,7 @@ genisoimage
 parted
 squashfs-tools
 genext2fs
+mtd-tools
 EOF
 
 case "${LH_ARCHITECTURE}" in
@@ -92,21 +93,21 @@ fi
 		;;
 esac
 
-Chroot "xargs --arg-file=/root/dpkg-selection.txt apt-get source --download-only"
+Chroot "xargs --arg-file=/root/dpkg-selection.txt apt-get ${APT_OPTIONS} --download-only source"
 rm -f chroot/root/dpkg-selection.txt
 
 # Sort sources
 for DSC in chroot/*.dsc
 do
-	SOURCE="$(sed  -n 's/^Source: //p' ${DSC})"
+	SOURCE="$(sed  -n 's|^Source: ||p' ${DSC})"
 
 	case "${SOURCE}" in
 		lib?*)
-			LETTER="$(echo ${SOURCE} | sed 's/\(....\).*/\1/')"
+			LETTER="$(echo ${SOURCE} | sed 's|\(....\).*|\1|')"
 			;;
 
 		*)
-			LETTER="$(echo ${SOURCE} | sed 's/\(.\).*/\1/')"
+			LETTER="$(echo ${SOURCE} | sed 's|\(.\).*|\1|')"
 			;;
 	esac
 

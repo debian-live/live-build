@@ -90,7 +90,7 @@ fi
 if [ -z "${LH_BOOTSTRAP_FLAVOUR}" ]
 then
 	case "${LH_PACKAGES_LISTS}" in
-		minimal|mini)
+		stripped|minimal)
 			CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=minimal"
 			;;
 		*)
@@ -99,7 +99,7 @@ then
 	esac
 else
 	case "${LH_BOOTSTRAP_FLAVOUR}" in
-		minimal|mini)
+		stripped|minimal)
 			CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=minimal"
 			;;
 
@@ -166,7 +166,7 @@ then
 
 	# Remove cdebootstrap-helper-diverts (needed at least for minimal flavours)
 	case "${LH_PACKAGES_LISTS}" in
-		minimal|mini)
+		stripped|minimal)
 			Chroot "dpkg -P cdebootstrap-helper-diverts"
 			;;
 	esac

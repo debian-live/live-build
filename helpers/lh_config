@@ -24,6 +24,8 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--apt-ftp-proxy URL]\n\
 \t    [--apt-http-proxy URL]\n\
 \t    [--apt-pdiffs enabled|disabled]\n\
+\t    [--apt-options OPTION|\"OPTIONS\"]\n\
+\t    [--aptitude-options OPTION|\"OPTIONS\"]\n\
 \t    [--apt-pipeline FIXME]\n\
 \t    [--apt-recommends enabled|disabled]\n\
 \t    [--apt-secure enabled|disabled]\n\
@@ -45,7 +47,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--cache-stages STAGE|\"STAGES\"]\n\
 \t    [--checksums enabled|disabled]\n\
 \t    [--chroot-build enabled|disabled]\n\
-\t    [--chroot-filesystem ext2|ext3|squashfs|plain]\n\
+\t    [--chroot-filesystem ext2|ext3|squashfs|plain|jffs2]\n\
 \t    [-c|--conffile FILE]\n\
 \t    [--debconf-frontend dialog|editor|noninteractive|readline]\n\
 \t    [--debconf-nowarnings enabled|disabled]\n\
@@ -55,7 +57,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--debug]\n\
 \t    [-d|--distribution CODENAME]\n\
 \t    [-e|--encryption aes128|aes192|aes256]\n\
-\t    [--fdisk\n\
+\t    [--fdisk fdisk|fdisk.dist]\n\
 \t    [--force]\n\
 \t    [--genisoimage genisomage|mkisofs]\n\
 \t    [--grub-splash FILE]\n\
@@ -111,7 +113,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 
 Local_arguments ()
 {
-	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,memtest:,net-root-filesystem:,net-root-mountoptions:,net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,net-cow-server:,syslinux-splash:,syslinux-timeout:,syslinux-menu:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
+	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-options:,aptitute-options:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,memtest:,net-root-filesystem:,net-root-mountoptions:,net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,net-cow-server:,syslinux-splash:,syslinux-timeout:,syslinux-menu:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
 
 	if [ "${?}" != "0" ]
 	then
@@ -141,7 +143,16 @@ Local_arguments ()
 				;;
 
 			--apt-pdiffs)
-				LH_APT_PDIFFS="${2}"
+				APT_PDIFFS="${2}"
+				shift 2
+				;;
+			--apt-options)
+				APT_OPTIONS="${2}"
+				shift 2
+				;;
+
+			--aptitude-options)
+				LH_APTITUDE_OPTIONS="${2}"
 				shift 2
 				;;
 
@@ -306,8 +317,13 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--mirror-bootstrap-security)
-				LH_MIRROR_BOOTSTRAP_SECURITY="${2}"
+			--mirror-chroot)
+				LH_MIRROR_CHROOT="${2}"
+				shift 2
+				;;
+
+			--mirror-chroot-security)
+				LH_MIRROR_CHROOT_SECURITY="${2}"
 				shift 2
 				;;
 
@@ -770,6 +786,10 @@ LH_QUIET="${LH_QUIET}"
 # \$LH_VERBOSE: enable verbose
 # (Default: ${LH_VERBOSE})
 #LH_VERBOSE="${LH_VERBOSE}"
+
+# Internal stuff (FIXME)
+APT_OPTIONS="${APT_OPTIONS}"
+APTITUDE_OPTIONS="${APTITUDE_OPTIONS}"
 EOF
 
 # Creating lh_bootstrap_* configuration
@@ -804,13 +824,17 @@ LH_BOOTSTRAP_KEYRING="${LH_BOOTSTRAP_KEYRING}"
 # (Default: ${LH_DISTRIBUTION})
 LH_DISTRIBUTION="${LH_DISTRIBUTION}"
 
-# \$LH_MIRROR_BOOTSTRAP: set mirror to fetch packages from
+# \$LH_MIRROR_BOOTSTRAP: set mirror to boostrap from
 # (Default: ${LH_MIRROR_BOOTSTRAP})
 LH_MIRROR_BOOTSTRAP="${LH_MIRROR_BOOTSTRAP}"
 
-# \$LH_MIRROR_BOOTSTRAP_SECURITY: set security mirror to fetch packages from
-# (Default: ${LH_MIRROR_BOOTSTRAP_SECURITY})
-LH_MIRROR_BOOTSTRAP_SECURITY="${LH_MIRROR_BOOTSTRAP_SECURITY}"
+# \$LH_MIRROR_CHROOT: set mirror to fetch packages from
+# (Default: ${LH_MIRROR_CHROOT})
+LH_MIRROR_CHROOT="${LH_MIRROR_CHROOT}"
+
+# \$LH_MIRROR_CHROOT_SECURITY: set security mirror to fetch packages from
+# (Default: ${LH_MIRROR_CHROOT_SECURITY})
+LH_MIRROR_CHROOT_SECURITY="${LH_MIRROR_CHROOT_SECURITY}"
 
 # \$LH_MIRROR_BINARY: set mirror which ends up in the image
 # (Default: ${LH_MIRROR_BINARY})
@@ -972,7 +996,7 @@ LH_ISO_APPLICATION="${LH_ISO_APPLICATION}"
 # (Default: ${LH_ISO_PREPARER})
 LH_ISO_PREPARER="${LH_ISO_PREPARER}"
 
-# \$LH_ISO_PUBLISHER: set iso preparer
+# \$LH_ISO_PUBLISHER: set iso publisher
 # (Default: ${LH_ISO_PUBLISHER})
 LH_ISO_PUBLISHER="${LH_ISO_PUBLISHER}"
 

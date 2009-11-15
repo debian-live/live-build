@@ -58,7 +58,7 @@ case "${1}" in
 			mkdir -p chroot/dev/pts
 
 			# Mounting /dev/pts
-			${LH_ROOT_COMMAND} mount devpts-live -t devpts chroot/dev/pts
+			${LH_ROOT_COMMAND} mount devpts-live -t devpts chroot/dev/pts || true
 		fi
 
 		# Creating stage file

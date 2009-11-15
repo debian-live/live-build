@@ -60,7 +60,7 @@ then
 
 
 		# Downloading additional packages
-		Chroot "xargs --arg-file=/root/$(basename ${PACKAGESLIST}) apt-get -o Dir::Cache=/binary.deb --download-only install --yes"
+		Chroot "xargs --arg-file=/root/$(basename ${PACKAGESLIST}) apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb --download-only install"
 	done
 
 	for FILE in chroot/binary.deb/archives/*.deb
@@ -74,11 +74,11 @@ then
 
 		case "${SOURCE}" in
 			lib?*)
-				LETTER="$(echo ${SOURCE} | sed 's/\(....\).*/\1/')"
+				LETTER="$(echo ${SOURCE} | sed 's|\(....\).*|\1|')"
 				;;
 
 			*)
-				LETTER="$(echo ${SOURCE} | sed 's/\(.\).*/\1/')"
+				LETTER="$(echo ${SOURCE} | sed 's|\(.\).*|\1|')"
 				;;
 		esac
 

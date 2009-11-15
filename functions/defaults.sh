@@ -64,6 +64,9 @@ Set_defaults ()
 	# Setting apt pipeline
 	# LH_APT_PIPELINE
 
+	APT_OPTIONS="${APT_OPTIONS:---yes}"
+	APTITUDE_OPTIONS="${APTITUDE_OPTIONS:---assume-yes}"
+
 	# Setting apt recommends
 	case "${LH_MODE}" in
 		debian-edu)
@@ -79,7 +82,7 @@ Set_defaults ()
 	LH_APT_SECURE="${LH_APT_SECURE:-enabled}"
 
 	# Setting bootstrap program
-	if [ -z "${LH_BOOTSTRAP}" ] || [ ! -x "$(which ${LH_BOOTSTRAP})" ]
+	if [ -z "${LH_BOOTSTRAP}" ]
 	then
 		if [ -x "/usr/sbin/debootstrap" ]
 		then
@@ -139,7 +142,7 @@ Set_defaults ()
 	fi
 
 	# Setting fdisk
-	if [ -z "${LH_FDISK}" ] || [ ! -x "${LH_FDISK}" ]
+	if [ -z "${LH_FDISK}" ]
 	then
 		# Workaround for gnu-fdisk divertion
 		# (gnu-fdisk is buggy, #445304).
@@ -155,7 +158,7 @@ Set_defaults ()
 	fi
 
 	# Setting losetup
-	if [ -z "${LH_LOSETUP}" ] || [ ! -x "${LH_LOSETUP}" ]
+	if [ -z "${LH_LOSETUP}" ]
 	then
 		# Workaround for loop-aes-utils divertion
 		# (loop-aes-utils' losetup lacks features).
@@ -259,7 +262,7 @@ Set_defaults ()
 			debian)
 				case "${LH_ARCHITECTURE}" in
 					amd64|i386)
-						LH_MIRROR_BOOTSTRAP="http://ftp.debian.org/debian/"
+						LH_MIRROR_BOOTSTRAP="http://ftp.us.debian.org/debian/"
 						;;
 
 					*)
@@ -274,10 +277,12 @@ Set_defaults ()
 		esac
 	fi
 
+	LH_MIRROR_CHROOT="${LH_MIRROR_CHROOT:-${LH_MIRROR_BOOTSTRAP}}"
+
 	# Setting security mirror to fetch packages from
-	if [ -z "${LH_MIRROR_BOOTSTRAP_SECURITY}" ]
+	if [ -z "${LH_MIRROR_CHROOT_SECURITY}" ]
 	then
-		LH_MIRROR_BOOTSTRAP_SECURITY="http://security.debian.org/"
+		LH_MIRROR_CHROOT_SECURITY="http://security.debian.org/"
 	fi
 
 	# Setting mirror which ends up in the image
@@ -287,7 +292,7 @@ Set_defaults ()
 			debian)
 				case "${LH_ARCHITECTURE}" in
 					amd64|i386)
-						LH_MIRROR_BINARY="http://ftp.debian.org/debian/"
+						LH_MIRROR_BINARY="http://ftp.us.debian.org/debian/"
 						;;
 
 					*)
@@ -431,35 +436,35 @@ Set_defaults ()
 	for LIST in ${LH_PACKAGES_LISTS}
 	do
 		case "${LIST}" in
-			mini|minimal)
+			stripped|minimal)
 				LH_APT="apt-get"
 				;;
 
 			gnome-desktop)
-				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's/gnome-desktop//') standard-x11"
-				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/gnome-desktop//' -e 's/desktop//') standard laptop gnome-desktop desktop"
+				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|gnome-desktop||') standard-x11"
+				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|laptop||' -e 's|gnome-desktop||' -e 's|desktop||') standard laptop gnome-desktop desktop"
 				;;
 
 			kde-desktop)
-				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's/kde-desktop//') standard-x11"
-				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/kde-desktop//' -e 's/desktop//') standard laptop kde-desktop desktop"
+				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|kde-desktop||') standard-x11"
+				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|laptop||' -e 's|kde-desktop||' -e 's|desktop||') standard laptop kde-desktop desktop"
 				;;
 
 			xfce-desktop)
-				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's/xfce-desktop//') standard-x11"
-				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/xfce-desktop//' -e 's/desktop//') standard laptop xfce-desktop desktop"
+				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|xfce-desktop||') standard-x11"
+				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|laptop||' -e 's|xfce-desktop||' -e 's|desktop||') standard laptop xfce-desktop desktop"
 				;;
 		esac
 	done
 
-	LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's/  //g')"
-	LH_TASKS="$(echo ${LH_TASKS} | sed -e 's/  //g')"
+	LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|  ||g')"
+	LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|  ||g')"
 
 	# Setting tasks
 	# LH_TASKS
 
 	# Setting security updates option
-	if [ "${LH_MIRROR_BOOTSTRAP_SECURITY}" = "none" ] || [ "${LH_MIRROR_BINARY_SECURITY}" = "none" ]
+	if [ "${LH_MIRROR_CHROOT_SECURITY}" = "none" ] || [ "${LH_MIRROR_BINARY_SECURITY}" = "none" ]
 	then
 		LH_SECURITY="disabled"
 	fi
@@ -627,6 +632,10 @@ Check_defaults ()
 			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_INITRAMFS='live-initramfs'"
 			Echo_warning "This is a possible unsafe configuration as live-initramfs is not"
 			Echo_warning "part of the etch distribution."
+			Echo_warning "Either make sure that live-initramfs is installable (e.g. through setting up"
+			Echo_warning "etch-backports repository as third-party source or putting a valid live-initramfs"
+			Echo_warning "deb into config/chroot_local-packages) or switch change your config to etch"
+			Echo_warning "default (casper)."
 		fi
 
 		if [ "${LH_UNION_FILESYSTEM}" = "aufs" ]
@@ -634,6 +643,21 @@ Check_defaults ()
 			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_UNION_FILESYSTEM='aufs'"
 			Echo_warning "This is a possible unsafe configuration as aufs is not"
 			Echo_warning "part of the etch distribution."
+			Echo_warning "Either make sure that aufs modules for your kernel are installable (e.g. through"
+			Echo_warning "setting up etch-backports repository as third-party source or putting a valid"
+			Echo_warning "aufs-modules deb into config/chroot_local-packages) or switch change your config"
+			Echo_warning "to etch default (unionfs)."
+
+		fi
+	fi
+
+	if [ "${LH_PACKAGES_LISTS}" = "stripped" ] || [ "${LH_PACKAGES_LISTS}" = "minimal" ]
+	then
+		if [ "${LH_APT}" = "aptitude" ]
+		then
+			Echo_warning "You selected LH_PACKAGES_LISTS='"${LH_PACKAGES_LIST}"' and LH_APT='aptitude'"
+			Echo_warning "This is a possible unsafe configuration as aptitude is not"
+			Echo_warning "used in the stripped/minimal package lists."
 		fi
 	fi
 }

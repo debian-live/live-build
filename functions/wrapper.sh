@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# common.sh - common things for all live-helpers
+# wrapper.sh - external command wrappers
 # Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -9,5 +9,15 @@
 
 set -e
 
-PROGRAM="$(basename ${0})"
-VERSION="1.0~a38"
+Apt ()
+{
+	case "${LH_APT}" in
+		apt|apt-get)
+			Chroot apt-get ${APT_OPTIONS} ${@}
+			;;
+
+		aptitude)
+			Chroot aptitude ${APTITUDE_OPTIONS} ${@}
+			;;
+	esac
+}

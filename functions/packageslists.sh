@@ -34,9 +34,9 @@ Expand_packagelist_file ()
 	shift
 	shift
 
-	for INCLUDE in $(sed -ne 's/^#<include> \(.*\)/\1/gp' "${FILE}");
+	for INCLUDE in $(sed -ne 's|^#<include> \(.*\)|\1|gp' -e 's|^#include <\(.*\)>|\1|gp' "${FILE}")
 	do
 		Expand_packagelist "${INCLUDE}" "${@}"
 	done
-	sed -ne 's/^\([^#].*\)/\1\n/gp' "${FILE}"
+	sed -ne 's|^\([^#].*\)|\1\n|gp' "${FILE}"
 }

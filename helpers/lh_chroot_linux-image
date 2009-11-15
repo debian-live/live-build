@@ -82,18 +82,29 @@ EOF
 			done
 		fi
 
-		PACKAGES="${PACKAGES} ${LH_INITRAMFS}"
+		if ! ls config/chroot_local-packages/${LH_INITRAMFS}*.deb > /dev/null 2>&1
+		then
+			PACKAGES="${PACKAGES} ${LH_INITRAMFS}"
+		fi
 
 		# Installing linux-image, modules and ${LH_INITRAMFS}
-		case "${LH_APT}" in
-			apt|apt-get)
-				Chroot "apt-get install --yes ${PACKAGES}"
-				;;
+		Apt install ${PACKAGES}
 
-			aptitude)
-				Chroot "aptitude install --assume-yes ${PACKAGES}"
-				;;
-		esac
+		if ls config/chroot_local-packages/${LH_INITRAMFS}*.deb > /dev/null 2>&1
+		then
+			cp config/chroot_local-packages/${LH_INITRAMFS}*.deb chroot/root
+
+			# Installing package
+			Chroot "find /root -name *.deb" > chroot/root/initfs
+			Chroot "xargs --arg-file=/root/initfs dpkg -i" || true
+
+			# Cleaning dependencies
+			Apt install -f
+
+			# Removing package files
+			rm -f chroot/root/${LH_INITRAMFS}*.deb
+			rm -f chroot/root/initfs
+		fi
 
 		# Saving cache
 		Save_cache cache/packages_linux-image

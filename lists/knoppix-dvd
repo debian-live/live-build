@@ -1,7 +1,7 @@
 # /usr/share/live-helper/lists/knoppix-dvd - package list for live-helper(7)
 
 ## LH: KNOPPIX (DVD)
-#<include> standard
+#include <standard>
 
 # packagelist inspired from Knoppix 5.1.1.
 

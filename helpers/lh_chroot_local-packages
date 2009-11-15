@@ -68,15 +68,7 @@ then
 	Chroot "xargs --arg-file=/root/local-packages dpkg -i" || true
 
 	# Cleaning dependencies
-	case "${LH_APT}" in
-		apt|apt-get)
-			Chroot "apt-get install -f --yes"
-			;;
-
-		aptitude)
-			Chroot "aptitude install -f --assume-yes"
-			;;
-	esac
+	Apt install -f
 
 	# Removing package files
 	rm -f chroot/root/*.deb

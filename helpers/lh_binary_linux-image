@@ -90,11 +90,11 @@ case "${LH_INITRAMFS}" in
 	casper)
 		# Checking casper templates
 		Check_templates casper
-		cp "${TEMPLATES}"/parameters.txt "${DESTDIR}"/parameters.txt
+		cp "${TEMPLATES}"/parameters.txt "${DESTDIR}"/parameters.txt || true
 		;;
 
 	live-initramfs)
-		cp chroot/usr/share/doc/live-initramfs/parameters.txt "${DESTDIR}"/parameters.txt
+		cp chroot/usr/share/doc/live-initramfs/parameters.txt "${DESTDIR}"/parameters.txt || true
 		;;
 esac
 

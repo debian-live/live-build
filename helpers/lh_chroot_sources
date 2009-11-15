@@ -50,33 +50,33 @@ case "${1}" in
 		Create_lockfile .lock
 
 		# Configure custom sources.list
-		echo "deb ${LH_MIRROR_BOOTSTRAP} ${LH_DISTRIBUTION} ${LH_SECTIONS}" > chroot/etc/apt/sources.list
+		echo "deb ${LH_MIRROR_CHROOT} ${LH_DISTRIBUTION} ${LH_SECTIONS}" > chroot/etc/apt/sources.list
 
 		if [ "${LH_SOURCE}" = "enabled" ]
 		then
-			echo "deb-src ${LH_MIRROR_BOOTSTRAP} ${LH_DISTRIBUTION} ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
+			echo "deb-src ${LH_MIRROR_CHROOT} ${LH_DISTRIBUTION} ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
 		fi
 
 		if [ "${LH_SECURITY}" = "enabled" ]
 		then
 			if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
 			then
-				echo "deb ${LH_MIRROR_BOOTSTRAP_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
+				echo "deb ${LH_MIRROR_CHROOT_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
 
 				if [ "${LH_SOURCE}" = "enabled" ]
 				then
-					echo "deb-src ${LH_MIRROR_BOOTSTRAP_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
+					echo "deb-src ${LH_MIRROR_CHROOT_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
 				fi
 			fi
 		fi
 
 		# Check local sources.list
-		if ls config/chroot_sources/*.bootstrap > /dev/null 2>&1
+		if ls config/chroot_sources/*.chroot > /dev/null 2>&1
 		then
 			echo "" >> chroot/etc/apt/sources.list
 			echo "# Custom repositories" >> chroot/etc/apt/sources.list
 
-			for FILE in config/chroot_sources/*.bootstrap
+			for FILE in config/chroot_sources/*.chroot
 			do
 				cat ${FILE} | grep -v "^##" >> chroot/etc/apt/sources.list
 			done
@@ -122,13 +122,13 @@ case "${1}" in
 
 			if [ "${LH_APT}" = "aptitude" ] && [ ! -x /usr/bin/aptitude ]
 			then
-				Chroot "apt-get install --yes --force-yes aptitude"
+				Chroot "apt-get ${APT_OPTIONS} install aptitude"
 			fi
 		else # Get fresh indices
 			# Check local gpg keys
-			if ls config/chroot_sources/*.bootstrap.gpg > /dev/null 2>&1
+			if ls config/chroot_sources/*.chroot.gpg > /dev/null 2>&1
 			then
-				for FILE in config/chroot_sources/*.bootstrap.gpg
+				for FILE in config/chroot_sources/*.chroot.gpg
 				do
 					cp ${FILE} chroot/root
 					Chroot "apt-key add /root/$(basename ${FILE})"
@@ -148,29 +148,21 @@ case "${1}" in
 			fi
 
 			# Installing aptitude
-			if [ "${LH_APT}" = "apt" ] || [ "${LH_APT}" = "apt-get" ]
+			if [ "${LH_APT}" = "aptitude" ] && [ ! -x /usr/bin/aptitude ]
 			then
-				Chroot "apt-get update"
-				Chroot "apt-get --yes upgrade"
-				Chroot "apt-get --yes dist-upgrade"
-			elif [ "${LH_APT}" = "aptitude" ]
-			then
-				if [ ! -x /usr/bin/aptitude ]
-				then
-					Chroot "apt-get update"
-					Chroot "apt-get install --yes --force-yes aptitude"
-				fi
-
-				Chroot "aptitude update"
-				Chroot "aptitude --assume-yes upgrade"
-				Chroot "aptitude --assume-yes dist-upgrade"
+				Chroot "apt-get ${APT_OPTIONS} update"
+				Chroot "apt-get ${APT_OPTIONS} install aptitude"
 			fi
+
+			Apt update
+			Apt upgrade
+			Apt dist-upgrade
 
 			# Installing keyring packages
 			if [ -n "${LH_KEYRING_PACKAGES}" ]
 			then
-				Chroot "apt-get install --yes --force-yes ${LH_KEYRING_PACKAGES}"
-				Chroot "apt-get update"
+				Apt --force-yes install "${LH_KEYRING_PACKAGES}"
+				Apt update
 			fi
 
 			if [ "${LH_CACHE_INDICES}" = "enabled" ]
@@ -206,8 +198,8 @@ case "${1}" in
 		if [ "${LH_BINARY_INDICES}" = "enabled" ]
 		then
 			# Don't do anything if it's not required
-			if [ "${LH_MIRROR_BOOTSTRAP}" = "${LH_MIRROR_BINARY}" ] && \
-			[ "${LH_MIRROR_BOOTSTRAP_SECURITY}" = "${LH_MIRROR_BINARY_SECURITY}" ]
+			if [ "${LH_MIRROR_CHROOT}" = "${LH_MIRROR_BINARY}" ] && \
+			[ "${LH_MIRROR_CHROOT_SECURITY}" = "${LH_MIRROR_BINARY_SECURITY}" ]
 			then
 				# Removing stage file
 				rm -f .stage/chroot_sources
@@ -262,15 +254,8 @@ case "${1}" in
 				done
 			fi
 
-			case "${LH_APT}" in
-				apt|apt-get)
-					Chroot "apt-get update"
-					;;
-
-				aptitude)
-					Chroot "aptitude update"
-					;;
-			esac
+			# Updating indices
+			Apt update
 		fi
 
 		# Cleaning apt packages cache

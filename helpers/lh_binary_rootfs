@@ -140,6 +140,43 @@ case "${LH_CHROOT_FILESYSTEM}" in
 		Remove_package
 		;;
 
+	jffs2)
+		# Checking depends
+		Check_package chroot/usr/sbin/mkfs.jffs2 mtd-tools
+
+		# Restoring cache
+		Restore_cache cache/packages_binary
+
+		# Installing depends
+		Install_package
+
+		# Remove old ext2 image
+		if [ -f binary/${INITFS}/filesystem.jffs2 ]
+		then
+			rm -f binary/${INITFS}/filesystem.jffs2
+		fi
+
+		case "${LH_CHROOT_BUILD}" in
+			enabled)
+				Chroot "mkfs.jffs2 --root=chroot --output filesystem.jffs2"
+
+				# Move image
+				mv chroot/filesystem.jffs2 binary/${INITFS}
+				rm -rf chroot/chroot
+				;;
+
+			disabled)
+				mkfs.jffs2 --root=chroot --output binary/${INITFS}/filesystem.jffs2
+				;;
+		esac
+
+		# Saving cache
+		Save_cache cache/packages_binary
+
+		# Removing depends
+		Remove_package
+		;;
+
 	plain)
 		if [ -d binary/${INITFS}/filesystem.dir ]
 		then
@@ -183,9 +220,9 @@ case "${LH_CHROOT_FILESYSTEM}" in
 			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -info"
 		fi
 
-		if [ "${LH_PACKAGES_LISTS}" = "minimal" ] || [ "${LH_PACKAGES_LISTS}" = "mini" ]
+		if [ "${LH_PACKAGES_LISTS}" = "stripped" ] || [ "${LH_PACKAGES_LISTS}" = "minimal" ]
 		then
-			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -e $(ls chroot/boot/${LINUX}* chroot/boot/initrd.img* chroot/${LINUX}* chroot/initrd.img* | sed 's,chroot/,,g')"
+			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -e $(ls chroot/boot/${LINUX}* chroot/boot/initrd.img* chroot/${LINUX}* chroot/initrd.img* | sed 's|chroot/||g')"
 		fi
 
 		if [ -f config/binary_rootfs/squashfs.sort ]

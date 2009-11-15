@@ -10,7 +10,7 @@
 set -e
 
 # Removing unused packages
-for PACKAGE in apt-utils aptitude man-db manpages info ssl wget
+for PACKAGE in apt-utils aptitude man-db manpages info wget
 do
 	if ! apt-get remove --purge --yes "${PACKAGE}"
 	then
@@ -18,7 +18,7 @@ do
 	fi
 done
 
-apt-get autoremove || true
+apt-get autoremove --yes || true
 
 # Removing unused files
 find . -name *~ | xargs rm -f

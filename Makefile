@@ -93,16 +93,16 @@ uninstall:
 		done; \
 		for MANPAGE in manpages/*.$$TRANSLATION.7; \
 		do \
-			rm -f $(DESTDIR)/usr/share/man/$$TRANSLATION/man7/`basename $$MANPAGE .de.7`.7; \
+			rm -f $(DESTDIR)/usr/share/man/$$TRANSLATION/man7/`basename $$MANPAGE .$$TRANSLATION.7`.7; \
 		done; \
 	done
 
 update:
-	set -e; for FILE in functions/*.sh examples/cron/*.sh manpages/*.de.* manpages/*.en.*; \
+	set -e; for FILE in functions/*.sh examples/cron/*.sh manpages/*.en.*; \
 	do \
-		sed -i	-e 's/2007\\-11\\-19/2007\\-11\\-26/' \
-			-e 's/19.11.2007/26.11.2007/' \
-			-e 's/1.0~a37/1.0~a38/' \
+		sed -i	-e 's/2007\\-11\\-26/2007\\-12\\-03/' \
+			-e 's/26.11.2007/03.12.2007/' \
+			-e 's/1.0~a38/1.0~a39/' \
 		$$FILE; \
 	done
 

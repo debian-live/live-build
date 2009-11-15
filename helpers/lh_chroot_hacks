@@ -54,15 +54,7 @@ case "${LH_BINARY_IMAGES}" in
 	net)
 		if [ ! -f chroot/usr/bin/smbmount ]
 		then
-			case "${LH_APT}" in
-				apt|apt-get)
-					Chroot "apt-get install --yes smbfs"
-					;;
-
-				aptitude)
-					Chroot "aptitude install --assume-yes smbfs"
-					;;
-			esac
+			Apt install smbfs
 		fi
 
 		if [ ! -d chroot/etc/initramfs-tools ]
@@ -99,6 +91,7 @@ rm -f chroot/etc/apt/trusted.gpg~
 rm -f chroot/etc/group- chroot/etc/passwd-
 rm -f chroot/etc/gshadow- chroot/etc/shadow-
 rm -f chroot/var/cache/debconf/*-old
+rm -f chroot/var/cache/man/index.db
 rm -f chroot/var/lib/dpkg/*-old
 
 if [ -n "${LH_ROOT_COMMAND}" ]
@@ -132,7 +125,7 @@ then
 	do
 		DIRECTORY="$(dirname ${FILE})"
 		FILE="$(basename ${FILE})"
-		RELATIVE_PATH="$(echo ${DIRECTORY} | sed 's/[^\/]\+/../g; s/^\///g')"
+		RELATIVE_PATH="$(echo ${DIRECTORY} | sed 's|[^/]\+|..|g; s|^/||g')"
 
 		# Touch files in case they don't yet exist
 		mkdir -p chroot/${DIRECTORY}

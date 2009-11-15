@@ -27,7 +27,7 @@ Losetup ()
 
 		${LH_ROOT_COMMAND} ${LH_LOSETUP} "${DEVICE}" "${FILE}"
 	else
-		CYLINDERS="$(echo "$FDISK_OUT" | sed -ne "s_^$LOOPDEVICE[ *]*\([0-9]*\).*_\1_p")"
+		CYLINDERS="$(echo "$FDISK_OUT" | sed -ne "s|^$LOOPDEVICE[ *]*\([0-9]*\).*|\1|p")"
 		OFFSET="$(expr ${CYLINDERS} '*' 512)"
 
 		Echo_message "Mounting ${DEVICE} with offset ${OFFSET}"

@@ -68,6 +68,11 @@ case "${LH_CHROOT_FILESYSTEM}" in
 		ROOTFS="ext2"
 		;;
 
+	jffs2)
+		Echo_warning "encryption not yet supported on jffs2 filesystem."
+		exit 0
+		;;
+
 	plain)
 		Echo_warning "encryption not supported on plain filesystem."
 		exit 0

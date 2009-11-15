@@ -87,7 +87,7 @@ Syslinux_memtest_entry ()
 	# Write the menu label if the syslinux menu is being use
 	MEMTEST="${MEMTEST}\tMENU LABEL ${MENULABEL}\n"
 	MEMTEST="${MEMTEST}\tkernel ${LIVE_KERNEL_PATH}/${KERNEL}\n"
-	MEMTEST="$(/bin/echo ${MEMTEST} | sed -e 's#//#/#g')"
+	MEMTEST="$(/bin/echo ${MEMTEST} | sed -e 's|//|/|g')"
 }
 
 Syslinux_live_entry ()
@@ -182,7 +182,7 @@ Copy_syslinux_templates ()
 		cp "${TEMPLATES}"/menu/data/* ${DATA_PATH}
 
          # Grab menu binary from chroot
-         MENUMODULE=$(grep 'menu.c32' ${TEMPLATES}/menu/header.cfg | sed 's,default\s*.*/\(.*menu.c32\)$,\1,g')
+         MENUMODULE=$(grep 'menu.c32' ${TEMPLATES}/menu/header.cfg | sed 's|default\s*.*/\(.*menu.c32\)$|\1|g')
 		cp chroot/usr/lib/syslinux/"${MENUMODULE}" ${DATA_PATH}
 	fi
 
@@ -254,19 +254,19 @@ Configure_syslinux_templates ()
 
 	for template_file in ${templates}
 	do
-		sed -i -e "s@{\$LINUX_LIVE}@${LINUX_LIVE}@" \
-		       -e "s@{\$LINUX_INSTALL}@${LINUX_INSTALL}@" \
-		       -e "s@{\$MEMTEST}@${MEMTEST}@" \
-		       -e "s@{\$LIVE_SCREEN_PATH}@${LIVE_SCREEN_PATH}@" \
-		       -e "s@{\$LIVE_DATA_PATH}@${LIVE_DATA_PATH}@" \
-		       -e "s@{\$LIVE_KERNEL_PATH}@${LIVE_KERNEL_PATH}@" \
-		       -e "s@{\$SPLASH}@${SPLASH}@" \
-		       -e "s/{\$LH_DISTRIBUTION}/${LH_DISTRIBUTION}/" \
-		       -e "s/{\$LH_DATE}/$(date +%Y%m%d)/" \
-		       -e "s/{\$LH_MEDIA}/${MEDIA}/" \
-		       -e "s/{\$LH_VERSION}/${VERSION}/" \
-		       -e "s/{\$LH_SYSLINUX_TIMEOUT}/${LH_SYSLINUX_TIMEOUT}0/" \
-		       -e 's/\ $//g' \
+		sed -i -e "s|{\$LINUX_LIVE}|${LINUX_LIVE}|" \
+		       -e "s|{\$LINUX_INSTALL}|${LINUX_INSTALL}|" \
+		       -e "s|{\$MEMTEST}|${MEMTEST}|" \
+		       -e "s|{\$LIVE_SCREEN_PATH}|${LIVE_SCREEN_PATH}|" \
+		       -e "s|{\$LIVE_DATA_PATH}|${LIVE_DATA_PATH}|" \
+		       -e "s|{\$LIVE_KERNEL_PATH}|${LIVE_KERNEL_PATH}|" \
+		       -e "s|{\$SPLASH}@|{SPLASH}|" \
+		       -e "s|{\$LH_DISTRIBUTION}|${LH_DISTRIBUTION}|" \
+		       -e "s|{\$LH_DATE}|$(date +%Y%m%d)|" \
+		       -e "s|{\$LH_MEDIA}|${MEDIA}|" \
+		       -e "s|{\$LH_VERSION}|${VERSION}|" \
+		       -e "s|{\$LH_SYSLINUX_TIMEOUT}|${LH_SYSLINUX_TIMEOUT}0|" \
+		       -e 's|\ $||g' \
 		$template_file
 	done
 
@@ -300,7 +300,7 @@ Configure_syslinux_templates ()
 		then
 			for FILE in ${SCREEN_PATH}/syslinux.cfg ${SCREEN_PATH}/boot.txt
 			do
-				sed -i -e 's@/@@' ${FILE}
+				sed -i -e 's|/||' ${FILE}
 			done
 		fi
 	fi
@@ -468,7 +468,7 @@ then
 	esac
 fi
 
-LH_BOOTAPPEND_LIVE="$(echo ${LH_BOOTAPPEND_LIVE} | sed -e 's/  //')"
+LH_BOOTAPPEND_LIVE="$(echo ${LH_BOOTAPPEND_LIVE} | sed -e 's|  ||')"
 
 # Parameters are listed at: linux/Documentation/kernel-parameters.txt
 FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=normal"
@@ -484,7 +484,7 @@ fi
 # Default entries
 DEFAULT_FLAVOUR="$(echo ${LH_LINUX_FLAVOURS} | awk '{ print $1 }')"
 DEFAULT_KERNEL="$(basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR})"
-DEFAULT_INITRD="initrd.img-$(echo ${DEFAULT_KERNEL} | sed -e 's/vmlinuz-//')"
+DEFAULT_INITRD="initrd.img-$(echo ${DEFAULT_KERNEL} | sed -e 's|vmlinuz-||')"
 
 Syslinux_live_entry "live" "${LH_SYSLINUX_MENU_LIVE_ENTRY}" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
 
@@ -495,7 +495,7 @@ then
 		if [ "${FLAVOUR}" != "${DEFAULT_FLAVOUR}" ]
 		then
 			FLAVOUR_KERNEL="$(basename chroot/boot/vmlinuz-*${FLAVOUR})"
-			FLAVOUR_INITRD="initrd.img-$(echo ${FLAVOUR_KERNEL} | sed -e 's/vmlinuz-//')"
+			FLAVOUR_INITRD="initrd.img-$(echo ${FLAVOUR_KERNEL} | sed -e 's|vmlinuz-||')"
 			Syslinux_live_entry "live-${FLAVOUR}" "${LH_SYSLINUX_MENU_LIVE_ENTRY} ${FLAVOUR}" "${FLAVOUR_KERNEL}" "${FLAVOUR_INITRD}"
 		fi
 	done

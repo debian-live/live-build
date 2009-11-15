@@ -1,22 +1,33 @@
 # /usr/share/live-helper/lists/devel-live - package list for live-helper(7)
 
 ## LH: Development (Debian Live)
-#<include> standard
+#include <standard>
 
-# live-helper
-cdebootstrap debootstrap
+# debian-live
 live-helper git-core
-dosfstools genisoimage mkisofs memtest86+ memtest86 mtools parted genext2fs syslinux grub
+debootstrap cdebootstrap
+dosfstools genisoimage memtest86+ memtest86 mtools parted squashfs-tools genext2fs mtd-tools sudo fakeroot syslinux grub
 
 # kernel
-aufs-source kqemu-source squashfs-source unionfs-source
-aufs-tools qemu squashfs-tools unionfs-tools
+aufs-tools aufs-source
+qemu kqemu-source
+kvm kvm-source
+squashfs-tools squashfs-source
+unionfs-tools unionfs-source
 #linux-headers-2.6-all
 
-# netboot
+# netboot/pxe
 dhcp3-server nfs-kernel-server tftp-hpa
+
+# webboot
+apache2
 
 # some other stuff
 vim less screen gnupg
+
+# build
 build-essential debhelper dh-make lintian fakeroot devscripts wdiff
-autotools-dev dpatch module-assistant
+autotools-dev dpatch module-assistant quilt
+
+# bootchart
+acct bootchart
