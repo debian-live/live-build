@@ -25,12 +25,7 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/common
-Read_conffile config/bootstrap
-Read_conffile config/chroot
-Read_conffile config/binary
-Read_conffile config/source
-Read_conffile "${LH_CONFIG}"
+Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 if [ "${LH_SOURCE}" != "enabled" ]
@@ -65,7 +60,7 @@ fi
 
 # Calculating md5sums
 cd source
-find . -type f -print0 | xargs -0 md5sum > ../md5sum.txt
+find . -type f -print0 | sort -z | xargs -0 md5sum > ../md5sum.txt
 
 cat > md5sum.txt << EOF
 This file contains the list of md5 checksums of all files on this medium.
@@ -76,7 +71,7 @@ or, manually with: 'md5sum -c md5sum.txt'.
 
 EOF
 
-sort ../md5sum.txt >> md5sum.txt
+cat ../md5sum.txt >> md5sum.txt
 rm -f ../md5sum.txt
 
 cd "${OLDPWD}"

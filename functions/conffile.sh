@@ -11,21 +11,29 @@ set -e
 
 Read_conffile ()
 {
-	FILES="${1} ${1}.${LH_ARCHITECTURE} ${1}.${DISTRIBUTION}"
-	FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's|^lh_||')"
-	FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's|^lh_||').${ARCHITECTURE}"
-	FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's|^lh_||').${DISTRIBUTION}"
+	if [ -n "${LH_CONFIG}" ]
+	then
+		FILES="${LH_CONFIG}"
+	else
+		for FILE in ${@}
+		do
+			FILES="${FILES} ${FILE} ${FILE}.${LH_ARCHITECTURE} ${FILE}.${DISTRIBUTION}"
+			FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's|^lh_||')"
+			FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's|^lh_||').${ARCHITECTURE}"
+			FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's|^lh_||').${DISTRIBUTION}"
+		done
+	fi
 
-	for FILE in ${FILES}
+	for CONFFILE in ${FILES}
 	do
-		if [ -f "${FILE}" ]
+		if [ -f "${CONFFILE}" ]
 		then
-			if [ -r "${FILE}" ]
+			if [ -r "${CONFFILE}" ]
 			then
-				Echo_debug "Reading configuration file ${FILE}"
-				. "${FILE}"
+				Echo_debug "Reading configuration file ${CONFFILE}"
+				. "${CONFFILE}"
 			else
-				Echo_warning "Failed to read configuration file ${FILE}"
+				Echo_warning "Failed to read configuration file ${CONFFILE}"
 			fi
 		fi
 	done

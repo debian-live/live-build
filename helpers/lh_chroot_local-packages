@@ -25,12 +25,7 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/common
-Read_conffile config/bootstrap
-Read_conffile config/chroot
-Read_conffile config/binary
-Read_conffile config/source
-Read_conffile "${LH_CONFIG}"
+Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 Echo_message "Begin installing local packages..."
@@ -65,7 +60,13 @@ then
 
 	# Installing packages
         Chroot "find /root -name *.deb" > chroot/root/local-packages
-	Chroot "xargs --arg-file=/root/local-packages dpkg -i" || true
+
+	if [ -s chroot/root/local-packages ]
+	then
+		Chroot "xargs --arg-file=/root/local-packages dpkg -i" || true
+	else
+		Echo_warning "Local packages must be named with suffix '_all.deb' or '_\$architecture.deb'."
+	fi
 
 	# Cleaning dependencies
 	Apt install -f

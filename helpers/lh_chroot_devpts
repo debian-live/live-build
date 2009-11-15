@@ -28,12 +28,7 @@ Arguments "${@}"
 lh_testroot
 
 # Reading configuration files
-Read_conffile config/common
-Read_conffile config/bootstrap
-Read_conffile config/chroot
-Read_conffile config/binary
-Read_conffile config/source
-Read_conffile "${LH_CONFIG}"
+Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 # Requiring stage file

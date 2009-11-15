@@ -77,10 +77,11 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--linux-packages \"PACKAGES\"]\n\
 \t    [--losetup losetup|losetup.orig]\n\
 \t    [--memtest memtest86+|memtest86]\n\
-\t    [-m|--mirror-binary-security URL]\n\
-\t    [--mirror-binary URL]\n\
-\t    [--mirror-bootstrap-security URL]\n\
 \t    [--mirror-bootstrap URL]\n\
+\t    [--mirror-chroot URL]\n\
+\t    [--mirror-chroot-security URL]\n\
+\t    [--mirror-binary URL]\n\
+\t    [-m|--mirror-binary-security URL]\n\
 \t    [--mode debian|debian-edu]\n\
 \t    [--net-root-filesystem nfs|cfs]\n\
 \t    [--net-root-mountoptions OPTIONS]\n\
@@ -652,12 +653,7 @@ Local_arguments ()
 }
 
 # Reading existing configuration
-Read_conffile config/common
-Read_conffile config/bootstrap
-Read_conffile config/chroot
-Read_conffile config/binary
-Read_conffile config/source
-Read_conffile "${LH_CONFIG}"
+Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
 
 Local_arguments "${@}"
 
