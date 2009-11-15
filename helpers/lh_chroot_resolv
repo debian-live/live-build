@@ -75,11 +75,11 @@ case "${1}" in
 
 		if [ -f chroot/etc/resolv.conf.orig ]
 		then
-			# Restore resolv file
+			# Restoring resolv file
 			mv chroot/etc/resolv.conf.orig chroot/etc/resolv.conf
 		else
-			# Remove resolv file
-			rm -f chroot/etc/resolv.conf
+			# Truncating resolv file
+			cat < /dev/null > chroot/etc/resolv.conf
 		fi
 
 		# Removing stage file

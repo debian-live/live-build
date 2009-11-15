@@ -1,3 +1,18 @@
+2007-07-27  Daniel Baumann  <daniel@debian.org>
+
+	* Makefile, debian/postinst, prerm:
+	  - Added alternatives handling for includes and templates.
+	* examples/hooks/*:
+	  - Cleaned up.
+	* helpers/lh_chroot_preseed:
+	  - Process flavour specific preseeds, if available, dropping
+	    LIVE_PRESEED.
+	* helpers/lh_chroot_local-preseed:
+	  - Added.
+	* templates/syslinux:
+	  - Added installer specific templates.
+	  - Renamebled additional boot targets (localboot).
+
 2007-07-19  Daniel Baumann  <daniel@debian.org>
 
 	* functions/defaults.sh, package.sh, helpers/lh_config, lh_binary_*:

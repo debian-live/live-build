@@ -511,9 +511,6 @@ Set_defaults ()
 	# Setting packages list string
 	LIVE_PACKAGES_LISTS="${LIVE_PACKAGES_LISTS:-standard}"
 
-	# Setting package preseed
-	# LIVE_PRESEED
-
 	# Setting tasks string
 	for LIST in ${LIVE_PACKAGES_LISTS}
 	do

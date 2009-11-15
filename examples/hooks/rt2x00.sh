@@ -2,11 +2,8 @@
 
 # This is a hook for live-helper(7) to install ralink rt2x00 drivers
 # To enable it, copy this hook into your config/chroot_local-hooks directory.
-
-# NOTE: it runs in interactive mode
-
-# Updating indices
-apt-get update
+#
+# FIXME: it runs in interactive mode
 
 # Building kernel modules
 which module-assistant || apt-get install --yes module-assistant

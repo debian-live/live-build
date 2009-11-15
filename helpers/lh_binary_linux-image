@@ -106,7 +106,9 @@ fi
 
 case "${LH_INITRAMFS}" in
 	casper)
-		cp "${LH_BASE:-/usr/share/live-helper}"/data/casper/parameters.txt "${DESTDIR}"/parameters.txt
+		# Checking casper templates
+		Check_templates casper
+		cp "${TEMPLATES}"/casper/parameters.txt "${DESTDIR}"/parameters.txt
 		;;
 
 	live-initramfs)

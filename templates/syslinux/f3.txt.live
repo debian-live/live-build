@@ -1,21 +1,21 @@
 0fBOOT METHODS07                                                                  09F307
 
-
 0fAvailable boot methods:07
 
-0finstall07
-  Start the installation.
-0finstallgui07
-  Start the installation using the graphical installer.
-0fexpert07
-  Start the installation in expert mode, for maximum control.
-0fexpertgui07
-  Start the installation in expert mode using the graphical installer.
+0flive07
+  Start the live system -- this is the default LIVE_MEDIA method.
+0flive-failsafe07
+  Start the live system in fail-safe mode.
+
+
+
+
+
+
 
 To use one of these boot methods, type it at the prompt, optionally
 followed by any boot parameters. For example:
-
-  boot: install acpi=off
+  boot: live acpi=off
 
 If unsure, you should use the default boot method, with no special
 parameters, by simply pressing enter at the boot prompt.
