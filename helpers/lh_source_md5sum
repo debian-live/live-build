@@ -38,6 +38,11 @@ then
 	exit 0
 fi
 
+if [ "${LH_CHECKSUMS}" != "enabled" ]
+then
+	exit 0
+fi
+
 Echo_message "Begin creating source md5sum.txt..."
 
 # Requiring stage file

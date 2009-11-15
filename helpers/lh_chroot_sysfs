@@ -36,13 +36,13 @@ Read_conffile config/source
 Read_conffile "${LH_CONFIG}"
 Set_defaults
 
-Echo_message "Begin mounting /sys..."
-
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
 case "${1}" in
 	install)
+		Echo_message "Begin mounting /sys..."
+
 		# Checking stage file
 		Check_stagefile .stage/chroot_sysfs
 
@@ -69,6 +69,8 @@ case "${1}" in
 		;;
 
 	remove)
+		Echo_message "Begin unmounting /sys..."
+
 		# Checking lock file
 		Check_lockfile .lock
 
@@ -79,7 +81,10 @@ case "${1}" in
 		then
 			# Unmounting /sys
 			#fuser -km chroot/sys
-			${LH_ROOT_COMMAND} umount chroot/sys > /dev/null 2>&1
+			if [ -e chroot/sys/kernel ]
+			then
+				${LH_ROOT_COMMAND} umount chroot/sys
+			fi
 		else
 			rm -rf chroot/sys
 			mkdir -p chroot/sys

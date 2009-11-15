@@ -99,7 +99,7 @@ echo "0.0 0 0.0" > chroot/etc/adjtime
 
 # Remove cruft
 rm -f chroot/boot/initrd*bak*
-rm -f /etc/apt/trusted.gpg~
+rm -f chroot/etc/apt/trusted.gpg~
 rm -f chroot/etc/group- chroot/etc/passwd-
 rm -f chroot/etc/gshadow- chroot/etc/shadow-
 rm -f chroot/var/cache/debconf/*-old
@@ -119,33 +119,35 @@ if [ "${LH_EXPOSED_ROOT}" = "enabled" ]
 then
 	# Make sure RW dirs exist so that the initramfs script has
 	# a directory in which to bind the tmpfs filesystems
-	COW_DIRS='/tmp /var/tmp /var/lock /var/run /var/lib/live /var/log
-		/var/spool /home /live'
-	for DIR in ${COW_DIRS}; do
-		mkdir -p chroot${DIR}
+	COW_DIRECTORIES="/home /live /tmp /var/lib/live /var/lock /var/log /var/run /var/tmp /var/spool"
+
+	for DIRECTORY in ${COW_DIRECTORIES}
+	do
+		mkdir -p chroot/"${DIRECTORY}"
 	done
 
 	# Config files which need to be RW
-	CONFIG_FILES='/etc/hostname /etc/hosts /etc/resolv.conf /etc/fstab
-		/etc/live.conf /etc/network/interfaces /etc/X11/xorg.conf /etc/adjtime
-		/etc/udev/rules.d/z25_persistent-net.rules
-		/etc/udev/rules.d/z25_persistent-cd.rules'
+	COW_FILES="/etc/adjtime /etc/fstab /etc/hostname /etc/hosts /etc/live.conf /etc/network/interfaces /etc/resolv.conf /etc/udev/rules.d/z25_persistent-net.rules /etc/udev/rules.d/z25_persistent-cd.rules' /etc/X11/xorg.conf"
 
 	# Where we will store RW config files
-	RW_DIR='/var/lib/live'
+	RW_DIRECTORY="/var/lib/live"
 
-	for FILE_PATH in ${CONFIG_FILES}
+	for FILE in ${COW_FILES}
 	do
+		DIRECTORY="$(dirname ${FILE})"
+		FILE="$(basename ${FILE})"
+		RELATIVE_PATH="$(echo ${DIRECTORY} | sed 's/[^\/]\+/../g; s/^\///g')"
+
 		# Touch files in case they don't yet exist
-		FILE_DIR=$(dirname ${FILE_PATH})
-		mkdir -p chroot${FILE_DIR}
-		touch chroot${FILE_PATH}
-		FILE_NAME=$(basename ${FILE_PATH})
-		mkdir -p chroot${RW_DIR}${FILE_DIR}
-		mv chroot${FILE_PATH} chroot${RW_DIR}${FILE_DIR}
+		mkdir -p chroot/${DIRECTORY}
+		touch chroot/${DIRECTORY}/${FILE}
+
+		# Move files to the read-write directory
+		mkdir -p chroot/${RW_DIRECTORY}/${DIRECTORY}
+		mv chroot/${DIRECTORY}/${FILE} chroot/${RW_DIRECTORY}/${DIRECTORY}
+
 		# Create a symbolic link to RW config file
-		RELATIVE_PATH=$(echo ${FILE_DIR}|sed 's/[^\/]\+/../g; s/^\///g')
-		ln -s ${RELATIVE_PATH}${RW_DIR}${FILE_PATH} chroot${FILE_PATH}
+		ln -s ${RELATIVE_PATH}/${RW_DIRECTORY}/${DIRECTORY}/${FILE} chroot/${DIRECTORY}/${FILE}
 	done
 
 	# Mount doesn't write to a symlink so use /proc/mounts instead,

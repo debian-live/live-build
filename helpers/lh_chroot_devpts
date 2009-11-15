@@ -36,13 +36,13 @@ Read_conffile config/source
 Read_conffile "${LH_CONFIG}"
 Set_defaults
 
-Echo_message "Begin mounting /dev/pts..."
-
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
 case "${1}" in
 	install)
+		Echo_message "Begin mounting /dev/pts..."
+
 		# Checking stage file
 		Check_stagefile .stage/chroot_devpts
 
@@ -52,17 +52,22 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		# Creating mountpoint
-		mkdir -p chroot/dev/pts
+		if [ "${LH_USE_FAKEROOT}" != "enabled" ]
+		then
+			# Creating mountpoint
+			mkdir -p chroot/dev/pts
 
-		# Mounting /dev/pts
-		${LH_ROOT_COMMAND} mount devpts-live -t devpts chroot/dev/pts
+			# Mounting /dev/pts
+			${LH_ROOT_COMMAND} mount devpts-live -t devpts chroot/dev/pts
+		fi
 
 		# Creating stage file
 		Create_stagefile .stage/chroot_devpts
 		;;
 
 	remove)
+		Echo_message "Begin unmounting /dev/pts..."
+
 		# Checking lock file
 		Check_lockfile .lock
 
@@ -70,7 +75,13 @@ case "${1}" in
 		Create_lockfile .lock
 
 		# Unmounting /dev/pts
-		${LH_ROOT_COMMAND} umount chroot/dev/pts > /dev/null 2>&1
+		if [ "${LH_USE_FAKEROOT}" != "enabled" ]
+		then
+			if [ -e chroot/dev/pts/0 ]
+			then
+				${LH_ROOT_COMMAND} umount chroot/dev/pts
+			fi
+		fi
 
 		# Removing stage file
 		rm -f .stage/chroot_devpts

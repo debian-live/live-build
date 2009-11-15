@@ -18,7 +18,7 @@ Help ()
 
 	if [ -n "${USAGE}" ]
 	then
-		echo -e "${USAGE}"
+		/bin/echo -e "${USAGE}"
 		echo
 	fi
 

@@ -5,10 +5,19 @@ TRANSLATIONS="de"
 all: build
 
 test:
+	# Checking for syntax errors
 	set -e; for SCRIPT in functions/* examples/*/*.sh helpers/* hooks/*; \
 	do \
 		sh -n $$SCRIPT; \
 	done
+
+	# Checking for bashisms (temporary not failing, but only listing)
+	if [ -x /usr/bin/checkbashisms ]; \
+	then \
+		checkbashisms functions/* examples/*/*.sh helpers/* hooks/* || true; \
+	else \
+		echo "bashism test skipped - you need to install devscripts."; \
+	fi
 
 build:
 	@echo "Nothing to build."
@@ -16,7 +25,7 @@ build:
 install: test
 	# Installing executables
 	mkdir -p $(DESTDIR)/usr/bin
-	cp helpers/lh_* helpers/make-live $(DESTDIR)/usr/bin
+	cp helpers/lh* helpers/make-live $(DESTDIR)/usr/bin
 
 	# Installing shared data
 	mkdir -p $(DESTDIR)/usr/share/live-helper
@@ -91,9 +100,9 @@ uninstall:
 update:
 	set -e; for FILE in functions/*.sh examples/cron/*.sh manpages/*.de.* manpages/*.en.*; \
 	do \
-		sed -i	-e 's/2007\\-11\\-05/2007\\-11\\-12/' \
-			-e 's/05.11.2007/12.11.2007/' \
-			-e 's/1.0~a35/1.0~a36/' \
+		sed -i	-e 's/2007\\-11\\-12/2007\\-11\\-19/' \
+			-e 's/12.11.2007/19.11.2007/' \
+			-e 's/1.0~a36/1.0~a37/' \
 		$$FILE; \
 	done
 

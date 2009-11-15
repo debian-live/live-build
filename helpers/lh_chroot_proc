@@ -36,13 +36,13 @@ Read_conffile config/source
 Read_conffile "${LH_CONFIG}"
 Set_defaults
 
-Echo_message "Begin mounting /proc..."
-
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
 case "${1}" in
 	install)
+		Echo_message "Begin mounting /proc..."
+
 		# Checking stage file
 		Check_stagefile .stage/chroot_proc
 
@@ -59,16 +59,18 @@ case "${1}" in
 
 			# Mounting /proc
 			${LH_ROOT_COMMAND} mount proc-live -t proc chroot/proc
-
-			# Creating stage file
-			Create_stagefile .stage/chroot_proc
 		else
 			rm -rf chroot/proc
 			ln -s /proc chroot/
 		fi
+
+		# Creating stage file
+		Create_stagefile .stage/chroot_proc
 		;;
 
 	remove)
+		Echo_message "Begin unmounting /proc..."
+
 		# Checking lock file
 		Check_lockfile .lock
 
@@ -85,7 +87,10 @@ case "${1}" in
 
 			# Unmounting /proc
 			#fuser -km chroot/proc
-			${LH_ROOT_COMMAND} umount chroot/proc > /dev/null 2>&1
+			if [ -e chroot/proc/version ]
+			then
+				${LH_ROOT_COMMAND} umount chroot/proc
+			fi
 		else
 			rm -rf chroot/proc
 			mkdir -p chroot/proc

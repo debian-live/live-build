@@ -138,10 +138,27 @@ Set_defaults ()
 		fi
 	fi
 
+	# Setting fdisk
+	if [ -z "${LH_FDISK}" ] || [ ! -x "${LH_FDISK}" ]
+	then
+		# Workaround for gnu-fdisk divertion
+		# (gnu-fdisk is buggy, #445304).
+		if [ -x /sbin/fdisk.distrib ]
+		then
+			LH_FDISK="fdisk.distrib"
+		elif [ -x /sbin/fdisk ]
+		then
+			LH_FDISK="fdisk"
+		else
+			echo "E: Can't proces file /sbin/fdisk (FIXME)"
+		fi
+	fi
+
 	# Setting losetup
 	if [ -z "${LH_LOSETUP}" ] || [ ! -x "${LH_LOSETUP}" ]
 	then
 		# Workaround for loop-aes-utils divertion
+		# (loop-aes-utils' losetup lacks features).
 		if [ -x /sbin/losetup.orig ]
 		then
 			LH_LOSETUP="losetup.orig"
@@ -361,7 +378,7 @@ Set_defaults ()
 				;;
 
 			m68k)
-				LH_LINUX_FLAVOURS="You need to specify the linux kernel flavour manually on m68k."
+				Echo_error "You need to specify the linux kernel flavour manually on m68k (FIXME)."
 				exit 1
 				;;
 
@@ -383,7 +400,7 @@ Set_defaults ()
 				;;
 
 			*)
-				Echo_error "Architecture notyet supported (FIXME)"
+				Echo_error "Architecture not yet supported (FIXME)"
 				;;
 		esac
 	fi
@@ -480,6 +497,9 @@ Set_defaults ()
 				;;
 		esac
 	fi
+
+	# Setting checksums
+	LH_CHECKSUMS="${LH_CHECKSUMS:-enabled}"
 
 	# Setting chroot option
 	LH_CHROOT_BUILD="${LH_CHROOT_BUILD:-enabled}"
@@ -593,4 +613,24 @@ Set_defaults ()
 
 	# Setting fakeroot/fakechroot
 	LH_USE_FAKEROOT="${LH_USE_FAKEROOT:-disabled}"
+}
+
+Check_defaults ()
+{
+	if [ "${LH_DISTRIBUTION}" = "etch" ]
+	then
+		if [ "${LH_INITRAMFS}" = "live-initramfs" ]
+		then
+			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_INITRAMFS='live-initramfs'"
+			Echo_warning "This is a possible unsafe configuration as live-initramfs is not"
+			Echo_warning "part of the etch distribution."
+		fi
+
+		if [ "${LH_UNION_FILESYSTEM}" = "aufs" ]
+		then
+			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_UNION_FILESYSTEM='aufs'"
+			Echo_warning "This is a possible unsafe configuration as aufs is not"
+			Echo_warning "part of the etch distribution."
+		fi
+	fi
 }

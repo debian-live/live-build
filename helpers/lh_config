@@ -42,6 +42,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--cache-indices enabled|disabled]\n\
 \t    [--cache-packages enabled|disabled]\n\
 \t    [--cache-stages STAGE|\"STAGES\"]\n\
+\t    [--checksums enabled|disabled]\n\
 \t    [--chroot-build enabled|disabled]\n\
 \t    [--chroot-filesystem ext2|ext3|squashfs|plain]\n\
 \t    [-c|--conffile FILE]\n\
@@ -53,6 +54,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--debug]\n\
 \t    [-d|--distribution CODENAME]\n\
 \t    [-e|--encryption aes128|aes192|aes256]\n\
+\t    [--fdisk\n\
 \t    [--force]\n\
 \t    [--genisoimage genisomage|mkisofs]\n\
 \t    [--grub-splash FILE]\n\
@@ -108,7 +110,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 
 Local_arguments ()
 {
-	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,memtest:,net-root-filesystem:,net-root-mountoptions:,net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,net-cow-server:,syslinux-splash:,syslinux-timeout:,syslinux-menu:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
+	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,memtest:,net-root-filesystem:,net-root-mountoptions:,net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,net-cow-server:,syslinux-splash:,syslinux-timeout:,syslinux-menu:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
 
 	if [ "${?}" != "0" ]
 	then
@@ -199,6 +201,11 @@ Local_arguments ()
 
 			--initramfs)
 				LH_INITRAMFS="${2}"
+				shift 2
+				;;
+
+			--fdisk)
+				LH_FDISK="${2}"
 				shift 2
 				;;
 
@@ -420,6 +427,11 @@ Local_arguments ()
 				shift 2
 				;;
 
+			--checksums)
+				LH_CHECKSUMS="${2}"
+				shift 2
+				;;
+
 			--chroot-build)
 				LH_CHROOT_BUILD="${2}"
 				shift 2
@@ -613,15 +625,18 @@ Read_conffile config/binary
 Read_conffile config/source
 Read_conffile "${LH_CONFIG}"
 
+Local_arguments "${@}"
+
 # Setting defaults
 Set_defaults
-
-Local_arguments "${@}"
 
 if [ -n "${LH_CONFFILE}" ]
 then
 	Read_conffile "${LH_CONFFILE}"
 fi
+
+# Checking defaults
+Check_defaults
 
 # Creating bootstrap configuration
 mkdir -p config
@@ -695,6 +710,10 @@ LH_DEBCONF_PRIORITY="${LH_DEBCONF_PRIORITY}"
 # \$LH_INITRAMFS: set initramfs hook
 # (Default: ${LH_INITRAMFS})
 LH_INITRAMFS="${LH_INITRAMFS}"
+
+# \$LH_FDISK: set fdisk program
+# (Default: autodetected)
+LH_FDISK="${LH_FDISK}"
 
 # \$LH_LOSETUP: set losetup program
 # (Default: autodetected)
@@ -905,6 +924,10 @@ LH_BOOTAPPEND_INSTALL="${LH_BOOTAPPEND_INSTALL}"
 # \$LH_BOOTLOADER: set bootloader
 # (Default: ${LH_BOOTLOADER})
 LH_BOOTLOADER="${LH_BOOTLOADER}"
+
+# \$LH_CHECKSUMS: set checksums
+# (Default: ${LH_CHECKSUMS})
+LH_CHECKSUMS="${LH_CHECKSUMS}"
 
 # \${LH_CHROOT_BUILD: control if we build binary images chrooted
 # (Default: ${LH_CHROOT_BUILD})
