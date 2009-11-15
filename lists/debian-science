@@ -1,7 +1,9 @@
-# /usr/share/live-helper/lists/science - package list for live-helper(7)
+# /usr/share/live-helper/lists/debian-science - package list for live-helper(7)
 
 ## LH: Debian Science
 #include <standard>
+
+# http://qa.debian.org/developer.php?login=debian-science-maintainers@lists.alioth.debian.org
 
 science-astronomy science-biology science-chemistry
 science-electronics science-engineering science-geography

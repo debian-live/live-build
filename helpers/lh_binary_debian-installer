@@ -79,10 +79,6 @@ Install_package
 
 # Setting destination directory
 case "${LH_BINARY_IMAGES}" in
-	iso)
-		DESTDIR="binary/install"
-		;;
-
 	net)
 		DESTDIR="tftpboot/debian-install/${LH_ARCHITECTURE}"
 		;;
@@ -95,6 +91,10 @@ case "${LH_BINARY_IMAGES}" in
 		then
 			DESTDIR="binary"
 		fi
+		;;
+
+	*)
+		DESTDIR="binary/install"
 		;;
 esac
 
@@ -116,24 +116,8 @@ case "${LH_DEBIAN_INSTALLER}" in
 		;;
 esac
 
-# Varous architecture-specific hacks
+# Set architecture-specific variables
 case "${LH_ARCHITECTURE}" in
-	i386|amd64|lpia)
-		case "${DI_IMAGE_TYPE}" in
-			netboot)
-				DI_REMOTE_BASE="netboot/debian-installer/${LH_ARCHITECTURE}"
-				DI_REMOTE_BASE_GTK="netboot/gtk/debian-installer/${LH_ARCHITECTURE}"
-				DI_REMOTE_KERNEL="linux"
-				;;
-
-			cdrom)
-				DI_REMOTE_BASE="cdrom"
-				DI_REMOTE_BASE_GTK="cdrom/gtk"
-				DI_REMOTE_KERNEL="vmlinuz"
-				;;
-		esac
-		;;
-
 	powerpc)
 		case "${DI_IMAGE_TYPE}" in
 			cdrom)
@@ -160,6 +144,21 @@ case "${LH_ARCHITECTURE}" in
 		else
 			DI_REMOTE_BASE="cdrom"
 		fi
+		;;
+	*)
+		case "${DI_IMAGE_TYPE}" in
+			netboot)
+				DI_REMOTE_BASE="netboot/debian-installer/${LH_ARCHITECTURE}"
+				DI_REMOTE_BASE_GTK="netboot/gtk/debian-installer/${LH_ARCHITECTURE}"
+				DI_REMOTE_KERNEL="linux"
+				;;
+
+			cdrom)
+				DI_REMOTE_BASE="cdrom"
+				DI_REMOTE_BASE_GTK="cdrom/gtk"
+				DI_REMOTE_KERNEL="vmlinuz"
+				;;
+		esac
 		;;
 esac
 
@@ -321,18 +320,21 @@ else
 
 	# Downloading graphical-installer
 	DOWNLOAD_GTK_INSTALLER=0
-	case "${LH_ARCHITECTURE}" in
-		amd64|i386|lpia)
-			DOWNLOAD_GTK_INSTALLER=1
-			;;
-
-		powerpc)
-			if [ "${LH_DEBIAN_INSTALLER}" = "netboot" ]
-			then
+	if [ "${LH_DEBIAN_INSTALLER_GUI}" = "enabled" ]
+	then
+		case "${LH_ARCHITECTURE}" in
+			amd64|i386|lpia)
 				DOWNLOAD_GTK_INSTALLER=1
-			fi
-			;;
-	esac
+				;;
+
+			powerpc)
+				if [ "${LH_DEBIAN_INSTALLER}" = "netboot" ]
+				then
+					DOWNLOAD_GTK_INSTALLER=1
+				fi
+				;;
+		esac
+	fi
 
 	if [ ${DOWNLOAD_GTK_INSTALLER} -eq 1 ]
 	then
@@ -543,6 +545,9 @@ then
 	then
 		cat ../config/binary_debian-installer/udeb_exclude >> exclude
 	fi
+
+	# Excluding udebs from excludes because we want them to be in the image on purpose
+	sed -i -e 's|di-utils-exit-installer||' exclude # used for live-installer-launcher
 
 	while read EXCLUDE
 	do

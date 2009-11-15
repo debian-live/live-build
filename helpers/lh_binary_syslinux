@@ -94,9 +94,22 @@ Syslinux_live_entry ()
 			NUMBER="$(ls -1 ${KERNEL_PATH} | grep 'vmlinuz[0-9]\+$' | wc -l)"
 			NUMBER="$((${NUMBER} +1))"
 
+			# Do not add numbering to filenames if first kernel/initrd
+			if [ "${NUMBER}" = "1" ]
+			then
+				NUMBER=""
+			fi
+
 			# Note: ISOLINUX will not find the kernel if the name ends in ".img".
-			mv ${KERNEL_PATH}/${KERNEL} ${KERNEL_PATH}/vmlinuz${NUMBER}
-			mv ${KERNEL_PATH}/${INITRD} ${KERNEL_PATH}/initrd${NUMBER}.img
+			if [ -e ${KERNEL_PATH}/${KERNEL} ]
+			then
+				mv ${KERNEL_PATH}/${KERNEL} ${KERNEL_PATH}/vmlinuz${NUMBER}
+			fi
+
+			if [ -e ${KERNEL_PATH}/${INITRD} ]
+			then
+				mv ${KERNEL_PATH}/${INITRD} ${KERNEL_PATH}/initrd${NUMBER}.img
+			fi
 
 			KERNEL=vmlinuz${NUMBER}
 			INITRD=initrd${NUMBER}.img
@@ -107,7 +120,11 @@ Syslinux_live_entry ()
 	LINUX_LIVE="${LINUX_LIVE}\nlabel ${LABEL}\n"
 
 	# Write the menu label if the syslinux menu is being use
-	LINUX_LIVE="${LINUX_LIVE}\tmenu label ${MENULABEL}\n"
+	if [ -n "${MENULABEL}" ]
+	then
+		LINUX_LIVE="${LINUX_LIVE}\tmenu label ${MENULABEL}\n"
+	fi
+
 	LINUX_LIVE="${LINUX_LIVE}\tkernel ${LIVE_KERNEL_PATH}/${KERNEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=${LIVE_KERNEL_PATH}/${INITRD} boot=${INITFS} ${LH_BOOTAPPEND_LIVE} ${APPEND}\n"
 
@@ -115,7 +132,11 @@ Syslinux_live_entry ()
 	LINUX_LIVE="${LINUX_LIVE}\nlabel ${LABEL}failsafe\n"
 
 	# Write the menu label if the syslinux menu is being use
-	LINUX_LIVE="${LINUX_LIVE}\tmenu label ${MENULABEL} (failsafe)\n"
+	if [ -n "${MENULABEL}" ]
+	then
+		LINUX_LIVE="${LINUX_LIVE}\tmenu label ${MENULABEL} (failsafe)\n"
+	fi
+
 	LINUX_LIVE="${LINUX_LIVE}\tkernel ${LIVE_KERNEL_PATH}/${KERNEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=${LIVE_KERNEL_PATH}/${INITRD} boot=${INITFS} ${LH_BOOTAPPEND_LIVE} ${APPEND} ${FAILSAFE}\n"
 }
@@ -179,8 +200,29 @@ Copy_syslinux_templates ()
 	else
 		cp "${TEMPLATES}"/menu/* ${SCREEN_PATH}
 
-		# Grab menu binary
-		MENUMODULE=$(grep 'menu.c32' ${TEMPLATES}/menu/syslinux.cfg | sed 's|default\s*.*/\(.*menu.c32\)$|\1|g')
+		case "${LH_SYSLINUX_MENU}" in
+			gfxboot)
+				# to be implemented
+				;;
+
+			menu)
+				MENUMODULE="menu.c32"
+				;;
+
+			vesamenu)
+				MENUMODULE="vesamenu.c32"
+				;;
+
+			*)
+				if [ -z "${LH_SYSLINUX_CFG}" ]
+				then
+					MENUMODULE=$(grep 'menu.c32' ${TEMPLATES}/menu/syslinux.cfg | sed 's|default\s*.*/\(.*menu.c32\)$|\1|g')
+				else
+					LH_SYSLINUX_CFG="${LH_SYSLINUX_CFG:-${TEMPLATES}/menu/syslinux.cfg}"
+				fi
+				;;
+		esac
+
 		case "${LH_CHROOT_BUILD}" in
 			enabled)
 				cp chroot/usr/lib/syslinux/"${MENUMODULE}" ${DATA_PATH}
@@ -294,17 +336,28 @@ Configure_syslinux_templates ()
 		$template_file
 	done
 
-	if [ -f "${SYSLINUX_PATH}/exithelp.cfg" ]
-	then
-		sed -i -e 's/isolinux.cfg/syslinux.cfg/' ${SYSLINUX_PATH}/exithelp.cfg
-	fi
+	case "${LH_BINARY_IMAGES}" in
+		usb-hdd)
+			if [ -f "${SYSLINUX_PATH}/exithelp.cfg" ]
+			then
+				sed -i -e "s|config isolinux.cfg|config syslinux.cfg|" "${SYSLINUX_PATH}"/exithelp.cfg
+			fi
+			;;
+
+		net)
+			if [ -f "${SCREEN_PATH}/exithelp.cfg" ]
+			then
+				sed -i -e "s|config isolinux.cfg|config ${LIVE_KERNEL_PATH}/pxelinux.cfg/default|" "${SCREEN_PATH}"/exithelp.cfg
+			fi
+			;;
+	esac
 
 	# Syslinux v3.31 in etch does not support include statements
 	if [ "${LH_DISTRIBUTION}" = "etch" ]
 	then
 		while grep -qs ^include ${SCREEN_PATH}/syslinux.cfg
 		do
-			INCLUDES=$(grep ^include ${SCREEN_PATH}/syslinux.cfg |awk '{print $2}')
+			INCLUDES=$(grep ^include ${SCREEN_PATH}/syslinux.cfg | awk '{print $2}')
 
 			for FILE_PATH in ${INCLUDES}
 			do
@@ -322,6 +375,12 @@ Configure_syslinux_templates ()
 				fi
 			done
 		done
+
+		if [ -e ${SCREEN_PATH}/live.cfg ]
+		then
+			cat ${SCREEN_PATH}/live.cfg >> ${SCREEN_PATH}/syslinux.cfg
+			rm -f ${SCREEN_PATH}/live.cfg
+		fi
 
 		# Syslinux v3.31 in etch does not support sub directories, /path/kernel,
 		# when using FAT hard drive images, remove leading /'s
@@ -537,6 +596,14 @@ then
 	done
 fi
 
+# Only needed for non-vesamenu, non-gfxboot syslinux
+case "${LH_SYSLINUX_MENU}" in
+	disabled|menu)
+		# Adding syslinux hardcoded default label entry
+		Syslinux_live_entry "linux" "" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
+		;;
+esac
+
 # Assembling debian-installer configuration
 if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
 then
@@ -548,8 +615,15 @@ then
 	INITRD_GI="gtk/initrd.gz"
 	APPEND_GI="video=vesa:ywrap,mtrr vga=788"
 
-	Syslinux_install_entry "Text" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
-	Syslinux_install_entry "GUI" "${VMLINUZ_GI}" "${INITRD_GI}" "${APPEND_GI}"
+	if [ -f "binary/${LIVE_INSTALL_KERNEL_PATH}/${VMLINUZ_DI}" ] && [ -f "binary/${LIVE_INSTALL_KERNEL_PATH}/${INITRD_DI}" ]
+	then
+		Syslinux_install_entry "Text" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
+	fi
+
+	if [ -f "binary/${LIVE_INSTALL_KERNEL_PATH}/${VMLINUZ_GI}" ] && [ -f "binary/${LIVE_INSTALL_KERNEL_PATH}/${INITRD_GI}" ]
+	then
+		Syslinux_install_entry "GUI" "${VMLINUZ_GI}" "${INITRD_GI}" "${APPEND_GI}"
+	fi
 fi
 
 # Assembling memtest configuration
@@ -598,6 +672,17 @@ case "${LH_BINARY_IMAGES}" in
 		mkdir -p ${KERNEL_PATH}/pxelinux.cfg
 		ln -s ${LIVE_KERNEL_PATH}/pxelinux.cfg ${SYSLINUX_PATH}/pxelinux.cfg
 		ln -s ${LIVE_KERNEL_PATH}/pxelinux.0 ${SYSLINUX_PATH}/pxelinux.0
+
+		# Adjusting include pathes
+		for FILE in ${SCREEN_PATH}/*.cfg
+		do
+			sed -i -e "s|^include |include ${LIVE_SCREEN_PATH}/|g" "${FILE}"
+		done
+
+		if [ "${LH_DISTRIBUTION}" != "etch" ]
+		then
+			sed -i -e "s| f| ${LIVE_SCREEN_PATH}/f|g" ${SCREEN_PATH}/prompt.cfg
+		fi
 
 		mv ${SCREEN_PATH}/syslinux.cfg ${KERNEL_PATH}/pxelinux.cfg/default
 

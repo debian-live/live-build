@@ -70,10 +70,19 @@ EOF
 		# Creating lock file
 		Create_lockfile .lock
 
+		# Copying hostname from local-includes, if existing
+		if [ -e config/chroot_local-includes/etc/hostname ]
+		then
+			cp -a config/chroot_local-includes/etc/hostname chroot/etc/hostname
+		fi
+
 		Echo_message "Deconfiguring file /bin/hostname"
 
 		# Restore hostname file
-		mv chroot/bin/hostname.orig chroot/bin/hostname
+		if [ -e chroot/bin/hostname.orig ]
+		then
+			mv chroot/bin/hostname.orig chroot/bin/hostname
+		fi
 
 		# Removing stage file
 		rm -f .stage/chroot_hostname

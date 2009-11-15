@@ -1,6 +1,9 @@
-# /usr/share/live-helper/lists/junior-pkgs - package list for live-helper(7)
+# /usr/share/live-helper/lists/debian-junior - package list for live-helper(7)
 
-## LH: Desktop agnostic packages for Debian Junior
+## LH: Debian Junior
+#include <standard>
+
+# http://qa.debian.org/developer.php?login=debian-jr@lists.debian.org
 
 junior-sound junior-typing junior-internet junior-toys junior-games-net
 junior-games-sim junior-games-gl junior-puzzle junior-arcade junior-math

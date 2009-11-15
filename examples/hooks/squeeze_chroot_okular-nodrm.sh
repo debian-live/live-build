@@ -15,13 +15,4 @@ cat > /usr/share/kde4/config/okularpartrc << EOF
 ObeyDRM=false
 EOF
 
-elif [ -d /usr/share/config ]
-then
-	# KDE3 (etch/lenny)
-
-cat > /usr/share/config/kpdfpartrc << EOF
-[General]
-ObeyDRM=false
-EOF
-
 fi

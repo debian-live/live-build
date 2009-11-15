@@ -74,6 +74,16 @@ Set_defaults ()
 	APT_OPTIONS="${APT_OPTIONS:---yes}"
 	APTITUDE_OPTIONS="${APTITUDE_OPTIONS:---assume-yes}"
 
+	GZIP_OPTIONS="${GZIP_OPTIONS:---best}"
+
+	if gzip --help | grep -qs "\-\-rsyncable" && \
+	! echo ${GZIP_OPTIONS} | grep -q rsyncable
+	then
+		GZIP_OPTIONS="${GZIP_OPTIONS} --rsyncable"
+	else
+		GZIP_OPTIONS="$(echo ${GZIP_OPTIONS} | sed -e 's|--rsyncable||')"
+	fi
+
 	# Setting apt recommends
 	case "${LH_MODE}" in
 		debian|debian-release|ubuntu)
@@ -288,7 +298,7 @@ Set_defaults ()
 			debian|debian-release)
 				case "${LH_ARCHITECTURE}" in
 					amd64|i386)
-						LH_MIRROR_BOOTSTRAP="http://ftp.us.debian.org/debian/"
+						LH_MIRROR_BOOTSTRAP="http://ftp.de.debian.org/debian/"
 						;;
 
 					*)
@@ -348,15 +358,7 @@ Set_defaults ()
 	then
 		case "${LH_MODE}" in
 			debian|debian-release)
-				case "${LH_ARCHITECTURE}" in
-					amd64|i386)
-						LH_MIRROR_BINARY="http://ftp.us.debian.org/debian/"
-						;;
-
-					*)
-						LH_MIRROR_BINARY="http://ftp.de.debian.org/debian/"
-						;;
-				esac
+				LH_MIRROR_BINARY="http://cdn.debian.net/debian/"
 				;;
 
 			emdebian)
@@ -470,6 +472,7 @@ Set_defaults ()
 				case "${LH_MODE}" in
 					ubuntu)
 						Echo_error "Architecture ${LH_ARCHITECTURE} not supported on Ubuntu."
+						exit 1
 						;;
 
 					*)
@@ -590,12 +593,20 @@ Set_defaults ()
 	then
 		case "${LH_MODE}" in
 			debian|debian-release|embedian)
-				LH_LINUX_PACKAGES="linux-image-2.6 \${LH_UNION_FILESYSTEM}-modules-2.6"
+				case "${LH_DISTRIBUTION}" in
+					etch|lenny|squeeze)
+						LH_LINUX_PACKAGES="linux-image-2.6 \${LH_UNION_FILESYSTEM}-modules-2.6"
+						;;
+
+					*)
+						LH_LINUX_PACKAGES="linux-image-2.6"
+						;;
+				esac
 
 				if [ "${LH_CHROOT_FILESYSTEM}" = "squashfs" ]
 				then
 					case "${LH_DISTRIBUTION}" in
-						etch|lenny|squeeze)
+						etch|lenny)
 							LH_LINUX_PACKAGES="${LH_LINUX_PACKAGES} squashfs-modules-2.6"
 							;;
 					esac
@@ -621,7 +632,7 @@ Set_defaults ()
 	# Setting packages string
 	case "${LH_MODE}" in
 		ubuntu)
-			LH_PACKAGES="${LH_PACKAGES:-ubuntu-standard}"
+			LH_PACKAGES="${LH_PACKAGES:-ubuntu-minimal}"
 			;;
 
 		*)
@@ -743,6 +754,30 @@ Set_defaults ()
 	# Setting debian-installer distribution
 	LH_DEBIAN_INSTALLER_DISTRIBUTION="${LH_DEBIAN_INSTALLER_DISTRIBUTION:-${LH_DISTRIBUTION}}"
 
+	# Setting debian-installer-gui
+	case "${LH_MODE}" in
+		debian)
+			LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-enabled}"
+			;;
+
+		ubuntu)
+			case "${LH_DEBIAN_INSTALLER_DISTRIBUTION}" in
+				karmic)
+					# Not available for Karmic currently.
+					LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-disabled}"
+					;;
+
+				*)
+					LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-enabled}"
+					;;
+			esac
+			;;
+
+		*)
+			LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-disabled}"
+			;;
+	esac
+
 	# Setting debian-installer preseed filename
 	if [ -z "${LH_DEBIAN_INSTALLER_PRESEEDFILE}" ]
 	then
@@ -767,7 +802,7 @@ Set_defaults ()
 				;;
 
 			usb-hdd)
-				if [ "${LH_MODE}" = "ubuntu" ]
+				if [ "${LH_MODE}" = "ubuntu" ] || [ "${LH_DEBIAN_INSTALLER}" = "live" ]
 				then
 					_LH_BOOTAPPEND_PRESEED="file=/cdrom/install/${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
 				else
@@ -789,20 +824,19 @@ Set_defaults ()
 		esac
 	fi
 
-	if [ -z "${LH_BOOTAPPEND_INSTALL}" ]
+	if [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
 	then
-		# Ubuntu's d-i is patched to be able to use usb-hdd block devices for
-		# install media if enabled by preseeding cdrom-detect/try-usb to true.
-		if [ "${LH_MODE}" = "ubuntu" ] && [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
-		then
-			LH_BOOTAPPEND_INSTALL="cdrom-detect/try-usb=true"
-		fi
+		# Try USB block devices for install media
+		LH_BOOTAPPEND_INSTALL="cdrom-detect/try-usb=true ${LH_BOOTAPPEND_INSTALL}"
+	fi
 
-		if [ -n ${_LH_BOOTAPPEND_PRESEED} ]
-		then
-			LH_BOOTAPPEND_INSTALL="${LH_BOOTAPPEND_INSTALL} ${_LH_BOOTAPPEND_PRESEED}"
-		fi
+	if [ -n ${_LH_BOOTAPPEND_PRESEED} ]
+	then
+		LH_BOOTAPPEND_INSTALL="${LH_BOOTAPPEND_INSTALL} ${_LH_BOOTAPPEND_PRESEED}"
+	fi
 
+	if [ -n "${LH_BOOTAPPEND_LIVE}" ]
+	then
 		LH_BOOTAPPEND_INSTALL="${LH_BOOTAPPEND_INSTALL} -- \${LH_BOOTAPPEND_LIVE}"
 	fi
 
@@ -986,18 +1020,40 @@ Set_defaults ()
 
 Check_defaults ()
 {
+	if [ "${LH_CONFIG_VERSION}" ]
+	then
+		# We're only checking when we're actually running the checks
+		# that's why the check for emptyness of the version;
+		# however, as live-helper always declares LH_CONFIG_VERSION
+		# internally, this is safe assumption (no cases where it's unset,
+		# except when bootstrapping the functions/defaults etc.).
+		CURRENT_CONFIG_VERSION="$(echo ${LH_CONFIG_VERSION} | awk -F. '{ print $1 }')"
+
+		if [ ${CURRENT_CONFIG_VERSION} -ge 2 ]
+		then
+			Echo_error "This config tree is too new for this version of live-helper (${VERSION})."
+			Echo_error "Aborting build, please get a new version of live-helper."
+
+			exit 1
+		elif [ ${CURRENT_CONFIG_VERSION} -lt 1 ]
+		then
+			Echo_warning "This config tree does not specify a format version or has an unknown version number."
+			Echo_warning "Continuing build, but it could lead to errors or different results. Please repopulate the config tree."
+		fi
+	fi
+
 	if [ "${LH_DISTRIBUTION}" = "etch" ]
 	then
 		# etch + live-initramfs
 		if [ "${LH_INITRAMFS}" = "live-initramfs" ]
 		then
-			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_INITRAMFS='live-initramfs' This is a possible unsafe configuration as live-initramfs is not part of the etch distribution. Either make sure that live-initramfs is installable (e.g. through setting up etch-backports repository as third-party source or putting a valid live-initramfs deb into config/chroot_local-packages) or switch change your config to etch default (casper)."
+			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_INITRAMFS='live-initramfs'. This configuration is potentially unsafe as live-initramfs is not part of the etch distribution. Either make sure that live-initramfs is installable (e.g. through setting up etch-backports repository as third-party source or putting a valid live-initramfs deb into config/chroot_local-packages) or change your config to the etch default (casper)."
 		fi
 
 		# etch + aufs
 		if [ "${LH_UNION_FILESYSTEM}" = "aufs" ]
 		then
-			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_UNION_FILESYSTEM='aufs' This is a possible unsafe configuration as aufs is not part of the etch distribution. Either make sure that aufs modules for your kernel are installable (e.g. through setting up etch-backports repository as third-party source or putting a valid aufs-modules deb into config/chroot_local-packages) or switch change your config to etch default (unionfs)."
+			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_UNION_FILESYSTEM='aufs'. This configuration is potentially unsafe as live-initramfs is not part of the etch distribution. Either make sure that live-initramfs is installable (e.g. through setting up etch-backports repository as third-party source or putting a valid live-initramfs deb into config/chroot_local-packages) or change your config to the etch default (casper)."
 
 		fi
 	fi
@@ -1007,7 +1063,7 @@ Check_defaults ()
 		# aptitude + stripped|minimal
 		if [ "${LH_APT}" = "aptitude" ]
 		then
-			Echo_warning "You selected LH_PACKAGES_LISTS='%s' and LH_APT='aptitude'" "${LH_PACKAGES_LIST}. This is a possible unsafe configuration as aptitude is not used in the stripped/minimal package lists."
+			Echo_warning "You selected LH_PACKAGES_LISTS='%s' and LH_APT='aptitude'" "${LH_PACKAGES_LIST}. This configuration is potentially unsafe, as aptitude is not used in the stripped/minimal package lists."
 		fi
 	fi
 
@@ -1016,7 +1072,7 @@ Check_defaults ()
 		# d-i enabled, no caching
 		if ! echo ${LH_CACHE_STAGES} | grep -qs "bootstrap\b" || [ "${LH_CACHE}" != "enabled" ] || [ "${LH_CACHE_PACKAGES}" != "enabled" ]
 		then
-			Echo_warning "You have selected values of LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES an dLH_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being cached. This is a possible unsafe configuration as the bootstrap packages are re-used when integrating the Debian Installer."
+			Echo_warning "You have selected values of LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES and LH_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being cached. This configuration is potentially unsafe as the bootstrap packages are re-used when integrating the Debian Installer."
 		fi
 	fi
 
@@ -1043,22 +1099,22 @@ Check_defaults ()
 		esac
 	fi
 
-	if [ "$(echo ${LH_ISO_APPLICATION} | wc -c)" -ge 129 ]
+	if [ "$(echo ${LH_ISO_APPLICATION} | wc -c)" -gt 128 ]
 	then
 		Echo_warning "You have specified a value of LH_ISO_APPLICATION that is too long; the maximum length is 128 characters."
 	fi
 
-	if [ "$(echo ${LH_ISO_PREPARER} | wc -c)" -ge  129 ]
+	if [ "$(echo ${LH_ISO_PREPARER} | wc -c)" -gt  128 ]
 	then
 		Echo_warning "You have specified a value of LH_ISO_PREPARER that is too long; the maximum length is 128 characters."
 	fi
 
-	if [ "$(echo ${LH_ISO_PUBLISHER} | wc -c)" -ge 129 ]
+	if [ "$(echo ${LH_ISO_PUBLISHER} | wc -c)" -gt 128 ]
 	then
 		Echo_warning "You have specified a value of LH_ISO_PUBLISHER that is too long; the maximum length is 128 characters."
 	fi
 
-	if [ "$(eval "echo ${LH_ISO_VOLUME}" | wc -c)" -ge 33 ]
+	if [ "$(eval "echo ${LH_ISO_VOLUME}" | wc -c)" -gt 32 ]
 	then
 		Echo_warning "You have specified a value of LH_ISO_VOLUME that is too long; the maximum length is 32 characters."
 	fi

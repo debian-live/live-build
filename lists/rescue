@@ -4,23 +4,15 @@
 #include <standard>
 
 # Debian Forensics
-# http://qa.debian.org/developer.php?login=forensics-devel@lists.alioth.debian.org
-gpart tct wipe
-#if DISTRIBUTION lenny sid
-ext3grep galleta grokevt memdump missidentify myrescue pasco reglookup
-scrounge-ntfs ssdeep tableau-parm
-#endif
-#if DISTRIBUTION sid
-libewf1 md5deep pipebench recoverdm rifiuti
-#endif
+#include <debian-forensics>
 
 # Other forensic packages
-#if DISTRIBUTION lenny sid
+#if DISTRIBUTION lenny squeeze sid
 scalpel
 #endif
 
 # Bootloaders
-#if DISTRIBUTION lenny sid
+#if DISTRIBUTION lenny squeeze sid
 syslinux-common
 #endif
 #if ARCHITECTURE amd64 i386
@@ -37,6 +29,7 @@ pstack
 #endif
 tcsh
 vlock
+mailutils
 moreutils
 
 # Editors
@@ -339,7 +332,7 @@ hostapd
 
 # Flab
 emacs22-nox
-build-essential
+build-essential gfortran gnat
 
 #if ARCHITECTURE i386
 bin86

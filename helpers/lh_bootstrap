@@ -27,8 +27,8 @@ Set_defaults
 Setup_cleanup
 
 # Bootstrapping system
-lh_bootstrap_cache restore ${*}
-lh_bootstrap_copy ${*}
-lh_bootstrap_cdebootstrap ${*}
-lh_bootstrap_debootstrap ${*}
-lh_bootstrap_cache save ${*}
+lh bootstrap_cache restore ${*}
+lh bootstrap_copy ${*}
+lh bootstrap_cdebootstrap ${*}
+lh bootstrap_debootstrap ${*}
+lh bootstrap_cache save ${*}

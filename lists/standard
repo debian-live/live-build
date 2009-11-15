@@ -3,4 +3,4 @@
 ## LH: Standard
 #include <minimal>
 
-console-common kbd locales
+console-setup console-common kbd locales

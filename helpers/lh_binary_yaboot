@@ -84,16 +84,46 @@ Yaboot_install_entry ()
 
 	DIRECTORY="/$(basename ${DESTDIR_INSTALL})"
 
-	if [ "${LH_DISTRIBUTION}" != "etch" ] && [ "${LABEL}" != "rescue" ] && [ "${LABEL}" != "rescuegui" ]
+	if [ "${LH_DISTRIBUTION}" != "etch" ]
 	then
-		APPEND="${APPEND} quiet"
+		QAPPEND="quiet"
 	fi
 
-	LINUX_INSTALL="${LINUX_INSTALL}\nimage=${DIRECTORY}/${KERNEL}\n"
-	LINUX_INSTALL="${LINUX_INSTALL}\tlabel=${LABEL}\n"
-	LINUX_INSTALL="${LINUX_INSTALL}\tinitrd=${DIRECTORY}/${INITRD}\n"
-	LINUX_INSTALL="${LINUX_INSTALL}\tappend=\"LH_BOOTAPPEND_LIVE ${APPEND} LH_BOOTAPPEND_INSTALL\"\n"
-	LINUX_INSTALL="${LINUX_INSTALL}\tinitrd-size=10240\n"
+	for TYPE in Install Expert Rescue Auto
+	do
+		case "${TYPE}" in
+			Install)
+				TAPPEND="${APPEND} ${QAPPEND}"
+				;;
+
+			Expert)
+				TAPPEND="priority=low ${APPEND}"
+				;;
+
+			Rescue)
+				TAPPEND="rescue/enable=true ${APPEND} ${QAPPEND}"
+				;;
+
+			Auto)
+				TAPPEND="auto=true priority=critical ${APPEND} ${QAPPEND}"
+				;;
+		esac
+
+		case "${LABEL}" in
+			Text)
+				TYPE_SUFFIX=""
+				;;
+			GUI)
+				TYPE_SUFFIX="gui"
+				;;
+		esac
+
+		LINUX_INSTALL="${LINUX_INSTALL}\nimage=${DIRECTORY}/${KERNEL}\n"
+		LINUX_INSTALL="${LINUX_INSTALL}\tlabel=${TYPE}${TYPE_SUFFIX}\n"
+		LINUX_INSTALL="${LINUX_INSTALL}\tinitrd=${DIRECTORY}/${INITRD}\n"
+		LINUX_INSTALL="${LINUX_INSTALL}\tappend=\"${TAPPEND} ${LH_BOOTAPPEND_INSTALL}\"\n"
+		LINUX_INSTALL="${LINUX_INSTALL}\tinitrd-size=10240\n"
+	done
 }
 
 case "${LH_INITRAMFS}" in
@@ -231,15 +261,15 @@ then
 	INITRD_GI="gtk/initrd.gz"
 	APPEND_GI="video=vesa:ywrap,mtrr vga=788"
 
-	Yaboot_install_entry "linux" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
-	Yaboot_install_entry "install" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
-	Yaboot_install_entry "installgui" "${VMLINUZ_GI}" "${INITRD_GI}" "${APPEND_GI}"
-	Yaboot_install_entry "expert" "${VMLINUZ_DI}" "${INITRD_DI}" "priority=low ${APPEND_DI}"
-	Yaboot_install_entry "expertgui" "${VMLINUZ_GI}" "${INITRD_GI}" "priority=low ${APPEND_GI}"
-	Yaboot_install_entry "rescue" "${VMLINUZ_DI}" "${INITRD_DI}" "rescue/enable=true ${APPEND_DI}"
-	Yaboot_install_entry "rescuegui" "${VMLINUZ_GI}" "${INITRD_GI}" "rescue/enable=true ${APPEND_GI}"
-	Yaboot_install_entry "auto" "${VMLINUZ_DI}" "${INITRD_DI}" "auto=true priority=critical ${APPEND_DI}"
-	Yaboot_install_entry "autogui" "${VMLINUZ_GI}" "${INITRD_GI}" "auto=true priority=critical ${APPEND_GI}"
+	if [ -f "binary/${DESTDIR_INSTALL}/${VMLINUZ_DI}" ] && [ -f "binary/${DESTDIR_INSTALL}/${INITRD_DI}" ]
+	then
+		Yaboot_install_entry "Text" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
+	fi
+
+	if [ -f "binary/${DESTDIR_INSTALL}/${VMLINUZ_GI}" ] && [ -f "binary/${DESTDIR_INSTALL}/${INITRD_GI}" ]
+	then
+		Yaboot_install_entry "GUI" "${VMLINUZ_GI}" "${INITRD_GI}" "${APPEND_GI}"
+	fi
 fi
 
 LINUX_INSTALL="$(/bin/echo ${LINUX_INSTALL} | sed -e 's|binary||g' -e 's|//|/|g')"

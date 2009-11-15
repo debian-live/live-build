@@ -62,6 +62,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--debian-installer enabled|cdrom|netinst|netboot|businesscard|live|disabled]\n\
 \t    [--debian-installer-distribution CODENAME|daily]\n\
 \t    [--debian-installer-preseedfile FILE|URL]\n\
+\t    [--debian-installer-gui enabled|disabled]\n\
 \t    [--debug]\n\
 \t    [-d|--distribution CODENAME]\n\
 \t    [--dump]\n\
@@ -70,6 +71,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--force]\n\
 \t    [--genisoimage genisomage|mkisofs]\n\
 \t    [--grub-splash FILE]\n\
+\t    [--gzip-options OPTION|\"OPTIONS\"]\n\
 \t    [--hooks FILE]\n\
 \t    [--hostname NAME]\n\
 \t    [--ignore-system-defaults]\n\
@@ -135,10 +137,10 @@ Local_arguments ()
 		templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,clean,
 		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,
 		mirror-binary-security:,categories:,chroot-filesystem:,union-filesystem:,exposed-root:,virtual-root-size:,
-		hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
+		gzip-options:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
 		packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,
 		binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,
-		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,
+		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
 		encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
 		net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,
@@ -206,6 +208,11 @@ Local_arguments ()
 				if [ -d config ]
 				then
 					rmdir --ignore-fail-on-non-empty config
+				fi
+
+				if [ -d scripts/functions ]
+				then
+					rmdir --ignore-fail-on-non-empty scripts/functions
 				fi
 
 				if [ -d scripts ]
@@ -428,6 +435,11 @@ Local_arguments ()
 				shift 2
 				;;
 
+			--gzip-options)
+				GZIP_OPTIONS="${2}"
+				shift 2
+				;;
+
 			--hooks)
 				LH_HOOKS="${2}"
 				shift 2
@@ -541,6 +553,11 @@ Local_arguments ()
 
 			--debian-installer-preseedfile)
 				LH_DEBIAN_INSTALLER_PRESEEDFILE="${2}"
+				shift 2
+				;;
+
+			--debian-installer-gui)
+				LH_DEBIAN_INSTALLER_GUI="${2}"
 				shift 2
 				;;
 
@@ -761,6 +778,13 @@ Set_defaults
 # Checking defaults
 Check_defaults
 
+if [ ! -e config ]
+then
+	Echo_message "Creating config tree"
+else
+	Echo_message "Updating config tree"
+fi
+
 # Creating bootstrap configuration
 mkdir -p config
 mkdir -p config/includes
@@ -771,7 +795,7 @@ cat > config/common << EOF
 # config/common - common options for live-helper(7)
 
 # LH_CONFIG_VERSION: internal version of the configuration file format
-LH_CONFIG_VERSION="1"
+LH_CONFIG_VERSION="${CONFIG_VERSION}"
 
 # \$LH_APT: set package manager
 # (Default: ${LH_APT})
@@ -898,6 +922,7 @@ _QUIET="${_QUIET}"
 # Internal stuff (FIXME)
 APT_OPTIONS="${APT_OPTIONS}"
 APTITUDE_OPTIONS="${APTITUDE_OPTIONS}"
+GZIP_OPTIONS="${GZIP_OPTIONS}"
 EOF
 
 # Creating lh_bootstrap_* configuration
@@ -1095,6 +1120,10 @@ LH_DEBIAN_INSTALLER_DISTRIBUTION="${LH_DEBIAN_INSTALLER_DISTRIBUTION}"
 # (Default: ${LH_DEBIAN_INSTALLER_PRESEEDFILE})
 LH_DEBIAN_INSTALLER_PRESEEDFILE="${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
 
+# \$LH_DEBIAN_INSTALLER_GUI: toggle use of GUI debian-installer
+# (Default: ${LH_DEBIAN_INSTALLER_GUI})
+LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI}"
+
 # \$LH_ENCRYPTION: set encryption
 # (Default: ${LH_ENCRYPTION})
 LH_ENCRYPTION="${LH_ENCRYPTION}"
@@ -1217,7 +1246,7 @@ LH_SOURCE="${LH_SOURCE}"
 LH_SOURCE_IMAGES="${LH_SOURCE_IMAGES}"
 EOF
 
-mkdir -p scripts
+mkdir -p scripts/functions
 
 if [ "${CONFIG}" = "clone" ] # FIXME
 then

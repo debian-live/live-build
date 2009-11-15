@@ -52,7 +52,7 @@ then
 		fi
 
 		# Executing hook
-		Chroot chroot "/root/$(basename ${HOOK})"
+		Chroot chroot "/root/$(basename ${HOOK})" || ( Echo_error "${HOOK} failed (exit non-zero). You should check for errors."; exit 1 )
 
 		# Removing hook
 		rm -f chroot/root/"$(basename ${HOOK})"

@@ -11,23 +11,14 @@ Check_templates ()
 {
 	PACKAGE="${1}"
 
-	# Check user defined templates directory
-	if [ ! -e "${LH_TEMPLATES}" ]
+	if [ -d "config/templates/${PACKAGE}" ]
 	then
-		if [ -d config/templates ]
-		then
-			LH_TEMPLATES=config/templates
-		else
-			Echo_error "templates not accessible in %s nor config/templates" "${LH_TEMPLATES}"
-			exit 1
-		fi
-	fi
-
-	if [ -d "${LH_TEMPLATES}/${PACKAGE}" ]
+		TEMPLATES="config/templates/${PACKAGE}"
+	elif [ -d "${LH_TEMPLATES}/${PACKAGE}" ]
 	then
 		TEMPLATES="${LH_TEMPLATES}/${PACKAGE}"
 	else
-		Echo_error "%s templates not accessible in %s" "${PACKAGE}" "${LH_TEMPLATES}"
+		Echo_error "%s templates not accessible in %s nor config/templates" "${PACKAGE}" "${LH_TEMPLATES}"
 		exit 1
 	fi
 }

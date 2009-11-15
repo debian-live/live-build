@@ -62,13 +62,8 @@ cd source
 
 SUFFIX="$(date +%Y%m%d.%s)"
 
-if gzip --help | grep -qs '\-\-rsyncable'
-then
-	tar cf debian-live-config_${SUFFIX}.tar debian-live
-	gzip --rsyncable --best debian-live-config_${SUFFIX}.tar
-else
-	tar cfz debian-live-config_${SUFFIX}.tar.gz debian-live
-fi
+tar cf debian-live-config_${SUFFIX}.tar debian-live
+gzip ${GZIP_OPTIONS} debian-live-config_${SUFFIX}.tar
 
 cd "${OLDPWD}"
 

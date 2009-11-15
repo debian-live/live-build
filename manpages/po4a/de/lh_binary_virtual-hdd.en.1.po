@@ -1,17 +1,19 @@
-# German translations for PACKAGE package
-# Copyright (C) 2009 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2009.
+# German translation for live-helper package
+# Copyright (C) 2007 Daniel Baumann <daniel@debian.org>
+# This file is distributed under the same license as the
+# live-helper package.
+# Chris Leick <c.leick@vollbio.de>, 2009.
+# file: lh_binary_virtual_hdd
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: live-helper 1.0.5\n"
 "POT-Creation-Date: 2009-03-01 12:49+0100\n"
 "PO-Revision-Date: 2009-03-01 12:49+0100\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"Last-Translator: Chris Leick <c.leick@vollbio.de>\n"
+"Language-Team: German <debian-l10n-german@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -48,7 +50,7 @@ msgstr ""
 #: lh_testroot.en.1:1
 #, no-wrap
 msgid "2009-02-14"
-msgstr ""
+msgstr "2009-02-14"
 
 # type: TH
 #: lh_binary_chroot.en.1:1 lh_binary_debian-installer.en.1:1
@@ -83,7 +85,7 @@ msgstr ""
 #: lh_testroot.en.1:1
 #, no-wrap
 msgid "1.0.4"
-msgstr ""
+msgstr "1.0.4"
 
 # type: TH
 #: lh_binary_chroot.en.1:1 lh_binary_debian-installer.en.1:1
@@ -118,7 +120,7 @@ msgstr ""
 #: lh_testroot.en.1:1 live-helper.en.7:1
 #, no-wrap
 msgid "live-helper"
-msgstr ""
+msgstr "Live-Helper"
 
 # type: SH
 #: lh_binary_chroot.en.1:3 lh_binary_debian-installer.en.1:3
@@ -153,7 +155,7 @@ msgstr ""
 #: lh_testroot.en.1:3 live-helper.en.7:3
 #, no-wrap
 msgid "NAME"
-msgstr ""
+msgstr "NAME"
 
 # type: SH
 #: lh_binary_chroot.en.1:6 lh_binary_debian-installer.en.1:6
@@ -188,7 +190,7 @@ msgstr ""
 #: lh_testroot.en.1:6 live-helper.en.7:6
 #, no-wrap
 msgid "SYNOPSIS"
-msgstr ""
+msgstr "ÜBERSICHT"
 
 # type: SH
 #: lh_binary_chroot.en.1:9 lh_binary_debian-installer.en.1:9
@@ -223,7 +225,7 @@ msgstr ""
 #: lh_testroot.en.1:9 live-helper.en.7:13
 #, no-wrap
 msgid "DESCRIPTION"
-msgstr ""
+msgstr "BESCHREIBUNG"
 
 # type: SH
 #: lh_binary_chroot.en.1:12 lh_binary_debian-installer.en.1:12
@@ -260,7 +262,7 @@ msgstr ""
 #: live-helper.en.7:20
 #, no-wrap
 msgid "OPTIONS"
-msgstr ""
+msgstr "OPTIONEN"
 
 # type: SH
 #: lh_binary_chroot.en.1:15 lh_binary_debian-installer.en.1:15
@@ -297,7 +299,7 @@ msgstr ""
 #: live-helper.en.7:229
 #, no-wrap
 msgid "SEE ALSO"
-msgstr ""
+msgstr "SIEHE AUCH"
 
 # type: Plain text
 #: lh_binary_chroot.en.1:17 lh_binary_debian-installer.en.1:17
@@ -311,7 +313,7 @@ msgstr ""
 #: lh_binary_usb-hdd.en.1:17 lh_binary_virtual-hdd.en.1:17
 #: lh_binary_win32-loader.en.1:17 lh_binary_yaboot.en.1:17
 msgid "I<lh_binary>(1)"
-msgstr ""
+msgstr "I<lh_binary>(1)"
 
 # type: Plain text
 #: lh_binary_chroot.en.1:19 lh_binary_debian-installer.en.1:19
@@ -346,7 +348,7 @@ msgstr ""
 #: lh_source_md5sum.en.1:19 lh_source_net.en.1:19 lh_source_tar.en.1:19
 #: lh_source_usb-hdd.en.1:19 lh_source_virtual-hdd.en.1:19 lh_testroot.en.1:19
 msgid "I<live-helper>(7)"
-msgstr ""
+msgstr "I<live-helper>(7)"
 
 # type: Plain text
 #: lh_binary_chroot.en.1:21 lh_binary_debian-installer.en.1:21
@@ -381,7 +383,7 @@ msgstr ""
 #: lh_source_md5sum.en.1:21 lh_source_net.en.1:21 lh_source_tar.en.1:21
 #: lh_source_usb-hdd.en.1:21 lh_source_virtual-hdd.en.1:21 lh_testroot.en.1:21
 msgid "This program is a part of live-helper."
-msgstr ""
+msgstr "Dieses Programm ist Teil von Live-Helper."
 
 # type: SH
 #: lh_binary_chroot.en.1:22 lh_binary_debian-installer.en.1:22
@@ -418,7 +420,7 @@ msgstr ""
 #: live-helper.en.7:232
 #, no-wrap
 msgid "HOMEPAGE"
-msgstr ""
+msgstr "HOMEPAGE"
 
 # type: Plain text
 #: lh_binary_chroot.en.1:24 lh_binary_debian-installer.en.1:24
@@ -458,6 +460,10 @@ msgid ""
 "in the homepage at E<lt>I<http://debian-live.alioth.debian.org/>E<gt> and in "
 "the manual at E<lt>I<http://live.debian.net/manual/>E<gt>."
 msgstr ""
+"Weitere Informationen über Live-Helper und das Debian-Live-Projekt können "
+"auf der Homepage E<lt>I<http://debian-live.alioth.debian.org/>E<gt> und "
+"im Handbuch unter E<lt>I<http://live.debian.net/manual/>E<gt> gefunden "
+"werden."
 
 # type: SH
 #: lh_binary_chroot.en.1:25 lh_binary_debian-installer.en.1:25
@@ -494,7 +500,7 @@ msgstr ""
 #: live-helper.en.7:235
 #, no-wrap
 msgid "BUGS"
-msgstr ""
+msgstr "FEHLER"
 
 # type: Plain text
 #: lh_binary_chroot.en.1:27 lh_binary_debian-installer.en.1:27
@@ -534,6 +540,10 @@ msgid ""
 "Debian Bug Tracking System at E<lt>I<http://bugs.debian.org/>E<gt> or write "
 "a mail to the mailinglist at E<lt>I<debian-live@lists.debian.org>E<gt>."
 msgstr ""
+"Berichten Sie Fehler, indem Sie einen Fehlerbericht zum Live-Helper-Paket "
+"an die Debian-Fehlerdatenbank unter E<lt>I<http://bugs.debian.org/>E<gt> "
+"einreichen oder schreiben Sie eine englischsprachige E-Mail an die "
+"Mailingliste E<lt>I<debian-live@lists.debian.org>E<gt>."
 
 # type: SH
 #: lh_binary_chroot.en.1:28 lh_binary_debian-installer.en.1:28
@@ -570,7 +580,7 @@ msgstr ""
 #: live-helper.en.7:238
 #, no-wrap
 msgid "AUTHOR"
-msgstr ""
+msgstr "AUTOR"
 
 # type: Plain text
 #: lh_binary_chroot.en.1:29 lh_binary_debian-installer.en.1:29
@@ -609,22 +619,24 @@ msgid ""
 "live-helper was written by Daniel Baumann E<lt>I<daniel@debian.org>E<gt> for "
 "the Debian project."
 msgstr ""
+"Live-Helper wurde von Daniel Baumann E<lt>I<daniel@debian.org>E<gt> für "
+"das Debian-Projekt geschrieben."
 
 # type: TH
 #: lh_binary_virtual-hdd.en.1:1
 #, no-wrap
 msgid "LH_BINARY_VIRTUAL-HDD"
-msgstr ""
+msgstr "LH_BINARY_VIRTUAL-HDD"
 
 # type: Plain text
 #: lh_binary_virtual-hdd.en.1:5
 msgid "lh_binary_virtual-hdd - build binary virtual-hdd image"
-msgstr ""
+msgstr "lh_binary_virtual-hdd - virtuelles HDD-Programm-Image erstellen"
 
 # type: Plain text
 #: lh_binary_virtual-hdd.en.1:8
 msgid "B<lh_binary_virtual-hdd> [I<live-helper options>]"
-msgstr ""
+msgstr "B<lh_binary_virtual-hdd> [I<Live-Helper-Optionen>]"
 
 # type: Plain text
 #: lh_binary_virtual-hdd.en.1:11
@@ -632,6 +644,9 @@ msgid ""
 "lh_binary_virtual-hdd is a low-level command (plumbing) of live-helper, the "
 "Debian Live tool suite. It builds binary virtual-hdd image."
 msgstr ""
+"lh_binary_virtual-hdd ist ein Befehl niedriger Stufe (Klempnerei) von "
+"Live-Helper, der Debian-Live-Werkzeugsammlung. Es erstellt ein virtuelles "
+"HDD-Programm-Image."
 
 # type: Plain text
 #: lh_binary_virtual-hdd.en.1:14
@@ -640,3 +655,6 @@ msgid ""
 "live-helper options. See I<live-helper>(7) for a complete list of all "
 "generic live-helper options."
 msgstr ""
+"lh_binary_virtual-hdd hat keine speziellen Optionen, versteht jedoch alle "
+"generischen Live-Helper-Optionen. Siehe I<live-helper>(7), um eine Liste "
+"aller generischen Live-Helper-Optionen zu erhalten."

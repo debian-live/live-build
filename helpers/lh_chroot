@@ -27,51 +27,51 @@ Set_defaults
 Setup_cleanup
 
 # Configuring chroot
-lh_chroot_cache restore ${*}
-lh_chroot_devpts install ${*}
-lh_chroot_proc install ${*}
-lh_chroot_selinuxfs install ${*}
-lh_chroot_sysfs install ${*}
-lh_chroot_debianchroot install ${*}
-lh_chroot_dpkg install ${*}
-lh_chroot_sysv-rc install ${*}
-lh_chroot_hosts install ${*}
-lh_chroot_resolv install ${*}
-lh_chroot_hostname install ${*}
-lh_chroot_apt install ${*}
-lh_chroot_sources install ${*}
-lh_chroot_linux-image install ${*}
+lh chroot_cache restore ${*}
+lh chroot_devpts install ${*}
+lh chroot_proc install ${*}
+lh chroot_selinuxfs install ${*}
+lh chroot_sysfs install ${*}
+lh chroot_debianchroot install ${*}
+lh chroot_dpkg install ${*}
+lh chroot_sysv-rc install ${*}
+lh chroot_hosts install ${*}
+lh chroot_resolv install ${*}
+lh chroot_hostname install ${*}
+lh chroot_apt install ${*}
+lh chroot_sources install ${*}
+lh chroot_linux-image install ${*}
 
 # Customizing chroot
-lh_chroot_preseed ${*}
-lh_chroot_local-preseed ${*}
-lh_chroot_tasks ${*}
-lh_chroot_packageslists ${*}
-lh_chroot_packages ${*}
-lh_chroot_local-packages ${*}
-lh_chroot_install-packages ${*}
-lh_chroot_localization ${*}
-lh_chroot_local-includes ${*}
-lh_chroot_local-patches ${*}
-lh_chroot_sysvinit ${*}
-lh_chroot_local-hooks ${*}
-lh_chroot_hooks ${*}
-lh_chroot_symlinks ${*}
-lh_chroot_hacks ${*}
-lh_chroot_interactive ${*}
+lh chroot_preseed ${*}
+lh chroot_local-preseed ${*}
+lh chroot_tasks ${*}
+lh chroot_packageslists ${*}
+lh chroot_packages ${*}
+lh chroot_local-packages ${*}
+lh chroot_install-packages ${*}
+lh chroot_localization ${*}
+lh chroot_local-includes ${*}
+lh chroot_local-patches ${*}
+lh chroot_sysvinit ${*}
+lh chroot_local-hooks ${*}
+lh chroot_hooks ${*}
+lh chroot_symlinks ${*}
+lh chroot_hacks ${*}
+lh chroot_interactive ${*}
 
 # Deconfiguring chroot
-lh_chroot_linux-image remove ${*}
-lh_chroot_sources remove ${*}
-lh_chroot_apt remove ${*}
-lh_chroot_hostname remove ${*}
-lh_chroot_resolv remove ${*}
-lh_chroot_hosts remove ${*}
-lh_chroot_sysv-rc remove ${*}
-lh_chroot_dpkg remove ${*}
-lh_chroot_debianchroot remove ${*}
-lh_chroot_sysfs remove ${*}
-lh_chroot_selinuxfs remove ${*}
-lh_chroot_proc remove ${*}
-lh_chroot_devpts remove ${*}
-lh_chroot_cache save ${*}
+lh chroot_linux-image remove ${*}
+lh chroot_sources remove ${*}
+lh chroot_apt remove ${*}
+lh chroot_hostname remove ${*}
+lh chroot_resolv remove ${*}
+lh chroot_hosts remove ${*}
+lh chroot_sysv-rc remove ${*}
+lh chroot_dpkg remove ${*}
+lh chroot_debianchroot remove ${*}
+lh chroot_sysfs remove ${*}
+lh chroot_selinuxfs remove ${*}
+lh chroot_proc remove ${*}
+lh chroot_devpts remove ${*}
+lh chroot_cache save ${*}

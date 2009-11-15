@@ -54,7 +54,7 @@ do
 		fi
 
 		# Executing hook
-		Chroot chroot "./root/${HOOK}"
+		Chroot chroot "./root/${HOOK}" || ( Echo_error "${HOOK} failed (exit non-zero). You should check for errors."; exit 1 )
 
 		# Removing hook
 		rm -f chroot/root/"${HOOK}"

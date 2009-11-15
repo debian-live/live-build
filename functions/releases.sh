@@ -9,8 +9,8 @@
 
 # Debian releases
 RELEASE_etch="4.0 r8"
-RELEASE_lenny="5.0.1"
-RELEASE_squeeze="testing"
+RELEASE_lenny="5.0.3"
+RELEASE_squeeze="6"
 RELEASE_sid="unstable"
 
 # Ubuntu releases
@@ -22,3 +22,4 @@ RELEASE_hardy="8.04"
 RELEASE_intrepid="8.10"
 RELEASE_jaunty="9.04"
 RELEASE_karmic="9.10"
+RELEASE_lucid="10.04"

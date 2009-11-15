@@ -146,7 +146,39 @@ case "${LH_CHROOT_FILESYSTEM}" in
 
 				# Move image
 				mv chroot/filesystem.${LH_CHROOT_FILESYSTEM} binary/${INITFS}
-				rm -rf chroot/chroot
+
+				if [ -e chroot/chroot.cache ]
+				then
+					rm -f .lock
+					mv chroot/chroot chroot.tmp
+
+					lh chroot_sources remove ${*}
+					lh chroot_apt remove ${*}
+					lh chroot_hostname remove ${*}
+					lh chroot_resolv remove ${*}
+					lh chroot_hosts remove ${*}
+					lh chroot_sysfs remove ${*}
+					lh chroot_selinuxfs remove ${*}
+					lh chroot_proc remove ${*}
+					lh chroot_devpts remove ${*}
+
+					rm -rf chroot
+					mv chroot.tmp chroot
+
+					lh chroot_devpts install ${*}
+					lh chroot_proc install ${*}
+					lh chroot_selinuxfs install ${*}
+					lh chroot_sysfs install ${*}
+					lh chroot_hosts install ${*}
+					lh chroot_resolv install ${*}
+					lh chroot_hostname install ${*}
+					lh chroot_apt install ${*}
+					lh chroot_sources install ${*}
+
+					touch .lock
+				else
+					rm -rf chroot/chroot
+				fi
 				;;
 
 			disabled)
@@ -188,7 +220,37 @@ case "${LH_CHROOT_FILESYSTEM}" in
 
 				# Move image
 				mv chroot/filesystem.jffs2 binary/${INITFS}
-				rm -rf chroot/chroot
+
+				if [ -e chroot/chroot.cache ]
+				then
+					rm -f .lock
+					mv chroot/chroot chroot.tmp
+
+					lh chroot_sources remove ${*}
+					lh chroot_apt remove ${*}
+					lh chroot_hostname remove ${*}
+					lh chroot_resolv remove ${*}
+					lh chroot_hosts remove ${*}
+					lh chroot_sysfs remove ${*}
+					lh chroot_selinuxfs remove ${*}
+					lh chroot_proc remove ${*}
+					lh chroot_devpts remove ${*}
+
+					rm -rf chroot
+					mv chroot.tmp chroot
+
+					lh chroot_devpts install ${*}
+					lh chroot_proc install ${*}
+					lh chroot_selinuxfs install ${*}
+					lh chroot_sysfs install ${*}
+					lh chroot_hosts install ${*}
+					lh chroot_resolv install ${*}
+					lh chroot_hostname install ${*}
+					lh chroot_apt install ${*}
+					lh chroot_sources install ${*}
+				else
+					rm -rf chroot/chroot
+				fi
 				;;
 
 			disabled)
@@ -262,7 +324,41 @@ case "${LH_CHROOT_FILESYSTEM}" in
 
 				# Move image
 				${LH_ROOT_COMMAND} mv chroot/filesystem.squashfs binary/${INITFS}
-				${LH_ROOT_COMMAND} rm -rf chroot/chroot chroot/squashfs.sort
+				${LH_ROOT_COMMAND} rm -f chroot/squashfs.sort
+
+				if [ -e chroot/chroot.cache ]
+				then
+					rm -f .lock
+					mv chroot/chroot chroot.tmp
+
+					lh chroot_sources remove ${*}
+					lh chroot_apt remove ${*}
+					lh chroot_hostname remove ${*}
+					lh chroot_resolv remove ${*}
+					lh chroot_hosts remove ${*}
+					lh chroot_sysfs remove ${*}
+					lh chroot_selinuxfs remove ${*}
+					lh chroot_proc remove ${*}
+					lh chroot_devpts remove ${*}
+
+					rm -rf chroot
+					mv chroot.tmp chroot
+
+					lh chroot_devpts install ${*}
+					lh chroot_proc install ${*}
+					lh chroot_selinuxfs install ${*}
+					lh chroot_sysfs install ${*}
+					lh chroot_hosts install ${*}
+					lh chroot_resolv install ${*}
+					lh chroot_hostname install ${*}
+					lh chroot_apt install ${*}
+					lh chroot_sources install ${*}
+
+					touch .lock
+				else
+					rm -rf chroot/chroot
+				fi
+
 				${LH_ROOT_COMMAND} chmod 0644 binary/${INITFS}/filesystem.squashfs
 				;;
 

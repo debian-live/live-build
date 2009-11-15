@@ -3,5 +3,5 @@
 ## LH: GNOME full
 #include <gnome>
 
-gdm gnome
-desktop-base
+gnome
+gdm desktop-base

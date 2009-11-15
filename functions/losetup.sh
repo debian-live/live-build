@@ -11,7 +11,7 @@ Losetup ()
 {
 	DEVICE="${1}"
 	FILE="${2}"
-	PARTITION="${3:=1}"
+	PARTITION="${3:-1}"
 
 	${LH_ROOT_COMMAND} ${LH_LOSETUP} "${DEVICE}" "${FILE}"
 	FDISK_OUT="$(${LH_FDISK} -l -u ${DEVICE} 2>&1)"
@@ -44,9 +44,9 @@ Calculate_partition_size ()
 			PERCENT="5"
 			;;
 		*)
-			PERCENT="2"
+			PERCENT="3"
 			;;
 	esac
 
-	echo $(expr ${ORIGINAL_SIZE} + ${ORIGINAL_SIZE} \* ${PERCENT} / 100)
+	echo $(expr ${ORIGINAL_SIZE} + ${ORIGINAL_SIZE} \* ${PERCENT} / 100 + 1)
 }

@@ -36,7 +36,7 @@ Echo_message "Begin bootstrapping system..."
 Check_package /usr/sbin/debootstrap debootstrap
 
 # Ensure that a system is built as root
-lh_testroot
+lh testroot
 
 # Checking stage file
 Check_stagefile .stage/bootstrap
@@ -55,6 +55,12 @@ mkdir -p chroot
 if [ -n "${LH_ARCHITECTURE}" ]
 then
 	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --arch ${LH_ARCHITECTURE}"
+fi
+
+if [ "${LH_CATEGORIES}" != "main" ]
+then
+	# Modify categories to remove leading/trailing whitespaces and replace other whitepspace with commas
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --components $(echo ${LH_CATEGORIES} | sed -E -e 's/^[ \t]*//;s/[ \t]*$//' -e 's/[ \t]+/,/g')"
 fi
 
 if [ -n "${LH_BOOTSTRAP_CONFIG}" ]
@@ -89,6 +95,8 @@ then
 		case "${LH_BOOTSTRAP_FLAVOUR}" in
 			stripped|minimal)
 				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=minbase"
+				;;
+			standard)
 				;;
 
 			*)
