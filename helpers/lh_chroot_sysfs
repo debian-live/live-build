@@ -39,16 +39,16 @@ Breakpoint "chroot_sysfs: Init"
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
-# Checking lock file
-Check_lockfile .lock
-
-# Creating lock file
-Create_lockfile .lock
-
 case "${1}" in
 	install)
 		# Checking stage file
 		Check_stagefile .stage/chroot_sysfs
+
+		# Checking lock file
+		Check_lockfile .lock
+
+		# Creating lock file
+		Create_lockfile .lock
 
 		if [ ! -d chroot/sys ]
 		then
@@ -64,6 +64,12 @@ case "${1}" in
 		;;
 
 	remove)
+		# Checking lock file
+		Check_lockfile .lock
+
+		# Creating lock file
+		Create_lockfile .lock
+
 		# Unmounting /sys
 		#fuser -km chroot/sys
 		umount chroot/sys > /dev/null 2>&1

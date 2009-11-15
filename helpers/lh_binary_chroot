@@ -36,20 +36,32 @@ Breakpoint "binary_chroot: Init"
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
+# Checking stage file
+Check_stagefile .stage/binary_chroot
+
 # Checking lock file
 Check_lockfile .lock
 
 # Creating lock file
 Create_lockfile .lock
 
-# Checking stage file
-Check_stagefile .stage/binary_chroot
+# Normally, proc is not mounted here, but people tend to be lazy
+if [ -f chroot/proc/version ]
+then
+	umount chroot/proc
+fi
+
+if [ -d chroot/sys/kernel ]
+then
+	umount chroot/sys
+fi
 
 # Removing old chroot
 rm -rf chroot/chroot
 rm -rf chroot.tmp
 
 # Copying new chroot
+Echo_message "Copying chroot, this can take a while."
 cp -a chroot chroot.tmp
 mv chroot.tmp chroot/chroot
 

@@ -36,16 +36,16 @@ Breakpoint "chroot_hosts: Init"
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
-# Checking lock file
-Check_lockfile .lock
-
-# Creating lock file
-Create_lockfile .lock
-
 case "${1}" in
 	install)
 		# Checking stage file
 		Check_stagefile .stage/chroot_hosts
+
+		# Checking lock file
+		Check_lockfile .lock
+
+		# Creating lock file
+		Create_lockfile .lock
 
 		if [ -f chroot/etc/hosts ]
 		then
@@ -64,6 +64,12 @@ case "${1}" in
 		;;
 
 	remove)
+		# Checking lock file
+		Check_lockfile .lock
+
+		# Creating lock file
+		Create_lockfile .lock
+
 		if [ -f chroot/etc/hosts.orig ]
 		then
 			# Restore hosts file

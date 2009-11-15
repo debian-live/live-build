@@ -41,14 +41,14 @@ do
 		Require_stagefile .stage/bootstrap
 		Require_stagefile .stage/chroot_proc
 
+		# Checking stage file
+		Check_stagefile .stage/binary_usb
+
 		# Checking lock file
 		Check_lockfile .lock
 
 		# Creating lock file
 		Create_lockfile .lock
-
-		# Checking stage file
-		Check_stagefile .stage/binary_usb
 
 		if [ ! -f chroot/sbin/mkdosfs ]
 		then
@@ -65,15 +65,21 @@ do
 			PACKAGES="${PACKAGES} parted"
 		fi
 
-		if [ "${LIVE_BOOTLOADER}" = "grub" ] && [ ! -f chroot/usr/sbin/grub ]
-		then
-			PACKAGES="${PACKAGES} grub"
-		fi
+		case "${LIVE_BOOTLOADER}" in
+			grub)
+				if [ ! -f chroot/usr/sbin/grub ]
+				then
+					PACKAGES="${PACKAGES} grub"
+				fi
+				;;
 
-		if [ "${LIVE_BOOTLOADER}" = "syslinux" ] && [ ! -f chroot/usr/bin/syslinux ]
-		then
-			PACKAGES="${PACKAGES} syslinux"
-		fi
+			syslinux)
+				if [ ! -f chroot/usr/bin/syslinux ]
+				then
+					PACKAGES="${PACKAGES} syslinux"
+				fi
+				;;
+		esac
 
 		if [ -n "${PACKAGES}" ]
 		then
@@ -117,7 +123,15 @@ do
 
 		case "${LIVE_BOOTLOADER}" in
 			grub)
-				Chroot "grub-install --no-floppy ${FREELO}"
+				#echo "(hd0) ${FREELO}" > binary/boot/grub/device.map
+#grub --batch --no-floppy --device-map=binary/boot/grub/device.map << EOF
+#setup --stage1=binary/boot/grub/stage1 --stage2=binary/boot/grub/stage2 --prefix=/boot/grub (hd0)
+#
+#quit
+#EOF
+				#rm -f binary/boot/grub/device.map 
+
+				#Chroot "grub-install --no-floppy --root-directory=/ (hd0)"
 				;;
 
 			syslinux)
@@ -127,6 +141,7 @@ do
 
 		${LH_LOSETUP} -d ${FREELO}
 
+		FREELO="`${LH_LOSETUP} -f`"
 		lh_losetup $FREELO binary.img 1
 		Chroot "mkfs.msdos -n DEBIAN_LIVE ${FREELO}"
 		mkdir -p binary.tmp
@@ -134,8 +149,24 @@ do
 		cp -r binary/* binary.tmp
 		umount binary.tmp
 		rmdir binary.tmp
-		Chroot "syslinux ${FREELO}"
+
+		if [ "${LIVE_BOOTLOADER}" = "syslinux" ]
+		then
+			Chroot "syslinux ${FREELO}"
+		fi
+
 		${LH_LOSETUP} -d ${FREELO}
+
+		#if [ "${LIVE_BOOTLOADER}" = "grub" ]
+		#then
+		#	FREELO="`${LH_LOSETUP} -f`"
+		#	lh_losetup $FREELO binary.img 0
+
+		#	dd if=binary/boot/grub/stage1 of=${FREELO} bs=512 count=1
+		#	dd if=binary/boot/grub/stage2 of=${FREELO} bs=512 seek=1
+
+		#	${LH_LOSETUP} -d ${FREELO}
+		#fi
 		echo "!!! The above error/warning messages can be ignored !!!"
 
 		if [ -n "${MAKEDEV}" ]

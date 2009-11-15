@@ -15,6 +15,8 @@ apt-get remove --purge --yes man-db manpages info
 apt-get remove --purge --yes ssl wget
 
 # Removing unused files
+find . -name *~ | xargs rm -f
+
 rm -rf /var/cache/man/*
 
 # Cleaning apt

@@ -14,7 +14,7 @@ Set initial display mode               0fvga=<mode>07
 
 For example:
 
-  boot: linux quiet vga=792 locale=it_IT.UTF-8
+  boot: live quiet vga=792 locale=it_IT.UTF-8
 
 
 

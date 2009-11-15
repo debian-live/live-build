@@ -36,24 +36,18 @@ Breakpoint "chroot_apt: Init"
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
-# Checking lock file
-Check_lockfile .lock
-
-# Creating lock file
-Create_lockfile .lock
-
 case "${1}" in
 	install)
 		# Checking stage file
 		Check_stagefile .stage/chroot_apt
 
-		if [ -f chroot/etc/apt/apt.conf ]
-		then
-			# Remove old /etc/apt/apt.conf
-			rm -f chroot/etc/apt/apt.conf
-		fi
+		# Checking lock file
+		Check_lockfile .lock
 
-		if [ "${LH_APT}" = "aptitude" ] && [ ! -d chroot/etc/apt/apt.conf.d ]
+		# Creating lock file
+		Create_lockfile .lock
+
+		if [ ! -d chroot/etc/apt/apt.conf.d ]
 		then
 			mkdir -p chroot/etc/apt/apt.conf.d
 		fi
@@ -61,125 +55,76 @@ case "${1}" in
 		# Configuring apt ftp proxy
 		if [ -n "${LH_APT_FTPPROXY}" ]
 		then
-			case "${LH_APT}" in
-				apt|apt-get)
-					echo "Acquire::ftp::Proxy \"${LH_APT_FTPPROXY}\";" >> chroot/etc/apt/apt.conf
-					;;
-
-				aptitude)
-					echo "Acquire::ftp::Proxy \"${LH_APT_FTPPROXY}\";" > chroot/etc/apt/apt.conf.d/ftp-proxy
-					;;
-			esac
+			echo "Acquire::ftp::Proxy \"${LH_APT_FTPPROXY}\";" > chroot/etc/apt/apt.conf.d/00ftp-proxy
 		fi
 
 		# Configuring apt http proxy
 		if [ -n "${LH_APT_HTTPPROXY}" ]
 		then
-			case "${LH_APT}" in
-				apt|apt-get)
-					echo "Acquire::http::Proxy \"${LH_APT_HTTPPROXY}\";" >> chroot/etc/apt/apt.conf
-					;;
-
-				aptitude)
-					echo "Acquire::http::Proxy \"${LH_APT_HTTPPROXY}\";" > chroot/etc/apt/apt.conf.d/http-proxy
-					;;
-			esac
+			echo "Acquire::http::Proxy \"${LH_APT_HTTPPROXY}\";" > chroot/etc/apt/apt.conf.d/00http-proxy
 		fi
 
 		# Configuring apt pdiffs
-		if [ "${LH_APT_PDIFFS}" = "enabled" ]
-		then
-			case "${LH_APT}" in
-				apt|apt-get)
-		                        echo "Acquire::PDiffs \"true\";" >> chroot/etc/apt/apt.conf
-					;;
+		case "${LH_APT_PDIFFS}" in
+			enabled)
+				echo "Acquire::PDiffs \"true\";" > chroot/etc/apt/apt.conf.d/00pdiffs
+				;;
 
-				aptitude)
-					echo "Acquire::PDiffs \"true\";" > chroot/etc/apt/apt.conf.d/pdiffs
-					;;
-			esac
-		else
-			case "${LH_APT}" in
-				apt|apt-get)
-		                        echo "Acquire::PDiffs \"false\";" >> chroot/etc/apt/apt.conf
-					;;
-
-				aptitude)
-					echo "Acquire::PDiffs \"false\";" > chroot/etc/apt/apt.conf.d/pdiffs
-					;;
-			esac
-		fi
+			disabled)
+				echo "Acquire::PDiffs \"false\";" > chroot/etc/apt/apt.conf.d/00pdiffs
+				;;
+		esac
 
 		# Configuring apt recommends
-		if [ "${LH_APT_RECOMMENDS}" = "enabled" ]
+		if [ "${LH_APT}" = "aptitude" ]
 		then
-			case "${LH_APT}" in
-				apt|apt-get)
-		                        echo "Aptitude::Recommends-Important \"true\";" >> chroot/etc/apt/apt.conf
+			case "${LH_APT_RECOMMENDS}" in
+				enabled)
+					echo "Aptitude::Recommends-Important \"true\";" > chroot/etc/apt/apt.conf.d/00recommends
 					;;
 
-				aptitude)
-					echo "Aptitude::Recommends-Important \"true\";" > chroot/etc/apt/apt.conf.d/recommends
-					;;
-			esac
-		else
-			case "${LH_APT}" in
-				apt|apt-get)
-		                        echo "Aptitude::Recommends-Important \"false\";" >> chroot/etc/apt/apt.conf
-					;;
-
-				aptitude)
-					echo "Aptitude::Recommends-Important \"false\";" > chroot/etc/apt/apt.conf.d/recommends
+				disabled)
+					echo "Aptitude::Recommends-Important \"false\";" > chroot/etc/apt/apt.conf.d/00recommends
 					;;
 			esac
 		fi
 
 		# Configuring apt secure
-		if [ "${LH_APT_SECURE}" = "enabled" ]
-		then
-			case "${LH_APT}" in
-				apt|apt-get)
-		                        echo "APT::Get::AllowUnauthenticated \"true\";" >> chroot/etc/apt/apt.conf
-					;;
+		case "${LH_APT_SECURE}" in
+			enabled)
+				echo "APT::Get::AllowUnauthenticated \"true\";" > chroot/etc/apt/apt.conf.d/00secure
+				;;
 
-				aptitude)
-					echo "APT::Get::AllowUnauthenticated \"true\";" > chroot/etc/apt/apt.conf.d/secure
-					;;
-			esac
-		else
-			case "${LH_APT}" in
-				apt|apt-get)
-		                        echo "APT::Get::AllowUnauthenticated \"false\";" >> chroot/etc/apt/apt.conf
-					;;
-
-				aptitude)
-					echo "APT::Get::AllowUnauthenticated \"false\";" > chroot/etc/apt/apt.conf.d/secure
-					;;
-			esac
-		fi
+			disabled)
+				echo "APT::Get::AllowUnauthenticated \"false\";" > chroot/etc/apt/apt.conf.d/00secure
+				;;
+		esac
 
 		# Creating stage file
 		Create_stagefile .stage/chroot_apt
 		;;
 
 	remove)
-		# Deconfiguring apt settings
-		rm -f chroot/etc/apt/apt.conf
+		# Checking lock file
+		Check_lockfile .lock
+
+		# Creating lock file
+		Create_lockfile .lock
 
 		# Deconfiguring aptitude ftp proxy
-		rm -f chroot/etc/apt/apt.conf.d/ftp-proxy
+		rm -f chroot/etc/apt/apt.conf.d/00ftp-proxy
 
 		# Deconfiguring aptitude http proxy
-		rm -f chroot/etc/apt/apt.conf.d/http-proxy
+		rm -f chroot/etc/apt/apt.conf.d/00http-proxy
 
 		# Deconfiguring aptitude pdiffs
-		rm -f chroot/etc/apt/apt.conf.d/pdiffs
+		rm -f chroot/etc/apt/apt.conf.d/00pdiffs
 
 		# Deconfiguring aptitude recommends
-		rm -f chroot/etc/apt/apt.conf.d/recommends
+		rm -f chroot/etc/apt/apt.conf.d/00recommends
 
 		# Deconfiguring aptitude secure
-		rm -f chroot/etc/apt/apt.conf.d/secure
+		rm -f chroot/etc/apt/apt.conf.d/00secure
 
 		# Removing stage file
 		rm -f .stage/chroot_apt

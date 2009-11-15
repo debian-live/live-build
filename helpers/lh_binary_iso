@@ -40,14 +40,14 @@ do
 		# Requiring stage file
 		Require_stagefile .stage/bootstrap
 
+		# Checking stage file
+		Check_stagefile .stage/binary_iso
+
 		# Checking lock file
 		Check_lockfile .lock
 
 		# Creating lock file
 		Create_lockfile .lock
-
-		# Checking stage file
-		Check_stagefile .stage/binary_iso
 
 		if [ ! -f chroot/usr/bin/"${LH_GENISOIMAGE}" ]
 		then
@@ -91,7 +91,7 @@ do
 					;;
 			esac
 		else
-			echo "W: Bootloader on your architecture not yet supported (Continuing in 5 seconds)."
+			Echo_warning "Bootloader on your architecture not yet supported (Continuing in 5 seconds)."
 			sleep 5
 			#Chroot "${LH_GENISOIMAGE} -A 'Debian Live' -p 'Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org' -publisher 'Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org' -o binary.iso -r -J -l -V \"${LIVE_ISO_VOLUME}\" binary"
 			Chroot "${LH_GENISOIMAGE} -o binary.iso -r -J -l binary"

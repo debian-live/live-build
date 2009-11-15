@@ -36,16 +36,16 @@ Breakpoint "chroot_sysvrc: Init"
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
-# Checking lock file
-Check_lockfile .lock
-
-# Creating lock file
-Create_lockfile .lock
-
 case "${1}" in
 	install)
 		# Checking stage file
 		Check_stagefile .stage/chroot_sysvrc
+
+		# Checking lock file
+		Check_lockfile .lock
+
+		# Creating lock file
+		Create_lockfile .lock
 
 		if [ -f chroot/usr/sbin/policy-rc.d ]
 		then
@@ -70,6 +70,12 @@ EOF
 		;;
 
 	remove)
+		# Checking lock file
+		Check_lockfile .lock
+
+		# Creating lock file
+		Create_lockfile .lock
+
 		if [ -f chroot/usr/sbin/policy-rc.d.orig ]
 		then
 			# Restore policy-rc.d file

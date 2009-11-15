@@ -41,14 +41,14 @@ Breakpoint "binary_grub: Init"
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
+# Checking stage file
+Check_stagefile .stage/binary_grub
+
 # Checking lock file
 Check_lockfile .lock
 
 # Creating lock file
 Create_lockfile .lock
-
-# Checking stage file
-Check_stagefile .stage/binary_grub
 
 if [ "${LIVE_ARCHITECTURE}" != "amd64" ] && [ "${LIVE_ARCHITECTURE}" != "i386" ]
 then
@@ -94,18 +94,23 @@ case "${LIVE_BINARY_IMAGE}" in
 		;;
 
 	net)
-		Echo_error "not supported, FIXME"
+		Echo_error "not supported, aborting (FIXME)."
+		exit 1
 	;;
 esac
 
 # Temporary check for broken syslinux
 if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
 then
-	case "${LIVE_ARCHITECTURE}" in
-		i386)
-			DESTDIR="${DESTDIR}.386"
-			;;
-	esac
+	# Assemble multi-arch
+	if [ -n "${MULTIARCH}" ]
+	then
+		case "${LIVE_ARCHITECTURE}" in
+			i386)
+				DESTDIR="${DESTDIR}.386"
+				;;
+		esac
+	fi
 fi
 
 # Creating directory
@@ -132,15 +137,13 @@ fi
 
 LIVE_BOOTAPPEND="`echo ${LIVE_BOOTAPPEND} | sed -e 's/  //'`"
 
+# Parameters are listed at: linux/Documentation/kernel-parameters.txt
+FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=normal"
+
 # Assembling kernel configuration
-if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
-then
-	DEFAULT_FLAVOUR="`echo ${LIVE_KERNEL_FLAVOUR} | awk '{ print $1 }'`"
-	LINUX="title\t\tDebian GNU/Linux - Live\nkernel\t\t/`basename ${DESTDIR}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\ninitrd\t\t/`basename ${DESTDIR}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
-else
-	DEFAULT_FLAVOUR="`echo ${LIVE_KERNEL_FLAVOUR} | awk '{ print $1 }'`"
-	LINUX="title\t\tDebian GNU/Linux - Live\nkernel\t\t`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\ninitrd\t\tinitrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
-fi
+DEFAULT_FLAVOUR="`echo ${LIVE_KERNEL_FLAVOUR} | awk '{ print $1 }'`"
+LINUX="title\t\tDebian GNU/Linux - Live\nkernel\t\t/`basename ${DESTDIR}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}` boot=casper LIVE_BOOTAPPEND\ninitrd\t\t/`basename ${DESTDIR}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'`"
+LINUX="${LINUX}\n\ntitle\t\tDebian GNU/Linux - Live (failsafe mode)\nkernel\t\t/`basename ${DESTDIR}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}` boot=casper LIVE_BOOTAPPEND ${FAILSAFE}\ninitrd\t\t/`basename ${DESTDIR}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'`"
 
 if [ "`echo ${LIVE_KERNEL_FLAVOUR} | wc -w`" -gt "1" ]
 then
@@ -148,20 +151,12 @@ then
 	do
 		if [ -z "${LINUX}" ]
 		then
-			if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
-		then
-				LINUX="title\t\tDebian GNU/Linux - Live, kernel `basename ${KERNEL} | sed -e 's/vmlinuz-//'`\nkernel\t\t/`basename ${DESTDIR}`/`basename ${KERNEL}`\ninitrd\t\t/`basename ${DESTDIR}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
-			else
-				LINUX="title\t\tDebian GNU/Linux - Live, kernel `basename ${KERNEL} | sed -e 's/vmlinuz-//'`\nkernel\t\t`basename ${KERNEL}`\ninitrd\t\tinitrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
-			fi
+			LINUX="title\t\tDebian GNU/Linux - Live, kernel `basename ${KERNEL} | sed -e 's/vmlinuz-//'`\nkernel\t\t/`basename ${DESTDIR}`/`basename ${KERNEL}` boot=casper LIVE_BOOTAPPEND\ninitrd\t\t/`basename ${DESTDIR}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`"
+			LINUX="${LINUX}\n\ntitle\t\tDebian GNU/Linux - Live, kernel `basename ${KERNEL} | sed -e 's/vmlinuz-//'` (failsafe mode)\nkernel\t\t/`basename ${DESTDIR}`/`basename ${KERNEL}` boot=casper LIVE_BOOTAPPEND ${FAILSAFE}\ninitrd\t\t/`basename ${DESTDIR}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`"
 		else
-			if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
-			then
-				LINUX="${LINUX}\n\ntitle\t\tDebian GNU/Linux - Live, kernel `basename ${KERNEL} | sed -e 's/vmlinuz-//'`\nkernel /`basename ${DESTDIR}`/`basename ${KERNEL}`\ninitrd\t\t/`basename ${DESTDIR}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
-			else
-				LINUX="${LINUX}\n\ntitle\t\tDebian GNU/Linux - Live, kernel `basename ${KERNEL} | sed -e 's/vmlinuz-//'`\nkernel `basename ${KERNEL}`\ninitrd\t\tinitrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
-			fi
-			fi
+			LINUX="${LINUX}\n\ntitle\t\tDebian GNU/Linux - Live, kernel `basename ${KERNEL} | sed -e 's/vmlinuz-//'`\nkernel /`basename ${DESTDIR}`/`basename ${KERNEL}` boot=casper LIVE_BOOTAPPEND\ninitrd\t\t/`basename ${DESTDIR}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`"
+			LINUX="${LINUX}\n\ntitle\t\tDebian GNU/Linux - Live, kernel `basename ${KERNEL} | sed -e 's/vmlinuz-//'` (failsafe mode)\nkernel /`basename ${DESTDIR}`/`basename ${KERNEL}` boot=casper LIVE_BOOTAPPEND ${FAILSAFE}\ninitrd\t\t/`basename ${DESTDIR}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`"
+		fi
 	done
 fi
 
@@ -170,18 +165,15 @@ LINUX="`echo ${LINUX} | sed -e 's#//#/#g'`"
 # Assembling memtest configuration
 if [ -f "${DESTDIR}"/memtest ]
 then
-	if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
-	then
-		MEMTEST="title\t\tMemtest86+\nkernel\t\t/`basename ${DESTDIR}`/memtest"
-		MEMTEST="`echo ${MEMTEST} | sed -e 's#//#/#g'`"
-	else
-		MEMTEST="title\t\tMemtest86+\nkernel\t\tmemtest"
-	fi
+	MEMTEST="title\t\t${LIVE_MEMTEST}\nkernel\t\t/`basename ${DESTDIR}`/memtest"
+	MEMTEST="`echo ${MEMTEST} | sed -e 's#//#/#g'`"
 fi
 
+# Copying templates
 mkdir -p binary/boot/grub
 cp -r "${LIVE_TEMPLATES}"/grub/* binary/boot/grub
 
+# Copyring grub
 case ${LIVE_BINARY_IMAGE} in
 	iso)
 		cp chroot/usr/lib/grub/i386-pc/stage2_eltorito binary/boot/grub
@@ -195,10 +187,17 @@ esac
 # Copying splash screen
 if [ -n "${LIVE_GRUB_SPLASH}" ]
 then
-	# FIXME
-	cp "${LIVE_GRUB_SPLASH}" binary/boot/grub
+	if [ "${LIVE_GRUB_SPLASH}" = "none" ]
+	then
+		# Removing splash file
+		rm -f binary/boot/grub/splash.xpm.gz
 
-	LIVE_SPLASH="splashimage /boot/grub/`basename ${LIVE_GRUB_SPLASH}`"
+		# Removing splash entry
+		sed -e "s/splashimage.*//" binary/boot/grub/menu.lst
+	else
+		# Overwriting splash file
+		cp -f "${LIVE_GRUB_SPLASH}" binary/boot/grub/splash.xpm.gz
+	fi
 fi
 
 # Configure grub templates
@@ -208,11 +207,10 @@ cat >> binary/boot/grub/menu.lst << EOF
 title		Other:
 root
 
-
 LIVE_MEMTEST
 EOF
 
-sed -i -e "s#LIVE_SPLASH#${LIVE_SPLASH}#" -e "s#LIVE_KERNEL_LIVE#${LINUX}#" -e "s#LIVE_KERNEL_INSTALL#${LIVE_KERNEL_INSTALL}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" binary/boot/grub/menu.lst
+sed -i -e "s#LIVE_KERNEL_LIVE#${LINUX}#" -e "s#LIVE_KERNEL_INSTALL#${LIVE_KERNEL_INSTALL}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" binary/boot/grub/menu.lst
 sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" binary/boot/grub/menu.lst
 
 if [ -n "${PACKAGES}" ]

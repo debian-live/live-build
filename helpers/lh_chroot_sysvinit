@@ -36,14 +36,14 @@ Breakpoint "chroot_sysvinit: Init"
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
+# Checking stage file
+Check_stagefile .stage/chroot_sysvinit
+
 # Checking lock file
 Check_lockfile .lock
 
 # Creating lock file
 Create_lockfile .lock
-
-# Checking stage file
-Check_stagefile .stage/chroot_sysvinit
 
 if [ "${LIVE_SYSVINIT}" = "enabled" ]
 then

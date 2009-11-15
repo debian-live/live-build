@@ -33,38 +33,40 @@ Set_defaults
 
 Breakpoint "source_config: Init"
 
-if [ "${LIVE_SOURCE}" = "enabled" ]
+if [ "${LIVE_SOURCE}" != "enabled" ]
 then
-	# Requiring stage file
-	Require_stagefile .stage/bootstrap
-
-	# Checking lock file
-	Check_lockfile .lock
-
-	# Creating lock file
-	Create_lockfile .lock
-
-	# Checking stage file
-	Check_stagefile .stage/source_config
-
-	# Remove old sources
-	if [ -d source/debian-live ]
-	then
-		rm -rf source/debian-live
-	fi
-
-	# Copy system configuration
-	mkdir -p source/debian-live
-	cp -a config source/debian-live
-
-	# Create tarball
-	cd source
-	tar cfz debian-live-config_`date +%Y%m%d.%s`.tar.gz debian-live
-	cd "${OLDPWD}"
-
-	rm -rf source/debian-live/config
-	mv source/debian-live-config_*.tar.gz source/debian-live
-
-	# Creating stage file
-	Create_stagefile .stage/source_config
+	exit 0
 fi
+
+# Requiring stage file
+Require_stagefile .stage/bootstrap
+
+# Checking stage file
+Check_stagefile .stage/source_config
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+# Remove old sources
+if [ -d source/debian-live ]
+then
+	rm -rf source/debian-live
+fi
+
+# Copy system configuration
+mkdir -p source/debian-live
+cp -a config source/debian-live
+
+# Create tarball
+cd source
+tar cfz debian-live-config_`date +%Y%m%d.%s`.tar.gz debian-live
+cd "${OLDPWD}"
+
+rm -rf source/debian-live/config
+mv source/debian-live-config_*.tar.gz source/debian-live
+
+# Creating stage file
+Create_stagefile .stage/source_config

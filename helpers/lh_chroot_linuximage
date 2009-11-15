@@ -36,16 +36,16 @@ Breakpoint "chroot_linuximage: Init"
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
-# Checking lock file
-Check_lockfile .lock
-
-# Creating lock file
-Create_lockfile .lock
-
 case "${1}" in
 	install)
 		# Checking stage file
 		Check_stagefile .stage/chroot_linuximage
+
+		# Checking lock file
+		Check_lockfile .lock
+
+		# Creating lock file
+		Create_lockfile .lock
 
 		if [ -f chroot/etc/kernel-img.conf ]
 		then
@@ -54,7 +54,11 @@ case "${1}" in
 		fi
 
 		# Configuring kernel-img.conf
-		echo "do_initrd = Yes"  >> chroot/etc/kernel-img.conf
+cat >> chroot/etc/kernel-img.conf << EOF
+do_bootloader = No
+do_initrd = Yes
+warn_initrd = No
+EOF
 
 		if [ "${LIVE_KERNEL_PACKAGES}" != "none" ]
 		then
@@ -85,6 +89,12 @@ case "${1}" in
 		;;
 
 	remove)
+		# Checking lock file
+		Check_lockfile .lock
+
+		# Creating lock file
+		Create_lockfile .lock
+
 		if [ -f chroot/etc/kernel-img.conf.old ]
 		then
 			# Restoring kernel-img.conf file

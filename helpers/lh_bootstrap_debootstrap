@@ -131,6 +131,6 @@ then
 	# Creating stage file
 	Create_stagefile .stage/bootstrap
 else
-	echo "E: Can't process file /usr/bin/debootstrap (FIXME)"
+	Echo_error "Can't process file /usr/bin/debootstrap (FIXME)"
 	exit 1
 fi
