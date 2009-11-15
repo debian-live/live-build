@@ -2,16 +2,16 @@
 
 set -e
 
-BUILD="sid"
+BUILD="daily"
 
 # Begin custom defaults
 AUTOBUILD="enabled"
 
 DATE="`date +%Y%m%d`"
-DESTDIR="/srv/debian-unofficial/ftp/debian-live/cdimage"
+DESTDIR="/srv/debian-live/www/cdimage"
 TEMPDIR="/srv/tmp/live-helper"
 
-OPTIONS="--binary-indices disabled --initramfs live-initramfs"
+OPTIONS="--apt-recommends disabled"
 
 ARCHITECTURES="`dpkg --print-architecture`"
 DISTRIBUTIONS="sid"
@@ -82,7 +82,7 @@ do
 
 				# Moving logs
 				mv "${TEMPDIR}"/debian-live/log.txt "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${DATE}-iso-log.txt
-				mv "${TEMPDIR}"/debian-live/binary/packages.txt "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${DATE}-iso-packages.txt
+				cp "${TEMPDIR}"/debian-live/binary/packages.txt "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${DATE}-iso-packages.txt
 
 				# Creating images directory
 				mkdir -p "${DESTDIR}"/"${BUILD}"-builds/${DATE}/${ARCHITECTURE}
@@ -96,10 +96,10 @@ do
 			if [ ! -f "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${DATE}-usb-hdd-log.txt ]
 			then
 				# Workaround of missing multi-binary support in live-helper
-				mv "${TEMPDIR}"/debian-live/binary/casper "${TEMPDIR}"/debian-live/casper.tmp
+				mv "${TEMPDIR}"/debian-live/binary/live "${TEMPDIR}"/debian-live/live.tmp
 				rm -rf "${TEMPDIR}"/debian-live/binary* "${TEMPDIR}"/debian-live/.stage/binary_*
 				mkdir "${TEMPDIR}"/debian-live/binary
-				mv "${TEMPDIR}"/debian-live/casper.tmp "${TEMPDIR}"/debian-live/binary/casper
+				mv "${TEMPDIR}"/debian-live/live.tmp "${TEMPDIR}"/debian-live/binary/live
 				touch "${TEMPDIR}"/debian-live/.stage/binary_chroot
 				touch "${TEMPDIR}"/debian-live/.stage/binary_rootfs
 

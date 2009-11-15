@@ -13,7 +13,7 @@ aview mc nano-tiny qemacs-nox mg vim wdiff
 dosfstools dvd+rw-tools e2fsprogs ext2resize genisoimage hdparm blktool ntfsprogs parted partimage reiserfsprogs secure-delete scsitools smartmontools testdisk wodim wipe xfsprogs
 
 ## System
-dmidecode lshw pciutils procinfo read-edid sysutils usbutils
+dmidecode lshw pciutils procinfo read-edid sysutils usbutils mcelog
 
 ## Browser
 lynx links2 w3m

@@ -59,7 +59,7 @@ fi
 
 # Copy system configuration
 mkdir -p source/debian-live
-cp -al config source/debian-live
+cp -a config source/debian-live
 
 # Create tarball
 cd source

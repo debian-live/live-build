@@ -65,7 +65,7 @@ case "${1}" in
 
 		if [ "${PURGE}" != "true" ] && [ -d cache/stages_bootstrap ]
 		then
-			${LH_ROOT_COMMAND} cp -al cache/stages_bootstrap chroot
+			${LH_ROOT_COMMAND} cp -a cache/stages_bootstrap chroot
 			mkdir -p .stage
 			touch .stage/bootstrap
 		fi
@@ -79,6 +79,7 @@ case "${1}" in
 		rm -f binary.iso
 		rm -f binary.img
 		rm -f binary*.tar.gz
+		rm -f binary.sh
 
 		rm -rf binary
 		rm -rf tftpboot

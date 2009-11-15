@@ -60,6 +60,9 @@ Check_architecture amd64 i386
 # Checking depends
 Check_package chroot/usr/bin/syslinux syslinux
 
+# Restoring cache
+Restore_cache cache/packages_binary
+
 # Installing depends
 Install_package
 
@@ -320,8 +323,18 @@ case "${LIVE_BINARY_IMAGES}" in
 	iso)
 		# Copying syslinux
 		mkdir -p binary/isolinux
-		cp chroot/usr/lib/syslinux/isolinux.bin binary/isolinux
-		cp -r "${LIVE_TEMPLATES}"/syslinux/* binary/isolinux
+
+		case "${LIVE_CHROOT_BUILD}" in
+			enabled)
+				cp chroot/usr/lib/syslinux/isolinux.bin binary/isolinux
+				;;
+
+			disabled)
+				cp /usr/lib/syslinux/isolinux.bin binary/isolinux
+				;;
+		esac
+
+		cp -r "${TEMPLATES}"/* binary/isolinux
 		mv binary/isolinux/syslinux.cfg binary/isolinux/isolinux.cfg
 
 		# Copying local configuration file
@@ -380,9 +393,20 @@ case "${LIVE_BINARY_IMAGES}" in
 
 	net)
 		# Copying syslinux
-		cp chroot/usr/lib/syslinux/pxelinux.0 tftpboot
+		mkdir -p tftpboot
+
+		case "${LIVE_CHROOT_BUILD}" in
+			enabled)
+				cp chroot/usr/lib/syslinux/pxelinux.0 tftpboot
+				;;
+
+			disabled)
+				cp /usr/lib/syslinux/pxelinux.0 tftpboot
+				;;
+		esac
+
 		mkdir -p tftpboot/pxelinux.cfg
-		cp -r "${LIVE_TEMPLATES}"/syslinux/* tftpboot/pxelinux.cfg
+		cp -r "${TEMPLATES}"/* tftpboot/pxelinux.cfg
 		mv tftpboot/pxelinux.cfg/syslinux.cfg tftpboot/pxelinux.cfg/default
 
 		# Copying local configuration file
@@ -439,8 +463,18 @@ case "${LIVE_BINARY_IMAGES}" in
 
 		# Copying syslinux
 		mkdir -p "${DESTDIR}"
-		cp chroot/usr/lib/syslinux/isolinux.bin "${DESTDIR}"/syslinux.bin
-		cp -r "${LIVE_TEMPLATES}"/syslinux/* "${DESTDIR}"
+
+		case "${LIVE_CHROOT_BUILD}" in
+			enabled)
+				cp chroot/usr/lib/syslinux/isolinux.bin "${DESTDIR}"/syslinux.bin
+				;;
+
+			disabled)
+				cp /usr/lib/syslinux/isolinux.bin "${DESTDIR}"/syslinux.bin
+				;;
+		esac
+
+		cp -r "${TEMPLATES}"/* "${DESTDIR}"
 
 		# Copying local configuration file
 		if [ -f config/binary_syslinux/syslinux.cfg ]
@@ -472,7 +506,7 @@ case "${LIVE_BINARY_IMAGES}" in
 		sed -i -e "s/LIVE_VERSION/${VERSION}/" "${DESTDIR}"/f10.txt
 
 		# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
-		if [ "${LIVE_DISTRIBUTION}" = "etch" ] && [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
+		if [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
 		then
 			NUMBER="0"
 
@@ -493,6 +527,9 @@ case "${LIVE_BINARY_IMAGES}" in
 		fi
 		;;
 esac
+
+# Saving cache
+Save_cache cache/packages_binary
 
 # Removing depends
 Remove_package

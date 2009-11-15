@@ -11,22 +11,25 @@ set -e
 
 Check_templates ()
 {
-	PROGRAM="${1}"
+	ITEM="${1}"
 
-	# Check local templates
-	if [ -d config/templates/"${PROGRAM}" ]
-	then
-		LIVE_TEMPLATES="config/templates"
-	fi
-
-	# Checking user templates
+	# Check user defined templates directory
 	if [ ! -d "${LIVE_TEMPLATES}" ]
 	then
-		Echo_error "user specified templates not accessible in ${LIVE_TEMPLATES}"
-		exit 1
-	elif [ ! -d "${LIVE_TEMPLATES}/${PROGRAM}" ]
+		if [ -d config/templates ]
+		then
+			LIVE_TEMPLATES=config/templates
+		else
+			Echo_error "templates not accessible in ${LIVE_TEMPLATES} nor config/templates"
+			exit 1
+		fi
+	fi
+
+	if [ -d "${LIVE_TEMPLATES}/${ITEM}" ]
 	then
-		Echo_error "${PROGRAM} templates not accessible in ${LIVE_TEMPLATES}"
+		TEMPLATES="${LIVE_TEMPLATES}/${ITEM}"
+	else
+		Echo_error "${ITEM} templates not accessible in ${LIVE_TEMPLATES}"
 		exit 1
 	fi
 }

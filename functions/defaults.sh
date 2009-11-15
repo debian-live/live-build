@@ -584,6 +584,9 @@ Set_defaults ()
 		esac
 	fi
 
+	# Setting chroot option
+	LIVE_CHROOT_BUILD="${LIVE_CHROOT_BUILD:-enabled}"
+
 	# Setting debian-installer option
 	LIVE_DEBIAN_INSTALLER="${LIVE_DEBIAN_INSTALLER:-disabled}"
 

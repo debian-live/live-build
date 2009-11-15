@@ -11,18 +11,32 @@ set -e
 
 Check_package ()
 {
-	FILE="${1}"
+	ITEM="${1}"
 	PACKAGE="${2}"
 
-	if [ ! -f "${FILE}" ]
-	then
-		PACKAGES="${PACKAGES} ${PACKAGE}"
-	fi
+	case "${LIVE_CHROOT_BUILD}" in
+		enabled)
+			if [ ! -d "${ITEM}" ] && [ ! -f "${ITEM}" ]
+			then
+				PACKAGES="${PACKAGES} ${PACKAGE}"
+			fi
+			;;
+
+		disabled)
+			ITEM="`echo ${ITEM} | sed -e 's/chroot//'`"
+
+			if [ ! -d "${ITEM}" ] && [ ! -f "${ITEM}" ]
+			then
+				Echo_error "You need to install ${PACKAGE} on your host system."
+				exit 1
+			fi
+			;;
+	esac
 }
 
 Install_package ()
 {
-	if [ -n "${PACKAGES}" ]
+	if [ -n "${PACKAGES}" ] && [ "${LIVE_CHROOT_BUILD}" != "disabled" ]
 	then
 		case "${LH_APT}" in
 			apt|apt-get)
@@ -38,7 +52,7 @@ Install_package ()
 
 Remove_package ()
 {
-	if [ -n "${PACKAGES}" ]
+	if [ -n "${PACKAGES}" ] && [ "${LIVE_CHROOT_BUILD}" != "disabled" ]
 	then
 		case "${LH_APT}" in
 			apt|apt-get)

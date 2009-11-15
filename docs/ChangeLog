@@ -1,3 +1,44 @@
+2007-07-19  Daniel Baumann  <daniel@debian.org>
+
+	* functions/defaults.sh, package.sh, helpers/lh_config, lh_binary_*:
+	  - Added support for non-chrooted build.
+	  - Added caching of deb packages on this stage too.
+	* helpers/lh_binary_grub:
+	  - Added forgotten destdir for default entries.
+	* helpers/lh_binary_memtest:
+	  - Added workaround for grub inside chroot when installing memtest as
+	    suggested by Vladimir Stavrinov <vs@inist.ru>.
+	* helpers/lh_binary_rootfs:
+	  - Updated squashfs-tools package check.
+	* helpers/lh_binary_syslinux:
+	  - Using etch workaround for long filenames in syslinux on all
+	    distributions.
+	* Uploaded 1.0~a19-1.
+
+2007-07-15  Daniel Baumann  <daniel@debian.org>
+
+	* examples/cron/manpages.sh, examples/hooks/win32-loader.sh:
+	  - Added.
+
+2007-07-15  Otavio Salvador  <otavio@debian.org>
+
+	* functions/templates.sh:
+	  - Changed whole code to export TEMPLATES for the item beeing
+	    checked.
+	* helpers/lh_binary_grub, helpers/lh_binary_syslinux,
+	  helpers/lh_binary_yaboot:
+	  - Changed code to use the new TEMPLATES variable and avoid
+	    hardcoding the path.
+
+2007-07-14  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_debian-installer:
+	  - Addded 'live' mode.
+	  - Fixed a minor typo.
+	* helpers/lh_binary_includes:
+	  - Moved copying of parameters.txt to lh_binary_linux-image.
+	  - Moved parameters.txt.* to live-initramfs and data/casper.
+
 2007-07-12  Daniel Baumann  <daniel@debian.org>
 
 	* helpers/lh_binary_grub, lh_binary_syslinux:
@@ -13,6 +54,7 @@
 	  - Fixed typo in variable name.
 	* lists/rescue:
 	  - Added aide and tripwire.
+	* Uploaded 1.0~a18-1.
 
 2007-07-09  Chris Lamb  <chris@chris-lamb.co.uk>
 
