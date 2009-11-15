@@ -11,7 +11,7 @@ set -e
 
 Echo_debug ()
 {
-	if [ "${DEBUG}" = "true" ]
+	if [ "${LH_DEBUG}" = "enabled" ]
 	then
 		echo "D: ${@}"
 	fi
@@ -24,7 +24,7 @@ Echo_error ()
 
 Echo_message ()
 {
-	if [ "${QUIET}" != "true" ]
+	if [ "${LH_QUIET}" != "enabled" ]
 	then
 		echo "P: ${@}"
 	fi
@@ -32,7 +32,7 @@ Echo_message ()
 
 Echo_verbose ()
 {
-	if [ "${VERBOSE}" = "true" ]
+	if [ "${LH_VERBOSE}" = "enabled" ]
 	then
 		echo "I: ${@}"
 	fi

@@ -22,7 +22,7 @@ USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
 
-set -e
+Echo_debug "Init ${PROGRAM}"
 
 # Checking user account
 if [ "`id -u`" -ne "0" ]

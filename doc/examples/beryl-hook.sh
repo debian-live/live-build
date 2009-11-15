@@ -2,8 +2,8 @@
 
 # This is a hook for live-helper(7) to install beryl and enable aixgl.
 # It was originally written by Inigo Tejedor Arrondo <inigo@navarrux.org>.
-# To enable it, copy this hook into your config/chroot_localhooks directory.
 #
+# To enable it, copy this hook into your config/chroot_localhooks directory.
 # At boot prompt, type 'linux aixgl', press enter and have fun.
 
 # Update sources.list

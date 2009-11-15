@@ -33,7 +33,7 @@ Create_lockfile ()
 	fi
 
 	# Creating lock trap
-	trap "test -f ${FILE} && rm -f ${FILE}; exit 0" 0 2 15
+	trap "test -f ${FILE} && rm -f ${FILE}; exit 0" 0 1 2 3 9 15
 
 	# Creating lock file
 	touch "${FILE}"

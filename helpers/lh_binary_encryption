@@ -22,64 +22,73 @@ USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
 
+Echo_debug "Init ${PROGRAM}"
+
 # Reading configuration files
+Read_conffile config/bootstrap
+Read_conffile config/chroot
 Read_conffile config/common
 Read_conffile config/image
 Set_defaults
 
-if [ -n "${LIVE_ENCRYPTION}" ]
+if [ -z "${LIVE_ENCRYPTION}" ]
 then
-	# Requiring stage file
-	Require_stagefile .stage/bootstrap
-	Require_stagefile .stage/binary_rootfs
+	exit 0
+fi
 
-	# Checking lock file
-	Check_lockfile .lock
+Breakpoint "binary_encryption: Init"
 
-	# Creating lock file
-	Create_lockfile .lock
+# Requiring stage file
+Require_stagefile .stage/bootstrap
+Require_stagefile .stage/binary_rootfs
 
-	# Checking stage file
-	Check_stagefile .stage/binary_encryption
+# Checking lock file
+Check_lockfile .lock
 
-	case "${LIVE_FILESYSTEM}" in
-		ext2)
-			ROOTFS="ext2"
+# Creating lock file
+Create_lockfile .lock
+
+# Checking stage file
+Check_stagefile .stage/binary_encryption
+
+case "${LIVE_FILESYSTEM}" in
+	ext2)
+		ROOTFS="ext2"
+		;;
+
+	plain)
+		echo "W: encryption not supported on plain filesystem."
+		exit 0
+		;;
+
+	squashfs)
+		ROOTFS="squashfs"
+		;;
+esac
+
+if [ ! -f chroot/usr/bin/aespipe ]
+then
+	PACKAGES="${PACKAGES} aespipe"
+fi
+
+if [ -n "${PACKAGES}" ]
+then
+	# Installing packages
+	case "${LH_APT}" in
+		apt|apt-get)
+			Chroot "apt-get install --yes ${PACKAGES}"
 			;;
 
-		plain)
-			echo "W: encryption not supported on plain filesystem."
-			exit 0
-			;;
-
-		squashfs)
-			ROOTFS="squashfs"
+		aptitude)
+			Chroot "aptitude install --assume-yes ${PACKAGES}"
 			;;
 	esac
+fi
 
-	if [ ! -f chroot/usr/bin/aespipe ]
-	then
-		PACKAGES="${PACKAGES} aespipe"
-	fi
+# Moving image
+mv binary/casper/filesystem.${LIVE_FILESYSTEM} chroot
 
-	if [ -n "${PACKAGES}" ]
-	then
-		# Installing packages
-		case "${LH_APT}" in
-			apt|apt-get)
-				Chroot "apt-get install --yes ${PACKAGES}"
-				;;
-
-			aptitude)
-				Chroot "aptitude install --assume-yes ${PACKAGES}"
-				;;
-		esac
-	fi
-
-	# Moving image
-	mv binary/casper/filesystem.${LIVE_FILESYSTEM} chroot
-
-	echo "Encrypting binary/casper/filesystem.${ROOTFS} with ${LIVE_ENCRYPTION}..."
+echo "Encrypting binary/casper/filesystem.${ROOTFS} with ${LIVE_ENCRYPTION}..."
 
 cat >> chroot/encrypt << EOF
 while true
@@ -98,25 +107,24 @@ do
 done
 EOF
 
-	Chroot "sh encrypt"
+Chroot "sh encrypt"
 
-	# Move image
-	mv chroot/filesystem.${LIVE_FILESYSTEM} binary/casper
-	rm -f chroot/encrypt
+# Move image
+mv chroot/filesystem.${LIVE_FILESYSTEM} binary/casper
+rm -f chroot/encrypt
 
-	# Removing packages
-	if [ -n "${PACKAGES}" ]
-	then
-		case "${LH_APT}" in
-			apt|apt-get)
-				Chroot "apt-get remove --purge --yes ${PACKAGES}"
-				;;
-				aptitude)
-				Chroot "aptitude purge --assume-yes ${PACKAGES}"
-				;;
-		esac
-	fi
-
-	# Creating stage file
-	Create_stagefile .stage/binary_encryption
+# Removing packages
+if [ -n "${PACKAGES}" ]
+then
+	case "${LH_APT}" in
+		apt|apt-get)
+			Chroot "apt-get remove --purge --yes ${PACKAGES}"
+			;;
+			aptitude)
+			Chroot "aptitude purge --assume-yes ${PACKAGES}"
+			;;
+	esac
 fi
+
+# Creating stage file
+Create_stagefile .stage/binary_encryption

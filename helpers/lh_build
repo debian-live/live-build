@@ -22,6 +22,9 @@ USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
 
+Echo_debug "Init ${PROGRAM}"
+Breakpoint "build: Init"
+
 # Bootstrapping system
 lh_bootstrap "${@}"
 

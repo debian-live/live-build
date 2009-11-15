@@ -11,7 +11,7 @@ set -e
 
 Arguments ()
 {
-	ARGUMENTS="`getopt --longoptions conffile:,debug,force,help,logfile:,quiet,usage,verbose,version --name=${PROGRAM} --options huv --shell sh -- "${@}"`"
+	ARGUMENTS="`getopt --longoptions breakpoints,conffile:,debug,force,help,logfile:,quiet,usage,verbose,version --name=${PROGRAM} --options huv --shell sh -- "${@}"`"
 
 	if [ "${?}" != "0" ]
 	then
@@ -24,16 +24,20 @@ Arguments ()
 	while true
 	do
 		case "${1}" in
+			--breakpoints)
+				LH_BREAKPOINTS="enabled"; shift
+				;;
+
 			--conffile)
-				CONFFILE="${2}"; shift 2
+				LH_CONFFILE="${2}"; shift 2
 				;;
 
 			--debug)
-				DEBUG="true"; shift
+				LH_DEBUG="enabled"; shift
 				;;
 
 			--force)
-				FORCE="true"; shift
+				LH_FORCE="enabled"; shift
 				;;
 
 			-h|--help)
@@ -41,11 +45,11 @@ Arguments ()
 				;;
 
 			--logfile)
-				LOGFILE="${2}"; shift 2
+				LH_LOGFILE="${2}"; shift 2
 				;;
 
 			--quiet)
-				QUIET="true"; shift
+				LH_QUIET="enabled"; shift
 				;;
 
 			-u|--usage)
@@ -53,7 +57,7 @@ Arguments ()
 				;;
 
 			--verbose)
-				VERBOSE="true"; shift
+				LH_VERBOSE="enabled"; shift
 				;;
 
 			-v|--version)

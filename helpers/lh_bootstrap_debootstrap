@@ -25,13 +25,16 @@ Arguments "${@}"
 # Ensure that a system is built as root
 lh_testroot
 
-# Starting helper
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
-Read_conffile config/common
 Read_conffile config/bootstrap
+Read_conffile config/chroot
+Read_conffile config/common
+Read_conffile config/image
 Set_defaults
+
+Breakpoint "bootstrap_debootstrap: Init"
 
 if [ "${LH_BOOTSTRAP}" != "debootstrap" ]
 then
@@ -64,7 +67,7 @@ then
 	LIVE_DEBOOTSTRAP_SCRIPT="/usr/lib/debootstrap/scripts/${LIVE_BOOTSTRAP_CONFIG}"
 fi
 
-if [ "${VERBOSE}" = "true" ]
+if [ "${LH_VERBOSE}" = "true" ]
 then
 	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --verbose"
 fi

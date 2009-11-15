@@ -1,4 +1,4 @@
-.TH LH_BOOTSTRAP_DEBOOTSTRAP 1 "2007\-04\-02" "1.0~a4" "live\-helper"
+.TH LH_BOOTSTRAP_DEBOOTSTRAP 1 "2007\-04\-09" "1.0~a5" "live\-helper"
 
 .SH NAME
 lh_bootstrap_debootstrap \- bootstrap a Debian system with \fIdebootstrap\fR(8)
@@ -14,23 +14,21 @@ lh_bootstrap_debootstrap reads config/common and config/bootstrap if available. 
 
 .SH ENVIRONMENT
 lh_bootstrap_debootstrap respects the following environment variables if available, otherwise uses default values for it.
+.IP "\fI$LH_BOOTSTRAP\fR" 4
+control the bootstrap program to be used (Default: cdebootstrap)
 .IP "\fI$LH_CACHE\fR" 4
 control if downloaded packages should be cached (Default: enabled)
-.IP "\fI$LH_ROOT\fR" 4
-set the root directory (Default: debian-live)
+.PP
 .IP "\fI$LIVE_ARCHITECTURE\fR" 4
 select the chroot architecture (Default: autodetected)
+.IP "\fI$LIVE_BOOTSTRAP_CONFIG\fR" 4
+set distribution config directory (Default: empty)
+.IP "\fI$LIVE_BOOTSTRAP_FLAVOUR\fR" 4
+select the flavour to use (Default: standard)
 .IP "\fI$LIVE_DISTRIBUTION\fR" 4
 select the distribution to use (Default: sid)
-.IP "\fI$LIVE_DISTRIBUTION_CONFIG\fR" 4
-set distribution config directory (Default: empty)
-.IP "\fI$LIVE_FLAVOUR\fR" 4
-select the flavour to use (Default: standard)
-.IP "\fI$LIVE_MIRROR_LOCAL\fR" 4
-set the local mirror to use (Default: http://ftp.debian.org/debian/)
-
-.SH OPTIONS
-lh_bootstrap_debootstrap has no options (FIXME).
+.IP "\fI$LIVE_MIRROR_BUILD\fR" 4
+set the mirror to use (Default: http://ftp.debian.org/debian/)
 
 .SH SEE ALSO
 \fIdebootstrap\fR(8)

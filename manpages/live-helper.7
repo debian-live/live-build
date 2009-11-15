@@ -1,4 +1,4 @@
-.TH LIVE\-HELPER 7 "2007\-04\-02" "1.0~a4" "live\-helper"
+.TH LIVE\-HELPER 7 "2007\-04\-09" "1.0~a5" "live\-helper"
 
 .SH NAME
 live\-helper \- Debian Live helper programs
@@ -31,10 +31,12 @@ meta-helper for lh_binary_*.
 copies chroot into chroot.
 .IP "\fIlh_binary_encryption\fR(1)" 4
 encrypts the root filesystem.
-.IP "\fIlh_binary_includes\fR(1)" 4
-copies files into the binary image.
+.IP "\fIlh_binary_grub\fR(1)" 4
+copies grub into the binary image.
 .IP "\fIlh_binary_hdd\fR(1)" 4
 creates the harddisk binary tarball.
+.IP "\fIlh_binary_includes\fR(1)" 4
+copies files into the binary image.
 .IP "\fIlh_binary_iso\fR(1)" 4
 creates the CD/DVD binary image.
 .IP "\fIlh_binary_linuximage\fR(1)" 4
@@ -75,6 +77,8 @@ does evil (temporary) hacks in the chroot.
 executes additional commands in the chroot.
 .IP "\fIlh_chroot_hosts\fR(1)" 4
 configures /etc/hosts in the chroot.
+.IP "\fIlh_chroot_interactive\fR(1)" 4
+makes build interactive.
 .IP "\fIlh_chroot_linuximage\fR(1)" 4
 configures /etc/kernel-img.conf in the chroot.
 .IP "\fIlh_chroot_localhooks\fR(1)" 4
@@ -134,12 +138,24 @@ checks for root privileges.
 
 .SH LIVE\-HELPER OPTIONS
 The following command line options are supported by all live\-helper programs.
+.IP "\fB\-\-breakpoints\fR" 4
+run with breakpoints
+.IP "\fB\-\-conffile\fR" 4
+use custom configuration file
+.IP "\fB\-\-debug\fR" 4
+show debug information
 .IP "\fB\-\-force\fR" 4
 force helper execution, even if stage file exists.
 .IP "\fB\-h, \-\-help\fR" 4
 display help and exit
+.IP "\fB\-\-logfile\fR" 4
+use custom log file
+.IP "\fB\-\-quiet\fR" 4
+be quiet
 .IP "\fB\-u, \-\-usage\fR" 4
 show usage and exit
+.IP "\fB\-\-verbose\fR" 4
+be verbose
 .IP "\fB\-v, \-\-version\fR" 4
 output version information and exit
 

@@ -22,12 +22,16 @@ USAGE="${PROGRAM} {install|remove} [--force]"
 
 Arguments "${@}"
 
+Echo_debug "Init ${PROGRAM}"
+
 # Reading configuration files
-Read_conffile config/common
+Read_conffile config/bootstrap
 Read_conffile config/chroot
-Read_conffile config/bootstrap #FIXME
+Read_conffile config/common
 Read_conffile config/image
 Set_defaults
+
+Breakpoint "chroot_sources: Init"
 
 # Requiring stage file
 Require_stagefile .stage/bootstrap
@@ -65,11 +69,37 @@ case "${1}" in
 		fi
 
 		# Check local sources.list
-		if [ -f config/sources.list.build ]
+		if ls config/chroot_sources/*.build &> /dev/null
 		then
 			echo "" >> chroot/etc/apt/sources.list
 			echo "# Custom repositories" >> chroot/etc/apt/sources.list
-			cat config/sources.list.build >> chroot/etc/apt/sources.list
+
+			for FILE in config/chroot_sources/*.build
+			do
+				cat ${FILE} >> chroot/etc/apt/sources.list
+			done
+		fi
+
+		# Check local gpg keys
+		if ls config/chroot_sources/*.build.gpg &> /dev/null
+		then
+			for FILE in config/chroot_sources/*.build.gpg
+			do
+				cp ${FILE} chroot/root
+				Chroot "apt-key add /root/`basename ${FILE}`"
+				rm -f chroot/root/`basename ${FILE}`
+			done
+		fi
+
+		# Check local keyring packages
+		if ls config/chroot_sources/*.deb &> /dev/null
+		then
+			for PACKAGE in config/chroot_sources/*.deb
+			do
+				cp ${PACKAGE} chroot/root
+				Chroot "dpkg -i `basename ${PACKAGE}`"
+				rm -f chroot/root/`basename ${PACKAGE}`
+			done
 		fi
 
 		# Installing aptitude
@@ -87,6 +117,13 @@ case "${1}" in
 			Chroot "aptitude update"
 		fi
 
+		# Installing keyring packages
+		if [ -n "${LIVE_KEYRING_PACKAGES}" ]
+		then
+			Chroot "apt-get install --yes --force-yes ${LIVE_KEYRING_PACKAGES}"
+			Chroot "apt-get update"
+		fi
+
 		# Creating stage file
 		Create_stagefile .stage/chroot_sources
 		;;
@@ -95,6 +132,13 @@ case "${1}" in
 		# Configure generic indices
 		if [ "${LH_APT_GENERIC}" = "enabled" ]
 		then
+			# Don't do anything if it's not required
+			if [ "${LIVE_MIRROR_BUILD}" = "${LIVE_MIRROR_IMAGE}" ] && \
+			[ "${LIVE_MIRROR_BUILD_SECURITY}" = "${LIVE_MIRROR_IMAGE_SECURITY}" ]
+			then
+				exit 0
+			fi
+
 			# Cleaning apt list cache
 			rm -rf chroot/var/lib/apt/lists
 			mkdir -p chroot/var/lib/apt/lists/partial
@@ -120,11 +164,26 @@ case "${1}" in
 			fi
 
 			# Check local sources.list
-			if [ -f config/sources.list.image ]
+			if ls config/chroot_sources/*.image &> /dev/null
 			then
 				echo "" >> chroot/etc/apt/sources.list
 				echo "# Custom repositories" >> chroot/etc/apt/sources.list
-				cat config/sources.list.image >> chroot/etc/apt/sources.list
+
+				for FILE in config/chroot_sources/*.image
+				do
+					cat ${FILE} >> chroot/etc/apt/sources.list
+				done
+			fi
+
+			# Check local gpg keys
+			if ls config/chroot_sources/*.image.gpg &> /dev/null
+			then
+				for FILE in config/chroot_sources/*.image.gpg
+				do
+					cp ${FILE} chroot/root
+					Chroot "apt-key add /root/`basename ${FILE}`"
+					rm -f chroot/root/`basename ${FILE}`
+				done
 			fi
 
 			case "${LH_APT}" in
