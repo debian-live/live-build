@@ -1,11 +1,10 @@
 0fSPECIAL BOOT PARAMETERS - VARIOUS HARDWARE07                                    09F407
 
-You can use the following boot parameters at the 0fboot:07 prompt, 
+You can use the following boot parameters at the 0fboot:07 prompt,
 in combination with the boot method (see <09F307>).
 0f
 OPTION                                 PARAMETER TO SPECIFY07
 Check media for defects                0fintegrity-check07
-Set a static ip (no dhcp)              0fip=if,add,netm,gatew07
 Set a static ip (no dhcp)              0fip=if,add,netm,gatew07
 Set a default locale                   0flocale=<locale>07
 Suppress some debug informations       0fquiet07
@@ -16,6 +15,7 @@ Set initial display mode               0fvga=<mode>07
 For example:
 
   boot: linux quiet vga=792 locale=it_IT.UTF-8
+
 
 
 

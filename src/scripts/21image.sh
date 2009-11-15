@@ -166,10 +166,6 @@ Syslinux ()
 {
 	if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
 	then
-		# Install syslinux
-		Patch_network apply
-		Chroot_exec "aptitude install --assume-yes syslinux"
-
 		case "${1}" in
 			iso)
 				# Copy syslinux
@@ -223,10 +219,6 @@ Syslinux ()
 				sed -i -e "s/LIVE_VERSION/${VERSION}/" "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/f10.txt
 				;;
 		esac
-
-		# Remove syslinux
-		Chroot_exec "aptitude purge --assume-yes syslinux"
-		Patch_network deapply
 	fi
 }
 
@@ -238,7 +230,7 @@ Linuximage ()
 	case "${1}" in
 		iso)
 			# Copy linux-image
-			if [ "${LIVE_FLAVOUR}" = "minimal" ]
+			if [ "${LIVE_FLAVOUR}" = "minimal" ] || [ "${LIVE_FLAVOUR}" = "mini" ]
 			then
 				mv "${LIVE_CHROOT}"/boot/vmlinuz* "${LIVE_ROOT}"/binary/isolinux/vmlinuz
 				mv "${LIVE_CHROOT}"/boot/initrd.img* "${LIVE_ROOT}"/binary/isolinux/initrd.gz
@@ -251,7 +243,7 @@ Linuximage ()
 
 		net)
 			# Copy linux-image
-			if [ "${LIVE_FLAVOUR}" = "minimal" ]
+			if [ "${LIVE_FLAVOUR}" = "minimal" ] || [ "${LIVE_FLAVOUR}" = "mini" ]
 			then
 				mv "${LIVE_ROOT}"/chroot/boot/vmlinuz* "${LIVE_ROOT}"/tftpboot/vmlinuz
 				mv "${LIVE_ROOT}"/chroot/boot/initrd.img* "${LIVE_ROOT}"/tftpboot/initrd.gz
@@ -267,10 +259,6 @@ Memtest ()
 {
 	if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
 	then
-		# Install memtest
-		Patch_network apply
-		Chroot_exec "aptitude install --assume-yes memtest86+"
-
 		case "$1" in
 			iso)
 				# Copy memtest
@@ -282,10 +270,6 @@ Memtest ()
 				cp "${LIVE_ROOT}"/chroot/boot/memtest86+.bin "${LIVE_ROOT}"/tftpboot/memtest
 				;;
 		esac
-
-		# Remove memtest
-		Chroot_exec "aptitude purge --assume-yes memtest86+"
-		Patch_network deapply
 	fi
 }
 
@@ -306,7 +290,7 @@ Md5sum ()
 	mv "${LIVE_ROOT}"/md5sum.txt "${LIVE_ROOT}"/binary
 }
 
-Mkisofs ()
+Genisoimage ()
 {
 	case "${1}" in
 		binary)

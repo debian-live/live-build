@@ -93,6 +93,22 @@ EOF
 		# Switching package indices to custom
 		Indices custom
 
+		# Install depends
+		if [ -z "${KEEP_MEMTEST86}" ]
+		then
+			if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
+			then
+				Patch_network apply
+				Chroot_exec "aptitude install --assume-yes memtest86+"
+			fi
+		fi
+
+		if [ -z "${KEEP_SYSLINUX}" ]
+		then
+			Patch_network apply
+			Chroot_exec "aptitude install --assume-yes syslinux"
+		fi
+
 		# Installing syslinux
 		Syslinux net
 
@@ -101,6 +117,20 @@ EOF
 
 		# Installing memtest
 		Memtest net
+
+		# Remove depends
+		if [ -z "${KEEP_SYSLINUX}" ]
+		then
+			if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
+			then
+				Chroot_exec "aptitude purge --assume-yes syslinux"
+			fi
+		fi
+
+		if [ -z "${KEEP_SYSLINUX}" ]
+		then
+			Chroot_exec "aptitude purge --assume-yes syslinux"
+		fi
 
 		# Deconfigure network
 		Patch_network deapply

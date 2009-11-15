@@ -20,6 +20,7 @@ Usb ()
 		# Configure network
 		Patch_network apply
 
+		# Manifest
 		mkdir -p "${LIVE_ROOT}"/binary/casper
 		for MANIFEST in "${LIVE_ROOT}"/filesystem.manifest*
 		do
@@ -50,6 +51,9 @@ Usb ()
 		# Generating rootfs image
 		Genrootfs
 
+		# Mount proc
+		mount proc-live -t proc "${LIVE_CHROOT}"/proc
+
 		# Configure chroot
 		Patch_chroot apply
 		Patch_runlevel apply
@@ -66,6 +70,35 @@ Usb ()
 		# Switching package indices to custom
 		Indices custom
 
+		# Install depends
+		if [ -z "${KEEP_DOSFSTOOLS}" ]
+		then
+			Chroot_exec "aptitude install --assume-yes dosfstools"
+		fi
+
+		if [ -z "${KEEP_MEMTEST86}" ]
+		then
+			if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
+			then
+				Chroot_exec "aptitude install --assume-yes memtest86+"
+			fi
+		fi
+
+		if [ -z "${KEEP_MTOOLS}" ]
+		then
+			Chroot_exec "aptitude install --assume-yes mtools"
+		fi
+
+		if [ -z "${KEEP_PARTED}" ]
+		then
+			Chroot_exec "aptitude install --assume-yes parted"
+		fi
+
+		if [ -z "${KEEP_SYSLINUX}" ]
+		then
+			Chroot_exec "aptitude install --assume-yes syslinux"
+		fi
+
 		# Installing syslinux
 		Syslinux iso
 
@@ -75,6 +108,74 @@ Usb ()
 		# Installing memtest
 		Memtest iso
 
+		# Calculating md5sums
+		Md5sum
+
+		# Creating image
+
+		# USB hacks
+		mv "${LIVE_ROOT}"/binary/isolinux/isolinux.cfg "${LIVE_ROOT}"/binary/syslinux.cfg
+		mv "${LIVE_ROOT}"/binary/isolinux/isolinux.bin "${LIVE_ROOT}"/binary/syslinux.bin
+		mv "${LIVE_ROOT}"/binary/isolinux/* "${LIVE_ROOT}"/binary
+		rmdir "${LIVE_ROOT}"/binary/isolinux/
+
+		# Everything which comes here needs to be cleaned up,
+		DU_DIM="`du -ms ${LIVE_ROOT}/binary | cut -f1`"
+		REAL_DIM="`expr ${DU_DIM} + ${DU_DIM} / 20`" # Just 5% more to be sure, need something more sophistcated here...
+		dd if=/dev/zero of="${LIVE_ROOT}"/binary.img bs=1024k count=${REAL_DIM}
+
+		echo "!!! The following error/warning messages can be ignored !!!"
+		losetup_p "${LIVE_ROOT}"/binary.img 0
+		set +e
+		Chroot_exec "parted -s ${FREELO} mklabel msdos"
+		Chroot_exec "parted -s ${FREELO} mkpartfs primary fat16 0.0 100%"
+		Chroot_exec "parted -s ${FREELO} set 1 boot on"
+		Chroot_exec "parted -s ${FREELO} set 1 lba off"
+		set -e
+		cat "${LIVE_CHROOT}"/usr/lib/syslinux/mbr.bin > ${FREELO}
+		losetup -d ${FREELO}
+
+		losetup_p "${LIVE_ROOT}"/binary.img 1
+		Chroot_exec "mkfs.msdos -n DEBIAN_LIVE ${FREELO}"
+		mkdir "${LIVE_ROOT}"/binary.tmp
+		mount ${FREELO} "${LIVE_ROOT}"/binary.tmp
+		cp -r "${LIVE_ROOT}"/binary/* "${LIVE_ROOT}"/binary.tmp
+		umount "${LIVE_ROOT}"/binary.tmp
+		rmdir "${LIVE_ROOT}"/binary.tmp
+		Chroot_exec "syslinux ${FREELO}"
+		losetup -d ${FREELO}
+
+		echo "!!! The above error/warning messages can be ignored !!!"
+
+		# Remove depends
+		if [ -z "${KEEP_DOSFSTOOLS}" ]
+		then
+			Chroot_exec "aptitude purge --assume-yes dosfstools"
+		fi
+
+		if [ -z "${KEEP_MEMTEST86}" ]
+		then
+			if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
+			then
+				Chroot_exec "aptitude purge --assume-yes memtest86+"
+			fi
+		fi
+
+		if [ -z "${KEEP_MTOOLS}" ]
+		then
+			Chroot_exec "aptitude purge --assume-yes mtools"
+		fi
+
+		if [ -z "${KEEP_PARTED}" ]
+		then
+			Chroot_exec "aptitude purge --assume-yes parted"
+		fi
+
+		if [ -z "${KEEP_SYSLINUX}" ]
+		then
+			Chroot_exec "aptitude purge --assume-yes syslinux"
+		fi
+
 		# Deconfigure network
 		Patch_network deapply
 
@@ -82,43 +183,8 @@ Usb ()
 		Patch_runlevel deapply
 		Patch_chroot deapply
 
-		# Calculating md5sums
-		Md5sum
-
-		# Creating image
-		mv "${LIVE_ROOT}"/binary/isolinux/isolinux.cfg "${LIVE_ROOT}"/binary/syslinux.cfg
-		mv "${LIVE_ROOT}"/binary/isolinux/isolinux.bin "${LIVE_ROOT}"/binary/syslinux.bin
-		mv "${LIVE_ROOT}"/binary/isolinux/* "${LIVE_ROOT}"/binary
-
-		# Everything which comes here needs to be cleaned up,
-		# especially all the parted/syslinux stuff should be done
-		# from within the chroot, not on the host system, will do that later.
-
-		DU_DIM="`du -ms ${LIVE_ROOT}/binary | cut -f1`"
-		REAL_DIM="`expr ${DU_DIM} + ${DU_DIM} / 20`" # Just 5% more to be sure, need something more sophistcated here...
-		dd if=/dev/zero of="${LIVE_ROOT}"/binary.img bs=1024k count=${REAL_DIM}
-
-		echo "!!! The following error/warning messages can be ignored !!!"
-		losetup_p "${LIVE_ROOT}"/binary.img 0
-		parted -s ${FREELO} mklabel msdos
-		set +e
-		parted -s ${FREELO} mkpartfs primary fat16 0.0 100%
-		parted -s ${FREELO} set 1 boot on
-		parted -s ${FREELO} set 1 lba off
-		set -e
-		cat /usr/lib/syslinux/mbr.bin > ${FREELO}
-		losetup -d ${FREELO}
-		echo "!!! The above error/warning messages can be ignored !!!"
-
-		losetup_p "${LIVE_ROOT}"/binary.img 1
-		mkfs.msdos -n DEBIAN_LIVE ${FREELO}
-		mkdir "${LIVE_ROOT}"/binary.tmp
-		mount ${FREELO} "${LIVE_ROOT}"/binary.tmp
-		cp -r "${LIVE_ROOT}"/binary/* "${LIVE_ROOT}"/binary.tmp
-		umount "${LIVE_ROOT}"/binary.tmp
-		rmdir "${LIVE_ROOT}"/binary.tmp
-		syslinux ${FREELO}
-		losetup -d ${FREELO}
+		# Unmount proc
+		umount "${LIVE_CHROOT}"/proc
 
 		# Touching stage file
 		touch "${LIVE_ROOT}"/.stage/image_binary

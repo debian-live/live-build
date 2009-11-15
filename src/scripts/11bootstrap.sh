@@ -24,7 +24,12 @@ Bootstrap ()
 		fi
 
 		# Bootstrap system
-		cdebootstrap --arch="${LIVE_ARCHITECTURE}" --flavour="${LIVE_FLAVOUR}" ${SUITE_CONFIG} "${LIVE_DISTRIBUTION}" "${LIVE_CHROOT}" "${LIVE_MIRROR}"
+		if [ "${LIVE_FLAVOUR}" = "mini" ]
+		then
+			cdebootstrap --arch="${LIVE_ARCHITECTURE}" --flavour=minimal ${SUITE_CONFIG} "${LIVE_DISTRIBUTION}" "${LIVE_CHROOT}" "${LIVE_MIRROR}"
+		else
+			cdebootstrap --arch="${LIVE_ARCHITECTURE}" --flavour="${LIVE_FLAVOUR}" ${SUITE_CONFIG} "${LIVE_DISTRIBUTION}" "${LIVE_CHROOT}" "${LIVE_MIRROR}"
+		fi
 
 		# Remove unused packages
 		Chroot_exec "dpkg -P cdebootstrap-helper-diverts"

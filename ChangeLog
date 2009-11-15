@@ -1,6 +1,18 @@
+2007-02-12 Daniel Baumann <daniel@debian.org>
+
+	* Added some code as suggested by Alex Owen <r.a.owen@qmul.ac.uk> to
+	  check if the depends (syslinux, memtest etc.) are intentionally
+	  installed in the chroot, and hence, don't remove them.
+	* Moved some depends into the chroot.
+
+2007-02-11 Daniel Baumann <daniel@debian.org>
+
+	* Added mini flavour.
+
 2007-02-10 Daniel Baumann <daniel@debian.org>
 
 	* Added legacy code for genisoimage.
+	* Uploaded 0.99.20.
 
 2007-02-09 Daniel Baumann <daniel@debian.org>
 

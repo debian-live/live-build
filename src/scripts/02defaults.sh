@@ -188,6 +188,9 @@ Defaults ()
 		if [ "${LIVE_FLAVOUR}" = "minimal" ]
 		then
 			LIVE_PACKAGE_LIST="${BASE}/lists/minimal"
+		elif [ "${LIVE_FLAVOUR}" = "mini" ]
+		then
+			LIVE_PACKAGE_LISTS="${BASE}/lists/mini"
 		else
 			LIVE_PACKAGE_LIST="${BASE}/lists/standard"
 		fi
@@ -257,7 +260,7 @@ Defaults ()
 	fi
 
 	# Set package indices
-	if [ -z "${LIVE_GENERIC_INDICES}" ] && [ "${LIVE_FLAVOUR}" != "minimal" ]
+	if [ -z "${LIVE_GENERIC_INDICES}" ] && [ "${LIVE_FLAVOUR}" != "minimal" ] && [ "${LIVE_FLAVOUR}" != "mini" ]
 	then
 		LIVE_GENERIC_INDICES="yes"
 	fi

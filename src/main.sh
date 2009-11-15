@@ -28,7 +28,7 @@ set -e
 BASE=${LIVE_BASE:-"/usr/share/make-live"}
 CONFIG="/etc/make-live.conf"
 PROGRAM="`basename ${0}`"
-VERSION="0.99.20"
+VERSION="0.99.21"
 
 CODENAME_OLDSTABLE="woody"
 CODENAME_STABLE="sarge"
