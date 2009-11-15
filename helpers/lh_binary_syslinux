@@ -25,7 +25,7 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 if [ "${LH_BOOTLOADER}" != "syslinux" ]
@@ -36,7 +36,7 @@ fi
 Echo_message "Begin installing syslinux..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
+Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
 Check_stagefile .stage/binary_syslinux
@@ -186,9 +186,16 @@ Copy_syslinux_templates ()
 		cp "${TEMPLATES}"/menu/*.cfg ${SCREEN_PATH}
 		cp "${TEMPLATES}"/menu/data/* ${DATA_PATH}
 
-		# Grab menu binary from chroot
+		# Grab menu binary
 		MENUMODULE=$(grep 'menu.c32' ${TEMPLATES}/menu/header.cfg | sed 's|default\s*.*/\(.*menu.c32\)$|\1|g')
-		cp chroot/usr/lib/syslinux/"${MENUMODULE}" ${DATA_PATH}
+		case "${LH_CHROOT_BUILD}" in
+			enabled)
+				cp chroot/usr/lib/syslinux/"${MENUMODULE}" ${DATA_PATH}
+				;;
+			disabled)
+				cp /usr/lib/syslinux/"${MENUMODULE}" ${DATA_PATH}
+				;;
+		esac
 	fi
 
 	if [ -d "${TEMPLATES}"/"${LH_LANGUAGE}" ]
@@ -488,7 +495,11 @@ if [ "binary/${INITFS}" != "${KERNEL_PATH}" ]
 then
 	mv binary/${INITFS}/vmlinuz* ${KERNEL_PATH}
 	mv binary/${INITFS}/initrd* ${KERNEL_PATH}
-	mv binary/${INITFS}/memtest ${KERNEL_PATH}
+
+	if [ "${LH_MEMTEST}" != "disabled" ] && [ "${LH_MEMTEST}" != "none" ]
+	then
+		mv binary/${INITFS}/memtest ${KERNEL_PATH}
+	fi
 fi
 
 # Default entries

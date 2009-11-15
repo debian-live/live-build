@@ -25,7 +25,7 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 if [ "${LH_BOOTSTRAP}" != "copy" ]
@@ -51,8 +51,9 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Copying host system
+mkdir chroot
 cd chroot
-tar c / --exclude /proc --exclude /sys "$(dirname ${PWD})" | tar xv
+tar c / --exclude /proc --exclude /sys --exclude "$(dirname ${PWD})" | tar xv
 cd ..
 
 # Creating stage file

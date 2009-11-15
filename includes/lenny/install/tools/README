@@ -1,0 +1,13 @@
+/debian/tools contains MS-DOS tools for installing and booting Linux.
+
+fips20.zip     Non-destructively split harddisk partitions (works with FAT32)
+gzip124.exe    gzip for DOS
+lodlin16.zip   load Linux kernel from DOS
+rawrite1.zip   rawrite version 1.3             (rawrite 2.0 is much faster, but
+rawrite2.zip   rawrite version 2.0               it locks up on some machines.)
+unz512x3.exe   Info-ZIP's free UnZipper for DOS
+rwwrtwin.zip   Win32 version of rawrite runs on Windows 95, NT, 98, 2000, 
+               ME, XP and probably later versions.
+diskio.zip     Under 95, 98 & ME you need diskio.dll.  It must be in 
+               the same directory as rwwrtwin.exe. (uncompressed)
+md5sum-w32.zip Win32 version of md5sum

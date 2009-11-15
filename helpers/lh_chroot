@@ -25,13 +25,17 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
+
+# Setup cleanup function
+Setup_cleanup
 
 # Configuring chroot
 lh_chroot_cache restore ${*}
 lh_chroot_devpts install ${*}
 lh_chroot_proc install ${*}
+lh_chroot_selinuxfs install ${*}
 lh_chroot_sysfs install ${*}
 lh_chroot_debianchroot install ${*}
 lh_chroot_dpkg install ${*}
@@ -72,6 +76,7 @@ lh_chroot_sysv-rc remove ${*}
 lh_chroot_dpkg remove ${*}
 lh_chroot_debianchroot remove ${*}
 lh_chroot_sysfs remove ${*}
+lh_chroot_selinuxfs remove ${*}
 lh_chroot_proc remove ${*}
 lh_chroot_devpts remove ${*}
 lh_chroot_cache save ${*}

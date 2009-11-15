@@ -25,14 +25,13 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 Echo_message "Begin building root filesystem image..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
-Require_stagefile .stage/binary_chroot
+Require_stagefile .stage/config .stage/bootstrap .stage/binary_chroot
 
 # Checking stage file
 Check_stagefile .stage/binary_rootfs
@@ -94,7 +93,7 @@ then
 	if [ -f config/binary_rootfs/excludes ]
 	then
 		cp config/binary_rootfs/excludes chroot/chroot/excludes
-		chroot chroot/chroot /usr/bin/env -i xargs --arg-file=/excludes rm -rf
+		chroot chroot/chroot /usr/bin/env -i xargs --arg-file=/excludes -I FILE bash -c 'rm -rf FILE'
 		rm -f chroot/chroot/excludes
 	fi
 
@@ -148,7 +147,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 
 		case "${LH_CHROOT_BUILD}" in
 			enabled)
-				Chroot "genext2fs --size-in-blocks=${REAL_DIM} ${RESERVED_PERCENTAGE}=0 --root=chroot filesystem.${LH_CHROOT_FILESYSTEM}"
+				Chroot chroot "genext2fs --size-in-blocks=${REAL_DIM} ${RESERVED_PERCENTAGE}=0 --root=chroot filesystem.${LH_CHROOT_FILESYSTEM}"
 
 				# Move image
 				mv chroot/filesystem.${LH_CHROOT_FILESYSTEM} binary/${INITFS}
@@ -190,7 +189,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 
 		case "${LH_CHROOT_BUILD}" in
 			enabled)
-				Chroot "mkfs.jffs2 ${JFFS2_OPTIONS} --root=chroot --output filesystem.jffs2"
+				Chroot chroot "mkfs.jffs2 ${JFFS2_OPTIONS} --root=chroot --output filesystem.jffs2"
 
 				# Move image
 				mv chroot/filesystem.jffs2 binary/${INITFS}
@@ -245,12 +244,12 @@ case "${LH_CHROOT_FILESYSTEM}" in
 		# Remove stale squashfs image
 		rm -f chroot/filesystem.squashfs
 
-		if [ "${LH_QUIET}" = "enabled" ] && [ "${LH_DISTRIBUTION}" != "etch" ]
+		if [ "${_QUIET}" = "enabled" ] && [ "${LH_DISTRIBUTION}" != "etch" ]
 		then
 			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -no-progress"
 		fi
 
-		if [ "${LH_VERBOSE}" = "enabled" ]
+		if [ "${_VERBOSE}" = "enabled" ]
 		then
 			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -info"
 		fi
@@ -264,7 +263,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 		case "${LH_CHROOT_BUILD}" in
 			enabled)
 				# Create image
-				Chroot "mksquashfs chroot filesystem.squashfs ${MKSQUASHFS_OPTIONS}"
+				Chroot chroot "mksquashfs chroot filesystem.squashfs ${MKSQUASHFS_OPTIONS}"
 
 				# Move image
 				${LH_ROOT_COMMAND} mv chroot/filesystem.squashfs binary/${INITFS}

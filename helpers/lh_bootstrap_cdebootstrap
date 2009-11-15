@@ -25,7 +25,7 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 if [ "${LH_BOOTSTRAP}" != "cdebootstrap" ]
@@ -104,17 +104,17 @@ else
 	esac
 fi
 
-if [ "${LH_DEBUG}" = "enabled" ]
+if [ "${_DEBUG}" = "enabled" ]
 then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --debug"
 fi
 
-if [ "${LH_QUIET}" = "enabled" ]
+if [ "${_QUIET}" = "enabled" ]
 then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --quiet"
 fi
 
-if [ "${LH_VERBOSE}" = "enabled" ]
+if [ "${_VERBOSE}" = "enabled" ]
 then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --verbose"
 fi
@@ -165,7 +165,7 @@ then
 	# Remove cdebootstrap-helper-diverts (needed at least for minimal flavours)
 	case "${LH_PACKAGES_LISTS}" in
 		stripped|minimal)
-			Chroot "dpkg -P cdebootstrap-helper-diverts"
+			Chroot chroot "dpkg -P cdebootstrap-helper-diverts"
 			;;
 	esac
 

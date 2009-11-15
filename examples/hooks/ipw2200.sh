@@ -1,10 +1,13 @@
 #!/bin/sh
 
 # This is a hook for live-helper(7) to install ipw2200 drivers
-# To enable it, copy this hook into your config/chroot_local-hooks directory.
+# To enable it, copy or symlink this hook into your config/chroot_local-hooks
+# directory.
 #
 # Note: This hook requires packages from the contrib category. Make sure you enabled
 # it in your configuration.
+
+apt-get install --yes build-essential
 
 # Building kernel mdoule
 which module-assistant || apt-get install --yes module-assistant

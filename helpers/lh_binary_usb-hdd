@@ -25,7 +25,7 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 if ! In_list usb-hdd "${LH_BINARY_IMAGES}"
@@ -36,8 +36,7 @@ fi
 Echo_message "Begin building binary usb-hdd image..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
-Require_stagefile .stage/chroot_proc
+Require_stagefile .stage/config .stage/bootstrap .stage/chroot_proc
 
 # Checking stage file
 Check_stagefile .stage/binary_usb-hdd
@@ -149,26 +148,26 @@ esac
 
 case "${LH_CHROOT_BUILD}" in
 	enabled)
-		Chroot "parted -s ${FREELO} mklabel ${PARTITION_TABLE_TYPE}" || true
-		Chroot "parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100%" || true
-		Chroot "parted -s ${FREELO} set 1 boot on" || true
-		Chroot "parted -s ${FREELO} set 1 lba off" || true
+		Chroot chroot "parted -s ${FREELO} mklabel ${PARTITION_TABLE_TYPE}" || true
+		Chroot chroot "parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100%" || true
+		Chroot chroot "parted -s ${FREELO} set 1 boot on" || true
+		Chroot chroot "parted -s ${FREELO} set 1 lba off" || true
 
 		if [ "${LH_BOOTLOADER}" = "syslinux" ]
 		then
-			cat chroot/usr/lib/syslinux/mbr.bin > ${FREELO}
+			dd if=chroot/usr/lib/syslinux/mbr.bin of=${FREELO} bs=440 count=1
 		fi
 		;;
 
 	disabled)
 		parted -s ${FREELO} mklabel ${PARTITION_TABLE_TYPE} || true
-		parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100%
+		parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100% || true
 		parted -s ${FREELO} set 1 boot on || true
 		parted -s ${FREELO} set 1 lba off || true
 
 		if [ "${LH_BOOTLOADER}" = "syslinux" ]
 		then
-			cat /usr/lib/syslinux/mbr.bin > ${FREELO}
+			dd if=/usr/lib/syslinux/mbr.bin of=${FREELO} bs=440 count=1
 		fi
 		;;
 esac
@@ -197,7 +196,7 @@ esac
 
 case "${LH_CHROOT_BUILD}" in
 	enabled)
-		Chroot "mkfs.${MKFS} ${MKFS_OPTIONS} ${FREELO}"
+		Chroot chroot "mkfs.${MKFS} ${MKFS_OPTIONS} ${FREELO}"
 		;;
 
 	disabled)
@@ -227,7 +226,7 @@ find /live/vmlinuz
 EOM
 EOF
 
-	rootpartition="$(Chroot 'sh grub.sh' 2>/dev/null | grep -A 1 'find /live/vmlinuz' | grep -v 'find /live/vmlinuz')"
+	rootpartition="$(Chroot chroot 'sh grub.sh' 2>/dev/null | grep -A 1 'find /live/vmlinuz' | grep -v 'find /live/vmlinuz')"
 	usbdev="$(echo $rootpartition | sed -e 's|,[[:digit:]]||')"
 	echo "Root partition is $rootpartition, device is: $usbdev"
 
@@ -240,7 +239,7 @@ EOF
 #EOM
 #EOF
 
-#Chroot "sh grub.sh"
+#Chroot chroot "sh grub.sh"
 
 	rm -f chroot/grub.sh
 fi
@@ -253,7 +252,7 @@ if [ "${LH_BOOTLOADER}" = "syslinux" ]
 then
 	case "${LH_CHROOT_BUILD}" in
 		enabled)
-			Chroot "syslinux ${FREELO}"
+			Chroot chroot "syslinux ${FREELO}"
 			;;
 
 		disabled)

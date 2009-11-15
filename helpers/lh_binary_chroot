@@ -25,13 +25,13 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 Echo_message "Begin copying chroot..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
+Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
 Check_stagefile .stage/binary_chroot
@@ -100,7 +100,7 @@ then
 		if [ -e chroot/chroot/"${EXCLUDE}" ]
 		then
 			# Run "rm" inside the chroot so it cannot possibly remove host files.
-			Chroot "rm -r chroot/${EXCLUDE}"
+			Chroot chroot "rm -r chroot/${EXCLUDE}"
 		else
 			Echo_warning "Excluded path does not exist: %s" "${EXCLUDE}"
 		fi

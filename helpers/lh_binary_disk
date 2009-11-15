@@ -25,7 +25,7 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 case "${LH_BINARY_IMAGES}" in
@@ -39,7 +39,7 @@ esac
 Echo_message "Begin installing disk information..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
+Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
 Check_stagefile .stage/binary_disk
@@ -55,7 +55,7 @@ mkdir -p binary/.disk
 ARCHITECTURE="$(echo ${LH_ARCHITECTURE} | sed -e 's| |/|g')"
 DISTRIBUTION="$(echo ${LH_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]')"
 DISTRIBUTION="${DISTRIBUTION}$(echo ${LH_DISTRIBUTION} | cut -b 2-)"
-eval VERSION="$`echo VERSION_${LH_DISTRIBUTION}`"
+eval VERSION="$`echo RELEASE_${LH_DISTRIBUTION}`"
 
 if [ "${LH_DISTRIBUTION}" != "etch" ]
 then

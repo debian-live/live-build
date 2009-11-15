@@ -25,13 +25,13 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 Echo_message "Begin executing hooks..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
+Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
 Check_stagefile .stage/chroot_hooks
@@ -57,7 +57,7 @@ do
 		fi
 
 		# Executing hook
-		Chroot "/root/${HOOK}"
+		Chroot chroot "/root/${HOOK}"
 
 		# Removing hook
 		rm -f chroot/root/"${HOOK}"
@@ -69,5 +69,5 @@ done
 
 if [ -n "${LH_HOOKS}" ] && [ "${LH_HOOKS}" != "none" ]
 then
-	LH_DEBCONF_FRONTEND="readline" LH_DEBCONF_PRIORITY="low" LH_DEBCONF_NOWARNINGS="no" Chroot "${LH_HOOKS}"
+	LH_DEBCONF_FRONTEND="readline" LH_DEBCONF_PRIORITY="low" LH_DEBCONF_NOWARNINGS="no" Chroot chroot "${LH_HOOKS}"
 fi

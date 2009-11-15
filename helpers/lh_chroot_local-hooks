@@ -25,13 +25,13 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 Echo_message "Begin executing local hooks..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
+Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
 Check_stagefile .stage/chroot_local-hooks
@@ -57,7 +57,7 @@ then
 		fi
 
 		# Executing hook
-		Chroot "/root/$(basename ${HOOK})"
+		Chroot chroot "/root/$(basename ${HOOK})"
 
 		# Removing hook
 		rm -f chroot/root/"$(basename ${HOOK})"

@@ -25,13 +25,13 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 Echo_message "Begin creating manifest..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
+Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
 Check_stagefile .stage/binary_manifest
@@ -45,7 +45,7 @@ Create_lockfile .lock
 if [ "${LH_INITRAMFS}" = "casper" ]
 then
 	# Add filesystem.manifest
-	Chroot "dpkg --get-selections" | awk '{ print $1 }' | sort -u > binary/casper/filesystem.manifest
+	Chroot chroot "dpkg --get-selections" | awk '{ print $1 }' | sort -u > binary/casper/filesystem.manifest
 fi
 
 # Add packages.list
@@ -55,7 +55,7 @@ This file contains the list of all packages installed in this live system.
 
 EOF
 
-Chroot "dpkg -l" >> binary/packages.txt
+Chroot chroot "dpkg -l" >> binary/packages.txt
 
 cp binary/packages.txt binary.packages
 

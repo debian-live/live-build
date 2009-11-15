@@ -25,13 +25,13 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 Echo_message "Begin applying chroot local patches..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
+Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
 Check_stagefile .stage/chroot_local-patches
@@ -56,7 +56,7 @@ then
 	for PATCH in config/chroot_local-patches/*
 	do
 		Echo_message "Applying patch %s..." "${PATCH}"
-		Chroot "patch -p1" < ${PATCH}
+		Chroot chroot "patch -p1" < ${PATCH}
 	done
 
 	# Removing depends

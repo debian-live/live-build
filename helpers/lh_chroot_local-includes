@@ -25,13 +25,13 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 Echo_message "Begin copying chroot local includes..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
+Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
 Check_stagefile .stage/chroot_local-includes
@@ -46,7 +46,7 @@ if Find_files config/chroot_local-includes/
 then
 	# Copying includes
 	cd config/chroot_local-includes
-	find . | cpio -dmpu "${OLDPWD}"/chroot
+	find . | cpio -dmpu --no-preserve-owner "${OLDPWD}"/chroot
 	cd "${OLDPWD}"
 
 	# Creating stage file

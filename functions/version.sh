@@ -7,12 +7,10 @@
 # This is free software, and you are welcome to redistribute it
 # under certain conditions; see COPYING for details.
 
-set -e
-
 Version ()
 {
 	Echo "%s, version %s" "${PROGRAM}" "${VERSION}"
-	Echo "This program is a part of live-helper."
+	Echo "This program is a part of %s" "${PACKAGE}" "."
 	echo
 	Echo "Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>"
 	echo

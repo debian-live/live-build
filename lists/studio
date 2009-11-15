@@ -8,7 +8,9 @@
 
 alsa-tools
 alsa-tools-gui
+#if DISTRIBUTION etch sid
 ardour-gtk
+#endif
 ams
 amsynth
 artsbuilder

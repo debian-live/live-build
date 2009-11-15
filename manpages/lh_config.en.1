@@ -16,6 +16,10 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-apt\-pdiffs\fR enabled|disabled]
 .br
+	[--aptitude-options OPTION|"OPTIONS"]
+.br
+	[--apt-options OPTION|"OPTIONS"]
+.br
 	[\fB\-\-apt\-pipeline\fR \fIFIXME\fR]
 .br
 	[\fB\-\-apt\-recommends\fR enabled|disabled]
@@ -36,7 +40,7 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-bootloader\fR grub|syslinux|yaboot]
 .br
-	[\fB\-\-bootstrap\fR cdebootstrap|debootstrap]
+	[\fB\-\-bootstrap\fR cdebootstrap|debootstrap|copy]
 .br
 	[\fB\-\-bootstrap\-config\fR \fIFILE\fR]
 .br
@@ -66,9 +70,11 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-debconf\-priority\fR low|medium|high|critical]
 .br
-	[\fB\-\-debian\-installer\fR enabled|disabled]
+	[\fB\-\-debian\-installer\fR enabled|cdrom|netinst|netboot|businesscard|live|disabled]
 .br
-	[\fB\-\-debian\-installer\-distribution\fR daily|\fICODENAME\fR]]
+	[\fB\-\-debian\-installer\-distribution\fR daily|\fICODENAME\fR]
+.br
+	[\fB\-\-debian\-installer\-preseedfile\fR \fIFILE\fR|\fIURL\fR]
 .br
 	[\-d|\fB\-\-distribution\fR \fICODENAME\fR]
 .br
@@ -98,6 +104,8 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-iso\-volume\fR \fINAME\fR]
 .br
+	[\fB\-\-jffs2\-eraseblock\fR \fISIZE\fR]
+.br
 	[\fB\-\-keyring\-packages\fR \fIPACKAGE\fI|\fI"PACKAGES"\fR]
 .br
 	[\-l|\fB\-\-language\fR \fILANGUAGE\fR]
@@ -117,6 +125,8 @@ lh_config \- create configuration for live\-helper
 	[\fB\-\-mirror\-bootstrap\-security\fR \fIURL\fR]
 .br
 	[\-m|\fB\-\-mirror\-bootstrap\fR \fIURL\fR]
+.br
+	[\fB\-\-mirror\-chroot\fR \fIURL\fR]
 .br
 	[\fB\-\-mode\fR debian|debian\-edu]
 .br
@@ -194,7 +204,7 @@ directory.
 .IP "\fB\-\-bootappend\-install\fR \fIPARAMETER\fR|\fI""PARAMETERS""\fR" 4
 .IP "\fB\-\-bootappend\-live\fR \fIPARAMETER\fR|\fI""PARAMETERS""\fR" 4
 .IP "\fB\-\-bootloader\fR grub|syslinux|yaboot" 4
-.IP "\fB\-\-bootstrap\fR cdebootstrap|debootstrap" 4
+.IP "\fB\-\-bootstrap\fR cdebootstrap|debootstrap|copy" 4
 .IP "\fB\-\-bootstrap\-config\fR \fIFILE\fR" 4
 .IP "\-f|\fB\-\-bootstrap\-flavour\fR minimal|standard" 4
 .IP "\fB\-\-bootstrap\-keyring\fR \fIPACKAGE\fR" 4

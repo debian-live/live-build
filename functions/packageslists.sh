@@ -7,8 +7,6 @@
 # This is free software, and you are welcome to redistribute it
 # under certain conditions; see COPYING for details.
 
-set -e
-
 Expand_packagelist ()
 {
 	_LH_EXPAND_QUEUE="$(basename "${1}")"
@@ -28,6 +26,7 @@ Expand_packagelist ()
 			if [ -e "${_LH_SEARCH_PATH}/${_LH_LIST_NAME}" ]
 			then
 				_LH_LIST_LOCATION="${_LH_SEARCH_PATH}/${_LH_LIST_NAME}"
+				break
 			fi
 		done
 

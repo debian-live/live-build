@@ -25,7 +25,7 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 if [ "${LH_SOURCE}" != "enabled" ]
@@ -36,7 +36,7 @@ fi
 Echo_message "Begin downloading sources..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
+Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
 Check_stagefile .stage/source_debian
@@ -54,9 +54,9 @@ then
 fi
 
 # Download sources
-Chroot "dpkg --get-selections" | awk '{ print $1 }' > chroot/root/dpkg-selection.txt
+Chroot chroot "dpkg --get-selections" | awk '{ print $1 }' > source-selection.txt
 
-cat >> chroot/root/dpkg-selection.txt << EOF
+cat >> source-selection.txt << EOF
 ${LH_BOOTLOADER}
 live-helper
 ${LH_INITRAMFS}
@@ -71,7 +71,7 @@ EOF
 case "${LH_ARCHITECTURE}" in
 	amd64|i386)
 
-cat >> chroot/root/dpkg-selection.txt << EOF
+cat >> source-selection.txt << EOF
 mtools
 syslinux
 grub
@@ -79,21 +79,55 @@ EOF
 
 		if [ "${LH_MEMTEST}" != "disabled" ] && [ "${LH_MEMTEST}" != "none" ]
 		then
-			echo "${LH_MEMTEST}" >> chroot/root/dpkg-selection.txt
+			echo "${LH_MEMTEST}" >> source-selection.txt
 		fi
 		;;
 
 	powerpc)
-		echo "yaboot" >> chroot/root/dpkg-selection.txt
+		echo "yaboot" >> source-selection.txt
 		;;
 
-	silo)
-		echo "silo" >> chroot/root/dpkg-selection.txt
+	sparc)
+
+cat >> source-selection.txt << EOF
+silo
+sparc-utils
+EOF
+
 		;;
 esac
 
-Chroot "xargs --arg-file=/root/dpkg-selection.txt apt-get ${APT_OPTIONS} --download-only source"
-rm -f chroot/root/dpkg-selection.txt
+if [ -n "${LH_TASKS}" ]
+then
+	echo "${LH_TASKSEL}" >> source-selection.txt
+fi
+
+MISSING=""
+
+grep . source-selection.txt | \
+while read PACKAGE
+do
+	if ! Chroot chroot "apt-get ${APT_OPTIONS} --download-only source ${PACKAGE}"
+	then
+		MISSING="${MISSING} ${PACKAGE}"
+	fi
+done
+
+if [ -n "${MISSING}" ]
+then
+	cat > source/missing-source.txt << EOF
+This file contains the list of binary packages that are installed on this live
+system that do not have a corresponding source package.
+
+EOF
+
+	for PACKAGE in ${MISSING}
+	do
+		Chroot chroot "dpkg -l ${PACKAGE}" | tail -n1 >> source/missing-source.txt
+	done
+fi
+
+rm -f source-selection.txt
 
 # Sort sources
 for DSC in chroot/*.dsc

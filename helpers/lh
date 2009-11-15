@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# live-helper(1) - utility to build Debian Live systems
+# live-helper(7) - utility to build Debian Live systems
 # Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -48,9 +48,12 @@ case "${1}" in
 		;;
 
 	*)
-		if [ ! -z "$(whereis lh_${1})" ]
+		COMMAND="${1}"
+		shift
+
+		if [ -x "$(which lh_${COMMAND} 2>/dev/null)" ]
 		then
-			exec lh_"${1}" $(echo ${@} | sed -e "s|${1}||")
+			exec lh_"${COMMAND}" ${@}
 		else
 			Echo_error "no such helper"
 			exit 1

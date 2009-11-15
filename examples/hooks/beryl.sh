@@ -3,9 +3,11 @@
 # This is a hook for live-helper(7) to install beryl and enable aiglx.
 # It was originally written by Inigo Tejedor Arrondo <inigo@navarrux.org>.
 #
-# To enable it, copy this hook into your config/chroot_local-hooks directory.
-# for forcing aiglx activation type at boot prompt "live forceaiglx"
-# for forcing aiglx deactivation type "live noaiglx"
+# To enable it, copy or symlink this hook into your config/chroot_local-hooks
+# directory.
+#
+# For forcing aiglx activation type at boot prompt "live forceaiglx".
+# For forcing aiglx deactivation type "live noaiglx".
 
 # Importing archive signing key
 wget -O - http://debian.beryl-project.org/root@lupine.me.uk.gpg | apt-key add -

@@ -25,7 +25,7 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 if [ "${LH_SOURCE}" != "enabled" ]
@@ -36,7 +36,7 @@ fi
 Echo_message "Begin copying live-helper configuration..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
+Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
 Check_stagefile .stage/source_debian-live
@@ -57,21 +57,28 @@ fi
 mkdir -p source/debian-live
 cp -a config source/debian-live
 
+if Find_files scripts/*
+then
+	cp -a scripts source/debian-live
+fi
+
 # Create tarball
 cd source
 
+SUFFIX="$(date +%Y%m%d.%s)"
+
 if gzip --help | grep -qs '\-\-rsyncable'
 then
-	tar cf debian-live-config_$(date +%Y%m%d.%s).tar debian-live
-	gzip --rsyncable --best debian-live-config_$(date +%Y%m%d.%s).tar
+	tar cf debian-live-config_${SUFFIX}.tar debian-live
+	gzip --rsyncable --best debian-live-config_${SUFFIX}.tar
 else
-	tar cfz debian-live-config_$(date +%Y%m%d.%s).tar.gz debian-live
+	tar cfz debian-live-config_${SUFFIX}.tar.gz debian-live
 fi
 
 cd "${OLDPWD}"
 
 rm -rf source/debian-live/config
-mv source/debian-live-config_*.tar.gz source/debian-live
+mv source/debian-live-config_${SUFFIX}.tar.gz source/debian-live
 
 # Creating stage file
 Create_stagefile .stage/source_debian-live

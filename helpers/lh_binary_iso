@@ -25,7 +25,7 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 if ! In_list iso "${LH_BINARY_IMAGES}"
@@ -36,7 +36,7 @@ fi
 Echo_message "Begin building binary iso image..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
+Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
 Check_stagefile .stage/binary_iso
@@ -62,12 +62,16 @@ then
 	rm -f binary.iso
 fi
 
-if [ "${LH_QUIET}" = "enabled" ]
+# Handle genisoimage generic options
+GENISOIMAGE_OPTIONS="-J -l -cache-inodes -allow-multidot"
+
+# Handle genisoimage live-helper specific options
+if [ "${_QUIET}" = "enabled" ]
 then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -quiet"
 fi
 
-if [ "${LH_VERBOSE}" = "enabled" ]
+if [ "${_VERBOSE}" = "enabled" ]
 then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -v"
 fi
@@ -92,7 +96,15 @@ then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -V \"${LH_ISO_VOLUME}\""
 fi
 
-# Create image
+if In_list "stripped minimal" "${LH_PACKAGES_LISTS}"
+then
+	if [ "${LH_DEBIAN_INSTALLER}" != "live" ]
+	then
+		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m ${GENISOIMAGE_EXCLUDE}"
+	fi
+fi
+
+# Handle genisoimage architecture specific options
 case "${LH_BOOTLOADER}" in
 	grub)
 		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -no-emul-boot -boot-load-size 4 -boot-info-table"
@@ -119,21 +131,14 @@ case "${LH_BOOTLOADER}" in
 		;;
 
 	*)
-		Echo_warning "Bootloader on your architecture not yet supported (Continuing in 5 seconds)."
+		Echo_warning "Bootloader on your architecture not yet supported by live-helper."
+		Echo_warning "This will produce a most likely not bootable image (Continuing in 5 seconds)."
 		sleep 5
 		;;
 esac
 
-if In_list "stripped minimal" "${LH_PACKAGES_LISTS}"
-then
-	if [ "${LH_DEBIAN_INSTALLER}" != "live" ]
-	then
-		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m ${GENISOIMAGE_EXCLUDE}"
-	fi
-fi
-
 cat > binary.sh << EOF
-genisoimage ${GENISOIMAGE_OPTIONS} -o binary.iso -J -l -cache-inodes -allow-multidot binary
+genisoimage ${GENISOIMAGE_OPTIONS} -o binary.iso binary
 EOF
 
 case "${LH_CHROOT_BUILD}" in
@@ -142,7 +147,7 @@ case "${LH_CHROOT_BUILD}" in
 		mv binary.sh chroot
 		mv binary chroot
 
-		Chroot "sh binary.sh"
+		Chroot chroot "sh binary.sh"
 
 		# Move image
 		mv chroot/binary chroot/binary.iso ./

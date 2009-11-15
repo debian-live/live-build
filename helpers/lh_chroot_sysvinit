@@ -25,13 +25,13 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 Echo_message "Configuring package sysvinit"
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
+Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
 Check_stagefile .stage/chroot_sysvinit
@@ -47,7 +47,7 @@ then
 	# Disable all
 	for FILE in chroot/etc/init.d/*
 	do
-		Chroot "update-rc.d -f $(basename ${FILE}) remove"
+		Chroot chroot "update-rc.d -f $(basename ${FILE}) remove"
 	done
 
 	# Re-enable all required (taken from -f standard chroot)
@@ -56,7 +56,7 @@ then
 		if [ -f chroot/var/lib/dpkg/info/${PACKAGE}.postinst ]
 		then
 			# Re-configure if existing
-			Chroot "/var/lib/dpkg/info/${PACKAGE}.postinst configure"
+			Chroot chroot "/var/lib/dpkg/info/${PACKAGE}.postinst configure"
 		fi
 	done
 

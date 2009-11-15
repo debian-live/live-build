@@ -7,8 +7,6 @@
 # This is free software, and you are welcome to redistribute it
 # under certain conditions; see COPYING for details.
 
-set -e
-
 Restore_cache ()
 {
 	DIRECTORY="${1}"
@@ -37,7 +35,7 @@ Save_cache ()
 	if [ "${LH_CACHE}" = "enabled" ] && [ "${LH_CACHE_PACKAGES}" = "enabled" ]
 	then
 		# Cleaning current cache
-		Chroot "apt-get autoclean"
+		Chroot chroot "apt-get autoclean"
 
 		if ls chroot/var/cache/apt/archives/*.deb > /dev/null 2>&1
 		then

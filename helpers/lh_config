@@ -36,7 +36,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--bootappend-install PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootappend-live PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootloader grub|syslinux|yaboot]\n\
-\t    [--bootstrap cdebootstrap|debootstrap]\n\
+\t    [--bootstrap cdebootstrap|debootstrap|copy]\n\
 \t    [--bootstrap-config FILE]\n\
 \t    [-f|--bootstrap-flavour minimal|standard]\n\
 \t    [--bootstrap-keyring PACKAGE]\n\
@@ -151,6 +151,42 @@ Local_arguments ()
 	while true
 	do
 		case "${1}" in
+			--dump)
+				# Dump version
+				if [ -x "$(which dpkg 2>/dev/null)" ]
+				then
+					echo "${0}: This is live-helper version $(dpkg-query --show -f='${Version}')"
+				else
+					echo "${0}: This is live-helper version ${VERSION}"
+				fi
+
+				# Dump conffile contents
+				Print_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+
+				# Dump contents of directories that contain text files
+				for DIRECTORY in config/binary_local-packageslists config/chroot_local-packageslists config/chroot_apt config/chroot_local-patches config/chroot_local-preseed config/binary_rootfs
+				do
+					if Find_files "${DIRECTORY}"
+					then
+						Echo_file "${DIRECTORY}"/*
+					fi
+				done
+
+				# Dump directory listings of all directories under config/
+				for DIRECTORY in $(find config/ -type d -mindepth 1 -maxdepth 1)
+				do
+					if Find_files "${DIRECTORY}"
+					then
+						ls -lR "${DIRECTORY}" | while read LINE
+						do
+							echo "${DIRECTORY}: ${LINE}"
+						done
+					fi
+				done
+
+				exit 0
+				;;
+
 			# config/common
 			--apt)
 				LH_APT="${2}"
@@ -279,31 +315,6 @@ Local_arguments ()
 			--templates)
 				LH_TEMPLATES="${2}"
 				shift 2
-				;;
-
-			--breakpoints)
-				LH_BREAKPOINTS="enabled"
-				shift
-				;;
-
-			--debug)
-				LH_DEBUG="enabled"
-				shift
-				;;
-
-			--force)
-				LH_FORCE="enabled"
-				shift
-				;;
-
-			--quiet)
-				LH_QUIET="enabled"
-				shift
-				;;
-
-			--verbose)
-				LH_VERBOSE="enabled"
-				shift
 				;;
 
 			-v|--version)
@@ -627,22 +638,27 @@ Local_arguments ()
 
 			# other
 			--breakpoints)
-				LH_BREAKPOINTS="enabled"
+				_BREAKPOINTS="enabled"
 				shift
 				;;
 
 			-c|--conffile)
-				LH_CONFFILE="${2}"
+				_CONFFILE="${2}"
 				shift 2
 				;;
 
+			--color)
+				_COLOR="enabled"
+				shift
+				;;
+
 			--debug)
-				LH_DEBUG="enabled"
+				_DEBUG="enabled"
 				shift
 				;;
 
 			--force)
-				LH_FORCE="enabled"
+				_FORCE="enabled"
 				shift
 				;;
 
@@ -656,7 +672,7 @@ Local_arguments ()
 				;;
 
 			--quiet)
-				LH_QUIET="enabled"
+				_QUIET="enabled"
 				shift
 				;;
 
@@ -666,7 +682,7 @@ Local_arguments ()
 				;;
 
 			--verbose)
-				LH_VERBOSE="enabled"
+				_VERBOSE="enabled"
 				shift
 				;;
 
@@ -692,17 +708,17 @@ Local_arguments ()
 if [ -f "${SYSTEM_LH_CONFFILE}" ] && ! In_list "--ignore-system-defaults" "${@}"
 then
 	Echo_message "Considering defaults defined in %s" "${SYSTEM_LH_CONFFILE}"
-	Read_conffile "${SYSTEM_LH_CONFFILE}"
+	Read_conffiles "${SYSTEM_LH_CONFFILE}"
 fi
 
 # Reading existing configuration
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 
 Local_arguments "${@}"
 
-if [ -n "${LH_CONFFILE}" ]
+if [ -n "${_CONFFILE}" ]
 then
-	Read_conffile "${LH_CONFFILE}"
+	Read_conffiles "${_CONFFILE}"
 fi
 
 # Setting defaults
@@ -818,25 +834,29 @@ LH_TEMPLATES="${LH_TEMPLATES}"
 
 # Live-helper options
 
-# \$LH_BREAKPOINTS: enable breakpoints
-# (Default: ${LH_BREAKPOINTS})
-#LH_BREAKPOINTS="${LH_BREAKPOINTS}"
+# \$_BREAKPOINTS: enable breakpoints
+# (Default: ${_BREAKPOINTS})
+#_BREAKPOINTS="${_BREAKPOINTS}"
 
-# \$LH_DEBUG: enable debug
-# (Default: ${LH_DEBUG})
-#LH_DEBUG="${LH_DEBUG}"
+# \$_DEBUG: enable debug
+# (Default: ${_DEBUG})
+#_DEBUG="${_DEBUG}"
 
-# \$LH_FORCE: enable force
-# (Default: ${LH_FORCE})
-#LH_FORCE="${LH_FORCE}"
+# \$_COLOR: enable color
+# (Default: ${_COLOR})
+#_COLOR="${_COLOR}"
 
-# \$LH_QUIET: enable quiet
-# (Default: ${LH_QUIET})
-LH_QUIET="${LH_QUIET}"
+# \$_FORCE: enable force
+# (Default: ${_FORCE})
+#_FORCE="${_FORCE}"
 
-# \$LH_VERBOSE: enable verbose
-# (Default: ${LH_VERBOSE})
-#LH_VERBOSE="${LH_VERBOSE}"
+# \$_QUIET: enable quiet
+# (Default: ${_QUIET})
+_QUIET="${_QUIET}"
+
+# \$_VERBOSE: enable verbose
+# (Default: ${_VERBOSE})
+#_VERBOSE="${_VERBOSE}"
 
 # Internal stuff (FIXME)
 APT_OPTIONS="${APT_OPTIONS}"
@@ -976,6 +996,7 @@ EOF
 
 # Creating lh_binary_* configuration
 mkdir -p config/binary_debian-installer
+mkdir -p config/binary_debian-installer-includes
 mkdir -p config/binary_grub
 mkdir -p config/binary_local-debs
 mkdir -p config/binary_local-hooks
@@ -1171,3 +1192,6 @@ then
 		debconf-get-selections | grep -v deinstall | cut -f1 > config/chroot_local-preseed/local-system
 	fi
 fi
+
+# Creating stage file
+Create_stagefile .stage/config

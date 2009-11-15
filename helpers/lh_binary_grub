@@ -25,7 +25,7 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 if [ "${LH_BOOTLOADER}" != "grub" ]
@@ -36,7 +36,7 @@ fi
 Echo_message "Begin installing grub..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
+Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
 Check_stagefile .stage/binary_grub
@@ -120,7 +120,8 @@ case "${LH_BINARY_IMAGES}" in
 		;;
 
 	usb-hdd|net)
-		Echo_error "not yet supported, aborting (FIXME)."
+		Echo_warning "Bootloader in this image type not yet supported by live-helper."
+		Echo_warning "This would produce a not bootable image, aborting (FIXME)."
 		exit 1
 	;;
 esac

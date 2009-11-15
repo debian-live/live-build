@@ -25,7 +25,7 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 if [ "${LH_SOURCE}" != "enabled" ]
@@ -41,7 +41,7 @@ fi
 Echo_message "Begin building source iso image..."
 
 # Requiring stage file
-Require_stagefile .stage/source_debian
+Require_stagefile .stage/config .stage/source_debian
 
 # Checking stage file
 Check_stagefile .stage/source_iso
@@ -64,12 +64,12 @@ then
 	rm -f source.iso
 fi
 
-if [ "${LH_QUIET}" = "enabled" ]
+if [ "${_QUIET}" = "enabled" ]
 then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -quiet"
 fi
 
-if [ "${LH_VERBOSE}" = "enabled" ]
+if [ "${_VERBOSE}" = "enabled" ]
 then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -v"
 fi
@@ -101,7 +101,7 @@ cat >> chroot/source.sh << EOF
 genisoimage ${GENISOIMAGE_OPTIONS} -o source.iso -r -J -l -cache-inodes source
 EOF
 
-Chroot "sh source.sh"
+Chroot chroot "sh source.sh"
 
 # Move image
 mv chroot/source chroot/source.iso ./

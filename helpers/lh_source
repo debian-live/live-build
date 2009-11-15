@@ -25,10 +25,13 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 Require_stagefile .stage/chroot_install-packages
+
+# Setup cleanup function
+Setup_cleanup
 
 # Enabling network in chroot
 lh_chroot_hosts install ${*}

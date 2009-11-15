@@ -25,13 +25,13 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 Echo_message "Begin installing tasks..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
+Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
 Check_stagefile .stage/chroot_tasks
@@ -64,13 +64,13 @@ then
 	# Installing tasks
 	case "${LH_TASKSEL}" in
 		aptitude)
-			Chroot "aptitude ${APTITUDE_OPTIONS} install ${LH_TASKS}"
+			Chroot chroot "aptitude ${APTITUDE_OPTIONS} install ${LH_TASKS}"
 			;;
 
 		tasksel)
 			for TASK in ${LH_TASKS}
 			do
-				Chroot "tasksel --debconf-apt-progress --logstderr install ${TASK}"
+				Chroot chroot "tasksel --debconf-apt-progress --logstderr install ${TASK}"
 			done
 			;;
 	esac

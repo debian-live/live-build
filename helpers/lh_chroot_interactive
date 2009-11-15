@@ -25,7 +25,7 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 if [ "${LH_INTERACTIVE}" = "disabled" ]
@@ -36,7 +36,7 @@ fi
 Echo_message "Begin interactive build..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
+Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
 Check_stagefile .stage/chroot_interactive
@@ -50,15 +50,15 @@ Create_lockfile .lock
 case "${LH_INTERACTIVE}" in
 	enabled|shell)
 		Echo_message "Pausing build: starting interactive shell..."
-			Chroot "/bin/bash --login"
+			Chroot chroot "/bin/bash --login"
 		;;
 		x11)
 		Echo_message "Pausing build: starting interactive X11..."
-			Chroot "startx"
+			Chroot chroot "startx"
 		;;
 		xnest)
 		Echo_message "Pausing build: starting interactive Xnest..."
-			#Chroot "" # FIXME
+			#Chroot chroot "" # FIXME
 		;;
 esac
 

@@ -7,17 +7,15 @@
 # This is free software, and you are welcome to redistribute it
 # under certain conditions; see COPYING for details.
 
-set -e
-
 Apt ()
 {
 	case "${LH_APT}" in
 		apt|apt-get)
-			Chroot apt-get ${APT_OPTIONS} ${@}
+			Chroot chroot apt-get ${APT_OPTIONS} ${@}
 			;;
 
 		aptitude)
-			Chroot aptitude ${APTITUDE_OPTIONS} ${@}
+			Chroot chroot aptitude ${APTITUDE_OPTIONS} ${@}
 			;;
 	esac
 }

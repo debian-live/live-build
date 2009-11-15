@@ -3,5 +3,5 @@
 ## LH: LXDE
 #include <standard-x11>
 
-gdm lxde lxsession-lite lxrandr lxappearance lxnm
+gdm lxde lxnm
 desktop-base

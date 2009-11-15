@@ -7,8 +7,6 @@
 # This is free software, and you are welcome to redistribute it
 # under certain conditions; see COPYING for details.
 
-set -e
-
 Arguments ()
 {
 	ARGUMENTS="$(getopt --longoptions breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options c:huv --shell sh -- "${@}")"
@@ -25,22 +23,22 @@ Arguments ()
 	do
 		case "${1}" in
 			--breakpoints)
-				LH_BREAKPOINTS="enabled"
+				_BREAKPOINTS="enabled"
 				shift
 				;;
 
 			-c|--conffile)
-				LH_CONFFILE="${2}"
+				_CONFFILE="${2}"
 				shift 2
 				;;
 
 			--debug)
-				LH_DEBUG="enabled"
+				_DEBUG="enabled"
 				shift
 				;;
 
 			--force)
-				LH_FORCE="enabled"
+				_FORCE="enabled"
 				shift
 				;;
 
@@ -50,7 +48,7 @@ Arguments ()
 				;;
 
 			--quiet)
-				LH_QUIET="enabled"
+				_QUIET="enabled"
 				shift
 				;;
 
@@ -60,7 +58,7 @@ Arguments ()
 				;;
 
 			--verbose)
-				LH_VERBOSE="enabled"
+				_VERBOSE="enabled"
 				shift
 				;;
 

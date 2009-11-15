@@ -7,8 +7,6 @@
 # This is free software, and you are welcome to redistribute it
 # under certain conditions; see COPYING for details.
 
-set -e
-
 Check_stagefile ()
 {
 	FILE="${1}"
@@ -17,7 +15,7 @@ Check_stagefile ()
 	# Checking stage file
 	if [ -f "${FILE}" ]
 	then
-		if [ "${LH_FORCE}" != "enabled" ]
+		if [ "${_FORCE}" != "enabled" ]
 		then
 			# Skipping execution
 			Echo_warning "skipping %s" "${NAME}"

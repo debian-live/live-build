@@ -25,7 +25,7 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 case "${LH_ENCRYPTION}" in
@@ -53,8 +53,7 @@ esac
 Echo_message "Begin encrypting root filesystem image..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
-Require_stagefile .stage/binary_rootfs
+Require_stagefile .stage/config .stage/bootstrap .stage/binary_rootfs
 
 # Checking stage file
 Check_stagefile .stage/binary_encryption
@@ -103,7 +102,7 @@ do
 
 	case "${LH_CHROOT_BUILD}" in
 		enabled)
-			if Chroot aespipe -e ${LH_ENCRYPTION} -T \
+			if Chroot chroot aespipe -e ${LH_ENCRYPTION} -T \
 				< chroot/filesystem.${LH_CHROOT_FILESYSTEM} \
 				> chroot/filesystem.${LH_CHROOT_FILESYSTEM}.tmp
 			then

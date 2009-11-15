@@ -25,13 +25,13 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 Echo_message "Begin executing hacks..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
+Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
 Check_stagefile .stage/chroot_hacks
@@ -95,9 +95,19 @@ then
 	${LH_ROOT_COMMAND} chown -R --quiet $(whoami):$(whoami) chroot
 fi
 
-if [ "${LH_INITRAMFS}" = "casper" ] && [ -d chroot/home/${LH_USERNAME} ]
+case "${LH_INITRAMFS}" in
+	casper)
+		ID="999"
+		;;
+
+	*)
+		ID="1000"
+		;;
+esac
+
+if [ -d chroot/home/${LH_USERNAME} ]
 then
-	chown -R --quiet 999:999 chroot/home/${LH_USERNAME}
+	chown -R --quiet ${ID}:${ID} chroot/home/${LH_USERNAME}
 fi
 
 # This is a temporary hack to get rid of fstab;

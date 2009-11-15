@@ -7,9 +7,7 @@
 # This is free software, and you are welcome to redistribute it
 # under certain conditions; see COPYING for details.
 
-set -e
-
-Read_conffile ()
+Get_conffiles ()
 {
 	if [ -n "${LH_CONFIG}" ]
 	then
@@ -24,7 +22,12 @@ Read_conffile ()
 		done
 	fi
 
-	for CONFFILE in ${FILES}
+	echo ${FILES}
+}
+
+Read_conffiles ()
+{
+	for CONFFILE in Get_conffiles "${@}"
 	do
 		if [ -f "${CONFFILE}" ]
 		then
@@ -35,6 +38,17 @@ Read_conffile ()
 			else
 				Echo_warning "Failed to read configuration file %s" "${CONFFILE}"
 			fi
+		fi
+	done
+}
+
+Print_conffiles ()
+{
+	for CONFFILE in Get_conffiles "${@}"
+	do
+		if [ -f "${CONFFILE}" ]
+		then
+			Echo_file "${CONFFILE}"
 		fi
 	done
 }

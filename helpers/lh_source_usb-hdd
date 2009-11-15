@@ -25,7 +25,7 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 if [ "${LH_SOURCE}" != "enabled" ]
@@ -41,7 +41,7 @@ fi
 Echo_message "Begin building source usb-hdd image..."
 
 # Requiring stage file
-Require_stagefile .stage/source_debian
+Require_stagefile .stage/config .stage/source_debian
 
 # Checking stage file
 Check_stagefile .stage/source_usb-hdd
@@ -95,9 +95,9 @@ esac
 
 Echo_warning "!!! The following error/warning messages can be ignored !!!"
 Losetup $FREELO source.img 0
-Chroot "parted -s ${FREELO} mklabel msdos" || true
-Chroot "parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100%" || true
-Chroot "parted -s ${FREELO} set 1 lba off" || true
+Chroot chroot "parted -s ${FREELO} mklabel msdos" || true
+Chroot chroot "parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100%" || true
+Chroot chroot "parted -s ${FREELO} set 1 lba off" || true
 ${LH_LOSETUP} -d ${FREELO}
 
 Losetup $FREELO source.img 1
@@ -119,7 +119,7 @@ case "${LH_BINARY_FILESYSTEM}" in
 		;;
 esac
 
-Chroot "mkfs.${MKFS} ${MKFS_OPTIONS} ${FREELO}"
+Chroot chroot "mkfs.${MKFS} ${MKFS_OPTIONS} ${FREELO}"
 
 mkdir -p source.tmp
 ${LH_ROOT_COMMAND} mount ${FREELO} source.tmp

@@ -25,13 +25,13 @@ USAGE="${PROGRAM} [--force]"
 Arguments "${@}"
 
 # Reading configuration files
-Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
 Echo_message "Begin installing packages..."
 
 # Requiring stage file
-Require_stagefile .stage/bootstrap
+Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
 Check_stagefile .stage/chroot_install-packages
@@ -50,11 +50,11 @@ then
 	# Installing packages
 	case "${LH_APT}" in
 		apt|apt-get)
-			Chroot "xargs --arg-file=/root/chroot_packages apt-get ${APT_OPTIONS} install"
+			Chroot chroot "xargs --arg-file=/root/chroot_packages apt-get ${APT_OPTIONS} install"
 			;;
 
 		aptitude)
-			Chroot "xargs --arg-file=/root/chroot_packages aptitude ${APTITUDE_OPTIONS} install"
+			Chroot chroot "xargs --arg-file=/root/chroot_packages aptitude ${APTITUDE_OPTIONS} install"
 			;;
 	esac
 
