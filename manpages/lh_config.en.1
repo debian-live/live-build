@@ -164,7 +164,7 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-use-fakeroot\fR enabled|disabled]
 .br
-	[\fB\-\-categories\fR \fICATEGORY\fR|\fI"CATEGORIES"\fR]
+	[\fB\-\-archive\-areas\fR \fIARCHIVE_AREA\fR|\fI"ARCHIVE_AREAS"\fR]
 .br
 	[\fB\-\-security\fR enabled|disabled]
 .br
@@ -375,8 +375,8 @@ defines one or more packages to be installed in the live system. This is a quick
 controls if live-helper should use sudo internally to build the live image. Note that this is not well tested and that you should, when relying on sudo, call the individual live\-helper command with sudo itself.
 .IP "\fB\-\-use-fakeroot\fR enabled|disabled" 4
 controls if live-helper should utilize fakeroot and fakechroot to try and avoid requiring root privillages where possible. By default, this option is disabled.
-.IP "\fB\-\-categories\fR \fICATEGORY\fR|\fI""CATEGORIES""\fR" 4
-defines which package categories of a debian packages archive should be used for configured debian package mirrors. By default, this is set to main. Remember to check the licenses of each packages with respect to their redistributability in your juristiction when enabling contrib or non-free with this mechanism.
+.IP "\fB\-\-archive\-areas\fR \fIARCHIVE_AREA\fR|\fI""ARCHIVE_AREAS""\fR" 4
+defines which package archive areas of a debian packages archive should be used for configured debian package mirrors. By default, this is set to main. Remember to check the licenses of each packages with respect to their redistributability in your juristiction when enabling contrib or non-free with this mechanism.
 .IP "\fB\-\-security\fR enabled|disabled" 4
 defines if the security repositories specified in the security mirror options should be used or not.
 .IP "\fB\-\-source\fR enabled|disabled" 4

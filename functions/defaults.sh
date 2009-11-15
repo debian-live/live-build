@@ -405,16 +405,16 @@ Set_defaults ()
 		esac
 	fi
 
-	# Setting categories value
-	if [ -z "${LH_CATEGORIES}" ]
+	# Setting archive areas value
+	if [ -z "${LH_ARCHIVE_AREAS}" ]
 	then
 		case "${LH_MODE}" in
 			ubuntu)
-				LH_CATEGORIES="main restricted"
+				LH_ARCHIVE_AREAS="main restricted"
 				;;
 
 			*)
-				LH_CATEGORIES="main"
+				LH_ARCHIVE_AREAS="main"
 				;;
 		esac
 	fi
