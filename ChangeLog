@@ -1,3 +1,37 @@
+2006-08-31 Daniel Baumann <daniel@debian.org>
+
+	* Setting default sources.list while the image generation, restoring
+	  customized ones afterwards.
+
+2006-08-30 Daniel Baumann <daniel@debian.org>
+
+	* Cleanups:
+	  - moved 14patch_packages.sh to 13hack.sh.
+	  - simplified 13hack.sh.
+
+2006-08-29 Marco Amadori <marco.amadori@gmail.com>
+
+	* pxelinux.cfg: Updated to right defaults, first cifs then nfs or
+	  select your favorite way. Rationale: /dev/nfs is for kernel
+	  discovering, not for initramfs discover, casper will be just fine
+	  with "netboot".
+	* 13chroot.sh, 14patch_packages.sh: Added a simple system for patching
+	  packages, mainly for xserver-xorg so far.
+
+2006-08-28 Daniel Baumann <daniel@debian.org>
+
+	* Updated documentation.
+	* Added patch from Alex Owen <r.a.owen@qmul.ac.uk> to update
+	  pxelinux.cfg for NFS root in casper.
+
+2006-08-27 Daniel Baumann <daniel@debian.org>
+
+	* Cleanups.
+
+2006-08-27 Marco Amadori <marco.amadori@gmail.com>
+
+	* Added sysv init blocking policy.
+
 2006-08-22 Daniel Baumann <daniel@debian.org>
 
 	* Reorganised sources.

@@ -12,9 +12,15 @@
 Iso ()
 {
 	mkdir -p "${LIVE_ROOT}"/image/casper
+
+	# Switching package indices to default
+	Indices default
 	
 	# Generating rootfs image
 	Genrootfs
+
+	# Switching package indices to custom
+	Indices custom
 
 	# Installing syslinux
 	Syslinux iso

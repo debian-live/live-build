@@ -21,29 +21,13 @@ Chroot ()
 	then
 		# Configure chroot
 		Patch_chroot apply
+		#Patch_runlevel apply
 
 		# Configure network
 		Patch_network apply
 
 		# Configure sources.list
-		echo "deb ${LIVE_MIRROR} ${LIVE_DISTRIBUTION} ${LIVE_SECTION}" > "${LIVE_CHROOT}"/etc/apt/sources.list
-
-		case "${LIVE_DISTRIBUTION}" in
-			"${CODENAME_TESTING}")
-				echo "deb ${LIVE_MIRROR} ${CODENAME_TESTING}-proposed-updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-				echo "deb ${LIVE_MIRROR_SECURITY} ${CODENAME_TESTING}/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-				;;
-
-			"${CODENAME_STABLE}")
-				echo "deb ${LIVE_MIRROR_SECURITY} ${CODENAME_STABLE}/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-				;;
-
-			"${CODENAME_OLDSTABLE}")
-				echo "deb ${LIVE_MIRROR_SECURITY} ${CODENAME_OLDSTABLE}/updates ${LIVE_SECTION}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
-				;;
-		esac
-
-		Chroot_exec "apt-get update"
+		Indices custom
 
 		# Install secure apt
 		if [ "${LIVE_DISTRIBUTION}" = "${CODENAME_TESTING}" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_UNSTABLE}" ]
@@ -92,6 +76,9 @@ Chroot ()
 			Chroot_exec "${LIVE_HOOK}"
 		fi
 
+		# Temporary hacks for broken packages
+		Hack_xorg
+
 		# Clean apt packages cache
 		rm -f "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb
 		rm -f "${LIVE_CHROOT}"/var/cache/apt/archives/partial/*.deb
@@ -106,6 +93,7 @@ Chroot ()
 		Patch_network deapply
 
 		# Deconfigure chroot
+		#Patch_runlevel deapply
 		Patch_chroot deapply
 
 		# Touching stage file

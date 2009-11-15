@@ -23,7 +23,7 @@ install:
 
 	@# Install manpages
 	install -d -m 0755 $(DESTDIR)/usr/share/man/man8
-	install -m 0644 doc/*.8  $(DESTDIR)/usr/share/man/man8
+	install -m 0644 doc/man/*.8  $(DESTDIR)/usr/share/man/man8
 
 uninstall:
 	# Uninstalling make-live
