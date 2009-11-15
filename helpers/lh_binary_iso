@@ -105,7 +105,7 @@ case "${LIVE_BOOTLOADER}" in
 
 	syslinux)
 		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -no-emul-boot -boot-load-size 4 -boot-info-table"
-		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -b isolinux/isolinux.bin -c isolinux/boot.cat"
+		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -r -b isolinux/isolinux.bin -c isolinux/boot.cat"
 
 		if [ "${LIVE_PACKAGES_LISTS}" = "mini" ] || [ "${LIVE_PACKAGES_LISTS}" = "minimal" ]
 		then

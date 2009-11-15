@@ -2,19 +2,19 @@
 
 set -e
 
-BUILD="weekly"
+BUILD="sid"
 
 # Begin custom defaults
 AUTOBUILD="enabled"
 
 DATE="`date +%Y%m%d`"
-DESTDIR="/srv/debian-unofficial/ftp/debian-live"
+DESTDIR="/srv/debian-unofficial/ftp/debian-live/cdimage"
 TEMPDIR="/srv/tmp/live-helper"
 
 OPTIONS="--binary-indices disabled --initramfs live-initramfs"
 
 ARCHITECTURES="`dpkg --print-architecture`"
-DISTRIBUTIONS="lenny"
+DISTRIBUTIONS="sid"
 MIRROR_BOOTSTRAP="http://ftp.de.debian.org/debian/"
 MIRROR_BOOTSTRAP_SECURITY="http://ftp.de.debian.org/debian-security/"
 MIRROR_BINARY="http://ftp.debian.org/debian/"
@@ -53,7 +53,7 @@ else
 	exit 1
 fi
 
-echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: begin weekly build." >> /var/log/live
+echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: begin ${BUILD} build." >> /var/log/live
 
 for ARCHITECTURE in ${ARCHITECTURES}
 do
@@ -96,10 +96,10 @@ do
 			if [ ! -f "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${DATE}-usb-hdd-log.txt ]
 			then
 				# Workaround of missing multi-binary support in live-helper
-				mv "${TEMPDIR}"/debian-live/binary/live "${TEMPDIR}"/debian-live/live.tmp
+				mv "${TEMPDIR}"/debian-live/binary/casper "${TEMPDIR}"/debian-live/casper.tmp
 				rm -rf "${TEMPDIR}"/debian-live/binary* "${TEMPDIR}"/debian-live/.stage/binary_*
 				mkdir "${TEMPDIR}"/debian-live/binary
-				mv "${TEMPDIR}"/debian-live/live.tmp "${TEMPDIR}"/debian-live/binary/live
+				mv "${TEMPDIR}"/debian-live/casper.tmp "${TEMPDIR}"/debian-live/binary/casper
 				touch "${TEMPDIR}"/debian-live/.stage/binary_chroot
 				touch "${TEMPDIR}"/debian-live/.stage/binary_rootfs
 
@@ -167,4 +167,4 @@ done
 rm -f "${DESTDIR}"/"${BUILD}"-builds/current
 ln -s ${DATE} "${DESTDIR}"/"${BUILD}"-builds/current
 
-echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: end weekly build." >> /var/log/live
+echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: end ${BUILD} build." >> /var/log/live

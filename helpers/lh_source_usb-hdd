@@ -101,7 +101,7 @@ echo "!!! The above error/warning messages can be ignored !!!"
 
 if [ -n "${MAKEDEV}" ]
 then
-	rm -f chroot/dev
+	rm -rf chroot/dev
 	mv chroot/dev.tmp chroot/dev
 fi
 

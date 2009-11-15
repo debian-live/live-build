@@ -84,14 +84,41 @@ case "${LIVE_ARCHITECTURE}" in
 		;;
 esac
 
-if [ "${LIVE_DEBIAN_INSTALLER}" = "enabled" ]
+# Working arround vfat limitations
+if [ "${LIVE_BINARY_IMAGE}" = "usb-hdd" ]
 then
-	# Working arround vfat limitations
-	if [ "${LIVE_BINARY_IMAGE}" = "usb-hdd" ]
-	then
-		CP_OPTIONS="-L"
-	fi
+	CP_OPTIONS="-L"
+fi
 
+# Copying common templates
+if [ -d "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/common ] && \
+ls "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/common/* &> /dev/null
+then
+	cp -r ${CP_OPTIONS} "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/common/* binary
+fi
+
+if [ -d "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/common."${ARCH}" ] && \
+ls "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/common."${ARCH}"/* &> /dev/null
+then
+	cp -r ${CP_OPTIONS} "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/common."${ARCH}"/* binary
+fi
+
+# Copying live templates
+if [ -d "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live ] && \
+ls "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live/* &> /dev/null
+then
+	cp -r ${CP_OPTIONS} "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live/* binary
+fi
+
+if [ -d "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live."${ARCH}" ] && \
+ls "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live."${ARCH}"/* &> /dev/null
+then
+	cp -r ${CP_OPTIONS} "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live."${ARCH}"/* binary
+fi
+
+
+if [ "${LIVE_DEBIAN_INSTALLER}" != "disabled" ]
+then
 	# Copying install templates
 	if [ -d "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/install ] && \
 	ls "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/install/* &> /dev/null
@@ -106,7 +133,19 @@ then
 	fi
 
 	# Adjusting install templates
-	DEBIAN_NAME="Debian GNU/Linux 4.0 r0 \"Etch\" - Unofficial amd64 NETINST/LIVE Binary-1"
+	ARCHITECTURE="`echo ${LIVE_ARCHITECTURE} | sed -e 's# #/#g'`"
+	DISTRIBUTION="`echo ${LIVE_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]'`"
+	DISTRIBUTION="${DISTRIBUTION}`echo ${LIVE_DISTRIBUTION} | cut -b 2-`"
+	eval VERSION="$`echo VERSION_${LIVE_DISTRIBUTION}`"
+
+	if [ -d binary/pool/main/l/live-installer ]
+	then
+		TYPE="LIVE/INSTALL"
+	fi
+
+	TYPE="LIVE/NETINST"
+
+	DEBIAN_NAME="Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} ${TYPE} Binary `date +%Y%m%d-%H:%M`"
 	DEBIAN_DATE="`date +%Y%m%d-%H:%M`"
 
 	if [ "${LIVE_ARCHITECTURE}" = "i386" ]
@@ -120,19 +159,6 @@ then
 
 	sed -i -e "s#DEBIAN_NAME#${DEBIAN_NAME}#g" -e "s/DEBIAN_DATE/${DEBIAN_DATE}/g" -e "s#DEBIAN_TOOLS#${DEBIAN_TOOLS_HTML}#g" binary/README.html
 	sed -i -e "s#DEBIAN_NAME#${DEBIAN_NAME}#g" -e "s/DEBIAN_DATE/${DEBIAN_DATE}/g" -e "s#DEBIAN_TOOLS#${DEBIAN_TOOLS_TXT}#g" binary/README.txt
-fi
-
-# Copying live templates
-if [ -d "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live ] && \
-ls "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live/* &> /dev/null
-then
-	cp -r ${CP_OPTIONS} "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live/* binary
-fi
-
-if [ -d "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live."${ARCH}" ] && \
-ls "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live."${ARCH}"/* &> /dev/null
-then
-	cp -r ${CP_OPTIONS} "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live."${ARCH}"/* binary
 fi
 
 # Creating stage file

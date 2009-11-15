@@ -3,7 +3,7 @@
 # Needs: build-essential fakeroot lsb-release svn [...]
 
 # Static variables
-PACKAGES="live-helper live-initramfs live-magic live-sysvinit live-webhelper"
+PACKAGES="live-helper live-initramfs live-initscripts live-magic live-webhelper"
 
 DEBEMAIL="debian-live-devel@lists.alioth.debian.org"
 EMAIL="debian-live-devel@lists.alioth.debian.org"

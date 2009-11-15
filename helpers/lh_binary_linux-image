@@ -52,7 +52,15 @@ rm -f chroot/boot/initrd*bak*
 # Setting destination directory
 case "${LIVE_BINARY_IMAGES}" in
 	iso)
-		DESTDIR="binary/live"
+		case "${LH_INITRAMFS}" in
+			casper)
+				DESTDIR="binary/casper"
+				;;
+
+			live-initramfs)
+				DESTDIR="binary/live"
+				;;
+		esac
 		;;
 
 	net)
@@ -70,6 +78,20 @@ case "${LIVE_BINARY_IMAGES}" in
 		;;
 esac
 
+case "${LIVE_ARCHITECTURE}" in
+	amd64)
+		LINUX="vmlinuz"
+		;;
+
+	i386)
+		LINUX="vmlinuz"
+		;;
+
+	powerpc)
+		LINUX="vmlinux"
+		;;
+esac
+
 # Temporary check for broken syslinux
 if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
 then
@@ -79,17 +101,14 @@ then
 		case "${LIVE_ARCHITECTURE}" in
 			amd64)
 				DESTDIR="${DESTDIR}.amd"
-				LINUX="vmlinuz"
 				;;
 
 			i386)
 				DESTDIR="${DESTDIR}.386"
-				LINUX="vmlinuz"
 				;;
 
 			powerpc)
 				DESTDIR="${DESTDIR}.ppc"
-				LINUX="vmlinux"
 				;;
 		esac
 	fi

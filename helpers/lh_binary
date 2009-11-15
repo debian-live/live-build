@@ -32,6 +32,7 @@ lh_chroot_proc install ${*}
 lh_chroot_sysfs install ${*}
 lh_chroot_hosts install ${*}
 lh_chroot_resolv install ${*}
+lh_chroot_hostname install ${*}
 lh_chroot_sources install ${*}
 
 # Building root filesystem
@@ -46,9 +47,11 @@ lh_binary_memtest ${*}
 lh_binary_grub ${*}
 lh_binary_syslinux ${*}
 lh_binary_yaboot ${*}
+lh_binary_disk ${*}
 lh_binary_includes ${*}
 lh_binary_local-includes ${*}
 lh_binary_local-hooks ${*}
+lh_binary_hacks ${*}
 lh_binary_md5sum ${*}
 
 # Building images
@@ -59,6 +62,7 @@ lh_binary_usb-hdd ${*}
 
 # Deconfiguring chroot
 rm -f .stage/chroot_sources
+lh_chroot_hostname remove ${*}
 lh_chroot_resolv remove ${*}
 lh_chroot_hosts remove ${*}
 lh_chroot_sysfs remove ${*}

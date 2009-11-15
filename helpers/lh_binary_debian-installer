@@ -32,10 +32,29 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-if [ "${LIVE_DEBIAN_INSTALLER}" != "enabled" ]
-then
-	exit 0
-fi
+# Setting remote d-i directories
+case "${LIVE_DEBIAN_INSTALLER}" in
+	netinst)
+		DI="netboot/debian-installer/i386"
+ 		DI_GTK="netboot/gtk/debian-installer/i386"
+		DI_KERNEL="linux"
+		;;
+
+	cdrom|enabled)
+		DI="cdrom"
+		DI_GTK="${DI}/gtk"
+		DI_KERNEL="vmlinuz"
+		;;
+
+	disabled)
+		exit 0
+		;;
+
+	*)
+		Echo_error "debian-installer flavor ${LIVE_DEBIAN_INSTALLER} not supported."
+		exit 1
+		;;
+esac
 
 Echo_message "Begin installing debian-installer..."
 
@@ -55,7 +74,6 @@ Create_lockfile .lock
 case "${LIVE_BINARY_IMAGES}" in
 	iso)
 		DESTDIR="binary/install"
-		DI="cdrom"
 		;;
 
 	net)
@@ -68,7 +86,6 @@ case "${LIVE_BINARY_IMAGES}" in
 
 	tar|usb-hdd)
 		DESTDIR="binary/install"
-		DI="hd-media"
 
 		# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
 		if [ "${LIVE_DISTRIBUTION}" = "etch" ] && [ "${LIVE_BOOTLOADER}" = "syslinux" ]
@@ -130,17 +147,17 @@ if [ "${LIVE_DISTRIBUTION}" = "sid" ] # FIXME arch
 then
 	case "${LIVE_ARCHITECTURE}" in
 		amd64)
-			wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" http://people.debian.org/~aba/d-i/images/daily/cdrom/vmlinuz
-			wget --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" http://people.debian.org/~aba/d-i/images/daily/cdrom/initrd.gz
+			wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" http://people.debian.org/~aba/d-i/images/daily/${DI}/${DI_KERNEL}
+			wget --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" http://people.debian.org/~aba/d-i/images/daily/${DI}/initrd.gz
 			;;
 
 		i386)
-		 	wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" http://people.debian.org/~joeyh/d-i/images/daily/cdrom/vmlinuz
-			wget --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" http://people.debian.org/~joeyh/d-i/images/daily/cdrom/initrd.gz
+		 	wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" http://people.debian.org/~joeyh/d-i/images/daily/${DI}/${DI_KERNEL}
+			wget --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" http://people.debian.org/~joeyh/d-i/images/daily/${DI}/initrd.gz
 			;;
 	esac
 else
-	wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DI}"/vmlinuz
+	wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DI}"/"${DI_KERNEL}"
 	wget --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DI}"/initrd.gz
 fi
 
@@ -153,48 +170,82 @@ then
 	then
 		case "${LIVE_ARCHITECTURE}" in
 			amd64)
-				wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" http://people.debian.org/~aba/d-i/images/daily/cdrom/gtk/vmlinuz
-				wget --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" http://people.debian.org/~aba/d-i/images/daily/cdrom/gtk/initrd.gz
+				wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" http://people.debian.org/~aba/d-i/images/daily/${DI_GTK}/${DI_KERNEL}
+				wget --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" http://people.debian.org/~aba/d-i/images/daily/${DI_GTK}/initrd.gz
 				;;
 
 			i386)
-				wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" http://people.debian.org/~joeyh/d-i/images/daily/cdrom/gtk/vmlinuz
-				wget --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" http://people.debian.org/~joeyh/d-i/images/daily/cdrom/gtk/initrd.gz
+				wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" http://people.debian.org/~joeyh/d-i/images/daily/${DI_GTK}/${DI_KERNEL}
+				wget --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" http://people.debian.org/~joeyh/d-i/images/daily/${DI_GTK}/initrd.gz
 				;;
 		esac
 	else
-		wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DI}"/gtk/vmlinuz
-		wget --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DI}"/gtk/initrd.gz
+		wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DI_GTK}"/"${DI_KERNEL}"
+		wget --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DI_GTK}"/initrd.gz
 	fi
 fi
 
-# Downloading additional packages
-mkdir -p chroot/binary.deb/archives/partial
-mv chroot/var/lib/dpkg/status chroot/var/lib/dpkg/status.tmp
-touch chroot/var/lib/dpkg/status
+if [ "${LIVE_DEBIAN_INSTALLER}" != "netinst" ]; then
+	# Downloading additional packages
+	mkdir -p chroot/binary.deb/archives/partial
+	mv chroot/var/lib/dpkg/status chroot/var/lib/dpkg/status.tmp
+	touch chroot/var/lib/dpkg/status
 
-case "${LIVE_ARCHITECTURE}" in
-	amd64)
-		DI_PACKAGES="linux-image-2.6-amd64 elilo lilo grub"
-		;;
+	case "${LIVE_ARCHITECTURE}" in
+		amd64)
+			DI_PACKAGES="linux-image-2.6-amd64 lilo grub"
+			;;
 
-	i386)
-		DI_PACKAGES="linux-image-2.6-486 linux-image-2.6-686 elilo lilo grub"
-		;;
+		i386)
+			DI_PACKAGES="linux-image-2.6-486 linux-image-2.6-686 elilo lilo grub"
+			;;
 
-	powerpc)
-		DI_PACKAGES="linux-image-2.6-powerpc linux-image-2.6-powerpc64 linux-image-2.6-powerpc-smp linux-image-2.6-prep yaboot" # FIXME bootloader?
-		;;
-esac
+		powerpc)
+			DI_PACKAGES="linux-image-2.6-powerpc linux-image-2.6-powerpc64 linux-image-2.6-powerpc-smp linux-image-2.6-prep yaboot" # FIXME bootloader?
+			;;
+	esac
 
-Chroot "apt-get -o Dir::Cache=/binary.deb --download-only install --yes ${DI_PACKAGES}"
-mv chroot/binary.deb ./
-mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
+	DI_PACKAGES="${DI_PACKAGES} cryptsetup lvm2"
+
+	Chroot "apt-get -o Dir::Cache=/binary.deb --download-only install --yes ${DI_PACKAGES}"
+	mv chroot/binary.deb ./
+	mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
+fi
 
 # Including base debian packages
 if [ -d cache/packages_bootstrap ]
 then
 	for FILE in cache/packages_bootstrap/*.deb binary.deb/archives/*.deb
+	do
+		SOURCE="`dpkg -f ${FILE} Source | awk '{ print $1 }'`"
+
+		if [ -z "${SOURCE}" ]
+		then
+			SOURCE="`basename ${FILE} | awk -F_ '{ print $1 }'`"
+		fi
+
+		case "${SOURCE}" in
+			lib?*)
+				LETTER="`echo ${SOURCE} | sed 's/\(....\).*/\1/'`"
+				;;
+
+			*)
+				LETTER="`echo ${SOURCE} | sed 's/\(.\).*/\1/'`"
+				;;
+		esac
+
+		# Install directory
+		mkdir -p binary/pool/main/"${LETTER}"/"${SOURCE}"
+
+		# Move files
+		cp "${FILE}" binary/pool/main/"${LETTER}"/"${SOURCE}"
+	done
+fi
+
+# Including local debs
+if ls ../config/binary_local-debs/* &> /dev/null
+then
+	for FILE in ../config/binary_local-debs/*.deb
 	do
 		SOURCE="`dpkg -f ${FILE} Source | awk '{ print $1 }'`"
 
@@ -256,8 +307,20 @@ UDEBS="`awk '/Filename: / { print $2 }' Packages`"
 # Downloading udebs
 for UDEB in ${UDEBS}
 do
-	wget "${LIVE_MIRROR_BOOTSTRAP}"/${UDEB}
+	if [ -f ../cache/packages_debian-installer.udeb/"`basename ${UDEB}`" ]
+	then
+		# Copying cached udebs
+		cp -l ../cache/packages_debian-installer.udeb/"`basename ${UDEB}`" ./
+	else
+		# Downloading udebs
+		wget "${LIVE_MIRROR_BOOTSTRAP}"/${UDEB}
+	fi
 done
+
+# Caching udebs
+rm -rf ../cache/packages_debian-installer.udeb
+mkdir -p ../cache/packages_debian-installer.udeb
+cp -l *.udeb ../cache/packages_debian-installer.udeb
 
 # Including local udebs
 if ls ../config/binary_local-udebs/* &> /dev/null
@@ -344,26 +407,6 @@ do
 done
 
 ln -s . binary/debian
-
-# Creating disk info
-mkdir binary/.disk
-echo "main" > binary/.disk/base_components
-touch binary/.disk/base_installable
-echo "not_complete" > binary/.disk/cd_type
-echo "Debian GNU/Linux ${LIVE_DISTRIBUTION} - Unofficial ${LIVE_ARCHITECTURE} LIVE Binary `date +%Y%m%d-%H:%M`" > binary/.disk/info
-touch binary/.disk/mkisofs
-cat > binary/.disk/udeb_include << EOF
-netcfg
-ethdetect
-pcmcia-cs-udeb
-pcmciautils-udeb
-wireless-tools-udeb
-EOF
-
-if [ -d binary/pool/main/l/live-installer ]
-then
-	echo "live-installer" >> binary/.disk/udeb_include
-fi
 
 # Creating stage file
 Create_stagefile .stage/binary_debian-installer
