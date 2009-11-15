@@ -1,0 +1,175 @@
+.TH MAKE-LIVE 8 "Mon, 22 Aug 2006" "0.99.3" "Debian Live framework"
+
+.SH NAME
+make-live \- utility to build Debian Live systems
+
+.SH SYNOPSIS
+.B make-live
+.RB [\| \-a \||\| \-\-architecture
+.IR ARCHITECTURE \|]
+.RB [\| \-b \||\| \-\-bootappend
+.IR KERNEL_PARAMETER \||\| \|"KERNEL_PARAMETERS\|" \|]
+.RB [\| \-\-config
+.IR FILE \|]
+.RB [\| \-c \||\| \-\-chroot
+.IR DIRECTORY \|]
+.RB [\| \-d \||\| \-\-distribution
+.IR DISTRIBUTION \|]
+.RB [\| \-\-filesystem
+.IR FILESYSTEM \|]
+.RB [\| \-f \||\| \-\-flavour
+.IR BOOTSTRAP_FLAVOUR \|]
+.RB [\| \-\-hook
+.IR COMMAND \||\| \|"COMMANDS\|" \|]
+.RB [\| \-\-include-chroot
+.IR FILE \||\| DIRECTORY \|]
+.RB [\| \-\-include-image
+.IR FILE \||\| DIRECTORY \|]
+.RB [\| \-k \||\| \-\-kernel
+.IR KERNEL_FLAVOUR \|]
+.RB [\| \-m \||\| \-\-mirror
+.IR URL \|]
+.RB [\| \-\-mirror-security
+.IR URL \|]
+.RB [\| \-p \||\| \-\-packages
+.IR PACKAGE \||\| \|"PACKAGES\|" \|]
+.RB [\| \-\-package-list
+.IR FILE \|]
+.RB [\| \-\-proxy-ftp
+.IR URL \|]
+.RB [\| \-\-proxy-http
+.IR URL \|]
+.RB [\| \-r \||\| \-\-root
+.IR DIRECTORY \|]
+.RB [\| \-s \||\| \-\-sections
+.IR SECTION \||\| \|"SECTIONS\|" \|]
+.RB [\| \-\-server-address
+.IR HOSTNAME \||\| IP \|]
+.RB [\| \-\-server-path
+.IR DIRECTORY \|]
+.RB [\| \-\-templates
+.IR DIRECTORY \|]
+.RB [\| \-t \||\| \-\-type
+.IR TYPE \|]
+.RI [\| LIST \|]
+.PP
+.B make-live
+.RB \-h \||\| \-\-help
+.br
+.B make-live
+.RB \-u \||\| \-\-usage
+.br
+.B make-live
+.RB \-v \||\| \-\-version
+
+.SH DESCRIPTION
+ The Debian Live framework provides all necessary tools to create Debian Live systems. make-live is the utility used to automagically build CD/DVD images and netboot tarballs.
+
+.SH OPTIONS
+.TP
+.BI "\-a, \-\-architecture " ARCHITECTURE
+build an image for another architecture than the autodetected one. This is usefull for e.g. building i386 images on an amd64 machine. Instead of this flag, the environment variable LIVE_ARCHITECTURE can be used (Default: `dpkg-architecture -qDEB_BUILD_ARCH`).
+.TP
+.BI "\-b, \-\-bootappend " KERNEL_PARAMETER \||\| \|"KERNEL_PARAMETERS\|"
+passes kernel parameters to the bootloader, e.g. 'quiet' or 'vga=792' etc. Instead of this flag, the environment variable LIVE_BOOTAPPEND can be used (Default: empty).
+.TP
+.BI "\-\-config " FILE
+uses another configuration file in addition to the default one. Settings in the additional configuration file do overwrite the settings from /etc/make-live.conf. Instead of this flag, the environment variable LIVE_CONFIG can be used (Default: /etc/make-live.conf).
+.TP
+.BI "\-c, \-\-chroot " DIRECTORY
+specifies the chroot directory. Instead of this flag, the environment variable LIVE_CHROOT (Default: $LIVE_ROOT/chroot").
+.TP
+.BI "\-d, \-\-distribution " DISTRIBUTION
+specifies the distribution to be used. Allowed values are distributions names like unstable and testing, or codenames like sid and etch. Instead of this flag, the environment variable LIVE_DISTRIBUTION can be used (Default: sid).
+.TP
+.BI "\-\-filesystem " FILESYSTEM
+Specifies the filesystem for the compressed image. At the moment, ext2, plain and squashfs are supported. Instead of this flag, the environment variable LIVE_FILESYSTEM can be used (Default: squashfs for iso, plain for net).
+.TP
+.BI "\-f, \-\-flavour " BOOTSTRAP_FLAVOUR
+specifies the bootstrap flavour. This can be either standard or minimal. Instead of this flag, the environment variable LIVE_FLAVOUR can be used (Default: standard).
+.TP
+.BI "\-\-hook " COMMANDS
+specifies one or more commands to be executed in the chroot. Instead of this flag, the environment variable LIVE_HOOK can be used (Default: empty).
+.TP
+.BI "\-\-include-chroot " FILE \||\| DIRECTORY
+specifies a file or a directory to be included into the chroot. Instead of this flag, the environment variable LIVE_INCLUDE_CHROOT can be used (Default: empty).
+.TP
+.BI "\-\-include-image " FILE \||\| DIRECTORY
+specifies a file or directory which will be copied inside the image. Instead of this flag, the environment variable LIVE_INCLUDE_IMAGE can be used (Default: empty).
+.TP
+.BI "\-k, \-\-kernel " KERNEL_FLAVOUR
+specifies the kernel image flavour. Instead of this flag, the environment variable LIVE_KERNEL can be used (Default: auto-detected).
+.TP
+.BI "\-m, \-\-mirror " URL
+specifies the debian mirror where make-live will download the packages from. Instead of this flag, the environment variable LIVE_MIRROR can be used (Default: http://ftp.debian.org/debian).
+.TP
+.BI "\-\-mirror-security" URL
+specifies the debian security mirror where make-live will download the packages from. Instead of this flag, the environment variable LIVE_MIRROR_SECURITY can be used (Default: http://security.debian.org/debian).
+.TP
+.BI "\-p, \-\-packages " PACKAGE \||\| \|"PACKAGES\|"
+specifies a list of packages to install into the chroot. Instead of this flag, the environment variable LIVE_PACKAGES can be used (Default: empty).
+.TP
+.BI "\-\-package-list " FILE
+specifies an external package list file, one package for each line. It overrides list option. Instead of this flag, the environment variable LIVE_PACKAGE_LIST can be used (Default: empty).
+.TP
+.BI "\-\-proxy-ftp " URL
+specifies the value of ftp_proxy inside the chrooted environment. Instead of this flag, the environment variable LIVE_PROXY_FTP can be used (Default: empty).
+.TP
+.BI "\-\-proxy-http " URL
+specifies the value of http_proxy inside the chrooted environment. Instead of this flag, the environment variable LIVE_PROXY_HTTP can be used (Default: empty).
+.TP
+.BI "\-r, \-\-root " DIRECTORY
+specifies the root directory where the images/tarballs are built. Instead of this flag, the environment variable LIVE_ROOT can be used (Default: `pwd`/debian-live).
+.TP
+.BI "\-s, \-\-sections " SECTIONS
+specifies the debian sections. Instead of this flag, the environment variable LIVE_SECTIONS can be used (Default: main).
+.TP
+.BI "\-\-server-address " HOSTNAME \||\| IP
+specifies the server address you want to use for netboot. Instead of this flag, the environment variable LIVE_SERVER_ADDRESS can be used (Default: 192.168.1.1).
+.TP
+.BI "\-\-server-path" DIRECTORY
+specifies the directory on the server, where you have unpacked the netboot image. Instead of this flag, the environment variable LIVE_SERVER_PATH can be used (Default: /srv/debian-live).
+.TP
+.BI "\-\-templates " DIRECTORY
+specifies a templates directory to use instead of the default one. Instead of this flag, the environment variable LIVE_TEMPLATES can be used (Default: /usr/share/make-live/templates).
+.TP
+.BI "\-t, \-\-type " TYPE
+specifies the image type to generate. Currently, only iso and net are available. Instead of this flag, the environment variable LIVE_TYPE can be used (Default: iso).
+.TP
+.B \-h, \-\-help
+display help and exit
+.TP
+.B \-u, \-\-usage
+show usage and exit
+.TP
+.B \-v, \-\-version
+output version information and exit
+
+.SH LISTS
+Every list does already include the Debian standard package selection.
+.TP
+.B gnome | gnome-core | gnome-full
+include GNOME.
+.TP
+.B kde | kde-core | kde-full | kde-extra
+include KDE.
+.TP
+.B x11 | x11-core
+include X-Window-System only.
+.TP
+.B xfce
+include Xfce.
+
+.SH BUGS
+.B make-live
+works fully on amd64 and i386, partially on alpha, hppa, ia64, mips, mipsel, powerpc, s390 and sparc. Other architectures, such as arm and m68k, as well as non-linux ports of Debian, like hurd-i386, are currently not supported.
+
+.SH HOMEPAGE
+Debian Live project <http://live.debian.net/>
+
+.SH SEE ALSO
+.BR make-live.conf(8)
+
+.SH AUTHOR
+make-live was written by Daniel Baumann <daniel@debian.org> and Marco Amadori
+<marco.amadori@gmail.com>.
