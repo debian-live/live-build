@@ -70,7 +70,7 @@
 LIVE_REPOSITORY_bpo="http://www.backports.org/debian/"
 LIVE_REPOSITORY_KEY_bpo="http://backports.org/debian/archive.key"
 LIVE_REPOSITORY_KEYRING_bpo=""
-LIVE_REPOSITORY_DISTRIBUTION=""
+LIVE_REPOSITORY_DISTRIBUTION_bpo="sarge-backports"
 LIVE_REPOSITORY_SECTIONS_bpo="main contrib non-free"
 
 LIVE_REPOSITORY_edu="http://ftp.skolelinux.org/skolelinux/"
@@ -82,8 +82,14 @@ LIVE_REPOSITORY_SECTIONS_edu="local"
 LIVE_REPOSITORY_duo="http://ftp.debian-unofficial.org/debian/"
 LIVE_REPOSITORY_KEY_duo="http://ftp-master.debian-unofficial.org/key_2006.asc"
 LIVE_REPOSITORY_KEYRING_duo=""
-LIVE_REPOSITORY_DISTRIBUTION=""
+LIVE_REPOSITORY_DISTRIBUTION_duo=""
 LIVE_REPOSITORY_SECTIONS_duo="main contrib non-free restricted"
+
+LIVE_REPOSITORY_fai="http://www.informatik.uni-koeln.de/fai/download/"
+LIVE_REPOSITORY_KEY_fai=""
+LIVE_REPOSITORY_KEYRING_fai=""
+LIVE_REPOSITORY_DISTRIBUTION_fai="etch"
+LIVE_REPOSITORY_SECTIONS_fai="koeln"
 
 # Debian section		(Default: main)
 #LIVE_SECTION="main"
