@@ -33,6 +33,7 @@ Read_conffile config/source
 Set_defaults
 
 # Configuring chroot
+lh_chroot_cache restore ${*}
 lh_chroot_proc install ${*}
 lh_chroot_sysfs install ${*}
 lh_chroot_debianchroot install ${*}
@@ -69,3 +70,4 @@ lh_chroot_sysvrc remove ${*}
 lh_chroot_debianchroot remove ${*}
 lh_chroot_sysfs remove ${*}
 lh_chroot_proc remove ${*}
+lh_chroot_cache save ${*}

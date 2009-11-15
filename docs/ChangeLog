@@ -1,3 +1,27 @@
+2007-06-10  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_grub, lh_binary_rootfs, lh_binary_yaboot,
+	  lh_binary_syslinux:
+	  - Fixed some typos as found by Peter Holik <holik@it-technology.at>.
+	* manpages/live-helper.en.7:
+	  - Fixed typo.
+	* helpers/lh_bootstrap_cache, lh_chroot_cache:
+	  - Added.
+	* Uploaded 1.0~a14-1.
+
+2007-06-08  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/make-live:
+	  - Adjusted reading of configuration to match the previously renamed
+	    files.
+
+2007-06-04  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_hdd, lh_source_hdd:
+	  - Renamed to lh_binary_tar and lh_source_tar.
+	* helpers/lh_source_generic:
+	  - Removed.
+
 2007-06-03  Daniel Baumann  <daniel@debian.org>
 
 	* Uploaded 1.0~a13-1.

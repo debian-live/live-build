@@ -33,5 +33,7 @@ Read_conffile config/source
 Set_defaults
 
 # Bootstrapping system
+lh_bootstrap_cache restore ${*}
 lh_bootstrap_cdebootstrap ${*}
 lh_bootstrap_debootstrap ${*}
+lh_bootstrap_cache save ${*}
