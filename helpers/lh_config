@@ -21,7 +21,7 @@ then
 fi
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live-helper}"/functions.sh
+. "${LH_BASE:-/usr/share/live-helper}"/live-helper.sh
 
 # Setting static variables
 SYSTEM_LH_CONFFILE="/etc/default/live-helper"

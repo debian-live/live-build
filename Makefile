@@ -8,7 +8,7 @@ all: test install
 
 test:
 	# Checking for syntax errors
-	for SCRIPT in functions.sh functions/* examples/*/*.sh helpers/* hooks/*; \
+	for SCRIPT in live-helper.sh functions/* examples/*/*.sh helpers/* hooks/*; \
 	do \
 		sh -n $$SCRIPT; \
 	done
@@ -16,7 +16,7 @@ test:
 	# Checking for bashisms
 	if [ -x /usr/bin/checkbashisms ]; \
 	then \
-		checkbashisms functions.sh functions/* examples/*/*.sh helpers/* hooks/*; \
+		checkbashisms live-helper.sh functions/* examples/*/*.sh helpers/* hooks/*; \
 	else \
 		echo "WARNING: skipping bashism test - you need to install devscripts."; \
 	fi
@@ -31,7 +31,7 @@ install:
 
 	# Installing shared data
 	mkdir -p $(DESTDIR)/usr/share/live-helper
-	cp -r data examples functions.sh functions hooks includes lists templates $(DESTDIR)/usr/share/live-helper
+	cp -r data examples live-helper.sh functions hooks includes lists templates $(DESTDIR)/usr/share/live-helper
 
 	# Installing documentation
 	mkdir -p $(DESTDIR)/usr/share/doc/live-helper
