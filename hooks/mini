@@ -1,4 +1,13 @@
+#!/bin/sh
+
 # /usr/share/live-helper/hooks/mini - hook list for live-helper(7)
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
 
 # Removing unused packages
 apt-get remove --purge apt-utils aptitude libdb4.4

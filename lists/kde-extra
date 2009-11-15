@@ -10,7 +10,8 @@ console-common kbd locales
 kde kdm
 desktop-base
 
-xorg xresprobe
+xorg xresprobe discover
+alsa-base alsa-oss alsa-utils
 
 # KDE Full
 koffice

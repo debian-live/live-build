@@ -1,8 +1,15 @@
 #!/bin/sh
 
-# version.sh - handle version information
+# version.sh - print version information
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
-VERSION="1.0~a2"
+set -e
+
+VERSION="1.0~a3"
 
 Version ()
 {
@@ -10,7 +17,6 @@ Version ()
 	echo "This program is a part of live-helper."
 	echo
 	echo "Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>"
-	echo "Copyright (C) 2006-2007 Marco Amadori <marco.amadori@gmail.com>"
 	echo
 	echo "This program is free software; you can redistribute it and/or modify"
 	echo "it under the terms of the GNU General Public License as published by"
@@ -30,5 +36,6 @@ Version ()
 	echo "can be found in /usr/share/common-licenses/GPL file."
 	echo
 	echo "Homepage: <http://debian-live.alioth.debian.org/>"
+
 	exit 0
 }

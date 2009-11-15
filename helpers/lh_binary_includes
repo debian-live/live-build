@@ -1,6 +1,11 @@
 #!/bin/sh
 
 # lh_binary_includes(1) - copy files into binary
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -9,6 +14,13 @@ for FUNCTION in /usr/share/live-helper/functions/*.sh
 do
 	. ${FUNCTION}
 done
+
+# Set static variables
+DESCRIPTION="copy files into binary"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -28,14 +40,18 @@ Create_lockfile .lock
 # Checking stage file
 Check_stagefile .stage/binary_includes
 
-if ls /usr/share/live-helper/includes/common/* &> /dev/null
+if ls "${LIVE_INCLUDES}"/common/* &> /dev/null
 then
-	cp -r /usr/share/live-helper/includes/common/* binary
+	cd "${LIVE_INCLUDES}"/common
+	find . | cpio -dmpu "${OLDPWD}"/binary
+	cd "${OLDPWD}"
 fi
 
-if ls /usr/share/live-helper/includes/"${LIVE_BINARY_IMAGE}"/* &> /dev/null
+if ls "${LIVE_INCLUDES}"/"${LIVE_BINARY_IMAGE}"/* &> /dev/null
 then
-	cp -r /usr/share/live-helper/includes/"${LIVE_BINARY_IMAGE}"/* binary
+	cd "${LIVE_INCLUDES}"/"${LIVE_BINARY_IMAGE}"
+	find . | cpio -dmpu "${OLDPWD}"/binary
+	cd "${OLDPWD}"
 fi
 
 # Creating stage file

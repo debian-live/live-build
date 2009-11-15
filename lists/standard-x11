@@ -7,4 +7,5 @@ eject file sudo vim-tiny
 console-common kbd locales
 
 # X11
-xorg xresprobe
+xorg xresprobe discover
+alsa-base alsa-oss alsa-utils

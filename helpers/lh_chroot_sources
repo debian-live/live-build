@@ -1,6 +1,11 @@
 #!/bin/sh
 
 # lh_chroot_sources(1) - manage /etc/apt/sources.list
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -9,6 +14,13 @@ for FUNCTION in /usr/share/live-helper/functions/*.sh
 do
 	. ${FUNCTION}
 done
+
+# Set static variables
+DESCRIPTION="manage /etc/apt/sources.list"
+HELP=""
+USAGE="${PROGRAM} {install|remove} [--force]"
+
+Arguments "${@}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -32,32 +44,32 @@ case "${1}" in
 		Check_stagefile .stage/chroot_sources
 
 		# Configure custom sources.list
-		echo "deb ${LIVE_MIRROR_LOCAL} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" > chroot/etc/apt/sources.list
+		echo "deb ${LIVE_MIRROR_BUILD} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" > chroot/etc/apt/sources.list
 
 		if [ "${LIVE_SOURCE}" = "enabled" ]
 		then
-			echo "deb-src ${LIVE_MIRROR_LOCAL} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+			echo "deb-src ${LIVE_MIRROR_BUILD} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 		fi
 
 		if [ "${LIVE_SECURITY}" = "enabled" ]
 		then
 			if [ "${LIVE_DISTRIBUTION}" != "sid" ] && [ "${LIVE_DISTRIBUTION}" = "unstable" ]
 			then
-				echo "deb ${LIVE_MIRROR_LOCAL_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+				echo "deb ${LIVE_MIRROR_BUILD_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 
 				if [ "${LIVE_SOURCE}" = "yes" ]
 				then
-					echo "deb-src ${LIVE_MIRROR_LOCAL_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+					echo "deb-src ${LIVE_MIRROR_BUILD_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 				fi
 			fi
 		fi
 
 		# Check local sources.list
-		if [ -f config/sources.list.local ]
+		if [ -f config/sources.list.build ]
 		then
 			echo "" >> chroot/etc/apt/sources.list
 			echo "# Custom repositories" >> chroot/etc/apt/sources.list
-			cat config/sources.list.local >> chroot/etc/apt/sources.list
+			cat config/sources.list.build >> chroot/etc/apt/sources.list
 		fi
 
 		# Installing aptitude
@@ -87,32 +99,32 @@ case "${1}" in
 			rm -rf chroot/var/lib/apt/lists
 			mkdir -p chroot/var/lib/apt/lists/partial
 
-			echo "deb ${LIVE_MIRROR_GENERIC} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" > chroot/etc/apt/sources.list
+			echo "deb ${LIVE_MIRROR_IMAGE} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" > chroot/etc/apt/sources.list
 
 			if [ "${LIVE_SOURCE}" = "enabled" ]
 			then
-				echo "deb-src ${LIVE_MIRROR_GENERIC} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+				echo "deb-src ${LIVE_MIRROR_IMAGE} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 			fi
 
 			if [ "${LIVE_SECURITY}" = "enabled" ]
 			then
 				if [ "${LIVE_DISTRIBUTION}" = "etch" ] || [ "${LIVE_DISTRIBUTION}" = "testing" ]
 				then
-					echo "deb ${LIVE_MIRROR_GENERIC_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+					echo "deb ${LIVE_MIRROR_IMAGE_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 
 					if [ "${LIVE_SOURCE}" = "yes" ]
 					then
-						echo "deb-src ${LIVE_MIRROR_GENERIC_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+						echo "deb-src ${LIVE_MIRROR_IMAGE_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 					fi
 				fi
 			fi
 
 			# Check local sources.list
-			if [ -f config/sources.list.generic ]
+			if [ -f config/sources.list.image ]
 			then
 				echo "" >> chroot/etc/apt/sources.list
 				echo "# Custom repositories" >> chroot/etc/apt/sources.list
-				cat config/sources.list.generic >> chroot/etc/apt/sources.list
+				cat config/sources.list.image >> chroot/etc/apt/sources.list
 			fi
 
 			case "${LH_APT}" in
@@ -141,7 +153,6 @@ case "${1}" in
 		;;
 
 	*)
-		echo "Usage: ${0} {install|remove}"
-		exit 1
+		Usage
 		;;
 esac

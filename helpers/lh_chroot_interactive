@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_source_config(1) - copy debian-live config into source
+# lh_chroot_interactive(1) - make build interactive
 # Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -16,7 +16,7 @@ do
 done
 
 # Set static variables
-DESCRIPTION="copy debian-live config into source"
+DESCRIPTION="make build interactive"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -24,10 +24,10 @@ Arguments "${@}"
 
 # Reading configuration files
 Read_conffile config/common
-Read_conffile config/image
+Read_conffile config/chroot
 Set_defaults
 
-if [ "${LIVE_SOURCE}" = "enabled" ]
+if [ "${LIVE_INTERACTIVE}" != "disabled" ]
 then
 	# Requiring stage file
 	Require_stagefile .stage/bootstrap
@@ -39,26 +39,28 @@ then
 	Create_lockfile .lock
 
 	# Checking stage file
-	Check_stagefile .stage/source_config
+	Check_stagefile .stage/chroot_interactive
 
-	# Remove old sources
-	if [ -d source/debian-live ]
-	then
-		rm -rf source/debian-live
-	fi
+	case "${LIVE_INTERACTIVE}" in
+		enabled|shell)
+			echo "Pausing build: starting interactive shell..."
 
-	# Copy system configuration
-	mkdir -p source/debian-live
-	cp -a config source/debian-live
+			Chroot "/bin/bash --login"
+			;;
 
-	# Create tarball
-	cd source
-	tar cfz debian-live-config_`date +%Y%m%d.%s`.tar.gz debian-live
-	cd "${OLDPWD}"
+		x11)
+			echo "Pausing build: starting interactive X11..."
 
-	rm -rf source/debian-live/config
-	mv source/debian-live-config_*.tar.gz source/debian-live
+			Chroot "startx"
+			;;
+
+		xnest)
+			echo "Pausing build: starting interactive Xnest..."
+
+			#Chroot "" # FIXME
+			;;
+	esac
 
 	# Creating stage file
-	Create_stagefile .stage/source_config
+	Create_stagefile .stage/chroot_symlinks
 fi

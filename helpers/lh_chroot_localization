@@ -1,6 +1,11 @@
 #!/bin/sh
 
 # lh_chroot_localization(1) - install localization packages into chroot
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -9,6 +14,13 @@ for FUNCTION in /usr/share/live-helper/functions/*.sh
 do
 	. ${FUNCTION}
 done
+
+# Set static variables
+DESCRIPTION="install localization packages into chroot"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -660,11 +672,8 @@ then
 		esac
 	done
 
-	# Restore old cache
-	if [ -d cache/chroot_localization ]
-	then
-		cp cache/chroot_localization/*.deb chroot/var/cache/apt/archives
-	fi
+	# Restoring cache
+	Restore_cache cache/chroot_localization
 
 	# Installing packages
 	case "${LH_APT}" in
@@ -677,18 +686,8 @@ then
 			;;
 	esac
 
-	# Saving new cache
-	Chroot "apt-get autoclean"
-
-	if ls chroot/var/cache/apt/archives/*.deb &> /dev/null
-	then
-		if [ ! -d cache/chroot_localization ]
-		then
-			mkdir -p cache/chroot_localization
-		fi
-
-		mv -f chroot/var/cache/apt/archives/*.deb cache/chroot_localization
-	fi
+	# Saving cache
+	Save_cache cache/chroot_localization
 
 	# Creating stage file
 	Create_stagefile .stage/chroot_localization

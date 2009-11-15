@@ -13,4 +13,5 @@ desktop-base
 
 rhythmbox synaptic
 
-xorg xresprobe
+xorg xresprobe discover
+alsa-base alsa-oss alsa-utils

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_chroot_localincludes(1) - copy local files into chroot
+# lh_binary_chroot(1) - copy chroot into chroot
 # Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -16,7 +16,7 @@ do
 done
 
 # Set static variables
-DESCRIPTION="copy local files into chroot"
+DESCRIPTION="copy chroot into chroot"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -24,14 +24,10 @@ Arguments "${@}"
 
 # Reading configuration files
 Read_conffile config/common
-Read_conffile config/chroot
 Set_defaults
 
 # Requiring stage file
 Require_stagefile .stage/bootstrap
-
-# Checking stage file
-Check_stagefile .stage/chroot_localincludes
 
 # Checking lock file
 Check_lockfile .lock
@@ -39,13 +35,16 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if ls config/chroot_localincludes/* &> /dev/null
-then
-	# Copying includes
-	cd config/chroot_localincludes
-	find . | cpio -dmpu "${OLDPWD}"/chroot
-	cd "${OLDPWD}"
+# Checking stage file
+Check_stagefile .stage/binary_chroot
 
-	# Creating stage file
-	Create_stagefile .stage/chroot_localincludes
-fi
+# Removing old chroot
+rm -rf chroot/chroot
+rm -rf chroot.tmp
+
+# Copying new chroot
+cp -a chroot chroot.tmp
+mv chroot.tmp chroot/chroot
+
+# Creating stage file
+Create_stagefile .stage/binary_chroot

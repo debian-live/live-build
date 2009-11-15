@@ -1,6 +1,11 @@
 #!/bin/sh
 
 # lh_bootstrap_cdebootstrap(1) - bootstrap a Debian system with cdebootstrap(1)
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -9,6 +14,13 @@ for FUNCTION in /usr/share/live-helper/functions/*.sh
 do
 	. ${FUNCTION}
 done
+
+# Set static variables
+DESCRIPTION="bootstrap a Debian system with cdebootstrap(1)"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
 
 # Ensure that a system is built as root
 lh_testroot
@@ -44,26 +56,26 @@ then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --suite-config=${LIVE_DISTRIBUTION_CONFIG}"
 fi
 
-if [ "${LIVE_FLAVOUR}" = "mini" ] || [ "${LIVE_FLAVOUR}" = "minimal" ] || [ "${LIVE_FLAVOUR}" = "minimal-net" ]
+if [ "${LIVE_PACKAGES_LISTS}" != "minimal" ] && [ "${LIVE_PACKAGES_LISTS}" != "mini" ]
 then
-	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=minimal"
-else
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=standard"
+else
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=minimal"
 fi
 
 if [ -x "/usr/bin/cdebootstrap" ]
 then
-	# Restore old cache
-	if [ -d cache/bootstrap ]
-	then
-		mkdir -p chroot/var/cache/bootstrap
-		cp cache/bootstrap/*.deb chroot/var/cache/bootstrap
-	fi
-
 	if [ "${LH_CACHE}" = "enabled" ]
 	then
+		# Restore old cache
+		if [ -d cache/bootstrap ]
+		then
+			mkdir -p chroot/var/cache/bootstrap
+			cp cache/bootstrap/*.deb chroot/var/cache/bootstrap
+		fi
+
 		# Executing cdebootstrap (download-only)
-		cdebootstrap ${CDEBOOTSTRAP_OPTIONS} --download-only "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_LOCAL}"
+		cdebootstrap ${CDEBOOTSTRAP_OPTIONS} --download-only "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_BUILD}"
 
 		# Removing old cache
 		if [ -d cache/bootstrap ]
@@ -81,17 +93,23 @@ then
 	fi
 
 	# Executing cdebootstrap (regular run)
-	cdebootstrap ${CDEBOOTSTRAP_OPTIONS} "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_LOCAL}"
+	cdebootstrap ${CDEBOOTSTRAP_OPTIONS} "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_BUILD}"
+
+	# Remove cdebootstrap-helper-diverts (needed at least for minimal flavours)
+	if [ "${LIVE_BOOTSTRAP_FLAVOUR}" = "minimal" ] || [ "${LIVE_BOOTSTRAP_FLAVOUR}" = "mini" ]
+	then
+		Chroot "dpkg -P cdebootstrap-helper-diverts"
+	fi
+
+	# Removing bootstrap cache
+	if [ -d chroot/var/cache/bootstrap ]
+	then
+		rm -rf chroot/var/cache/bootstrap
+	fi
+
+	# Creating stage file
+	Create_stagefile .stage/bootstrap
 else
 	echo "E: Can't process file /usr/bin/cdebootstrap (FIXME)"
 	exit 1
 fi
-
-# Removing bootstrap cache
-if [ -d chroot/var/cache/bootstrap ]
-then
-	rm -rf chroot/var/cache/bootstrap
-fi
-
-# Creating stage file
-Create_stagefile .stage/bootstrap

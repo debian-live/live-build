@@ -1,4 +1,4 @@
-.TH LIVE\-HELPER 7 "2007\-03\-19" "1.0~a2" "live\-helper"
+.TH LIVE\-HELPER 7 "2007\-03\-26" "1.0~a3" "live\-helper"
 
 .SH NAME
 live\-helper \- Debian Live helper programs
@@ -83,11 +83,11 @@ copies local files into the binary image.
 installs localization packages in the chroot.
 .IP "\fIlh_chroot_localpackages\fR(1)" 4
 installs local packages in the chroot.
-.IP "\fIlh_chroot_localpackageslist\fR(1)" 4
+.IP "\fIlh_chroot_localpackageslists\fR(1)" 4
 installs local packages lists in the chroot.
 .IP "\fIlh_chroot_packages\fR(1)" 4
 installs packages in the chroot.
-.IP "\fIlh_chroot_packageslist\fR(1)" 4
+.IP "\fIlh_chroot_packageslists\fR(1)" 4
 installs packages lists in the chroot.
 .IP "\fIlh_chroot_proc\fR(1)" 4
 mounts /proc in the chroot.
@@ -130,6 +130,17 @@ creates USB source image.
 .IP "\fIlh_testroot\fR(1)" 4
 checks for root privileges.
 
+.SH LIVE\-HELPER OPTIONS
+The following command line options are supported by all live\-helper programs.
+.IP "\fB\-\-force\fR" 4
+force helper execution, even if stage file exists.
+.IP "\fB\-h, \-\-help\fR" 4
+display help and exit
+.IP "\fB\-u, \-\-usage\fR" 4
+show usage and exit
+.IP "\fB\-v, \-\-version\fR" 4
+output version information and exit
+
 .SH BUGS
 Report bugs against live\-helper <\fIhttp://packages.qa.debian.org/live\-helper/\fR>.
 
@@ -137,4 +148,4 @@ Report bugs against live\-helper <\fIhttp://packages.qa.debian.org/live\-helper/
 More information about the Debian Live project can be found at <\fIhttp://debian\-live.alioth.debian.org/\fR> and <\fIhttp://wiki.debian.org/DebianLive/\fR>.
 
 .SH AUTHOR
-live\-helper was written by Daniel Baumann <\fIdaniel@debian.org\fR> and Marco Amadori <\fImarco.amadori@gmail.com\fR>, for the Debian project.
+live\-helper was written by Daniel Baumann <\fIdaniel@debian.org\fR> for the Debian project.

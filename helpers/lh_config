@@ -1,6 +1,11 @@
 #!/bin/sh
 
-# lh_make(1) - create sample configuration for live-helper(7)
+# lh_config(1) - create configuration for live-helper(7)
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -9,6 +14,13 @@ for FUNCTION in /usr/share/live-helper/functions/*.sh
 do
 	. ${FUNCTION}
 done
+
+# Set static variables
+DESCRIPTION="create configuration for live-helper(7)"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
 
 if [ "${1}" != "newconfig" ]
 then
@@ -53,6 +65,10 @@ LH_APT_PDIFFS="${LH_APT_PDIFFS}"
 # (Default: ${LH_APT_RECOMMENDS})
 LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS}"
 
+# \$LH_APT_SECURE: enable secure
+# (Default: ${LH_APT_SECURE})
+LH_APT_SECURE="${LH_APT_SECURE}"
+
 # \$LH_BOOTSTRAP: select the bootstrap program
 # (Default: ${LH_BOOTSTRAP})
 LH_BOOTSTRAP="${LH_BOOTSTRAP}"
@@ -70,7 +86,7 @@ LH_DEBCONF_FRONTEND="${LH_DEBCONF_FRONTEND}"
 LH_DEBCONF_PRIORITY="${LH_DEBCONF_PRIORITY}"
 
 # \$LH_GENISOIMAGE: set the genisoimage program
-# (Default: autodetected)
+# (Default: ${LH_GENISOIMAGE})
 LH_GENISOIMAGE="${LH_GENISOIMAGE}"
 
 # \$LH_LOSETUP: set the losetup program
@@ -86,13 +102,13 @@ EOF
 cat > "${LIVE_ROOT}"/config/chroot << EOF
 # config/chroot: configuration for lh_chroot_*
 
-# \$LIVE_KERNEL: set the kernel flavour to use
+# \$LIVE_KERNEL_FLAVOUR: set the kernel flavour to use
 # (Default: autodetected)
-LIVE_KERNEL="${LIVE_KERNEL}"
+LIVE_KERNEL_FLAVOUR="${LIVE_KERNEL_FLAVOUR}"
 
-# \$LIVE_KERNEL: set the kernel packages to use
+# \$LIVE_KERNEL_PACKAGES: set the kernel packages to use
 # (Default: autodetected)
-#LIVE_KERNEL_PACKAGES
+LIVE_KERNEL_PACKAGES="${LIVE_KERNEL_PACKAGES}"
 
 # \$LIVE_LANGUAGE: set the language to use
 # (Default: empty)
@@ -102,9 +118,9 @@ LIVE_LANGUAGE="${LIVE_LANGUAGE}"
 # (Default: empty)
 LIVE_PACKAGES="${LIVE_PACKAGES}"
 
-# \$LIVE_PACKAGES_LIST: set the package list to install
-# (Default: ${LIVE_PACKAGES_LIST})
-LIVE_PACKAGES_LIST="${LIVE_PACKAGES_LIST}"
+# \$LIVE_PACKAGES_LISTS: set the package list to install
+# (Default: ${LIVE_PACKAGES_LISTS})
+LIVE_PACKAGES_LISTS="${LIVE_PACKAGES_LISTS}"
 
 # \$LIVE_TASKS: set the tasks to install
 # (Default: empty)
@@ -121,13 +137,17 @@ LIVE_SYMLINKS="${LIVE_SYMLINKS}"
 # \$LIVE_SYSVINIT: enable sysvinit
 # (Default: ${LIVE_SYSVINIT})
 LIVE_SYSVINIT="${LIVE_SYSVINIT}"
+
+# \$LIVE_INTERACTIVE: set interactive build
+# (Default: ${LIVE_INTERACTIVE})
+LIVE_INTERACTIVE="${LIVE_INTERACTIVE}"
 EOF
 
 # Creating lh_chroot_* directories
 install -d -m 0755 "${LIVE_ROOT}"/config/chroot_localhooks || true
 install -d -m 0755 "${LIVE_ROOT}"/config/chroot_localincludes || true
 install -d -m 0755 "${LIVE_ROOT}"/config/chroot_localpackages || true
-install -d -m 0755 "${LIVE_ROOT}"/config/chroot_localpackageslist || true
+install -d -m 0755 "${LIVE_ROOT}"/config/chroot_localpackageslists || true
 
 # Creating lh_bootstrap_* configuration
 cat > "${LIVE_ROOT}"/config/bootstrap << EOF
@@ -145,25 +165,25 @@ LIVE_DISTRIBUTION="${LIVE_DISTRIBUTION}"
 # (Default: empty)
 LIVE_DISTRIBUTION_CONFIG="${LIVE_DISTRIBUTION_CONFIG}"
 
-# \$LIVE_FLAVOUR: select the flavour to use
-# (Default: ${LIVE_FLAVOUR})
-LIVE_FLAVOUR="${LIVE_FLAVOUR}"
+# \$LIVE_BOOTSTRAP_FLAVOUR: select the flavour to use
+# (Default: ${LIVE_BOOTSTRAP_FLAVOUR})
+LIVE_BOOTSTRAP_FLAVOUR="${LIVE_BOOTSTRA_PFLAVOUR}"
 
-# \$LIVE_MIRROR_LOCAL: set the local mirror to use
-# (Default: ${LIVE_MIRROR_LOCAL})
-LIVE_MIRROR_LOCAL="${LIVE_MIRROR_LOCAL}"
+# \$LIVE_MIRROR_BUILD: set the mirror to fetch packages from
+# (Default: ${LIVE_MIRROR_BUILD})
+LIVE_MIRROR_BUILD="${LIVE_MIRROR_BUILD}"
 
-# \$LIVE_MIRROR_LOCAL_SECURITY: set the local security mirror to use
-# (Default: ${LIVE_MIRROR_LOCAL_SECURITY})
-LIVE_MIRROR_LOCAL_SECURITY="${LIVE_MIRROR_LOCAL_SECURITY}"
+# \$LIVE_MIRROR_BUILD_SECURITY: set the security mirror to fetch packages from
+# (Default: ${LIVE_MIRROR_BUILD_SECURITY})
+LIVE_MIRROR_BUILD_SECURITY="${LIVE_MIRROR_BUILD_SECURITY}"
 
-# \$LIVE_MIRROR_GENERIC: set the generic mirror to use
-# (Default: ${LIVE_MIRROR_GENERIC})
-LIVE_MIRROR_GENERIC="${LIVE_MIRROR_GENERIC}"
+# \$LIVE_MIRROR_IMAGE: set the mirror which ends up in the image
+# (Default: ${LIVE_MIRROR_IMAGE})
+LIVE_MIRROR_IMAGE="${LIVE_MIRROR_IMAGE}"
 
-# \$LIVE_MIRROR_GENERIC_SECURITY: set the generic security mirror to use
-# (Default: ${LIVE_MIRROR_GENERIC_SECURITY})
-LIVE_MIRROR_GENERIC_SECURITY="${LIVE_MIRROR_GENERIC_SECURITY}"
+# \$LIVE_MIRROR_IMAGE_SECURITY: set the security mirror which ends up in the image
+# (Default: ${LIVE_MIRROR_IMAGE_SECURITY})
+LIVE_MIRROR_IMAGE_SECURITY="${LIVE_MIRROR_IMAGE_SECURITY}"
 
 # \$LIVE_SECTIONS: select the section(s) to use
 # (Default: ${LIVE_SECTIONS})
@@ -181,6 +201,14 @@ LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND}"
 # \$LIVE_ENCRYPTION: set encrytion
 # (Default: empty)
 LIVE_ENCRYPTION="${LIVE_ENCRYPTION}"
+
+# \$LIVE_USERNAME: set username
+# (Default: ${LIVE_USERNAME})
+LIVE_USERNAME="${LIVE_USERNAME}"
+
+# \$LIVE_HOSTNAME: set hostname
+# (Default: ${LIVE_HOSTNAME})
+LIVE_HOSTNAME="${LIVE_HOSTNAME}"
 
 # \$LIVE_FILESYSTEM: set filesystem
 # (Default: ${LIVE_FILESYSTEM})
@@ -222,7 +250,14 @@ LIVE_BINARY_IMAGE="${LIVE_BINARY_IMAGE}"
 # (Default: ${LIVE_SOURCE_IMAGE})
 LIVE_SOURCE_IMAGE="${LIVE_SOURCE_IMAGE}"
 
+# \$LIVE_INCLUDES: set includes
+# (Default: ${LIVE_INCLUDES})
+LIVE_INCLUDES="${LIVE_INCLUDES}"
+
 # \$LIVE_TEMPLATES: set templates
 # (Default: ${LIVE_TEMPLATES})
 LIVE_TEMPLATES="${LIVE_TEMPLATES}"
 EOF
+
+# Creating lh_binary_* directories
+install -d -m 0755 "${LIVE_ROOT}"/config/binary_localincludes || true

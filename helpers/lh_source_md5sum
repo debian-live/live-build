@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_source_config(1) - copy debian-live config into source
+# lh_source_md5sum(1) - create source md5sums
 # Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -16,7 +16,7 @@ do
 done
 
 # Set static variables
-DESCRIPTION="copy debian-live config into source"
+DESCRIPTION="create source md5sums"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -30,7 +30,7 @@ Set_defaults
 if [ "${LIVE_SOURCE}" = "enabled" ]
 then
 	# Requiring stage file
-	Require_stagefile .stage/bootstrap
+	Require_stagefile .stage/source_download
 
 	# Checking lock file
 	Check_lockfile .lock
@@ -39,26 +39,19 @@ then
 	Create_lockfile .lock
 
 	# Checking stage file
-	Check_stagefile .stage/source_config
+	Check_stagefile .stage/source_md5sum
 
-	# Remove old sources
-	if [ -d source/debian-live ]
+	# Remove old md5sums
+	if [ -f source/md5sum.txt ]
 	then
-		rm -rf source/debian-live
+		rm -f source/md5sum.txt
 	fi
 
-	# Copy system configuration
-	mkdir -p source/debian-live
-	cp -a config source/debian-live
-
-	# Create tarball
+	# Calculating md5sums
 	cd source
-	tar cfz debian-live-config_`date +%Y%m%d.%s`.tar.gz debian-live
+	find . -type f -print0 | xargs -0 md5sum > md5sum.txt
 	cd "${OLDPWD}"
 
-	rm -rf source/debian-live/config
-	mv source/debian-live-config_*.tar.gz source/debian-live
-
 	# Creating stage file
-	Create_stagefile .stage/source_config
+	Create_stagefile .stage/source_md5sum
 fi

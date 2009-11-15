@@ -7,10 +7,11 @@ eject file sudo vim-tiny
 console-common kbd locales
 
 # Xfce
-gdm xfce4
+xfce4 gdm
 desktop-base
 
-xorg xresprobe
+xorg xresprobe discover
+alsa-base alsa-oss alsa-utils
 
 # Debian Junior
 junior-sound junior-typing junior-internet junior-gnome junior-toys

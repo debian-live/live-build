@@ -1,6 +1,11 @@
 #!/bin/sh
 
 # lh_chroot_apt(1) - manage /etc/apt/apt.conf
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
 
 set -e
 
@@ -9,6 +14,13 @@ for FUNCTION in /usr/share/live-helper/functions/*.sh
 do
 	. ${FUNCTION}
 done
+
+# Set static variables
+DESCRIPTION="manage /etc/apt/apt.conf"
+HELP=""
+USAGE="${PROGRAM} {install|remove} [--force]"
+
+Arguments "${@}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -28,6 +40,12 @@ case "${1}" in
 	install)
 		# Checking stage file
 		Check_stagefile .stage/chroot_apt
+
+		if [ -f chroot/etc/apt/apt.conf ]
+		then
+			# Remove old /etc/apt/apt.conf
+			rm -f chroot/etc/apt/apt.conf
+		fi
 
 		if [ "${LH_APT}" = "aptitude" ] && [ ! -d chroot/etc/apt/apt.conf.d ]
 		then
@@ -110,6 +128,30 @@ case "${1}" in
 			esac
 		fi
 
+		# Configuring apt secure
+		if [ "${LH_APT_SECURE}" = "enabled" ]
+		then
+			case "${LH_APT}" in
+				apt|apt-get)
+		                        echo "APT::Get::AllowUnauthenticated \"0\";" >> chroot/etc/apt/apt.conf
+					;;
+
+				aptitude)
+					echo "APT::Get::AllowUnauthenticated \"0\";" > chroot/etc/apt/apt.conf.d/secure
+					;;
+			esac
+		else
+			case "${LH_APT}" in
+				apt|apt-get)
+		                        echo "APT::Get::AllowUnauthenticated \"1\";" >> chroot/etc/apt/apt.conf
+					;;
+
+				aptitude)
+					echo "APT::Get::AllowUnauthenticated \"1\";" > chroot/etc/apt/apt.conf.d/secure
+					;;
+			esac
+		fi
+
 		# Creating stage file
 		Create_stagefile .stage/chroot_apt
 		;;
@@ -130,12 +172,14 @@ case "${1}" in
 		# Deconfiguring aptitude recommends
 		rm -f chroot/etc/apt/apt.conf.d/recommends
 
+		# Deconfiguring aptitude secure
+		rm -f chroot/etc/apt/apt.conf.d/secure
+
 		# Removing stage file
 		rm -f .stage/chroot_apt
 		;;
 
 	*)
-		echo "Usage: ${0} {install|remove}"
-		exit 1
+		Usage
 		;;
 esac
