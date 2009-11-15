@@ -13,7 +13,7 @@ mc nano-tiny qemacs-nox mg aview
 # Harddisk
 hdparm blktool scsitools
 # Memory
-memtester memtest86+ dmidecode
+dmidecode
 # System
 procinfo pciutils usbutils hwinfo hwtools x86info cpuid
 # Tools

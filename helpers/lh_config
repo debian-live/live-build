@@ -121,11 +121,19 @@ LH_GENISOIMAGE="${LH_GENISOIMAGE}"
 # (Default: autodetected)
 LH_LOSETUP="${LH_LOSETUP}"
 
+# \$LH_TASKSEL: set the tasksel program
+# (Default: ${LH_TASKSEL})
+LH_TASKSEL="${LH_TASKSEL}"
+
 # \$LIVE_ROOT: set the root directory
 # (Default: ${LIVE_ROOT})
 LIVE_ROOT="${LIVE_ROOT}"
 
 # Live-helper options
+
+# \$LH_ROOT_COMMAND: use sudo or equivalent
+# (Default: empty)
+#LH_ROOT_COMMAND="sudo"
 
 # \$LH_BREAKPOINTS: enable breakpoints
 # (Default: ${LH_BREAKPOINTS})
@@ -323,4 +331,6 @@ LIVE_TEMPLATES="${LIVE_TEMPLATES}"
 EOF
 
 # Creating lh_binary_* directories
+mkdir -p "${LIVE_ROOT}"/config/binary_grub
 mkdir -p "${LIVE_ROOT}"/config/binary_localincludes
+mkdir -p "${LIVE_ROOT}"/config/binary_syslinux

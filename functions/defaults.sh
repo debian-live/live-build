@@ -170,6 +170,12 @@ Set_defaults ()
 		fi
 	fi
 
+	# Setting tasksel
+	if [ -z "${LH_TASKSEL}" ]
+	then
+		LH_TASKSEL="aptitude"
+	fi
+
 	# Setting root directory
 	if [ -z "${LIVE_ROOT}" ]
 	then
@@ -208,6 +214,12 @@ Set_defaults ()
 	if [ -z "${LH_VERBOSE}" ]
 	then
 		LH_VERBOSE="disabled"
+	fi
+
+	# If we are root, disable root command
+	if [ "`id -u`" = "0" ]
+	then
+		LIVE_ROOT_COMMAND=""
 	fi
 
 	## config/bootstrap
@@ -305,7 +317,15 @@ Set_defaults ()
 	# Setting sections value
 	if [ -z "${LIVE_SECTIONS}" ]
 	then
-		LIVE_SECTIONS="main"
+		case "${LH_MODE}" in
+			debian)
+				LIVE_SECTIONS="main"
+				;;
+
+			ubuntu)
+				LIVE_SECTIONS="main restricted"
+				;;
+		esac
 	fi
 
 	## config/chroot

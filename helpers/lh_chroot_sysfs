@@ -57,7 +57,7 @@ case "${1}" in
 		fi
 
 		# Mounting /sys
-		mount sysfs-live -t sysfs chroot/sys
+		${LH_ROOT_COMMAND} mount sysfs-live -t sysfs chroot/sys
 
 		# Creating stage file
 		Create_stagefile .stage/chroot_sysfs
@@ -72,7 +72,7 @@ case "${1}" in
 
 		# Unmounting /sys
 		#fuser -km chroot/sys
-		umount chroot/sys > /dev/null 2>&1
+		${LH_ROOT_COMMAND} umount chroot/sys > /dev/null 2>&1
 
 		# Removing stage file
 		rm -f .stage/chroot_sysfs

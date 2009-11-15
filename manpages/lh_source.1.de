@@ -1,0 +1,43 @@
+.TH LH_SOURCE 1 "23.04.2007" "1.0~a7" "live\-helper"
+
+.SH NAME
+lh_source \- Meta\-Helper f\[:u]r lh_source_*
+
+.SH SYNTAX
+.B lh_source [\fIlive\-helper\ Optionen\fR\|]
+
+.SH BESCHREIBUNG
+lh_source ist ein Meta\-Helper. Es ruft alle n\[:o]tigen Helper auf um die source\-Stufe zu vervollst\[:a]ndigen.
+
+.SH SOURCE HELPER
+Hier ist eine vollst\[:a]ndige Liste aller verf\[:u]gbaren source\-Helper Kommandos. Siehe deren Hilfeseiten f\[:u]r zus\[:a]tzliche Dokumentation.
+.IP "\fIlh_source_config\fR(1)" 4
+kopiert debian\-live Konfiguration in source.
+.IP "\fIlh_source_download\fR(1)" 4
+l\[:a]dt Paketquellen herunter.
+.IP "\fIlh_source_generic\fR(1)" 4
+erstellt den generischen Source-Tarball.
+.IP "\fIlh_source_hdd\fR(1)" 4
+erstellt den Harddisk Source-Tarball.
+.IP "\fIlh_source_iso\fR(1)" 4
+erstellt  CD/DVD Source-Image.
+.IP "\fIlh_source_md5sum\fR(1)" 4
+erstellt md5sum.txt im Source-Image.
+.IP "\fIlh_source_net\fR(1)" 4
+erstellt Netboot Source-Tarball.
+.IP "\fIlh_source_usb\fR(1)" 4
+erstellt USB Source-Tarball.
+
+.SH SIEHE AUCH
+\fIlive\-helper\fR(7)
+.PP
+Dieses Programm ist Teil von live\-helper.
+
+.SH FEHLER
+Fehler k\[:o]nnen gegen live\-helper <\fIhttp://packages.qa.debian.org/live\-helper/\fR> gemeldet werden.
+
+.SH HOMEPAGE
+Mehr Informationen \[:u]ber das Debian Live\-Projekt k\[:o]nnen auf <\fIhttp://debian\-live.alioth.debian.org/\fR> und <\fIhttp://wiki.debian.org/DebianLive/\fR> gefunden werden.
+
+.SH AUTOR
+live\-helper wurde von Daniel Baumann <\fIdaniel@debian.org\fR> f\[:u]r das Debian\-Projekt geschrieben.

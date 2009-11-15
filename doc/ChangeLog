@@ -1,3 +1,59 @@
+2007-04-23  Daniel Baumann  <daniel@debian.org>
+
+	* Makefile:
+	  - Added simple test rule.
+	* functions/*, helpers/*:
+	  - Added LH_ROOT_COMMAND to support sudo.
+	* functions/package.sh:
+	  - Added. Helper dependencies in-chroot can now be handled by
+	    functions.
+	* helpers/make-live:
+	  - Added trap to unmount proc and sys on exit and failure.
+	* Uploaded 1.0~a7-1.
+
+2007-04-22  Daniel Baumann  <daniel@debian.org>
+
+	* functions/defaults.sh:
+	  - In ubuntu mode, setting default sections to main restricted.
+	* helpers/lh_binary_grub:
+	  - Making copy call of grub arch independent.
+	* helpers/lh_chroot_sources:
+	  - In debian mode, checking for non-sid rather than if-etch.
+	  - Fixed wrong Ubuntu security URL.
+
+2007-04-20  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_rootfs, lh_binary_iso:
+	  - Added mksquashfs/genisoimage quiet/verbose options.
+
+2007-04-19  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_grub, lh_binary_syslinux:
+	  - Added check for splash in config directory.
+
+2007-04-18  Daniel Baumann  <daniel@debian.org>
+
+	* debian/cron.daily, default:
+	  - Added.
+	* doc/BUGS, DOWNLOAD:
+	  - Added.
+	* examples/edu.sources.list, fai.sources.list:
+	  - Added.
+	* manpages/*:
+	  - Added language suffix.
+	  - Added German translations.
+
+2007-04-17  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_chroot_hooks:
+	  - Also check for tasks specific hooks, not just for package lists.
+	* helpers/lh_chroot_tasks:
+	  - Allowing to use either aptitude or tasksel.
+	* hooks/kde-desktop:
+	  - Added.
+	* manpages/lh_build.1, lh_source.1:
+	  - Added.
+
 2007-04-16  Daniel Baumann  <daniel@debian.org>
 
 	* functions/defaults.sh:

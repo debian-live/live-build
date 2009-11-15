@@ -635,45 +635,27 @@ then
 	do
 		case "${LOCALZATION}" in
 			iceape)
-				if [ -f chroot/usr/bin/iceape ]
-				then
-					PACKAGES="${PACKAGES} iceweasel-l10n-${ICEAPE}"
-				fi
+				Check_package chroot/usr/bin/iceape iceweasel-l10n-"${ICEAPE}"
 				;;
 
 			icedove)
-				if [ -f chroot/usr/bin/icedove ]
-				then
-					PACKAGES="${PACKAGES} icedove-locale-${ICEDOVE}"
-				fi
+				Check_package chroot/usr/bin/icedove icedove-locale-"${ICEDOVE}"
 				;;
 
 			iceweasel)
-				if [ -f chroot/usr/bin/iceweasel ]
-				then
-					PACKAGES="${PACKAGES} iceweasel-l10n-${ICEWEASEL}"
-				fi
+				Check_package chroot/usr/bin/iceweasel iceweasel-l10n-"${ICEWEASEL}"
 				;;
 
 			kde)
-				if [ -f chroot/usr/bin/kstart ]
-				then
-					PACKAGES="${PACKAGES} kde-i18n-${KDE}"
-				fi
+				Check_package chroot/usr/bin/kstart kde-i18n-"${KDE}"
 				;;
 
 			koffice)
-				if [ -f chroot/usr/bin/usr/bin/koconverter ]
-				then
-					PACKAGES="${PACKAGES} koffice-i18n-${KOFFICE}"
-				fi
+				Check_package chroot/usr/bin/usr/bin/koconverter koffice-i18n-"${KOFFICE}"
 				;;
 
 			openoffice)
-				if [ -f chroot/usr/bin/ooffice ]
-				then
-					PACKAGES="${PACKAGES} openoffice.org-l10n-${OPENOFFICE}"
-				fi
+				Check_package chroot/usr/bin/ooffice openoffice.org-l10n-"${OPENOFFICE}"
 				;;
 		esac
 	done
@@ -682,15 +664,7 @@ then
 	Restore_cache cache/chroot_localization
 
 	# Installing packages
-	case "${LH_APT}" in
-		apt|apt-get)
-			Chroot "apt-get install --yes ${PACKAGES}"
-			;;
-
-		aptitude)
-			Chroot "apt-get install --assume-yes ${PACKAGES}"
-			;;
-	esac
+	Install_package
 
 	# Saving cache
 	Save_cache cache/chroot_localization

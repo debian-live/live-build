@@ -1,13 +1,13 @@
-.TH LH_BOOTSTRAP 1 "2007\-04\-16" "1.0~a6" "live\-helper"
+.TH LH_BOOTSTRAP 1 "2007\-04\-23" "1.0~a7" "live\-helper"
 
 .SH NAME
-lh_bootstrap \- meta-helper for lh_bootstrap_*
+lh_bootstrap \- meta\-helper for lh_bootstrap_*
 
 .SH SYNOPSIS
 .B lh_bootstrap [\fIlive\-helper\ options\fR\|]
 
 .SH DESCRIPTION
-lh_bootstrap is a meta-helper. It calls all necessary helpers to complete the bootstrap stage.
+lh_bootstrap is a meta\-helper. It calls all necessary helpers to complete the bootstrap stage.
 
 .SH BOOTSTRAP HELPERS
 Here is the complete list of available bootstrap helper commands. See their man pages for additional documentation.
@@ -19,7 +19,7 @@ bootstraps system with debootstrap.
 .SH SEE ALSO
 \fIlive\-helper\fR(7)
 .PP
-This program is a part of live-helper.
+This program is a part of live\-helper.
 
 .SH BUGS
 Report bugs against live\-helper <\fIhttp://packages.qa.debian.org/live\-helper/\fR>.

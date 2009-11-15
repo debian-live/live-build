@@ -9,11 +9,11 @@
 
 Breakpoint ()
 {
+	NAME="${1}"
+
 	if [ "${LH_BREAKPOINTS}" = "enabled" ]
 	then
-		BREAKPOINT="${1}"
-
-		Echo_message "Waiting at ${BREAKPOINT}"
+		Echo_message "Waiting at ${NAME}"
 		read
 	fi
 }

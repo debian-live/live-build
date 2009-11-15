@@ -57,7 +57,7 @@ case "${1}" in
 		fi
 
 		# Mounting /proc
-		mount proc-live -t proc chroot/proc
+		${LH_ROOT_COMMAND} mount proc-live -t proc chroot/proc
 
 		# Creating stage file
 		Create_stagefile .stage/chroot_proc
@@ -71,14 +71,14 @@ case "${1}" in
 		Create_lockfile .lock
 
 		# Workaround binfmt-support /proc locking
-		if [ -e chroot/proc/sys/fs/binftm_misc/status ]
+		if [ -e chroot/proc/sys/fs/binfmt_misc/status ]
 		then
-			umount chroot/proc/sys/fs/binfmt_misc
+			${LH_ROOT_COMMAND} umount chroot/proc/sys/fs/binfmt_misc
 		fi
 
 		# Unmounting /proc
 		#fuser -km chroot/proc
-		umount chroot/proc > /dev/null 2>&1
+		${LH_ROOT_COMMAND} umount chroot/proc > /dev/null 2>&1
 
 		# Removing stage file
 		rm -f .stage/chroot_proc

@@ -56,35 +56,19 @@ then
 	exit 0
 fi
 
+# Checking depends
 case "${LIVE_MEMTEST}" in
 	memtest86)
-		if [ ! -f chroot/boot/memtest86.bin ]
-		then
-			PACKAGES="${PACKAGES} memtest86"
-		fi
+		Check_package chroot/boot/memtest86.bin memtest86
 		;;
 
 	memtest86+)
-		if [ ! -f chroot/boot/memtest86+.bin ]
-		then
-			PACKAGES="${PACKAGES} memtest86+"
-		fi
+		Check_package chroot/boot/memtest86+.bin memtest86+
 		;;
 esac
 
-if [ -n "${PACKAGES}" ]
-then
-	# Installing symlinks
-	case "${LH_APT}" in
-		apt|apt-get)
-			Chroot "apt-get install --yes ${PACKAGES}"
-			;;
-
-		aptitude)
-			Chroot "aptitude install --assume-yes ${PACKAGES}"
-			;;
-	esac
-fi
+# Installing depends
+Install_package
 
 # Setting destination directory
 case "${LIVE_BINARY_IMAGE}" in
@@ -132,19 +116,8 @@ case "${LIVE_MEMTEST}" in
 		;;
 esac
 
-if [ -n "${PACKAGES}" ]
-then
-	# Removing packages
-	case "${LH_APT}" in
-		apt|apt-get)
-			Chroot "apt-get remove --purge --yes ${PACKAGES}"
-			;;
-
-		aptitude)
-			Chroot "aptitude purge --assume-yes ${PACKAGES}"
-			;;
-	esac
-fi
+# Removing depends
+Remove_package
 
 # Creating stage file
 Create_stagefile .stage/binary_memtest

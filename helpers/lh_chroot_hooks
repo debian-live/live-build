@@ -46,26 +46,29 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Processing hooks
-if [ -n "${LIVE_PACKAGES_LISTS}" ] && [ -f /usr/share/live-helper/hooks/"${LIVE_PACKAGES_LISTS}" ]
-then
-	# Copying hook
-	cp /usr/share/live-helper/hooks/"${LIVE_PACKAGES_LISTS}" chroot/root
-
-	# Making hook executable
-	if [ ! -x chroot/root/${LIVE_PACKAGES_LISTS} ]
+for HOOK in ${LIVE_PACKAGES_LISTS} ${LIVE_TASKS}
+do
+	if [ -f /usr/share/live-helper/hooks/"${HOOK}" ]
 	then
-		chmod +x chroot/root/${LIVE_PACKAGES_LISTS}
+		# Copying hook
+		cp /usr/share/live-helper/hooks/"${HOOK}" chroot/root
+
+		# Making hook executable
+		if [ ! -x chroot/root/"${HOOK}" ]
+		then
+			chmod +x chroot/root/"${HOOK}"
+		fi
+
+		# Executing hook
+		Chroot "/root/${HOOK}"
+
+		# Removing hook
+		rm -f chroot/root/"${HOOK}"
+
+		# Creating stage file
+		Create_stagefile .stage/chroot_hooks
 	fi
-
-	# Executing hook
-	Chroot "/root/${LIVE_PACKAGES_LISTS}"
-
-	# Removing hook
-	rm -f chroot/root/"${LIVE_PACKAGE_LIST}"
-
-	# Creating stage file
-	Create_stagefile .stage/chroot_hooks
-fi
+done
 
 if [ -n "${LIVE_HOOKS}" ]
 then
