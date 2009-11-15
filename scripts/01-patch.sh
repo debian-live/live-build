@@ -8,7 +8,7 @@ Patch_chroot ()
 	case "${1}" in
 		apply)
 			# Create chroot file
-			echo "live" > "${LIFE_CHROOT}"/etc/debian_chroot
+			echo "live" > "${LIVE_CHROOT}"/etc/debian_chroot
 			;;
 
 		deapply)

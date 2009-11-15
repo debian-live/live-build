@@ -43,7 +43,12 @@ Defaults ()
 				;;
 
 			amd64)
-				LIVE_LINUX="amd64-generic"
+				if [ "${LIVE_DISTRIBUTION}" == unstable ]
+				then
+					LIVE_LINUX="amd64-k8"
+				else
+					LIVE_LINUX="amd64-generic"
+				fi
 				;;
 
 			arm)

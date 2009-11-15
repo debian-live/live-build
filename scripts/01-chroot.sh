@@ -6,9 +6,7 @@ chroots ()
 	chroot "${LIVE_CHROOT}" /usr/bin/env -i HOME="/root" \
 		PATH="/usr/sbin:/usr/bin:/sbin:/bin" TERM="${TERM}" \
 		ftp_proxy="${LIVE_FTPPROXY}" http_proxy="${LIVE_HTTPPROXY}" \
-		DEBIAN_PRIORITY="critical" ${1}
-	#DEBIAN_FRONTEND=non-interactive DEBIAN_PRIORITY=critical
-	# FIXME: setting DEBIAN_FRONTEND to non-interactive seems not to work.
+		DEBIAN_FRONTEND=noninteractive DEBIAN_PRIORITY=critical ${1}
 }
 
 Chroot ()
@@ -58,10 +56,21 @@ Chroot ()
 	Patch_linuximage apply
 
 	# Install linux-image
-	chroots "apt-get install --yes linux-image-2.6-${LIVE_LINUX}"
-	chroots "apt-get install --yes --force-yes casper \
-		squashfs-modules-2.6-${LIVE_LINUX} \
-		unionfs-modules-2.6-${LIVE_LINUX}"
+	case "${LIVE_DISTRIBUTION}" in
+		unstable)
+			chroots "apt-get install --yes linux-image-2.6-${LIVE_LINUX}"
+			chroots "apt-get install --yes --force-yes casper \
+				squashfs-modules-2.6-${LIVE_LINUX} \
+				unionfs-modules-2.6-${LIVE_LINUX}"
+			;;
+
+		testing)
+			chroots "apt-get install --yes linux-image-2.6.16-2-${LIVE_LINUX}"
+			chroots "apt-get install --yes --force-yes casper \
+				squashfs-modules-2.6.16-2-${LIVE_LINUX} \
+				unionfs-modules-2.6.16-2-${LIVE_LINUX}"
+			;;
+	esac
 
 	# Rebuild initial ramdisk
 	chroots "dpkg-reconfigure `basename ${LIVE_CHROOT}/var/lib/dpkg/info/linux-image-2.6.*-${LIVE_LINUX}.postinst .postinst`"
