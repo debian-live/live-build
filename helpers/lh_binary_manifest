@@ -42,24 +42,22 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-case "${LH_INITRAMFS}" in
-	casper)
-		# Add filesystem.manifest
-		Chroot "dpkg --get-selections" | awk '{ print $1 }' | sort -u > binary/casper/filesystem.manifest
-		;;
+if [ "${LH_INITRAMFS}" = "casper" ]
+then
+	# Add filesystem.manifest
+	Chroot "dpkg --get-selections" | awk '{ print $1 }' | sort -u > binary/casper/filesystem.manifest
+fi
 
-	live-initramfs)
-		# Add packages.list
-
+# Add packages.list
 cat > binary/packages.txt << EOF
 This file contains the list of all packages installed in this live system.
 
 
 EOF
 
-		Chroot "dpkg -l" >> binary/packages.txt
-		;;
-esac
+Chroot "dpkg -l" >> binary/packages.txt
+
+cp binary/packages.txt binary.packages
 
 # Creating stage file
 Create_stagefile .stage/binary_manifest

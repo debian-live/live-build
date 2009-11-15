@@ -5,13 +5,18 @@
 #
 # Note: This hook requires packages from the contrib section. Make sure you enabled
 # it in your configuration.
-#
-# FIXME: it runs in interactive mode
 
 # Building kernel module
 which module-assistant || apt-get install --yes module-assistant
 module-assistant update
-module-assistant auto-install madwifi
+
+for KERNEL in /boot/vmlinuz-*
+do
+	VERSION="$(basename ${KERNEL} | sed -e 's|vmlinuz-||')"
+
+	module-assistant --non-inter --quiet auto-install madwifi -l ${VERSION}
+done
+
 module-assistant clean madwifi
 
 # Installing additional stuff

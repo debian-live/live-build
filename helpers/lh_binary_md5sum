@@ -55,7 +55,7 @@ fi
 
 # Calculating md5sums
 cd binary
-find . -type f \! -name 'isolinux/isolinux.bin' \! -name 'boot/grub/stage2_eltorito' -print0 | sort -z | xargs -0 md5sum > ../md5sum.txt
+find . -type f \! -path './isolinux/isolinux.bin' \! -path './boot/grub/stage2_eltorito' -print0 | sort -z | xargs -0 md5sum > ../md5sum.txt
 
 cat > md5sum.txt << EOF
 This file contains the list of md5 checksums of all files on this medium.
@@ -68,6 +68,9 @@ EOF
 
 cat ../md5sum.txt >> md5sum.txt
 rm -f ../md5sum.txt
+
+# File list
+find . | sed -e 's|^.||g' | grep "^/" | sort > ../binary.list
 
 cd "${OLDPWD}"
 

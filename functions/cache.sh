@@ -18,7 +18,14 @@ Restore_cache ()
 		if [ -d "${DIRECTORY}" ]
 		then
 			# Restore old cache
-			cp "${DIRECTORY}"/*.deb chroot/var/cache/apt/archives
+			if [ "$(stat --printf %d ${DIRECTORY})" = "$(stat --printf %d chroot/var/cache/apt/archives)" ]
+			then
+				# with hardlinks
+				cp -fl "${DIRECTORY}"/*.deb chroot/var/cache/apt/archives
+			else
+				# without hardlinks
+				cp "${DIRECTORY}"/*.deb chroot/var/cache/apt/archives
+			fi
 		fi
 	fi
 }
@@ -38,7 +45,14 @@ Save_cache ()
 			mkdir -p "${DIRECTORY}"
 
 			# Saving new cache
-			mv -f chroot/var/cache/apt/archives/*.deb "${DIRECTORY}"
+			if [ "$(stat --printf %d ${DIRECTORY})" = "$(stat --printf %d chroot/var/cache/apt/archives)" ]
+			then
+				# with hardlinks
+				cp -fl chroot/var/cache/apt/archives/*.deb "${DIRECTORY}"
+			else
+				# without hardlinks
+				mv -f chroot/var/cache/apt/archives/*.deb "${DIRECTORY}"
+			fi
 		fi
 	else
 		# Purging current cache

@@ -80,6 +80,7 @@ do
 			rm -f binary.img
 			rm -f binary*.tar.gz
 			rm -f binary.sh
+			rm -f binary.list binary.packages
 
 			rm -rf binary
 			rm -rf tftpboot
@@ -106,6 +107,7 @@ do
 			rm -f source.img
 			rm -f source*.tar
 			rm -f source*.tar.gz
+			rm -f binary.list
 
 			rm -rf source
 
