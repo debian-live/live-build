@@ -112,9 +112,9 @@ config/bootstrap_debootstrap to read the options it will use. See the man pages
 of individual commands for details about the names and formats of the files they
 use. Generally, these files contain variables with values assigned, one variable
 per line. Some programs in live\-helper use pairs of values or slightly more
-complicated variable assignements.
+complicated variable assignments.
 .PP
-Note that live\-helper will respects environment variables which are present in
+Note that live\-helper will respect environment variables which are present in
 the context of the shell it is running. If variables can be read from config
 files, then they override environment variables, and if command line options are
 used, they override values from config files. If no value for a given variable
@@ -124,7 +124,7 @@ default value.
 In some rare cases, you may want to have different versions of these files for
 different architectures or distributions. If files named config/stage.arch or
 config/stage_helper.arch, and config/stage.dist or config/stage_helper.dist
-exists, where "arch" is the same as the output of "dpkg \-\-print\-architecture"
+exist, where "arch" is the same as the output of "dpkg \-\-print\-architecture"
 and "dist" is the same as the codename of the target distribution, then they
 will be used in preference to other, more general files.
 .PP

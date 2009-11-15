@@ -17,13 +17,25 @@ aview mc nano-tiny qemacs-nox mg vim wdiff hexedit
 dvd+rw-tools genisoimage sdparm hdparm blktool parted partimage secure-delete scsitools smartmontools testdisk wodim wipe hddtemp
 
 # System
-dmidecode lshw pciutils procinfo read-edid sysutils usbutils mcelog
+dmidecode lshw pciutils procinfo usbutils mcelog
+
+#if ARCHITECTURE i386 powerpc
+read-edid
+#endif
+
+#if DISTRIBUTION etch
+sysutils
+#endif
 
 # Browser
 lynx links2 w3m
 
 # Compression
-bzip2 rar unace unrar unzip zip
+bzip2 unace unrar-free unzip zip
+
+#if SECTIONS non-free
+rar unrar
+#endif
 
 # Backup
 dar gddrescue dump
@@ -59,9 +71,12 @@ fail2ban
 iptables
 knockd
 portsentry
-reaim
 vlan
 zorp
+
+#if DISTRIBUTION etch
+reaim
+#endif
 
 # Bridging
 bridge-utils
@@ -87,7 +102,7 @@ atsar
 bmon
 ethstatus
 ettercap
-geopip-bin
+geoip-bin
 hp-search-mac
 icmpinfo
 ifstat
@@ -102,7 +117,6 @@ nload
 nsca
 nstreams
 ntop
-pasd
 saidar
 samhain
 scanssh
@@ -122,7 +136,6 @@ fragrouter
 honeyd
 hping3
 icmpush
-irpas
 macchanger
 medusa
 ndiff
@@ -131,7 +144,6 @@ netpipe-tcp
 nmap
 ndisc6
 ngrep
-nsed
 p0f
 packit
 paketto
@@ -151,7 +163,6 @@ dnstracer
 netselect
 
 # FS tools
-ext2resize
 reiserfsprogs
 scrounge-ntfs
 squashfs-tools
@@ -176,12 +187,12 @@ lsscsi
 lvm2
 mdadm
 mtools
-ntfs3g
+ntfs-3g
 ntfsprogs
 reiser4progs
 
 # unsorted
-hwinfo hwtools x86info cpuid
+hwinfo x86info cpuid
 tofrodos rpncalc
 hal
 dc
