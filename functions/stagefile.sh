@@ -62,9 +62,9 @@ Require_stagefile ()
 	then
 		if [ "${NUMBER}" -eq 1 ]
 		then
-			Echo_error "${NAME} missing"
+			Echo_error "${NAME}: ${FILE} missing"
 		else
-			Echo_error "one of ${NAME} is missing"
+			Echo_error "${NAME}: one of ${FILES} is missing"
 		fi
 
 		exit 1

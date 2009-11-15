@@ -424,7 +424,7 @@ Set_defaults ()
 		then
 			LH_LINUX_PACKAGES="${LH_LINUX_PACKAGES} squashfs-modules-2.6"
 
-			if [ "${LH_DISTRIBUTION}" = "sid" ]
+			if [ "${LH_DISTRIBUTION}" != "etch" ]
 			then
 				LH_LINUX_PACKAGES="${LH_LINUX_PACKAGES} lzma-modules-2.6"
 			fi

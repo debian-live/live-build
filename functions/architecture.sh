@@ -47,6 +47,10 @@ Check_crossarchitecture ()
 		powerpc|ppc64)
 			CROSS="powerpc ppc64"
 			;;
+
+		*)
+			CROSS="${HOST}"
+			;;
 	esac
 
 	Check_architecture "${CROSS}"
