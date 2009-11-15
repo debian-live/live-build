@@ -33,10 +33,27 @@ Read_conffile config/source
 Read_conffile "${LH_CONFIG}"
 Set_defaults
 
-if [ -z "${LH_ENCRYPTION}" ]
-then
-	exit 0
-fi
+case "${LH_ENCRYPTION}" in
+	aes128|aes192|aes256)
+		;;
+	""|disabled)
+		exit 0
+		;;
+	*)
+		Echo_error "Encryption type \"${LH_ENCRYPTION}\" not supported."
+		exit 1
+		;;
+esac
+
+case "${LH_CHROOT_FILESYSTEM}" in
+	ext2|squashfs)
+		;;
+
+	*)
+		Echo_error "Encryption not yet supported on ${LH_CHROOT_FILESYSTEM} filesystems."
+		exit 1
+		;;
+esac
 
 Echo_message "Begin encrypting root filesystem image..."
 
@@ -63,26 +80,6 @@ case "${LH_INITRAMFS}" in
 		;;
 esac
 
-case "${LH_CHROOT_FILESYSTEM}" in
-	ext2)
-		ROOTFS="ext2"
-		;;
-
-	jffs2)
-		Echo_warning "encryption not yet supported on jffs2 filesystem."
-		exit 0
-		;;
-
-	plain)
-		Echo_warning "encryption not supported on plain filesystem."
-		exit 0
-		;;
-
-	squashfs)
-		ROOTFS="squashfs"
-		;;
-esac
-
 # Checking depends
 Check_package chroot/usr/bin/aespipe aespipe
 
@@ -92,54 +89,58 @@ Restore_cache cache/packages_binary
 # Installing depends
 Install_package
 
-case "${LH_CHROOT_BUILD}" in
-	enabled)
-		# Moving image
-		mv binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM} chroot
+Echo_message "Encrypting binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM} with ${LH_ENCRYPTION}..."
 
-echo "Encrypting binary/${INITFS}/filesystem.${ROOTFS} with ${LH_ENCRYPTION}..."
+if [ "${LH_CHROOT_BUILD}" = "enabled" ]
+then
+	# Moving image
+	mv binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM} chroot
+fi
 
-cat >> chroot/encrypt.sh << EOF
 while true
 do
-	cat filesystem.${ROOTFS} | aespipe -e ${LH_ENCRYPTION} -T > filesystem.${ROOTFS}.tmp && mv filesystem.${ROOTFS}.tmp filesystem.${ROOTFS} && break
+	echo
+	echo " **************************************"
+	echo " ** Configuring encrypted filesystem **"
+	echo " **************************************"
+	echo " (Passwords must be at least 20 characters long)"
+	echo
 
-	echo -n "Something went wrong... Retry? [YES/no] "
+	case "${LH_CHROOT_BUILD}" in
+		enabled)
+			if Chroot aespipe -e ${LH_ENCRYPTION} -T \
+				< chroot/filesystem.${LH_CHROOT_FILESYSTEM} \
+				> chroot/filesystem.${LH_CHROOT_FILESYSTEM}.tmp
+			then
+				mv chroot/filesystem.${LH_CHROOT_FILESYSTEM}.tmp binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM}
+				break
+			fi
+			;;
+		disabled)
+			if aespipe -e ${LH_ENCRYPTION} -T \
+				< binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM} \
+				> binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM}.tmp
+			then
+				mv binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM}.tmp binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM}
+				break
+			fi
+			;;
+	esac
 
+	printf "\nThere was an error configuring encryption ... Retry? [Y/n] "
 	read ANSWER
 
-	if [ "no" = "${ANSWER}" ]
+	if [ "$(echo "${ANSWER}" | cut -b1 | tr A-Z a-z)" = "n" ]
 	then
 		unset ANSWER
 		break
 	fi
 done
-EOF
-
-		Chroot "sh encrypt.sh"
-
-		# Move image
-		mv chroot/filesystem.${LH_CHROOT_FILESYSTEM} binary/${INITFS}
-		rm -f chroot/encrypt.sh
-		;;
-
-	disabled)
-		while true
-		do
-			cat binary/${INITFS}/filesystem.${ROOTFS} | aespipe -e ${LH_ENCRYPTION} -T > binary/${INITFS}/filesystem.${ROOTFS}.tmp && mv binary/${INITFS}/filesystem.${ROOTFS}.tmp binary/${INITFS}/filesystem.${ROOTFS} && break
-
-			echo -n "Something went wrong... Retry? [YES/no] "
-
-			read ANSWER
-
-			if [ "no" = "${ANSWER}" ]
-			then
-				unset ANSWER
-				break
-			fi
-		done
-		;;
-esac
+	
+# Cleanup temporary filesystems
+rm -f chroot/filesystem.${LH_CHROOT_FILESYSTEM}
+rm -f chroot/filesystem.${LH_CHROOT_FILESYSTEM}.tmp
+rm -f binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM}.tmp
 
 # Saving cache
 Save_cache cache/packages_binary

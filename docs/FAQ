@@ -10,7 +10,7 @@ A: live-helper supports Debian and Ubuntu right now. Adding automatic defaults
    include it.
 
 
-Q: How can I build images with an unprevileged user account?
+Q: How can I build images with an unprivileged user account?
 A: You can use --root-command sudo or set LH_ROOT_COMMAND="sudo" in
    config/common.
 

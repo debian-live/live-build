@@ -38,18 +38,9 @@ then
 	WGET_OPTIONS="${WGET_OPTIONS} --quiet"
 fi
 
-# Setting remote d-i directories
+# Check d-i configuration
 case "${LH_DEBIAN_INSTALLER}" in
-	enabled|cdrom|netinst|businesscard|live)
-		DI="cdrom"
-		DI_GTK="${DI}/gtk"
-		DI_KERNEL="vmlinuz"
-		;;
-
-	netboot)
-		DI="netboot/debian-installer/${LH_ARCHITECTURE}"
- 		DI_GTK="netboot/gtk/debian-installer/${LH_ARCHITECTURE}"
-		DI_KERNEL="linux"
+	enabled|cdrom|netinst|netboot|businesscard|live)
 		;;
 
 	disabled)
@@ -83,11 +74,7 @@ case "${LH_BINARY_IMAGES}" in
 		;;
 
 	net)
-		DESTDIR="tftpboot"
-		DI="netboot"
-
-		Echo_error "Not supported yet (FIXME)"
-		exit 1
+		DESTDIR="tftpboot/debian-install/${LH_ARCHITECTURE}"
 		;;
 
 	tar|usb-hdd)
@@ -98,6 +85,36 @@ case "${LH_BINARY_IMAGES}" in
 		then
 			DESTDIR="binary"
 		fi
+		;;
+esac
+
+# Setting remote d-i directories
+case "${LH_BINARY_IMAGES}" in
+	net)
+		USE_NETBOOT_DI="yes"
+		;;
+	*)
+		case "${LH_DEBIAN_INSTALLER}" in
+			businesscard|netboot)
+				USE_NETBOOT_DI="yes"
+				;;
+			*)
+				USE_NETBOOT_DI="no"
+				;;
+		esac
+		;;
+esac
+
+case "${USE_NETBOOT_DI}" in
+	yes)
+		DI_REMOTE_BASE="netboot/debian-installer/${LH_ARCHITECTURE}"
+		DI_REMOTE_BASE_GTK="netboot/gtk/debian-installer/${LH_ARCHITECTURE}"
+		DI_REMOTE_KERNEL="linux"
+		;;
+	no)
+		DI_REMOTE_BASE="cdrom"
+		DI_REMOTE_BASE_GTK="cdrom/gtk"
+		DI_REMOTE_KERNEL="vmlinuz"
 		;;
 esac
 
@@ -112,8 +129,11 @@ INITRD_GI="gtk/initrd.gz"
 DESTDIR_GI="${DESTDIR}/gtk"
 
 Install_file() {
-	local FILE="${1}"
-	local TARGET="${2}"
+	local FILE
+	FILE="${1}"
+
+	local TARGET
+	TARGET="${2}"
 
 	SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
 
@@ -217,18 +237,20 @@ fi
 
 # Downloading debian-installer
 mkdir -p "${DESTDIR_DI}"
-wget ${WGET_OPTIONS} --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI}/${DI_KERNEL}
-wget ${WGET_OPTIONS} --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI}/initrd.gz
+wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI_REMOTE_BASE}/${DI_REMOTE_KERNEL}
+wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI_REMOTE_BASE}/initrd.gz
 
 # Downloading graphical-installer
 if [ "${LH_ARCHITECTURE}" = "amd64" ] || [ "${LH_ARCHITECTURE}" = "i386" ] || [ "${LH_ARCHITECTURE}" = "powerpc" ]
 then
 	mkdir -p "${DESTDIR_GI}"
-	wget ${WGET_OPTIONS} --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_GTK}/${DI_KERNEL}
-	wget ${WGET_OPTIONS} --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_GTK}/initrd.gz
+	wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/${DI_REMOTE_KERNEL}
+	wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/initrd.gz
 fi
 
-if [ "${LH_DEBIAN_INSTALLER}" != "netboot" ]; then
+# Only download additional packages if appropriate
+if [ "${USE_NETBOOT_DI}" = "no" ]
+then
 	# Downloading additional packages
 	mkdir -p chroot/binary.deb/archives/partial
 	mv chroot/var/lib/dpkg/status chroot/var/lib/dpkg/status.tmp
@@ -261,173 +283,202 @@ if [ "${LH_DEBIAN_INSTALLER}" != "netboot" ]; then
 			Install_file "${FILE}" "binary/pool/main"
 		done
 	fi
-fi
 
-# Including base debian packages
-if [ -d cache/packages_bootstrap ]
-then
-	for FILE in cache/packages_bootstrap/*.deb
-	do
-		Install_file "${FILE}" "binary/pool/main"
-	done
-else
-	Echo_error "E: Could not find cache/packages_bootstrap"
-	exit 1
-fi
-
-# Including local debs
-if ls ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".udeb > /dev/null 2>&1
-then
-	for FILE in ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".deb
-	do
-		Install_file "${FILE}" "binary/pool/main"
-	done
-fi
-
-if ls ../config/binary_local-debs/*_all.udeb > /dev/null 2>&1
-then
-	for FILE in ../config/binary_local-debs/*_all.deb
-	do
-		Install_file "${FILE}" "binary/pool/main"
-	done
-fi
-
-# Generating deb indices
-mkdir -p binary/dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}
-
-cd binary
-apt-ftparchive packages pool/main > dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages
-gzip -9 -c dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages > dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages.gz
-cd "${OLDPWD}"
-
-# Fetching release
-wget ${WGET_OPTIONS} "${LH_MIRROR_CHROOT}"/dists/"${LH_DISTRIBUTION}"/main/binary-"${LH_ARCHITECTURE}"/Release -O binary/dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Release
-
-mkdir binary.udeb
-cd binary.udeb
-
-# Downloading udeb indices
-wget ${WGET_OPTIONS} "${LH_MIRROR_CHROOT}"/dists/"${LH_DISTRIBUTION}"/main/debian-installer/binary-"${LH_ARCHITECTURE}"/Packages.gz
-gunzip -c Packages.gz > Packages
-
-# Sorting udebs
-UDEBS="$(awk '/Filename: / { print $2 }' Packages)"
-
-# Downloading udebs
-for UDEB in ${UDEBS}
-do
-	if [ -f ../cache/packages_debian-installer.udeb/"$(basename ${UDEB})" ]
+	# Including base debian packages
+	if [ -d cache/packages_bootstrap ]
 	then
-		# Copying cached udebs
-		cp ../cache/packages_debian-installer.udeb/"$(basename ${UDEB})" ./
+		for FILE in cache/packages_bootstrap/*.deb
+		do
+			Install_file "${FILE}" "binary/pool/main"
+		done
 	else
-		# Downloading udebs
-		wget ${WGET_OPTIONS} "${LH_MIRROR_CHROOT}"/${UDEB}
+		Echo_error "E: Could not find cache/packages_bootstrap"
+		exit 1
 	fi
-done
 
-# Caching udebs
-rm -rf ../cache/packages_debian-installer.udeb
-mkdir -p ../cache/packages_debian-installer.udeb
-cp *.udeb ../cache/packages_debian-installer.udeb
-
-# Including local udebs
-if ls ../config/binary_local-udebs/*_"${LH_ARCHITECTURE}".udeb > /dev/null 2>&1
-then
-	for FILE in ../config/binary_local-udebs/*_"${LH_ARCHITECTURE}".udeb
-	do
-		Install_file "${FILE}" "pool/main"
-
-		# Prefer local udebs over downloaded udebs
-		rm -f "$(basename ${FILE} | awk -F_ '{ print $1 }')"_*.udeb
-	done
-fi
-if ls ../config/binary_local-udebs/*_all.udeb > /dev/null 2>&1
-then
-	for FILE in ../config/binary_local-udebs/*_all.udeb
-	do
-		Install_file "${FILE}" "pool/main"
-
-		# Prefer local udebs over downloaded udebs
-		rm -f "$(basename ${FILE} | awk -F_ '{ print $1 }')"_*.udeb
-	done
-fi
-# Excluding udebs
-grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DISTRIBUTION}"/udeb_exclude > exclude
-grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DISTRIBUTION}"/exclude-udebs >> exclude
-grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DISTRIBUTION}"/exclude-udebs-${LH_ARCHITECTURE} >> exclude
-
-# Local exclude file
-if [ -e ../config/binary_debian-installer/udeb_exclude ]
-then
-	cat ../config/binary_debian-installer/udeb_exclude >> exclude
-fi
-
-for EXCLUDE in $(cat exclude)
-do
-	rm -f "${EXCLUDE}"_*.udeb
-done
-
-# Enable live-installer
-if [ "${LH_DEBIAN_INSTALLER}" = "live" ]
-then
-	# Remove local udebs
-	rm -f pool/main/b/base-installer/bootstrap-base_*.udeb
-
-	# Remove d-i udebs
-	rm -f bootstrap-base_*.udeb
-fi
-
-# Moving udebs
-for UDEB in ${UDEBS}
-do
-	if [ -f "$(basename ${UDEB})" ]
+	# Including local debs
+	if ls ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".udeb > /dev/null 2>&1
 	then
-		mkdir -p $(dirname ${UDEB})
-		mv "$(basename ${UDEB})" "$(dirname ${UDEB})"
+		for FILE in ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".deb
+		do
+			Install_file "${FILE}" "binary/pool/main"
+		done
 	fi
-done
 
-# Creating udeb indices
-mkdir -p dists/"${LH_DISTRIBUTION}"/main/debian-installer/binary-"${LH_ARCHITECTURE}"
-apt-ftparchive packages pool/main > dists/"${LH_DISTRIBUTION}"/main/debian-installer/binary-"${LH_ARCHITECTURE}"/Packages
-gzip -9 -c dists/${LH_DISTRIBUTION}/main/debian-installer/binary-${LH_ARCHITECTURE}/Packages > dists/${LH_DISTRIBUTION}/main/debian-installer/binary-${LH_ARCHITECTURE}/Packages.gz
+	if ls ../config/binary_local-debs/*_all.udeb > /dev/null 2>&1
+	then
+		for FILE in ../config/binary_local-debs/*_all.deb
+		do
+			Install_file "${FILE}" "binary/pool/main"
+		done
+	fi
 
-rm -f Packages* exclude
-find . | cpio -dmpu "${OLDPWD}"/binary
-cd "${OLDPWD}"
+	# Generating deb indices
+	mkdir -p binary/dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}
 
-rm -rf binary.udeb
-rm -rf binary.deb
+	cd binary
+	apt-ftparchive packages pool/main > dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages
+	gzip -9 -c dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages > dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages.gz
+	cd "${OLDPWD}"
 
-# Generating release file
-apt-ftparchive \
-	-o APT::FTPArchive::Release::Origin="Debian" \
-	-o APT::FTPArchive::Release::Label="Debian" \
-	-o APT::FTPArchive::Release::Suite="${LH_DISTRIBUTION}" \
-	-o APT::FTPArchive::Release::Version="4.0" \
-	-o APT::FTPArchive::Release::Codename="${LH_DISTRIBUTION}" \
-	-o APT::FTPArchive::Release::Date="$(date -R)" \
-	-o APT::FTPArchive::Release::Architectures="${LH_ARCHITECTURE}" \
-	-o APT::FTPArchive::Release::Components="main" \
-	-o APT::FTPArchive::Release::Description="Last updated: $(date -R)" \
-release binary/dists/${LH_DISTRIBUTION} > binary/dists/${LH_DISTRIBUTION}/Release
+	# Fetching release
+	wget ${WGET_OPTIONS} "${LH_MIRROR_CHROOT}"/dists/"${LH_DISTRIBUTION}"/main/binary-"${LH_ARCHITECTURE}"/Release -O binary/dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Release
 
-# Creating dist symlinks
-for DISTRIBUTION in frozen stable testing unstable
-do
-	ln -s ${LH_DISTRIBUTION} binary/dists/${DISTRIBUTION}
-done
+	mkdir binary.udeb
+	cd binary.udeb
 
-if [ "${LH_BINARY_IMAGES}" != "usb-hdd" ]
-then
-	ln -s . binary/debian
+	# Downloading udeb indices
+	wget ${WGET_OPTIONS} "${LH_MIRROR_CHROOT}"/dists/"${LH_DISTRIBUTION}"/main/debian-installer/binary-"${LH_ARCHITECTURE}"/Packages.gz
+	gunzip -c Packages.gz > Packages
+
+	# Sorting udebs
+	UDEBS="$(awk '/Filename: / { print $2 }' Packages)"
+
+	# Downloading udebs
+	for UDEB in ${UDEBS}
+	do
+		if [ -f ../cache/packages_debian-installer.udeb/"$(basename ${UDEB})" ]
+		then
+			# Copying cached udebs
+			cp ../cache/packages_debian-installer.udeb/"$(basename ${UDEB})" ./
+		else
+			# Downloading udebs
+			wget ${WGET_OPTIONS} "${LH_MIRROR_CHROOT}"/${UDEB}
+		fi
+	done
+
+	# Caching udebs
+	rm -rf ../cache/packages_debian-installer.udeb
+	mkdir -p ../cache/packages_debian-installer.udeb
+	cp *.udeb ../cache/packages_debian-installer.udeb
+
+	# Including local udebs
+	if ls ../config/binary_local-udebs/*_"${LH_ARCHITECTURE}".udeb > /dev/null 2>&1
+	then
+		for FILE in ../config/binary_local-udebs/*_"${LH_ARCHITECTURE}".udeb
+		do
+			Install_file "${FILE}" "pool/main"
+
+			# Prefer local udebs over downloaded udebs
+			rm -f "$(basename ${FILE} | awk -F_ '{ print $1 }')"_*.udeb
+		done
+	fi
+	if ls ../config/binary_local-udebs/*_all.udeb > /dev/null 2>&1
+	then
+		for FILE in ../config/binary_local-udebs/*_all.udeb
+		do
+			Install_file "${FILE}" "pool/main"
+
+			# Prefer local udebs over downloaded udebs
+			rm -f "$(basename ${FILE} | awk -F_ '{ print $1 }')"_*.udeb
+		done
+	fi
+
+	# Excluding udebs
+	grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DISTRIBUTION}"/udeb_exclude > exclude
+	grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DISTRIBUTION}"/exclude-udebs >> exclude
+	grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DISTRIBUTION}"/exclude-udebs-${LH_ARCHITECTURE} >> exclude
+
+	# Local exclude file
+	if [ -e ../config/binary_debian-installer/udeb_exclude ]
+	then
+		cat ../config/binary_debian-installer/udeb_exclude >> exclude
+	fi
+
+	for EXCLUDE in $(cat exclude)
+	do
+		rm -f "${EXCLUDE}"_*.udeb
+	done
+
+	# Enable live-installer
+	if [ "${LH_DEBIAN_INSTALLER}" = "live" ]
+	then
+		# Remove local udebs
+		rm -f pool/main/b/base-installer/bootstrap-base_*.udeb
+
+		# Remove d-i udebs
+		rm -f bootstrap-base_*.udeb
+	fi
+
+	# Moving udebs
+	for UDEB in ${UDEBS}
+	do
+		if [ -f "$(basename ${UDEB})" ]
+		then
+			mkdir -p $(dirname ${UDEB})
+			mv "$(basename ${UDEB})" "$(dirname ${UDEB})"
+		fi
+	done
+
+	# Creating udeb indices
+	mkdir -p dists/"${LH_DISTRIBUTION}"/main/debian-installer/binary-"${LH_ARCHITECTURE}"
+	apt-ftparchive packages pool/main > dists/"${LH_DISTRIBUTION}"/main/debian-installer/binary-"${LH_ARCHITECTURE}"/Packages
+	gzip -9 -c dists/${LH_DISTRIBUTION}/main/debian-installer/binary-${LH_ARCHITECTURE}/Packages > dists/${LH_DISTRIBUTION}/main/debian-installer/binary-${LH_ARCHITECTURE}/Packages.gz
+
+	rm -f Packages* exclude
+	find . | cpio -dmpu "${OLDPWD}"/binary
+	cd "${OLDPWD}"
+
+	rm -rf binary.udeb
+	rm -rf binary.deb
+
+	# Generating release file
+	apt-ftparchive \
+		-o APT::FTPArchive::Release::Origin="Debian" \
+		-o APT::FTPArchive::Release::Label="Debian" \
+		-o APT::FTPArchive::Release::Suite="${LH_DISTRIBUTION}" \
+		-o APT::FTPArchive::Release::Version="4.0" \
+		-o APT::FTPArchive::Release::Codename="${LH_DISTRIBUTION}" \
+		-o APT::FTPArchive::Release::Date="$(date -R)" \
+		-o APT::FTPArchive::Release::Architectures="${LH_ARCHITECTURE}" \
+		-o APT::FTPArchive::Release::Components="main" \
+		-o APT::FTPArchive::Release::Description="Last updated: $(date -R)" \
+	release binary/dists/${LH_DISTRIBUTION} > binary/dists/${LH_DISTRIBUTION}/Release
+
+	# Creating dist symlinks
+	for DISTRIBUTION in frozen stable testing unstable
+	do
+		ln -s ${LH_DISTRIBUTION} binary/dists/${DISTRIBUTION}
+	done
+
+	if [ "${LH_BINARY_IMAGES}" != "usb-hdd" ]
+	then
+		ln -s . binary/debian
+	fi
+
+	# Including preseeding files
+	if [ -e config/binary_debian-installer/preseed*.cfg ]
+	then
+		cp config/binary_debian-installer/preseed*.cfg binary/install
+	fi
 fi
 
-# Including preseeding files
-if [ -e config/binary_debian-installer/preseed*.cfg ]
+repack_initrd() {
+	local TARGET_INITRD
+	TARGET_INITRD="${1}"
+	REPACK_TMPDIR="unpacked-initrd"
+	
+	# cpio does not have a "extract to directory", so we must change directory
+	mkdir -p ${REPACK_TMPDIR}
+	cd ${REPACK_TMPDIR}
+
+	gzip -d < ../${TARGET_INITRD} | cpio -i --make-directories --no-absolute-filenames
+	cp ../config/binary_debian-installer/preseed.cfg .
+	find | cpio -H newc -o | gzip -9 > ../${TARGET_INITRD} 
+
+	cd ..
+	rm -rf ${REPACK_TMPDIR}
+}
+
+# Preseed d-i by repacking the initrd in certain situations
+if [ "${USE_NETBOOT_DI}" = "yes" ] && [ -e config/binary_debian-installer/preseed.cfg ]
 then
-	cp config/binary_debian-installer/preseed*.cfg binary/install
+	repack_initrd "${DESTDIR}"/"${INITRD_DI}"
+
+	if [ -e "${DESTDIR}"/"${INITRD_GI}" ]
+	then
+		repack_initrd "${DESTDIR}"/"${INITRD_GI}"
+	fi
 fi
 
 # Creating stage file

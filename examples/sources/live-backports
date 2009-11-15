@@ -2,7 +2,7 @@
 ## Debian Live Etch backports repository.
 ##
 ## To enable it, copy this file to your config/chroot_sources directory, once
-## as e.g. live-backports.bootstrap and once as live-backports.binary.
+## as e.g. live-backports.chroot and once as live-backports.binary.
 ##
 ## Remeber to add debian-unofficial-archive-keyring to your package selection.
 
