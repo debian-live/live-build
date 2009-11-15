@@ -12,7 +12,7 @@
 Chroot_exec ()
 {
 	# Execute commands chrooted
-	chroot "${LIVE_CHROOT}" /usr/bin/env -i HOME="/root" PATH="/usr/sbin:/usr/bin:/sbin:/bin" TERM="${TERM}" ftp_proxy="${LIVE_PROXY_FTP}" http_proxy="${LIVE_PPROXY_HTTP}" DEBIAN_FRONTEND="noninteractive" DEBIAN_PRIORITY="critical" ${1}
+	chroot "${LIVE_CHROOT}" /usr/bin/env -i HOME="/root" PATH="/usr/sbin:/usr/bin:/sbin:/bin" TERM="${TERM}" ftp_proxy="${LIVE_PROXY_FTP}" http_proxy="${LIVE_PPROXY_HTTP}" DEBIAN_FRONTEND="${LIVE_DEBCONF_FRONTEND}" DEBIAN_PRIORITY="${LIVE_DEBCONF_PRIORITY}" ${1}
 	return ${?}
 }
 
@@ -152,7 +152,7 @@ EOF
 		if [ -r "${BASE}"/hooks/"${LIVE_FLAVOUR}" ]
 		then
 			grep -v "^#" "${BASE}"/hooks/"${LIVE_FLAVOUR}" > "${LIVE_CHROOT}"/root/"${LIVE_FLAVOUR}"
-			Chroot_exec "sh /root/${LIVE_FLAVOUR}"
+			LIVE_DEBCONF_FRONTEND="readline" LIVE_DEBCONF_PRIORITY="low" Chroot_exec "sh /root/${LIVE_FLAVOUR}"
 			rm -f "${LIVE_CHROOT}"/root/"${LIVE_FLAVOUR}"
 		fi
 
@@ -160,10 +160,10 @@ EOF
 		if [ -r "${LIVE_HOOK}" ]
 		then
 			# FIXME
-			Chroot_exec "`cat ${LIVE_HOOK}`"
+			LIVE_DEBCONF_FRONTEND="readline" LIVE_DEBCONF_PRIORITY="low" Chroot_exec "`cat ${LIVE_HOOK}`"
 		elif [ -n "${LIVE_HOOK}" ]
 		then
-			Chroot_exec "${LIVE_HOOK}"
+			LIVE_DEBCONF_FRONTEND="readline" LIVE_DEBCONF_PRIORITY="low" Chroot_exec "${LIVE_HOOK}"
 		fi
 
 		# Temporary hacks for broken packages
@@ -181,6 +181,15 @@ EOF
 		# Clean apt packages cache
 		rm -rf "${LIVE_CHROOT}"/var/cache/apt
 		mkdir -p "${LIVE_CHROOT}"/var/cache/apt/archives/partial
+
+		if [ "${LIVE_FLAVOUR}" = "minimal" ]
+		then
+			rm -f "${LIVE_CHROOT}"/var/lib/apt/lists/*
+			rm -f "${LIVE_CHROOT}"/var/lib/dpkg/available-old
+			rm -f "${LIVE_CHROOT}"/var/lib/dpkg/diversions-old
+			rm -f "${LIVE_CHROOT}"/var/lib/dpkg/statoverride-old
+			rm -f "${LIVE_CHROOT}"/var/lib/dpkg/status-old
+		fi
 
 		# Workaround binfmt-support /proc locking
 		umount "${LIVE_CHROOT}"/proc/sys/fs/binfmt_misc > /dev/null || true

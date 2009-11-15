@@ -3,7 +3,6 @@
 all:	install
 
 install:
-	# Installing make-live
 	@# Install main script
 	install -D -m 0755 src/main.sh $(DESTDIR)/usr/sbin/make-live
 
@@ -36,7 +35,6 @@ install:
 	install -m 0644 doc/man/*.8  $(DESTDIR)/usr/share/man/man8
 
 uninstall:
-	# Uninstalling make-live
 	@# Remove main script
 	rm -f $(DESTDIR)/usr/sbin/make-live
 
