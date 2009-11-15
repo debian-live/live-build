@@ -1,0 +1,188 @@
+.TH MAKE-LIVE 8 "Jul, 27 2006" "0.99" "Debian Live framework"
+
+.SH NAME
+make-live \- An utility for building Debian Live systems.
+
+.SH SYNOPSIS
+.B make-live
+.RB [\| \-a \||\| \-\-architecture
+.IR ARCHITECTURE \|]
+.RB [\| \-c \||\| \-\-conffile
+.IR FILE \|]
+.RB [\| \-\-clone
+.IR DIRECTORY \|]
+.RB [\| \-d \||\| \-\-distribution
+.IR DISTRIBUTION \|]
+.BR [\| \-\-debug \|]
+.RB [\| \-f \||\| \-\-filesystem
+.IR FILESYSTEM \|]
+.RB [\| \-\-flavour
+.IR FLAVOUR \|]
+.RB [\| \-\-hook
+.RI \|" COMMAND .\|.\|.\|"\|]
+.RB [\| \-\-include\-image
+.IR FILE \||\| DIRECTORY \|]
+.RB [\| \-\-include\-rootfs
+.IR FILE \||\| DIRECTORY \|]
+.RB [\| \-\-linux\-image
+.IR FLAVOUR \|]
+.RB [\| \-\-logfile
+.IR FILE \|]
+.RB [\| \-p \||\| \-\-package-list
+.IR FILE \|]
+.RB [\| \-\-preseed
+.IR FILE \|]
+.RB [\| \-\-rootfs
+.IR DIRECTORY \|]
+.RB [\| \-s \||\| \-\-section
+.RI \|" SECTION \|.\|.\|.\|"\|]
+.RB [\| \-\-splashy
+.RI [\| THEME \|]\|]
+.RB [\| \-t \||\| \-\-type
+.IR TYPE \|]
+.RB [\| \-\-templates
+.IR DIRECTORY \|]
+.RB [\| \-\-verbose \|]
+.RI [\| LIST \|]
+.PP
+.B make-live
+.RB [\| \-h \||\| \-\-help \|]
+.br
+.B make-live
+.RB [\| \-u \||\| \-\-usage \|]
+.br
+.B make-live
+.RB [\| \-v \||\| \-\-version \|]
+
+.SH DESCRIPTION
+The Debian Live framework lets you automagically create live system images.
+.PP
+
+.SH OPTIONS
+.TP
+.BI "\-a, \-\-architecture " ARCHITECTURE
+Build an image for another architecture than the autodetected one. This is
+usefull for e.g. building i386 images on an amd64 machine. Instead of this flag,
+the environment variable LIVE_ARCHITECTURE can be used.
+.TP
+.BI "\-c, \-\-conffile " FILE
+Uses another configuration file in addition to the default one, if existing, in
+/etc/make-live.conf. Settings in the additional configuration file do overwrite
+the settings from /etc/make-live.conf. Instead of this flag, the environment
+varibale LIVE_CONFFILE can be used.
+.TP
+.BI "\-\-clone " DIRECTORY
+Clones the package selection and configuration from a given root directory. It
+will output the settings to $LIVE_ROOT/preseed.cloned and $LIVE_ROOT/plist.clone
+for easy reuse with \-\-preseed and \-\-package-list. Instead of this flag, the
+environment variable LIVE_CLONE can be used.
+.TP
+.BI "\-d, \-\-distribution " DISTRIBUTION
+Specifies the distribution to be used. Allowed values are all Debian
+distributions (oldstable, stable, testing, unstable), although only unstable
+(default) is possible for now. Instead of this flag, the environment variable
+LIVE_DISTRIBUTION can be used.
+.TP
+.B \-\-debug
+Enables debut output of make-live itself (this includes \-\-verbose too).
+Instead of this environment variable, LIVE_DEBUG can be used.
+.TP
+.BI "\-f, \-\-filesystem " FILESYSTEM
+Specifies the filesystem for the compressed image. At the moment, only squashfs
+(default) and ext2 are allowed values. Instead of this flag, the environment
+variable LIVE_FILESYSTEM can be used.
+.TP
+.BI "\-\-flavour " FLAVOUR
+Specifies the bootstrap flavour. This can be either standard (default) or
+minimal. Instead of this flag, the environment variable LIVE_FLAVOUR can be
+used.
+.TP
+.\" FIXME
+.BI "\-\-hook " COMMAND "\|.\|.\|.\|"
+Specifies a command which will be executed at the end of the chroot setup and
+before the mastering of the image. Instead of this flag, the environment
+variable LIVE_HOOK can be used.
+.TP
+.BI "\-\-include\-image " FILE \||\| DIRECTORY
+specifies a file or directory which will be copied inside the image. Can be also
+set through LIVE_INCLUDE_IMAGE environment variable.
+.TP
+.BI "\-\-include\-rootfs " FILE \||\| DIRECTORY
+specifies a file or directory which will be copied inside the root filesystem of
+the image. Can be also set through the LIVE_INCLUDE_ROOTFS environment variable.
+.TP
+.BI "\-\-linux\-image " FLAVOUR
+.TP
+.BI "\-p, \-\-package-list " FILE
+specifies a package list file, one package for each line. It overrides list option.
+.TP
+.BI "\-\-logfile " FILE
+specifies the location of the logfile. It can be set through LIVE_LOGFILE,
+default is \$LIVE_ROOT/make-live.log
+.TP
+.BI "\-\-preseed " FILE
+clone the packages selection and configuration from the provided
+root directory.
+.TP
+.BI "\-\-rootfs " DIRECTORY
+skip all phases of rootfs generation and just install casper and the
+kernel in the specified root directory (must be a debian).
+.TP
+.BI "\-s, \-\-section " SECTION "\|.\|.\|.\|"
+specifies which sections are going to be availble for the package selection inside the chroot (Default: main). Can be set to every combination of "main contrib non-free", also through LIVE_SECTIONS.
+.TP
+.BI "\-\-splashy [\|" THEME \|]
+specifies that splashy should be installed and included in initamfs, an optional
+official THEME could be selected or an exernal theme could be installed, in the
+second case the .tar.gz theme should be passed without extension and must be in
+the current directory. Can be also set through LIVE_SPLASHY and
+LIVE_SPLASHY_THEME environment variables.
+.TP
+.BI "\-t, \-\-type " TYPE
+specifies the image type to generate. Currently, only iso and net are available.
+.TP
+.BI "\-\-templates " DIRECTORY
+specifies a templates directory to use instead of the default one.
+.TP
+.B \-\-verbose
+providing debug information for third-party tools.
+.TP
+.B \-h, \-\-help
+display this help and exit.
+.TP
+.B \-u, \-\-usage
+show usage and exit.
+.TP
+.B \-v, \-\-version
+output version information and exit.
+
+.SH LISTS
+Every list does already include the Debian standard package selection.
+.TP
+.B gnome | gnome-core | gnome-full
+include GNOME.
+.TP
+.B kde | kde-core | kde-full | kde-extra
+include KDE.
+.TP
+.B x11 | x11-core
+include X-Window-System only.
+.TP
+.B xfce
+include Xfce.
+
+.SH BUGS
+.B make-live
+works fully on amd64 and i386, partially on alpha, hppa, ia64, mips, mipsel,
+powerpc, s390 and sparc. Other architectures, such as arm and m68k, as well as
+non-linux ports of Debian, like hurd-i386, are currently not supported.
+
+.SH HOMEPAGE
+Debian Live project <http://live.debian.net/>
+
+.SH SEE ALSO
+.BR make-live.conf (8).
+
+.SH AUTHOR
+make-live was written by Daniel Baumann <daniel@debian.org> and Marco Amadori
+<marco.amadori@gmail.com>.

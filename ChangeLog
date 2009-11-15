@@ -1,0 +1,89 @@
+2006-07-18 Daniel Baumann <daniel@debian.org>
+
+	* Added iso templates.
+
+2006-07-17 Daniel Baumann <daniel@debian.org>
+
+	* Added chroot to 01-patch.sh.
+	* Added "--logfile".
+
+2006-07-01 Daniel Baumann <daniel.baumann@panthera-systems.net>
+
+	* Added "--flavour".
+
+2006-06-28 Daniel Baumann <daniel.baumann@panthera-systems.net>
+
+	* Added "--debug" and "--verbose".
+
+2006-06-23 Daniel Baumann <daniel.baumann@panthera-systems.net>
+
+	* Rewritten manpages.
+
+2006-06-19 Marco Amadori <marco.amadori@gmail.com>
+
+	* Added "--templates" options.
+	* Fixed some typos.
+
+2006-06-15 Daniel Baumann <daniel.baumann@panthera-systems.net>
+
+	* General fixes.
+
+2006-06-18 Marco Amadori <marco.amadori@gmail.com>
+
+	* Added "-a|--architecture" and "-p|--package-list" options.
+	* Reworked how lists works.
+
+2006-06-15 Daniel Baumann <daniel.baumann@panthera-systems.net>
+
+	* General cleanup.
+
+2006-06-14 Marco Amadori <marco.amadori@gmail.com>
+
+	* Re-added "-f|--filesystem".
+
+2006-06-12 Marco Amadori <marco.amadori@gmail.com>
+
+	* Added "--conffile", "--preseed", "--clone", and "--rootfs" options.
+
+2006-06-12 Daniel Baumann <daniel.baumann@panthera-systems.net>
+
+	* Added new splash.rle.
+	* Added memtest86+.
+	* Added "--distribution", and "--section" options.
+	* Moved /etc/default/make-live to /etc/make-live.conf.
+
+2006-06-11 Marco Amadori <marco.amadori@gmail.com>
+
+	* Added handling of md5sums.
+
+2006-06-09 Marco Amadori <marco.amadori@gmail.com>
+
+	* Added splashy support.
+	* Added ext2 rootfs support.
+	* Added external hook and path support.
+	* Swiched to getopt.
+
+2006-06-02 Daniel Baumann <daniel.baumann@panthera-systems.net>
+
+	* Added patch from Jason D. Clinton <me@jasonclinton.com>:
+	  - Added netboot flavour.
+	  - Thanks to SafeDesk Solutions <http://www.safedesk.com/>.
+
+2006-06-01 Daniel Baumann <daniel.baumann@panthera-systems.net>
+
+	* Moved syslinux inside the chroot.
+
+2006-05-31 Daniel Baumann <daniel.baumann@panthera-systems.net>
+
+	* Added kde-*i18n and standard-i18n lists.
+
+2006-05-28 Daniel Baumann <daniel.baumann@panthera-systems.net>
+
+	* Added patch from Frederic Lehobey <Frederic.Lehobey@free.fr>:
+	  - Added locales to LIVE_PACKAGES.
+	  - Added LIVE_MIRROR_KEY, LIVE_REPOSITORY, LIVE_REPOSITORY_KEY, and
+	    LIVE_BOOTAPPEND.
+
+2006-05-27 Daniel Baumann <daniel.baumann@panthera-systems.net>
+
+	* Initial release.

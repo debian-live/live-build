@@ -1,0 +1,23 @@
+0fSPECIAL BOOT PARAMETERS - VARIOUS HARDWARE07                                    09F407
+
+You can use the following boot parameters at the 0fboot:07 prompt, 
+in combination with the boot method (see <09F307>).
+0f
+OPTION                                 PARAMETER TO SPECIFY07
+Check media for defects                0fintegrity-check07
+Enable persistent media                0fpersistent07
+Suppress some debug informations       0fquiet07
+Show internal filesystem               0fshow-cow07
+Copy the live media to memory          0ftoram07
+Set initial display mode               0fvga=<mode>07
+
+For example:
+
+  boot: linux quiet vga=792
+
+
+
+
+
+
+Press F1control and F then 1 for the help index, or ENTER to 
