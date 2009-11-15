@@ -411,7 +411,12 @@ Set_defaults ()
 	then
 		case "${LH_MODE}" in
 			debian)
-				LIVE_LINUX_PACKAGES="linux-image-2.6 squashfs-modules-2.6 unionfs-modules-2.6"
+				LIVE_LINUX_PACKAGES="linux-image-2.6 unionfs-modules-2.6"
+
+				if [ "${LIVE_CHROOT_FILESYSTEM}" = "squashfs" ]
+				then
+					LIVE_LINUX_PACKAGES="${LIVE_LINUX_PACKAGES} squashfs-modules-2.6"
+				fi
 				;;
 
 			ubuntu)
@@ -501,6 +506,9 @@ Set_defaults ()
 
 	# Setting debian-installer option
 	LIVE_DEBIAN_INSTALLER="${LIVE_DEBIAN_INSTALLER:-disabled}"
+
+	# Setting live-installer option
+	LIVE_LIVE_INSTALLER="${LIVE_LIVE_INSTALLER:-disabled}"
 
 	# Setting encryption
 	# LIVE_ENCRYPTION

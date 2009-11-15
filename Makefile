@@ -20,7 +20,7 @@ install: test
 
 	# Installing shared data
 	mkdir -p $(DESTDIR)/usr/share/live-helper
-	cp -r examples functions hooks includes lists templates $(DESTDIR)/usr/share/live-helper
+	cp -r data examples functions hooks includes lists templates $(DESTDIR)/usr/share/live-helper
 
 	# Installing documentation
 	mkdir -p $(DESTDIR)/usr/share/doc/live-helper
@@ -91,15 +91,15 @@ uninstall:
 update:
 	set -e; for MANPAGE in manpages/*.de.* manpages/*.en.*; \
 	do \
-		sed -i	-e 's/2007\\-06\\-04/2007\\-06\\-11/' \
-			-e 's/04.06.2007/11.06.2007/' \
-			-e 's/1.0~a13/1.0~a14/' \
+		sed -i	-e 's/2007\\-06\\-11/2007\\-06\\-18/' \
+			-e 's/11.06.2007/18.06.2007/' \
+			-e 's/1.0~a14/1.0~a15/' \
 		$$MANPAGE; \
 	done
 
-	set -e; for SCRIPT in functions/common.sh examples/cron/etch.sh examples/cron/etch+beryl.sh; \
+	set -e; for SCRIPT in functions/*.sh examples/cron/*.sh; \
 	do \
-		sed -i -e 's/1.0~a13/1.0~a14/' $$SCRIPT; \
+		sed -i -e 's/1.0~a14/1.0~a15/' $$SCRIPT; \
 	done
 
 clean:

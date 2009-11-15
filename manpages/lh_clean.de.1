@@ -1,11 +1,11 @@
-.TH LH_CLEAN 1 "11.06.2007" "1.0~a14" "live\-helper"
+.TH LH_CLEAN 1 "18.06.2007" "1.0~a15" "live\-helper"
 
 .SH NAME
 lh_clean \- r\[:a]umt das Build-Verzeichnis auf
 
 .SH SYNOPSIS
 .B lh_clean [\fIlive\-helper\ Optionen\fR\|]
-.B lh_clean [\fRall\fB|\fRcache\fB|\fRchroot\fB|\fRbinary\fB|\fRlock\fB|\fRpurge\fB|\fRstage\fB|\fRsource\fB]
+.B lh_clean [\fRall\fB|\fRcache\fB|\fRchroot\fB|\fRbinary\fB|\fRpurge\fB|\fRstage\fB|\fRsource\fB]
 
 .SH BESCHREIBUNG
 lh_clean ist ein live\-helper\-Program das daf\[:u]r verwantwortlich ist, nach dem Bauen eines Live-Systemes das Build-Verzeichnis aufzur\[:a]umen. Es entfernt das Build-Verzeichnis und auch alle anderen Dateien, inklusive den Stage-Dateien die von einem live\-helper-Programm hinterlassen worden ist.
@@ -13,15 +13,13 @@ lh_clean ist ein live\-helper\-Program das daf\[:u]r verwantwortlich ist, nach d
 .SH OPTIONEN
 Die folgenden Optionen werden von lh_clean unterst\[:u]tzt.
 .IP "\fBall\fR" 4
-entfernt chroot, binary, lock, stage und source. Das ist die Standardoperation.
+entfernt chroot, binary, stage und source. Das ist die Standardoperation.
 .IP "\fBcache\fR" 4
 entfernt alle cache-Verzeichnisse.
 .IP "\fBchroot\fR" 4
 entbindet und entfernt das chroot-Verzeichnis. Wenn ein Cache von bootstrap verf\[:u]gbar ist, wird chroot auf diese Stufe zur\[:u]ck gesetzt.
 .IP "\fBbinary\fR" 4
 entfernt alle Caches, Verzeichnisse und Stage-Dateien der Binary-Stufe.
-.IP "\fBlock\fR" 4
-entfernt alle lock-Dateien.
 .IP "\fBpurge\fR" 4
 entfernt alles (inlusive cache) ausser config.
 .IP "\fBstage\fR" 4

@@ -292,6 +292,7 @@ EOF
 # Creating lh_binary_* configuration
 mkdir -p "${LIVE_ROOT}"/config/binary_grub
 mkdir -p "${LIVE_ROOT}"/config/binary_local-includes
+mkdir -p "${LIVE_ROOT}"/config/binary_local-udebs
 mkdir -p "${LIVE_ROOT}"/config/binary_rootfs
 mkdir -p "${LIVE_ROOT}"/config/binary_syslinux
 
@@ -317,6 +318,10 @@ LIVE_BOOTLOADER="${LIVE_BOOTLOADER}"
 # \$LIVE_DEBIAN_INSTALLER: set debian-installer
 # (Default: ${LIVE_DEBIAN_INSTALLER})
 LIVE_DEBIAN_INSTALLER="${LIVE_DEBIAN_INSTALLER}"
+
+# \$LIVE_LIVE_INSTALLER: set debian-installer + live-installer
+# (Default: ${LIVE_LIVE_INSTALLER})
+LIVE_LIVE_INSTALLER="${LIVE_LIVE_INSTALLER}"
 
 # \$LIVE_ENCRYPTION: set encrytion
 # (Default: empty)

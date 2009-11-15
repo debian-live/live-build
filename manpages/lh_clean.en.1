@@ -1,11 +1,11 @@
-.TH LH_CLEAN 1 "2007\-06\-11" "1.0~a14" "live\-helper"
+.TH LH_CLEAN 1 "2007\-06\-18" "1.0~a15" "live\-helper"
 
 .SH NAME
 lh_clean \- clean up system build directories
 
 .SH SYNOPSIS
 .B lh_clean [\fIlive\-helper\ options\fR\|]
-.B lh_clean [\fRall\fB|\fRcache\fB|\fRchroot\fB|\fRbinary\fB|\fRlock\fB|\fRpurge\fB|\fRstage\fB|\fRsource\fB]
+.B lh_clean [\fRall\fB|\fRcache\fB|\fRchroot\fB|\fRbinary\fB|\fRpurge\fB|\fRstage\fB|\fRsource\fB]
 
 .SH DESCRIPTION
 lh_clean is a live\-helper program that is responsible for cleaning up after a system is built. It removes the system build directories, and removes some other files including stage files, and any detritus left behind by other live\-helper commands.
@@ -13,15 +13,13 @@ lh_clean is a live\-helper program that is responsible for cleaning up after a s
 .SH OPTIONS
 The following command line options are supported by lh_clean.
 .IP "\fBall\fR" 4
-removes chroot, binary, lock, stage, and source. This is the default operation.
+removes chroot, binary, stage, and source. This is the default operation.
 .IP "\fBcache\fR" 4
 removes all cache directories.
 .IP "\fBchroot\fR" 4
 unmounts and removes the chroot directory. If bootstrap cache is available, the system is reset to bootstrap stage.
 .IP "\fBbinary\fR" 4
 removes all binary related caches, directories, and stages files.
-.IP "\fBlock\fR" 4
-removes all lock files.
 .IP "\fBpurge\fR" 4
 removes everything (including cache) but config.
 .IP "\fBstage\fR" 4

@@ -79,7 +79,7 @@ fi
 # Everything which comes here needs to be cleaned up,
 DU_DIM="`du -ms binary | cut -f1`"
 REAL_DIM="`expr ${DU_DIM} + ${DU_DIM} / 50`" # Just 2% more to be sure, need something more sophistcated here...
-dd if=/dev/zero of=binary.img bs=1024k count=${REAL_DIM}
+dd if=/dev/zero of=chroot/binary.img bs=1024k count=${REAL_DIM}
 FREELO="`${LH_LOSETUP} -f`"
 if [ ! -b chroot/${FREELO} ]
 then
@@ -90,40 +90,59 @@ then
 fi
 
 echo "!!! The following error/warning messages can be ignored !!!"
-lh_losetup $FREELO binary.img 0
+lh_losetup $FREELO chroot/binary.img 0
 Chroot "parted -s ${FREELO} mklabel msdos" || true
 Chroot "parted -s ${FREELO} mkpartfs primary fat16 0.0 100%" || true
 Chroot "parted -s ${FREELO} set 1 boot on" || true
 Chroot "parted -s ${FREELO} set 1 lba off" || true
 
-case "${LIVE_BOOTLOADER}" in
-	grub)
-		#echo "(hd0) ${FREELO}" > binary/boot/grub/device.map
-#grub --batch --no-floppy --device-map=binary/boot/grub/device.map << EOF
-#setup --stage1=binary/boot/grub/stage1 --stage2=binary/boot/grub/stage2 --prefix=/boot/grub (hd0)
-#
-#quit
-#EOF
-		#rm -f binary/boot/grub/device.map
-
-		#Chroot "grub-install --no-floppy --root-directory=/ (hd0)"
-		;;
-
-	syslinux)
-		cat chroot/usr/lib/syslinux/mbr.bin > ${FREELO}
-		;;
-esac
+if [ "${LIVE_BOOTLOADER}" = "syslinux" ]
+then
+	cat chroot/usr/lib/syslinux/mbr.bin > ${FREELO}
+fi
 
 ${LH_LOSETUP} -d ${FREELO}
 
 FREELO="`${LH_LOSETUP} -f`"
-lh_losetup $FREELO binary.img 1
+lh_losetup $FREELO chroot/binary.img 1
 Chroot " mkfs.vfat -F 16 -n DEBIAN_LIVE ${FREELO}"
-mkdir -p binary.tmp
-${LH_ROOT_COMMAND} mount ${FREELO} binary.tmp
-cp -r binary/* binary.tmp
-${LH_ROOT_COMMAND} umount binary.tmp
-rmdir binary.tmp
+mkdir -p chroot/binary.tmp
+${LH_ROOT_COMMAND} mount ${FREELO} chroot/binary.tmp
+cp -r binary/* chroot/binary.tmp
+
+FIXME()
+{
+if [ "${LIVE_BOOTLOADER}" = "grub" ]
+then
+
+cat > chroot/grub.sh << EOF
+cd binary.tmp
+grub --batch << EOM
+find /live/vmlinuz
+EOM
+EOF
+
+	rootpartition="`Chroot 'sh grub.sh' 2>/dev/null | grep -A 1 'find /live/vmlinuz' | grep -v 'find /live/vmlinuz'`"
+	usbdev="`echo $rootpartition | sed -e 's/,[[:digit:]]//'`"
+	echo "Root partition is $rootpartition, device is: $usbdev"
+
+	echo "WAITING..." && read
+
+#cat > chroot/grub.sh << EOF
+#grub --batch << EOM
+#root $rootpartition
+#setup $usbdev
+#EOM
+#EOF
+
+#Chroot "sh grub.sh"
+
+	rm -f chroot/grub.sh
+fi
+}
+
+${LH_ROOT_COMMAND} umount chroot/binary.tmp
+rmdir chroot/binary.tmp
 
 if [ "${LIVE_BOOTLOADER}" = "syslinux" ]
 then
@@ -132,16 +151,6 @@ fi
 
 ${LH_LOSETUP} -d ${FREELO}
 
-#if [ "${LIVE_BOOTLOADER}" = "grub" ]
-#then
-#	FREELO="`${LH_LOSETUP} -f`"
-#	lh_losetup $FREELO binary.img 0
-
-#	dd if=binary/boot/grub/stage1 of=${FREELO} bs=512 count=1
-#	dd if=binary/boot/grub/stage2 of=${FREELO} bs=512 seek=1
-
-#	${LH_LOSETUP} -d ${FREELO}
-#fi
 echo "!!! The above error/warning messages can be ignored !!!"
 
 if [ -n "${MAKEDEV}" ]
@@ -149,6 +158,8 @@ then
 	rm -f chroot/dev
 	mv chroot/dev.tmp chroot/dev
 fi
+
+mv chroot/binary.img ./
 
 # Removing depends
 Remove_package

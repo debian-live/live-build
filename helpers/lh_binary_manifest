@@ -60,7 +60,7 @@ esac
 Chroot "dpkg --get-selections" | awk '{ print $1 }' | sort -u > binary/${INITFS}/filesystem.manifest
 
 # Add packages.list
-Chroot "dpkg -l" > packages.txt
+Chroot "dpkg -l" > binary/packages.txt
 
 # Creating stage file
 Create_stagefile .stage/binary_manifest

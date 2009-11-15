@@ -32,13 +32,13 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-Echo_message "Configuring file /etc/apt/apt.conf"
-
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
 case "${1}" in
 	install)
+		Echo_message "Configuring file /etc/apt/apt.conf"
+
 		# Checking stage file
 		Check_stagefile .stage/chroot_apt
 
@@ -111,6 +111,8 @@ case "${1}" in
 		;;
 
 	remove)
+		Echo_message "Deconfiguring file /etc/apt/apt.conf"
+
 		# Checking lock file
 		Check_lockfile .lock
 

@@ -1,3 +1,24 @@
+2007-06-16  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_bootstrap_clone, lh_bootstrap_copy:
+	  - Added.
+	* helpers/lh_binary_live-installer:
+	  - Added.
+	* Uploaded 1.0~a15-1.
+
+2007-06-10  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/*:
+	  - Excluding lenny from the syslinux workarounds as syslinux 3.36 did
+	    migrate into testing.
+	* helpers/lh_bootstrap_cache, lh_chroot_cache:
+	  - Fixed typos which made caching fail on rebuilds.
+	* helpers/lh_clean:
+	  - Added unmount of binfmt on clean.
+	* helpers/lh_binary_usb-hdd:
+	  - Including script to write grub to the loop device from Thomas Lange
+	    <lange@informatik.uni-koeln.de>.
+
 2007-06-10  Daniel Baumann  <daniel@debian.org>
 
 	* helpers/lh_binary_grub, lh_binary_rootfs, lh_binary_yaboot,

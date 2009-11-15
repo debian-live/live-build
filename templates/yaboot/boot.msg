@@ -1,6 +1,6 @@
-Welcome to Debian GNU/Linux
+Welcome to Debian GNU/Linux!
 
-This is an Debian Live CDROM,
+This is a Debian Live CDROM,
 built on LIVE_DATE.
 
 The default option is 'live'.
@@ -9,10 +9,14 @@ If the system fails to boot at all (the typical
 symptom is a white screen which doesn't go away),
 use 'live video=ofonly'.
 
-Press the tab key for a list of options, or type
-'help' for help.
+The plain options are for the powerpc family of
+processors (from 601 to G4). The *64 options are for
+64bit powerpc processors, which include the IBM
+Power3, Power4, Power5, ... boxes, as well as the
+Apple G5 boxes. Press the tab key for a list of
+options, or type 'help' for help.
 
 ************************************
-If in doubt, just press Enter, and if that
-doesn't work, type 'live video=ofonly'.
+If in doubt, just press enter, and if that
+doesn't work, try 'live video=ofonly'.
 ************************************

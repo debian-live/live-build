@@ -92,7 +92,7 @@ then
 		CP_OPTIONS="-L"
 	fi
 
-	# Copying d-i templates
+	# Copying install templates
 	if [ -d "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/install ] && \
 	ls "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/install/* &> /dev/null
 	then
@@ -105,7 +105,7 @@ then
 		cp -r ${CP_OPTIONS} "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/install."${ARCH}"/* binary
 	fi
 
-	# Adjusting d-i templates
+	# Adjusting install templates
 	DEBIAN_NAME="Debian GNU/Linux 4.0 r0 \"Etch\" - Unofficial amd64 NETINST/LIVE Binary-1"
 	DEBIAN_DATE="`date +%Y%m%d-%H:%M`"
 
@@ -120,6 +120,19 @@ then
 
 	sed -i -e "s#DEBIAN_NAME#${DEBIAN_NAME}#g" -e "s/DEBIAN_DATE/${DEBIAN_DATE}/g" -e "s#DEBIAN_TOOLS#${DEBIAN_TOOLS_HTML}#g" binary/README.html
 	sed -i -e "s#DEBIAN_NAME#${DEBIAN_NAME}#g" -e "s/DEBIAN_DATE/${DEBIAN_DATE}/g" -e "s#DEBIAN_TOOLS#${DEBIAN_TOOLS_TXT}#g" binary/README.txt
+fi
+
+# Copying live templates
+if [ -d "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live ] && \
+ls "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live/* &> /dev/null
+then
+	cp -r ${CP_OPTIONS} "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live/* binary
+fi
+
+if [ -d "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live."${ARCH}" ] && \
+ls "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live."${ARCH}"/* &> /dev/null
+then
+	cp -r ${CP_OPTIONS} "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live."${ARCH}"/* binary
 fi
 
 # Creating stage file

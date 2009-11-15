@@ -17,6 +17,7 @@ Patches (alphabetical order):
   * Richard Nelson <rjent@rjent.pair.com>
   * Scott Edwards <debian@foss.daxal.com>
   * Sebastian Raveau <sebastien.raveau@epita.fr>
+  * Thomas Lange <lange@informatik.uni-koeln.de>
   * Trent Buck <trentbuck@gmail.com>
 
 Donations (alphaetical order):
@@ -32,6 +33,9 @@ Special thanks (alphabetical order):
   * Sebastian Raveau <sebastien.raveau@epita.fr> for his work on encryption
     support.
   * Scott Edwards <debian@foss.daxal.com> for his work on d-i/g-i integration.
+  * Michael Dorrington <mike@zen.co.uk> for distracting Luk Claes on DebConf 7,
+    so that Luk couldn't disturb me all the time and I could finally do some
+    work.
 
 ...and countless other people showed up on the #debian-live IRC channel since
 February 2006: thanks for all your help, ideas, and wishes.
