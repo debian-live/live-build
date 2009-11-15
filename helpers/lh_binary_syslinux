@@ -190,16 +190,16 @@ then
 	# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
 	if [ "`basename ${DESTDIR_LIVE}`" = "binary" ]
 	then
-		LINUX="LABEL live\n\tkernel `basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
-		LINUX="${LINUX}\n\nLABEL live-failsafe\n\tkernel `basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
+		LINUX="# Debian GNU/Linux - live\nLABEL live\n\tkernel `basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
+		LINUX="${LINUX}\n\n# Debian GNU/Linux - live-failsafe\nLABEL live-failsafe\n\tkernel `basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
 	else
-		LINUX="LABEL live\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
-		LINUX="${LINUX}\n\nLABEL live-failsafe\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
+		LINUX="# Debian GNU/Linux - live\nLABEL live\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
+		LINUX="${LINUX}\n\n# Debian GNU/Linux - live-failsafe\nLABEL live-failsafe\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
 	fi
 else
 	DEFAULT_FLAVOUR="`echo ${LIVE_LINUX_FLAVOURS} | awk '{ print $1 }'`"
-	LINUX="LABEL live\n\tkernel `basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
-	LINUX="${LINUX}\n\nLABEL live-failsafe\n\tkernel `basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
+	LINUX="# Debian GNU/Linux - live\nLABEL live\n\tkernel `basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
+	LINUX="${LINUX}\n\n# Debian GNU/Linux - live-failsafe\nLABEL live-failsafe\n\tkernel `basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
 fi
 
 if [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
@@ -210,20 +210,20 @@ then
 		then
 			if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
 			then
-				LINUX="LABEL live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
-				LINUX="${LINUX}\n\nLABEL live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`-failsafe\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
+				LINUX="# Debian GNU/Linux - live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\nLABEL live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
+				LINUX="${LINUX}\n\n# Debian GNU/Linux - live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`-failsafe\nLABEL live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`-failsafe\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
 			else
-				LINUX="LABEL live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n\tkernel `basename ${KERNEL}`\n\tappend initrd=initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} live_BOOTAPPEND"
-				LINUX="${LINUX}\n\nLABEL live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n\tkernel `basename ${KERNEL}`\n\tappend initrd=initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
+				LINUX="# Debian GNU/Linux - live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\nLABEL live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n\tkernel `basename ${KERNEL}`\n\tappend initrd=initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} live_BOOTAPPEND"
+				LINUX="${LINUX}\n\n# Debian GNU/Linux - live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\nLABEL live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n\tkernel `basename ${KERNEL}`\n\tappend initrd=initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
 			fi
 		else
 			if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
 			then
-				LINUX="${LINUX}\n\nLABEL live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
-				LINUX="${LINUX}\n\nLABEL live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`-failsafe\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
+				LINUX="${LINUX}\n\n# Debian GNU/Linux - live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\nLABEL live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
+				LINUX="${LINUX}\n\n# Debian GNU/Linux - live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`-failsafe\nLABEL live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`-failsafe\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
 			else
-				LINUX="${LINUX}\n\nLABEL live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n\tkernel `basename ${KERNEL}`\n\tappend initrd=initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
-				LINUX="${LINUX}\n\nLABEL live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n\tkernel `basename ${KERNEL}`\n\tappend initrd=initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
+				LINUX="${LINUX}\n\n# Debian GNU/Linux - live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\nLABEL live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n\tkernel `basename ${KERNEL}`\n\tappend initrd=initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
+				LINUX="${LINUX}\n\n# Debian GNU/Linux - live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\nLABEL live-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n\tkernel `basename ${KERNEL}`\n\tappend initrd=initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
 			fi
 		fi
 	done
@@ -233,7 +233,7 @@ fi
 LINUX="`echo ${LINUX} | sed -e 's#//#/#g'`"
 
 # Assembling debian-installer configuration
-if [ "${LIVE_DEBIAN_INSTALLER}" = "enabled" ] || [ "${LIVE_LIVE_INSTALLER}" = "enabled" ]
+if [ "${LIVE_DEBIAN_INSTALLER}" = "enabled" ]
 then
 	VMLINUZ_DI="vmlinuz"
 	INITRD_DI="initrd.gz"
@@ -331,7 +331,7 @@ case "${LIVE_BINARY_IMAGES}" in
 		fi
 
 		# Configure syslinux templates
-		sed -i -e "s#LIVE_LINUX_LIVE#${LINUX}#" -e "s#LIVE_LINUX_INSTALL#${LIVE_LINUX_INSTALL}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" binary/isolinux/isolinux.cfg
+		sed -i -e "s@LIVE_LINUX_LIVE@${LINUX}@" -e "s@LIVE_LINUX_INSTALL@${LIVE_LINUX_INSTALL}@" -e "s@LIVE_MEMTEST@${MEMTEST}@" binary/isolinux/isolinux.cfg
 		sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" binary/isolinux/isolinux.cfg
 		sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" binary/isolinux/f1.txt
 		sed -i -e "s/LIVE_VERSION/${VERSION}/" binary/isolinux/f10.txt
@@ -385,7 +385,7 @@ case "${LIVE_BINARY_IMAGES}" in
 		fi
 
 		# Configure syslinux templates
-		sed -i -e "s#LIVE_LINUX_LIVE#${LINUX}#" -e "s#LIVE_LINUX_INSTALL#${LIVE_LINUX_INSTALL}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" tftpboot/pxelinux.cfg/default
+		sed -i -e "s@LIVE_LINUX_LIVE@${LINUX}@" -e "s@LIVE_LINUX_INSTALL@${LIVE_LINUX_INSTALL}@" -e "s@LIVE_MEMTEST@${MEMTEST}@" tftpboot/pxelinux.cfg/default
 		sed -i -e "s/LIVE_NET_SERVER/${LIVE_NET_SERVER}/" -e "s#LIVE_NET_PATH#${LIVE_NET_PATH}#" -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" tftpboot/pxelinux.cfg/default
 		sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" tftpboot/pxelinux.cfg/f1.txt
 		sed -i -e "s/LIVE_VERSION/${VERSION}/" tftpboot/pxelinux.cfg/f10.txt
@@ -424,7 +424,7 @@ case "${LIVE_BINARY_IMAGES}" in
 		mkdir -p "${DESTDIR}"
 		cp chroot/usr/lib/syslinux/isolinux.bin "${DESTDIR}"/syslinux.bin
 		cp -r "${LIVE_TEMPLATES}"/syslinux/* "${DESTDIR}"
-		mv binary/isolinux.cfg "${DESTDIR}"/syslinux.cfg
+		mv "${DESTDIR}"/isolinux.cfg "${DESTDIR}"/syslinux.cfg
 
 		# Copying splash screen
 		if [ -f config/binary_syslinux/splash.rle ]
@@ -444,7 +444,7 @@ case "${LIVE_BINARY_IMAGES}" in
 		fi
 
 		# Configure syslinux templates
-		sed -i -e "s#LIVE_LINUX_LIVE#${LINUX}#" -e "s#LIVE_LINUX_INSTALL#${LIVE_LINUX_INSTALL}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" "${DESTDIR}"/syslinux.cfg
+		sed -i -e "s@LIVE_LINUX_LIVE@${LINUX}@" -e "s@LIVE_LINUX_INSTALL@${LIVE_LINUX_INSTALL}@" -e "s@LIVE_MEMTEST@${MEMTEST}@" "${DESTDIR}"/syslinux.cfg
 		sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" "${DESTDIR}"/syslinux.cfg
 		sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" "${DESTDIR}"/f1.txt
 		sed -i -e "s/LIVE_VERSION/${VERSION}/" "${DESTDIR}"/f10.txt
@@ -453,23 +453,19 @@ case "${LIVE_BINARY_IMAGES}" in
 		rm -f "${DESTDIR}"/pxelinux.cfg
 
 		# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
-		if [ "${LIVE_DISTRIBUTION}" = "etch" ]
+		if [ "${LIVE_DISTRIBUTION}" = "etch" ] && [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
 		then
-			if [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
-			then
-				for FLAVOUR in ${LIVE_LINUX_FLAVOURS}
-				do
-					NUMBER=$(($NUMBER + 1))
-
-					mv "${DESTDIR_LIVE}"/vmlinuz-*-${FLAVOUR} "${DESTDIR_LIVE}"/vmlinuz${NUMBER}
-					mv "${DESTDIR_LIVE}"/initrd.img-*-${FLAVOUR} "${DESTDIR_LIVE}"/initrd${NUMBER}.img
-					sed -i -e "s/vmlinuz-.*-${FLAVOUR}/vmlinuz${NUMBER}/g" -e "s/initrd.img-.*-${FLAVOUR}/initrd${NUMBER}.img/g" "${DESTDIR}"/syslinux.cfg
-				done
-			else
-				mv "${DESTDIR_LIVE}"/vmlinuz-*-${LIVE_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/vmlinuz
-				mv "${DESTDIR_LIVE}"/initrd.img-*-${LIVE_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/initrd.img
-				sed -i -e "s/vmlinuz-.*-${LIVE_LINUX_FLAVOURS}/vmlinuz/g" -e "s/initrd.img-.*-${LIVE_LINUX_FLAVOURS}/initrd.img/g" "${DESTDIR}"/syslinux.cfg
-			fi
+			for FLAVOUR in ${LIVE_LINUX_FLAVOURS}
+			do
+				NUMBER=$(($NUMBER + 1))
+				mv "${DESTDIR_LIVE}"/vmlinuz-*-${FLAVOUR} "${DESTDIR_LIVE}"/vmlinuz${NUMBER}
+				mv "${DESTDIR_LIVE}"/initrd.img-*-${FLAVOUR} "${DESTDIR_LIVE}"/initrd${NUMBER}.img
+				sed -i -e "s/vmlinuz-.*-${FLAVOUR}/vmlinuz${NUMBER}/g" -e "s/initrd.img-.*-${FLAVOUR}/initrd${NUMBER}.img/g" "${DESTDIR}"/syslinux.cfg
+			done
+		else
+			mv "${DESTDIR_LIVE}"/vmlinuz-*-${LIVE_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/vmlinuz
+			mv "${DESTDIR_LIVE}"/initrd.img-*-${LIVE_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/initrd.img
+			sed -i -e "s/vmlinuz-.*-${LIVE_LINUX_FLAVOURS}/vmlinuz/g" -e "s/initrd.img-.*-${LIVE_LINUX_FLAVOURS}/initrd.img/g" "${DESTDIR}"/syslinux.cfg
 		fi
 		;;
 esac

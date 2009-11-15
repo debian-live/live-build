@@ -53,9 +53,9 @@ then
 
 	for PACKAGESLIST in config/chroot_local-packageslists/*
 	do
-		# Copying package list
-		grep -v "^#" "${PACKAGESLIST}" > chroot/root/"`basename ${PACKAGESLIST}`"
-
+		# Generate package list
+		Expand_packagelist "`basename ${PACKAGESLIST}`" "config/chroot_local-packageslists" "${LH_BASE:-/usr/share/live-helper/lists}/lists" > chroot/root/"`basename ${PACKAGESLIST}`"
+		
 		# Installing package list
 		case "${LH_APT}" in
 			apt|apt-get)

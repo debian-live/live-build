@@ -194,7 +194,7 @@ fi
 LINUX="`echo ${LINUX} | sed -e 's#//#/#g'`"
 
 # Assembling debian-installer configuration
-if [ "${LIVE_DEBIAN_INSTALLER}" = "enabled" ] || [ "${LIVE_LIVE_INSTALLER}" = "enabled" ]
+if [ "${LIVE_DEBIAN_INSTALLER}" = "enabled" ]
 then
 	LINUX="title\t\tLive:\nroot\n\n${LINUX}"
 

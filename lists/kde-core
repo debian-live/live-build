@@ -1,14 +1,7 @@
 # /usr/share/live-helper/lists/kde-core - package list for live-helper(7)
 
-# Minimal
-eject file sudo vim-tiny
+## LH: KDE Core
+#<include> standard-x11
 
-# Standard
-console-common kbd locales
-
-# KDE Core
 kde-core kdm
 desktop-base
-
-xorg xresprobe discover menu
-alsa-base alsa-oss alsa-utils
