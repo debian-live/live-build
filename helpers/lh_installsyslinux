@@ -6,7 +6,7 @@ if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
 then
 	if [ -n "${LIVE_ENCRYPTION}" ]
 	then
-		LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} live-media-encryption=${LIVE_ENCRYPTION}"
+		LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} encryption=${LIVE_ENCRYPTION}"
 	fi
 
 	case "${1}" in
