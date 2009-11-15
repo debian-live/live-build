@@ -20,7 +20,82 @@ done
 # Setting static variables
 DESCRIPTION="create configuration for live-helper(7)"
 HELP="FIXME"
-USAGE="${PROGRAM} [--apt apt|aptitude] [--apt-ftp-proxy URL] [--apt-http-proxy URL] [--apt-pdiffs enabled|disabled] [--apt-pipeline FIXME] [--apt-recommends enabled|disabled] [--apt-secure enabled|disabled] [-a|--architecture ARCHITECTURE] [-b|--binary-images iso|net|tar|usb-hdd] [--binary-indices enabled|disabled] [--bootappend PARAMETER|\"PARAMETERS\"] [--bootloader grub|syslinux|yaboot] [--bootstrap cdebootstrap|debootstrap] [--bootstrap-config FILE] [-f|--bootstrap-flavour minimal|standard] [--bootstrap-keyring PACKAGE] [--breakpoints] [--cache enabled|disabled] [--cache-indices enabled|disabled] [--cache-packages enabled|disabled] [--cache-stages STAGE|\"STAGES\"] [--chroot-build enabled|disabled] [--chroot-filesystem ext2|ext3|squashfs|plain] [-c|--conffile FILE] [--debconf-frontend dialog|editor|noninteractive|readline] [--debconf-nowarnings enabled|disabled] [--debconf-priority low|medium|high|critical] [--debian-installer enabled|disabled] [--debug] [-d|--distribution CODENAME] [-e|--encryption aes128|aes192|aes256] [--force] [--genisoimage genisomage|mkisofs] [--grub-splash FILE] [--hooks FILE] [--hostname NAME] [--includes PATH] [--initramfs auto|live-initramfs|casper] [--interactive shell] [--iso-application NAME] [--iso-preparer NAME] [--iso-publisher NAME] [--iso-volume NAME] [--keyring-packages PACKAGE|\"PACKAGES\"] [-l|--language LANGUAGE] [-k|--linux-flavours FLAVOUR|\"FLAVOURS\"] [--linux-packages \"PACKAGES\"] [--losetup losetup|losetup.orig] [--memtest memtest86+|memtest86] [-m|--mirror-binary-security URL] [--mirror-binary URL] [--mirror-bootstrap-security URL] [--mirror-bootstrap URL] [--mode debian|debian-edu|ubuntu] [--net-filesystem nfs|cfs] [--net-mountoptions OPTIONS] [--net-path PATH] [--net-server IP|HOSTNAME] [-p|--packages-lists FILE] [--packages PACKAGE|\"PACKAGES\"] [--quiet] [--root-command sudo] [--sections SECTION|\"SECTIONS\"] [--security enabled|disabled] [--source enabled|disabled] [-s|--source-images iso|net|tar|usb-hdd] [--symlinks enabled|disabled] [--syslinux-splash FILE] [--syslinux-timeout MILISECONDS] [--sysvinit enabled|disabled] [--tasksel aptitude|tasksel] [--tasks TASK] [--templates PATH] [--union-filesystem aufs|unionfs] [--username NAME] [--verbose]"
+USAGE="${PROGRAM} [--apt apt|aptitude]\n\
+\t    [--apt-ftp-proxy URL]\n\
+\t    [--apt-http-proxy URL]\n\
+\t    [--apt-pdiffs enabled|disabled]\n\
+\t    [--apt-pipeline FIXME]\n\
+\t    [--apt-recommends enabled|disabled]\n\
+\t    [--apt-secure enabled|disabled]\n\
+\t    [-a|--architecture ARCHITECTURE]\n\
+\t    [-b|--binary-images iso|net|tar|usb-hdd]\n\
+\t    [--binary-indices enabled|disabled]\n\
+\t    [--bootappend PARAMETER|\"PARAMETERS\"]\n\
+\t    [--bootloader grub|syslinux|yaboot]\n\
+\t    [--bootstrap cdebootstrap|debootstrap]\n\
+\t    [--bootstrap-config FILE]\n\
+\t    [-f|--bootstrap-flavour minimal|standard]\n\
+\t    [--bootstrap-keyring PACKAGE]\n\
+\t    [--breakpoints]\n\
+\t    [--cache enabled|disabled]\n\
+\t    [--cache-indices enabled|disabled]\n\
+\t    [--cache-packages enabled|disabled]\n\
+\t    [--cache-stages STAGE|\"STAGES\"]\n\
+\t    [--chroot-build enabled|disabled]\n\
+\t    [--chroot-filesystem ext2|ext3|squashfs|plain]\n\
+\t    [-c|--conffile FILE]\n\
+\t    [--debconf-frontend dialog|editor|noninteractive|readline]\n\
+\t    [--debconf-nowarnings enabled|disabled]\n\
+\t    [--debconf-priority low|medium|high|critical]\n\
+\t    [--debian-installer enabled|disabled]\n\
+\t    [--debug]\n\
+\t    [-d|--distribution CODENAME]\n\
+\t    [-e|--encryption aes128|aes192|aes256]\n\
+\t    [--force]\n\
+\t    [--genisoimage genisomage|mkisofs]\n\
+\t    [--grub-splash FILE]\n\
+\t    [--hooks FILE]\n\
+\t    [--hostname NAME]\n\
+\t    [--includes PATH]\n\
+\t    [--initramfs auto|live-initramfs|casper]\n\
+\t    [--interactive shell]\n\
+\t    [--iso-application NAME]\n\
+\t    [--iso-preparer NAME]\n\
+\t    [--iso-publisher NAME]\n\
+\t    [--iso-volume NAME]\n\
+\t    [--keyring-packages PACKAGE|\"PACKAGES\"]\n\
+\t    [-l|--language LANGUAGE]\n\
+\t    [-k|--linux-flavours FLAVOUR|\"FLAVOURS\"]\n\
+\t    [--linux-packages \"PACKAGES\"]\n\
+\t    [--losetup losetup|losetup.orig]\n\
+\t    [--memtest memtest86+|memtest86]\n\
+\t    [-m|--mirror-binary-security URL]\n\
+\t    [--mirror-binary URL]\n\
+\t    [--mirror-bootstrap-security URL]\n\
+\t    [--mirror-bootstrap URL]\n\
+\t    [--mode debian|debian-edu|ubuntu]\n\
+\t    [--net-filesystem nfs|cfs]\n\
+\t    [--net-mountoptions OPTIONS]\n\
+\t    [--net-path PATH]\n\
+\t    [--net-server IP|HOSTNAME]\n\
+\t    [-p|--packages-lists FILE]\n\
+\t    [--packages PACKAGE|\"PACKAGES\"]\n\
+\t    [--quiet]\n\
+\t    [--root-command sudo]\n\
+\t    [--sections SECTION|\"SECTIONS\"]\n\
+\t    [--security enabled|disabled]\n\
+\t    [--source enabled|disabled]\n\
+\t    [-s|--source-images iso|net|tar|usb-hdd]\n\
+\t    [--symlinks enabled|disabled]\n\
+\t    [--syslinux-splash FILE]\n\
+\t    [--syslinux-timeout MILISECONDS]\n\
+\t    [--sysvinit enabled|disabled]\n\
+\t    [--tasksel aptitude|tasksel]\n\
+\t    [--tasks TASK]\n\
+\t    [--templates PATH]\n\
+\t    [--union-filesystem aufs|unionfs]\n\
+\t    [--username NAME]\n\
+\t    [--verbose]"
 
 Local_arguments ()
 {
