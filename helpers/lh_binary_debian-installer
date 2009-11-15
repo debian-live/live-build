@@ -23,6 +23,11 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
+if [ "${LH_BINARY_IMAGES}" = "virtual-hdd" ]
+then
+	exit 0
+fi
+
 if [ "${_DEBUG}" = "enabled" ]
 then
 	WGET_OPTIONS="${WGET_OPTIONS} --verbose"
@@ -113,7 +118,7 @@ esac
 
 # Varous architecture-specific hacks
 case "${LH_ARCHITECTURE}" in
-	i386|amd64)
+	i386|amd64|lpia)
 		case "${DI_IMAGE_TYPE}" in
 			netboot)
 				DI_REMOTE_BASE="netboot/debian-installer/${LH_ARCHITECTURE}"
@@ -254,44 +259,20 @@ then
 
 	# Debian Installer daily builds
 	case "${LH_ARCHITECTURE}" in
-		alpha)
-			URL="http://people.debian.org/~vorlon/d-i/alpha/daily/"
-			;;
-
-		amd64)
-			URL="http://people.debian.org/~aba/d-i/images/daily/"
+		alpha|amd64|hppa|ia64|mips|mipsel|powerpc)
+			URL="http://d-i.debian.org/daily-images/${LH_ARCHITECTURE}/daily/"
 			;;
 
 		arm|armel)
 			URL="http://people.debian.org/~kmuto/d-i/images/daily/"
 			;;
 
-		hppa)
-			URL="http://people.debian.org/~kyle/d-i/hppa/daily/"
-			;;
-
 		i386)
 			URL="http://people.debian.org/~joeyh/d-i/images/daily/"
 			;;
 
-		ia64)
-			URL="http://people.debian.org/~dannf/d-i/images/daily/"
-			;;
-
 		m68k)
 			URL="http://people.debian.org/~smarenka/d-i/images-m68k/daily/"
-			;;
-
-		mips)
-			URL="http://people.debian.org/~ths/d-i/mips/images/daily/"
-			;;
-
-		mipsel)
-			URL="http://people.debian.org/~ths/d-i/mipsel/images/daily/"
-			;;
-
-		powerpc)
-			URL="http://people.debian.org/~wouter/d-i/powerpc/daily/"
 			;;
 
 		s390)
@@ -341,9 +322,10 @@ else
 	# Downloading graphical-installer
 	DOWNLOAD_GTK_INSTALLER=0
 	case "${LH_ARCHITECTURE}" in
-		amd64|i386)
+		amd64|i386|lpia)
 			DOWNLOAD_GTK_INSTALLER=1
 			;;
+
 		powerpc)
 			if [ "${LH_DEBIAN_INSTALLER}" = "netboot" ]
 			then
@@ -375,7 +357,7 @@ then
 			DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-amd64"
 			;;
 
-		i386)
+		i386|lpia)
 			DI_REQ_PACKAGES="elilo lilo grub"
 			DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-486 linux-image-2.6-686"
 			;;
@@ -552,9 +534,9 @@ then
 	fi
 
 	# Excluding udebs
-	grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DEBIAN_INSTALLER_DISTRIBUTION}"/udeb_exclude > exclude
-	grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DEBIAN_INSTALLER_DISTRIBUTION}"/exclude-udebs >> exclude
-	grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DEBIAN_INSTALLER_DISTRIBUTION}"/exclude-udebs-${LH_ARCHITECTURE} >> exclude
+	grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DEBIAN_INSTALLER_DISTRIBUTION}"/udeb_exclude > exclude || true
+	grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DEBIAN_INSTALLER_DISTRIBUTION}"/exclude-udebs >> exclude || true
+	grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DEBIAN_INSTALLER_DISTRIBUTION}"/exclude-udebs-${LH_ARCHITECTURE} >> exclude || true
 
 	# Local exclude file
 	if [ -e ../config/binary_debian-installer/udeb_exclude ]

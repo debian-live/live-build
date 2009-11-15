@@ -23,7 +23,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_CHECKSUMS}" != "enabled" ]
+if [ "${LH_CHECKSUMS}" != "enabled" ] || [ "${LH_BINARY_IMAGES}" = "virtual-hdd" ]
 then
 	exit 0
 fi

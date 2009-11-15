@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2009-01-29 22:56+0100\n"
+"POT-Creation-Date: 2009-03-01 12:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,17 +18,17 @@ msgstr ""
 # type: TH
 #: lh_binary.en.1:1 lh_bootstrap.en.1:1 lh_build.en.1:1 lh_chroot.en.1:1
 #: lh_clean.en.1:1 lh_config.en.1:1 lh.en.1:1 lh_source.en.1:1
-#: lh_testroot.en.1:1 live-helper.en.7:1
+#: lh_testroot.en.1:1
 #, no-wrap
-msgid "2009-01-23"
+msgid "2009-02-14"
 msgstr ""
 
 # type: TH
 #: lh_binary.en.1:1 lh_bootstrap.en.1:1 lh_build.en.1:1 lh_chroot.en.1:1
 #: lh_clean.en.1:1 lh_config.en.1:1 lh.en.1:1 lh_source.en.1:1
-#: lh_testroot.en.1:1 live-helper.en.7:1
+#: lh_testroot.en.1:1
 #, no-wrap
-msgid "1.0.2"
+msgid "1.0.4"
 msgstr ""
 
 # type: TH
@@ -57,7 +57,7 @@ msgstr ""
 
 # type: SH
 #: lh_binary.en.1:9 lh_bootstrap.en.1:9 lh_build.en.1:9 lh_chroot.en.1:9
-#: lh_clean.en.1:11 lh_config.en.1:195 lh.en.1:11 lh_source.en.1:9
+#: lh_clean.en.1:11 lh_config.en.1:201 lh.en.1:11 lh_source.en.1:9
 #: lh_testroot.en.1:9 live-helper.en.7:13
 #, no-wrap
 msgid "DESCRIPTION"
@@ -65,7 +65,7 @@ msgstr ""
 
 # type: SH
 #: lh_binary.en.1:12 lh_bootstrap.en.1:12 lh_build.en.1:12 lh_chroot.en.1:12
-#: lh_clean.en.1:14 lh_config.en.1:200 lh.en.1:14 lh_source.en.1:12
+#: lh_clean.en.1:14 lh_config.en.1:206 lh.en.1:14 lh_source.en.1:12
 #: lh_testroot.en.1:14 live-helper.en.7:20
 #, no-wrap
 msgid "OPTIONS"
@@ -73,37 +73,37 @@ msgstr ""
 
 # type: SH
 #: lh_binary.en.1:15 lh_bootstrap.en.1:15 lh_build.en.1:15 lh_chroot.en.1:15
-#: lh_clean.en.1:34 lh_config.en.1:403 lh.en.1:17 lh_source.en.1:15
-#: lh_testroot.en.1:17 live-helper.en.7:223
+#: lh_clean.en.1:34 lh_config.en.1:415 lh.en.1:17 lh_source.en.1:15
+#: lh_testroot.en.1:17 live-helper.en.7:229
 #, no-wrap
 msgid "SEE ALSO"
 msgstr ""
 
 # type: Plain text
 #: lh_binary.en.1:17 lh_bootstrap.en.1:17 lh_build.en.1:17 lh_chroot.en.1:17
-#: lh_clean.en.1:36 lh_config.en.1:405 lh.en.1:19 lh_source.en.1:17
+#: lh_clean.en.1:36 lh_config.en.1:417 lh.en.1:19 lh_source.en.1:17
 #: lh_testroot.en.1:19
 msgid "I<live-helper>(7)"
 msgstr ""
 
 # type: Plain text
 #: lh_binary.en.1:19 lh_bootstrap.en.1:19 lh_build.en.1:19 lh_chroot.en.1:19
-#: lh_clean.en.1:38 lh_config.en.1:407 lh_source.en.1:19 lh_testroot.en.1:21
+#: lh_clean.en.1:38 lh_config.en.1:419 lh_source.en.1:19 lh_testroot.en.1:21
 msgid "This program is a part of live-helper."
 msgstr ""
 
 # type: SH
 #: lh_binary.en.1:20 lh_bootstrap.en.1:20 lh_build.en.1:20 lh_chroot.en.1:20
-#: lh_clean.en.1:39 lh_config.en.1:408 lh.en.1:22 lh_source.en.1:20
-#: lh_testroot.en.1:22 live-helper.en.7:226
+#: lh_clean.en.1:39 lh_config.en.1:420 lh.en.1:22 lh_source.en.1:20
+#: lh_testroot.en.1:22 live-helper.en.7:232
 #, no-wrap
 msgid "HOMEPAGE"
 msgstr ""
 
 # type: Plain text
 #: lh_binary.en.1:22 lh_bootstrap.en.1:22 lh_build.en.1:22 lh_chroot.en.1:22
-#: lh_clean.en.1:41 lh_config.en.1:410 lh.en.1:24 lh_source.en.1:22
-#: lh_testroot.en.1:24 live-helper.en.7:228
+#: lh_clean.en.1:41 lh_config.en.1:422 lh.en.1:24 lh_source.en.1:22
+#: lh_testroot.en.1:24 live-helper.en.7:234
 msgid ""
 "More information about live-helper and the Debian Live project can be found "
 "in the homepage at E<lt>I<http://debian-live.alioth.debian.org/>E<gt> and in "
@@ -112,16 +112,16 @@ msgstr ""
 
 # type: SH
 #: lh_binary.en.1:23 lh_bootstrap.en.1:23 lh_build.en.1:23 lh_chroot.en.1:23
-#: lh_clean.en.1:42 lh_config.en.1:411 lh.en.1:25 lh_source.en.1:23
-#: lh_testroot.en.1:25 live-helper.en.7:229
+#: lh_clean.en.1:42 lh_config.en.1:423 lh.en.1:25 lh_source.en.1:23
+#: lh_testroot.en.1:25 live-helper.en.7:235
 #, no-wrap
 msgid "BUGS"
 msgstr ""
 
 # type: Plain text
 #: lh_binary.en.1:25 lh_bootstrap.en.1:25 lh_build.en.1:25 lh_chroot.en.1:25
-#: lh_clean.en.1:44 lh_config.en.1:413 lh.en.1:27 lh_source.en.1:25
-#: lh_testroot.en.1:27 live-helper.en.7:231
+#: lh_clean.en.1:44 lh_config.en.1:425 lh.en.1:27 lh_source.en.1:25
+#: lh_testroot.en.1:27 live-helper.en.7:237
 msgid ""
 "Report bugs by submitting a bugreport for the live-helper package in the "
 "Debian Bug Tracking System at E<lt>I<http://bugs.debian.org/>E<gt> or write "
@@ -130,16 +130,16 @@ msgstr ""
 
 # type: SH
 #: lh_binary.en.1:26 lh_bootstrap.en.1:26 lh_build.en.1:26 lh_chroot.en.1:26
-#: lh_clean.en.1:45 lh_config.en.1:414 lh.en.1:28 lh_source.en.1:26
-#: lh_testroot.en.1:28 live-helper.en.7:232
+#: lh_clean.en.1:45 lh_config.en.1:426 lh.en.1:28 lh_source.en.1:26
+#: lh_testroot.en.1:28 live-helper.en.7:238
 #, no-wrap
 msgid "AUTHOR"
 msgstr ""
 
 # type: Plain text
 #: lh_binary.en.1:27 lh_bootstrap.en.1:27 lh_build.en.1:27 lh_chroot.en.1:27
-#: lh_clean.en.1:46 lh_config.en.1:415 lh.en.1:29 lh_source.en.1:27
-#: lh_testroot.en.1:29 live-helper.en.7:233
+#: lh_clean.en.1:46 lh_config.en.1:427 lh.en.1:29 lh_source.en.1:27
+#: lh_testroot.en.1:29 live-helper.en.7:239
 msgid ""
 "live-helper was written by Daniel Baumann E<lt>I<daniel@debian.org>E<gt> for "
 "the Debian project."
@@ -218,12 +218,12 @@ msgstr ""
 
 # type: Plain text
 #: lh_config.en.1:32
-msgid "  [B<--binary-filesystem> fat16|fat32]"
+msgid "  [B<--binary-filesystem> fat16|fat32|ext2]"
 msgstr ""
 
 # type: Plain text
 #: lh_config.en.1:34
-msgid "  [B<--binary-indices> enabled|disabled]"
+msgid "  [B<--binary-indices> enabled|disabled|none]"
 msgstr ""
 
 # type: Plain text
@@ -298,338 +298,353 @@ msgstr ""
 
 # type: Plain text
 #: lh_config.en.1:64
-msgid "  [-c|B<--conffile> I<FILE>]"
+msgid "  [B<--clean]>"
 msgstr ""
 
 # type: Plain text
 #: lh_config.en.1:66
-msgid "  [B<--debconf-frontend> dialog|editor|noninteractive|readline]"
+msgid "B<\t[-c|--conffile> I<FILE>]"
 msgstr ""
 
 # type: Plain text
 #: lh_config.en.1:68
-msgid "  [B<--debconf-nowarnings> enabled|disabled]"
+msgid "  [B<--debconf-frontend> dialog|editor|noninteractive|readline]"
 msgstr ""
 
 # type: Plain text
 #: lh_config.en.1:70
-msgid "  [B<--debconf-priority> low|medium|high|critical]"
+msgid "  [B<--debconf-nowarnings> enabled|disabled]"
 msgstr ""
 
 # type: Plain text
 #: lh_config.en.1:72
+msgid "  [B<--debconf-priority> low|medium|high|critical]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:74
 msgid ""
 "  [B<--debian-installer> enabled|cdrom|netinst|netboot|businesscard|live|"
 "disabled]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:74
+#: lh_config.en.1:76
 msgid "  [B<--debian-installer-distribution> daily|I<CODENAME>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:76
+#: lh_config.en.1:78
 msgid "  [B<--debian-installer-preseedfile> I<FILE>|I<URL>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:78
+#: lh_config.en.1:80
 msgid "  [-d|B<--distribution> I<CODENAME>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:80
+#: lh_config.en.1:82
 msgid "  [--B<dump>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:82
+#: lh_config.en.1:84
 msgid "  [-e|B<--encryption> disabled|aes128|aes192|aes256]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:84
+#: lh_config.en.1:86
 msgid "  [B<--fdisk> fdisk|fdisk.dist]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:86
+#: lh_config.en.1:88
 msgid "  [B<--genisoimage> genisomage|mkisofs]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:88
+#: lh_config.en.1:90
 msgid "  [B<--grub-splash> I<FILE>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:90
+#: lh_config.en.1:92
 msgid "  [B<--hooks> I<FILE>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:92
+#: lh_config.en.1:94
 msgid "  [B<--hostname> I<NAME>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:94
+#: lh_config.en.1:96
 msgid "  [B<--ignore-system-defaults>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:96
+#: lh_config.en.1:98
 msgid "  [B<--includes> I<PATH>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:98
+#: lh_config.en.1:100
 msgid "  [B<--initramfs> auto|live-initramfs|casper]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:100
+#: lh_config.en.1:102
 msgid "  [B<--interactive> shell]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:102
+#: lh_config.en.1:104
 msgid "  [B<--iso-application> I<NAME>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:104
+#: lh_config.en.1:106
 msgid "  [B<--iso-preparer> I<NAME>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:106
+#: lh_config.en.1:108
 msgid "  [B<--iso-publisher> I<NAME>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:108
+#: lh_config.en.1:110
 msgid "  [B<--iso-volume> I<NAME>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:110
+#: lh_config.en.1:112
 msgid "  [B<--jffs2-eraseblock> I<SIZE>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:112
+#: lh_config.en.1:114
 msgid "  [B<--keyring-packages> I<PACKAGE|\"PACKAGES\">]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:114
+#: lh_config.en.1:116
 msgid "  [-l|B<--language> I<LANGUAGE>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:116
+#: lh_config.en.1:118
 msgid "  [-k|B<--linux-flavours> I<FLAVOUR>|I<\"FLAVOURS\">]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:118
+#: lh_config.en.1:120
 msgid "  [B<--linux-packages> I<\"PACKAGES\">]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:120
+#: lh_config.en.1:122
 msgid "  [B<--losetup> losetup|losetup.orig]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:122
+#: lh_config.en.1:124
 msgid "  [B<--memtest> memtest86+|memtest86|none]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:124
+#: lh_config.en.1:126
 msgid "  [-m|B<--mirror-bootstrap> I<URL>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:126
+#: lh_config.en.1:128
 msgid "  [B<--mirror-binary> I<URL>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:128
+#: lh_config.en.1:130
 msgid "  [B<--mirror-binary-security> I<URL>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:130
+#: lh_config.en.1:132
 msgid "  [B<--mirror-chroot> I<URL>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:132
+#: lh_config.en.1:134
 msgid "  [B<--mirror-chroot-security> I<URL>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:134
+#: lh_config.en.1:136
 msgid "  [B<--mode> debian|emdebian]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:136
+#: lh_config.en.1:138
 msgid "  [B<--net-root-filesystem> nfs|cfs]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:138
+#: lh_config.en.1:140
 msgid "  [B<--net-root-mountoptions> I<OPTIONS>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:140
+#: lh_config.en.1:142
 msgid "  [B<--net-root-path> I<PATH>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:142
+#: lh_config.en.1:144
 msgid "  [B<--net-root-server> I<IP>|I<HOSTNAME>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:144
+#: lh_config.en.1:146
 msgid "  [B<--net-cow-filesystem> nfs|cfs]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:146
+#: lh_config.en.1:148
 msgid "  [B<--net-cow-mountoptions> I<OPTIONS>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:148
+#: lh_config.en.1:150
 msgid "  [B<--net-cow-path> I<PATH>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:150
+#: lh_config.en.1:152
 msgid "  [B<--net-cow-server> I<IP>|I<HOSTNAME>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:152
+#: lh_config.en.1:154
 msgid "  [B<--net-tarball> bzip2|gzip|tar|none]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:154
+#: lh_config.en.1:156
 msgid "  [-p|B<--packages-lists> I<FILE>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:156
+#: lh_config.en.1:158
 msgid "  [B<--packages> I<PACKAGE>|I<\"PACKAGES\">]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:158
+#: lh_config.en.1:160
 msgid "  [B<--root-command> sudo]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:160
+#: lh_config.en.1:162
 msgid "  [B<--use-fakeroot> enabled|disabled]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:162
+#: lh_config.en.1:164
 msgid "  [B<--categories> I<CATEGORY>|I<\"CATEGORIES\">]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:164
+#: lh_config.en.1:166
 msgid "  [B<--security> enabled|disabled]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:166
+#: lh_config.en.1:168
 msgid "  [B<--source> enabled|disabled]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:168
+#: lh_config.en.1:170
 msgid "  [-s|B<--source-images> iso|net|tar|usb-hdd]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:170
+#: lh_config.en.1:172
 msgid "  [B<--symlinks> enabled|disabled]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:172
+#: lh_config.en.1:174
 msgid "  [B<--syslinux-splash> I<FILE>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:174
+#: lh_config.en.1:176
 msgid "  [B<--syslinux-timeout> I<SECONDS>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:176
+#: lh_config.en.1:178
 msgid "  [B<--syslinux-menu> enabled|disabled]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:178
+#: lh_config.en.1:180
 msgid "  [B<--sysvinit> enabled|disabled]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:180
+#: lh_config.en.1:182
 msgid "  [B<--tasksel> aptitude|tasksel]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:182
+#: lh_config.en.1:184
 msgid "  [B<--tasks> I<TASK>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:184
+#: lh_config.en.1:186
 msgid "  [B<--templates> I<PATH>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:186
+#: lh_config.en.1:188
 msgid "  [B<--union-filesystem> aufs|unionfs]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:188
-msgid "  [B<--exposed-root> enabled|disabled]"
-msgstr ""
-
-# type: Plain text
 #: lh_config.en.1:190
-msgid "  [B<--username> I<NAME>]"
+msgid "  [B<--virtual-root-filesystem> ext3]"
 msgstr ""
 
 # type: Plain text
 #: lh_config.en.1:192
-msgid "  [B<--win32-loader enabled|disabled]>"
+msgid "  [B<--virtual-root-size >I<MB>]"
 msgstr ""
 
 # type: Plain text
 #: lh_config.en.1:194
+msgid "  [B<--exposed-root> enabled|disabled]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:196
+msgid "  [B<--username> I<NAME>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:198
+msgid "  [B<--win32-loader enabled|disabled]>"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:200
 msgid "B<lh_config> [I<live-helper\\ options>]"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:197
+#: lh_config.en.1:203
 msgid ""
 "is a high-level command (porcelain) of live-helper, the Debian Live tool "
 "suite. It populates the configuration directory for live-helper. By default, "
@@ -638,7 +653,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:199
+#: lh_config.en.1:205
 msgid ""
 "B<Attention:> lh_config tries to be smart and sets defaults for some options "
 "depending on the setting of other options (e.g. the to be used union "
@@ -654,7 +669,7 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:202
+#: lh_config.en.1:208
 msgid ""
 "In addition to its specific options, lh_config also understands all generic "
 "live-helper options. See I<live-helper>(7) for a complete list of all "
@@ -662,13 +677,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:203
+#: lh_config.en.1:209
 #, no-wrap
 msgid "B<--apt> apt|aptitude"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:205
+#: lh_config.en.1:211
 msgid ""
 "defines if apt-get or aptitude is used to install packages when building the "
 "image. When building etch images, this defaults to aptitude. Every other "
@@ -676,13 +691,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:205
+#: lh_config.en.1:211
 #, no-wrap
 msgid "B<--apt-ftp-proxy> I<URL>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:207
+#: lh_config.en.1:213
 msgid ""
 "sets the ftp proxy to be used by apt. By default, this is empty but if the "
 "host has the environment variable ftp_proxy set, apt-ftp-proxy gets "
@@ -690,13 +705,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:207
+#: lh_config.en.1:213
 #, no-wrap
 msgid "B<--apt-http-proxy> I<URL>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:209
+#: lh_config.en.1:215
 msgid ""
 "sets the http proxy to be used by apt. By default, this is empty but if the "
 "host has the environment variable http_proxy set, apt-http-proxy gets "
@@ -704,26 +719,26 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:209
+#: lh_config.en.1:215
 #, no-wrap
 msgid "B<--apt-pdiffs> enabled|disabled"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:211
+#: lh_config.en.1:217
 msgid ""
 "defines whetever apt should use incremental package indices feature or not. "
 "This is enabled by default."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:211
+#: lh_config.en.1:217
 #, no-wrap
 msgid "B<--apt-options> I<OPTION>|\"I<OPTIONS>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:213
+#: lh_config.en.1:219
 msgid ""
 "defines the default options that will be appended to every apt call that is "
 "made inside chroot during the building of the image. By default, this is set "
@@ -731,13 +746,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:213
+#: lh_config.en.1:219
 #, no-wrap
 msgid "B<--aptitude-options> I<OPTION>|\"I<OPTIONS>\""
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:215
+#: lh_config.en.1:221
 msgid ""
 "defines the default options that will be appended to every aptitude call "
 "that is made inside chroot during building of the image. By default, this is "
@@ -745,50 +760,50 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:215
+#: lh_config.en.1:221
 #, no-wrap
 msgid "B<--apt-pipeline> I<FIXME>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:217 lh_config.en.1:305 lh_config.en.1:362 lh_config.en.1:390
+#: lh_config.en.1:223 lh_config.en.1:313 lh_config.en.1:370 lh_config.en.1:402
 msgid "FIXME"
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:217
+#: lh_config.en.1:223
 #, no-wrap
 msgid "B<--apt-recommends> enabled|disabled"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:219
+#: lh_config.en.1:225
 msgid ""
 "defines if apt should install recommended packages automatically. By "
 "default, this is enable in the debian mode and disabled in emdebian mode."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:219
+#: lh_config.en.1:225
 #, no-wrap
 msgid "B<--apt-secure> enabled|disabled"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:221
+#: lh_config.en.1:227
 msgid ""
 "defines if apt should check repository signatures. This is enabled by "
 "default."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:221
+#: lh_config.en.1:227
 #, no-wrap
 msgid "-a|B<--architecture> I<ARCHITECTURE>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:223
+#: lh_config.en.1:229
 msgid ""
 "defines the architecture of the to be build image. By default, this is set "
 "to the host architecture. Note that you cannot crossbuild for another "
@@ -799,26 +814,26 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:223
+#: lh_config.en.1:229
 #, no-wrap
 msgid "-b|B<--binary-images> iso|net|tar|usb-hdd"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:225
+#: lh_config.en.1:231
 msgid ""
 "defines the image type to build. By default this is set to iso to build CD/"
 "DVD images."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:225
+#: lh_config.en.1:231
 #, no-wrap
 msgid "B<--binary-filesystem> fat16|fat32|ext2"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:227
+#: lh_config.en.1:233
 msgid ""
 "defines the filesystem to be used in the image type. This only has an effect "
 "if the selected binary image type does allow to choose a filesystem. For "
@@ -831,37 +846,37 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:227
+#: lh_config.en.1:233
 #, no-wrap
-msgid "B<--binary-indices> enabled|disabled"
+msgid "B<--binary-indices> enabled|disabled|none"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:229
+#: lh_config.en.1:235
 msgid ""
 "defines if the resulting images should have binary indices or not and "
-"defaults to enabled."
+"defaults to enabled. If set to none, no indices are included at all."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:229
+#: lh_config.en.1:235
 #, no-wrap
 msgid "B<--bootappend-install> I<PARAMETER>|I<\"PARAMETERS\">"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:231
+#: lh_config.en.1:237
 msgid "sets boot parameters specific to debian-installer, if included."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:231
+#: lh_config.en.1:237
 #, no-wrap
 msgid "B<--bootappend-live> I<PARAMETER>|I<\"PARAMETERS\">"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:233
+#: lh_config.en.1:239
 msgid ""
 "sets boot parameters specific to debian-live. A complete list of boot "
 "parameters can be found, for etch, in the manpage of casper, for all other "
@@ -870,13 +885,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:233
+#: lh_config.en.1:239
 #, no-wrap
 msgid "B<--bootloader> grub|syslinux|yaboot"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:235
+#: lh_config.en.1:241
 msgid ""
 "defines which bootloader is beeing used in the generated image. This has "
 "only an effect if the selected binary image type does allow to choose the "
@@ -889,13 +904,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:235
+#: lh_config.en.1:241
 #, no-wrap
 msgid "B<--bootstrap> cdebootstrap|cdebootstrap-static|debootstrap|copy"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:237
+#: lh_config.en.1:243
 msgid ""
 "defines which program is used to bootstrap the debian chroot, default is "
 "debootstrap. Note that if you set the bootstrap program to copy, then your "
@@ -905,13 +920,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:237
+#: lh_config.en.1:243
 #, no-wrap
 msgid "B<--bootstrap-config> I<FILE>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:239
+#: lh_config.en.1:245
 msgid ""
 "sets a custom configuration file for the boostrap programm of choice and is "
 "empty by default. Refere to the documentation of debootstrap or cdebootstrap "
@@ -920,13 +935,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:239
+#: lh_config.en.1:245
 #, no-wrap
 msgid "-f|B<--bootstrap-flavour> minimal|standard"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:241
+#: lh_config.en.1:247
 msgid ""
 "defines if the bootstrap program should bootstrap the standard system (all "
 "packages of priority required and important, which is the default) or a "
@@ -934,39 +949,39 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:241
+#: lh_config.en.1:247
 #, no-wrap
 msgid "B<--bootstrap-keyring> I<PACKAGE>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:243
+#: lh_config.en.1:249
 msgid ""
 "sets the archive keyring package to be used. Default is debian-archive-"
 "keyring."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:243
+#: lh_config.en.1:249
 #, no-wrap
 msgid "B<--cache> enabled|disabled"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:245
+#: lh_config.en.1:251
 msgid ""
 "defines globally if any cache should be used at all. Different caches can be "
 "controled through the their own options."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:245
+#: lh_config.en.1:251
 #, no-wrap
 msgid "B<--cache-indices> enabled|disabled"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:247
+#: lh_config.en.1:253
 msgid ""
 "defines if downloaded package indices and lists should be cached which is "
 "disabled by default. Enabling it would allow to rebuild an image completely "
@@ -974,13 +989,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:247
+#: lh_config.en.1:253
 #, no-wrap
 msgid "B<--cache-packages> enabled|disabled"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:249
+#: lh_config.en.1:255
 msgid ""
 "defines if downloaded packages files should be cached which is enabled by "
 "default. Disabling it does save space consumtion in your build directory, "
@@ -991,13 +1006,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:249
+#: lh_config.en.1:255
 #, no-wrap
 msgid "B<--cache-stages> enabled|disabled|I<STAGE>|I<\"STAGES\">"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:251
+#: lh_config.en.1:257
 msgid ""
 "sets which stages should be cached. By default set to bootstrap. As an "
 "exception to the normal stage names, also rootfs can be used here which does "
@@ -1007,13 +1022,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:251
+#: lh_config.en.1:257
 #, no-wrap
 msgid "B<--checksums> enabled|disabled"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:253
+#: lh_config.en.1:259
 msgid ""
 "defines if the binary image should contain a file called md5sums.txt that "
 "lists all files on the image together with their md5 checksums. This in turn "
@@ -1025,13 +1040,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:253
+#: lh_config.en.1:259
 #, no-wrap
 msgid "B<--chroot-build> enabled|disabled"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:255
+#: lh_config.en.1:261
 msgid ""
 "defines whetever live-helper should use the tools from within the chroot to "
 "build the binary image or not by using and including the host systems tools. "
@@ -1046,13 +1061,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:255
+#: lh_config.en.1:261
 #, no-wrap
 msgid "B<--chroot-filesystem> ext2|ext3|squashfs|plain|jffs2"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:257
+#: lh_config.en.1:263
 msgid ""
 "defines which filesystem type should be used for the root filesystem image. "
 "If you use plain, then no filesystem image is created and the root "
@@ -1063,26 +1078,39 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:257
+#: lh_config.en.1:263
+#, no-wrap
+msgid "B<--clean>"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:265
+msgid ""
+"minimizes config directory by automatically removing unused and thus empty "
+"subdirectories."
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:265
 #, no-wrap
 msgid "-c|B<--conffile> I<FILE>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:259
+#: lh_config.en.1:267
 msgid ""
 "using a user specified alternative configuration file in addition to the "
 "normally used one in the config directory."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:259
+#: lh_config.en.1:267
 #, no-wrap
 msgid "B<--debconf-frontend> dialog|editor|noninteractive|readline"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:261
+#: lh_config.en.1:269
 msgid ""
 "defines what value the debconf frontend should be set to inside the chroot. "
 "Note that setting it to anything by noninteractive, which is the default, "
@@ -1090,13 +1118,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:261
+#: lh_config.en.1:269
 #, no-wrap
 msgid "B<--debconf-nowarnings> enabled|disabled"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:263
+#: lh_config.en.1:271
 msgid ""
 "defines if warnings of debconf should be displayed or not. Warnings from "
 "debconf are generally very rare and by default, we skipp them, if any, in "
@@ -1104,13 +1132,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:263
+#: lh_config.en.1:271
 #, no-wrap
 msgid "B<--debconf-priority> low|medium|high|critical"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:265
+#: lh_config.en.1:273
 msgid ""
 "defines what value the debconf priority shoul dbe set to inside the chroot. "
 "By default, it is set to critical, which means that almost none questions "
@@ -1119,13 +1147,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:265
+#: lh_config.en.1:273
 #, no-wrap
 msgid "B<--debian-installer> enabled|cdrom|netinst|netboot|businesscard|live|disabled"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:267
+#: lh_config.en.1:275
 msgid ""
 "defines which type, if any, of the debian-installer should be included in "
 "the resulting binary image. By default, no installer is included. All "
@@ -1137,13 +1165,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:267
+#: lh_config.en.1:275
 #, no-wrap
 msgid "B<--debian-installer-distribution> daily|I<CODENAME>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:269
+#: lh_config.en.1:277
 msgid ""
 "defines the distribution where the debian-installer files should be taken "
 "out from. Normally, this should be set to the same distribution as the live "
@@ -1152,37 +1180,37 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:269
+#: lh_config.en.1:277
 #, no-wrap
 msgid "B<--debian-installer-preseedfile> I<FILE>|I<URL>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:271
+#: lh_config.en.1:279
 msgid ""
 "sets the filename or URL for an optionally used and included preseeding file "
 "for debian-installer."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:271
+#: lh_config.en.1:279
 #, no-wrap
 msgid "-d|B<--distribution> I<CODENAME>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:273
+#: lh_config.en.1:281
 msgid "defines the distribution of the resulting live system."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:273
+#: lh_config.en.1:281
 #, no-wrap
 msgid "--B<dump>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:275
+#: lh_config.en.1:283
 msgid ""
 "prepares a report of the currently present live system configuration and the "
 "version of live-helper used. This is usefull to provide if you submit bug "
@@ -1191,65 +1219,65 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:275
+#: lh_config.en.1:283
 #, no-wrap
 msgid "-e|B<--encryption> disabled|aes128|aes192|aes256"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:277
+#: lh_config.en.1:285
 msgid ""
 "defines if the root filesystem should be encrypted or not. By default, this "
 "is disabled."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:277
+#: lh_config.en.1:285
 #, no-wrap
 msgid "B<--fdisk> fdisk|fdisk.dist"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:279
+#: lh_config.en.1:287
 msgid ""
 "sets the filename of the fdisk binary from the host system that should be "
 "used. This is autodetected and does generally not need any customization."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:279
+#: lh_config.en.1:287
 #, no-wrap
 msgid "B<--genisoimage> genisomage|mkisofs"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:281
+#: lh_config.en.1:289
 msgid ""
 "sets the filename of the genisoimage binary from the host system that should "
 "be used. This is autodetected and does generally not need any customization."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:281
+#: lh_config.en.1:289
 #, no-wrap
 msgid "B<--grub-splash> I<FILE>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:283
+#: lh_config.en.1:291
 msgid ""
 "defines the name of an optional to be included splash screen graphic for the "
 "grub bootloader."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:283
+#: lh_config.en.1:291
 #, no-wrap
 msgid "B<--hooks> I<FILE>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:285
+#: lh_config.en.1:293
 msgid ""
 "defines which hooks available in /usr/share/live-helper/examples/hooks "
 "should be activated. Normally, there are no hooks executed. Make sure you "
@@ -1257,24 +1285,24 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:285
+#: lh_config.en.1:293
 #, no-wrap
 msgid "B<--hostname> I<NAME>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:287
+#: lh_config.en.1:295
 msgid "sets the hostname of the live system."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:287
+#: lh_config.en.1:295
 #, no-wrap
 msgid "B<--ignore-system-defaults>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:289
+#: lh_config.en.1:297
 msgid ""
 "lh_config by default reads system defaults from /etc/default/live-helper "
 "when generating a new live system config directory. This is usefull if you "
@@ -1283,13 +1311,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:289
+#: lh_config.en.1:297
 #, no-wrap
 msgid "B<--includes> I<PATH>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:291
+#: lh_config.en.1:299
 msgid ""
 "sets the path to the includes that live-helper is going to use, e.g. "
 "additional minimal documentation that you want to have on all live systems. "
@@ -1297,13 +1325,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:291
+#: lh_config.en.1:299
 #, no-wrap
 msgid "B<--initramfs> auto|live-initramfs|casper"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:293
+#: lh_config.en.1:301
 msgid ""
 "sets the name of package that contains the live system specific initramfs "
 "modification. By default, auto is used, which means that at build time of "
@@ -1313,13 +1341,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:293
+#: lh_config.en.1:301
 #, no-wrap
 msgid "B<--interactive> shell"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:295
+#: lh_config.en.1:303
 msgid ""
 "defines if after the chroot stage and before the beginning of the binary "
 "stage, a interactive shell login should be spawned in the chroot in order to "
@@ -1333,13 +1361,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:295
+#: lh_config.en.1:303
 #, no-wrap
 msgid "B<--iso-application> I<NAME>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:297
+#: lh_config.en.1:305
 msgid ""
 "sets the APPLICATION field in the header of a resulting CD/DVD image and "
 "defaults to \"Debian Live\" in debian mode, and to \"Emdebian Live\" in "
@@ -1347,13 +1375,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:297
+#: lh_config.en.1:305
 #, no-wrap
 msgid "B<--iso-preparer> I<NAME>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:299
+#: lh_config.en.1:307
 msgid ""
 "sets the PREPARER field in the header of a resulting CD/DVD image. By "
 "default this is set to \"live-helper I<VERSION>; http://packages.qa.debian."
@@ -1362,13 +1390,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:299
+#: lh_config.en.1:307
 #, no-wrap
 msgid "B<--iso-publisher> I<NAME>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:301
+#: lh_config.en.1:309
 msgid ""
 "sets the PUBLISHED field in the header of a resulting CD/DVD image. By "
 "default, this is set to 'Debian Live project; http://debian-live.alioth."
@@ -1378,13 +1406,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:301
+#: lh_config.en.1:309
 #, no-wrap
 msgid "B<--iso-volume> I<NAME>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:303
+#: lh_config.en.1:311
 msgid ""
 "sets the VOLUME field in the header of a resulting CD/DVD and defaults to "
 "'Debian Live (I<DATE>)' in debian mode, and 'Emdebian Live (I<DATE>)' in "
@@ -1393,32 +1421,32 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:303
+#: lh_config.en.1:311
 #, no-wrap
 msgid "B<--jffs2-eraseblock> I<SIZE>"
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:305
+#: lh_config.en.1:313
 #, no-wrap
 msgid "[B<--keyring-packages> I<PACKAGE|\"PACKAGES>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:307
+#: lh_config.en.1:315
 msgid ""
 "sets the keyring package or additional keyring packages. By default this is "
 "set to debian-archive-keyring."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:307
+#: lh_config.en.1:315
 #, no-wrap
 msgid "-l|B<--language> I<LANGUAGE>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:309
+#: lh_config.en.1:317
 msgid ""
 "sets the language of a live system by installing l10n related packages and "
 "enables generation of the correct locales through automatically setting the "
@@ -1426,26 +1454,26 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:309
+#: lh_config.en.1:317
 #, no-wrap
 msgid "-k|B<--linux-flavours> I<FLAVOUR>|I<\"FLAVOURS>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:311
+#: lh_config.en.1:319
 msgid ""
 "sets the kernel flavours to be installed. Note that in case you specify more "
 "than that the first will be configured the default kernel that gets bootet."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:311
+#: lh_config.en.1:319
 #, no-wrap
 msgid "B<--linux-packages> I<\"PACKAGES>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:313
+#: lh_config.en.1:321
 msgid ""
 "sets the internal name of the kernel packges naming scheme. If you use "
 "debian kernel packges, you will not have to adjust it. If you decide to use "
@@ -1459,26 +1487,26 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:313
+#: lh_config.en.1:321
 #, no-wrap
 msgid "B<--losetup> losetup|losetup.orig"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:315
+#: lh_config.en.1:323
 msgid ""
 "sets the filename of the losetup binary from the host system that should be "
 "used. This is autodetected and does generally not need any customization."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:315
+#: lh_config.en.1:323
 #, no-wrap
 msgid "B<--memtest> memtest86+|memtest86|none"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:317
+#: lh_config.en.1:325
 msgid ""
 "defines if memtest, memtest86+ or no memory tester at all should be included "
 "as secondary bootloader configuration. This is only available on amd64 and "
@@ -1486,26 +1514,26 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:317
+#: lh_config.en.1:325
 #, no-wrap
 msgid "-m|B<--mirror-bootstrap> I<URL>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:319
+#: lh_config.en.1:327
 msgid ""
 "sets the location of the debian package mirror that should be used to "
 "bootstrap from."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:319
+#: lh_config.en.1:327
 #, no-wrap
 msgid "B<--mirror-binary> I<URL>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:321
+#: lh_config.en.1:329
 msgid ""
 "sets the location of the debian package mirror that should end up configured "
 "in the final image and which is the one a user would see and use. This has "
@@ -1516,13 +1544,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:321
+#: lh_config.en.1:329
 #, no-wrap
 msgid "B<--mirror-binary-security> I<URL>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:323
+#: lh_config.en.1:331
 msgid ""
 "sets the location of the debian security package mirror that should end up "
 "configuered in the final image. By default, the same value that is used for "
@@ -1530,13 +1558,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:323
+#: lh_config.en.1:331
 #, no-wrap
 msgid "B<--mirror-chroot> I<URL>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:325
+#: lh_config.en.1:333
 msgid ""
 "sets the location of the debian package mirror that will be used to fetch "
 "the packages in order to build the live system. By default, this points to "
@@ -1545,13 +1573,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:325
+#: lh_config.en.1:333
 #, no-wrap
 msgid "B<--mirror-chroot-security> I<URL>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:327
+#: lh_config.en.1:335
 msgid ""
 "sets the location of the debian security package mirror that will be used to "
 "fetch the packages in order to build the live system. By default, this "
@@ -1559,52 +1587,52 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:327
+#: lh_config.en.1:335
 #, no-wrap
 msgid "B<--mode> debian|emdebian"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:329
+#: lh_config.en.1:337
 msgid ""
 "defines a global mode to load project specific defaults. By default this is "
 "set to debian."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:329
+#: lh_config.en.1:337
 #, no-wrap
 msgid "B<--net-root-filesystem> nfs|cfs"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:331
+#: lh_config.en.1:339
 msgid ""
 "defines the filesystem that will be configured in the bootloader "
 "configuration for your netboot image. This defaults to nfs."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:331
+#: lh_config.en.1:339
 #, no-wrap
 msgid "B<--net-root-mountoptions> I<OPTIONS>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:333
+#: lh_config.en.1:341
 msgid ""
 "sets additional options for mounting the root filesystem in netboot images "
 "and is by default empty."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:333
+#: lh_config.en.1:341
 #, no-wrap
 msgid "B<--net-root-path> I<PATH>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:335
+#: lh_config.en.1:343
 msgid ""
 "sets the file path that will be configured in the bootloader configuration "
 "for your netboot image. This defaults to /srv/debian-live in debian mode and "
@@ -1612,13 +1640,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:335
+#: lh_config.en.1:343
 #, no-wrap
 msgid "B<--net-root-server> I<IP>|I<HOSTNAME>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:337
+#: lh_config.en.1:345
 msgid ""
 "sets the IP or hostname that will be configured in the bootloader "
 "configuration for the root filesystem of your netboot image. This defaults "
@@ -1626,38 +1654,38 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:337
+#: lh_config.en.1:345
 #, no-wrap
 msgid "B<--net-cow-filesystem> nfs|cfs"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:339
+#: lh_config.en.1:347
 msgid ""
 "defines the filesystem type for the copy-on-write layer and defaults to nfs."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:339
+#: lh_config.en.1:347
 #, no-wrap
 msgid "B<--net-cow-mountoptions> I<OPTIONS>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:341
+#: lh_config.en.1:349
 msgid ""
 "sets additional options for mounting the copy-on-write layer in netboot "
 "images and is by default empty."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:341
+#: lh_config.en.1:349
 #, no-wrap
 msgid "B<--net-cow-path> I<PATH>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:343
+#: lh_config.en.1:351
 msgid ""
 "defines the path to client writable filesystem. Anywhere that "
 "I<client_mac_address> is specified in the path live-initramfs will "
@@ -1665,28 +1693,28 @@ msgid ""
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:346
+#: lh_config.en.1:354
 msgid "Example:"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:348
+#: lh_config.en.1:356
 msgid "/export/hosts/client_mac_address"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:350
+#: lh_config.en.1:358
 msgid "/export/hosts/00-16-D3-33-92-E8"
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:350
+#: lh_config.en.1:358
 #, no-wrap
 msgid "B<--net-cow-server> I<IP>|I<HOSTNAME>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:352
+#: lh_config.en.1:360
 msgid ""
 "sets the IP or hostname that will be configured in the bootloader "
 "configuration for the copy-on-write filesystem of your netboot image and is "
@@ -1694,13 +1722,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:352
+#: lh_config.en.1:360
 #, no-wrap
 msgid "B<--net-tarball> bzip2|gzip|tar|none"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:354
+#: lh_config.en.1:362
 msgid ""
 "defines the format of the netboot image. Choosing tar results in a not "
 "compressed tarball, bzip2 and gzip in a bzip2 resp. gzip compressed tarball. "
@@ -1709,13 +1737,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:354
+#: lh_config.en.1:362
 #, no-wrap
 msgid "-p|B<--packages-lists> I<FILE>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:356
+#: lh_config.en.1:364
 msgid ""
 "defines which lists available in /usr/share/live-helper/lists should be "
 "used. By default, this is set to standard. Note that in case you have local "
@@ -1724,13 +1752,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:356
+#: lh_config.en.1:364
 #, no-wrap
 msgid "B<--packages> I<PACKAGE>|I<\"PACKAGES\">"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:358
+#: lh_config.en.1:366
 msgid ""
 "defines one or more packages to be installed in the live system. This is a "
 "quick and convenient place to add a few packages when building an image "
@@ -1739,13 +1767,13 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:358
+#: lh_config.en.1:366
 #, no-wrap
 msgid "B<--root-command> sudo"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:360
+#: lh_config.en.1:368
 msgid ""
 "controls if live-helper should use sudo internally to build the live image. "
 "Note that this is not well tested and that you should, when relaying on "
@@ -1753,19 +1781,19 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:360
+#: lh_config.en.1:368
 #, no-wrap
 msgid "B<--use-fakeroot> enabled|disabled"
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:362
+#: lh_config.en.1:370
 #, no-wrap
 msgid "B<--categories> I<CATEGORY>|I<\"CATEGORIES\">"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:364
+#: lh_config.en.1:372
 msgid ""
 "defines which package categories of a debian packages archive should be used "
 "for configured debian package mirrors. By default, this is set to main. "
@@ -1775,26 +1803,26 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:364
+#: lh_config.en.1:372
 #, no-wrap
 msgid "B<--security> enabled|disabled"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:366
+#: lh_config.en.1:374
 msgid ""
 "defines if the security repositories specified in the security mirror "
 "options should be used or not."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:366
+#: lh_config.en.1:374
 #, no-wrap
 msgid "B<--source> enabled|disabled"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:368
+#: lh_config.en.1:376
 msgid ""
 "defines if a corresponding source image to the binary image should be build. "
 "By default this is disabled because most people do not require this and "
@@ -1804,24 +1832,24 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:368
+#: lh_config.en.1:376
 #, no-wrap
 msgid "-s|B<--source-images> iso|net|tar|usb-hdd"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:370
+#: lh_config.en.1:378
 msgid "defines the image type for the source image. Default is tar."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:370
+#: lh_config.en.1:378
 #, no-wrap
 msgid "B<--symlinks> enabled|disabled"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:372
+#: lh_config.en.1:380
 msgid ""
 "defines if the symlink hack should be enabled or disabled. The symlink hack "
 "converts all absolute symlinks to relative ones. By default this is disabled "
@@ -1830,26 +1858,26 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:372
+#: lh_config.en.1:380
 #, no-wrap
 msgid "B<--syslinux-splash> I<FILE>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:374
+#: lh_config.en.1:382
 msgid ""
 "defines the file of the syslinux splash graphic that should be used instead "
 "of the default one."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:374
+#: lh_config.en.1:382
 #, no-wrap
 msgid "B<--syslinux-timeout> I<SECONDS>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:376
+#: lh_config.en.1:384
 msgid ""
 "defines the timeout the syslinux bootloader should wait for input from the "
 "user at the bootprompt prior booting the default kernel. This defaults to 0 "
@@ -1857,25 +1885,25 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:376
+#: lh_config.en.1:384
 #, no-wrap
 msgid "B<--syslinux-menu> enabled|disabled"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:378
+#: lh_config.en.1:386
 msgid ""
 "defines if syslinux should be make use of the vgamenu capabilities or not."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:378
+#: lh_config.en.1:386
 #, no-wrap
 msgid "B<--sysvinit> enabled|disabled"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:380
+#: lh_config.en.1:388
 msgid ""
 "defines it the sysvinit hack should be enabled or disabled. The sysvinit "
 "hack disables all non-essential services from starting up at bootup in order "
@@ -1884,26 +1912,26 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:380
+#: lh_config.en.1:388
 #, no-wrap
 msgid "B<--tasksel> aptitude|tasksel"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:382
+#: lh_config.en.1:390
 msgid ""
 "selects which program is used to install tasks. By default, this is set to "
 "tasksel."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:382
+#: lh_config.en.1:390
 #, no-wrap
 msgid "B<--tasks> I<TASK>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:384
+#: lh_config.en.1:392
 msgid ""
 "defines one or more package tasks to be installed in the live system. This "
 "is a quick and convenient way to get a reasonable default selection of "
@@ -1913,67 +1941,94 @@ msgid ""
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:384
+#: lh_config.en.1:392
 #, no-wrap
 msgid "B<--templates> I<PATH>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:386
+#: lh_config.en.1:394
 msgid ""
 "sets the path to the templates that live-helper is going to use, e.g. for "
 "bootloaders. By default, this is set to /usr/share/live-helper/templates/."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:386
+#: lh_config.en.1:394
 #, no-wrap
 msgid "B<--union-filesystem> aufs|unionfs"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:388
+#: lh_config.en.1:396
 msgid ""
 "defines whetever to use UnionFS or Aufs as stackable unification filesystem. "
 "When building etch images, this defaults to unionfs, everywhere else to aufs."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:388
+#: lh_config.en.1:396
+#, no-wrap
+msgid "B<--virtual-root-filesystem> ext3"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:398
+msgid ""
+"defines what filesystem to format the root filesystem when building virtual-"
+"hdd images."
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:398
+#, no-wrap
+msgid "B<--virtual-root-size> MB"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:400
+msgid ""
+"defines what size the virtual-hdd image should be. Note that although the "
+"default is set to 10000 (= 10GB), it will not need 10GB space on your "
+"harddisk as the files are created as sparse files."
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:400
 #, no-wrap
 msgid "B<--exposed-root> enabled|disabled"
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:390
+#: lh_config.en.1:402
 #, no-wrap
 msgid "B<--username> I<NAME>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:392
+#: lh_config.en.1:404
 msgid "sets the name of the account of the default user in the live system."
 msgstr ""
 
 # type: IP
-#: lh_config.en.1:392
+#: lh_config.en.1:404
 #, no-wrap
 msgid "B<--win32-loader enabled|disabled>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:394
+#: lh_config.en.1:406
 msgid "defines if win32-loader should be included in the binary image or not."
 msgstr ""
 
 # type: SH
-#: lh_config.en.1:395
+#: lh_config.en.1:407
 #, no-wrap
 msgid "ENVIRONMENT"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:397
+#: lh_config.en.1:409
 msgid ""
 "All command line switches can also be specified through the corresponding "
 "environment variable. Environment variables are name LH_FOO, means, e.g. --"
@@ -1982,18 +2037,18 @@ msgid ""
 msgstr ""
 
 # type: SH
-#: lh_config.en.1:398
+#: lh_config.en.1:410
 #, no-wrap
 msgid "FILES"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:400
+#: lh_config.en.1:412
 msgid "I</etc/default/live-helper>"
 msgstr ""
 
 # type: Plain text
-#: lh_config.en.1:402
+#: lh_config.en.1:414
 msgid ""
 "An optional, global configuration file for lh_config variables. It is useful "
 "to specify a few system wide defaults, like LH_MIRROR_BOOTSTRAP. This "

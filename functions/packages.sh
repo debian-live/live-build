@@ -32,11 +32,11 @@ Install_package ()
 	then
 		case "${LH_APT}" in
 			apt|apt-get)
-				Chroot chroot "apt-get install -o APT::Install-Recommends=false --yes ${_LH_PACKAGES}"
+				Chroot chroot "apt-get install -o APT::Install-Recommends=false ${APT_OPTIONS} ${_LH_PACKAGES}"
 				;;
 
 			aptitude)
-				Chroot chroot "aptitude install --without-recommends --assume-yes ${_LH_PACKAGES}"
+				Chroot chroot "aptitude install --without-recommends ${APTITUDE_OPTIONS} ${_LH_PACKAGES}"
 				;;
 		esac
 	fi
@@ -48,11 +48,11 @@ Remove_package ()
 	then
 		case "${LH_APT}" in
 			apt|apt-get)
-				Chroot chroot "apt-get remove --purge --yes ${_LH_PACKAGES}"
+				Chroot chroot "apt-get remove --purge ${APT_OPTIONS} ${_LH_PACKAGES}"
 				;;
 
 			aptitude)
-				Chroot chroot "aptitude purge --assume-yes ${_LH_PACKAGES}"
+				Chroot chroot "aptitude purge ${APTITUDE_OPTIONS} ${_LH_PACKAGES}"
 				;;
 		esac
 	fi

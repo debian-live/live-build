@@ -64,7 +64,7 @@ mtd-tools
 EOF
 
 case "${LH_ARCHITECTURE}" in
-	amd64|i386)
+	amd64|i386|lpia)
 
 cat >> source-selection.txt << EOF
 mtools

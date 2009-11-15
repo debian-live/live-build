@@ -70,7 +70,10 @@ EOF
 		fi
 
 		# Queue installation of linux-image and ${LH_INITRAMFS}
-		echo ${LH_INITRAMFS} >> chroot/root/chroot_packages
+		if [ "${LH_INITRAMFS}" != "none" ]
+		then
+			echo ${LH_INITRAMFS} >> chroot/root/chroot_packages
+		fi
 
 		# Creating stage file
 		Create_stagefile .stage/chroot_linux-image

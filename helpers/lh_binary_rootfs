@@ -38,7 +38,7 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 case "${LH_ARCHITECTURE}" in
-	amd64|i386)
+	amd64|i386|lpia)
 		LINUX="vmlinuz"
 		;;
 
@@ -263,6 +263,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 				# Move image
 				${LH_ROOT_COMMAND} mv chroot/filesystem.squashfs binary/${INITFS}
 				${LH_ROOT_COMMAND} rm -rf chroot/chroot chroot/squashfs.sort
+				${LH_ROOT_COMMAND} chmod 0644 binary/${INITFS}/filesystem.squashfs
 				;;
 
 			disabled)
@@ -299,6 +300,25 @@ case "${LH_CHROOT_FILESYSTEM}" in
 		# Removing depends
 		Remove_package
 		;;
+
+	none)
+		if [ -d binary ]
+		then
+			rm -rf binary
+		fi
+
+		case "${LH_CHROOT_BUILD}" in
+			enabled)
+				mv chroot/chroot binary
+				;;
+
+			disabled)
+				Echo_message "This may take a while."
+				cp -a chroot binary
+				;;
+		esac
+		;;
+
 esac
 
 for STAGE in ${LH_CACHE_STAGES}
@@ -309,7 +329,10 @@ do
 
 		mkdir -p cache/stages_rootfs
 
-		${LH_ROOT_COMMAND} cp -a binary/"${INITFS}"/filesystem.* cache/stages_rootfs
+		if [ "${LH_CHROOT_FILESYSTEM}" != "none" ]
+		then
+			${LH_ROOT_COMMAND} cp -a binary/"${INITFS}"/filesystem.* cache/stages_rootfs
+		fi
 
 		if [ -n "${LH_ROOT_COMMAND}" ]
 		then

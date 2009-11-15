@@ -43,7 +43,7 @@ moreutils
 aview mc nano-tiny mg vim wdiff hexedit nvi tweak
 
 # Harddisk
-dvd+rw-tools genisoimage sdparm hdparm blktool parted partimage secure-delete scsitools smartmontools testdisk wodim wipe hddtemp
+dvd+rw-tools genisoimage sdparm hdparm blktool parted partimage secure-delete scsitools smartmontools testdisk wodim wipe hddtemp bonnie++
 par2 dvd+rw-tools
 
 # for /usr/bin/summer:
@@ -123,6 +123,8 @@ telnet-ssl
 whois
 irssi
 debootstrap
+cdebootstrap
+rinse
 pv
 manpages
 
@@ -165,11 +167,6 @@ parprouted
 
 # Special hardware
 br2684ctl
-
-#if CATEGORIES non-free
-madwifi-source
-madwifi-tools
-#endif
 
 # Routing
 cutter
@@ -239,9 +236,11 @@ ndisc6
 ngrep
 p0f
 packit
+#if DISTRIBUTION etch lenny
 paketto
-python-scapy
 sing
+#endif
+python-scapy
 xprobe
 
 # Log Analysers
@@ -330,6 +329,7 @@ lftp
 net-tools
 
 expect
+gpm
 
 # Network servers:
 thttpd

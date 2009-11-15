@@ -23,6 +23,11 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
+if [ "${LH_BINARY_IMAGES}" = "virtual-hdd" ]
+then
+	exit 0
+fi
+
 Echo_message "Begin install linux-image..."
 
 # Requiring stage file
@@ -48,19 +53,11 @@ case "${LH_INITRAMFS}" in
 esac
 
 case "${LH_ARCHITECTURE}" in
-	amd64)
-		LINUX="vmlinuz"
-		;;
-
-	i386)
-		LINUX="vmlinuz"
-		;;
-
 	powerpc)
 		LINUX="vmlinux"
 		;;
 
-	sparc)
+	*)
 		LINUX="vmlinuz"
 		;;
 esac

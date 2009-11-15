@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Debconf 8\n"
-"POT-Creation-Date: 2009-01-29 22:56+0100\n"
+"POT-Creation-Date: 2009-03-01 12:42+0100\n"
 "PO-Revision-Date: 2008-08-07 21:17+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,17 +18,17 @@ msgstr ""
 # type: TH
 #: lh_binary.en.1:1 lh_bootstrap.en.1:1 lh_build.en.1:1 lh_chroot.en.1:1
 #: lh_clean.en.1:1 lh_config.en.1:1 lh.en.1:1 lh_source.en.1:1
-#: lh_testroot.en.1:1 live-helper.en.7:1
+#: lh_testroot.en.1:1
 #, no-wrap
-msgid "2009-01-23"
+msgid "2009-02-14"
 msgstr ""
 
 # type: TH
 #: lh_binary.en.1:1 lh_bootstrap.en.1:1 lh_build.en.1:1 lh_chroot.en.1:1
 #: lh_clean.en.1:1 lh_config.en.1:1 lh.en.1:1 lh_source.en.1:1
-#: lh_testroot.en.1:1 live-helper.en.7:1
+#: lh_testroot.en.1:1
 #, no-wrap
-msgid "1.0.2"
+msgid "1.0.4"
 msgstr ""
 
 # type: TH
@@ -57,7 +57,7 @@ msgstr ""
 
 # type: SH
 #: lh_binary.en.1:9 lh_bootstrap.en.1:9 lh_build.en.1:9 lh_chroot.en.1:9
-#: lh_clean.en.1:11 lh_config.en.1:195 lh.en.1:11 lh_source.en.1:9
+#: lh_clean.en.1:11 lh_config.en.1:201 lh.en.1:11 lh_source.en.1:9
 #: lh_testroot.en.1:9 live-helper.en.7:13
 #, no-wrap
 msgid "DESCRIPTION"
@@ -65,7 +65,7 @@ msgstr ""
 
 # type: SH
 #: lh_binary.en.1:12 lh_bootstrap.en.1:12 lh_build.en.1:12 lh_chroot.en.1:12
-#: lh_clean.en.1:14 lh_config.en.1:200 lh.en.1:14 lh_source.en.1:12
+#: lh_clean.en.1:14 lh_config.en.1:206 lh.en.1:14 lh_source.en.1:12
 #: lh_testroot.en.1:14 live-helper.en.7:20
 #, no-wrap
 msgid "OPTIONS"
@@ -73,37 +73,37 @@ msgstr ""
 
 # type: SH
 #: lh_binary.en.1:15 lh_bootstrap.en.1:15 lh_build.en.1:15 lh_chroot.en.1:15
-#: lh_clean.en.1:34 lh_config.en.1:403 lh.en.1:17 lh_source.en.1:15
-#: lh_testroot.en.1:17 live-helper.en.7:223
+#: lh_clean.en.1:34 lh_config.en.1:415 lh.en.1:17 lh_source.en.1:15
+#: lh_testroot.en.1:17 live-helper.en.7:229
 #, no-wrap
 msgid "SEE ALSO"
 msgstr ""
 
 # type: Plain text
 #: lh_binary.en.1:17 lh_bootstrap.en.1:17 lh_build.en.1:17 lh_chroot.en.1:17
-#: lh_clean.en.1:36 lh_config.en.1:405 lh.en.1:19 lh_source.en.1:17
+#: lh_clean.en.1:36 lh_config.en.1:417 lh.en.1:19 lh_source.en.1:17
 #: lh_testroot.en.1:19
 msgid "I<live-helper>(7)"
 msgstr ""
 
 # type: Plain text
 #: lh_binary.en.1:19 lh_bootstrap.en.1:19 lh_build.en.1:19 lh_chroot.en.1:19
-#: lh_clean.en.1:38 lh_config.en.1:407 lh_source.en.1:19 lh_testroot.en.1:21
+#: lh_clean.en.1:38 lh_config.en.1:419 lh_source.en.1:19 lh_testroot.en.1:21
 msgid "This program is a part of live-helper."
 msgstr ""
 
 # type: SH
 #: lh_binary.en.1:20 lh_bootstrap.en.1:20 lh_build.en.1:20 lh_chroot.en.1:20
-#: lh_clean.en.1:39 lh_config.en.1:408 lh.en.1:22 lh_source.en.1:20
-#: lh_testroot.en.1:22 live-helper.en.7:226
+#: lh_clean.en.1:39 lh_config.en.1:420 lh.en.1:22 lh_source.en.1:20
+#: lh_testroot.en.1:22 live-helper.en.7:232
 #, no-wrap
 msgid "HOMEPAGE"
 msgstr ""
 
 # type: Plain text
 #: lh_binary.en.1:22 lh_bootstrap.en.1:22 lh_build.en.1:22 lh_chroot.en.1:22
-#: lh_clean.en.1:41 lh_config.en.1:410 lh.en.1:24 lh_source.en.1:22
-#: lh_testroot.en.1:24 live-helper.en.7:228
+#: lh_clean.en.1:41 lh_config.en.1:422 lh.en.1:24 lh_source.en.1:22
+#: lh_testroot.en.1:24 live-helper.en.7:234
 msgid ""
 "More information about live-helper and the Debian Live project can be found "
 "in the homepage at E<lt>I<http://debian-live.alioth.debian.org/>E<gt> and in "
@@ -112,16 +112,16 @@ msgstr ""
 
 # type: SH
 #: lh_binary.en.1:23 lh_bootstrap.en.1:23 lh_build.en.1:23 lh_chroot.en.1:23
-#: lh_clean.en.1:42 lh_config.en.1:411 lh.en.1:25 lh_source.en.1:23
-#: lh_testroot.en.1:25 live-helper.en.7:229
+#: lh_clean.en.1:42 lh_config.en.1:423 lh.en.1:25 lh_source.en.1:23
+#: lh_testroot.en.1:25 live-helper.en.7:235
 #, no-wrap
 msgid "BUGS"
 msgstr ""
 
 # type: Plain text
 #: lh_binary.en.1:25 lh_bootstrap.en.1:25 lh_build.en.1:25 lh_chroot.en.1:25
-#: lh_clean.en.1:44 lh_config.en.1:413 lh.en.1:27 lh_source.en.1:25
-#: lh_testroot.en.1:27 live-helper.en.7:231
+#: lh_clean.en.1:44 lh_config.en.1:425 lh.en.1:27 lh_source.en.1:25
+#: lh_testroot.en.1:27 live-helper.en.7:237
 msgid ""
 "Report bugs by submitting a bugreport for the live-helper package in the "
 "Debian Bug Tracking System at E<lt>I<http://bugs.debian.org/>E<gt> or write "
@@ -130,16 +130,16 @@ msgstr ""
 
 # type: SH
 #: lh_binary.en.1:26 lh_bootstrap.en.1:26 lh_build.en.1:26 lh_chroot.en.1:26
-#: lh_clean.en.1:45 lh_config.en.1:414 lh.en.1:28 lh_source.en.1:26
-#: lh_testroot.en.1:28 live-helper.en.7:232
+#: lh_clean.en.1:45 lh_config.en.1:426 lh.en.1:28 lh_source.en.1:26
+#: lh_testroot.en.1:28 live-helper.en.7:238
 #, no-wrap
 msgid "AUTHOR"
 msgstr ""
 
 # type: Plain text
 #: lh_binary.en.1:27 lh_bootstrap.en.1:27 lh_build.en.1:27 lh_chroot.en.1:27
-#: lh_clean.en.1:46 lh_config.en.1:415 lh.en.1:29 lh_source.en.1:27
-#: lh_testroot.en.1:29 live-helper.en.7:233
+#: lh_clean.en.1:46 lh_config.en.1:427 lh.en.1:29 lh_source.en.1:27
+#: lh_testroot.en.1:29 live-helper.en.7:239
 msgid ""
 "live-helper was written by Daniel Baumann E<lt>I<daniel@debian.org>E<gt> for "
 "the Debian project."

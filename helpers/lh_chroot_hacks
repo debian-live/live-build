@@ -40,6 +40,12 @@ Create_lockfile .lock
 # Removing udev mac caching rule
 rm -f chroot/etc/udev/rules.d/*persistent-net.rules
 
+# Remove resume
+if [ "${LH_DISTRIBUTION}" = "etch" ] && [ -e /etc/initramfs-tools/conf.d/resume ]
+then
+	rm -f /etc/initramfs-tools/conf.d/resume
+fi
+
 case "${LH_BINARY_IMAGES}" in
 	net)
 		if [ ! -f chroot/usr/bin/smbmount ]
@@ -63,11 +69,8 @@ EOF
 		;;
 esac
 
-# Remove resume
-if [ "${LH_DISTRIBUTION}" = "etch" ] && [ -e /etc/initramfs-tools/conf.d/resume ]
-then
-	rm -f /etc/initramfs-tools/conf.d/resume
-fi
+# Update initramfs (always, because of udev rules in initrd)
+Chroot chroot "update-initramfs -k all -t -u"
 
 # Ensure readable permissions on initramfs. loop-aes-utils sets umask to
 # protect GPG keys, which live-helper does not support.
@@ -84,7 +87,6 @@ rm -f chroot/etc/apt/trusted.gpg~
 rm -f chroot/etc/group- chroot/etc/passwd-
 rm -f chroot/etc/gshadow- chroot/etc/shadow-
 rm -f chroot/var/cache/debconf/*-old
-rm -f chroot/var/cache/man/index.db
 rm -f chroot/var/lib/dpkg/*-old
 
 if [ -n "${LH_ROOT_COMMAND}" ]
@@ -121,7 +123,7 @@ then
 	# bootloader is already installed in the image. Very ugly, but it's to
 	# late to fix it in d-i because lenny rc2 has been already released.
 	case "${LH_ARCHITECTURE}" in
-		amd64|i386)
+		amd64|i386|lpia)
 			Apt install grub
 			;;
 
@@ -170,6 +172,14 @@ then
 	# see debian bug #154438 for more info
 	rm -f chroot/etc/mtab
 	ln -s /proc/mounts chroot/etc/mtab
+fi
+
+# Show popular warnings
+if [ -e chroot/etc/init.d/resolvconf ]
+then
+	Echo_warning "Your live system appears to include resolvconf which is by its nature incompatible in most ways with debian-live."
+	Echo_warning "Keeping resolvconf installed *can* lead to broken network support in the resulting live system."
+	Echo_warning "Unless you really know what you are doing, we recommend that you neither install resolvconf explicitly nor implicitly through another package's relation (e.g. by having automatic installation of recommended packages enabled)."
 fi
 
 # Creating stage file

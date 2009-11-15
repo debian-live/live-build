@@ -23,6 +23,11 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
+if [ "${LH_BINARY_IMAGES}" = "virtual-hdd" ]
+then
+	exit 0
+fi
+
 Echo_message "Begin creating manifest..."
 
 # Requiring stage file

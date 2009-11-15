@@ -120,6 +120,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--tasks TASK]\n\
 \t    [--templates PATH]\n\
 \t    [--union-filesystem aufs|unionfs]\n\
+\t    [--virtual-root-size MB]\n\
 \t    [--exposed-root enabled|disabled]\n\
 \t    [--username NAME]\n\
 \t    [--verbose]\n\
@@ -133,7 +134,7 @@ Local_arguments ()
 		initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,
 		templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,clean,
 		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,
-		mirror-binary-security:,categories:,chroot-filesystem:,union-filesystem:,exposed-root:,
+		mirror-binary-security:,categories:,chroot-filesystem:,union-filesystem:,exposed-root:,virtual-root-size:,
 		hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
 		packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,
 		binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,
@@ -195,7 +196,7 @@ Local_arguments ()
 				exit 0
 				;;
 
-			clean)
+			--clean)
 				# Remove empty directories in config tree
 				if ls config/*/ > /dev/null 2>&1
 				then
@@ -206,6 +207,13 @@ Local_arguments ()
 				then
 					rmdir --ignore-fail-on-non-empty config
 				fi
+
+				if [ -d scripts ]
+				then
+					rmdir --ignore-fail-on-non-empty scripts
+				fi
+
+				exit 0
 				;;
 
 			# config/common
@@ -407,6 +415,11 @@ Local_arguments ()
 
 			--union-filesystem)
 				LH_UNION_FILESYSTEM="${2}"
+				shift 2
+				;;
+
+			--virtual-root-size)
+				LH_VIRTUAL_ROOT_SIZE="${2}"
 				shift 2
 				;;
 
@@ -757,6 +770,9 @@ mkdir -p config/templates
 cat > config/common << EOF
 # config/common - common options for live-helper(7)
 
+# LH_CONFIG_VERSION: internal version of the configuration file format
+LH_CONFIG_VERSION="1"
+
 # \$LH_APT: set package manager
 # (Default: ${LH_APT})
 LH_APT="${LH_APT}"
@@ -961,6 +977,10 @@ LH_CHROOT_FILESYSTEM="${LH_CHROOT_FILESYSTEM}"
 # \$LH_UNION_FILESYSTEM: set union filesystem
 # (Default: ${LH_UNION_FILESYSTEM})
 LH_UNION_FILESYSTEM="${LH_UNION_FILESYSTEM}"
+
+# \$LH_VIRTUAL_ROOT_SIZE: set virtual-hdd filesystem size
+# (Default: ${LH_VIRTUAL_ROOT_SIZE})
+LH_VIRTUAL_ROOT_SIZE="${LH_VIRTUAL_ROOT_SIZE}"
 
 # \$LH_EXPOSED_ROOT: expose root as read only
 # (Default: ${LH_EXPOSED_ROOT})
