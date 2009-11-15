@@ -35,3 +35,20 @@ Losetup ()
 		${LH_ROOT_COMMAND} ${LH_LOSETUP} -o "${OFFSET}" "${DEVICE}" "${FILE}"
 	fi
 }
+
+Calculate_partition_size ()
+{
+	ORIGINAL_SIZE="${1}"
+	FILESYSTEM="${2}"
+
+	case "${FILESYSTEM}" in
+		ext2|ext3)
+			PERCENT="5"
+			;;
+		*)
+			PERCENT="2"
+			;;
+	esac
+
+	echo $(expr ${ORIGINAL_SIZE} + ${ORIGINAL_SIZE} \* ${PERCENT} / 100)
+}

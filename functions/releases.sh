@@ -12,4 +12,5 @@ set -e
 # Debian releases
 VERSION_etch="4.0 r4"
 VERSION_lenny="5.0 r0"
+VERSION_squeeze="testing"
 VERSION_sid="unstable"

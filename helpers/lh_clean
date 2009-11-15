@@ -29,7 +29,7 @@ Read_conffile config/all config/common config/bootstrap config/chroot config/bin
 Set_defaults
 
 # Avoid cases were users accidentally nuke their config/binary
-if [ ! -d config ] || [ "$(basename ${PWD})" = "config" ]
+if [ ! -d config ] && [ "$(basename ${PWD})" = "config" ]
 then
 	Echo_error "%s is not a good Debian Live working directory to clean." "${PWD}"
 	exit 1
@@ -67,6 +67,9 @@ do
 			${LH_ROOT_COMMAND} umount -f chroot/dev/shm > /dev/null 2>&1 || true
 			${LH_ROOT_COMMAND} umount -f chroot/dev/pts > /dev/null 2>&1 || true
 			${LH_ROOT_COMMAND} umount -f chroot/dev > /dev/null 2>&1 || true
+
+			${LH_ROOT_COMMAND} umount -f chroot/binary.tmp > /dev/null 2>&1 || true
+			${LH_ROOT_COMMAND} umount -f chroot/dev.tmp/pts > /dev/null 2>&1 || true
 
 			${LH_ROOT_COMMAND} rm -rf chroot chroot.tmp
 

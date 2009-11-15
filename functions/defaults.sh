@@ -237,8 +237,18 @@ Set_defaults ()
 		then
 			LH_ARCHITECTURE="$(dpkg --print-architecture)"
 		else
-			Echo_warning "Can't process file /usr/bin/dpkg, setting architecture to i386"
-			LH_ARCHITECTURE="i386"
+			case "$(uname -m)" in
+				sparc|powerpc)
+					LH_ARCHITECTURE="$(uname -m)"
+					;;
+				x86_64)
+					LH_ARCHITECTURE="amd64"
+					;;
+				*)
+					Echo_warning "Can't determine architecture, assuming i386"
+					LH_ARCHITECTURE="i386"
+					;;
+			esac
 		fi
 	fi
 
@@ -319,10 +329,10 @@ Set_defaults ()
 		LH_MIRROR_BINARY_SECURITY="http://security.debian.org/"
 	fi
 
-	# Setting sections value
-	if [ -z "${LH_SECTIONS}" ]
+	# Setting categories value
+	if [ -z "${LH_CATEGORIES}" ]
 	then
-		LH_SECTIONS="main"
+		LH_CATEGORIES="main"
 	fi
 
 	## config/chroot
@@ -381,7 +391,15 @@ Set_defaults ()
 				;;
 
 			i386)
-				LH_LINUX_FLAVOURS="486 686"
+				case "${LIST}" in
+					stripped|minimal)
+						LH_LINUX_FLAVOURS="486"
+						;;
+
+					*)
+						LH_LINUX_FLAVOURS="486 686"
+						;;
+				esac
 				;;
 
 			ia64)
@@ -394,7 +412,15 @@ Set_defaults ()
 				;;
 
 			powerpc)
-				LH_LINUX_FLAVOURS="powerpc powerpc64"
+				case "${LIST}" in
+					stripped|minimal)
+						LH_LINUX_FLAVOURS="powerpc"
+						;;
+
+					*)
+						LH_LINUX_FLAVOURS="powerpc powerpc64"
+						;;
+				esac
 				;;
 
 			s390)
@@ -622,7 +648,7 @@ Set_defaults ()
 	LH_ISO_PREPARER="${LH_ISO_PREPARER:-live-helper \$VERSION; http://packages.qa.debian.org/live-helper}"
 
 	# Set iso publisher
-	LH_ISO_PUBLISHER="${LH_ISO_PUBLISHER:-Debian Live project; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org}"
+	LH_ISO_PUBLISHER="${LH_ISO_PUBLISHER:-Debian Live project; http://debian-live.alioth.debian.org/; debian-live@lists.debian.org}"
 
 	# Setting iso volume
 	if [ -z "${LH_ISO_VOLUME}" ]
@@ -758,5 +784,17 @@ Check_defaults ()
 			Echo_warning "cached. This is a possible unsafe configuration as the bootstrap packages"
 			Echo_warning "are re-used when integrating the Debian Installer."
 		fi
+	fi
+
+	if [ "${LH_BOOTLOADER}" = "syslinux" ]
+	then
+		case "${LH_BINARY_FILESYSTEM}" in
+			fat*)
+				;;
+			*)
+				Echo_warning "You have selected values of LH_BOOTLOADER and LH_BINARY_FILESYSTEM"
+				Echo_warning "which are incompatible - syslinux only supports FAT filesystems."
+				;;
+		esac
 	fi
 }

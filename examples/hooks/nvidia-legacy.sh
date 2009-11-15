@@ -3,7 +3,7 @@
 # This is a hook for live-helper(7) to install nvidia-kernel-legacy drivers
 # To enable it, copy this hook into your config/chroot_localhooks directory.
 #
-# Note: This hook requires packages from the non-free section. Make sure you
+# Note: This hook requires packages from the non-free category. Make sure you
 # enabled it in your configuration.
 
 # Building kernel module

@@ -8,8 +8,8 @@ else
 	PACKAGES="live-helper live-initramfs live-initscripts live-webhelper live-magic debian-unofficial-archive-keyring"
 fi
 
-DEBEMAIL="debian-live-devel@lists.alioth.debian.org"
-EMAIL="debian-live-devel@lists.alioth.debian.org"
+DEBEMAIL="debian-live@lists.debian.org"
+EMAIL="debian-live@lists.debian.org"
 DEBFULLNAME="Debian Live Autobuilder"
 NAME="Debian Live Autobuilder"
 KEY="FDB8D39A"

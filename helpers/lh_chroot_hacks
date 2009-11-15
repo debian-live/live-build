@@ -43,7 +43,7 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Removing udev mac caching rule
-Chroot "rm -f /etc/udev/rules.d/*persistent-net.rules"
+rm -f chroot/etc/udev/rules.d/*persistent-net.rules
 
 case "${LH_BINARY_IMAGES}" in
 	net)
@@ -95,7 +95,7 @@ then
 	${LH_ROOT_COMMAND} chown -R --quiet $(whoami):$(whoami) chroot
 fi
 
-if [ -d chroot/home/${LH_USERNAME} ]
+if [ "${LH_INITRAMFS}" = "casper" ] && [ -d chroot/home/${LH_USERNAME} ]
 then
 	chown -R --quiet 999:999 chroot/home/${LH_USERNAME}
 fi

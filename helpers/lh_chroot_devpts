@@ -72,7 +72,7 @@ case "${1}" in
 		# Unmounting /dev/pts
 		if [ "${LH_USE_FAKEROOT}" != "enabled" ]
 		then
-			if [ -e chroot/dev/pts/0 ]
+			if Find_files chroot/dev/pts/*
 			then
 				${LH_ROOT_COMMAND} umount chroot/dev/pts
 			fi

@@ -86,6 +86,10 @@ EOF
 	powerpc)
 		echo "yaboot" >> chroot/root/dpkg-selection.txt
 		;;
+
+	silo)
+		echo "silo" >> chroot/root/dpkg-selection.txt
+		;;
 esac
 
 Chroot "xargs --arg-file=/root/dpkg-selection.txt apt-get ${APT_OPTIONS} --download-only source"

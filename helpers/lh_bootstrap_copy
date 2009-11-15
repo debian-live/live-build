@@ -51,7 +51,9 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Copying host system
-find / ! -name /proc ! -name /sys ! -name "$(dirname ${PWD})" | xargs cp -a chroot
+cd chroot
+tar c / --exclude /proc --exclude /sys "$(dirname ${PWD})" | tar xv
+cd ..
 
 # Creating stage file
 Create_stagefile .stage/bootstrap

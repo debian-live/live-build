@@ -89,9 +89,27 @@ then
 	rm -f binary.img
 fi
 
+# Enforce fat32 if we find individual files bigger than 2GB
+if [ "${LH_BINARY_FILESYSTEM}" = "fat16" ] && [ -n "$(find binary -size +1999M)" ]
+then
+	Echo_warning "FAT16 doesn't support files larger than 2GB, automatically enforcing FAT32."
+
+	LH_BINARY_FILESYSTEM="fat32"
+	export LH_BINARY_FILESYSTEM
+fi
+
+# Enforce fat32 if we have images in total bigger than 2GB
+if [ "${LH_BINARY_FILESYSTEM}" = "fat16" ] && [ "$(du -s binary | awk '{ print $1 }')" -gt "1900000" ]
+then
+	Echo_warning "FAT16 doesn't support partitions larger than 2GB, automatically enforcing FAT32"
+
+	LH_BINARY_FILESYSTEM="fat32"
+	export LH_BINARY_FILESYSTEM
+fi
+
 # Everything which comes here needs to be cleaned up,
 DU_DIM="$(du -ms binary | cut -f1)"
-REAL_DIM="$(expr ${DU_DIM} + ${DU_DIM} / 50 + 1)" # Just 2% more to be sure, need something more sophistcated here...
+REAL_DIM="$(Calculate_partition_size ${DU_DIM} ${LH_BINARY_FILESYSTEM})"
 dd if=/dev/zero of=chroot/binary.img bs=1024k count=0 seek=${REAL_DIM}
 FREELO="$(${LH_LOSETUP} -f)"
 if [ ! -b chroot/${FREELO} ]
@@ -195,7 +213,7 @@ esac
 
 mkdir -p chroot/binary.tmp
 ${LH_ROOT_COMMAND} mount ${FREELO} chroot/binary.tmp
-cp -r ${CP_OPTIONS} binary/* chroot/binary.tmp
+cp -r -T ${CP_OPTIONS} binary/ chroot/binary.tmp
 
 FIXME()
 {

@@ -2,7 +2,7 @@
 
 # Static variables
 DISTRIBUTIONS="${DISTRIBUTIONS:-etch lenny sid}"
-FLAVOURS="${FLAVOURS:-standard gnome-desktop kde-desktop xfce-desktop}"
+FLAVOURS="${FLAVOURS:-standard rescue gnome-desktop kde-desktop xfce-desktop}"
 SOURCE="${SOURCE:-enabled}"
 
 MIRROR="${MIRROR:-http://mirror/ftp.debian.org/debian/}"

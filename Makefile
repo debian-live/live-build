@@ -22,7 +22,7 @@ test:
 build:
 	@echo "Nothing to build."
 
-install: test
+install:
 	# Installing executables
 	mkdir -p $(DESTDIR)/usr/bin
 	cp helpers/lh* $(DESTDIR)/usr/bin
