@@ -28,7 +28,7 @@ set -e
 BASE=${LIVE_BASE:-"/usr/share/make-live"}
 CONFIG="/etc/make-live.conf"
 PROGRAM="`basename ${0}`"
-VERSION="0.99.23"
+VERSION="0.99.24"
 
 export VERSION
 
@@ -36,6 +36,8 @@ CODENAME_OLDSTABLE="woody"
 CODENAME_STABLE="sarge"
 CODENAME_TESTING="etch"
 CODENAME_UNSTABLE="sid"
+
+export CODENAME_OLDSTABLE CODENAME_STABLE CODENAME_TESTING CODENAME_UNSTABLE
 
 # Source sub scripts
 for SCRIPT in `find ${BASE}/scripts/ -not -name '*~' -not -wholename "${BASE}/scripts/.*" -and -type f`

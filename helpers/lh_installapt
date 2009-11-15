@@ -23,7 +23,7 @@ then
 
 			if [ -n "${REPOSITORY_KEYRING}" ]
 			then
-				lh_chroot "aptiude install ${REPOSITORY_KEYRING}"
+				lh_chroot "aptitude install ${REPOSITORY_KEYRING}"
 			elif [ -n "${REPOSITORY_KEY}" ]
 			then
 				lh_chroot "wget ${REPOSITORY_KEY}"

@@ -1,6 +1,30 @@
+2007-03-04 Daniel Baumann <daniel@debian.org>
+
+	* Replaced removal of kernel on minimal flavours with excludes on the
+	  mksquashfs call.
+	* Added LIVE_INCLUDE_CHROOT to the manual exported variables as reported
+	  by Mathieu Geli <mathieu.geli@gmail.com>.
+	* Exported CODENAME_* manually as reported by Cédric Lucantis
+	  <omer@no-log.org>.
+	* Fixed typo s/aptiude/aptitude/ as reported by Kai Hendry
+	  <hendry@iki.fi>.
+	* Uploaded 0.99.24.
+
+2007-02-22 Daniel Baumann <daniel@debian.org>
+
+	* Added xresprobe to all x11 lists.
+
+2007-02-22 Daniel Baumann <daniel@debian.org>
+
+	* Applied patches from Otavio Salvador <otavio@debian.org>:
+	  - add and cleanup variable exporting in defaults.
+	  - add LIVE_BOOTSTRAP_CONFIG to lh_debootstrap.
+	* Uploaded 0.99.23.
+
 2007-02-21 Daniel Baumann <daniel@debian.org>
 
 	* Added gnome-junior, kde-junior and xfce-junior lists.
+	* Uploaded 0.99.22.
 
 2007-02-19 Daniel Baumann <daniel@debian.org>
 

@@ -47,7 +47,12 @@ case "${LIVE_FILESYSTEM}" in
 			rm "${LIVE_ROOT}"/binary/casper/filesystem.squashfs
 		fi
 
-		mksquashfs "${LIVE_CHROOT}" "${LIVE_ROOT}"/binary/casper/filesystem.squashfs
+		if [ "${LIVE_FLAVOUR}" = "minimal" ] || [ "${LIVE_FLAVOUR}" = "mini" ]
+		then
+			mksquashfs "${LIVE_CHROOT}" "${LIVE_ROOT}"/binary/casper/filesystem.squashfs -e "${LIVE_CHROOT}"/boot/vmlinuz* "${LIVE_CHROOT}"/boot/initrd.img* "${LIVE_CHROOT}"/vmlinuz "${LIVE_CHROOT}"/initrd.img "${LIVE_CHROOT}"/boot/config-* "${LIVE_CHROOT}"/boot/System.map-*
+		else
+			mksquashfs "${LIVE_CHROOT}" "${LIVE_ROOT}"/binary/casper/filesystem.squashfs
+		fi
 
 		if [ -n "$LIVE_ENCRYPTION" ]
 		then
