@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # losetup - wrapper around losetup
-# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+# Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 # This is free software, and you are welcome to redistribute it
@@ -27,8 +27,8 @@ Losetup ()
 
 		${LH_ROOT_COMMAND} ${LH_LOSETUP} "${DEVICE}" "${FILE}"
 	else
-		CYLINDERS="$(echo "$FDISK_OUT" | sed -ne "s|^$LOOPDEVICE[ *]*\([0-9]*\).*|\1|p")"
-		OFFSET="$(expr ${CYLINDERS} '*' 512)"
+		SECTORS="$(echo "$FDISK_OUT" | sed -ne "s|^$LOOPDEVICE[ *]*\([0-9]*\).*|\1|p")"
+		OFFSET="$(expr ${SECTORS} '*' 512)"
 
 		Echo_message "Mounting ${DEVICE} with offset ${OFFSET}"
 

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # lh_binary_syslinux(1) - installs syslinux into binary
-# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+# Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 # This is free software, and you are welcome to redistribute it
@@ -136,17 +136,17 @@ Syslinux_install_entry ()
 	INITRD="${3}"
 	APPEND="${4}"
 
-	# Boot in quiet mode
-	if [ "${LH_DISTRIBUTION}" != "etch" ] && [ "${LABEL}" != "rescue" ] && [ "${LABEL}" != "rescuegui" ]
+	# Boot in quiet mode where appropriate
+	if [ "${LH_DISTRIBUTION}" != "etch" ]
 	then
-		APPEND="${APPEND} quiet"
+		QAPPEND="quiet"
 	fi
 
 	for TYPE in Install Expert Rescue Auto
 	do
 		case "${TYPE}" in
 			Install)
-				TAPPEND="${APPEND}"
+				TAPPEND="${APPEND} ${QAPPEND}"
 				;;
 
 			Expert)
@@ -154,15 +154,24 @@ Syslinux_install_entry ()
 				;;
 
 			Rescue)
-				TAPPEND="rescue/enable=true ${APPEND}"
+				TAPPEND="rescue/enable=true ${APPEND} ${QAPPEND}"
 				;;
 
 			Auto)
-				TAPPEND="rescue/enable=true ${APPEND}"
+				TAPPEND="auto=true priority=critical ${APPEND} ${QAPPEND}"
 				;;
 		esac
 
-		LINUX_INSTALL="${LINUX_INSTALL}\nLABEL ${LABEL}${TYPE}\n"
+		case "${LABEL}" in
+			Text)
+				TYPE_SUFFIX=""
+				;;
+			GUI)
+				TYPE_SUFFIX="gui"
+				;;
+		esac
+
+		LINUX_INSTALL="${LINUX_INSTALL}\nLABEL $(echo "${TYPE}" | tr A-Z a-z)${TYPE_SUFFIX}\n"
 		LINUX_INSTALL="${LINUX_INSTALL}\tMENU LABEL Start ${LABEL} ${TYPE}\n"
 		LINUX_INSTALL="${LINUX_INSTALL}\tkernel ${LIVE_INSTALL_KERNEL_PATH}/${KERNEL}\n"
 		LINUX_INSTALL="${LINUX_INSTALL}\tappend initrd=${LIVE_INSTALL_KERNEL_PATH}/${INITRD} ${TAPPEND} ${LH_BOOTAPPEND_INSTALL}\n"
