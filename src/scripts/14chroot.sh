@@ -70,6 +70,43 @@ Chroot ()
 		# Deconfigure linux-image
 		Patch_linux deapply
 
+		# Cloning existing system configuration
+		if [ -d "${LIVE_CLONE}" ]
+		then
+			# Swapping chroot directories
+			LIVE_CHROOT_TMP="${LIVE_CHROOT}"
+			LIVE_CHROOT="${LIVE_CLONE}"
+
+			# Extract debconf settings
+			Chroot_exec "apt-get install --yes debconf-utils"
+			Chroot_exec "debconf-get-selections" > "${LIVE_ROOT}"/preseed.cloned
+
+			# Extract package selection
+			Chroot_exec "dpkg --get-selections" | grep -v deinstall | cut -f1 > "${LIVE_ROOT}"/package-list.cloned
+
+			# Restoring chroot directories
+			LIVE_CHROOT="${LIVE_CHROOT_TMP}"
+			LIVE_CHROOT_TMP=""
+
+			LIVE_PRESEED="${LIVE_ROOT}/preseed.cloned"
+			LIVE_PACKAGE_LIST_CLONED="${LIVE_ROOT}/package-list.cloned"
+		fi
+
+		# Restore preseed configuration
+		if [ -f "${LIVE_PRESEED}" ]
+		then
+			Chroot_exec "apt-get install --yes debconf-utils"
+			cp "${LIVE_PRESEED}" "${LIVE_CHROOT}"/root/preseed
+			Chroot_exec "debconf-set-selections /root/preseed"
+			rm -f "${LIVE_CHROOT}"/root/preseed
+		fi
+
+		# Restore cloned package selection
+		if [ -f "${LIVE_PACAKGE_LIST_CLONED}" ]
+		then
+			Chroot_exec "xargs --arg-file=/root/`basename ${LIVE_PACKAGE_LIST_CLONED}` apt-get install --yes --force-yes"
+		fi
+
 		# Install packages list
 		if [ -n "${LIVE_PACKAGE_LIST}" ]
 		then
