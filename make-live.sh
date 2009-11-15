@@ -51,7 +51,7 @@ Help ()
 {
 	echo "make-live - An utility for building Debian Live systems."
 	echo
-	echo "Usage: ${PROGRAM} [-a ARCHITECTURE] [-c FILE] [--clone DIRECTORY] [-d DISTRIBUTION] [--debug] [-f FILESYSTEM] [--flavour FLAVOUR] [--hook \"COMMAND...\"] [--include-image FILE|DIRECTORY] [--include-rootfs FILE|DIRECTORY] [--linux-image FLAVOUR] [--logfile FILE] [-p|--package-list FILE] [--preseed FILE] [--rootfs DIRECTORY] [-s|--section \"SECTION...\"] [--splashy [THEME]] [-t|--type TYPE] [--templates DIRECTORY] [--verbose] [LIST]"
+	echo "Usage: ${PROGRAM} [-a ARCHITECTURE] [-c FILE] [--clone DIRECTORY] [-d DISTRIBUTION] [--debug] [-f FILESYSTEM] [--flavour FLAVOUR] [--hook \"COMMAND...\"] [--include-image FILE|DIRECTORY] [--include-rootfs FILE|DIRECTORY] [--interactive] [--linux-image FLAVOUR] [--logfile FILE] [-p|--package-list FILE] [--preseed FILE] [--rootfs DIRECTORY] [-s|--section \"SECTION...\"] [--splashy [THEME]] [-t|--type TYPE] [--templates DIRECTORY] [--verbose] [LIST]"
 	echo
 	echo "Values:"
 	echo "  Architectures: alpha, amd64, arm, hppa, i386, ia64, m68k, powerpc, s390, sparc."
@@ -110,7 +110,7 @@ Main ()
 {
 	ARGUMENTS=`getopt --shell=sh --name="${PROGRAM}" \
 		--options="a:c:d:f:p:s:t:huv" \
-		--longoptions="architecture:,conffile:,clone:,distribution:,debug,filesystem:,flavour:,hook:,include-image:,include-rootfs:,linux-image:,logfile:,package-list:,preseed:,rootfs:,section:,splashy::,type:,templates:,verbose" \
+		--longoptions="architecture:,conffile:,clone:,distribution:,debug,filesystem:,flavour:,hook:,include-image:,include-rootfs:,interactive,linux-image:,logfile:,package-list:,preseed:,rootfs:,section:,splashy::,type:,templates:,verbose,help,usage,version" \
 		-- "${@}"`
 
 	if [ "${?}" != "0" ]
@@ -163,6 +163,10 @@ Main ()
 
 			--include-rootfs)
 				LIVE_INCLUDE_ROOTFS="${2}"; shift 2
+				;;
+
+			--interactive)
+				LIVE_INTERACTIVE="1"; shift
 				;;
 
 			--linux-image)

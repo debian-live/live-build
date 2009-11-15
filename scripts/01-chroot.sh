@@ -96,35 +96,6 @@ Chroot ()
 		rm ${LIVE_CHROOT}/tmp/preseed
 	fi
 
-	if [ -z "${LIVE_ROOTFS}" ]
-	then
-		# Install packages list
-		if [ ! -z "${LIVE_PACKAGE_LIST}" ]
-		then
-			chroots "apt-get install --yes `cat ${LIVE_PACKAGE_LIST}`"
-		fi
-
-		# Install extra packages
-		if [ ! -z "${LIVE_PACKAGES}" ]
-		then
-			chroots "apt-get install --yes ${LIVE_PACKAGES}"
-		fi
-	fi
-
-	# Copy external path into the chroot
-	if [ -d "${LIVE_INCLUDE_ROOTFS}" ]
-	then
-		cd "${LIVE_INCLUDE_ROOTFS}"
-		find . | cpio -pumd "${LIVE_CHROOT}"/
-		cd "${OLDPWD}"
-	fi
-
-	# Execute extra command in the chroot
-	if [ ! -z "${LIVE_HOOK}" ]
-	then
-		chroots "${LIVE_HOOK}"
-	fi
-
 	# Add splashy and conditionally a theme
 	if [ ! -z "${LIVE_SPLASHY}" ]
         then
@@ -150,6 +121,42 @@ Chroot ()
 		fi
 	fi
 	# --- End FIXME ---
+
+	if [ -z "${LIVE_ROOTFS}" ]
+	then
+		if [ -z "${lIVE_INTERACTIVE}" ]
+		then
+			# Install packages list
+			if [ ! -z "${LIVE_PACKAGE_LIST}" ]
+			then
+				chroots "apt-get install --yes `cat ${LIVE_PACKAGE_LIST}`"
+			fi
+
+			# Install extra packages
+			if [ ! -z "${LIVE_PACKAGES}" ]
+			then
+				chroots "apt-get install --yes ${LIVE_PACKAGES}"
+			fi
+		else
+			# Run aptitude
+			chroots "apt-get install --yes aptitude"
+			chroots "aptitude"
+		fi
+	fi
+
+	# Copy external directory into the chroot
+	if [ -d "${LIVE_INCLUDE_ROOTFS}" ]
+	then
+		cd "${LIVE_INCLUDE_ROOTFS}"
+		find . | cpio -pumd "${LIVE_CHROOT}"/
+		cd "${OLDPWD}"
+	fi
+
+	# Execute extra command in the chroot
+	if [ ! -z "${LIVE_HOOK}" ]
+	then
+		chroots "${LIVE_HOOK}"
+	fi
 
 	# Clean apt packages cache
 	rm -f "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb
