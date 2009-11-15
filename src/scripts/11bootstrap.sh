@@ -13,6 +13,17 @@ Bootstrap ()
 {
 	if [ ! -f "${LIVE_ROOT}"/.stage/bootstrap ]
 	then
+		# Use proxy
+		if [ -n "${LIVE_PROXY_FTP}" ] && [ -z "${ftp_proxy}" ]
+		then
+			export ftp_proxy="${LIVE_PROXY_FTP}"
+		fi
+
+		if [ -n "${LIVE_PROXY_HTTP}" ] && [ -z "${http_proxy}" ]
+		then
+			export http_proxy="${LIVE_PROXY_HTTP}"
+		fi
+
 		# Create chroot directory
 		if [ ! -d "${LIVE_CHROOT}" ]
 		then

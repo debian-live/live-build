@@ -28,7 +28,7 @@ set -e
 BASE="/usr/share/make-live"
 CONFIG="/etc/make-live.conf"
 PROGRAM="`basename ${0}`"
-VERSION="0.99.8"
+VERSION="0.99.9"
 
 CODENAME_OLDSTABLE="woody"
 CODENAME_STABLE="sarge"
@@ -41,7 +41,7 @@ do
 	. "${SCRIPT}"
 done
 
-USAGE="Usage: ${PROGRAM} [-a|--architecture ARCHITECTURE] [-b|--bootappend KERNEL_PARAMETER|\"KERNEL_PARAMETERS\"] [--config FILE] [-c|--chroot DIRECTORY] [-d|--distribution DISTRIBUTION] [--disable-generic-indices] [--enable-generic-indices] [--filesystem FILESYSTEM] [-f|--flavour BOOTSTRAP_FLAVOUR] [--hook COMMAND|\"COMMANDS\"] [--include-chroot FILE|DIRECTORY] [--include-image FILE|DIRECTORY] [-k|--kernel KERNEL_FLAVOUR] [--manifest PACKAGE] [-m|--mirror URL] [--mirror-security URL] [--packages PACKAGE|\"PACKAGES\"] [-p|--package-list LIST|FILE] [--proxy-ftp URL] [--proxy-http URL] [-r|--root DIRECTORY] [-s|--section SECTION|\"SECTIONS\"] [--server-address HOSTNAME|IP] [--server-path DIRECTORY] [--templates DIRECTORY] [-t|--type TYPE]"
+USAGE="Usage: ${PROGRAM} [-a|--architecture ARCHITECTURE] [-b|--bootappend KERNEL_PARAMETER|\"KERNEL_PARAMETERS\"] [--config FILE] [-c|--chroot DIRECTORY] [-d|--distribution DISTRIBUTION] [--disable-generic-indices] [--enable-generic-indices] [--filesystem FILESYSTEM] [-f|--flavour BOOTSTRAP_FLAVOUR] [--hook COMMAND|\"COMMANDS\"] [--include-chroot FILE|DIRECTORY] [--include-image FILE|DIRECTORY] [-k|--kernel KERNEL_FLAVOUR] [--manifest PACKAGE] [-m|--mirror URL] [--mirror-security URL] [--packages PACKAGE|\"PACKAGES\"] [-p|--package-list LIST|FILE] [--proxy-ftp URL] [--proxy-http URL] [--repositories NAME] [-r|--root DIRECTORY] [-s|--section SECTION|\"SECTIONS\"] [--server-address HOSTNAME|IP] [--server-path DIRECTORY] [--templates DIRECTORY] [-t|--type TYPE]"
 
 Help ()
 {
@@ -81,6 +81,7 @@ Help ()
 	echo "  --mirror-security: specifies debian security mirror."
 	echo "  --packages: specifies aditional packages."
 	echo "  -p, --package-list: specifies additonal package list."
+	echo "  --repositories: specifies custom repositories."
 	echo "  -r, --root: specifies build root."
 	echo "  --proxy-ftp: specifies \${ftp_proxy}."
 	echo "  --proxy-http: specifies \${http_proxy}."
@@ -158,7 +159,7 @@ Configuration ()
 
 Main ()
 {
-	ARGUMENTS="`getopt --longoptions root:,type:,architecture:,bootappend:,config:,chroot:,distribution:,filesystem:,flavour:,hook:,include-chroot:,include-image:,kernel:,manifest:,mirror:,mirror-security:,output:,packages:,package-list:,proxy-ftp:,proxy-http:,section:,server-address:,server-path:,templates:,with-generic-indices,without-generic-indices,with-source,without-source,help,usage,version --name=${PROGRAM} --options r:t:a:b:c:d:f:k:m:o:p:s:huv --shell sh -- "${@}"`"
+	ARGUMENTS="`getopt --longoptions root:,type:,architecture:,bootappend:,config:,chroot:,distribution:,filesystem:,flavour:,hook:,include-chroot:,include-image:,kernel:,manifest:,mirror:,mirror-security:,output:,packages:,package-list:,proxy-ftp:,proxy-http:,repositories:,section:,server-address:,server-path:,templates:,with-generic-indices,without-generic-indices,with-source,without-source,help,usage,version --name=${PROGRAM} --options r:t:a:b:c:d:f:k:m:o:p:s:huv --shell sh -- "${@}"`"
 
 	if [ "${?}" != "0" ]
 	then
@@ -252,6 +253,10 @@ Main ()
 
 			--proxy-http)
 				LIVE_PROXY_HTTP="${2}"; shift 2
+				;;
+
+			--repositories)
+				LIVE_REPOSITORIES="${2}"; shift 2
 				;;
 
 			-s|--section)

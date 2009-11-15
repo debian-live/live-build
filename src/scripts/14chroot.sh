@@ -36,6 +36,22 @@ Chroot ()
 			if [ "${LIVE_FLAVOUR}" != "minimal" ]
 			then
 				Chroot_exec "apt-get install --yes --force-yes debian-archive-keyring"
+
+				for NAME in ${LIVE_REPOSITORIES}
+				do
+					eval REPOSITORY_KEY="$`echo LIVE_REPOSITORY_KEY_$NAME`"
+					eval REPOSITORY_KEYRING="$`echo LIVE_REPOSITORY_KEYRING_$NAME`"
+
+					if [ -n "${REPOSITORY_KEYRING}" ]
+					then
+						Chroot_exec "apt-get install ${REPOSITORY_KEYRING}"
+					elif [ -n "${REPOSITORY_KEY}" ]
+					then
+						Chroot_exec "wget ${REPOSITORY_KEY}"
+						Chroot_exec "apt-key add `basename ${REPOSITORY_KEY}`"
+						Chroot_exec "rm -f `basename ${REPOSITORY_KEY}`"
+					fi
+				done
 			fi
 		fi
 
