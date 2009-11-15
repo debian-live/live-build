@@ -69,17 +69,29 @@ then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --suite-config=${LH_BOOTSTRAP_CONFIG}"
 fi
 
+if [ -n "${LH_BOOTSTRAP_INCLUDE}" ]
+then
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --include=${LH_BOOTSTRAP_INCLUDE}"
+fi
+
+if [ -n "${LH_BOOTSTRAP_EXCLUDE}" ]
+then
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --exclude=${LH_BOOTSTRAP_EXCLUDE}"
+fi
+
 if [ -n "${LH_BOOTSTRAP_KEYRING}" ]
 then
     CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --keyring=${LH_BOOTSTRAP_KEYRING}"
 fi
 
-if [ "${LH_PACKAGES_LISTS}" != "minimal" ] && [ "${LH_PACKAGES_LISTS}" != "mini" ]
-then
-	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=standard"
-else
-	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=minimal"
-fi
+case "${LH_PACKAGES_LISTS}" in
+	minimal|mini)
+		CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=minimal"
+		;;
+	*)
+		CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=standard"
+		;;
+esac
 
 if [ "${LH_DEBUG}" = "enabled" ]
 then
@@ -137,10 +149,11 @@ then
 	fi
 
 	# Remove cdebootstrap-helper-diverts (needed at least for minimal flavours)
-	if [ "${LH_BOOTSTRAP_FLAVOUR}" = "minimal" ] || [ "${LH_BOOTSTRAP_FLAVOUR}" = "mini" ]
-	then
-		Chroot "dpkg -P cdebootstrap-helper-diverts"
-	fi
+	case "${LH_PACKAGES_LISTS}" in
+		minimal|mini)
+			Chroot "dpkg -P cdebootstrap-helper-diverts"
+			;;
+	esac
 
 	# Deconfiguring cdebootstrap configurations
 	rm -f chroot/etc/apt/sources.list

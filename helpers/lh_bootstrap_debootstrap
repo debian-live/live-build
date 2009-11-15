@@ -69,6 +69,16 @@ then
 	LH_DEBOOTSTRAP_SCRIPT="/usr/lib/debootstrap/scripts/${LH_BOOTSTRAP_CONFIG}"
 fi
 
+if [ -n "${LH_BOOTSTRAP_INCLUDE}" ]
+then
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --include=${LH_BOOTSTRAP_INCLUDE}"
+fi
+
+if [ -n "${LH_BOOTSTRAP_EXCLUDE}" ]
+then
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --exclude=${LH_BOOTSTRAP_EXCLUDE}"
+fi
+
 if [ "${LH_VERBOSE}" = "true" ]
 then
 	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --verbose"

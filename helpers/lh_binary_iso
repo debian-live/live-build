@@ -102,30 +102,20 @@ case "${LH_BOOTLOADER}" in
 	grub)
 		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -no-emul-boot -boot-load-size 4 -boot-info-table"
 		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -r -b boot/grub/stage2_eltorito"
-
-		if [ "${LH_PACKAGES_LISTS}" = "mini" ] || [ "${LH_PACKAGES_LISTS}" = "minimal" ]
-		then
-			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m boot/grub/stage2_eltorito"
-		fi
+		GENISOIMAGE_EXCLUDE="boot/grub/stage2_eltorito"
 		;;
 
 	syslinux)
 		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -no-emul-boot -boot-load-size 4 -boot-info-table"
 		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -r -b isolinux/isolinux.bin -c isolinux/boot.cat"
-
-		if [ "${LH_PACKAGES_LISTS}" = "mini" ] || [ "${LH_PACKAGES_LISTS}" = "minimal" ]
-		then
-			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m isolinux/isolinux.bin"
-		fi
+		GENISOIMAGE_EXCLUDE="isolinux/isolinux.bin"
 		;;
 
 	yaboot)
-		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -r --iso-level 2 --netatalk -hfs -probe -map binary/yaboot/hfs.map --chrp-boot -part -no-desktop -hfs-bless binary/yaboot -hfs-volid Debian/Live_powerpc"
-
-		if [ "${LH_PACKAGES_LISTS}" = "mini" ] || [ "${LH_PACKAGES_LISTS}" = "minimal" ]
-		then
-			GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m yaboot/hfs.map"
-		fi
+		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -r --iso-level 2 --netatalk -hfs -probe -map"
+		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} binary/yaboot/hfs.map --chrp-boot -part -no-desktop"
+		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -hfs-bless binary/yaboot -hfs-volid Debian/Live_powerpc"
+		GENISOIMAGE_EXCLUDE="yaboot/hfs.map"
 		;;
 
 	*)
@@ -134,14 +124,21 @@ case "${LH_BOOTLOADER}" in
 		;;
 esac
 
+case "${LH_PACKAGES_LISTS}" in
+	minimal|mini)
+		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m ${GENISOIMAGE_EXCLUDE}"
+		;;
+esac
+
+cat > binary.sh << EOF
+${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -o binary.iso -J -l -cache-inodes -allow-multidot binary
+EOF
+
 case "${LH_CHROOT_BUILD}" in
 	enabled)
 		# Moving image
+		mv binary.sh chroot
 		mv binary chroot
-
-cat > chroot/binary.sh << EOF
-${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -o binary.iso -J -l -cache-inodes binary
-EOF
 
 		Chroot "sh binary.sh"
 
@@ -151,10 +148,6 @@ EOF
 		;;
 
 	disabled)
-cat > binary.sh << EOF
-${LH_GENISOIMAGE} ${GENISOIMAGE_OPTIONS} -o binary.iso -J -l -cache-inodes binary
-EOF
-
 		sh binary.sh
 		rm -f binary.sh
 		;;

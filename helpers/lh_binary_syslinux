@@ -68,10 +68,17 @@ Restore_cache cache/packages_binary
 Install_package
 
 # Local functions
+Utf8_to_latin1 ()
+{
+	VALUE="${1}"
+
+	echo "${VALUE}" | iconv -f utf-8 -t latin1
+}
+
 Syslinux_memtest_entry ()
 {
 	LABEL="${1}"
-	MENULABEL="${2}"
+	MENULABEL=`Utf8_to_latin1 "${2}"`
 	KERNEL="${3}"
 
 	# syslinux << 3.36 lacks support to file/path
@@ -92,6 +99,7 @@ Syslinux_memtest_entry ()
 Syslinux_live_entry ()
 {
 	LABEL="${1}"
+	MENULABEL=`Utf8_to_latin1 "${2}"`
 	MENULABEL="${2}"
 	KERNEL="${3}"
 	INITRD="${4}"
@@ -595,6 +603,12 @@ case "${LH_BINARY_IMAGES}" in
 		esac
 
 		cp -r "${TEMPLATES}"/common/* "${DESTDIR}"
+		if [ "${LH_SYSLINUX_MENU}" = "disabled" ]
+		then
+			cp -r "${TEMPLATES}"/normal/* "${DESTDIR}"
+		else
+			cp -r "${TEMPLATES}"/menu/* "${DESTDIR}"
+		fi
 		cp -r "${TEMPLATES}"/"${LH_LANGUAGE}"/* "${DESTDIR}"
 
 		for FILE in "${DESTDIR}"/*.live
@@ -646,12 +660,17 @@ case "${LH_BINARY_IMAGES}" in
 		fi
 
 		# Configure syslinux templates
-		sed -i -e "s@LINUX_LIVE@${LINUX_LIVE}@" -e "s@LINUX_INSTALL@${LINUX_INSTALL}@" -e "s@MEMTEST@${MEMTEST}@" "${DESTDIR}"/syslinux.cfg
-		sed -i -e "s#LH_BOOTAPPEND_INSTALL#${LH_BOOTAPPEND_INSTALL}#" -e "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" "${DESTDIR}"/syslinux.cfg
-		sed -i -e "s/LH_DISTRIBUTION/${LH_DISTRIBUTION}/" -e "s/LH_DATE/$(date +%Y%m%d)/" -e "s/LH_MEDIA/hd-media/" "${DESTDIR}"/f1.txt #FIXME
-		sed -i -e "s/LH_MEDIA/hd-media/" "${DESTDIR}"/f3.txt #FIXME
-		sed -i -e "s/LH_VERSION/${VERSION}/" "${DESTDIR}"/f10.txt
-
+		sed -i -e "s@LINUX_LIVE@${LINUX_LIVE}@" -e "s@LINUX_INSTALL@${LINUX_INSTALL}@" -e "s@MEMTEST@${MEMTEST}@" "${DESTDIR}"/menu.cfg
+		sed -i -e "s#LH_BOOTAPPEND_INSTALL#${LH_BOOTAPPEND_INSTALL}#" -e "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" "${DESTDIR}"/menu.cfg
+		if [ -e binary/isolinux/f1.txt ]
+		then
+			sed -i -e "s/LH_DISTRIBUTION/${LH_DISTRIBUTION}/" -e "s/LH_DATE/$(date +%Y%m%d)/" -e "s/LH_MEDIA/hd-media/" "${DESTDIR}"/f1.txt
+		fi
+		sed -i -e "s/LH_MEDIA/hd-media/" "${DESTDIR}"/f3.txt
+		if [ -e binary/isolinux/f10.txt ]
+		then
+			sed -i -e "s/LH_VERSION/${VERSION}/" "${DESTDIR}"/f10.txt
+		fi
 		# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
 		if [ "$(echo ${LH_LINUX_FLAVOURS} | wc -w)" -gt "1" ]
 		then
@@ -662,17 +681,17 @@ case "${LH_BINARY_IMAGES}" in
 				NUMBER="$(($NUMBER + 1))"
 				mv "${DESTDIR_LIVE}"/vmlinuz-*-${FLAVOUR} "${DESTDIR_LIVE}"/vmlinuz${NUMBER}
 				mv "${DESTDIR_LIVE}"/initrd.img-*-${FLAVOUR} "${DESTDIR_LIVE}"/initrd${NUMBER}.img
-				sed -i -e "s/vmlinuz-.*-${FLAVOUR}$/vmlinuz${NUMBER}/g" -e "s/initrd.img-.*-${FLAVOUR} /initrd${NUMBER}.img /g" "${DESTDIR}"/syslinux.cfg
+				sed -i -e "s/vmlinuz-.*-${FLAVOUR}$/vmlinuz${NUMBER}/g" -e "s/initrd.img-.*-${FLAVOUR} /initrd${NUMBER}.img /g" "${DESTDIR}"/menu.cfg
 			done
 		else
 			mv "${DESTDIR_LIVE}"/vmlinuz-*-${LH_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/vmlinuz
 			mv "${DESTDIR_LIVE}"/initrd.img-*-${LH_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/initrd.img
-			sed -i -e "s/vmlinuz-.*-${LH_LINUX_FLAVOURS}/vmlinuz/g" -e "s/initrd.img-.*-${LH_LINUX_FLAVOURS}/initrd.img/g" "${DESTDIR}"/syslinux.cfg
-			sed -i -e "s/LINUX_TIMEOUT/${LH_SYSLINUX_TIMEOUT}/" "${DESTDIR}"/syslinux.cfg
-
-			# Remove whitespaces
-			sed -i -e 's/\ $//g' "${DESTDIR}"/syslinux.cfg
+			sed -i -e "s/vmlinuz-.*-${LH_LINUX_FLAVOURS}/vmlinuz/g" -e "s/initrd.img-.*-${LH_LINUX_FLAVOURS}/initrd.img/g" "${DESTDIR}"/menu.cfg
+			sed -i -e "s/LINUX_TIMEOUT/${LH_SYSLINUX_TIMEOUT}/" "${DESTDIR}"/footer.cfg
 		fi
+
+		# Remove whitespaces
+		sed -i -e 's/\ $//g' "${DESTDIR}"/*.cfg
 		;;
 esac
 
