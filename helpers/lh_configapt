@@ -26,9 +26,9 @@ case "${1}" in
 
 		if [ "${LIVE_RECOMMENDS}" = "yes" ]
 		then
-			echo "Aptitude::Recommends-Important \"true\";" > "${LIVE_CHROOT}"/etc/apt/apt.conf.d/00make-live_recommends.conf
+			echo "Aptitude::Recommends-Important \"true\";" >> "${LIVE_CHROOT}"/etc/apt/apt.conf
 		else
-			echo "Aptitude::Recommends-Important \"false\";" > "${LIVE_CHROOT}"/etc/apt/apt.conf.d/00make-live_recommends.conf
+			echo "Aptitude::Recommends-Important \"false\";" >> "${LIVE_CHROOT}"/etc/apt/apt.conf
 		fi
 		;;
 
