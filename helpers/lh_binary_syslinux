@@ -357,7 +357,7 @@ Configure_syslinux_templates ()
 	then
 		while grep -qs ^include ${SCREEN_PATH}/syslinux.cfg
 		do
-			INCLUDES=$(grep ^include ${SCREEN_PATH}/syslinux.cfg |awk '{print $2}')
+			INCLUDES=$(grep ^include ${SCREEN_PATH}/syslinux.cfg | awk '{print $2}')
 
 			for FILE_PATH in ${INCLUDES}
 			do
@@ -375,6 +375,12 @@ Configure_syslinux_templates ()
 				fi
 			done
 		done
+
+		if [ -e ${SCREEN_PATH}/live.cfg ]
+		then
+			cat ${SCREEN_PATH}/live.cfg >> ${SCREEN_PATH}/syslinux.cfg
+			rm -f ${SCREEN_PATH}/live.cfg
+		fi
 
 		# Syslinux v3.31 in etch does not support sub directories, /path/kernel,
 		# when using FAT hard drive images, remove leading /'s
