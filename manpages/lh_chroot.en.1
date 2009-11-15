@@ -1,71 +1,29 @@
-.TH LH_CHROOT 1 "2007\-11\-12" "1.0~a36" "live\-helper"
+.TH LH_CHROOT 1 "2007\-11\-19" "1.0~a37" "live\-helper"
 
 .SH NAME
 lh_chroot \- meta\-helper for lh_chroot_*
 
 .SH SYNOPSIS
-.B lh_chroot [\fIlive\-helper\ options\fR\|]
+\fBlh_chroot\fR [\fIlive\-helper options\fR]
 
 .SH DESCRIPTION
-lh_chroot is a meta\-helper. It calls all necessary helpers to complete the chroot stage.
-
-.SH CHROOT HELPERS
-Here is the complete list of available chroot helper commands. See their man pages for additional documentation.
-.IP "\fIlh_chroot_apt\fR(1)" 4
-manages /etc/apt/apt.conf.
-.IP "\fIlh_chroot_debianchroot\fR(1)" 4
-manages /etc/debian_chroot.
-.IP "\fIlh_chroot_hacks\fR(1)" 4
-executes hacks in chroot.
-.IP "\fIlh_chroot_hooks\fR(1)" 4
-executes hooks in chroot.
-.IP "\fIlh_chroot_hosts\fR(1)" 4
-manages /etc/hosts.
-.IP "\fIlh_chroot_interactive\fR(1)" 4
-makes build interactive.
-.IP "\fIlh_chroot_linux-image\fR(1)" 4
-manages /etc/kernel\-img.conf.
-.IP "\fIlh_chroot_local-hooks\fR(1)" 4
-executes local hooks in chroot.
-.IP "\fIlh_chroot_local-includes\fR(1)" 4
-copies local files into chroot.
-.IP "\fIlh_chroot_localization\fR(1)" 4
-installs localization packages into chroot.
-.IP "\fIlh_chroot_local-packages\fR(1)" 4
-installs local packages into chroot.
-.IP "\fIlh_chroot_local-packageslists\fR(1)" 4
-installs local packages lists into chroot.
-.IP "\fIlh_chroot_packages\fR(1)" 4
-installs packages into chroot.
-.IP "\fIlh_chroot_packageslists\fR(1)" 4
-installs packages lists into chroot.
-.IP "\fIlh_chroot_proc\fR(1)" 4
-mounts /proc.
-.IP "\fIlh_chroot_resolv\fR(1)" 4
-manages /etc/resolv.conf.
-.IP "\fIlh_chroot_sources\fR(1)" 4
-manages /etc/apt/apt.conf.
-.IP "\fIlh_chroot_symlinks\fR(1)" 4
-convers symlinks.
-.IP "\fIlh_chroot_sysfs\fR(1)" 4
-mounts /sys.
-.IP "\fIlh_chroot_sysvinit\fR(1)" 4
-configures sysvinit.
-.IP "\fIlh_chroot_sysvrc\fR(1)" 4
-manages /usr/sbin/policy\-rc.d.
-.IP "\fIlh_chroot_tasks\fR(1)" 4
-installs tasks into chroot.
+lh_chroot is a meta\-helper. It calls all necessary live\-helper programs in the
+correct order to complete the chroot stage.
 
 .SH SEE ALSO
 \fIlive\-helper\fR(7)
 .PP
-This program is a part of live\-helper.
+This program is part of live\-helper.
 
 .SH BUGS
-Report bugs against live\-helper <\fIhttp://packages.qa.debian.org/live\-helper\fR>.
+Report bugs against live\-helper
+<\fIhttp://packages.qa.debian.org/live\-helper\fR>.
 
 .SH HOMEPAGE
-More information about the Debian Live project can be found at <\fIhttp://debian\-live.alioth.debian.org/\fR> and <\fIhttp://wiki.debian.org/DebianLive/\fR>.
+More information about the Debian Live project can be found at
+<\fIhttp://debian\-live.alioth.debian.org/\fR> and
+<\fIhttp://wiki.debian.org/DebianLive/\fR>.
 
 .SH AUTHOR
-live\-helper was written by Daniel Baumann <\fIdaniel@debian.org\fR> for the Debian project.
+live\-helper was written by Daniel Baumann <\fIdaniel@debian.org\fR> for the
+Debian project.

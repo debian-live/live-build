@@ -1,6 +1,6 @@
 # Makefile
 
-TRANSLATIONS="de"
+#TRANSLATIONS="de"
 
 all: build
 
@@ -100,9 +100,9 @@ uninstall:
 update:
 	set -e; for FILE in functions/*.sh examples/cron/*.sh manpages/*.de.* manpages/*.en.*; \
 	do \
-		sed -i	-e 's/2007\\-11\\-12/2007\\-11\\-19/' \
-			-e 's/12.11.2007/19.11.2007/' \
-			-e 's/1.0~a36/1.0~a37/' \
+		sed -i	-e 's/2007\\-11\\-19/2007\\-11\\-26/' \
+			-e 's/19.11.2007/26.11.2007/' \
+			-e 's/1.0~a37/1.0~a38/' \
 		$$FILE; \
 	done
 

@@ -20,7 +20,7 @@ done
 # Setting static variables
 DESCRIPTION="clean up system build directories"
 HELP=""
-USAGE="${PROGRAM} [all|cache|chroot|binary|purge|stage|source]"
+USAGE="${PROGRAM} [--all] [--cache] [--chroot] [--binary] [--purge] [--remove] [--stage] [--source]"
 
 Arguments "${@}"
 
@@ -33,15 +33,6 @@ Read_conffile config/source
 Read_conffile "${LH_CONFIG}"
 Set_defaults
 
-rm -f .lock
-
-if [ -z "${@}" ]
-then
-	ARGUMENTS="all"
-else
-	ARGUMENTS="${@}"
-fi
-
 # Avoid cases were users accidentally nuke their config/binary
 if [ ! -d config ] || [ "$(basename ${PWD})" = "config" ]
 then
@@ -49,21 +40,30 @@ then
 	exit 1
 fi
 
+rm -f .lock
+
+if [ -z "${@}" ]
+then
+	ARGUMENTS="--all"
+else
+	ARGUMENTS="${@}"
+fi
+
 for ARGUMENT in ${ARGUMENTS}
 do
 	case "${ARGUMENT}" in
-		all)
-			"${0}" chroot
-			"${0}" binary
-			"${0}" stage
-			"${0}" source
+		--all)
+			"${0}" --chroot
+			"${0}" --binary
+			"${0}" --stage
+			"${0}" --source
 			;;
 
-		cache)
+		--cache)
 			${LH_ROOT_COMMAND} rm -rf cache
 			;;
 
-		chroot)
+		--chroot)
 			Echo_message "Cleaning chroot"
 			${LH_ROOT_COMMAND} umount -f chroot/sys > /dev/null 2>&1 || true
 			${LH_ROOT_COMMAND} umount -f chroot/proc/sys/fs/binfmt_misc > /dev/null 2>&1 || true
@@ -78,7 +78,7 @@ do
 			rm -f .stage/chroot*
 			;;
 
-		binary)
+		--binary)
 	                ${LH_ROOT_COMMAND} umount -f binary.tmp > /dev/null 2>&1 || true
 			rm -rf binary.tmp binary.deb binary.udeb
 			rm -f binary.iso
@@ -92,21 +92,21 @@ do
 			rm -f .stage/binary*
 			;;
 
-		remove)
-			"${0}" all
+		--remove)
+			"${0}" --all
 			rm -rf cache/packages_*
 			;;
 
-		purge)
-			"${0}" all
-			"${0}" cache
+		--purge)
+			"${0}" --all
+			"${0}" --cache
 			;;
 
-		stage)
+		--stage)
 			rm -rf .stage
 			;;
 
-		source)
+		--source)
 			rm -f source.iso
 			rm -f source.img
 			rm -f source*.tar

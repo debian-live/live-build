@@ -83,7 +83,7 @@ fi
 # Everything which comes here needs to be cleaned up,
 DU_DIM="$(du -ms binary | cut -f1)"
 REAL_DIM="$(expr ${DU_DIM} + ${DU_DIM} / 50)" # Just 2% more to be sure, need something more sophistcated here...
-dd if=/dev/zero of=chroot/binary.img bs=1024k count=${REAL_DIM}
+dd if=/dev/zero of=chroot/binary.img bs=1024k count=0 seek=${REAL_DIM}
 FREELO="$(${LH_LOSETUP} -f)"
 if [ ! -b chroot/${FREELO} ]
 then
@@ -94,12 +94,12 @@ then
 fi
 
 echo "!!! The following error/warning messages can be ignored !!!"
-lh_losetup $FREELO chroot/binary.img 0
+Losetup $FREELO chroot/binary.img 0
 
 case "${LH_CHROOT_BUILD}" in
 	enabled)
 		Chroot "parted -s ${FREELO} mklabel msdos" || true
-		Chroot "parted -s ${FREELO} mkpartfs primary fat16 0.0 100%" || true
+		Chroot "parted -s ${FREELO} mkpart primary ${LH_BINARY_FILESYSTEM} 0.0 100%" || true
 		Chroot "parted -s ${FREELO} set 1 boot on" || true
 		Chroot "parted -s ${FREELO} set 1 lba off" || true
 
@@ -111,7 +111,7 @@ case "${LH_CHROOT_BUILD}" in
 
 	disabled)
 		parted -s ${FREELO} mklabel msdos || true
-		parted -s ${FREELO} mkpartfs primary fat16 0.0 100% || true
+		parted -s ${FREELO} mkpart primary ${LH_BINARY_FILESYSTEM} 0.0 100% || true
 		parted -s ${FREELO} set 1 boot on || true
 		parted -s ${FREELO} set 1 lba off || true
 
@@ -125,15 +125,25 @@ esac
 ${LH_LOSETUP} -d ${FREELO}
 
 FREELO="$(${LH_LOSETUP} -f)"
-lh_losetup $FREELO chroot/binary.img 1
+Losetup $FREELO chroot/binary.img 1
+
+case "${LH_BINARY_FILESYSTEM}" in
+	fat16)
+		MKFS_OPTIONS="-F 16"
+		;;
+
+	fat32)
+		MKFS_OPTIONS="-F 32"
+		;;
+esac
 
 case "${LH_CHROOT_BUILD}" in
 	enabled)
-		Chroot "mkfs.vfat -F 16 -n DEBIAN_LIVE ${FREELO}"
+		Chroot "mkfs.vfat ${MKFS_OPTIONS} -n DEBIAN_LIVE ${FREELO}"
 		;;
 
 	disabled)
-		mkfs.vfat -F 16 -n DEBIAN_LIVE ${FREELO}
+		mkfs.vfat ${MKFS_OPTIONS} -n DEBIAN_LIVE ${FREELO}
 		;;
 esac
 

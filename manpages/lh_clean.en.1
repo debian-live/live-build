@@ -1,30 +1,35 @@
-.TH LH_CLEAN 1 "2007\-11\-12" "1.0~a36" "live\-helper"
+.TH LH_CLEAN 1 "2007\-11\-19" "1.0~a37" "live\-helper"
 
 .SH NAME
 lh_clean \- clean up system build directories
 
 .SH SYNOPSIS
-.B lh_clean [\fIlive\-helper\ options\fR\|]
-.B lh_clean [\fRall\fB|\fRcache\fB|\fRchroot\fB|\fRbinary\fB|\fRpurge\fB|\fRstage\fB|\fRsource\fB]
+.B lh_clean [\fIlive\-helper\ options\fR\]
+[\fB\-\-all\fR] [\fB\-\-cache\fR] [\fB\-\-chroot\fR] [\fB\-\-binary\fR]
+[\fB\-\-purge\fR] [\fB\-\-remove\fR] [\fB\-\-stage\fR] [\fB\-\-source\fR]
 
 .SH DESCRIPTION
-lh_clean is a live\-helper program that is responsible for cleaning up after a system is built. It removes the system build directories, and removes some other files including stage files, and any detritus left behind by other live\-helper commands.
+lh_clean is a live\-helper program that is responsible for cleaning up after a
+system is built. It removes the system build directories, and removes some other
+files including stage files, and any detritus left behind by other live\-helper
+commands.
 
 .SH OPTIONS
-The following command line options are supported by lh_clean.
-.IP "\fBall\fR" 4
+.IP "\fB\-\-all\fR" 4
 removes chroot, binary, stage, and source. This is the default operation.
-.IP "\fBcache\fR" 4
+.IP "\fB\-\-cache\fR" 4
 removes all cache directories.
-.IP "\fBchroot\fR" 4
+.IP "\fB\-\-chroot\fR" 4
 unmounts and removes the chroot directory. If bootstrap cache is available, the system is reset to bootstrap stage.
-.IP "\fBbinary\fR" 4
+.IP "\fB\-\-binary\fR" 4
 removes all binary related caches, directories, and stages files.
-.IP "\fBpurge\fR" 4
+.IP "\fB\-\-purge\fR" 4
 removes everything (including cache) but config.
-.IP "\fBstage\fR" 4
+.IP "\fB\-\-remove\fR" 4
+removes everything (including package cache, but not stage cache) but config.
+.IP "\fB\-\-stage\fR" 4
 removes all stage files.
-.IP "\fBsource\fR" 4
+.IP "\fB\-\-source\fR" 4
 removes all source related caches, directories, and stage files.
 
 .SH SEE ALSO
@@ -33,10 +38,14 @@ removes all source related caches, directories, and stage files.
 This program is a part of live\-helper.
 
 .SH BUGS
-Report bugs against live\-helper <\fIhttp://packages.qa.debian.org/live\-helper\fR>.
+Report bugs against live\-helper
+<\fIhttp://packages.qa.debian.org/live\-helper\fR>.
 
 .SH HOMEPAGE
-More information about the Debian Live project can be found at <\fIhttp://debian\-live.alioth.debian.org/\fR> and <\fIhttp://wiki.debian.org/DebianLive/\fR>.
+More information about the Debian Live project can be found at
+<\fIhttp://debian\-live.alioth.debian.org/\fR> and
+<\fIhttp://wiki.debian.org/DebianLive/\fR>.
 
 .SH AUTHOR
-live\-helper was written by Daniel Baumann <\fIdaniel@debian.org\fR> for the Debian project.
+live\-helper was written by Daniel Baumann <\fIdaniel@debian.org\fR> for the
+Debian project.

@@ -1,41 +1,29 @@
-.TH LH_SOURCE 1 "2007\-11\-12" "1.0~a36" "live\-helper"
+.TH LH_SOURCE 1 "2007\-11\-19" "1.0~a37" "live\-helper"
 
 .SH NAME
 lh_source \- meta\-helper for lh_source_*
 
 .SH SYNOPSIS
-.B lh_source [\fIlive\-helper\ options\fR\|]
+\fBlh_source\fR [\fIlive\-helper options\fR]
 
 .SH DESCRIPTION
-lh_source is a meta\-helper. It calls all necessary helpers to complete the source stage.
-
-.SH SOURCE HELPERS
-Here is the complete list of available source helper commands. See their man pages for additional documentation.
-.IP "\fIlh_source_debian-live\fR(1)" 4
-copies debian\-live config into source.
-.IP "\fIlh_source_debian\fR(1)" 4
-downloads sources.
-.IP "\fIlh_source_iso\fR(1)" 4
-creates the CD/DVD source image.
-.IP "\fIlh_source_md5sum\fR(1)" 4
-creates md5sum.txt in the source image.
-.IP "\fIlh_source_net\fR(1)" 4
-creates the netboot source tarball.
-.IP "\fIlh_source_tar\fR(1)" 4
-creates a generic binary tarball.
-.IP "\fIlh_source_usb-hdd\fR(1)" 4
-creates the USB-hdd source image.
+lh_source is a meta\-helper. It calls all necessary live\-helper programs in the
+correct order to complete the source stage.
 
 .SH SEE ALSO
 \fIlive\-helper\fR(7)
 .PP
-This program is a part of live\-helper.
+This program is part of live\-helper.
 
 .SH BUGS
-Report bugs against live\-helper <\fIhttp://packages.qa.debian.org/live\-helper\fR>.
+Report bugs against live\-helper
+<\fIhttp://packages.qa.debian.org/live\-helper\fR>.
 
 .SH HOMEPAGE
-More information about the Debian Live project can be found at <\fIhttp://debian\-live.alioth.debian.org/\fR> and <\fIhttp://wiki.debian.org/DebianLive/\fR>.
+More information about the Debian Live project can be found at
+<\fIhttp://debian\-live.alioth.debian.org/\fR> and
+<\fIhttp://wiki.debian.org/DebianLive/\fR>.
 
 .SH AUTHOR
-live\-helper was written by Daniel Baumann <\fIdaniel@debian.org\fR> for the Debian project.
+live\-helper was written by Daniel Baumann <\fIdaniel@debian.org\fR> for the
+Debian project.

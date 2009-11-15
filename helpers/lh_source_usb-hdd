@@ -73,7 +73,7 @@ fi
 # Everything which comes here needs to be cleaned up,
 DU_DIM="$(du -ms source | cut -f1)"
 REAL_DIM="$(expr ${DU_DIM} + ${DU_DIM} / 50)" # Just 2% more to be sure, need something more sophistcated here...
-dd if=/dev/zero of=source.img bs=1024k count=${REAL_DIM}
+dd if=/dev/zero of=source.img bs=1024k count=0 seek=${REAL_DIM}
 FREELO="$(${LH_LOSETUP} -f)"
 if [ ! -b chroot/${FREELO} ]
 then
@@ -84,14 +84,26 @@ then
 fi
 
 echo "!!! The following error/warning messages can be ignored !!!"
-lh_losetup $FREELO source.img 0
+Losetup $FREELO source.img 0
 Chroot "parted -s ${FREELO} mklabel msdos" || true
-Chroot "parted -s ${FREELO} mkpartfs primary fat16 0.0 100%" || true
+Chroot "parted -s ${FREELO} mkpart primary ${LH_BINARY_FILESYSTEM} 0.0 100%" || true
 Chroot "parted -s ${FREELO} set 1 lba off" || true
 ${LH_LOSETUP} -d ${FREELO}
 
-lh_losetup $FREELO source.img 1
-Chroot " mkfs.vfat -F 16 -n DEBIAN_LIVE ${FREELO}"
+Losetup $FREELO source.img 1
+
+case "${LH_BINARY_FILESYSTEM}" in
+	fat16)
+		MKFS_OPTIONS="-F 16"
+		;;
+
+	fat32)
+		MKFS_OPTIONS="-F 32"
+		;;
+esac
+
+Chroot " mkfs.vfat ${MKFS_OPTIONS} -n DEBIAN_LIVE ${FREELO}"
+
 mkdir -p source.tmp
 ${LH_ROOT_COMMAND} mount ${FREELO} source.tmp
 cp -r source/* source.tmp

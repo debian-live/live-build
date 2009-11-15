@@ -1,14 +1,17 @@
-.TH LH_BUILD 1 "2007\-11\-19" "1.0~a37" "live\-helper"
+.TH LH 1 "2007\-11\-19" "1.0~a37" "live\-helper"
 
 .SH NAME
-lh_build \- meta\-helper for lh_bootstrap, lh_chroot, lh_binary, and lh_source
+live\-helper \- generic live\-helper wrapper
 
 .SH SYNOPSIS
-\fBlh_build\fR [\fIlive\-helper options\fR]
+\fBlh\fR COMMAND [COMMAND_OPTIONS] [\fIlive\-helper options\fR]
 
 .SH DESCRIPTION
-lh_build is a meta\-helper. It calls all necessary live\-helper programs in the
-correct order to complete the bootstrap, chroot, binary, and source stage.
+lh is a generic wrapper for live\-helper programs. Instead of calling
+"lh_command", it can also called through lh as "lh command", where command is a
+name of a live\-helper program. See the man page of live\-helper for a list of
+all available programs and the man page of lh_command for the documentation of
+the actual helper.
 
 .SH SEE ALSO
 \fIlive\-helper\fR(7)

@@ -151,6 +151,8 @@ case "${1}" in
 			if [ "${LH_APT}" = "apt" ] || [ "${LH_APT}" = "apt-get" ]
 			then
 				Chroot "apt-get update"
+				Chroot "apt-get --yes upgrade"
+				Chroot "apt-get --yes dist-upgrade"
 			elif [ "${LH_APT}" = "aptitude" ]
 			then
 				if [ ! -x /usr/bin/aptitude ]
@@ -160,6 +162,8 @@ case "${1}" in
 				fi
 
 				Chroot "aptitude update"
+				Chroot "aptitude --assume-yes upgrade"
+				Chroot "aptitude --assume-yes dist-upgrade"
 			fi
 
 			# Installing keyring packages
