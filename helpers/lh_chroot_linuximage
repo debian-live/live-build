@@ -16,34 +16,34 @@ Read_conffile config/chroot
 Set_defaults
 
 # Requiring stage file
-Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Require_stagefile .stage/bootstrap
 
 # Checking lock file
-Check_lockfile "${LIVE_ROOT}"/.lock
+Check_lockfile .lock
 
 # Creating lock file
-Create_lockfile "${LIVE_ROOT}"/.lock
+Create_lockfile .lock
 
 case "${1}" in
 	install)
 		# Checking stage file
-		Check_stagefile "${LIVE_ROOT}"/.stage/chroot_linuximage
+		Check_stagefile .stage/chroot_linuximage
 
-		if [ -f "${LIVE_CHROOT}"/etc/kernel-img.conf ]
+		if [ -f chroot/etc/kernel-img.conf ]
 		then
 			# Saving kernel-img.conf
-			cp "${LIVE_CHROOT}"/etc/kernel-img.conf "${LIVE_CHROOT}"/etc/kernel-img.conf.old
+			cp chroot/etc/kernel-img.conf chroot/etc/kernel-img.conf.old
 		fi
 
 		# Configuring kernel-img.conf
-		echo "do_initrd = Yes"  >> "${LIVE_CHROOT}"/etc/kernel-img.conf
+		echo "do_initrd = Yes"  >> chroot/etc/kernel-img.conf
 
 		# Creating stage file
-		Create_stagefile "${LIVE_ROOT}"/.stage/chroot_linuximage
+		Create_stagefile .stage/chroot_linuximage
 
 		# Installing linux-image, modules and casper
 		case "${LH_APT}" in
-			apt)
+			apt|apt-get)
 				Chroot "apt-get install --yes ${LIVE_KERNEL_PACKAGES}"
 				;;
 
@@ -54,17 +54,17 @@ case "${1}" in
 		;;
 
 	remove)
-		if [ -f "${LIVE_CHROOT}"/etc/kernel-img.conf.old ]
+		if [ -f chroot/etc/kernel-img.conf.old ]
 		then
 			# Restoring kernel-img.conf file
-			mv "${LIVE_CHROOT}"/etc/kernel-img.conf.old "${LIVE_CHROOT}"/etc/kernel-img.conf
+			mv chroot/etc/kernel-img.conf.old chroot/etc/kernel-img.conf
 		else
 			# Removing kernel-img.conf file
-			rm -f "${LIVE_CHROOT}"/etc/kernel-img.conf
+			rm -f chroot/etc/kernel-img.conf
 		fi
 
 		# Removing stage file
-		rm -f "${LIVE_ROOT}"/.stage/chroot_linuximage
+		rm -f .stage/chroot_linuximage
 		;;
 
 	*)

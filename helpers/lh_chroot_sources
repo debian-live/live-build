@@ -18,38 +18,46 @@ Read_conffile config/image
 Set_defaults
 
 # Requiring stage file
-Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Require_stagefile .stage/bootstrap
 
 # Checking lock file
-Check_lockfile "${LIVE_ROOT}"/.lock
+Check_lockfile .lock
 
 # Creating lock file
-Create_lockfile "${LIVE_ROOT}"/.lock
+Create_lockfile .lock
 
 case "${1}" in
 	install)
 		# Checking stage file
-		Check_stagefile "${LIVE_ROOT}"/.stage/chroot_sources
+		Check_stagefile .stage/chroot_sources
 
 		# Configure custom sources.list
-		echo "deb ${LIVE_MIRROR} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" > "${LIVE_CHROOT}"/etc/apt/sources.list
+		echo "deb ${LIVE_MIRROR_LOCAL} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" > chroot/etc/apt/sources.list
 
 		if [ "${LIVE_SOURCE}" = "enabled" ]
 		then
-			echo "deb-src ${LIVE_MIRROR} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+			echo "deb-src ${LIVE_MIRROR_LOCAL} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 		fi
 
 		if [ "${LIVE_SECURITY}" = "enabled" ]
 		then
-			if [ "${LIVE_DISTRIBUTION}" = "etch" ] || [ "${LIVE_DISTRIBUTION}" = "testing" ]
+			if [ "${LIVE_DISTRIBUTION}" != "sid" ] && [ "${LIVE_DISTRIBUTION}" = "unstable" ]
 			then
-				echo "deb ${LIVE_MIRROR_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+				echo "deb ${LIVE_MIRROR_LOCAL_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 
 				if [ "${LIVE_SOURCE}" = "yes" ]
 				then
-					echo "deb-src ${LIVE_MIRROR_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+					echo "deb-src ${LIVE_MIRROR_LOCAL_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 				fi
 			fi
+		fi
+
+		# Check local sources.list
+		if [ -f config/sources.list.local ]
+		then
+			echo "" >> chroot/etc/apt/sources.list
+			echo "# Custom repositories" >> chroot/etc/apt/sources.list
+			cat config/sources.list.local >> chroot/etc/apt/sources.list
 		fi
 
 		# Installing aptitude
@@ -58,7 +66,7 @@ case "${1}" in
 			Chroot "apt-get update"
 		elif [ "${LH_APT}" = "aptitude" ]
 		then
-			if [ ! -x "${LH_CHROOT}"/usr/bin/aptitude ]
+			if [ ! -x /usr/bin/aptitude ]
 			then
 				Chroot "apt-get update"
 				Chroot "apt-get install --yes --force-yes aptitude"
@@ -68,7 +76,7 @@ case "${1}" in
 		fi
 
 		# Creating stage file
-		Create_stagefile "${LIVE_ROOT}"/.stage/chroot_sources
+		Create_stagefile .stage/chroot_sources
 		;;
 
 	remove)
@@ -76,31 +84,39 @@ case "${1}" in
 		if [ "${LH_APT_GENERIC}" = "enabled" ]
 		then
 			# Cleaning apt list cache
-			rm -rf "${LIVE_CHROOT}"/var/lib/apt/lists
-			mkdir -p "${LIVE_CHROOT}"/var/lib/apt/lists/partial
+			rm -rf chroot/var/lib/apt/lists
+			mkdir -p chroot/var/lib/apt/lists/partial
 
-			echo "deb ${LIVE_MIRROR_GENERIC} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" > "${LIVE_CHROOT}"/etc/apt/sources.list
+			echo "deb ${LIVE_MIRROR_GENERIC} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" > chroot/etc/apt/sources.list
 
 			if [ "${LIVE_SOURCE}" = "enabled" ]
 			then
-				echo "deb-src ${LIVE_MIRROR_GENERIC} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+				echo "deb-src ${LIVE_MIRROR_GENERIC} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 			fi
 
 			if [ "${LIVE_SECURITY}" = "enabled" ]
 			then
 				if [ "${LIVE_DISTRIBUTION}" = "etch" ] || [ "${LIVE_DISTRIBUTION}" = "testing" ]
 				then
-					echo "deb ${LIVE_MIRROR_GENERIC_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+					echo "deb ${LIVE_MIRROR_GENERIC_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 
 					if [ "${LIVE_SOURCE}" = "yes" ]
 					then
-						echo "deb-src ${LIVE_MIRROR_GENERIC_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> "${LIVE_CHROOT}"/etc/apt/sources.list
+						echo "deb-src ${LIVE_MIRROR_GENERIC_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 					fi
 				fi
 			fi
 
+			# Check local sources.list
+			if [ -f config/sources.list.generic ]
+			then
+				echo "" >> chroot/etc/apt/sources.list
+				echo "# Custom repositories" >> chroot/etc/apt/sources.list
+				cat config/sources.list.generic >> chroot/etc/apt/sources.list
+			fi
+
 			case "${LH_APT}" in
-				apt)
+				apt|apt-get)
 					Chroot "apt-get update"
 					;;
 
@@ -111,17 +127,17 @@ case "${1}" in
 		fi
 
 		# Cleaning apt packages cache
-		rm -rf "${LIVE_CHROOT}"/var/cache/apt
-		mkdir -p "${LIVE_CHROOT}"/var/cache/apt/archives/partial
+		rm -rf chroot/var/cache/apt
+		mkdir -p chroot/var/cache/apt/archives/partial
 
 		# Removing old files
-		rm -f "${LIVE_CHROOT}"/var/lib/dpkg/available-old
-		rm -f "${LIVE_CHROOT}"/var/lib/dpkg/diversions-old
-		rm -f "${LIVE_CHROOT}"/var/lib/dpkg/statoverride-old
-		rm -f "${LIVE_CHROOT}"/var/lib/dpkg/status-old
+		rm -f chroot/var/lib/dpkg/available-old
+		rm -f chroot/var/lib/dpkg/diversions-old
+		rm -f chroot/var/lib/dpkg/statoverride-old
+		rm -f chroot/var/lib/dpkg/status-old
 
 		# Removing stage file
-		rm -f "${LIVE_ROOT}"/.stage/chroot_sources
+		rm -f .stage/chroot_sources
 		;;
 
 	*)

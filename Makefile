@@ -15,15 +15,36 @@ install:
 	mkdir -p $(DESTDIR)/usr/share/doc/live-helper
 	cp -r COPYING doc/* $(DESTDIR)/usr/share/doc/live-helper
 
+	# Installing manpages
+	mkdir -p $(DESTDIR)/usr/share/man/man1
+	cp manpages/*.1 $(DESTDIR)/usr/share/man/man1
+
+	mkdir -p $(DESTDIR)/usr/share/man/man7
+	cp manpages/*.7 $(DESTDIR)/usr/share/man/man7
+
 uninstall:
 	# Uninstalling executables
-	rm -f $(DESTDIR)/usr/bin/lh_* $(DESTDIR)/usr/bin/make-live
+	for HELPER in helpers/*; \
+	do \
+		rm -f $(DESTDIR)/usr/bin/`basename $$HELPER`; \
+	done
 
 	# Uninstalling shared data
 	rm -rf $(DESTDIR)/usr/share/live-helper
 
 	# Uninstalling documentation
 	rm -rf $(DESTDIR)/usr/share/doc/live-helper
+
+	# Uninstalling manpages
+	for MANPAGE in manpages/*.1; \
+	do \
+		rm -f $(DESTDIR)/usr/share/man/man1/`basename $$MANPAGE`; \
+	done
+
+	for MANPAGE in manpages/*.7; \
+	do \
+		rm -f $(DESTDIR)/usr/share/man/man7/`basename $$MANPAGE`; \
+	done
 
 clean:
 

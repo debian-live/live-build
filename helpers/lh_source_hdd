@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_source_net(1) - build source net image
+# lh_source_hdd(1) - build source harddisk image
 
 set -e
 
@@ -22,7 +22,7 @@ fi
 
 for IMAGE in ${LIVE_SOURCE_IMAGE}
 do
-	if [ "${IMAGE}" = "net" ]
+	if [ "${IMAGE}" = "hdd" ]
 	then
 		# Requiring stage file
 		Require_stagefile .stage/source_download
@@ -34,18 +34,18 @@ do
 		Create_lockfile .lock
 
 		# Checking stage file
-		Check_stagefile .stage/source_net
+		Check_stagefile .stage/source_hdd
 
 		# Remove old source
-		if [ -f source-net.tar.gz ]
+		if [ -f source-hdd.tar.gz ]
 		then
-			rm -f source-net.tar.gz
+			rm -f source-hdd.tar.gz
 		fi
 
 		# Create tarball
-		tar cfz source-net.tar.gz source
+		tar cfz source-hdd.tar.gz source
 
 		# Creating stage file
-		Create_stagefile .stage/source_net
+		Create_stagefile .stage/source_hdd
 	fi
 done

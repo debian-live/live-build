@@ -17,7 +17,6 @@ Set_defaults
 
 if [ "${LIVE_SOURCE}" = "disabled" ]
 then
-	echo "W: source images disabled (FIXME)"
 	exit 0
 fi
 
@@ -26,28 +25,27 @@ do
 	if [ "${IMAGE}" = "generic" ]
 	then
 		# Requiring stage file
-		Require_stagefile "${LIVE_ROOT}"/.stage/source_download
+		Require_stagefile .stage/source_download
 
 		# Checking lock file
-		Check_lockfile "${LIVE_ROOT}"/.lock
+		Check_lockfile .lock
 
 		# Creating lock file
-		Create_lockfile "${LIVE_ROOT}"/.lock
+		Create_lockfile .lock
 
 		# Checking stage file
-		Check_stagefile "${LIVE_ROOT}"/.stage/source_generic
+		Check_stagefile .stage/source_generic
 
 		# Remove old source
-		if [ -f "${LIVE_ROOT}"/source.tar ]
+		if [ -f source.tar ]
 		then
-			rm -f "${LIVE_ROOT}"/source.tar
+			rm -f source.tar
 		fi
 
 		# Create tarball
-		cd "${LIVE_ROOT}" &&
 		tar cf source.tar source
 
 		# Creating stage file
-		Create_stagefile "${LIVE_ROOT}"/.stage/source_generic
+		Create_stagefile .stage/source_generic
 	fi
 done

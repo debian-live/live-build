@@ -26,43 +26,44 @@ case "${1}" in
 		;;
 
 	cache)
-		rm -rf "${LIVE_ROOT}"/cache
+		rm -rf cache
 		;;
 
 	chroot)
-		umount -f "${LIVE_CHROOT}"/sys > /dev/null 2>&1 || true
-		umount -f "${LIVE_CHROOT}"/proc > /dev/null 2>&1 || true
-		umount -f "${LIVE_CHROOT}"/lib/init/rw > /dev/null 2>&1 || true
-		umount -f "${LIVE_CHROOT}"/dev/shm > /dev/null 2>&1 || true
-		umount -f "${LIVE_CHROOT}"/dev/pts > /dev/null 2>&1 || true
-		umount -f "${LIVE_CHROOT}"/dev > /dev/null 2>&1 || true
+		umount -f chroot/sys > /dev/null 2>&1 || true
+		umount -f chroot/proc > /dev/null 2>&1 || true
+		umount -f chroot/lib/init/rw > /dev/null 2>&1 || true
+		umount -f chroot/dev/shm > /dev/null 2>&1 || true
+		umount -f chroot/dev/pts > /dev/null 2>&1 || true
+		umount -f chroot/dev > /dev/null 2>&1 || true
 
-		rm -rf "${LIVE_CHROOT}"
+		rm -rf chroot
 		;;
 
 	binary)
-		rm -rf "${LIVE_ROOT}"/binary
+		rm -rf binary
 
-		rm -f "${LIVE_ROOT}"/binary.iso
-		rm -f "${LIVE_ROOT}"/binary.img
-		rm -f "${LIVE_ROOT}"/binary.tar.gz
+		rm -f binary.iso
+		rm -f binary.img
+		rm -f binary*.tar.gz
+		rm -f packages.txt
 
-		rm -f "${LIVE_ROOT}"/.stage/binary*
+		rm -f .stage/binary*
 		;;
 
 	stage)
-		rm -rf "${LIVE_ROOT}"/.stage
-		rm -f "${LIVE_ROOT}"/.lock
+		rm -rf .stage
+		rm -f .lock
 		;;
 
 	source)
-		rm -rf "${LIVE_ROOT}"/source
+		rm -rf source
 
-		rm -f "${LIVE_ROOT}"/source.iso
-		rm -f "${LIVE_ROOT}"/source.img
-		rm -f "${LIVE_ROOT}"/source.tar.gz
+		rm -f source.iso
+		rm -f source.img
+		rm -f source*.tar.gz
 
-		rm -f "${LIVE_ROOT}"/.stage/source*
+		rm -f .stage/source*
 		;;
 
 	*)

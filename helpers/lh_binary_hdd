@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_binary_net(1) - build netboot binary image
+# lh_binary_hdd(1) - build harddisk binary image
 
 set -e
 
@@ -26,29 +26,21 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Checking stage file
-Check_stagefile .stage/binary_net
+Check_stagefile .stage/binary_hdd
 
 for IMAGE in ${LIVE_BINARY_IMAGE}
 do
-	if [ "${IMAGE}" = "net" ]
+	if [ "${IMAGE}" = "hdd" ]
 	then
 		# Remove old binary
-		if [ -f binary-net.tar.gz ]
+		if [ -f binary-hdd.tar.gz ]
 		then
-			rm -f binary-net.tar.gz
+			rm -f binary-hdd.tar.gz
 		fi
 
-		# Creating image file
-		mv binary "`basename ${LIVE_SERVER_PATH}`"
-
-		cd ..
-		tar cfz binary-net.tar.gz "${LIVE_ROOT}/`basename ${LIVE_SERVER_PATH}`" "${LIVE_ROOT}/tftpboot"
-		mv binary-net.tar.gz "${LIVE_ROOT}"
-		cd "${OLDPWD}"
-
-		mv "`basename ${LIVE_SERVER_PATH}`" binary
+		tar cfz binary-hdd.tar.gz binary
 
 		# Creating stage file
-		Create_stagefile .stage/binary_net
+		Create_stagefile .stage/binary_hdd
 	fi
 done

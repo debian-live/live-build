@@ -16,47 +16,47 @@ Read_conffile config/chroot
 Set_defaults
 
 # Requiring stage file
-Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Require_stagefile .stage/bootstrap
 
 # Checking lock file
-Check_lockfile "${LIVE_ROOT}"/.lock
+Check_lockfile .lock
 
 # Creating lock file
-Create_lockfile "${LIVE_ROOT}"/.lock
+Create_lockfile .lock
 
 case "${1}" in
 	install)
 		# Checking stage file
-		Check_stagefile "${LIVE_ROOT}"/.stage/chroot_hosts
+		Check_stagefile .stage/chroot_hosts
 
-		if [ -f "${LIVE_CHROOT}"/etc/hosts ]
+		if [ -f chroot/etc/hosts ]
 		then
 			# Save hosts file
-			cp "${LIVE_CHROOT}"/etc/hosts "${LIVE_CHROOT}"/etc/hosts.orig
+			cp chroot/etc/hosts chroot/etc/hosts.orig
 		fi
 
 		if [ -f /etc/hosts ]
 		then
 			# Copy hosts file
-			cp /etc/hosts "${LIVE_CHROOT}"/etc/hosts
+			cp /etc/hosts chroot/etc/hosts
 		fi
 
 		# Creating stage file
-		Create_stagefile "${LIVE_ROOT}"/.stage/chroot_hosts
+		Create_stagefile .stage/chroot_hosts
 		;;
 
 	remove)
-		if [ -f "${LIVE_CHROOT}"/etc/hosts.orig ]
+		if [ -f chroot/etc/hosts.orig ]
 		then
 			# Restore hosts file
-			mv "${LIVE_CHROOT}"/etc/hosts.orig "${LIVE_CHROOT}"/etc/hosts
+			mv chroot/etc/hosts.orig chroot/etc/hosts
 		else
 			# Remove hosts file
-			rm -f "${LIVE_CHROOT}"/etc/hosts
+			rm -f chroot/etc/hosts
 		fi
 
 		# Removing stage file
-		rm -f "${LIVE_ROOT}"/.stage/chroot_hosts
+		rm -f .stage/chroot_hosts
 		;;
 
 	*)

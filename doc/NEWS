@@ -12,7 +12,7 @@ News:
   * 2006-06-02: Added support for netboot image generation.
     http://lists.alioth.debian.org/pipermail/debian-live-devel/2006-May/000185.html
 
-  * 2006-07-17: Uploaded live-package to Debian unstable.
+  * 2006-07-17: Uploaded first live-package to Debian unstable.
     http://packages.debian.org/changelogs/pool/main/l/live-package/current/changelog#versionversion0.99-1
 
   * 2007-02-05: Setup image autobuild server.
@@ -24,4 +24,4 @@ News:
   * 2007-02-17: Added support for encrypted live filesystem.
     http://lists.alioth.debian.org/pipermail/debian-live-devel/2007-February/000836.html
 
-  * 2007-03-12: Uploaded live-helper to Debian unstable.
+  * 2007-03-12: Uploaded first live-helper to Debian unstable.

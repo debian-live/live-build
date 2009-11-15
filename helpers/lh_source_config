@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# lh_source_config(1) - copies debian-live config into source
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/image
+Set_defaults
+
+if [ "${LIVE_SOURCE}" = "enabled" ]
+then
+	# Requiring stage file
+	Require_stagefile .stage/bootstrap
+
+	# Checking lock file
+	Check_lockfile .lock
+
+	# Creating lock file
+	Create_lockfile .lock
+
+	# Checking stage file
+	Check_stagefile .stage/source_config
+
+	# Remove old sources
+	if [ -d source/debian-live ]
+	then
+		rm -rf source/debian-live
+	fi
+
+	# Copy system configuration
+	mkdir -p source/debian-live
+	cp -a config source/debian-live
+
+	# Create tarball
+	cd source
+	tar cfz debian-live-config_`date +%Y%m%d.%s`.tar.gz debian-live
+	cd "${OLDPWD}"
+
+	rm -rf source/debian-live/config
+	mv source/debian-live-config_*.tar.gz source/debian-live
+
+	# Creating stage file
+	Create_stagefile .stage/source_config
+fi

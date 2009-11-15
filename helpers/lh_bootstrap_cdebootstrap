@@ -19,24 +19,18 @@ Read_conffile config/bootstrap
 Set_defaults
 
 # Checking stage file
-Check_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Check_stagefile .stage/bootstrap
 
 # Checking lock file
-Check_lockfile "${LIVE_ROOT}"/.lock
+Check_lockfile .lock
 
 # Creating lock file
-Create_lockfile "${LIVE_ROOT}"/.lock
-
-# Creating root directory
-if [ ! -d "${LIVE_ROOT}" ]
-then
-	mkdir -p "${LIVE_ROOT}"
-fi
+Create_lockfile .lock
 
 # Creating chroot directory
-if [ ! -d "${LIVE_CHROOT}" ]
+if [ ! -d chroot ]
 then
-	mkdir -p "${LIVE_CHROOT}"
+	mkdir -p chroot
 fi
 
 # Setting cdebootstrap options
@@ -60,44 +54,44 @@ fi
 if [ -x "/usr/bin/cdebootstrap" ]
 then
 	# Restore old cache
-	if [ -d "${LIVE_ROOT}"/cache/bootstrap ]
+	if [ -d cache/bootstrap ]
 	then
-		mkdir -p "${LIVE_CHROOT}"/var/cache/bootstrap
-		cp "${LIVE_ROOT}"/cache/bootstrap/*.deb "${LIVE_CHROOT}"/var/cache/bootstrap
+		mkdir -p chroot/var/cache/bootstrap
+		cp cache/bootstrap/*.deb chroot/var/cache/bootstrap
 	fi
 
 	if [ "${LH_CACHE}" = "enabled" ]
 	then
 		# Executing cdebootstrap (download-only)
-		cdebootstrap ${CDEBOOTSTRAP_OPTIONS} --download-only "${LIVE_DISTRIBUTION}" "${LIVE_CHROOT}" "${LIVE_MIRROR}"
+		cdebootstrap ${CDEBOOTSTRAP_OPTIONS} --download-only "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_LOCAL}"
 
 		# Removing old cache
-		if [ -d "${LIVE_ROOT}"/cache/bootstrap ]
+		if [ -d cache/bootstrap ]
 		then
-			rm -f "${LIVE_ROOT}"/cache/bootstrap/*.deb
+			rm -f cache/bootstrap/*.deb
 		fi
 
 		# Saving new cache
-		if [ ! -d "${LIVE_ROOT}"/cache/bootstrap ]
+		if [ ! -d cache/bootstrap ]
 		then
-			mkdir -p "${LIVE_ROOT}"/cache/bootstrap
+			mkdir -p cache/bootstrap
 		fi
 
-		cp "${LIVE_CHROOT}"/var/cache/bootstrap/*.deb "${LIVE_ROOT}"/cache/bootstrap
+		cp chroot/var/cache/bootstrap/*.deb cache/bootstrap
 	fi
 
 	# Executing cdebootstrap (regular run)
-	cdebootstrap ${CDEBOOTSTRAP_OPTIONS} "${LIVE_DISTRIBUTION}" "${LIVE_CHROOT}" "${LIVE_MIRROR}"
+	cdebootstrap ${CDEBOOTSTRAP_OPTIONS} "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_LOCAL}"
 else
 	echo "E: Can't process file /usr/bin/cdebootstrap (FIXME)"
 	exit 1
 fi
 
 # Removing bootstrap cache
-if [ -d "${LIVE_CHROOT}/var/cache/bootstrap" ]
+if [ -d chroot/var/cache/bootstrap ]
 then
-	rm -rf "${LIVE_CHROOT}"/var/cache/bootstrap
+	rm -rf chroot/var/cache/bootstrap
 fi
 
 # Creating stage file
-Create_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+Create_stagefile .stage/bootstrap

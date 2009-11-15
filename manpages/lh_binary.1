@@ -1,0 +1,56 @@
+.TH LH_BINARY 1 "2007\-03\-19" "1.0~a2" "live\-helper"
+
+.SH NAME
+lh_binary \- meta-helper for lh_binary_*
+
+.SH SYNOPSIS
+.B lh_binary [\fIlive\-helper\ options\fR\|]
+
+.SH DESCRIPTION
+lh_binary is a meta-helper. It calls all necessary helpers to complete the binary stage.
+
+.SH OPTIONS
+lh_bootstrap has no options (FIXME).
+
+.SH BINARY HELPERS
+Here is the complete list of available binary helper commands. See their man pages for additional documentation.
+.IP "\fIlh_binary_encryption\fR(1)" 4
+encrypts the root filesystem.
+.IP "\fIlh_binary_includes\fR(1)" 4
+copies files into the binary image.
+.IP "\fIlh_binary_hdd\fR(1)" 4
+creates the harddisk binary tarball.
+.IP "\fIlh_binary_iso\fR(1)" 4
+creates the CD/DVD binary image.
+.IP "\fIlh_binary_linuximage\fR(1)" 4
+copies linux-image into the binary image.
+.IP "\fIlh_binary_localincludes\fR(1)" 4
+copies local files into the binary image.
+.IP "\fIlh_binary_manifest\fR(1)" 4
+creates the package list of the root filesystem.
+.IP "\fIlh_binary_md5sum\fR(1)" 4
+creates md5sum.txt in the binary image.
+.IP "\fIlh_binary_memtest86\fR(1)" 4
+copies memtest86 into the binary image.
+.IP "\fIlh_binary_net\fR(1)" 4
+creates the netboot binary tarball.
+.IP "\fIlh_binary_rootfs\fR(1)" 4
+creates the root filesystem.
+.IP "\fIlh_binary_syslinux\fR(1)" 4
+copies syslinux into the binary image.
+.IP "\fIlh_binary_usb\fR(1)" 4
+creates the USB binary image.
+
+.SH SEE ALSO
+\fIlive\-helper\fR(7)
+.PP
+This program is a part of live-helper.
+
+.SH BUGS
+Report bugs against live\-helper <\fIhttp://packages.qa.debian.org/live\-helper/\fR>.
+
+.SH HOMEPAGE
+More information about the Debian Live project can be found at <\fIhttp://debian\-live.alioth.debian.org/\fR> and <\fIhttp://wiki.debian.org/DebianLive/\fR>.
+
+.SH AUTHOR
+live\-helper was written by Daniel Baumann <\fIdaniel@debian.org\fR> and Marco Amadori <\fImarco.amadori@gmail.com\fR>, for the Debian project.
