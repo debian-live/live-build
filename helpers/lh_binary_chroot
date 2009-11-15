@@ -57,7 +57,12 @@ then
 	${LH_ROOT_COMMAND} umount chroot/sys
 fi
 
-if [ "${LIVE_CHROOT_BUILD}" = "disabled" ]
+if [ "${LH_CHROOT_BUILD}" = "disabled" ]
+then
+	exit 0
+fi
+
+if [ "${LH_CACHE}" = "enabled" ] && ls cache/stages_rootfs/filesystem* > /dev/null 2>&1
 then
 	exit 0
 fi

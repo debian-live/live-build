@@ -51,15 +51,15 @@ case "${1}" in
 		mkdir -p chroot/etc/apt/apt.conf.d
 
 		# Configuring apt ftp proxy
-		if [ -n "${LH_APT_FTPPROXY}" ]
+		if [ -n "${LH_APT_FTP_PROXY}" ]
 		then
-			echo "Acquire::ftp::Proxy \"${LH_APT_FTPPROXY}\";" > chroot/etc/apt/apt.conf.d/00ftp-proxy
+			echo "Acquire::ftp::Proxy \"${LH_APT_FTP_PROXY}\";" > chroot/etc/apt/apt.conf.d/00ftp-proxy
 		fi
 
 		# Configuring apt http proxy
-		if [ -n "${LH_APT_HTTPPROXY}" ]
+		if [ -n "${LH_APT_HTTP_PROXY}" ]
 		then
-			echo "Acquire::http::Proxy \"${LH_APT_HTTPPROXY}\";" > chroot/etc/apt/apt.conf.d/00http-proxy
+			echo "Acquire::http::Proxy \"${LH_APT_HTTP_PROXY}\";" > chroot/etc/apt/apt.conf.d/00http-proxy
 		fi
 
 		# Configuring apt pdiffs
@@ -80,18 +80,17 @@ case "${1}" in
 		fi
 
 		# Configuring apt recommends
-		if [ "${LH_APT}" = "aptitude" ]
-		then
-			case "${LH_APT_RECOMMENDS}" in
-				enabled)
-					echo "Aptitude::Recommends-Important \"true\";" > chroot/etc/apt/apt.conf.d/00recommends
-					;;
+		case "${LH_APT_RECOMMENDS}" in
+			enabled)
+				echo "APT::Install-Recommends \"true\";" > chroot/etc/apt/apt.conf.d/00recommends
+				echo "Aptitude::Recommends-Important \"true\";" >> chroot/etc/apt/apt.conf.d/00recommends
+				;;
 
-				disabled)
-					echo "Aptitude::Recommends-Important \"false\";" > chroot/etc/apt/apt.conf.d/00recommends
-					;;
-			esac
-		fi
+			disabled)
+				echo "APT::Install-Recommends \"false\";" > chroot/etc/apt/apt.conf.d/00recommends
+				echo "Aptitude::Recommends-Important \"false\";" >> chroot/etc/apt/apt.conf.d/00recommends
+				;;
+		esac
 
 		# Configuring apt secure
 		case "${LH_APT_SECURE}" in

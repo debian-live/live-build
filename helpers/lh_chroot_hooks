@@ -47,7 +47,7 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Processing hooks
-for HOOK in ${LIVE_PACKAGES_LISTS} ${LIVE_TASKS}
+for HOOK in ${LH_PACKAGES_LISTS} ${LH_TASKS}
 do
 	if [ -f ${LH_BASE:-/usr/share/live-helper}/hooks/"${HOOK}" ]
 	then
@@ -71,7 +71,7 @@ do
 	fi
 done
 
-if [ -n "${LIVE_HOOKS}" ] && [ "${LIVE_HOOKS}" != "none" ]
+if [ -n "${LH_HOOKS}" ] && [ "${LH_HOOKS}" != "none" ]
 then
-	LIVE_DEBCONF_FRONTEND="readline" LIVE_DEBCONF_PRIORITY="low" LIVE_DEBCONF_NOWARNINGS="no" Chroot "${LIVE_HOOKS}"
+	LH_DEBCONF_FRONTEND="readline" LH_DEBCONF_PRIORITY="low" LH_DEBCONF_NOWARNINGS="no" Chroot "${LH_HOOKS}"
 fi

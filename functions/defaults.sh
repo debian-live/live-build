@@ -39,15 +39,15 @@ Set_defaults ()
 	fi
 
 	# Setting distribution name
-	if [ -z "${LIVE_DISTRIBUTION}" ]
+	if [ -z "${LH_DISTRIBUTION}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
-				LIVE_DISTRIBUTION="etch"
+			debian|debian-edu)
+				LH_DISTRIBUTION="etch"
 				;;
 
 			ubuntu)
-				LIVE_DISTRIBUTION="feisty"
+				LH_DISTRIBUTION="gutsy"
 				;;
 		esac
 	fi
@@ -56,24 +56,24 @@ Set_defaults ()
 	LH_APT="${LH_APT:-aptitude}"
 
 	# Setting apt ftp proxy
-	if [ -z "${LH_APT_FTPPROXY}" ] && [ -n "${ftp_proxy}" ]
+	if [ -z "${LH_APT_FTP_PROXY}" ] && [ -n "${ftp_proxy}" ]
 	then
-		LH_APT_FTPPROXY="${ftp_proxy}"
+		LH_APT_FTP_PROXY="${ftp_proxy}"
 	else
-		if [ -n "${LH_APT_FTPPROXY}" ] && [ "${LH_APT_FTPRPOXY}" != "${ftp_proxy}" ]
+		if [ -n "${LH_APT_FTP_PROXY}" ] && [ "${LH_APT_FTP_PROXY}" != "${ftp_proxy}" ]
 		then
-			ftp_proxy="${LH_APT_FTPRPOXY}"
+			ftp_proxy="${LH_APT_FTP_PROXY}"
 		fi
 	fi
 
 	# Setting apt http proxy
-	if [ -z "${LH_APT_HTTPPROXY}" ] && [ -n "${http_proxy}" ]
+	if [ -z "${LH_APT_HTTP_PROXY}" ] && [ -n "${http_proxy}" ]
 	then
-		LH_APT_HTTPPROXY="${http_proxy}"
+		LH_APT_HTTP_PROXY="${http_proxy}"
 	else
-		if [ -n "${LH_APT_HTTPPROXY}" ] && [ "${LH_APT_HTTPRPOXY}" != "${http_proxy}" ]
+		if [ -n "${LH_APT_HTTP_PROXY}" ] && [ "${LH_APT_HTT_PROXY}" != "${http_proxy}" ]
 		then
-			http_proxy="${LH_APT_HTTPPROXY}"
+			http_proxy="${LH_APT_HTTP_PROXY}"
 		fi
 	fi
 
@@ -84,7 +84,15 @@ Set_defaults ()
 	# LH_APT_PIPELINE
 
 	# Setting apt recommends
-	LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS:-enabled}"
+	case "${LH_MODE}" in
+		debian-edu)
+			LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS:-disabled}"
+			;;
+
+		*)
+			LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS:-enabled}"
+			;;
+	esac
 
 	# Setting apt secure
 	LH_APT_SECURE="${LH_APT_SECURE:-enabled}"
@@ -93,7 +101,7 @@ Set_defaults ()
 	if [ -z "${LH_BOOTSTRAP}" ] || [ ! -x "`which ${LH_BOOTSTRAP}`" ]
 	then
 		case "${LH_MODE}" in
-			debian)
+			debian|debian-edu)
 				if [ -x "/usr/bin/cdebootstrap" ]
 				then
 					LH_BOOTSTRAP="cdebootstrap"
@@ -110,7 +118,7 @@ Set_defaults ()
 				if [ -x "/usr/bin/cdebootstrap" ] && [ -d /usr/share/cdebootstrap/generic-ubuntu ]
 				then
 					LH_BOOTSTRAP="cdebootstrap"
-				elif [ -x "/usr/sbin/debootstrap" ] && [ -f /usr/lib/debootstrap/scripts/feisty ]
+				elif [ -x "/usr/sbin/debootstrap" ] && [ -f /usr/lib/debootstrap/scripts/gutsy ]
 				then
 					LH_BOOTSTRAP="debootstrap"
 				else
@@ -122,6 +130,7 @@ Set_defaults ()
 	fi
 
 	# Setting cache option
+	LH_CACHE="${LH_CACHE:-enabled}"
 	LH_CACHE_INDICES="${LH_CACHE_INDICES:-disabled}"
 	LH_CACHE_PACKAGES="${LH_CACHE_PACKAGES:-enabled}"
 	LH_CACHE_STAGES="${LH_CACHE_STAGES:-bootstrap}"
@@ -145,7 +154,7 @@ Set_defaults ()
 	if [ -z "${LH_GENISOIMAGE}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
+			debian|debian-edu)
 				LH_GENISOIMAGE="genisoimage"
 				;;
 
@@ -158,11 +167,28 @@ Set_defaults ()
 	# Setting initramfs hook
 	if [ -z "${LH_INITRAMFS}" ]
 	then
-		if [ "${LIVE_DISTRIBUTION}" = "etch" ]
+		LH_INITRAMFS="auto"
+	else
+		if [ "${LH_INITRAMFS}" = "auto" ]
 		then
-			LH_INITRAMFS="casper"
-		else
-			LH_INITRAMFS="live-initramfs"
+			case "${LH_MODE}" in
+				debian)
+					if [ "${LH_DISTRIBUTION}" = "etch" ]
+					then
+						LH_INITRAMFS="casper"
+					else
+						LH_INITRAMFS="live-initramfs"
+					fi
+					;;
+
+				debian-edu)
+					LH_INITRAMFS="live-initramfs"
+					;;
+
+				ubuntu)
+					LH_INITRAMFS="live-initramfs"
+					;;
+			esac
 		fi
 	fi
 
@@ -184,13 +210,13 @@ Set_defaults ()
 	if [ "`id -u`" = "0" ]
 	then
 		# If we are root, disable root command
-		LIVE_ROOT_COMMAND=""
+		LH_ROOT_COMMAND=""
 	else
 		if [ -x /usr/bin/sudo ]
 		then
 			# FIXME: this is disabled until considered safe
-			#LIVE_ROOT_COMMAND="sudo"
-			LIVE_ROOT_COMMAND=""
+			#LH_ROOT_COMMAND="sudo"
+			LH_ROOT_COMMAND=""
 		fi
 	fi
 
@@ -198,29 +224,33 @@ Set_defaults ()
 	LH_TASKSEL="${LH_TASKSEL:-aptitude}"
 
 	# Setting root directory
-	if [ -z "${LIVE_ROOT}" ]
+	if [ -z "${LH_ROOT}" ]
 	then
 		case "${LH_MODE}" in
 			debian)
-				LIVE_ROOT="debian-live"
+				LH_ROOT="debian-live"
+				;;
+
+			debian-edu)
+				LH_ROOT="edu-live"
 				;;
 
 			ubuntu)
-				LIVE_ROOT="ubuntu-live"
+				LH_ROOT="ubuntu-live"
 				;;
 		esac
 	fi
 
 	# Setting includes
-	if [ -z "${LIVE_INCLUDES}" ]
+	if [ -z "${LH_INCLUDES}" ]
 	then
-		LIVE_INCLUDES="${LH_BASE:-/usr/share/live-helper}/includes"
+		LH_INCLUDES="${LH_BASE:-/usr/share/live-helper}/includes"
 	fi
 
 	# Setting templates
-	if [ -z "${LIVE_TEMPLATES}" ]
+	if [ -z "${LH_TEMPLATES}" ]
 	then
-		LIVE_TEMPLATES="${LH_BASE:-/usr/share/live-helper}/templates"
+		LH_TEMPLATES="${LH_BASE:-/usr/share/live-helper}/templates"
 	fi
 
 	# Setting live helper options
@@ -233,50 +263,54 @@ Set_defaults ()
 	## config/bootstrap
 
 	# Setting architecture value
-	if [ -z "${LIVE_ARCHITECTURE}" ]
+	if [ -z "${LH_ARCHITECTURE}" ]
 	then
 		if [ -x "/usr/bin/dpkg" ]
 		then
-			LIVE_ARCHITECTURE="`dpkg --print-architecture`"
+			LH_ARCHITECTURE="`dpkg --print-architecture`"
 		else
 			echo "W: Can't process file /usr/bin/dpkg, setting architecture to i386"
-			LIVE_ARCHITECTURE="i386"
+			LH_ARCHITECTURE="i386"
 		fi
 	fi
 
 	# Setting distribution configuration value
-	# LIVE_BOOTSTRAP_CONFIG
+	# LH_BOOTSTRAP_CONFIG
 
 	# Setting flavour value
-	LIVE_BOOTSTRAP_FLAVOUR="${LIVE_BOOTSTRAP_FLAVOUR:-standard}"
+	LH_BOOTSTRAP_FLAVOUR="${LH_BOOTSTRAP_FLAVOUR:-standard}"
 
 	# Setting boostrap keyring
-	# LIVE_BOOTSTRAP_KEYRING
+	# LH_BOOTSTRAP_KEYRING
 
 	# Setting mirror to fetch packages from
-	if [ -z "${LIVE_MIRROR_BOOTSTRAP}" ]
+	if [ -z "${LH_MIRROR_BOOTSTRAP}" ]
 	then
 		case "${LH_MODE}" in
 			debian)
-				case "${LIVE_ARCHITECTURE}" in
+				case "${LH_ARCHITECTURE}" in
 					amd64|i386)
-						LIVE_MIRROR_BOOTSTRAP="http://ftp.debian.org/debian/"
+						LH_MIRROR_BOOTSTRAP="http://ftp.debian.org/debian/"
 						;;
 
 					*)
-						LIVE_MIRROR_BOOTSTRAP="http://ftp.de.debian.org/debian/"
+						LH_MIRROR_BOOTSTRAP="http://ftp.de.debian.org/debian/"
 						;;
 				esac
 				;;
 
+			debian-edu)
+				LH_MIRROR_BOOTSTRAP="http://ftp.skolelinux.no/debian/"
+				;;
+
 			ubuntu)
-				case "${LIVE_ARCHITECTURE}" in
+				case "${LH_ARCHITECTURE}" in
 					amd64|i386|powerpc|sparc)
-						LIVE_MIRROR_BOOTSTRAP="http://archive.ubuntu.com/ubuntu/"
+						LH_MIRROR_BOOTSTRAP="http://archive.ubuntu.com/ubuntu/"
 						;;
 
 					hppa|ia64)
-						LIVE_MIRROR_BOOTSTRAP="http://ports.ubuntu.com/"
+						LH_MIRROR_BOOTSTRAP="http://ports.ubuntu.com/"
 						;;
 
 					*)
@@ -289,25 +323,25 @@ Set_defaults ()
 	fi
 
 	# Setting security mirror to fetch packages from
-	if [ -z "${LIVE_MIRROR_BOOTSTRAP_SECURITY}" ]
+	if [ -z "${LH_MIRROR_BOOTSTRAP_SECURITY}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
-				LIVE_MIRROR_BOOTSTRAP_SECURITY="http://security.debian.org/"
+			debian|debian-edu)
+				LH_MIRROR_BOOTSTRAP_SECURITY="http://security.debian.org/"
 				;;
 
 			ubuntu)
-				case "${LIVE_ARCHITECTURE}" in
+				case "${LH_ARCHITECTURE}" in
 					amd64|i386|powerpc|sparc)
-						LIVE_MIRROR_BOOTSTRAP_SECURITY="http://archive.ubuntu.com/ubuntu/"
+						LH_MIRROR_BOOTSTRAP_SECURITY="http://archive.ubuntu.com/ubuntu/"
 						;;
 
 					hppa|ia64)
-						LIVE_MIRROR_BOOTSTRAP_SECURITY="http://ports.ubuntu.com/"
+						LH_MIRROR_BOOTSTRAP_SECURITY="http://ports.ubuntu.com/"
 						;;
 
 					*)
-						LIVE_MIRROR_BOOTSTRAP_SECURITY="none"
+						LH_MIRROR_BOOTSTRAP_SECURITY="none"
 						;;
 				esac
 				;;
@@ -315,29 +349,33 @@ Set_defaults ()
 	fi
 
 	# Setting mirror which ends up in the image
-	if [ -z "${LIVE_MIRROR_BINARY}" ]
+	if [ -z "${LH_MIRROR_BINARY}" ]
 	then
 		case "${LH_MODE}" in
 			debian)
-				case "${LIVE_ARCHITECTURE}" in
+				case "${LH_ARCHITECTURE}" in
 					amd64|i386)
-						LIVE_MIRROR_BINARY="http://ftp.debian.org/debian/"
+						LH_MIRROR_BINARY="http://ftp.debian.org/debian/"
 						;;
 
 					*)
-						LIVE_MIRROR_BINARY="http://ftp.de.debian.org/debian/"
+						LH_MIRROR_BINARY="http://ftp.de.debian.org/debian/"
 						;;
 				esac
 				;;
 
+			debian-edu)
+				LH_MIRROR_BINARY="http://ftp.skolelinux.no/debian/"
+				;;
+
 			ubuntu)
-				case "${LIVE_ARCHITECTURE}" in
+				case "${LH_ARCHITECTURE}" in
 					amd64|i386|powerpc|sparc)
-						LIVE_MIRROR_BINARY="http://archive.ubuntu.com/ubuntu/"
+						LH_MIRROR_BINARY="http://archive.ubuntu.com/ubuntu/"
 						;;
 
 					hppa|ia64)
-						LIVE_MIRROR_BINARY="http://ports.ubuntu.com/"
+						LH_MIRROR_BINARY="http://ports.ubuntu.com/"
 						;;
 
 					*)
@@ -350,21 +388,21 @@ Set_defaults ()
 	fi
 
 	# Setting security mirror which ends up in the image
-	if [ -z "${LIVE_MIRROR_BINARY_SECURITY}" ]
+	if [ -z "${LH_MIRROR_BINARY_SECURITY}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
-				LIVE_MIRROR_BINARY_SECURITY="http://security.debian.org/"
+			debian|debian-edu)
+				LH_MIRROR_BINARY_SECURITY="http://security.debian.org/"
 				;;
 
 			ubuntu)
-				case "${LIVE_ARCHITECTURE}" in
+				case "${LH_ARCHITECTURE}" in
 					amd64|i386|powerpc|sparc)
-						LIVE_MIRROR_BINARY_SECURITY="http://security.ubuntu.com/ubuntu/"
+						LH_MIRROR_BINARY_SECURITY="http://security.ubuntu.com/ubuntu/"
 						;;
 
 					*)
-						LIVE_MIRROR_BINARY_SECURITY="none"
+						LH_MIRROR_BINARY_SECURITY="none"
 						;;
 				esac
 				;;
@@ -372,15 +410,15 @@ Set_defaults ()
 	fi
 
 	# Setting sections value
-	if [ -z "${LIVE_SECTIONS}" ]
+	if [ -z "${LH_SECTIONS}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
-				LIVE_SECTIONS="main"
+			debian|debian-edu)
+				LH_SECTIONS="main"
 				;;
 
 			ubuntu)
-				LIVE_SECTIONS="main restricted"
+				LH_SECTIONS="main restricted"
 				;;
 		esac
 	fi
@@ -388,38 +426,42 @@ Set_defaults ()
 	## config/chroot
 
 	# Setting chroot filesystem
-	LIVE_CHROOT_FILESYSTEM="${LIVE_CHROOT_FILESYSTEM:-squashfs}"
+	LH_CHROOT_FILESYSTEM="${LH_CHROOT_FILESYSTEM:-squashfs}"
 
 	# Setting union filesystem
-	LIVE_UNION_FILESYSTEM="${LIVE_UNION_FILESYSTEM:-unionfs}"
+	LH_UNION_FILESYSTEM="${LH_UNION_FILESYSTEM:-unionfs}"
 
-	# LIVE_HOOKS
+	# LH_HOOKS
 
 	# Setting interactive shell/X11/Xnest
-	LIVE_INTERACTIVE="${LIVE_INTERACTIVE:-disabled}"
+	LH_INTERACTIVE="${LH_INTERACTIVE:-disabled}"
 
 	# Setting keyring packages
-	# LIVE_KEYRING_PACKAGES
+	case "${LH_MODE}" in
+		debian-edu)
+			LH_KEYRING_PACKAGES="debian-edu-archive-keyring"
+			;;
+	esac
 
 	# Setting language string
-	# LIVE_LANGUAGE
+	# LH_LANGUAGE
 
 	# Setting linux flavour string
-	if [ -z "${LIVE_LINUX_FLAVOURS}" ]
+	if [ -z "${LH_LINUX_FLAVOURS}" ]
 	then
-		case "${LIVE_ARCHITECTURE}" in
+		case "${LH_ARCHITECTURE}" in
 			alpha)
-				LIVE_LINUX_FLAVOURS="alpha-generic"
+				LH_LINUX_FLAVOURS="alpha-generic"
 				;;
 
 			amd64)
 				case "${LH_MODE}" in
-					debian)
-						LIVE_LINUX_FLAVOURS="amd64"
+					debian|debian-edu)
+						LH_LINUX_FLAVOURS="amd64"
 						;;
 
 					ubuntu)
-						LIVE_LINUX_FLAVOURS="amd64-generic"
+						LH_LINUX_FLAVOURS="amd64-generic"
 						;;
 				esac
 				;;
@@ -430,47 +472,51 @@ Set_defaults ()
 				;;
 
 			hppa)
-				LIVE_LINUX_FLAVOURS="parisc"
+				LH_LINUX_FLAVOURS="parisc"
 				;;
 
 			i386)
 				case "${LH_MODE}" in
-					debian)
-						LIVE_LINUX_FLAVOURS="486"
+					debian|debian-edu)
+						LH_LINUX_FLAVOURS="486"
 						;;
 
 					ubuntu)
-						LIVE_LINUX_FLAVOURS="386"
+						LH_LINUX_FLAVOURS="386"
 						;;
 				esac
 				;;
 
 			ia64)
-				LIVE_LINUX_FLAVOURS="itanium"
+				LH_LINUX_FLAVOURS="itanium"
 				;;
 
 			m68k)
-				LIVE_LINUX_FLAVOURS="You need to specify the linux kernel flavour manually on m68k."
+				LH_LINUX_FLAVOURS="You need to specify the linux kernel flavour manually on m68k."
 				exit 1
 				;;
 
 			powerpc)
-				LIVE_LINUX_FLAVOURS="powerpc"
+				LH_LINUX_FLAVOURS="powerpc"
 				;;
 
 			s390)
-				LIVE_LINUX_FLAVOURS="s390"
+				LH_LINUX_FLAVOURS="s390"
 				;;
 
 			sparc)
 				case "${LH_MODE}" in
-					debian)
-						LIVE_LINUX_FLAVOURS="sparc32"
-						# FIXME: needs update after etch
+					debian|debian-edu)
+						if [ "${LH_DISTRIBUTION}" = "etch" ]
+						then
+							LH_LINUX_FLAVOURS="sparc32"
+						else
+							LH_LINUX_FLAVOURS="sparc64"
+						fi
 						;;
 
 					ubuntu)
-						LIVE_LINUX_FLAVOURS="sparc64"
+						LH_LINUX_FLAVOURS="sparc64"
 						;;
 				esac
 				;;
@@ -482,37 +528,37 @@ Set_defaults ()
 	fi
 
 	# Set linux packages
-	if [ -z "${LIVE_LINUX_PACKAGES}" ]
+	if [ -z "${LH_LINUX_PACKAGES}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
-				LIVE_LINUX_PACKAGES="linux-image-2.6 ${LIVE_UNION_FILESYSTEM}-modules-2.6"
+			debian|debian-edu)
+				LH_LINUX_PACKAGES="linux-image-2.6 ${LH_UNION_FILESYSTEM}-modules-2.6"
 
-				if [ "${LIVE_CHROOT_FILESYSTEM}" = "squashfs" ]
+				if [ "${LH_CHROOT_FILESYSTEM}" = "squashfs" ]
 				then
-					LIVE_LINUX_PACKAGES="${LIVE_LINUX_PACKAGES} squashfs-modules-2.6"
+					LH_LINUX_PACKAGES="${LH_LINUX_PACKAGES} squashfs-modules-2.6"
 				fi
 				;;
 
 			ubuntu)
-				LIVE_LINUX_PACKAGES="linux-image"
+				LH_LINUX_PACKAGES="linux-image"
 				;;
 		esac
 
-		if [ -n "${LIVE_ENCRYPTION}" ]
+		if [ -n "${LH_ENCRYPTION}" ]
 		then
-			LIVE_LINUX_PACKAGES="${LIVE_LINUX_PACKAGES} loop-aes-modules-2.6"
+			LH_LINUX_PACKAGES="${LH_LINUX_PACKAGES} loop-aes-modules-2.6"
 		fi
 	fi
 
 	# Setting packages string
-	# LIVE_PACKAGES
+	# LH_PACKAGES
 
 	# Setting packages list string
-	LIVE_PACKAGES_LISTS="${LIVE_PACKAGES_LISTS:-standard}"
+	LH_PACKAGES_LISTS="${LH_PACKAGES_LISTS:-standard}"
 
 	# Setting tasks string
-	for LIST in ${LIVE_PACKAGES_LISTS}
+	for LIST in ${LH_PACKAGES_LISTS}
 	do
 		case "${LIST}" in
 			mini|minimal)
@@ -520,161 +566,175 @@ Set_defaults ()
 				;;
 
 			gnome-desktop)
-				LIVE_PACKAGES_LISTS="`echo ${LIVE_PACKAGES_LISTS} | sed -e 's/gnome-desktop//'` standard-x11"
-				LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/gnome-desktop//' -e 's/desktop//'` standard laptop gnome-desktop desktop"
+				LH_PACKAGES_LISTS="`echo ${LH_PACKAGES_LISTS} | sed -e 's/gnome-desktop//'` standard-x11"
+				LH_TASKS="`echo ${LH_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/gnome-desktop//' -e 's/desktop//'` standard laptop gnome-desktop desktop"
 				;;
 
 			kde-desktop)
-				LIVE_PACKAGES_LISTS="`echo ${LIVE_PACKAGES_LISTS} | sed -e 's/kde-desktop//'` standard-x11"
-				LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/kde-desktop//' -e 's/desktop//'` standard laptop kde-desktop desktop"
+				LH_PACKAGES_LISTS="`echo ${LH_PACKAGES_LISTS} | sed -e 's/kde-desktop//'` standard-x11"
+				LH_TASKS="`echo ${LH_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/kde-desktop//' -e 's/desktop//'` standard laptop kde-desktop desktop"
 				;;
 
 			xfce-desktop)
-				LIVE_PACKAGES_LISTS="`echo ${LIVE_PACKAGES_LISTS} | sed -e 's/xfce-desktop//'` standard-x11"
-				LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/xfce-desktop//' -e 's/desktop//'` standard laptop xfce-desktop desktop"
+				LH_PACKAGES_LISTS="`echo ${LH_PACKAGES_LISTS} | sed -e 's/xfce-desktop//'` standard-x11"
+				LH_TASKS="`echo ${LH_TASKS} | sed -e 's/standard//' -e 's/laptop//' -e 's/xfce-desktop//' -e 's/desktop//'` standard laptop xfce-desktop desktop"
 				;;
 		esac
 	done
 
-	LIVE_PACKAGES_LISTS="`echo ${LIVE_PACKAGES_LISTS} | sed -e 's/  //g'`"
-	LIVE_TASKS="`echo ${LIVE_TASKS} | sed -e 's/  //g'`"
+	LH_PACKAGES_LISTS="`echo ${LH_PACKAGES_LISTS} | sed -e 's/  //g'`"
+	LH_TASKS="`echo ${LH_TASKS} | sed -e 's/  //g'`"
 
 	# Setting tasks
-	# LIVE_TASKS
+	# LH_TASKS
 
 	# Setting security updates option
-	if [ "${LIVE_MIRROR_BOOTSTRAP_SECURITY}" = "none" ] || [ "${LIVE_MIRROR_BINARY_SECURITY}" = "none" ]
+	if [ "${LH_MIRROR_BOOTSTRAP_SECURITY}" = "none" ] || [ "${LH_MIRROR_BINARY_SECURITY}" = "none" ]
 	then
-		LIVE_SECURITY="disabled"
+		LH_SECURITY="disabled"
 	fi
 
-	LIVE_SECURITY="${LIVE_SECURITY:-enabled}"
+	LH_SECURITY="${LH_SECURITY:-enabled}"
 
 	# Setting symlink convertion option
-	LIVE_SYMLINKS="${LIVE_SYMLINKS:-disabled}"
+	LH_SYMLINKS="${LH_SYMLINKS:-disabled}"
 
 	# Setting sysvinit option
-	LIVE_SYSVINIT="${LIVE_SYSVINIT:-disabled}"
+	LH_SYSVINIT="${LH_SYSVINIT:-disabled}"
 
 	## config/binary
 
 	# Setting image type
-	LIVE_BINARY_IMAGES="${LIVE_BINARY_IMAGES:-iso}"
+	LH_BINARY_IMAGES="${LH_BINARY_IMAGES:-iso}"
 
 	# Setting apt indices
-	LIVE_BINARY_INDICES="${LIVE_BINARY_INDICES:-enabled}"
+	LH_BINARY_INDICES="${LH_BINARY_INDICES:-enabled}"
 
 	# Setting boot parameters
-	# LIVE_BOOTAPPEND
+	# LH_BOOTAPPEND
 
 	# Setting bootloader
-	if [ -z "${LIVE_BOOTLOADER}" ]
+	if [ -z "${LH_BOOTLOADER}" ]
 	then
-		case "${LIVE_ARCHITECTURE}" in
+		case "${LH_ARCHITECTURE}" in
 			amd64|i386)
-				LIVE_BOOTLOADER="syslinux"
+				LH_BOOTLOADER="syslinux"
 				;;
 
 			powerpc)
-				LIVE_BOOTLOADER="yaboot"
+				LH_BOOTLOADER="yaboot"
 				;;
 		esac
 	fi
 
 	# Setting chroot option
-	LIVE_CHROOT_BUILD="${LIVE_CHROOT_BUILD:-enabled}"
+	LH_CHROOT_BUILD="${LH_CHROOT_BUILD:-enabled}"
 
 	# Setting debian-installer option
-	LIVE_DEBIAN_INSTALLER="${LIVE_DEBIAN_INSTALLER:-disabled}"
+	LH_DEBIAN_INSTALLER="${LH_DEBIAN_INSTALLER:-disabled}"
 
 	# Setting encryption
-	# LIVE_ENCRYPTION
+	# LH_ENCRYPTION
 
 	# Setting grub splash
-	# LIVE_GRUB_SPLASH
+	# LH_GRUB_SPLASH
 
 	# Setting hostname
-	if [ -z "${LIVE_HOSTNAME}" ]
+	if [ -z "${LH_HOSTNAME}" ]
 	then
 		case "${LH_MODE}" in
-			debian)
-				LIVE_HOSTNAME="debian"
+			debian|debian-edu)
+				LH_HOSTNAME="debian"
 				;;
 
 			ubuntu)
-				LIVE_HOSTNAME="ubuntu"
+				LH_HOSTNAME="ubuntu"
 				;;
 		esac
 	fi
 
 	# Setting iso author
-	if [ -z "${LIVE_ISO_APPLICATION}" ]
+	if [ -z "${LH_ISO_APPLICATION}" ]
 	then
 		case "${LH_MODE}" in
 			debian)
-				LIVE_ISO_APPLICATION="Debian Live"
+				LH_ISO_APPLICATION="Debian Live"
+				;;
+
+			debian-edu)
+				LH_ISO_APPLICATION="Debian Edu Live"
 				;;
 
 			ubuntu)
-				LIVE_ISO_APPLICATION="Ubuntu Live"
+				LH_ISO_APPLICATION="Ubuntu Live"
 				;;
 		esac
 	fi
 
 	# Set iso preparer
-	LIVE_ISO_PREPARER="${LIVE_ISO_PREPARER:-live-helper ${VERSION}; http://packages.qa.debian.org/live-helper}"
+	LH_ISO_PREPARER="${LH_ISO_PREPARER:-live-helper ${VERSION}; http://packages.qa.debian.org/live-helper}"
 
 	# Set iso publisher
-	LIVE_ISO_PUBLISHER="${LIVE_ISO_PUBLISHER:-Debian Live project; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org}"
+	LH_ISO_PUBLISHER="${LH_ISO_PUBLISHER:-Debian Live project; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org}"
 
 	# Setting iso volume
-	if [ -z "${LIVE_ISO_VOLUME}" ]
+	if [ -z "${LH_ISO_VOLUME}" ]
 	then
 		case "${LH_MODE}" in
 			debian)
-				LIVE_ISO_VOLUME="Debian Live \`date +%Y%m%d-%H:%M\`"
+				LH_ISO_VOLUME="Debian Live \`date +%Y%m%d-%H:%M\`"
+				;;
+
+			debian-edu)
+				LH_ISO_VOLUME="Debian Edu Live \`date +%Y%m%d-%H:%M\`"
 				;;
 
 			ubuntu)
-				LIVE_ISO_VOLUME="Ubuntu Live \`date +%Y%m%d-%H:%M\`"
+				LH_ISO_VOLUME="Ubuntu Live \`date +%Y%m%d-%H:%M\`"
 				;;
 		esac
 	fi
 
 	# Setting memtest option
-	LIVE_MEMTEST="${LIVE_MEMTEST:-memtest86+}"
+	LH_MEMTEST="${LH_MEMTEST:-memtest86+}"
 
 	# Setting netboot filesystem
-	LIVE_NET_FILESYSTEM="${LIVE_NET_FILESYSTEM:-nfs}"
+	LH_NET_FILESYSTEM="${LH_NET_FILESYSTEM:-nfs}"
 
 	# Setting netboot server path
-	if [ -z "${LIVE_NET_PATH}" ]
+	if [ -z "${LH_NET_PATH}" ]
 	then
 		case "${LH_MODE}" in
 			debian)
-				LIVE_NET_PATH="/srv/debian-live"
+				LH_NET_PATH="/srv/debian-live"
+				;;
+
+			debian-edu)
+				LH_NET_PATH="/srv/debian-edu-live"
 				;;
 
 			ubuntu)
-				LIVE_NET_PATH="/srv/ubuntu-live"
+				LH_NET_PATH="/srv/ubuntu-live"
 				;;
 		esac
 	fi
 
 	# Setting netboot server address
-	LIVE_NET_SERVER="${LIVE_NET_SERVER:-192.168.1.1}"
+	LH_NET_SERVER="${LH_NET_SERVER:-192.168.1.1}"
 
 	# Setting syslinux splash
-	# LIVE_SYSLINUX_SPLASH
+	# LH_SYSLINUX_SPLASH
+
+	LH_SYSLINUX_TIMEOUT="${LH_SYSLINUX_TIMEOUT:-0}"
 
 	# Setting username
-	LIVE_USERNAME="${LIVE_USERNAME:-user}"
+	LH_USERNAME="${LH_USERNAME:-user}"
 
 	## config/source
 
 	# Setting source option
-	LIVE_SOURCE="${LIVE_SOURCE:-disabled}"
+	LH_SOURCE="${LH_SOURCE:-disabled}"
 
 	# Setting image type
-	LIVE_SOURCE_IMAGES="${LIVE_SOURCE_IMAGES:-tar}"
+	LH_SOURCE_IMAGES="${LH_SOURCE_IMAGES:-tar}"
 }

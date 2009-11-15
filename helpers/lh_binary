@@ -35,7 +35,7 @@ Set_defaults
 # Preparing root filesystem
 lh_binary_chroot ${*}
 
-if [ "${LIVE_CHROOT_BUILD}" = "enabled" ]
+if [ "${LH_CHROOT_BUILD}" = "enabled" ]
 then
 	# Configuring chroot
 	lh_chroot_proc install ${*}
@@ -70,7 +70,7 @@ lh_binary_net ${*}
 lh_binary_tar ${*}
 lh_binary_usb-hdd ${*}
 
-if [ "${LIVE_CHROOT_BUILD}" = "enabled" ]
+if [ "${LH_CHROOT_BUILD}" = "enabled" ]
 then
 	# Deconfiguring chroot
 	rm -f .stage/chroot_sources

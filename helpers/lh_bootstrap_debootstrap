@@ -58,14 +58,14 @@ Create_lockfile .lock
 mkdir -p chroot
 
 # Setting debootstrap options
-if [ -n "${LIVE_ARCHITECTURE}" ]
+if [ -n "${LH_ARCHITECTURE}" ]
 then
-	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --arch ${LIVE_ARCHITECTURE}"
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --arch ${LH_ARCHITECTURE}"
 fi
 
-if [ -n "${LIVE_BOOTSTRAP_CONFIG}" ]
+if [ -n "${LH_BOOTSTRAP_CONFIG}" ]
 then
-	LIVE_DEBOOTSTRAP_SCRIPT="/usr/lib/debootstrap/scripts/${LIVE_BOOTSTRAP_CONFIG}"
+	LH_DEBOOTSTRAP_SCRIPT="/usr/lib/debootstrap/scripts/${LH_BOOTSTRAP_CONFIG}"
 fi
 
 if [ "${LH_VERBOSE}" = "true" ]
@@ -84,7 +84,7 @@ then
 		fi
 
 		# Executing debootstrap (download-only)
-		${LH_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_BOOTSTRAP}" "${LIVE_DEBOOTSTRAP_SCRIPT}"
+		${LH_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LH_DISTRIBUTION}" chroot "${LH_MIRROR_BOOTSTRAP}" "${LH_DEBOOTSTRAP_SCRIPT}"
 
 		if [ -n "${LH_ROOT_COMMAND}" ]
 		then
@@ -104,7 +104,7 @@ then
 	fi
 
 	# Executing debootstrap (regular run)
-	${LH_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} "${LIVE_DISTRIBUTION}" chroot "${LIVE_MIRROR_BOOTSTRAP}" "${LIVE_DEBOOTSTRAP_SCRIPT}"
+	${LH_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} "${LH_DISTRIBUTION}" chroot "${LH_MIRROR_BOOTSTRAP}" "${LH_DEBOOTSTRAP_SCRIPT}"
 
 	if [ -n "${LH_ROOT_COMMAND}" ]
 	then

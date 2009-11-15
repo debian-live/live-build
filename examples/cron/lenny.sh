@@ -19,11 +19,11 @@ MIRROR_BOOTSTRAP="http://ftp.de.debian.org/debian/"
 MIRROR_BOOTSTRAP_SECURITY="http://ftp.de.debian.org/debian-security/"
 MIRROR_BINARY="http://ftp.debian.org/debian/"
 MIRROR_BINARY_SECURITY="http://security.debian.org/"
-PACKAGES_LISTS="standard gnome-desktop kde-desktop xfce-desktop"
+PACKAGES_LISTS="standard rescue gnome-desktop kde-desktop xfce-desktop"
 # End custom defaults
 
 # Checking for live-helper availability
-if [ ! -x /usr/bin/make-live ]
+if [ ! -x /usr/bin/lh_config ]
 then
 	exit 0
 fi
@@ -66,11 +66,12 @@ do
 				# Creating build directory
 				mkdir -p "${TEMPDIR}"/debian-live
 
-				cd "${TEMPDIR}"
+				cd "${TEMPDIR}"/debian-live
 				echo "Begin: `date -R`" > "${TEMPDIR}"/debian-live/log.txt
 
 				# Generating images
-				make-live -b iso -s tar --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-bootstrap ${MIRROR_BOOTSTRAP} --mirror-bootstrap-security ${MIRROR_BOOTSTRAP_SECURITY} --mirror-binary ${MIRROR_BINARY} --mirror-binary-security ${MIRROR_BINARY_SECURITY} --source enabled ${OPTIONS} >> "${TEMPDIR}"/debian-live/log.txt 2>&1
+				lh_config --binary-images iso --source-images tar --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-bootstrap ${MIRROR_BOOTSTRAP} --mirror-bootstrap-security ${MIRROR_BOOTSTRAP_SECURITY} --mirror-binary ${MIRROR_BINARY} --mirror-binary-security ${MIRROR_BINARY_SECURITY} --source enabled ${OPTIONS}
+				lh_build >> "${TEMPDIR}"/debian-live/log.txt 2>&1
 
 				echo "End: `date -R`" >> "${TEMPDIR}"/debian-live/log.txt
 			fi
@@ -106,11 +107,12 @@ do
 				# Creating build directory
 				mkdir -p "${TEMPDIR}"/debian-live
 
-				cd "${TEMPDIR}"
+				cd "${TEMPDIR}"/debian-live
 				echo "Begin: `date -R`" > "${TEMPDIR}"/debian-live/log.txt
 
 				# Generating images
-				make-live -b usb-hdd -s tar --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-bootstrap ${MIRROR_BOOTSTRAP} --mirror-bootstrap-security ${MIRROR_BOOTSTRAP_SECURITY} --mirror-binary ${MIRROR_BINARY} --mirror-binary-security ${MIRROR_BINARY_SECURITY} --source disabled ${OPTIONS} >> "${TEMPDIR}"/debian-live/log.txt 2>&1
+				lh_config --binary-images usb-hdd --source-images tar --distribution ${DISTRIBUTION} --packages-lists ${PACKAGES_LIST} --mirror-bootstrap ${MIRROR_BOOTSTRAP} --mirror-bootstrap-security ${MIRROR_BOOTSTRAP_SECURITY} --mirror-binary ${MIRROR_BINARY} --mirror-binary-security ${MIRROR_BINARY_SECURITY} --source disabled ${OPTIONS}
+				lh_build >> "${TEMPDIR}"/debian-live/log.txt 2>&1
 
 				echo "End: `date -R`" >> "${TEMPDIR}"/debian-live/log.txt
 			fi

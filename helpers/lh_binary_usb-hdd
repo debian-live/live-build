@@ -32,7 +32,7 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-if ! echo "${LIVE_BINARY_IMAGES}" | grep -qs usb-hdd
+if ! echo "${LH_BINARY_IMAGES}" | grep -qs usb-hdd
 then
 	exit 0
 fi
@@ -57,7 +57,7 @@ Check_package chroot/sbin/mkdosfs dosfstools
 Check_package chroot/usr/share/doc/mtools mtools
 Check_package chroot/sbin/parted parted
 
-case "${LIVE_BOOTLOADER}" in
+case "${LH_BOOTLOADER}" in
 	grub)
 		Check_package chroot/usr/sbin/grub grub
 		;;
@@ -95,14 +95,14 @@ fi
 echo "!!! The following error/warning messages can be ignored !!!"
 lh_losetup $FREELO chroot/binary.img 0
 
-case "${LIVE_CHROOT_BUILD}" in
+case "${LH_CHROOT_BUILD}" in
 	enabled)
 		Chroot "parted -s ${FREELO} mklabel msdos" || true
 		Chroot "parted -s ${FREELO} mkpartfs primary fat16 0.0 100%" || true
 		Chroot "parted -s ${FREELO} set 1 boot on" || true
 		Chroot "parted -s ${FREELO} set 1 lba off" || true
 
-		if [ "${LIVE_BOOTLOADER}" = "syslinux" ]
+		if [ "${LH_BOOTLOADER}" = "syslinux" ]
 		then
 			cat chroot/usr/lib/syslinux/mbr.bin > ${FREELO}
 		fi
@@ -114,7 +114,7 @@ case "${LIVE_CHROOT_BUILD}" in
 		parted -s ${FREELO} set 1 boot on || true
 		parted -s ${FREELO} set 1 lba off || true
 
-		if [ "${LIVE_BOOTLOADER}" = "syslinux" ]
+		if [ "${LH_BOOTLOADER}" = "syslinux" ]
 		then
 			cat /usr/lib/syslinux/mbr.bin > ${FREELO}
 		fi
@@ -126,7 +126,7 @@ ${LH_LOSETUP} -d ${FREELO}
 FREELO="`${LH_LOSETUP} -f`"
 lh_losetup $FREELO chroot/binary.img 1
 
-case "${LIVE_CHROOT_BUILD}" in
+case "${LH_CHROOT_BUILD}" in
 	enabled)
 		Chroot "mkfs.vfat -F 16 -n DEBIAN_LIVE ${FREELO}"
 		;;
@@ -142,7 +142,7 @@ cp -rL binary/* chroot/binary.tmp
 
 FIXME()
 {
-if [ "${LIVE_BOOTLOADER}" = "grub" ]
+if [ "${LH_BOOTLOADER}" = "grub" ]
 then
 
 cat > chroot/grub.sh << EOF
@@ -174,9 +174,9 @@ fi
 ${LH_ROOT_COMMAND} umount chroot/binary.tmp
 rmdir chroot/binary.tmp
 
-if [ "${LIVE_BOOTLOADER}" = "syslinux" ]
+if [ "${LH_BOOTLOADER}" = "syslinux" ]
 then
-	case "${LIVE_CHROOT_BUILD}" in
+	case "${LH_CHROOT_BUILD}" in
 		enabled)
 			Chroot "syslinux ${FREELO}"
 			;;

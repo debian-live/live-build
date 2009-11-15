@@ -32,12 +32,12 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-if [ "${LIVE_SOURCE}" != "enabled" ]
+if [ "${LH_SOURCE}" != "enabled" ]
 then
 	exit 0
 fi
 
-if ! echo "${LIVE_SOURCE_IMAGES}" | grep -qs usb-hdd
+if ! echo "${LH_SOURCE_IMAGES}" | grep -qs usb-hdd
 then
         exit 0
 fi

@@ -1,7 +1,7 @@
 Welcome to Debian GNU/Linux!
 
 This is a Debian Live CDROM,
-built on LIVE_DATE.
+built on LH_DATE.
 
 The default option is 'live'.
 

@@ -32,7 +32,7 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-if [ "${LIVE_SOURCE_IMAGES}" != "iso" ]
+if [ "${LH_SOURCE_IMAGES}" != "iso" ]
 then
 	exit 0
 fi
@@ -53,10 +53,10 @@ Create_lockfile .lock
 
 mkdir -p source/.disk
 
-ARCHITECTURE="`echo ${LIVE_ARCHITECTURE} | sed -e 's# #/#g'`"
-DISTRIBUTION="`echo ${LIVE_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]'`"
-DISTRIBUTION="${DISTRIBUTION}`echo ${LIVE_DISTRIBUTION} | cut -b 2-`"
-eval VERSION="$`echo VERSION_${LIVE_DISTRIBUTION}`"
+ARCHITECTURE="`echo ${LH_ARCHITECTURE} | sed -e 's# #/#g'`"
+DISTRIBUTION="`echo ${LH_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]'`"
+DISTRIBUTION="${DISTRIBUTION}`echo ${LH_DISTRIBUTION} | cut -b 2-`"
+eval VERSION="$`echo VERSION_${LH_DISTRIBUTION}`"
 
 case "${LH_MODE}" in
 	debian)

@@ -49,34 +49,34 @@ case "${1}" in
 		Create_lockfile .lock
 
 		# Configure custom sources.list
-		echo "deb ${LIVE_MIRROR_BOOTSTRAP} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" > chroot/etc/apt/sources.list
+		echo "deb ${LH_MIRROR_BOOTSTRAP} ${LH_DISTRIBUTION} ${LH_SECTIONS}" > chroot/etc/apt/sources.list
 
-		if [ "${LIVE_SOURCE}" = "enabled" ]
+		if [ "${LH_SOURCE}" = "enabled" ]
 		then
-			echo "deb-src ${LIVE_MIRROR_BOOTSTRAP} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+			echo "deb-src ${LH_MIRROR_BOOTSTRAP} ${LH_DISTRIBUTION} ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
 		fi
 
-		if [ "${LIVE_SECURITY}" = "enabled" ]
+		if [ "${LH_SECURITY}" = "enabled" ]
 		then
 			case "${LH_MODE}" in
 				debian)
-					if [ "${LIVE_DISTRIBUTION}" != "sid" ] && [ "${LIVE_DISTRIBUTION}" != "unstable" ]
+					if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
 					then
-						echo "deb ${LIVE_MIRROR_BOOTSTRAP_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+						echo "deb ${LH_MIRROR_BOOTSTRAP_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
 
-						if [ "${LIVE_SOURCE}" = "enabled" ]
+						if [ "${LH_SOURCE}" = "enabled" ]
 						then
-							echo "deb-src ${LIVE_MIRROR_BOOTSTRAP_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+							echo "deb-src ${LH_MIRROR_BOOTSTRAP_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
 						fi
 					fi
 					;;
 
 				ubuntu)
-					echo "deb ${LIVE_MIRROR_BOOTSTRAP_SECURITY} ${LIVE_DISTRIBUTION}-security ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+					echo "deb ${LH_MIRROR_BOOTSTRAP_SECURITY} ${LH_DISTRIBUTION}-security ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
 
-					if [ "${LIVE_SOURCE}" = "enabled" ]
+					if [ "${LH_SOURCE}" = "enabled" ]
 					then
-						echo "deb-src ${LIVE_MIRROR_BOOTSTRAP_SECURITY} ${LIVE_DISTRIBUTION}-security ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+						echo "deb-src ${LH_MIRROR_BOOTSTRAP_SECURITY} ${LH_DISTRIBUTION}-security ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
 					fi
 					;;
 			esac
@@ -175,9 +175,9 @@ case "${1}" in
 			fi
 
 			# Installing keyring packages
-			if [ -n "${LIVE_KEYRING_PACKAGES}" ]
+			if [ -n "${LH_KEYRING_PACKAGES}" ]
 			then
-				Chroot "apt-get install --yes --force-yes ${LIVE_KEYRING_PACKAGES}"
+				Chroot "apt-get install --yes --force-yes ${LH_KEYRING_PACKAGES}"
 				Chroot "apt-get update"
 			fi
 
@@ -211,11 +211,11 @@ case "${1}" in
 		Create_lockfile .lock
 
 		# Configure generic indices
-		if [ "${LIVE_BINARY_INDICES}" = "enabled" ]
+		if [ "${LH_BINARY_INDICES}" = "enabled" ]
 		then
 			# Don't do anything if it's not required
-			if [ "${LIVE_MIRROR_BOOTSTRAP}" = "${LIVE_MIRROR_BINARY}" ] && \
-			[ "${LIVE_MIRROR_BOOTSTRAP_SECURITY}" = "${LIVE_MIRROR_BINARY_SECURITY}" ]
+			if [ "${LH_MIRROR_BOOTSTRAP}" = "${LH_MIRROR_BINARY}" ] && \
+			[ "${LH_MIRROR_BOOTSTRAP_SECURITY}" = "${LH_MIRROR_BINARY_SECURITY}" ]
 			then
 				# Removing stage file
 				rm -f .stage/chroot_sources
@@ -227,34 +227,34 @@ case "${1}" in
 			rm -rf chroot/var/lib/apt/lists
 			mkdir -p chroot/var/lib/apt/lists/partial
 
-			echo "deb ${LIVE_MIRROR_BINARY} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" > chroot/etc/apt/sources.list
+			echo "deb ${LH_MIRROR_BINARY} ${LH_DISTRIBUTION} ${LH_SECTIONS}" > chroot/etc/apt/sources.list
 
-			if [ "${LIVE_SOURCE}" = "enabled" ]
+			if [ "${LH_SOURCE}" = "enabled" ]
 			then
-				echo "deb-src ${LIVE_MIRROR_BINARY} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+				echo "deb-src ${LH_MIRROR_BINARY} ${LH_DISTRIBUTION} ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
 			fi
 
-			if [ "${LIVE_SECURITY}" = "enabled" ]
+			if [ "${LH_SECURITY}" = "enabled" ]
 			then
 				case "${LH_MODE}" in
 					debian)
-						if [ "${LIVE_DISTRIBUTION}" != "sid" ] && [ "${LIVE_DISTRIBUTION}" != "unstable" ]
+						if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
 						then
-							echo "deb ${LIVE_MIRROR_BINARY_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+							echo "deb ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
 
-							if [ "${LIVE_SOURCE}" = "enabled" ]
+							if [ "${LH_SOURCE}" = "enabled" ]
 							then
-								echo "deb-src ${LIVE_MIRROR_BINARY_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+								echo "deb-src ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
 							fi
 						fi
 						;;
 
 					ubuntu)
-						echo "deb ${LIVE_MIRROR_BINARY_SECURITY} ${LIVE_DISTRIBUTION}-security ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+						echo "deb ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}-security ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
 
-						if [ "${LIVE_SOURCE}" = "enabled" ]
+						if [ "${LH_SOURCE}" = "enabled" ]
 						then
-							echo "deb-src ${LIVE_MIRROR_BINARY_SECURITY} ${LIVE_DISTRIBUTION}-security ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+							echo "deb-src ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}-security ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
 						fi
 						;;
 				esac

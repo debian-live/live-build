@@ -11,7 +11,7 @@ set -e
 
 Arguments ()
 {
-	ARGUMENTS="`getopt --longoptions breakpoints,conffile:,debug,force,help,logfile:,trace,root-command:,quiet,usage,verbose,version --name=${PROGRAM} --options huv --shell sh -- "${@}"`"
+	ARGUMENTS="`getopt --longoptions breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options c:huv --shell sh -- "${@}"`"
 
 	if [ "${?}" != "0" ]
 	then
@@ -25,55 +25,53 @@ Arguments ()
 	do
 		case "${1}" in
 			--breakpoints)
-				LH_BREAKPOINTS="enabled"; shift
+				LH_BREAKPOINTS="enabled"
+				shift
 				;;
 
-			--conffile)
-				LH_CONFFILE="${2}"; shift 2
+			-c|-conffile)
+				LH_CONFFILE="${2}"
+				shift 2
 				;;
 
 			--debug)
-				LH_DEBUG="enabled"; shift
+				LH_DEBUG="enabled"
+				shift
 				;;
 
 			--force)
-				LH_FORCE="enabled"; shift
+				LH_FORCE="enabled"
+				shift
 				;;
 
 			-h|--help)
-				Help; shift
-				;;
-
-			--logfile)
-				LH_LOGFILE="${2}"; shift 2
-				;;
-
-			--trace)
-				LH_TRACE="enabled"; shift
-				;;
-
-			--root-command)
-				LH_ROOT_COMMAND="${2}"; shift
+				Help
+				shift
 				;;
 
 			--quiet)
-				LH_QUIET="enabled"; shift
+				LH_QUIET="enabled"
+				shift
 				;;
 
 			-u|--usage)
-				Usage; shift
+				Usage
+				shift
 				;;
 
 			--verbose)
-				LH_VERBOSE="enabled"; shift
+				LH_VERBOSE="enabled"
+				shift
 				;;
 
 			-v|--version)
-				Version; shift
+				Version
+				shift
 				;;
 
 			--)
-				shift; break
+				shift
+				break
 				;;
 
 			*)

@@ -32,7 +32,7 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-if [ "${LIVE_INCLUDES}" = "none" ]
+if [ "${LH_INCLUDES}" = "none" ]
 then
 	exit 0
 fi
@@ -52,25 +52,25 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Check user includes
-if [ ! -d "${LIVE_INCLUDES}" ]
+if [ ! -d "${LH_INCLUDES}" ]
 then
-	if [ -d ../"${LIVE_INCLUDES}" ]
+	if [ -d ../"${LH_INCLUDES}" ]
 	then
-		LIVE_INCLUDES="../${LIVE_INCLUDES}"
+		LH_INCLUDES="../${LH_INCLUDES}"
 	else
-		Echo_error "user specified includes not accessible in ${LIVE_INCLUDES}"
+		Echo_error "user specified includes not accessible in ${LH_INCLUDES}"
 		exit 1
 	fi
 fi
 
 # Checking local includes
-if [ -d config/includes/"${LIVE_DISTRIBUTION}" ]
+if [ -d config/includes/"${LH_DISTRIBUTION}" ]
 then
-	LIVE_INCLUDES="config/includes"
+	LH_INCLUDES="config/includes"
 fi
 
 # Assemble architecture
-case "${LIVE_ARCHITECTURE}" in
+case "${LH_ARCHITECTURE}" in
 	amd64)
 		ARCH="amd"
 		;;
@@ -85,57 +85,57 @@ case "${LIVE_ARCHITECTURE}" in
 esac
 
 # Working arround vfat limitations
-if [ "${LIVE_BINARY_IMAGE}" = "usb-hdd" ]
+if [ "${LH_BINARY_IMAGE}" = "usb-hdd" ]
 then
 	CP_OPTIONS="-L"
 fi
 
 # Copying common templates
-if [ -d "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/common ] && \
-ls "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/common/* &> /dev/null
+if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common ] && \
+ls "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common/* > /dev/null 2>&1
 then
-	cp -r ${CP_OPTIONS} "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/common/* binary
+	cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common/* binary
 fi
 
-if [ -d "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/common."${ARCH}" ] && \
-ls "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/common."${ARCH}"/* &> /dev/null
+if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common."${ARCH}" ] && \
+ls "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common."${ARCH}"/* > /dev/null 2>&1
 then
-	cp -r ${CP_OPTIONS} "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/common."${ARCH}"/* binary
+	cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common."${ARCH}"/* binary
 fi
 
 # Copying live templates
-if [ -d "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live ] && \
-ls "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live/* &> /dev/null
+if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live ] && \
+ls "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live/* > /dev/null 2>&1
 then
-	cp -r ${CP_OPTIONS} "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live/* binary
+	cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live/* binary
 fi
 
-if [ -d "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live."${ARCH}" ] && \
-ls "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live."${ARCH}"/* &> /dev/null
+if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live."${ARCH}" ] && \
+ls "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live."${ARCH}"/* > /dev/null 2>&1
 then
-	cp -r ${CP_OPTIONS} "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/live."${ARCH}"/* binary
+	cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live."${ARCH}"/* binary
 fi
 
-if [ "${LIVE_DEBIAN_INSTALLER}" != "disabled" ]
+if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
 then
 	# Copying install templates
-	if [ -d "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/install ] && \
-	ls "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/install/* &> /dev/null
+	if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install ] && \
+	ls "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install/* > /dev/null 2>&1
 	then
-		cp -r ${CP_OPTIONS} "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/install/* binary
+		cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install/* binary
 	fi
 
-	if [ -d "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/install."${ARCH}" ] && \
-	ls "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/install."${ARCH}"/* &> /dev/null
+	if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install."${ARCH}" ] && \
+	ls "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install."${ARCH}"/* > /dev/null 2>&1
 	then
-		cp -r ${CP_OPTIONS} "${LIVE_INCLUDES}"/"${LIVE_DISTRIBUTION}"/install."${ARCH}"/* binary
+		cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install."${ARCH}"/* binary
 	fi
 
 	# Adjusting install templates
-	ARCHITECTURE="`echo ${LIVE_ARCHITECTURE} | sed -e 's# #/#g'`"
-	DISTRIBUTION="`echo ${LIVE_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]'`"
-	DISTRIBUTION="${DISTRIBUTION}`echo ${LIVE_DISTRIBUTION} | cut -b 2-`"
-	eval VERSION="$`echo VERSION_${LIVE_DISTRIBUTION}`"
+	ARCHITECTURE="`echo ${LH_ARCHITECTURE} | sed -e 's# #/#g'`"
+	DISTRIBUTION="`echo ${LH_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]'`"
+	DISTRIBUTION="${DISTRIBUTION}`echo ${LH_DISTRIBUTION} | cut -b 2-`"
+	eval VERSION="$`echo VERSION_${LH_DISTRIBUTION}`"
 
 	if [ -d binary/pool/main/l/live-installer ]
 	then
@@ -147,7 +147,7 @@ then
 	DEBIAN_NAME="Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} ${TYPE} Binary `date +%Y%m%d-%H:%M`"
 	DEBIAN_DATE="`date +%Y%m%d-%H:%M`"
 
-	if [ "${LIVE_ARCHITECTURE}" = "i386" ]
+	if [ "${LH_ARCHITECTURE}" = "i386" ]
 	then
 		DEBIAN_TOOLS_HTML=" <P>\n <tt>&nbsp;\n <A href="tools/">/tools/</a>\n </tt>\n\n and\n <tt>&nbsp;\n <A href="install/floppy/">/install/floppy/</a>\n </tt>"
 		DEBIAN_TOOLS_TXT="/tools/ and   /install/floppy/"

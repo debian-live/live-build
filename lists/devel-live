@@ -3,15 +3,20 @@
 ## LH: Development (Debian Live)
 #<include> standard
 
+# live-helper
 cdebootstrap debootstrap
-
 live-helper subversion
+dosfstools genisoimage mkisofs memtest86+ memtest86 mtools parted genext2fs syslinux grub
 
+# kernel
 aufs-source kqemu-source squashfs-source unionfs-source
-aufs-tools qemu unionfs-tools
+aufs-tools qemu squashfs-tools unionfs-tools
 #linux-headers-2.6-all
 
-vim less screen gnupg
+# netboot
+dhcp3-server nfs-kernel-server tftp-hpa
 
+# some other stuff
+vim less screen gnupg
 build-essential debhelper dh-make lintian fakeroot devscripts wdiff
 autotools-dev dpatch module-assistant
