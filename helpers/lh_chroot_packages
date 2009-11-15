@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_chroot_packages(1) - install packages into chroot
+# lh_chroot_packages(1) - queue install of packages into chroot
 # Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="install packages into chroot"
+DESCRIPTION="queue install of packages into chroot"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -28,7 +28,7 @@ Arguments "${@}"
 Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-Echo_message "Begin installing packages..."
+Echo_message "Begin queueing installation of packages..."
 
 # Requiring stage file
 Require_stagefile .stage/bootstrap
@@ -44,14 +44,7 @@ Create_lockfile .lock
 
 if [ -n "${LH_PACKAGES}" ] && [ "${LH_PACKAGES}" != "none" ]
 then
-	# Restoring cache
-	Restore_cache cache/packages_packages
-
-	# Installing packages
-	Apt install ${LH_PACKAGES}
-
-	# Saving cache
-	Save_cache cache/packages_packages
+	echo ${LH_PACKAGES} >> chroot/root/chroot_packages
 
 	# Creating stage file
 	Create_stagefile .stage/chroot_packages

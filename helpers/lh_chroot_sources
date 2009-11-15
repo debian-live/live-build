@@ -77,6 +77,38 @@ case "${1}" in
 			done
 		fi
 
+		# Configure local package repository
+		if ls config/chroot_local-packages/*.deb > /dev/null 2>&1
+		then
+			rm -rf chroot/root/local-packages
+			mkdir -p chroot/root/local-packages
+
+			# Copy packages
+			if ls config/chroot_local-packages/*_"${LH_ARCHITECTURE}".deb > /dev/null 2>&1
+			then
+				cp -l config/chroot_local-packages/*_"${LH_ARCHITECTURE}".deb chroot/root/local-packages
+			fi
+
+			if ls config/chroot_local-packages/*_all.deb > /dev/null 2>&1
+			then
+				cp -l config/chroot_local-packages/*_all.deb chroot/root/local-packages
+			fi
+
+			if ls chroot/root/local-packages/*.deb > /dev/null 2>&1
+			then
+				# Generate Packages.gz
+				echo "cd /root/local-packages && apt-ftparchive packages . > Packages" | Chroot sh
+				gzip -9 chroot/root/local-packages/Packages
+
+				# Add to sources.list
+				echo "" >> chroot/etc/apt/sources.list
+				echo "# Local packages" >> chroot/etc/apt/sources.list
+				echo "deb file:/root/local-packages ./" >> chroot/etc/apt/sources.list
+			else
+				Echo_warning "Local packages must be named with suffix '_all.deb' or '_\$architecture.deb'."
+			fi
+		fi
+
 		# Update indices from cache
 		if [ "${LH_CACHE_INDICES}" = "enabled" ] && [ -d cache/indices_bootstrap ]
 		then
@@ -194,7 +226,8 @@ case "${1}" in
 		then
 			# Don't do anything if it's not required
 			if [ "${LH_MIRROR_CHROOT}" = "${LH_MIRROR_BINARY}" ] && \
-			[ "${LH_MIRROR_CHROOT_SECURITY}" = "${LH_MIRROR_BINARY_SECURITY}" ]
+			[ "${LH_MIRROR_CHROOT_SECURITY}" = "${LH_MIRROR_BINARY_SECURITY}" ] && \
+			[ ! -d chroot/root/local-packages ]
 			then
 				# Removing stage file
 				rm -f .stage/chroot_sources
@@ -256,6 +289,9 @@ case "${1}" in
 		# Cleaning apt packages cache
 		rm -rf chroot/var/cache/apt
 		mkdir -p chroot/var/cache/apt/archives/partial
+
+		# Remove local package repository
+		rm -rf chroot/root/local-packages
 
 		# Removing stage file
 		rm -f .stage/chroot_sources

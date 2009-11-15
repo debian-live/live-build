@@ -33,9 +33,6 @@ Require_stagefile .stage/bootstrap
 
 case "${1}" in
 	install)
-		# Restoring cache
-		Restore_cache cache/packages_linux-image
-
 		Echo_message "Configuring file /etc/kernel-img.conf"
 
 		# Checking stage file
@@ -72,44 +69,13 @@ EOF
 			do
 				for PACKAGE in ${LH_LINUX_PACKAGES}
 				do
-					PACKAGES="${PACKAGES} ${PACKAGE}-${FLAVOUR}"
+					echo ${PACKAGE}-${FLAVOUR} >> chroot/root/chroot_packages
 				done
 			done
 		fi
 
-		if ! ls config/chroot_local-packages/${LH_INITRAMFS}*.deb > /dev/null 2>&1
-		then
-			PACKAGES="${PACKAGES} ${LH_INITRAMFS}"
-		fi
-
-		# Installing linux-image, modules and ${LH_INITRAMFS}
-		Apt install ${PACKAGES}
-
-		if ls config/chroot_local-packages/${LH_INITRAMFS}*.deb > /dev/null 2>&1
-		then
-			cp config/chroot_local-packages/${LH_INITRAMFS}*.deb chroot/root
-
-			# Installing package
-			Chroot "find /root -name *.deb" > chroot/root/initfs
-			Chroot "xargs --arg-file=/root/initfs dpkg -i" || true
-
-			# Install dependencies
-			case "${LH_APT}" in
-				aptitude)
-					Apt install ${LH_INITRAMFS}
-					;;
-				apt|apt-get)
-					Apt install -f
-					;;
-			esac
-
-			# Removing package files
-			rm -f chroot/root/${LH_INITRAMFS}*.deb
-			rm -f chroot/root/initfs
-		fi
-
-		# Saving cache
-		Save_cache cache/packages_linux-image
+		# Queue installation of linux-image and ${LH_INITRAMFS}
+		echo ${LH_INITRAMFS} >> chroot/root/chroot_packages
 
 		# Creating stage file
 		Create_stagefile .stage/chroot_linux-image

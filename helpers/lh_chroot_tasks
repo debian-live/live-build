@@ -45,7 +45,7 @@ Create_lockfile .lock
 if [ -n "${LH_TASKS}" ] && [ "${LH_TASKS}" != "none" ]
 then
 	# Restoring cache
-	Restore_cache cache/packages_tasks
+	Restore_cache cache/packages_chroot
 
 	# Checking depends
 	case "${LH_TASKSEL}" in
@@ -79,7 +79,7 @@ then
 	Remove_package
 
 	# Saving cache
-	Save_cache cache/packages_tasks
+	Save_cache cache/packages_chroot
 
 	# Creating stage file
 	Create_stagefile .stage/chroot_tasks

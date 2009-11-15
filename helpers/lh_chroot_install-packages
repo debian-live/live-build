@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_chroot_local-preseed(1) - use debconf local preseeding file
+# lh_chroot_install-packages(1) - install queued packages into chroot
 # Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="execute local preseed in chroot"
+DESCRIPTION="install queued packages into chroot"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -28,13 +28,13 @@ Arguments "${@}"
 Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-Echo_message "Begin executing local preseeds..."
+Echo_message "Begin installing packages..."
 
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/chroot_local-preseed
+Check_stagefile .stage/chroot_install-packages
 
 # Checking lock file
 Check_lockfile .lock
@@ -42,28 +42,27 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if ls config/chroot_local-preseed/* > /dev/null 2>&1
+if [ -e chroot/root/chroot_packages ] && [ -s chroot/root/chroot_packages ]
 then
-	# Check dependency
-	Check_package chroot/usr/bin/debconf-set-selections debconf
+	# Restoring cache
+	Restore_cache cache/packages_chroot
 
-	# Install dependency
-	Install_package
+	# Installing packages
+	case "${LH_APT}" in
+		apt|apt-get)
+			Chroot "xargs --arg-file=/root/chroot_packages apt-get ${APT_OPTIONS} install"
+			;;
 
-	for PRESEED in config/chroot_local-preseed/*
-	do
-		# Copying local preseed
-		cp "${PRESEED}" chroot/root/preseed
+		aptitude)
+			Chroot "xargs --arg-file=/root/chroot_packages aptitude ${APTITUDE_OPTIONS} install"
+			;;
+	esac
 
-		Chroot "debconf-set-selections /root/preseed"
+	rm -f chroot/root/chroot_packages
 
-		# Removing local preseed file
-		rm -f chroot/root/preseed
-	done
-
-	# Remove dependency
-	Remove_package
+	# Saving cache
+	Save_cache cache/packages_chroot
 
 	# Creating stage file
-	Create_stagefile .stage/chroot_local-preseed
+	Create_stagefile .stage/chroot_install-packages
 fi

@@ -45,14 +45,15 @@ Save_cache ()
 			mkdir -p "${DIRECTORY}"
 
 			# Saving new cache
-			if [ "$(stat --printf %d ${DIRECTORY})" = "$(stat --printf %d chroot/var/cache/apt/archives)" ]
-			then
-				# with hardlinks
-				cp -fl chroot/var/cache/apt/archives/*.deb "${DIRECTORY}"
-			else
-				# without hardlinks
-				mv -f chroot/var/cache/apt/archives/*.deb "${DIRECTORY}"
-			fi
+			for PACKAGE in chroot/var/cache/apt/archives/*.deb
+			do
+				if [ -e "${DIRECTORY}"/"$(basename ${PACKAGE})" ]
+				then
+					rm -f "${PACKAGE}"
+				else
+					mv "${PACKAGE}" "${DIRECTORY}"
+				fi
+			done
 		fi
 	else
 		# Purging current cache

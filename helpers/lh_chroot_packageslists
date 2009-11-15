@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_chroot_packageslists(1) - install packages lists into chroot
+# lh_chroot_packageslists(1) - queue install of packages lists into chroot
 # Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="install packages lists into chroot"
+DESCRIPTION="queue install of packages lists into chroot"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -28,7 +28,7 @@ Arguments "${@}"
 Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-Echo_message "Begin installing packages lists..."
+Echo_message "Begin queueing installation of packages lists..."
 
 # Requiring stage file
 Require_stagefile .stage/bootstrap
@@ -44,34 +44,13 @@ Create_lockfile .lock
 
 if [ -n "${LH_PACKAGES_LISTS}" ] && [ "${LH_PACKAGES_LISTS}" != "none" ]
 then
-	# Restoring cache
-	Restore_cache cache/packages_packageslists
 
 	for LIST in ${LH_PACKAGES_LISTS}
 	do
-		if [ -f ${LH_BASE:-/usr/share/live-helper}/lists/"${LIST}" ]
-		then
-			# Generating package list
-			Expand_packagelist "${LIST}" "config/chroot_local-packageslists" "${LH_BASE:-/usr/share/live-helper}/lists" > chroot/root/${LIST}
-
-			# Installing package list
-			case "${LH_APT}" in
-				apt|apt-get)
-					Chroot "xargs --arg-file=/root/${LIST} apt-get ${APT_OPTIONS} install"
-					;;
-
-				aptitude)
-					Chroot "xargs --arg-file=/root/${LIST} aptitude ${APTITUDE_OPTIONS} install"
-					;;
-			esac
-
-			# Removing package list
-			rm -f chroot/root/"${LIST}"
-		fi
+		# Generating package list
+		Expand_packagelist "${LIST}" "config/chroot_local-packageslists" \
+			>> chroot/root/chroot_packages
 	done
-
-	# Saving cache
-	Save_cache cache/packages_packageslists
 
 	# Creating stage file
 	Create_stagefile .stage/chroot_packageslists

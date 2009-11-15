@@ -5,5 +5,5 @@
 ## as e.g. live-snapshots.chroot and once as live-snapshots.binary.
 
 # Debian Live Snapshots
-deb http://live.debian.net/debian-snapshots/ ./
-deb-src http://live.debian.net/debian-snapshots/ ./
+deb http://live.debian.net/debian/ ./
+deb-src http://live.debian.net/debian/ ./

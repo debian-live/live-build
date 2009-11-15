@@ -51,11 +51,13 @@ then
 	for PACKAGESLIST in config/binary_local-packageslists/*
 	do
 		# Generate package list
-		Expand_packagelist "$(basename ${PACKAGESLIST})" "config/binary_local-packageslists" "${LH_BASE:-/usr/share/live-helper/lists}/lists" > chroot/root/"$(basename ${PACKAGESLIST})"
-
+		Expand_packagelist "${PACKAGESLIST}" "config/binary_local-packageslists" "config/chroot_local-packageslists" > chroot/root/"$(basename ${PACKAGESLIST})"
 
 		# Downloading additional packages
 		Chroot "xargs --arg-file=/root/$(basename ${PACKAGESLIST}) apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb --download-only install"
+
+		# Remove package list
+		rm chroot/root/"$(basename ${PACKAGESLIST})"
 	done
 
 	for FILE in chroot/binary.deb/archives/*.deb

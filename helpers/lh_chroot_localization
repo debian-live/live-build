@@ -617,11 +617,11 @@ then
 				;;
 
 			iceweasel)
-				Check_installed chroot/usr/bin/iceweasel iceweasel; [ $INSTALL_STATUS -eq 0 ] && Check_package "" iceweasel-l10n-"${ICEWEASEL}" 
+				Check_installed chroot/usr/bin/iceweasel iceweasel; [ $INSTALL_STATUS -eq 0 ] && Check_package "" iceweasel-l10n-"${ICEWEASEL}"
 				;;
 
 			kde)
-				Check_installed chroot/usr/bin/kstart kdebase-bin; [ $INSTALL_STATUS -eq 0 ] && Check_package "" kde-i18n-"${KDE}" 
+				Check_installed chroot/usr/bin/kstart kdebase-bin; [ $INSTALL_STATUS -eq 0 ] && Check_package "" kde-i18n-"${KDE}"
 				;;
 
 			koffice)
@@ -629,22 +629,22 @@ then
 				;;
 
 			openoffice)
-				Check_installed chroot/usr/bin/ooffice openoffice.org-common; [ $INSTALL_STATUS -eq 0 ] && Check_package "" openoffice.org-l10n-"${OPENOFFICE}" 
+				Check_installed chroot/usr/bin/ooffice openoffice.org-common; [ $INSTALL_STATUS -eq 0 ] && Check_package "" openoffice.org-l10n-"${OPENOFFICE}"
 				;;
 		esac
 	done
 
-	Check_installed chroot/usr/bin/gwenview gwenview; [ $INSTALL_STATUS -eq 0 ] && Check_package "" gwenview-i18n 
+	Check_installed chroot/usr/bin/gwenview gwenview; [ $INSTALL_STATUS -eq 0 ] && Check_package "" gwenview-i18n
 	Check_installed chroot/usr/bin/k3b k3b; [ $INSTALL_STATUS -eq 0 ] && Check_package "" k3b-i18n
 
 	# Restoring cache
-	Restore_cache cache/packages_localization
+	Restore_cache cache/packages_chroot
 
 	# Installing packages
 	Install_package
 
 	# Saving cache
-	Save_cache cache/packages_localization
+	Save_cache cache/packages_chroot
 
 	# Creating stage file
 	Create_stagefile .stage/chroot_localization
