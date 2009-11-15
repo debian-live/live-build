@@ -1,0 +1,82 @@
+#!/bin/sh
+
+# lh_chroot_devpts(1) - mount /dev/pts
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
+do
+	. "${FUNCTION}"
+done
+
+# Setting static variables
+DESCRIPTION="mount /dev/pts"
+HELP=""
+USAGE="${PROGRAM} {install|remove} [--force]"
+
+Arguments "${@}"
+
+# Ensure that a system is built as root
+lh_testroot
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/bootstrap
+Read_conffile config/chroot
+Read_conffile config/binary
+Read_conffile config/source
+Read_conffile "${LH_CONFIG}"
+Set_defaults
+
+Echo_message "Begin mounting /dev/pts..."
+
+# Requiring stage file
+Require_stagefile .stage/bootstrap
+
+case "${1}" in
+	install)
+		# Checking stage file
+		Check_stagefile .stage/chroot_devpts
+
+		# Checking lock file
+		Check_lockfile .lock
+
+		# Creating lock file
+		Create_lockfile .lock
+
+		# Creating mountpoint
+		mkdir -p chroot/dev/pts
+
+		# Mounting /dev/pts
+		${LH_ROOT_COMMAND} mount devpts-live -t devpts chroot/dev/pts
+
+		# Creating stage file
+		Create_stagefile .stage/chroot_devpts
+		;;
+
+	remove)
+		# Checking lock file
+		Check_lockfile .lock
+
+		# Creating lock file
+		Create_lockfile .lock
+
+		# Unmounting /dev/pts
+		${LH_ROOT_COMMAND} umount chroot/dev/pts > /dev/null 2>&1
+
+		# Removing stage file
+		rm -f .stage/chroot_devpts
+		;;
+
+	*)
+		Usage
+		;;
+esac

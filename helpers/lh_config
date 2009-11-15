@@ -76,10 +76,14 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--mirror-bootstrap-security URL]\n\
 \t    [--mirror-bootstrap URL]\n\
 \t    [--mode debian|debian-edu]\n\
-\t    [--net-filesystem nfs|cfs]\n\
-\t    [--net-mountoptions OPTIONS]\n\
-\t    [--net-path PATH]\n\
-\t    [--net-server IP|HOSTNAME]\n\
+\t    [--net-root-filesystem nfs|cfs]\n\
+\t    [--net-root-mountoptions OPTIONS]\n\
+\t    [--net-root-path PATH]\n\
+\t    [--net-root-server IP|HOSTNAME]\n\
+\t    [--net-cow-filesystem nfs|cfs]\n\
+\t    [--net-cow-mountoptions OPTIONS]\n\
+\t    [--net-cow-path PATH]\n\
+\t    [--net-cow-server IP|HOSTNAME]\n\
 \t    [-p|--packages-lists FILE]\n\
 \t    [--packages PACKAGE|\"PACKAGES\"]\n\
 \t    [--quiet]\n\
@@ -102,7 +106,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 
 Local_arguments ()
 {
-	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,losetup:,mode:,root-command:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,memtest:,net-filesystem:,net-mountoptions:,net-path:,net-server:,syslinux-splash:,syslinux-timeout:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
+	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,losetup:,mode:,root-command:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,memtest:,net-root-filesystem:,net-root-mountoptions:,net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,net-cow-server:,syslinux-splash:,syslinux-timeout:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
 
 	if [ "${?}" != "0" ]
 	then
@@ -464,23 +468,43 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--net-filesystem)
-				LH_NET_FILESYSTEM="${2}"
+			--net-root-filesystem)
+				LH_NET_ROOT_FILESYSTEM="${2}"
 				shift 2
 				;;
 
-			--net-mountoptions)
-				LH_NET_MOUNTOPTIONS="${2}"
+			--net-root-mountoptions)
+				LH_NET_ROOT_MOUNTOPTIONS="${2}"
 				shift 2
 				;;
 
-			--net-path)
-				LH_NET_PATH="${2}"
+			--net-root-path)
+				LH_NET_ROOT_PATH="${2}"
 				shift 2
 				;;
 
-			--net-server)
-				LH_NET_SERVER="${2}"
+			--net-root-server)
+				LH_NET_ROOT_SERVER="${2}"
+				shift 2
+				;;
+
+			--net-cow-filesystem)
+				LH_NET_COW_FILESYSTEM="${2}"
+				shift 2
+				;;
+
+			--net-cow-mountoptions)
+				LH_NET_COW_MOUNTOPTIONS="${2}"
+				shift 2
+				;;
+
+			--net-cow-path)
+				LH_NET_COW_PATH="${2}"
+				shift 2
+				;;
+
+			--net-cow-server)
+				LH_NET_COW_SERVER="${2}"
 				shift 2
 				;;
 
@@ -776,7 +800,7 @@ cat > config/chroot << EOF
 LH_CHROOT_FILESYSTEM="${LH_CHROOT_FILESYSTEM}"
 
 # \$LH_UNION_FILESYSTEM: set union filesystem
-# (Default: ${LH_UNION_FILESYSTEM}
+# (Default: ${LH_UNION_FILESYSTEM})
 LH_UNION_FILESYSTEM="${LH_UNION_FILESYSTEM}"
 
 # \$LH_EXPOSED_ROOT: expose root as read only
@@ -911,21 +935,37 @@ LH_ISO_VOLUME="${LH_ISO_VOLUME}"
 # (Default: ${LH_MEMTEST})
 LH_MEMTEST="${LH_MEMTEST}"
 
-# \$LH_NET_FILESYSTEM: set netboot filesystem
-# (Default: ${LH_NET_FILESYSTEM})
-LH_NET_FILESYSTEM="${LH_NET_FILESYSTEM}"
+# \$LH_NET_ROOT_FILESYSTEM: set netboot filesystem
+# (Default: ${LH_NET_ROOT_FILESYSTEM})
+LH_NET_ROOT_FILESYSTEM="${LH_NET_ROOT_FILESYSTEM}"
 
-# \$LH_NET_MOUNTOPTIONS: set nfsopts
+# \$LH_NET_ROOT_MOUNTOPTIONS: set nfsopts
 # (Default: empty)
-LH_NET_MOUNTOPTIONS="${LH_NET_MOUNTOPTIONS}"
+LH_NET_ROOT_MOUNTOPTIONS="${LH_NET_ROOT_MOUNTOPTIONS}"
 
-# \$LH_NET_PATH: set netboot server directory
-# (Default: ${LH_NET_PATH})
-LH_NET_PATH="${LH_NET_PATH}"
+# \$LH_NET_ROOT_PATH: set netboot server directory
+# (Default: ${LH_NET_ROOT_PATH})
+LH_NET_ROOT_PATH="${LH_NET_ROOT_PATH}"
 
-# \$LH_NET_SERVER: set netboot server address
-# (Default: ${LH_NET_SERVER})
-LH_NET_SERVER="${LH_NET_SERVER}"
+# \$LH_NET_ROOT_SERVER: set netboot server address
+# (Default: ${LH_NET_ROOT_SERVER})
+LH_NET_ROOT_SERVER="${LH_NET_ROOT_SERVER}"
+
+# \$LH_NET_COW_FILESYSTEM: set net client cow filesystem
+# (Default: ${LH_NET_COW_FILESYSTEM})
+LH_NET_COW_FILESYSTEM="${LH_NET_COW_FILESYSTEM}"
+
+# \$LH_NET_COW_MOUNTOPTIONS: set cow mount options
+# (Default: empty)
+LH_NET_COW_MOUNTOPTIONS="${LH_NET_COW_MOUNTOPTIONS}"
+
+# \$LH_NET_COW_PATH: set cow directory
+# (Default: ${LH_NET_COW_PATH})
+LH_NET_COW_PATH="${LH_NET_COW_PATH}"
+
+# \$LH_NET_COW_SERVER: set cow server
+# (Default: ${LH_NET_COW_SERVER})
+LH_NET_COW_SERVER="${LH_NET_COW_SERVER}"
 
 # \$LH_SYSLINUX_SPLASH: set custom syslinux splash
 # (Default: empty)

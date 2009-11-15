@@ -82,6 +82,17 @@ then
 	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --exclude=${LH_BOOTSTRAP_EXCLUDE}"
 fi
 
+if [ -z "${LH_BOOTSTRAP_FLAVOUR}" ]
+then
+	case "${LH_PACKAGES_LISTS}" in
+		minimal|mini)
+			DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=buildd"
+			;;
+	esac
+else
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=${LH_BOOTSTRAP_FLAVOUR}"
+fi
+
 if [ "${LH_VERBOSE}" = "true" ]
 then
 	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --verbose"

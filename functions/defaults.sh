@@ -226,7 +226,11 @@ Set_defaults ()
 	# LH_BOOTSTRAP_CONFIG
 
 	# Setting flavour value
-	LH_BOOTSTRAP_FLAVOUR="${LH_BOOTSTRAP_FLAVOUR:-standard}"
+	case "${LH_BOOTSTRAP}" in
+		cdebootstrap)
+			LH_BOOTSTRAP_FLAVOUR="${LH_BOOTSTRAP_FLAVOUR:-standard}"
+			;;
+	esac
 
 	# Setting boostrap keyring
 	# LH_BOOTSTRAP_KEYRING
@@ -536,24 +540,27 @@ Set_defaults ()
 	LH_MEMTEST="${LH_MEMTEST:-memtest86+}"
 
 	# Setting netboot filesystem
-	LH_NET_FILESYSTEM="${LH_NET_FILESYSTEM:-nfs}"
+	LH_NET_ROOT_FILESYSTEM="${LH_NET_ROOT_FILESYSTEM:-nfs}"
 
 	# Setting netboot server path
-	if [ -z "${LH_NET_PATH}" ]
+	if [ -z "${LH_NET_ROOT_PATH}" ]
 	then
 		case "${LH_MODE}" in
 			debian)
-				LH_NET_PATH="/srv/debian-live"
+				LH_NET_ROOT_PATH="/srv/debian-live"
 				;;
 
 			debian-edu)
-				LH_NET_PATH="/srv/debian-edu-live"
+				LH_NET_ROOT_PATH="/srv/debian-edu-live"
 				;;
 		esac
 	fi
 
 	# Setting netboot server address
-	LH_NET_SERVER="${LH_NET_SERVER:-192.168.1.1}"
+	LH_NET_ROOT_SERVER="${LH_NET_ROOT_SERVER:-192.168.1.1}"
+
+	# Setting net cow filesystem
+	LH_NET_COW_FILESYSTEM="${LH_NET_COW_FILESYSTEM:-nfs}"
 
 	# Setting syslinux configuration file
 	# LH_SYSLINUX_CFG

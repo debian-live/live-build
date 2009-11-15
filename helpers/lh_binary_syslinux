@@ -411,13 +411,13 @@ fi
 
 if [ "${LH_BINARY_IMAGES}" = "net" ]
 then
-	case "${LH_NET_FILESYSTEM}" in
+	case "${LH_NET_ROOT_FILESYSTEM}" in
 		nfs)
-			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} netboot=nfs nfsroot=${LH_NET_SERVER}:${LH_NET_PATH}"
+			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} netboot=nfs nfsroot=${LH_NET_ROOT_SERVER}:${LH_NET_ROOT_PATH}"
 			;;
 
 		cifs)
-			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} netboot=cifs nfsroot=//${LH_NET_SERVER}${LH_NET_PATH}"
+			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} netboot=cifs nfsroot=//${LH_NET_ROOT_SERVER}${LH_NET_ROOT_PATH}"
 			;;
 
 		*)
@@ -426,10 +426,29 @@ then
 			;;
 	esac
 
-	if [ -n "${LH_NET_MOUNTOPTIONS}" ]
+	if [ -n "${LH_NET_ROOT_MOUNTOPTIONS}" ]
 	then
-		LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} nfsopts=${LH_NET_MOUNTOPTIONS}"
+		LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} nfsopts=${LH_NET_ROOT_MOUNTOPTIONS}"
 	fi
+fi
+
+if [ -n "${LH_NET_COW_PATH}" ]
+then
+	case "${LH_NET_COW_FILESYSTEM}" in
+		nfs)
+			if [ -n "${LH_NET_COW_MOUNTOPTIONS}" ]
+			then
+				LH_NET_COW_MOUNTOPTIONS=",${LH_NET_COW_MOUNTOPTIONS}"
+			fi
+
+			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} nfscow=${LH_NET_COW_SERVER}:${LH_NET_COW_PATH}${LH_NET_COW_MOUNTOPTIONS}"
+			;;
+
+		*)
+			Echo_error "Unsupported net filesystem"
+			exit 1
+			;;
+	esac
 fi
 
 LH_BOOTAPPEND_LIVE="$(echo ${LH_BOOTAPPEND_LIVE} | sed -e 's/  //')"

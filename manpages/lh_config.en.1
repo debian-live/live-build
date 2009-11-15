@@ -1,4 +1,4 @@
-.TH LH_CONFIG 1 "2007\-10\-22" "1.0~a33" "live\-helper"
+.TH LH_CONFIG 1 "2007\-10\-29" "1.0~a34" "live\-helper"
 
 .SH NAME
 lh_config \- create configuration for live-helper(7)
@@ -7,7 +7,7 @@ lh_config \- create configuration for live-helper(7)
 .B lh_config [\fIlive\-helper\ options\fR\|]
 
 .SH DESCRIPTION
-lh_source is a script to populate the configuration directory for live\-helper. By default, this directory is named 'config' and is created in the current directory.
+lh_config is a script to populate the configuration directory for live\-helper. By default, this directory is named 'config' and is created in the current directory.
 
 .SH OPTIONS
 Here is the complete list of available options for lh_config.
@@ -113,13 +113,32 @@ Here is the complete list of available options for lh_config.
 
 .IP "\fB\-\-mode\fR debian|debian\-edu" 4
 
-.IP "\fB\-\-net\-filesystem\fR nfs|cfs" 4
+.IP "\fB\-\-net\-root\-filesystem\fR nfs|cfs" 4
 
-.IP "\fB\-\-net\-mountoptions\fR \fIOPTION\fR|""\fIOPTIONS\fR""" 4
+.IP "\fB\-\-net\-root\-mountoptions\fR \fIOPTION\fR|""\fIOPTIONS\fR""" 4
 
-.IP "\fB\-\-net\-path\fR \fIPATH\fR" 4
+.IP "\fB\-\-net\-root\-path\fR \fIPATH\fR" 4
 
-.IP "\fB\-\-net\\-server\fR \fIIP\fR|\fIHOSTNAME\fR" 4
+.IP "\fB\-\-net\-root\\-server\fR \fIIP\fR|\fIHOSTNAME\fR" 4
+
+.IP "\fB\-\-net\-cow\-filesystem\fR nfs" 4
+
+.IP "\fB\-\-net\-cow\-mountoptions\fR \fIOPTION\fR|""\fIOPTIONS\fR""" 4
+
+.IP "\fB\-\-net\-cow\-path\fR \fIPATH\fR" 4
+Specify path to client writable filesystem. Anywhere that
+.BI "client_mac_address"
+is specified in the path live-initramfs
+will substitute the MAC address of the client delimited with hyphens.
+.RS
+.TP
+EXAMPLE:
+/export/hosts/client_mac_address
+.br
+/export/hosts/52-54-00-12-34-56
+.RE
+
+.IP "\fB\-\-net\-cow\\-server\fR \fIIP\fR|\fIHOSTNAME\fR" 4
 
 .IP "\fB\-p|\-\-packages\-lists\fR \fIFILE\fR" 4
 

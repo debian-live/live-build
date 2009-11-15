@@ -178,6 +178,12 @@ then
 	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} union=${LH_UNION_FILESYSTEM}"
 fi
 
+if [ -n "${LH_NET_COW_PATH}" ]
+then
+	Echo_error "Net cow not yet supported on grub"
+	exit 1
+fi
+
 if [ "${LH_EXPOSED_ROOT}" != "disabled" ]
 then
 	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} exposedroot"
