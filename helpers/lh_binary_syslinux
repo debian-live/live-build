@@ -101,8 +101,15 @@ Syslinux_live_entry ()
 			fi
 
 			# Note: ISOLINUX will not find the kernel if the name ends in ".img".
-			mv ${KERNEL_PATH}/${KERNEL} ${KERNEL_PATH}/vmlinuz${NUMBER}
-			mv ${KERNEL_PATH}/${INITRD} ${KERNEL_PATH}/initrd${NUMBER}.img
+			if [ -e ${KERNEL_PATH}/${KERNEL} ]
+			then
+				mv ${KERNEL_PATH}/${KERNEL} ${KERNEL_PATH}/vmlinuz${NUMBER}
+			fi
+
+			if [ -e ${KERNEL_PATH}/${INITRD} ]
+			then
+				mv ${KERNEL_PATH}/${INITRD} ${KERNEL_PATH}/initrd${NUMBER}.img
+			fi
 
 			KERNEL=vmlinuz${NUMBER}
 			INITRD=initrd${NUMBER}.img
@@ -113,7 +120,11 @@ Syslinux_live_entry ()
 	LINUX_LIVE="${LINUX_LIVE}\nlabel ${LABEL}\n"
 
 	# Write the menu label if the syslinux menu is being use
-	LINUX_LIVE="${LINUX_LIVE}\tmenu label ${MENULABEL}\n"
+	if [ -n "${MENULABEL}" ]
+	then
+		LINUX_LIVE="${LINUX_LIVE}\tmenu label ${MENULABEL}\n"
+	fi
+
 	LINUX_LIVE="${LINUX_LIVE}\tkernel ${LIVE_KERNEL_PATH}/${KERNEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=${LIVE_KERNEL_PATH}/${INITRD} boot=${INITFS} ${LH_BOOTAPPEND_LIVE} ${APPEND}\n"
 
@@ -121,7 +132,11 @@ Syslinux_live_entry ()
 	LINUX_LIVE="${LINUX_LIVE}\nlabel ${LABEL}failsafe\n"
 
 	# Write the menu label if the syslinux menu is being use
-	LINUX_LIVE="${LINUX_LIVE}\tmenu label ${MENULABEL} (failsafe)\n"
+	if [ -n "${MENULABEL}" ]
+	then
+		LINUX_LIVE="${LINUX_LIVE}\tmenu label ${MENULABEL} (failsafe)\n"
+	fi
+
 	LINUX_LIVE="${LINUX_LIVE}\tkernel ${LIVE_KERNEL_PATH}/${KERNEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=${LIVE_KERNEL_PATH}/${INITRD} boot=${INITFS} ${LH_BOOTAPPEND_LIVE} ${APPEND} ${FAILSAFE}\n"
 }
@@ -574,6 +589,9 @@ then
 		fi
 	done
 fi
+
+# Adding syslinux hardcoded default label entry
+Syslinux_live_entry "linux" "" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
 
 # Assembling debian-installer configuration
 if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
