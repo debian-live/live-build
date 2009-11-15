@@ -80,7 +80,7 @@ Yaboot_live_entry ()
 	LINUX_LIVE="${LINUX_LIVE}\nimage=${DIRECTORY}/${KERNEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\tlabel=${LABEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\tinitrd=${DIRECTORY}/${INITRD}\n"
-	LINUX_LIVE="${LINUX_LIVE}\tappend=\"boot=${INITFS} LH_BOOTAPPEND ${APPEND}\"\n"
+	LINUX_LIVE="${LINUX_LIVE}\tappend=\"boot=${INITFS} LH_BOOTAPPEND_LIVE ${APPEND}\"\n"
 	LINUX_LIVE="${LINUX_LIVE}\tinitrd-size=10240\n"
 }
 
@@ -101,7 +101,7 @@ Yaboot_install_entry ()
 	LINUX_INSTALL="${LINUX_INSTALL}\nimage=${DIRECTORY}/${KERNEL}\n"
 	LINUX_INSTALL="${LINUX_INSTALL}\tlabel=${LABEL}\n"
 	LINUX_INSTALL="${LINUX_INSTALL}\tinitrd=${DIRECTORY}/${INITRD}\n"
-	LINUX_INSTALL="${LINUX_INSTALL}\tappend=\"LH_BOOTAPPEND ${APPEND} --\"\n"
+	LINUX_INSTALL="${LINUX_INSTALL}\tappend=\"LH_BOOTAPPEND_LIVE ${APPEND} LH_BOOTAPPEND_INSTALL\"\n"
 	LINUX_INSTALL="${LINUX_INSTALL}\tinitrd-size=10240\n"
 }
 
@@ -145,20 +145,20 @@ mkdir -p "${DESTDIR_LIVE}"
 # Setting boot parameters
 if [ -n "${LH_ENCRYPTION}" ]
 then
-	LH_BOOTAPPEND="${LH_BOOTAPPEND} encryption=${LH_ENCRYPTION}"
+	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} encryption=${LH_ENCRYPTION}"
 fi
 
 if [ -n "${LH_USERNAME}" ]
 then
 	case "${LH_INITRAMFS}" in
 		casper)
-			LH_BOOTAPPEND="${LH_BOOTAPPEND} username=${LH_USERNAME}"
+			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} username=${LH_USERNAME}"
 			;;
 
 		live-initramfs)
 			if [ "${LH_USERNAME}" != "user" ]
 			then
-				LH_BOOTAPPEND="${LH_BOOTAPPEND} username=${LH_USERNAME}"
+				LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} username=${LH_USERNAME}"
 			fi
 			;;
 	esac
@@ -168,13 +168,13 @@ if [ -n "${LH_HOSTNAME}" ]
 then
 	case "${LH_INITRAMFS}" in
 		casper)
-			LH_BOOTAPPEND="${LH_BOOTAPPEND} hostname=${LH_HOSTNAME}"
+			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} hostname=${LH_HOSTNAME}"
 			;;
 
 		live-initramfs)
 			if [ "${LH_HOSTNAME}" != "debian" ]
 			then
-				LH_BOOTAPPEND="${LH_BOOTAPPEND} hostname=${LH_HOSTNAME}"
+				LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} hostname=${LH_HOSTNAME}"
 			fi
 			;;
 	esac
@@ -182,10 +182,10 @@ fi
 
 if [ "${LH_UNION_FILESYSTEM}" != "unionfs" ]
 then
-	LH_BOOTAPPEND="${LH_BOOTAPPEND} union=${LH_UNION_FILESYSTEM}"
+	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} union=${LH_UNION_FILESYSTEM}"
 fi
 
-LH_BOOTAPPEND="`echo ${LH_BOOTAPPEND} | sed -e 's/  //'`"
+LH_BOOTAPPEND_LIVE="`echo ${LH_BOOTAPPEND_LIVE} | sed -e 's/  //'`"
 
 # Parameters are listed at: linux/Documentation/kernel-parameters.txt
 FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=ofonly"
@@ -266,7 +266,7 @@ case "${LH_BINARY_IMAGES}" in
 
 		# Configure yaboot templates
 		sed -i -e "s#LINUX_LIVE#${LINUX_LIVE}#" -e "s#LINUX_INSTALL#${LINUX_INSTALL}#" binary/yaboot/yaboot.conf
-		sed -i -e "s#LH_BOOTAPPEND#${LH_BOOTAPPEND}#" binary/yaboot/yaboot.conf
+		sed -i -e "s#LH_BOOTAPPEND_INSTALL#${LH_BOOTAPPEND_INSTALL}#" -e "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" binary/yaboot/yaboot.conf
 		sed -i -e "s/LH_DATE/`date +%Y%m%d`/" -e "s/LH_VERSION/${VERSION}/" binary/yaboot/boot.msg
 		;;
 esac

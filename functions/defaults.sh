@@ -42,12 +42,16 @@ Set_defaults ()
 	if [ -z "${LH_DISTRIBUTION}" ]
 	then
 		case "${LH_MODE}" in
-			debian|debian-edu)
+			debian)
+				LH_DISTRIBUTION="lenny"
+				;;
+
+			debian-edu)
 				LH_DISTRIBUTION="etch"
 				;;
 
 			ubuntu)
-				LH_DISTRIBUTION="gutsy"
+				LH_DISTRIBUTION="feisty"
 				;;
 		esac
 	fi
@@ -115,7 +119,7 @@ Set_defaults ()
 			;;
 
 			ubuntu)
-				if [ -x "/usr/sbin/debootstrap" ] && [ -f /usr/lib/debootstrap/scripts/gutsy ]
+				if [ -x "/usr/sbin/debootstrap" ] && [ -f /usr/lib/debootstrap/scripts/feisty ]
 				then
 					LH_BOOTSTRAP="debootstrap"
 				elif [ -x "/usr/bin/cdebootstrap" ] && [ -d /usr/share/cdebootstrap/generic-ubuntu ]
@@ -444,7 +448,7 @@ Set_defaults ()
 	esac
 
 	# Setting language string
-	# LH_LANGUAGE
+	LH_LANGUAGE="${LH_LANGUAGE:-en}"
 
 	# Setting linux flavour string
 	if [ -z "${LH_LINUX_FLAVOURS}" ]
@@ -611,7 +615,8 @@ Set_defaults ()
 	LH_BINARY_INDICES="${LH_BINARY_INDICES:-enabled}"
 
 	# Setting boot parameters
-	# LH_BOOTAPPEND
+	LH_BOOTAPPEND_INSTALL="${LH_BOOTAPPEND_INSTALL:---}"
+	# LH_BOOTAPPEND_LIVE
 
 	# Setting bootloader
 	if [ -z "${LH_BOOTLOADER}" ]

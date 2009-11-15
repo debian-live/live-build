@@ -59,6 +59,11 @@ DISTRIBUTION="`echo ${LH_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]'`"
 DISTRIBUTION="${DISTRIBUTION}`echo ${LH_DISTRIBUTION} | cut -b 2-`"
 eval VERSION="$`echo VERSION_${LH_DISTRIBUTION}`"
 
+if [ "${LH_DISTRIBUTION}" != "etch" ]
+then
+	ARCHITECTURE="Snapshot ${ARCHITECTURE}"
+fi
+
 case "${LH_MODE}" in
 	debian)
 		case "${LH_DEBIAN_INSTALLER}" in
@@ -71,17 +76,10 @@ case "${LH_MODE}" in
 
 				echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} CD Binary `date +%Y%m%d-%H:%M`" > binary/.disk/info
 
-cat > binary/.disk/udeb_include << EOF
-netcfg
-ethdetect
-pcmcia-cs-udeb
-pcmciautils-udeb
-wireless-tools-udeb
-EOF
-
+				cp "${LH_BASE}"/data/debian-cd/${LH_DISTRIBUTION}/${LH_ARCHITECTURE}_udeb_include binary/.disk/udeb_include
 				;;
 
-			netinst)
+			enabled|netinst|live)
 				echo "main" > binary/.disk/base_components
 
 				touch binary/.disk/base_installable
@@ -90,14 +88,12 @@ EOF
 
 				echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} NETINST Binary `date +%Y%m%d-%H:%M`" > binary/.disk/info
 
-cat > binary/.disk/udeb_include << EOF
-netcfg
-ethdetect
-pcmcia-cs-udeb
-pcmciautils-udeb
-wireless-tools-udeb
-EOF
+				cp "${LH_BASE}"/data/debian-cd/${LH_DISTRIBUTION}/${LH_ARCHITECTURE}_netinst_udeb_include binary/.disk/udeb_include
 
+				if [ "${LH_DEBIAN_INSTALLER}" = "live" ]
+				then
+					echo "live-installer" >> binary/.disk/udeb_include
+				fi
 				;;
 
 			businesscard)
@@ -107,15 +103,7 @@ EOF
 
 				echo "Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} BC Binary `date +%Y%m%d-%H:%M`" > binary/.disk/info
 
-cat > binary/.disk/udeb_include << EOF
-choose-mirror
-netcfg
-ethdetect
-pcmcia-cs-udeb
-pcmciautils-udeb
-wireless-tools-udeb
-EOF
-
+				cp "${LH_BASE}"/data/debian-cd/${LH_DISTRIBUTION}/${LH_ARCHITECTURE}_businesscard_udeb_include binary/.disk/udeb_include
 				;;
 
 			disabled)
@@ -130,11 +118,6 @@ EOF
 		# Ubuntu 7.04 "Feisty Fawn" - Release i386 (20070418)
 		;;
 esac
-
-if [ -d binary/pool/main/l/live-installer ]
-then
-	echo "live-installer" >> binary/.disk/udeb_include
-fi
 
 # Creating stage file
 Create_stagefile .stage/binary_disk

@@ -35,7 +35,7 @@ Set_defaults
 
 # Setting remote d-i directories
 case "${LH_DEBIAN_INSTALLER}" in
-	cdrom|netinst|businesscard)
+	enabled|cdrom|netinst|businesscard|live)
 		DI="cdrom"
 		DI_GTK="${DI}/gtk"
 		DI_KERNEL="vmlinuz"
@@ -184,29 +184,15 @@ fi
 
 # Downloading debian-installer
 mkdir -p "${DESTDIR_DI}"
-
-if [ "${LH_DISTRIBUTION}" = "sid" ]
-then
-	wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI}/${DI_KERNEL}
-	wget --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI}/initrd.gz
-else
-	wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" "${LH_MIRROR_BOOTSTRAP}"/dists/"${LH_DISTRIBUTION}"/main/installer-"${LH_ARCHITECTURE}"/current/images/"${DI}"/"${DI_KERNEL}"
-	wget --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" "${LH_MIRROR_BOOTSTRAP}"/dists/"${LH_DISTRIBUTION}"/main/installer-"${LH_ARCHITECTURE}"/current/images/"${DI}"/initrd.gz
-fi
+wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI}/${DI_KERNEL}
+wget --no-clobber -O "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI}/initrd.gz
 
 # Downloading graphical-installer
 if [ "${LH_ARCHITECTURE}" = "amd64" ] || [ "${LH_ARCHITECTURE}" = "i386" ] || [ "${LH_ARCHITECTURE}" = "powerpc" ]
 then
 	mkdir -p "${DESTDIR_GI}"
-
-	if [ "${LH_DISTRIBUTION}" = "sid" ]
-	then
-		wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_GTK}/${DI_KERNEL}
-		wget --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_GTK}/initrd.gz
-	else
-		wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" "${LH_MIRROR_BOOTSTRAP}"/dists/"${LH_DISTRIBUTION}"/main/installer-"${LH_ARCHITECTURE}"/current/images/"${DI_GTK}"/"${DI_KERNEL}"
-		wget --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" "${LH_MIRROR_BOOTSTRAP}"/dists/"${LH_DISTRIBUTION}"/main/installer-"${LH_ARCHITECTURE}"/current/images/"${DI_GTK}"/initrd.gz
-	fi
+	wget --no-clobber -O "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_GTK}/${DI_KERNEL}
+	wget --no-clobber -O "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_GTK}/initrd.gz
 fi
 
 if [ "${LH_DEBIAN_INSTALLER}" != "netboot" ]; then
@@ -270,9 +256,9 @@ else
 fi
 
 # Including local debs
-if ls ../config/binary_local-debs/* > /dev/null 2>&1
+if ls ../config/binary_local-debs/*.deb > /dev/null 2>&1
 then
-	for FILE in ../config/binary_local-debs/*.deb
+	for FILE in ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".deb ../config/binary_local-debs/*_all.deb
 	do
 		SOURCE="`dpkg -f ${FILE} Source | awk '{ print $1 }'`"
 
@@ -339,9 +325,9 @@ mkdir -p ../cache/packages_debian-installer.udeb
 cp *.udeb ../cache/packages_debian-installer.udeb
 
 # Including local udebs
-if ls ../config/binary_local-udebs/* > /dev/null 2>&1
+if ls ../config/binary_local-udebs/*.udeb > /dev/null 2>&1
 then
-	for FILE in ../config/binary_local-udebs/*.udeb
+	for FILE in ../config/binary_local-udebs/*_"${LH_ARCHITECTURE}".udeb ../config/binary_local-udebs/*_all.udeb
 	do
 		SOURCE="`dpkg -f ${FILE} Source | awk '{ print $1 }'`"
 
@@ -372,14 +358,24 @@ then
 fi
 
 # Excluding udebs
-grep -v "^#" ${LH_BASE:-/usr/share/live-helper}/data/debian-cd/"${LH_DISTRIBUTION}"/udeb_exclude > exclude
-grep -v "^#" ${LH_BASE:-/usr/share/live-helper}/data/debian-cd/"${LH_DISTRIBUTION}"/exclude-udebs >> exclude
-grep -v "^#" ${LH_BASE:-/usr/share/live-helper}/data/debian-cd/"${LH_DISTRIBUTION}"/exclude-udebs-${LH_ARCHITECTURE} >> exclude
+grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DISTRIBUTION}"/udeb_exclude > exclude
+grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DISTRIBUTION}"/exclude-udebs >> exclude
+grep -v "^#" "${LH_BASE}"/data/debian-cd/"${LH_DISTRIBUTION}"/exclude-udebs-${LH_ARCHITECTURE} >> exclude
 
 for EXCLUDE in `cat exclude`
 do
 	rm -f "${EXCLUDE}"_*.udeb
 done
+
+# Enable live-installer
+if [ "${LH_DEBIAN_INSTALLER}" = "live" ]
+then
+	# Remove local udebs
+	rm -f pool/main/b/base-installer/bootstrap-base_*.udeb
+
+	# Remove d-i udebs
+	rm -f bootstrap-base_*.udeb
+fi
 
 # Moving udebs
 for UDEB in ${UDEBS}
@@ -422,7 +418,10 @@ do
 	ln -s ${LH_DISTRIBUTION} binary/dists/${DISTRIBUTION}
 done
 
-ln -s . binary/debian
+if [ "${LH_BINARY_IMAGES}" != "usb-hdd" ]
+then
+	ln -s . binary/debian
+fi
 
 # Creating stage file
 Create_stagefile .stage/binary_debian-installer

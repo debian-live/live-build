@@ -30,7 +30,8 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [-a|--architecture ARCHITECTURE]\n\
 \t    [-b|--binary-images iso|net|tar|usb-hdd]\n\
 \t    [--binary-indices enabled|disabled]\n\
-\t    [--bootappend PARAMETER|\"PARAMETERS\"]\n\
+\t    [--bootappend-install PARAMETER|\"PARAMETERS\"]\n\
+\t    [--bootappend-live PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootloader grub|syslinux|yaboot]\n\
 \t    [--bootstrap cdebootstrap|debootstrap]\n\
 \t    [--bootstrap-config FILE]\n\
@@ -100,7 +101,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 
 Local_arguments ()
 {
-	ARGUMENTS="`getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,losetup:,mode:,root-command:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-images:,binary-indices:,bootappend:,bootloader:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,iso-memtest:,net-filesystem:,net-mountoptions:,net-path:,net-server:,syslinux-splash:,syslinux-timeout:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}"`"
+	ARGUMENTS="`getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,losetup:,mode:,root-command:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,iso-memtest:,net-filesystem:,net-mountoptions:,net-path:,net-server:,syslinux-splash:,syslinux-timeout:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}"`"
 
 	if [ "${?}" != "0" ]
 	then
@@ -392,8 +393,13 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--bootappend)
-				LH_BOOTAPPEND="${2}"
+			--bootappend-install)
+				LH_BOOTAPPEND_INSTALL="${2}"
+				shift 2
+				;;
+
+			--bootappend-live)
+				LH_BOOTAPPEND_LIVE="${2}"
 				shift 2
 				;;
 
@@ -836,9 +842,13 @@ LH_BINARY_IMAGES="${LH_BINARY_IMAGES}"
 # (Default: ${LH_BINARY_INDICES})
 LH_BINARY_INDICES="${LH_BINARY_INDICES}"
 
-# \$LH_BOOTAPPEND: set boot parameters
+# \$LH_BOOTAPPEND_INSTALL: set boot parameters
 # (Default: empty)
-LH_BOOTAPPEND="${LH_BOOTAPPEND}"
+LH_BOOTAPPEND_INSTALL="${LH_BOOTAPPEND_INSTALL}"
+
+# \$LH_BOOTAPPEND_LIVE: set boot parameters
+# (Default: empty)
+LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE}"
 
 # \$LH_BOOTLOADER: set bootloader
 # (Default: ${LH_BOOTLOADER})

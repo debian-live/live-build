@@ -76,7 +76,7 @@ Grub_live_entry ()
 	APPEND="${4}"
 
 	LINUX_LIVE="${LINUX_LIVE}\ntitle\t\tDebian GNU/Linux - ${LABEL}"
-	LINUX_LIVE="${LINUX_LIVE}\nkernel\t\t/${KERNEL} boot=${INITFS} LH_BOOTAPPEND ${APPEND}"
+	LINUX_LIVE="${LINUX_LIVE}\nkernel\t\t/${KERNEL} boot=${INITFS} LH_BOOTAPPEND_LIVE ${APPEND}"
 	LINUX_LIVE="${LINUX_LIVE}\ninitrd\t\t/${INITRD}"
 }
 
@@ -93,7 +93,7 @@ Grub_install_entry ()
 	fi
 
 	LINUX_INSTALL="${LINUX_INSTALL}\ntitle\t\tDebian GNU/Linux - ${LABEL}"
-	LINUX_INSTALL="${LINUX_INSTALL}\nkernel\t\t/${KERNEL} ${APPEND} --"
+	LINUX_INSTALL="${LINUX_INSTALL}\nkernel\t\t/${KERNEL} ${APPEND} ${LH_BOOTSTRAP_INSTALL}"
 	LINUX_INSTALL="${LINUX_INSTALL}\ninitrd\t\t/${INITRD}"
 }
 
@@ -137,20 +137,20 @@ mkdir -p "${DESTDIR_LIVE}"
 # Setting boot parameters
 if [ -n "${LH_ENCRYPTION}" ]
 then
-	LH_BOOTAPPEND="${LH_BOOTAPPEND} encryption=${LH_ENCRYPTION}"
+	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} encryption=${LH_ENCRYPTION}"
 fi
 
 if [ -n "${LH_USERNAME}" ]
 then
 	case "${LH_INITRAMFS}" in
 		casper)
-			LH_BOOTAPPEND="${LH_BOOTAPPEND} username=${LH_USERNAME}"
+			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} username=${LH_USERNAME}"
 			;;
 
 		live-initramfs)
 			if [ "${LH_USERNAME}" != "user" ]
 			then
-				LH_BOOTAPPEND="${LH_BOOTAPPEND} username=${LH_USERNAME}"
+				LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} username=${LH_USERNAME}"
 			fi
 			;;
 	esac
@@ -160,13 +160,13 @@ if [ -n "${LH_HOSTNAME}" ]
 then
 	case "${LH_INITRAMFS}" in
 		casper)
-			LH_BOOTAPPEND="${LH_BOOTAPPEND} hostname=${LH_HOSTNAME}"
+			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} hostname=${LH_HOSTNAME}"
 			;;
 
 		live-initramfs)
 			if [ "${LH_HOSTNAME}" != "debian" ]
 			then
-				LH_BOOTAPPEND="${LH_BOOTAPPEND} hostname=${LH_HOSTNAME}"
+				LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} hostname=${LH_HOSTNAME}"
 			fi
 			;;
 	esac
@@ -174,10 +174,10 @@ fi
 
 if [ "${LH_UNION_FILESYSTEM}" != "unionfs" ]
 then
-	LH_BOOTAPPEND="${LH_BOOTAPPEND} union=${LH_UNION_FILESYSTEM}"
+	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} union=${LH_UNION_FILESYSTEM}"
 fi
 
-LH_BOOTAPPEND="`echo ${LH_BOOTAPPEND} | sed -e 's/  //'`"
+LH_BOOTAPPEND_LIVE="`echo ${LH_BOOTAPPEND_LIVE} | sed -e 's/  //'`"
 
 # Parameters are listed at: linux/Documentation/kernel-parameters.txt
 FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=normal"
@@ -290,7 +290,7 @@ then
 fi
 
 sed -i -e "s#LINUX_LIVE#${LINUX_LIVE}#" -e "s#LINUX_INSTALL#${LINUX_INSTALL}#" -e "s#MEMTEST#${MEMTEST}#" binary/boot/grub/menu.lst
-sed -i -e "s#LH_BOOTAPPEND#${LH_BOOTAPPEND}#" binary/boot/grub/menu.lst
+sed -i -e "s#LH_BOOTAPPEND_INSTALL#${LH_BOOTAPPEND_INSTALL}#" -e "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" binary/boot/grub/menu.lst
 
 sed -i -e 's/\ $//g' binary/boot/grub/menu.lst
 

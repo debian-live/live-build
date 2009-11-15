@@ -85,7 +85,7 @@ Syslinux_live_entry ()
 
 	LINUX_LIVE="${LINUX_LIVE}\nLABEL ${LABEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\tkernel /${KERNEL}\n"
-	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=/${INITRD} boot=${INITFS} LH_BOOTAPPEND ${APPEND}\n"
+	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=/${INITRD} boot=${INITFS} LH_BOOTAPPEND_LIVE ${APPEND}\n"
 }
 
 Syslinux_install_entry ()
@@ -111,7 +111,7 @@ Syslinux_install_entry ()
 
 	LINUX_INSTALL="${LINUX_INSTALL}\nLABEL ${LABEL}\n"
 	LINUX_INSTALL="${LINUX_INSTALL}\tkernel /${KERNEL}\n"
-	LINUX_INSTALL="${LINUX_INSTALL}\tappend initrd=/${INITRD} ${APPEND} --\n"
+	LINUX_INSTALL="${LINUX_INSTALL}\tappend initrd=/${INITRD} ${APPEND} LH_BOOTAPPEND_INSTALL\n"
 }
 
 case "${LH_INITRAMFS}" in
@@ -175,20 +175,20 @@ mkdir -p "${DESTDIR_LIVE}"
 # Setting boot parameters
 if [ -n "${LH_ENCRYPTION}" ]
 then
-	LH_BOOTAPPEND="${LH_BOOTAPPEND} encryption=${LH_ENCRYPTION}"
+	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} encryption=${LH_ENCRYPTION}"
 fi
 
 if [ -n "${LH_USERNAME}" ]
 then
 	case "${LH_INITRAMFS}" in
 		casper)
-			LH_BOOTAPPEND="${LH_BOOTAPPEND} username=${LH_USERNAME}"
+			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} username=${LH_USERNAME}"
 			;;
 
 		live-initramfs)
 			if [ "${LH_USERNAME}" != "user" ]
 			then
-				LH_BOOTAPPEND="${LH_BOOTAPPEND} username=${LH_USERNAME}"
+				LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} username=${LH_USERNAME}"
 			fi
 			;;
 	esac
@@ -198,13 +198,13 @@ if [ -n "${LH_HOSTNAME}" ]
 then
 	case "${LH_INITRAMFS}" in
 		casper)
-			LH_BOOTAPPEND="${LH_BOOTAPPEND} hostname=${LH_HOSTNAME}"
+			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} hostname=${LH_HOSTNAME}"
 			;;
 
 		live-initramfs)
 			if [ "${LH_HOSTNAME}" != "debian" ]
 			then
-				LH_BOOTAPPEND="${LH_BOOTAPPEND} hostname=${LH_HOSTNAME}"
+				LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} hostname=${LH_HOSTNAME}"
 			fi
 			;;
 	esac
@@ -212,18 +212,18 @@ fi
 
 if [ "${LH_UNION_FILESYSTEM}" != "unionfs" ]
 then
-	LH_BOOTAPPEND="${LH_BOOTAPPEND} union=${LH_UNION_FILESYSTEM}"
+	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} union=${LH_UNION_FILESYSTEM}"
 fi
 
 if [ "${LH_BINARY_IMAGES}" = "net" ]
 then
 	case "${LH_NET_FILESYSTEM}" in
 		nfs)
-			LH_BOOTAPPEND="${LH_BOOTAPPEND} netboot=nfs nfsroot=LH_NET_SERVER:LH_NET_PATH"
+			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} netboot=nfs nfsroot=LH_NET_SERVER:LH_NET_PATH"
 			;;
 
 		cifs)
-			LH_BOOTAPPEND="${LH_BOOTAPPEND} netboot=cifs nfsroot=//LH_NET_SERVERLH_NET_PATH"
+			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} netboot=cifs nfsroot=//LH_NET_SERVERLH_NET_PATH"
 			;;
 
 		*)
@@ -234,11 +234,11 @@ then
 
 	if [ -n "${LH_NET_MOUNTOPTIONS}" ]
 	then
-		LH_BOOTAPPEND="${LH_BOOTAPPEND} nfsopts=${LH_NET_MOUNTOPTIONS}"
+		LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} nfsopts=${LH_NET_MOUNTOPTIONS}"
 	fi
 fi
 
-LH_BOOTAPPEND="`echo ${LH_BOOTAPPEND} | sed -e 's/  //'`"
+LH_BOOTAPPEND_LIVE="`echo ${LH_BOOTAPPEND_LIVE} | sed -e 's/  //'`"
 
 # Parameters are listed at: linux/Documentation/kernel-parameters.txt
 FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=normal"
@@ -335,7 +335,8 @@ case "${LH_BINARY_IMAGES}" in
 				;;
 		esac
 
-		cp -r "${TEMPLATES}"/* binary/isolinux
+		cp -r "${TEMPLATES}"/common/* binary/isolinux
+		cp -r "${TEMPLATES}"/"${LH_LANGUAGE}"/* binary/isolinux
 
 		for FILE in binary/isolinux/*.live
 		do
@@ -389,7 +390,7 @@ case "${LH_BINARY_IMAGES}" in
 
 		# Configure syslinux templates
 		sed -i -e "s@LINUX_LIVE@${LINUX_LIVE}@" -e "s@LINUX_INSTALL@${LINUX_INSTALL}@" -e "s@MEMTEST@${MEMTEST}@" binary/isolinux/isolinux.cfg
-		sed -i -e "s#LH_BOOTAPPEND#${LH_BOOTAPPEND}#" binary/isolinux/isolinux.cfg
+		sed -i -e "s#LH_BOOTAPPEND_INSTALL#${LH_BOOTAPPEND_INSTALL}#" -e "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" binary/isolinux/isolinux.cfg
 		sed -i -e "s/LH_DISTRIBUTION/${LH_DISTRIBUTION}/" -e "s/LH_DATE/`date +%Y%m%d`/" -e "s/LH_MEDIA/CD-ROM/" binary/isolinux/f1.txt
 		sed -i -e "s/LH_MEDIA/CD-ROM/" binary/isolinux/f3.txt
 		sed -i -e "s/LH_VERSION/${VERSION}/" binary/isolinux/f10.txt
@@ -436,7 +437,8 @@ case "${LH_BINARY_IMAGES}" in
 		esac
 
 		mkdir -p tftpboot/pxelinux.cfg
-		cp -r "${TEMPLATES}"/* tftpboot/pxelinux.cfg
+		cp -r "${TEMPLATES}"/common/* tftpboot/pxelinux.cfg
+		cp -r "${TEMPLATES}"/"${LH_LANGUAGE}"/* tftpboot/pxelinux.cfg
 
 		for FILE in tftpboot/pxelinux.cfg/*.live
 		do
@@ -484,7 +486,7 @@ case "${LH_BINARY_IMAGES}" in
 			if [ "${LH_SYSLINUX_SPLASH}" = "none" ]
 			then
 				rm -f tftpboot/pxelinux.cfg/splash.rle
-				sed -e "s/.*splash.*//" tftpboot/pxelinux.cfg/boot.txt
+				sed -i -e "s/.*splash.*//" tftpboot/pxelinux.cfg/boot.txt
 			else
 				cp -f "${LH_SYSLINUX_SPLASH}" tftpboot/pxelinux.cfg/splash.rle
 			fi
@@ -492,7 +494,7 @@ case "${LH_BINARY_IMAGES}" in
 
 		# Configure syslinux templates
 		sed -i -e "s@LINUX_LIVE@${LINUX_LIVE}@" -e "s@LINUX_INSTALL@${LINUX_INSTALL}@" -e "s@MEMTEST@${MEMTEST}@" tftpboot/pxelinux.cfg/default
-		sed -i -e "s#LH_BOOTAPPEND#${LH_BOOTAPPEND}#" -e "s/LH_NET_SERVER/${LH_NET_SERVER}/" -e "s#LH_NET_PATH#${LH_NET_PATH}#" tftpboot/pxelinux.cfg/default
+		sed -i -e "s#LH_BOOTAPPEND_INSTALL#${LH_BOOTAPPEND_INSTALL}#" -e "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" -e "s/LH_NET_SERVER/${LH_NET_SERVER}/" -e "s#LH_NET_PATH#${LH_NET_PATH}#" tftpboot/pxelinux.cfg/default
 		sed -i -e "s/LH_DISTRIBUTION/${LH_DISTRIBUTION}/" -e "s/LH_DATE/`date +%Y%m%d`/" -e "s/LH_MEDIA/netboot/" tftpboot/pxelinux.cfg/f1.txt
 		sed -i -e "s/LH_MEDIA/netboot/" tftpboot/pxelinux.cfg/f3.txt
 		sed -i -e "s/LH_VERSION/${VERSION}/" tftpboot/pxelinux.cfg/f10.txt
@@ -533,7 +535,8 @@ case "${LH_BINARY_IMAGES}" in
 				;;
 		esac
 
-		cp -r "${TEMPLATES}"/* "${DESTDIR}"
+		cp -r "${TEMPLATES}"/common/* "${DESTDIR}"
+		cp -r "${TEMPLATES}"/"${LH_LANGUAGE}"/* "${DESTDIR}"
 
 		for FILE in "${DESTDIR}"/*.live
 		do
@@ -577,7 +580,7 @@ case "${LH_BINARY_IMAGES}" in
 			if [ "${LH_SYSLINUX_SPLASH}" = "none" ]
 			then
 				rm -f "${DESTDIR}"/splash.rle
-				sed -e "s/.*splash.*//" "${DESTDIR}"/boot.txt
+				sed -i -e "s/.*splash.*//" "${DESTDIR}"/boot.txt
 			else
 				cp -f "${LH_SYSLINUX_SPLASH}" "${DESTDIR}"/splash.rle
 			fi
@@ -585,7 +588,7 @@ case "${LH_BINARY_IMAGES}" in
 
 		# Configure syslinux templates
 		sed -i -e "s@LINUX_LIVE@${LINUX_LIVE}@" -e "s@LINUX_INSTALL@${LINUX_INSTALL}@" -e "s@MEMTEST@${MEMTEST}@" "${DESTDIR}"/syslinux.cfg
-		sed -i -e "s#LH_BOOTAPPEND#${LH_BOOTAPPEND}#" "${DESTDIR}"/syslinux.cfg
+		sed -i -e -e "s#LH_BOOTAPPEND_INSTALL#${LH_BOOTAPPEND_INSTALL}#" "s#LH_BOOTAPPEND_LIVE#${LH_BOOTAPPEND_LIVE}#" "${DESTDIR}"/syslinux.cfg
 		sed -i -e "s/LH_DISTRIBUTION/${LH_DISTRIBUTION}/" -e "s/LH_DATE/`date +%Y%m%d`/" -e "s/LH_MEDIA/hd-media/" "${DESTDIR}"/f1.txt #FIXME
 		sed -i -e "s/LH_MEDIA/hd-media/" "${DESTDIR}"/f3.txt #FIXME
 		sed -i -e "s/LH_VERSION/${VERSION}/" "${DESTDIR}"/f10.txt

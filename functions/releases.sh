@@ -11,8 +11,8 @@ set -e
 
 # Debian releases
 VERSION_etch="4.0 r0"
-VERSION_lenny="prerelease"
-VERSION_sid="unreleased"
+VERSION_lenny="testing"
+VERSION_sid="unstable"
 
 # Ubuntu releases
 VERSION_hoary="5.04"
