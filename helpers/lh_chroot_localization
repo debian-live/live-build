@@ -9,20 +9,20 @@
 
 set -e
 
-# Source common functions
-for FUNCTION in /usr/share/live-helper/functions/*.sh
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
 do
-	. ${FUNCTION}
+	. "${FUNCTION}"
 done
 
-# Set static variables
+# Setting static variables
 DESCRIPTION="install localization packages into chroot"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
-
-Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -32,7 +32,7 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-Breakpoint "chroot_localization: Init"
+Echo_message "Begin installing localization packages..."
 
 # Requiring stage file
 Require_stagefile .stage/bootstrap
@@ -601,35 +601,12 @@ then
 	esac
 
 	# Setting languages
-	if [ -z "${ICEAPE}" ]
-	then
-		ICEAPE="${LIVE_LANGUAGE}"
-	fi
-
-	if [ -z "${ICEDOCE}" ]
-	then
-		ICEDOVE="${LIVE_LANGUAGE}"
-	fi
-
-	if [ -z "${ICEWEASEL}" ]
-	then
-		ICEWEASEL="${LIVE_LANGUAGE}"
-	fi
-
-	if [ -z "${KDE}" ]
-	then
-		KDE="${LIVE_LANGUAGE}"
-	fi
-
-	if [ -z "${KOFFICE}" ]
-	then
-		KOFFICE="${LIVE_LANGUAGE}"
-	fi
-
-	if [ -z "${OPENOFFICE}" ]
-	then
-		OPENOFFICE="${LIVE_LANGUAGE}"
-	fi
+	ICEAPE="${ICEAPE:-$LIVE_LANGUAGE}"
+	ICEDOVE="${ICEDOVE:-$LIVE_LANGUAGE}"
+	ICEWEASEL="${ICEWEASEL:-$LIVE_LANGUAGE}"
+	KDE="${KDE:-$LIVE_LANGUAGE}"
+	KOFFICE="${KOFFICE:-$LIVE_LANGUAGE}"
+	OPENOFFICE="${OPENOFFICE:-$LIVE_LANGUAGE}"
 
 	# Setting packages
 	for LOCALIZATION in ${LOCALIZATIONS}

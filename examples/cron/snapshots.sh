@@ -3,7 +3,7 @@
 # Needs: build-essential fakeroot lsb-release svn [...]
 
 # Static variables
-PACKAGES="live-helper live-initramfs live-webhelper"
+PACKAGES="live-helper live-initramfs live-sysvinit live-webhelper"
 
 DEBEMAIL="debian-live-devel@lists.alioth.debian.org"
 EMAIL="debian-live-devel@lists.alioth.debian.org"
@@ -80,19 +80,23 @@ do
 		rm -rf "${TEMPDIR}"/${PACKAGE}-${VERSION}~${REVISION}
 
 		# Creating directory
-		if [ ! -d "${SERVER}" ]
-		then
-			mkdir -p "${SERVER}"
-		fi
+		mkdir -p "${SERVER}"
 
 		# Removing old packages
-		if ls "${SERVER}"/"${PACKAGE}"* &> /dev/null
-		then
-			rm -f "${SERVER}"/"${PACKAGE}"*
-		fi
+		for FILE in `awk {'print $5'} "${SERVER}"/"${PACKAGE}"*.changes | grep -e ".*\.deb$" -e ".*\.diff.gz$" -e ".*\.dsc$" -e ".*\.tar.gz$" -e ".*\.udeb$"`
+		do
+			rm -f "${SERVER}"/"${FILE}"
+		done
 
-		# Moving packages
-		mv "${TEMPDIR}"/${PACKAGE}* "${SERVER}"
+		rm -f "${SERVER}"/"${PACKAGE}"*.changes
+
+		# Installing new packages
+		for FILE in `awk {'print $5'} "${TEMPDIR}"/"${PACKAGE}"*.changes | grep -e ".*\.deb$" -e ".*\.diff.gz$" -e ".*\.dsc$" -e ".*\.tar.gz$" -e ".*\.udeb$"`
+		do
+			mv "${TEMPDIR}"/"${FILE}" "${SERVER}"
+		done
+
+		mv "${TEMPDIR}"/"${PACKAGE}"*.changes "${SERVER}"
 	else
 		# Remove sources
 		rm -rf "${TEMPDIR}"/${PACKAGE}

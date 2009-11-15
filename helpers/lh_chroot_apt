@@ -9,20 +9,20 @@
 
 set -e
 
-# Source common functions
-for FUNCTION in /usr/share/live-helper/functions/*.sh
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
 do
-	. ${FUNCTION}
+	. "${FUNCTION}"
 done
 
-# Set static variables
+# Setting static variables
 DESCRIPTION="manage /etc/apt/apt.conf"
 HELP=""
 USAGE="${PROGRAM} {install|remove} [--force]"
 
 Arguments "${@}"
-
-Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -32,7 +32,7 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-Breakpoint "chroot_apt: Init"
+Echo_message "Configuring file /etc/apt/apt.conf"
 
 # Requiring stage file
 Require_stagefile .stage/bootstrap
@@ -48,10 +48,7 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ ! -d chroot/etc/apt/apt.conf.d ]
-		then
-			mkdir -p chroot/etc/apt/apt.conf.d
-		fi
+		mkdir -p chroot/etc/apt/apt.conf.d
 
 		# Configuring apt ftp proxy
 		if [ -n "${LH_APT_FTPPROXY}" ]
@@ -75,6 +72,12 @@ case "${1}" in
 				echo "Acquire::PDiffs \"false\";" > chroot/etc/apt/apt.conf.d/00pdiffs
 				;;
 		esac
+
+		# Configuring apt pipeline
+		if [ -n "${LH_APT_PIPELINE}" ]
+		then
+			echo "Acquire::http::Pipeline-Depth \"${LH_APT_PIPELINE}\";" > chroot/etc/apt/apt.conf.d/00pipeline
+		fi
 
 		# Configuring apt recommends
 		if [ "${LH_APT}" = "aptitude" ]
@@ -122,6 +125,9 @@ case "${1}" in
 
 		# Deconfiguring aptitude pdiffs
 		rm -f chroot/etc/apt/apt.conf.d/00pdiffs
+
+		# Deconfiguring aptitude pipeline
+		rm -f chroot/etc/apt/apt.conf.d/00pipeline
 
 		# Deconfiguring aptitude recommends
 		rm -f chroot/etc/apt/apt.conf.d/00recommends

@@ -9,20 +9,20 @@
 
 set -e
 
-# Source common functions
-for FUNCTION in /usr/share/live-helper/functions/*.sh
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
 do
-	. ${FUNCTION}
+	. "${FUNCTION}"
 done
 
-# Set static variables
+# Setting static variables
 DESCRIPTION="build rootfs image"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
-
-Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
 Read_conffile config/common
@@ -32,7 +32,7 @@ Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
 
-Breakpoint "binary_rootfs: Init"
+Echo_message "Begin building root filesystem image..."
 
 # Requiring stage file
 Require_stagefile .stage/bootstrap
@@ -58,10 +58,7 @@ case "${LH_INITRAMFS}" in
 esac
 
 # Creating directory
-if [ ! -d binary/${INITFS} ]
-then
-	mkdir -p binary/${INITFS}
-fi
+mkdir -p binary/${INITFS}
 
 case "${LIVE_CHROOT_FILESYSTEM}" in
 	ext2)
@@ -127,12 +124,18 @@ case "${LIVE_CHROOT_FILESYSTEM}" in
 			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -e chroot/boot/vmlinuz* chroot/boot/initrd.img* chroot/vmlinuz* chroot/initrd.img* chroot/boot/config-* chroot/boot/System.map-*"
 		fi
 
+		if [ -f config/binary_rootfs/squashfs.sort ]
+		then
+			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -sort squashfs.sort"
+			cp config/binary_rootfs/squashfs.sort chroot
+		fi
+
 		# Create image
 		Chroot "mksquashfs chroot filesystem.squashfs ${MKSQUASHFS_OPTIONS}"
 
 		# Move image
 		${LH_ROOT_COMMAND} mv chroot/filesystem.squashfs binary/${INITFS}
-		${LH_ROOT_COMMAND} rm -rf chroot/chroot
+		${LH_ROOT_COMMAND} rm -rf chroot/chroot chroot/squashfs.sort
 
 		if [ -n "${LH_ROOT_COMMAND}" ]
 		then

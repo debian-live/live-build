@@ -88,21 +88,18 @@ uninstall:
 		done; \
 	done
 
-	# Uninstalling logfile
-	rm -f $(DESTDIR)/var/log/live*
-
 update:
 	set -e; for MANPAGE in manpages/*.de.* manpages/*.en.*; \
 	do \
-		sed -i	-e 's/2007\\-05\\-21/2007\\-05\\-28/' \
-			-e 's/21.05.2007/28.05.2007/' \
-			-e 's/1.0~a11/1.0~a12/' \
+		sed -i	-e 's/2007\\-06\\-04/2007\\-06\\-11/' \
+			-e 's/04.06.2007/11.06.2007/' \
+			-e 's/1.0~a13/1.0~a14/' \
 		$$MANPAGE; \
 	done
 
 	set -e; for SCRIPT in functions/common.sh examples/cron/etch.sh examples/cron/etch+beryl.sh; \
 	do \
-		sed -i -e 's/1.0~a11/1.0~a12/' $$SCRIPT; \
+		sed -i -e 's/1.0~a13/1.0~a14/' $$SCRIPT; \
 	done
 
 clean:

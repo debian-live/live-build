@@ -9,13 +9,15 @@
 
 set -e
 
-# Source common functions
-for FUNCTION in /usr/share/live-helper/functions/*.sh
+# Including common functions
+LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
+for FUNCTION in "${LH_BASE}"/functions/*.sh
 do
-	. ${FUNCTION}
+	. "${FUNCTION}"
 done
 
-# Set static variables
+# Setting static variables
 DESCRIPTION="ensure that a system is built as root"
 HELP=""
 USAGE="${PROGRAM} [--force]"
@@ -29,8 +31,6 @@ Read_conffile config/chroot
 Read_conffile config/binary
 Read_conffile config/source
 Set_defaults
-
-Echo_debug "Init ${PROGRAM}"
 
 # Checking user account
 if [ "`${LH_ROOT_COMMAND} id -u`" -ne "0" ]
