@@ -1,0 +1,247 @@
+#!/bin/sh
+
+# lh_binary_debian-installer(1) - install debian-installer into binary
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Set static variables
+DESCRIPTION="install debian-installer into binary"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+Echo_debug "Init ${PROGRAM}"
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/bootstrap
+Read_conffile config/chroot
+Read_conffile config/binary
+Read_conffile config/source
+Set_defaults
+
+if [ "${LIVE_DEBIAN_INSTALLER}" != "enabled" ]
+then
+	exit 0
+fi
+
+Breakpoint "binary_debian-installer: Init"
+
+# Requiring stage file
+Require_stagefile .stage/bootstrap
+
+# Checking stage file
+Check_stagefile .stage/binary_debian-installer
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+# Setting destination directory
+case "${LIVE_BINARY_IMAGE}" in
+	iso)
+		DESTDIR="binary/install"
+		DESTDIR_INSTALLER="cdrom"
+		;;
+
+	net)
+		DESTDIR="tftpboot"
+		DESTDIR_INSTALLER="netboot"
+
+		Echo_error "Not supported yet (FIXME)"
+		exit 1
+		;;
+
+	usb-hdd|hdd)
+		DESTDIR="binary"
+		DESTDIR_INSTALLER="hd-media"
+		;;
+esac
+
+# Temporary check for broken syslinux
+if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+then
+	# Assemble multi-arch
+	if [ -n "${MULTIARCH}" ]
+	then
+		case "${LIVE_ARCHITECTURE}" in
+			amd64)
+				DESTDIR="${DESTDIR}.amd"
+				;;
+
+			i386)
+				DESTDIR="${DESTDIR}.386"
+				;;
+
+			powerpc)
+				DESTDIR="${DESTDIR}.ppc"
+				;;
+		esac
+	fi
+fi
+
+# Downloading debian-installer
+mkdir -p "${DESTDIR}"
+
+wget --no-clobber -O "${DESTDIR}"/vmlinuz "${LIVE_MIRROR_BUILD}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/vmlinuz
+wget --no-clobber -O "${DESTDIR}"/initrd.gz "${LIVE_MIRROR_BUILD}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/initrd.gz
+
+# Downloading graphical-installer
+if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ] || [ "${LIVE_ARCHITECTURE}" = "powerpc" ]
+then
+	mkdir -p "${DESTDIR}"/gtk
+
+	wget --no-clobber -O "${DESTDIR}"/gtk/vmlinuz "${LIVE_MIRROR_BUILD}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/gtk/vmlinuz
+	wget --no-clobber -O "${DESTDIR}"/gtk/initrd.gz "${LIVE_MIRROR_BUILD}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/gtk/initrd.gz
+fi
+
+# Downloading udebs
+mkdir -p binary/dists/"${LIVE_DISTRIBUTION}"/main/debian-installer/binary-"${LIVE_ARCHITECTURE}"
+cd binary/dists/"${LIVE_DISTRIBUTION}"/main/debian-installer/binary-"${LIVE_ARCHITECTURE}"
+wget "${LIVE_MIRROR_BUILD}"/dists/"${LIVE_DISTRIBUTION}"/main/debian-installer/binary-"${LIVE_ARCHITECTURE}"/Packages.gz
+gunzip -c Packages.gz > Packages
+cd "${OLDPWD}"
+
+for DISTRIBUTION in frozen stable testing unstable
+do
+	ln -s ${LIVE_DISTRIBUTION} binary/dists/${DISTRIBUTION}
+done
+
+DEBS="`awk '/Filename: / { print $2 }' binary/dists/${LIVE_DISTRIBUTION}/main/debian-installer/binary-${LIVE_ARCHITECTURE}/Packages`"
+UDEBS="`echo ${DEBS} | grep '.*.udeb'`"
+
+rm -f packages.di
+
+for UDEB in ${UDEBS}
+do
+	mkdir -p binary/`dirname ${UDEB}`
+	cd binary/`dirname ${UDEB}`
+	wget "${LIVE_MIRROR_BUILD}"/${UDEB}
+	cd "${OLDPWD}"
+done
+
+# Downloading debs
+if [ -d cache/packages_bootstrap ]
+then
+	for FILE in cache/packages_bootstrap/*.deb
+	do
+		SOURCE="`dpkg -f ${FILE} Source`"
+
+		if [ -z "${SOURCE}" ]
+		then
+			SOURCE="`basename ${FILE} | awk -F_ '{ print $1 }'`"
+		fi
+
+		case "${SOURCE}" in
+			lib?*)
+				LETTER="`echo ${SOURCE} | sed 's/\(....\).*/\1/'`"
+				;;
+
+			*)
+				LETTER="`echo ${SOURCE} | sed 's/\(.\).*/\1/'`"
+				;;
+		esac
+
+		# Install directory
+		mkdir -p binary/pool/main/"${LETTER}"/"${SOURCE}"
+
+		# Move files
+		cp "${FILE}" binary/pool/main/"${LETTER}"/"${SOURCE}"
+	done
+fi
+
+mkdir -p binary/dists/${LIVE_DISTRIBUTION}/main/binary-${LIVE_ARCHITECTURE}
+
+cat > binary/dists/${LIVE_DISTRIBUTION}/main/binary-${LIVE_ARCHITECTURE}/Release << EOF
+Archive: ${LIVE_DISTRIBUTION}
+Component: main
+Origin: Debian
+Label: Debian
+Architecture: ${LIVE_ARCHITECTURE}
+EOF
+
+mkdir -p cache/indices_debian-installer
+
+cat > cache/indices_debian-installer/archive << EOF
+Dir
+{
+	ArchiveDir	"binary";
+	// OverrideDir	"";
+	// CacheDir	"";
+	FileListDir	"cache/indices_debian-installer";
+};
+
+Default
+{
+	Packages::Compress	". gzip";
+	// Packages::Extension	".deb";
+	// Sources::Extensions	".dsc";
+	// Contents::Compress	"gzip";
+	// DeLinkLimit		"0";
+	// FileMode		"0644";
+};
+
+TreeDefault
+{
+	// MaxContentsChange
+	// ContentsAge
+	Directory		"dists/\$(DIST)/\$(SECTION)/binary-\$(ARCH)/";
+	Packages		"dists/\$(DIST)/\$(SECTION)/binary-\$(ARCH)/Packages";
+	InternalPrefix		"dists/\$(DIST)/\$(SECTION)/";
+	Contents		"dists/\$(DIST)/Contents-\$(ARCH)";
+	// Contents::Header
+	// BinCacheDB		"cache.\$(DIST).\$(SECTION).\$(ARCH)";
+	// FileList		"filelist.\$(DIST).\$(SECTION).\$(ARCH)";
+	FileList		"filelist";
+	// BinOverride		"override.\$(DIST).\$(SECTION)";
+};
+
+tree "${LIVE_DISTRIBUTION}"
+{
+	Sections	"main";
+	Architectures	"${LIVE_ARCHITECTURE}";
+};
+EOF
+
+cd binary
+find pool -name "*.deb" | sort > ../cache/indices_debian-installer/filelist
+cd "${OLDPWD}"
+
+cat > cache/indices_debian-installer/release << EOF
+APT::FTPArchive::Release::Origin	"Debian";
+APT::FTPArchive::Release::Label		"Debian";
+APT::FTPArchive::Release::Suite		"${LIVE_DISTRIBUTION}";
+APT::FTPArchive::Release::Version	"4.0";
+APT::FTPArchive::Release::Codename	"${LIVE_DISTRIBUTION}";
+APT::FTPArchive::Release::Date		"`date -R`";
+APT::FTPArchive::Release::Architectures	"${LIVE_ARCHITECTURE}";
+APT::FTPArchive::Release::Components	"main";
+EOF
+
+apt-ftparchive generate cache/indices_debian-installer/archive
+apt-ftparchive -c cache/indices_debian-installer/release -o APT::FTPArchive::Release::Description="Last updated: `date -R`" release binary/dists/${LIVE_DISTRIBUTION} > binary/dists/${LIVE_DISTRIBUTION}/Release
+
+mkdir binary/.disk
+echo "main" > binary/.disk/base_components
+touch binary/.disk/base_installable
+echo "not_complete" > binary/.disk/cd_type
+#echo "Debian GNU/Linux 4.0 r0 \"Etch\" - Official i386 NETINST Binary-1 20070407-11:29" > binary/.disk/info
+echo "Debian GNU/Linux ${LIVE_DISTRIBUTION} - Unofficial ${LIVE_ARCHITECTURE} NETINST Binary-1 `date +%Y%m%d-%H:%M`" > binary/.disk/info
+touch binary/.disk/mkisofs
+
+# Creating stage file
+Create_stagefile .stage/binary_debian-installer

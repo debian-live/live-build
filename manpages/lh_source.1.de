@@ -1,4 +1,4 @@
-.TH LH_SOURCE 1 "23.04.2007" "1.0~a7" "live\-helper"
+.TH LH_SOURCE 1 "30.04.2007" "1.0~a8" "live\-helper"
 
 .SH NAME
 lh_source \- Meta\-Helper f\[:u]r lh_source_*
@@ -25,8 +25,8 @@ erstellt  CD/DVD Source-Image.
 erstellt md5sum.txt im Source-Image.
 .IP "\fIlh_source_net\fR(1)" 4
 erstellt Netboot Source-Tarball.
-.IP "\fIlh_source_usb\fR(1)" 4
-erstellt USB Source-Tarball.
+.IP "\fIlh_source_usb-hdd\fR(1)" 4
+erstellt USB-hdd Source-Tarball.
 
 .SH SIEHE AUCH
 \fIlive\-helper\fR(7)

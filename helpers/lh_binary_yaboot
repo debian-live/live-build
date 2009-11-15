@@ -25,10 +25,11 @@ Arguments "${@}"
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
+Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/chroot
-Read_conffile config/common
-Read_conffile config/image
+Read_conffile config/binary
+Read_conffile config/source
 Set_defaults
 
 if [ "${LIVE_BOOTLOADER}" != "yaboot" ]
@@ -74,13 +75,23 @@ Check_package chroot/usr/lib/yaboot/yaboot yaboot
 # Installing depends
 Install_package
 
+case "${LH_INITRAMFS}" in
+	casper)
+		INITFS="casper"
+		;;
+
+	live-initramfs)
+		INITFS="live"
+		;;
+esac
+
 # Setting destination directory
 case "${LIVE_BINARY_IMAGE}" in
 	iso)
 		DESTDIR="binary/live"
 		;;
 
-	net|usb|hdd)
+	net|usb-hdd|hdd)
 		Echo_error "not supported, FIXME"
 	;;
 esac
@@ -123,10 +134,10 @@ LIVE_BOOTAPPEND="`echo ${LIVE_BOOTAPPEND} | sed -e 's/  //'`"
 if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
 then
 	DEFAULT_FLAVOUR="`echo ${LIVE_KERNEL_FLAVOUR} | awk '{ print $1 }'`"
-	LINUX="image=/`basename ${DESTDIR}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tinitrd=/`basename ${DESTDIR}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'`\n\tlabel=LIVE\n\tappend=\"boot=casper LIVE_BOOTAPPEND\"\n\tinitrd-size=1048576\n\tread-only"
+	LINUX="image=/`basename ${DESTDIR}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tinitrd=/`basename ${DESTDIR}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'`\n\tlabel=LIVE\n\tappend=\"boot=${INITFS} LIVE_BOOTAPPEND\"\n\tinitrd-size=1048576\n\tread-only"
 else
 	DEFAULT_FLAVOUR="`echo ${LIVE_KERNEL_FLAVOUR} | awk '{ print $1 }'`"
-	LINUX="image=`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tinitrd=initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'`\n\tlabel=LIVE\n\tappend=\"boot=casper LIVE_BOOTAPPEND\"\n\tinitrd-size=1048576\n\tread-only"
+	LINUX="image=`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tinitrd=initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'`\n\tlabel=LIVE\n\tappend=\"boot=${INITFS} LIVE_BOOTAPPEND\"\n\tinitrd-size=1048576\n\tread-only"
 fi
 
 # FIXME
@@ -138,16 +149,16 @@ then
 		then
 			if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
 		then
-				LINUX="label LIVE-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n  kernel /`basename ${DESTDIR}`/`basename ${KERNEL}`\n  append initrd=/`basename ${DESTDIR}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
+				LINUX="label LIVE-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n  kernel /`basename ${DESTDIR}`/`basename ${KERNEL}`\n  append initrd=/`basename ${DESTDIR}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
 			else
-				LINUX="label LIVE-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n  kernel `basename ${KERNEL}`\n  append initrd=initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
+				LINUX="label LIVE-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n  kernel `basename ${KERNEL}`\n  append initrd=initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
 		fi
 		else
 			if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
 			then
-				LINUX="${LINUX}\nlabel LIVE-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n  kernel /`basename ${DESTDIR}`/`basename ${KERNEL}`\n  append initrd=/`basename ${DESTDIR}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
+				LINUX="${LINUX}\nlabel LIVE-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n  kernel /`basename ${DESTDIR}`/`basename ${KERNEL}`\n  append initrd=/`basename ${DESTDIR}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
 			else
-				LINUX="${LINUX}\nlabel LIVE-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n  kernel `basename ${KERNEL}`\n  append initrd=initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=casper LIVE_BOOTAPPEND"
+				LINUX="${LINUX}\nlabel LIVE-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`\n  kernel `basename ${KERNEL}`\n  append initrd=initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
 			fi
 		fi
 	done

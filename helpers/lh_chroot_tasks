@@ -25,10 +25,11 @@ Arguments "${@}"
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
+Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/chroot
-Read_conffile config/common
-Read_conffile config/image
+Read_conffile config/binary
+Read_conffile config/source
 Set_defaults
 
 Breakpoint "chroot_tasks: Init"
@@ -48,7 +49,7 @@ Create_lockfile .lock
 if [ -n "${LIVE_TASKS}" ]
 then
 	# Restoring cache
-	Restore_cache cache/chroot_tasks
+	Restore_cache cache/packages_tasks
 
 	# Checking depends
 	case "${LH_TASKSEL}" in
@@ -82,7 +83,7 @@ then
 	Remove_package
 
 	# Saving cache
-	Save_cache cache/chroot_tasks
+	Save_cache cache/packages_tasks
 
 	# Creating stage file
 	Create_stagefile .stage/chroot_tasks

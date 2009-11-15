@@ -25,10 +25,11 @@ Arguments "${@}"
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
+Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/chroot
-Read_conffile config/common
-Read_conffile config/image
+Read_conffile config/binary
+Read_conffile config/source
 Set_defaults
 
 Breakpoint "binary_rootfs: Init"
@@ -46,10 +47,20 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
+case "${LH_INITRAMFS}" in
+	casper)
+		INITFS="casper"
+		;;
+
+	live-initramfs)
+		INITFS="live"
+		;;
+esac
+
 # Creating directory
-if [ ! -d binary/casper ]
+if [ ! -d binary/${INITFS} ]
 then
-	mkdir -p binary/casper
+	mkdir -p binary/${INITFS}
 fi
 
 case "${LIVE_FILESYSTEM}" in
@@ -61,9 +72,9 @@ case "${LIVE_FILESYSTEM}" in
 		Install_package
 
 		# Remove old ext2 image
-		if [ -f binary/casper/filesystem.ext2 ]
+		if [ -f binary/${INITFS}/filesystem.ext2 ]
 		then
-			rm -f binary/casper/filesystem.ext2
+			rm -f binary/${INITFS}/filesystem.ext2
 		fi
 
 		DU_DIM="`du -ks chroot | cut -f1`"
@@ -72,7 +83,7 @@ case "${LIVE_FILESYSTEM}" in
 		Chroot "genext2fs --size-in-blocks=${REAL_DIM} --reserved-blocks=0 --root=chroot filesystem.ext2"
 
 		# Move image
-		mv chroot/filesystem.ext2 binary/casper
+		mv chroot/filesystem.ext2 binary/${INITFS}
 		rm -rf chroot/chroot
 
 		# Removing depends
@@ -80,12 +91,12 @@ case "${LIVE_FILESYSTEM}" in
 		;;
 
 	plain)
-		if [ -d binary/casper/filesystem.dir ]
+		if [ -d binary/${INITFS}/filesystem.dir ]
 		then
-			rm -rf binary/casper/filesystem.dir
+			rm -rf binary/${INITFS}/filesystem.dir
 		fi
 
-		mv chroot/chroot binary/casper/filesystem.dir
+		mv chroot/chroot binary/${INITFS}/filesystem.dir
 		;;
 
 	squashfs)
@@ -96,12 +107,12 @@ case "${LIVE_FILESYSTEM}" in
 		Install_package
 
 		# Remove old squashfs image
-		if [ -f binary/casper/filesystem.squashfs ]
+		if [ -f binary/${INITFS}/filesystem.squashfs ]
 		then
-			rm -f binary/casper/filesystem.squashfs
+			rm -f binary/${INITFS}/filesystem.squashfs
 		fi
 
-		if [ "${LH_QUIET}" = "enabled" ]
+		if [ "${LH_QUIET}" = "enabled" ] && [ "${LIVE_DISTRIBUTION}" != "etch" ] && [ "${LIVE_DISTRIBUTION}" != "testing" ]
 		then
 			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -no-progress"
 		fi
@@ -120,12 +131,12 @@ case "${LIVE_FILESYSTEM}" in
 		fi
 
 		# Move image
-		${LH_ROOT_COMMAND} mv chroot/filesystem.squashfs binary/casper
+		${LH_ROOT_COMMAND} mv chroot/filesystem.squashfs binary/${INITFS}
 		${LH_ROOT_COMMAND} rm -rf chroot/chroot
 
 		if [ -n "${LH_ROOT_COMMAND}" ]
 		then
-			${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` binary/casper
+			${LH_ROOT_COMMAND} chown -R `whoami`:`whoami` binary/${INITFS}
 		fi
 
 		# Removing depends

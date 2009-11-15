@@ -25,10 +25,11 @@ Arguments "${@}"
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
+Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/chroot
-Read_conffile config/common
-Read_conffile config/image
+Read_conffile config/binary
+Read_conffile config/source
 Set_defaults
 
 case "${1}" in
@@ -60,9 +61,9 @@ case "${1}" in
 
 		${LH_ROOT_COMMAND} rm -rf chroot chroot.tmp
 
-		if [ "${PURGE}" != "true" ] && [ -d cache/chroot_bootstrap ]
+		if [ "${PURGE}" != "true" ] && [ -d cache/stages_bootstrap ]
 		then
-			${LH_ROOT_COMMAND} cp -a cache/chroot_bootstrap chroot
+			${LH_ROOT_COMMAND} cp -a cache/stages_bootstrap chroot
 			mkdir -p .stage
 			touch .stage/bootstrap
 		fi

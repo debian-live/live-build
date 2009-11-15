@@ -25,10 +25,11 @@ Arguments "${@}"
 Echo_debug "Init ${PROGRAM}"
 
 # Reading configuration files
+Read_conffile config/common
 Read_conffile config/bootstrap
 Read_conffile config/chroot
-Read_conffile config/common
-Read_conffile config/image
+Read_conffile config/binary
+Read_conffile config/source
 Set_defaults
 
 Breakpoint "chroot_sysvinit: Init"
@@ -54,7 +55,7 @@ then
 	done
 
 	# Re-enable all required (taken from -f standard chroot)
-	for PACKAGE in casper console-common cron dpkg ifupdown initscripts kbd klogd libc6 libdevmapper1.02 libselinux1 libsepol1 login makedev module-init-tools netbase openbsd-inetd procps sudo sysklogd udev util-linux
+	for PACKAGE in ${LH_INITRAMFS} console-common cron dpkg ifupdown initscripts kbd klogd libc6 libdevmapper1.02 libselinux1 libsepol1 login makedev module-init-tools netbase openbsd-inetd procps sudo sysklogd udev util-linux
 	do
 		if [ -f chroot/var/lib/dpkg/info/${PACKAGE}.postinst ]
 		then

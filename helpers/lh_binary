@@ -42,6 +42,7 @@ lh_binary_encryption "${@}"
 
 # Prepare images
 lh_binary_linuximage "${@}"
+lh_binary_debian-installer "${@}"
 lh_binary_memtest "${@}"
 lh_binary_grub "${@}"
 lh_binary_syslinux "${@}"
@@ -54,7 +55,7 @@ lh_binary_md5sum "${@}"
 lh_binary_hdd "${@}"
 lh_binary_iso "${@}"
 lh_binary_net "${@}"
-lh_binary_usb "${@}"
+lh_binary_usb-hdd "${@}"
 
 # Deconfiguring chroot
 rm -f .stage/chroot_sources

@@ -1,3 +1,35 @@
+2007-04-31  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/*:
+	  - Added LH_INITRAMFS.
+	  - Splitted config/image into config/binary and config/source.
+	* Uploaded 1.0~a8-1.
+
+2007-04-26  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/*:
+	  - Implemented paranoid caching with LIVE_CACHE_INDICES,
+	    LIVE_CACHE_PACKAGES and LIVE_CACHE_STAGES. This allows to build
+	    images offline from the cache.
+
+2007-04-25  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_usb, lh_source_usb:
+	  - In preparation of adding support for usb-zip images, the usb binary
+	    type is renamed to usb-hdd.
+
+2007-04-24  Daniel Baumann  <daniel@debian.org>
+
+	* functions/stagefile.sh:
+	  - Requite_stagefile can require more than one stage.
+	* helpers/lh_binary_debian-installer:
+	  - Added.
+
+2007-04-23  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_includes, lh_binary_usb, lh_source_usb:
+	  - Added workaround for vfat limitations.
+
 2007-04-23  Daniel Baumann  <daniel@debian.org>
 
 	* Makefile:

@@ -1,23 +1,23 @@
-0fGETTING HELP07                                                                  09F807
+0fSPECIAL BOOT PARAMETERS - INSTALLATION SYSTEM07                                 09F807
 
-If you can't run Debian Live, don't despair! The Debian Live team is
-ready to help you! We are interested in hearing about problems, because
-in general they don't happen to only 0fone07 person.
-We've either already heard about your particular problem and can dispense a
-quick fix, or we would like to hear about it and work through it with you,
-and the next user who comes up with the same problem will profit from your
-experience!
+You can use the following boot parameters at the 0fboot:07 prompt, 
+in combination with the boot method (see <09F307>). These parameters
+control how the installer works.
+0f
+RESULT                                  PARAMETER07
+Verbose debugging                       0fDEBCONF_DEBUG=507
+Debug boot sequence                     0fBOOT_DEBUG=2|307
+Disable framebuffer                     0ffb=false07
+Don't probe for USB                     0fdebian-installer/probe/usb=false07
+Don't start PCMCIA                      0fhw-detect/start_pcmcia=false07
+Force static network config             0fnetcfg/disable_dhcp=true07
+Set keyboard map                        0fbootkbd=es07
+Use Braille tty                         0fbrltty=driver,device,texttable07
+Use high contrast accessibility theme   0ftheme=dark07
+Use special tasks                       0ftasks="kde-desktop, standard"07
 
-See the mailinglist and wiki for more information; both
-are available at the Debian Live web site, 0fhttp://debian-live.alioth.debian.org/07
+For example:
 
-
-
-
-
-
-
-
-
+  boot: install fb=false
 
 Press F1control and F then 1 for the help index, or ENTER to 

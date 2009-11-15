@@ -1,23 +1,23 @@
-0fSPECIAL BOOT PARAMETERS - VARIOUS HARDWARE07                                    09F407
+0fRESCUE MODE07                                                                   09F407
 
-You can use the following boot parameters at the 0fboot:07 prompt,
-in combination with the boot method (see <09F307>).
-0f
-OPTION                                 PARAMETER TO SPECIFY07
-Check media for defects                0fintegrity-check07
-Set a static ip (no dhcp)              0fip=if,add,netm,gatew07
-Set a default locale                   0flocale=<locale>07
-Suppress some debug informations       0fquiet07
-Show internal filesystems              0fshowmounts07
-Copy the live media to memory          0ftoram07
-Set initial display mode               0fvga=<mode>07
 
-For example:
+0fUse one of these boot methods to rescue an existing install07
 
-  boot: live quiet vga=792 locale=it_IT.UTF-8
+0frescue07
+  Boot into rescue mode.
+0frescuegui07
+  Boot into rescue mode using the graphical installer.
 
 
 
+
+
+
+
+To use one of these boot methods, type it at the prompt, optionally
+followed by any boot parameters. For example:
+
+  boot: rescue acpi=off
 
 
 Press F1control and F then 1 for the help index, or ENTER to 

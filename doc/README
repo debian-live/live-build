@@ -63,7 +63,7 @@
       |_ lh_binary_hdd
       |_ lh_binary_iso
       |_ lh_binary_net
-      |_ lh_binary_usb
+      |_ lh_binary_usb-hdd
       |
       |_ rm -f .stage/chroot_sources
       |_ lh_chroot_resolv remove
@@ -84,7 +84,7 @@
       |_ lh_source_hdd
       |_ lh_source_iso
       |_ lh_source_net
-      |_ lh_source_usb
+      |_ lh_source_usb-hdd
       |
       |_ rm -f .stage/chroot_sources
       |_ lh_chroot_resolv remove
