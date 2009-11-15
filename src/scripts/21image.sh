@@ -181,6 +181,10 @@ Syslinux ()
 					"${LIVE_ROOT}"/binary/isolinux
 				rm -f "${LIVE_ROOT}"/binary/isolinux/pxelinux.cfg
 
+				if [ -n "${LIVE_ISOLINUX_SPLASH}" ]; then
+					cp "${LIVE_ISOLINUX_SPLASH}" "${LIVE_ROOT}/binary/isolinux/splash.rle"
+				fi
+
 				# Configure syslinux templates
 				sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" "${LIVE_ROOT}"/binary/isolinux/isolinux.cfg
 				sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" "${LIVE_ROOT}"/binary/isolinux/f1.txt
@@ -199,6 +203,10 @@ Syslinux ()
 				mv "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/pxelinux.cfg "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/default
 				rm -f "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/isolinux.cfg
 				sed -i -e 's#splash.rle#pxelinux.cfg/splash.rle#' "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/isolinux.txt
+
+				if [ -n "${LIVE_ISOLINUX_SPLASH}" ]; then
+					cp "${LIVE_ISOLINUX_SPLASH}" "${LIVE_ROOT}/tftpboot/pxelinux.cfg/splash.rle"
+				fi
 
 				# Configure syslinux templates
 				sed -i -e "s/LIVE_SERVER_ADDRESS/${LIVE_SERVER_ADDRESS}/" -e "s#LIVE_SERVER_PATH#${LIVE_SERVER_PATH}#" -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" "${LIVE_ROOT}"/tftpboot/pxelinux.cfg/default
@@ -296,19 +304,19 @@ Mkisofs ()
 			if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
 			then
 				# Create image
-				mkisofs -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -o "${LIVE_ROOT}"/"${LIVE_IMAGE}"binary.iso -r -J -l -V "Debian Live `date +%Y%m%d`" -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table "${LIVE_ROOT}"/binary ${LIVE_INCLUDE_IMAGE}
+				genisoimage -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -o "${LIVE_ROOT}"/"${LIVE_IMAGE}"binary.iso -r -J -l -V "${LIVE_DISK_VOLUME}" -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table "${LIVE_ROOT}"/binary ${LIVE_INCLUDE_IMAGE}
 			else
 				echo "W: Bootloader on your architecture not yet supported (Continuing in 5 seconds)."
 				sleep 5
 
 				# Create image
-				mkisofs -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -o "${LIVE_ROOT}"/"${LIVE_IMAGE}"binary.iso -r -J -l -V "Debian Live `date +%Y%m%d`" "${LIVE_ROOT}"/binary ${LIVE_INCLUDE_IMAGE}
+				genisoimage -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -o "${LIVE_ROOT}"/"${LIVE_IMAGE}"binary.iso -r -J -l -V "${LIVE_DISK_VOLUME}" "${LIVE_ROOT}"/binary ${LIVE_INCLUDE_IMAGE}
 			fi
 			;;
 
 		source)
 			# Create image
-			mkisofs -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -o "${LIVE_ROOT}"/"${LIVE_IMAGE}"source.iso -r -J -l -V "Debian Live `date +%Y%m%d`" "${LIVE_ROOT}"/source
+			genisoimage -A "Debian Live" -p "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -publisher "Debian Live; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org" -o "${LIVE_ROOT}"/"${LIVE_IMAGE}"source.iso -r -J -l -V "${LIVE_DISK_VOLUME}" "${LIVE_ROOT}"/source
 			;;
 	esac
 }

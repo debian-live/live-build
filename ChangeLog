@@ -1,3 +1,16 @@
+2007-01-24 Daniel Baumann <daniel@debian.org>
+
+	* Applied patches from Otavio Salvador <otavio@debian.org>:
+	  - adding "--keyring" flag.
+	  - adding LIVE_DISK_VOLUME.
+	  - adding start-stop-daemon wrapper to avoid daemons to be started.
+	  - adding workaround to prevent binfmt locking /proc.
+	  - adding LIVE_ISOLINUX_SPLASH.
+
+2007-01-19 Daniel Baumann <daniel@debian.org>
+
+	* Replacing mkisofs with genisoimage.
+
 2007-01-16 Daniel Baumann <daniel@debian.org>
 
 	* Switched default distribution back to unstable, as unstable is usable

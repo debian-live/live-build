@@ -1,0 +1,56 @@
+# /usr/share/make-live/lists/rescue - package list for make-live(1)
+
+# Minimal
+eject file sudo vim-tiny
+
+# Standard
+console-common locales
+
+# Rescue
+
+# Editors
+mc nano-tiny qemacs-nox mg aview
+# Harddisk
+hdparm blktool scsitools
+# Memory
+memtester memtest86+ dmidecode
+# System
+procinfo pciutils usbutils hwinfo hwtools x86info cpuid
+# Tools
+tofrodos rpncalc units
+# Browser
+lynx links w3m
+# Compression
+unzip zip
+# Backup
+dar ddrescue gddrescue
+
+hal
+read-edid
+discover
+wdiff
+gawk
+dc
+dash
+rlwrap
+posh
+chkrootkit
+rkhunter
+parted
+partimage
+grub
+lilo
+testdisk
+xfsprogs
+reiserfsprogs
+e2fsprogs
+ext2resize
+ntfsprogs
+dosfstools
+genisoimage
+wodim
+dvd+rw-tools
+clamav
+clamav-data
+wipe
+secure-delete
