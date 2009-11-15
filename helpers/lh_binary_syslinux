@@ -650,7 +650,10 @@ case "${LH_BINARY_IMAGES}" in
 			sed -i -e "s|^include |include ${LIVE_SCREEN_PATH}/|g" "${FILE}"
 		done
 
-		sed -i -e "s| f| ${LIVE_SCREEN_PATH}/f|g" ${SCREEN_PATH}/prompt.cfg
+		if [ "${LH_DISTRIBUTION}" != "etch" ]
+		then
+			sed -i -e "s| f| ${LIVE_SCREEN_PATH}/f|g" ${SCREEN_PATH}/prompt.cfg
+		fi
 
 		mv ${SCREEN_PATH}/syslinux.cfg ${KERNEL_PATH}/pxelinux.cfg/default
 
