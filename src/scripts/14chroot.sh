@@ -95,10 +95,15 @@ Chroot ()
 		# Restore preseed configuration
 		if [ -f "${LIVE_PRESEED}" ]
 		then
-			Chroot_exec "apt-get install --yes debconf-utils"
+			Chroot_exec "apt-get install --yes --force-yes debconf-utils"
 			cp "${LIVE_PRESEED}" "${LIVE_CHROOT}"/root/preseed
 			Chroot_exec "debconf-set-selections /root/preseed"
 			rm -f "${LIVE_CHROOT}"/root/preseed
+		else
+			if [ -n "${LIVE_PRESEED}" ]; then
+				echo "'${LIVE_PRESEED}' file doesn't exists. Exiting..."
+				exit 1
+			fi
 		fi
 
 		# Restore cloned package selection

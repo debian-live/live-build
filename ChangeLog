@@ -1,3 +1,21 @@
+2006-10-29 Daniel Baumann <daniel@debian.org>
+
+	* Added minimal-net flavour.
+
+2006-10-28 Daniel Baumann <daniel@debian.org>
+
+	* Added console-common to standard selection.
+
+2006-10-27 Daniel Baumann <daniel@debian.org>
+
+	* Added patch from Otavio Salvador <otavio@debian.org>:
+	  - fixing preseeding error-handling.
+
+2006-10-26 Daniel Baumann <daniel@debian.org>
+
+	* Added gnustep package selection based on the suggestion of
+	  Guerkan Senguen <gurkan@linuks.mine.nu>.
+
 2006-10-25 Daniel Baumann <daniel@debian.org>
 
 	* Applied patch from Marcelo D. Re <mdre@rectorado.unl.edu.ar>:

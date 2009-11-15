@@ -1,10 +1,10 @@
-# /usr/share/make-live/lists/x11 - package list for make-live(8)
+# /usr/share/make-live/lists/x11 - package list for make-live(1)
 
 # Minimal
 eject sudo
 
 # Standard
-locales
+console-common locales
 
 # X11
 xdm x-window-system
