@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # lh_config(1) - create configuration for live-helper(7)
-# Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
+# Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 # This is free software, and you are welcome to redistribute it
@@ -9,17 +9,23 @@
 
 set -e
 
-# Including common functions
-LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+# Read meta config
+if [ "${1}" != "noautoconfig" ] && [ -x scripts/config ]
+then
+	./scripts/config ${@}
+fi
 
-for FUNCTION in "${LH_BASE}"/functions/*.sh
-do
-	. "${FUNCTION}"
-done
+if [ "${1}" = "noautoconfig" ]
+then
+	shift
+fi
+
+# Including common functions
+. "${LH_BASE:-/usr/share/live-helper}"/functions.sh
 
 # Setting static variables
 SYSTEM_LH_CONFFILE="/etc/default/live-helper"
-DESCRIPTION="create configuration for live-helper(7)"
+DESCRIPTION="$(Echo 'create configuration for live-helper(7)')"
 USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--apt-ftp-proxy URL]\n\
 \t    [--apt-http-proxy URL]\n\
@@ -36,7 +42,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--bootappend-install PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootappend-live PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootloader grub|syslinux|yaboot]\n\
-\t    [--bootstrap cdebootstrap|debootstrap|copy]\n\
+\t    [--bootstrap cdebootstrap|cdebootstrap-static|debootstrap|copy]\n\
 \t    [--bootstrap-config FILE]\n\
 \t    [-f|--bootstrap-flavour minimal|standard]\n\
 \t    [--bootstrap-keyring PACKAGE]\n\
@@ -57,6 +63,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--debian-installer-preseedfile FILE|URL]\n\
 \t    [--debug]\n\
 \t    [-d|--distribution CODENAME]\n\
+\t    [--dump]\n\
 \t    [-e|--encryption disabled|aes128|aes192|aes256]\n\
 \t    [--fdisk fdisk|fdisk.dist]\n\
 \t    [--force]\n\
@@ -84,7 +91,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--mirror-chroot-security URL]\n\
 \t    [--mirror-binary URL]\n\
 \t    [--mirror-binary-security URL]\n\
-\t    [--mode debian|debian-edu]\n\
+\t    [--mode debian|emdebian]\n\
 \t    [--net-root-filesystem nfs|cfs]\n\
 \t    [--net-root-mountoptions OPTIONS]\n\
 \t    [--net-root-path PATH]\n\
@@ -121,7 +128,7 @@ Local_arguments ()
 {
 	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-options:,aptitute-options:,
 		apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,
-		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,
+		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,genisoimage:,
 		initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,
 		templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,
 		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,
@@ -153,12 +160,12 @@ Local_arguments ()
 		case "${1}" in
 			--dump)
 				# Dump version
-				if [ -x "$(which dpkg 2>/dev/null)" ]
+				if [ -x "$(which dpkg-query 2>/dev/null)" ]
 				then
-					echo "${0}: This is live-helper version $(dpkg-query --show -f='${Version}')"
-				else
-					echo "${0}: This is live-helper version ${VERSION}"
+					VERSION_DPKG="$(dpkg-query -f='${Version}' --show live-helper)"
 				fi
+
+				Echo "%s: This is live-helper version %s" "${0}" "${VERSION_DPKG:-${VERSION}}"
 
 				# Dump conffile contents
 				Print_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
@@ -173,7 +180,7 @@ Local_arguments ()
 				done
 
 				# Dump directory listings of all directories under config/
-				for DIRECTORY in $(find config/ -type d -mindepth 1 -maxdepth 1)
+				for DIRECTORY in $(find config/ -mindepth 1 -maxdepth 1 -type d)
 				do
 					if Find_files "${DIRECTORY}"
 					then
@@ -204,7 +211,7 @@ Local_arguments ()
 				;;
 
 			--apt-pdiffs)
-				APT_PDIFFS="${2}"
+				LH_APT_PDIFFS="${2}"
 				shift 2
 				;;
 			--apt-options)
@@ -884,7 +891,7 @@ LH_BOOTSTRAP_INCLUDE="${LH_BOOTSTRAP_INCLUDE}"
 LH_BOOTSTRAP_EXCLUDE="${LH_BOOTSTRAP_EXCLUDE}"
 
 # \$LH_BOOTSTRAP_FLAVOUR: select flavour to use
-# (Default: ${LH_BOOTSTRAP_FLAVOUR})
+# (Default: empty)
 LH_BOOTSTRAP_FLAVOUR="${LH_BOOTSTRAP_FLAVOUR}"
 
 # \$LH_BOOTSTRAP_KEYRING: set distribution keyring

@@ -1,7 +1,7 @@
 # Makefile to manage gettext files
 
 DOMAIN=live-helper
-ECHO_FUNCTIONS="Echo_message Echo_verbose Echo_warning Echo_debug Echo_error Echo_breakage"
+ECHO_FUNCTIONS="Echo_message Echo_verbose Echo_warning Echo_debug Echo_error Echo_breakage Echo"
 
 POFILES=$(wildcard *.po)
 MOFILES=$(patsubst %.po,%.mo,$(POFILES))

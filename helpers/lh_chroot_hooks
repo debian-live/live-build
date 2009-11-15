@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # lh_chroot_hooks(1) - execute hooks in chroot
-# Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
+# Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 # This is free software, and you are welcome to redistribute it
@@ -10,15 +10,10 @@
 set -e
 
 # Including common functions
-LH_BASE="${LH_BASE:-/usr/share/live-helper}"
-
-for FUNCTION in "${LH_BASE}"/functions/*.sh
-do
-	. "${FUNCTION}"
-done
+. "${LH_BASE:-/usr/share/live-helper}"/functions.sh
 
 # Setting static variables
-DESCRIPTION="execute hooks in chroot"
+DESCRIPTION="$(Echo 'execute hooks in chroot')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -43,7 +38,9 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Processing hooks
-for HOOK in ${LH_PACKAGES_LISTS} ${LH_TASKS}
+HOOKS="$(echo ${LH_HOOKS} ${LH_PACKAGES_LISTS} ${LH_TASKS} | sed -e 's| |\n|g' | sort -u)"
+
+for HOOK in ${HOOKS}
 do
 	if [ -f ${LH_BASE:-/usr/share/live-helper}/hooks/"${HOOK}" ]
 	then
@@ -57,7 +54,7 @@ do
 		fi
 
 		# Executing hook
-		Chroot chroot "/root/${HOOK}"
+		Chroot chroot "./root/${HOOK}"
 
 		# Removing hook
 		rm -f chroot/root/"${HOOK}"
@@ -66,8 +63,3 @@ do
 		Create_stagefile .stage/chroot_hooks
 	fi
 done
-
-if [ -n "${LH_HOOKS}" ] && [ "${LH_HOOKS}" != "none" ]
-then
-	LH_DEBCONF_FRONTEND="readline" LH_DEBCONF_PRIORITY="low" LH_DEBCONF_NOWARNINGS="no" Chroot chroot "${LH_HOOKS}"
-fi

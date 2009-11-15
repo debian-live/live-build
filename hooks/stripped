@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # /usr/share/live-helper/hooks/stripped - hook list for live-helper(7)
-# Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
+# Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 # This is free software, and you are welcome to redistribute it
@@ -34,14 +34,6 @@ rm -rf /usr/share/lintian/*
 rm -rf /usr/share/linda/*
 rm -rf /usr/share/zoneinfo/*
 rm -rf /var/cache/man/*
-
-# Cleaning apt lists
-rm -rf /var/lib/apt/lists
-mkdir -p /var/lib/apt/lists/partial
-
-# Cleaning apt cache
-rm -rf /var/cache/apt
-mkdir -p /var/cache/apt/archives/partial
 
 # Truncating logs
 for FILE in $(find /var/log/ -type f)

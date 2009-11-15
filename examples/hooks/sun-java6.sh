@@ -22,3 +22,7 @@
 DEBIAN_FRONTEND="dialog" apt-get install --yes sun-java6-bin sun-java6-demo \
 	sun-java6-doc sun-java6-fonts sun-java6-jdk sun-java6-jre \
 	sun-java6-plugin sun-java6-source
+
+# Ensure that /tmp has the right permissions; apparently sun-java5-doc tampers
+# with it
+chmod 1777 /tmp

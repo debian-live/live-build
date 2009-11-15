@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # lh_chroot_hacks(1) - execute hacks in chroot
-# Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
+# Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 # This is free software, and you are welcome to redistribute it
@@ -10,15 +10,10 @@
 set -e
 
 # Including common functions
-LH_BASE="${LH_BASE:-/usr/share/live-helper}"
-
-for FUNCTION in "${LH_BASE}"/functions/*.sh
-do
-	. "${FUNCTION}"
-done
+. "${LH_BASE:-/usr/share/live-helper}"/functions.sh
 
 # Setting static variables
-DESCRIPTION="execute hacks in chroot"
+DESCRIPTION="$(Echo 'execute hacks in chroot')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -76,7 +71,9 @@ fi
 
 # Ensure readable permissions on initramfs. loop-aes-utils sets umask to
 # protect GPG keys, which live-helper does not support.
-chmod go+r chroot/boot/initrd*
+# Note: Use find rather than chmod on the wildcard, one never knows what
+# people might do in local hooks, and there might be no initrds at all.
+find chroot/boot -name 'initrd*' -print0 | xargs -r -0 chmod go+r
 
 # Remove build systems clock drift
 echo "0.0 0 0.0" > chroot/etc/adjtime
@@ -110,11 +107,28 @@ then
 	chown -R --quiet ${ID}:${ID} chroot/home/${LH_USERNAME}
 fi
 
-# This is a temporary hack to get rid of fstab;
-# needs cleanup in live-initramfs first to proper fix.
 if [ "${LH_DEBIAN_INSTALLER}" = "live" ]
 then
+	# This is a temporary hack to get rid of fstab;
+	# needs cleanup in live-initramfs first to proper fix.
 	rm -f chroot/etc/fstab
+
+	# There is a timing issue somewhere when using live-installer
+	# and the apt-get update waypoint: At the time when we're installing
+	# bootloader, it tries to fetch them from the net but the e.g.
+	# 'chroot /target apt-get install grub' fails because of missing
+	# packages lists. As a very cheap workaround, we ensure that the
+	# bootloader is already installed in the image. Very ugly, but it's to
+	# late to fix it in d-i because lenny rc2 has been already released.
+	case "${LH_ARCHITECTURE}" in
+		amd64|i386)
+			Apt install grub
+			;;
+
+		powerpc)
+			Apt install yaboot
+			;;
+	esac
 fi
 
 if [ "${LH_EXPOSED_ROOT}" = "enabled" ]

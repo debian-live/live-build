@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # lh_chroot_sources(1) - manage /etc/apt/sources.list
-# Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
+# Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 # This is free software, and you are welcome to redistribute it
@@ -10,15 +10,10 @@
 set -e
 
 # Including common functions
-LH_BASE="${LH_BASE:-/usr/share/live-helper}"
-
-for FUNCTION in "${LH_BASE}"/functions/*.sh
-do
-	. "${FUNCTION}"
-done
+. "${LH_BASE:-/usr/share/live-helper}"/functions.sh
 
 # Setting static variables
-DESCRIPTION="manage /etc/apt/sources.list"
+DESCRIPTION="$(Echo 'manage /etc/apt/sources.list')"
 HELP=""
 USAGE="${PROGRAM} {install|remove} [--force]"
 
@@ -404,9 +399,20 @@ case "${1}" in
 			Apt update
 		fi
 
-		# Cleaning apt packages cache
+		# Cleaning apt package cache
 		rm -rf chroot/var/cache/apt
 		mkdir -p chroot/var/cache/apt/archives/partial
+
+		for LIST in ${LH_PACKAGES_LISTS}
+		do
+			case "${LIST}" in
+				stripped|minimal)
+					# Cleaning apt package lists
+					rm -rf chroot/var/lib/apt/lists
+					mkdir -p chroot/var/lib/apt/lists/partial
+					;;
+			esac
+		done
 
 		# Remove local package repository
 		rm -rf chroot/root/local-packages

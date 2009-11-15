@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # usage.sh - print usage information
-# Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
+# Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 # This is free software, and you are welcome to redistribute it
@@ -9,7 +9,7 @@
 
 Usage ()
 {
-	Echo "%s - %s" "${PROGRAM}" "${DESCRIPTION}"
+	printf "%s - %s\n" "${PROGRAM}" "${DESCRIPTION}"
 	echo
 	Echo "Usage:"
 	echo
@@ -20,9 +20,9 @@ Usage ()
 		echo
 	fi
 
-	Echo "  %s [-h|--help]" "${PROGRAM}"
-	Echo "  %s [-u|--usage]" "${PROGRAM}"
-	Echo "  %s [-v|--version]" "${PROGRAM}"
+	printf "  %s [-h|--help]\n" "${PROGRAM}"
+	printf "  %s [-u|--usage]\n" "${PROGRAM}"
+	printf "  %s [-v|--version]\n" "${PROGRAM}"
 	echo
 	Echo "Try \" %s--help\" for more information." "${PROGRAM}"
 

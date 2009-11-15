@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # lh_build(1) - build a Debian Live system
-# Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
+# Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 # This is free software, and you are welcome to redistribute it
@@ -10,15 +10,21 @@
 set -e
 
 # Including common functions
-LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+. "${LH_BASE:-/usr/share/live-helper}"/functions.sh
 
-for FUNCTION in "${LH_BASE}"/functions/*.sh
-do
-	. "${FUNCTION}"
-done
+# Read meta config
+if [ "${1}" != "noautoconfig" ] && [ -x scripts/build ]
+then
+	./scripts/build ${@}
+fi
+
+if [ "${1}" = "noautoconfig" ]
+then
+	shift
+fi
 
 # Setting static variables
-DESCRIPTION="build a Debian Live system"
+DESCRIPTION="$(Echo 'build a Debian Live system')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 

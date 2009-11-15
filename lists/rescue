@@ -11,7 +11,7 @@ ext3grep galleta grokevt memdump missidentify myrescue pasco reglookup
 scrounge-ntfs ssdeep tableau-parm
 #endif
 #if DISTRIBUTION sid
-md5deep pipebench recoverdm rifiuti
+libewf1 md5deep pipebench recoverdm rifiuti
 #endif
 
 # Other forensic packages
@@ -32,7 +32,9 @@ palo
 
 # System
 gnupg dash discover gawk htop less lsof ltrace psmisc screen strace units
+#if ARCHITECTURE i386
 pstack
+#endif
 tcsh
 vlock
 moreutils
@@ -221,7 +223,9 @@ crashme
 dbench
 doscan
 dsniff
+#if DISTRIBUTION etch
 fragrouter
+#endif
 honeyd
 hping3
 icmpush

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # lh_chroot_apt(1) - manage /etc/apt/apt.conf
-# Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
+# Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 # This is free software, and you are welcome to redistribute it
@@ -10,15 +10,10 @@
 set -e
 
 # Including common functions
-LH_BASE="${LH_BASE:-/usr/share/live-helper}"
-
-for FUNCTION in "${LH_BASE}"/functions/*.sh
-do
-	. "${FUNCTION}"
-done
+. "${LH_BASE:-/usr/share/live-helper}"/functions.sh
 
 # Setting static variables
-DESCRIPTION="manage /etc/apt/apt.conf"
+DESCRIPTION="$(Echo 'manage /etc/apt/apt.conf')"
 HELP=""
 USAGE="${PROGRAM} {install|install-binary|remove} [--force]"
 
@@ -101,6 +96,17 @@ case "${1}" in
 				;;
 		esac
 
+		# Configuring apt config
+		if [ -f config/chroot_apt/apt.conf ]
+		then
+			if [ -f chroot/etc/apt/apt.conf ]
+			then
+				mv chroot/etc/apt/apt.conf chroot/etc/apt/apt.conf.orig
+			fi
+
+			cp config/chroot_apt/apt.conf chroot/etc/apt/apt.conf
+		fi
+
 		# Configuring apt preferences
 		if [ -f config/chroot_apt/preferences ]
 		then
@@ -180,6 +186,17 @@ case "${1}" in
 		if [ "${LH_APT_SECURE}" = "enabled" ]
 		then
 			rm -f chroot/etc/apt/apt.conf.d/00secure
+		fi
+
+		# Configuring apt config
+		if [ -f config/chroot_apt/apt.conf ]
+		then
+			if [ -f chroot/etc/apt/apt.conf ]
+			then
+				mv chroot/etc/apt/apt.conf chroot/etc/apt/apt.conf.orig
+			fi
+
+			cp config/chroot_apt/apt.conf chroot/etc/apt/apt.conf
 		fi
 
 		# Deconfiguring apt preferences

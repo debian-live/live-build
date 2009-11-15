@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Debconf 8\n"
-"POT-Creation-Date: 2008-08-10 03:43+0300\n"
+"POT-Creation-Date: 2009-01-29 22:56+0100\n"
 "PO-Revision-Date: 2008-08-07 22:08+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: lh_clean.en.1:1 lh_config.en.1:1 lh.en.1:1 lh_source.en.1:1
 #: lh_testroot.en.1:1 live-helper.en.7:1
 #, no-wrap
-msgid "2008-08-11"
+msgid "2009-01-23"
 msgstr ""
 
 # type: TH
@@ -28,7 +28,7 @@ msgstr ""
 #: lh_clean.en.1:1 lh_config.en.1:1 lh.en.1:1 lh_source.en.1:1
 #: lh_testroot.en.1:1 live-helper.en.7:1
 #, no-wrap
-msgid "1.0"
+msgid "1.0.2"
 msgstr ""
 
 # type: TH
@@ -57,74 +57,89 @@ msgstr ""
 
 # type: SH
 #: lh_binary.en.1:9 lh_bootstrap.en.1:9 lh_build.en.1:9 lh_chroot.en.1:9
-#: lh_clean.en.1:11 lh_config.en.1:177 lh.en.1:9 lh_source.en.1:9
-#: lh_testroot.en.1:9 live-helper.en.7:9
+#: lh_clean.en.1:11 lh_config.en.1:195 lh.en.1:11 lh_source.en.1:9
+#: lh_testroot.en.1:9 live-helper.en.7:13
 #, no-wrap
 msgid "DESCRIPTION"
 msgstr ""
 
 # type: SH
-#: lh_binary.en.1:13 lh_bootstrap.en.1:13 lh_build.en.1:13 lh_chroot.en.1:13
-#: lh_clean.en.1:35 lh_config.en.1:290 lh.en.1:16 lh_source.en.1:13
-#: lh_testroot.en.1:14 live-helper.en.7:161
+#: lh_binary.en.1:12 lh_bootstrap.en.1:12 lh_build.en.1:12 lh_chroot.en.1:12
+#: lh_clean.en.1:14 lh_config.en.1:200 lh.en.1:14 lh_source.en.1:12
+#: lh_testroot.en.1:14 live-helper.en.7:20
+#, no-wrap
+msgid "OPTIONS"
+msgstr ""
+
+# type: SH
+#: lh_binary.en.1:15 lh_bootstrap.en.1:15 lh_build.en.1:15 lh_chroot.en.1:15
+#: lh_clean.en.1:34 lh_config.en.1:403 lh.en.1:17 lh_source.en.1:15
+#: lh_testroot.en.1:17 live-helper.en.7:223
 #, no-wrap
 msgid "SEE ALSO"
 msgstr ""
 
 # type: Plain text
-#: lh_binary.en.1:15 lh_bootstrap.en.1:15 lh_build.en.1:15 lh_chroot.en.1:15
-#: lh_clean.en.1:37 lh_config.en.1:292 lh.en.1:18 lh_source.en.1:15
-#: lh_testroot.en.1:16
+#: lh_binary.en.1:17 lh_bootstrap.en.1:17 lh_build.en.1:17 lh_chroot.en.1:17
+#: lh_clean.en.1:36 lh_config.en.1:405 lh.en.1:19 lh_source.en.1:17
+#: lh_testroot.en.1:19
 msgid "I<live-helper>(7)"
 msgstr ""
 
-# type: SH
-#: lh_binary.en.1:18 lh_bootstrap.en.1:18 lh_build.en.1:18 lh_chroot.en.1:18
-#: lh_clean.en.1:40 lh_config.en.1:295 lh.en.1:21 lh_source.en.1:18
-#: lh_testroot.en.1:19 live-helper.en.7:168
-#, no-wrap
-msgid "BUGS"
-msgstr ""
-
 # type: Plain text
-#: lh_binary.en.1:21 lh_bootstrap.en.1:21 lh_build.en.1:21 lh_chroot.en.1:21
-#: lh_clean.en.1:43 lh_config.en.1:298 lh.en.1:24 lh_source.en.1:21
-#: lh_testroot.en.1:22 live-helper.en.7:171
-msgid ""
-"Report bugs against live-helper E<lt>I<http://packages.qa.debian.org/live-"
-"helper>E<gt>."
+#: lh_binary.en.1:19 lh_bootstrap.en.1:19 lh_build.en.1:19 lh_chroot.en.1:19
+#: lh_clean.en.1:38 lh_config.en.1:407 lh_source.en.1:19 lh_testroot.en.1:21
+msgid "This program is a part of live-helper."
 msgstr ""
 
 # type: SH
-#: lh_binary.en.1:22 lh_bootstrap.en.1:22 lh_build.en.1:22 lh_chroot.en.1:22
-#: lh_clean.en.1:44 lh_config.en.1:299 lh.en.1:25 lh_source.en.1:22
-#: lh_testroot.en.1:23 live-helper.en.7:172
+#: lh_binary.en.1:20 lh_bootstrap.en.1:20 lh_build.en.1:20 lh_chroot.en.1:20
+#: lh_clean.en.1:39 lh_config.en.1:408 lh.en.1:22 lh_source.en.1:20
+#: lh_testroot.en.1:22 live-helper.en.7:226
 #, no-wrap
 msgid "HOMEPAGE"
 msgstr ""
 
 # type: Plain text
-#: lh_binary.en.1:26 lh_bootstrap.en.1:26 lh_build.en.1:26 lh_chroot.en.1:26
-#: lh_clean.en.1:48 lh_config.en.1:303 lh.en.1:29 lh_source.en.1:26
-#: lh_testroot.en.1:27 live-helper.en.7:176
+#: lh_binary.en.1:22 lh_bootstrap.en.1:22 lh_build.en.1:22 lh_chroot.en.1:22
+#: lh_clean.en.1:41 lh_config.en.1:410 lh.en.1:24 lh_source.en.1:22
+#: lh_testroot.en.1:24 live-helper.en.7:228
 msgid ""
-"More information about the Debian Live project can be found at E<lt>I<http://"
-"debian-live.alioth.debian.org/>E<gt> and E<lt>I<http://wiki.debian.org/"
-"DebianLive/>E<gt>."
+"More information about live-helper and the Debian Live project can be found "
+"in the homepage at E<lt>I<http://debian-live.alioth.debian.org/>E<gt> and in "
+"the manual at E<lt>I<http://live.debian.net/manual/>E<gt>."
 msgstr ""
 
 # type: SH
-#: lh_binary.en.1:27 lh_bootstrap.en.1:27 lh_build.en.1:27 lh_chroot.en.1:27
-#: lh_clean.en.1:49 lh_config.en.1:304 lh.en.1:30 lh_source.en.1:27
-#: lh_testroot.en.1:28 live-helper.en.7:177
+#: lh_binary.en.1:23 lh_bootstrap.en.1:23 lh_build.en.1:23 lh_chroot.en.1:23
+#: lh_clean.en.1:42 lh_config.en.1:411 lh.en.1:25 lh_source.en.1:23
+#: lh_testroot.en.1:25 live-helper.en.7:229
+#, no-wrap
+msgid "BUGS"
+msgstr ""
+
+# type: Plain text
+#: lh_binary.en.1:25 lh_bootstrap.en.1:25 lh_build.en.1:25 lh_chroot.en.1:25
+#: lh_clean.en.1:44 lh_config.en.1:413 lh.en.1:27 lh_source.en.1:25
+#: lh_testroot.en.1:27 live-helper.en.7:231
+msgid ""
+"Report bugs by submitting a bugreport for the live-helper package in the "
+"Debian Bug Tracking System at E<lt>I<http://bugs.debian.org/>E<gt> or write "
+"a mail to the mailinglist at E<lt>I<debian-live@lists.debian.org>E<gt>."
+msgstr ""
+
+# type: SH
+#: lh_binary.en.1:26 lh_bootstrap.en.1:26 lh_build.en.1:26 lh_chroot.en.1:26
+#: lh_clean.en.1:45 lh_config.en.1:414 lh.en.1:28 lh_source.en.1:26
+#: lh_testroot.en.1:28 live-helper.en.7:232
 #, no-wrap
 msgid "AUTHOR"
 msgstr ""
 
 # type: Plain text
-#: lh_binary.en.1:29 lh_bootstrap.en.1:29 lh_build.en.1:29 lh_chroot.en.1:29
-#: lh_clean.en.1:51 lh_config.en.1:306 lh.en.1:32 lh_source.en.1:29
-#: lh_testroot.en.1:30 live-helper.en.7:179
+#: lh_binary.en.1:27 lh_bootstrap.en.1:27 lh_build.en.1:27 lh_chroot.en.1:27
+#: lh_clean.en.1:46 lh_config.en.1:415 lh.en.1:29 lh_source.en.1:27
+#: lh_testroot.en.1:29 live-helper.en.7:233
 msgid ""
 "live-helper was written by Daniel Baumann E<lt>I<daniel@debian.org>E<gt> for "
 "the Debian project."
@@ -142,120 +157,122 @@ msgid "lh_clean - clean up system build directories"
 msgstr ""
 
 # type: Plain text
-#: lh_clean.en.1:10
+#: lh_clean.en.1:8
 msgid ""
-"B<lh_clean [>I<live-helper\\ options>\\] [B<--all>] [B<--cache>] [B<--"
+"B<lh_clean> [I<live-helper\\ options>\\] [B<--all>] [B<--cache>] [B<--"
 "chroot>] [B<--binary>] [B<--purge>] [B<--remove>] [B<--stage>] [B<--source>]"
+msgstr ""
+
+# type: Plain text
+#: lh_clean.en.1:10
+msgid "B<lh_clean> [I<live-helper\\ options>]"
+msgstr ""
+
+# type: Plain text
+#: lh_clean.en.1:13
+msgid ""
+"lh_clean is a high-level command (porcelain) of live-helper, the Debian Live "
+"tool suite. It is responsible for cleaning up after a system is built. It "
+"removes the system build directories, and removes some other files including "
+"stage files, and any detritus left behind by other live-helper commands."
 msgstr ""
 
 # type: Plain text
 #: lh_clean.en.1:16
 msgid ""
-"lh_clean is a live-helper program that is responsible for cleaning up after "
-"a system is built. It removes the system build directories, and removes some "
-"other files including stage files, and any detritus left behind by other "
-"live-helper commands."
-msgstr ""
-
-# type: SH
-#: lh_clean.en.1:17 lh_config.en.1:182
-#, no-wrap
-msgid "OPTIONS"
+"In addition to its specific options, lh_clean also understands all generic "
+"live-helper options. See I<live-helper>(7) for a complete list of all "
+"generic live-helper options."
 msgstr ""
 
 # type: IP
-#: lh_clean.en.1:18
+#: lh_clean.en.1:17
 #, no-wrap
 msgid "B<--all>"
 msgstr ""
 
 # type: Plain text
-#: lh_clean.en.1:20
+#: lh_clean.en.1:19
 msgid ""
-"removes chroot, binary, stage, and source. This is the default operation."
+"removes chroot, binary, stage, and source, cache is kept. This is the "
+"default operation and will be processed if no argument is given."
 msgstr ""
 
 # type: IP
-#: lh_clean.en.1:20
+#: lh_clean.en.1:19
 #, no-wrap
 msgid "B<--cache>"
 msgstr ""
 
 # type: Plain text
-#: lh_clean.en.1:22
+#: lh_clean.en.1:21
 msgid "removes all cache directories."
 msgstr ""
 
 # type: IP
-#: lh_clean.en.1:22
+#: lh_clean.en.1:21
 #, no-wrap
 msgid "B<--chroot>"
 msgstr ""
 
 # type: Plain text
-#: lh_clean.en.1:24
-msgid ""
-"unmounts and removes the chroot directory. If bootstrap cache is available, "
-"the system is reset to bootstrap stage."
+#: lh_clean.en.1:23
+msgid "unmounts and removes the chroot directory."
 msgstr ""
 
 # type: IP
-#: lh_clean.en.1:24
+#: lh_clean.en.1:23
 #, no-wrap
 msgid "B<--binary>"
 msgstr ""
 
 # type: Plain text
-#: lh_clean.en.1:26
+#: lh_clean.en.1:25
 msgid "removes all binary related caches, directories, and stages files."
 msgstr ""
 
 # type: IP
-#: lh_clean.en.1:26
+#: lh_clean.en.1:25
 #, no-wrap
 msgid "B<--purge>"
 msgstr ""
 
 # type: Plain text
-#: lh_clean.en.1:28
-msgid "removes everything (including cache) but config."
+#: lh_clean.en.1:27
+msgid "removes everything (including cache). The config directory is kept."
 msgstr ""
 
 # type: IP
-#: lh_clean.en.1:28
+#: lh_clean.en.1:27
 #, no-wrap
 msgid "B<--remove>"
 msgstr ""
 
 # type: Plain text
-#: lh_clean.en.1:30
+#: lh_clean.en.1:29
 msgid ""
-"removes everything (including package cache, but not stage cache) but config."
+"removes everything (including package cache, but not stage cache). The "
+"config directory is kept."
 msgstr ""
 
 # type: IP
-#: lh_clean.en.1:30
+#: lh_clean.en.1:29
 #, no-wrap
 msgid "B<--stage>"
 msgstr ""
 
 # type: Plain text
-#: lh_clean.en.1:32
+#: lh_clean.en.1:31
 msgid "removes all stage files."
 msgstr ""
 
 # type: IP
-#: lh_clean.en.1:32
+#: lh_clean.en.1:31
 #, no-wrap
 msgid "B<--source>"
 msgstr ""
 
 # type: Plain text
-#: lh_clean.en.1:34
+#: lh_clean.en.1:33
 msgid "removes all source related caches, directories, and stage files."
-msgstr ""
-
-# type: Plain text
-#: lh_clean.en.1:39 lh_config.en.1:294 lh_testroot.en.1:18
-msgid "This program is a part of live-helper."
 msgstr ""

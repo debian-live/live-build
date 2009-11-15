@@ -6,7 +6,7 @@ all: build
 
 test:
 	# Checking for syntax errors
-	set -e; for SCRIPT in functions/* examples/*/*.sh helpers/* hooks/*; \
+	set -e; for SCRIPT in functions.sh functions/* examples/*/*.sh helpers/* hooks/*; \
 	do \
 		sh -n $$SCRIPT; \
 	done
@@ -14,7 +14,7 @@ test:
 	# Checking for bashisms
 	set -e; if [ -x /usr/bin/checkbashisms ]; \
 	then \
-		checkbashisms functions/* examples/*/*.sh helpers/* hooks/*; \
+		checkbashisms functions.sh functions/* examples/*/*.sh helpers/* hooks/*; \
 	else \
 		echo "bashism test skipped - you need to install devscripts."; \
 	fi
@@ -25,11 +25,11 @@ build:
 install:
 	# Installing executables
 	mkdir -p $(DESTDIR)/usr/bin
-	cp helpers/lh* $(DESTDIR)/usr/bin
+	cp helpers/* $(DESTDIR)/usr/bin
 
 	# Installing shared data
 	mkdir -p $(DESTDIR)/usr/share/live-helper
-	cp -r data examples functions hooks includes lists templates $(DESTDIR)/usr/share/live-helper
+	cp -r data examples functions.sh functions hooks includes lists templates $(DESTDIR)/usr/share/live-helper
 
 	# Installing documentation
 	mkdir -p $(DESTDIR)/usr/share/doc/live-helper
@@ -77,28 +77,28 @@ uninstall:
 	# Uninstalling manpages
 	set -e; for MANPAGE in manpages/*.en.1; \
 	do \
-		rm -f $(DESTDIR)/usr/share/man/man1/`basename $$MANPAGE .en.1`.1; \
+		rm -f $(DESTDIR)/usr/share/man/man1/`basename $$MANPAGE .en.1`.1*; \
 	done
 
 	set -e; for MANPAGE in manpages/*.en.7; \
 	do \
-		rm -f $(DESTDIR)/usr/share/man/man7/`basename $$MANPAGE .en.7`.7; \
+		rm -f $(DESTDIR)/usr/share/man/man7/`basename $$MANPAGE .en.7`.7*; \
 	done
 
 	set -e; for TRANSLATIONS in $$TRANSLATIONS; \
 	do \
 		for MANPAGE in manpages/*.$$TRANSLATION.1; \
 		do \
-			rm -f $(DESTDIR)/usr/share/man/$$TRANSLATION/man1/`basename $$MANPAGE .$$TRANSLATION.1`.1; \
+			rm -f $(DESTDIR)/usr/share/man/$$TRANSLATION/man1/`basename $$MANPAGE .$$TRANSLATION.1`.1*; \
 		done; \
 		for MANPAGE in manpages/*.$$TRANSLATION.7; \
 		do \
-			rm -f $(DESTDIR)/usr/share/man/$$TRANSLATION/man7/`basename $$MANPAGE .$$TRANSLATION.7`.7; \
+			rm -f $(DESTDIR)/usr/share/man/$$TRANSLATION/man7/`basename $$MANPAGE .$$TRANSLATION.7`.7*; \
 		done; \
 	done
 
 update:
-	set -e; for FILE in functions/*.sh examples/cron/*.sh manpages/*.en.*; \
+	set -e; for FILE in functions.sh functions/*.sh examples/cron/*.sh manpages/*.en.*; \
 	do \
 		sed -i	-e 's/2007\\-11\\-26/2007\\-12\\-03/' \
 			-e 's/26.11.2007/03.12.2007/' \

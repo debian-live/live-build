@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # lh_binary_debian-installer(1) - install debian-installer into binary
-# Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
+# Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 # This is free software, and you are welcome to redistribute it
@@ -10,15 +10,10 @@
 set -e
 
 # Including common functions
-LH_BASE="${LH_BASE:-/usr/share/live-helper}"
-
-for FUNCTION in "${LH_BASE}"/functions/*.sh
-do
-	. "${FUNCTION}"
-done
+. "${LH_BASE:-/usr/share/live-helper}"/functions.sh
 
 # Setting static variables
-DESCRIPTION="install debian-installer into binary"
+DESCRIPTION="$(Echo 'install debian-installer into binary')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -69,7 +64,6 @@ Create_lockfile .lock
 
 # Checking depends
 Check_package chroot/usr/bin/wget wget
-Check_package chroot/usr/bin/awk mawk
 Check_package chroot/usr/bin/apt-ftparchive apt-utils
 
 # Restoring cache
@@ -470,9 +464,7 @@ then
 			done
 		else
 			Echo_error "Could not find cache/packages_bootstrap."
-			Echo_error "You selected values of LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES and"
-			Echo_error "LH_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being"
-			Echo_error "cached - these are required when integrating the Debian Installer."
+			Echo_error "You selected values of LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES and LH_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being cached - these are required when integrating the Debian Installer."
 			exit 1
 		fi
 	fi
@@ -497,10 +489,13 @@ then
 	# Generating deb indices
 	mkdir -p binary/dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}
 
-	cd binary
-	apt-ftparchive packages pool/main > dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages
-	gzip -9 -c dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages > dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages.gz
-	cd "${OLDPWD}"
+	mv binary chroot/root
+	echo "cd /root/binary && apt-ftparchive packages pool/main > dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages" > chroot/binary.sh
+	Chroot chroot "sh binary.sh"
+	rm -f chroot/binary.sh
+	mv chroot/root/binary ./
+
+	gzip -9 -c binary/dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages > binary/dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages.gz
 
 	# Fetching release
 	Download_file binary/dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Release "${LH_MIRROR_CHROOT}"/dists/"${LH_DEBIAN_INSTALLER_DISTRIBUTION}"/main/binary-"${LH_ARCHITECTURE}"/Release
@@ -599,7 +594,15 @@ then
 
 	# Creating udeb indices
 	mkdir -p dists/"${LH_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LH_ARCHITECTURE}"
-	apt-ftparchive packages pool/main > dists/"${LH_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LH_ARCHITECTURE}"/Packages
+	cd "${OLDPWD}"
+
+	mv binary.udeb chroot/root
+	echo "cd /root/binary.udeb && apt-ftparchive packages pool/main > dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LH_ARCHITECTURE}/Packages" > chroot/binary.sh
+	Chroot chroot "sh binary.sh"
+	rm -f chroot/binary.sh
+	mv chroot/root/binary.udeb ./
+
+	cd binary.udeb
 	gzip -9 -c dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LH_ARCHITECTURE}/Packages > dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LH_ARCHITECTURE}/Packages.gz
 
 	rm -f Packages* exclude
@@ -610,17 +613,25 @@ then
 	rm -rf binary.deb
 
 	# Generating release file
-	apt-ftparchive \
-		-o APT::FTPArchive::Release::Origin="Debian" \
-		-o APT::FTPArchive::Release::Label="Debian" \
-		-o APT::FTPArchive::Release::Suite="${LH_DEBIAN_INSTALLER_DISTRIBUTION}" \
-		-o APT::FTPArchive::Release::Version="4.0" \
-		-o APT::FTPArchive::Release::Codename="${LH_DEBIAN_INSTALLER_DISTRIBUTION}" \
-		-o APT::FTPArchive::Release::Date="$(date -R)" \
-		-o APT::FTPArchive::Release::Architectures="${LH_ARCHITECTURE}" \
-		-o APT::FTPArchive::Release::Components="main" \
-		-o APT::FTPArchive::Release::Description="Last updated: $(date -R)" \
-	release binary/dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION} > binary/dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/Release
+	mv binary chroot/root
+
+cat > chroot/binary.sh << EOF
+cd /root/binary && apt-ftparchive \
+	-o APT::FTPArchive::Release::Origin="Debian" \
+	-o APT::FTPArchive::Release::Label="Debian" \
+	-o APT::FTPArchive::Release::Suite="${LH_DEBIAN_INSTALLER_DISTRIBUTION}" \
+	-o APT::FTPArchive::Release::Version="4.0" \
+	-o APT::FTPArchive::Release::Codename="${LH_DEBIAN_INSTALLER_DISTRIBUTION}" \
+	-o APT::FTPArchive::Release::Date="$(date -R)" \
+	-o APT::FTPArchive::Release::Architectures="${LH_ARCHITECTURE}" \
+	-o APT::FTPArchive::Release::Components="main" \
+	-o APT::FTPArchive::Release::Description="Last updated: $(date -R)" \
+	release dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION} > dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/Release
+EOF
+
+	Chroot chroot "sh binary.sh"
+	rm -f chroot/binary.sh
+	mv chroot/root/binary ./
 
 	# Creating dist symlinks
 	for DISTRIBUTION in frozen stable testing unstable

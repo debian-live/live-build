@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # lh_clean(1) - clean up system build directories
-# Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
+# Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 # This is free software, and you are welcome to redistribute it
@@ -9,16 +9,22 @@
 
 set -e
 
-# Including common functions
-LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+# Read meta config
+if [ "${1}" != "noautoconfig" ] && [ -x scripts/clean ]
+then
+	./scripts/clean ${@}
+fi
 
-for FUNCTION in "${LH_BASE}"/functions/*.sh
-do
-	. "${FUNCTION}"
-done
+if [ "${1}" = "noautoconfig" ]
+then
+	shift
+fi
+
+# Including common functions
+. "${LH_BASE:-/usr/share/live-helper}"/functions.sh
 
 # Setting static variables
-DESCRIPTION="clean up system build directories"
+DESCRIPTION="$(Echo 'clean up system build directories')"
 HELP=""
 USAGE="${PROGRAM} [--all] [--cache] [--chroot] [--binary] [--purge] [--remove] [--stage] [--source]"
 
@@ -48,10 +54,10 @@ for ARGUMENT in ${ARGUMENTS}
 do
 	case "${ARGUMENT}" in
 		--all)
-			"${0}" --chroot
-			"${0}" --binary
-			"${0}" --stage
-			"${0}" --source
+			"${0}" noautoconfig --chroot
+			"${0}" noautoconfig --binary
+			"${0}" noautoconfig --stage
+			"${0}" noautoconfig --source
 
 			if [ -d scripts ]
 			then

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # lh_binary_encryption(1) - encrypts rootfs
-# Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
+# Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 # This is free software, and you are welcome to redistribute it
@@ -10,15 +10,10 @@
 set -e
 
 # Including common functions
-LH_BASE="${LH_BASE:-/usr/share/live-helper}"
-
-for FUNCTION in "${LH_BASE}"/functions/*.sh
-do
-	. "${FUNCTION}"
-done
+. "${LH_BASE:-/usr/share/live-helper}"/functions.sh
 
 # Setting static variables
-DESCRIPTION="encrypts rootfs"
+DESCRIPTION="$(Echo 'encrypts rootfs')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -94,9 +89,9 @@ fi
 while true
 do
 	echo
-	Echo " **************************************"
+	echo " **************************************"
 	Echo " ** Configuring encrypted filesystem **"
-	Echo " **************************************"
+	echo " **************************************"
 	Echo " (Passwords must be at least 20 characters long)"
 	echo
 

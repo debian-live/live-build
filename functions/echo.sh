@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # echo.sh - define output methods
-# Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
+# Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 # This is free software, and you are welcome to redistribute it
@@ -73,9 +73,9 @@ Echo_error ()
 
 	if [ "${_L10N}" = "false" ]
 	then
-		printf " ${STRING}" "${@}" >&2
+		printf " ${STRING}\n" "${@}" >&2
 	else
-		(printf " $(eval_gettext "${STRING}")" "${@}";) >&2
+		(printf " $(eval_gettext "${STRING}")" "${@}"; echo;) >&2
 	fi
 }
 
