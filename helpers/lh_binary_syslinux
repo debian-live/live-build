@@ -596,8 +596,13 @@ then
 	done
 fi
 
-# Adding syslinux hardcoded default label entry
-Syslinux_live_entry "linux" "" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
+# Only needed for non-vesamenu, non-gfxboot syslinux
+case "${LH_SYSLINUX_MENU}" in
+	disabled|menu)
+		# Adding syslinux hardcoded default label entry
+		Syslinux_live_entry "linux" "" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
+		;;
+esac
 
 # Assembling debian-installer configuration
 if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
