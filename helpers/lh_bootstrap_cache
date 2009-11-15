@@ -33,6 +33,9 @@ Read_conffile config/source
 Read_conffile "${LH_CONFIG}"
 Set_defaults
 
+# Check architecture
+Check_crossarchitecture
+
 Echo_message "Begin caching bootstrap stage..."
 
 for STAGE in ${LH_CACHE_STAGES}

@@ -113,7 +113,7 @@ Set_defaults ()
 				then
 					LH_BOOTSTRAP="cdebootstrap"
 				else
-					echo "E: Can't process file /usr/bin/cdebootstrap or /usr/sbin/debootstrap (FIXME)"
+					echo "E: Can't process file /usr/sbin/debootstrap or /usr/bin/cdebootstrap (FIXME)"
 					exit 1
 				fi
 			;;
@@ -439,7 +439,7 @@ Set_defaults ()
 	LH_CHROOT_FILESYSTEM="${LH_CHROOT_FILESYSTEM:-squashfs}"
 
 	# Setting union filesystem
-	LH_UNION_FILESYSTEM="${LH_UNION_FILESYSTEM:-unionfs}"
+	LH_UNION_FILESYSTEM="${LH_UNION_FILESYSTEM:-aufs}"
 
 	# LH_HOOKS
 
@@ -542,7 +542,7 @@ Set_defaults ()
 	then
 		case "${LH_MODE}" in
 			debian|debian-edu)
-				LH_LINUX_PACKAGES="linux-image-2.6 ${LH_UNION_FILESYSTEM}-modules-2.6"
+				LH_LINUX_PACKAGES="linux-image-2.6 \${LH_UNION_FILESYSTEM}-modules-2.6"
 
 				if [ "${LH_CHROOT_FILESYSTEM}" = "squashfs" ]
 				then
