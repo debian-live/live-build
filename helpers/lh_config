@@ -88,13 +88,15 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--packages PACKAGE|\"PACKAGES\"]\n\
 \t    [--quiet]\n\
 \t    [--root-command sudo]\n\
+\t    [--use-fakeroot enabled|disabled]\n\
 \t    [--sections SECTION|\"SECTIONS\"]\n\
 \t    [--security enabled|disabled]\n\
 \t    [--source enabled|disabled]\n\
 \t    [-s|--source-images iso|net|tar|usb-hdd]\n\
 \t    [--symlinks enabled|disabled]\n\
 \t    [--syslinux-splash FILE]\n\
-\t    [--syslinux-timeout MILISECONDS]\n\
+\t    [--syslinux-timeout SECONDS]\n\
+\t    [--syslinux-menu enabled|disabled]\n\
 \t    [--sysvinit enabled|disabled]\n\
 \t    [--tasksel aptitude|tasksel]\n\
 \t    [--tasks TASK]\n\
@@ -106,7 +108,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 
 Local_arguments ()
 {
-	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,losetup:,mode:,root-command:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,memtest:,net-root-filesystem:,net-root-mountoptions:,net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,net-cow-server:,syslinux-splash:,syslinux-timeout:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
+	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,memtest:,net-root-filesystem:,net-root-mountoptions:,net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,net-cow-server:,syslinux-splash:,syslinux-timeout:,syslinux-menu:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
 
 	if [ "${?}" != "0" ]
 	then
@@ -212,6 +214,11 @@ Local_arguments ()
 
 			--root-command)
 				LH_ROOT_COMMAND="${2}"
+				shift 2
+				;;
+
+			--use-fakeroot)
+				LH_USE_FAKEROOT="${2}"
 				shift 2
 				;;
 
@@ -518,6 +525,11 @@ Local_arguments ()
 				shift 2
 				;;
 
+			--syslinux-menu)
+				LH_SYSLINUX_MENU="${2}"
+				shift 2
+				;;
+
 			--username)
 				LH_USERNAME="${2}"
 				shift 2
@@ -695,6 +707,10 @@ LH_MODE="${LH_MODE}"
 # \$LH_ROOT_COMMAND: use sudo or equivalent
 # (Default: empty)
 #LH_ROOT_COMMAND="sudo"
+
+# \$LH_USE_FAKEROOT: use fakeroot/fakechroot
+# (Default: ${LH_USE_FAKEROOT})
+LH_USE_FAKEROOT="${LH_USE_FAKEROOT}"
 
 # \$LH_TASKSEL: set tasksel program
 # (Default: ${LH_TASKSEL})
@@ -971,7 +987,7 @@ LH_NET_COW_SERVER="${LH_NET_COW_SERVER}"
 # (Default: empty)
 LH_SYSLINUX_SPLASH="${LH_SYSLINUX_SPLASH}"
 
-# \$LH_SYSLINUX_TIMEOUT: set custom syslinux timeout
+# \$LH_SYSLINUX_TIMEOUT: set custom syslinux timeout in seconds
 # (Default: 0)
 LH_SYSLINUX_TIMEOUT="${LH_SYSLINUX_TIMEOUT}"
 

@@ -127,7 +127,7 @@ then
 
 	# Config files which need to be RW
 	CONFIG_FILES='/etc/hostname /etc/hosts /etc/resolv.conf /etc/fstab
-		/etc/live.conf /etc/network/interfaces /etc/X11/xorg.conf
+		/etc/live.conf /etc/network/interfaces /etc/X11/xorg.conf /etc/adjtime
 		/etc/udev/rules.d/z25_persistent-net.rules
 		/etc/udev/rules.d/z25_persistent-cd.rules'
 
@@ -150,7 +150,7 @@ then
 
 	# Mount doesn't write to a symlink so use /proc/mounts instead,
 	# see debian bug #154438 for more info
-	rm chroot/etc/mtab
+	rm -f chroot/etc/mtab
 	ln -s /proc/mounts chroot/etc/mtab
 fi
 

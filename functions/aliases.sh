@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# common.sh - common things for all live-helpers
+# aliases.sh - internal shell aliases
 # Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -9,5 +9,10 @@
 
 set -e
 
-PROGRAM="$(basename ${0})"
-VERSION="1.0~a35"
+Truncate ()
+{
+	for FILE in ${@}
+	do
+		: > ${FILE}
+	done
+}

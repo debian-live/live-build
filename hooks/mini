@@ -40,5 +40,5 @@ mkdir -p /var/lib/apt/lists/partial
 # Truncating logs
 for FILE in $(find /var/log/ -type f)
 do
-	cat < /dev/null > $FILE
+	: > ${FILE}
 done

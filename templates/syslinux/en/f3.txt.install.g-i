@@ -4,7 +4,7 @@
 
 0flive07
   Start the live system -- this is the default LH_MEDIA method.
-0flive-failsafe07
+0flivefailsafe07
   Start the live system in fail-safe mode.
 0finstall07 or 0finstallgui07
   Start the installation using the normal or graphical installer.
