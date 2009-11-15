@@ -37,7 +37,7 @@ HELP="Lists: gnome, gnome-core, gnome-desktop, gnome-full, gnome-junior, gnustep
 
 Local_arguments ()
 {
-	ARGUMENTS="`getopt --longoptions mode:,config:,apt:,apt-ftpproxy:,apt-httpproxy:,binary-indices:,apt-pdiffs:,apt-recommends:,apt-secure:,bootstrap:,cache:,debconf-frontend:,debconf-priority:,debconf-nowarnings:,genisoimage:,losetup:,tasksel:,root:,architecture:,distribution:,distribution-config:,flavour:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,interactive:,kernel:,kernel-packages:,keyring-packages:,hooks:,language:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,bootappend:,encryption:,username:,hostname:,chroot-filesystem:,memtest:,iso-volume:,server-address:,server-path:,source:,bootloader:,grub-splash:,syslinux-splash:,binary-images:,binary-source:,includes:,templates:,help,usage,version,force,breakpoints,debug,quiet,verbose,root-command:,initramfs: --name=${PROGRAM} --options r:a:d:f:m:k:l:p:e:b:s:huv --shell sh -- "${@}"`"
+	ARGUMENTS="`getopt --longoptions mode:,config:,apt:,apt-ftpproxy:,apt-httpproxy:,binary-indices:,apt-pdiffs:,apt-recommends:,apt-secure:,bootstrap:,cache:,debconf-frontend:,debconf-priority:,debconf-nowarnings:,genisoimage:,losetup:,tasksel:,root:,architecture:,distribution:,distribution-config:,flavour:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,interactive:,kernel:,kernel-packages:,keyring-packages:,hooks:,language:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,bootappend:,encryption:,username:,hostname:,chroot-filesystem:,memtest:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,server-address:,server-path:,source:,bootloader:,grub-splash:,syslinux-splash:,binary-images:,binary-source:,includes:,templates:,help,usage,version,force,breakpoints,debug,quiet,verbose,root-command:,initramfs: --name=${PROGRAM} --options r:a:d:f:m:k:l:p:e:b:s:huv --shell sh -- "${@}"`"
 
 	if [ "${?}" != "0" ]
 	then
@@ -248,6 +248,18 @@ Local_arguments ()
 				LIVE_MEMTEST="${2}"; shift 2
 				;;
 
+			--iso-application)
+				LIVE_ISO_APPLICATION="${2}"; shift 2
+				;;
+
+			--iso-preparer)
+				LIVE_ISO_PREPARER="${2}"; shift 2
+				;;
+
+			--iso-publisher)
+				LIVE_ISO_PUBLISHER="${2}"; shift 2
+				;;
+
 			--iso-volume)
 				LIVE_ISO_VOLUME="${2}"; shift 2
 				;;
@@ -357,7 +369,7 @@ Main ()
 	Local_arguments "${@}"
 
 	# Configuring (this is really shit!)
-	LH_MODE="${LH_MODE}" LH_CONFIG="${LH_CONFIG}" LH_APT="${LH_APT}" LH_APT_FTPPROXY="${LH_APT_FTPPROXY}" LH_APT_HTTPPROXY="${LH_APT_HTTPPROXY}" LH_BINARY_INDICES="${LH_BINARY_INDICES}" LH_APT_PDIFFS="${LH_APT_PDIFFS}" LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS}" LH_APT_SECURE="${LH_APT_SECURE}" LH_BOOTSTRAP="${LH_BOOTSTRAP}" LH_CACHE="${LH_CACHE}" LH_DEBCONF_FRONTEND="${LH_DEBCONF_FRONTEND}" LH_DEBCONF_PRIORITY="${LH_DEBCONF_PRIORITY}" LH_DEBCONF_NOWARNINGS="${LH_DEBCONF_NOWARNINGS}" LH_GENISOIMAGE="${LH_GENISOIMAGE}" LH_LOSETUP="${LH_LOSETUP}" LH_TASKSEL="${LH_TASKSEL}" LIVE_ROOT="${LIVE_ROOT}" LIVE_ARCHITECTURE="${LIVE_ARCHITECTURE}" LIVE_DISTRIBUTION="${LIVE_DISTRIBUTION}" LIVE_DISTRIBUTION_CONFIG="${LIVE_DISTRIBUTION_CONFIG}" LIVE_BOOTSTRAP_FLAVOUR="${LIVE_BOOTSTRAP_FLAVOUR}" LIVE_MIRROR_BOOTSTRAP="${LIVE_MIRROR_BOOTSTRAP}" LIVE_MIRROR_BOOTSTRAP_SECURITY="${LIVE_MIRROR_BOOTSTRAP_SECURITY}" LIVE_MIRROR_BINARY="${LIVE_MIRROR_BINARY}" LIVE_MIRROR_BINARY_SECURITY="${LIVE_MIRROR_BINARY_SECURITY}" LIVE_SECTIONS="${LIVE_SECTIONS}" LIVE_INTERACTIVE="${LIVE_INTERACTIVE}" LIVE_LINUX_FLAVOURS="${LIVE_LINUX_FLAVOURS}" LIVE_LINUX_PACKAGES="${LIVE_LINUX_PACKAGES}" LIVE_KEYRING_PACKAGES="${LIVE_KEYRING_PACKAGES}" LIVE_HOOKS="${LIVE_HOOKS}" LIVE_LANGUAGE="${LIVE_LANGUAGE}" LIVE_PACKAGES="${LIVE_PACKAGES}" LIVE_PACKAGES_LISTS="${LIVE_PACKAGES_LISTS}" LIVE_TASKS="${LIVE_TASKS}" LIVE_SECURITY="${LIVE_SECURITY}" LIVE_SYMLINKS="${LIVE_SYMLINKS}" LIVE_SYSVINIT="${LIVE_SYSVINIT}" LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND}" LIVE_ENCRYPTION="${LIVE_ENCRYPTION}" LIVE_USERNAME="${LIVE_USERNAME}" LIVE_HOSTNAME="${LIVE_HOSTNAME}" LIVE_CHROOT_FILESYSTEM="${LIVE_CHROOT_FILESYSTEM}" LIVE_MEMTEST="${LIVE_MEMTEST}" LIVE_ISO_VOLUME="${LIVE_ISO_VOLUME}" LIVE_NET_SERVER="${LIVE_NET_SERVER}" LIVE_NET_PATH="${LIVE_NET_PATH}" LIVE_SOURCE="${LIVE_SOURCE}" LIVE_BOOTLOADER="${LIVE_BOOTLOADER}" LIVE_GRUB_SPLASH="${LIVE_GRUB_SPLASH}" LIVE_SYSLINUX_SPLASH="${LIVE_SYSLINUX_SPLASH}" LIVE_BINARY_IMAGES="${LIVE_BINARY_IMAGES}" LIVE_SOURCE_IMAGES="${LIVE_SOURCE_IMAGES}" LIVE_INCLUDES="${LIVE_INCLUDES}" LIVE_TEMPLATES="${LIVE_TEMPLATES}" LH_ROOT_COMMAND="${LH_ROOT_COMMAND}" LH_INITRAMFS="${LH_INITRAMFS}" lh_config newconfig
+	LH_MODE="${LH_MODE}" LH_CONFIG="${LH_CONFIG}" LH_APT="${LH_APT}" LH_APT_FTPPROXY="${LH_APT_FTPPROXY}" LH_APT_HTTPPROXY="${LH_APT_HTTPPROXY}" LH_BINARY_INDICES="${LH_BINARY_INDICES}" LH_APT_PDIFFS="${LH_APT_PDIFFS}" LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS}" LH_APT_SECURE="${LH_APT_SECURE}" LH_BOOTSTRAP="${LH_BOOTSTRAP}" LH_CACHE="${LH_CACHE}" LH_DEBCONF_FRONTEND="${LH_DEBCONF_FRONTEND}" LH_DEBCONF_PRIORITY="${LH_DEBCONF_PRIORITY}" LH_DEBCONF_NOWARNINGS="${LH_DEBCONF_NOWARNINGS}" LH_GENISOIMAGE="${LH_GENISOIMAGE}" LH_LOSETUP="${LH_LOSETUP}" LH_TASKSEL="${LH_TASKSEL}" LIVE_ROOT="${LIVE_ROOT}" LIVE_ARCHITECTURE="${LIVE_ARCHITECTURE}" LIVE_DISTRIBUTION="${LIVE_DISTRIBUTION}" LIVE_DISTRIBUTION_CONFIG="${LIVE_DISTRIBUTION_CONFIG}" LIVE_BOOTSTRAP_FLAVOUR="${LIVE_BOOTSTRAP_FLAVOUR}" LIVE_MIRROR_BOOTSTRAP="${LIVE_MIRROR_BOOTSTRAP}" LIVE_MIRROR_BOOTSTRAP_SECURITY="${LIVE_MIRROR_BOOTSTRAP_SECURITY}" LIVE_MIRROR_BINARY="${LIVE_MIRROR_BINARY}" LIVE_MIRROR_BINARY_SECURITY="${LIVE_MIRROR_BINARY_SECURITY}" LIVE_SECTIONS="${LIVE_SECTIONS}" LIVE_INTERACTIVE="${LIVE_INTERACTIVE}" LIVE_LINUX_FLAVOURS="${LIVE_LINUX_FLAVOURS}" LIVE_LINUX_PACKAGES="${LIVE_LINUX_PACKAGES}" LIVE_KEYRING_PACKAGES="${LIVE_KEYRING_PACKAGES}" LIVE_HOOKS="${LIVE_HOOKS}" LIVE_LANGUAGE="${LIVE_LANGUAGE}" LIVE_PACKAGES="${LIVE_PACKAGES}" LIVE_PACKAGES_LISTS="${LIVE_PACKAGES_LISTS}" LIVE_TASKS="${LIVE_TASKS}" LIVE_SECURITY="${LIVE_SECURITY}" LIVE_SYMLINKS="${LIVE_SYMLINKS}" LIVE_SYSVINIT="${LIVE_SYSVINIT}" LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND}" LIVE_ENCRYPTION="${LIVE_ENCRYPTION}" LIVE_USERNAME="${LIVE_USERNAME}" LIVE_HOSTNAME="${LIVE_HOSTNAME}" LIVE_CHROOT_FILESYSTEM="${LIVE_CHROOT_FILESYSTEM}" LIVE_MEMTEST="${LIVE_MEMTEST}" LIVE_ISO_APPLICATION="${LIVE_ISO_APPLICATION}" LIVE_ISO_PREPARER="${LIVE_ISO_PREPARER}" LIVE_ISO_PUBLISHER="${LIVE_ISO_PUBLISHER}" LIVE_ISO_VOLUME="${LIVE_ISO_VOLUME}" LIVE_NET_SERVER="${LIVE_NET_SERVER}" LIVE_NET_PATH="${LIVE_NET_PATH}" LIVE_SOURCE="${LIVE_SOURCE}" LIVE_BOOTLOADER="${LIVE_BOOTLOADER}" LIVE_GRUB_SPLASH="${LIVE_GRUB_SPLASH}" LIVE_SYSLINUX_SPLASH="${LIVE_SYSLINUX_SPLASH}" LIVE_BINARY_IMAGES="${LIVE_BINARY_IMAGES}" LIVE_SOURCE_IMAGES="${LIVE_SOURCE_IMAGES}" LIVE_INCLUDES="${LIVE_INCLUDES}" LIVE_TEMPLATES="${LIVE_TEMPLATES}" LH_ROOT_COMMAND="${LH_ROOT_COMMAND}" LH_INITRAMFS="${LH_INITRAMFS}" lh_config newconfig
 
 	if [ "${LH_BREAKPOINTS}" = "enabled" ]
 	then

@@ -7,7 +7,7 @@ BUILD="etch+beryl"
 # Begin custom defaults
 AUTOBUILD="enabled"
 
-DATE="r0_1.0~a11-1"
+DATE="r0_1.0~a12-1"
 DESTDIR="/srv/debian-unofficial/ftp/debian-live"
 TEMPDIR="/srv/tmp/live-helper"
 
@@ -52,6 +52,8 @@ else
 	echo "E: ${TEMPDIR} needs cleanup."
 	exit 1
 fi
+
+echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: begin etch+beryl build." >> /var/log/live
 
 for ARCHITECTURE in ${ARCHITECTURES}
 do
@@ -173,3 +175,5 @@ done
 # Creating current symlink
 rm -f "${DESTDIR}"/"${BUILD}"-builds/current
 ln -s ${DATE} "${DESTDIR}"/"${BUILD}"-builds/current
+
+echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper: end etch+beryl build." >> /var/log/live

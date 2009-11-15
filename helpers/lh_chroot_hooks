@@ -71,7 +71,7 @@ do
 	fi
 done
 
-if [ -n "${LIVE_HOOKS}" ]
+if [ -n "${LIVE_HOOKS}" ] && [ "${LIVE_HOOKS}" != "none" ]
 then
 	LIVE_DEBCONF_FRONTEND="readline" LIVE_DEBCONF_PRIORITY="low" LIVE_DEBCONF_NOWARNINGS="no" Chroot "${LIVE_HOOKS}"
 fi
