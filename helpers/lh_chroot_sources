@@ -49,11 +49,11 @@ case "${1}" in
 		Create_lockfile .lock
 
 		# Configure custom sources.list
-		echo "deb ${LIVE_MIRROR_BUILD} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" > chroot/etc/apt/sources.list
+		echo "deb ${LIVE_MIRROR_BOOTSTRAP} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" > chroot/etc/apt/sources.list
 
 		if [ "${LIVE_SOURCE}" = "enabled" ]
 		then
-			echo "deb-src ${LIVE_MIRROR_BUILD} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+			echo "deb-src ${LIVE_MIRROR_BOOTSTRAP} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 		fi
 
 		if [ "${LIVE_SECURITY}" = "enabled" ]
@@ -62,74 +62,74 @@ case "${1}" in
 				debian)
 					if [ "${LIVE_DISTRIBUTION}" != "sid" ] && [ "${LIVE_DISTRIBUTION}" != "unstable" ]
 					then
-						echo "deb ${LIVE_MIRROR_BUILD_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+						echo "deb ${LIVE_MIRROR_BOOTSTRAP_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 
 						if [ "${LIVE_SOURCE}" = "enabled" ]
 						then
-							echo "deb-src ${LIVE_MIRROR_BUILD_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+							echo "deb-src ${LIVE_MIRROR_BOOTSTRAP_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 						fi
 					fi
 					;;
 
 				ubuntu)
-					echo "deb ${LIVE_MIRROR_BUILD_SECURITY} ${LIVE_DISTRIBUTION}-security ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+					echo "deb ${LIVE_MIRROR_BOOTSTRAP_SECURITY} ${LIVE_DISTRIBUTION}-security ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 
 					if [ "${LIVE_SOURCE}" = "enabled" ]
 					then
-						echo "deb-src ${LIVE_MIRROR_BUILD_SECURITY} ${LIVE_DISTRIBUTION}-security ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+						echo "deb-src ${LIVE_MIRROR_BOOTSTRAP_SECURITY} ${LIVE_DISTRIBUTION}-security ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 					fi
 					;;
 			esac
 		fi
 
 		# Check local sources.list
-		if ls config/chroot_sources/*.build &> /dev/null
+		if ls config/chroot_sources/*.bootstrap &> /dev/null
 		then
 			echo "" >> chroot/etc/apt/sources.list
 			echo "# Custom repositories" >> chroot/etc/apt/sources.list
 
-			for FILE in config/chroot_sources/*.build
+			for FILE in config/chroot_sources/*.bootstrap
 			do
 				cat ${FILE} | grep -v "^##" >> chroot/etc/apt/sources.list
 			done
 		fi
 
 		# Update indices from cache
-		if [ "${LH_CACHE_INDICES}" = "enabled" ] && [ -d cache/indices_build ]
+		if [ "${LH_CACHE_INDICES}" = "enabled" ] && [ -d cache/indices_bootstrap ]
 		then
-			if ls cache/indices_build/secring.gpg* &> /dev/null
+			if ls cache/indices_bootstrap/secring.gpg* &> /dev/null
 			then
-				cp -f cache/indices_build/secring.gpg* chroot/etc/apt
+				cp -f cache/indices_bootstrap/secring.gpg* chroot/etc/apt
 			fi
 
-			if ls cache/indices_build/trusted.gpg* &> /dev/null
+			if ls cache/indices_bootstrap/trusted.gpg* &> /dev/null
 			then
-				cp -f cache/indices_build/trusted.gpg* chroot/etc/apt
+				cp -f cache/indices_bootstrap/trusted.gpg* chroot/etc/apt
 			fi
 
-			if [ -f cache/indices_build/pkgcache.bin ]
+			if [ -f cache/indices_bootstrap/pkgcache.bin ]
 			then
-				cp -f cache/indices_build/pkgcache.bin chroot/var/cache/apt
+				cp -f cache/indices_bootstrap/pkgcache.bin chroot/var/cache/apt
 			fi
 
-			if [ -f cache/indices_build/srcpkgcache.bin ]
+			if [ -f cache/indices_bootstrap/srcpkgcache.bin ]
 			then
-				cp -f cache/indices_build/srcpkgcache.bin chroot/var/cache/apt
+				cp -f cache/indices_bootstrap/srcpkgcache.bin chroot/var/cache/apt
 			fi
 
-			if ls cache/indices_build/*_Packages &> /dev/null
+			if ls cache/indices_bootstrap/*_Packages &> /dev/null
 			then
-				cp -f cache/indices_build/*_Packages chroot/var/lib/apt/lists
+				cp -f cache/indices_bootstrap/*_Packages chroot/var/lib/apt/lists
 			fi
 
-			if ls cache/indices_build/*_Sources &> /dev/null
+			if ls cache/indices_bootstrap/*_Sources &> /dev/null
 			then
-				cp -f cache/indices_build/*_Sources chroot/var/lib/apt/lists
+				cp -f cache/indices_bootstrap/*_Sources chroot/var/lib/apt/lists
 			fi
 
-			if ls cache/indices_build/*_Release* &> /dev/null
+			if ls cache/indices_bootstrap/*_Release* &> /dev/null
 			then
-				cp -f cache/indices_build/*_Release* chroot/var/lib/apt/lists
+				cp -f cache/indices_bootstrap/*_Release* chroot/var/lib/apt/lists
 			fi
 
 			if [ "${LH_APT}" = "aptitude" ] && [ ! -x /usr/bin/aptitude ]
@@ -138,9 +138,9 @@ case "${1}" in
 			fi
 		else # Get fresh indices
 			# Check local gpg keys
-			if ls config/chroot_sources/*.build.gpg &> /dev/null
+			if ls config/chroot_sources/*.bootstrap.gpg &> /dev/null
 			then
-				for FILE in config/chroot_sources/*.build.gpg
+				for FILE in config/chroot_sources/*.bootstrap.gpg
 				do
 					cp ${FILE} chroot/root
 					Chroot "apt-key add /root/`basename ${FILE}`"
@@ -183,20 +183,20 @@ case "${1}" in
 
 			if [ "${LH_CACHE_INDICES}" = "enabled" ]
 			then
-				if [ ! -d cache/indices_build ]
+				if [ ! -d cache/indices_bootstrap ]
 				then
-					mkdir -p cache/indices_build
+					mkdir -p cache/indices_bootstrap
 				fi
 
-				cp -f chroot/etc/apt/secring.gpg* cache/indices_build
-				cp -f chroot/etc/apt/trusted.gpg* cache/indices_build
+				cp -f chroot/etc/apt/secring.gpg* cache/indices_bootstrap
+				cp -f chroot/etc/apt/trusted.gpg* cache/indices_bootstrap
 
-				cp -f chroot/var/cache/apt/pkgcache.bin cache/indices_build
-				cp -f chroot/var/cache/apt/srcpkgcache.bin cache/indices_build
+				cp -f chroot/var/cache/apt/pkgcache.bin cache/indices_bootstrap
+				cp -f chroot/var/cache/apt/srcpkgcache.bin cache/indices_bootstrap
 
-				cp -f chroot/var/lib/apt/lists/*_Packages cache/indices_build
-				cp -f chroot/var/lib/apt/lists/*_Sources cache/indices_build
-				cp -f chroot/var/lib/apt/*_Release* cache/indices_build
+				cp -f chroot/var/lib/apt/lists/*_Packages cache/indices_bootstrap
+				cp -f chroot/var/lib/apt/lists/*_Sources cache/indices_bootstrap
+				cp -f chroot/var/lib/apt/*_Release* cache/indices_bootstrap
 			fi
 		fi
 
@@ -212,11 +212,11 @@ case "${1}" in
 		Create_lockfile .lock
 
 		# Configure generic indices
-		if [ "${LH_APT_GENERIC}" = "enabled" ]
+		if [ "${LIVE_BINARY_INDICES}" = "enabled" ]
 		then
 			# Don't do anything if it's not required
-			if [ "${LIVE_MIRROR_BUILD}" = "${LIVE_MIRROR_IMAGE}" ] && \
-			[ "${LIVE_MIRROR_BUILD_SECURITY}" = "${LIVE_MIRROR_IMAGE_SECURITY}" ]
+			if [ "${LIVE_MIRROR_BOOTSTRAP}" = "${LIVE_MIRROR_BINARY}" ] && \
+			[ "${LIVE_MIRROR_BOOTSTRAP_SECURITY}" = "${LIVE_MIRROR_BINARY_SECURITY}" ]
 			then
 				exit 0
 			fi
@@ -225,11 +225,11 @@ case "${1}" in
 			rm -rf chroot/var/lib/apt/lists
 			mkdir -p chroot/var/lib/apt/lists/partial
 
-			echo "deb ${LIVE_MIRROR_IMAGE} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" > chroot/etc/apt/sources.list
+			echo "deb ${LIVE_MIRROR_BINARY} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" > chroot/etc/apt/sources.list
 
 			if [ "${LIVE_SOURCE}" = "enabled" ]
 			then
-				echo "deb-src ${LIVE_MIRROR_IMAGE} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+				echo "deb-src ${LIVE_MIRROR_BINARY} ${LIVE_DISTRIBUTION} ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 			fi
 
 			if [ "${LIVE_SECURITY}" = "enabled" ]
@@ -238,42 +238,42 @@ case "${1}" in
 					debian)
 						if [ "${LIVE_DISTRIBUTION}" != "sid" ] && [ "${LIVE_DISTRIBUTION}" != "unstable" ]
 						then
-							echo "deb ${LIVE_MIRROR_IMAGE_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+							echo "deb ${LIVE_MIRROR_BINARY_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 
 							if [ "${LIVE_SOURCE}" = "enabled" ]
 							then
-								echo "deb-src ${LIVE_MIRROR_IMAGE_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+								echo "deb-src ${LIVE_MIRROR_BINARY_SECURITY} ${LIVE_DISTRIBUTION}/updates ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 							fi
 						fi
 						;;
 
 					ubuntu)
-						echo "deb ${LIVE_MIRROR_IMAGE_SECURITY} ${LIVE_DISTRIBUTION}-security ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+						echo "deb ${LIVE_MIRROR_BINARY_SECURITY} ${LIVE_DISTRIBUTION}-security ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 
 						if [ "${LIVE_SOURCE}" = "enabled" ]
 						then
-							echo "deb-src ${LIVE_MIRROR_IMAGE_SECURITY} ${LIVE_DISTRIBUTION}-security ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
+							echo "deb-src ${LIVE_MIRROR_BINARY_SECURITY} ${LIVE_DISTRIBUTION}-security ${LIVE_SECTIONS}" >> chroot/etc/apt/sources.list
 						fi
 						;;
 				esac
 			fi
 
 			# Check local sources.list
-			if ls config/chroot_sources/*.image &> /dev/null
+			if ls config/chroot_sources/*.binary &> /dev/null
 			then
 				echo "" >> chroot/etc/apt/sources.list
 				echo "# Custom repositories" >> chroot/etc/apt/sources.list
 
-				for FILE in config/chroot_sources/*.image
+				for FILE in config/chroot_sources/*.binary
 				do
 					cat ${FILE} | grep -v "^##" >> chroot/etc/apt/sources.list
 				done
 			fi
 
 			# Check local gpg keys
-			if ls config/chroot_sources/*.image.gpg &> /dev/null
+			if ls config/chroot_sources/*.binary.gpg &> /dev/null
 			then
-				for FILE in config/chroot_sources/*.image.gpg
+				for FILE in config/chroot_sources/*.binary.gpg
 				do
 					cp ${FILE} chroot/root
 					Chroot "apt-key add /root/`basename ${FILE}`"

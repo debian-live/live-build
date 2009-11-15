@@ -72,7 +72,7 @@ esac
 Install_package
 
 # Setting destination directory
-case "${LIVE_BINARY_IMAGE}" in
+case "${LIVE_BINARY_IMAGES}" in
 	iso)
 		DESTDIR="binary/live"
 		;;
@@ -82,12 +82,12 @@ case "${LIVE_BINARY_IMAGE}" in
 		;;
 
 	usb-hdd|hdd)
-		DESTDIR="binary"
+		DESTDIR="binary/live"
 		;;
 esac
 
 # Temporary check for broken syslinux
-if [ "${LIVE_BINARY_IMAGE}" = "iso" ]
+if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
 then
 	# Assemble multi-arch
 	if [ -n "${MULTIARCH}" ]

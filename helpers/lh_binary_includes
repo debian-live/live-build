@@ -51,7 +51,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-# Check includes
+# Check user includes
 if [ ! -d "${LIVE_INCLUDES}" ]
 then
 	if [ -d ../"${LIVE_INCLUDES}" ]
@@ -61,6 +61,12 @@ then
 		Echo_error "user specified includes not accessible in ${LIVE_INCLUDES}"
 		exit 1
 	fi
+fi
+
+# Checking local includes
+if [ -d config/includes/"${LIVE_DISTRIBUTION}" ]
+then
+	LIVE_INCLUDES="config/includes"
 fi
 
 # Assemble architecture

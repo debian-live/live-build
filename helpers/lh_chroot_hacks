@@ -49,7 +49,7 @@ Create_lockfile .lock
 # Removing udev mac caching rule
 Chroot "rm -f /etc/udev/rules.d/z25_persistent-net.rules"
 
-case "${LIVE_BINARY_IMAGE}" in
+case "${LIVE_BINARY_IMAGES}" in
 	net)
 		if [ ! -f chroot/usr/bin/smbmount ]
 		then

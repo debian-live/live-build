@@ -34,7 +34,7 @@ Set_defaults
 
 Breakpoint "binary_net: Init"
 
-for IMAGE in ${LIVE_BINARY_IMAGE}
+for IMAGE in ${LIVE_BINARY_IMAGES}
 do
 	if [ "${IMAGE}" = "net" ]
 	then
@@ -57,21 +57,21 @@ do
 		fi
 
 		# Creating image file
-		if [ "`basename ${LIVE_SERVER_PATH}`" = "chroot" ]
+		if [ "`basename ${LIVE_NET_PATH}`" = "chroot" ]
 		then
 			mv chroot chroot.tmp
 		fi
 
-		mv binary "`basename ${LIVE_SERVER_PATH}`"
+		mv binary "`basename ${LIVE_NET_PATH}`"
 
 		cd ..
-		tar cfz binary-net.tar.gz "`basename ${OLDPWD}`/`basename ${LIVE_SERVER_PATH}`" "`basename ${OLDPWD}`/tftpboot"
+		tar cfz binary-net.tar.gz "`basename ${OLDPWD}`/`basename ${LIVE_NET_PATH}`" "`basename ${OLDPWD}`/tftpboot"
 		mv binary-net.tar.gz "${OLDPWD}"
 		cd "${OLDPWD}"
 
-		mv "`basename ${LIVE_SERVER_PATH}`" binary
+		mv "`basename ${LIVE_NET_PATH}`" binary
 
-		if [ "`basename ${LIVE_SERVER_PATH}`" = "chroot" ]
+		if [ "`basename ${LIVE_NET_PATH}`" = "chroot" ]
 		then
 			mv chroot.tmp chroot
 		fi

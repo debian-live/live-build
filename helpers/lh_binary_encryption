@@ -62,7 +62,7 @@ case "${LH_INITRAMFS}" in
 		;;
 esac
 
-case "${LIVE_FILESYSTEM}" in
+case "${LIVE_CHROOT_FILESYSTEM}" in
 	ext2)
 		ROOTFS="ext2"
 		;;
@@ -84,14 +84,14 @@ Check_package chroot/usr/bin/aespipe aespipe
 Install_package
 
 # Moving image
-mv binary/${INITFS}/filesystem.${LIVE_FILESYSTEM} chroot
+mv binary/${INITFS}/filesystem.${LIVE_CHROOT_FILESYSTEM} chroot
 
 echo "Encrypting binary/${INITFS}/filesystem.${ROOTFS} with ${LIVE_ENCRYPTION}..."
 
-cat >> chroot/encrypt << EOF
+cat >> chroot/encrypt.sh << EOF
 while true
 do
-	cat filesystem.${ROOTFS} | aespipe -e ${LIVE_ENCRYPTION} -T > filesystem.${ROOTFS} && break
+	cat filesystem.${ROOTFS} | aespipe -e ${LIVE_ENCRYPTION} -T > filesystem.${ROOTFS}.tmp && mv filesystem.${ROOTFS}.tmp filesystem.${ROOTFS} && break
 
 	echo -n "Something went wrong... Retry? [YES/no] "
 
@@ -105,11 +105,11 @@ do
 done
 EOF
 
-Chroot "sh encrypt"
+Chroot "sh encrypt.sh"
 
 # Move image
-mv chroot/filesystem.${LIVE_FILESYSTEM} binary/${INITFS}
-rm -f chroot/encrypt
+mv chroot/filesystem.${LIVE_CHROOT_FILESYSTEM} binary/${INITFS}
+rm -f chroot/encrypt.sh
 
 # Removing depends
 Remove_package

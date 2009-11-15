@@ -1,0 +1,14 @@
+## This is a sources.list for live-helper(7) to use packages from the
+## Beryl Etch repository.
+##
+## To enable it, copy this file to your config/chroot_sources directory, once
+## as e.g. beryl.bootstrap and once as beryl.binary.
+## Additionally, you need to copy the beryl.sh file to your
+## config/chroot_local-hooks directory.
+##
+## Remeber to also import http://debian.beryl-project.org/root@lupine.me.uk.gpg
+## into your trusted keyring.
+
+# Beryl packages for Etch
+deb http://debian.beryl-project.org/ etch main
+deb-src http://debian.beryl-project.org/ etch main

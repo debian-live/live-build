@@ -54,7 +54,9 @@ fi
 
 # Calculating md5sums
 cd binary
-find . -type f -print0 | xargs -0 md5sum > md5sum.txt
+find . -type f | sort | grep -v 'isolinux/isolinux.bin' | grep -v 'boot/grub/stage2_eltorito' | xargs md5sum > ../md5sum.txt
+mv ../md5sum.txt ./
+
 cd "${OLDPWD}"
 
 # Creating stage file

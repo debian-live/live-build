@@ -1,0 +1,44 @@
+.TH LH_CLEAN 1 "2007\-05\-14" "1.0~a10" "live\-helper"
+
+.SH NAME
+lh_clean \- clean up system build directories
+
+.SH SYNOPSIS
+.B lh_clean [\fIlive\-helper\ options\fR\|]
+.B lh_clean [\fRall\fB|\fRcache\fB|\fRchroot\fB|\fRbinary\fB|\fRlock\fB|\fRpurge\fB|\fRstage\fB|\fRsource\fB]
+
+.SH DESCRIPTION
+lh_clean is a live\-helper program that is responsible for cleaning up after a system is built. It removes the system build directories, and removes some other files including stage files, and any detritus left behind by other live\-helper commands.
+
+.SH OPTIONS
+The following command line options are supported by lh_clean.
+.IP "\fBall\fR" 4
+removes chroot, binary, lock, stage, and source. This is the default operation.
+.IP "\fBcache\fR" 4
+removes all cache directories.
+.IP "\fBchroot\fR" 4
+unmounts and removes the chroot directory. If bootstrap cache is available, the system is reset to bootstrap stage.
+.IP "\fBbinary\fR" 4
+removes all binary related caches, directories, and stages files.
+.IP "\fBlock\fR" 4
+removes all lock files.
+.IP "\fBpurge\fR" 4
+removes everything (including cache) but config.
+.IP "\fBstage\fR" 4
+removes all stage files.
+.IP "\fBsource\fR" 4
+removes all source related caches, directories, and stage files.
+
+.SH SEE ALSO
+\fIlive\-helper\fR(7)
+.PP
+This program is a part of live\-helper.
+
+.SH BUGS
+Report bugs against live\-helper <\fIhttp://packages.qa.debian.org/live\-helper/\fR>.
+
+.SH HOMEPAGE
+More information about the Debian Live project can be found at <\fIhttp://debian\-live.alioth.debian.org/\fR> and <\fIhttp://wiki.debian.org/DebianLive/\fR>.
+
+.SH AUTHOR
+live\-helper was written by Daniel Baumann <\fIdaniel@debian.org\fR> for the Debian project.
