@@ -131,6 +131,16 @@ Set_defaults ()
 	LH_DEBCONF_NOWARNINGS="${LH_DEBCONF_NOWARNINGS:-yes}"
 	LH_DEBCONF_PRIORITY="${LH_DEBCONF_PRIORITY:-critical}"
 
+	case "${LH_DEBCONF_NOWARNINGS}" in
+		enabled)
+			LH_DEBCONF_NOWARNINGS="yes"
+			;;
+
+		disabled)
+			LH_DEBCONF_NOWARNINGS="no"
+			;;
+	esac
+
 	# Setting genisoimage
 	if [ -z "${LH_GENISOIMAGE}" ]
 	then
@@ -248,11 +258,32 @@ Set_defaults ()
 	then
 		case "${LH_MODE}" in
 			debian)
-				LIVE_MIRROR_BOOTSTRAP="http://ftp.debian.org/debian/"
+				case "${LIVE_ARCHITECTURE}" in
+					amd64|i386)
+						LIVE_MIRROR_BOOTSTRAP="http://ftp.debian.org/debian/"
+						;;
+
+					*)
+						LIVE_MIRROR_BOOTSTRAP="http://ftp.de.debian.org/debian/"
+						;;
+				esac
 				;;
 
 			ubuntu)
-				LIVE_MIRROR_BOOTSTRAP="http://archive.ubuntu.com/ubuntu/"
+				case "${LIVE_ARCHITECTURE}" in
+					amd64|i386|powerpc|sparc)
+						LIVE_MIRROR_BOOTSTRAP="http://archive.ubuntu.com/ubuntu/"
+						;;
+
+					hppa|ia64)
+						LIVE_MIRROR_BOOTSTRAP="http://ports.ubuntu.com/"
+						;;
+
+					*)
+						Echo_error "There is no port of Ubuntu available for your architecture."
+						exit 1
+						;;
+				esac
 				;;
 		esac
 	fi
@@ -266,7 +297,19 @@ Set_defaults ()
 				;;
 
 			ubuntu)
-				LIVE_MIRROR_BOOTSTRAP_SECURITY="http://security.ubuntu.org/ubuntu/"
+				case "${LIVE_ARCHITECTURE}" in
+					amd64|i386|powerpc|sparc)
+						LIVE_MIRROR_BOOTSTRAP_SECURITY="http://archive.ubuntu.com/ubuntu/"
+						;;
+
+					hppa|ia64)
+						LIVE_MIRROR_BOOTSTRAP_SECURITY="http://ports.ubuntu.com/"
+						;;
+
+					*)
+						LIVE_MIRROR_BOOTSTRAP_SECURITY="none"
+						;;
+				esac
 				;;
 		esac
 	fi
@@ -276,11 +319,32 @@ Set_defaults ()
 	then
 		case "${LH_MODE}" in
 			debian)
-				LIVE_MIRROR_BINARY="http://ftp.debian.org/debian/"
+				case "${LIVE_ARCHITECTURE}" in
+					amd64|i386)
+						LIVE_MIRROR_BINARY="http://ftp.debian.org/debian/"
+						;;
+
+					*)
+						LIVE_MIRROR_BINARY="http://ftp.de.debian.org/debian/"
+						;;
+				esac
 				;;
 
 			ubuntu)
-				LIVE_MIRROR_BINARY="http://archive.ubuntu.com/ubuntu/"
+				case "${LIVE_ARCHITECTURE}" in
+					amd64|i386|powerpc|sparc)
+						LIVE_MIRROR_BINARY="http://archive.ubuntu.com/ubuntu/"
+						;;
+
+					hppa|ia64)
+						LIVE_MIRROR_BINARY="http://ports.ubuntu.com/"
+						;;
+
+					*)
+						Echo_error "There is no port of Ubuntu available for your architecture."
+						exit 1
+						;;
+				esac
 				;;
 		esac
 	fi
@@ -294,7 +358,15 @@ Set_defaults ()
 				;;
 
 			ubuntu)
-				LIVE_MIRROR_BINARY_SECURITY="http://security.ubuntu.com/ubuntu/"
+				case "${LIVE_ARCHITECTURE}" in
+					amd64|i386|powerpc|sparc)
+						LIVE_MIRROR_BINARY_SECURITY="http://security.ubuntu.com/ubuntu/"
+						;;
+
+					*)
+						LIVE_MIRROR_BINARY_SECURITY="none"
+						;;
+				esac
 				;;
 		esac
 	fi
@@ -474,6 +546,11 @@ Set_defaults ()
 	# LIVE_TASKS
 
 	# Setting security updates option
+	if [ "${LIVE_MIRROR_BOOTSTRAP_SECURITY}" = "none" ] || [ "${LIVE_MIRROR_BINARY_SECURITY}" = "none" ]
+	then
+		LIVE_SECURITY="disabled"
+	fi
+
 	LIVE_SECURITY="${LIVE_SECURITY:-enabled}"
 
 	# Setting symlink convertion option
@@ -566,6 +643,9 @@ Set_defaults ()
 
 	# Setting memtest option
 	LIVE_MEMTEST="${LIVE_MEMTEST:-memtest86+}"
+
+	# Setting netboot filesystem
+	LIVE_NET_FILESYSTEM="${LIVE_NET_FILESYSTEM:-nfs}"
 
 	# Setting netboot server path
 	if [ -z "${LIVE_NET_PATH}" ]

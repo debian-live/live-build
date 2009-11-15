@@ -7,7 +7,7 @@ The default option is 'live'.
 
 If the system fails to boot at all (the typical
 symptom is a white screen which doesn't go away),
-use 'live video=ofonly'.
+append 'video=ofonly' or use 'live-failsafe'.
 
 The plain options are for the powerpc family of
 processors (from 601 to G4). The *64 options are for

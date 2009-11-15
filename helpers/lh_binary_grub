@@ -63,6 +63,36 @@ Check_package chroot/usr/sbin/grub grub
 # Installing depends
 Install_package
 
+# Local functions
+Grub_live_entry ()
+{
+	LABEL="${1}"
+	KERNEL="${2}"
+	INITRD="${3}"
+	APPEND="${4}"
+
+	LINUX_LIVE="${LINUX_LIVE}\ntitle\t\tDebian GNU/Linux - ${LABEL}"
+	LINUX_LIVE="${LINUX_LIVE}\nkernel\t\t/${KERNEL} boot=${INITFS} LIVE_BOOTAPPEND ${APPEND}"
+	LINUX_LIVE="${LINUX_LIVE}\ninitrd\t\t/${INITRD}"
+}
+
+Grub_install_entry ()
+{
+	LABEL="${1}"
+	KERNEL="${2}"
+	INITRD="${3}"
+	APPEND="${4}"
+
+	if [ "${LIVE_DISTRIBUTION}" != "etch" ] && [ "${LABEL}" != "rescue" ] && [ "${LABEL}" != "rescuegui" ]
+	then
+		APPEND="${APPEND} quiet"
+	fi
+
+	LINUX_INSTALL="${LINUX_INSTALL}\ntitle\t\tDebian GNU/Linux - ${LABEL}"
+	LINUX_INSTALL="${LINUX_INSTALL}\nkernel\t\t/${KERNEL} ${APPEND} --"
+	LINUX_INSTALL="${LINUX_INSTALL}\ninitrd\t\t/${INITRD}"
+}
+
 case "${LH_INITRAMFS}" in
 	casper)
 		INITFS="casper"
@@ -95,25 +125,7 @@ case "${LIVE_BINARY_IMAGES}" in
 	;;
 esac
 
-# Temporary check for broken syslinux
-if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
-then
-	# Assemble multi-arch
-	if [ -n "${MULTIARCH}" ]
-	then
-		case "${LIVE_ARCHITECTURE}" in
-			amd64)
-				DESTDIR_LIVE="${DESTDIR_LIVE}.amd"
-				DESTDIR_INSTALL="${DESTDIR_INSTALL}.amd"
-				;;
-
-			i386)
-				DESTDIR_LIVE="${DESTDIR_LIVE}.386"
-				DESTDIR_INSTALL="${DESTDIR_INSTALL}.386"
-				;;
-		esac
-	fi
-fi
+Check_multiarchitecture
 
 # Creating directory
 mkdir -p "${DESTDIR_LIVE}"
@@ -150,7 +162,7 @@ then
 		live-initramfs)
 			if [ "${LIVE_HOSTNAME}" != "debian" ]
 			then
-				LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} username=${LIVE_HOSTNAME}"
+				LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} hostname=${LIVE_HOSTNAME}"
 			fi
 			;;
 	esac
@@ -167,51 +179,56 @@ LIVE_BOOTAPPEND="`echo ${LIVE_BOOTAPPEND} | sed -e 's/  //'`"
 FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=normal"
 
 # Assembling kernel configuration
+
+# Default entries
 DEFAULT_FLAVOUR="`echo ${LIVE_LINUX_FLAVOURS} | awk '{ print $1 }'`"
+DEFAULT_KERNEL="`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`"
+DEFAULT_INITRD="initrd.img-`echo ${DEFAULT_KERNEL} | sed -e 's/vmlinuz-//'`"
 
-LINUX="title\t\tDebian GNU/Linux - live\nkernel\t\t/`basename ${DESTDIR_LIVE}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}` boot=${INITFS} LIVE_BOOTAPPEND\ninitrd\t\t/`basename ${DESTDIR_LIVE}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'`"
-LINUX="${LINUX}\n\ntitle\t\tDebian GNU/Linux - live (fail-safe mode)\nkernel\t\t/`basename ${DESTDIR_LIVE}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}\ninitrd\t\t/`basename ${DESTDIR_LIVE}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'`"
+Grub_live_entry "live" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
+Grub_live_entry "live (fail-safe mode)" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}" "${FAILSAFE}"
 
-if [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
-then
-	for KERNEL in chroot/boot/vmlinuz*
-	do
-		if [ -z "${LINUX}" ]
-		then
-			LINUX="title\t\tDebian GNU/Linux - live, kernel `basename ${KERNEL} | sed -e 's/vmlinuz-//'`\nkernel\t\t/`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}` boot=${INITFS} LIVE_BOOTAPPEND\ninitrd\t\t/`basename ${DESTDIR_LIVE}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`"
-			LINUX="${LINUX}\n\ntitle\t\tDebian GNU/Linux - live, kernel `basename ${KERNEL} | sed -e 's/vmlinuz-//'` (fail-safe mode)\nkernel\t\t/`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}\ninitrd\t\t/`basename ${DESTDIR_LIVE}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`"
-		else
-			LINUX="${LINUX}\n\ntitle\t\tDebian GNU/Linux - live, kernel `basename ${KERNEL} | sed -e 's/vmlinuz-//'`\nkernel /`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}` boot=${INITFS} LIVE_BOOTAPPEND\ninitrd\t\t/`basename ${DESTDIR_LIVE}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`"
-			LINUX="${LINUX}\n\ntitle\t\tDebian GNU/Linux - live, kernel `basename ${KERNEL} | sed -e 's/vmlinuz-//'` (fail-safe mode)\nkernel /`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}\ninitrd\t\t/`basename ${DESTDIR_LIVE}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinuz-//'`"
-		fi
-	done
-fi
+for KERNEL in chroot/boot/vmlinuz-*
+do
+	VERSION="`basename ${KERNEL} | sed -e 's/vmlinuz-//'`"
 
-LINUX="`echo ${LINUX} | sed -e 's#//#/#g'`"
+	Grub_live_entry "live, kernel ${VERSION}" "`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}`" "`basename ${DESTDIR_LIVE}`/initrd.img-${VERSION}"
+	Grub_live_entry "live, kernel ${VERSION} (fail-safe mode)" "`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}`" "`basename ${DESTDIR_LIVE}`/initrd.img-${VERSION}" "${FAILSAFE}"
+done
+
+LINUX_LIVE="`echo ${LINUX_LIVE} | sed -e 's/binary//g' -e 's#//#/#g'`"
 
 # Assembling debian-installer configuration
 if [ "${LIVE_DEBIAN_INSTALLER}" != "disabled" ]
 then
-	LINUX="title\t\tLive:\nroot\n\n${LINUX}"
+	LINUX_LIVE="title\t\tLive:\nroot\n\n${LINUX_LIVE}"
+	LINUX_INSTALL="title\t\tInstaller:\nroot"
 
-	LIVE_LINUX_INSTALL="title\t\tInstaller:\nroot"
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - install\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz vga=normal --\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/initrd.gz"
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - installgui\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz video=vesa:ywrap,mtrr vga=788 --\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz"
+	VMLINUZ_DI="vmlinuz"
+	INITRD_DI="initrd.gz"
+	APPEND_DI="vga=normal"
 
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - expert\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz priority=low vga=normal --\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/initrd.gz"
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - expertgui\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz priority=low video=vesa:ywrap,mtrr vga=788\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz"
+	VMLINUZ_GI="gtk/vmlinuz"
+	INITRD_GI="gtk/initrd.gz"
+	APPEND_GI="video=vesa:ywrap,mtrr vga=788"
 
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - rescue\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz vga=normal rescue/enable=true --\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/initrd.gz"
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - rescuegui\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz video=vesa:ywrap,mtrr vga=788 rescue/enable=true --\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz"
-
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - auto\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz auto=true priority=critical vga=normal --\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/initrd.gz"
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\ntitle\t\tDebian GNU/Linux - autogui\nkernel\t\t/`basename ${DESTDIR_INSTALL}`/vmlinuz auto=true priority=critical video=vesa:ywrap,mtrr vga=788 --\ninitrd\t\t/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz"
+	Grub_install_entry "install" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
+	Grub_install_entry "installgui" "${VMLINUZ_GI}" "${INITRD_GI}" "${APPEND_GI}"
+	Grub_install_entry "expert" "${VMLINUZ_DI}" "${INITRD_DI}" "priority=low ${APPEND_DI}"
+	Grub_install_entry "expertgui" "${VMLINUZ_GI}" "${INITRD_GI}" "priority=low ${APPEND_GI}"
+	Grub_install_entry "rescue" "${VMLINUZ_DI}" "${INITRD_DI}" "rescue/enable=true ${APPEND_DI}"
+	Grub_install_entry "rescuegui" "${VMLINUZ_GI}" "${INITRD_GI}" "rescue/enable=true ${APPEND_GI}"
+	Grub_install_entry "auto" "${VMLINUZ_DI}" "${INITRD_DI}" "auto=true priority=critical ${APPEND_DI}"
+	Grub_install_entry "autogui" "${VMLINUZ_GI}" "${INITRD_GI}" "auto=true priority=critical ${APPEND_GI}"
 fi
+
+LINUX_INSTALL="`echo ${LINUX_INSTALL} | sed -e 's/binary//g' -e 's#//#/#g'`"
 
 # Assembling memtest configuration
 if [ -f "${DESTDIR_LIVE}"/memtest ]
 then
-	MEMTEST="title\t\t${LIVE_MEMTEST}\nkernel\t\t/`basename ${DESTDIR_LIVE}`/memtest"
+	MEMTEST="title\t\tOther:\nroot"
+	MEMTEST="${MEMTEST}\n\ntitle\t\t${LIVE_MEMTEST}\nkernel\t\t/`basename ${DESTDIR_LIVE}`/memtest"
 	MEMTEST="`echo ${MEMTEST} | sed -e 's#//#/#g'`"
 fi
 
@@ -219,7 +236,7 @@ fi
 mkdir -p binary/boot/grub
 cp -r "${LIVE_TEMPLATES}"/grub/* binary/boot/grub
 
-# Copyring grub
+# Copying grub
 case ${LIVE_BINARY_IMAGES} in
 	iso)
 		cp chroot/usr/lib/grub/*/stage2_eltorito binary/boot/grub
@@ -230,10 +247,19 @@ case ${LIVE_BINARY_IMAGES} in
 		;;
 esac
 
+# Copying local configuration file
+if [ -f config/binary_grub/menu.lst ]
+then
+	cp config/binary_grub/menu.lst binary/boot/grub/menu.lst
+fi
+
 # Copying splash screen
 if [ -f config/binary_grub/splash.xpm.gz ]
 then
 	LIVE_GRUB_SPLASH="config/binary_grub/splash.xpm.gz"
+elif [ -f config/binary_grub/splash.xpm ]
+then
+	LIVE_GRUB_SPLASH="config/binary_grub/splash.xpm"
 fi
 
 if [ -n "${LIVE_GRUB_SPLASH}" ]
@@ -247,21 +273,15 @@ then
 		sed -i -e "s/splashimage.*//" binary/boot/grub/menu.lst
 	else
 		# Overwriting splash file
-		cp -f "${LIVE_GRUB_SPLASH}" binary/boot/grub/splash.xpm.gz
+		cp -f "${LIVE_GRUB_SPLASH}" binary/boot/grub
+		sed -i -e "s#splashimage.*#splashimage /boot/grub/`basename ${LIVE_GRUB_SPLASH}`#" binary/boot/grub/menu.lst
 	fi
 fi
 
-# Configure grub templates
-cat >> binary/boot/grub/menu.lst << EOF
-
-title		Other:
-root
-
-LIVE_MEMTEST
-EOF
-
-sed -i -e "s#LIVE_LINUX_LIVE#${LINUX}#" -e "s#LIVE_LINUX_INSTALL#${LIVE_LINUX_INSTALL}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" binary/boot/grub/menu.lst
+sed -i -e "s#LINUX_LIVE#${LINUX_LIVE}#" -e "s#LINUX_INSTALL#${LINUX_INSTALL}#" -e "s#MEMTEST#${MEMTEST}#" binary/boot/grub/menu.lst
 sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" binary/boot/grub/menu.lst
+
+sed -i -e 's/\ $//g' binary/boot/grub/menu.lst
 
 # Removing depends
 Remove_package

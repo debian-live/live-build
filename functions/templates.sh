@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # templates.sh - handle templates files
-# Copyright (C) 2007 Otavio Salvador <otavio@debian.org>
+# Copyright (C) 2006-2007 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 # This is free software, and you are welcome to redistribute it

@@ -19,7 +19,8 @@ make-live first bootstraps a basic Debian system with cdebootstrap(1) or
 debootstrap(8). Depending on both cdebootstrap/debootstrap and the Debian
 distribution it is bootstrapping, it runs sucessful or not. If a bug appears
 here, check if the error is related to a specific Debian package (most likely),
-or if it is related to cdebootstrap/debootstrap itself.
+or if it is related to cdebootstrap/debootstrap itself. Running lh_bootstrap
+with --debug gives you more information.
 
 In both cases, this is not a bug in Debian Live, but rather in Debian itself. We
 can not fix this directly. Instead, report such a bug against the cdebootstrap
@@ -36,16 +37,42 @@ If this is the case, this is not a bug in Debian Live, but rather in Debian
 again. Report it against the failing package.
 
 
+...at boot time?
+
+If your image does not boot, please report it to the mailing list together with
+the information requested in 2. Do not forget to mention, how/when the image
+failed, in qemu, vmware or real hardware. If you are using a virtualization
+technology of any kind, do always run it on real hardware before reporting a
+bug. Nevertheless, providing a screenshot of the failure is also very helpfull.
+
+
 ...at run time?
 
 If a package was successfully installed, but fails while actually running the
-Live system, this is probably a bug in Debian Live.
+Live system, this is probably a bug in Debian Live and you are welcome to report
+it to us.
 
 
 2. Where to send the bug report?
 --------------------------------
 
 Report error logs of build time errors to live-helper and run time errors to
-casper in the Debian Bug Tracking System. If you are unsure or need more help
-before submitting a bug report, you can always send a message to
+live-initramfs in the Debian Bug Tracking System. If you are unsure or need more
+help before submitting a bug report, you can always send a message to
 <debian-devel-live@lists.alioth.debian.org>. We will help you to figure it out.
+
+To make the most out of your bug report, we require at least the following
+information:
+
+	* Architecture of the host system
+	* Version of live-helper on the host system
+	* Version of live-initramfs on the live system
+	* Version of cdebootstrap and/or debootstrap on the host system
+
+	* Architecture of the live system
+	* Distribution of the live system
+	* Version of the kernel on the live system
+
+Additionally, to rule out other errors, it is always a good idea to tar up your
+config directory and upload it somewhere (do *NOT* send it as an attachment to
+the mailinglist), so that we can try to reproduce the errors you encountered.

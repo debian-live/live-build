@@ -63,6 +63,44 @@ Check_package chroot/usr/lib/yaboot/yaboot yaboot
 # Installing depends
 Install_package
 
+# Local functions
+Yaboot_live_entry ()
+{
+	LABEL="${1}"
+	KERNEL="${2}"
+	INITRD="${3}"
+	APPEND="${4}"
+
+	DIRECTORY="/`basename ${DESTDIR_LIVE}`"
+
+	LINUX_LIVE="${LINUX_LIVE}\nimage=${DIRECTORY}/${KERNEL}\n"
+	LINUX_LIVE="${LINUX_LIVE}\tlabel=${LABEL}\n"
+	LINUX_LIVE="${LINUX_LIVE}\tinitrd=${DIRECTORY}/${INITRD}\n"
+	LINUX_LIVE="${LINUX_LIVE}\tappend=\"boot=${INITFS} LIVE_BOOTAPPEND ${APPEND}\"\n"
+	LINUX_LIVE="${LINUX_LIVE}\tinitrd-size=10240\n"
+}
+
+Yaboot_install_entry ()
+{
+	LABEL="${1}"
+	KERNEL="${2}"
+	INITRD="${3}"
+	APPEND="${4}"
+
+	DIRECTORY="/`basename ${DESTDIR_LIVE}`"
+
+	if [ "${LIVE_DISTRIBUTION}" != "etch" ] && [ "${LABEL}" != "rescue" ] && [ "${LABEL}" != "rescuegui" ]
+	then
+		APPEND="${APPEND} quiet"
+	fi
+
+	LINUX_INSTALL="${LINUX_INSTALL}\nimage=${DIRECTORY}/${KERNEL}\n"
+	LINUX_INSTALL="${LINUX_INSTALL}\tlabel=${LABEL}\n"
+	LINUX_INSTALL="${LINUX_INSTALL}\tinitrd=${DIRECTORY}/${INITRD}\n"
+	LINUX_INSTALL="${LINUX_INSTALL}\tappend=\"LIVE_BOOTAPPEND ${APPEND} --\"\n"
+	LINUX_INSTALL="${LINUX_INSTALL}\tinitrd-size=10240\n"
+}
+
 case "${LH_INITRAMFS}" in
 	casper)
 		INITFS="casper"
@@ -76,29 +114,26 @@ esac
 # Setting destination directory
 case "${LIVE_BINARY_IMAGES}" in
 	iso)
-		DESTDIR_LIVE="binary/live"
+		case "${LH_INITRAMFS}" in
+			casper)
+				DESTDIR_LIVE="binary/casper"
+				;;
+
+			live-initramfs)
+				DESTDIR_LIVE="binary/live"
+				;;
+		esac
+
 		DESTDIR_INSTALL="binary/install"
 		;;
 
 	net|tar|usb-hdd)
-		Echo_error "not supported, FIXME"
+		Echo_error "not yet supported, aborting (FIXME)."
+		exit 1
 	;;
 esac
 
-# Temporary check for broken syslinux FIXME
-if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
-then
-	# Assembling multi-arch
-	if [ -n "${MULTIARCH}" ]
-	then
-		case "${LIVE_ARCHITECTURE}" in
-			powerpc)
-				DESTDIR_LIVE="${DESTDIR_LIVE}.ppc"
-				DESTDIR_INSTALL="${DESTDIR_INSTALL}.ppc"
-				;;
-		esac
-	fi
-fi
+Check_multiarchitecture
 
 # Creating directory
 mkdir -p "${DESTDIR_LIVE}"
@@ -149,79 +184,74 @@ fi
 LIVE_BOOTAPPEND="`echo ${LIVE_BOOTAPPEND} | sed -e 's/  //'`"
 
 # Parameters are listed at: linux/Documentation/kernel-parameters.txt
-FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=normal" # FIXME
+FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=ofonly"
 
 # Assembling kernel configuration
-if [ "${LIVE_BINARY_IMAGES}" != "net" ]
-then
-	DEFAULT_FLAVOUR="`echo ${LIVE_LINUX_FLAVOURS} | awk '{ print $1 }'`"
-	LINUX="image=/`basename ${DESTDIR_LIVE}`/`basename chroot/boot/vmlinux-*${DEFAULT_FLAVOUR}`\n\tinitrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename chroot/boot/vmlinux-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinux-//'`\n\tlabel=live\n\tappend=\"boot=${INITFS} LIVE_BOOTAPPEND\"\n\tinitrd-size=1048576\n\tread-only"
-else
-	DEFAULT_FLAVOUR="`echo ${LIVE_LINUX_FLAVOURS} | awk '{ print $1 }'`"
-	LINUX="image=`basename chroot/boot/vmlinux-*${DEFAULT_FLAVOUR}`\n\tinitrd=initrd.img-`basename chroot/boot/vmlinux-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinux-//'`\n\tlabel=live\n\tappend=\"boot=${INITFS} LIVE_BOOTAPPEND\"\n\tinitrd-size=1048576\n\tread-only"
-fi
 
-# FIXME
+# Default entries
+DEFAULT_FLAVOUR="`echo ${LIVE_LINUX_FLAVOURS} | awk '{ print $1 }'`"
+DEFAULT_KERNEL="`basename chroot/boot/vmlinux-*${DEFAULT_FLAVOUR}`"
+DEFAULT_INITRD="initrd.img-`echo ${DEFAULT_KERNEL} | sed -e 's/vmlinux-//'`"
+
+Yaboot_live_entry "live" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
+Yaboot_live_entry "live-failsafe" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}" "${FAILSAFE}"
+
 if [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
 then
-	for KERNEL in chroot/boot/vmlinux*
+	for KERNEL in chroot/boot/vmlinux-*
 	do
-		if [ -z "${LINUX}" ]
-		then
-			if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
-		then
-				LINUX="label LIVE-`basename ${KERNEL} | sed -e 's/vmlinux-//'`\n  kernel /`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}`\n  append initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinux-//'` boot=${INITFS} LIVE_BOOTAPPEND"
-			else
-				LINUX="label LIVE-`basename ${KERNEL} | sed -e 's/vmlinux-//'`\n  kernel `basename ${KERNEL}`\n  append initrd=initrd.img-`basename ${KERNEL} | sed -e 's/vmlinux-//'` boot=${INITFS} LIVE_BOOTAPPEND"
-		fi
-		else
-			if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
-			then
-				LINUX="${LINUX}\nlabel LIVE-`basename ${KERNEL} | sed -e 's/vmlinux-//'`\n  kernel /`basename ${DESTDIR_LIVE}`/`basename ${KERNEL}`\n  append initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename ${KERNEL} | sed -e 's/vmlinux-//'` boot=${INITFS} LIVE_BOOTAPPEND"
-			else
-				LINUX="${LINUX}\nlabel LIVE-`basename ${KERNEL} | sed -e 's/vmlinux-//'`\n  kernel `basename ${KERNEL}`\n  append initrd=initrd.img-`basename ${KERNEL} | sed -e 's/vmlinux-//'` boot=${INITFS} LIVE_BOOTAPPEND"
-			fi
-		fi
+		KERNEL_IMAGE="`basename ${KERNEL}`"
+		KERNEL_VERSION="`echo ${KERNEL_IMAGE} | sed -e 's/vmlinux-//'`"
+		INITRD="initrd.img-${KERNEL_VERSION}"
+
+		Yaboot_live_entry "live-${KERNEL_VERSION}" "${KERNEL_IMAGE}" "${INITRD}"
+		Yaboot_live_entry "live-${KERNEL_VERSION}-failsafe" "${KERNEL_IMAGE}" "${INITRD}" "${FAILSAFE}"
 	done
 fi
 
-# Removing '//'
-LINUX="`echo ${LINUX} | sed -e 's#//#/#g'`"
+LINUX_LIVE="`echo ${LINUX_LIVE} | sed -e 's/binary//g' -e 's#//#/#g'`"
 
 # Assembling debian-installer configuration
 if [ "${LIVE_DEBIAN_INSTALLER}" != "disabled" ]
 then
 	VMLINUZ_DI="vmlinuz"
 	INITRD_DI="initrd.gz"
+	APPEND_DI="vga=normal"
 
 	VMLINUZ_GI="gtk/vmlinuz"
 	INITRD_GI="gtk/initrd.gz"
+	APPEND_GI="video=vesa:ywrap,mtrr vga=788"
 
-	LIVE_LINUX_INSTALL="LABEL install\n\tkernel /`basename ${DESTDIR_INSTALL}`/${VMLINUZ_DI}\n\tappend vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/${INITRD_DI} -- "
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL linux\n\tkernel /`basename ${DESTDIR_INSTALL}`/${VMLINUZ_DI}\n\tappend vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/${INITRD_DI} -- "
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL installgui\n\tkernel /`basename ${DESTDIR_INSTALL}`/${VMLINUZ_GI}\n\tappend video=vesa:ywrap,mtrr vga=788 initrd=/`basename ${DESTDIR_INSTALL}`/${INITRD_GI} -- "
-
-	LIVE_KENREL_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL expert\n\tkernel /`basename ${DESTDIR_INSTALL}`/${VMLINUZ_DI}\n\tappend priority=low vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/${INITRD_DI} -- "
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL expertgui\n\tkernel /`basename ${DESTDIR_INSTALL}`/${VMLINUZ_GI}\n\tappend priority=low video=vesa:ywrap,mtrr vga=788 initrd=/`basename ${DESTDIR_INSTALL}`/${INITRD_GI} -- "
-
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL rescue\n\tkernel /`basename ${DESTDIR_INSTALL}`/${VMLINUZ_DI}\n\tappend vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/${INITRD_DI} rescue/enable=true -- "
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL rescuegui\n\tkernel /`basename ${DESTDIR_INSTALL}`/${VMLINUZ_GI}\n\tappend video=vesa:ywrap,mtrr vga=788 initrd=/`basename ${DESTDIR_INSTALL}`/${INITRD_GI} rescue/enable=true -- "
-
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL auto\n\tkernel /`basename ${DESTDIR_INSTALL}`/${VMLINUZ_DI}\n\tappend auto=true priority=critical vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/${INITRD_DI} -- "
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL autogui\n\tkernel /`basename ${DESTDIR_INSTALL}`/${VMLINUZ_GI}\n\tappend auto=true priority=critical video=vesa:ywrap,mtrr vga=788 initrd=/`basename ${DESTDIR_INSTALL}`/${INITRD_GI} -- "
+	Yaboot_install_entry "linux" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
+	Yaboot_install_entry "install" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
+	Yaboot_install_entry "installgui" "${VMLINUZ_GI}" "${INITRD_GI}" "${APPEND_GI}"
+	Yaboot_install_entry "expert" "${VMLINUZ_DI}" "${INITRD_DI}" "priority=low ${APPEND_DI}"
+	Yaboot_install_entry "expertgui" "${VMLINUZ_GI}" "${INITRD_GI}" "priority=low ${APPEND_GI}"
+	Yaboot_install_entry "rescue" "${VMLINUZ_DI}" "${INITRD_DI}" "rescue/enable=true ${APPEND_DI}"
+	Yaboot_install_entry "rescuegui" "${VMLINUZ_GI}" "${INITRD_GI}" "rescue/enable=true ${APPEND_GI}"
+	Yaboot_install_entry "auto" "${VMLINUZ_DI}" "${INITRD_DI}" "auto=true priority=critical ${APPEND_DI}"
+	Yaboot_install_entry "autogui" "${VMLINUZ_GI}" "${INITRD_GI}" "auto=true priority=critical ${APPEND_GI}"
 fi
 
-LIVE_LINUX_INSTALL="`echo ${LIVE_LINUX_INSTALL} | sed -e 's/binary//g' -e 's#//#/#g'`"
+LINUX_INSTALL="`echo ${LINUX_INSTALL} | sed -e 's/binary//g' -e 's#//#/#g'`"
 
 case "${LIVE_BINARY_IMAGES}" in
-	iso)
+	iso|usb-hdd)
 		# Copying yaboot
 		mkdir -p binary/yaboot
 		cp chroot/usr/lib/yaboot/yaboot binary/yaboot
 		cp -r "${LIVE_TEMPLATES}"/yaboot/* binary/yaboot
 
+		if [ "${LIVE_BINARY_IMAGES}" = "usb-hdd" ]
+		then
+			mv binary/yaboot/yaboot.conf binary/yaboot/yaboot.conf.tmp
+			echo "root=/dev/ram" > binary/yaboot/yaboot.conf
+			cat binary/yaboot/yaboot.conf.tmp >> binary/yaboot/yaboot.conf
+			rm -f binary/yaboot/yaboot.conf.tmp
+		fi
+
 		# Configure yaboot templates
-		sed -i -e "s#LIVE_LINUX_LIVE#${LINUX}#" -e "s#LIVE_LINUX_INSTALL#${LIVE_LINUX_INSTALL}#" binary/yaboot/yaboot.conf
+		sed -i -e "s#LINUX_LIVE#${LINUX_LIVE}#" -e "s#LINUX_INSTALL#${LINUX_INSTALL}#" binary/yaboot/yaboot.conf
 		sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" binary/yaboot/yaboot.conf
 		sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" -e "s/LIVE_VERSION/${VERSION}/" binary/yaboot/boot.msg
 		;;

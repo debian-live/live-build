@@ -190,7 +190,7 @@ Local_arguments ()
 				;;
 
 			--keyring-packages)
-				LIVE_KEYRING_PACKAGS="${2}"; shift 2
+				LIVE_KEYRING_PACKAGES="${2}"; shift 2
 				;;
 
 			--hooks)

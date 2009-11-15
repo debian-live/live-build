@@ -1,0 +1,17 @@
+# /usr/share/live-helper/lists/devel-live - package list for live-helper(7)
+
+## LH: Development (Debian Live)
+#<include> standard
+
+cdebootstrap debootstrap
+
+live-helper subversion
+
+aufs-source kqemu-source squashfs-source unionfs-source
+aufs-tools qemu unionfs-tools
+#linux-headers-2.6-all
+
+vim less screen gnupg
+
+build-essential debhelper dh-make lintian fakeroot devscripts wdiff
+autotools-dev dpatch module-assistant

@@ -10,9 +10,15 @@
 set -e
 
 # Removing unused packages
-apt-get remove --purge --yes apt-utils aptitude
-apt-get remove --purge --yes man-db manpages info
-apt-get remove --purge --yes ssl wget
+for PACKAGE in apt-utils aptitude man-db manpages info ssl wget
+do
+	if ! apt-get remove --purge --yes "${PACKAGE}"
+	then
+		echo "WARNING: ${PACKAGE} isn't installed"
+	fi
+done
+
+apt-get autoremove || true
 
 # Removing unused files
 find . -name *~ | xargs rm -f
