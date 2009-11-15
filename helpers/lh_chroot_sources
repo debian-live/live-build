@@ -59,28 +59,15 @@ case "${1}" in
 
 		if [ "${LH_SECURITY}" = "enabled" ]
 		then
-			case "${LH_MODE}" in
-				debian)
-					if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
-					then
-						echo "deb ${LH_MIRROR_BOOTSTRAP_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
+			if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
+			then
+				echo "deb ${LH_MIRROR_BOOTSTRAP_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
 
-						if [ "${LH_SOURCE}" = "enabled" ]
-						then
-							echo "deb-src ${LH_MIRROR_BOOTSTRAP_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
-						fi
-					fi
-					;;
-
-				ubuntu)
-					echo "deb ${LH_MIRROR_BOOTSTRAP_SECURITY} ${LH_DISTRIBUTION}-security ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
-
-					if [ "${LH_SOURCE}" = "enabled" ]
-					then
-						echo "deb-src ${LH_MIRROR_BOOTSTRAP_SECURITY} ${LH_DISTRIBUTION}-security ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
-					fi
-					;;
-			esac
+				if [ "${LH_SOURCE}" = "enabled" ]
+				then
+					echo "deb-src ${LH_MIRROR_BOOTSTRAP_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
+				fi
+			fi
 		fi
 
 		# Check local sources.list
@@ -155,7 +142,7 @@ case "${1}" in
 				for PACKAGE in config/chroot_sources/*.deb
 				do
 					cp ${PACKAGE} chroot/root
-					Chroot "dpkg -i $(basename ${PACKAGE})"
+					Chroot "dpkg -i /root/$(basename ${PACKAGE})"
 					rm -f chroot/root/$(basename ${PACKAGE})
 				done
 			fi
@@ -237,28 +224,15 @@ case "${1}" in
 
 			if [ "${LH_SECURITY}" = "enabled" ]
 			then
-				case "${LH_MODE}" in
-					debian)
-						if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
-						then
-							echo "deb ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
+				if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
+				then
+					echo "deb ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
 
-							if [ "${LH_SOURCE}" = "enabled" ]
-							then
-								echo "deb-src ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
-							fi
-						fi
-						;;
-
-					ubuntu)
-						echo "deb ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}-security ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
-
-						if [ "${LH_SOURCE}" = "enabled" ]
-						then
-							echo "deb-src ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}-security ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
-						fi
-						;;
-				esac
+					if [ "${LH_SOURCE}" = "enabled" ]
+					then
+						echo "deb-src ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_SECTIONS}" >> chroot/etc/apt/sources.list
+					fi
+				fi
 			fi
 
 			# Check local sources.list

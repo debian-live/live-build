@@ -102,9 +102,10 @@ Syslinux_live_entry ()
    then
       num=$(ls -1 ${KERNEL_PATH}|grep 'vmlinuz.\.img$'|wc -l)
       num=$(($num +1))
-      mv ${KERNEL_PATH}/${KERNEL} ${KERNEL_PATH}/vmlinuz${num}.img
+      # Note: ISOLINUX will not find the kernel if the name ends in ".img".
+      mv ${KERNEL_PATH}/${KERNEL} ${KERNEL_PATH}/vmlinuz${num}
       mv ${KERNEL_PATH}/${INITRD} ${KERNEL_PATH}/initrd${num}.img
-      KERNEL=vmlinuz${num}.img
+      KERNEL=vmlinuz${num}
       INITRD=initrd${num}.img
    fi
 
@@ -401,6 +402,11 @@ fi
 if [ "${LH_UNION_FILESYSTEM}" != "unionfs" ]
 then
 	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} union=${LH_UNION_FILESYSTEM}"
+fi
+
+if [ "${LH_EXPOSED_ROOT}" != "disabled" ]
+then
+	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} exposedroot"
 fi
 
 if [ "${LH_BINARY_IMAGES}" = "net" ]

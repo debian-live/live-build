@@ -75,7 +75,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--mirror-binary URL]\n\
 \t    [--mirror-bootstrap-security URL]\n\
 \t    [--mirror-bootstrap URL]\n\
-\t    [--mode debian|debian-edu|ubuntu]\n\
+\t    [--mode debian|debian-edu]\n\
 \t    [--net-filesystem nfs|cfs]\n\
 \t    [--net-mountoptions OPTIONS]\n\
 \t    [--net-path PATH]\n\
@@ -96,12 +96,13 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--tasks TASK]\n\
 \t    [--templates PATH]\n\
 \t    [--union-filesystem aufs|unionfs]\n\
+\t    [--exposed-root enabled|disabled]\n\
 \t    [--username NAME]\n\
 \t    [--verbose]"
 
 Local_arguments ()
 {
-	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,losetup:,mode:,root-command:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,memtest:,net-filesystem:,net-mountoptions:,net-path:,net-server:,syslinux-splash:,syslinux-timeout:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
+	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,losetup:,mode:,root-command:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-bootstrap-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,memtest:,net-filesystem:,net-mountoptions:,net-path:,net-server:,syslinux-splash:,syslinux-timeout:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
 
 	if [ "${?}" != "0" ]
 	then
@@ -187,11 +188,6 @@ Local_arguments ()
 
 			--debconf-priority)
 				LH_DEBCONF_PRIORITY="${2}"
-				shift 2
-				;;
-
-			--genisoimage)
-				LH_GENISOIMAGE="${2}"
 				shift 2
 				;;
 
@@ -319,6 +315,11 @@ Local_arguments ()
 
 			--union-filesystem)
 				LH_UNION_FILESYSTEM="${2}"
+				shift 2
+				;;
+
+			--exposed-root)
+				LH_EXPOSED_ROOT="${2}"
 				shift 2
 				;;
 
@@ -655,10 +656,6 @@ LH_DEBCONF_NOWARNINGS="${LH_DEBCONF_NOWARNINGS}"
 # (Default: ${LH_DEBCONF_PRIORITY})
 LH_DEBCONF_PRIORITY="${LH_DEBCONF_PRIORITY}"
 
-# \$LH_GENISOIMAGE: set genisoimage program
-# (Default: ${LH_GENISOIMAGE})
-LH_GENISOIMAGE="${LH_GENISOIMAGE}"
-
 # \$LH_INITRAMFS: set initramfs hook
 # (Default: ${LH_INITRAMFS})
 LH_INITRAMFS="${LH_INITRAMFS}"
@@ -781,6 +778,10 @@ LH_CHROOT_FILESYSTEM="${LH_CHROOT_FILESYSTEM}"
 # \$LH_UNION_FILESYSTEM: set union filesystem
 # (Default: ${LH_UNION_FILESYSTEM}
 LH_UNION_FILESYSTEM="${LH_UNION_FILESYSTEM}"
+
+# \$LH_EXPOSED_ROOT: expose root as read only
+# (Default: ${LH_EXPOSED_ROOT})
+LH_EXPOSED_ROOT="${LH_EXPOSED_ROOT}"
 
 # \$LH_HOOKS: set hook commands
 # (Default: empty)

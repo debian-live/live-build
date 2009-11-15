@@ -87,8 +87,9 @@ EOF
 			# Restore hosts file
 			mv chroot/etc/hosts.orig chroot/etc/hosts
 		else
-			# Remove hosts file
-			rm -f chroot/etc/hosts
+			# Blank out hosts file, don't remove in case
+			# its a symlink, as in the case of exposedroot mode
+			cat /dev/null > chroot/etc/hosts
 		fi
 
 		# Removing stage file
