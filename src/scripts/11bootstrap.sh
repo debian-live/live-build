@@ -21,7 +21,7 @@ Bootstrap ()
 
 		if [ -n "${LIVE_BOOTSTRAP_CONFIG}" ]; then
 			SUITE_CONFIG="--suite-config ${LIVE_BOOTSTRAP_CONFIG}"
-		fi 
+		fi
 
 		# Bootstrap system
 		cdebootstrap --arch="${LIVE_ARCHITECTURE}" --flavour="${LIVE_FLAVOUR}" ${SUITE_CONFIG} "${LIVE_DISTRIBUTION}" "${LIVE_CHROOT}" "${LIVE_MIRROR}"

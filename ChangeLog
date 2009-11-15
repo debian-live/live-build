@@ -1,12 +1,35 @@
+2007-02-10 Daniel Baumann <daniel@debian.org>
+
+	* Added legacy code for genisoimage.
+
+2007-02-09 Daniel Baumann <daniel@debian.org>
+
+	* Added usb type.
+
+2007-02-08 Daniel Baumann <daniel@debian.org>
+
+	* Added desktop task to the *-desktop flavours.
+
+2007-02-07 Daniel Baumann <daniel@debian.org>
+
+	* Extended cron job a bit.
+	* Fixed manual pruning in minimal flavour as suggested by Bas Wijnen
+	  <wijnen@debian.org>
+
+2007-02-02 Daniel Baumann <daniel@debian.org>
+
+	* Added "--without-daemons".
+
 2007-02-01 Daniel Baumann <daniel@debian.org>
 
 	* Added "--tasks".
-	* Added desktop base to all desktop package lists.
+	* Added desktop-base to all desktop package lists.
 
 2007-01-31 Daniel Baumann <daniel@debian.org>
 
 	* Changed vars in autobuilding script to be able to source
 	  make-live.conf.
+	* Uploaded 0.99.19.
 
 2007-01-30 Daniel Baumann <daniel@debian.org>
 
@@ -16,6 +39,7 @@
 
 	* Added additional pruning to minimal flavour.
 	* Using interactive frontend while processing --hook.
+	* Uploaded 0.99.18.
 
 2007-01-24 Daniel Baumann <daniel@debian.org>
 
@@ -25,16 +49,23 @@
 	  - adding start-stop-daemon wrapper to avoid daemons to be started.
 	  - adding workaround to prevent binfmt locking /proc.
 	  - adding LIVE_ISOLINUX_SPLASH.
+	* Uploaded 0.99.17.
 
 2007-01-19 Daniel Baumann <daniel@debian.org>
 
 	* Replacing mkisofs with genisoimage.
+
+2007-01-18 Daniel Baumann <daniel@debian.org>
+
+	* Cleanups.
+	* Uploaded 0.99.16.
 
 2007-01-16 Daniel Baumann <daniel@debian.org>
 
 	* Switched default distribution back to unstable, as unstable is usable
 	  again from the kernel point of view.
 	* Added file to the minimal package list.
+	* Uploaded 0.99.15.
 
 2007-01-04 Daniel Baumann <daniel@debian.org>
 
@@ -43,6 +74,10 @@
 	  lists. See #405639 for more information.
 	* Added xdebconfigurator to all X11 package lists.
 	* Adding workaround for initrd backup files.
+
+2006-11-06 Daniel Baumann <daniel@debian.org>
+
+	* Uploaded 0.99.14.
 
 2006-11-05 Daniel Baumann <daniel@debian.org>
 
@@ -61,6 +96,10 @@
 2006-11-01 Daniel Baumann <daniel@debian.org>
 
 	* Fixed regression when using -d ${CODENAME} wrt/ kernel packages.
+
+2006-10-30 Daniel Baumann <daniel@debian.org>
+
+	* Uploaded 0.99.13.
 
 2006-10-29 Daniel Baumann <daniel@debian.org>
 
@@ -94,6 +133,10 @@
 	  - allowing override of kernel-packages.
 	* Reverted mangling of LIVE_DISTRIBUTION for sources.list generation.
 
+2006-10-23 Daniel Baumann <daniel@debian.org>
+
+	* Uploaded 0.99.12.
+
 2006-10-18 Daniel Baumann <daniel@debian.org>
 
 	* Autodetecting proxy now.
@@ -101,6 +144,16 @@
 2006-10-16 Daniel Baumann <daniel@debian.org>
 
 	* Readded and slightly changed --clone and --preseed.
+	* Uploaded 0.99.11.
+
+2006-10-09 Daniel Baumann <daniel@debian.org>
+
+	* Cleanups.
+	* Uploaded 0.99.10.
+
+2006-10-02 Daniel Baumann <daniel@debian.org>
+
+	* Uploaded 0.99.9.
 
 2006-10-01 Daniel Baumann <daniel@debian.org>
 
@@ -125,10 +178,15 @@
 	  arguments.
 	* Fixed package list handling similar to the fix suggested by Alex Owen
 	  <r.alex.owen@gmail.com>.
+	* Uploaded 0.99.8.
 
-2006-09-08 Marco Amadori <marco.amadori@gmail.com>
+2006-09-24 Marco Amadori <marco.amadori@gmail.com>
 
 	* 13hack.sh: initramfs-tools hack, check added for xorg.
+
+2006-09-18 Daniel Baumann <daniel@debian.org>
+
+	* Uploaded 0.99.7.
 
 2006-09-15 Daniel Baumann <daniel@debian.org>
 
@@ -137,6 +195,10 @@
 2006-09-14 Daniel Baumann <daniel@debian.org>
 
 	* Adjustements for linux 2.6.17 testing propagation.
+
+2006-09-11 Daniel Baumann <daniel@debian.org>
+
+	* Uploaded 0.99.6.
 
 2006-09-08 Marco Amadori <marco.amadori@gmail.com>
 
@@ -153,6 +215,10 @@
 	* 14chroot.sh, main.sh: Added manifest support.
 	* 23net.sh: Added 2 variables for basenames to ease readability.
 	* main.sh, 02default.sh: Modified Usage() uses.
+
+2006-09-04 Daniel Baumann <daniel@debian.org>
+
+	* Uploaded 0.99.5.
 
 2006-09-03 Daniel Baumann <daniel@debian.org>
 
@@ -196,6 +262,7 @@
 	* Updated documentation.
 	* Added patch from Alex Owen <r.a.owen@qmul.ac.uk> to update
 	  pxelinux.cfg for NFS root in casper.
+	* Uploaded 0.99.4.
 
 2006-08-27 Daniel Baumann <daniel@debian.org>
 
@@ -212,10 +279,18 @@
 	* Cleaned up parameter names.
 	* testing is now supported.
 
+2006-08-21 Daniel Baumann <daniel@debian.org>
+
+	* Uploaded 0.99.3.
+
 2006-08-02 Marco Amadori <marco.amadori@gmail.com>
 
 	* Rewrote netboot support.
 	* Added support for pure directory rootfs images.
+
+2006-07-31 Daniel Baumann <daniel@debian.org>
+
+	* Uploaded 0.99.2.
 
 2006-07-28 Daniel Baumann <daniel@debian.org>
 
@@ -225,6 +300,10 @@
 2006-07-27 Marco Amadori <marco.amadori@gmail.com>
 
 	* Changed amd64 kernel naming scheme.
+
+2006-07-24 Daniel Baumann <daniel@debian.org>
+
+	* Uploaded 0.99.1.
 
 2006-07-19 Daniel Baumann <daniel@debian.org>
 
@@ -238,6 +317,7 @@
 
 	* Added chroot to 01-patch.sh.
 	* Added "--logfile".
+	* Uploaded 0.99.
 
 2006-07-01 Daniel Baumann <daniel.baumann@panthera-systems.net>
 

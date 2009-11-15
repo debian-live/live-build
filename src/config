@@ -87,7 +87,7 @@ LIVE_REPOSITORY_SECTIONS_edu="local"
 
 LIVE_REPOSITORY_restricted="http://ftp.debian-unofficial.org/debian-restricted/"
 LIVE_REPOSITORY_KEY_restricted="http://ftp-master.debian-unofficial.org/key_2007.asc"
-LIVE_REPOSITORY_KEYRING_restricted=""
+LIVE_REPOSITORY_KEYRING_restricted="debian-unofficial-archive-keyring"
 LIVE_REPOSITORY_DISTRIBUTION_restricted=""
 LIVE_REPOSITORY_SECTIONS_restricted="restricted"
 
@@ -98,7 +98,7 @@ LIVE_REPOSITORY_DISTRIBUTION_fai="etch"
 LIVE_REPOSITORY_SECTIONS_fai="koeln"
 
 # Debian section		(Default: main)
-#LIVE_SECTION="main"
+#LIVE_SECTIONS="main"
 
 # Netboot server		(Default: 192.168.1.1)
 #LIVE_SERVER_ADDRESS=""

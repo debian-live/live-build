@@ -28,7 +28,7 @@ set -e
 BASE=${LIVE_BASE:-"/usr/share/make-live"}
 CONFIG="/etc/make-live.conf"
 PROGRAM="`basename ${0}`"
-VERSION="0.99.19"
+VERSION="0.99.20"
 
 CODENAME_OLDSTABLE="woody"
 CODENAME_STABLE="sarge"
@@ -41,7 +41,7 @@ do
 	. "${SCRIPT}"
 done
 
-USAGE="Usage: ${PROGRAM} [-a|--architecture ARCHITECTURE] [-b|--bootappend KERNEL_PARAMETER|\"KERNEL_PARAMETERS\"] [--clone DIRECTORY] [--config FILE] [-c|--chroot DIRECTORY] [-d|--distribution DISTRIBUTION] [--with-generic-indices] [--without-generic-indices] [--with-recommends] [--without-recommends] [--filesystem FILESYSTEM] [-f|--flavour BOOTSTRAP_FLAVOUR] [--hook COMMAND|\"COMMANDS\"] [--include-chroot FILE|DIRECTORY] [--include-image FILE|DIRECTORY] [-k|--kernel KERNEL_FLAVOUR] [--manifest PACKAGE] [-m|--mirror URL] [-k|--keyring] [--mirror-security URL] [--packages PACKAGE|\"PACKAGES\"] [-p|--package-list LIST|FILE] [--preseed FILE] [--proxy-ftp URL] [--proxy-http URL] [--repositories NAME] [-r|--root DIRECTORY] [-s|--section SECTION|\"SECTIONS\"] [--server-address HOSTNAME|IP] [--server-path DIRECTORY] [--templates DIRECTORY] [-t|--type TYPE] [--tasks TASK]"
+USAGE="Usage: ${PROGRAM} [-a|--architecture ARCHITECTURE] [-b|--bootappend KERNEL_PARAMETER|\"KERNEL_PARAMETERS\"] [--clone DIRECTORY] [--config FILE] [-c|--chroot DIRECTORY] [-d|--distribution DISTRIBUTION] [--with-generic-indices] [--without-generic-indices] [--with-recommends] [--without-recommends] [--with-daemons] [--without-daemons] [--filesystem FILESYSTEM] [-f|--flavour BOOTSTRAP_FLAVOUR] [--hook COMMAND|\"COMMANDS\"] [--include-chroot FILE|DIRECTORY] [--include-image FILE|DIRECTORY] [-k|--kernel KERNEL_FLAVOUR] [--manifest PACKAGE] [-m|--mirror URL] [-k|--keyring] [--mirror-security URL] [--packages PACKAGE|\"PACKAGES\"] [-p|--package-list LIST|FILE] [--preseed FILE] [--proxy-ftp URL] [--proxy-http URL] [--repositories NAME] [-r|--root DIRECTORY] [-s|--section SECTION|\"SECTIONS\"] [--server-address HOSTNAME|IP] [--server-path DIRECTORY] [--templates DIRECTORY] [-t|--type TYPE] [--tasks TASK]"
 
 Help ()
 {
@@ -60,7 +60,7 @@ Help ()
 	echo "  Filesystems: ext2, plain, squashfs."
 	echo "  Boostrap flavours: minimal, standard."
 	echo "  Kernel flavours: Debian Kernel flavour of your architecture."
-	echo "  Types: iso, net."
+	echo "  Types: iso, net, usb."
 	echo
 	echo "Options:"
 	echo "  -a, --architecture: specifies the bootstrap architecture."
@@ -97,6 +97,8 @@ Help ()
 	echo "  --without-generic-indices: disables generic debian package indices."
 	echo "  --with-recommends: installes recommended packages too."
 	echo "  --without-recommends: does not install recommended packages (default)."
+	echo "  --with-daemons: don't touch daemons."
+	echo "  --without-daemons: disable all non-essential daemons."
 	echo
 	echo "Environment:"
 	echo "  All settings can be also specified trough environment variables. Please see make-live.conf(5) for more information."
@@ -166,7 +168,7 @@ Configuration ()
 
 Main ()
 {
-	ARGUMENTS="`getopt --longoptions root:,tasks:,type:,architecture:,bootappend:,clone:,config:,chroot:,distribution:,filesystem:,flavour:,bootstrap-config:,hook:,include-chroot:,include-image:,kernel:,manifest:,mirror:,keyring:,mirror-security:,output:,packages:,package-list:,proxy-ftp:,preseed:,proxy-http:,repositories:,section:,server-address:,server-path:,templates:,with-generic-indices,without-generic-indices,with-recommends,without-recommends,with-source,without-source,help,usage,version --name=${PROGRAM} --options r:t:a:b:c:d:f:k:m:o:p:s:huv --shell sh -- "${@}"`"
+	ARGUMENTS="`getopt --longoptions root:,tasks:,type:,architecture:,bootappend:,clone:,config:,chroot:,distribution:,filesystem:,flavour:,bootstrap-config:,hook:,include-chroot:,include-image:,kernel:,manifest:,mirror:,keyring:,mirror-security:,output:,packages:,package-list:,proxy-ftp:,preseed:,proxy-http:,repositories:,section:,server-address:,server-path:,templates:,with-generic-indices,without-generic-indices,with-recommends,without-recommends,with-daemons,without-daemons,with-source,without-source,help,usage,version --name=${PROGRAM} --options r:t:a:b:c:d:f:k:m:o:p:s:huv --shell sh -- "${@}"`"
 
 	if [ "${?}" != "0" ]
 	then
@@ -315,6 +317,14 @@ Main ()
 
 			--without-recommends)
 				LIVE_RECOMMENDS="no"; shift
+				;;
+
+			--with-daemons)
+				LIVE_DAEMONS="yes"; shift
+				;;
+
+			--without-daemons)
+				LIVE_DAEMONS="no"; shift
 				;;
 
 			--with-source)
