@@ -9,7 +9,7 @@
 
 PROGRAM="$(basename ${0})"
 PACKAGE="live-helper"
-VERSION="1.0.5-2"
+VERSION="1.0.6-1"
 CONFIG_VERSION="$(echo ${VERSION} | awk -F- '{ print $1 }')"
 
 PATH="${PWD}/scripts:${PATH}"

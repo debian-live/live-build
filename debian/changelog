@@ -1,3 +1,123 @@
+live-helper (1.0.6-1) unstable; urgency=medium
+
+  [ Daniel Baumann ]
+  * Updating lenny point release number.
+  * Settinglosetup-lukshome example hook executable bit again.
+  * Adding kernelpurge example hook to remove all kernel images except
+    the newest one.
+  * Making replace-di-banner hook to not fail when no d-i is included in
+    the image.
+  * Allowing to overwrite default gzip options through config switch or
+    option.
+
+  [ Cody A.W. Somerville ]
+  * Unify bootloader helpers.
+  * Only add available install frontend boot entries.
+
+  [ Daniel Baumann ]
+  * Automatically optaining version number for config tree format.
+  * Updating presubj text for reportbug.
+  * Correcting install calls for reportbug files in rules.
+  * Adding console-setup to standard package list.
+  * Adding gfortran and gnat to rescue list.
+  * Updating debian-live snapshots repository entries.
+  * Adding live snapshots repository gpg key.
+  * Updating debian-backports example sources for lenny.
+  * Removing old beryl source repository example.
+  * Removing old fai source repository example.
+  * Removing old debian-edu source repository example.
+  * Updating git snapshot repository in image autobuild script.
+  * Respecting /etc/hostname in case it's part of chroot_local-includes,
+    thanks to Luigi Capriotti <l.capriotti@xbmc.org> for the idea.
+  * Updating kde-core package list for squeeze/sid, thanks to Diederik
+    de Haas <didi.debian@cknow.org>.
+  * Adding mailutils to rescue list.
+  * Updating conditionals in package lists for squeeze.
+  * Updating debian-forensics packages list.
+  * Updating vcs fields.
+  * Using pre-cached bootstrap stage, if available, in order to build
+    chroot image which dramatically speads up building of large images.
+  * Returning error value of the last process before exiting (Closes:
+    #527331).
+  * Allow to enforce syslinux menu module through LH_SYSLINUX_MENU.
+  * Respecting (possibly) customized LH_SYSLINUX_CFG when autodecting
+    syslinux menu module (Closes: #533846).
+  * Deprecating all dashed forms of commands.
+  * Giving message to users that lh_config is actually doing something.
+  * Avoid showing 'dashed commands are deprecated' warning more than one
+    within lh_clean.
+  * Updating distribution release information.
+  * Allow to overload global functions with local functions stored in
+    the config tree at scripts/functions.
+  * Also actually creating the functions directory in lh_config.
+  * Correcting conditional reading of local functions.
+  * Correcting spelling typo in a previous changelog entry to please
+    lintian.
+  * Fixing nroff formatting error in lh_config manpage.
+  * Updating to debhelper 7.
+  * Updating to standards version 3.8.3.
+  * Don't use dh_clean in favour of dh_prep.
+  * Fixing another nroff formatting error in lh_config manpage.
+  * Updating defaults of linux packages for sid (>= 2.6.31).
+
+  [ Rui Miguel Bernardo ]
+  * Correcting apt pinning support.
+
+  [ Daniel Baumann ]
+  * Merging initial and experimental grub2 support from Luigi Capriotti
+    <l.capriotti@xbmc.org>.
+  * Adding check for config tree version and fail or give warnings if
+    the version doesn't match.
+
+  [ Karl Goetz ]
+  * Adding missing exit 1 in the archtiecture detection case.
+  * Correcting comment about replacing /dev/urandom with /dev/random.
+  * Replacing all -ge with -gt checks for string max lenghts of iso meta
+    information.
+  * Correcting spelling type in 'wrong config tree version' error
+    message.
+  * Rewording some of the error messages in Check_defaults().
+
+  [ Daniel Baumann ]
+  * Fixing regression imported by fixing #533846 incorrectly.
+  * Correcting pathes in include statements when building netboot images
+    (Closes: #546910).
+  * Correctly replacing pathes in exithelp.cfg for returning back to
+    syslinux menu.
+  * Adjusting pathes for boot-screens in netboot images.
+  * Escaping variables in binary.sh of lh_binary_iso, thanks to Luigi
+    Capriotti <l.capriotti@xbmc.org>.
+  * Simplyfing chroot copying in lh_binary_chroot.
+  * Tidy helper calls before and after switching chroot filesystem in
+    lh_binary_rootfs to not leave certain helpers activated at the end
+    of the build, thanks to Luigi Capriotti <l.capriotti@xbmc.org>.
+  * Adding patch from Dusty Hendrickson <dhendrickson@cleversafe.com> to
+    allow lh_bootstrap_debootstrap to bootstrap from different section
+    than main and evaluate LH_CATEGORIES for that purpose.
+  * Adding example hook from Rui Miguel Bernardo
+    <rui.bernardo.pt@gmail.com> for bugfixing cdrom-detect when using
+    live-installer in lenny.
+  * Renaming example hooks and prefixing them with distribution name.
+
+  [ Cody A.W. Somerville ]
+  * Omit numbering for first kernel and initrd installed into binary.
+  * Fixing intermittent truncating of filesystem.
+  * Correcting LH_BOOTAPPEND_INSTALL default values.
+
+  [ Daniel Baumann ]
+  * Giving conditional message in lh_config when creating or updating
+    the config tree.
+  * Respecting that etch has no prompt.cfg in netboot images.
+  * Adding syslinux hardcoded default label entries.
+  * Adding another workaround for etchs syslinux generation to manually
+    treat live.cfg.
+  * Only adding hardcoded fallback syslinux label when not using neither
+    vesamenu nor gfxboot.
+  * Removing newline in f8.txt.install syslinux template.
+  * Removing newline in f6.txt syslinux template.
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 15 Nov 2009 17:16:19 +0100
+
 live-helper (1.0.5-2) unstable; urgency=low
 
   [ Cody A.W. Somerville ]
