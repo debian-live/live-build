@@ -88,12 +88,12 @@ case "${LH_BINARY_FILESYSTEM}" in
 		;;
 
 	*)
-		Echo_error "Unsupported binary filesystem ${LH_BINARY_FILESYSTEM}"
+		Echo_error "Unsupported binary filesystem %s" "${LH_BINARY_FILESYSTEM}"
 		exit 1
 		;;
 esac
 
-echo "!!! The following error/warning messages can be ignored !!!"
+Echo_warning "!!! The following error/warning messages can be ignored !!!"
 Losetup $FREELO source.img 0
 Chroot "parted -s ${FREELO} mklabel msdos" || true
 Chroot "parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100%" || true
@@ -127,7 +127,7 @@ cp -r source/* source.tmp
 ${LH_ROOT_COMMAND} umount source.tmp
 rmdir source.tmp
 ${LH_LOSETUP} -d ${FREELO}
-echo "!!! The above error/warning messages can be ignored !!!"
+Echo_warning "!!! The above error/warning messages can be ignored !!!"
 
 if [ -n "${MAKEDEV}" ]
 then

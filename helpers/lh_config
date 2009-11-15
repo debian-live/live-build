@@ -20,7 +20,6 @@ done
 # Setting static variables
 SYSTEM_LH_CONFFILE="/etc/default/live-helper"
 DESCRIPTION="create configuration for live-helper(7)"
-HELP="FIXME"
 USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--apt-ftp-proxy URL]\n\
 \t    [--apt-http-proxy URL]\n\
@@ -53,8 +52,9 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--debconf-frontend dialog|editor|noninteractive|readline]\n\
 \t    [--debconf-nowarnings enabled|disabled]\n\
 \t    [--debconf-priority low|medium|high|critical]\n\
-\t    [--debian-installer enabled|disabled]\n\
-\t    [--debian-installer-daily enabled|disabled]\n\
+\t    [--debian-installer enabled|cdrom|netinst|netboot|businesscard|live|disabled]\n\
+\t    [--debian-installer-distribution CODENAME|daily]\n\
+\t    [--debian-installer-preseedfile FILE|URL]\n\
 \t    [--debug]\n\
 \t    [-d|--distribution CODENAME]\n\
 \t    [-e|--encryption disabled|aes128|aes192|aes256]\n\
@@ -114,11 +114,12 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--union-filesystem aufs|unionfs]\n\
 \t    [--exposed-root enabled|disabled]\n\
 \t    [--username NAME]\n\
-\t    [--verbose]"
+\t    [--verbose]\n\
+\t    [--win32-loader enabled|disabled]"
 
 Local_arguments ()
 {
-	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-options:,aptitute-options:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,net-cow-server:,net-tarball:,syslinux-splash:,syslinux-timeout:,syslinux-menu:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,ignore-system-defaults,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
+	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-options:,aptitute-options:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,debian-installer:,,debian-installer-distribution:,debian-installer-preseedfile:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,net-cow-server:,net-tarball:,syslinux-splash:,syslinux-timeout:,syslinux-menu:,username,:win32-loader:,source:,source-images:,breakpoints,conffile:,debug,force,help,ignore-system-defaults,quiet,usage,verbose,version--name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
 
 	if [ "${?}" != "0" ]
 	then
@@ -469,8 +470,13 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--debian-installer-daily)
-				LH_DEBIAN_INSTALLER_DAILY="${2}"
+			--debian-installer-distribution)
+				LH_DEBIAN_INSTALLER_DISTRIBUTION="${2}"
+				shift 2
+				;;
+
+			--debian-installer-preseedfile)
+				LH_DEBIAN_INSTALLER_PRESEEDFILE="${2}"
 				shift 2
 				;;
 
@@ -584,6 +590,11 @@ Local_arguments ()
 				shift 2
 				;;
 
+			--win32-loader)
+				LH_WIN32_LOADER="${2}"
+				shift 2
+				;;
+
 			# config/source
 			--source)
 				LH_SOURCE="${2}"
@@ -651,7 +662,7 @@ Local_arguments ()
 				;;
 
 			*)
-				Echo_error "internal error ${0}"
+				Echo_error "internal error %s" "${0}"
 				exit 1
 				;;
 		esac
@@ -661,19 +672,19 @@ Local_arguments ()
 # Reading system configuration
 if [ -f "${SYSTEM_LH_CONFFILE}" ] && ! In_list "--ignore-system-defaults" "${@}"
 then
-	Echo_message "Using system defaults from ${SYSTEM_LH_CONFFILE}"
+	Echo_message "Considering defaults defined in %s" "${SYSTEM_LH_CONFFILE}"
 	Read_conffile "${SYSTEM_LH_CONFFILE}"
 fi
 
 # Reading existing configuration
 Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
 
+Local_arguments "${@}"
+
 if [ -n "${LH_CONFFILE}" ]
 then
 	Read_conffile "${LH_CONFFILE}"
 fi
-
-Local_arguments "${@}"
 
 # Setting defaults
 Set_defaults
@@ -874,6 +885,7 @@ EOF
 mkdir -p config/chroot_apt
 mkdir -p config/chroot_local-hooks
 mkdir -p config/chroot_local-includes
+mkdir -p config/chroot_local-patches
 mkdir -p config/chroot_local-packages
 mkdir -p config/chroot_local-packageslists
 mkdir -p config/chroot_local-preseed
@@ -994,11 +1006,15 @@ LH_CHROOT_BUILD="${LH_CHROOT_BUILD}"
 # (Default: ${LH_DEBIAN_INSTALLER})
 LH_DEBIAN_INSTALLER="${LH_DEBIAN_INSTALLER}"
 
-# \$LH_DEBIAN_INSTALLER_DAILY: set daily images
-# (Default: ${LH_DEBIAN_INSTALLER_DAILY})
-LH_DEBIAN_INSTALLER_DAILY="${LH_DEBIAN_INSTALLER_DAILY}"
+# \$LH_DEBIAN_INSTALLER_DISTRIBUTION: set debian-installer suite
+# (Default: empty)
+LH_DEBIAN_INSTALLER_DISTRIBUTION="${LH_DEBIAN_INSTALLER_DISTRIBUTION}"
 
-# \$LH_ENCRYPTION: set encrytion
+# \$LH_DEBIAN_INSTALLER_PRESEEDFILE: set debian-installer preseed filename/url
+# (Default: ${LH_DEBIAN_INSTALLER_PRESEEDFILE})
+LH_DEBIAN_INSTALLER_PRESEEDFILE="${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
+
+# \$LH_ENCRYPTION: set encryption
 # (Default: ${LH_ENCRYPTION})
 LH_ENCRYPTION="${LH_ENCRYPTION}"
 
@@ -1033,6 +1049,10 @@ LH_JFFS2_ERASEBLOCK=""
 # \$LH_MEMTEST: set memtest
 # (Default: ${LH_MEMTEST})
 LH_MEMTEST="${LH_MEMTEST}"
+
+# \$LH_WIN32_LOADER: set win32-loader
+# (Default: ${LH_WIN32_LOADER})
+LH_WIN32_LOADER="${LH_WIN32_LOADER}"
 
 # \$LH_NET_ROOT_FILESYSTEM: set netboot filesystem
 # (Default: ${LH_NET_ROOT_FILESYSTEM})
@@ -1120,6 +1140,7 @@ if [ "${CONFIG}" = "clone" ] # FIXME
 then
 	# Read package selection
 	echo $(dpkg --get-selections | awk '{ print $1 }') > config/chroot_local-packageslists/local-system
+	LH_PACKAGES_LISTS="${LH_PACKAGES_LISTS} local-system"
 
 	# Read debconf questions
 	if [ ! -f /usr/bin/debconf-get-selections ]

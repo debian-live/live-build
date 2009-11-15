@@ -43,7 +43,7 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Processing local-hooks
-if ls config/binary_local-hooks/* > /dev/null 2>&1
+if Find_files config/binary_local-hooks/*
 then
 	for HOOK in config/binary_local-hooks/*
 	do

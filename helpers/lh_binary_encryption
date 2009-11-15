@@ -35,7 +35,7 @@ case "${LH_ENCRYPTION}" in
 		exit 0
 		;;
 	*)
-		Echo_error "Encryption type \"${LH_ENCRYPTION}\" not supported."
+		Echo_error "Encryption type %s not supported." "${LH_ENCRYPTION}"
 		exit 1
 		;;
 esac
@@ -45,7 +45,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 		;;
 
 	*)
-		Echo_error "Encryption not yet supported on ${LH_CHROOT_FILESYSTEM} filesystems."
+		Echo_error "Encryption not yet supported on %s filesystems." "${LH_CHROOT_FILESYSTEM}"
 		exit 1
 		;;
 esac
@@ -84,7 +84,7 @@ Restore_cache cache/packages_binary
 # Installing depends
 Install_package
 
-Echo_message "Encrypting binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM} with ${LH_ENCRYPTION}..."
+Echo_message "Encrypting binary/%s/filesystem.%s with %s..." "${INITFS}" "${LH_CHROOT_FILESYSTEM}" "${LH_ENCRYPTION}"
 
 if [ "${LH_CHROOT_BUILD}" = "enabled" ]
 then
@@ -95,10 +95,10 @@ fi
 while true
 do
 	echo
-	echo " **************************************"
-	echo " ** Configuring encrypted filesystem **"
-	echo " **************************************"
-	echo " (Passwords must be at least 20 characters long)"
+	Echo " **************************************"
+	Echo " ** Configuring encrypted filesystem **"
+	Echo " **************************************"
+	Echo " (Passwords must be at least 20 characters long)"
 	echo
 
 	case "${LH_CHROOT_BUILD}" in

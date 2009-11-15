@@ -42,7 +42,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if ls -A config/binary_local-includes/ | grep -qs .
+if Find_files config/binary_local-includes/
 then
 	# Copying includes
 	cd config/binary_local-includes

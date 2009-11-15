@@ -11,28 +11,28 @@ set -e
 
 Version ()
 {
-	echo "${PROGRAM}, version ${VERSION}"
-	echo "This program is a part of live-helper."
+	Echo "%s, version %s" "${PROGRAM}" "${VERSION}"
+	Echo "This program is a part of live-helper."
 	echo
-	echo "Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>"
+	Echo "Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>"
 	echo
-	echo "This program is free software: you can redistribute it and/or modify"
-	echo "it under the terms of the GNU General Public License as published by"
-	echo "the Free Software Foundation, either version 3 of the License, or"
-	echo "(at your option) any later version."
+	Echo "This program is free software: you can redistribute it and/or modify"
+	Echo "it under the terms of the GNU General Public License as published by"
+	Echo "the Free Software Foundation, either version 3 of the License, or"
+	Echo "(at your option) any later version."
 	echo
-	echo "This program is distributed in the hope that it will be useful,"
-	echo "but WITHOUT ANY WARRANTY; without even the implied warranty of"
-	echo "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the"
-	echo "GNU General Public License for more details."
+	Echo "This program is distributed in the hope that it will be useful,"
+	Echo "but WITHOUT ANY WARRANTY; without even the implied warranty of"
+	Echo "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the"
+	Echo "GNU General Public License for more details."
 	echo
-	echo "You should have received a copy of the GNU General Public License"
-	echo "along with this program. If not, see <http://www.gnu.org/licenses/>."
+	Echo "You should have received a copy of the GNU General Public License"
+	Echo "along with this program. If not, see <http://www.gnu.org/licenses/>."
 	echo
-	echo "On Debian systems, the complete text of the GNU General Public License"
-	echo "can be found in /usr/share/common-licenses/GPL-3 file."
+	Echo "On Debian systems, the complete text of the GNU General Public License"
+	Echo "can be found in /usr/share/common-licenses/GPL-3 file."
 	echo
-	echo "Homepage: <http://debian-live.alioth.debian.org/>"
+	Echo "Homepage: <http://debian-live.alioth.debian.org/>"
 
 	exit 0
 }

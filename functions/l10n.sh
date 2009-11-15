@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# make-live(1) - utility to build Debian Live systems
+# l10n.sh - load the needed localization things for all lh messages
 # Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -9,7 +9,9 @@
 
 set -e
 
-echo "make-live is obsolete."
-echo "Use lh_config and lh_build instead."
-
-exit 1
+# gettext domain (.mo file name)
+export TEXTDOMAIN=live-helper
+# locale dir for gettext codes
+export TEXTDOMAINDIR=/usr/share/locale
+# load gettext functions
+. gettext.sh

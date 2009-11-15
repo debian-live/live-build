@@ -21,6 +21,7 @@ SERVER="/mnt/daniel1/srv/debian-unofficial/live/debian"
 LOGFILE="${SERVER}/build.log"
 
 DATE_START="$(date -R)"
+HOST="$(hostname)"
 
 # Checking lock file
 if [ -f "${SERVER}"/Archive-Update-in-Progress ]
@@ -36,12 +37,12 @@ then
 fi
 
 # Creating lock trap
-trap "test -f ${SERVER}/Archive-Update-in-Progress && rm -f ${SERVER}/Archive-Update-in-Progress; exit 0" 0 1 2 3 9 15
+trap "test -f ${SERVER}/Archive-Update-in-Progress && rm -f ${SERVER}/Archive-Update-in-Progress; exit 0" 0 HUP INT QUIT KILL TERM
 
 # Creating lock file
 echo "${DATE_START}" > "${SERVER}"/Archive-Update-in-Progress
 
-echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-snapshots: begin build." >> "${LOGFILE}"
+echo "$(date +%b\ %d\ %H:%M:%S) ${HOST} live-snapshots: begin build." >> "${LOGFILE}"
 
 # Processing packages
 for PACKAGE in ${PACKAGES}
@@ -179,4 +180,4 @@ rm -rf "${TEMPDIR}"
 chmod 0644 "${SERVER}"/*
 chmod 0766 "${SERVER}"/*.sh
 
-echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-snapshots: end build." >> "${LOGFILE}"
+echo "$(date +%b\ %d\ %H:%M:%S) ${HOST} live-snapshots: end build." >> "${LOGFILE}"

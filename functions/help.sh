@@ -11,28 +11,27 @@ set -e
 
 Help ()
 {
-	echo "${PROGRAM} - ${DESCRIPTION}"
+        Echo "%s - %s" "${PROGRAM}" "${DESCRIPTION}"
 	echo
-	echo "Usage:"
+	Echo "Usage:"
 	echo
 
 	if [ -n "${USAGE}" ]
 	then
-		/bin/echo -e "${USAGE}"
+		Echo "${USAGE}"
 		echo
 	fi
-
-	echo "  ${PROGRAM} [-h|--help]"
-	echo "  ${PROGRAM} [-u|--usage]"
-	echo "  ${PROGRAM} [-v|--version]"
+	Echo "  %s [-h|--help]" "${PROGRAM}"
+	Echo "  %s [-u|--usage]" "${PROGRAM}"
+	Echo "  %s [-v|--version]" "${PROGRAM}"
 	echo
 
 	if [ -n "${HELP}" ]
 	then
-		echo "${HELP}"
+		Echo "${HELP}"
 		echo
 	fi
 
-	echo "Report bugs to Debian Live project <http://debian-live.alioth.debian.org/>."
+	Echo "Report bugs to Debian Live project <http://debian-live.alioth.debian.org/>."
 	exit 0
 }

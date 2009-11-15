@@ -31,7 +31,7 @@ Set_defaults
 # Avoid cases were users accidentally nuke their config/binary
 if [ ! -d config ] || [ "$(basename ${PWD})" = "config" ]
 then
-	Echo_error "${PWD} is not a good Debian Live working directory to clean."
+	Echo_error "%s is not a good Debian Live working directory to clean." "${PWD}"
 	exit 1
 fi
 
@@ -107,7 +107,7 @@ do
 			rm -f source.img
 			rm -f source*.tar
 			rm -f source*.tar.gz
-			rm -f binary.list
+			rm -f source.list
 
 			rm -rf source
 

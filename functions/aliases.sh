@@ -9,12 +9,9 @@
 
 set -e
 
-Truncate ()
+Find_files ()
 {
-	for FILE in ${@}
-	do
-		: > ${FILE}
-	done
+	(ls "${@}" | grep -qs .) > /dev/null 2>&1
 }
 
 In_list ()
@@ -34,4 +31,12 @@ In_list ()
 	done
 
 	return 1
+}
+
+Truncate ()
+{
+	for FILE in ${@}
+	do
+		: > ${FILE}
+	done
 }

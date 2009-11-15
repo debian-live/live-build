@@ -9,60 +9,71 @@
 
 set -e
 
+Echo ()
+{
+	STRING="${1}"
+	shift
+
+	printf "$(eval_gettext "${STRING}")" "${@}"; echo;
+}
+
 Echo_debug ()
 {
 	STRING="${1}"
+	shift
 
 	if [ "${LH_DEBUG}" = "enabled" ]
 	then
-		echo "D: ${STRING}"
+		printf "D: $(eval_gettext "${STRING}")" "${@}"; echo;
 	fi
 }
 
 Echo_error ()
 {
 	STRING="${1}"
+	shift
 
-	echo "E: ${STRING}" >&2
+	(printf "E: $(eval_gettext "${STRING}")" "${@}"; echo;) >&2
 }
 
 Echo_message ()
 {
 	STRING="${1}"
+	shift
 
 	if [ "${LH_QUIET}" != "enabled" ]
 	then
-		echo "P: ${STRING}"
+		printf "P: $(eval_gettext "${STRING}")" "${@}"; echo;
 	fi
 }
 
 Echo_verbose ()
 {
 	STRING="${1}"
+	shift
 
 	if [ "${LH_VERBOSE}" = "enabled" ]
 	then
-		echo "I: ${STRING}"
+		printf "I: $(eval_gettext "${STRING}")" "${@}"; echo;
 	fi
 }
 
 Echo_warning ()
 {
 	STRING="${1}"
+	shift
 
-	echo "W: ${STRING}"
+	printf "W: $(eval_gettext "${STRING}")" "${@}"; echo;
 }
 
 Echo_breakage ()
 {
-	Echo_message "If the following stage fails, the most likely cause of the problem is with"
-
 	case "${LH_DISTRIBUTION}" in
 		sid|unstable)
-			Echo_message "your mirror configuration, a caching proxy or the sid distribution."
+			Echo_message "If the following stage fails, the most likely cause of the problem is with your mirror configuration, a caching proxy or the sid distribution."
 			;;
 		*)
-			Echo_message "your mirror configuration or a caching proxy."
+			Echo_message "If the following stage fails, the most likely cause of the problem is with your mirror configuration or a caching proxy."
 			;;
 	esac
 

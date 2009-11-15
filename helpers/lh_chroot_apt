@@ -20,7 +20,7 @@ done
 # Setting static variables
 DESCRIPTION="manage /etc/apt/apt.conf"
 HELP=""
-USAGE="${PROGRAM} {install|remove} [--force]"
+USAGE="${PROGRAM} {install|install-binary|remove} [--force]"
 
 Arguments "${@}"
 
@@ -32,7 +32,7 @@ Set_defaults
 Require_stagefile .stage/bootstrap
 
 case "${1}" in
-	install)
+	install|install-binary)
 		Echo_message "Configuring file /etc/apt/apt.conf"
 
 		# Checking stage file
@@ -112,6 +112,36 @@ case "${1}" in
 			cp config/chroot_apt/preferences chroot/etc/apt/preferences
 		fi
 
+		if Find_files config/chroot_local-packages/*.deb
+		then
+			if [ ! -f config/chroot_apt/preferences ] && [ "${1}" = "install-binary" ]
+			then
+				rm -f chroot/etc/apt/preferences
+			fi
+
+			echo >> chroot/etc/apt/preferences
+			echo "# Added by lh_chroot_apt ${@}" >> chroot/etc/apt/preferences
+			echo "Package: *" >> chroot/etc/apt/preferences
+			echo "Pin: release o=chroot_local-packages" >> chroot/etc/apt/preferences
+
+			case "${1}" in
+				install)
+					# Ensure local packages have priority
+					echo "Pin-Priority: 1001" >> chroot/etc/apt/preferences
+					;;
+
+				install-binary)
+					# Ensure local packages are not re-installed during lh_binary
+					echo "Pin-Priority: 99" >> chroot/etc/apt/preferences
+
+					echo >> chroot/etc/apt/preferences
+					echo "Package: *" >> chroot/etc/apt/preferences
+					echo "Pin: release o=debian" >> chroot/etc/apt/preferences
+					echo "Pin-Priority: 99" >> chroot/etc/apt/preferences
+					;;
+			esac
+		fi
+
 		# Creating stage file
 		Create_stagefile .stage/chroot_apt
 		;;
@@ -132,16 +162,25 @@ case "${1}" in
 		rm -f chroot/etc/apt/apt.conf.d/00http-proxy
 
 		# Deconfiguring aptitude pdiffs
-		rm -f chroot/etc/apt/apt.conf.d/00pdiffs
+		if [ "${LH_APT_PDIFFS}" = "enabled" ]
+		then
+			rm -f chroot/etc/apt/apt.conf.d/00pdiffs
+		fi
 
 		# Deconfiguring aptitude pipeline
 		rm -f chroot/etc/apt/apt.conf.d/00pipeline
 
 		# Deconfiguring aptitude recommends
-		rm -f chroot/etc/apt/apt.conf.d/00recommends
+		if [ "${LH_APT_RECOMMENDS}" = "enabled" ]
+		then
+			rm -f chroot/etc/apt/apt.conf.d/00recommends
+		fi
 
 		# Deconfiguring aptitude secure
-		rm -f chroot/etc/apt/apt.conf.d/00secure
+		if [ "${LH_APT_SECURE}" = "enabled" ]
+		then
+			rm -f chroot/etc/apt/apt.conf.d/00secure
+		fi
 
 		# Deconfiguring apt preferences
 		if [ -f chroot/etc/apt/preferences.orig ]
@@ -149,6 +188,21 @@ case "${1}" in
 			mv chroot/etc/apt/preferences.orig chroot/etc/apt/preferences
 		else
 			rm -f chroot/etc/apt/preferences
+		fi
+
+		if Find_files config/chroot_local-packages/*.deb
+		then
+			# Ensure local packages are not replaced.
+			echo >> chroot/etc/apt/preferences
+			echo "# Added by lh_chroot_apt ${@}" >> chroot/etc/apt/preferences
+			echo "Package: *" >> chroot/etc/apt/preferences
+			echo "Pin: release o=chroot_local-packages" >> chroot/etc/apt/preferences
+			echo "Pin-Priority: 99" >> chroot/etc/apt/preferences
+
+			echo >> chroot/etc/apt/preferences
+			echo "Package: *" >> chroot/etc/apt/preferences
+			echo "Pin: release o=debian" >> chroot/etc/apt/preferences
+			echo "Pin-Priority: 99" >> chroot/etc/apt/preferences
 		fi
 
 		# Removing stage file

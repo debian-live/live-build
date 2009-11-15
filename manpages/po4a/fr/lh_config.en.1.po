@@ -1,0 +1,1144 @@
+# French translations for Debconf package
+# Copyright (C) 2008 Free Software Foundation, Inc.
+# This file is distributed under the same license as the Debconf package.
+# Automatically generated, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Debconf 8\n"
+"POT-Creation-Date: 2008-08-10 03:43+0300\n"
+"PO-Revision-Date: 2008-08-07 22:08+0300\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+# type: TH
+#: lh_binary.en.1:1 lh_bootstrap.en.1:1 lh_build.en.1:1 lh_chroot.en.1:1
+#: lh_clean.en.1:1 lh_config.en.1:1 lh.en.1:1 lh_source.en.1:1
+#: lh_testroot.en.1:1 live-helper.en.7:1
+#, fuzzy, no-wrap
+msgid "2008-08-11"
+msgstr "2007-11-26"
+
+# type: TH
+#: lh_binary.en.1:1 lh_bootstrap.en.1:1 lh_build.en.1:1 lh_chroot.en.1:1
+#: lh_clean.en.1:1 lh_config.en.1:1 lh.en.1:1 lh_source.en.1:1
+#: lh_testroot.en.1:1 live-helper.en.7:1
+#, fuzzy, no-wrap
+msgid "1.0"
+msgstr "1.0~a38"
+
+# type: TH
+#: lh_binary.en.1:1 lh_bootstrap.en.1:1 lh_build.en.1:1 lh_chroot.en.1:1
+#: lh_clean.en.1:1 lh_config.en.1:1 lh.en.1:1 lh_source.en.1:1
+#: lh_testroot.en.1:1 live-helper.en.7:1
+#, no-wrap
+msgid "live-helper"
+msgstr "live-helper"
+
+# type: SH
+#: lh_binary.en.1:3 lh_bootstrap.en.1:3 lh_build.en.1:3 lh_chroot.en.1:3
+#: lh_clean.en.1:3 lh_config.en.1:3 lh.en.1:3 lh_source.en.1:3
+#: lh_testroot.en.1:3 live-helper.en.7:3
+#, no-wrap
+msgid "NAME"
+msgstr "NOM"
+
+# type: SH
+#: lh_binary.en.1:6 lh_bootstrap.en.1:6 lh_build.en.1:6 lh_chroot.en.1:6
+#: lh_clean.en.1:6 lh_config.en.1:6 lh.en.1:6 lh_source.en.1:6
+#: lh_testroot.en.1:6 live-helper.en.7:6
+#, no-wrap
+msgid "SYNOPSIS"
+msgstr "SYNOPSIS"
+
+# type: SH
+#: lh_binary.en.1:9 lh_bootstrap.en.1:9 lh_build.en.1:9 lh_chroot.en.1:9
+#: lh_clean.en.1:11 lh_config.en.1:177 lh.en.1:9 lh_source.en.1:9
+#: lh_testroot.en.1:9 live-helper.en.7:9
+#, no-wrap
+msgid "DESCRIPTION"
+msgstr "DESCRIPTION"
+
+# type: SH
+#: lh_binary.en.1:13 lh_bootstrap.en.1:13 lh_build.en.1:13 lh_chroot.en.1:13
+#: lh_clean.en.1:35 lh_config.en.1:290 lh.en.1:16 lh_source.en.1:13
+#: lh_testroot.en.1:14 live-helper.en.7:161
+#, no-wrap
+msgid "SEE ALSO"
+msgstr "VOIR AUSSI"
+
+# type: Plain text
+#: lh_binary.en.1:15 lh_bootstrap.en.1:15 lh_build.en.1:15 lh_chroot.en.1:15
+#: lh_clean.en.1:37 lh_config.en.1:292 lh.en.1:18 lh_source.en.1:15
+#: lh_testroot.en.1:16
+msgid "I<live-helper>(7)"
+msgstr "I<live-helper>(7)"
+
+# type: SH
+#: lh_binary.en.1:18 lh_bootstrap.en.1:18 lh_build.en.1:18 lh_chroot.en.1:18
+#: lh_clean.en.1:40 lh_config.en.1:295 lh.en.1:21 lh_source.en.1:18
+#: lh_testroot.en.1:19 live-helper.en.7:168
+#, no-wrap
+msgid "BUGS"
+msgstr "ANOMALIES"
+
+# type: Plain text
+#: lh_binary.en.1:21 lh_bootstrap.en.1:21 lh_build.en.1:21 lh_chroot.en.1:21
+#: lh_clean.en.1:43 lh_config.en.1:298 lh.en.1:24 lh_source.en.1:21
+#: lh_testroot.en.1:22 live-helper.en.7:171
+msgid ""
+"Report bugs against live-helper E<lt>I<http://packages.qa.debian.org/live-"
+"helper>E<gt>."
+msgstr ""
+"Signaler les anomalies sur E<lt>I<http://packages.qa.debian.org/live-"
+"helper>E<gt>."
+
+# type: SH
+#: lh_binary.en.1:22 lh_bootstrap.en.1:22 lh_build.en.1:22 lh_chroot.en.1:22
+#: lh_clean.en.1:44 lh_config.en.1:299 lh.en.1:25 lh_source.en.1:22
+#: lh_testroot.en.1:23 live-helper.en.7:172
+#, no-wrap
+msgid "HOMEPAGE"
+msgstr "HÉBERGEMENT"
+
+# type: Plain text
+#: lh_binary.en.1:26 lh_bootstrap.en.1:26 lh_build.en.1:26 lh_chroot.en.1:26
+#: lh_clean.en.1:48 lh_config.en.1:303 lh.en.1:29 lh_source.en.1:26
+#: lh_testroot.en.1:27 live-helper.en.7:176
+msgid ""
+"More information about the Debian Live project can be found at E<lt>I<http://"
+"debian-live.alioth.debian.org/>E<gt> and E<lt>I<http://wiki.debian.org/"
+"DebianLive/>E<gt>."
+msgstr ""
+"Plus d'informations sur le projet Debian Live peut être trouvée sur "
+"E<lt>I<http://debian-live.alioth.debian.org/>E<gt> et E<lt>I<http://wiki."
+"debian.org/DebianLive/>E<gt>."
+
+# type: SH
+#: lh_binary.en.1:27 lh_bootstrap.en.1:27 lh_build.en.1:27 lh_chroot.en.1:27
+#: lh_clean.en.1:49 lh_config.en.1:304 lh.en.1:30 lh_source.en.1:27
+#: lh_testroot.en.1:28 live-helper.en.7:177
+#, no-wrap
+msgid "AUTHOR"
+msgstr "AUTEUR"
+
+# type: Plain text
+#: lh_binary.en.1:29 lh_bootstrap.en.1:29 lh_build.en.1:29 lh_chroot.en.1:29
+#: lh_clean.en.1:51 lh_config.en.1:306 lh.en.1:32 lh_source.en.1:29
+#: lh_testroot.en.1:30 live-helper.en.7:179
+msgid ""
+"live-helper was written by Daniel Baumann E<lt>I<daniel@debian.org>E<gt> for "
+"the Debian project."
+msgstr ""
+"live-helper a été écrit par Daniel Baumann E<lt>I<daniel@debian.org>E<gt> "
+"pour le projet Debian."
+
+# type: SH
+#: lh_clean.en.1:17 lh_config.en.1:182
+#, no-wrap
+msgid "OPTIONS"
+msgstr ""
+
+# type: Plain text
+#: lh_clean.en.1:39 lh_config.en.1:294 lh_testroot.en.1:18
+#, fuzzy
+msgid "This program is a part of live-helper."
+msgstr "Ce programme fait partie de live-helper."
+
+# type: TH
+#: lh_config.en.1:1
+#, no-wrap
+msgid "LH_CONFIG"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:5
+msgid "lh_config - create configuration for live-helper"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:8
+#, fuzzy
+msgid "B<lh_config [>I<live-helper\\ options>]"
+msgstr "B<lh_binary> [I<options pour live-helper>]"
+
+# type: Plain text
+#: lh_config.en.1:10
+msgid "B<lh_config>"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:12
+msgid "  [B<--apt> apt|aptitude]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:14
+msgid "  [B<--apt-ftp-proxy> I<URL>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:16
+msgid "  [B<--apt-http-proxy> I<URL>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:18
+msgid "  [B<--apt-pdiffs> enabled|disabled]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:20
+msgid "  [B<--apt-pipeline> I<FIXME>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:22
+msgid "  [B<--apt-recommends> enabled|disabled]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:24
+msgid "  [B<--apt-secure> enabled|disabled]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:26
+msgid "  [-a|B<--architecture> I<ARCHITECTURE>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:28
+msgid "  [-b|B<--binary-images> iso|net|tar|usb-hdd]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:30
+msgid "  [B<--binary-filesystem> fat16|fat32]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:32
+msgid "  [B<--binary-indices> enabled|disabled]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:34
+msgid "  [B<--bootappend-install> I<PARAMETER>|I<\"PARAMETERS\">]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:36
+msgid "  [B<--bootappend-live> I<PARAMETER>|I<\"PARAMETERS\">]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:38
+msgid "  [B<--bootloader> grub|syslinux|yaboot]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:40
+msgid "  [B<--bootstrap> cdebootstrap|debootstrap]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:42
+msgid "  [B<--bootstrap-config> I<FILE>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:44
+msgid "  [-f|B<--bootstrap-flavour> minimal|standard]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:46
+msgid "  [B<--bootstrap-keyring> I<PACKAGE>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:48
+msgid "  [B<--cache> enabled|disabled]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:50
+msgid "  [B<--cache-indices> enabled|disabled]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:52
+msgid "  [B<--cache-packages> enabled|disabled]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:54
+msgid "  [B<--cache-stages> I<STAGE>|I<\"STAGES\">]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:56
+msgid "  [B<--checksums> enabled|disabled]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:58
+msgid "  [B<--chroot-build> enabled|disabled]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:60
+msgid "  [B<--chroot-filesystem> ext2|ext3|squashfs|plain]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:62
+msgid "  [-c|B<--conffile> I<FILE>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:64
+msgid "  [B<--debconf-frontend> dialog|editor|noninteractive|readline]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:66
+msgid "  [B<--debconf-nowarnings> enabled|disabled]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:68
+msgid "  [B<--debconf-priority> low|medium|high|critical]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:70
+msgid "  [B<--debian-installer> enabled|disabled]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:72
+msgid "  [B<--debian-installer-daily> enabled|disabled]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:74
+msgid "  [-d|B<--distribution> I<CODENAME>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:76
+msgid "  [-e|B<--encryption> aes128|aes192|aes256]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:78
+msgid "  [B<--fdisk> I<PROGRAM>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:80
+msgid "  [B<--grub-splash> I<FILE>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:82
+msgid "  [B<--hooks> I<FILE>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:84
+msgid "  [B<--hostname> I<NAME>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:86
+msgid "  [B<--ignore-system-defaults>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:88
+msgid "  [B<--includes> I<PATH>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:90
+msgid "  [B<--initramfs> auto|live-initramfs|casper]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:92
+msgid "  [B<--interactive> shell]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:94
+msgid "  [B<--iso-application> I<NAME>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:96
+msgid "  [B<--iso-preparer> I<NAME>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:98
+msgid "  [B<--iso-publisher> I<NAME>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:100
+msgid "  [B<--iso-volume> I<NAME>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:102
+msgid "  [B<--keyring-packages> I<PACKAGE|\"PACKAGES\">]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:104
+msgid "  [-l|B<--language> I<LANGUAGE>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:106
+msgid "  [-k|B<--linux-flavours> I<FLAVOUR>|I<\"FLAVOURS\">]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:108
+msgid "  [B<--linux-packages> I<\"PACKAGES\">]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:110
+msgid "  [B<--losetup> losetup|losetup.orig]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:112
+msgid "  [B<--memtest> memtest86+|memtest86]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:114
+msgid "  [B<--mirror-binary-security> I<URL>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:116
+msgid "  [B<--mirror-binary> I<URL>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:118
+msgid "  [B<--mirror-bootstrap-security> I<URL>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:120
+msgid "  [-m|B<--mirror-bootstrap> I<URL>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:122
+msgid "  [B<--mode> debian|debian-edu]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:124
+msgid "  [B<--net-root-filesystem> nfs|cfs]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:126
+msgid "  [B<--net-root-mountoptions> I<OPTIONS>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:128
+msgid "  [B<--net-root-path> I<PATH>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:130
+msgid "  [B<--net-root-server> I<IP>|I<HOSTNAME>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:132
+msgid "  [B<--net-cow-filesystem> nfs|cfs]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:134
+msgid "  [B<--net-cow-mountoptions> I<OPTIONS>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:136
+msgid "  [B<--net-cow-path> I<PATH>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:138
+msgid "  [B<--net-cow-server> I<IP>|I<HOSTNAME>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:140
+msgid "  [-p|B<--packages-lists> I<FILE>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:142
+msgid "  [B<--packages> I<PACKAGE>|I<\"PACKAGES\">]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:144
+msgid "  [B<--root-command> sudo]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:146
+msgid "  [B<--use-fakeroot> enabled|disabled]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:148
+msgid "  [B<--sections> I<SECTION>|I<\"SECTIONS\">]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:150
+msgid "  [B<--security> enabled|disabled]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:152
+msgid "  [B<--source> enabled|disabled]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:154
+msgid "  [-s|B<--source-images> iso|net|tar|usb-hdd]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:156
+msgid "  [B<--symlinks> enabled|disabled]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:158
+msgid "  [B<--syslinux-splash> I<FILE>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:160
+msgid "  [B<--syslinux-timeout> I<SECONDS>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:162
+msgid "  [B<--syslinux-menu> enabled|disabled]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:164
+msgid "  [B<--sysvinit> enabled|disabled]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:166
+msgid "  [B<--tasksel> aptitude|tasksel]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:168
+msgid "  [B<--tasks> I<TASK>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:170
+msgid "  [B<--templates> I<PATH>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:172
+msgid "  [B<--union-filesystem> aufs|unionfs]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:174
+msgid "  [B<--exposed-root> enabled|disabled]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:176
+msgid "  [B<--username> I<NAME>]"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:181
+msgid ""
+"lh_config is a script to populate the configuration directory for live-"
+"helper.  By default, this directory is named 'config' and is created in the "
+"current directory."
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:183
+#, no-wrap
+msgid "B<--apt> apt|aptitude"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:184
+#, no-wrap
+msgid "B<--apt-ftp-proxy> I<URL>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:185
+#, no-wrap
+msgid "B<--apt-http-proxy> I<URL>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:186
+#, no-wrap
+msgid "B<--apt-pdiffs> enabled|disabled"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:187
+#, no-wrap
+msgid "B<--apt-pipeline> I<FIXME>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:188
+#, no-wrap
+msgid "B<--apt-recommends> enabled|disabled"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:189
+#, no-wrap
+msgid "B<--apt-secure> enabled|disabled"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:190
+#, no-wrap
+msgid "-a|B<--architecture> I<ARCHITECTURE>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:191
+#, no-wrap
+msgid "-b|B<--binary-images> iso|net|tar|usb-hdd"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:192
+#, no-wrap
+msgid "B<--binary-filesystem> fat16|fat32"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:193
+#, no-wrap
+msgid "B<--binary-indices> enabled|disabled"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:194
+#, no-wrap
+msgid "B<--bootappend-install> I<PARAMETER>|I<\"PARAMETERS\">"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:195
+#, no-wrap
+msgid "B<--bootappend-live> I<PARAMETER>|I<\"PARAMETERS\">"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:196
+#, no-wrap
+msgid "B<--bootloader> grub|syslinux|yaboot"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:197
+#, no-wrap
+msgid "B<--bootstrap> cdebootstrap|debootstrap"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:198
+#, no-wrap
+msgid "B<--bootstrap-config> I<FILE>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:199
+#, no-wrap
+msgid "-f|B<--bootstrap-flavour> minimal|standard"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:200
+#, no-wrap
+msgid "B<--bootstrap-keyring> I<PACKAGE>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:201
+#, no-wrap
+msgid "B<--cache> enabled|disabled"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:202
+#, no-wrap
+msgid "B<--cache-indices> enabled|disabled"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:203
+#, no-wrap
+msgid "B<--cache-packages> enabled|disabled"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:204
+#, no-wrap
+msgid "B<--cache-stages> I<STAGE>|I<\"STAGES\">"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:205
+#, no-wrap
+msgid "B<--checksums> enabled|disabled"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:206
+#, no-wrap
+msgid "B<--chroot-build> enabled|disabled"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:207
+#, no-wrap
+msgid "B<--chroot-filesystem> ext2|ext3|squashfs|plain"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:208
+#, no-wrap
+msgid "-c|B<--conffile> I<FILE>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:209
+#, no-wrap
+msgid "B<--debconf-frontend> dialog|editor|noninteractive|readline"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:210
+#, no-wrap
+msgid "B<--debconf-nowarnings> enabled|disabled"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:211
+#, no-wrap
+msgid "B<--debconf-priority> low|medium|high|critical"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:212
+#, no-wrap
+msgid "B<--debian-installer> enabled|disabled"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:213
+#, no-wrap
+msgid "B<--debian-installer-daily> enabled|disabled"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:214
+#, no-wrap
+msgid "-d|B<--distribution> I<CODENAME>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:215
+#, no-wrap
+msgid "-e|B<--encryption> aes128|aes192|aes256"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:216
+#, no-wrap
+msgid "B<--fdisk> I<PROGRAM>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:217
+#, no-wrap
+msgid "B<--grub-splash> I<FILE>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:218
+#, no-wrap
+msgid "B<--hooks> I<FILE>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:219
+#, no-wrap
+msgid "B<--hostname> I<NAME>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:220
+#, no-wrap
+msgid "B<--includes> I<PATH>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:221
+#, no-wrap
+msgid "B<--initramfs> auto|live-initramfs|casper"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:222
+#, no-wrap
+msgid "B<--interactive> shell"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:223
+#, no-wrap
+msgid "B<--iso-application> I<NAME>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:224
+#, no-wrap
+msgid "B<--iso-preparer> I<NAME>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:225
+#, no-wrap
+msgid "B<--iso-publisher> I<NAME>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:226
+#, no-wrap
+msgid "B<--iso-volume> I<NAME>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:227
+#, no-wrap
+msgid "B<--keyring-packages> I<PACKAGE|\"PACKAGES\">"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:228
+#, no-wrap
+msgid "-l|B<--language> I<LANGUAGE>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:229
+#, no-wrap
+msgid "-k|B<--linux-flavours> I<FLAVOUR>|I<\"FLAVOURS\">"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:230
+#, no-wrap
+msgid "B<--linux-packages> I<\"PACKAGES\">"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:231
+#, no-wrap
+msgid "B<--losetup> losetup|losetup.orig"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:232
+#, no-wrap
+msgid "B<--memtest> memtest86+|memtest86"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:233
+#, no-wrap
+msgid "-m|B<--mirror-binary-security> I<URL>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:234
+#, no-wrap
+msgid "B<--mirror-binary> I<URL>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:235
+#, no-wrap
+msgid "B<--mirror-bootstrap-security> I<URL>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:236
+#, no-wrap
+msgid "B<--mirror-bootstrap> I<URL>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:237
+#, no-wrap
+msgid "B<--mode> debian|debian-edu"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:238
+#, no-wrap
+msgid "B<--net-root-filesystem> nfs|cfs"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:239
+#, no-wrap
+msgid "B<--net-root-mountoptions> I<OPTIONS>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:240
+#, no-wrap
+msgid "B<--net-root-path> I<PATH>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:241
+#, no-wrap
+msgid "B<--net-root-server> I<IP>|I<HOSTNAME>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:242
+#, no-wrap
+msgid "B<--net-cow-filesystem> nfs|cfs"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:243
+#, no-wrap
+msgid "B<--net-cow-mountoptions> I<OPTIONS>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:245
+#, no-wrap
+msgid "B<--net-cow-path> I<PATH>"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:249
+msgid ""
+"Specify path to client writable filesystem. Anywhere that "
+"B<client_mac_address> is specified in the path live-initramfs will "
+"substitute the MAC address of the client delimited with hyphens."
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:252
+msgid "Example:"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:254
+msgid "/export/hosts/client_mac_address"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:256
+msgid "/export/hosts/00-16-D3-33-92-E8"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:257
+#, no-wrap
+msgid "B<--net-cow-server> I<IP>|I<HOSTNAME>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:258
+#, no-wrap
+msgid "-p|B<--packages-lists> I<FILE>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:259
+#, no-wrap
+msgid "B<--packages> I<PACKAGE>|I<\"PACKAGES\">"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:260
+#, no-wrap
+msgid "B<--root-command> sudo"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:261
+#, no-wrap
+msgid "B<--use-fakeroot> enabled|disabled"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:262
+#, no-wrap
+msgid "B<--sections> I<SECTION>|I<\"SECTIONS\">"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:263
+#, no-wrap
+msgid "B<--security> enabled|disabled"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:264
+#, no-wrap
+msgid "B<--source> enabled|disabled"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:265
+#, no-wrap
+msgid "-s|B<--source-images> iso|net|tar|usb-hdd"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:266
+#, no-wrap
+msgid "B<--symlinks> enabled|disabled"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:267
+#, no-wrap
+msgid "B<--syslinux-splash> I<FILE>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:268
+#, no-wrap
+msgid "B<--syslinux-timeout> I<SECONDS>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:269
+#, no-wrap
+msgid "B<--syslinux-menu> enabled|disabled"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:270
+#, no-wrap
+msgid "B<--sysvinit> enabled|disabled"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:271
+#, no-wrap
+msgid "B<--tasksel> aptitude|tasksel"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:272
+#, no-wrap
+msgid "B<--tasks> I<TASK>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:273
+#, no-wrap
+msgid "B<--templates> I<PATH>"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:274
+#, no-wrap
+msgid "B<--union-filesystem> aufs|unionfs"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:275
+#, no-wrap
+msgid "B<--exposed-root> enabled|disabled"
+msgstr ""
+
+# type: IP
+#: lh_config.en.1:276
+#, no-wrap
+msgid "B<--username> I<NAME>"
+msgstr ""
+
+# type: SH
+#: lh_config.en.1:278
+#, no-wrap
+msgid "ENVIRONMENT"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:282
+msgid ""
+"All command line switches can also be specified through the corresponding "
+"environment variable. Environment variables are name LH_FOO, means, e.g.  --"
+"apt-ftp-proxy becomes LH_APT_FTP_PROXY."
+msgstr ""
+
+# type: SH
+#: lh_config.en.1:283
+#, no-wrap
+msgid "FILES"
+msgstr ""
+
+# type: Plain text
+#: lh_config.en.1:285
+#, fuzzy
+msgid "I</etc/default/live-helper>"
+msgstr "I<live-helper>(7)"
+
+# type: Plain text
+#: lh_config.en.1:289
+msgid ""
+"An optional conffile for lh_config defaults, useful to specify a few system "
+"wide defaults, like LH_MIRROR_BOOTSTRAP. This feature can be disabled by "
+"specifying the B<--ignore-system-defaults> option."
+msgstr ""

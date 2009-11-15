@@ -9,6 +9,7 @@ TEMPDIR="/srv/tmp/manpages"
 SERVER="/srv/debian-live/www/other/manpages"
 
 DATE_START="$(date -R)"
+HOST="$(hostname)"
 
 # Checking lock file
 if [ -f "${SERVER}"/lock ]
@@ -24,12 +25,12 @@ then
 fi
 
 # Creating lock trap
-trap "test -f ${SERVER}/lock && rm -f ${SERVER}/lock; exit 0" 0 1 2 3 9 15
+trap "test -f ${SERVER}/lock && rm -f ${SERVER}/lock; exit 0" 0 HUP INT QUIT KILL TERM
 
 # Creating lock file
 echo "${DATE_START}" > "${SERVER}"/lock
 
-echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper: begin manpage build." >> /var/log/live
+echo "$(date +%b\ %d\ %H:%M:%S) ${HOST} live-helper: begin manpage build." >> /var/log/live
 
 # Remove old manpages
 rm -f "${SERVER}"/*.html
@@ -96,4 +97,4 @@ EOF
 # Removing build directory
 rm -rf "${TEMPDIR}"
 
-echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper: end manpage build." >> /var/log/live
+echo "$(date +%b\ %d\ %H:%M:%S) ${HOST} live-helper: end manpage build." >> /var/log/live

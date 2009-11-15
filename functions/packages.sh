@@ -22,7 +22,7 @@ Check_package ()
 			;;
 
 		2)
-			Echo_error "You need to install ${PACKAGE} on your host system."
+			Echo_error "You need to install %s on your host system." "${PACKAGE}"
 			exit 1
 			;;
 	esac

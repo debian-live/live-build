@@ -95,7 +95,7 @@ then
 			piggyback64 ${DESTDIR}/boot.img ${DEFAULT_MAP} ${ORIGDIR}/${DEFAULT_INITRD}
 			;;
 		*)
-			Echo_error "Invalid default kernel flavour for sparc \"${DEFAULT_FLAVOUR}\""
+			Echo_error "Invalid default kernel flavour for sparc \"%s\"" "${DEFAULT_FLAVOUR}"
 			exit 1;
 			;;
 	esac

@@ -89,7 +89,7 @@ Grub_install_entry ()
 	fi
 
 	LINUX_INSTALL="${LINUX_INSTALL}\ntitle\t\tDebian GNU/Linux - ${LABEL}"
-	LINUX_INSTALL="${LINUX_INSTALL}\nkernel\t\t/${KERNEL} ${APPEND} ${LH_BOOTSTRAP_INSTALL}"
+	LINUX_INSTALL="${LINUX_INSTALL}\nkernel\t\t/${KERNEL} ${APPEND} LH_BOOTAPPEND_INSTALL"
 	LINUX_INSTALL="${LINUX_INSTALL}\ninitrd\t\t/${INITRD}"
 }
 

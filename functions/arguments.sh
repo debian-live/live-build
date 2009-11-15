@@ -75,7 +75,7 @@ Arguments ()
 				;;
 
 			*)
-				Echo_error "internal error ${0}"
+				Echo_error "internal error %s" "${0}"
 				exit 1
 				;;
 		esac

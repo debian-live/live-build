@@ -58,11 +58,13 @@ then
 			;;
 	esac
 
+	# Tidying up
 	rm -f chroot/root/chroot_packages
 
 	# Saving cache
 	Save_cache cache/packages_chroot
 
-	# Creating stage file
-	Create_stagefile .stage/chroot_install-packages
 fi
+
+# Creating stage file
+Create_stagefile .stage/chroot_install-packages

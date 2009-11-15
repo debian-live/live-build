@@ -23,14 +23,14 @@ Losetup ()
 
 	if [ "${PARTITION}" = "0" ]
 	then
-		Echo_message "Mounting ${DEVICE} with offset 0"
+		Echo_message "Mounting %s with offset 0" "${DEVICE}"
 
 		${LH_ROOT_COMMAND} ${LH_LOSETUP} "${DEVICE}" "${FILE}"
 	else
 		SECTORS="$(echo "$FDISK_OUT" | sed -ne "s|^$LOOPDEVICE[ *]*\([0-9]*\).*|\1|p")"
 		OFFSET="$(expr ${SECTORS} '*' 512)"
 
-		Echo_message "Mounting ${DEVICE} with offset ${OFFSET}"
+		Echo_message "Mounting %s with offset %s" "${DEVICE}" "${OFFSET}"
 
 		${LH_ROOT_COMMAND} ${LH_LOSETUP} -o "${OFFSET}" "${DEVICE}" "${FILE}"
 	fi

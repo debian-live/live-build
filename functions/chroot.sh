@@ -14,7 +14,7 @@ Chroot ()
 	COMMANDS="${@}"
 
 	# Executing commands in chroot
-	Echo_debug "Executing: ${COMMANDS}"
+	Echo_debug "Executing: %s" "${COMMANDS}"
 
 	if [ "${LH_USE_FAKEROOT}" != "enabled" ]
 	then

@@ -49,11 +49,11 @@ lh_chroot_local-preseed ${*}
 lh_chroot_tasks ${*}
 lh_chroot_packageslists ${*}
 lh_chroot_packages ${*}
-lh_chroot_local-packageslists ${*}
 lh_chroot_local-packages ${*}
 lh_chroot_install-packages ${*}
 lh_chroot_localization ${*}
 lh_chroot_local-includes ${*}
+lh_chroot_local-patches ${*}
 lh_chroot_sysvinit ${*}
 lh_chroot_local-hooks ${*}
 lh_chroot_hooks ${*}

@@ -25,7 +25,7 @@ Check_architecture ()
 
 	if [ "${VALID}" = "false" ]
 	then
-		Echo_warning "skipping ${0}, foreign architecture."
+		Echo_warning "skipping %s, foreign architecture." "${0}"
 		exit 0
 	fi
 }

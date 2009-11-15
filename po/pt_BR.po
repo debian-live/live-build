@@ -1,0 +1,732 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-08-16 01:37+0100\n"
+"PO-Revision-Date: 2008-08-11 00:30-0300\n"
+"Last-Translator: Tiago Bortoletto Vaz <tiago@debian-ba.org>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../helpers/lh_chroot_dpkg:36
+msgid "Configuring file /sbin/start-stop-daemon"
+msgstr "Configurando o arquivo /sbin/start-stop-daemon"
+
+#: ../helpers/lh_chroot_dpkg:65
+msgid "Deconfiguring file /sbin/start-stop-daemon"
+msgstr "Desconfigurando o arquivo /sbin/start-stop-daemon"
+
+#: ../helpers/lh_chroot_apt:36
+msgid "Configuring file /etc/apt/apt.conf"
+msgstr ""
+
+#: ../helpers/lh_chroot_apt:150
+msgid "Deconfiguring file /etc/apt/apt.conf"
+msgstr ""
+
+#: ../helpers/lh_binary_local-hooks:31 ../helpers/lh_chroot_local-hooks:31
+msgid "Begin executing local hooks..."
+msgstr "Iniciando execução de hooks locais..."
+
+#: ../helpers/lh_binary_md5sum:36
+msgid "Begin creating binary md5sum.txt..."
+msgstr "Iniciando a criação do md5sum.txt do binário..."
+
+#: ../helpers/lh_binary_manifest:31
+msgid "Begin creating manifest..."
+msgstr "Iniciando a criação do manifesto..."
+
+#: ../helpers/lh_binary_rootfs:31
+msgid "Begin building root filesystem image..."
+msgstr ""
+
+#: ../helpers/lh_bootstrap_debootstrap:39
+#: ../helpers/lh_bootstrap_cdebootstrap:39 ../helpers/lh_bootstrap_copy:39
+msgid "Begin bootstrapping system..."
+msgstr "Iniciando bootstrap do sistema..."
+
+#: ../helpers/lh_bootstrap_debootstrap:122
+msgid "Running debootstrap (download-only)... "
+msgstr "Executando cdebootstrap (download-only)..."
+
+#: ../helpers/lh_bootstrap_debootstrap:142
+msgid "Running debootstrap... "
+msgstr "Executando cdebootstrap..."
+
+#: ../helpers/lh_bootstrap_debootstrap:156
+msgid "Can't process file /usr/bin/debootstrap (FIXME)"
+msgstr "Não posso processar o arquivo /usr/bin/cdebootstrap (FIXME)"
+
+#: ../helpers/lh_binary_usb-hdd:36
+msgid "Begin building binary usb-hdd image..."
+msgstr ""
+
+#: ../helpers/lh_binary_usb-hdd:64
+msgid "Sparc only supports booting from ext2, ext3 (or ufs)"
+msgstr ""
+
+#: ../helpers/lh_binary_usb-hdd:127 ../helpers/lh_source_usb-hdd:91
+msgid "Unsupported binary filesystem %s"
+msgstr "Sistemas de arquivos binário %s não suportado"
+
+#: ../helpers/lh_binary_net:41
+msgid "Begin building binary netboot image..."
+msgstr ""
+
+#: ../helpers/lh_binary_net:98
+msgid "Invalid default kernel flavour for sparc \"%s\""
+msgstr ""
+
+#: ../helpers/lh_chroot_sysfs:39
+msgid "Begin mounting /sys..."
+msgstr ""
+
+#: ../helpers/lh_chroot_sysfs:67
+msgid "Begin unmounting /sys..."
+msgstr ""
+
+#: ../helpers/lh_chroot_devpts:39
+msgid "Begin mounting /dev/pts..."
+msgstr "Iniciando a montagem de /dev/pts..."
+
+#: ../helpers/lh_chroot_devpts:64
+msgid "Begin unmounting /dev/pts..."
+msgstr ""
+
+#: ../helpers/lh_chroot_sources:38
+msgid "Configuring file /etc/apt/sources.list"
+msgstr ""
+
+#: ../helpers/lh_chroot_sources:164
+msgid "GPG exited with error status %s"
+msgstr "GPG saiu com estado de erro %s"
+
+#: ../helpers/lh_chroot_sources:208
+#, sh-format
+msgid ""
+"Local packages must be named with suffix '_all.deb' or '_$architecture.deb'."
+msgstr ""
+
+#: ../helpers/lh_chroot_sources:325
+msgid "Deconfiguring file /etc/apt/sources.list"
+msgstr ""
+
+#: ../helpers/lh_chroot_cache:31
+msgid "Begin caching chroot stage..."
+msgstr ""
+
+#: ../helpers/lh_bootstrap_cache:34
+msgid "Begin caching bootstrap stage..."
+msgstr "Iniciando cache da fase de bootstrap..."
+
+#: ../helpers/lh_chroot_local-includes:31
+msgid "Begin copying chroot local includes..."
+msgstr ""
+
+#: ../helpers/lh_binary_local-includes:31
+msgid "Begin copying binary local includes..."
+msgstr "Iniciando cópia dos includes locais..."
+
+#: ../helpers/lh_binary_tar:36
+msgid "Begin building binary harddisk image..."
+msgstr ""
+
+#: ../helpers/lh_chroot_symlinks:36
+msgid "Begin converting symlinks..."
+msgstr ""
+
+#: ../helpers/lh_binary_local-packageslists:31
+msgid "Begin installing local packages lists..."
+msgstr "Iniciando instalação das listas de pacotes locais..."
+
+#: ../helpers/lh_source_disk:36 ../helpers/lh_binary_disk:36
+msgid "Begin installing disk information..."
+msgstr "Iniciando a instalação da informação do disco..."
+
+#: ../helpers/lh_binary_encryption:38
+msgid "Encryption type %s not supported."
+msgstr "Encriptação do tipo %s não é suportado."
+
+#: ../helpers/lh_binary_encryption:48
+msgid "Encryption not yet supported on %s filesystems."
+msgstr "Encriptação ainda não suportada em sistemas de arquivos %s."
+
+#: ../helpers/lh_binary_encryption:53
+msgid "Begin encrypting root filesystem image..."
+msgstr ""
+
+#: ../helpers/lh_binary_encryption:87
+msgid "Encrypting binary/%s/filesystem.%s with %s..."
+msgstr "Encriptando binary/%s/filesystem.%s com %s..."
+
+#: ../helpers/lh_chroot_debianchroot:36
+msgid "Configuring file /etc/debian_chroot"
+msgstr "Configurando arquivo /etc/debian_chroot"
+
+#: ../helpers/lh_chroot_debianchroot:61
+msgid "Deconfiguring file /etc/debian_chroot"
+msgstr "Desconfigurando arquivo /etc/debian_chroot"
+
+#: ../helpers/lh_chroot_install-packages:31
+msgid "Begin installing packages..."
+msgstr ""
+
+#: ../helpers/lh_binary_silo:47
+msgid "Begin installing silo..."
+msgstr ""
+
+#: ../helpers/lh_binary_silo:177
+msgid "Net cow not supported on silo"
+msgstr ""
+
+#: ../helpers/lh_chroot_hosts:36
+msgid "Configuring file /etc/hosts"
+msgstr ""
+
+#: ../helpers/lh_chroot_hosts:72
+msgid "Deconfiguring file /etc/hosts"
+msgstr ""
+
+#: ../helpers/lh_chroot_localization:31
+msgid "Begin installing localization packages..."
+msgstr ""
+
+#: ../helpers/lh_chroot_preseed:31
+msgid "Begin executing preseed..."
+msgstr ""
+
+#: ../helpers/lh_chroot_packageslists:31
+msgid "Begin queueing installation of packages lists..."
+msgstr ""
+
+#: ../helpers/lh_chroot_local-packages:31
+msgid "Begin queueing installation of local packages..."
+msgstr ""
+
+#: ../helpers/lh_binary_iso:36
+msgid "Begin building binary iso image..."
+msgstr "Iniciando a construção da imagem iso binária..."
+
+#: ../helpers/lh_binary_iso:122
+msgid ""
+"Bootloader on your architecture not yet supported (Continuing in 5 seconds)."
+msgstr ""
+"O carregador de boot na sua arquitetura ainda não é suportado(continuando em "
+"5 segundos)."
+
+#: ../helpers/lh_chroot_interactive:36
+msgid "Begin interactive build..."
+msgstr ""
+
+#: ../helpers/lh_chroot_interactive:52
+msgid "Pausing build: starting interactive shell..."
+msgstr ""
+
+#: ../helpers/lh_chroot_interactive:56
+msgid "Pausing build: starting interactive X11..."
+msgstr ""
+
+#: ../helpers/lh_chroot_interactive:60
+msgid "Pausing build: starting interactive Xnest..."
+msgstr ""
+
+#: ../helpers/lh_chroot_local-patches:31
+msgid "Begin applying chroot local patches..."
+msgstr ""
+
+#: ../helpers/lh_chroot_local-patches:58
+msgid "Applying patch %s..."
+msgstr "Aplicando patch %s..."
+
+#: ../helpers/lh_bootstrap_cdebootstrap:137
+msgid "Running cdebootstrap (download-only)... "
+msgstr "Executando cdebootstrap (download-only)..."
+
+#: ../helpers/lh_bootstrap_cdebootstrap:157
+msgid "Running cdebootstrap... "
+msgstr "Executando cdebootstrap..."
+
+#: ../helpers/lh_bootstrap_cdebootstrap:183
+msgid "Can't process file /usr/bin/cdebootstrap (FIXME)"
+msgstr "Não posso processar o arquivo /usr/bin/cdebootstrap (FIXME)"
+
+#: ../helpers/lh_chroot_resolv:36
+msgid "Configuring file /etc/resolv.conf"
+msgstr ""
+
+#: ../helpers/lh_chroot_resolv:64
+msgid "Deconfiguring file /etc/resolv.conf"
+msgstr ""
+
+#: ../helpers/lh:55
+msgid "no such helper"
+msgstr "helper não encontrado"
+
+#: ../helpers/lh_chroot_local-preseed:31
+msgid "Begin executing local preseeds..."
+msgstr ""
+
+#: ../helpers/lh_source_usb-hdd:41
+msgid "Begin building source usb-hdd image..."
+msgstr ""
+
+#: ../helpers/lh_source_usb-hdd:96
+msgid "!!! The following error/warning messages can be ignored !!!"
+msgstr ""
+
+#: ../helpers/lh_source_usb-hdd:130
+msgid "!!! The above error/warning messages can be ignored !!!"
+msgstr ""
+
+#: ../helpers/lh_binary_includes:36
+msgid "Begin copying binary includes..."
+msgstr ""
+
+#: ../helpers/lh_binary_includes:57
+msgid "user specified includes not accessible in %s"
+msgstr "inclusões específica do usuário não acessível em %s"
+
+#: ../helpers/lh_binary_includes:176
+msgid "win32-loader inclusion is enabled but not found, ignoring."
+msgstr ""
+
+#: ../helpers/lh_source_debian:36
+msgid "Begin downloading sources..."
+msgstr ""
+
+#: ../helpers/lh_clean:34
+msgid "%s is not a good Debian Live working directory to clean."
+msgstr "%s não é um diretório válido do Debian Live para ser limpo."
+
+#: ../helpers/lh_clean:62
+msgid "Cleaning chroot"
+msgstr ""
+
+#: ../helpers/lh_binary_grub:36
+msgid "Begin installing grub..."
+msgstr "Iniciando instalação do grub..."
+
+#: ../helpers/lh_binary_grub:123 ../helpers/lh_binary_yaboot:131
+msgid "not yet supported, aborting (FIXME)."
+msgstr "ainda não suportado, abortando (FIXME)."
+
+#: ../helpers/lh_binary_grub:181
+msgid "Net cow not yet supported on grub"
+msgstr "Net cow ainda não é suportado no grub"
+
+#: ../helpers/lh_chroot_linux-image:36
+msgid "Configuring file /etc/kernel-img.conf"
+msgstr ""
+
+#: ../helpers/lh_chroot_linux-image:85
+msgid "Deconfiguring file /etc/kernel-img.conf"
+msgstr ""
+
+#: ../helpers/lh_chroot_hacks:31
+msgid "Begin executing hacks..."
+msgstr ""
+
+#: ../helpers/lh_source_iso:41
+msgid "Begin building source iso image..."
+msgstr ""
+
+#: ../helpers/lh_testroot:34
+msgid "need root privileges"
+msgstr ""
+
+#: ../helpers/lh_chroot_hooks:31
+msgid "Begin executing hooks..."
+msgstr "Iniciando a execução dos hooks..."
+
+#: ../helpers/lh_binary_debian-installer:51
+msgid "debian-installer flavour %s not supported."
+msgstr ""
+
+#: ../helpers/lh_binary_debian-installer:56
+msgid "Begin installing debian-installer..."
+msgstr ""
+
+#: ../helpers/lh_binary_debian-installer:220
+msgid "Could not download file: %s"
+msgstr "Não foi possível fazer download do arquivo: %s"
+
+#: ../helpers/lh_binary_debian-installer:312
+msgid "No daily-builds found for your architecture."
+msgstr ""
+
+#: ../helpers/lh_binary_debian-installer:472
+msgid "Could not find cache/packages_bootstrap."
+msgstr ""
+
+#: ../helpers/lh_binary_debian-installer:473
+msgid "You selected values of LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES and"
+msgstr ""
+
+#: ../helpers/lh_binary_debian-installer:474 ../functions/defaults.sh:750
+msgid "LH_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being"
+msgstr ""
+
+#: ../helpers/lh_binary_debian-installer:475
+msgid "cached - these are required when integrating the Debian Installer."
+msgstr ""
+
+#: ../helpers/lh_chroot_hostname:36
+msgid "Configuring file /etc/hostname"
+msgstr "Configurando o arquivo /etc/hostname"
+
+#: ../helpers/lh_chroot_hostname:53
+msgid "Configuring file /bin/hostname"
+msgstr ""
+
+#: ../helpers/lh_chroot_hostname:70
+msgid "Deconfiguring file /etc/hostname"
+msgstr ""
+
+#: ../helpers/lh_chroot_hostname:78
+msgid "Deconfiguring file /bin/hostname"
+msgstr ""
+
+#: ../helpers/lh_chroot_packages:31
+msgid "Begin queueing installation of packages..."
+msgstr ""
+
+#: ../helpers/lh_source_tar:41
+msgid "Begin building source tarball..."
+msgstr ""
+
+#: ../helpers/lh_source_tar:42 ../helpers/lh_binary_chroot:85
+msgid "This may take a while."
+msgstr ""
+
+#: ../helpers/lh_source_md5sum:41
+msgid "Begin creating source md5sum.txt..."
+msgstr ""
+
+#: ../helpers/lh_build:29
+msgid "No config/ directory; using defaults for all options"
+msgstr ""
+"Sem o diretório config/; utilizando valores padrões para todas as opções"
+
+#: ../helpers/lh_build:34
+msgid "Cannot build live image from the root directory (/)"
+msgstr ""
+"Não é possível construir uma imagem live a partir do diretório raiz (/)"
+
+#: ../helpers/lh_build:40
+msgid "Cannot build live image from a directory containing spaces"
+msgstr ""
+"Não é possível construir uma imagem live de um diretório contando espaços"
+
+#: ../helpers/lh_source_net:41
+msgid "Begin building source netboot image..."
+msgstr ""
+
+#: ../helpers/lh_binary_yaboot:36
+msgid "Begin installing yaboot..."
+msgstr ""
+
+#: ../helpers/lh_binary_yaboot:189
+msgid "Net cow not yet supported on yaboot"
+msgstr ""
+
+#: ../helpers/lh_chroot_sysv-rc:36
+msgid "Configuring file /usr/sbin/policy-rc.d"
+msgstr ""
+
+#: ../helpers/lh_chroot_sysv-rc:70
+msgid "Deconfiguring file /usr/sbin/policy-rc.d"
+msgstr ""
+
+#: ../helpers/lh_chroot_sysvinit:31
+msgid "Configuring package sysvinit"
+msgstr ""
+
+#: ../helpers/lh_chroot_proc:39
+msgid "Begin mounting /proc..."
+msgstr ""
+
+#: ../helpers/lh_chroot_proc:67
+msgid "Begin unmounting /proc..."
+msgstr ""
+
+#: ../helpers/lh_binary_chroot:31
+msgid "Begin copying chroot..."
+msgstr ""
+
+#: ../helpers/lh_binary_chroot:105
+msgid "Excluded path does not exist: %s"
+msgstr "Caminho excluído não existe: %s"
+
+#: ../helpers/lh_binary_linux-image:31
+msgid "Begin install linux-image..."
+msgstr "Iniciando instalação do linux-image..."
+
+#: ../helpers/lh_chroot_tasks:31
+msgid "Begin installing tasks..."
+msgstr ""
+
+#: ../helpers/lh_config:126 ../functions/arguments.sh:18
+msgid "terminating"
+msgstr "finalizando"
+
+#: ../helpers/lh_config:665 ../functions/arguments.sh:78
+msgid "internal error %s"
+msgstr "erro interno %s"
+
+#: ../helpers/lh_config:675
+msgid "Considering defaults defined in %s"
+msgstr "Considerando valores padrão definidos em %s"
+
+#: ../helpers/lh_config:1148
+msgid "Please install 'debconf-utils' in order to use this feature."
+msgstr ""
+
+#: ../helpers/lh_binary_syslinux:36
+msgid "Begin installing syslinux..."
+msgstr ""
+
+#: ../helpers/lh_binary_syslinux:248
+msgid "%s doen't exist"
+msgstr "%s não existe"
+
+#: ../helpers/lh_binary_syslinux:451 ../helpers/lh_binary_syslinux:475
+msgid "Unsupported net filesystem"
+msgstr "Sistema de arquivos de rede não suportado"
+
+#: ../helpers/lh_binary_memtest:36
+msgid "Begin installing memtest..."
+msgstr "Iniciando a instalação do memtest..."
+
+#: ../helpers/lh_binary_memtest:52
+msgid "skipping binary_memtest, foreign architecture."
+msgstr ""
+
+#: ../helpers/lh_source_debian-live:36
+msgid "Begin copying live-helper configuration..."
+msgstr ""
+
+#: ../functions/losetup.sh:26
+msgid "Mounting %s with offset 0"
+msgstr "Montando %s com offset 0"
+
+#: ../functions/losetup.sh:33
+msgid "Mounting %s with offset %s"
+msgstr "Montando %s com offset %s"
+
+#: ../functions/conffile.sh:33
+msgid "Reading configuration file %s"
+msgstr "Lendo arquivo de configuração %s"
+
+#: ../functions/conffile.sh:36
+msgid "Failed to read configuration file %s"
+msgstr "Falha ao ler o arquivo de configuração %s"
+
+#: ../functions/echo.sh:73
+msgid ""
+"If the following stage fails, the most likely cause of the problem is with "
+"your mirror configuration, a caching proxy or the sid distribution."
+msgstr ""
+"Se a fase seguinte falhar, a causa mais provável do problema é a sua "
+"configuração de mirror, um proxy com cache ou a distribuição sid."
+
+#: ../functions/echo.sh:76
+msgid ""
+"If the following stage fails, the most likely cause of the problem is with "
+"your mirror configuration or a caching proxy."
+msgstr ""
+"Se a fase seguinte falhar, a causa mais provável do problema é a sua "
+"configuração de mirror ou um proxy com cache."
+
+#: ../functions/architecture.sh:28
+msgid "skipping %s, foreign architecture."
+msgstr ""
+
+#: ../functions/defaults.sh:99
+msgid ""
+"Cannot find /usr/sbin/debootstrap or /usr/bin/cdebootstrap. Please install"
+msgstr ""
+
+#: ../functions/defaults.sh:100
+msgid ""
+"debootstrap or cdebootstrap, or specify an alternative bootstrapping utility."
+msgstr ""
+
+#: ../functions/defaults.sh:162
+#, fuzzy
+msgid "Can't process file /sbin/fdisk"
+msgstr "Não posso processar o arquivo /usr/bin/cdebootstrap (FIXME)"
+
+#: ../functions/defaults.sh:178
+#, fuzzy
+msgid "Can't process file /sbin/losetup"
+msgstr "Não posso processar o arquivo /usr/bin/cdebootstrap (FIXME)"
+
+#: ../functions/defaults.sh:240
+#, fuzzy
+msgid "Can't process file /usr/bin/dpkg, setting architecture to i386"
+msgstr "Não posso processar o arquivo /usr/bin/cdebootstrap (FIXME)"
+
+#: ../functions/defaults.sh:375
+msgid "You need to specify the linux kernel flavour manually on arm (FIXME)."
+msgstr ""
+
+#: ../functions/defaults.sh:392
+msgid "You need to specify the linux kernel flavour manually on m68k (FIXME)."
+msgstr ""
+
+#: ../functions/defaults.sh:414
+msgid "Architecture not yet supported (FIXME)"
+msgstr ""
+
+#: ../functions/defaults.sh:547
+msgid ""
+"You have placed some preseeding files into config/binary_debian-installer"
+msgstr ""
+
+#: ../functions/defaults.sh:548
+msgid "but you didn't specify the default preseeding file through"
+msgstr ""
+
+#: ../functions/defaults.sh:549
+msgid ""
+"LH_DEBIAN_INSTALLER_PRESEEDFILE. This means that debian-installer will not"
+msgstr ""
+
+#: ../functions/defaults.sh:550
+msgid "take up a preseeding file by default."
+msgstr ""
+
+#: ../functions/defaults.sh:713
+msgid "You selected LH_DISTRIBUTION='etch' and LH_INITRAMFS='live-initramfs'"
+msgstr ""
+
+#: ../functions/defaults.sh:714
+msgid "This is a possible unsafe configuration as live-initramfs is not"
+msgstr ""
+
+#: ../functions/defaults.sh:715 ../functions/defaults.sh:726
+msgid "part of the etch distribution."
+msgstr ""
+
+#: ../functions/defaults.sh:716
+msgid ""
+"Either make sure that live-initramfs is installable (e.g. through setting up"
+msgstr ""
+
+#: ../functions/defaults.sh:717
+msgid ""
+"etch-backports repository as third-party source or putting a valid live-"
+"initramfs"
+msgstr ""
+
+#: ../functions/defaults.sh:718
+msgid ""
+"deb into config/chroot_local-packages) or switch change your config to etch"
+msgstr ""
+
+#: ../functions/defaults.sh:719
+msgid "default (casper)."
+msgstr ""
+
+#: ../functions/defaults.sh:724
+msgid "You selected LH_DISTRIBUTION='etch' and LH_UNION_FILESYSTEM='aufs'"
+msgstr ""
+
+#: ../functions/defaults.sh:725
+msgid "This is a possible unsafe configuration as aufs is not"
+msgstr ""
+
+#: ../functions/defaults.sh:727
+msgid ""
+"Either make sure that aufs modules for your kernel are installable (e.g. "
+"through"
+msgstr ""
+
+#: ../functions/defaults.sh:728
+msgid ""
+"setting up etch-backports repository as third-party source or putting a valid"
+msgstr ""
+
+#: ../functions/defaults.sh:729
+msgid ""
+"aufs-modules deb into config/chroot_local-packages) or switch change your "
+"config"
+msgstr ""
+
+#: ../functions/defaults.sh:730
+msgid "to etch default (unionfs)."
+msgstr ""
+
+#: ../functions/defaults.sh:739
+msgid "You selected LH_PACKAGES_LISTS='%s' and LH_APT='aptitude'"
+msgstr "Você selecionou LH_PACKAGES_LISTS='%s' e LH_APT='aptitude'"
+
+#: ../functions/defaults.sh:740
+msgid "This is a possible unsafe configuration as aptitude is not"
+msgstr ""
+
+#: ../functions/defaults.sh:741
+msgid "used in the stripped/minimal package lists."
+msgstr ""
+
+#: ../functions/defaults.sh:749
+msgid ""
+"You have selected values of LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES and"
+msgstr ""
+
+#: ../functions/defaults.sh:751
+msgid ""
+"cached. This is a possible unsafe configuration as the bootstrap packages"
+msgstr ""
+
+#: ../functions/defaults.sh:752
+msgid "are re-used when integrating the Debian Installer."
+msgstr ""
+
+#: ../functions/chroot.sh:17
+msgid "Executing: %s"
+msgstr "Executando: %s"
+
+#: ../functions/templates.sh:23
+msgid "templates not accessible in %s nor config/templates"
+msgstr ""
+
+#: ../functions/templates.sh:32
+msgid "%s templates not accessible in %s"
+msgstr ""
+
+#: ../functions/breakpoints.sh:16
+msgid "Waiting at %s"
+msgstr ""
+
+#: ../functions/stagefile.sh:23
+msgid "skipping %s"
+msgstr ""
+
+#: ../functions/stagefile.sh:27
+msgid "forcing %s"
+msgstr "forçando %s"
+
+#: ../functions/stagefile.sh:65
+msgid "%s: %s missing"
+msgstr "%s: %s está faltando"
+
+#: ../functions/stagefile.sh:67
+msgid "%s: one of %s is missing"
+msgstr ""
+
+#: ../functions/packages.sh:25
+msgid "You need to install %s on your host system."
+msgstr ""
+
+#: ../functions/lockfile.sh:19
+msgid "system locked"
+msgstr ""

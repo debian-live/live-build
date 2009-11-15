@@ -3,7 +3,7 @@
 ## LH: GNOME Desktop
 #include <gnome-core>
 
-gdm-themes gnome-desktop-environment gnome-cups-manager gnome-screensaver
+gdm-themes gnome-desktop-environment system-config-printer gnome-screensaver
 gnome-themes-extras
 
 rhythmbox synaptic

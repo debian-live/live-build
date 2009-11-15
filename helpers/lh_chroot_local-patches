@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_chroot_local-packageslists(1) - queue install of local packages lists into chroot
+# lh_chroot_local-patches(1) - apply local patches against chroot
 # Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="queue install of local packages lists into chroot"
+DESCRIPTION="apply local patches against chroot"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -28,13 +28,13 @@ Arguments "${@}"
 Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-Echo_message "Begin queueing installation of local packages lists..."
+Echo_message "Begin applying chroot local patches..."
 
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/chroot_local-packageslists
+Check_stagefile .stage/chroot_local-patches
 
 # Checking lock file
 Check_lockfile .lock
@@ -42,15 +42,29 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if ls config/chroot_local-packageslists/* > /dev/null 2>&1
+if Find_files config/chroot_local-patches/
 then
-	for PACKAGES_LIST in config/chroot_local-packageslists/*
+	# Restoring cache
+	Restore_cache cache/packages_chroot
+
+	# Checking depends
+	Check_package chroot/usr/bin/patch patch
+
+	# Installing depends
+	Install_package
+
+	for PATCH in config/chroot_local-patches/*
 	do
-		# Generate package list
-		Expand_packagelist "${PACKAGES_LIST}" "config/chroot_local-packageslists" \
-			>> chroot/root/chroot_packages
+		Echo_message "Applying patch %s..." "${PATCH}"
+		Chroot "patch -p1" < ${PATCH}
 	done
 
+	# Removing depends
+	Remove_package
+
+	# Saving cache
+	Save_cache cache/packages_chroot
+
 	# Creating stage file
-	Create_stagefile .stage/chroot_local-packageslists
+	Create_stagefile .stage/chroot_local-patches
 fi

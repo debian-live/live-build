@@ -28,6 +28,8 @@ Arguments "${@}"
 Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
+Require_stagefile .stage/chroot_install-packages
+
 # Enabling network in chroot
 lh_chroot_hosts install ${*}
 lh_chroot_resolv install ${*}

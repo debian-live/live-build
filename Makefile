@@ -11,10 +11,10 @@ test:
 		sh -n $$SCRIPT; \
 	done
 
-	# Checking for bashisms (temporary not failing, but only listing)
-	if [ -x /usr/bin/checkbashisms ]; \
+	# Checking for bashisms
+	set -e; if [ -x /usr/bin/checkbashisms ]; \
 	then \
-		checkbashisms functions/* examples/*/*.sh helpers/* hooks/* || true; \
+		checkbashisms functions/* examples/*/*.sh helpers/* hooks/*; \
 	else \
 		echo "bashism test skipped - you need to install devscripts."; \
 	fi
@@ -25,7 +25,7 @@ build:
 install: test
 	# Installing executables
 	mkdir -p $(DESTDIR)/usr/bin
-	cp helpers/lh* helpers/make-live $(DESTDIR)/usr/bin
+	cp helpers/lh* $(DESTDIR)/usr/bin
 
 	# Installing shared data
 	mkdir -p $(DESTDIR)/usr/share/live-helper
@@ -111,3 +111,11 @@ clean:
 distclean:
 
 reinstall: uninstall install
+
+po4a:
+	# Automatic generation of translated manpages
+	set -e; if [ $$(which po4a) ]; then \
+	  cd manpages/ ; po4a po4a/live-helper.cfg; \
+	else \
+	  echo "Please install po4a (http://po4a.alioth.debian.org/)."; \
+	fi;

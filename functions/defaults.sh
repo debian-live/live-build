@@ -96,8 +96,8 @@ Set_defaults ()
 		then
 			LH_BOOTSTRAP="cdebootstrap"
 		else
-			echo "E: Cannot find /usr/sbin/debootstrap or /usr/bin/cdebootstrap. Please install"
-			echo "E: debootstrap or cdebootstrap, or specify an alternative bootstrapping utility."
+			Echo_error "Cannot find /usr/sbin/debootstrap or /usr/bin/cdebootstrap. Please install"
+			Echo_error "debootstrap or cdebootstrap, or specify an alternative bootstrapping utility."
 			exit 1
 		fi
 	fi
@@ -159,7 +159,7 @@ Set_defaults ()
 		then
 			LH_FDISK="fdisk"
 		else
-			echo "E: Can't proces file /sbin/fdisk (FIXME)"
+			Echo_error "Can't process file /sbin/fdisk"
 		fi
 	fi
 
@@ -175,7 +175,7 @@ Set_defaults ()
 		then
 			LH_LOSETUP="losetup"
 		else
-			echo "E: Can't process file /sbin/losetup (FIXME)"
+			Echo_error "Can't process file /sbin/losetup"
 		fi
 	fi
 
@@ -237,7 +237,7 @@ Set_defaults ()
 		then
 			LH_ARCHITECTURE="$(dpkg --print-architecture)"
 		else
-			echo "W: Can't process file /usr/bin/dpkg, setting architecture to i386"
+			Echo_warning "Can't process file /usr/bin/dpkg, setting architecture to i386"
 			LH_ARCHITECTURE="i386"
 		fi
 	fi
@@ -437,6 +437,10 @@ Set_defaults ()
 
 	# Setting packages string
 	# LH_PACKAGES
+	if [ -z "${LH_PACKAGES}" ] && [ "${LH_ENCRYPTION}" != "disabled" ]
+	then
+		LH_PACKAGES="loop-aes-utils"
+	fi
 
 	# Setting packages list string
 	LH_PACKAGES_LISTS="${LH_PACKAGES_LISTS:-standard}"
@@ -504,13 +508,6 @@ Set_defaults ()
 	# Setting apt indices
 	LH_BINARY_INDICES="${LH_BINARY_INDICES:-enabled}"
 
-	# Setting boot parameters
-	# LH_BOOTAPPEND_LIVE
-	if [ -z "${LH_BOOTAPPEND_INSTALL}" ]
-	then
-		LH_BOOTAPPEND_INSTALL="-- \${LH_BOOTAPPEND_LIVE}"
-	fi
-
 	# Setting bootloader
 	if [ -z "${LH_BOOTLOADER}" ]
 	then
@@ -538,8 +535,62 @@ Set_defaults ()
 	# Setting debian-installer option
 	LH_DEBIAN_INSTALLER="${LH_DEBIAN_INSTALLER:-disabled}"
 
-	# Setting debian-install daily images
-	LH_DEBIAN_INSTALLER_DAILY="${LH_DEBIAN_INSTALLER_DAILY:-disabled}"
+	# Setting debian-installer distribution
+	LH_DEBIAN_INSTALLER_DISTRIBUTION="${LH_DEBIAN_INSTALLER_DISTRIBUTION:-${LH_DISTRIBUTION}}"
+
+	# Setting debian-installer preseed filename
+	if [ -z "${LH_DEBIAN_INSTALLER_PRESEEDFILE}" ]
+	then
+		if Find_files config/binary_debian-installer/preseed.cfg
+		then
+			LH_DEBIAN_INSTALLER_PRESEEDFILE="/preseed.cfg"
+		fi
+
+		if Find_files config/binary_debian-installer/*.cfg && [ ! -e config/binary_debian-installer/preseed.cfg ]
+		then
+			Echo_warning "You have placed some preseeding files into config/binary_debian-installer"
+			Echo_warning "but you didn't specify the default preseeding file through"
+			Echo_warning "LH_DEBIAN_INSTALLER_PRESEEDFILE. This means that debian-installer will not"
+			Echo_warning "take up a preseeding file by default."
+		fi
+	fi
+
+	# Setting boot parameters
+	# LH_BOOTAPPEND_LIVE
+	if [ -n "${LH_DEBIAN_INSTALLER_PRESEEDFILE}" ]
+	then
+		case "${LH_BINARY_IMAGES}" in
+			iso)
+				_LH_BOOTAPPEND_PRESEED="file=/cdrom/install/${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
+				;;
+
+			usb-hdd)
+				_LH_BOOTAPPEND_PRESEED="file=/hd-media/install/${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
+				;;
+
+			net)
+				case "${LH_DEBIAN_INSTALLER_PRESEEDFILE}" in
+					*://*)
+						_LH_BOOTAPPEND_PRESEED="file=${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
+						;;
+
+					*)
+						_LH_BOOTAPPEND_PRESEED="file=/${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
+						;;
+				esac
+				;;
+		esac
+	fi
+
+	if [ -z "${LH_BOOTAPPEND_INSTALL}" ]
+	then
+		if [ -n ${_LH_BOOTAPPEND_PRESEED} ]
+		then
+			LH_BOOTAPPEND_INSTALL="${_LH_BOOTAPPEND_PRESEED} -- \${LH_BOOTAPPEND_LIVE}"
+		else
+			LH_BOOTAPPEND_INSTALL=" -- \${LH_BOOTAPPEND_LIVE}"
+		fi
+	fi
 
 	# Setting encryption
 	LH_ENCRYPTION="${LH_ENCRYPTION:-disabled}"
@@ -568,7 +619,7 @@ Set_defaults ()
 	fi
 
 	# Set iso preparer
-	LH_ISO_PREPARER="${LH_ISO_PREPARER:-live-helper ${VERSION}; http://packages.qa.debian.org/live-helper}"
+	LH_ISO_PREPARER="${LH_ISO_PREPARER:-live-helper \$VERSION; http://packages.qa.debian.org/live-helper}"
 
 	# Set iso publisher
 	LH_ISO_PUBLISHER="${LH_ISO_PUBLISHER:-Debian Live project; http://debian-live.alioth.debian.org/; debian-live-devel@lists.alioth.debian.org}"
@@ -589,6 +640,17 @@ Set_defaults ()
 
 	# Setting memtest option
 	LH_MEMTEST="${LH_MEMTEST:-memtest86+}"
+
+	# Setting win32-loader option
+	case "${LH_ARCHITECTURE}" in
+		amd64|i386)
+			LH_WIN32_LOADER="${LH_WIN32_LOADER:-enabled}"
+			;;
+
+		*)
+			LH_WIN32_LOADER="${LH_WIN32_LOADER:-disabled}"
+			;;
+	esac
 
 	# Setting netboot filesystem
 	LH_NET_ROOT_FILESYSTEM="${LH_NET_ROOT_FILESYSTEM:-nfs}"
@@ -681,9 +743,20 @@ Check_defaults ()
 	then
 		if [ "${LH_APT}" = "aptitude" ]
 		then
-			Echo_warning "You selected LH_PACKAGES_LISTS='"${LH_PACKAGES_LIST}"' and LH_APT='aptitude'"
+			Echo_warning "You selected LH_PACKAGES_LISTS='%s' and LH_APT='aptitude'" "${LH_PACKAGES_LIST}"
 			Echo_warning "This is a possible unsafe configuration as aptitude is not"
 			Echo_warning "used in the stripped/minimal package lists."
+		fi
+	fi
+
+	if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
+	then
+		if ! echo ${LH_CACHE_STAGES} | grep -qs "bootstrap\b" || [ "${LH_CACHE}" != "enabled" ] || [ "${LH_CACHE_PACKAGES}" != "enabled" ]
+		then
+			Echo_warning "You have selected values of LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES and"
+			Echo_warning "LH_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being"
+			Echo_warning "cached. This is a possible unsafe configuration as the bootstrap packages"
+			Echo_warning "are re-used when integrating the Debian Installer."
 		fi
 	fi
 }

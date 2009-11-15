@@ -77,7 +77,7 @@ then
 	exit 0
 fi
 
-if [ "${LH_CACHE}" = "enabled" ] && ls cache/stages_rootfs/filesystem* > /dev/null 2>&1
+if [ "${LH_CACHE}" = "enabled" ] && Find_files cache/stages_rootfs/filesystem*
 then
 	exit 0
 fi
@@ -102,7 +102,7 @@ then
 			# Run "rm" inside the chroot so it cannot possibly remove host files.
 			Chroot "rm -r chroot/${EXCLUDE}"
 		else
-			Echo_warning "Excluded path does not exist: ${EXCLUDE}"
+			Echo_warning "Excluded path does not exist: %s" "${EXCLUDE}"
 		fi
 	done
 fi

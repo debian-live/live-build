@@ -169,7 +169,9 @@ squashfs-tools
 sshfs
 sysfsutils
 udftools
+#if DISTRIBUTION etch
 unionfs-tools
+#endif
 xfsdump
 xfsprogs
 btrfs-tools
@@ -177,7 +179,6 @@ cryptsetup
 dmraid
 dosfstools
 e2fsprogs
-evms
 fuse-utils
 hfsplus
 hfsutils

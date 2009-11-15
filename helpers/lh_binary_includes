@@ -54,7 +54,7 @@ then
 	then
 		LH_INCLUDES="../${LH_INCLUDES}"
 	else
-		Echo_error "user specified includes not accessible in ${LH_INCLUDES}"
+		Echo_error "user specified includes not accessible in %s" "${LH_INCLUDES}"
 		exit 1
 	fi
 fi
@@ -96,26 +96,26 @@ fi
 
 # Copying common templates
 if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common ] && \
-ls "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common/* > /dev/null 2>&1
+Find_files "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common/*
 then
 	cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common/* binary
 fi
 
 if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common."${ARCH}" ] && \
-ls "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common."${ARCH}"/* > /dev/null 2>&1
+Find_files "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common."${ARCH}"/*
 then
 	cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common."${ARCH}"/* binary
 fi
 
 # Copying live templates
 if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live ] && \
-ls "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live/* > /dev/null 2>&1
+Find_files "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live/*
 then
 	cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live/* binary
 fi
 
 if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live."${ARCH}" ] && \
-ls "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live."${ARCH}"/* > /dev/null 2>&1
+Find_files "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live."${ARCH}"/*
 then
 	cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live."${ARCH}"/* binary
 fi
@@ -124,13 +124,13 @@ if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
 then
 	# Copying install templates
 	if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install ] && \
-	ls "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install/* > /dev/null 2>&1
+	Find_files "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install/*
 	then
 		cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install/* binary
 	fi
 
 	if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install."${ARCH}" ] && \
-	ls "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install."${ARCH}"/* > /dev/null 2>&1
+	Find_files "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install."${ARCH}"/*
 	then
 		cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install."${ARCH}"/* binary
 	fi
@@ -162,6 +162,21 @@ then
 
 	sed -i -e "s|DEBIAN_NAME|${DEBIAN_NAME}|g" -e "s|DEBIAN_DATE|${DEBIAN_DATE}|g" -e "s|DEBIAN_TOOLS|${DEBIAN_TOOLS_HTML}|g" binary/README.html
 	sed -i -e "s|DEBIAN_NAME|${DEBIAN_NAME}|g" -e "s|DEBIAN_DATE|${DEBIAN_DATE}|g" -e "s|DEBIAN_TOOLS|${DEBIAN_TOOLS_TXT}|g" binary/README.txt
+fi
+
+# Copying win32-loader
+if [ "${LH_WIN32_LOADER}" = "enabled" ]
+then
+	case "${LH_ARCHITECTURE}" in
+		amd64|i386)
+			if Find_files /usr/lib/win32-loader/*
+			then
+				cp /usr/lib/win32-loader/* binary
+			else
+				Echo_warning "win32-loader inclusion is enabled but not found, ignoring."
+			fi
+		;;
+	esac
 fi
 
 # Creating stage file

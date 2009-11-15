@@ -20,11 +20,11 @@ Check_stagefile ()
 		if [ "${LH_FORCE}" != "enabled" ]
 		then
 			# Skipping execution
-			Echo_warning "skipping ${NAME}"
+			Echo_warning "skipping %s" "${NAME}"
 			exit 0
 		else
 			# Forcing execution
-			Echo_message "forcing ${NAME}"
+			Echo_message "forcing %s" "${NAME}"
 			rm -f "${FILE}"
 		fi
 	fi
@@ -62,9 +62,9 @@ Require_stagefile ()
 	then
 		if [ "${NUMBER}" -eq 1 ]
 		then
-			Echo_error "${NAME}: ${FILE} missing"
+			Echo_error "%s: %s missing" "${NAME}" "${FILE}"
 		else
-			Echo_error "${NAME}: one of ${FILES} is missing"
+			Echo_error "%s: one of %s is missing" "${NAME}" "${FILES}"
 		fi
 
 		exit 1

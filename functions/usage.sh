@@ -11,22 +11,22 @@ set -e
 
 Usage ()
 {
-	echo "${PROGRAM} - ${DESCRIPTION}"
+	Echo "%s - %s" "${PROGRAM}" "${DESCRIPTION}"
 	echo
-	echo "Usage:"
+	Echo "Usage:"
 	echo
 
 	if [ -n "${USAGE}" ]
 	then
-		echo "  ${USAGE}"
+		Echo " ${USAGE}"
 		echo
 	fi
 
-	echo "  ${PROGRAM} [-h|--help]"
-	echo "  ${PROGRAM} [-u|--usage]"
-	echo "  ${PROGRAM} [-v|--version]"
+	Echo "  %s [-h|--help]" "${PROGRAM}"
+	Echo "  %s [-u|--usage]" "${PROGRAM}"
+	Echo "  %s [-v|--version]" "${PROGRAM}"
 	echo
-	echo "Try \"${PROGRAM} --help\" for more information."
+	Echo "Try \" %s--help\" for more information." "${PROGRAM}"
 
 	exit 1
 }

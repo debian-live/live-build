@@ -77,10 +77,10 @@ syslinux
 grub
 EOF
 
-if [ "${LH_MEMTEST}" != "disabled" ] && [ "${LH_MEMTEST}" != "none" ]
-then
-	echo "${LH_MEMTEST}" >> chroot/root/dpkg-selection.txt
-fi
+		if [ "${LH_MEMTEST}" != "disabled" ] && [ "${LH_MEMTEST}" != "none" ]
+		then
+			echo "${LH_MEMTEST}" >> chroot/root/dpkg-selection.txt
+		fi
 		;;
 
 	powerpc)
