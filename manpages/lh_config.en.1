@@ -82,6 +82,8 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-hostname\fR \fINAME\fR]
 .br
+	[\fB\-\-ignore\-system\-defaults\fR]
+.br
 	[\fB\-\-includes\fR \fIPATH\fR]
 .br
 	[\fB\-\-initramfs\fR auto|live\-initramfs|casper]
@@ -108,13 +110,13 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-memtest\fR memtest86+|memtest86]
 .br
-	[\-m|\fB\-\-mirror\-binary\-security\fR \fIURL\fR]
+	[\fB\-\-mirror\-binary\-security\fR \fIURL\fR]
 .br
 	[\fB\-\-mirror\-binary\fR \fIURL\fR]
 .br
 	[\fB\-\-mirror\-bootstrap\-security\fR \fIURL\fR]
 .br
-	[\fB\-\-mirror\-bootstrap\fR \fIURL\fR]
+	[\-m|\fB\-\-mirror\-bootstrap\fR \fIURL\fR]
 .br
 	[\fB\-\-mode\fR debian|debian\-edu]
 .br
@@ -277,6 +279,13 @@ Example:
 All command line switches can also be specified through the corresponding
 environment variable. Environment variables are name LH_FOO, means, e.g.
 \-\-apt\-ftp\-proxy becomes LH_APT_FTP_PROXY.
+
+.SH FILES
+.I /etc/default/live-helper
+.PP
+An optional conffile for lh_config defaults, useful to specify a few system wide defaults, like
+LH_MIRROR_BOOTSTRAP. This feature can be disabled by specifying the
+\fB\-\-ignore\-system\-defaults\fR option.
 
 .SH SEE ALSO
 \fIlive\-helper\fR(7)

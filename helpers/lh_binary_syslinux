@@ -94,18 +94,19 @@ Syslinux_live_entry ()
 	INITRD="${4}"
 	APPEND="${5}"
 
-	if [ ${LH_BINARY_IMAGES} = "iso" ] || [ ${LH_BINARY_IMAGES} = "usb-hdd" ]
-	then
-		NUMBER="$(ls -1 ${KERNEL_PATH} | grep 'vmlinuz[0-9]\+$' | wc -l)"
-		NUMBER="$((${NUMBER} +1))"
+	case "${LH_BINARY_IMAGES}" in
+		iso|usb-hdd)
+			NUMBER="$(ls -1 ${KERNEL_PATH} | grep 'vmlinuz[0-9]\+$' | wc -l)"
+			NUMBER="$((${NUMBER} +1))"
 
-		# Note: ISOLINUX will not find the kernel if the name ends in ".img".
-		mv ${KERNEL_PATH}/${KERNEL} ${KERNEL_PATH}/vmlinuz${NUMBER}
-		mv ${KERNEL_PATH}/${INITRD} ${KERNEL_PATH}/initrd${NUMBER}.img
+			# Note: ISOLINUX will not find the kernel if the name ends in ".img".
+			mv ${KERNEL_PATH}/${KERNEL} ${KERNEL_PATH}/vmlinuz${NUMBER}
+			mv ${KERNEL_PATH}/${INITRD} ${KERNEL_PATH}/initrd${NUMBER}.img
 
-		KERNEL=vmlinuz${NUMBER}
-		INITRD=initrd${NUMBER}.img
-	fi
+			KERNEL=vmlinuz${NUMBER}
+			INITRD=initrd${NUMBER}.img
+		;;
+	esac
 
 	# Regular kernel
 	LINUX_LIVE="${LINUX_LIVE}\nLABEL ${LABEL}\n"
@@ -185,8 +186,8 @@ Copy_syslinux_templates ()
 		cp "${TEMPLATES}"/menu/*.cfg ${SCREEN_PATH}
 		cp "${TEMPLATES}"/menu/data/* ${DATA_PATH}
 
-         # Grab menu binary from chroot
-         MENUMODULE=$(grep 'menu.c32' ${TEMPLATES}/menu/header.cfg | sed 's|default\s*.*/\(.*menu.c32\)$|\1|g')
+		# Grab menu binary from chroot
+		MENUMODULE=$(grep 'menu.c32' ${TEMPLATES}/menu/header.cfg | sed 's|default\s*.*/\(.*menu.c32\)$|\1|g')
 		cp chroot/usr/lib/syslinux/"${MENUMODULE}" ${DATA_PATH}
 	fi
 
@@ -209,15 +210,18 @@ Copy_syslinux_templates ()
 			mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .install)
 		done
 
-		if [ "${LH_ARCHITECTURE}" = "amd64" ] || [ "${LH_ARCHITECTURE}" = "i386" ] || [ "${LH_ARCHITECTURE}" = "powerpc" ]
-		then
-			for FILE in ${SCREEN_PATH}/*.install.g-i
-			do
-				mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .install.g-i)
-			done
-		else
-			rm -f ${SCREEN_PATH}/*.install.g-i
-		fi
+		case "${LH_ARCHITECTURE}" in
+			amd64|i386|powerpc)
+				for FILE in ${SCREEN_PATH}/*.install.g-i
+				do
+					mv ${FILE} $(dirname ${FILE})/$(basename ${FILE} .install.g-i)
+				done
+				;;
+
+			*)
+				rm -f ${SCREEN_PATH}/*.install.g-i
+				;;
+		esac
 	else
 		rm -f ${SCREEN_PATH}/*.install*
 	fi
@@ -232,9 +236,9 @@ Copy_syslinux_templates ()
 	else
 		if [ "${LH_SYSLINUX_MENU}" = "disabled" ]
 		then
-		    SPLASH="${LIVE_DATA_PATH}/splash.rle"
+			SPLASH="${LIVE_DATA_PATH}/splash.rle"
 		else
-		    SPLASH="${LIVE_DATA_PATH}/splash.png"
+			SPLASH="${LIVE_DATA_PATH}/splash.png"
 		fi
 
 		if [ -n "${LH_SYSLINUX_SPLASH}" ]
@@ -276,7 +280,7 @@ Configure_syslinux_templates ()
 	# Syslinux v3.31 in etch does not support include statements
 	if [ "${LH_DISTRIBUTION}" = "etch" ]
 	then
-		while grep -q ^include ${SCREEN_PATH}/syslinux.cfg
+		while grep -qs ^include ${SCREEN_PATH}/syslinux.cfg
 		do
 			INCLUDES=$(grep ^include ${SCREEN_PATH}/syslinux.cfg |awk '{print $2}')
 
@@ -289,7 +293,7 @@ Configure_syslinux_templates ()
 					d
 				}' ${SCREEN_PATH}/syslinux.cfg
 
-				#  remove the files, which were included
+				# remove the files, which were included
 				if [ -e ${SCREEN_PATH}/${FILE_NAME} ]
 				then
 					rm -f ${SCREEN_PATH}/${FILE_NAME}

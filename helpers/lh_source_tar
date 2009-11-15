@@ -33,9 +33,9 @@ then
 	exit 0
 fi
 
-if ! echo "${LH_SOURCE_IMAGES}" | grep -qs tar
+if ! In_list tar "${LH_SOURCE_IMAGES}"
 then
-        exit 0
+	exit 0
 fi
 
 Echo_message "Begin building source tarball..."
@@ -60,7 +60,7 @@ then
 fi
 
 # Create tarball
-if gzip --help | grep -q '\-\-rsyncable'
+if gzip --help | grep -qs '\-\-rsyncable'
 then
 	tar cf source.tar source
 	gzip --rsyncable --best source.tar

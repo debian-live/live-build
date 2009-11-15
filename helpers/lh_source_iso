@@ -33,9 +33,9 @@ then
 	exit 0
 fi
 
-if ! echo "${LH_SOURCE_IMAGES}" | grep -qs iso
+if ! In_list iso "${LH_SOURCE_IMAGES}"
 then
-        exit 0
+	exit 0
 fi
 
 Echo_message "Begin building source iso image..."

@@ -74,23 +74,22 @@ fi
 
 if [ -n "${LH_BOOTSTRAP_INCLUDE}" ]
 then
-	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --include=${LH_BOOTSTRAP_INCLUDE}"
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --include=$(echo ${LH_BOOTSTRAP_INCLUDE} | sed 's|  *|,|g')"
 fi
 
 if [ -n "${LH_BOOTSTRAP_EXCLUDE}" ]
 then
-	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --exclude=${LH_BOOTSTRAP_EXCLUDE}"
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --exclude=$(echo ${LH_BOOTSTRAP_EXCLUDE} | sed 's|  *|,|g')"
 fi
 
 if [ "${LH_USE_FAKEROOT}" != "enabled" ]
 then
 	if [ -z "${LH_BOOTSTRAP_FLAVOUR}" ]
 	then
-		case "${LH_PACKAGES_LISTS}" in
-			stripped|minimal)
-				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=minbase"
-				;;
-		esac
+		if In_list "stripped minimal" "${LH_PACKAGES_LISTS}"
+		then
+			DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=minbase"
+		fi
 	else
 		case "${LH_BOOTSTRAP_FLAVOUR}" in
 			stripped|minimal)
@@ -120,7 +119,7 @@ then
 			cp cache/packages_bootstrap/*.deb chroot/var/cache/apt/archives
 		fi
 
-		# Executing debootstrap (download-only)
+		Echo_breakage "Running debootstrap (download-only)... "
 		${LH_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LH_DISTRIBUTION}" chroot "${LH_MIRROR_BOOTSTRAP}" "${LH_DEBOOTSTRAP_SCRIPT}"
 
 		if [ -n "${LH_ROOT_COMMAND}" ]
@@ -140,7 +139,7 @@ then
 		cp chroot/var/cache/apt/archives/*.deb cache/packages_bootstrap
 	fi
 
-	# Executing debootstrap (regular run)
+	Echo_breakage "Running debootstrap... "
 	${LH_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} "${LH_DISTRIBUTION}" chroot "${LH_MIRROR_BOOTSTRAP}" "${LH_DEBOOTSTRAP_SCRIPT}"
 
 	if [ -n "${LH_ROOT_COMMAND}" ]

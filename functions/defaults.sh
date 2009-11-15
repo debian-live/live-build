@@ -96,7 +96,8 @@ Set_defaults ()
 		then
 			LH_BOOTSTRAP="cdebootstrap"
 		else
-			echo "E: Can't process file /usr/sbin/debootstrap or /usr/bin/cdebootstrap (FIXME)"
+			echo "E: Cannot find /usr/sbin/debootstrap or /usr/bin/cdebootstrap. Please install"
+			echo "E: debootstrap or cdebootstrap, or specify an alternative bootstrapping utility."
 			exit 1
 		fi
 	fi
@@ -488,7 +489,14 @@ Set_defaults ()
 	## config/binary
 
 	# Setting image filesystem
-	LH_BINARY_FILESYSTEM="${LH_BINARY_FILESYSTEM:-fat16}"
+	case "${LH_ARCHITECTURE}" in
+		sparc)
+			LH_BINARY_FILESYSTEM="${LH_BINARY_FILESYSTEM:-ext2}"
+			;;
+		*)
+			LH_BINARY_FILESYSTEM="${LH_BINARY_FILESYSTEM:-fat16}"
+			;;
+	esac
 
 	# Setting image type
 	LH_BINARY_IMAGES="${LH_BINARY_IMAGES:-iso}"
@@ -498,7 +506,10 @@ Set_defaults ()
 
 	# Setting boot parameters
 	# LH_BOOTAPPEND_LIVE
-	LH_BOOTAPPEND_INSTALL="${LH_BOOTAPPEND_INSTALL:--- \${LH_BOOTAPPEND_LIVE}}"
+	if [ -z "${LH_BOOTAPPEND_INSTALL}" ]
+	then
+		LH_BOOTAPPEND_INSTALL="-- \${LH_BOOTAPPEND_LIVE}"
+	fi
 
 	# Setting bootloader
 	if [ -z "${LH_BOOTLOADER}" ]
@@ -510,6 +521,10 @@ Set_defaults ()
 
 			powerpc)
 				LH_BOOTLOADER="yaboot"
+				;;
+
+			sparc)
+				LH_BOOTLOADER="silo"
 				;;
 		esac
 	fi
@@ -662,7 +677,7 @@ Check_defaults ()
 		fi
 	fi
 
-	if [ "${LH_PACKAGES_LISTS}" = "stripped" ] || [ "${LH_PACKAGES_LISTS}" = "minimal" ]
+	if echo ${LH_PACKAGES_LISTS} | grep -qs -E "(stripped|minimal)\b"
 	then
 		if [ "${LH_APT}" = "aptitude" ]
 		then

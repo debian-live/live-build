@@ -74,13 +74,13 @@ do
 			;;
 
 		--binary)
-	                ${LH_ROOT_COMMAND} umount -f binary.tmp > /dev/null 2>&1 || true
+			${LH_ROOT_COMMAND} umount -f binary.tmp > /dev/null 2>&1 || true
 			rm -rf binary.tmp binary.deb binary.udeb
 			rm -f binary.iso
 			rm -f binary.img
 			rm -f binary*.tar.gz
 			rm -f binary.sh
-			rm -f binary.list binary.packages
+			rm -f binary.list binary.packages md5sum.txt
 
 			rm -rf binary
 			rm -rf tftpboot

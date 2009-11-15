@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_binary_yaboot(1) - installs yaboot into binary
+# lh_binary_silo(1) - installs silo into binary
 # Copyright (C) 2006-2008 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -18,7 +18,7 @@ do
 done
 
 # Setting static variables
-DESCRIPTION="installs yaboot into binary"
+DESCRIPTION="installs silo into binary"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -28,21 +28,32 @@ Arguments "${@}"
 Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_BOOTLOADER}" != "yaboot" ]
+if [ "${LH_BOOTLOADER}" != "silo" ]
 then
 	exit 0
 fi
 
-Echo_message "Begin installing yaboot..."
+# Check image type
+case "${LH_BINARY_IMAGES}" in
+	iso|usb-hdd|tar)
+		;;
+
+	net)
+		# silo not required for sparc netbooting
+		exit 0
+		;;
+esac
+
+Echo_message "Begin installing silo..."
 
 # Requiring stage file
 Require_stagefile .stage/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/binary_yaboot
+Check_stagefile .stage/binary_silo
 
-# Checking yaboot templates
-Check_templates yaboot
+# Checking silo templates
+Check_templates silo
 
 # Checking lock file
 Check_lockfile .lock
@@ -51,11 +62,10 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Check architecture
-Check_architecture powerpc ppc64
-Check_crossarchitecture
+Check_architecture sparc
 
 # Checking depends
-Check_package chroot/usr/lib/yaboot/yaboot yaboot
+Check_package chroot/usr/sbin/silo silo
 
 # Restoring cache
 Restore_cache cache/packages_binary
@@ -64,7 +74,7 @@ Restore_cache cache/packages_binary
 Install_package
 
 # Local functions
-Yaboot_live_entry ()
+Silo_live_entry ()
 {
 	LABEL="${1}"
 	KERNEL="${2}"
@@ -74,13 +84,12 @@ Yaboot_live_entry ()
 	DIRECTORY="/$(basename ${DESTDIR_LIVE})"
 
 	LINUX_LIVE="${LINUX_LIVE}\nimage=${DIRECTORY}/${KERNEL}\n"
-	LINUX_LIVE="${LINUX_LIVE}\tlabel=${LABEL}\n"
-	LINUX_LIVE="${LINUX_LIVE}\tinitrd=${DIRECTORY}/${INITRD}\n"
-	LINUX_LIVE="${LINUX_LIVE}\tappend=\"boot=${INITFS} LH_BOOTAPPEND_LIVE ${APPEND}\"\n"
-	LINUX_LIVE="${LINUX_LIVE}\tinitrd-size=10240\n"
+	LINUX_LIVE="${LINUX_LIVE}\t  label=${LABEL}\n"
+	LINUX_LIVE="${LINUX_LIVE}\t  initrd=${DIRECTORY}/${INITRD}\n"
+	LINUX_LIVE="${LINUX_LIVE}\t  append=\"boot=${INITFS} LH_BOOTAPPEND_LIVE ${APPEND}\"\n"
 }
 
-Yaboot_install_entry ()
+Silo_install_entry ()
 {
 	LABEL="${1}"
 	KERNEL="${2}"
@@ -95,45 +104,24 @@ Yaboot_install_entry ()
 	fi
 
 	LINUX_INSTALL="${LINUX_INSTALL}\nimage=${DIRECTORY}/${KERNEL}\n"
-	LINUX_INSTALL="${LINUX_INSTALL}\tlabel=${LABEL}\n"
-	LINUX_INSTALL="${LINUX_INSTALL}\tinitrd=${DIRECTORY}/${INITRD}\n"
-	LINUX_INSTALL="${LINUX_INSTALL}\tappend=\"LH_BOOTAPPEND_LIVE ${APPEND} LH_BOOTAPPEND_INSTALL\"\n"
-	LINUX_INSTALL="${LINUX_INSTALL}\tinitrd-size=10240\n"
+	LINUX_INSTALL="${LINUX_INSTALL}\t  label=${LABEL}\n"
+	LINUX_INSTALL="${LINUX_INSTALL}\t  initrd=${DIRECTORY}/${INITRD}\n"
+	LINUX_INSTALL="${LINUX_INSTALL}\t  append=\"LH_BOOTAPPEND_LIVE ${APPEND} LH_BOOTAPPEND_INSTALL\"\n"
 }
 
+# Setting destination directories
+DESTDIR_INSTALL="binary/install"
 case "${LH_INITRAMFS}" in
 	casper)
 		INITFS="casper"
+		DESTDIR_LIVE="binary/casper"
 		;;
 
 	live-initramfs)
 		INITFS="live"
+		DESTDIR_LIVE="binary/live"
 		;;
 esac
-
-# Setting destination directory
-case "${LH_BINARY_IMAGES}" in
-	iso)
-		case "${LH_INITRAMFS}" in
-			casper)
-				DESTDIR_LIVE="binary/casper"
-				;;
-
-			live-initramfs)
-				DESTDIR_LIVE="binary/live"
-				;;
-		esac
-
-		DESTDIR_INSTALL="binary/install"
-		;;
-
-	net|tar|usb-hdd)
-		Echo_error "not yet supported, aborting (FIXME)."
-		exit 1
-	;;
-esac
-
-Check_multiarchitecture
 
 # Creating directory
 mkdir -p "${DESTDIR_LIVE}"
@@ -186,7 +174,7 @@ fi
 
 if [ -n "${LH_NET_COW_PATH}" ]
 then
-	Echo_error "Net cow not yet supported on yaboot"
+	Echo_error "Net cow not supported on silo"
 	exit 1
 fi
 
@@ -204,22 +192,22 @@ FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=ofonly"
 
 # Default entries
 DEFAULT_FLAVOUR="$(echo ${LH_LINUX_FLAVOURS} | awk '{ print $1 }')"
-DEFAULT_KERNEL="$(basename chroot/boot/vmlinux-*${DEFAULT_FLAVOUR})"
-DEFAULT_INITRD="initrd.img-$(echo ${DEFAULT_KERNEL} | sed -e 's|vmlinux-||')"
+DEFAULT_KERNEL="$(basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR})"
+DEFAULT_INITRD="initrd.img-$(echo ${DEFAULT_KERNEL} | sed -e 's|vmlinuz-||')"
 
-Yaboot_live_entry "live" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
-Yaboot_live_entry "live-failsafe" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}" "${FAILSAFE}"
+Silo_live_entry "live" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
+Silo_live_entry "live-failsafe" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}" "${FAILSAFE}"
 
 if [ "$(echo ${LH_LINUX_FLAVOURS} | wc -w)" -gt "1" ]
 then
-	for KERNEL in chroot/boot/vmlinux-*
+	for KERNEL in chroot/boot/vmlinuz-*
 	do
 		KERNEL_IMAGE="$(basename ${KERNEL})"
-		KERNEL_VERSION="$(echo ${KERNEL_IMAGE} | sed -e 's|vmlinux-||')"
+		KERNEL_VERSION="$(echo ${KERNEL_IMAGE} | sed -e 's|vmlinuz-||')"
 		INITRD="initrd.img-${KERNEL_VERSION}"
 
-		Yaboot_live_entry "live-${KERNEL_VERSION}" "${KERNEL_IMAGE}" "${INITRD}"
-		Yaboot_live_entry "live-${KERNEL_VERSION}-failsafe" "${KERNEL_IMAGE}" "${INITRD}" "${FAILSAFE}"
+		Silo_live_entry "live-${KERNEL_VERSION}" "${KERNEL_IMAGE}" "${INITRD}"
+		Silo_live_entry "live-${KERNEL_VERSION}-failsafe" "${KERNEL_IMAGE}" "${INITRD}" "${FAILSAFE}"
 	done
 fi
 
@@ -232,52 +220,50 @@ then
 	INITRD_DI="initrd.gz"
 	APPEND_DI="vga=normal"
 
-	VMLINUZ_GI="gtk/vmlinuz"
-	INITRD_GI="gtk/initrd.gz"
-	APPEND_GI="video=vesa:ywrap,mtrr vga=788"
-
-	Yaboot_install_entry "linux" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
-	Yaboot_install_entry "install" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
-	Yaboot_install_entry "installgui" "${VMLINUZ_GI}" "${INITRD_GI}" "${APPEND_GI}"
-	Yaboot_install_entry "expert" "${VMLINUZ_DI}" "${INITRD_DI}" "priority=low ${APPEND_DI}"
-	Yaboot_install_entry "expertgui" "${VMLINUZ_GI}" "${INITRD_GI}" "priority=low ${APPEND_GI}"
-	Yaboot_install_entry "rescue" "${VMLINUZ_DI}" "${INITRD_DI}" "rescue/enable=true ${APPEND_DI}"
-	Yaboot_install_entry "rescuegui" "${VMLINUZ_GI}" "${INITRD_GI}" "rescue/enable=true ${APPEND_GI}"
-	Yaboot_install_entry "auto" "${VMLINUZ_DI}" "${INITRD_DI}" "auto=true priority=critical ${APPEND_DI}"
-	Yaboot_install_entry "autogui" "${VMLINUZ_GI}" "${INITRD_GI}" "auto=true priority=critical ${APPEND_GI}"
+	Silo_install_entry "linux" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
+	Silo_install_entry "install" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
+	Silo_install_entry "expert" "${VMLINUZ_DI}" "${INITRD_DI}" "priority=low ${APPEND_DI}"
+	Silo_install_entry "rescue" "${VMLINUZ_DI}" "${INITRD_DI}" "rescue/enable=true ${APPEND_DI}"
+	Silo_install_entry "auto" "${VMLINUZ_DI}" "${INITRD_DI}" "auto=true priority=critical ${APPEND_DI}"
 fi
 
 LINUX_INSTALL="$(/bin/echo ${LINUX_INSTALL} | sed -e 's|binary||g' -e 's|//|/|g')"
 
 case "${LH_BINARY_IMAGES}" in
 	iso|usb-hdd)
-		# Copying yaboot
-		mkdir -p binary/yaboot
+		# Copying silo
+		mkdir -p binary/boot
 
 		case "${LH_CHROOT_BUILD}" in
 			enabled)
-				cp chroot/usr/lib/yaboot/yaboot binary/yaboot
+				cp chroot/boot/second.b binary/boot
 				;;
 
 			disabled)
-				cp /usr/lib/yaboot/yaboot binary/yaboot
+				cp /boot/second.b binary/boot
 				;;
 		esac
 
-		cp -r "${TEMPLATES}"/* binary/yaboot
+		cp -r "${TEMPLATES}"/* binary/boot
 
-		if [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
+		if [ "${LH_DEBIAN_INSTALLER}" = "disabled" ]
 		then
-			mv binary/yaboot/yaboot.conf binary/yaboot/yaboot.conf.tmp
-			echo "root=/dev/ram" > binary/yaboot/yaboot.conf
-			cat binary/yaboot/yaboot.conf.tmp >> binary/yaboot/yaboot.conf
-			rm -f binary/yaboot/yaboot.conf.tmp
+			rm -f binary/boot/debian.txt.install
+		else
+			mv binary/boot/debian.txt.install binary/boot/debian.txt
 		fi
 
-		# Configure yaboot templates
-		sed -i -e "s|LINUX_LIVE|${LINUX_LIVE}|" -e "s|LINUX_INSTALL|${LINUX_INSTALL}|" binary/yaboot/yaboot.conf
-		sed -i -e "s|LH_BOOTAPPEND_INSTALL|${LH_BOOTAPPEND_INSTALL}|" -e "s|LH_BOOTAPPEND_LIVE|${LH_BOOTAPPEND_LIVE}|" binary/yaboot/yaboot.conf
-		sed -i -e "s|LH_DATE|$(date +%Y%m%d)|" -e "s|LH_VERSION|${VERSION}|" binary/yaboot/boot.msg
+		# Configure silo templates
+		sed -i -e "s|LINUX_LIVE|${LINUX_LIVE}|" \
+		       -e "s|LINUX_INSTALL|${LINUX_INSTALL}|" \
+		       binary/boot/silo.conf
+		sed -i -e "s|LH_BOOTAPPEND_INSTALL|${LH_BOOTAPPEND_INSTALL}|" \
+		       -e "s|LH_BOOTAPPEND_LIVE|${LH_BOOTAPPEND_LIVE}|" \
+		       binary/boot/silo.conf
+		sed -i -e "s|LH_DATE|$(date +%Y%m%d)|" \
+		       -e "s|LH_VERSION|${VERSION}|" \
+		       -e "s|LH_DISTRIBUTION|${LH_DISTRIBUTION}|" \
+		       binary/boot/debian.txt
 		;;
 esac
 
@@ -288,4 +274,4 @@ Save_cache cache/packages_binary
 Remove_package
 
 # Creating stage file
-Create_stagefile .stage/binary_yaboot
+Create_stagefile .stage/binary_silo

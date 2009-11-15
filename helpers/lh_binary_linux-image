@@ -64,6 +64,10 @@ case "${LH_ARCHITECTURE}" in
 	powerpc)
 		LINUX="vmlinux"
 		;;
+
+	sparc)
+		LINUX="vmlinuz"
+		;;
 esac
 
 Check_multiarchitecture

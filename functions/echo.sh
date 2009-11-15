@@ -52,3 +52,19 @@ Echo_warning ()
 
 	echo "W: ${STRING}"
 }
+
+Echo_breakage ()
+{
+	Echo_message "If the following stage fails, the most likely cause of the problem is with"
+
+	case "${LH_DISTRIBUTION}" in
+		sid|unstable)
+			Echo_message "your mirror configuration, a caching proxy or the sid distribution."
+			;;
+		*)
+			Echo_message "your mirror configuration or a caching proxy."
+			;;
+	esac
+
+	Echo_message "${@}"
+}

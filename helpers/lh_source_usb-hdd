@@ -33,9 +33,9 @@ then
 	exit 0
 fi
 
-if ! echo "${LH_SOURCE_IMAGES}" | grep -qs usb-hdd
+if ! In_list usb-hdd "${LH_SOURCE_IMAGES}"
 then
-        exit 0
+	exit 0
 fi
 
 Echo_message "Begin building source usb-hdd image..."
@@ -78,26 +78,48 @@ then
 	find /dev | cpio -dmpu chroot
 fi
 
+case "${LH_BINARY_FILESYSTEM}" in
+	ext2|ext3)
+		PARTITION_TYPE="ext2"
+		;;
+
+	fat16|fat32)
+		PARTITION_TYPE="${LH_BINARY_FILESYSTEM}"
+		;;
+
+	*)
+		Echo_error "Unsupported binary filesystem ${LH_BINARY_FILESYSTEM}"
+		exit 1
+		;;
+esac
+
 echo "!!! The following error/warning messages can be ignored !!!"
 Losetup $FREELO source.img 0
 Chroot "parted -s ${FREELO} mklabel msdos" || true
-Chroot "parted -s ${FREELO} mkpart primary ${LH_BINARY_FILESYSTEM} 0.0 100%" || true
+Chroot "parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100%" || true
 Chroot "parted -s ${FREELO} set 1 lba off" || true
 ${LH_LOSETUP} -d ${FREELO}
 
 Losetup $FREELO source.img 1
 
 case "${LH_BINARY_FILESYSTEM}" in
+	ext2|ext3)
+		MKFS="${LH_BINARY_FILESYSTEM}"
+		MKFS_OPTIONS="-L DEBIAN_LIVE -m 0"
+		;;
+
 	fat16)
-		MKFS_OPTIONS="-F 16"
+		MKFS="vfat"
+		MKFS_OPTIONS="-F 16 -n DEBIAN_LIVE"
 		;;
 
 	fat32)
-		MKFS_OPTIONS="-F 32"
+		MKFS="vfat"
+		MKFS_OPTIONS="-F 32 -n DEBIAN_LIVE"
 		;;
 esac
 
-Chroot " mkfs.vfat ${MKFS_OPTIONS} -n DEBIAN_LIVE ${FREELO}"
+Chroot "mkfs.${MKFS} ${MKFS_OPTIONS} ${FREELO}"
 
 mkdir -p source.tmp
 ${LH_ROOT_COMMAND} mount ${FREELO} source.tmp

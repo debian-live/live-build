@@ -43,7 +43,7 @@ case "${LH_DEBIAN_INSTALLER}" in
 		;;
 
 	*)
-		Echo_error "debian-installer flavor ${LH_DEBIAN_INSTALLER} not supported."
+		Echo_error "debian-installer flavour ${LH_DEBIAN_INSTALLER} not supported."
 		exit 1
 		;;
 esac
@@ -64,6 +64,7 @@ Create_lockfile .lock
 
 # Checking depends
 Check_package chroot/usr/bin/wget wget
+Check_package chroot/usr/bin/apt-ftparchive apt-utils
 
 # Restoring cache
 Restore_cache cache/packages_binary
@@ -92,45 +93,72 @@ case "${LH_BINARY_IMAGES}" in
 		;;
 esac
 
-# Setting remote d-i directories
-case "${LH_BINARY_IMAGES}" in
-	net)
-		USE_NETBOOT_DI="yes"
+# Set d-i image type
+case "${LH_DEBIAN_INSTALLER}" in
+	businesscard|netboot|netinst)
+		DI_IMAGE_TYPE="netboot"
 		;;
 	*)
-		case "${LH_DEBIAN_INSTALLER}" in
-			businesscard|netboot)
-				USE_NETBOOT_DI="yes"
+		case "${LH_BINARY_IMAGES}" in
+			iso)
+				DI_IMAGE_TYPE="cdrom"
 				;;
+
 			*)
-				USE_NETBOOT_DI="no"
+				DI_IMAGE_TYPE="netboot"
 				;;
 		esac
 		;;
 esac
 
-case "${USE_NETBOOT_DI}" in
-	yes)
-		DI_REMOTE_BASE="netboot/debian-installer/${LH_ARCHITECTURE}"
-		DI_REMOTE_BASE_GTK="netboot/gtk/debian-installer/${LH_ARCHITECTURE}"
-		DI_REMOTE_KERNEL="linux"
+# Varous architecture-specific hacks
+case "${LH_ARCHITECTURE}" in
+	i386|amd64)
+		case "${DI_IMAGE_TYPE}" in
+			netboot)
+				DI_REMOTE_BASE="netboot/debian-installer/${LH_ARCHITECTURE}"
+				DI_REMOTE_BASE_GTK="netboot/gtk/debian-installer/${LH_ARCHITECTURE}"
+				DI_REMOTE_KERNEL="linux"
+				;;
+
+			cdrom)
+				DI_REMOTE_BASE="cdrom"
+				DI_REMOTE_BASE_GTK="cdrom/gtk"
+				DI_REMOTE_KERNEL="vmlinuz"
+				;;
+		esac
 		;;
-	no)
-		DI_REMOTE_BASE="cdrom"
-		DI_REMOTE_BASE_GTK="cdrom/gtk"
-		DI_REMOTE_KERNEL="vmlinuz"
+
+	powerpc)
+		case "${DI_IMAGE_TYPE}" in
+			cdrom)
+				DI_REMOTE_BASE="${LH_ARCHITECTURE}/cdrom"
+			;;
+
+			netboot)
+				DI_REMOTE_BASE="${LH_ARCHITECTURE}/netboot"
+				;;
+		esac
+
+		DI_REMOTE_KERNEL="vmlinux"
+		DI_REMOTE_BASE_GTK="${DI_REMOTE_BASE}/gtk"
+		;;
+
+	sparc)
+		DEFAULT_FLAVOUR="$(echo ${LH_LINUX_FLAVOURS} | awk '{ print $1 }')"
+		DI_REMOTE_KERNEL="$(basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR})"
+		DI_REMOTE_BASE_GTK="none"
+
+		if [ "${LH_DISTRIBUTION}" = "etch" ]
+		then
+			DI_REMOTE_BASE="cdrom/2.6"
+		else
+			DI_REMOTE_BASE="cdrom"
+		fi
 		;;
 esac
 
 Check_multiarchitecture
-
-VMLINUZ_DI="vmlinuz"
-INITRD_DI="initrd.gz"
-DESTDIR_DI="${DESTDIR}"
-
-VMLINUZ_GI="gtk/vmlinuz"
-INITRD_GI="gtk/initrd.gz"
-DESTDIR_GI="${DESTDIR}/gtk"
 
 Install_file() {
 	local FILE
@@ -163,19 +191,28 @@ Install_file() {
 	cp "${FILE}" "${TARGET}"/"${LETTER}"/"${SOURCE}"
 }
 
+VMLINUZ_DI="vmlinuz"
+INITRD_DI="initrd.gz"
+DESTDIR_DI="${DESTDIR}"
+
+VMLINUZ_GI="gtk/vmlinuz"
+INITRD_GI="gtk/initrd.gz"
+DESTDIR_GI="${DESTDIR}/gtk"
+
 # Workaround for syslinux (<< 3.36) which doesn't support long file/path names
 if [ "${LH_DISTRIBUTION}" = "etch" ]
 then
-	if [ "${LH_BINARY_IMAGES}" = "tar" ] || [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
-	then
-		VMLINUZ_DI="vmlinuz.di"
-		INITRD_DI="initrddi.gz"
-		DESTDIR_DI="${DESTDIR}"
+	case "${LH_BINARY_IMAGES}" in
+		usb-hdd|tar)
+			VMLINUZ_DI="vmlinuz.di"
+			INITRD_DI="initrddi.gz"
+			DESTDIR_DI="${DESTDIR}"
 
-		VMLINUZ_GI="vmlinuz.gi"
-		INITRD_GI="initrdgi.gz"
-		DESTDIR_GI="${DESTDIR}"
-	fi
+			VMLINUZ_GI="vmlinuz.gi"
+			INITRD_GI="initrdgi.gz"
+			DESTDIR_GI="${DESTDIR}"
+			;;
+	esac
 fi
 
 if [ "${LH_DEBIAN_INSTALLER_DAILY}" = "enabled" ]
@@ -239,21 +276,57 @@ else
 	URL="${LH_MIRROR_CHROOT}/dists/${LH_DISTRIBUTION}/main/installer-${LH_ARCHITECTURE}/current/images/"
 fi
 
-# Downloading debian-installer
 mkdir -p "${DESTDIR_DI}"
-wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI_REMOTE_BASE}/${DI_REMOTE_KERNEL}
-wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI_REMOTE_BASE}/initrd.gz
 
-# Downloading graphical-installer
-if [ "${LH_ARCHITECTURE}" = "amd64" ] || [ "${LH_ARCHITECTURE}" = "i386" ] || [ "${LH_ARCHITECTURE}" = "powerpc" ]
+if [ "${LH_ARCHITECTURE}" = "sparc" ] && [ "${DI_IMAGE_TYPE}" = "netboot" ]
 then
-	mkdir -p "${DESTDIR_GI}"
-	wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/${DI_REMOTE_KERNEL}
-	wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/initrd.gz
+	# There are no prepared kernel/initrd pairs for sparc netboot so we
+	# must unpack them from a mini.iso
+
+	if [ "${LH_DISTRIBUTION}" = "etch" ]
+	then
+		wget ${WGET_OPTIONS} -O mini.iso ${URL}/combined/2.6/mini.iso
+	else
+		wget ${WGET_OPTIONS} -O mini.iso ${URL}/mini.iso
+	fi
+
+	mkdir mini.tmp
+	${LH_ROOT_COMMAND} mount -o loop -t iso9660 mini.iso mini.tmp
+
+	cp mini.tmp/boot/vmlinuz-${DEFAULT_FLAVOUR} "${DESTDIR}"/"${VMLINUZ_DI}"
+	cp mini.tmp/boot/initrd.gz "${DESTDIR}"/"${INITRD_DI}"
+
+	${LH_ROOT_COMMAND} umount mini.tmp
+	rm -rf mini.tmp mini.iso
+else
+	# Downloading debian-installer
+	wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI_REMOTE_BASE}/${DI_REMOTE_KERNEL}
+	wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI_REMOTE_BASE}/initrd.gz
+
+	# Downloading graphical-installer
+	DOWNLOAD_GTK_INSTALLER=0
+	case "${LH_ARCHITECTURE}" in
+		amd64|i386)
+			DOWNLOAD_GTK_INSTALLER=1
+			;;
+		powerpc)
+			if [ "${LH_DEBIAN_INSTALLER}" = "netboot" ]
+			then
+				DOWNLOAD_GTK_INSTALLER=1
+			fi
+			;;
+	esac
+
+	if [ ${DOWNLOAD_GTK_INSTALLER} -eq 1 ]
+	then
+		mkdir -p "${DESTDIR_GI}"
+		wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/${DI_REMOTE_KERNEL}
+		wget ${WGET_OPTIONS} -O "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/initrd.gz
+	fi
 fi
 
 # Only download additional packages if appropriate
-if [ "${USE_NETBOOT_DI}" = "no" ]
+if [ "${DI_IMAGE_TYPE}" != "netboot" ]
 then
 	# Downloading additional packages
 	mkdir -p chroot/binary.deb/archives/partial
@@ -269,8 +342,22 @@ then
 			DI_PACKAGES="linux-image-2.6-486 linux-image-2.6-686 elilo lilo grub"
 			;;
 
+		sparc)
+			DI_PACKAGES="linux-image-2.6-sparc64 linux-image-2.6-sparc64-smp silo"
+
+			if [ "${LH_DISTRIBUTION}" = "etch" ]
+			then
+				DI_PACKAGES="${DI_PACKAGES} linux-image-2.6-sparc32"
+			fi
+			;;
+
 		powerpc)
-			DI_PACKAGES="linux-image-2.6-powerpc linux-image-2.6-powerpc64 linux-image-2.6-powerpc-smp linux-image-2.6-prep yaboot" # FIXME bootloader?
+			DI_PACKAGES="linux-image-2.6-powerpc linux-image-2.6-powerpc64 linux-image-2.6-powerpc-smp yaboot" # FIXME bootloader?
+
+			if [ "${LH_DISTRIBUTION}" = "etch" ]
+			then
+				DI_PACKAGES="${DI_PACKAGES} linux-image-2.6-prep"
+			fi
 			;;
 	esac
 
@@ -301,7 +388,7 @@ then
 	fi
 
 	# Including local debs
-	if ls ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".udeb > /dev/null 2>&1
+	if ls ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".deb > /dev/null 2>&1
 	then
 		for FILE in ../config/binary_local-debs/*_"${LH_ARCHITECTURE}".deb
 		do
@@ -309,7 +396,7 @@ then
 		done
 	fi
 
-	if ls ../config/binary_local-debs/*_all.udeb > /dev/null 2>&1
+	if ls ../config/binary_local-debs/*_all.deb > /dev/null 2>&1
 	then
 		for FILE in ../config/binary_local-debs/*_all.deb
 		do
@@ -392,6 +479,11 @@ then
 
 	for EXCLUDE in $(cat exclude)
 	do
+		if [ "${LH_DEBIAN_INSTALLER}" = "live" ] && [ "${EXCLUDE}" = "live-installer" ]
+		then
+			continue
+		fi
+
 		rm -f "${EXCLUDE}"_*.udeb
 	done
 
@@ -452,7 +544,7 @@ then
 	fi
 
 	# Including preseeding files
-	if [ -e config/binary_debian-installer/preseed*.cfg ]
+	if ls config/binary_debian_installer/preseed*.cfg > /dev/null 2>&1
 	then
 		cp config/binary_debian-installer/preseed*.cfg binary/install
 	fi
@@ -477,7 +569,7 @@ Repack_initrd()
 }
 
 # Preseed d-i by repacking the initrd in certain situations
-if [ "${USE_NETBOOT_DI}" = "yes" ] && [ -e config/binary_debian-installer/preseed.cfg ]
+if [ "${DI_IMAGE_TYPE}" = "netboot" ] && [ -e config/binary_debian-installer/preseed.cfg ]
 then
 	Repack_initrd "${DESTDIR}"/"${INITRD_DI}"
 

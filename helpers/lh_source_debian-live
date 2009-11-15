@@ -60,7 +60,7 @@ cp -a config source/debian-live
 # Create tarball
 cd source
 
-if gzip --help | grep -q '\-\-rsyncable'
+if gzip --help | grep -qs '\-\-rsyncable'
 then
 	tar cf debian-live-config_$(date +%Y%m%d.%s).tar debian-live
 	gzip --rsyncable --best debian-live-config_$(date +%Y%m%d.%s).tar

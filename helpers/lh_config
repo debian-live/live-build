@@ -18,6 +18,7 @@ do
 done
 
 # Setting static variables
+SYSTEM_LH_CONFFILE="/etc/default/live-helper"
 DESCRIPTION="create configuration for live-helper(7)"
 HELP="FIXME"
 USAGE="${PROGRAM} [--apt apt|aptitude]\n\
@@ -63,6 +64,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--grub-splash FILE]\n\
 \t    [--hooks FILE]\n\
 \t    [--hostname NAME]\n\
+\t    [--ignore-system-defaults]\n\
 \t    [--includes PATH]\n\
 \t    [--initramfs auto|live-initramfs|casper]\n\
 \t    [--interactive shell]\n\
@@ -77,11 +79,11 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--linux-packages \"PACKAGES\"]\n\
 \t    [--losetup losetup|losetup.orig]\n\
 \t    [--memtest memtest86+|memtest86]\n\
-\t    [--mirror-bootstrap URL]\n\
+\t    [-m|--mirror-bootstrap URL]\n\
 \t    [--mirror-chroot URL]\n\
 \t    [--mirror-chroot-security URL]\n\
 \t    [--mirror-binary URL]\n\
-\t    [-m|--mirror-binary-security URL]\n\
+\t    [--mirror-binary-security URL]\n\
 \t    [--mode debian|debian-edu]\n\
 \t    [--net-root-filesystem nfs|cfs]\n\
 \t    [--net-root-mountoptions OPTIONS]\n\
@@ -116,7 +118,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 
 Local_arguments ()
 {
-	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-options:,aptitute-options:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,net-cow-server:,net-tarball:,syslinux-splash:,syslinux-timeout:,syslinux-menu:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
+	ARGUMENTS="$(getopt --longoptions apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-options:,aptitute-options:,apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,genisoimage:,initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,mirror-binary-security:,sections:,chroot-filesystem:,union-filesystem:,exposed-root:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,debian-installer:,debian-installer-daily:,encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,net-cow-server:,net-tarball:,syslinux-splash:,syslinux-timeout:,syslinux-menu:,username:,source:,source-images:,breakpoints,conffile:,debug,force,help,ignore-system-defaults,quiet,usage,verbose,version --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
 
 	if [ "${?}" != "0" ]
 	then
@@ -285,7 +287,7 @@ Local_arguments ()
 				;;
 
 			-v|--version)
-			 	Version
+				Version
 				shift
 				;;
 
@@ -619,6 +621,10 @@ Local_arguments ()
 				shift
 				;;
 
+			--ignore-system-defaults)
+				shift
+				;;
+
 			--quiet)
 				LH_QUIET="enabled"
 				shift
@@ -652,18 +658,25 @@ Local_arguments ()
 	done
 }
 
+# Reading system configuration
+if [ -f "${SYSTEM_LH_CONFFILE}" ] && ! In_list "--ignore-system-defaults" "${@}"
+then
+	Echo_message "Using system defaults from ${SYSTEM_LH_CONFFILE}"
+	Read_conffile "${SYSTEM_LH_CONFFILE}"
+fi
+
 # Reading existing configuration
 Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
-
-Local_arguments "${@}"
-
-# Setting defaults
-Set_defaults
 
 if [ -n "${LH_CONFFILE}" ]
 then
 	Read_conffile "${LH_CONFFILE}"
 fi
+
+Local_arguments "${@}"
+
+# Setting defaults
+Set_defaults
 
 # Checking defaults
 Check_defaults

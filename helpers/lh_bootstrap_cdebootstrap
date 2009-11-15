@@ -69,17 +69,17 @@ fi
 
 if [ -n "${LH_BOOTSTRAP_INCLUDE}" ]
 then
-	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --include=${LH_BOOTSTRAP_INCLUDE}"
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --include=$(echo ${LH_BOOTSTRAP_INCLUDE} | sed 's|  *|,|g')"
 fi
 
 if [ -n "${LH_BOOTSTRAP_EXCLUDE}" ]
 then
-	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --exclude=${LH_BOOTSTRAP_EXCLUDE}"
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --exclude=$(echo ${LH_BOOTSTRAP_EXCLUDE} | sed 's|  *|,|g')"
 fi
 
 if [ -n "${LH_BOOTSTRAP_KEYRING}" ]
 then
-    CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --keyring=${LH_BOOTSTRAP_KEYRING}"
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --keyring=${LH_BOOTSTRAP_KEYRING}"
 fi
 
 if [ -z "${LH_BOOTSTRAP_FLAVOUR}" ]
@@ -119,6 +119,11 @@ then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --verbose"
 fi
 
+if [ "${LH_APT_SECURE}" = "disabled" ]
+then
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --allow-unauthenticated"
+fi
+
 if [ -x "/usr/bin/cdebootstrap" ]
 then
 	if [ "${LH_CACHE_PACKAGES}" = "enabled" ]
@@ -129,7 +134,7 @@ then
 			cp cache/packages_bootstrap/*.deb chroot/var/cache/bootstrap
 		fi
 
-		# Executing cdebootstrap (download-only)
+		Echo_breakage "Running cdebootstrap (download-only)... "
 		${LH_ROOT_COMMAND} cdebootstrap ${CDEBOOTSTRAP_OPTIONS} --download-only "${LH_DISTRIBUTION}" chroot "${LH_MIRROR_BOOTSTRAP}"
 
 		if [ -n "${LH_ROOT_COMMAND}" ]
@@ -149,10 +154,8 @@ then
 		cp chroot/var/cache/bootstrap/*.deb cache/packages_bootstrap
 	fi
 
-	# Executing cdebootstrap (regular run)
-	[ "$LH_QUIET" = "enabled" ] && echo -n "Running cdebootstrap ... "
+	Echo_breakage "Running cdebootstrap... "
 	${LH_ROOT_COMMAND} cdebootstrap ${CDEBOOTSTRAP_OPTIONS} "${LH_DISTRIBUTION}" chroot "${LH_MIRROR_BOOTSTRAP}"
-	[ "$LH_QUIET" = "enabled" ] && echo "done."
 
 	if [ -n "${LH_ROOT_COMMAND}" ]
 	then

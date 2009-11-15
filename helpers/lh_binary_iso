@@ -28,7 +28,7 @@ Arguments "${@}"
 Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if ! echo "${LH_BINARY_IMAGES}" | grep -qs iso
+if ! In_list iso "${LH_BINARY_IMAGES}"
 then
 	exit 0
 fi
@@ -100,6 +100,11 @@ case "${LH_BOOTLOADER}" in
 		GENISOIMAGE_EXCLUDE="boot/grub/stage2_eltorito"
 		;;
 
+	silo)
+		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -r -G boot/isofs.b -B ..."
+		GENISOIMAGE_EXCLUDE="boot/isofs.b"
+		;;
+
 	syslinux)
 		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -no-emul-boot -boot-load-size 4 -boot-info-table"
 		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -r -b isolinux/isolinux.bin -c isolinux/boot.cat"
@@ -119,11 +124,13 @@ case "${LH_BOOTLOADER}" in
 		;;
 esac
 
-case "${LH_PACKAGES_LISTS}" in
-	stripped|minimal)
+if In_list "stripped minimal" "${LH_PACKAGES_LISTS}"
+then
+	if [ "${LH_DEBIAN_INSTALLER}" != "live" ]
+	then
 		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m ${GENISOIMAGE_EXCLUDE}"
-		;;
-esac
+	fi
+fi
 
 cat > binary.sh << EOF
 genisoimage ${GENISOIMAGE_OPTIONS} -o binary.iso -J -l -cache-inodes -allow-multidot binary

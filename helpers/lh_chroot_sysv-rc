@@ -51,7 +51,7 @@ case "${1}" in
 		fi
 
 		# Create policy-rc.d file
-cat  > chroot/usr/sbin/policy-rc.d << EOF
+cat > chroot/usr/sbin/policy-rc.d << EOF
 #!/bin/sh
 
 echo

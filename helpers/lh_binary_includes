@@ -78,12 +78,20 @@ case "${LH_ARCHITECTURE}" in
 	powerpc)
 		ARCH="ppc"
 		;;
+
+	sparc)
+		ARCH="spa"
+		;;
 esac
 
 # Working arround vfat limitations
 if [ "${LH_BINARY_IMAGE}" = "usb-hdd" ]
 then
-	CP_OPTIONS="-L"
+	case "${LH_BINARY_FILESYSTEM}" in
+		fat*)
+			CP_OPTIONS="-L"
+			;;
+	esac
 fi
 
 # Copying common templates

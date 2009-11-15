@@ -28,7 +28,7 @@ Arguments "${@}"
 Read_conffile config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if ! echo "${LH_BINARY_IMAGES}" | grep -qs usb-hdd
+if ! In_list usb-hdd "${LH_BINARY_IMAGES}"
 then
 	exit 0
 fi
@@ -52,6 +52,20 @@ Create_lockfile .lock
 Check_package chroot/sbin/mkdosfs dosfstools
 Check_package chroot/usr/share/doc/mtools mtools
 Check_package chroot/sbin/parted parted
+
+if [ "${LH_ARCHITECTURE}" = "sparc" ]
+then
+	case "${LH_BINARY_FILESYSTEM}" in
+		ext2|ext3)
+			Check_package chroot/sbin/mkfs.ext2 e2fsprogs
+			;;
+
+		*)
+			Echo_error "Sparc only supports booting from ext2, ext3 (or ufs)"
+			exit 1
+			;;
+	esac
+fi
 
 case "${LH_BOOTLOADER}" in
 	grub)
@@ -91,10 +105,34 @@ fi
 echo "!!! The following error/warning messages can be ignored !!!"
 Losetup $FREELO chroot/binary.img 0
 
+case "${LH_ARCHITECTURE}" in
+	sparc)
+		PARTITION_TABLE_TYPE="sun"
+		;;
+	*)
+		PARTITION_TABLE_TYPE="msdos"
+		;;
+esac
+
+case "${LH_BINARY_FILESYSTEM}" in
+	ext2|ext3)
+		PARTITION_TYPE="ext2"
+		;;
+
+	fat16|fat32)
+		PARTITION_TYPE="${LH_BINARY_FILESYSTEM}"
+		;;
+
+	*)
+		Echo_error "Unsupported binary filesystem ${LH_BINARY_FILESYSTEM}"
+		exit 1
+		;;
+esac
+
 case "${LH_CHROOT_BUILD}" in
 	enabled)
-		Chroot "parted -s ${FREELO} mklabel msdos" || true
-		Chroot "parted -s ${FREELO} mkpart primary ${LH_BINARY_FILESYSTEM} 0.0 100%" || true
+		Chroot "parted -s ${FREELO} mklabel ${PARTITION_TABLE_TYPE}" || true
+		Chroot "parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100%" || true
 		Chroot "parted -s ${FREELO} set 1 boot on" || true
 		Chroot "parted -s ${FREELO} set 1 lba off" || true
 
@@ -105,8 +143,8 @@ case "${LH_CHROOT_BUILD}" in
 		;;
 
 	disabled)
-		parted -s ${FREELO} mklabel msdos || true
-		parted -s ${FREELO} mkpart primary ${LH_BINARY_FILESYSTEM} 0.0 100% || true
+		parted -s ${FREELO} mklabel ${PARTITION_TABLE_TYPE} || true
+		parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100%
 		parted -s ${FREELO} set 1 boot on || true
 		parted -s ${FREELO} set 1 lba off || true
 
@@ -123,28 +161,41 @@ FREELO="$(${LH_LOSETUP} -f)"
 Losetup $FREELO chroot/binary.img 1
 
 case "${LH_BINARY_FILESYSTEM}" in
+	ext2|ext3)
+		MKFS="${LH_BINARY_FILESYSTEM}"
+		MKFS_OPTIONS="-L DEBIAN_LIVE -m 0"
+		;;
+
 	fat16)
-		MKFS_OPTIONS="-F 16"
+		MKFS="vfat"
+		MKFS_OPTIONS="-F 16 -n DEBIAN_LIVE"
 		;;
 
 	fat32)
-		MKFS_OPTIONS="-F 32"
+		MKFS="vfat"
+		MKFS_OPTIONS="-F 32 -n DEBIAN_LIVE"
 		;;
 esac
 
 case "${LH_CHROOT_BUILD}" in
 	enabled)
-		Chroot "mkfs.vfat ${MKFS_OPTIONS} -n DEBIAN_LIVE ${FREELO}"
+		Chroot "mkfs.${MKFS} ${MKFS_OPTIONS} ${FREELO}"
 		;;
 
 	disabled)
-		mkfs.vfat ${MKFS_OPTIONS} -n DEBIAN_LIVE ${FREELO}
+		mkfs.${MKFS} ${MKFS_OPTIONS} ${FREELO}
+		;;
+esac
+
+case "${LH_BINARY_FILESYSTEM}" in
+	fat*)
+		CP_OPTIONS="-L"
 		;;
 esac
 
 mkdir -p chroot/binary.tmp
 ${LH_ROOT_COMMAND} mount ${FREELO} chroot/binary.tmp
-cp -rL binary/* chroot/binary.tmp
+cp -r ${CP_OPTIONS} binary/* chroot/binary.tmp
 
 FIXME()
 {
