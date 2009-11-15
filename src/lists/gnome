@@ -1,7 +1,7 @@
 # /usr/share/make-live/lists/gnome - package list for make-live(1)
 
 # Minimal
-eject sudo
+eject file sudo vim-tiny
 
 # Standard
 console-common locales

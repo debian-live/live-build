@@ -53,7 +53,7 @@ Defaults ()
 	# Set debian distribution
 	if [ -z "${LIVE_DISTRIBUTION}" ]
 	then
-		LIVE_DISTRIBUTION="testing"
+		LIVE_DISTRIBUTION="unstable"
 	fi
 
 	if [ "${LIVE_DISTRIBUTION}" = "experimental" ]

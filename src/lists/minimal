@@ -1,4 +1,4 @@
 # /usr/share/make-live/lists/minimal - package list for make-live(1)
 
 # Minimal
-eject vim-tiny sudo
+eject file sudo vim-tiny
