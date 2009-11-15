@@ -1,1 +1,12 @@
-gnome-core gdm x-window-system-core
+# /usr/share/make-live/lists/gnome-core - package list for make-live(8)
+
+# Minimal
+sudo
+
+# Standard
+locales
+
+# GNOME Core
+gdm gnome-core
+
+x-window-system-core

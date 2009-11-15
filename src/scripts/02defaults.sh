@@ -40,7 +40,7 @@ Defaults ()
 	# Set bootstrap architecture
 	if [ -z "${LIVE_ARCHITECTURE}" ]
 	then
-		LIVE_ARCHITECTURE="`dpkg-architecture -qDEB_BUILD_ARCH`"
+		LIVE_ARCHITECTURE="`dpkg --print-architecture`"
 	fi
 
 	# Set chroot directory
@@ -52,7 +52,7 @@ Defaults ()
 	# Set debian distribution
 	if [ -z "${LIVE_DISTRIBUTION}" ]
 	then
-		LIVE_DISTRIBUTION="${CODENAME_UNSTABLE}"
+		LIVE_DISTRIBUTION="unstable"
 	fi
 
 	# Set bootstrap flavour
@@ -79,7 +79,7 @@ Defaults ()
 				;;
 
 			amd64)
-				if [ "${LIVE_DISTRIBUTION}" = "${CODENAME_UNSTABLE}" ]
+				if [ "${LIVE_DISTRIBUTION}" = "unstable" ]
 				then
 					LIVE_KERNEL="amd64"
 				else
@@ -97,7 +97,7 @@ Defaults ()
 				;;
 
 			i386)
-				if [ "${LIVE_DISTRIBUTION}" = "${CODENAME_STABLE}" ] || [ "${LIVE_DISTRIBUTION}" = "${CODENAME_OLDSTABLE}" ]
+				if [ "${LIVE_DISTRIBUTION}" = "oldstable" ] || [ "${LIVE_DISTRIBUTION}" = "stable" ]
 				then
 					LIVE_KERNEL="386"
 				else
@@ -145,6 +145,24 @@ Defaults ()
 		LIVE_MIRROR_SECURITY="http://security.debian.org/"
 	fi
 
+	# Check for package lists
+	if [ -z "${LIVE_PACKAGE_LIST}" ]
+	then
+		LIVE_PACKAGE_LIST="${BASE}/lists/standard"
+	else
+		if [ "${LIVE_FLAVOUR}" = "minimal" ]
+		then
+			LIVE_PACKAGE_LIST="${BASE}/lists/minimal"
+		fi
+
+		if [ -r "${BASE}/lists/${LIVE_PACKAGE_LIST}" ]
+		then
+			LIVE_PACKAGE_LIST="${BASE}/lists/${LIVE_PACKAGE_LIST}"
+		else
+			LIVE_PACKAGE_LIST="${BASE}/lists/standard"
+		fi
+	fi
+
 	# Set debian sections
 	if [ -z "${LIVE_SECTION}" ]
 	then
@@ -167,5 +185,17 @@ Defaults ()
 	if [ -z "${LIVE_TEMPLATES}" ]
 	then
 		LIVE_TEMPLATES="${BASE}/templates"
+	fi
+
+	# Set package indices
+	if [ -z "${LIVE_GENERIC_INDICES}" ]
+	then
+		LIVE_GENERIC_INDICES="yes"
+	fi
+
+	# Set source image
+	if [ -z "${LIVE_SOURCE}" ]
+	then
+		LIVE_SOURCE="no"
 	fi
 }

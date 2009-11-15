@@ -1,4 +1,4 @@
-.TH MAKE-LIVE 8 "Mon, 28 Aug 2006" "0.99.4" "Debian Live framework"
+.TH MAKE-LIVE 8 "Mon,  4 Sep 2006" "0.99.5" "Debian Live framework"
 
 .SH NAME
 make-live \- utility to build Debian Live systems
@@ -31,10 +31,10 @@ make-live \- utility to build Debian Live systems
 .IR URL \|]
 .RB [\| \-\-mirror-security
 .IR URL \|]
-.RB [\| \-p \||\| \-\-packages
+.RB [\| \-\-packages
 .IR PACKAGE \||\| \|"PACKAGES\|" \|]
-.RB [\| \-\-package-list
-.IR FILE \|]
+.RB [\| \-p \||\| \-\-package-list
+.IR LIST \||\| FILE \|]
 .RB [\| \-\-proxy-ftp
 .IR URL \|]
 .RB [\| \-\-proxy-http
@@ -51,7 +51,10 @@ make-live \- utility to build Debian Live systems
 .IR DIRECTORY \|]
 .RB [\| \-t \||\| \-\-type
 .IR TYPE \|]
-.RI [\| LIST \|]
+.RB [\| \-\-with-generic-indices \|]
+.RB [\| \-\-without-generic-indices \|]
+.RB [\| \-\-with-source \|]
+.RB [\| \-\-without-source \|]
 .PP
 .B make-live
 .RB \-h \||\| \-\-help
@@ -106,11 +109,11 @@ specifies the debian mirror where make-live will download the packages from. Ins
 .BI "\-\-mirror-security" URL
 specifies the debian security mirror where make-live will download the packages from. Instead of this flag, the environment variable LIVE_MIRROR_SECURITY can be used (Default: http://security.debian.org/debian).
 .TP
-.BI "\-p, \-\-packages " PACKAGE \||\| \|"PACKAGES\|"
+.BI "\-\-packages " PACKAGE \||\| \|"PACKAGES\|"
 specifies a list of packages to install into the chroot. Instead of this flag, the environment variable LIVE_PACKAGES can be used (Default: empty).
 .TP
-.BI "\-\-package-list " FILE
-specifies an external package list file, one package for each line. It overrides list option. Instead of this flag, the environment variable LIVE_PACKAGE_LIST can be used (Default: empty).
+.BI "\-p, \-\-package-list " FILE
+specifies an external package list file, one package for each line. It overrides list option. Instead of this flag, the environment variable LIVE_PACKAGE_LIST can be used (Default: standard).
 .TP
 .BI "\-\-proxy-ftp " URL
 specifies the value of ftp_proxy inside the chrooted environment. Instead of this flag, the environment variable LIVE_PROXY_FTP can be used (Default: empty).
@@ -135,6 +138,19 @@ specifies a templates directory to use instead of the default one. Instead of th
 .TP
 .BI "\-t, \-\-type " TYPE
 specifies the image type to generate. Currently, only iso and net are available. Instead of this flag, the environment variable LIVE_TYPE can be used (Default: iso).
+.TP
+.B \-\-with-generic-indices
+enables use of generic Debian package indices. Instead of this flag, the environment variable LIVE_GENERIC_INDICES can be used (Default: yes).
+.TP
+.B \-\-without-generic-indices
+disables use of generic Debian package indices. Instead of this flag, the environment variable LIVE_GENERIC_INDICES can be used (Default: yes).
+.TP
+.B \-\-with-source
+enables generation of source images. Instead of this flag, the environment variable LIVE_SOURCE can be used (Default: no).
+.TP
+.B \-\-without-source
+disables generation of source images. Instead of this flag, the environment variable LIVE_SOURCE can be used (Default: no).
+.PP
 .TP
 .B \-h, \-\-help
 display help and exit

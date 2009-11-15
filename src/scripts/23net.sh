@@ -11,51 +11,73 @@
 
 Net ()
 {
-	# Installing smbfs
-	Chroot_exec "apt-get install --yes smbfs"
-
-	if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
+	if [ ! -f "${LIVE_ROOT}"/.stage/image_binary ]
 	then
-		if [ ! -d "${LIVE_CHROOT}"/etc/initramfs-tools ]
-		then 
-			mkdir "${LIVE_CHROOT}"/etc/initramfs-tools
-		fi
+		# Installing smbfs
+		Chroot_exec "apt-get install --yes smbfs"
+
+		if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ]
+		then
+			if [ ! -d "${LIVE_CHROOT}"/etc/initramfs-tools ]
+			then 
+				mkdir "${LIVE_CHROOT}"/etc/initramfs-tools
+			fi
 		
-		# Configuring initramfs for NFS
+			# Configuring initramfs for NFS
 cat >> "${LIVE_CHROOT}"/etc/initramfs-tools/initramfs.conf << EOF
 MODULES=netboot
 BOOT=nfs
 NFSROOT=auto
 EOF
-		Chroot_exec "update-initramfs -tu"
+			Chroot_exec "update-initramfs -tu"
+		fi
+
+		# Switching package indices to default
+		if [ "${LIVE_GENERIC_INDICES}" = "yes" ]
+		then
+			Indices default
+		fi
+	
+		# Generating rootfs image
+		Genrootfs
+
+		# Switching package indices to custom
+		if [ "${LIVE_GENERIC_INDICES}" = "yes" ]
+		then
+			Indices custom
+		fi
+
+		# Installing syslinux
+		Syslinux net
+
+		# Installing linux-image
+		Linuximage net
+
+		# Installing memtest
+		Memtest net
+
+		# Creating tarball
+		cd "${LIVE_ROOT}" && \
+		mv binary "`basename ${LIVE_SERVER_PATH}`" && \
+		cd .. && \
+		tar cfz binary.tar.gz "`basename ${LIVE_ROOT}`/`basename ${LIVE_SERVER_PATH}`" "`basename ${LIVE_ROOT}`/tftpboot" && \
+		mv binary.tar.gz "${LIVE_ROOT}" && \
+		cd "${OLDPWD}" && \
+		mv "`basename ${LIVE_SERVER_PATH}`" binary
+
+		# Touching stage file
+		touch "${LIVE_ROOT}"/.stage/image_binary
 	fi
 
-	# Switching package indices to default
-	Indices default
-	
-	# Generating rootfs image
-	Genrootfs
+	if [ ! -f "${LIVE_ROOT}"/.stage/image_source ] && [ "${LIVE_SOURCE}" = "yes" ]
+	then
+		# Downloading sources
+		Sources
 
-	# Switching package indices to custom
-	Indices custom
+		# Creating tarball
+		tar cfz source.tar.gz "${LIVE_ROOT}"/source
 
-	# Installing syslinux
-	Syslinux net
-
-	# Installing linux-image
-	Linuximage net
-
-	# Installing memtest
-	Memtest net
-
-	# Creating tarball
-	LIVE_BASENAME=`basename "${LIVE_ROOT}"`
-	LIVE_BASE_SERVER_PATH=`basename "${LIVE_SERVER_PATH}"`
-	cd "${LIVE_ROOT}" && \
-	mv image "${LIVE_BASE_SERVER_PATH}" && \
-	cd .. && \
-	tar cfz netboot.tar.gz "${LIVE_BASENAME}/${LIVE_BASE_SERVER_PATH}" "${LIVE_BASENAME}/tftpboot" && \
-	mv netboot.tar.gz "${LIVE_ROOT}" && \
-	cd "${OLDPWD}" && \
-	mv "${LIVE_BASE_SERVER_PATH}" image
+		# Touching stage file
+		touch "${LIVE_ROOT}"/.stage/image_source
+	fi
 }

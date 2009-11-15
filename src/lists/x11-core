@@ -1,1 +1,10 @@
+# /usr/share/make-live/lists/x11-core - package list for make-live(8)
+
+# Minimal
+sudo
+
+# Standard
+locales
+
+# X11
 xdm x-window-system-core

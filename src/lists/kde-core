@@ -1,1 +1,12 @@
-kde-core kdm x-window-system-core
+# /usr/share/make-live/lists/kde-core - package list for make-live(8)
+
+# Minimal
+sudo
+
+# Standard
+locales
+
+# KDE Core
+kde-core kdm
+
+x-window-system-core

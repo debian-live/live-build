@@ -11,32 +11,59 @@
 
 Iso ()
 {
-	mkdir -p "${LIVE_ROOT}"/image/casper
+	if [ ! -f "${LIVE_ROOT}"/.stage/image_binary ]
+	then
+		mkdir -p "${LIVE_ROOT}"/binary/casper
 
-	# Switching package indices to default
-	Indices default
+		# Switching package indices to default
+		if [ "${LIVE_GENERIC_INDICES}" = "yes" ]
+		then
+			Indices default
+		fi
 	
-	# Generating rootfs image
-	Genrootfs
+		# Generating rootfs image
+		Genrootfs
 
-	# Switching package indices to custom
-	Indices custom
+		# Switching package indices to custom
+		if [ "${LIVE_GENERIC_INDICES}" = "yes" ]
+		then
+			Indices custom
+		fi
 
-	# Installing syslinux
-	Syslinux iso
+		# Installing syslinux
+		Syslinux iso
 
-	# Installing linux-image
-	Linuximage iso
+		# Installing linux-image
+		Linuximage iso
 
-	# Installing memtest
-	Memtest iso
+		# Installing memtest
+		Memtest iso
 
-	# Installing templates
-	cp -r "${LIVE_TEMPLATES}"/iso/* "${LIVE_ROOT}"/image
+		# Installing templates
+		if [ "${LIVE_FLAVOUR}" != "minimal" ]
+		then
+			cp -r "${LIVE_TEMPLATES}"/iso/* "${LIVE_ROOT}"/binary
+		fi
 
-	# Calculating md5sums
-	Md5sum
+		# Calculating md5sums
+		Md5sum
 
-	# Creating image
-	Mkisofs
+		# Creating image
+		Mkisofs binary
+
+		# Touching stage file
+		touch "${LIVE_ROOT}"/.stage/image_binary
+	fi
+
+	if [ ! -f "${LIVE_ROOT}"/.stage/image_source ] && [ "${LIVE_SOURCE}" = "yes" ]
+	then
+		# Downloading sources
+		Sources
+
+		# Creating image
+		Mkisofs source
+
+		# Touching stage file
+		touch "${LIVE_ROOT}"/.stage/image_source
+	fi
 }

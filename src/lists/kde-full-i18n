@@ -1,1 +1,47 @@
-kde koffice kdm x-window-system-core kde-i18n-af kde-i18n-ar kde-i18n-az kde-i18n-bg kde-i18n-bn kde-i18n-br kde-i18n-bs kde-i18n-ca kde-i18n-cs kde-i18n-cy kde-i18n-da kde-i18n-de kde-i18n-el kde-i18n-engb kde-i18n-eo kde-i18n-es kde-i18n-et kde-i18n-eu kde-i18n-fa kde-i18n-fi kde-i18n-fr kde-i18n-fy kde-i18n-ga kde-i18n-gl kde-i18n-he kde-i18n-hi kde-i18n-hr kde-i18n-hu kde-i18n-is kde-i18n-it kde-i18n-ja kde-i18n-km kde-i18n-ko kde-i18n-lt kde-i18n-lv kde-i18n-mk kde-i18n-mn kde-i18n-ms kde-i18n-nb kde-i18n-nds kde-i18n-nl kde-i18n-nn kde-i18n-pa kde-i18n-pl kde-i18n-pt kde-i18n-ptbr kde-i18n-ro kde-i18n-ru kde-i18n-rw kde-i18n-se kde-i18n-sk kde-i18n-sl kde-i18n-sr kde-i18n-srlatin kde-i18n-ss kde-i18n-sv kde-i18n-ta kde-i18n-tg kde-i18n-tr kde-i18n-uk kde-i18n-uz kde-i18n-zhcn koffice-i18n-af koffice-i18n-bg koffice-i18n-br koffice-i18n-ca koffice-i18n-cs koffice-i18n-cy koffice-i18n-da koffice-i18n-de koffice-i18n-el koffice-i18n-engb koffice-i18n-eo koffice-i18n-es koffice-i18n-et koffice-i18n-fa koffice-i18n-fi koffice-i18n-fr koffice-i18n-he koffice-i18n-hsb koffice-i18n-hu koffice-i18n-it koffice-i18n-ja koffice-i18n-lo koffice-i18n-mt koffice-i18n-nb koffice-i18n-nl koffice-i18n-nn koffice-i18n-pl koffice-i18n-pt koffice-i18n-ptbr koffice-i18n-ru koffice-i18n-se koffice-i18n-sk koffice-i18n-sl koffice-i18n-sr koffice-i18n-sv koffice-i18n-tg koffice-i18n-th koffice-i18n-tr koffice-i18n-ven koffice-i18n-xh koffice-i18n-zhcn koffice-i18n-zhcngb2312 koffice-i18n-zhtw koffice-i18n-zhtwbig5 koffice-i18n-zu manpages manpages-de manpages-de-dev manpages-dev manpages-es manpages-es-extra manpages-fi manpages-fr manpages-hu manpages-it manpages-ja manpages-ja-dev manpages-ko manpages-nl manpages-pl manpages-pl-dev manpages-pt manpages-pt-dev manpages-ru manpages-tr manpages-zh
+# /usr/share/make-live/lists/kde-full-i18n - package list for make-live(8)
+
+# Minimal
+sudo
+
+# Standard
+locales
+
+# Standard i18n
+manpages manpages-dev manpages-de manpages-de-dev manpages-es manpages-es-extra
+manpages-fi manpages-fr manpages-fr-dev manpages-fr-extra manpages-hu
+manpages-it manpages-ja manpages-ja-dev manpages-ko manpages-nl manpages-pl
+manpages-pl-dev manpages-pt manpages-pt-dev manpages-ru manpages-tr manpages-zh
+
+# KDE
+kde kdm
+
+x-window-system-core
+
+# KDE i18n
+kde-i18n-af kde-i18n-ar kde-i18n-az kde-i18n-bg kde-i18n-bn kde-i18n-br
+kde-i18n-bs kde-i18n-ca kde-i18n-cs kde-i18n-cy kde-i18n-da kde-i18n-de
+kde-i18n-el kde-i18n-engb kde-i18n-eo kde-i18n-es kde-i18n-et kde-i18n-eu
+kde-i18n-fa kde-i18n-fi kde-i18n-fr kde-i18n-fy kde-i18n-ga kde-i18n-gl
+kde-i18n-he kde-i18n-hi kde-i18n-hr kde-i18n-hu kde-i18n-is kde-i18n-it
+kde-i18n-ja kde-i18n-km kde-i18n-ko kde-i18n-lt kde-i18n-lv kde-i18n-mk
+kde-i18n-mn kde-i18n-ms kde-i18n-nb kde-i18n-nds kde-i18n-nl kde-i18n-nn
+kde-i18n-pa kde-i18n-pl kde-i18n-pt kde-i18n-ptbr kde-i18n-ro kde-i18n-ru
+kde-i18n-rw kde-i18n-se kde-i18n-sk kde-i18n-sl kde-i18n-sr kde-i18n-srlatin
+kde-i18n-ss kde-i18n-sv kde-i18n-ta kde-i18n-tg kde-i18n-tr kde-i18n-uk
+kde-i18n-uz kde-i18n-zhcn kde-i18n-zhtw
+
+# KDE Full
+koffice
+
+# KDE Full i18n
+koffice-i18n-af koffice-i18n-ar koffice-i18n-bg koffice-i18n-br koffice-i18n-bs
+koffice-i18n-ca koffice-i18n-cs koffice-i18n-cy koffice-i18n-da koffice-i18n-de
+koffice-i18n-el koffice-i18n-engb koffice-i18n-eo koffice-i18n-es
+koffice-i18n-et koffice-i18n-eu koffice-i18n-fi koffice-i18n-fr koffice-i18n-ga
+koffice-i18n-he koffice-i18n-hi koffice-i18n-hu koffice-i18n-it koffice-i18n-ja
+koffice-i18n-lt koffice-i18n-mk koffice-i18n-ms koffice-i18n-nb koffice-i18n-nl
+koffice-i18n-nn koffice-i18n-pl koffice-i18n-pt koffice-i18n-ptbr
+koffice-i18n-ro koffice-i18n-ru koffice-i18n-se koffice-i18n-sk koffice-i18n-sl
+koffice-i18n-sr koffice-i18n-srlatin koffice-i18n-sv koffice-i18n-ta
+koffice-i18n-tg koffice-i18n-tr koffice-i18n-uk koffice-i18n-uz
+koffice-i18n-zhcn koffice-i18n-zhtw

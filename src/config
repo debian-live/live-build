@@ -49,10 +49,10 @@
 #LIVE_MIRROR_SECURITY="http://security.debian.org/"
 
 # Packages			(Default: empty)
-LIVE_PACKAGES="cdebootstrap less locales screen sudo vim"
+#LIVE_PACKAGES=""
 
-# Package list			(Default: empty)
-#LIVE_PACKAGE_LIST=""
+# Package list			(Default: standard)
+#LIVE_PACKAGE_LIST="standard"
 
 # Chroots ftp_proxy		(Default: empty)
 #LIVE_PROXY_FTP=""
@@ -71,3 +71,9 @@ LIVE_PACKAGES="cdebootstrap less locales screen sudo vim"
 
 # Image templates		(Default: /usr/share/make-live/templates)
 #LIVE_TEMPLATES="/usr/share/make-live/templates"
+
+# Generic package indices	(Default: no)
+#LIVE_GENERIC_INDICES="no"
+
+# Source images			(Default: no)
+#LIVE_SOURCE="no"
