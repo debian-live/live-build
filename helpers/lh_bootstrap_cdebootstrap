@@ -39,6 +39,8 @@ fi
 
 Echo_message "Begin bootstrapping system..."
 
+Check_package /usr/bin/cdebootstrap cdebootstrap
+
 # Ensure that a system is built as root
 lh_testroot
 

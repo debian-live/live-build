@@ -217,6 +217,9 @@ case "${1}" in
 			if [ "${LIVE_MIRROR_BOOTSTRAP}" = "${LIVE_MIRROR_BINARY}" ] && \
 			[ "${LIVE_MIRROR_BOOTSTRAP_SECURITY}" = "${LIVE_MIRROR_BINARY_SECURITY}" ]
 			then
+				# Removing stage file
+				rm -f .stage/chroot_sources
+
 				exit 0
 			fi
 
