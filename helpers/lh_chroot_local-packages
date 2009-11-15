@@ -53,8 +53,15 @@ then
 	Restore_cache cache/packages_local-packages
 
 	# Copying packages
-	cp config/chroot_local-packages/*_"${LH_ARCHITECTURE}".deb chroot/root
-	cp config/chroot_local-packages/*_all.deb chroot/root
+	if ls config/chroot_local-packages/*_"${LH_ARCHITECTURE}".deb > /dev/null 2>&1
+	then
+		cp config/chroot_local-packages/*_"${LH_ARCHITECTURE}".deb chroot/root
+	fi
+
+	if ls config/chroot_local-packages/*_all.deb > /dev/null 2>&1
+	then
+		cp config/chroot_local-packages/*_all.deb chroot/root
+	fi
 
 	# Installing packages
         Chroot "find /root -name *.deb" > chroot/root/local-packages

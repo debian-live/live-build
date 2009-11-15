@@ -899,6 +899,10 @@ LH_NET_SERVER="${LH_NET_SERVER}"
 # (Default: empty)
 LH_SYSLINUX_SPLASH="${LH_SYSLINUX_SPLASH}"
 
+# \$LH_SYSLINUX_TIMEOUT: set custom syslinux timeout
+# (Default: 0)
+LH_SYSLINUX_TIMEOUT="${LH_SYSLINUX_TIMEOUT}"
+
 # \$LH_USERNAME: set username
 # (Default: ${LH_USERNAME})
 LH_USERNAME="${LH_USERNAME}"

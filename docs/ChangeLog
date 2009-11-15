@@ -1,3 +1,14 @@
+2007-09-04  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_syslinux, lh_config:
+	  - Applied fixes from Peter Holik <peter@holik.at>.
+	* helpers/lh_chroot_local-packages:
+	  - Added check for actual packages as mentioned by Peter Holik
+	  <peter@holik.at>.
+	* helpers/lh_bootstrap_cache:
+	  - Added forgotten creation of the stagefile as mentioned by
+	    Peter Holik <peter@holik.at>.
+
 2007-08-28  Daniel Baumann  <daniel@debian.org>
 
 	* functions/defaults.sh:
