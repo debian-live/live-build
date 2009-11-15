@@ -126,12 +126,34 @@ fi
 
 if [ -n "${LIVE_USERNAME}" ]
 then
-	LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} username=${LIVE_USERNAME}"
+	case "${LH_INITRAMFS}" in
+		casper)
+			LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} username=${LIVE_USERNAME}"
+			;;
+
+		live-initramfs)
+			if [ "${LIVE_USERNAME}" != "user" ]
+			then
+				LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} username=${LIVE_USERNAME}"
+			fi
+			;;
+	esac
 fi
 
 if [ -n "${LIVE_HOSTNAME}" ]
 then
-	LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} hostname=${LIVE_HOSTNAME}"
+	case "${LIVE_INITRAMFS}" in
+		casper)
+			LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} hostname=${LIVE_HOSTNAME}"
+			;;
+
+		live-initramfs)
+			if [ "${LIVE_HOSTNAME}" != "debian" ]
+			then
+				LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} username=${LIVE_HOSTNAME}"
+			fi
+			;;
+	esac
 fi
 
 LIVE_BOOTAPPEND="`echo ${LIVE_BOOTAPPEND} | sed -e 's/  //'`"

@@ -67,7 +67,19 @@ case "${LIVE_BINARY_IMAGES}" in
 		;;
 
 	usb-hdd|hdd)
-		DESTDIR="binary/install"
+		# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
+		if [ "${LIVE_DISTRIBUTION}" = "etch" ] || [ "${LIVE_DISTRIBUTION}" = "lenny" ]
+		then
+			if [ "${LIVE_BOOTLOADER}" = "syslinux" ]
+			then
+				DESTDIR="binary"
+			else
+				DESTDIR="binary/install"
+			fi
+		else
+			DESTDIR="binary/install"
+		fi
+
 		DESTDIR_INSTALLER="hd-media"
 		;;
 esac
@@ -97,16 +109,58 @@ fi
 # Downloading debian-installer
 mkdir -p "${DESTDIR}"
 
-wget --no-clobber -O "${DESTDIR}"/vmlinuz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/vmlinuz
-wget --no-clobber -O "${DESTDIR}"/initrd.gz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/initrd.gz
+# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
+if [ "${LIVE_DISTRIBUTION}" = "etch" ] || [ "${LIVE_DISTRIBUTION}" = "lenny" ]
+then
+	if [ "${LIVE_BINARY_IMAGES}" = "usb-hdd" ] || [ "${LIVE_BINARY_IMAGES}" = "hdd" ]
+	then
+		if [ "${LIVE_BOOTLOADER}" = "syslinux" ]
+		then
+			wget --no-clobber -O "${DESTDIR}"/vmlinuz.di "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/vmlinuz
+			wget --no-clobber -O "${DESTDIR}"/initrddi.gz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/initrd.gz
+		else
+			wget --no-clobber -O "${DESTDIR}"/vmlinuz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/vmlinuz
+			wget --no-clobber -O "${DESTDIR}"/initrd.gz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/initrd.gz
+		fi
+	else
+		wget --no-clobber -O "${DESTDIR}"/vmlinuz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/vmlinuz
+		wget --no-clobber -O "${DESTDIR}"/initrd.gz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/initrd.gz
+	fi
+else
+	wget --no-clobber -O "${DESTDIR}"/vmlinuz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/vmlinuz
+	wget --no-clobber -O "${DESTDIR}"/initrd.gz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/initrd.gz
+fi
 
 # Downloading graphical-installer
 if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ] || [ "${LIVE_ARCHITECTURE}" = "powerpc" ]
 then
-	mkdir -p "${DESTDIR}"/gtk
+	# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
+	if [ "${LIVE_DISTRIBUTION}" = "etch" ] || [ "${LIVE_DISTRIBUTION}" = "lenny" ]
+	then
+		if [ "${LIVE_BINARY_IMAGES}" = "usb-hdd" ] || [ "${LIVE_BINARY_IMAGES}" = "hdd" ]
+		then
+			if [ "${LIVE_BOOTLOADER}" = "syslinux" ]
+			then
+				wget --no-clobber -O "${DESTDIR}"/vmlinuz.gi "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/gtk/vmlinuz
+				wget --no-clobber -O "${DESTDIR}"/initrdgi.gz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/gtk/initrd.gz
+			else
+				mkdir -p "${DESTDIR}"/gtk
 
-	wget --no-clobber -O "${DESTDIR}"/gtk/vmlinuz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/gtk/vmlinuz
-	wget --no-clobber -O "${DESTDIR}"/gtk/initrd.gz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/gtk/initrd.gz
+				wget --no-clobber -O "${DESTDIR}"/gtk/vmlinuz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/gtk/vmlinuz
+				wget --no-clobber -O "${DESTDIR}"/gtk/initrd.gz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/gtk/initrd.gz
+			fi
+		else
+			mkdir -p "${DESTDIR}"/gtk
+
+			wget --no-clobber -O "${DESTDIR}"/gtk/vmlinuz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/gtk/vmlinuz
+			wget --no-clobber -O "${DESTDIR}"/gtk/initrd.gz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/gtk/initrd.gz
+		fi
+	else
+		mkdir -p "${DESTDIR}"/gtk
+
+		wget --no-clobber -O "${DESTDIR}"/gtk/vmlinuz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/gtk/vmlinuz
+		wget --no-clobber -O "${DESTDIR}"/gtk/initrd.gz "${LIVE_MIRROR_BOOTSTRAP}"/dists/"${LIVE_DISTRIBUTION}"/main/installer-"${LIVE_ARCHITECTURE}"/current/images/"${DESTDIR_INSTALLER}"/gtk/initrd.gz
+	fi
 fi
 
 FIXME ()

@@ -104,8 +104,15 @@ case "${LIVE_BINARY_IMAGES}" in
 	;;
 
 	usb-hdd|hdd)
-		DESTDIR_LIVE="binary/live"
-		DESTDIR_INSTALL="binary/install"
+		# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
+		if [ "${LIVE_DISTRIBUTION}" = "etch" ] || [ "${LIVE_DISTRIBUTION}" = "lenny" ]
+		then
+			DESTDIR_LIVE="binary"
+			DESTDIR_INSTALL="binary"
+		else
+			DESTDIR_LIVE="binary/live"
+			DESTDIR_INSTALL="binary/install"
+		fi
 		;;
 esac
 
@@ -143,12 +150,34 @@ fi
 
 if [ -n "${LIVE_USERNAME}" ]
 then
-	LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} username=${LIVE_USERNAME}"
+	case "${LH_INITRAMFS}" in
+		casper)
+			LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} username=${LIVE_USERNAME}"
+			;;
+
+		live-initramfs)
+			if [ "${LIVE_USERNAME}" != "user" ]
+			then
+				LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} username=${LIVE_USERNAME}"
+			fi
+			;;
+	esac
 fi
 
 if [ -n "${LIVE_HOSTNAME}" ]
 then
-	LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} hostname=${LIVE_HOSTNAME}"
+	case "${LIVE_INITRAMFS}" in
+		casper)
+			LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} hostname=${LIVE_HOSTNAME}"
+			;;
+
+		live-initramfs)
+			if [ "${LIVE_HOSTNAME}" != "debian" ]
+			then
+				LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND} username=${LIVE_HOSTNAME}"
+			fi
+			;;
+	esac
 fi
 
 LIVE_BOOTAPPEND="`echo ${LIVE_BOOTAPPEND} | sed -e 's/  //'`"
@@ -160,8 +189,16 @@ FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=normal"
 if [ "${LIVE_BINARY_IMAGES}" != "net" ]
 then
 	DEFAULT_FLAVOUR="`echo ${LIVE_LINUX_FLAVOURS} | awk '{ print $1 }'`"
-	LINUX="LABEL live\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
-	LINUX="${LINUX}\n\nLABEL live-failsafe\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
+
+	# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
+	if [ "`basename ${DESTDIR_LIVE}`" = "binary" ]
+	then
+		LINUX="LABEL live\n\tkernel `basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
+		LINUX="${LINUX}\n\nLABEL live-failsafe\n\tkernel `basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
+	else
+		LINUX="LABEL live\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
+		LINUX="${LINUX}\n\nLABEL live-failsafe\n\tkernel /`basename ${DESTDIR_LIVE}`/`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=/`basename ${DESTDIR_LIVE}`/initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND ${FAILSAFE}"
+	fi
 else
 	DEFAULT_FLAVOUR="`echo ${LIVE_LINUX_FLAVOURS} | awk '{ print $1 }'`"
 	LINUX="LABEL live\n\tkernel `basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR}`\n\tappend initrd=initrd.img-`basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR} | sed -e 's/vmlinuz-//'` boot=${INITFS} LIVE_BOOTAPPEND"
@@ -201,27 +238,113 @@ LINUX="`echo ${LINUX} | sed -e 's#//#/#g'`"
 # Assembling debian-installer configuration
 if [ "${LIVE_DEBIAN_INSTALLER}" = "enabled" ]
 then
-	LIVE_LINUX_INSTALL="LABEL install\n\tkernel /`basename ${DESTDIR_INSTALL}`/vmlinuz\n\tappend vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/initrd.gz -- "
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL linux\n\tkernel /`basename ${DESTDIR_INSTALL}`/vmlinuz\n\tappend vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/initrd.gz -- "
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL installgui\n\tkernel /`basename ${DESTDIR_INSTALL}`/gtk/vmlinuz\n\tappend video=vesa:ywrap,mtrr vga=788 initrd=/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz -- "
-	LIVE_KENREL_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL expert\n\tkernel /`basename ${DESTDIR_INSTALL}`/vmlinuz\n\tappend priority=low vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/initrd.gz -- "
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL expertgui\n\tkernel /`basename ${DESTDIR_INSTALL}`/gtk/vmlinuz\n\tappend priority=low video=vesa:ywrap,mtrr vga=788 initrd=/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz -- "
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL rescue\n\tkernel /`basename ${DESTDIR_INSTALL}`/vmlinuz\n\tappend vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/initrd.gz rescue/enable=true -- "
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL rescuegui\n\tkernel /`basename ${DESTDIR_INSTALL}`/gtk/vmlinuz\n\tappend video=vesa:ywrap,mtrr vga=788 initrd=/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz rescue/enable=true -- "
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL auto\n\tkernel /`basename ${DESTDIR_INSTALL}`/vmlinuz\n\tappend auto=true priority=critical vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/initrd.gz -- "
-	LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL autogui\n\tkernel /`basename ${DESTDIR_INSTALL}`/gtk/vmlinuz\n\tappend auto=true priority=critical video=vesa:ywrap,mtrr vga=788 initrd=/`basename ${DESTDIR_INSTALL}`/gtk/initrd.gz -- "
+	# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
+	if [ "${LIVE_DISTRIBUTION}" = "etch" ] || [ "${LIVE_DISTRIBUTION}" = "lenny" ]
+	then
+		if [ "${LIVE_BINARY_IMAGES}" = "usb-hdd" ] || [ "${LIVE_BINARY_IMAGES}" = "hdd" ]
+		then
+			VMLINUZ_DI="vmlinuz.di"
+			INITRD_DI="initrddi.gz"
+
+			VMLINUZ_GI="vmlinuz.gi"
+			INITRD_GI="initrdgi.gz"
+		else
+			VMLINUZ_DI="vmlinuz"
+			INITRD_DI="initrd.gz"
+
+			VMLINUZ_GI="gtk/vmlinuz"
+			INITRD_GI="gtk/initrd.gz"
+		fi
+	else
+		VMLINUZ_DI="vmlinuz"
+		INITRD_DI="initrd.gz"
+
+		VMLINUZ_GI="gtk/vmlinuz"
+		INITRD_GI="gtk/initrd.gz"
+	fi
+
+	# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
+	if [ "`basename ${DESTDIR_LIVE}`" = "binary" ]
+	then
+		LIVE_LINUX_INSTALL="LABEL install\n\tkernel ${VMLINUZ_DI}\n\tappend vga=normal initrd=${INITRD_DI} -- "
+		LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL linux\n\tkernel ${VMLINUZ_DI}\n\tappend vga=normal initrd=${INITRD_DI} -- "
+
+		if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ] || [ "${LIVE_ARCHITECTURE}" = "powerpc" ]
+		then
+			LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL installgui\n\tkernel ${VMLINUZ_GI}\n\tappend video=vesa:ywrap,mtrr vga=788 initrd=${INITRD_GI} -- "
+		fi
+
+		LIVE_KENREL_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL expert\n\tkernel ${VMLINUZ_DI}\n\tappend priority=low vga=normal initrd=${INITRD_DI} -- "
+
+		if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ] || [ "${LIVE_ARCHITECTURE}" = "powerpc" ]
+		then
+			LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL expertgui\n\tkernel ${VMLINUZ_GI}\n\tappend priority=low video=vesa:ywrap,mtrr vga=788 initrd=${INITRD_GI} -- "
+		fi
+
+		LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL rescue\n\tkernel ${VMLINUZ_DI}\n\tappend vga=normal initrd=${INITRD_DI} rescue/enable=true -- "
+
+		if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ] || [ "${LIVE_ARCHITECTURE}" = "powerpc" ]
+		then
+			LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL rescuegui\n\tkernel ${VMLINUZ_GI}\n\tappend video=vesa:ywrap,mtrr vga=788 initrd=${INITRD_GI} rescue/enable=true -- "
+		fi
+
+		LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL auto\n\tkernel ${VMLINUZ_DI}\n\tappend auto=true priority=critical vga=normal initrd=${INITRD_DI} -- "
+
+		if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ] || [ "${LIVE_ARCHITECTURE}" = "powerpc" ]
+		then
+			LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL autogui\n\tkernel ${VMLINUZ_GI}\n\tappend auto=true priority=critical video=vesa:ywrap,mtrr vga=788 initrd=${INITRD_GI} -- "
+		fi
+	else
+		LIVE_LINUX_INSTALL="LABEL install\n\tkernel /`basename ${DESTDIR_INSTALL}`/${VMLINUZ_DI}\n\tappend vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/${INITRD_DI} -- "
+		LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL linux\n\tkernel /`basename ${DESTDIR_INSTALL}`/${VMLINUZ_DI}\n\tappend vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/${INITRD_DI} -- "
+
+		if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ] || [ "${LIVE_ARCHITECTURE}" = "powerpc" ]
+		then
+			LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL installgui\n\tkernel /`basename ${DESTDIR_INSTALL}`/${VMLINUZ_GI}\n\tappend video=vesa:ywrap,mtrr vga=788 initrd=/`basename ${DESTDIR_INSTALL}`/${INITRD_GI} -- "
+		fi
+
+		LIVE_KENREL_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL expert\n\tkernel /`basename ${DESTDIR_INSTALL}`/${VMLINUZ_DI}\n\tappend priority=low vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/${INITRD_DI} -- "
+
+		if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ] || [ "${LIVE_ARCHITECTURE}" = "powerpc" ]
+		then
+			LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL expertgui\n\tkernel /`basename ${DESTDIR_INSTALL}`/${VMLINUZ_GI}\n\tappend priority=low video=vesa:ywrap,mtrr vga=788 initrd=/`basename ${DESTDIR_INSTALL}`/${INITRD_GI} -- "
+		fi
+
+		LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL rescue\n\tkernel /`basename ${DESTDIR_INSTALL}`/${VMLINUZ_DI}\n\tappend vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/${INITRD_DI} rescue/enable=true -- "
+
+		if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ] || [ "${LIVE_ARCHITECTURE}" = "powerpc" ]
+		then
+			LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL rescuegui\n\tkernel /`basename ${DESTDIR_INSTALL}`/${VMLINUZ_GI}\n\tappend video=vesa:ywrap,mtrr vga=788 initrd=/`basename ${DESTDIR_INSTALL}`/${INITRD_GI} rescue/enable=true -- "
+		fi
+
+		LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL auto\n\tkernel /`basename ${DESTDIR_INSTALL}`/${VMLINUZ_DI}\n\tappend auto=true priority=critical vga=normal initrd=/`basename ${DESTDIR_INSTALL}`/${INITRD_DI} -- "
+
+		if [ "${LIVE_ARCHITECTURE}" = "amd64" ] || [ "${LIVE_ARCHITECTURE}" = "i386" ] || [ "${LIVE_ARCHITECTURE}" = "powerpc" ]
+		then
+			LIVE_LINUX_INSTALL="${LIVE_LINUX_INSTALL}\n\nLABEL autogui\n\tkernel /`basename ${DESTDIR_INSTALL}`/${VMLINUZ_GI}\n\tappend auto=true priority=critical video=vesa:ywrap,mtrr vga=788 initrd=/`basename ${DESTDIR_INSTALL}`/${INITRD_GI} -- "
+		fi
+	fi
 fi
+
+LIVE_LINUX_INSTALL="`echo ${LIVE_LINUX_INSTALL} | sed -e 's/binary//g' -e 's#//#/#g'`"
 
 # Assembling memtest configuration
 if [ -f "${DESTDIR_LIVE}"/memtest ]
 then
-	if [ "${LIVE_BINARY_IMAGES}" = "iso" ]
+	if [ "${LIVE_BINARY_IMAGES}" != "net" ]
 	then
-		MEMTEST="LABEL memtest\n\tkernel /`basename ${DESTDIR_LIVE}`/memtest"
-		MEMTEST="`echo ${MEMTEST} | sed -e 's#//#/#g'`"
+		# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
+		if [ "`basename ${DESTDIR_LIVE}`" = "binary" ]
+		then
+			MEMTEST="LABEL memtest\n\tkernel memtest"
+		else
+			MEMTEST="LABEL memtest\n\tkernel /`basename ${DESTDIR_LIVE}`/memtest"
+		fi
 	else
 		MEMTEST="LABEL memtest\n\tkernel memtest"
 	fi
+
+	MEMTEST="`echo ${MEMTEST} | sed -e 's#//#/#g'`"
 fi
 
 case "${LIVE_BINARY_IMAGES}" in
@@ -330,11 +453,19 @@ case "${LIVE_BINARY_IMAGES}" in
 		;;
 
 	usb-hdd|hdd)
+		# Workaround for syslinux (<< 3.36) which doesn't support dedicated directory
+		if [ "${LIVE_DISTRIBUTION}" = "etch" ] || [ "${LIVE_DISTRIBUTION}" = "lenny" ]
+		then
+			DESTDIR="binary"
+		else
+			DESTDIR="binary/syslinux"
+		fi
+
 		# Copying syslinux
-		mkdir -p binary
-		cp chroot/usr/lib/syslinux/isolinux.bin binary/syslinux.bin
-		cp -r "${LIVE_TEMPLATES}"/syslinux/* binary
-		mv binary/isolinux.cfg binary/syslinux.cfg
+		mkdir -p "${DESTDIR}"
+		cp chroot/usr/lib/syslinux/isolinux.bin "${DESTDIR}"/syslinux.bin
+		cp -r "${LIVE_TEMPLATES}"/syslinux/* "${DESTDIR}"
+		mv binary/isolinux.cfg "${DESTDIR}"/syslinux.cfg
 
 		# Copying splash screen
 		if [ -f config/binary_syslinux/splash.rle ]
@@ -346,37 +477,40 @@ case "${LIVE_BINARY_IMAGES}" in
 		then
 			if [ "${LIVE_SYSLINUX_SPLASH}" = "none" ]
 			then
-				rm -f binary/splash.rle
-				sed -e "s/.*splash.*//" binary/syslinux.txt
+				rm -f "${DESTDIR}"/splash.rle
+				sed -e "s/.*splash.*//" "${DESTDIR}"/boot.txt
 			else
-				cp -f "${LIVE_SYSLINUX_SPLASH}" binary/splash.rle
+				cp -f "${LIVE_SYSLINUX_SPLASH}" "${DESTDIR}"/splash.rle
 			fi
 		fi
 
 		# Configure syslinux templates
-		sed -i -e "s#LIVE_LINUX_LIVE#${LINUX}#" -e "s#LIVE_LINUX_INSTALL#${LIVE_LINUX_INSTALL}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" binary/syslinux.cfg
-		sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" binary/syslinux.cfg
-		sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" binary/f1.txt
-		sed -i -e "s/LIVE_VERSION/${VERSION}/" binary/f10.txt
+		sed -i -e "s#LIVE_LINUX_LIVE#${LINUX}#" -e "s#LIVE_LINUX_INSTALL#${LIVE_LINUX_INSTALL}#" -e "s#LIVE_MEMTEST#${MEMTEST}#" "${DESTDIR}"/syslinux.cfg
+		sed -i -e "s#LIVE_BOOTAPPEND#${LIVE_BOOTAPPEND}#" "${DESTDIR}"/syslinux.cfg
+		sed -i -e "s/LIVE_DATE/`date +%Y%m%d`/" "${DESTDIR}"/f1.txt
+		sed -i -e "s/LIVE_VERSION/${VERSION}/" "${DESTDIR}"/f10.txt
 
 		# Remove unused files
-		rm -f binary/pxelinux.cfg
+		rm -f "${DESTDIR}"/pxelinux.cfg
 
-		# Working arround syslinux 8.3 limitation
-		if [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
+		# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
+		if [ "${LIVE_DISTRIBUTION}" = "etch" ] || [ "${LIVE_DISTRIBUTION}" = "lenny" ]
 		then
-			for FLAVOUR in ${LIVE_LINUX_FLAVOURS}
-			do
-				NUMBER=$(($NUMBER + 1))
+			if [ "`echo ${LIVE_LINUX_FLAVOURS} | wc -w`" -gt "1" ]
+			then
+				for FLAVOUR in ${LIVE_LINUX_FLAVOURS}
+				do
+					NUMBER=$(($NUMBER + 1))
 
-				mv "${DESTDIR_LIVE}"/vmlinuz-*-${FLAVOUR} "${DESTDIR_LIVE}"/vmlinuz${NUMBER}
-				mv "${DESTDIR_LIVE}"/initrd.img-*-${FLAVOUR} "${DESTDIR_LIVE}"/initrd${NUMBER}.img
-				sed -i -e "s/vmlinuz-.*-${FLAVOUR}/vmlinuz${NUMBER}/g" -e "s/initrd.img-.*-${FLAVOUR}/initrd${NUMBER}.img/g" binary/syslinux.cfg
-			done
-		else
-			mv "${DESTDIR_LIVE}"/vmlinuz-*-${LIVE_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/vmlinuz
-			mv "${DESTDIR_LIVE}"/initrd.img-*-${LIVE_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/initrd.img
-			sed -i -e "s/vmlinuz-.*-${LIVE_LINUX_FLAVOURS}/vmlinuz/g" -e "s/initrd.img-.*-${LIVE_LINUX_FLAVOURS}/initrd.img/g" binary/syslinux.cfg
+					mv "${DESTDIR_LIVE}"/vmlinuz-*-${FLAVOUR} "${DESTDIR_LIVE}"/vmlinuz${NUMBER}
+					mv "${DESTDIR_LIVE}"/initrd.img-*-${FLAVOUR} "${DESTDIR_LIVE}"/initrd${NUMBER}.img
+					sed -i -e "s/vmlinuz-.*-${FLAVOUR}/vmlinuz${NUMBER}/g" -e "s/initrd.img-.*-${FLAVOUR}/initrd${NUMBER}.img/g" "${DESTDIR}"/syslinux.cfg
+				done
+			else
+				mv "${DESTDIR_LIVE}"/vmlinuz-*-${LIVE_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/vmlinuz
+				mv "${DESTDIR_LIVE}"/initrd.img-*-${LIVE_LINUX_FLAVOURS} "${DESTDIR_LIVE}"/initrd.img
+				sed -i -e "s/vmlinuz-.*-${LIVE_LINUX_FLAVOURS}/vmlinuz/g" -e "s/initrd.img-.*-${LIVE_LINUX_FLAVOURS}/initrd.img/g" "${DESTDIR}"/syslinux.cfg
+			fi
 		fi
 		;;
 esac

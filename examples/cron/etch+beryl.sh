@@ -7,11 +7,11 @@ BUILD="etch+beryl"
 # Begin custom defaults
 AUTOBUILD="enabled"
 
-DATE="r0_1.0~a10-1"
+DATE="r0_1.0~a11-1"
 DESTDIR="/srv/debian-unofficial/ftp/debian-live"
 TEMPDIR="/srv/tmp/live-helper"
 
-OPTIONS="--binary-indices disabled"
+OPTIONS="--binary-indices disabled --initramfs casper"
 
 ARCHITECTURES="`dpkg --print-architecture`"
 DISTRIBUTIONS="etch"

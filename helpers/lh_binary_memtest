@@ -82,7 +82,18 @@ case "${LIVE_BINARY_IMAGES}" in
 		;;
 
 	usb-hdd|hdd)
-		DESTDIR="binary/live"
+		# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
+		if [ "${LIVE_DISTRIBUTION}" = "etch" ] || [ "${LIVE_DISTRIBUTION}" = "lenny" ]
+		then
+			if [ "${LIVE_BOOTLOADER}" = "syslinux" ]
+			then
+				DESTDIR="binary"
+			else
+				DESTDIR="binary/live"
+			fi
+		else
+			DESTDIR="binary/live"
+		fi
 		;;
 esac
 

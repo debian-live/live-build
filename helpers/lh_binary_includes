@@ -106,7 +106,7 @@ then
 	fi
 
 	# Adjusting d-i templates
-	DEBIAN_NAME="/Debian GNU/Linux 4.0 r0 \"Etch\" - Unofficial amd64 NETINST/LIVE Binary-1"
+	DEBIAN_NAME="Debian GNU/Linux 4.0 r0 \"Etch\" - Unofficial amd64 NETINST/LIVE Binary-1"
 	DEBIAN_DATE="`date +%Y%m%d-%H:%M`"
 
 	if [ "${LIVE_ARCHITECTURE}" = "i386" ]

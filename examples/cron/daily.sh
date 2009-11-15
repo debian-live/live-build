@@ -11,7 +11,7 @@ DATE="`date +%Y%m%d`"
 DESTDIR="/srv/debian-unofficial/ftp/debian-live"
 TEMPDIR="/srv/tmp/live-helper"
 
-OPTIONS="--binary-indices disabled"
+OPTIONS="--binary-indices disabled --initramfs live-initramfs"
 
 ARCHITECTURES="`dpkg --print-architecture`"
 DISTRIBUTIONS="sid"
