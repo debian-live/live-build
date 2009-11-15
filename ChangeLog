@@ -1,3 +1,9 @@
+2006-09-26 Daniel Baumann <daniel@debian.org>
+
+	* Added default flavour hooks.
+	* minimal flavour does not install debian-archive-keyring to save space.
+	* Adjusted network patch.
+
 2006-09-25 Daniel Baumann <daniel@debian.org>
 
 	* Removed now unused initramfs-tools hack.

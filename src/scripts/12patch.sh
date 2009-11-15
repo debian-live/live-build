@@ -58,22 +58,37 @@ Patch_network ()
 
 	case "${1}" in
 		apply)
+			# Save apt configuration
+			if [ -f "${LIVE_CHROOT}"/etc/apt/apt.conf ]
+			then
+				cp "${LIVE_CHROOT}"/etc/apt/apt.conf "${LIVE_CHROOT}"/etc/apt/apt.conf.orig
+			fi
+
+			# Configure apt.conf
+			if [ -n "${LIVE_PROXY_FTP}" ]
+			then
+				echo "Acquire::ftp::Proxy \"${LIVE_PROXY_FTP}\";" >> "${LIVE_CHROOT}"/etc/apt/apt.conf
+			elif [ -n "${LIVE_PROXY_HTTP}" ]
+			then
+				echo "Acquire::http::Proxy \"${LIVE_PROXY_HTTP}\";" >> "${LIVE_CHROOT}"/etc/apt/apt.conf
+			fi
+
 			# Save host lookup table
 			if [ -f "${LIVE_CHROOT}"/etc/hosts ]
 			then
 				cp "${LIVE_CHROOT}"/etc/hosts "${LIVE_CHROOT}"/etc/hosts.orig
 			fi
 
-			# Save resolver configuration
-			if [ -f "${LIVE_CHROOT}"/etc/resolv.conf ]
-			then
-				cp "${LIVE_CHROOT}"/etc/resolv.conf "${LIVE_CHROOT}"/etc/resolv.conf.orig
-			fi
-
 			# Copy host lookup table
 			if [ -f /etc/hosts ]
 			then
 				cp /etc/hosts "${LIVE_CHROOT}"/etc/hosts
+			fi
+
+			# Save resolver configuration
+			if [ -f "${LIVE_CHROOT}"/etc/resolv.conf ]
+			then
+				cp "${LIVE_CHROOT}"/etc/resolv.conf "${LIVE_CHROOT}"/etc/resolv.conf.orig
 			fi
 
 			# Copy resolver configuration
@@ -84,16 +99,28 @@ Patch_network ()
 			;;
 
 		deapply)
+			# Restore apt configuration
+			if [ -f "${LIVE_CHROOT}"/etc/apt/apt.conf.orig ]
+			then
+				mv "${LIVE_CHROOT}"/etc/apt/apt.conf.orig "${LIVE_CHROOT}"/etc/apt/apt.conf
+			else
+				rm -f "${LIVE_CHROOT}"/etc/apt/apt.conf
+			fi
+
 			# Restore host lookup table
 			if [ -f "${LIVE_CHROOT}"/etc/hosts.orig ]
 			then
 				mv "${LIVE_CHROOT}"/etc/hosts.orig "${LIVE_CHROOT}"/etc/hosts
+			else
+				rm -f "${LIVE_CHROOT}"/etc/hosts
 			fi
 
 			# Restore resolver configuration
 			if [ -f "${LIVE_CHROOT}"/etc/resolv.conf.orig ]
 			then
 				mv "${LIVE_CHROOT}"/etc/resolv.conf.orig "${LIVE_CHROOT}"/etc/resolv.conf
+			else
+				rm -f "${LIVE_CHROOT}"/etc/resolv.conf
 			fi
 			;;
 	esac
@@ -107,13 +134,24 @@ Patch_linux ()
 
 	case "${1}" in
 		apply)
-			# Write configuration option
+			# Save kernel configuration
+			if [ -f "${LIVE_CHROOT}"/etc/kernel-img.conf ]
+			then
+				cp "${LIVE_CHROOT}"/etc/kernel-img.conf "${LIVE_CHROOT}"/etc/kernel-img.conf.old
+			fi
+
+			# Configure kernel-img.conf
 			echo "do_initrd = Yes"  >> "${LIVE_CHROOT}"/etc/kernel-img.conf
 			;;
 
 		deapply)
-			# Remove configuration file
-			rm -f "${LIVE_CHROOT}"/etc/kernel-img.conf
+			# Restore kernel configuration
+			if [ -f "${LIVE_CHROOT}"/etc/kernel-img.conf.old ]
+			then
+				mv "${LIVE_CHROOT}"/etc/kernel-img.conf.old "${LIVE_CHROOT}"/etc/kernel-img.conf
+			else
+				rm -f "${LIVE_CHROOT}"/etc/kernel-img.conf
+			fi
 			;;
 	esac
 }

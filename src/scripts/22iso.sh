@@ -13,26 +13,56 @@ Iso ()
 {
 	if [ ! -f "${LIVE_ROOT}"/.stage/image_binary ]
 	then
+		# Configure chroot
+		Patch_chroot apply
+		Patch_runlevel apply
+
+		# Configure network
+		Patch_network apply
+
 		mkdir -p "${LIVE_ROOT}"/binary/casper
-		for manifest in "${LIVE_ROOT}"/filesystem.manifest*
+		for MANIFEST in "${LIVE_ROOT}"/filesystem.manifest*
 		do
-			mv "${manifest}" "${LIVE_ROOT}"/binary/casper/
+			mv "${MANIFEST}" "${LIVE_ROOT}"/binary/casper/
 		done
+
+		# Remove indices
+		rm -rf "${LIVE_CHROOT}"/var/cache/apt
+		mkdir -p "${LIVE_CHROOT}"/var/cache/apt/archives/partial
+		rm -rf "${LIVE_CHROOT}"/var/lib/apt/lists
+		mkdir -p "${LIVE_CHROOT}"/var/lib/apt/lists/partial
 
 		# Switching package indices to default
 		if [ "${LIVE_GENERIC_INDICES}" = "yes" ]
 		then
 			Indices default
 		fi
-	
+
+		# Deconfigure network
+		Patch_network deapply
+
+		# Deconfigure chroot
+		Patch_runlevel deapply
+		Patch_chroot deapply
+
 		# Generating rootfs image
 		Genrootfs
 
+		# Configure chroot
+		Patch_chroot apply
+		Patch_runlevel apply
+
+		# Configure network
+		Patch_network apply
+
+		# Remove indices
+		rm -rf "${LIVE_CHROOT}"/var/cache/apt
+		mkdir -p "${LIVE_CHROOT}"/var/cache/apt/archives/partial
+		rm -rf "${LIVE_CHROOT}"/var/lib/apt/lists
+		mkdir -p "${LIVE_CHROOT}"/var/lib/apt/lists/partial
+
 		# Switching package indices to custom
-		if [ "${LIVE_GENERIC_INDICES}" = "yes" ]
-		then
-			Indices custom
-		fi
+		Indices custom
 
 		# Installing syslinux
 		Syslinux iso
@@ -42,6 +72,13 @@ Iso ()
 
 		# Installing memtest
 		Memtest iso
+
+		# Deconfigure network
+		Patch_network deapply
+
+		# Deconfigure chroot
+		Patch_runlevel deapply
+		Patch_chroot deapply
 
 		# Installing templates
 		if [ "${LIVE_FLAVOUR}" != "minimal" ]
@@ -62,8 +99,22 @@ Iso ()
 
 	if [ ! -f "${LIVE_ROOT}"/.stage/image_source ] && [ "${LIVE_SOURCE}" = "yes" ]
 	then
+		# Configure chroot
+		Patch_chroot apply
+		Patch_runlevel apply
+
+		# Configure network
+		Patch_network apply
+
 		# Downloading sources
 		Sources
+
+		# Deconfigure network
+		Patch_network deapply
+
+		# Deconfigure chroot
+		Patch_runlevel deapply
+		Patch_chroot deapply
 
 		# Creating image
 		Mkisofs source

@@ -14,6 +14,10 @@ install:
 	install -d -m 0755 $(DESTDIR)/usr/share/make-live/lists
 	install -m 0644 src/lists/* $(DESTDIR)/usr/share/make-live/lists
 
+	@# Install flavour hooks
+	install -d -m 0755 $(DESTDIR)/usr/share/make-live/hooks
+	install -m 0644 src/hooks/* $(DESTDIR)/usr/share/make-live/hooks
+
 	@# Install sub scripts
 	install -d -m 0755 $(DESTDIR)/usr/share/make-live/scripts
 	install -m 0755 src/scripts/*.sh $(DESTDIR)/usr/share/make-live/scripts

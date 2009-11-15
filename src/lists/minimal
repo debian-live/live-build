@@ -1,4 +1,4 @@
 # /usr/share/make-live/lists/minimal - package list for make-live(8)
 
 # Minimal
-eject sudo
+eject nvi sudo

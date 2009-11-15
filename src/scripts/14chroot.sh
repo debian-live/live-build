@@ -33,7 +33,10 @@ Chroot ()
 		# Install secure apt
 		if [ "${LIVE_DISTRIBUTION}" = "testing" ] || [ "${LIVE_DISTRIBUTION}" = "unstable" ]
 		then
-			Chroot_exec "apt-get install --yes --force-yes debian-archive-keyring"
+			if [ "${LIVE_FLAVOUR}" != "minimal" ]
+			then
+				Chroot_exec "apt-get install --yes --force-yes debian-archive-keyring"
+			fi
 		fi
 
 		# Update indices
@@ -43,7 +46,7 @@ Chroot ()
 		Patch_linux apply
 
 		# Install linux-image, modules and casper
-		Chroot_exec "apt-get install --yes linux-image-2.6-${LIVE_KERNEL} squashfs-modules-2.6-${LIVE_KERNEL} unionfs-modules-2.6-${LIVE_KERNEL} casper"
+		Chroot_exec "apt-get install --yes --force-yes linux-image-2.6-${LIVE_KERNEL} squashfs-modules-2.6-${LIVE_KERNEL} unionfs-modules-2.6-${LIVE_KERNEL} casper"
 
 		# Deconfigure linux-image
 		Patch_linux deapply
@@ -52,14 +55,14 @@ Chroot ()
 		if [ -n "${LIVE_PACKAGE_LIST}" ]
 		then
 			grep -v "^#" "${LIVE_PACKAGE_LIST}" > "${LIVE_CHROOT}"/root/"`basename ${LIVE_PACKAGE_LIST}`"
-			Chroot_exec "xargs --arg-file=/root/`basename ${LIVE_PACKAGE_LIST}` apt-get install --yes"
+			Chroot_exec "xargs --arg-file=/root/`basename ${LIVE_PACKAGE_LIST}` apt-get install --yes --force-yes"
 			rm -f "${LIVE_CHROOT}"/root/"`basename ${LIVE_PACKAGE_LIST}`"
 		fi
 
 		# Install extra packages
 		if [ -n "${LIVE_PACKAGES}" ]
 		then
-			Chroot_exec "apt-get install --yes ${LIVE_PACKAGES}"
+			Chroot_exec "apt-get install --yes --force-yes ${LIVE_PACKAGES}"
 		fi
 
 		# Copy external directory into the chroot
@@ -68,6 +71,14 @@ Chroot ()
 			cd "${LIVE_INCLUDE_CHROOT}"
 			find . | cpio -pumd "${LIVE_CHROOT}"
 			cd "${OLDPWD}"
+		fi
+
+		# Process flavour specific hooks
+		if [ -r "${BASE}"/hooks/"${LIVE_FLAVOUR}" ]
+		then
+			grep -v "^#" "${BASE}"/hooks/"${LIVE_FLAVOUR}" > "${LIVE_CHROOT}"/root/"${LIVE_FLAVOUR}"
+			Chroot_exec "sh /root/${LIVE_FLAVOUR}"
+			rm -f "${LIVE_CHROOT}"/root/"${LIVE_FLAVOUR}"
 		fi
 
 		# Execute extra command in the chroot
@@ -88,16 +99,16 @@ Chroot ()
 
 		if [ ! -z "${LIVE_MANIFEST}" ]
 		then
-			Chroot_exec "apt-get install --yes ${LIVE_MANIFEST}"
+			Chroot_exec "apt-get install --yes --force-yes ${LIVE_MANIFEST}"
 			Chroot_exec "dpkg-query -W \*" | awk '$2 ~ /./ {print $1 " " $2 }' > "${LIVE_ROOT}"/filesystem.manifest-desktop
 		fi
 
-		# Clean apt packages cache
-		rm -f "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb
-		rm -f "${LIVE_CHROOT}"/var/cache/apt/archives/partial/*.deb
+		# Remove unused packages
+		Chroot_exec "apt-get remove --purge --yes cdebootstrap-helper-diverts"
 
-		# Clean apt indices cache
-		rm -f "${LIVE_CHROOT}"/var/cache/apt/*pkgcache.bin
+		# Clean apt packages cache
+		rm -rf "${LIVE_CHROOT}"/var/cache/apt
+		mkdir -p "${LIVE_CHROOT}"/var/cache/apt/archives/partial
 
 		# Remove cdebootstrap packages cache
 		rm -rf "${LIVE_CHROOT}"/var/cache/bootstrap

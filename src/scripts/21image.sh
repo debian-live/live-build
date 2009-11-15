@@ -138,7 +138,7 @@ Syslinux ()
 	then
 		# Install syslinux
 		Patch_network apply
-		Chroot_exec "apt-get install --yes syslinux"
+		Chroot_exec "apt-get install --yes --force-yes syslinux"
 
 		case "${1}" in
 			iso)
@@ -188,14 +188,26 @@ Linuximage ()
 	case "${1}" in
 		iso)
 			# Copy linux-image
-			cp "${LIVE_CHROOT}"/boot/vmlinuz-* "${LIVE_ROOT}"/binary/isolinux/vmlinuz
-			cp "${LIVE_CHROOT}"/boot/initrd.img-* "${LIVE_ROOT}"/binary/isolinux/initrd.gz
+			if [ "${LIVE_FLAVOUR}" = "minimal" ]
+			then
+				mv "${LIVE_CHROOT}"/boot/vmlinuz-* "${LIVE_ROOT}"/binary/isolinux/vmlinuz
+				mv "${LIVE_CHROOT}"/boot/initrd.img-* "${LIVE_ROOT}"/binary/isolinux/initrd.gz
+			else
+				cp "${LIVE_CHROOT}"/boot/vmlinuz-* "${LIVE_ROOT}"/binary/isolinux/vmlinuz
+				cp "${LIVE_CHROOT}"/boot/initrd.img-* "${LIVE_ROOT}"/binary/isolinux/initrd.gz
+			fi
 			;;
 
 		net)
 			# Copy linux-image
-			cp "${LIVE_ROOT}"/chroot/boot/vmlinuz-* "${LIVE_ROOT}"/tftpboot/vmlinuz
-			cp "${LIVE_ROOT}"/chroot/boot/initrd.img-* "${LIVE_ROOT}"/tftpboot/initrd.gz
+			if [ "${LIVE_FLAVOUR}" = "minimal" ]
+			then
+				mv "${LIVE_ROOT}"/chroot/boot/vmlinuz-* "${LIVE_ROOT}"/tftpboot/vmlinuz
+				mv "${LIVE_ROOT}"/chroot/boot/initrd.img-* "${LIVE_ROOT}"/tftpboot/initrd.gz
+			else
+				cp "${LIVE_ROOT}"/chroot/boot/vmlinuz-* "${LIVE_ROOT}"/tftpboot/vmlinuz
+				cp "${LIVE_ROOT}"/chroot/boot/initrd.img-* "${LIVE_ROOT}"/tftpboot/initrd.gz
+			fi
 			;;
 	esac
 }
@@ -206,7 +218,7 @@ Memtest ()
 	then
 		# Install memtest
 		Patch_network apply
-		Chroot_exec "apt-get install --yes memtest86+"
+		Chroot_exec "apt-get install --yes --force-yes memtest86+"
 
 		case "$1" in
 			iso)
