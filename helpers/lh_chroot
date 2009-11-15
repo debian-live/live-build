@@ -30,6 +30,7 @@ Read_conffile config/bootstrap
 Read_conffile config/chroot
 Read_conffile config/binary
 Read_conffile config/source
+Read_conffile "${LH_CONFIG}"
 Set_defaults
 
 # Configuring chroot
@@ -37,6 +38,7 @@ lh_chroot_cache restore ${*}
 lh_chroot_proc install ${*}
 lh_chroot_sysfs install ${*}
 lh_chroot_debianchroot install ${*}
+lh_chroot_dpkg install ${*}
 lh_chroot_sysv-rc install ${*}
 lh_chroot_hosts install ${*}
 lh_chroot_resolv install ${*}
@@ -70,6 +72,7 @@ lh_chroot_hostname remove ${*}
 lh_chroot_resolv remove ${*}
 lh_chroot_hosts remove ${*}
 lh_chroot_sysv-rc remove ${*}
+lh_chroot_dpkg remove ${*}
 lh_chroot_debianchroot remove ${*}
 lh_chroot_sysfs remove ${*}
 lh_chroot_proc remove ${*}

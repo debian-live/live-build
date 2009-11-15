@@ -30,6 +30,7 @@ Read_conffile config/bootstrap
 Read_conffile config/chroot
 Read_conffile config/binary
 Read_conffile config/source
+Read_conffile "${LH_CONFIG}"
 Set_defaults
 
 rm -f .lock
@@ -53,6 +54,7 @@ case "${1}" in
 		;;
 
 	chroot)
+		Echo_message "Cleaning chroot"
 		${LH_ROOT_COMMAND} umount -f chroot/sys > /dev/null 2>&1 || true
 		${LH_ROOT_COMMAND} umount -f chroot/proc/sys/fs/binfmt_misc > /dev/null 2>&1 || true
 		${LH_ROOT_COMMAND} umount -f chroot/proc > /dev/null 2>&1 || true

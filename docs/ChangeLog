@@ -1,3 +1,21 @@
+2007-08-14  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/*:
+	  - Added --conffile to all helpers.
+	* manpages/lh_config.de.1, lh_config.en.1:
+	  - Added.
+	* Uploading 1.0~a23-1.
+
+2007-08-13  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_binary_memtest:
+	  - Improved grub workaround.
+
+2007-08-12  Daniel Baumann  <daniel@debian.org>
+
+	* helpers/lh_chroot_dpkg:
+	  - Added.
+
 2007-08-12  Daniel Baumann  <daniel@debian.org>
 
 	* Uploaded 1.0~a22-1.

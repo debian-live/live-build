@@ -30,6 +30,7 @@ Read_conffile config/bootstrap
 Read_conffile config/chroot
 Read_conffile config/binary
 Read_conffile config/source
+Read_conffile "${LH_CONFIG}"
 Set_defaults
 
 Echo_message "Begin install linux-image..."
@@ -108,7 +109,7 @@ case "${LH_INITRAMFS}" in
 	casper)
 		# Checking casper templates
 		Check_templates casper
-		cp "${TEMPLATES}"/casper/parameters.txt "${DESTDIR}"/parameters.txt
+		cp "${TEMPLATES}"/parameters.txt "${DESTDIR}"/parameters.txt
 		;;
 
 	live-initramfs)
