@@ -5,7 +5,7 @@
 
 # live-helper
 cdebootstrap debootstrap
-live-helper subversion
+live-helper git-core
 dosfstools genisoimage mkisofs memtest86+ memtest86 mtools parted genext2fs syslinux grub
 
 # kernel
