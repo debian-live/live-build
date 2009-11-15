@@ -34,7 +34,7 @@ Net ()
 		mount proc-live -t proc "${LIVE_CHROOT}"/proc
 
 		# Installing smbfs
-		Chroot_exec "apt-get install --yes --force-yes smbfs"
+		Chroot_exec "aptitude install --assume-yes smbfs"
 
 		# Unmount proc
 		umount "${LIVE_CHROOT}"/proc

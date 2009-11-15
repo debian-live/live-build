@@ -1,3 +1,21 @@
+2006-11-05 Daniel Baumann <daniel@debian.org>
+
+	* Applied patch from Markus Bauer <bauer-markus@web.de>:
+	  - fixing script sourcing to exclude files in .svn
+
+2006-11-03 Daniel Baumann <daniel@debian.org>
+
+	* Fixed typo in the policy-rc.d hack.
+
+2006-11-02 Daniel Baumann <daniel@debian.org>
+
+	* Using aptitude instead of apt-get.
+	* Added '--with-recommends' and '--without-recommends'.
+
+2006-11-01 Daniel Baumann <daniel@debian.org>
+
+	* Fixed regression when using -d ${CODENAME} wrt/ kernel packages.
+
 2006-10-29 Daniel Baumann <daniel@debian.org>
 
 	* Added minimal-net flavour.

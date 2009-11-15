@@ -27,7 +27,7 @@ Bootstrap ()
 		cdebootstrap --arch="${LIVE_ARCHITECTURE}" --flavour="${LIVE_FLAVOUR}" ${SUITE_CONFIG} "${LIVE_DISTRIBUTION}" "${LIVE_CHROOT}" "${LIVE_MIRROR}"
 
 		# Remove unused packages
-		Chroot_exec "apt-get remove --purge --yes cdebootstrap-helper-diverts"
+		Chroot_exec "dpkg -P cdebootstrap-helper-diverts"
 
 		# Remove package cache
 		rm -rf "${LIVE_CHROOT}"/var/cache/bootstrap
