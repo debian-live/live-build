@@ -28,7 +28,7 @@ set -e
 BASE=${LIVE_BASE:-"/usr/share/make-live"}
 CONFIG="/etc/make-live.conf"
 PROGRAM="`basename ${0}`"
-VERSION="0.99.18"
+VERSION="0.99.19"
 
 CODENAME_OLDSTABLE="woody"
 CODENAME_STABLE="sarge"
@@ -41,7 +41,7 @@ do
 	. "${SCRIPT}"
 done
 
-USAGE="Usage: ${PROGRAM} [-a|--architecture ARCHITECTURE] [-b|--bootappend KERNEL_PARAMETER|\"KERNEL_PARAMETERS\"] [--clone DIRECTORY] [--config FILE] [-c|--chroot DIRECTORY] [-d|--distribution DISTRIBUTION] [--with-generic-indices] [--without-generic-indices] [--with-recommends] [--without-recommends] [--filesystem FILESYSTEM] [-f|--flavour BOOTSTRAP_FLAVOUR] [--hook COMMAND|\"COMMANDS\"] [--include-chroot FILE|DIRECTORY] [--include-image FILE|DIRECTORY] [-k|--kernel KERNEL_FLAVOUR] [--manifest PACKAGE] [-m|--mirror URL] [-k|--keyring] [--mirror-security URL] [--packages PACKAGE|\"PACKAGES\"] [-p|--package-list LIST|FILE] [--preseed FILE] [--proxy-ftp URL] [--proxy-http URL] [--repositories NAME] [-r|--root DIRECTORY] [-s|--section SECTION|\"SECTIONS\"] [--server-address HOSTNAME|IP] [--server-path DIRECTORY] [--templates DIRECTORY] [-t|--type TYPE]"
+USAGE="Usage: ${PROGRAM} [-a|--architecture ARCHITECTURE] [-b|--bootappend KERNEL_PARAMETER|\"KERNEL_PARAMETERS\"] [--clone DIRECTORY] [--config FILE] [-c|--chroot DIRECTORY] [-d|--distribution DISTRIBUTION] [--with-generic-indices] [--without-generic-indices] [--with-recommends] [--without-recommends] [--filesystem FILESYSTEM] [-f|--flavour BOOTSTRAP_FLAVOUR] [--hook COMMAND|\"COMMANDS\"] [--include-chroot FILE|DIRECTORY] [--include-image FILE|DIRECTORY] [-k|--kernel KERNEL_FLAVOUR] [--manifest PACKAGE] [-m|--mirror URL] [-k|--keyring] [--mirror-security URL] [--packages PACKAGE|\"PACKAGES\"] [-p|--package-list LIST|FILE] [--preseed FILE] [--proxy-ftp URL] [--proxy-http URL] [--repositories NAME] [-r|--root DIRECTORY] [-s|--section SECTION|\"SECTIONS\"] [--server-address HOSTNAME|IP] [--server-path DIRECTORY] [--templates DIRECTORY] [-t|--type TYPE] [--tasks TASK]"
 
 Help ()
 {
@@ -92,6 +92,7 @@ Help ()
 	echo "  --server-path: specifies the netboot server path for chroot."
 	echo "  --templates: specifies location of the templates."
 	echo "  -t, --type: specifies live system type."
+	echo "  --tasks: specifies one or more aptitude tasks."
 	echo "  --with-generic-indices: enables generic debian package indices (default)."
 	echo "  --without-generic-indices: disables generic debian package indices."
 	echo "  --with-recommends: installes recommended packages too."
@@ -165,7 +166,7 @@ Configuration ()
 
 Main ()
 {
-	ARGUMENTS="`getopt --longoptions root:,type:,architecture:,bootappend:,clone:,config:,chroot:,distribution:,filesystem:,flavour:,bootstrap-config:,hook:,include-chroot:,include-image:,kernel:,manifest:,mirror:,keyring:,mirror-security:,output:,packages:,package-list:,proxy-ftp:,preseed:,proxy-http:,repositories:,section:,server-address:,server-path:,templates:,with-generic-indices,without-generic-indices,with-recommends,without-recommends,with-source,without-source,help,usage,version --name=${PROGRAM} --options r:t:a:b:c:d:f:k:m:o:p:s:huv --shell sh -- "${@}"`"
+	ARGUMENTS="`getopt --longoptions root:,tasks:,type:,architecture:,bootappend:,clone:,config:,chroot:,distribution:,filesystem:,flavour:,bootstrap-config:,hook:,include-chroot:,include-image:,kernel:,manifest:,mirror:,keyring:,mirror-security:,output:,packages:,package-list:,proxy-ftp:,preseed:,proxy-http:,repositories:,section:,server-address:,server-path:,templates:,with-generic-indices,without-generic-indices,with-recommends,without-recommends,with-source,without-source,help,usage,version --name=${PROGRAM} --options r:t:a:b:c:d:f:k:m:o:p:s:huv --shell sh -- "${@}"`"
 
 	if [ "${?}" != "0" ]
 	then
@@ -184,6 +185,10 @@ Main ()
 
 			-t|--type)
 				LIVE_TYPE="${2}"; shift 2
+				;;
+
+			--tasks)
+				LIVE_TASKS="${2}"; shift 2
 				;;
 
 			-a|--architecture)
@@ -347,16 +352,6 @@ Main ()
 	Init
 	Configuration
 	Defaults
-
-	# Distribution
-	if [ "${1}" = "dist" ]
-	then
-		for FLAVOUR in minimal standard gnome kde xfce
-		do
-			( make-live -d testing -o "debian-live-${CODENAME_TESTING}-`dpkg --print-architecture`-${FLAVOUR}-" -p ${FLAVOUR} --with-source && cd "${LIVE_ROOT}" && cd .. && mv "${LIVE_ROOT}"/*.iso ./ && rm -rf "${LIVE_ROOT}" ) || rm -rf "${LIVE_ROOT}"
-			( make-live -d unstable -o "debian-live-${CODENAME_UNSTABLE}-`dpkg --print-architecture`-${FLAVOUR}-" -p ${FLAVOUR} --with-source && cd "${LIVE_ROOT}" && cd .. && mv "${LIVE_ROOT}"/*.iso ./ && rm -rf "${LIVE_ROOT}" ) || rm -rf "${LIVE_ROOT}"
-		done
-	fi
 
 	# Building live system
 	Bootstrap

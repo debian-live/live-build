@@ -121,7 +121,7 @@ EOF
 		fi
 
 		# Restore cloned package selection
-		if [ -f "${LIVE_PACAKGE_LIST_CLONED}" ]
+		if [ -f "${LIVE_PACKAGE_LIST_CLONED}" ]
 		then
 			Chroot_exec "xargs --arg-file=/root/`basename ${LIVE_PACKAGE_LIST_CLONED}` aptitude install --assume-yes"
 		fi
@@ -138,6 +138,15 @@ EOF
 		if [ -n "${LIVE_PACKAGES}" ]
 		then
 			Chroot_exec "aptitude install --assume-yes ${LIVE_PACKAGES}"
+		fi
+
+		# Install aptitude tasks
+		if [ -n "${LIVE_TASKS}" ]
+		then
+			for TASK in ${LIVE_TASKS}
+			do
+				Chroot_exec "aptitude install --assume-yes ${TASK}"
+			done
 		fi
 
 		# Copy external directory into the chroot
@@ -166,8 +175,8 @@ EOF
 			LIVE_DEBCONF_FRONTEND="readline" LIVE_DEBCONF_PRIORITY="low" Chroot_exec "${LIVE_HOOK}"
 		fi
 
-		# Temporary hacks for broken packages
-		Hack_xorg
+		# Save package list
+		Chroot_exec "dpkg --get-selections" > "${LIVE_ROOT}"/packages.txt
 
 		# Add filesystem.manifest
 		Chroot_exec "dpkg-query -W \*" | awk '$2 ~ /./ {print $1 " " $2 }' > "${LIVE_ROOT}"/filesystem.manifest

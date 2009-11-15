@@ -1,3 +1,13 @@
+2007-02-01 Daniel Baumann <daniel@debian.org>
+
+	* Added "--tasks".
+	* Added desktop base to all desktop package lists.
+
+2007-01-31 Daniel Baumann <daniel@debian.org>
+
+	* Changed vars in autobuilding script to be able to source
+	  make-live.conf.
+
 2007-01-30 Daniel Baumann <daniel@debian.org>
 
 	* Added cron job for autobuilding images.
