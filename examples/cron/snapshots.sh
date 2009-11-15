@@ -64,7 +64,7 @@ do
 			;;
 
 		live-magic)
-			git clone git://git.chris-lamb.co.uk/live-magic.git
+			git clone git://git.debian.org/git/users/lamby-guest/${PACKAGE}.git
 			;;
 
 		*)
@@ -87,7 +87,7 @@ do
 
 	# Getting revision
 	cd "${TEMPDIR}"/${PACKAGE}
-	REVISION="$(git log | grep -m1 Date | awk -FDate: '{ print $2 }' | sed -e 's/+.*$//')"
+	REVISION="$(git log | grep -m1 Date | awk -FDate: '{ print $2 }' | awk '{ print $1 ",", $3, $2, $5, $4, $6 }')"
 	REVISION="$(date -d "${REVISION}" +%Y%m%d.%H%M%S)"
 
 	# Check for existing package
@@ -174,5 +174,9 @@ EOF
 
 # Removing build directory
 rm -rf "${TEMPDIR}"
+
+# Fixing permissions
+chmod 0644 "${SERVER}"/*
+chmod 0766 "${SERVER}"/*.sh
 
 echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-snapshots: end build." >> "${LOGFILE}"

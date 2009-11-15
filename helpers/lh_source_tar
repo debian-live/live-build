@@ -60,7 +60,13 @@ then
 fi
 
 # Create tarball
-tar cfz source.tar.gz source
+if gzip --help | grep -q '\-\-rsyncable'
+then
+	tar cf source.tar source
+	gzip --rsyncable --best source.tar
+else
+	tar cfz source.tar.gz source
+fi
 
 # Creating stage file
 Create_stagefile .stage/source_tar

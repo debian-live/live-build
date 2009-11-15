@@ -1,14 +1,22 @@
-#!/bin/sh -x
+#!/bin/sh -e
 
-set -e
+# Static variables
+DISTRIBUTIONS="${DISTRIBUTIONS:-etch lenny sid}"
+FLAVOURS="${FLAVOURS:-standard gnome-desktop kde-desktop xfce-desktop}"
+SOURCE="${SOURCE:-enabled}"
 
+MIRROR="${MIRROR:-http://mirror/ftp.debian.org/debian/}"
+MIRROR_SECURITY="${MIRROR_SECURITY:-http://mirror/ftp.debian.org/debian-security/}"
+
+# Dynamic variables
+ARCHITECTURE="$(dpkg --print-architecture)"
 DATE="$(date +%Y%m%d)"
 
-for DISTRIBUTION in etch lenny sid
+for DISTRIBUTION in ${DISTRIBUTIONS}
 do
 	rm -rf cache/stages*
 
-	for FLAVOUR in standard gnome-desktop kde-desktop xfce-desktop
+	for FLAVOUR in ${FLAVOURS}
 	do
 		mkdir -p config
 
@@ -21,7 +29,12 @@ do
 		rm -rf cache/packages*
 		rm -rf cache/stages_rootfs
 
-		lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --source enabled --mirror-bootstrap http://mirror/ftp.debian.org/debian/ --mirror-chroot http://mirror/ftp.debian.org/debian/ --mirror-chroot-security http://mirror/ftp.debian.org/debian-security/
+		if [ "${SOURCE}" = "enabled" ]
+		then
+			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --source enabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
+		else
+			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --source disabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
+		fi
 
 		if [ "${DISTRIBUTION}" = "sid" ]
 		then
@@ -33,20 +46,34 @@ do
 
 		fi
 
-		lh build | tee debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.iso.log
+		lh build | tee debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.log
 
-		mv binary.iso debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.iso
-		mv binary.list debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.iso.list
-		mv binary.packages debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.iso.packages
-		mv source.tar.gz debian-live-${DISTRIBUTION}-source-${FLAVOUR}.tar.gz
-		mv source.list debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.tar.gz.list
+		mv binary.iso debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso
+		mv binary.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.list
+		mv binary.packages debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.packages
+
+		if [ "${SOURCE}" = "enabled" ]
+		then
+			mv source.tar.gz debian-live-${DISTRIBUTION}-source-${FLAVOUR}-source.tar.gz
+			mv source.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}-source.tar.gz.list
+		fi
 
 		lh clean --binary
 		lh config -b usb-hdd
-		lh binary | tee debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.img.log
+		lh binary | tee debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.img.log
 
-		mv binary.img debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.img
-		mv binary.list debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.img.list
-		mv binary.packages debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.img.packages
+		mv binary.img debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.img
+		mv binary.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.img.list
+		mv binary.packages debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.img.packages
+
+		lh clean --binary
+		lh config -b net
+		lh binary | tee debian-live-${DISTRIBUTION}-i386-${FLAVOUR}-net.tar.gz.log
+
+		mv binary-net.tar.gz debian-live-${DISTRIBUTION}-i386-${FLAVOUR}-net.tar.gz
+		mv binary.list debian-live-${DISTRIBUTION}-i386-${FLAVOUR}-net.tar.gz.list
+		mv binary.packages debian-live-${DISTRIBUTION}-i386-${FLAVOUR}-net.tar.gz.packages
+
+		mv binary/*/filesystem.squashfs debian-live-${DISTRIBUTION}-i386-${FLAVOUR}.squashfs
 	done
 done

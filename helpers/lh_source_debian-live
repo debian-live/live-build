@@ -59,7 +59,15 @@ cp -a config source/debian-live
 
 # Create tarball
 cd source
-tar cfz debian-live-config_$(date +%Y%m%d.%s).tar.gz debian-live
+
+if gzip --help | grep -q '\-\-rsyncable'
+then
+	tar cf debian-live-config_$(date +%Y%m%d.%s).tar debian-live
+	gzip --rsyncable --best debian-live-config_$(date +%Y%m%d.%s).tar
+else
+	tar cfz debian-live-config_$(date +%Y%m%d.%s).tar.gz debian-live
+fi
+
 cd "${OLDPWD}"
 
 rm -rf source/debian-live/config

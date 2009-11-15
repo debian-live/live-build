@@ -59,7 +59,13 @@ then
 fi
 
 # Create tarball
-tar cfz source-net.tar.gz source
+if gzip --help | grep -q '\-\-rsyncable'
+then
+	tar cf source-net.tar source
+	gzip --rsyncable --best source-net.tar
+else
+	tar cfz source-net.tar.gz source
+fi
 
 # Creating stage file
 Create_stagefile .stage/source_net
