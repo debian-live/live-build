@@ -1,0 +1,33 @@
+#!/bin/sh
+
+# lh_source(1) - building the source images
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/image
+Set_defaults
+
+# Enabling network in chroot
+lh_chroot_hosts install
+lh_chroot_resolv install
+lh_chroot_sources install
+
+# Preparing images
+lh_source_download
+
+# Building images
+lh_source_generic
+lh_source_iso
+lh_source_net
+lh_source_usb
+
+# Deconfiguring chroot
+rm -f "${LIVE_ROOT}"/.stage/chroot_sources
+lh_chroot_resolv remove
+lh_chroot_hosts remove

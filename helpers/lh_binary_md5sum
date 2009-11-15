@@ -1,0 +1,51 @@
+#!/bin/sh
+
+# lh_binary_md5sum(1) - create md5sum.txt
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/image
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+# Checking stage file
+Check_stagefile "${LIVE_ROOT}"/.stage/binary_md5sum
+
+# Remove old md5sums
+if [ -f "${LIVE_ROOT}"/binary/md5sum.txt ]
+then
+	rm -f "${LIVE_ROOT}"/binary/md5sum.txt
+fi
+
+# Calculating md5sums
+cd "${LIVE_ROOT}"/binary
+find . -type f -print0 | xargs -0 md5sum > "${LIVE_ROOT}"/md5sum.txt
+cd "${OLDPWD}"
+
+if [ -d "${LIVE_INCLUDE_IMAGE}" ]
+then
+	cd "${LIVE_INCLUDE_IMAGE}"
+	find . -type f -print0 | xargs -0 md5sum >> "${LIVE_ROOT}"/md5sum.txt
+	cd "${OLDPWD}"
+fi
+
+mv "${LIVE_ROOT}"/md5sum.txt "${LIVE_ROOT}"/binary
+
+# Creating stage file
+Create_stagefile "${LIVE_ROOT}"/.stage/binary_md5sum

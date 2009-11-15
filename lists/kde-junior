@@ -1,0 +1,19 @@
+# /usr/share/make-live/lists/kde - package list for make-live(1)
+
+# Minimal
+eject file sudo vim-tiny
+
+# Standard
+console-common kbd locales
+
+# KDE
+kde kdm
+desktop-base
+
+xorg xresprobe
+
+# Debian Junior
+junior-sound junior-typing junior-internet junior-toys junior-games-net
+junior-games-sim junior-games-gl junior-puzzle junior-arcade junior-math
+junior-writing junior-games-card junior-programming junior-system junior-art
+junior-doc junior-games-text junior-kde

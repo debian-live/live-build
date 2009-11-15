@@ -1,0 +1,55 @@
+#!/bin/sh
+
+# lh_chroot_tasks(1) - install tasks into chroot
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/chroot
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking stage file
+Check_stagefile "${LIVE_ROOT}"/.stage/chroot_tasks
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+if [ -n "${LIVE_TASKS}" ] && [ "${LH_APT}" = "aptitude" ]
+then
+	# Restore old cache
+	if [ -d "${LIVE_ROOT}"/cache/chroot_tasks ]
+	then
+		cp "${LIVE_ROOT}"/cache/chroot_tasks/*.deb "${LIVE_CHROOT}"/var/cache/apt/archives
+	fi
+
+	Chroot "aptitude install --assume-yes ${LIVE_TASKS}"
+
+	# Saving new cache
+	Chroot "apt-get autoclean"
+
+	if ls "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb &> /dev/null
+	then
+		if [ ! -d "${LIVE_ROOT}"/cache/chroot_tasks ]
+		then
+			mkdir -p "${LIVE_ROOT}"/cache/chroot_tasks
+		fi
+
+		mv -f "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb "${LIVE_ROOT}"/cache/chroot_tasks
+	fi
+
+	# Creating stage file
+	Create_stagefile "${LIVE_ROOT}"/.stage/chroot_tasks
+fi

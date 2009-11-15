@@ -1,0 +1,121 @@
+#!/bin/sh
+
+# lh_source_usb(1) - build source image
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/bootstrap
+Read_conffile config/image
+Set_defaults
+
+if [ "${LIVE_SOURCE}" = "disabled" ]
+then
+	echo "W: source images disabled (FIXME)"
+	exit 0
+fi
+
+for IMAGE in ${LIVE_SOURCE_IMAGE}
+do
+	if [ "${IMAGE}" = "usb" ]
+	then
+		# Requiring stage file
+		Require_stagefile "${LIVE_ROOT}"/.stage/source_download
+
+		# Checking lock file
+		Check_lockfile "${LIVE_ROOT}"/.lock
+
+		# Creating lock file
+		Create_lockfile "${LIVE_ROOT}"/.lock
+
+		# Checking stage file
+		Check_stagefile "${LIVE_ROOT}"/.stage/source_usb
+
+		if [ ! -f "${LIVE_CHROOT}"/sbin/mkdosfs ]
+		then
+			PACKAGES="${PACKAGES} dosfstools"
+		fi
+
+		if [ ! -f "${LIVE_CHROOT}"/sbin/parted ]
+		then
+			PACKAGES="${PACKAGES} parted"
+		fi
+
+		if [ -n "${PACKAGES}" ]
+		then
+			# Installing packages
+			case "${LH_APT}" in
+				apt)
+					Chroot "apt-get install --yes ${PACKAGES}"
+					;;
+
+				aptitude)
+					Chroot "aptitude install --assume-yes ${PACKAGES}"
+					;;
+			esac
+		fi
+
+		# Remove old source
+		if [ -f "${LIVE_ROOT}"/source.img ]
+		then
+			rm -f "${LIVE_ROOT}"/source.img
+		fi
+
+		# Everything which comes here needs to be cleaned up,
+		DU_DIM="`du -ms ${LIVE_ROOT}/source | cut -f1`"
+		REAL_DIM="`expr ${DU_DIM} + ${DU_DIM} / 20`" # Just 5% more to be sure, need something more sophistcated here...
+		dd if=/dev/zero of="${LIVE_ROOT}"/source.img bs=1024k count=${REAL_DIM}
+		FREELO="`losetup -f`"
+		if [ ! -b "${LIVE_CHROOT}"/${FREELO} ]
+		then
+			MAKEDEV="true"
+			Chroot "cd /dev && ./MAKEDEV ${FREELO}"
+		fi
+
+		echo "!!! The following error/warning messages can be ignored !!!"
+		lh_losetup $FREELO "${LIVE_ROOT}"/source.img 0
+		Chroot "parted -s ${FREELO} mklabel msdos" || true
+		Chroot "parted -s ${FREELO} mkpartfs primary fat16 0.0 100%" || true
+		Chroot "parted -s ${FREELO} set 1 lba off" || true
+		losetup -d ${FREELO}
+
+		lh_losetup $FREELO "${LIVE_ROOT}"/source.img 1
+		Chroot "mkfs.msdos -n DEBIAN_LIVE ${FREELO}"
+		mkdir -p "${LIVE_ROOT}"/source.tmp
+		mount ${FREELO} "${LIVE_ROOT}"/source.tmp
+		cp -r "${LIVE_ROOT}"/source/* "${LIVE_ROOT}"/source.tmp
+		umount "${LIVE_ROOT}"/source.tmp
+		rmdir "${LIVE_ROOT}"/source.tmp
+		losetup -d ${FREELO}
+		echo "!!! The above error/warning messages can be ignored !!!"
+
+		if [ -n "${MAKEDEV}" ]
+		then
+			rm -f "${LIVE_CHROOT}"/${FREELO}
+		fi
+
+		if [ -n "${PACKAGES}" ]
+		then
+			# Removing packages
+			case "${LH_APT}" in
+				apt)
+					Chroot "apt-get remove --purge --yes ${PACKAGES}"
+					;;
+
+				aptitude)
+					Chroot "aptitude purge --assume-yes ${PACKAGES}"
+					;;
+			esac
+		fi
+
+		# Creating stage file
+		Create_stagefile "${LIVE_ROOT}"/.stage/source_usb
+	fi
+done

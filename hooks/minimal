@@ -1,0 +1,19 @@
+# /usr/share/live-helper/hooks/minimal - hook list for live-helper(7)
+
+# Removing unused packages
+apt-get remove --purge apt-utils aptitude libdb4.4
+apt-get remove --purge man-db manpages info
+apt-get remove --purge ssl wget
+
+# Removing unused files
+rm -rf /var/cache/man/*
+
+# Cleaning apt
+rm -rf /var/lib/apt/lists
+mkdir -p /var/lib/apt/lists/partial
+
+# Truncating logs
+for FILE in `find /var/log/ -type f`
+do
+	cat < /dev/null > $FILE
+done

@@ -1,26 +1,218 @@
 #!/bin/sh
 
-# lh_config
+# lh_make(1) - create sample configuration for live-helper(7)
 
-case "${1}" in
-	disable-daemons)
-		if [ "${LIVE_DAEMONS}" = "no" ]
-		then
-			# Disable all
-			for FILE in "${LIVE_CHROOT}"/etc/init.d/*
-			do
-				lh_chroot "update-rc.d -f `basename ${FILE}` remove"
-			done
+set -e
 
-			# Re-enable all required (taken from -f standard chroot)
-			for PACKAGE in casper console-common cron dpkg ifupdown initscripts kbd klogd libc6 libdevmapper1.02 libselinux1 libsepol1 login makedev module-init-tools netbase openbsd-inetd procps sudo sysklogd udev util-linux
-			do
-				# Re-configure if existing
-				if [ -f "${LIVE_CHROOT}"/var/lib/dpkg/info/${PACKAGE}.postinst ]
-				then
-					lh_chroot "/var/lib/dpkg/info/${PACKAGE}.postinst configure"
-				fi
-			done
-		fi
-		;;
-esac
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+Set_defaults
+
+# Creating configuration directory
+install -d -m 0755 "${LIVE_ROOT}"/config || true
+
+# Creating live-helper configuration
+cat > "${LIVE_ROOT}"/config/common << EOF
+# config/common: configuration for live-helper(7)
+
+# \$LH_APT: set package manager
+# (Default: ${LH_APT})
+LH_APT="${LH_APT}"
+
+# \$LH_APT_FTPPROXY: set apt/aptitude ftp proxy
+# (Default: autodetected or empty)
+LH_APT_FTPPROXY="${LH_APT_FTPPROXY}"
+
+# \$LH_APT_HTTPPROXY: set apt/aptitude http proxy
+# (Default: autodetected or empty)
+LH_APT_HTTPPROXY="${LH_APT_HTTPPROXY}"
+
+# \$LH_APT_GENERIC: set apt/aptitude generic indices
+# (Default: ${LH_APT_GENERIC})
+LH_APT_GENERIC="${LH_APT_GENERIC}"
+
+# \$LH_APT_PDIFFS: set apt/aptitude pdiff indices
+# (Default: ${LH_APT_PDIFFS})
+LH_APT_PDIFFS="${LH_APT_PDIFFS}"
+
+# \$LH_APT_RECOMMENDS: enable recommends
+# (Default: ${LH_APT_RECOMMENDS})
+LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS}"
+
+# \$LH_BOOTSTRAP: select the bootstrap program
+# (Default: ${LH_BOOTSTRAP})
+LH_BOOTSTRAP="${LH_BOOTSTRAP}"
+
+# \$LH_CACHE: enable cache
+# (Default: ${LH_CACHE})
+LH_CACHE="${LH_CACHE}"
+
+# \$LH_DEBCONF_FRONTEND: set the debconf(1) frontend to use
+# (Default: ${LH_DEBCONF_FRONTEND})
+LH_DEBCONF_FRONTEND="${LH_DEBCONF_FRONTEND}"
+
+# \$LH_DEBCONF_PRIORITY: set the debconf(1) priority to use
+# (Default: ${LH_DEBCONF_PRIORITY})
+LH_DEBCONF_PRIORITY="${LH_DEBCONF_PRIORITY}"
+
+# \$LH_GENISOIMAGE: set the genisoimage program
+# (Default: autodetected)
+LH_GENISOIMAGE="${LH_GENISOIMAGE}"
+
+# \$LIVE_ROOT: set the root directory
+# (Default: \`pwd\`/debian-live)
+LIVE_ROOT="${LIVE_ROOT}"
+
+# \$LIVE_CHROOT: set the chroot directory
+# (Default: \${LIVE_ROOT}/chroot)
+LIVE_CHROOT="${LIVE_CHROOT}"
+EOF
+
+# Creating lh_chroot_* configuration
+cat > "${LIVE_ROOT}"/config/chroot << EOF
+# config/chroot: configuration for lh_chroot_*
+
+# \$LIVE_KERNEL: set the kernel flavour to use
+# (Default: autodetected)
+LIVE_KERNEL="${LIVE_KERNEL}"
+
+# \$LIVE_KERNEL: set the kernel packages to use
+# (Default: autodetected)
+#LIVE_KERNEL_PACKAGES
+
+# \$LIVE_LANGUAGE: set the language to use
+# (Default: empty)
+LIVE_LANGUAGE="${LIVE_LANGUAGE}"
+
+# \$LIVE_PACKAGES: set the packages to install
+# (Default: empty)
+LIVE_PACKAGES="${LIVE_PACKAGES}"
+
+# \$LIVE_PACKAGES_LIST: set the package list to install
+# (Default: ${LIVE_PACKAGES_LIST})
+LIVE_PACKAGES_LIST="${LIVE_PACKAGES_LIST}"
+
+# \$LIVE_TASKS: set the tasks to install
+# (Default: empty)
+LIVE_TASKS="${LIVE_TASKS}"
+
+# \$LIVE_SECURITY: enable security updates
+# (Default: ${LIVE_SECURITY})
+LIVE_SECURITY="${LIVE_SECURITY}"
+
+# \$LIVE_SYMLINKS: enable symlink convertion
+# (Default: ${LIVE_SYMLINKS})
+LIVE_SYMLINKS="${LIVE_SYMLINKS}"
+
+# \$LIVE_SYSVINIT: enable sysvinit
+# (Default: ${LIVE_SYSVINIT})
+LIVE_SYSVINIT="${LIVE_SYSVINIT}"
+EOF
+
+# Creating lh_chroot_* directories
+install -d -m 0755 "${LIVE_ROOT}"/config/chroot_localhooks || true
+install -d -m 0755 "${LIVE_ROOT}"/config/chroot_localincludes || true
+install -d -m 0755 "${LIVE_ROOT}"/config/chroot_localpackages || true
+install -d -m 0755 "${LIVE_ROOT}"/config/chroot_localpackageslist || true
+
+# Creating lh_bootstrap_* configuration
+cat > "${LIVE_ROOT}"/config/bootstrap << EOF
+# config/bootstrap: configuration for lh_bootstrap_*
+
+# \$LIVE_ARCHITECTURE: select the chroot architecture
+# (Default: autodetected)
+LIVE_ARCHITECTURE="${LIVE_ARCHITECTURE}"
+
+# \$LIVE_DISTRIBUTION: select the distribution to use
+# (Default: ${LIVE_DISTRIBUTION})
+LIVE_DISTRIBUTION="${LIVE_DISTRIBUTION}"
+
+# \$LIVE_DISTRIBUTION_CONFIG: set distribution config directory
+# (Default: empty)
+LIVE_DISTRIBUTION_CONFIG="${LIVE_DISTRIBUTION_CONFIG}"
+
+# \$LIVE_FLAVOUR: select the flavour to use
+# (Default: ${LIVE_FLAVOUR})
+LIVE_FLAVOUR="${LIVE_FLAVOUR}"
+
+# \$LIVE_MIRROR: set the mirror to use
+# (Default: ${LIVE_MIRROR})
+LIVE_MIRROR="${LIVE_MIRROR}"
+
+# \$LIVE_MIRROR_SECURITY: set the security mirror to use
+# (Default: ${LIVE_MIRROR_SECURITY})
+LIVE_MIRROR_SECURITY="${LIVE_MIRROR_SECURITY}"
+
+# \$LIVE_MIRROR_GENERIC: set the generic mirror to use
+# (Default: ${LIVE_MIRROR_GENERIC})
+LIVE_MIRROR_GENERIC="${LIVE_MIRROR_GENERIC}"
+
+# \$LIVE_MIRROR_GENERIC_SECURITY: set the generic security mirror to use
+# (Default: ${LIVE_MIRROR_GENERIC_SECURITY})
+LIVE_MIRROR_GENERIC_SECURITY="${LIVE_MIRROR_GENERIC_SECURITY}"
+
+# \$LIVE_SECTIONS: select the section to use
+# (Default: ${LIVE_SECTIONS})
+LIVE_SECTIONS="${LIVE_SECTIONS}"
+EOF
+
+# Creating lh_image_* configuration
+cat > "${LIVE_ROOT}"/config/image << EOF
+# config/chroot: configuration for lh_image_*
+
+# \$LIVE_BOOTAPPEND: set boot parameters
+# (Default: empty)
+LIVE_BOOTAPPEND="${LIVE_BOOTAPPEND}"
+
+# \$LIVE_ENCRYPTION: set encrytion
+# (Default: empty)
+LIVE_ENCRYPTION="${LIVE_ENCRYPTION}"
+
+# \$LIVE_FILESYSTEM: set filesystem
+# (Default: ${LIVE_FILESYSTEM})
+LIVE_FILESYSTEM="${LIVE_FILESYSTEM}"
+
+# \$LIVE_MEMTEST86: set memtest86+
+# (Default: ${LIVE_MEMTEST86})
+LIVE_MEMTEST86="${LIVE_MEMTEST86}"
+
+# \$LIVE_ISO_VOLUME: set iso volume
+# (Default: ${LIVE_ISO_VOLUME})
+LIVE_ISO_VOLUME="${LIVE_ISO_VOLUME}"
+
+# \$LIVE_SERVER_ADDRESS: set the netboot server address
+# (Default: ${LIVE_SERVER_ADDRESS})
+LIVE_SERVER_ADDRESS="${LIVE_SERVER_ADDRESS}"
+
+# \$LIVE_SERVER_PATH: set the netboot server directory
+# (Default: ${LIVE_SERVER_PATH})
+LIVE_SERVER_PATH="${LIVE_SERVER_PATH}"
+
+# \$LIVE_SOURCE: set source option
+# (Default: ${LH_SOURCE})
+LIVE_SOURCE="${LIVE_SOURCE}"
+
+# \$LIVE_SYSLINUX: set syslinux option
+# (Default: ${LIVE_SYSLINUX})
+LIVE_SYSLINUX="${LIVE_SYSLINUX}"
+
+# \$LIVE_SYSLINUX_SPLASH: set custom syslinux splash
+# (Default: empty)
+LIVE_SYSLINUX_SPLASH="${LIVE_SYSLINUX_SPLASH}"
+
+# \$LIVE_BINARY_IMAGE: set image type
+# (Default: ${LIVE_BINARY_IMAGE})
+LIVE_BINARY_IMAGE="${LIVE_BINARY_IMAGE}"
+
+# \$LIVE_SOURCE_IMAGE: set image type
+# (Default: ${LIVE_SOURCE_IMAGE})
+LIVE_SOURCE_IMAGE="${LIVE_SOURCE_IMAGE}"
+
+# \$LIVE_TEMPLATES: set templates
+# (Default: ${LIVE_TEMPLATES})
+LIVE_TEMPLATES="${LIVE_TEMPLATES}"
+EOF

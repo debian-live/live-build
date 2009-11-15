@@ -1,0 +1,71 @@
+#!/bin/sh
+
+# lh_clean(1) - clean up system build directories
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Ensure that a system is built as root
+lh_testroot
+
+# Reading configuration files
+Read_conffile config/common
+Set_defaults
+
+case "${1}" in
+	all)
+		"${0}" chroot
+		"${0}" binary
+		"${0}" stage
+		"${0}" source
+		;;
+
+	cache)
+		rm -rf "${LIVE_ROOT}"/cache
+		;;
+
+	chroot)
+		umount -f "${LIVE_CHROOT}"/sys > /dev/null 2>&1 || true
+		umount -f "${LIVE_CHROOT}"/proc > /dev/null 2>&1 || true
+		umount -f "${LIVE_CHROOT}"/lib/init/rw > /dev/null 2>&1 || true
+		umount -f "${LIVE_CHROOT}"/dev/shm > /dev/null 2>&1 || true
+		umount -f "${LIVE_CHROOT}"/dev/pts > /dev/null 2>&1 || true
+		umount -f "${LIVE_CHROOT}"/dev > /dev/null 2>&1 || true
+
+		rm -rf "${LIVE_CHROOT}"
+		;;
+
+	binary)
+		rm -rf "${LIVE_ROOT}"/binary
+
+		rm -f "${LIVE_ROOT}"/binary.iso
+		rm -f "${LIVE_ROOT}"/binary.img
+		rm -f "${LIVE_ROOT}"/binary.tar.gz
+
+		rm -f "${LIVE_ROOT}"/.stage/binary*
+		;;
+
+	stage)
+		rm -rf "${LIVE_ROOT}"/.stage
+		rm -f "${LIVE_ROOT}"/.lock
+		;;
+
+	source)
+		rm -rf "${LIVE_ROOT}"/source
+
+		rm -f "${LIVE_ROOT}"/source.iso
+		rm -f "${LIVE_ROOT}"/source.img
+		rm -f "${LIVE_ROOT}"/source.tar.gz
+
+		rm -f "${LIVE_ROOT}"/.stage/source*
+		;;
+
+	*)
+		"${0}" all
+		;;
+esac

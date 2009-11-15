@@ -1,0 +1,76 @@
+#!/bin/sh
+
+# lh_binary_rootfs(1) - build rootfs image
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/image
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+# Checking stage file
+Check_stagefile "${LIVE_ROOT}"/.stage/binary_rootfs
+
+# Creating directory
+if [ ! -d "${LIVE_ROOT}"/binary/casper ]
+then
+	mkdir -p "${LIVE_ROOT}"/binary/casper
+fi
+
+case "${LIVE_FILESYSTEM}" in
+	ext2)
+		if [ -f "${LIVE_ROOT}"/binary/casper/filesystem.ext2 ]
+		then
+			rm -f "${LIVE_ROOT}"/binary/casper/filesystem.ext2
+		fi
+
+		DU_DIM="`du -ks ${LIVE_CHROOT} | cut -f1`"
+		REAL_DIM="`expr ${DU_DIM} + ${DU_DIM} / 20`" # Just 5% more to be sure, need something more sophistcated here...
+
+		genext2fs --size-in-blocks=${REAL_DIM} --reserved-blocks=0 --root="${LIVE_CHROOT}" "${LIVE_ROOT}"/binary/casper/filesystem.ext2
+		;;
+
+	plain)
+		if [ -d "${LIVE_ROOT}"/binary/casper/filesystem.dir ]
+		then
+			rm -rf "${LIVE_ROOT}"/binary/casper/filesystem.dir
+		fi
+
+		cd "${LIVE_CHROOT}"
+		find . | cpio -pumd "${LIVE_ROOT}"/binary/casper/filesystem.dir
+		cd "${OLDPWD}"
+		;;
+
+	squashfs)
+		if [ -f "${LIVE_ROOT}"/binary/casper/filesystem.squashfs ]
+		then
+			rm "${LIVE_ROOT}"/binary/casper/filesystem.squashfs
+		fi
+
+		if [ "${LIVE_FLAVOUR}" = "minimal" ] || [ "${LIVE_FLAVOUR}" = "mini" ]
+		then
+			mksquashfs "${LIVE_CHROOT}" "${LIVE_ROOT}"/binary/casper/filesystem.squashfs -e "${LIVE_CHROOT}"/boot/vmlinuz* "${LIVE_CHROOT}"/boot/initrd.img* "${LIVE_CHROOT}"/vmlinuz "${LIVE_CHROOT}"/initrd.img "${LIVE_CHROOT}"/boot/config-* "${LIVE_CHROOT}"/boot/System.map-*
+		else
+			mksquashfs "${LIVE_CHROOT}" "${LIVE_ROOT}"/binary/casper/filesystem.squashfs
+		fi
+		;;
+esac
+
+# Creating stage file
+Create_stagefile "${LIVE_ROOT}"/.stage/binary_rootfs

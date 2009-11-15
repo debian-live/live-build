@@ -2,7 +2,13 @@
 
 # lh_losetup <device> <file> <partition>
 
-DEVICE="${1}"
+if [ -z "${1}" ]
+then
+	DEVICE="`losetup -f`"
+else
+	DEVICE="${1}"
+fi
+
 FILE="${2}"
 PARTITION="${3}"
 
@@ -11,7 +17,7 @@ FDISK_OUT="`fdisk -l -u ${DEVICE} 2>&1`"
 losetup -d "${DEVICE}"
 
 LOOPDEVICE="`echo ${DEVICE}p${PARTITION:=1}`"
-CYL="`echo ${FDISK_OUT} | sed -ne "s_^${LOOPDEVICE}[ *]*\([0-9]*\).*_\1_p" `"
+CYL=`echo "$FDISK_OUT" | sed -ne "s_^$LOOPDEVICE[ *]*\([0-9]*\).*_\1_p"`
 #OFFSET="`expr 512 '*' ${CYL}`"
 OFFSET="$((CYL*512))"
 

@@ -1,58 +1,30 @@
-# Makefile
+#!/usr/bin/make -f
 
 all:	install
 
 install:
-	@# Install main script
-	install -D -m 0755 src/main.sh $(DESTDIR)/usr/sbin/make-live
+	# Installing executables
+	mkdir -p $(DESTDIR)/usr/bin
+	cp helpers/lh_* helpers/make-live $(DESTDIR)/usr/bin
 
-	@# Install configuration file
-	install -D -m 0644 src/config $(DESTDIR)/etc/make-live.conf
+	# Installing shared data
+	mkdir -p $(DESTDIR)/usr/share/live-helper
+	cp -r functions hooks includes lists templates $(DESTDIR)/usr/share/live-helper
 
-	@# Install package lists
-	install -d -m 0755 $(DESTDIR)/usr/share/make-live/lists
-	install -m 0644 src/lists/* $(DESTDIR)/usr/share/make-live/lists
-
-	@# Install flavour hooks
-	install -d -m 0755 $(DESTDIR)/usr/share/make-live/hooks
-	install -m 0644 src/hooks/* $(DESTDIR)/usr/share/make-live/hooks
-
-	@# Install sub scripts
-	install -d -m 0755 $(DESTDIR)/usr/share/make-live/scripts
-	install -m 0755 src/scripts/*.sh $(DESTDIR)/usr/share/make-live/scripts
-
-	@# Install templates
-	cp -r templates $(DESTDIR)/usr/share/make-live
-
-	@# Install documentation
-	install -d -m 0755 $(DESTDIR)/usr/share/doc/live-package
-	install -m 0644 doc/*.txt $(DESTDIR)/usr/share/doc/live-package
-
-	@# Install manpages
-	install -d -m 0755 $(DESTDIR)/usr/share/man/man5
-	install -m 0644 doc/man/*.5  $(DESTDIR)/usr/share/man/man5
-	install -d -m 0755 $(DESTDIR)/usr/share/man/man8
-	install -m 0644 doc/man/*.8  $(DESTDIR)/usr/share/man/man8
-
-	$(MAKE) -C helpers install
+	# Installing documentation
+	mkdir -p $(DESTDIR)/usr/share/doc/live-helper
+	cp -r COPYING doc/* $(DESTDIR)/usr/share/doc/live-helper
 
 uninstall:
-	@# Remove main script
-	rm -f $(DESTDIR)/usr/sbin/make-live
+	# Uninstalling executables
+	rm -f $(DESTDIR)/usr/bin/lh_* $(DESTDIR)/usr/bin/make-live
 
-	@# Remove configuration file
-	rm -f $(DESTDIR)/etc/make-live.conf
+	# Uninstalling shared data
+	rm -rf $(DESTDIR)/usr/share/live-helper
 
-	@# Remove shared data
-	rm -rf $(DESTDIR)/usr/share/make-live
+	# Uninstalling documentation
+	rm -rf $(DESTDIR)/usr/share/doc/live-helper
 
-	@# Remove documentation
-	rm -rf $(DESTDIR)/usr/share/doc/live-package
+clean:
 
-	@# Remove manpages
-	rm -f $(DESTDIR)/usr/share/man/man5/make-live.*
-	rm -f $(DESTDIR)/usr/share/man/man8/make-live.*
-
-	$(MAKE) -C helpers uninstall
-
-reinstall:	uninstall install
+reinstall:      uninstall install

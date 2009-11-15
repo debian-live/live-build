@@ -1,0 +1,60 @@
+#!/bin/sh
+
+# lh_chroot_hacks(1) - execute hacks in chroot
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/chroot
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking stage file
+Check_stagefile "${LIVE_ROOT}"/.stage/chroot_hacks
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+case "${LIVE_BINARY_IMAGE}" in
+	net)
+		case "${LH_APT}" in
+			apt)
+				Chroot "apt-get install --yes smbfs"
+				;;
+
+			aptitude)
+				Chroot "aptitude install --assume-yes smbfs"
+				;;
+		esac
+
+		if [ ! -d "${LIVE_CHROOT}"/etc/initramfs-tools ]
+		then
+			mkdir "${LIVE_CHROOT}"/etc/initramfs-tools
+		fi
+
+		# Configuring initramfs for NFS
+cat >> "${LIVE_CHROOT}"/etc/initramfs-tools/initramfs.conf << EOF
+MODULES=netboot
+BOOT=nfs
+NFSROOT=auto
+EOF
+		;;
+esac
+
+# Update initramfs
+Chroot "update-initramfs -tu"
+
+# Creating stage file
+Create_stagefile "${LIVE_ROOT}"/.stage/chroot_hacks

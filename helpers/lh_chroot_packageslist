@@ -1,0 +1,76 @@
+#!/bin/sh
+
+# lh_chroot_packageslist(1) - install packages list into chroot
+
+set -e
+
+# Source common functions
+for FUNCTION in /usr/share/live-helper/functions/*.sh
+do
+	. ${FUNCTION}
+done
+
+# Reading configuration files
+Read_conffile config/common
+Read_conffile config/chroot
+Set_defaults
+
+# Requiring stage file
+Require_stagefile "${LIVE_ROOT}"/.stage/bootstrap
+
+# Checking stage file
+Check_stagefile "${LIVE_ROOT}"/.stage/chroot_packageslist
+
+# Checking lock file
+Check_lockfile "${LIVE_ROOT}"/.lock
+
+# Creating lock file
+Create_lockfile "${LIVE_ROOT}"/.lock
+
+if [ -n "${LIVE_PACKAGES_LIST}" ]
+then
+	# Restore old cache
+	if [ -d "${LIVE_ROOT}"/cache/chroot_packageslist ]
+	then
+		cp "${LIVE_ROOT}"/cache/chroot_packageslist/*.deb "${LIVE_CHROOT}"/var/cache/apt/archives
+	fi
+
+	for LIST in ${LIVE_PACKAGES_LIST}
+	do
+		if [ -f /usr/share/live-helper/lists/"${LIST}" ]
+		then
+			# Copying package list
+			grep -v "^#" /usr/share/live-helper/lists/"${LIST}" > "${LIVE_CHROOT}"/root/"${LIST}"
+
+			# Installing package list
+			case "${LH_APT}" in
+				apt)
+					Chroot "xargs --arg-file=/root/${LIST} apt-get install --yes"
+					;;
+
+				aptitude)
+					Chroot "xargs --arg-file=/root/${LIST} aptitude install --assume-yes"
+					;;
+			esac
+
+			# Removing package list
+			rm -f "${LIVE_CHROOT}"/root/"${LIST}"
+		fi
+	done
+
+	# Saving new cache
+	Chroot "apt-get autoclean"
+
+	if ls "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb &> /dev/null
+	then
+		if [ ! -d "${LIVE_ROOT}"/cache/chroot_packageslist ]
+		then
+			mkdir -p "${LIVE_ROOT}"/cache/chroot_packageslist
+		fi
+
+		mv -f "${LIVE_CHROOT}"/var/cache/apt/archives/*.deb "${LIVE_ROOT}"/cache/chroot_packageslist
+	fi
+
+	# Creating stage file
+	Create_stagefile "${LIVE_ROOT}"/.stage/chroot_packageslist
+fi
