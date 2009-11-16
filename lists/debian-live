@@ -17,9 +17,6 @@ aufs-tools aufs-source
 qemu kqemu-source
 kvm kvm-source
 squashfs-tools squashfs-source
-#if DISTRIBUTION etch
-unionfs-tools unionfs-source
-#endif
 #linux-headers-2.6-all
 
 # netboot/pxe

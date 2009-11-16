@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 # Static variables
-DISTRIBUTIONS="${DISTRIBUTIONS:-etch lenny sid}"
+DISTRIBUTIONS="${DISTRIBUTIONS:-lenny squeeze sid}"
 FLAVOURS="${FLAVOURS:-standard rescue gnome-desktop kde-desktop lxde-desktop xfce-desktop}"
 SOURCE="${SOURCE:-enabled}"
 

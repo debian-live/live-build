@@ -5,13 +5,8 @@
 
 # http://qa.debian.org/developer.php?login=forensics-devel@lists.alioth.debian.org
 
-# packages already part since etch
-gpart sleuthkit tct wipe
-
-#if DISTRIBUTION lenny squeeze sid
-ext3grep galleta grokevt memdump missidentify myrescue pasco reglookup
-scrounge-ntfs ssdeep tableau-parm unhide
-#endif
+ext3grep galleta gpart grokevt memdump missidentify myrescue pasco reglookup
+scrounge-ntfs sleuthkit ssdeep tableau-parm tct unhide wipe
 
 #if DISTRIBUTION squeeze sid
 aesfix aeskeyfind chaosreader guymager ewf-tools md5deep pipebench

@@ -8,7 +8,6 @@
 # under certain conditions; see COPYING for details.
 
 # Debian releases
-RELEASE_etch="4.0 r8"
 RELEASE_lenny="5.0.3"
 RELEASE_squeeze="6"
 RELEASE_sid="unstable"

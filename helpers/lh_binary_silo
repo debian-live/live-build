@@ -93,7 +93,7 @@ Silo_install_entry ()
 
 	DIRECTORY="/$(basename ${DESTDIR_INSTALL})"
 
-	if [ "${LH_DISTRIBUTION}" != "etch" ] && [ "${LABEL}" != "rescue" ] && [ "${LABEL}" != "rescuegui" ]
+	if [ "${LABEL}" != "rescue" ] && [ "${LABEL}" != "rescuegui" ]
 	then
 		APPEND="${APPEND} quiet"
 	fi
