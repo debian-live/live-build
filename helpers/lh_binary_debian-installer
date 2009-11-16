@@ -85,12 +85,6 @@ case "${LH_BINARY_IMAGES}" in
 
 	tar|usb-hdd)
 		DESTDIR="binary/install"
-
-		# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
-		if [ "${LH_DEBIAN_INSTALLER_DISTRIBUTION}" = "etch" ] && [ "${LH_BOOTLOADER}" = "syslinux" ]
-		then
-			DESTDIR="binary"
-		fi
 		;;
 
 	*)
@@ -138,12 +132,7 @@ case "${LH_ARCHITECTURE}" in
 		DI_REMOTE_KERNEL="$(basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR})"
 		DI_REMOTE_BASE_GTK="none"
 
-		if [ "${LH_DEBIAN_INSTALLER_DISTRIBUTION}" = "etch" ]
-		then
-			DI_REMOTE_BASE="cdrom/2.6"
-		else
-			DI_REMOTE_BASE="cdrom"
-		fi
+		DI_REMOTE_BASE="cdrom"
 		;;
 	*)
 		case "${DI_IMAGE_TYPE}" in
@@ -236,22 +225,6 @@ VMLINUZ_GI="gtk/vmlinuz"
 INITRD_GI="gtk/initrd.gz"
 DESTDIR_GI="${DESTDIR}/gtk"
 
-# Workaround for syslinux (<< 3.36) which doesn't support long file/path names
-if [ "${LH_DEBIAN_INSTALLER_DISTRIBUTION}" = "etch" ]
-then
-	case "${LH_BINARY_IMAGES}" in
-		usb-hdd|tar)
-			VMLINUZ_DI="vmlinuz.di"
-			INITRD_DI="initrddi.gz"
-			DESTDIR_DI="${DESTDIR}"
-
-			VMLINUZ_GI="vmlinuz.gi"
-			INITRD_GI="initrdgi.gz"
-			DESTDIR_GI="${DESTDIR}"
-			;;
-	esac
-fi
-
 if [ "${LH_DEBIAN_INSTALLER_DISTRIBUTION}" = "daily" ]
 then
 	LH_DEBIAN_INSTALLER_DISTRIBUTION="sid"
@@ -297,13 +270,7 @@ if [ "${LH_ARCHITECTURE}" = "sparc" ] && [ "${DI_IMAGE_TYPE}" = "netboot" ]
 then
 	# There are no prepared kernel/initrd pairs for sparc netboot so we
 	# must unpack them from a mini.iso
-
-	if [ "${LH_DEBIAN_INSTALLER_DISTRIBUTION}" = "etch" ]
-	then
-		Download_file mini.iso ${URL}/combined/2.6/mini.iso
-	else
-		Download_file mini.iso ${URL}/mini.iso
-	fi
+	Download_file mini.iso ${URL}/mini.iso
 
 	mkdir mini.tmp
 	${LH_ROOT_COMMAND} mount -o loop -t iso9660 mini.iso mini.tmp
@@ -367,21 +334,11 @@ then
 		sparc)
 			DI_REQ_PACKAGES="silo"
 			DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-sparc64 linux-image-2.6-sparc64-smp"
-
-			if [ "${LH_DEBIAN_INSTALLER_DISTRIBUTION}" = "etch" ]
-			then
-				DI_PACKAGES="${DI_PACKAGES} linux-image-2.6-sparc32"
-			fi
 			;;
 
 		powerpc)
 			DI_REQ_PACKAGES="yaboot"
 			DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-powerpc linux-image-2.6-powerpc64 linux-image-2.6-powerpc-smp"
-
-			if [ "${LH_DEBIAN_INSTALLER_DISTRIBUTION}" = "etch" ]
-			then
-				DI_PACKAGES="${DI_PACKAGES} linux-image-2.6-prep"
-			fi
 			;;
 	esac
 
@@ -560,7 +517,7 @@ then
 	done < exclude
 
 	# Enable live-installer
-	if [ "${LH_DEBIAN_INSTALLER}" = "live" ] && [ "${LH_DEBIAN_INSTALLER_DISTRIBUTION}" != "etch" ]
+	if [ "${LH_DEBIAN_INSTALLER}" = "live" ]
 	then
 		# Remove local udebs
 		rm -f pool/main/b/base-installer/bootstrap-base_*.udeb

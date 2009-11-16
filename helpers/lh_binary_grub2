@@ -79,7 +79,7 @@ Grub_install_entry ()
 	INITRD="${3}"
 	APPEND="${4}"
 
-	if [ "${LH_DISTRIBUTION}" != "etch" ] && [ "${LABEL}" != "rescue" ] && [ "${LABEL}" != "rescuegui" ]
+	if [ "${LABEL}" != "rescue" ] && [ "${LABEL}" != "rescuegui" ]
 	then
 		APPEND="${APPEND} quiet"
 	fi

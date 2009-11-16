@@ -78,11 +78,7 @@ Grub_install_entry ()
 	INITRD="${3}"
 	APPEND="${4}"
 
-	# Boot in quiet mode where appropriate
-	if [ "${LH_DISTRIBUTION}" != "etch" ]
-	then
-		QAPPEND="quiet"
-	fi
+	QAPPEND="quiet"
 
 	for TYPE in Install Expert Rescue Auto
 	do

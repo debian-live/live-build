@@ -3,7 +3,7 @@
 ## LH: KDE Core
 #include <standard-x11>
 
-#if DISTRIBUTION etch lenny
+#if DISTRIBUTION lenny
 kde-core
 #endif
 #if DISTRIBUTION squeeze sid

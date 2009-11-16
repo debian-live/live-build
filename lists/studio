@@ -8,7 +8,7 @@
 
 alsa-tools
 alsa-tools-gui
-#if DISTRIBUTION etch sid
+#if DISTRIBUTION sid
 ardour-gtk
 #endif
 ams

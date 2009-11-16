@@ -149,10 +149,7 @@ Syslinux_install_entry ()
 	APPEND="${4}"
 
 	# Boot in quiet mode where appropriate
-	if [ "${LH_DISTRIBUTION}" != "etch" ]
-	then
-		QAPPEND="quiet"
-	fi
+	QAPPEND="quiet"
 
 	for TYPE in Install Expert Rescue Auto
 	do
@@ -351,47 +348,6 @@ Configure_syslinux_templates ()
 			fi
 			;;
 	esac
-
-	# Syslinux v3.31 in etch does not support include statements
-	if [ "${LH_DISTRIBUTION}" = "etch" ]
-	then
-		while grep -qs ^include ${SCREEN_PATH}/syslinux.cfg
-		do
-			INCLUDES=$(grep ^include ${SCREEN_PATH}/syslinux.cfg | awk '{print $2}')
-
-			for FILE_PATH in ${INCLUDES}
-			do
-				FILE_NAME=$(basename ${FILE_PATH})
-
-				sed -i -e '\@include '${FILE_PATH}'@ {
-					r '${SCREEN_PATH}/${FILE_NAME}'
-					d
-				}' ${SCREEN_PATH}/syslinux.cfg
-
-				# remove the files, which were included
-				if [ -e ${SCREEN_PATH}/${FILE_NAME} ]
-				then
-					rm -f ${SCREEN_PATH}/${FILE_NAME}
-				fi
-			done
-		done
-
-		if [ -e ${SCREEN_PATH}/live.cfg ]
-		then
-			cat ${SCREEN_PATH}/live.cfg >> ${SCREEN_PATH}/syslinux.cfg
-			rm -f ${SCREEN_PATH}/live.cfg
-		fi
-
-		# Syslinux v3.31 in etch does not support sub directories, /path/kernel,
-		# when using FAT hard drive images, remove leading /'s
-		if [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
-		then
-			for FILE in ${SCREEN_PATH}/syslinux.cfg ${SCREEN_PATH}/boot.txt
-			do
-				sed -i -e 's|/||' ${FILE}
-			done
-		fi
-	fi
 }
 
 # Setting up common variables
@@ -440,21 +396,6 @@ case "${LH_BINARY_IMAGES}" in
 		LIVE_INSTALL_KERNEL_PATH="/install"
 		LIVE_SCREEN_PATH="/syslinux"
 		LIVE_DATA_PATH="${LIVE_SCREEN_PATH}"
-
-		# Syslinux v3.31 in etch does not support sub directories, /path/kernel,
-		# when using FAT hard drive images
-		if [ "${LH_DISTRIBUTION}" = "etch" ] && [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
-		then
-			SYSLINUX_PATH="binary"
-			KERNEL_PATH="binary"
-			SCREEN_PATH="binary"
-			DATA_PATH="binary"
-			LIVE_KERNEL_PATH=""
-			LIVE_INSTALL_KERNEL_PATH=""
-			LIVE_SCREEN_PATH=""
-			LIVE_DATA_PATH=""
-		fi
-
 		MEDIA="hd-media"
 		;;
 esac
@@ -679,10 +620,7 @@ case "${LH_BINARY_IMAGES}" in
 			sed -i -e "s|^include |include ${LIVE_SCREEN_PATH}/|g" "${FILE}"
 		done
 
-		if [ "${LH_DISTRIBUTION}" != "etch" ]
-		then
-			sed -i -e "s| f| ${LIVE_SCREEN_PATH}/f|g" ${SCREEN_PATH}/prompt.cfg
-		fi
+		sed -i -e "s| f| ${LIVE_SCREEN_PATH}/f|g" ${SCREEN_PATH}/prompt.cfg
 
 		mv ${SCREEN_PATH}/syslinux.cfg ${KERNEL_PATH}/pxelinux.cfg/default
 

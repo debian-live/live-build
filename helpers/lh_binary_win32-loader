@@ -42,31 +42,29 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ "${LH_DISTRIBUTION}" != "etch" ]
-then
-	case "${LH_ARCHITECTURE}" in
-		amd64|i386|lpia)
-			if [ "${LH_CHROOT_BUILD}" = "enabled" ]
-			then
-				# Checking depends
-				Check_package chroot/usr/lib/win32-loader/win32-loader.exe win32-loader
+case "${LH_ARCHITECTURE}" in
+	amd64|i386|lpia)
+		if [ "${LH_CHROOT_BUILD}" = "enabled" ]
+		then
+			# Checking depends
+			Check_package chroot/usr/lib/win32-loader/win32-loader.exe win32-loader
 
-				# Restoring cache
-				Restore_cache cache/packages_binary
+			# Restoring cache
+			Restore_cache cache/packages_binary
 
-				# Installing depends
-				Install_package
+			# Installing depends
+			Install_package
 
-				# Copying win32-loader
-				cp chroot/usr/lib/win32-loader/* binary
-			else
-				cp /usr/lib/win32-loader/* binary
-			fi
+			# Copying win32-loader
+			cp chroot/usr/lib/win32-loader/* binary
+		else
+			cp /usr/lib/win32-loader/* binary
+		fi
 
-			mv binary/win32-loader.exe binary/setup.exe
+		mv binary/win32-loader.exe binary/setup.exe
 
-			if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
-			then
+		if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
+		then
 
 cat > binary/win32-loader.ini << EOF
 [installer]
@@ -81,20 +79,19 @@ g2ldr=g2ldr
 g2ldr.mbr=g2ldr.mbr
 EOF
 
-			fi
+		fi
 
-			# Saving cache
-			Save_cache cache/packages_binary
+		# Saving cache
+		Save_cache cache/packages_binary
 
-			# Removing depends
-			Remove_package
-			;;
+		# Removing depends
+		Remove_package
+		;;
 
-		*)
-			Echo_warning "win32-loader inclusion is enabled but not compatible with your architecture, ignoring."
-			;;
-	esac
-fi
+	*)
+		Echo_warning "win32-loader inclusion is enabled but not compatible with your architecture, ignoring."
+		;;
+esac
 
 # Creating stage file
 Create_stagefile .stage/binary_win32-loader

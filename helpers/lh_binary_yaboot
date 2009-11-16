@@ -84,10 +84,7 @@ Yaboot_install_entry ()
 
 	DIRECTORY="/$(basename ${DESTDIR_INSTALL})"
 
-	if [ "${LH_DISTRIBUTION}" != "etch" ]
-	then
-		QAPPEND="quiet"
-	fi
+	QAPPEND="quiet"
 
 	for TYPE in Install Expert Rescue Auto
 	do

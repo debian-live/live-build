@@ -51,10 +51,6 @@ cpuburn stress
 read-edid
 #endif
 
-#if DISTRIBUTION etch
-sysutils
-#endif
-
 # Browser
 lynx links2 w3m
 
@@ -73,9 +69,6 @@ firmware-qlogic firmware-bnx2
 # These two are from contrib but the idea is the same: non-free firmware.
 #if CATEGORIES contrib
 b43-fwcutter
-#endif
-#if DISTRIBUTION etch
-bcm43xx-fwcutter
 #endif
 
 # Backup
@@ -136,10 +129,6 @@ portsentry
 vlan
 zorp
 
-#if DISTRIBUTION etch
-reaim
-#endif
-
 # Essential networking
 netbase
 rdate
@@ -169,9 +158,6 @@ iputils-tracepath
 mrt
 mtr-tiny
 tcptraceroute
-#if DISTRIBUTION etch
-traceproto
-#endif
 traceroute
 spinner
 
@@ -213,9 +199,6 @@ crashme
 dbench
 doscan
 dsniff
-#if DISTRIBUTION etch
-fragrouter
-#endif
 honeyd
 hping3
 icmpush
@@ -229,7 +212,7 @@ ndisc6
 ngrep
 p0f
 packit
-#if DISTRIBUTION etch lenny
+#if DISTRIBUTION lenny
 paketto
 sing
 #endif
@@ -257,9 +240,6 @@ squashfs-tools
 sshfs
 sysfsutils
 udftools
-#if DISTRIBUTION etch
-unionfs-tools
-#endif
 xfsdump
 xfsprogs
 #if DISTRIBUTION sid
