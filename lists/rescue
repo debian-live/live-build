@@ -58,7 +58,7 @@ lynx links2 w3m
 arj bzip2 lzma p7zip-full unace unrar-free unzip zip lzop ncompress
 unace pax
 
-#if CATEGORIES non-free
+#if ARCHIVE_AREAS non-free
 rar unrar
 sl-modem-daemon
 atmel-firmware linux-wlan-ng-firmware firmware-ralink bluez-firmware
@@ -67,7 +67,7 @@ firmware-qlogic firmware-bnx2
 #endif
 
 # These two are from contrib but the idea is the same: non-free firmware.
-#if CATEGORIES contrib
+#if ARCHIVE_AREAS contrib
 b43-fwcutter
 #endif
 
