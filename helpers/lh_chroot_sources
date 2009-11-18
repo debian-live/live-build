@@ -78,12 +78,19 @@ case "${1}" in
 		# Check local sources.list
 		if Find_files config/chroot_sources/*.chroot
 		then
-			echo "" >> chroot/etc/apt/sources.list
-			echo "# Custom repositories" >> chroot/etc/apt/sources.list
+			# Deconfigure (possibly) old sources.list snipplets
+			if Find_files config/chroot_sources/*.binary
+			then
+				for FILE in config/chroot_sources/*.binary
+				do
+					rm -f "chroot/etc/apt/sources.list.d/$(basename ${FILE} .binary)"
+				done
+			fi
 
+			# Configure new sources.list snipplets
 			for FILE in config/chroot_sources/*.chroot
 			do
-				cat ${FILE} | grep -v "^##" >> chroot/etc/apt/sources.list
+				cp "${FILE}" "chroot/etc/apt/sources.list.d/$(basename ${FILE} .chroot)"
 			done
 		fi
 
@@ -401,12 +408,19 @@ case "${1}" in
 			# Check local sources.list
 			if Find_files config/chroot_sources/*.binary
 			then
-				echo "" >> chroot/etc/apt/sources.list
-				echo "# Custom repositories" >> chroot/etc/apt/sources.list
+				# Deconfigure (possibly) old sources.list snipplets
+				if Find_files config/chroot_sources/*.chroot
+				then
+					for FILE in config/chroot_sources/*.chroot
+					do
+						rm -f "chroot/etc/apt/sources.list.d/$(basename ${FILE} .chroot)"
+					done
+				fi
 
+				# Configure new sources.list snipplets
 				for FILE in config/chroot_sources/*.binary
 				do
-					cat ${FILE} | grep -v "^##" >> chroot/etc/apt/sources.list
+					cp "${FILE}" "chroot/etc/apt/sources.list.d/$(basename ${FILE} .binary)"
 				done
 			fi
 
