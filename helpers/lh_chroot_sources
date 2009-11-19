@@ -83,14 +83,14 @@ case "${1}" in
 			then
 				for FILE in config/chroot_sources/*.binary
 				do
-					rm -f "chroot/etc/apt/sources.list.d/$(basename ${FILE} .binary)"
+					rm -f "chroot/etc/apt/sources.list.d/$(basename ${FILE} .binary).list"
 				done
 			fi
 
 			# Configure new sources.list snipplets
 			for FILE in config/chroot_sources/*.chroot
 			do
-				cp "${FILE}" "chroot/etc/apt/sources.list.d/$(basename ${FILE} .chroot)"
+				cp "${FILE}" "chroot/etc/apt/sources.list.d/$(basename ${FILE} .chroot).list"
 			done
 		fi
 
@@ -413,14 +413,14 @@ case "${1}" in
 				then
 					for FILE in config/chroot_sources/*.chroot
 					do
-						rm -f "chroot/etc/apt/sources.list.d/$(basename ${FILE} .chroot)"
+						rm -f "chroot/etc/apt/sources.list.d/$(basename ${FILE} .chroot).list"
 					done
 				fi
 
 				# Configure new sources.list snipplets
 				for FILE in config/chroot_sources/*.binary
 				do
-					cp "${FILE}" "chroot/etc/apt/sources.list.d/$(basename ${FILE} .binary)"
+					cp "${FILE}" "chroot/etc/apt/sources.list.d/$(basename ${FILE} .binary).list"
 				done
 			fi
 
