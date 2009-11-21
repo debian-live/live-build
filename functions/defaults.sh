@@ -11,6 +11,8 @@ Set_defaults ()
 {
 	## config/common
 
+	LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
 	# Setting mode
 	if [ -z "${LH_MODE}" ]
 	then
@@ -217,13 +219,13 @@ Set_defaults ()
 	# Setting includes
 	if [ -z "${LH_INCLUDES}" ]
 	then
-		LH_INCLUDES="${LH_BASE:-/usr/share/live-helper}/includes"
+		LH_INCLUDES="${LH_BASE}/includes"
 	fi
 
 	# Setting templates
 	if [ -z "${LH_TEMPLATES}" ]
 	then
-		LH_TEMPLATES="${LH_BASE:-/usr/share/live-helper}/templates"
+		LH_TEMPLATES="${LH_BASE}/templates"
 	fi
 
 	# Setting live helper options
