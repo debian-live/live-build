@@ -557,7 +557,7 @@ msgstr ""
 
 # type: Plain text
 #: lh_config.en.1:164
-msgid "  [B<--categories> I<CATEGORY>|I<\"CATEGORIES\">]"
+msgid "  [B<--archive-areas> I<ARCHIVE_AREA>|I<\"ARCHIVE_AREAS\">]"
 msgstr ""
 
 # type: Plain text
@@ -1797,13 +1797,13 @@ msgstr ""
 # type: IP
 #: lh_config.en.1:370
 #, no-wrap
-msgid "B<--categories> I<CATEGORY>|I<\"CATEGORIES\">"
+msgid "B<--archive-areas> I<ARCHIVE_AREA>|I<\"ARCHIVE_AREAS\">"
 msgstr ""
 
 # type: Plain text
 #: lh_config.en.1:372
 msgid ""
-"defines which package categories of a debian packages archive should be used "
+"defines which package archive areas of a debian packages archive should be used "
 "for configured debian package mirrors. By default, this is set to main. "
 "Remember to check the licenses of each packages with respect to their "
 "redistributability in your juristiction when enabling contrib or non-free "

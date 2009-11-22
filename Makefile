@@ -8,7 +8,7 @@ all: test install
 
 test:
 	# Checking for syntax errors
-	for SCRIPT in functions.sh functions/* examples/*/*.sh helpers/* hooks/*; \
+	for SCRIPT in live-helper.sh functions/* examples/*/*.sh helpers/* hooks/*; \
 	do \
 		sh -n $$SCRIPT; \
 	done
@@ -16,7 +16,7 @@ test:
 	# Checking for bashisms
 	if [ -x /usr/bin/checkbashisms ]; \
 	then \
-		checkbashisms functions.sh functions/* examples/*/*.sh helpers/* hooks/*; \
+		checkbashisms live-helper.sh functions/* examples/*/*.sh helpers/* hooks/*; \
 	else \
 		echo "WARNING: skipping bashism test - you need to install devscripts."; \
 	fi
@@ -25,13 +25,13 @@ build:
 	@echo "Nothing to build."
 
 install:
-	# Installing executables
-	mkdir -p $(DESTDIR)/usr/bin
-	cp helpers/* $(DESTDIR)/usr/bin
-
 	# Installing shared data
 	mkdir -p $(DESTDIR)/usr/share/live-helper
-	cp -r data examples functions.sh functions hooks includes lists templates $(DESTDIR)/usr/share/live-helper
+	cp -r data examples live-helper.sh functions helpers hooks includes lists templates $(DESTDIR)/usr/share/live-helper
+
+	# Installing executables
+	mkdir -p $(DESTDIR)/usr/bin
+	mv $(DESTDIR)/usr/share/live-helper/helpers/lh $(DESTDIR)/usr/share/live-helper/helpers/live-helper $(DESTDIR)/usr/bin
 
 	# Installing documentation
 	mkdir -p $(DESTDIR)/usr/share/doc/live-helper
@@ -64,14 +64,11 @@ install:
 	mkdir -p $(DESTDIR)/var/log
 
 uninstall:
-	# Uninstalling executables
-	for HELPER in helpers/*; \
-	do \
-		rm -f $(DESTDIR)/usr/bin/$$(basename $$HELPER); \
-	done
-
 	# Uninstalling shared data
 	rm -rf $(DESTDIR)/usr/share/live-helper
+
+	# Uninstalling executables
+	rm -f $(DESTDIR)/usr/bin/lh $(DESTDIR)/usr/bin/live-helper
 
 	# Uninstalling documentation
 	rm -rf $(DESTDIR)/usr/share/doc/live-helper

@@ -21,7 +21,7 @@ then
 fi
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live-helper}"/functions.sh
+. "${LH_BASE:-/usr/share/live-helper}"/live-helper.sh
 
 # Setting static variables
 SYSTEM_LH_CONFFILE="/etc/default/live-helper"
@@ -109,7 +109,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--quiet]\n\
 \t    [--root-command sudo]\n\
 \t    [--use-fakeroot enabled|disabled]\n\
-\t    [--categories CATEGORY|\"CATEGORIES\"]\n\
+\t    [--archive-areas ARCHIVE_AREA|\"ARCHIVE_AREAS\"]\n\
 \t    [--security enabled|disabled]\n\
 \t    [--source enabled|disabled]\n\
 \t    [-s|--source-images iso|net|tar|usb-hdd]\n\
@@ -136,7 +136,7 @@ Local_arguments ()
 		initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,
 		templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,clean,
 		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,
-		mirror-binary-security:,categories:,chroot-filesystem:,union-filesystem:,exposed-root:,virtual-root-size:,
+		mirror-binary-security:,archive-areas:,chroot-filesystem:,union-filesystem:,exposed-root:,virtual-root-size:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
 		packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,
 		binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,
@@ -409,8 +409,8 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--categories)
-				LH_CATEGORIES="${2}"
+			--archive-areas)
+				LH_ARCHIVE_AREAS="${2}"
 				shift 2
 				;;
 
@@ -977,9 +977,9 @@ LH_MIRROR_BINARY="${LH_MIRROR_BINARY}"
 # (Default: ${LH_MIRROR_BINARY_SECURITY})
 LH_MIRROR_BINARY_SECURITY="${LH_MIRROR_BINARY_SECURITY}"
 
-# \$LH_CATEGORIES: select categories to use
-# (Default: ${LH_CATEGORIES})
-LH_CATEGORIES="${LH_CATEGORIES}"
+# \$LH_ARCHIVE_AREAS: select archive areas to use
+# (Default: ${LH_ARCHIVE_AREAS})
+LH_ARCHIVE_AREAS="${LH_ARCHIVE_AREAS}"
 EOF
 
 # Creating lh_chroot_* configuration

@@ -565,8 +565,8 @@ msgstr "  [B<--use-fakeroot> enabled|disabled]"
 
 # type: Plain text
 #: lh_config.en.1:164
-msgid "  [B<--categories> I<CATEGORY>|I<\"CATEGORIES\">]"
-msgstr "  [B<--categories> I<KATEGORIE>|I<\"KATEGORIEN\">]"
+msgid "  [B<--archive-areas> I<ARCHIVE_AREA>|I<\"ARCHIVE_AREAS\">]"
+msgstr "  [B<--archive-areas> I<KATEGORIE>|I<\"KATEGORIEN\">]"
 
 # type: Plain text
 #: lh_config.en.1:166
@@ -2136,13 +2136,13 @@ msgstr "B<--use-fakeroot> enabled|disabled"
 # type: IP
 #: lh_config.en.1:370
 #, no-wrap
-msgid "B<--categories> I<CATEGORY>|I<\"CATEGORIES\">"
-msgstr "B<--categories> I<KATEGORIE>|I<\"KATEGORIEN\">"
+msgid "B<--archive-areas> I<ARCHIVE_AREA>|I<\"ARCHIVE_AREAS\">"
+msgstr "B<--archive-areas> I<KATEGORIE>|I<\"KATEGORIEN\">"
 
 # type: Plain text
 #: lh_config.en.1:372
 msgid ""
-"defines which package categories of a debian packages archive should be used "
+"defines which package archive areas of a debian packages archive should be used "
 "for configured debian package mirrors. By default, this is set to main. "
 "Remember to check the licenses of each packages with respect to their "
 "redistributability in your juristiction when enabling contrib or non-free "
