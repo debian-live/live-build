@@ -1,0 +1,194 @@
+#!/bin/sh
+
+# lh_chroot_hacks(1) - execute hacks in chroot
+# Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Including common functions
+. "${LH_BASE:-/usr/share/live-helper}"/functions.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'execute hacks in chroot')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+Echo_message "Begin executing hacks..."
+
+# Requiring stage file
+Require_stagefile .stage/config .stage/bootstrap
+
+# Checking stage file
+Check_stagefile .stage/chroot_hacks
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+# Removing udev mac caching rule
+rm -f chroot/etc/udev/rules.d/*persistent-net.rules
+
+# Remove resume
+if [ "${LH_DISTRIBUTION}" = "etch" ] && [ -e /etc/initramfs-tools/conf.d/resume ]
+then
+	rm -f /etc/initramfs-tools/conf.d/resume
+fi
+
+case "${LH_BINARY_IMAGES}" in
+	net)
+		if [ ! -f chroot/usr/bin/smbmount ]
+		then
+			Apt install smbfs
+		fi
+
+		if [ ! -d chroot/etc/initramfs-tools ]
+		then
+			mkdir chroot/etc/initramfs-tools
+		fi
+		if [ ! "$(grep 'MODULES=netboot' chroot/etc/initramfs-tools/initramfs.conf)" ]
+		then
+			# Configuring initramfs for NFS
+cat >> chroot/etc/initramfs-tools/initramfs.conf << EOF
+MODULES=netboot
+BOOT=nfs
+NFSROOT=auto
+EOF
+		fi
+		;;
+esac
+
+# Update initramfs (always, because of udev rules in initrd)
+Chroot chroot "update-initramfs -k all -t -u"
+
+# Ensure readable permissions on initramfs. loop-aes-utils sets umask to
+# protect GPG keys, which live-helper does not support.
+# Note: Use find rather than chmod on the wildcard, one never knows what
+# people might do in local hooks, and there might be no initrds at all.
+find chroot/boot -name 'initrd*' -print0 | xargs -r -0 chmod go+r
+
+# Remove build systems clock drift
+echo "0.0 0 0.0" > chroot/etc/adjtime
+
+# Remove cruft
+rm -f chroot/boot/initrd*bak*
+rm -f chroot/etc/apt/trusted.gpg~
+rm -f chroot/etc/group- chroot/etc/passwd-
+rm -f chroot/etc/gshadow- chroot/etc/shadow-
+rm -f chroot/var/cache/debconf/*-old
+rm -f chroot/var/lib/dpkg/*-old
+
+if [ -n "${LH_ROOT_COMMAND}" ]
+then
+	${LH_ROOT_COMMAND} chown -R --quiet $(whoami):$(whoami) chroot
+fi
+
+case "${LH_INITRAMFS}" in
+	casper)
+		ID="999"
+		;;
+
+	*)
+		ID="1000"
+		;;
+esac
+
+if [ -d chroot/home/${LH_USERNAME} ]
+then
+	chown -R --quiet ${ID}:${ID} chroot/home/${LH_USERNAME}
+fi
+
+if [ "${LH_DEBIAN_INSTALLER}" = "live" ]
+then
+	# This is a temporary hack to get rid of fstab;
+	# needs cleanup in live-initramfs first to proper fix.
+	rm -f chroot/etc/fstab
+
+	# There is a timing issue somewhere when using live-installer
+	# and the apt-get update waypoint: At the time when we're installing
+	# bootloader, it tries to fetch them from the net but the e.g.
+	# 'chroot /target apt-get install grub' fails because of missing
+	# packages lists. As a very cheap workaround, we ensure that the
+	# bootloader is already installed in the image. Very ugly, but it's to
+	# late to fix it in d-i because lenny rc2 has been already released.
+	case "${LH_ARCHITECTURE}" in
+		amd64|i386|lpia)
+			case "${LH_BOOTLOADER}" in
+				grub)
+					Apt install grub
+					;;
+
+				grub2)
+					Apt install grub2
+					;;
+			esac
+			;;
+
+		powerpc)
+			Apt install yaboot
+			;;
+	esac
+fi
+
+if [ "${LH_EXPOSED_ROOT}" = "enabled" ]
+then
+	# Make sure RW dirs exist so that the initramfs script has
+	# a directory in which to bind the tmpfs filesystems
+	COW_DIRECTORIES="/home /live /tmp /var/lib/live /var/lock /var/log /var/run /var/tmp /var/spool"
+
+	for DIRECTORY in ${COW_DIRECTORIES}
+	do
+		mkdir -p chroot/"${DIRECTORY}"
+	done
+
+	# Config files which need to be RW
+	COW_FILES="/etc/adjtime /etc/fstab /etc/hostname /etc/hosts /etc/live.conf /etc/network/interfaces /etc/resolv.conf /etc/udev/rules.d/*persistent-net.rules /etc/udev/rules.d/*persistent-cd.rules /etc/X11/xorg.conf"
+
+	# Where we will store RW config files
+	RW_DIRECTORY="/var/lib/live"
+
+	for FILE in ${COW_FILES}
+	do
+		DIRECTORY="$(dirname ${FILE})"
+		FILE="$(basename ${FILE})"
+		RELATIVE_PATH="$(echo ${DIRECTORY} | sed 's|[^/]\+|..|g; s|^/||g')"
+
+		# Touch files in case they don't yet exist
+		mkdir -p chroot/${DIRECTORY}
+		touch chroot/${DIRECTORY}/${FILE}
+
+		# Move files to the read-write directory
+		mkdir -p chroot/${RW_DIRECTORY}/${DIRECTORY}
+		mv chroot/${DIRECTORY}/${FILE} chroot/${RW_DIRECTORY}/${DIRECTORY}
+
+		# Create a symbolic link to RW config file
+		ln -s ${RELATIVE_PATH}/${RW_DIRECTORY}/${DIRECTORY}/${FILE} chroot/${DIRECTORY}/${FILE}
+	done
+
+	# Mount doesn't write to a symlink so use /proc/mounts instead,
+	# see debian bug #154438 for more info
+	rm -f chroot/etc/mtab
+	ln -s /proc/mounts chroot/etc/mtab
+fi
+
+# Show popular warnings
+if [ -e chroot/etc/init.d/resolvconf ]
+then
+	Echo_warning "Your live system appears to include resolvconf which is by its nature incompatible in most ways with debian-live."
+	Echo_warning "Keeping resolvconf installed *can* lead to broken network support in the resulting live system."
+	Echo_warning "Unless you really know what you are doing, we recommend that you neither install resolvconf explicitly nor implicitly through another package's relation (e.g. by having automatic installation of recommended packages enabled)."
+fi
+
+# Creating stage file
+Create_stagefile .stage/chroot_hacks

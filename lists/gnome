@@ -1,0 +1,9 @@
+# /usr/share/live-helper/lists/gnome - package list for live-helper(7)
+
+## LH: GNOME Desktop
+#include <gnome-core>
+
+gdm-themes gnome-desktop-environment system-config-printer gnome-screensaver
+gnome-themes-extras
+
+rhythmbox synaptic

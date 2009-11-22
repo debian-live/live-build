@@ -1,0 +1,39 @@
+# /usr/share/live-helper/lists/debian-live - package list for live-helper(7)
+
+## LH: Debian Live
+#include <standard>
+
+# http://qa.debian.org/developer.php?login=debian-live@lists.debian.org
+
+# debian-live
+live-helper git-core
+debootstrap cdebootstrap
+dosfstools genisoimage memtest86+ memtest86 mtools parted squashfs-tools genext2fs mtd-tools sudo fakeroot syslinux grub
+
+# kernel
+#if DISTRIBUTION lenny squeeze sid
+aufs-tools aufs-source
+#endif
+qemu kqemu-source
+kvm kvm-source
+squashfs-tools squashfs-source
+#if DISTRIBUTION etch
+unionfs-tools unionfs-source
+#endif
+#linux-headers-2.6-all
+
+# netboot/pxe
+dhcp3-server nfs-kernel-server tftp-hpa
+
+# webboot
+apache2
+
+# some other stuff
+vim less screen gnupg dash posh
+
+# build
+build-essential debhelper dh-make lintian fakeroot devscripts wdiff
+autotools-dev dpatch module-assistant quilt
+
+# bootchart
+acct bootchart

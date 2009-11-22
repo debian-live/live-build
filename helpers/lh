@@ -1,0 +1,45 @@
+#!/bin/sh
+
+# lh(1) - generic live-helper wrapper
+# Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Including common functions
+. "${LH_BASE:-/usr/share/live-helper}"/functions.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'utility to build Debian Live systems')"
+HELP="FIXME"
+USAGE="FIXME"
+
+case "${1}" in
+	-h|--help)
+		Man
+		;;
+
+	""|-u|--usage)
+		Usage
+		;;
+
+	-v|--version)
+		Version
+		;;
+
+	*)
+		COMMAND="${1}"
+		shift
+
+		if [ -x "$(which lh_${COMMAND} 2>/dev/null)" ]
+		then
+			LH=1 exec lh_"${COMMAND}" "${@}"
+		else
+			Echo_error "no such helper"
+			exit 1
+		fi
+		;;
+esac

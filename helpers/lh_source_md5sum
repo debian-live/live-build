@@ -1,0 +1,78 @@
+#!/bin/sh
+
+# lh_source_md5sum(1) - create source md5sums
+# Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Including common functions
+. "${LH_BASE:-/usr/share/live-helper}"/functions.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'create source md5sums')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+if [ "${LH_SOURCE}" != "enabled" ]
+then
+	exit 0
+fi
+
+if [ "${LH_CHECKSUMS}" != "enabled" ]
+then
+	exit 0
+fi
+
+Echo_message "Begin creating source md5sum.txt..."
+
+# Requiring stage file
+Require_stagefile .stage/config .stage/source_debian
+
+# Checking stage file
+Check_stagefile .stage/source_md5sum
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+# Remove old md5sums
+if [ -f source/md5sum.txt ]
+then
+	rm -f source/md5sum.txt
+fi
+
+# Calculating md5sums
+cd source
+find . -type f -print0 | sort -z | xargs -0 md5sum > ../md5sum.txt
+
+cat > md5sum.txt << EOF
+This file contains the list of md5 checksums of all files on this medium.
+
+You can verify them automatically with the 'integrity-check' boot parameter,
+or, manually with: 'md5sum -c md5sum.txt'.
+
+
+EOF
+
+cat ../md5sum.txt >> md5sum.txt
+rm -f ../md5sum.txt
+
+# File list
+find . | sed -e 's|^.||g' | grep "^/" | sort > ../source.list
+
+cd "${OLDPWD}"
+
+# Creating stage file
+Create_stagefile .stage/source_md5sum

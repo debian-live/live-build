@@ -1,0 +1,46 @@
+.TH LH_CLEAN 1 "2009\-06\-14" "1.0.5" "live\-helper"
+
+.SH NAME
+lh_clean \- clean up system build directories
+
+.SH SYNOPSIS
+\fBlh_clean\fR [\fIlive\-helper\ options\fR\] [\fB\-\-all\fR] [\fB\-\-cache\fR] [\fB\-\-chroot\fR] [\fB\-\-binary\fR] [\fB\-\-purge\fR] [\fB\-\-remove\fR] [\fB\-\-stage\fR] [\fB\-\-source\fR]
+.PP
+\fBlh_clean\fR [\fIlive\-helper\ options\fR]
+
+.SH DESCRIPTION
+lh_clean is a high\-level command (porcelain) of live\-helper, the Debian Live tool suite. It is responsible for cleaning up after a system is built. It removes the system build directories, and removes some other files including stage files, and any detritus left behind by other live\-helper commands.
+
+.SH OPTIONS
+In addition to its specific options, lh_clean also understands all generic live\-helper options. See \fIlive\-helper\fR(7) for a complete list of all generic live\-helper options.
+.br
+.IP "\fB\-\-all\fR" 4
+removes chroot, binary, stage, and source, cache is kept. This is the default operation and will be processed if no argument is given.
+.IP "\fB\-\-cache\fR" 4
+removes all cache directories.
+.IP "\fB\-\-chroot\fR" 4
+unmounts and removes the chroot directory.
+.IP "\fB\-\-binary\fR" 4
+removes all binary related caches, directories, and stages files.
+.IP "\fB\-\-purge\fR" 4
+removes everything (including cache). The config directory is kept.
+.IP "\fB\-\-remove\fR" 4
+removes everything (including package cache, but not stage cache). The config directory is kept.
+.IP "\fB\-\-stage\fR" 4
+removes all stage files.
+.IP "\fB\-\-source\fR" 4
+removes all source related caches, directories, and stage files.
+
+.SH SEE ALSO
+\fIlive\-helper\fR(7)
+.PP
+This program is a part of live\-helper.
+
+.SH HOMEPAGE
+More information about live\-helper and the Debian Live project can be found in the homepage at <\fIhttp://debian\-live.alioth.debian.org/\fR> and in the manual at <\fIhttp://live.debian.net/manual/\fR>.
+
+.SH BUGS
+Report bugs by submitting a bugreport for the live\-helper package in the Debian Bug Tracking System at <\fIhttp://bugs.debian.org/\fR> or write a mail to the mailinglist at <\fIdebian-live@lists.debian.org\fR>.
+
+.SH AUTHOR
+live\-helper was written by Daniel Baumann <\fIdaniel@debian.org\fR> for the Debian project.

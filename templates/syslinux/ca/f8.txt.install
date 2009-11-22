@@ -1,0 +1,24 @@
+0fPARÖMETRES ESPECIALS DE ARRENCADA - SISTEMA DE INSTALACI¢07                     09F807
+
+Podeu usar els segÅents parÖmetres a l'indicador 0fboot:07, 
+en combinaci¢ amb el mätode d'arrencada (vegeu <09F307>). Aquests
+parÖmetres controlen el funcionament del sistema d'instal˙laci¢.
+0f
+RESULTAT                                        PAR∑METRE07
+Debugat prolix                                  0fDEBCONF_DEBUG=507
+Debuga la seqÅäncia d'inici                     0fBOOT_DEBUG=2|307
+Deshabilita el framebuffer                      0ffb=false07
+No inicia el subsistema PCMCIA                  0fhw-detect/start_pcmcia=false07
+Foráa configuraci¢ de xarxa estÖtica            0fnetcfg/disable_dhcp=true07
+Escull el mapa de teclat                        0fbootkbd=es07
+Usa tty en braille                              0fbrltty=driver,device,texttable07
+Dona accessibilitat amb un tema d'alt contrast  0ftheme=dark07
+Determina labors especials                      0ftasks="kde-desktop, standard"07
+
+
+
+Per exemple:
+  boot: install fb=false
+
+
+Premeu F1control i F seguit de 1 per el men£ d'ajuda, o INTRO per fer el 

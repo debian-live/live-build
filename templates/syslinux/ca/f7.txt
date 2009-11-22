@@ -1,0 +1,24 @@
+0fPARÖMETRES ESPECIALS D'ARRENCADA - DISCOS DIVERSOS07                            09F707
+
+Podeu usar els segÅents parÖmetres a l'indicador 0fboot:07, 
+en combinaci¢ amb el mätode d'arrencada (vegeu <09F307>).
+0f
+MAQUINARI                   PARÖMETRE PER ESPECIFICAR07
+Adaptec 151x, 152x          0faha152x.aha152x=0biobase07[0f,0birq07[0f,0bscsi-id07[0f,0breconnect07]]]
+Adaptec 1542                0faha1542.aha1542=0biobase07[0f,0bbuson0f,0bbusoff07[0f,0bdmaspeed07]]
+Adaptec 274x, 284x          0faic7xxx.aic7xxx=no_reset07 (habilitat si no Çs zero)
+BusLogic SCSI Hosts         0fBusLogic.BusLogic=0biobase07
+Certes mÖquines Dell        0faic7xxx.aic7xxx=no_probe07
+
+Aquesta llista Çs incompleta, vegeu el fitxer del nucli kernel-parameters.txt 
+per a mÇs informaci¢.
+
+
+
+
+
+Per exemple:
+  boot: install aic7xxx.aic7xxx=no_probe
+
+
+Premeu F1control i F seguit de 1 per el men£ d'ajuda, o INTRO per fer el 

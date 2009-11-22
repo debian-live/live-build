@@ -1,0 +1,7 @@
+# /usr/share/live-helper/lists/standard-x11 - package list for live-helper(7)
+
+## LH: Standard X11
+#include <standard>
+
+xorg xresprobe menu
+alsa-base alsa-utils

@@ -1,0 +1,70 @@
+#!/bin/sh
+
+# lh_binary_manifest(1) - create manifest
+# Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Including common functions
+. "${LH_BASE:-/usr/share/live-helper}"/functions.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'create manifest')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+if [ "${LH_BINARY_IMAGES}" = "virtual-hdd" ]
+then
+	exit 0
+fi
+
+Echo_message "Begin creating manifest..."
+
+# Requiring stage file
+Require_stagefile .stage/config .stage/bootstrap
+
+# Checking stage file
+Check_stagefile .stage/binary_manifest
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+case "${LH_INITRAMFS}" in
+	casper)
+		INITFS="casper"
+
+		# Add filesystem.manifest
+		Chroot chroot "dpkg --get-selections" | awk '{ print $1 }' | sort -u > binary/casper/filesystem.manifest
+		;;
+
+	live-initramfs)
+		INITFS="live"
+		;;
+esac
+
+# Add packages.list
+cat > binary/${INITFS}/packages.txt << EOF
+This file contains the list of all packages installed in this live system.
+
+
+EOF
+
+Chroot chroot "dpkg -l" >> binary/${INITFS}/packages.txt
+
+cp binary/${INITFS}/packages.txt binary.packages
+
+# Creating stage file
+Create_stagefile .stage/binary_manifest

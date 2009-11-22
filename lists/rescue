@@ -1,0 +1,339 @@
+# /usr/share/live-helper/lists/rescue - package list for live-helper(7)
+
+## LH: Rescue
+#include <standard>
+
+# Debian Forensics
+#include <debian-forensics>
+
+# Other forensic packages
+#if DISTRIBUTION lenny squeeze sid
+scalpel
+#endif
+
+# Bootloaders
+#if DISTRIBUTION lenny squeeze sid
+syslinux-common
+#endif
+#if ARCHITECTURE amd64 i386
+grub lilo mbr syslinux
+#endif
+#if ARCHITECTURE hppa
+palo
+#endif
+
+# System
+gnupg dash discover gawk htop less lsof ltrace psmisc screen strace units
+#if ARCHITECTURE i386
+pstack
+#endif
+tcsh
+vlock
+mailutils
+moreutils
+
+# Editors
+aview mc nano-tiny mg vim wdiff hexedit nvi tweak
+
+# Harddisk
+dvd+rw-tools genisoimage sdparm hdparm blktool parted partimage secure-delete scsitools smartmontools testdisk wodim wipe hddtemp bonnie++
+par2 dvd+rw-tools
+
+# for /usr/bin/summer:
+chiark-utils-bin
+
+# System
+dmidecode lshw pciutils procinfo usbutils mcelog
+sysstat
+cpuburn stress
+
+#if ARCHITECTURE i386 powerpc
+read-edid
+#endif
+
+#if DISTRIBUTION etch
+sysutils
+#endif
+
+# Browser
+lynx links2 w3m
+
+# Compression
+arj bzip2 lzma p7zip-full unace unrar-free unzip zip lzop ncompress
+unace pax
+
+#if CATEGORIES non-free
+rar unrar
+sl-modem-daemon
+atmel-firmware linux-wlan-ng-firmware firmware-ralink bluez-firmware
+libertas-firmware firmware-iwlwifi zd1211-firmware
+firmware-qlogic firmware-bnx2
+#endif
+
+# These two are from contrib but the idea is the same: non-free firmware.
+#if CATEGORIES contrib
+b43-fwcutter
+#endif
+#if DISTRIBUTION etch
+bcm43xx-fwcutter
+#endif
+
+# Backup
+dar gddrescue dump ddrescue
+mt-st
+afio dar duplicity tob
+
+# File comparison
+rdiff rdiff-backup rsnapshot
+colordiff
+
+# General
+chrootuid
+cpio
+cryptcat
+directvnc
+etherwake
+ftp
+ifenslave-2.6
+ifrename
+ethtool
+ipcalc
+mailx
+mii-diag
+minicom
+gkermit
+netcat
+netcat6
+netmask
+openntpd
+openssl
+openvpn
+strongswan
+sipcalc
+socat
+ssh
+telnet-ssl
+whois
+irssi
+debootstrap
+cdebootstrap
+rinse
+pv
+manpages
+
+acl
+symlinks
+
+# for hexdump if nothing else:
+bsdmainutils
+
+# Firewalling
+denyhosts
+fail2ban
+iptables
+knockd
+portsentry
+vlan
+zorp
+
+#if DISTRIBUTION etch
+reaim
+#endif
+
+# Essential networking
+netbase
+rdate
+ntpdate
+msntp
+dhcp3-client
+ppp
+pppconfig
+pppoe
+pppoeconf
+atm-tools
+#ipppd
+
+# Bridging
+bridge-utils
+ebtables
+parprouted
+
+# Special hardware
+br2684ctl
+
+# Routing
+cutter
+iproute
+iproute-doc
+iputils-tracepath
+mrt
+mtr-tiny
+tcptraceroute
+#if DISTRIBUTION etch
+traceproto
+#endif
+traceroute
+spinner
+
+# Monitoring
+arpalert
+arpwatch
+atsar
+bmon
+ethstatus
+ettercap
+geoip-bin
+hp-search-mac
+icmpinfo
+ifstat
+iftop
+ipgrab
+iptstate
+iptraf
+lft
+nast
+nbtscan
+netdiscover
+nload
+nsca
+nstreams
+ntop
+saidar
+samhain
+scanssh
+sntop
+ssldump
+tcpdump
+tcpreen
+tcpreplay
+tshark
+
+# Testing
+crashme
+dbench
+doscan
+dsniff
+#if DISTRIBUTION etch
+fragrouter
+#endif
+honeyd
+hping3
+icmpush
+macchanger
+medusa
+ndiff
+netdiag
+netpipe-tcp
+nmap
+ndisc6
+ngrep
+p0f
+packit
+#if DISTRIBUTION etch lenny
+paketto
+sing
+#endif
+python-scapy
+xprobe
+
+# Log Analysers
+fwanalog
+fwlogwatch
+lwatch
+multitail
+
+# Net Analysers
+httping
+arping
+dnstracer
+netselect
+dnsutils
+adns-tools
+fping
+
+# FS tools
+reiserfsprogs
+squashfs-tools
+sshfs
+sysfsutils
+udftools
+#if DISTRIBUTION etch
+unionfs-tools
+#endif
+xfsdump
+xfsprogs
+#if DISTRIBUTION sid
+btrfs-tools
+#endif
+cryptsetup
+dmraid
+e2fsprogs
+fuse-utils
+hfsplus
+hfsutils
+jfsutils
+lde
+lsscsi
+lvm2
+mdadm
+mtools
+nilfs2-tools
+ntfs-3g
+ntfsprogs
+reiser4progs
+dmsetup
+
+# Forensics
+foremost
+magicrescue
+sleuthkit
+
+# Tools for managing M$ and its ilk
+dosfstools mscompress chntpw pptpd pptp-linux
+
+# unsorted
+hwinfo x86info cpuid
+tofrodos rpncalc
+hal
+dc
+bc
+rlwrap
+chkrootkit
+
+rkhunter
+clamav
+clamav-data
+smbclient
+nfs-common
+wireless-tools
+
+aide
+tripwire
+sleuthkit
+autopsy
+pwgen
+
+rsync
+ncftp
+rpm
+curl
+wget
+lftp
+net-tools
+
+expect
+gpm
+
+# Network servers:
+thttpd
+dhcp3-server
+hostap-utils
+hostapd
+
+# Flab
+emacs22-nox
+build-essential gfortran gnat
+
+#if ARCHITECTURE i386
+bin86
+#endif

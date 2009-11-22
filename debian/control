@@ -1,0 +1,24 @@
+Source: live-helper
+Section: misc
+Priority: optional
+Maintainer: Debian Live <debian-live@lists.debian.org>
+Uploaders: Daniel Baumann <daniel@debian.org>
+Build-Depends: debhelper (>= 7)
+Build-Depends-Indep: gettext
+Standards-Version: 3.8.3
+Homepage: http://debian-live.alioth.debian.org/
+Vcs-Browser: http://live.debian.net/gitweb/?p=live-helper.git
+Vcs-Git: git://live.debian.net/git/live-helper.git
+
+Package: live-helper
+Architecture: all
+Depends: debootstrap | cdebootstrap | cdebootstrap-static
+Recommends: gettext-base
+Suggests: dosfstools, genisoimage, memtest86+ | memtest86, mtools, parted, squashfs-tools | genext2fs | mtd-tools, sudo | fakeroot, syslinux | grub, uuid-runtime, win32-loader
+Description: Debian Live build scripts
+ live-helper is a set of scripts to build Debian Live system images.
+ .
+ The idea behind live-helper is a framework that uses a configuration directory
+ to completely automate and customize all aspects of building a Live image.
+ .
+ An introduction to live-helper can be found in the live-helper(7) manpage.

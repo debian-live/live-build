@@ -1,0 +1,16 @@
+# Defaults for /etc/cron.daily/live-helper_autobuild
+
+AUTOBUILD="disabled"
+
+DATE="$(date +%Y%m%d)"
+DESTDIR="/srv/debian-live"
+TEMPDIR="/srv/tmp/live-helper"
+
+OPTIONS="--binary-indices disabled"
+
+ARCHITECTURES="$(dpkg --print-architecture)"
+DISTRIBUTIONS="sid"
+MIRROR_BOOTSTRAP="http://ftp.debian.org/debian/"
+MIRROR_BINARY="http://ftp.debian.org/debian/"
+MIRROR_BINARY_SECURITY="http://security.debian.org/"
+PACKAGES_LISTS="standard rescue gnome-desktop kde-desktop xfce-desktop"

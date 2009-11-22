@@ -1,0 +1,6 @@
+# /usr/share/live-helper/lists/standard - package list for live-helper(7)
+
+## LH: Standard
+#include <minimal>
+
+console-setup console-common kbd locales

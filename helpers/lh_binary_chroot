@@ -1,0 +1,119 @@
+#!/bin/sh
+
+# lh_binary_chroot(1) - copy chroot into chroot
+# Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Including common functions
+. "${LH_BASE:-/usr/share/live-helper}"/functions.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'copy chroot into chroot')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+Echo_message "Begin copying chroot..."
+
+# Requiring stage file
+Require_stagefile .stage/config .stage/bootstrap
+
+# Checking stage file
+Check_stagefile .stage/binary_chroot
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+# Normally, virtual filesystems are not mounted here, but people tend to be lazy
+if [ -f chroot/proc/version ]
+then
+	if [ "${LH_USE_FAKEROOT}" != "enabled" ]
+then
+		${LH_ROOT_COMMAND} umount chroot/proc
+	else
+		rm -rf chroot/proc
+		mkdir -p chroot/proc
+	fi
+fi
+
+if [ -d chroot/sys/kernel ]
+then
+	if [ "${LH_USE_FAKEROOT}" != "enabled" ]
+	then
+		${LH_ROOT_COMMAND} umount chroot/sys
+	else
+		rm -rf chroot/sys
+		mkdir -p chroot/sys
+	fi
+fi
+
+# Copying /dev if using fakeroot
+if [ "${LH_USE_FAKEROOT}" = "enabled" ]
+then
+	rm -rf chroot/dev
+	find /dev | cpio -dmpu chroot
+fi
+
+if [ "${LH_CHROOT_BUILD}" = "disabled" ]
+then
+	exit 0
+fi
+
+if [ "${LH_CACHE}" = "enabled" ] && Find_files cache/stages_rootfs/filesystem*
+then
+	exit 0
+fi
+
+Echo_message "This may take a while."
+
+# Removing old chroot
+${LH_ROOT_COMMAND} rm -rf chroot/chroot
+${LH_ROOT_COMMAND} rm -rf chroot.tmp
+
+# Copying new chroot
+if [ -d cache/stages_bootstrap ]
+then
+	${LH_ROOT_COMMAND} mv chroot chroot.tmp
+	${LH_ROOT_COMMAND} cp -a cache/stages_bootstrap chroot
+	${LH_ROOT_COMMAND} touch chroot/chroot.cache
+else
+	${LH_ROOT_COMMAND} cp -a chroot chroot.tmp
+fi
+
+${LH_ROOT_COMMAND} mv chroot.tmp chroot/chroot
+
+if [ -f config/binary_rootfs/exclude ]
+then
+	# Read exclude file and expand wildcards.
+	for EXCLUDE in $(cat config/binary_rootfs/exclude)
+	do
+		if [ -e chroot/chroot/"${EXCLUDE}" ]
+		then
+			# Run "rm" inside the chroot so it cannot possibly remove host files.
+			Chroot chroot "rm -r chroot/${EXCLUDE}"
+		else
+			Echo_warning "Excluded path does not exist: %s" "${EXCLUDE}"
+		fi
+	done
+fi
+
+if [ -n "${LH_ROOT_COMMAND}" ]
+then
+	${LH_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
+fi
+
+# Creating stage file
+Create_stagefile .stage/binary_chroot

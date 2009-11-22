@@ -1,0 +1,70 @@
+Frequently Asked Questions (FAQ)
+================================
+
+Build Time
+----------
+
+Q: Is live-helper/make-live Debian specific?
+A: live-helper supports Debian and Ubuntu right now. Adding automatic defaults
+   for other Debian derivatives is easy - let us know about them and we may
+   include it.
+
+
+Q: How can I build images with an unprivileged user account?
+A: You can use --root-command sudo or set LH_ROOT_COMMAND="sudo" in
+   config/common.
+
+   *BIG* *FAT* *WARNING*: Building an image as non-root can make your image
+   different compared to a regular Debian system (different owners of files). It
+   is *NOT* recommended to build images as non-root. Do *NOT* use this feature
+   yet.
+
+
+Q: How do I drop in to a shell during make-live chroot process?
+A: Use "--interactive shell", then exit with 'logout' when you have made the
+   setting changes you want and the build process will continue.
+
+
+Q: Where to set the username or the hostname?
+A: casper uses default username 'casper' and hostname 'live'. You can specify
+   them by passing 'username=' and 'hostname=' as kernel parameters.
+
+   live-helper automatically sets the username to 'user' and the hostname to
+   'debian'. If you want to change this at build time, pass --username and
+   --hostname to make-live, or alter LIVE_USERNAME and LIVE_HOSTNAME in
+   config/image.
+
+
+Q: How can I make my own grub bootsplash?
+A: To add a grub splash screen, you can use --grub-splash FILE, or copy your
+   custom splash to config/binary_grub/splash.xpm.gz.
+
+   Documentation about creating a bootsplash for grub can be found at:
+   <http://ruslug.rutgers.edu/~mcgrof/grub-images/>
+
+
+Q: How can I make my own syslinux bootsplash?
+A: To add a syslinux splash screen, you can use --syslinux-splash FILE, or copy
+   your custom splash to config/binary_syslinux/splash.rle.
+
+   Documentation about creating a bootsplash for grub can be found at:
+   <http://www.sweb.cz/Frantisek.Rysanek/splash/isolinux-splash-HOWTO.html>
+   contrib/syslinux-splash/COPYING in the live-helper sources.
+
+   Basically, you need to install netpbm and syslinux, and run this:
+   anytopnm < $your_splash > $your_splash.pnm
+   pnmcolormap 15 < $your_splash.pnm > $your_splash.map
+   pnmremap -map=$your_splash.map $your_splash.pnm | \
+   	ppmtolss16 '#ffffff=7' > splash.rle
+
+
+Run Time
+--------
+
+Q: What is the root password?
+A: There is none set. You can switch to root with 'sudo -i' or set a password
+   with 'sudo passwd'.
+
+
+Q: What is the user password?
+A: The password for the default user is 'live'.

@@ -1,0 +1,7 @@
+# /usr/share/live-helper/lists/xfce-junior - package list for live-helper(7)
+
+## LH: Xfce Debian Junior
+#include <xfce>
+#include <debian-junior>
+
+junior-kde junior-gnome
