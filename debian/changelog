@@ -8,6 +8,13 @@ live-helper (2.0~a1-1) experimental; urgency=low
 
  -- Daniel Baumann <daniel@debian.org>  Sun, 15 Nov 2009 22:42:59 +0100
 
+live-helper (1.0.6-2) unstable; urgency=high
+
+  * Replacing sed 4.2 command to assemble debootstraps components option
+    with a less advanced one, in order to work on legacy distributions.
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 22 Nov 2009 13:35:50 +0100
+
 live-helper (1.0.6-1) unstable; urgency=medium
 
   [ Daniel Baumann ]
