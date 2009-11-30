@@ -93,6 +93,7 @@ Losetup $FREELO source.img 0
 Chroot chroot "parted -s ${FREELO} mklabel msdos" || true
 Chroot chroot "parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100%" || true
 Chroot chroot "parted -s ${FREELO} set 1 lba off" || true
+sleep 1
 ${LH_LOSETUP} -d ${FREELO}
 
 Losetup $FREELO source.img 1
@@ -121,6 +122,7 @@ ${LH_ROOT_COMMAND} mount ${FREELO} source.tmp
 cp -r source/* source.tmp
 ${LH_ROOT_COMMAND} umount source.tmp
 rmdir source.tmp
+sleep 1
 ${LH_LOSETUP} -d ${FREELO}
 Echo_warning "!!! The above error/warning messages can be ignored !!!"
 

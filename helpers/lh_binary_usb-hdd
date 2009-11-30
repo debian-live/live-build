@@ -167,6 +167,7 @@ case "${LH_CHROOT_BUILD}" in
 		;;
 esac
 
+sleep 1
 ${LH_LOSETUP} -d ${FREELO}
 
 FREELO="$(${LH_LOSETUP} -f)"
@@ -256,6 +257,7 @@ then
 	esac
 fi
 
+sleep 1
 ${LH_LOSETUP} -d ${FREELO}
 
 echo "!!! The above error/warning messages can be ignored !!!"
