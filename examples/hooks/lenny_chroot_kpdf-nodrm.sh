@@ -8,7 +8,6 @@
 
 if [ -d /usr/share/config ]
 then
-	# KDE3 (etch/lenny)
 
 cat > /usr/share/config/kpdfpartrc << EOF
 [General]

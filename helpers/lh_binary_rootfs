@@ -133,12 +133,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 		DU_DIM="$(du -ks chroot/chroot | cut -f1)"
 		REAL_DIM="$(Calculate_partition_size ${DU_DIM} ${LH_CHROOT_FILESYSTEM})"
 
-		if [ "${LH_DISTRIBUTION}" = "etch" ]
-		then
-			RESERVED_PERCENTAGE="--reserved-blocks"
-		else
-			RESERVED_PERCENTAGE="--reserved-percentage"
-		fi
+		RESERVED_PERCENTAGE="--reserved-percentage"
 
 		case "${LH_CHROOT_BUILD}" in
 			enabled)
@@ -301,10 +296,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 		# Remove stale squashfs image
 		rm -f chroot/filesystem.squashfs
 
-		if [ "${_QUIET}" = "enabled" ] && [ "${LH_DISTRIBUTION}" != "etch" ]
-		then
-			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -no-progress"
-		fi
+		MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -no-progress"
 
 		if [ "${_VERBOSE}" = "enabled" ]
 		then
@@ -366,15 +358,6 @@ case "${LH_CHROOT_FILESYSTEM}" in
 				if [ -f config/binary_rootfs/excludes ]
 				then
 					case "${LH_DISTRIBUTION}" in
-						etch)
-							MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -ef config/binary_rootfs/excludes"
-
-							if grep '*' config/binary_rootfs/excludes > /dev/null
-							then
-								Echo_warning "etch squashfs does not support wildcard excludes in config/binary_rootfs/excludes and are ignored. Please build in chrooted mode or adjust your exclude file."
-							fi
-							;;
-
 						lenny|sid)
 							MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -wildcards -ef config/binary_rootfs/excludes"
 							;;

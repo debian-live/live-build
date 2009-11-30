@@ -11,6 +11,8 @@ Set_defaults ()
 {
 	## config/common
 
+	LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+
 	# Setting mode
 	if [ -z "${LH_MODE}" ]
 	then
@@ -36,12 +38,7 @@ Set_defaults ()
 	fi
 
 	# Setting package manager
-	if [ "${LH_DISTRIBUTION}" = "etch" ]
-	then
-		LH_APT="${LH_APT:-aptitude}"
-	else
-		LH_APT="${LH_APT:-apt}"
-	fi
+	LH_APT="${LH_APT:-apt}"
 
 	# Setting apt ftp proxy
 	if [ -z "${LH_APT_FTP_PROXY}" ] && [ -n "${ftp_proxy}" ]
@@ -142,15 +139,6 @@ Set_defaults ()
 		if [ "${LH_INITRAMFS}" = "auto" ]
 		then
 			case "${LH_MODE}" in
-				debian|debian-release)
-					if [ "${LH_DISTRIBUTION}" = "etch" ]
-					then
-						LH_INITRAMFS="casper"
-					else
-						LH_INITRAMFS="live-initramfs"
-					fi
-					;;
-
 				ubuntu)
 					LH_INITRAMFS="casper"
 					;;
@@ -231,13 +219,13 @@ Set_defaults ()
 	# Setting includes
 	if [ -z "${LH_INCLUDES}" ]
 	then
-		LH_INCLUDES="${LH_BASE:-/usr/share/live-helper}/includes"
+		LH_INCLUDES="${LH_BASE}/includes"
 	fi
 
 	# Setting templates
 	if [ -z "${LH_TEMPLATES}" ]
 	then
-		LH_TEMPLATES="${LH_BASE:-/usr/share/live-helper}/templates"
+		LH_TEMPLATES="${LH_BASE}/templates"
 	fi
 
 	# Setting live helper options
@@ -431,15 +419,7 @@ Set_defaults ()
 	LH_EXPOSED_ROOT="${LH_EXPOSED_ROOT:-disabled}"
 
 	# Setting union filesystem
-	if [ -z "${LH_UNION_FILESYSTEM}" ]
-	then
-		if [ "${LH_DISTRIBUTION}" = "etch" ]
-		then
-			LH_UNION_FILESYSTEM="unionfs"
-		else
-			LH_UNION_FILESYSTEM="aufs"
-		fi
-	fi
+	LH_UNION_FILESYSTEM="${LH_UNION_FILESYSTEM:-aufs}"
 
 	# LH_HOOKS
 
@@ -568,12 +548,7 @@ Set_defaults ()
 				;;
 
 			sparc)
-				if [ "${LH_DISTRIBUTION}" = "etch" ]
-				then
-					LH_LINUX_FLAVOURS="sparc32"
-				else
-					LH_LINUX_FLAVOURS="sparc64"
-				fi
+				LH_LINUX_FLAVOURS="sparc64"
 				;;
 
 			arm|armel|m68k)
@@ -594,7 +569,7 @@ Set_defaults ()
 		case "${LH_MODE}" in
 			debian|debian-release|embedian)
 				case "${LH_DISTRIBUTION}" in
-					etch|lenny|squeeze)
+					lenny|squeeze)
 						LH_LINUX_PACKAGES="linux-image-2.6 \${LH_UNION_FILESYSTEM}-modules-2.6"
 						;;
 
@@ -606,7 +581,7 @@ Set_defaults ()
 				if [ "${LH_CHROOT_FILESYSTEM}" = "squashfs" ]
 				then
 					case "${LH_DISTRIBUTION}" in
-						etch|lenny)
+						lenny)
 							LH_LINUX_PACKAGES="${LH_LINUX_PACKAGES} squashfs-modules-2.6"
 							;;
 					esac
@@ -969,15 +944,7 @@ Set_defaults ()
 	LH_SYSLINUX_TIMEOUT="${LH_SYSLINUX_TIMEOUT:-0}"
 
 	# Setting syslinux menu
-	case "${LH_DISTRIBUTION}" in
-		etch)
-			LH_SYSLINUX_MENU="${LH_SYSLINUX_MENU:-disabled}"
-			;;
-
-		*)
-			LH_SYSLINUX_MENU="${LH_SYSLINUX_MENU:-enabled}"
-			;;
-	esac
+	LH_SYSLINUX_MENU="${LH_SYSLINUX_MENU:-enabled}"
 
 	# Setting syslinux menu live entries
 	case "${LH_MODE}" in
@@ -1029,32 +996,21 @@ Check_defaults ()
 		# except when bootstrapping the functions/defaults etc.).
 		CURRENT_CONFIG_VERSION="$(echo ${LH_CONFIG_VERSION} | awk -F. '{ print $1 }')"
 
-		if [ ${CURRENT_CONFIG_VERSION} -ge 2 ]
+		if [ ${CURRENT_CONFIG_VERSION} -ge 3 ]
 		then
 			Echo_error "This config tree is too new for this version of live-helper (${VERSION})."
 			Echo_error "Aborting build, please get a new version of live-helper."
 
 			exit 1
+		elif [ ${CURRENT_CONFIG_VERSION} -eq 1 ]
+		then
+			Echo_error "This config tree is too old for this version of live-heloer (${VERSION})."
+			Echo_error "Aborting build, please repopulate the config tree."
+			exit 1
 		elif [ ${CURRENT_CONFIG_VERSION} -lt 1 ]
 		then
 			Echo_warning "This config tree does not specify a format version or has an unknown version number."
 			Echo_warning "Continuing build, but it could lead to errors or different results. Please repopulate the config tree."
-		fi
-	fi
-
-	if [ "${LH_DISTRIBUTION}" = "etch" ]
-	then
-		# etch + live-initramfs
-		if [ "${LH_INITRAMFS}" = "live-initramfs" ]
-		then
-			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_INITRAMFS='live-initramfs'. This configuration is potentially unsafe as live-initramfs is not part of the etch distribution. Either make sure that live-initramfs is installable (e.g. through setting up etch-backports repository as third-party source or putting a valid live-initramfs deb into config/chroot_local-packages) or change your config to the etch default (casper)."
-		fi
-
-		# etch + aufs
-		if [ "${LH_UNION_FILESYSTEM}" = "aufs" ]
-		then
-			Echo_warning "You selected LH_DISTRIBUTION='etch' and LH_UNION_FILESYSTEM='aufs'. This configuration is potentially unsafe as live-initramfs is not part of the etch distribution. Either make sure that live-initramfs is installable (e.g. through setting up etch-backports repository as third-party source or putting a valid live-initramfs deb into config/chroot_local-packages) or change your config to the etch default (casper)."
-
 		fi
 	fi
 
