@@ -1,3 +1,21 @@
+live-helper (2.0~a2-1) unstable; urgency=low
+
+  * Updating config tree version checks.
+  * Dropping etch support.
+  * Replacing categories with archive-areas in package lists.
+  * Using /etc/apt/sources.list.d mechanism for local sources.list
+    snipplets.
+  * Adding example hook to remove udev persistent device generator
+    rules.
+  * Adding suffix .list to sources.list.d snipplets.
+  * Replacing sed 4.2 command to assemble debootstraps components option
+    with a less advanced one, in order to work on legacy distributions.
+  * Removing obsolete parameter.txt for etchs casper.
+  * Setting LH_BASE variable in defaults.sh globally.
+  * Adding changelog of 1.0.6-2.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 30 Nov 2009 12:41:06 +0100
+
 live-helper (2.0~a1-1) experimental; urgency=low
 
   * Renaming categories to archive areas (Closes: #519690).
