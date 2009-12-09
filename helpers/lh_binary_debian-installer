@@ -290,7 +290,7 @@ else
 	if [ "${LH_DEBIAN_INSTALLER_GUI}" = "enabled" ]
 	then
 		case "${LH_ARCHITECTURE}" in
-			amd64|i386|lpia)
+			amd64|i386)
 				DOWNLOAD_GTK_INSTALLER=1
 				;;
 
@@ -326,7 +326,7 @@ then
 			DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-amd64"
 			;;
 
-		i386|lpia)
+		i386)
 			DI_REQ_PACKAGES="elilo lilo grub"
 			DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-486 linux-image-2.6-686"
 			;;

@@ -509,19 +509,6 @@ Set_defaults ()
 				LH_LINUX_FLAVOURS="itanium"
 				;;
 
-			lpia)
-				case "${LH_MODE}" in
-					debian|debian-release|embedian)
-						Echo_error "Architecture ${LH_ARCHITECTURE} not supported on ${LH_MODE}."
-						exit 1
-						;;
-
-					*)
-						LH_LINUX_FLAVOURS="lpia"
-						;;
-				esac
-				;;
-
 			powerpc)
 				case "${LIST}" in
 					stripped|minimal)
@@ -703,7 +690,7 @@ Set_defaults ()
 	if [ -z "${LH_BOOTLOADER}" ]
 	then
 		case "${LH_ARCHITECTURE}" in
-			amd64|i386|lpia)
+			amd64|i386)
 				LH_BOOTLOADER="syslinux"
 				;;
 
@@ -891,7 +878,7 @@ Set_defaults ()
 
 	# Setting win32-loader option
 	case "${LH_ARCHITECTURE}" in
-		amd64|i386|lpia)
+		amd64|i386)
 			if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
 			then
 				LH_WIN32_LOADER="${LH_WIN32_LOADER:-enabled}"
