@@ -877,20 +877,23 @@ Set_defaults ()
 	LH_MEMTEST="${LH_MEMTEST:-memtest86+}"
 
 	# Setting win32-loader option
-	case "${LH_ARCHITECTURE}" in
-		amd64|i386)
-			if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
-			then
-				LH_WIN32_LOADER="${LH_WIN32_LOADER:-enabled}"
-			else
-				LH_WIN32_LOADER="${LH_WIN32_LOADER:-disabled}"
-			fi
-			;;
+	if [ "${LH_MODE}" != "ubuntu" ]
+	then
+		case "${LH_ARCHITECTURE}" in
+			amd64|i386)
+				if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
+				then
+					LH_WIN32_LOADER="${LH_WIN32_LOADER:-enabled}"
+				else
+					LH_WIN32_LOADER="${LH_WIN32_LOADER:-disabled}"
+				fi
+				;;
 
-		*)
-			LH_WIN32_LOADER="${LH_WIN32_LOADER:-disabled}"
-			;;
-	esac
+			*)
+				LH_WIN32_LOADER="${LH_WIN32_LOADER:-disabled}"
+				;;
+		esac
+	fi
 
 	# Setting netboot filesystem
 	LH_NET_ROOT_FILESYSTEM="${LH_NET_ROOT_FILESYSTEM:-nfs}"
