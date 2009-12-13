@@ -42,7 +42,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ "${LH_CHROOT_BUILD}" = "enabled" ]
+if [ "${LH_CHROOT_BUILD}" = "true" ]
 then
 	case "${LH_BINARY_FILESYSTEM}" in
 		ext2|ext3)
@@ -66,7 +66,7 @@ fi
 Echo_message "Creating virtual disk image..."
 dd if=/dev/zero of=binary-virtual.img bs=1024k count=0 seek=${LH_VIRTUAL_ROOT_SIZE}
 
-if [ "${LH_CHROOT_BUILD}" = "enabled" ]
+if [ "${LH_CHROOT_BUILD}" = "true" ]
 then
 	mv binary-virtual.img chroot
 

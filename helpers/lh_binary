@@ -29,7 +29,7 @@ Setup_cleanup
 # Preparing root filesystem
 lh binary_chroot ${*}
 
-if [ "${LH_CHROOT_BUILD}" = "enabled" ]
+if [ "${LH_CHROOT_BUILD}" = "true" ]
 then
 	# Configuring chroot
 	lh chroot_devpts install ${*}
@@ -65,7 +65,7 @@ lh binary_local-includes ${*}
 lh binary_local-hooks ${*}
 lh binary_md5sum ${*}
 
-if [ "${LH_CHROOT_BUILD}" != "enabled" ]
+if [ "${LH_CHROOT_BUILD}" != "true" ]
 then
 	lh chroot_devpts install ${*}
 	lh chroot_proc install ${*}
@@ -80,7 +80,7 @@ lh binary_tar ${*}
 lh binary_usb-hdd ${*}
 lh binary_virtual-hdd ${*}
 
-if [ "${LH_CHROOT_BUILD}" = "enabled" ]
+if [ "${LH_CHROOT_BUILD}" = "true" ]
 then
 	# Deconfiguring chroot
 	rm -f .stage/chroot_sources

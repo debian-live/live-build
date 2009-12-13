@@ -83,7 +83,7 @@ case "${LH_DEBIAN_INSTALLER}" in
 		echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/CD Source $(date +%Y%m%d-%H:%M)" > source/.disk/info
 		;;
 
-	enabled|netinst)
+	true|netinst)
 		echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/NETINST Source $(date +%Y%m%d-%H:%M)" > source/.disk/info
 		;;
 
@@ -95,7 +95,7 @@ case "${LH_DEBIAN_INSTALLER}" in
 		echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/BC Source $(date +%Y%m%d-%H:%M)" > source/.disk/info
 		;;
 
-	disabled)
+	false)
 		echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE Source $(date +%Y%m%d-%H:%M)" > source/.disk/info
 		;;
 esac

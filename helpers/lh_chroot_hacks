@@ -135,7 +135,7 @@ then
 	esac
 fi
 
-if [ "${LH_EXPOSED_ROOT}" = "enabled" ]
+if [ "${LH_EXPOSED_ROOT}" = "true" ]
 then
 	# Make sure RW dirs exist so that the initramfs script has
 	# a directory in which to bind the tmpfs filesystems
@@ -181,7 +181,7 @@ if [ -e chroot/etc/init.d/resolvconf ]
 then
 	Echo_warning "Your live system appears to include resolvconf which is by its nature incompatible in most ways with debian-live."
 	Echo_warning "Keeping resolvconf installed *can* lead to broken network support in the resulting live system."
-	Echo_warning "Unless you really know what you are doing, we recommend that you neither install resolvconf explicitly nor implicitly through another package's relation (e.g. by having automatic installation of recommended packages enabled)."
+	Echo_warning "Unless you really know what you are doing, we recommend that you neither install resolvconf explicitly nor implicitly through another package's relation (e.g. by having automatic installation of recommended packages to true)."
 fi
 
 # Creating stage file

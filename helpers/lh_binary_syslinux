@@ -191,7 +191,7 @@ Copy_syslinux_templates ()
 {
 	cp -r "${TEMPLATES}"/common/* ${SCREEN_PATH}
 
-	if [ "${LH_SYSLINUX_MENU}" = "disabled" ]
+	if [ "${LH_SYSLINUX_MENU}" = "false" ]
 	then
 		cp "${TEMPLATES}"/normal/* ${SCREEN_PATH}
 	else
@@ -221,10 +221,10 @@ Copy_syslinux_templates ()
 		esac
 
 		case "${LH_CHROOT_BUILD}" in
-			enabled)
+			true)
 				cp chroot/usr/lib/syslinux/"${MENUMODULE}" ${DATA_PATH}
 				;;
-			disabled)
+			false)
 				cp /usr/lib/syslinux/"${MENUMODULE}" ${DATA_PATH}
 				;;
 		esac
@@ -248,7 +248,7 @@ Copy_syslinux_templates ()
 		done
 	fi
 
-	if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
+	if [ "${LH_DEBIAN_INSTALLER}" != "false" ]
 	then
 		if ls ${SCREEN_PATH}/*.install > /dev/null 2>&1
 		then
@@ -277,7 +277,7 @@ Copy_syslinux_templates ()
 		rm -f ${SCREEN_PATH}/*.install*
 	fi
 
-	if [ "${LH_SYSLINUX_MENU}" = "enabled" ]
+	if [ "${LH_SYSLINUX_MENU}" = "true" ]
 	then
 		rm -f ${DATA_PATH}/boot.txt
 	fi
@@ -290,7 +290,7 @@ Copy_syslinux_templates ()
 		rm -f ${SCREEN_PATH}/splash.rle
 		rm -f ${DATA_PATH}/splash.png
 	else
-		if [ "${LH_SYSLINUX_MENU}" = "disabled" ]
+		if [ "${LH_SYSLINUX_MENU}" = "false" ]
 		then
 			SPLASH="${LIVE_DATA_PATH}/splash.rle"
 		else
@@ -409,7 +409,7 @@ mkdir -p "${DATA_PATH}"
 
 # Setting boot parameters
 case "${LH_ENCRYPTION}" in
-	""|disabled)
+	""|false)
 		;;
 	*)
 		LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} encryption=${LH_ENCRYPTION}"
@@ -453,7 +453,7 @@ then
 	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} union=${LH_UNION_FILESYSTEM}"
 fi
 
-if [ "${LH_EXPOSED_ROOT}" != "disabled" ]
+if [ "${LH_EXPOSED_ROOT}" != "false" ]
 then
 	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} exposedroot"
 fi
@@ -511,7 +511,7 @@ then
 	mv binary/${INITFS}/vmlinuz* ${KERNEL_PATH}
 	mv binary/${INITFS}/initrd* ${KERNEL_PATH}
 
-	if [ "${LH_MEMTEST}" != "disabled" ] && [ "${LH_MEMTEST}" != "none" ]
+	if [ "${LH_MEMTEST}" != "false" ] && [ "${LH_MEMTEST}" != "none" ]
 	then
 		mv binary/${INITFS}/memtest ${KERNEL_PATH}
 	fi
@@ -539,14 +539,14 @@ fi
 
 # Only needed for non-vesamenu, non-gfxboot syslinux
 case "${LH_SYSLINUX_MENU}" in
-	disabled|menu)
+	false|menu)
 		# Adding syslinux hardcoded default label entry
 		Syslinux_live_entry "linux" "" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
 		;;
 esac
 
 # Assembling debian-installer configuration
-if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
+if [ "${LH_DEBIAN_INSTALLER}" != "false" ]
 then
 	VMLINUZ_DI="vmlinuz"
 	INITRD_DI="initrd.gz"
@@ -583,10 +583,10 @@ Configure_syslinux_templates
 case "${LH_BINARY_IMAGES}" in
 	iso)
 		case "${LH_CHROOT_BUILD}" in
-			enabled)
+			true)
 				cp chroot/usr/lib/syslinux/isolinux.bin ${SCREEN_PATH}
 				;;
-			disabled)
+			false)
 				cp /usr/lib/syslinux/isolinux.bin ${SCREEN_PATH}
 				;;
 		esac
@@ -602,10 +602,10 @@ case "${LH_BINARY_IMAGES}" in
 
 	net)
 		case "${LH_CHROOT_BUILD}" in
-			enabled)
+			true)
 				cp chroot/usr/lib/syslinux/pxelinux.0 ${KERNEL_PATH}
 				;;
-			disabled)
+			false)
 				cp /usr/lib/syslinux/pxelinux.0 ${KERNEL_PATH}
 				;;
 		esac
@@ -633,10 +633,10 @@ case "${LH_BINARY_IMAGES}" in
 
 	tar|usb-hdd)
 		case "${LH_CHROOT_BUILD}" in
-			enabled)
+			true)
 				cp chroot/usr/lib/syslinux/isolinux.bin ${SCREEN_PATH}/syslinux.bin
 				;;
-			disabled)
+			false)
 				cp /usr/lib/syslinux/isolinux.bin ${SCREEN_PATH}/syslinux.bin
 				;;
 		esac

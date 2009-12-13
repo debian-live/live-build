@@ -157,7 +157,7 @@ mkdir -p "${DESTDIR_LIVE}"
 # Setting boot parameters
 
 case "${LH_ENCRYPTION}" in
-	""|disabled)
+	""|false)
 		;;
 	*)
 		LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} encryption=${LH_ENCRYPTION}"
@@ -206,7 +206,7 @@ then
 	exit 1
 fi
 
-if [ "${LH_EXPOSED_ROOT}" != "disabled" ]
+if [ "${LH_EXPOSED_ROOT}" != "false" ]
 then
 	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} exposedroot"
 fi
@@ -237,7 +237,7 @@ done
 LINUX_LIVE="$(/bin/echo ${LINUX_LIVE} | sed -e 's|binary||g' -e 's|//|/|g')"
 
 # Assembling debian-installer configuration
-if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
+if [ "${LH_DEBIAN_INSTALLER}" != "false" ]
 then
 	LINUX_LIVE="title\t\tLive:\nroot\n\n${LINUX_LIVE}"
 	LINUX_INSTALL="title\t\tInstaller:\nroot"
@@ -285,7 +285,7 @@ case ${LH_BINARY_IMAGES} in
 		;;
 esac
 
-if [ "${LH_CHROOT_BUILD}" = "disabled" ]
+if [ "${LH_CHROOT_BUILD}" = "false" ]
 then
 	FILES="$(echo ${FILES} | sed -e 's|chroot||g')"
 fi

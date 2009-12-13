@@ -23,7 +23,7 @@ Arguments ()
 	do
 		case "${1}" in
 			--breakpoints)
-				_BREAKPOINTS="enabled"
+				_BREAKPOINTS="true"
 				shift
 				;;
 
@@ -33,12 +33,12 @@ Arguments ()
 				;;
 
 			--debug)
-				_DEBUG="enabled"
+				_DEBUG="true"
 				shift
 				;;
 
 			--force)
-				_FORCE="enabled"
+				_FORCE="true"
 				shift
 				;;
 
@@ -48,7 +48,7 @@ Arguments ()
 				;;
 
 			--quiet)
-				_QUIET="enabled"
+				_QUIET="true"
 				shift
 				;;
 
@@ -58,7 +58,7 @@ Arguments ()
 				;;
 
 			--verbose)
-				_VERBOSE="enabled"
+				_VERBOSE="true"
 				shift
 				;;
 

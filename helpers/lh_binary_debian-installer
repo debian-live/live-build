@@ -28,10 +28,10 @@ then
 	exit 0
 fi
 
-if [ "${_DEBUG}" = "enabled" ]
+if [ "${_DEBUG}" = "true" ]
 then
 	WGET_OPTIONS="${WGET_OPTIONS} --verbose"
-elif [ "${_QUIET}" = "enabled" ]
+elif [ "${_QUIET}" = "true" ]
 then
 	WGET_OPTIONS="${WGET_OPTIONS} --quiet"
 else
@@ -40,10 +40,10 @@ fi
 
 # Check d-i configuration
 case "${LH_DEBIAN_INSTALLER}" in
-	enabled|cdrom|netinst|netboot|businesscard|live)
+	true|cdrom|netinst|netboot|businesscard|live)
 		;;
 
-	disabled)
+	false)
 		exit 0
 		;;
 
@@ -287,7 +287,7 @@ else
 
 	# Downloading graphical-installer
 	DOWNLOAD_GTK_INSTALLER=0
-	if [ "${LH_DEBIAN_INSTALLER_GUI}" = "enabled" ]
+	if [ "${LH_DEBIAN_INSTALLER_GUI}" = "true" ]
 	then
 		case "${LH_ARCHITECTURE}" in
 			amd64|i386)

@@ -95,7 +95,7 @@ case "${LH_DEBIAN_INSTALLER}" in
 		cp "${LH_BASE}"/data/debian-cd/${LH_DISTRIBUTION}/${LH_ARCHITECTURE}_udeb_include binary/.disk/udeb_include
 		;;
 
-	enabled|netinst|live)
+	true|netinst|live)
 		echo "main" > binary/.disk/base_components
 
 		touch binary/.disk/base_installable
@@ -128,7 +128,7 @@ case "${LH_DEBIAN_INSTALLER}" in
 		cp "${LH_BASE}"/data/debian-cd/${LH_DISTRIBUTION}/${LH_ARCHITECTURE}_businesscard_udeb_include binary/.disk/udeb_include
 		;;
 
-	disabled)
+	false)
 		echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
 		;;
 esac

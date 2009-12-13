@@ -31,7 +31,7 @@ fi
 case "${LH_ENCRYPTION}" in
 	aes128|aes192|aes256)
 		;;
-	""|disabled)
+	""|false)
 		exit 0
 		;;
 	*)
@@ -85,7 +85,7 @@ Install_package
 
 Echo_message "Encrypting binary/%s/filesystem.%s with %s..." "${INITFS}" "${LH_CHROOT_FILESYSTEM}" "${LH_ENCRYPTION}"
 
-if [ "${LH_CHROOT_BUILD}" = "enabled" ]
+if [ "${LH_CHROOT_BUILD}" = "true" ]
 then
 	# Moving image
 	mv binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM} chroot
@@ -101,7 +101,7 @@ do
 	echo
 
 	case "${LH_CHROOT_BUILD}" in
-		enabled)
+		true)
 			if Chroot chroot aespipe -e ${LH_ENCRYPTION} -T \
 				< chroot/filesystem.${LH_CHROOT_FILESYSTEM} \
 				> chroot/filesystem.${LH_CHROOT_FILESYSTEM}.tmp
@@ -110,7 +110,7 @@ do
 				break
 			fi
 			;;
-		disabled)
+		false)
 			if aespipe -e ${LH_ENCRYPTION} -T \
 				< binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM} \
 				> binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM}.tmp

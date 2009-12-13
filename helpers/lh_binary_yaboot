@@ -162,7 +162,7 @@ mkdir -p "${DESTDIR_LIVE}"
 
 # Setting boot parameters
 case "${LH_ENCRYPTION}" in
-	""|disabled)
+	""|false)
 		;;
 	*)
 		LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} encryption=${LH_ENCRYPTION}"
@@ -212,7 +212,7 @@ then
 	exit 1
 fi
 
-if [ "${LH_EXPOSED_ROOT}" != "disabled" ]
+if [ "${LH_EXPOSED_ROOT}" != "false" ]
 then
 	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} exposedroot"
 fi
@@ -248,7 +248,7 @@ fi
 LINUX_LIVE="$(/bin/echo ${LINUX_LIVE} | sed -e 's|binary||g' -e 's|//|/|g')"
 
 # Assembling debian-installer configuration
-if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
+if [ "${LH_DEBIAN_INSTALLER}" != "false" ]
 then
 	VMLINUZ_DI="vmlinuz"
 	INITRD_DI="initrd.gz"
@@ -277,11 +277,11 @@ case "${LH_BINARY_IMAGES}" in
 		mkdir -p binary/yaboot
 
 		case "${LH_CHROOT_BUILD}" in
-			enabled)
+			true)
 				cp chroot/usr/lib/yaboot/yaboot binary/yaboot
 				;;
 
-			disabled)
+			false)
 				cp /usr/lib/yaboot/yaboot binary/yaboot
 				;;
 		esac

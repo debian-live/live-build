@@ -23,7 +23,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_SOURCE}" != "enabled" ]
+if [ "${LH_SOURCE}" != "true" ]
 then
 	exit 0
 fi
@@ -72,7 +72,7 @@ syslinux
 grub
 EOF
 
-		if [ "${LH_MEMTEST}" != "disabled" ] && [ "${LH_MEMTEST}" != "none" ]
+		if [ "${LH_MEMTEST}" != "false" ] && [ "${LH_MEMTEST}" != "none" ]
 		then
 			echo "${LH_MEMTEST}" >> source-selection.txt
 		fi

@@ -40,7 +40,7 @@ Create_lockfile .lock
 # Normally, virtual filesystems are not mounted here, but people tend to be lazy
 if [ -f chroot/proc/version ]
 then
-	if [ "${LH_USE_FAKEROOT}" != "enabled" ]
+	if [ "${LH_USE_FAKEROOT}" != "true" ]
 then
 		${LH_ROOT_COMMAND} umount chroot/proc
 	else
@@ -51,7 +51,7 @@ fi
 
 if [ -d chroot/sys/kernel ]
 then
-	if [ "${LH_USE_FAKEROOT}" != "enabled" ]
+	if [ "${LH_USE_FAKEROOT}" != "true" ]
 	then
 		${LH_ROOT_COMMAND} umount chroot/sys
 	else
@@ -61,18 +61,18 @@ then
 fi
 
 # Copying /dev if using fakeroot
-if [ "${LH_USE_FAKEROOT}" = "enabled" ]
+if [ "${LH_USE_FAKEROOT}" = "true" ]
 then
 	rm -rf chroot/dev
 	find /dev | cpio -dmpu chroot
 fi
 
-if [ "${LH_CHROOT_BUILD}" = "disabled" ]
+if [ "${LH_CHROOT_BUILD}" = "false" ]
 then
 	exit 0
 fi
 
-if [ "${LH_CACHE}" = "enabled" ] && Find_files cache/stages_rootfs/filesystem*
+if [ "${LH_CACHE}" = "true" ] && Find_files cache/stages_rootfs/filesystem*
 then
 	exit 0
 fi

@@ -115,7 +115,7 @@ then
 	cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live."${ARCH}"/* binary
 fi
 
-if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
+if [ "${LH_DEBIAN_INSTALLER}" != "false" ]
 then
 	# Copying install templates
 	if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install ] && \

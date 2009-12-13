@@ -99,29 +99,29 @@ else
 	esac
 fi
 
-if [ "${_DEBUG}" = "enabled" ]
+if [ "${_DEBUG}" = "true" ]
 then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --debug"
 fi
 
-if [ "${_QUIET}" = "enabled" ]
+if [ "${_QUIET}" = "true" ]
 then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --quiet"
 fi
 
-if [ "${_VERBOSE}" = "enabled" ]
+if [ "${_VERBOSE}" = "true" ]
 then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --verbose"
 fi
 
-if [ "${LH_APT_SECURE}" = "disabled" ]
+if [ "${LH_APT_SECURE}" = "false" ]
 then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --allow-unauthenticated"
 fi
 
 if [ -x "/usr/bin/cdebootstrap" ] || [ -x "/usr/bin/cdebootstrap-static" ]
 then
-	if [ "${LH_CACHE_PACKAGES}" = "enabled" ]
+	if [ "${LH_CACHE_PACKAGES}" = "true" ]
 	then
 		if [ -d cache/packages_bootstrap ]
 		then

@@ -29,16 +29,16 @@ DESCRIPTION="$(Echo 'create configuration for live-helper(7)')"
 USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--apt-ftp-proxy URL]\n\
 \t    [--apt-http-proxy URL]\n\
-\t    [--apt-pdiffs enabled|disabled]\n\
+\t    [--apt-pdiffs true|false]\n\
 \t    [--apt-options OPTION|\"OPTIONS\"]\n\
 \t    [--aptitude-options OPTION|\"OPTIONS\"]\n\
 \t    [--apt-pipeline FIXME]\n\
-\t    [--apt-recommends enabled|disabled]\n\
-\t    [--apt-secure enabled|disabled]\n\
+\t    [--apt-recommends true|false]\n\
+\t    [--apt-secure true|false]\n\
 \t    [-a|--architecture ARCHITECTURE]\n\
 \t    [-b|--binary-images iso|net|tar|usb-hdd]\n\
 \t    [--binary-filesystem fat16|fat32]\n\
-\t    [--binary-indices enabled|disabled|none]\n\
+\t    [--binary-indices true|false|none]\n\
 \t    [--bootappend-install PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootappend-live PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootloader grub|syslinux|yaboot]\n\
@@ -47,26 +47,26 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [-f|--bootstrap-flavour minimal|standard]\n\
 \t    [--bootstrap-keyring PACKAGE]\n\
 \t    [--breakpoints]\n\
-\t    [--cache enabled|disabled]\n\
-\t    [--cache-indices enabled|disabled]\n\
-\t    [--cache-packages enabled|disabled]\n\
+\t    [--cache true|false]\n\
+\t    [--cache-indices true|false]\n\
+\t    [--cache-packages true|false]\n\
 \t    [--cache-stages STAGE|\"STAGES\"]\n\
-\t    [--checksums enabled|disabled]\n\
-\t    [--chroot-build enabled|disabled]\n\
+\t    [--checksums true|false]\n\
+\t    [--chroot-build true|false]\n\
 \t    [--chroot-filesystem ext2|ext3|squashfs|plain|jffs2]\n\
 \t    [-c|--conffile FILE]\n\
 \t    [--clean\n\
 \t    [--debconf-frontend dialog|editor|noninteractive|readline]\n\
-\t    [--debconf-nowarnings enabled|disabled]\n\
+\t    [--debconf-nowarnings true|false]\n\
 \t    [--debconf-priority low|medium|high|critical]\n\
-\t    [--debian-installer enabled|cdrom|netinst|netboot|businesscard|live|disabled]\n\
+\t    [--debian-installer true|cdrom|netinst|netboot|businesscard|live|false]\n\
 \t    [--debian-installer-distribution CODENAME|daily]\n\
 \t    [--debian-installer-preseedfile FILE|URL]\n\
-\t    [--debian-installer-gui enabled|disabled]\n\
+\t    [--debian-installer-gui true|false]\n\
 \t    [--debug]\n\
 \t    [-d|--distribution CODENAME]\n\
 \t    [--dump]\n\
-\t    [-e|--encryption disabled|aes128|aes192|aes256]\n\
+\t    [-e|--encryption false|aes128|aes192|aes256]\n\
 \t    [--fdisk fdisk|fdisk.dist]\n\
 \t    [--force]\n\
 \t    [--genisoimage genisomage|mkisofs]\n\
@@ -108,25 +108,25 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--packages PACKAGE|\"PACKAGES\"]\n\
 \t    [--quiet]\n\
 \t    [--root-command sudo]\n\
-\t    [--use-fakeroot enabled|disabled]\n\
+\t    [--use-fakeroot true|false]\n\
 \t    [--archive-areas ARCHIVE_AREA|\"ARCHIVE_AREAS\"]\n\
-\t    [--security enabled|disabled]\n\
-\t    [--source enabled|disabled]\n\
+\t    [--security true|false]\n\
+\t    [--source true|false]\n\
 \t    [-s|--source-images iso|net|tar|usb-hdd]\n\
-\t    [--symlinks enabled|disabled]\n\
+\t    [--symlinks true|false]\n\
 \t    [--syslinux-splash FILE]\n\
 \t    [--syslinux-timeout SECONDS]\n\
-\t    [--syslinux-menu enabled|disabled]\n\
-\t    [--sysvinit enabled|disabled]\n\
+\t    [--syslinux-menu true|false]\n\
+\t    [--sysvinit true|false]\n\
 \t    [--tasksel aptitude|tasksel]\n\
 \t    [--tasks TASK]\n\
 \t    [--templates PATH]\n\
 \t    [--union-filesystem aufs|unionfs]\n\
 \t    [--virtual-root-size MB]\n\
-\t    [--exposed-root enabled|disabled]\n\
+\t    [--exposed-root true|false]\n\
 \t    [--username NAME]\n\
 \t    [--verbose]\n\
-\t    [--win32-loader enabled|disabled]"
+\t    [--win32-loader true|false]"
 
 Local_arguments ()
 {
@@ -689,7 +689,7 @@ Local_arguments ()
 
 			# other
 			--breakpoints)
-				_BREAKPOINTS="enabled"
+				_BREAKPOINTS="true"
 				shift
 				;;
 
@@ -699,17 +699,17 @@ Local_arguments ()
 				;;
 
 			--color)
-				_COLOR="enabled"
+				_COLOR="true"
 				shift
 				;;
 
 			--debug)
-				_DEBUG="enabled"
+				_DEBUG="true"
 				shift
 				;;
 
 			--force)
-				_FORCE="enabled"
+				_FORCE="true"
 				shift
 				;;
 
@@ -723,7 +723,7 @@ Local_arguments ()
 				;;
 
 			--quiet)
-				_QUIET="enabled"
+				_QUIET="true"
 				shift
 				;;
 
@@ -733,7 +733,7 @@ Local_arguments ()
 				;;
 
 			--verbose)
-				_VERBOSE="enabled"
+				_VERBOSE="true"
 				shift
 				;;
 
@@ -1105,7 +1105,7 @@ LH_CHECKSUMS="${LH_CHECKSUMS}"
 
 # \${LH_CHROOT_BUILD: control if we build binary images chrooted
 # (Default: ${LH_CHROOT_BUILD})
-# DO NEVER, *NEVER*, *N*E*V*E*R* SET THIS OPTION to disabled.
+# DO NEVER, *NEVER*, *N*E*V*E*R* SET THIS OPTION to false.
 LH_CHROOT_BUILD="${LH_CHROOT_BUILD}"
 
 # \$LH_DEBIAN_INSTALLER: set debian-installer

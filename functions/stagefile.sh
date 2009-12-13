@@ -15,7 +15,7 @@ Check_stagefile ()
 	# Checking stage file
 	if [ -f "${FILE}" ]
 	then
-		if [ "${_FORCE}" != "enabled" ]
+		if [ "${_FORCE}" != "true" ]
 		then
 			# Skipping execution
 			Echo_warning "skipping %s" "${NAME}"
