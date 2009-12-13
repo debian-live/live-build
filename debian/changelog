@@ -1,3 +1,20 @@
+live-helper (2.0~a3-1) unstable; urgency=low
+
+  * Updating icedove-l10n packagename handling for post-lenny, thanks to
+    intrigeri <intrigeri@boum.org>.
+  * Adding a 'sleep 1' before removing the loopdevice when creating usb-
+    hdd images.
+  * Don't try to install parameters.txt for casper in ubuntu mode
+    (Closes: #560109).
+  * Removing lpia support, this architecture is dead.
+  * Setting win32-loader to disabled in ubuntu mode.
+  * Adding explicit debian source version 1.0 until switch to 3.0.
+  * For consistency, using true|false instead of enabled|disabled in
+    configuration options.
+  * Adding experimental support for isohybrid (Closes: #558688).
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 13 Dec 2009 21:41:49 +0100
+
 live-helper (2.0~a2-1) unstable; urgency=low
 
   * Updating config tree version checks.
