@@ -677,6 +677,7 @@ Set_defaults ()
 
 	# Setting image type
 	LH_BINARY_IMAGES="${LH_BINARY_IMAGES:-iso}"
+	LH_BINARY_ISO_HYRBID="${LH_BINARY_ISO_HYBRID:-false}"
 
 	# Setting apt indices
 	if echo ${LH_PACKAGES_LISTS} | grep -qs -E "(stripped|minimal)\b"
