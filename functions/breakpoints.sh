@@ -11,7 +11,7 @@ Breakpoint ()
 {
 	NAME="${1}"
 
-	if [ "${_BREAKPOINTS}" = "enabled" ]
+	if [ "${_BREAKPOINTS}" = "true" ]
 	then
 		Echo_message "Waiting at %s" "${NAME}"
 		read WAIT

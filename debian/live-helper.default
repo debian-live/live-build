@@ -1,12 +1,12 @@
 # Defaults for /etc/cron.daily/live-helper_autobuild
 
-AUTOBUILD="disabled"
+AUTOBUILD="false"
 
 DATE="$(date +%Y%m%d)"
 DESTDIR="/srv/debian-live"
 TEMPDIR="/srv/tmp/live-helper"
 
-OPTIONS="--binary-indices disabled"
+OPTIONS="--binary-indices false"
 
 ARCHITECTURES="$(dpkg --print-architecture)"
 DISTRIBUTIONS="sid"

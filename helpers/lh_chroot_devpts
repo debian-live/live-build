@@ -42,7 +42,7 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ "${LH_USE_FAKEROOT}" != "enabled" ]
+		if [ "${LH_USE_FAKEROOT}" != "true" ]
 		then
 			# Creating mountpoint
 			mkdir -p chroot/dev/pts
@@ -65,7 +65,7 @@ case "${1}" in
 		Create_lockfile .lock
 
 		# Unmounting /dev/pts
-		if [ "${LH_USE_FAKEROOT}" != "enabled" ]
+		if [ "${LH_USE_FAKEROOT}" != "true" ]
 		then
 			if Find_files chroot/dev/pts/*
 			then

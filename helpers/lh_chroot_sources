@@ -44,18 +44,18 @@ case "${1}" in
 		# Configure custom sources.list
 		echo "deb ${LH_MIRROR_CHROOT} ${LH_DISTRIBUTION} ${LH_ARCHIVE_AREAS}" > chroot/etc/apt/sources.list
 
-		if [ "${LH_SOURCE}" = "enabled" ]
+		if [ "${LH_SOURCE}" = "true" ]
 		then
 			echo "deb-src ${LH_MIRROR_CHROOT} ${LH_DISTRIBUTION} ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 		fi
 
-		if [ "${LH_SECURITY}" = "enabled" ]
+		if [ "${LH_SECURITY}" = "true" ]
 		then
 			case "${LH_MODE}" in
 				ubuntu)
 					echo "deb ${LH_MIRROR_CHROOT_SECURITY} ${LH_DISTRIBUTION}-security ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
-					if [ "${LH_SOURCE}" = "enabled" ]
+					if [ "${LH_SOURCE}" = "true" ]
 					then
 						echo "deb-src ${LH_MIRROR_CHROOT_SECURITY} ${LH_DISTRIBUTION}-security ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 					fi
@@ -66,7 +66,7 @@ case "${1}" in
 					then
 						echo "deb ${LH_MIRROR_CHROOT_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
-						if [ "${LH_SOURCE}" = "enabled" ]
+						if [ "${LH_SOURCE}" = "true" ]
 						then
 							echo "deb-src ${LH_MIRROR_CHROOT_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 						fi
@@ -145,7 +145,7 @@ case "${1}" in
 					-o APT::FTPArchive::Release::Origin=chroot_local-packages \
 					release . > Release" | Chroot chroot sh
 
-				if [ "${LH_APT_SECURE}" = "enabled" ]
+				if [ "${LH_APT_SECURE}" = "true" ]
 				then
 					_LH_DOTGNUPG_EXISTED=0
 					if [ -d chroot/root/.gnupg ]
@@ -234,7 +234,7 @@ case "${1}" in
 		fi
 
 		# Update indices from cache
-		if [ "${LH_CACHE_INDICES}" = "enabled" ] && [ -d cache/indices_bootstrap ]
+		if [ "${LH_CACHE_INDICES}" = "true" ] && [ -d cache/indices_bootstrap ]
 		then
 			if Find_files cache/indices_bootstrap/secring.gpg*
 			then
@@ -316,7 +316,7 @@ case "${1}" in
 				Apt update
 			fi
 
-			if [ "${LH_CACHE_INDICES}" = "enabled" ]
+			if [ "${LH_CACHE_INDICES}" = "true" ]
 			then
 				mkdir -p cache/indices_bootstrap
 
@@ -355,7 +355,7 @@ case "${1}" in
 		Create_lockfile .lock
 
 		# Configure generic indices
-		if [ "${LH_BINARY_INDICES}" = "enabled" ]
+		if [ "${LH_BINARY_INDICES}" = "true" ]
 		then
 			# Don't do anything if it's not required
 			if [ "${LH_MIRROR_CHROOT}" = "${LH_MIRROR_BINARY}" ] && \
@@ -374,18 +374,18 @@ case "${1}" in
 
 			echo "deb ${LH_MIRROR_BINARY} ${LH_DISTRIBUTION} ${LH_ARCHIVE_AREAS}" > chroot/etc/apt/sources.list
 
-			if [ "${LH_SOURCE}" = "enabled" ]
+			if [ "${LH_SOURCE}" = "true" ]
 			then
 				echo "deb-src ${LH_MIRROR_BINARY} ${LH_DISTRIBUTION} ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 			fi
 
-			if [ "${LH_SECURITY}" = "enabled" ]
+			if [ "${LH_SECURITY}" = "true" ]
 			then
 				case "${LH_MODE}" in
 					ubuntu)
 						echo "deb ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}-security ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
-						if [ "${LH_SOURCE}" = "enabled" ]
+						if [ "${LH_SOURCE}" = "true" ]
 						then
 							echo "deb-src ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}-security ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 						fi
@@ -396,7 +396,7 @@ case "${1}" in
 						then
 							echo "deb ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
-							if [ "${LH_SOURCE}" = "enabled" ]
+							if [ "${LH_SOURCE}" = "true" ]
 							then
 								echo "deb-src ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 							fi

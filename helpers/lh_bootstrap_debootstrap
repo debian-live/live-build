@@ -83,7 +83,7 @@ then
 	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --exclude=$(echo ${LH_BOOTSTRAP_EXCLUDE} | sed 's|  *|,|g')"
 fi
 
-if [ "${LH_USE_FAKEROOT}" != "enabled" ]
+if [ "${LH_USE_FAKEROOT}" != "true" ]
 then
 	if [ -z "${LH_BOOTSTRAP_FLAVOUR}" ]
 	then
@@ -114,7 +114,7 @@ fi
 
 if [ -x "/usr/sbin/debootstrap" ]
 then
-	if [ "${LH_CACHE_PACKAGES}" = "enabled" ]
+	if [ "${LH_CACHE_PACKAGES}" = "true" ]
 	then
 		if [ -d cache/packages_bootstrap ]
 		then

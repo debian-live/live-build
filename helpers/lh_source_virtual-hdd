@@ -23,7 +23,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_SOURCE}" != "enabled" ]
+if [ "${LH_SOURCE}" != "true" ]
 then
 	exit 0
 fi
@@ -47,7 +47,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ "${LH_CHROOT_BUILD}" = "enabled" ]
+if [ "${LH_CHROOT_BUILD}" = "true" ]
 then
 	case "${LH_BINARY_FILESYSTEM}" in
 		ext2|ext3)
@@ -70,7 +70,7 @@ DU_DIM="$(du -ms source | cut -f1)"
 REAL_DIM="$(Calculate_partition_size ${DU_DIM} ${LH_BINARY_FILESYSTEM})"
 dd if=/dev/zero of=source-virtual.img bs=1024k count=0 seek=${REAL_DIM}
 
-if [ "${LH_CHROOT_BUILD}" = "enabled" ]
+if [ "${LH_CHROOT_BUILD}" = "true" ]
 then
 	mv source-virtual.img chroot
 

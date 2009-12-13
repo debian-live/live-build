@@ -23,7 +23,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_SOURCE}" != "enabled" ]
+if [ "${LH_SOURCE}" != "true" ]
 then
 	exit 0
 fi
@@ -59,12 +59,12 @@ then
 	rm -f source.iso
 fi
 
-if [ "${_QUIET}" = "enabled" ]
+if [ "${_QUIET}" = "true" ]
 then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -quiet"
 fi
 
-if [ "${_VERBOSE}" = "enabled" ]
+if [ "${_VERBOSE}" = "true" ]
 then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -v"
 fi

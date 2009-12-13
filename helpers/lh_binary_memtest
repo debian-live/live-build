@@ -23,7 +23,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_BINARY_IMAGES}" = "virtual-hdd" ] || [ "${LH_MEMTEST}" = "disabled" ] || [ "${LH_MEMTEST}" = "none" ]
+if [ "${LH_BINARY_IMAGES}" = "virtual-hdd" ] || [ "${LH_MEMTEST}" = "false" ] || [ "${LH_MEMTEST}" = "none" ]
 then
 	exit 0
 fi
@@ -48,7 +48,7 @@ then
 	exit 0
 fi
 
-if [ "${LH_CHROOT_BUILD}" = "enabled" ]
+if [ "${LH_CHROOT_BUILD}" = "true" ]
 then
 
 	if [ -f chroot/usr/sbin/grub ] && [ ! -f chroot/boot/grub/menu.lst ]
@@ -95,11 +95,11 @@ mkdir -p "${DESTDIR}"
 
 # Installing memtest
 case "${LH_CHROOT_BUILD}" in
-	enabled)
+	true)
 		cp chroot/boot/${LH_MEMTEST}.bin "${DESTDIR}"/memtest
 		;;
 
-	disabled)
+	false)
 		cp /boot/${LH_MEMTEST}.bin "${DESTDIR}"/memtest
 		;;
 esac

@@ -61,12 +61,12 @@ fi
 GENISOIMAGE_OPTIONS="-J -l -cache-inodes -allow-multidot"
 
 # Handle genisoimage live-helper specific options
-if [ "${_QUIET}" = "enabled" ]
+if [ "${_QUIET}" = "true" ]
 then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -quiet"
 fi
 
-if [ "${_VERBOSE}" = "enabled" ]
+if [ "${_VERBOSE}" = "true" ]
 then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -v"
 fi
@@ -176,7 +176,7 @@ genisoimage ${GENISOIMAGE_OPTIONS} -o binary.iso binary
 EOF
 
 case "${LH_CHROOT_BUILD}" in
-	enabled)
+	true)
 		# Moving image
 		mv binary.sh chroot
 		mv binary chroot
@@ -188,7 +188,7 @@ case "${LH_CHROOT_BUILD}" in
 		rm -f chroot/binary.sh
 		;;
 
-	disabled)
+	false)
 		sh binary.sh
 		rm -f binary.sh
 		;;

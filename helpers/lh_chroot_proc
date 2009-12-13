@@ -42,7 +42,7 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ "${LH_USE_FAKEROOT}" != "enabled" ]
+		if [ "${LH_USE_FAKEROOT}" != "true" ]
 		then
 			# Creating mountpoint
 			mkdir -p chroot/proc
@@ -67,7 +67,7 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ "${LH_USE_FAKEROOT}" != "enabled" ]
+		if [ "${LH_USE_FAKEROOT}" != "true" ]
 		then
 			# Workaround binfmt-support /proc locking
 			if [ -e chroot/proc/sys/fs/binfmt_misc/status ]

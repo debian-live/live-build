@@ -11,7 +11,7 @@ Exit ()
 {
 	VALUE="${?}"
 
-	if [ "${_DEBUG}" = "enabled" ]
+	if [ "${_DEBUG}" = "true" ]
 	then
 		# Dump variables
 		set | grep -e ^LH
