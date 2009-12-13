@@ -608,7 +608,16 @@ then
 				;;
 
 			icedove)
-				Check_installed chroot/usr/bin/icedove icedove; [ $INSTALL_STATUS -eq 0 ] && Check_package "" icedove-locale-"${ICEDOVE}"
+				Check_installed chroot/usr/bin/icedove icedove
+				if [ $INSTALL_STATUS -eq 0 ]
+				then
+					if [ "${LH_DISTRIBUTION}" = lenny ]
+					then
+						Check_package "" icedove-locale-"${ICEDOVE}"
+					else
+						Check_package "" icedove-l10n-"${ICEDOVE}"
+					fi
+				fi
 				;;
 
 			iceweasel)

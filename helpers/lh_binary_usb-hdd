@@ -142,7 +142,7 @@ case "${LH_BINARY_FILESYSTEM}" in
 esac
 
 case "${LH_CHROOT_BUILD}" in
-	enabled)
+	true)
 		Chroot chroot "parted -s ${FREELO} mklabel ${PARTITION_TABLE_TYPE}" || true
 		Chroot chroot "parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100%" || true
 		Chroot chroot "parted -s ${FREELO} set 1 boot on" || true
@@ -154,7 +154,7 @@ case "${LH_CHROOT_BUILD}" in
 		fi
 		;;
 
-	disabled)
+	false)
 		parted -s ${FREELO} mklabel ${PARTITION_TABLE_TYPE} || true
 		parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100% || true
 		parted -s ${FREELO} set 1 boot on || true
@@ -167,6 +167,7 @@ case "${LH_CHROOT_BUILD}" in
 		;;
 esac
 
+sleep 1
 ${LH_LOSETUP} -d ${FREELO}
 
 FREELO="$(${LH_LOSETUP} -f)"
@@ -190,11 +191,11 @@ case "${LH_BINARY_FILESYSTEM}" in
 esac
 
 case "${LH_CHROOT_BUILD}" in
-	enabled)
+	true)
 		Chroot chroot "mkfs.${MKFS} ${MKFS_OPTIONS} ${FREELO}"
 		;;
 
-	disabled)
+	false)
 		mkfs.${MKFS} ${MKFS_OPTIONS} ${FREELO}
 		;;
 esac
@@ -246,16 +247,17 @@ rmdir chroot/binary.tmp
 if [ "${LH_BOOTLOADER}" = "syslinux" ]
 then
 	case "${LH_CHROOT_BUILD}" in
-		enabled)
+		true)
 			Chroot chroot "syslinux ${FREELO}"
 			;;
 
-		disabled)
+		false)
 			syslinux ${FREELO}
 			;;
 	esac
 fi
 
+sleep 1
 ${LH_LOSETUP} -d ${FREELO}
 
 echo "!!! The above error/warning messages can be ignored !!!"

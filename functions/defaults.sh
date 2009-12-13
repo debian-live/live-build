@@ -63,7 +63,7 @@ Set_defaults ()
 	fi
 
 	# Setting apt pdiffs
-	LH_APT_PDIFFS="${LH_APT_PDIFFS:-enabled}"
+	LH_APT_PDIFFS="${LH_APT_PDIFFS:-true}"
 
 	# Setting apt pipeline
 	# LH_APT_PIPELINE
@@ -84,16 +84,16 @@ Set_defaults ()
 	# Setting apt recommends
 	case "${LH_MODE}" in
 		debian|debian-release|ubuntu)
-			LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS:-enabled}"
+			LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS:-true}"
 			;;
 
 		emdebian)
-			LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS:-disabled}"
+			LH_APT_RECOMMENDS="${LH_APT_RECOMMENDS:-false}"
 			;;
 	esac
 
 	# Setting apt secure
-	LH_APT_SECURE="${LH_APT_SECURE:-enabled}"
+	LH_APT_SECURE="${LH_APT_SECURE:-true}"
 
 	# Setting bootstrap program
 	if [ -z "${LH_BOOTSTRAP}" ] || ( [ ! -x "$(which ${LH_BOOTSTRAP} 2>/dev/null)" ] && [ "${LH_BOOTSTRAP}" != "copy" ] )
@@ -111,9 +111,9 @@ Set_defaults ()
 	fi
 
 	# Setting cache option
-	LH_CACHE="${LH_CACHE:-enabled}"
-	LH_CACHE_INDICES="${LH_CACHE_INDICES:-disabled}"
-	LH_CACHE_PACKAGES="${LH_CACHE_PACKAGES:-enabled}"
+	LH_CACHE="${LH_CACHE:-true}"
+	LH_CACHE_INDICES="${LH_CACHE_INDICES:-false}"
+	LH_CACHE_PACKAGES="${LH_CACHE_PACKAGES:-true}"
 	LH_CACHE_STAGES="${LH_CACHE_STAGES:-bootstrap}"
 
 	# Setting debconf frontend
@@ -122,11 +122,11 @@ Set_defaults ()
 	LH_DEBCONF_PRIORITY="${LH_DEBCONF_PRIORITY:-critical}"
 
 	case "${LH_DEBCONF_NOWARNINGS}" in
-		enabled)
+		true)
 			LH_DEBCONF_NOWARNINGS="yes"
 			;;
 
-		disabled)
+		false)
 			LH_DEBCONF_NOWARNINGS="no"
 			;;
 	esac
@@ -189,7 +189,7 @@ Set_defaults ()
 	else
 		if [ -x /usr/bin/sudo ]
 		then
-			# FIXME: this is disabled until considered safe
+			# FIXME: this is false until considered safe
 			#LH_ROOT_COMMAND="sudo"
 			LH_ROOT_COMMAND=""
 		fi
@@ -229,12 +229,12 @@ Set_defaults ()
 	fi
 
 	# Setting live helper options
-	_BREAKPOINTS="${_BREAKPOINTS:-disabled}"
+	_BREAKPOINTS="${_BREAKPOINTS:-false}"
 	_COLOR="${_COLOR:-false}"
-	_DEBUG="${_DEBUG:-disabled}"
-	_FORCE="${_FORCE:-disabled}"
-	_QUIET="${_QUIET:-disabled}"
-	_VERBOSE="${_VERBOSE:-disabled}"
+	_DEBUG="${_DEBUG:-false}"
+	_FORCE="${_FORCE:-false}"
+	_QUIET="${_QUIET:-false}"
+	_VERBOSE="${_VERBOSE:-false}"
 
 	## config/bootstrap
 
@@ -416,7 +416,7 @@ Set_defaults ()
 	LH_VIRTUAL_ROOT_SIZE="${LH_VIRTUAL_ROOT_SIZE:-10000}"
 
 	# Setting whether to expose root filesystem as read only
-	LH_EXPOSED_ROOT="${LH_EXPOSED_ROOT:-disabled}"
+	LH_EXPOSED_ROOT="${LH_EXPOSED_ROOT:-false}"
 
 	# Setting union filesystem
 	LH_UNION_FILESYSTEM="${LH_UNION_FILESYSTEM:-aufs}"
@@ -424,7 +424,7 @@ Set_defaults ()
 	# LH_HOOKS
 
 	# Setting interactive shell/X11/Xnest
-	LH_INTERACTIVE="${LH_INTERACTIVE:-disabled}"
+	LH_INTERACTIVE="${LH_INTERACTIVE:-false}"
 
 	# Setting keyring packages
 	case "${LH_MODE}" in
@@ -509,19 +509,6 @@ Set_defaults ()
 				LH_LINUX_FLAVOURS="itanium"
 				;;
 
-			lpia)
-				case "${LH_MODE}" in
-					debian|debian-release|embedian)
-						Echo_error "Architecture ${LH_ARCHITECTURE} not supported on ${LH_MODE}."
-						exit 1
-						;;
-
-					*)
-						LH_LINUX_FLAVOURS="lpia"
-						;;
-				esac
-				;;
-
 			powerpc)
 				case "${LIST}" in
 					stripped|minimal)
@@ -588,7 +575,7 @@ Set_defaults ()
 				fi
 
 				case "${LH_ENCRYPTION}" in
-					""|disabled)
+					""|false)
 
 						;;
 
@@ -616,7 +603,7 @@ Set_defaults ()
 	esac
 
 	case "${LH_ENCRYPTION}" in
-		""|disabled)
+		""|false)
 
 			;;
 
@@ -664,16 +651,16 @@ Set_defaults ()
 	# Setting security updates option
 	if [ "${LH_MIRROR_CHROOT_SECURITY}" = "none" ] || [ "${LH_MIRROR_BINARY_SECURITY}" = "none" ]
 	then
-		LH_SECURITY="disabled"
+		LH_SECURITY="false"
 	fi
 
-	LH_SECURITY="${LH_SECURITY:-enabled}"
+	LH_SECURITY="${LH_SECURITY:-true}"
 
 	# Setting symlink convertion option
-	LH_SYMLINKS="${LH_SYMLINKS:-disabled}"
+	LH_SYMLINKS="${LH_SYMLINKS:-false}"
 
 	# Setting sysvinit option
-	LH_SYSVINIT="${LH_SYSVINIT:-disabled}"
+	LH_SYSVINIT="${LH_SYSVINIT:-false}"
 
 	## config/binary
 
@@ -690,20 +677,21 @@ Set_defaults ()
 
 	# Setting image type
 	LH_BINARY_IMAGES="${LH_BINARY_IMAGES:-iso}"
+	LH_BINARY_ISO_HYRBID="${LH_BINARY_ISO_HYBRID:-false}"
 
 	# Setting apt indices
 	if echo ${LH_PACKAGES_LISTS} | grep -qs -E "(stripped|minimal)\b"
 	then
 		LH_BINARY_INDICES="${LH_BINARY_INDICES:-none}"
 	else
-		LH_BINARY_INDICES="${LH_BINARY_INDICES:-enabled}"
+		LH_BINARY_INDICES="${LH_BINARY_INDICES:-true}"
 	fi
 
 	# Setting bootloader
 	if [ -z "${LH_BOOTLOADER}" ]
 	then
 		case "${LH_ARCHITECTURE}" in
-			amd64|i386|lpia)
+			amd64|i386)
 				LH_BOOTLOADER="syslinux"
 				;;
 
@@ -718,13 +706,13 @@ Set_defaults ()
 	fi
 
 	# Setting checksums
-	LH_CHECKSUMS="${LH_CHECKSUMS:-enabled}"
+	LH_CHECKSUMS="${LH_CHECKSUMS:-true}"
 
 	# Setting chroot option
-	LH_CHROOT_BUILD="${LH_CHROOT_BUILD:-enabled}"
+	LH_CHROOT_BUILD="${LH_CHROOT_BUILD:-true}"
 
 	# Setting debian-installer option
-	LH_DEBIAN_INSTALLER="${LH_DEBIAN_INSTALLER:-disabled}"
+	LH_DEBIAN_INSTALLER="${LH_DEBIAN_INSTALLER:-false}"
 
 	# Setting debian-installer distribution
 	LH_DEBIAN_INSTALLER_DISTRIBUTION="${LH_DEBIAN_INSTALLER_DISTRIBUTION:-${LH_DISTRIBUTION}}"
@@ -732,24 +720,24 @@ Set_defaults ()
 	# Setting debian-installer-gui
 	case "${LH_MODE}" in
 		debian)
-			LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-enabled}"
+			LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-true}"
 			;;
 
 		ubuntu)
 			case "${LH_DEBIAN_INSTALLER_DISTRIBUTION}" in
 				karmic)
 					# Not available for Karmic currently.
-					LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-disabled}"
+					LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-false}"
 					;;
 
 				*)
-					LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-enabled}"
+					LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-true}"
 					;;
 			esac
 			;;
 
 		*)
-			LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-disabled}"
+			LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-false}"
 			;;
 	esac
 
@@ -816,7 +804,7 @@ Set_defaults ()
 	fi
 
 	# Setting encryption
-	LH_ENCRYPTION="${LH_ENCRYPTION:-disabled}"
+	LH_ENCRYPTION="${LH_ENCRYPTION:-false}"
 
 	# Setting grub splash
 	# LH_GRUB_SPLASH
@@ -890,20 +878,23 @@ Set_defaults ()
 	LH_MEMTEST="${LH_MEMTEST:-memtest86+}"
 
 	# Setting win32-loader option
-	case "${LH_ARCHITECTURE}" in
-		amd64|i386|lpia)
-			if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
-			then
-				LH_WIN32_LOADER="${LH_WIN32_LOADER:-enabled}"
-			else
-				LH_WIN32_LOADER="${LH_WIN32_LOADER:-disabled}"
-			fi
-			;;
+	if [ "${LH_MODE}" != "ubuntu" ]
+	then
+		case "${LH_ARCHITECTURE}" in
+			amd64|i386)
+				if [ "${LH_DEBIAN_INSTALLER}" != "false" ]
+				then
+					LH_WIN32_LOADER="${LH_WIN32_LOADER:-true}"
+				else
+					LH_WIN32_LOADER="${LH_WIN32_LOADER:-false}"
+				fi
+				;;
 
-		*)
-			LH_WIN32_LOADER="${LH_WIN32_LOADER:-disabled}"
-			;;
-	esac
+			*)
+				LH_WIN32_LOADER="${LH_WIN32_LOADER:-false}"
+				;;
+		esac
+	fi
 
 	# Setting netboot filesystem
 	LH_NET_ROOT_FILESYSTEM="${LH_NET_ROOT_FILESYSTEM:-nfs}"
@@ -944,7 +935,7 @@ Set_defaults ()
 	LH_SYSLINUX_TIMEOUT="${LH_SYSLINUX_TIMEOUT:-0}"
 
 	# Setting syslinux menu
-	LH_SYSLINUX_MENU="${LH_SYSLINUX_MENU:-enabled}"
+	LH_SYSLINUX_MENU="${LH_SYSLINUX_MENU:-true}"
 
 	# Setting syslinux menu live entries
 	case "${LH_MODE}" in
@@ -976,13 +967,13 @@ Set_defaults ()
 	## config/source
 
 	# Setting source option
-	LH_SOURCE="${LH_SOURCE:-disabled}"
+	LH_SOURCE="${LH_SOURCE:-false}"
 
 	# Setting image type
 	LH_SOURCE_IMAGES="${LH_SOURCE_IMAGES:-tar}"
 
 	# Setting fakeroot/fakechroot
-	LH_USE_FAKEROOT="${LH_USE_FAKEROOT:-disabled}"
+	LH_USE_FAKEROOT="${LH_USE_FAKEROOT:-false}"
 }
 
 Check_defaults ()
@@ -1023,10 +1014,10 @@ Check_defaults ()
 		fi
 	fi
 
-	if [ "${LH_DEBIAN_INSTALLER}" != "disabled" ]
+	if [ "${LH_DEBIAN_INSTALLER}" != "false" ]
 	then
-		# d-i enabled, no caching
-		if ! echo ${LH_CACHE_STAGES} | grep -qs "bootstrap\b" || [ "${LH_CACHE}" != "enabled" ] || [ "${LH_CACHE_PACKAGES}" != "enabled" ]
+		# d-i true, no caching
+		if ! echo ${LH_CACHE_STAGES} | grep -qs "bootstrap\b" || [ "${LH_CACHE}" != "true" ] || [ "${LH_CACHE_PACKAGES}" != "true" ]
 		then
 			Echo_warning "You have selected values of LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES and LH_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being cached. This configuration is potentially unsafe as the bootstrap packages are re-used when integrating the Debian Installer."
 		fi
@@ -1077,7 +1068,7 @@ Check_defaults ()
 
 	if echo ${LH_PACKAGES_LISTS} | grep -qs -E "(stripped|minimal)\b"
 	then
-		if [ "${LH_BINARY_INDICES}" = "enabled" ]
+		if [ "${LH_BINARY_INDICES}" = "true" ]
 		then
 			Echo_warning "You have selected hook to minimise image size but you are still including package indices with your value of LH_BINARY_INDICES."
 		fi

@@ -23,7 +23,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_INTERACTIVE}" = "disabled" ]
+if [ "${LH_INTERACTIVE}" = "false" ]
 then
 	exit 0
 fi
@@ -43,7 +43,7 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 case "${LH_INTERACTIVE}" in
-	enabled|shell)
+	true|shell)
 		Echo_message "Pausing build: starting interactive shell..."
 			Chroot chroot "/bin/bash --login"
 		;;

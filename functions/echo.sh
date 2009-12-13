@@ -22,7 +22,7 @@ Echo ()
 
 Echo_debug ()
 {
-	if [ "${_DEBUG}" = "enabled" ]
+	if [ "${_DEBUG}" = "true" ]
 	then
 		STRING="${1}"
 		shift
@@ -38,7 +38,7 @@ Echo_debug ()
 
 Echo_debug_running ()
 {
-	if [ "${_DEBUG}" = "enabled" ]
+	if [ "${_DEBUG}" = "true" ]
 	then
 		STRING="${1}"
 		shift
@@ -81,7 +81,7 @@ Echo_error ()
 
 Echo_message ()
 {
-	if [ "${_QUIET}" != "enabled" ]
+	if [ "${_QUIET}" != "true" ]
 	then
 		STRING="${1}"
 		shift
@@ -104,7 +104,7 @@ Echo_message ()
 
 Echo_message_running ()
 {
-	if [ "${_QUIET}" != "enabled" ]
+	if [ "${_QUIET}" != "true" ]
 	then
 		STRING="${1}"
 		shift
@@ -134,7 +134,7 @@ Echo_message_running ()
 
 Echo_verbose ()
 {
-	if [ "${_VERBOSE}" = "enabled" ]
+	if [ "${_VERBOSE}" = "true" ]
 	then
 		STRING="${1}"
 		shift
@@ -150,7 +150,7 @@ Echo_verbose ()
 
 Echo_verbose_running ()
 {
-	if [ "${_VERBOSE}" != "enabled" ]
+	if [ "${_VERBOSE}" != "true" ]
 	then
 		STRING="${1}"
 		shift

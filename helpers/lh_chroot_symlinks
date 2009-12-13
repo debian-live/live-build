@@ -23,7 +23,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_SYMLINKS}" != "enabled" ]
+if [ "${LH_SYMLINKS}" != "true" ]
 then
 	exit 0
 fi

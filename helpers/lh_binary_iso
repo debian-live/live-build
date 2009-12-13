@@ -45,6 +45,11 @@ Create_lockfile .lock
 # Checking depends
 Check_package chroot/usr/bin/genisoimage genisoimage
 
+if [ "${LH_BINARY_ISO_HYBRID}" = "true" ]
+then
+	Check_package chroot/usr/bin/isohybrid syslinux-common
+fi
+
 # Restoring cache
 Restore_cache cache/packages_binary
 
@@ -61,12 +66,12 @@ fi
 GENISOIMAGE_OPTIONS="-J -l -cache-inodes -allow-multidot"
 
 # Handle genisoimage live-helper specific options
-if [ "${_QUIET}" = "enabled" ]
+if [ "${_QUIET}" = "true" ]
 then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -quiet"
 fi
 
-if [ "${_VERBOSE}" = "enabled" ]
+if [ "${_VERBOSE}" = "true" ]
 then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -v"
 fi
@@ -175,8 +180,18 @@ cat >> binary.sh << EOF
 genisoimage ${GENISOIMAGE_OPTIONS} -o binary.iso binary
 EOF
 
+if [ "${LH_BINARY_ISO_HYRBID}" = "true" ]
+then
+
+cat >> binary.sh << EOF
+
+isohybrid binary.iso
+EOF
+
+fi
+
 case "${LH_CHROOT_BUILD}" in
-	enabled)
+	true)
 		# Moving image
 		mv binary.sh chroot
 		mv binary chroot
@@ -188,7 +203,7 @@ case "${LH_CHROOT_BUILD}" in
 		rm -f chroot/binary.sh
 		;;
 
-	disabled)
+	false)
 		sh binary.sh
 		rm -f binary.sh
 		;;

@@ -3,7 +3,7 @@
 # Static variables
 DISTRIBUTIONS="${DISTRIBUTIONS:-lenny squeeze sid}"
 FLAVOURS="${FLAVOURS:-standard rescue gnome-desktop kde-desktop lxde-desktop xfce-desktop}"
-SOURCE="${SOURCE:-enabled}"
+SOURCE="${SOURCE:-true}"
 
 MIRROR="${MIRROR:-http://mirror/ftp.debian.org/debian/}"
 MIRROR_SECURITY="${MIRROR_SECURITY:-http://mirror/ftp.debian.org/debian-security/}"
@@ -50,7 +50,7 @@ do
 			i386)
 				case "${FLAVOUR}" in
 					standard|rescue|lxde-desktop|xfce-desktop)
-						INDICES="enabled"
+						INDICES="true"
 						;;
 
 					gnome-desktop|kde-desktop)
@@ -61,11 +61,11 @@ do
 				;;
 		esac
 
-		if [ "${SOURCE}" = "enabled" ]
+		if [ "${SOURCE}" = "true" ]
 		then
-			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --binary-indices ${INDICES} --tasksel aptitude ${KERNEL} --source enabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
+			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends false --binary-indices ${INDICES} --tasksel aptitude ${KERNEL} --source true --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
 		else
-			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --binary-indices ${INDICES} --tasksel aptitude ${KERNEL} --source disabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
+			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends false --binary-indices ${INDICES} --tasksel aptitude ${KERNEL} --source false --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
 		fi
 
 		if [ "${DISTRIBUTION}" = "sid" ]
@@ -84,7 +84,7 @@ do
 		mv binary.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.list
 		mv binary.packages debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.packages
 
-		if [ "${SOURCE}" = "enabled" ]
+		if [ "${SOURCE}" = "true" ]
 		then
 			mv source.tar.gz debian-live-${DISTRIBUTION}-source-${FLAVOUR}.tar.gz
 			mv source.list debian-live-${DISTRIBUTION}-source-${FLAVOUR}.tar.gz.list

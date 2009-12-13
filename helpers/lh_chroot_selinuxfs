@@ -44,7 +44,7 @@ case "${1}" in
 			# Creating lock file
 			Create_lockfile .lock
 
-			if [ "${LH_USE_FAKEROOT}" != "enabled" ]
+			if [ "${LH_USE_FAKEROOT}" != "true" ]
 			then
 				# Create mountpoint
 				mkdir -p chroot/selinux
@@ -70,7 +70,7 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ "${LH_USE_FAKEROOT}" != "enabled" ]
+		if [ "${LH_USE_FAKEROOT}" != "true" ]
 		then
 			# Unmounting /selinux
 			#fuser -km chroot/selinux

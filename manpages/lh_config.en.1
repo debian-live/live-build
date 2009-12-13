@@ -12,7 +12,7 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-apt\-http\-proxy\fR \fIURL\fR]
 .br
-	[\fB\-\-apt\-pdiffs\fR enabled|disabled]
+	[\fB\-\-apt\-pdiffs\fR true|false]
 .br
 	[\fB\-\-apt\-options\fR \fIOPTION\fR|"\fIOPTIONS\fR"]
 .br
@@ -20,9 +20,9 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-apt\-pipeline\fR \fIDEPTH\fR]
 .br
-	[\fB\-\-apt\-recommends\fR enabled|disabled]
+	[\fB\-\-apt\-recommends\fR true|false]
 .br
-	[\fB\-\-apt\-secure\fR enabled|disabled]
+	[\fB\-\-apt\-secure\fR true|false]
 .br
 	[\-a|\fB\-\-architecture\fR \fIARCHITECTURE\fR]
 .br
@@ -30,7 +30,7 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-binary\-filesystem\fR fat16|fat32|ext2]
 .br
-	[\fB\-\-binary\-indices\fR enabled|disabled|none]
+	[\fB\-\-binary\-indices\fR true|false|none]
 .br
 	[\fB\-\-bootappend\-install\fR \fIPARAMETER\fR|\fI"PARAMETERS"\fR]
 .br
@@ -46,17 +46,17 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-bootstrap\-keyring\fR \fIPACKAGE\fR]
 .br
-	[\fB\-\-cache\fR enabled|disabled]
+	[\fB\-\-cache\fR true|false]
 .br
-	[\fB\-\-cache\-indices\fR enabled|disabled]
+	[\fB\-\-cache\-indices\fR true|false]
 .br
-	[\fB\-\-cache\-packages\fR enabled|disabled]
+	[\fB\-\-cache\-packages\fR true|false]
 .br
 	[\fB\-\-cache\-stages\fR \fISTAGE\fR|\fI"STAGES"\fR]
 .br
-	[\fB\-\-checksums\fR enabled|disabled]
+	[\fB\-\-checksums\fR true|false]
 .br
-	[\fB\-\-chroot\-build\fR enabled|disabled]
+	[\fB\-\-chroot\-build\fR true|false]
 .br
 	[\fB\-\-chroot\-filesystem\fR ext2|ext3|squashfs|plain|jffs2]
 .br
@@ -66,23 +66,23 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-debconf\-frontend\fR dialog|editor|noninteractive|readline]
 .br
-	[\fB\-\-debconf\-nowarnings\fR enabled|disabled]
+	[\fB\-\-debconf\-nowarnings\fR true|false]
 .br
 	[\fB\-\-debconf\-priority\fR low|medium|high|critical]
 .br
-	[\fB\-\-debian\-installer\fR enabled|cdrom|netinst|netboot|businesscard|live|disabled]
+	[\fB\-\-debian\-installer\fR true|cdrom|netinst|netboot|businesscard|live|false]
 .br
 	[\fB\-\-debian\-installer\-distribution\fR daily|\fICODENAME\fR]
 .br
 	[\fB\-\-debian\-installer\-preseedfile\fR \fIFILE\fR|\fIURL\fR]
 .br
-	[\fB\-\-debian\-installer\-gui\fR enabled|disabled]
+	[\fB\-\-debian\-installer\-gui\fR true|false]
 .br
 	[\-d|\fB\-\-distribution\fR \fICODENAME\fR]
 .br
 	[\-\-\fBdump\fR]
 .br
-	[\-e|\fB\-\-encryption\fR disabled|aes128|aes192|aes256]
+	[\-e|\fB\-\-encryption\fR false|aes128|aes192|aes256]
 .br
 	[\fB\-\-fdisk\fR fdisk|fdisk.dist]
 .br
@@ -162,25 +162,25 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-root-command\fR sudo]
 .br
-	[\fB\-\-use-fakeroot\fR enabled|disabled]
+	[\fB\-\-use-fakeroot\fR true|false]
 .br
 	[\fB\-\-archive\-areas\fR \fIARCHIVE_AREA\fR|\fI"ARCHIVE_AREAS"\fR]
 .br
-	[\fB\-\-security\fR enabled|disabled]
+	[\fB\-\-security\fR true|false]
 .br
-	[\fB\-\-source\fR enabled|disabled]
+	[\fB\-\-source\fR true|false]
 .br
 	[\-s|\fB\-\-source\-images\fR iso|net|tar|usb-hdd]
 .br
-	[\fB\-\-symlinks\fR enabled|disabled]
+	[\fB\-\-symlinks\fR true|false]
 .br
 	[\fB\-\-syslinux\-splash\fR \fIFILE\fR]
 .br
 	[\fB\-\-syslinux\-timeout\fR \fISECONDS\fR]
 .br
-	[\fB\-\-syslinux\-menu\fR enabled|disabled]
+	[\fB\-\-syslinux\-menu\fR true|false]
 .br
-	[\fB\-\-sysvinit\fR enabled|disabled]
+	[\fB\-\-sysvinit\fR true|false]
 .br
 	[\fB\-\-tasksel\fR aptitude|tasksel]
 .br
@@ -194,11 +194,11 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-virtual\-root\-size \fIMB\fR]
 .br
-	[\fB\-\-exposed\-root\fR enabled|disabled]
+	[\fB\-\-exposed\-root\fR true|false]
 .br
 	[\fB\-\-username\fR \fINAME\fR]
 .br
-	[\fB\-\-win32\-loader enabled|disabled]
+	[\fB\-\-win32\-loader true|false]
 .PP
 \fBlh_config\fR [\fIlive\-helper\ options\fR]
 
@@ -216,26 +216,26 @@ defines if apt-get or aptitude is used to install packages when building the ima
 sets the ftp proxy to be used by apt. By default, this is empty but if the host has the environment variable ftp_proxy set, apt-ftp-proxy gets automatically set to the value of ftp_proxy.
 .IP "\fB\-\-apt\-http\-proxy\fR \fIURL\fR" 4
 sets the http proxy to be used by apt. By default, this is empty but if the host has the environment variable http_proxy set, apt-http-proxy gets automatically set to the value of http_proxy.
-.IP "\fB\-\-apt\-pdiffs\fR enabled|disabled" 4
-defines whetever apt should use incremental package indices feature or not. This is enabled by default.
+.IP "\fB\-\-apt\-pdiffs\fR true|false" 4
+defines whetever apt should use incremental package indices feature or not. This is true by default.
 .IP "\fB\-\-apt\-options\fR \fIOPTION\fR|""\fIOPTIONS\fR""" 4
 defines the default options that will be appended to every apt call that is made inside chroot during the building of the image. By default, this is set to \-\-yes to allow non-interactive installation of packages.
 .IP "\fB\-\-aptitude\-options\fR \fIOPTION\fR|""\fIOPTIONS\fR""" 4
 defines the default options that will be appended to every aptitude call that is made inside chroot during building of the image. By default, this is set to \-\-assume\-yes to allow non-interactive installation of packages.
 .IP "\fB\-\-apt\-pipeline\fR \fIDEPTH\fR" 4
 sets the depth of the apt/aptitude pipeline. In cases where the remote server is not RFC conforming or buggy (such as Squid 2.0.2) this option can be a value from 0 to 5 indicating how many outstanding requests APT should send. A value of zero MUST be specified if the remote host does not properly linger on TCP connections - otherwise data corruption will occur. Hosts which require this are in violation of RFC 2068. By default, live-helper does not set this option.
-.IP "\fB\-\-apt\-recommends\fR enabled|disabled" 4
-defines if apt should install recommended packages automatically. By default, this is enabled except in emdebian mode.
-.IP "\fB\-\-apt\-secure\fR enabled|disabled" 4
-defines if apt should check repository signatures. This is enabled by default.
+.IP "\fB\-\-apt\-recommends\fR true|false" 4
+defines if apt should install recommended packages automatically. By default, this is true except in emdebian mode.
+.IP "\fB\-\-apt\-secure\fR true|false" 4
+defines if apt should check repository signatures. This is true by default.
 .IP "\-a|\fB\-\-architecture\fR \fIARCHITECTURE\fR" 4
 defines the architecture of the to be build image. By default, this is set to the host architecture. Note that you cannot crossbuild for another architecture if your host system is not able to execute binaries for the target architecture natively. For example, building amd64 images on i386 and vice versa is possile if you have a 64bit capable i386 processor and the right kernel. But building powerpc images on an i386 system is not possible.
 .IP "\-b|\fB\-\-binary\-images\fR iso|net|tar|usb\-hdd" 4
 defines the image type to build. By default this is set to iso to build CD/DVD images.
 .IP "\fB\-\-binary\-filesystem\fR fat16|fat32|ext2" 4
 defines the filesystem to be used in the image type. This only has an effect if the selected binary image type does allow to choose a filesystem. For example, when selection iso the resulting CD/DVD has always the filesystem ISO9660. When building usb-hdd images for usb sticks, this is active. Note that it defaults to fat16 on all architectures except sparc where it defaults to ext2. Also note that if you choose fat16 and your resulting binary image gets bigger than 2GB, the binary filesystem automatically gets switched to fat32.
-.IP "\fB\-\-binary\-indices\fR enabled|disabled|none" 4
-defines if the resulting images should have binary indices or not and defaults to enabled. If set to none, no indices are included at all.
+.IP "\fB\-\-binary\-indices\fR true|false|none" 4
+defines if the resulting images should have binary indices or not and defaults to true. If set to none, no indices are included at all.
 .IP "\fB\-\-bootappend\-install\fR \fIPARAMETER\fR|\fI""PARAMETERS""\fR" 4
 sets boot parameters specific to debian-installer, if included.
 .IP "\fB\-\-bootappend\-live\fR \fIPARAMETER\fR|\fI""PARAMETERS""\fR" 4
@@ -250,17 +250,17 @@ sets a custom configuration file for the boostrap programm of choice and is empt
 defines if the bootstrap program should bootstrap the standard system (all packages of priority required and important, which is the default) or a minimal system (only packages of priority required, plus apt).
 .IP "\fB\-\-bootstrap\-keyring\fR \fIPACKAGE\fR" 4
 sets the archive keyring package to be used. Default is debian-archive-keyring.
-.IP "\fB\-\-cache\fR enabled|disabled" 4
+.IP "\fB\-\-cache\fR true|false" 4
 defines globally if any cache should be used at all. Different caches can be controled through the their own options.
-.IP "\fB\-\-cache\-indices\fR enabled|disabled" 4
-defines if downloaded package indices and lists should be cached which is disabled by default. Enabling it would allow to rebuild an image completely offline, however, you would not get updates anymore then.
-.IP "\fB\-\-cache\-packages\fR enabled|disabled" 4
-defines if downloaded packages files should be cached which is enabled by default. Disabling it does save space consumtion in your build directory, but remember that you will cause much unnecessary traffic if you do a couple of rebuilds. In general you should always leave it enabled, however, in some particular rare build setups, it can be faster to refetch packages from the local network mirror rather than to utilize the local disk.
-.IP "\fB\-\-cache\-stages\fR enabled|disabled|\fISTAGE\fR|\fI""STAGES""\fR" 4
+.IP "\fB\-\-cache\-indices\fR true|false" 4
+defines if downloaded package indices and lists should be cached which is false by default. Enabling it would allow to rebuild an image completely offline, however, you would not get updates anymore then.
+.IP "\fB\-\-cache\-packages\fR true|false" 4
+defines if downloaded packages files should be cached which is true by default. Disabling it does save space consumtion in your build directory, but remember that you will cause much unnecessary traffic if you do a couple of rebuilds. In general you should always leave it true, however, in some particular rare build setups, it can be faster to refetch packages from the local network mirror rather than to utilize the local disk.
+.IP "\fB\-\-cache\-stages\fR true|false|\fISTAGE\fR|\fI""STAGES""\fR" 4
 sets which stages should be cached. By default set to bootstrap. As an exception to the normal stage names, also rootfs can be used here which does only cache the generated root filesystem in filesystem.{dir,ext*,squashfs}. This is useful during development if you want to rebuild the binary stage but not regenerate the root filesystem all the time.
-.IP "\fB\-\-checksums\fR enabled|disabled" 4
-defines if the binary image should contain a file called md5sums.txt that lists all files on the image together with their md5 checksums. This in turn can be used by live-initramfs' built-in integrity-check to verify the medium if specified at boot prompt. In general, this should not be disabled and is an important feature of live system released to the public. However, during development of very big images it can save some time by not calculating the checksums.
-.IP "\fB\-\-chroot\-build\fR enabled|disabled" 4
+.IP "\fB\-\-checksums\fR true|false" 4
+defines if the binary image should contain a file called md5sums.txt that lists all files on the image together with their md5 checksums. This in turn can be used by live-initramfs' built-in integrity-check to verify the medium if specified at boot prompt. In general, this should not be false and is an important feature of live system released to the public. However, during development of very big images it can save some time by not calculating the checksums.
+.IP "\fB\-\-chroot\-build\fR true|false" 4
 defines whetever live-helper should use the tools from within the chroot to build the binary image or not by using and including the host systems tools. This is a very dangerous option, using the tools of the host system can lead to tainted and even non-bootable images if the host systems version of the required tools (mainly these are the bootloaders such as syslinux, grub and yaboot, and the auxilliary tools such as dosfstools, genisoimage, squashfs-tools and others) do not \fBexactely\fR match what is present at build-time in the target distribution. Never do disable this option unless you are \fBexactely\fR sure what you are doing and have \fBcompletely\fI understood its consequences.
 .IP "\fB\-\-chroot\-filesystem\fR ext2|ext3|squashfs|plain|jffs2" 4
 defines which filesystem type should be used for the root filesystem image. If you use plain, then no filesystem image is created and the root filesystem content is copied on the binary image filesystem as flat files. Depending on what binary filesystem you have choosen, it may not be possible to build with a plain root filesystem, e.g. fat16/fat32 and plain don't work as linux does not support to run on them.
@@ -270,24 +270,24 @@ minimizes config directory by automatically removing unused and thus empty subdi
 using a user specified alternative configuration file in addition to the normally used one in the config directory.
 .IP "\fB\-\-debconf\-frontend\fR dialog|editor|noninteractive|readline" 4
 defines what value the debconf frontend should be set to inside the chroot. Note that setting it to anything by noninteractive, which is the default, makes your build asking questions during the build.
-.IP "\fB\-\-debconf\-nowarnings\fR enabled|disabled" 4
+.IP "\fB\-\-debconf\-nowarnings\fR true|false" 4
 defines if warnings of debconf should be displayed or not. Warnings from debconf are generally very rare and by default, we skipp them, if any, in order to keep the build process entirely non interactive.
 .IP "\fB\-\-debconf\-priority\fR low|medium|high|critical" 4
 defines what value the debconf priority shoul dbe set to inside the chroot. By default, it is set to critical, which means that almost no questions are displayed. Note that this only has an effect if you use any debconf frontend different from noninteractive.
-.IP "\fB\-\-debian\-installer\fR enabled|cdrom|netinst|netboot|businesscard|live|disabled" 4
+.IP "\fB\-\-debian\-installer\fR true|cdrom|netinst|netboot|businesscard|live|false" 4
 defines which type, if any, of the debian\-installer should be included in the resulting binary image. By default, no installer is included. All available flavours except live are the identical configurations used on the installer media produced by regular debian\-cd. When live is choosen, the live\-installer udeb is included so that debian\-installer will behave different than usual - instead of installing the debian system from packages from the medium or the network, it installs the live system to the disk.
 .IP "\fB\-\-debian\-installer\-distribution\fR daily|\fICODENAME\fR" 4
 defines the distribution where the debian\-installer files should be taken out from. Normally, this should be set to the same distribution as the live system. However, some times, one wants to use a newer or even daily built installer.
 .IP "\fB\-\-debian\-installer\-preseedfile\fR \fIFILE\fR|\fIURL\fR" 4
 sets the filename or URL for an optionally used and included preseeding file for debian\-installer.
-.IP "\fB\-\-debian\-installer\-gui\fR enabled|disabled" 4
-defines if the debian\-installer graphical GTK interface should be enabled or not. In Debian mode and for most versions of Ubuntu, this option is enabled, whereas otherwise disabled, by default.
+.IP "\fB\-\-debian\-installer\-gui\fR true|false" 4
+defines if the debian\-installer graphical GTK interface should be true or not. In Debian mode and for most versions of Ubuntu, this option is true, whereas otherwise false, by default.
 .IP "\-d|\fB\-\-distribution\fR \fICODENAME\fR" 4
 defines the distribution of the resulting live system.
 .IP "\-\-\fBdump\fR" 4
 prepares a report of the currently present live system configuration and the version of live\-helper used. This is useful to provide if you submit bug reports, we do get all informations required for us to locate and replicate an error.
-.IP "\-e|\fB\-\-encryption\fR disabled|aes128|aes192|aes256" 4
-defines if the root filesystem should be encrypted or not. By default, this is disabled.
+.IP "\-e|\fB\-\-encryption\fR false|aes128|aes192|aes256" 4
+defines if the root filesystem should be encrypted or not. By default, this is false.
 .IP "\fB\-\-fdisk\fR fdisk|fdisk.dist" 4
 sets the filename of the fdisk binary from the host system that should be used. This is autodetected and does generally not need any customization.
 .IP "\fB\-\-genisoimage\fR genisomage|mkisofs" 4
@@ -307,7 +307,7 @@ sets the path to the includes that live\-helper is going to use, e.g. additional
 .IP "\fB\-\-initramfs\fR auto|live\-initramfs|casper" 4
 sets the name of package that contains the live system specific initramfs modification. By default, auto is used, which means that at build time of the image rather than on configuration time, the value will be expanded to casper when building etch systems and to live\-initramfs for all other systems.
 .IP "\fB\-\-interactive\fR shell" 4
-defines if after the chroot stage and before the beginning of the binary stage, a interactive shell login should be spawned in the chroot in order to allow you to do manual customizations. Once you close the shell with logout or exit, the build will continue as usual. Note that it's strongly discouraged to use this for anything else than testing. Modifications that should be present in all builds of a live system should be properly made through hooks. Everything else destroys the beauty of being able to completely automatise the build process and making it non interactive. By default, this is of course disabled.
+defines if after the chroot stage and before the beginning of the binary stage, a interactive shell login should be spawned in the chroot in order to allow you to do manual customizations. Once you close the shell with logout or exit, the build will continue as usual. Note that it's strongly discouraged to use this for anything else than testing. Modifications that should be present in all builds of a live system should be properly made through hooks. Everything else destroys the beauty of being able to completely automatise the build process and making it non interactive. By default, this is of course false.
 .IP "\fB\-\-iso\-application\fR \fINAME\fR" 4
 sets the APPLICATION field in the header of a resulting CD/DVD image and defaults to "Debian Live" in debian mode, and to "Emdebian Live" in emdebian mode, and "Ubuntu Live" in ubuntu mode.
 .IP "\fB\-\-iso\-preparer\fR \fINAME\fR" 4
@@ -373,26 +373,26 @@ defines which lists available in /usr/share/live-helper/lists should be used. By
 defines one or more packages to be installed in the live system. This is a quick and convenient place to add a few packages when building an image (limited by the max length of shell). Packages that should be permanently installed should be put into a local packages list.
 .IP "\fB\-\-root-command\fR sudo" 4
 controls if live-helper should use sudo internally to build the live image. Note that this is not well tested and that you should, when relying on sudo, call the individual live\-helper command with sudo itself.
-.IP "\fB\-\-use-fakeroot\fR enabled|disabled" 4
-controls if live-helper should utilize fakeroot and fakechroot to try and avoid requiring root privillages where possible. By default, this option is disabled.
+.IP "\fB\-\-use-fakeroot\fR true|false" 4
+controls if live-helper should utilize fakeroot and fakechroot to try and avoid requiring root privillages where possible. By default, this option is false.
 .IP "\fB\-\-archive\-areas\fR \fIARCHIVE_AREA\fR|\fI""ARCHIVE_AREAS""\fR" 4
 defines which package archive areas of a debian packages archive should be used for configured debian package mirrors. By default, this is set to main. Remember to check the licenses of each packages with respect to their redistributability in your juristiction when enabling contrib or non-free with this mechanism.
-.IP "\fB\-\-security\fR enabled|disabled" 4
+.IP "\fB\-\-security\fR true|false" 4
 defines if the security repositories specified in the security mirror options should be used or not.
-.IP "\fB\-\-source\fR enabled|disabled" 4
-defines if a corresponding source image to the binary image should be build. By default this is disabled because most people do not require this and would require to download quite a few source packages. However, once you start distributing your live image, you should make sure you build it with a source image alongside.
+.IP "\fB\-\-source\fR true|false" 4
+defines if a corresponding source image to the binary image should be build. By default this is false because most people do not require this and would require to download quite a few source packages. However, once you start distributing your live image, you should make sure you build it with a source image alongside.
 .IP "\-s|\fB\-\-source\-images\fR iso|net|tar|usb-hdd" 4
 defines the image type for the source image. Default is tar.
-.IP "\fB\-\-symlinks\fR enabled|disabled" 4
-defines if the symlink hack should be enabled or disabled. The symlink hack converts all absolute symlinks to relative ones. By default this is disabled and in general there is no need or gain to enable it. If you are in a special situation that requires this, you will know.
+.IP "\fB\-\-symlinks\fR true|false" 4
+defines if the symlink hack should be true or false. The symlink hack converts all absolute symlinks to relative ones. By default this is false and in general there is no need or gain to enable it. If you are in a special situation that requires this, you will know.
 .IP "\fB\-\-syslinux\-splash\fR \fIFILE\fR" 4
 defines the file of the syslinux splash graphic that should be used instead of the default one.
 .IP "\fB\-\-syslinux\-timeout\fR \fISECONDS\fR" 4
 defines the timeout the syslinux bootloader should wait for input from the user at the bootprompt prior booting the default kernel. This defaults to 0 which means it will wait forever.
-.IP "\fB\-\-syslinux\-menu\fR enabled|disabled" 4
+.IP "\fB\-\-syslinux\-menu\fR true|false" 4
 defines if syslinux should be make use of the vgamenu capabilities or not.
-.IP "\fB\-\-sysvinit\fR enabled|disabled" 4
-defines it the sysvinit hack should be enabled or disabled. The sysvinit hack disables all non-essential services from starting up at bootup in order to reduce overall boottime. By default this is disabled and in general there you don't want to enable it.
+.IP "\fB\-\-sysvinit\fR true|false" 4
+defines it the sysvinit hack should be true or false. The sysvinit hack disables all non-essential services from starting up at bootup in order to reduce overall boottime. By default this is false and in general there you don't want to enable it.
 .IP "\fB\-\-tasksel\fR aptitude|tasksel" 4
 selects which program is used to install tasks. By default, this is set to tasksel.
 .IP "\fB\-\-tasks\fR \fITASK\fR|""\fITASKS\fR""" 4
@@ -405,11 +405,11 @@ defines whetever to use UnionFS or Aufs as stackable unification filesystem. Whe
 defines what filesystem to format the root filesystem when building virtual-hdd images.
 .IP "\fB\-\-virtual\-root\-size\fR MB" 4
 defines what size the virtual-hdd image should be. Note that although the default is set to 10000 (= 10GB), it will not need 10GB space on your harddisk as the files are created as sparse files.
-.IP "\fB\-\-exposed\-root\fR enabled|disabled" 4
-defines whether to expose the root filesystem as read only and not covered by the union filesystem. This has useful implications for certain speciality setups such as LTSP. By default, this option is disabled.
+.IP "\fB\-\-exposed\-root\fR true|false" 4
+defines whether to expose the root filesystem as read only and not covered by the union filesystem. This has useful implications for certain speciality setups such as LTSP. By default, this option is false.
 .IP "\fB\-\-username\fR \fINAME\fR" 4
 sets the name of the account of the default user in the live system.
-.IP "\fB\-\-win32\-loader enabled|disabled" 4
+.IP "\fB\-\-win32\-loader true|false" 4
 defines if win32\-loader should be included in the binary image or not.
 
 .SH ENVIRONMENT
@@ -418,7 +418,7 @@ All command line switches can also be specified through the corresponding enviro
 .SH FILES
 .I /etc/default/live-helper
 .PP
-An optional, global configuration file for lh_config variables. It is useful to specify a few system wide defaults, like LH_MIRROR_BOOTSTRAP. This feature can be disabled by specifying the \fB\-\-ignore\-system\-defaults\fR option.
+An optional, global configuration file for lh_config variables. It is useful to specify a few system wide defaults, like LH_MIRROR_BOOTSTRAP. This feature can be false by specifying the \fB\-\-ignore\-system\-defaults\fR option.
 
 .SH SEE ALSO
 \fIlive\-helper\fR(7)

@@ -28,7 +28,7 @@ Check_package ()
 
 Install_package ()
 {
-	if [ -n "${_LH_PACKAGES}" ] && [ "${LH_CHROOT_BUILD}" != "disabled" ]
+	if [ -n "${_LH_PACKAGES}" ] && [ "${LH_CHROOT_BUILD}" != "false" ]
 	then
 		case "${LH_APT}" in
 			apt|apt-get)
@@ -44,7 +44,7 @@ Install_package ()
 
 Remove_package ()
 {
-	if [ -n "${_LH_PACKAGES}" ] && [ "${LH_CHROOT_BUILD}" != "disabled" ]
+	if [ -n "${_LH_PACKAGES}" ] && [ "${LH_CHROOT_BUILD}" != "false" ]
 	then
 		case "${LH_APT}" in
 			apt|apt-get)
@@ -69,7 +69,7 @@ Check_installed ()
 	PACKAGE="${2}"
 
 	case "${LH_CHROOT_BUILD}" in
-		enabled)
+		true)
 			if Chroot chroot "dpkg-query -s ${PACKAGE}" 2> /dev/null | grep -qs "Status: install"
 			then
 				INSTALL_STATUS=0
@@ -77,7 +77,7 @@ Check_installed ()
 				INSTALL_STATUS=1
 			fi
 			;;
-		disabled)
+		false)
 			if which dpkg-query > /dev/null 2>&1
 			then
 				if Chroot chroot "dpkg-query -s ${PACKAGE}" 2> /dev/null | grep -qs "Status: install"
