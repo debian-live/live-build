@@ -323,12 +323,30 @@ then
 	case "${LH_ARCHITECTURE}" in
 		amd64)
 			DI_REQ_PACKAGES="lilo grub"
-			DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-amd64"
+
+			case "${LH_MODE}" in
+				ubuntu)
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-generic"
+					;;
+
+				*)
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-amd64"
+					;;
+			esac
 			;;
 
 		i386)
 			DI_REQ_PACKAGES="elilo lilo grub"
-			DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-486 linux-image-2.6-686"
+
+			case "${LH_MODE}" in
+				ubuntu)
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-generic"
+					;;
+
+				*)
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-486 linux-image-2.6-686"
+					;;
+			esac
 			;;
 
 		sparc)
