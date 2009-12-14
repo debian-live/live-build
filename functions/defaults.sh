@@ -32,7 +32,7 @@ Set_defaults ()
 				;;
 
 			ubuntu)
-				LH_DISTRIBUTION="jaunty"
+				LH_DISTRIBUTION="karmic"
 				;;
 		esac
 	fi
