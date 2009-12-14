@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_chroot_packageslists(1) - queue install of packages lists into chroot
+# lh_chroot_local-packageslists(1) - queue install of local packages lists into chroot
 # Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -13,7 +13,7 @@ set -e
 . "${LH_BASE:-/usr/share/live-helper}"/live-helper.sh
 
 # Setting static variables
-DESCRIPTION="$(Echo 'queue install of packages lists into chroot')"
+DESCRIPTION="$(Echo 'queue install of local packages lists into chroot')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -23,13 +23,13 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-Echo_message "Begin queueing installation of packages lists..."
+Echo_message "Begin queueing installation of local packages lists..."
 
 # Requiring stage file
 Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/chroot_packageslists
+Check_stagefile .stage/chroot_local-packageslists
 
 # Checking lock file
 Check_lockfile .lock
@@ -37,15 +37,15 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ -n "${LH_PACKAGES_LISTS}" ] && [ "${LH_PACKAGES_LISTS}" != "none" ]
+if ls config/chroot_local-packageslists/*.list > /dev/null 2>&1
 then
-
-	for LIST in ${LH_PACKAGES_LISTS}
+	for LIST in config/chroot_local-packageslists/*.list
 	do
-		# Generating package list
-		Expand_packagelist "${LIST}" >> chroot/root/chroot_packages
+		# Generating local package list
+		Expand_packagelist "$(basename ${LIST})" "config/chroot_local-packageslists" \
+			>> chroot/root/chroot_packages
 	done
 
 	# Creating stage file
-	Create_stagefile .stage/chroot_packageslists
+	Create_stagefile .stage/chroot_local-packageslists
 fi
