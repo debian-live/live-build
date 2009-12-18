@@ -60,7 +60,7 @@ fi
 if [ "${LH_CATEGORIES}" != "main" ]
 then
 	# Modify categories to remove leading/trailing whitespaces and replace other whitepspace with commas
-	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --components $(echo ${LH_CATEGORIES} | sed -E -e 's/^[ \t]*//;s/[ \t]*$//' -e 's/[ \t]+/,/g')"
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --components $(echo ${LH_ARCHIVE_AREAS} | sed -e 's| |,|g')"
 fi
 
 if [ -n "${LH_BOOTSTRAP_CONFIG}" ]
