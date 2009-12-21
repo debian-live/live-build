@@ -3,5 +3,11 @@
 ## LH: LXDE
 #include <standard-x11>
 
-lxde wicd
+lxde
+#if DISTRIBUTION lenny
+lxnm
+#endif
+#if DISTRIBUTION squeeze sid
+wicd
+#endif
 gdm desktop-base
