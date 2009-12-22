@@ -84,7 +84,7 @@ ${LH_ROOT_COMMAND} rm -rf chroot/chroot
 ${LH_ROOT_COMMAND} rm -rf chroot.tmp
 
 # Copying new chroot
-if [ -d cache/stages_bootstrap ]
+if [ -d cache/stages_bootstrap ] && [ "${LH_CHROOT_FILESYSTEM}" != "plain" ]
 then
 	${LH_ROOT_COMMAND} mv chroot chroot.tmp
 	${LH_ROOT_COMMAND} cp -a cache/stages_bootstrap chroot
