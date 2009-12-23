@@ -67,9 +67,11 @@ case "${1}" in
 		# Unmounting /dev/pts
 		if [ "${LH_USE_FAKEROOT}" != "true" ]
 		then
-			if Find_files chroot/dev/pts/*
+			if grep -qs "$(pwd)/chroot/dev/pts" /proc/mounts || Find_files chroot/dev/pts/*
 			then
 				${LH_ROOT_COMMAND} umount chroot/dev/pts
+			else
+				${LH_ROOT_COMMAND} umount -f chroot/dev/pts > /dev/null 2>&1 || true
 			fi
 		fi
 
