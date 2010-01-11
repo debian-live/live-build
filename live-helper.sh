@@ -9,9 +9,9 @@ do
 done
 
 # Source local functions
-if ls scripts/functions/*.sh > /dev/null 2>&1
+if ls auto/functions/* > /dev/null 2>&1
 then
-	for FUNCTION in scripts/functions/*.sh
+	for FUNCTION in auto/functions/*
 	do
 		. "${FUNCTION}"
 	done

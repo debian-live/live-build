@@ -10,9 +10,9 @@
 set -e
 
 # Read meta config
-if [ "${1}" != "noautoconfig" ] && [ -x scripts/config ]
+if [ "${1}" != "noautoconfig" ] && [ -x auto/config ]
 then
-	./scripts/config ${@}
+	./auto/config ${@}
 fi
 
 if [ "${1}" = "noautoconfig" ]
@@ -210,14 +210,14 @@ Local_arguments ()
 					rmdir --ignore-fail-on-non-empty config
 				fi
 
-				if [ -d scripts/functions ]
+				if [ -d auto/functions ]
 				then
-					rmdir --ignore-fail-on-non-empty scripts/functions
+					rmdir --ignore-fail-on-non-empty auto/functions
 				fi
 
-				if [ -d scripts ]
+				if [ -d auto ]
 				then
-					rmdir --ignore-fail-on-non-empty scripts
+					rmdir --ignore-fail-on-non-empty auto
 				fi
 
 				exit 0
@@ -1246,7 +1246,7 @@ LH_SOURCE="${LH_SOURCE}"
 LH_SOURCE_IMAGES="${LH_SOURCE_IMAGES}"
 EOF
 
-mkdir -p scripts/functions
+mkdir -p auto/functions
 
 if [ "${CONFIG}" = "clone" ] # FIXME
 then

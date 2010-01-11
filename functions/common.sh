@@ -12,4 +12,4 @@ PACKAGE="live-helper"
 VERSION="2.0~a3-1"
 CONFIG_VERSION="$(echo ${VERSION} | awk -F- '{ print $1 }')"
 
-PATH="${PWD}/scripts:${PATH}"
+PATH="${PWD}/auto/helpers:${PATH}"
