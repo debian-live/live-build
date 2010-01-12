@@ -381,7 +381,15 @@ Local_arguments ()
 
 			-d|--distribution)
 				LH_DISTRIBUTION="${2}"
+				BACKPORTS="false"
 				shift 2
+
+				case "${LH_DISTRIBUTION}" in
+					lenny-backports)
+						LH_DISTRIBUTION="lenny"
+						BACKPORTS="true"
+						;;
+				esac
 				;;
 
 			-m|--mirror-bootstrap)
@@ -1261,6 +1269,35 @@ then
 	else
 		debconf-get-selections | grep -v deinstall | cut -f1 > config/chroot_local-preseed/local-system
 	fi
+fi
+
+if [ "${BACKPORTS}" = "true" ]
+then
+	# Adding sources.list entry
+
+cat > config/chroot_sources/${LH_DISTRIBUTION}-backports.chroot << EOF
+# Backports Maintainers
+deb http://backports.debian-maintainers.org/ ${LH_DISTRIBUTION}/backports main contrib non-free
+deb-src http://backports.debian-maintainers.org/ ${LH_DISTRIBUTION}/backports main contrib non-free
+EOF
+
+	cp config/chroot_sources/${LH_DISTRIBUTION}-backports.chroot config/chroot_sources/${LH_DISTRIBUTION}-backports.binary
+
+	# Adding apt preferences
+	if ! grep -qs "^Pin: release o=backports.debian-maintainerns.org" config/chroot_apt/preferences
+	then
+
+cat >> config/chroot_apt/preferences << EOF
+Package: *
+Pin: release o=backports.debian-maintainerns.org
+Pin-Priority: 999
+EOF
+
+	fi
+
+	# Addding archive signing key
+	wget -q http://backports.debian-maintainers.org/project/openpgp/archive-key.asc -O config/chroot_sources/${LH_DISTRIBUTION}-backports.chroot.gpg
+	cp config/chroot_sources/${LH_DISTRIBUTION}-backports.chroot.gpg config/chroot_sources/${LH_DISTRIBUTION}-backports.binary.gpg
 fi
 
 # Creating stage file
