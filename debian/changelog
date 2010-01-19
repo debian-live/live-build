@@ -1,3 +1,31 @@
+live-helper (2.0~a4-1) unstable; urgency=low
+
+  * Handling d-i required packages regarding kernel flavours differently
+    on ubuntu.
+  * Bumping ubuntu default distribution to karmic.
+  * Changing local packageslists behaviour for consistency reasons, now
+    looking for .list suffix and enabling them automatically (Closes:
+    #545403).
+  * Replacing lxnm in lxde package list with wicd as suggested by Jun
+    Nogata and confirmed by Andrew Lee.
+  * Ensure that precached-chroots are prepared as well.
+  * Only using wicd instead of lxnm for squeeze and newer.
+  * Removing mailx from rescue list.
+  * Correcting handling of precached chroot when using plain chroot
+    filesystem.
+  * Making unmount routines a bit more robust.
+  * Marking aufs-source and squashfs-source in debian-live packagelist
+    as lenny-only (Closes: #562664).
+  * Updating year in copyright file.
+  * Renaming directory that holds automatic scripts (e.g. scripts/config
+    or scripst/clean) to auto for consistency reasons.
+  * Automatically setting-up backports repository when specifying lenny-
+    backports as target distribution.
+  * Adjusting lh_config manpage to reflect changes wrt/ local packages
+    lists.
+
+ -- Daniel Baumann <daniel@debian.org>  Tue, 19 Jan 2010 20:25:35 +0100
+
 live-helper (2.0~a3-1) unstable; urgency=low
 
   * Updating icedove-l10n packagename handling for post-lenny, thanks to
