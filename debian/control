@@ -12,7 +12,7 @@ Vcs-Git: git://live.debian.net/git/live-helper.git
 
 Package: live-helper
 Architecture: all
-Depends: debootstrap | cdebootstrap | cdebootstrap-static
+Depends: ${misc:Depends}, debootstrap | cdebootstrap | cdebootstrap-static
 Recommends: gettext-base
 Suggests: dosfstools, genisoimage, memtest86+ | memtest86, mtools, parted, squashfs-tools | genext2fs | mtd-tools, sudo | fakeroot, syslinux | grub, uuid-runtime, win32-loader
 Description: Debian Live build scripts
