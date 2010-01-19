@@ -47,6 +47,7 @@ lh chroot_preseed ${*}
 lh chroot_local-preseed ${*}
 lh chroot_tasks ${*}
 lh chroot_packageslists ${*}
+lh chroot_local-packageslists ${*}
 lh chroot_packages ${*}
 lh chroot_local-packages ${*}
 lh chroot_install-packages ${*}

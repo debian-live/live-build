@@ -52,9 +52,9 @@ fi
 mkdir -p source/debian-live
 cp -a config source/debian-live
 
-if Find_files scripts/*
+if Find_files auto/*
 then
-	cp -a scripts source/debian-live
+	cp -a auto source/debian-live
 fi
 
 # Create tarball

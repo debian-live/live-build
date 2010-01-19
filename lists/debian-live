@@ -12,11 +12,17 @@ dosfstools genisoimage memtest86+ memtest86 mtools parted squashfs-tools genext2
 
 # kernel
 #if DISTRIBUTION lenny squeeze sid
-aufs-tools aufs-source
+aufs-tools
+#endif
+#if DISTRIBUTION lenny
+aufs-source
 #endif
 qemu kqemu-source
 kvm kvm-source
-squashfs-tools squashfs-source
+squashfs-tools
+#if DISTRIBUTION lenny
+squashfs-source
+#endif
 #linux-headers-2.6-all
 
 # netboot/pxe

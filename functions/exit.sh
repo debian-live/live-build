@@ -20,10 +20,19 @@ Exit ()
 	# Always exit true in case we are not able to unmount
 	# (e.g. due to running processes in chroot from user customizations)
 	Echo_message "Begin unmounting filesystems..."
-	for DIRECTORY in $(awk -v dir="${PWD}/chroot/" '$2 ~ dir { print $2 }' /proc/mounts | sort -r)
-	do
-		umount ${DIRECTORY} > /dev/null 2>&1 || true
-	done
+
+	if [ -e /proc/mounts ]
+	then
+		for DIRECTORY in $(awk -v dir="${PWD}/chroot/" '$2 ~ dir { print $2 }' /proc/mounts | sort -r)
+		do
+			umount ${DIRECTORY} > /dev/null 2>&1 || true
+		done
+	else
+		for DIRECTORY in /dev/pts /dev /proc /selinux /sys
+		do
+			umount -f chroot/${DIRECTORY} > /dev/null 2>&1 || true
+		done
+	fi
 
 	return ${VALUE}
 }

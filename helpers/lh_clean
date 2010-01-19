@@ -10,9 +10,9 @@
 set -e
 
 # Read meta config
-if [ "${1}" != "noautoconfig" ] && [ -x scripts/clean ]
+if [ "${1}" != "noautoconfig" ] && [ -x auto/clean ]
 then
-	./scripts/clean ${@}
+	./auto/clean ${@}
 fi
 
 if [ "${1}" = "noautoconfig" ]
@@ -59,9 +59,9 @@ do
 			LH=1 "${0}" noautoconfig --stage
 			LH=1 "${0}" noautoconfig --source
 
-			if [ -d scripts ]
+			if [ -d auto ]
 			then
-				rmdir --ignore-fail-on-non-empty scripts
+				rmdir --ignore-fail-on-non-empty auto
 			fi
 			;;
 
@@ -111,7 +111,7 @@ do
 			LH=1 "${0}" --all
 			LH=1 "${0}" --cache
 
-			if [ -e scripts/config ]
+			if [ -e auto/config ]
 			then
 				rm -f .stage/config
 			fi

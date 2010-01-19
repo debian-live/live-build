@@ -13,9 +13,9 @@ set -e
 . "${LH_BASE:-/usr/share/live-helper}"/live-helper.sh
 
 # Read meta config
-if [ "${1}" != "noautoconfig" ] && [ -x scripts/build ]
+if [ "${1}" != "noautoconfig" ] && [ -x auto/build ]
 then
-	./scripts/build ${@}
+	./auto/build ${@}
 fi
 
 if [ "${1}" = "noautoconfig" ]
