@@ -127,7 +127,10 @@ rm -f source-selection.txt
 # Sort sources
 for DSC in chroot/*.dsc
 do
-	SOURCE="$(sed -n 's|^Source: ||p' ${DSC})"
+	SOURCE="$(sed -n 's|^Source: ||p' ${DSC} 2>/dev/null || :)"
+	# The sed may fail if multiple dsc files exist for same source, as the
+	# first one to match will have already been moved.
+	[ -n "$SOURCE" ] || continue
 
 	case "${SOURCE}" in
 		lib?*)
