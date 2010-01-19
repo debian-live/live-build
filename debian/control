@@ -14,7 +14,10 @@ Package: live-helper
 Architecture: all
 Depends: ${misc:Depends}, debootstrap | cdebootstrap | cdebootstrap-static
 Recommends: gettext-base
-Suggests: dosfstools, genisoimage, memtest86+ | memtest86, mtools, parted, squashfs-tools | genext2fs | mtd-tools, sudo | fakeroot, syslinux | grub, uuid-runtime, win32-loader
+Suggests:
+ dosfstools, genisoimage, memtest86+ | memtest86, mtools, parted,
+ squashfs-tools | genext2fs | mtd-tools, sudo | fakeroot, syslinux | grub,
+ uuid-runtime, win32-loader
 Description: Debian Live build scripts
  live-helper is a set of scripts to build Debian Live system images.
  .
