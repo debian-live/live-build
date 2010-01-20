@@ -42,6 +42,12 @@ HOOKS="$(echo ${LH_HOOKS} ${LH_PACKAGES_LISTS} ${LH_TASKS} | sed -e 's| |\n|g' |
 
 for HOOK in ${HOOKS}
 do
+	# Special handling for kde
+	if [ "${HOOK}" = "kde-desktop" ] && [ -n "$(echo ${HOOKS} | grep gnome-desktop)" ]
+	then
+		continue
+	fi
+
 	if [ -f ${LH_BASE:-/usr/share/live-helper}/hooks/"${HOOK}" ]
 	then
 		# Copying hook
