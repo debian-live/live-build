@@ -305,6 +305,9 @@ case "${LH_CHROOT_FILESYSTEM}" in
 		# Installing depends
 		Install_package
 
+		Echo_message "Preparing squashfs image..."
+		Echo_message "This may take a while."
+
 		# Remove old squashfs image
 		if [ -f binary/${INITFS}/filesystem.squashfs ]
 		then
