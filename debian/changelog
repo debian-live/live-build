@@ -1,3 +1,21 @@
+live-helper (2.0~a5-1) unstable; urgency=low
+
+  [ Ben Armstrong ]
+  * Update lh_source_debian to deal with multiple dsc files for the same
+    source.
+
+  [ Daniel Baumann ]
+  * Adding misc depends.
+  * Wrapping suggests.
+  * Minimizing rules file.
+  * Adding special handling for kde-desktop hook in lh_chroot_hocks.
+  * Removing dead code for bootstrap mirror defaults.
+  * Displaying a message between setting up squashfs-tools and starting
+    mksquashfs so that users know what is going on, thanks to Michal
+    Suchanek <michal.suchanek@ruk.cuni.cz> (Closes: #566250).
+
+ -- Daniel Baumann <daniel@debian.org>  Sat, 23 Jan 2010 12:47:21 +0100
+
 live-helper (2.0~a4-1) unstable; urgency=low
 
   * Handling d-i required packages regarding kernel flavours differently
