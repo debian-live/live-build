@@ -26,3 +26,6 @@ DEBIAN_FRONTEND="dialog" apt-get install --yes sun-java6-bin sun-java6-demo \
 # Ensure that /tmp has the right permissions; apparently sun-java5-doc tampers
 # with it
 chmod 1777 /tmp
+
+# Set sun-java as default java
+update-alternatives --set java /usr/lib/jvm/java-6-sun/jre/bin/java
