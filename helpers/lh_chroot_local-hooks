@@ -40,6 +40,9 @@ Create_lockfile .lock
 # Processing local-hooks
 if Find_files config/chroot_local-hooks/*
 then
+	# Restoring cache
+	Restore_cache cache/packages_chroot
+
 	for HOOK in config/chroot_local-hooks/*
 	do
 		# Copying hook
@@ -57,6 +60,9 @@ then
 		# Removing hook
 		rm -f chroot/root/"$(basename ${HOOK})"
 	done
+
+	# Saving cache
+	Save_cache cache/packages_chroot
 
 	# Creating stage file
 	Create_stagefile .stage/chroot_local-hooks
