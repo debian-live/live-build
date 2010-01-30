@@ -43,16 +43,14 @@ par2 dvd+rw-tools
 chiark-utils-bin
 
 # System
-dmidecode lshw pciutils procinfo usbutils mcelog
-sysstat
-cpuburn stress
+#if ARCHITECTURE amd64 i386
+dmidecode mcelog cpuburn
+#endif
+lshw pciutils procinfo usbutils
+sysstat stress
 
 #if ARCHITECTURE i386 powerpc
 read-edid
-#endif
-
-#if DISTRIBUTION etch
-sysutils
 #endif
 
 # Browser
@@ -62,7 +60,7 @@ lynx links2 w3m
 arj bzip2 lzma p7zip-full unace unrar-free unzip zip lzop ncompress
 unace pax
 
-#if CATEGORIES non-free
+#if ARCHIVE_AREAS non-free
 rar unrar
 sl-modem-daemon
 atmel-firmware linux-wlan-ng-firmware firmware-ralink bluez-firmware
@@ -71,11 +69,8 @@ firmware-qlogic firmware-bnx2
 #endif
 
 # These two are from contrib but the idea is the same: non-free firmware.
-#if CATEGORIES contrib
+#if ARCHIVE_AREAS contrib
 b43-fwcutter
-#endif
-#if DISTRIBUTION etch
-bcm43xx-fwcutter
 #endif
 
 # Backup
@@ -98,7 +93,6 @@ ifenslave-2.6
 ifrename
 ethtool
 ipcalc
-mailx
 mii-diag
 minicom
 gkermit
@@ -136,10 +130,6 @@ portsentry
 vlan
 zorp
 
-#if DISTRIBUTION etch
-reaim
-#endif
-
 # Essential networking
 netbase
 rdate
@@ -169,9 +159,6 @@ iputils-tracepath
 mrt
 mtr-tiny
 tcptraceroute
-#if DISTRIBUTION etch
-traceproto
-#endif
 traceroute
 spinner
 
@@ -213,9 +200,6 @@ crashme
 dbench
 doscan
 dsniff
-#if DISTRIBUTION etch
-fragrouter
-#endif
 honeyd
 hping3
 icmpush
@@ -229,7 +213,7 @@ ndisc6
 ngrep
 p0f
 packit
-#if DISTRIBUTION etch lenny
+#if DISTRIBUTION lenny
 paketto
 sing
 #endif
@@ -257,9 +241,6 @@ squashfs-tools
 sshfs
 sysfsutils
 udftools
-#if DISTRIBUTION etch
-unionfs-tools
-#endif
 xfsdump
 xfsprogs
 #if DISTRIBUTION sid
@@ -292,7 +273,10 @@ sleuthkit
 dosfstools mscompress chntpw pptpd pptp-linux
 
 # unsorted
-hwinfo x86info cpuid
+#if ARCHITECTURE amd64 i386
+cpuid x86info
+#endif
+hwinfo
 tofrodos rpncalc
 hal
 dc
