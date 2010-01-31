@@ -355,96 +355,93 @@ case "${1}" in
 		Create_lockfile .lock
 
 		# Configure generic indices
-		if [ "${LH_BINARY_INDICES}" = "true" ]
+		# Don't do anything if it's not required
+		if [ "${LH_MIRROR_CHROOT}" = "${LH_MIRROR_BINARY}" ] && \
+		[ "${LH_MIRROR_CHROOT_SECURITY}" = "${LH_MIRROR_BINARY_SECURITY}" ] && \
+		[ ! -d chroot/root/local-packages ]
 		then
-			# Don't do anything if it's not required
-			if [ "${LH_MIRROR_CHROOT}" = "${LH_MIRROR_BINARY}" ] && \
-			[ "${LH_MIRROR_CHROOT_SECURITY}" = "${LH_MIRROR_BINARY_SECURITY}" ] && \
-			[ ! -d chroot/root/local-packages ]
-			then
-				# Removing stage file
-				rm -f .stage/chroot_sources
+			# Removing stage file
+			rm -f .stage/chroot_sources
 
-				exit 0
-			fi
+			exit 0
+		fi
 
-			# Cleaning apt list cache
-			rm -rf chroot/var/lib/apt/lists
-			mkdir -p chroot/var/lib/apt/lists/partial
+		# Cleaning apt list cache
+		rm -rf chroot/var/lib/apt/lists
+		mkdir -p chroot/var/lib/apt/lists/partial
 
-			echo "deb ${LH_MIRROR_BINARY} ${LH_DISTRIBUTION} ${LH_ARCHIVE_AREAS}" > chroot/etc/apt/sources.list
+		echo "deb ${LH_MIRROR_BINARY} ${LH_DISTRIBUTION} ${LH_ARCHIVE_AREAS}" > chroot/etc/apt/sources.list
 
-			if [ "${LH_SOURCE}" = "true" ]
-			then
-				echo "deb-src ${LH_MIRROR_BINARY} ${LH_DISTRIBUTION} ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
-			fi
+		if [ "${LH_SOURCE}" = "true" ]
+		then
+			echo "deb-src ${LH_MIRROR_BINARY} ${LH_DISTRIBUTION} ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+		fi
 
-			if [ "${LH_SECURITY}" = "true" ]
-			then
-				case "${LH_MODE}" in
-					ubuntu)
-						echo "deb ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}-security ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+		if [ "${LH_SECURITY}" = "true" ]
+		then
+			case "${LH_MODE}" in
+				ubuntu)
+					echo "deb ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}-security ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+
+					if [ "${LH_SOURCE}" = "true" ]
+					then
+						echo "deb-src ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}-security ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+					fi
+					;;
+
+				*)
+					if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
+					then
+						echo "deb ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
 						if [ "${LH_SOURCE}" = "true" ]
 						then
-							echo "deb-src ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}-security ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+							echo "deb-src ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 						fi
-						;;
-
-					*)
-						if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
-						then
-							echo "deb ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
-
-							if [ "${LH_SOURCE}" = "true" ]
-							then
-								echo "deb-src ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
-							fi
-						fi
-						;;
-				esac
-			fi
-
-			# Check local sources.list
-			if Find_files config/chroot_sources/*.binary
-			then
-				# Deconfigure (possibly) old sources.list snipplets
-				if Find_files config/chroot_sources/*.chroot
-				then
-					for FILE in config/chroot_sources/*.chroot
-					do
-						rm -f "chroot/etc/apt/sources.list.d/$(basename ${FILE} .chroot).list"
-					done
-				fi
-
-				# Configure new sources.list snipplets
-				for FILE in config/chroot_sources/*.binary
-				do
-					cp "${FILE}" "chroot/etc/apt/sources.list.d/$(basename ${FILE} .binary).list"
-				done
-			fi
-
-			# Check local gpg keys
-			if Find_files config/chroot_sources/*.binary.gpg
-			then
-				for FILE in config/chroot_sources/*.binary.gpg
-				do
-					cp ${FILE} chroot/root
-					Chroot chroot "apt-key add /root/$(basename ${FILE})"
-					rm -f chroot/root/$(basename ${FILE})
-				done
-			fi
-
-			# Updating indices
-			Apt update
+					fi
+					;;
+			esac
 		fi
+
+		# Check local sources.list
+		if Find_files config/chroot_sources/*.binary
+		then
+			# Deconfigure (possibly) old sources.list snipplets
+			if Find_files config/chroot_sources/*.chroot
+			then
+			for FILE in config/chroot_sources/*.chroot
+				do
+					rm -f "chroot/etc/apt/sources.list.d/$(basename ${FILE} .chroot).list"
+				done
+			fi
+
+			# Configure new sources.list snipplets
+			for FILE in config/chroot_sources/*.binary
+			do
+				cp "${FILE}" "chroot/etc/apt/sources.list.d/$(basename ${FILE} .binary).list"
+			done
+		fi
+
+		# Check local gpg keys
+		if Find_files config/chroot_sources/*.binary.gpg
+		then
+			for FILE in config/chroot_sources/*.binary.gpg
+			do
+				cp ${FILE} chroot/root
+				Chroot chroot "apt-key add /root/$(basename ${FILE})"
+				rm -f chroot/root/$(basename ${FILE})
+			done
+		fi
+
+		# Updating indices
+		Apt update
 
 		# Cleaning apt package cache
 		rm -rf chroot/var/cache/apt
 		mkdir -p chroot/var/cache/apt/archives/partial
 
 		# Cleaning apt package lists
-		if [ "${LH_BINARY_INDICES}" = "none" ]
+		if [ "${LH_BINARY_INDICES}" = "false" ]
 		then
 			rm -rf chroot/var/lib/apt/lists
 			mkdir -p chroot/var/lib/apt/lists/partial
