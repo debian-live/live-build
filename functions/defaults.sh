@@ -548,7 +548,7 @@ Set_defaults ()
 		case "${LH_MODE}" in
 			debian|debian-release|embedian)
 				case "${LH_DISTRIBUTION}" in
-					lenny|squeeze)
+					lenny)
 						LH_LINUX_PACKAGES="linux-image-2.6 \${LH_UNION_FILESYSTEM}-modules-2.6"
 						;;
 

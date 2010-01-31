@@ -5,8 +5,11 @@
 
 # http://qa.debian.org/developer.php?login=forensics-devel@lists.alioth.debian.org
 
-ext3grep galleta gpart grokevt memdump missidentify myrescue pasco reglookup
+galleta grokevt memdump missidentify myrescue pasco reglookup
 scrounge-ntfs sleuthkit ssdeep tableau-parm tct unhide wipe
+#if ARCHITECTURE amd64 i386
+ext3grep gpart
+#endif
 
 #if DISTRIBUTION squeeze sid
 aesfix aeskeyfind chaosreader guymager ewf-tools md5deep pipebench
