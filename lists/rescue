@@ -43,9 +43,11 @@ par2 dvd+rw-tools
 chiark-utils-bin
 
 # System
-dmidecode lshw pciutils procinfo usbutils mcelog
-sysstat
-cpuburn stress
+#if ARCHITECTURE amd64 i386
+dmidecode mcelog cpuburn
+#endif
+lshw pciutils procinfo usbutils
+sysstat stress
 
 #if ARCHITECTURE i386 powerpc
 read-edid
@@ -271,7 +273,10 @@ sleuthkit
 dosfstools mscompress chntpw pptpd pptp-linux
 
 # unsorted
-hwinfo x86info cpuid
+#if ARCHITECTURE amd64 i386
+cpuid x86info
+#endif
+hwinfo
 tofrodos rpncalc
 hal
 dc
