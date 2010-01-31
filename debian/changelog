@@ -1,3 +1,16 @@
+live-helper (2.0~a6-1) unstable; urgency=low
+
+  * Updating defaults for kernel packages to not include separate aufs-
+    modules for squeeze, not needed anymore.
+  * Recommending gnu-fdisk on powerpc.
+  * Updating packages list for powerpc.
+  * Adding update-alternatives call to set sun-java as default java in
+    sun-java example hook.
+  * Also making use of package cache during chroot_local-hooks (Closes:
+    #566838).
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 31 Jan 2010 14:20:23 +0100
+
 live-helper (2.0~a5-1) unstable; urgency=low
 
   [ Ben Armstrong ]
