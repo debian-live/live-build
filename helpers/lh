@@ -34,7 +34,10 @@ case "${1}" in
 		COMMAND="${1}"
 		shift
 
-		if [ -x /usr/share/live-helper/helpers/lh_${COMMAND} ]
+		if [ -x "${LH_BASE}/helpers/lh_${COMMAND}" ]
+		then
+			LH=1 exec "${LH_BASE}/helpers/lh_${COMMAND}" "${@}"
+		elif [ -x /usr/share/live-helper/helpers/lh_${COMMAND} ]
 		then
 			LH=1 exec /usr/share/live-helper/helpers/lh_"${COMMAND}" "${@}"
 		elif [ -x "$(which lh_${COMMAND} 2>/dev/null)" ]
