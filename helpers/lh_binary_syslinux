@@ -199,7 +199,7 @@ Copy_syslinux_templates ()
 
 		case "${LH_SYSLINUX_MENU}" in
 			gfxboot)
-				# to be implemented
+				MENUMODULE="gfxboot.c32"
 				;;
 
 			menu)
@@ -277,7 +277,7 @@ Copy_syslinux_templates ()
 		rm -f ${SCREEN_PATH}/*.install*
 	fi
 
-	if [ "${LH_SYSLINUX_MENU}" = "true" ]
+	if [ "${LH_SYSLINUX_MENU}" != "false" ]
 	then
 		rm -f ${DATA_PATH}/boot.txt
 	fi
