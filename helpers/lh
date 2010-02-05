@@ -34,15 +34,15 @@ case "${1}" in
 		COMMAND="${1}"
 		shift
 
-		if [ -x "${LH_BASE}/helpers/lh_${COMMAND}" ]
+		if [ -x "${LH_BASE}/helpers/${COMMAND}" ]
 		then
-			LH=1 exec "${LH_BASE}/helpers/lh_${COMMAND}" "${@}"
-		elif [ -x /usr/share/live-helper/helpers/lh_${COMMAND} ]
+			LH=1 exec "${LH_BASE}/helpers/${COMMAND}" "${@}"
+		elif [ -x /usr/share/live-helper/helpers/${COMMAND} ]
 		then
-			LH=1 exec /usr/share/live-helper/helpers/lh_"${COMMAND}" "${@}"
-		elif [ -x "$(which lh_${COMMAND} 2>/dev/null)" ]
+			LH=1 exec /usr/share/live-helper/helpers/"${COMMAND}" "${@}"
+		elif [ -x "$(which ${COMMAND} 2>/dev/null)" ]
 		then
-			LH=1 exec lh_"${COMMAND}" "${@}"
+			LH=1 exec "${COMMAND}" "${@}"
 		else
 			Echo_error "no such helper"
 			exit 1
