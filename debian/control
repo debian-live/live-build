@@ -6,7 +6,7 @@ Uploaders: Daniel Baumann <daniel@debian.org>
 Build-Depends: debhelper (>= 7.0.50~)
 Build-Depends-Indep: gettext
 Standards-Version: 3.8.4
-Homepage: http://debian-live.alioth.debian.org/
+Homepage: http://live.debian.net/devel/live-helper/
 Vcs-Browser: http://live.debian.net/gitweb/?p=live-helper.git
 Vcs-Git: git://live.debian.net/git/live-helper.git
 
