@@ -5,7 +5,7 @@ Maintainer: Debian Live <debian-live@lists.debian.org>
 Uploaders: Daniel Baumann <daniel@debian.org>
 Build-Depends: debhelper (>= 7.0.50~)
 Build-Depends-Indep: gettext
-Standards-Version: 3.8.3
+Standards-Version: 3.8.4
 Homepage: http://debian-live.alioth.debian.org/
 Vcs-Browser: http://live.debian.net/gitweb/?p=live-helper.git
 Vcs-Git: git://live.debian.net/git/live-helper.git
