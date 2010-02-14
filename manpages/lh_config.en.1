@@ -86,8 +86,6 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-fdisk\fR fdisk|fdisk.dist]
 .br
-	[\fB\-\-genisoimage\fR genisomage|mkisofs]
-.br
 	[\fB\-\-grub\-splash\fR \fIFILE\fR]
 .br
 	[\fB\-\-gzip\-options\fR \fIOPTION\fR|"\fIOPTIONS\fR"]
@@ -187,8 +185,6 @@ lh_config \- create configuration for live\-helper
 	[\fB\-\-tasks\fR \fITASK\fR|"\fITASKS\fR"]
 .br
 	[\fB\-\-templates\fR \fIPATH\fR]
-.br
-	[\fB\-\-union\-filesystem\fR aufs|unionfs]
 .br
 	[\fB\-\-virtual\-root\-filesystem\fR ext3]
 .br
@@ -290,8 +286,6 @@ prepares a report of the currently present live system configuration and the ver
 defines if the root filesystem should be encrypted or not. By default, this is false.
 .IP "\fB\-\-fdisk\fR fdisk|fdisk.dist" 4
 sets the filename of the fdisk binary from the host system that should be used. This is autodetected and does generally not need any customization.
-.IP "\fB\-\-genisoimage\fR genisomage|mkisofs" 4
-sets the filename of the genisoimage binary from the host system that should be used. This is autodetected and does generally not need any customization.
 .IP "\fB\-\-grub\-splash\fR \fIFILE\fR" 4
 defines the name of an optional to be included splash screen graphic for the grub bootloader.
 .IP "\fB\-\-gzip\-options\fR \fIOPTION\fR|""\fIOPTIONS\fR""" 4
@@ -399,8 +393,6 @@ selects which program is used to install tasks. By default, this is set to tasks
 defines one or more package tasks to be installed in the live system. This is a quick and convenient way to get a reasonable default selection of packages suitable for most users when building an image, but it results in quite big images. If you want to have finer grained package selections,  local packages lists should be used instead.
 .IP "\fB\-\-templates\fR \fIPATH\fR" 4
 sets the path to the templates that live\-helper is going to use, e.g. for bootloaders. By default, this is set to /usr/share/live-helper/templates/.
-.IP "\fB\-\-union\-filesystem\fR aufs|unionfs" 4
-defines whetever to use UnionFS or Aufs as stackable unification filesystem. When building etch images, this defaults to unionfs, everywhere else to aufs.
 .IP "\fB\-\-virtual\-root\-filesystem\fR ext3" 4
 defines what filesystem to format the root filesystem when building virtual-hdd images.
 .IP "\fB\-\-virtual\-root\-size\fR MB" 4
