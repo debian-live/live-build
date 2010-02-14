@@ -218,10 +218,8 @@ case "${1}" in
 					fi
 				fi
 
-				# Add to sources.list
-				echo "" >> chroot/etc/apt/sources.list
-				echo "# Local packages" >> chroot/etc/apt/sources.list
-				echo "deb file:/root/local-packages ./" >> chroot/etc/apt/sources.list
+				# Add to sources.list.d
+				echo "deb file:/root/local-packages ./" > chroot/etc/apt/sources.list.d/local-packages.list
 
 				# Removing depends
 				Remove_package
@@ -448,6 +446,7 @@ case "${1}" in
 		fi
 
 		# Remove local package repository
+		rm -f chroot/etc/apt/sources.list.d/local-packages.list
 		rm -rf chroot/root/local-packages
 
 		# Remove local packages key if it exists
