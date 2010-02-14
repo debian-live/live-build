@@ -69,7 +69,6 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [-e|--encryption false|aes128|aes192|aes256]\n\
 \t    [--fdisk fdisk|fdisk.dist]\n\
 \t    [--force]\n\
-\t    [--genisoimage genisomage|mkisofs]\n\
 \t    [--grub-splash FILE]\n\
 \t    [--gzip-options OPTION|\"OPTIONS\"]\n\
 \t    [--hooks FILE]\n\
@@ -121,7 +120,6 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--tasksel aptitude|tasksel]\n\
 \t    [--tasks TASK]\n\
 \t    [--templates PATH]\n\
-\t    [--union-filesystem aufs|unionfs]\n\
 \t    [--virtual-root-size MB]\n\
 \t    [--exposed-root true|false]\n\
 \t    [--username NAME]\n\
@@ -132,11 +130,11 @@ Local_arguments ()
 {
 	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-options:,aptitute-options:,
 		apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,
-		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,genisoimage:,
+		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
 		initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,
 		templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,clean,
 		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,
-		mirror-binary-security:,archive-areas:,chroot-filesystem:,union-filesystem:,exposed-root:,virtual-root-size:,
+		mirror-binary-security:,archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
 		packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,
 		binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,
@@ -425,11 +423,6 @@ Local_arguments ()
 			# config/chroot
 			--chroot-filesystem)
 				LH_CHROOT_FILESYSTEM="${2}"
-				shift 2
-				;;
-
-			--union-filesystem)
-				LH_UNION_FILESYSTEM="${2}"
 				shift 2
 				;;
 
