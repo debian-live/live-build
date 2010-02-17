@@ -2,5 +2,6 @@
 
 ## LH: KDE Full
 #include <kde>
-
+#if DISTRIBUTION lenny
 koffice
+#endif
