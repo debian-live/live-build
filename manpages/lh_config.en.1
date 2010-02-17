@@ -317,7 +317,7 @@ sets the keyring package or additional keyring packages. By default this is set 
 .IP "\-l|\fB\-\-language\fR \fILANGUAGE\fR" 4
 sets the language of a live system by installing l10n related packages and enables generation of the correct locales through automatically setting the right boot parameters.
 .IP "\-k|\fB\-\-linux\-flavours\fR \fIFLAVOUR\fR|\fI"FLAVOURS"\fR" 4
-sets the kernel flavours to be installed. Note that in case you specify more than that the first will be configured the default kernel that gets bootet.
+sets the kernel flavours to be installed. Note that in case you specify more than that the first will be configured the default kernel that gets booted.
 .IP "\fB\-\-linux\-packages\fR \fI"PACKAGES"\fR" 4
 sets the internal name of the kernel packages naming scheme. If you use debian kernel packages, you will not have to adjust it. If you decide to use custom kernel packages that do not follow the debian naming scheme, remember to set this option to the stub of the packages only (for debian this is linux-image-2.6), so that \fISTUB\fR-\fIFLAVOUR\fR results in a valid package name (for debian e.g. linux-image-2.6-486). Preferably you use the meta package name, if any, for the stub, so that your configuration is ABI independent. Also don't forget that you have to include stubs of the binary modules packages for unionfs or aufs, and squashfs if you built them out-of-tree.
 .IP "\fB\-\-losetup\fR losetup|losetup.orig" 4
