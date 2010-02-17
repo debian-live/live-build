@@ -782,7 +782,10 @@ Set_defaults ()
 	if [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
 	then
 		# Try USB block devices for install media
-		LH_BOOTAPPEND_INSTALL="cdrom-detect/try-usb=true ${LH_BOOTAPPEND_INSTALL}"
+		if ! echo "${LH_BOOTAPPEND_INSTALL}" | grep -q try-usb
+		then
+			LH_BOOTAPPEND_INSTALL="cdrom-detect/try-usb=true ${LH_BOOTAPPEND_INSTALL}"
+		fi
 	fi
 
 	if [ -n ${_LH_BOOTAPPEND_PRESEED} ]
