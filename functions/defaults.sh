@@ -440,6 +440,12 @@ Set_defaults ()
 	if [ -z "${LH_LINUX_FLAVOURS}" ]
 	then
 		case "${LH_ARCHITECTURE}" in
+			arm|armel)
+				Echo_error "There is no default kernel flavour defined for your architecture."
+				Echo_error "Please configure it manually with 'lh config -k FLAVOUR'."
+				exit 1
+				;;
+
 			alpha)
 				case "${LH_MODE}" in
 					ubuntu)
@@ -528,11 +534,6 @@ Set_defaults ()
 
 			sparc)
 				LH_LINUX_FLAVOURS="sparc64"
-				;;
-
-			arm|armel|m68k)
-				Echo_error "You need to specify the linux kernel flavour manually on ${LH_ARCHITECTURE} (FIXME)."
-				exit 1
 				;;
 
 			*)
