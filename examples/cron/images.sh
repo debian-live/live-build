@@ -5,8 +5,8 @@ DISTRIBUTIONS="${DISTRIBUTIONS:-lenny squeeze sid}"
 FLAVOURS="${FLAVOURS:-standard rescue gnome-desktop kde-desktop lxde-desktop xfce-desktop}"
 SOURCE="${SOURCE:-true}"
 
-MIRROR="${MIRROR:-http://mirror/ftp.debian.org/debian/}"
-MIRROR_SECURITY="${MIRROR_SECURITY:-http://mirror/ftp.debian.org/debian-security/}"
+MIRROR="${MIRROR:-http://cdn.debian.net/debian/}"
+MIRROR_SECURITY="${MIRROR_SECURITY:-http://security.debian.org/}"
 
 # Dynamic variables
 ARCHITECTURE="$(dpkg --print-architecture)"
