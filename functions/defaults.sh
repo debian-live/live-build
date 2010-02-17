@@ -798,6 +798,8 @@ Set_defaults ()
 		LH_BOOTAPPEND_INSTALL="${LH_BOOTAPPEND_INSTALL} -- \${LH_BOOTAPPEND_LIVE}"
 	fi
 
+	LH_BOOTAPPEND_INSTALL="$(echo ${LH_BOOTAPPEND_INSTALL} | sed -e 's/[ \t]*$//')"
+
 	# Setting encryption
 	LH_ENCRYPTION="${LH_ENCRYPTION:-false}"
 
