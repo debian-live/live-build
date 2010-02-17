@@ -1,3 +1,35 @@
+live-helper (2.0~a7-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Changing binary indices behaviour as suggested by Ben Armstrong
+    <synrg@debian.org>, means we're now including binary sources by
+    default (unless they are the same as chroot ones), and binary
+    indices now only controls if apt lists need to be included in the
+    resulting binary image.
+  * Updating mirror locations in image autobuild script.
+  * Adding support for gfxboot.
+
+  [ Tzafrir Cohen ]
+  * For lh_local, checking first for helpers in LH_BASE.
+
+  [ Daniel Baumann ]
+  * Dropping lh_ prefix from internal helpers, this is not user visible.
+  * Updating to standards version 3.8.4.
+  * Updating homepage field in control.
+  * Calling /usr/sbin/chroot with full path in Chroot(); should fix path
+    problems when using live-helper from a local source tree.
+  * Also using sources.list snipplets for local packages just as for the
+    other repositories (Closes: #569619).
+  * Removing remaining leftovers from etch-only options --genisoimage
+    and --union-filesystem removals (Closes: #568261).
+  * Don't append and re-append try-usb parameter to bootappend-install
+    options over and over again.
+  * Correcting gramatical typo in lh_config manpage, thanks to Tzafrir
+    Cohen <tzafrir.cohen@xorcom.com>.
+  * Removing whitespaces at the end of bootappend-install assignements.
+
+ -- Daniel Baumann <daniel@debian.org>  Wed, 17 Feb 2010 12:30:46 +0100
+
 live-helper (2.0~a6-1) unstable; urgency=low
 
   * Updating defaults for kernel packages to not include separate aufs-
