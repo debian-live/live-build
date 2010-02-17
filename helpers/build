@@ -12,6 +12,13 @@ set -e
 # Including common functions
 . "${LH_BASE:-/usr/share/live-helper}"/live-helper.sh
 
+# Automatically populating config tree
+if [ -x auto/config ] && [ ! -e .stage/config ]
+then
+	Echo_message "Automatically populating config tree."
+	lh config
+fi
+
 # Read meta config
 if [ "${1}" != "noautoconfig" ] && [ -x auto/build ]
 then
