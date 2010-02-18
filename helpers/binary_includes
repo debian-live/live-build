@@ -80,14 +80,15 @@ case "${LH_ARCHITECTURE}" in
 esac
 
 # Working arround vfat limitations
-if [ "${LH_BINARY_IMAGE}" = "usb-hdd" ]
-then
-	case "${LH_BINARY_FILESYSTEM}" in
-		fat*)
-			CP_OPTIONS="-L"
-			;;
-	esac
-fi
+case "${LH_BINARY_IMAGES}" in
+	usb*)
+		case "${LH_BINARY_FILESYSTEM}" in
+			fat*)
+				CP_OPTIONS="-L"
+				;;
+		esac
+		;;
+esac
 
 # Copying common templates
 if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common ] && \

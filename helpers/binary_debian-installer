@@ -83,7 +83,7 @@ case "${LH_BINARY_IMAGES}" in
 		DESTDIR="tftpboot/debian-install/${LH_ARCHITECTURE}"
 		;;
 
-	tar|usb-hdd)
+	usb*|tar)
 		DESTDIR="binary/install"
 		;;
 
@@ -601,10 +601,14 @@ EOF
 		ln -s ${LH_DEBIAN_INSTALLER_DISTRIBUTION} binary/dists/${DISTRIBUTION}
 	done
 
-	if [ "${LH_BINARY_IMAGES}" != "usb-hdd" ]
-	then
-		ln -s . binary/debian
-	fi
+	case "${LH_BINARY_IMAGES}" in
+		usb*)
+			;;
+
+		*)
+			ln -s . binary/debian
+			;;
+	esac
 
 	# Including preseeding files
 	if Find_files config/binary_debian-installer/*.cfg

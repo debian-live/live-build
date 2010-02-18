@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_source_usb-hdd(1) - build source usb-hdd image
+# lh_source_usb(1) - build source usb image
 # Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -33,13 +33,13 @@ then
 	exit 0
 fi
 
-Echo_message "Begin building source usb-hdd image..."
+Echo_message "Begin building source usb image..."
 
 # Requiring stage file
 Require_stagefile .stage/config .stage/source_debian
 
 # Checking stage file
-Check_stagefile .stage/source_usb-hdd
+Check_stagefile .stage/source_usb
 
 # Checking lock file
 Check_lockfile .lock
@@ -136,4 +136,4 @@ fi
 Remove_package
 
 # Creating stage file
-Create_stagefile .stage/source_usb-hdd
+Create_stagefile .stage/source_usb

@@ -44,7 +44,7 @@ lh source_md5sum ${*}
 lh source_iso ${*}
 lh source_net ${*}
 lh source_tar ${*}
-lh source_usb-hdd ${*}
+lh source_usb ${*}
 lh source_virtual-hdd ${*}
 
 # Deconfiguring chroot
