@@ -39,6 +39,7 @@ then
 	lh chroot_hosts install ${*}
 	lh chroot_resolv install ${*}
 	lh chroot_hostname install ${*}
+	lh chroot_sysv-rc install ${*}
 	lh chroot_apt install-binary ${*}
 	lh chroot_sources install ${*}
 fi
@@ -90,6 +91,7 @@ then
 fi
 
 lh chroot_apt remove ${*}
+lh chroot_sysv-rc remove ${*}
 lh chroot_sysfs remove ${*}
 lh chroot_selinuxfs remove ${*}
 lh chroot_proc remove ${*}
