@@ -90,7 +90,7 @@ Syslinux_live_entry ()
 	APPEND="${5}"
 
 	case "${LH_BINARY_IMAGES}" in
-		iso|usb*)
+		iso*|usb*)
 			NUMBER="$(ls -1 ${KERNEL_PATH} | grep 'vmlinuz[0-9]\+$' | wc -l)"
 			NUMBER="$((${NUMBER} +1))"
 
@@ -363,7 +363,7 @@ esac
 
 # Setting boot method specific variables
 case "${LH_BINARY_IMAGES}" in
-	iso)
+	iso*)
 		SYSLINUX_PATH="binary/isolinux"
 		KERNEL_PATH="binary/${INITFS}"
 		SCREEN_PATH="${SYSLINUX_PATH}"
@@ -581,7 +581,7 @@ Configure_syslinux_templates
 
 # Configure syslinux setup per boot method
 case "${LH_BINARY_IMAGES}" in
-	iso)
+	iso*)
 		case "${LH_CHROOT_BUILD}" in
 			true)
 				cp chroot/usr/lib/syslinux/isolinux.bin ${SCREEN_PATH}

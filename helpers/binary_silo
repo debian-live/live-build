@@ -30,7 +30,7 @@ fi
 
 # Check image type
 case "${LH_BINARY_IMAGES}" in
-	iso|usb*|tar)
+	iso*|usb*|tar)
 		;;
 
 	net)
@@ -225,7 +225,7 @@ fi
 LINUX_INSTALL="$(/bin/echo ${LINUX_INSTALL} | sed -e 's|binary||g' -e 's|//|/|g')"
 
 case "${LH_BINARY_IMAGES}" in
-	iso|usb*)
+	iso*|usb*)
 		# Copying silo
 		mkdir -p binary/boot
 

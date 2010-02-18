@@ -128,7 +128,7 @@ esac
 
 # Setting destination directory
 case "${LH_BINARY_IMAGES}" in
-	iso|tar)
+	iso*|tar)
 		case "${LH_INITRAMFS}" in
 			casper)
 				DESTDIR_LIVE="binary/casper"
@@ -276,7 +276,7 @@ mkdir -p binary/boot/grub
 cp -r "${TEMPLATES}"/* binary/boot/grub
 
 case ${LH_BINARY_IMAGES} in
-	iso)
+	iso*)
 		FILES="chroot/usr/lib/grub/*/stage2_eltorito"
 		;;
 

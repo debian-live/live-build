@@ -23,10 +23,14 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_SOURCE_IMAGES}" != "iso" ]
-then
-	exit 0
-fi
+case "${LH_SOURCE_IMAGES}" in
+	iso*)
+		;;
+
+	*)
+		exit 0
+		;;
+esac
 
 Echo_message "Begin installing disk information..."
 
