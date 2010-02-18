@@ -26,7 +26,7 @@ lh_config \- create configuration for live\-helper
 .br
 	[\-a|\fB\-\-architecture\fR \fIARCHITECTURE\fR]
 .br
-	[\-b|\fB\-\-binary\-images\fR iso|net|tar|usb\-hdd]
+	[\-b|\fB\-\-binary\-images\fR iso|iso-hybrid|net|tar|usb\-hdd]
 .br
 	[\fB\-\-binary\-filesystem\fR fat16|fat32|ext2]
 .br
@@ -226,8 +226,8 @@ defines if apt should install recommended packages automatically. By default, th
 defines if apt should check repository signatures. This is true by default.
 .IP "\-a|\fB\-\-architecture\fR \fIARCHITECTURE\fR" 4
 defines the architecture of the to be build image. By default, this is set to the host architecture. Note that you cannot crossbuild for another architecture if your host system is not able to execute binaries for the target architecture natively. For example, building amd64 images on i386 and vice versa is possile if you have a 64bit capable i386 processor and the right kernel. But building powerpc images on an i386 system is not possible.
-.IP "\-b|\fB\-\-binary\-images\fR iso|net|tar|usb\-hdd" 4
-defines the image type to build. By default this is set to iso to build CD/DVD images.
+.IP "\-b|\fB\-\-binary\-images\fR iso|iso-hybrid|net|tar|usb\-hdd" 4
+defines the image type to build. By default this is set to iso to build CD/DVD images, for squeeze and newer it defaults to iso-hybrid.
 .IP "\fB\-\-binary\-filesystem\fR fat16|fat32|ext2" 4
 defines the filesystem to be used in the image type. This only has an effect if the selected binary image type does allow to choose a filesystem. For example, when selection iso the resulting CD/DVD has always the filesystem ISO9660. When building usb-hdd images for usb sticks, this is active. Note that it defaults to fat16 on all architectures except sparc where it defaults to ext2. Also note that if you choose fat16 and your resulting binary image gets bigger than 2GB, the binary filesystem automatically gets switched to fat32.
 .IP "\fB\-\-binary\-indices\fR true|false|none" 4

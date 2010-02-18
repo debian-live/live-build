@@ -90,7 +90,7 @@ do
 		--binary)
 			${LH_ROOT_COMMAND} umount -f binary.tmp > /dev/null 2>&1 || true
 			rm -rf binary.tmp binary.deb binary.udeb
-			rm -f binary.iso
+			rm -f binary*.iso
 			rm -f binary*.img
 			rm -f binary*.tar.gz
 			rm -f binary.sh
@@ -122,7 +122,7 @@ do
 			;;
 
 		--source)
-			rm -f source.iso
+			rm -f source*.iso
 			rm -f source*.img
 			rm -f source*.tar
 			rm -f source*.tar.gz

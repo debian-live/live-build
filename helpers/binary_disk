@@ -24,7 +24,7 @@ Read_conffiles config/all config/common config/bootstrap config/chroot config/bi
 Set_defaults
 
 case "${LH_BINARY_IMAGES}" in
-	iso|usb*)
+	iso*)
 		;;
 	*)
 		exit 0

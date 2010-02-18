@@ -669,8 +669,23 @@ Set_defaults ()
 	esac
 
 	# Setting image type
-	LH_BINARY_IMAGES="${LH_BINARY_IMAGES:-iso}"
-	LH_BINARY_ISO_HYRBID="${LH_BINARY_ISO_HYBRID:-false}"
+	case "${LH_DISTRIBUTION}" in
+		squeeze|sid)
+			case "${LH_ARCHITECTURE}" in
+				amd64|i386)
+					LH_BINARY_IMAGES="${LH_BINARY_IMAGES:-iso-hybrid}"
+					;;
+
+				*)
+					LH_BINARY_IMAGES="${LH_BINARY_IMAGES:-iso}"
+					;;
+			esac
+			;;
+
+		*)
+			LH_BINARY_IMAGES="${LH_BINARY_IMAGES:-iso}"
+			;;
+	esac
 
 	# Setting apt indices
 	if echo ${LH_PACKAGES_LISTS} | grep -qs -E "(stripped|minimal)\b"
@@ -753,7 +768,7 @@ Set_defaults ()
 	if [ -n "${LH_DEBIAN_INSTALLER_PRESEEDFILE}" ]
 	then
 		case "${LH_BINARY_IMAGES}" in
-			iso)
+			iso*)
 				_LH_BOOTAPPEND_PRESEED="file=/cdrom/install/${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
 				;;
 

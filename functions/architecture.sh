@@ -59,28 +59,29 @@ Check_multiarchitecture ()
 	if [ "$(echo ${LH_ARCHITECTURE} | wc -w)" -gt "1" ]
 	then
 		# First, only support multiarch on iso
-		if [ "${LH_BINARY_IMAGES}" = "iso" ]
-		then
-			# Assemble multi-arch
-			case "${LH_CURRENT_ARCHITECTURE}" in
-				amd64)
-					DESTDIR="${DESTDIR}.amd"
-					DESTDIR_LIVE="${DESTDIR_LIVE}.amd"
-					DESTDIR_INSTALL="${DESTDIR_INSTALL}.amd"
-					;;
+		case "${LH_BINARY_IMAGES}" in
+			iso*)
+				# Assemble multi-arch
+				case "${LH_CURRENT_ARCHITECTURE}" in
+					amd64)
+						DESTDIR="${DESTDIR}.amd"
+						DESTDIR_LIVE="${DESTDIR_LIVE}.amd"
+						DESTDIR_INSTALL="${DESTDIR_INSTALL}.amd"
+						;;
 
-				i386)
-					DESTDIR="${DESTDIR}.386"
-					DESTDIR_LIVE="${DESTDIR_LIVE}.386"
-					DESTDIR_INSTALL="${DESTDIR_INSTALL}.386"
-					;;
+					i386)
+						DESTDIR="${DESTDIR}.386"
+						DESTDIR_LIVE="${DESTDIR_LIVE}.386"
+						DESTDIR_INSTALL="${DESTDIR_INSTALL}.386"
+						;;
 
-				powerpc)
-					DESTDIR="${DESTDIR}.ppc"
-					DESTDIR_LIVE="${DESTDIR_LIVE}.ppc"
-					DESTDIR_INSTALL="${DESTDIR_INSTALL}.ppc"
-					;;
-			esac
-		fi
+					powerpc)
+						DESTDIR="${DESTDIR}.ppc"
+						DESTDIR_LIVE="${DESTDIR_LIVE}.ppc"
+						DESTDIR_INSTALL="${DESTDIR_INSTALL}.ppc"
+						;;
+				esac
+				;;
+		esac
 	fi
 }

@@ -23,10 +23,19 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if ! In_list iso "${LH_BINARY_IMAGES}"
-then
-	exit 0
-fi
+case "${LH_BINARY_IMAGES}" in
+	iso)
+		IMAGE="binary.iso"
+		;;
+
+	iso-hybrid)
+		IMAGE="binary-hybrid.iso"
+		;;
+
+	*)
+		exit 0
+		;;
+esac
 
 Echo_message "Begin building binary iso image..."
 
@@ -45,7 +54,7 @@ Create_lockfile .lock
 # Checking depends
 Check_package chroot/usr/bin/genisoimage genisoimage
 
-if [ "${LH_BINARY_ISO_HYBRID}" = "true" ]
+if [ "${LH_BINARY_IMAGES}" = "iso-hybrid" ]
 then
 	Check_package chroot/usr/bin/isohybrid syslinux-common
 fi
@@ -57,9 +66,9 @@ Restore_cache cache/packages_binary
 Install_package
 
 # Remove old iso image
-if [ -f binary.iso ]
+if [ -f ${IMAGE} ]
 then
-	rm -f binary.iso
+	rm -f ${IMAGE}
 fi
 
 # Handle genisoimage generic options
@@ -177,15 +186,15 @@ fi
 
 cat >> binary.sh << EOF
 
-genisoimage ${GENISOIMAGE_OPTIONS} -o binary.iso binary
+genisoimage ${GENISOIMAGE_OPTIONS} -o ${IMAGE} binary
 EOF
 
-if [ "${LH_BINARY_ISO_HYRBID}" = "true" ]
+if [ "${LH_BINARY_IMAGES}" = "iso-hybrid" ]
 then
 
 cat >> binary.sh << EOF
 
-isohybrid binary.iso
+isohybrid ${IMAGE}
 EOF
 
 fi
@@ -199,7 +208,7 @@ case "${LH_CHROOT_BUILD}" in
 		Chroot chroot "sh binary.sh"
 
 		# Move image
-		mv chroot/binary chroot/binary.iso ./
+		mv chroot/binary chroot/${IMAGE} ./
 		rm -f chroot/binary.sh
 		;;
 
