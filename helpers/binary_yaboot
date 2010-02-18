@@ -149,7 +149,7 @@ case "${LH_BINARY_IMAGES}" in
 		DESTDIR_INSTALL="binary/install"
 		;;
 
-	net|tar|usb-hdd)
+	usb*|net|tar)
 		Echo_error "not yet supported, aborting (FIXME)."
 		exit 1
 	;;
@@ -272,7 +272,7 @@ fi
 LINUX_INSTALL="$(/bin/echo ${LINUX_INSTALL} | sed -e 's|binary||g' -e 's|//|/|g')"
 
 case "${LH_BINARY_IMAGES}" in
-	iso|usb-hdd)
+	iso|usb*)
 		# Copying yaboot
 		mkdir -p binary/yaboot
 
@@ -288,13 +288,14 @@ case "${LH_BINARY_IMAGES}" in
 
 		cp -r "${TEMPLATES}"/* binary/yaboot
 
-		if [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
-		then
-			mv binary/yaboot/yaboot.conf binary/yaboot/yaboot.conf.tmp
-			echo "root=/dev/ram" > binary/yaboot/yaboot.conf
-			cat binary/yaboot/yaboot.conf.tmp >> binary/yaboot/yaboot.conf
-			rm -f binary/yaboot/yaboot.conf.tmp
-		fi
+		case "${LH_BINARY_IMAGES}" in
+			usb*)
+				mv binary/yaboot/yaboot.conf binary/yaboot/yaboot.conf.tmp
+				echo "root=/dev/ram" > binary/yaboot/yaboot.conf
+				cat binary/yaboot/yaboot.conf.tmp >> binary/yaboot/yaboot.conf
+				rm -f binary/yaboot/yaboot.conf.tmp
+				;;
+		esac
 
 		# Configure yaboot templates
 		sed -i -e "s|LINUX_LIVE|${LINUX_LIVE}|" -e "s|LINUX_INSTALL|${LINUX_INSTALL}|" binary/yaboot/yaboot.conf

@@ -90,7 +90,7 @@ Syslinux_live_entry ()
 	APPEND="${5}"
 
 	case "${LH_BINARY_IMAGES}" in
-		iso|usb-hdd)
+		iso|usb*)
 			NUMBER="$(ls -1 ${KERNEL_PATH} | grep 'vmlinuz[0-9]\+$' | wc -l)"
 			NUMBER="$((${NUMBER} +1))"
 
@@ -334,7 +334,7 @@ Configure_syslinux_templates ()
 	done
 
 	case "${LH_BINARY_IMAGES}" in
-		usb-hdd)
+		usb*)
 			if [ -f "${SYSLINUX_PATH}/exithelp.cfg" ]
 			then
 				sed -i -e "s|config isolinux.cfg|config syslinux.cfg|" "${SYSLINUX_PATH}"/exithelp.cfg
@@ -387,7 +387,7 @@ case "${LH_BINARY_IMAGES}" in
 		MEDIA="netboot"
 		;;
 
-	tar|usb-hdd)
+	usb*|tar)
 		SYSLINUX_PATH="binary/syslinux"
 		KERNEL_PATH="binary/${INITFS}"
 		SCREEN_PATH="${SYSLINUX_PATH}"
@@ -631,7 +631,7 @@ case "${LH_BINARY_IMAGES}" in
 		fi
 		;;
 
-	tar|usb-hdd)
+	usb*|tar)
 		case "${LH_CHROOT_BUILD}" in
 			true)
 				cp chroot/usr/lib/syslinux/isolinux.bin ${SCREEN_PATH}/syslinux.bin

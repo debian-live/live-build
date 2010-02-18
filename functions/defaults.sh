@@ -757,7 +757,7 @@ Set_defaults ()
 				_LH_BOOTAPPEND_PRESEED="file=/cdrom/install/${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
 				;;
 
-			usb-hdd)
+			usb*)
 				if [ "${LH_MODE}" = "ubuntu" ] || [ "${LH_DEBIAN_INSTALLER}" = "live" ]
 				then
 					_LH_BOOTAPPEND_PRESEED="file=/cdrom/install/${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
@@ -780,14 +780,15 @@ Set_defaults ()
 		esac
 	fi
 
-	if [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
-	then
-		# Try USB block devices for install media
-		if ! echo "${LH_BOOTAPPEND_INSTALL}" | grep -q try-usb
-		then
-			LH_BOOTAPPEND_INSTALL="cdrom-detect/try-usb=true ${LH_BOOTAPPEND_INSTALL}"
-		fi
-	fi
+	case "${LH_BINARY_IMAGES}" in
+		usb*)
+			# Try USB block devices for install media
+			if ! echo "${LH_BOOTAPPEND_INSTALL}" | grep -q try-usb
+			then
+				LH_BOOTAPPEND_INSTALL="cdrom-detect/try-usb=true ${LH_BOOTAPPEND_INSTALL}"
+			fi
+			;;
+	esac
 
 	if [ -n ${_LH_BOOTAPPEND_PRESEED} ]
 	then
@@ -1028,16 +1029,17 @@ Check_defaults ()
 		esac
 	fi
 
-	if [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
-	then
-		# grub or yaboot + usb-hdd
-		case "${LH_BOOTLOADER}" in
-			grub|yaboot)
-				Echo_error "You have selected a combination of bootloader and image type that is currently not supported by live-helper. Please use either another bootloader or a different image type."
-				exit 1
-				;;
-		esac
-	fi
+	case "${LH_BINARY_IMAGES}" in
+		usb*)
+			# grub or yaboot + usb
+			case "${LH_BOOTLOADER}" in
+				grub|yaboot)
+					Echo_error "You have selected a combination of bootloader and image type that is currently not supported by live-helper. Please use either another bootloader or a different image type."
+					exit 1
+					;;
+			esac
+			;;
+	esac
 
 	if [ "$(echo ${LH_ISO_APPLICATION} | wc -c)" -gt 128 ]
 	then

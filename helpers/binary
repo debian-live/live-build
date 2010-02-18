@@ -78,7 +78,7 @@ fi
 lh binary_iso ${*}
 lh binary_net ${*}
 lh binary_tar ${*}
-lh binary_usb-hdd ${*}
+lh binary_usb ${*}
 lh binary_virtual-hdd ${*}
 
 if [ "${LH_CHROOT_BUILD}" = "true" ]
