@@ -86,7 +86,10 @@ colordiff
 chrootuid
 cpio
 cryptcat
+#if DISTRIBUTION lenny sid
+# currently not in squeeze (FIXME)
 directvnc
+#endif
 etherwake
 ftp
 ifenslave-2.6
@@ -99,7 +102,9 @@ gkermit
 netcat
 netcat6
 netmask
+#if DISTRIBUTION lenny
 openntpd
+#endif
 openssl
 openvpn
 strongswan
@@ -128,7 +133,9 @@ iptables
 knockd
 portsentry
 vlan
+#if DISTRIBUTION lenny
 zorp
+#endif
 
 # Essential networking
 netbase
