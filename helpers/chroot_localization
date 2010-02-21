@@ -638,7 +638,11 @@ then
 		esac
 	done
 
-	Check_installed chroot/usr/bin/gwenview gwenview; [ $INSTALL_STATUS -eq 0 ] && Check_package "" gwenview-i18n
+	if [ "${LH_DISTRIBUTION}" = "lenny" ]
+	then
+		Check_installed chroot/usr/bin/gwenview gwenview; [ $INSTALL_STATUS -eq 0 ] && Check_package "" gwenview-i18n
+	fi
+
 	Check_installed chroot/usr/bin/k3b k3b; [ $INSTALL_STATUS -eq 0 ] && Check_package "" k3b-i18n
 
 	# Restoring cache

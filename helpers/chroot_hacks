@@ -37,6 +37,76 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
+# Handling default desktop configuration
+for TASK in ${LH_TASKS}
+do
+	case "${TASKS}" in
+		gnome-desktop)
+			# gnome is the only desktop environment in this image
+			if [ -z "$(echo ${LH_TASKS} | sed -e 's|gnome-desktop||' -e 's| desktop ||' | grep desktop)" ]
+			then
+				# set display manager
+				echo "gdm shared/default-x-display-manager select gdm" > chroot/root/preseed
+				Chroot chroot "debconf-set-selections /root/preseed"
+				rm -f chroot/root/preseed
+				Chroot chroot "dpkg-reconfigure gdm"
+				echo "/usr/bin/gdm" > chroot/etc/X11/default-display-manager
+
+				# set session manager
+				Chroot chroot "update-alternatives --set x-session-manager /usr/bin/gnome-session"
+			fi
+			;;
+
+		kde-desktop)
+			# kde is the only desktop-environment in this image
+			if [ -z "$(echo ${LH_TASKS} | sed -e 's|kde-desktop||' -e 's| desktop ||' | grep desktop)" ]
+			then
+				# set display manager
+				echo "kdm shared/default-x-display-manager select kdm" > chroot/root/preseed
+				Chroot chroot "debconf-set-selections /root/preseed"
+				rm -f chroot/root/preseed
+				Chroot chroot "dpkg-reconfigure kdm"
+				echo "/usr/bin/kdm" > chroot/etc/X11/default-display-manager
+
+				# set session manager
+				Chroot chroot "update-alternatives --set x-session-manager /usr/bin/startkde"
+			fi
+			;;
+
+		lxde-desktop)
+			# lxde is the only desktop environment in this image
+			if [ -z "$(echo ${LH_TASKS} | sed -e 's|lxde-desktop||' -e 's| desktop ||' | grep desktop)" ]
+			then
+				# set display manager
+				echo "gdm shared/default-x-display-manager select gdm" > chroot/root/preseed
+				Chroot chroot "debconf-set-selections /root/preseed"
+				rm -f chroot/root/preseed
+				Chroot chroot "dpkg-reconfigure gdm"
+				echo "/usr/bin/gdm" > chroot/etc/X11/default-display-manager
+
+				# set session manager
+				Chroot chroot "update-alternatives --set x-session-manager /usr/bin/startlxde"
+			fi
+			;;
+
+		xfce-desktop)
+			# xfce is the only desktop environment in this image
+			if [ -z "$(echo ${LH_TASKS} | sed -e 's|xfce-desktop||' -e 's| desktop ||' | grep desktop)" ]
+			then
+				# set display manager
+				echo "gdm shared/default-x-display-manager select gdm" > chroot/root/preseed
+				Chroot chroot "debconf-set-selections /root/preseed"
+				rm -f chroot/root/preseed
+				Chroot chroot "dpkg-reconfigure gdm"
+				echo "/usr/bin/gdm" > chroot/etc/X11/default-display-manager
+
+				# set session manager
+				Chroot chroot "update-alternatives --set x-session-manager /usr/bin/xfce4-session"
+			fi
+			;;
+	esac
+done
+
 # Removing udev mac caching rule
 rm -f chroot/etc/udev/rules.d/*persistent-net.rules
 

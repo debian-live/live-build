@@ -45,10 +45,11 @@ then
 	cd "${OLDPWD}"
 
 	# Removing symlinks
-	if [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
-	then
-		find binary -type l | xargs rm -f
-	fi
+	case "${LH_BINARY_IMAGES}" in
+		usb*)
+			find binary -type l | xargs rm -f
+			;;
+	esac
 
 	# Creating stage file
 	Create_stagefile .stage/binary_local-includes

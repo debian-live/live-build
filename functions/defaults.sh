@@ -440,6 +440,12 @@ Set_defaults ()
 	if [ -z "${LH_LINUX_FLAVOURS}" ]
 	then
 		case "${LH_ARCHITECTURE}" in
+			arm|armel)
+				Echo_error "There is no default kernel flavour defined for your architecture."
+				Echo_error "Please configure it manually with 'lh config -k FLAVOUR'."
+				exit 1
+				;;
+
 			alpha)
 				case "${LH_MODE}" in
 					ubuntu)
@@ -530,11 +536,6 @@ Set_defaults ()
 				LH_LINUX_FLAVOURS="sparc64"
 				;;
 
-			arm|armel|m68k)
-				Echo_error "You need to specify the linux kernel flavour manually on ${LH_ARCHITECTURE} (FIXME)."
-				exit 1
-				;;
-
 			*)
 				Echo_error "Architecture ${LH_ARCHITECTURE} not yet supported (FIXME)"
 				exit 1
@@ -617,22 +618,56 @@ Set_defaults ()
 
 			gnome-desktop)
 				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|gnome-desktop||') standard-x11"
-				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|gnome-desktop||' -e 's|desktop||') standard gnome-desktop desktop"
+				case "${LH_DISTRIBUTION}" in
+					lenny)
+						LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|gnome-desktop||' -e 's|desktop||') standard gnome-desktop desktop"
+						;;
+
+					*)
+						LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|gnome-desktop||' -e 's|desktop||' -e 's|laptop||') standard gnome-desktop desktop laptop"
+						;;
+				esac
 				;;
 
 			kde-desktop)
 				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|kde-desktop||') standard-x11"
-				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|kde-desktop||' -e 's|desktop||') standard kde-desktop desktop"
+
+				case "${LH_DISTRIBUTION}" in
+					lenny)
+						LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|kde-desktop||' -e 's|desktop||') standard kde-desktop desktop"
+						;;
+
+					*)
+						LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|kde-desktop||' -e 's|desktop||' -e 's|laptop||') standard kde-desktop desktop laptop"
+				esac
 				;;
 
 			lxde-desktop)
 				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|lxde-desktop||') standard-x11"
-				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|lxde-desktop||' -e 's|desktop||') standard lxde-desktop desktop"
+
+				case "${LH_DISTRIBUTION}" in
+					lenny)
+						LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|lxde-desktop||' -e 's|desktop||') standard lxde-desktop desktop"
+						;;
+
+					*)
+						LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|lxde-desktop||' -e 's|desktop||' -e 's|laptop||') standard lxde-desktop desktop laptop"
+						;;
+				esac
 				;;
 
 			xfce-desktop)
 				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|xfce-desktop||') standard-x11"
-				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|xfce-desktop||' -e 's|desktop||') standard xfce-desktop desktop"
+
+				case "${LH_DISTRIBUTION}" in
+					lenny)
+						LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|xfce-desktop||' -e 's|desktop||') standard xfce-desktop desktop"
+						;;
+
+					*)
+						LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|xfce-desktop||' -e 's|desktop||' -e 's|laptop||') standard xfce-desktop desktop laptop"
+						;;
+				esac
 				;;
 		esac
 	done
@@ -668,8 +703,23 @@ Set_defaults ()
 	esac
 
 	# Setting image type
-	LH_BINARY_IMAGES="${LH_BINARY_IMAGES:-iso}"
-	LH_BINARY_ISO_HYRBID="${LH_BINARY_ISO_HYBRID:-false}"
+	case "${LH_DISTRIBUTION}" in
+		squeeze|sid)
+			case "${LH_ARCHITECTURE}" in
+				amd64|i386)
+					LH_BINARY_IMAGES="${LH_BINARY_IMAGES:-iso-hybrid}"
+					;;
+
+				*)
+					LH_BINARY_IMAGES="${LH_BINARY_IMAGES:-iso}"
+					;;
+			esac
+			;;
+
+		*)
+			LH_BINARY_IMAGES="${LH_BINARY_IMAGES:-iso}"
+			;;
+	esac
 
 	# Setting apt indices
 	if echo ${LH_PACKAGES_LISTS} | grep -qs -E "(stripped|minimal)\b"
@@ -752,11 +802,11 @@ Set_defaults ()
 	if [ -n "${LH_DEBIAN_INSTALLER_PRESEEDFILE}" ]
 	then
 		case "${LH_BINARY_IMAGES}" in
-			iso)
+			iso*)
 				_LH_BOOTAPPEND_PRESEED="file=/cdrom/install/${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
 				;;
 
-			usb-hdd)
+			usb*)
 				if [ "${LH_MODE}" = "ubuntu" ] || [ "${LH_DEBIAN_INSTALLER}" = "live" ]
 				then
 					_LH_BOOTAPPEND_PRESEED="file=/cdrom/install/${LH_DEBIAN_INSTALLER_PRESEEDFILE}"
@@ -779,23 +829,19 @@ Set_defaults ()
 		esac
 	fi
 
-	if [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
-	then
-		# Try USB block devices for install media
-		if ! echo "${LH_BOOTAPPEND_INSTALL}" | grep -q try-usb
-		then
-			LH_BOOTAPPEND_INSTALL="cdrom-detect/try-usb=true ${LH_BOOTAPPEND_INSTALL}"
-		fi
-	fi
+	case "${LH_BINARY_IMAGES}" in
+		usb*)
+			# Try USB block devices for install media
+			if ! echo "${LH_BOOTAPPEND_INSTALL}" | grep -q try-usb
+			then
+				LH_BOOTAPPEND_INSTALL="cdrom-detect/try-usb=true ${LH_BOOTAPPEND_INSTALL}"
+			fi
+			;;
+	esac
 
 	if [ -n ${_LH_BOOTAPPEND_PRESEED} ]
 	then
 		LH_BOOTAPPEND_INSTALL="${LH_BOOTAPPEND_INSTALL} ${_LH_BOOTAPPEND_PRESEED}"
-	fi
-
-	if [ -n "${LH_BOOTAPPEND_LIVE}" ]
-	then
-		LH_BOOTAPPEND_INSTALL="${LH_BOOTAPPEND_INSTALL} -- \${LH_BOOTAPPEND_LIVE}"
 	fi
 
 	LH_BOOTAPPEND_INSTALL="$(echo ${LH_BOOTAPPEND_INSTALL} | sed -e 's/[ \t]*$//')"
@@ -1032,16 +1078,17 @@ Check_defaults ()
 		esac
 	fi
 
-	if [ "${LH_BINARY_IMAGES}" = "usb-hdd" ]
-	then
-		# grub or yaboot + usb-hdd
-		case "${LH_BOOTLOADER}" in
-			grub|yaboot)
-				Echo_error "You have selected a combination of bootloader and image type that is currently not supported by live-helper. Please use either another bootloader or a different image type."
-				exit 1
-				;;
-		esac
-	fi
+	case "${LH_BINARY_IMAGES}" in
+		usb*)
+			# grub or yaboot + usb
+			case "${LH_BOOTLOADER}" in
+				grub|yaboot)
+					Echo_error "You have selected a combination of bootloader and image type that is currently not supported by live-helper. Please use either another bootloader or a different image type."
+					exit 1
+					;;
+			esac
+			;;
+	esac
 
 	if [ "$(echo ${LH_ISO_APPLICATION} | wc -c)" -gt 128 ]
 	then

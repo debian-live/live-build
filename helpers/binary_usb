@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_binary_usb-hdd(1) - build binary usb-hdd image
+# lh_binary_usb(1) - build binary usb image
 # Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -28,13 +28,13 @@ then
 	exit 0
 fi
 
-Echo_message "Begin building binary usb-hdd image..."
+Echo_message "Begin building binary usb image..."
 
 # Requiring stage file
 Require_stagefile .stage/config .stage/bootstrap .stage/chroot_proc
 
 # Checking stage file
-Check_stagefile .stage/binary_usb-hdd
+Check_stagefile .stage/binary_usb
 
 # Checking lock file
 Check_lockfile .lock
@@ -277,4 +277,4 @@ Save_cache cache/packages_binary
 Remove_package
 
 # Creating stage file
-Create_stagefile .stage/binary_usb-hdd
+Create_stagefile .stage/binary_usb

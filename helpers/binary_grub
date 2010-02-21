@@ -128,7 +128,7 @@ esac
 
 # Setting destination directory
 case "${LH_BINARY_IMAGES}" in
-	iso|tar)
+	iso*|tar)
 		case "${LH_INITRAMFS}" in
 			casper)
 				DESTDIR_LIVE="binary/casper"
@@ -142,7 +142,7 @@ case "${LH_BINARY_IMAGES}" in
 		DESTDIR_INSTALL="binary/install"
 		;;
 
-	usb-hdd|net)
+	usb*|net)
 		Echo_warning "Bootloader in this image type not yet supported by live-helper."
 		Echo_warning "This would produce a not bootable image, aborting (FIXME)."
 		exit 1
@@ -276,11 +276,11 @@ mkdir -p binary/boot/grub
 cp -r "${TEMPLATES}"/* binary/boot/grub
 
 case ${LH_BINARY_IMAGES} in
-	iso)
+	iso*)
 		FILES="chroot/usr/lib/grub/*/stage2_eltorito"
 		;;
 
-	tar|usb-hdd)
+	usb*|tar)
 		FILES="chroot/usr/lib/grub/*/stage1 chroot/usr/lib/grub/*/e2fs_stage1_5 chroot/usr/lib/grub/*/stage2"
 		;;
 esac

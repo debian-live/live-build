@@ -28,10 +28,14 @@ then
 	exit 0
 fi
 
-if ! In_list iso "${LH_SOURCE_IMAGES}"
-then
-	exit 0
-fi
+case "${LH_SOURCE_IMAGES}" in
+	iso*)
+		;;
+
+	*)
+		exit 0
+		;;
+esac
 
 Echo_message "Begin building source iso image..."
 
