@@ -1,3 +1,39 @@
+live-helper (2.0~a8-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Mention in lh config manpage that local packages need the .list
+    suffix.
+
+  [ Rodrigo P. Gomez ]
+  * Updating kde and kde-full packages lists for squeeze.
+
+  [ Daniel Baumann ]
+  * Marking gwenview in chroot_localization as lenny-only, thanks to
+    Rodrigo P. Gomez <armyofthepenguin@gmail.com>.
+  * Updating error message on arm/armel regarding kernel flavour
+    selection.
+  * Automatically populating config tree when having auto/config present
+    and lh build is called without having lh config run before.
+
+  [ Richard Nelson ]
+  * Removed the appending of LH_BOOTAPPEND_LIVE to
+    LH_BOOTAPPEND_INSTALL.
+
+  [ Marco Amadori ]
+  * Installs policy-rc.d also in binary phase.
+
+  [ Daniel Baumann ]
+  * Cleaning up usb helpers for a future usb-zip addition.
+  * Reworking iso-hybrid as an independent binary image type.
+  * Updating rescue list for squeeze.
+  * Updating image autobuild script.
+  * Adding cpio to recommends.
+  * Updating signing key of example sources.
+  * Updating tasks handling for squeeze.
+  * Updating default desktop configuration quirks.
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 21 Feb 2010 14:42:21 +0100
+
 live-helper (2.0~a7-1) unstable; urgency=low
 
   [ Daniel Baumann ]
