@@ -261,7 +261,7 @@ then
 			;;
 	esac
 else
-	URL="${LH_MIRROR_CHROOT}/dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LH_ARCHITECTURE}/current/images/"
+	URL="${LH_MIRROR_DEBIAN_INSTALLER}/dists/${LH_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LH_ARCHITECTURE}/current/images/"
 fi
 
 mkdir -p "${DESTDIR_DI}"
