@@ -154,6 +154,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					lh chroot_resolv remove ${*}
 					lh chroot_hosts remove ${*}
 					lh chroot_sysv-rc remove ${*}
+					lh chroot_upstart remove ${*}
 					lh chroot_dpkg remove ${*}
 					lh chroot_debianchroot remove ${*}
 					lh chroot_sysfs remove ${*}
@@ -171,6 +172,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					lh chroot_debianchroot install ${*}
 					lh chroot_dpkg install ${*}
 					lh chroot_sysv-rc install ${*}
+					lh chroot_upstart install ${*}
 					lh chroot_hosts install ${*}
 					lh chroot_resolv install ${*}
 					lh chroot_hostname install ${*}
@@ -236,6 +238,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					lh chroot_resolv remove ${*}
 					lh chroot_hosts remove ${*}
 					lh chroot_sysv-rc remove ${*}
+					lh chroot_upstart remove ${*}
 					lh chroot_dpkg remove ${*}
 					lh chroot_debianchroot remove ${*}
 					lh chroot_sysfs remove ${*}
@@ -253,6 +256,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					lh chroot_debianchroot install ${*}
 					lh chroot_dpkg install ${*}
 					lh chroot_sysv-rc install ${*}
+					lh chroot_upstart install ${*}
 					lh chroot_hosts install ${*}
 					lh chroot_resolv install ${*}
 					lh chroot_hostname install ${*}
@@ -351,6 +355,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					lh chroot_resolv remove ${*}
 					lh chroot_hosts remove ${*}
 					lh chroot_sysv-rc remove ${*}
+					lh chroot_upstart remove ${*}
 					lh chroot_dpkg remove ${*}
 					lh chroot_debianchroot remove ${*}
 					lh chroot_sysfs remove ${*}
@@ -368,6 +373,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					lh chroot_debianchroot install ${*}
 					lh chroot_dpkg install ${*}
 					lh chroot_sysv-rc install ${*}
+					lh chroot_upstart install ${*}
 					lh chroot_hosts install ${*}
 					lh chroot_resolv install ${*}
 					lh chroot_hostname install ${*}
