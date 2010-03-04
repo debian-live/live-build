@@ -93,6 +93,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--mirror-chroot-security URL]\n\
 \t    [--mirror-binary URL]\n\
 \t    [--mirror-binary-security URL]\n\
+\t    [--mirror-debian-installer URL]\n\
 \t    [--mode debian|emdebian]\n\
 \t    [--net-root-filesystem nfs|cfs]\n\
 \t    [--net-root-mountoptions OPTIONS]\n\
@@ -134,7 +135,7 @@ Local_arguments ()
 		initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,
 		templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,clean,
 		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,
-		mirror-binary-security:,archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
+		mirror-binary-security:,mirror-debian-installer:,archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
 		packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,
 		binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,
@@ -412,6 +413,11 @@ Local_arguments ()
 
 			--mirror-binary-security)
 				LH_MIRROR_BINARY_SECURITY="${2}"
+				shift 2
+				;;
+
+			--mirror-debian-installer)
+				LH_MIRROR_DEBIAN_INSTALLER="${2}"
 				shift 2
 				;;
 
@@ -977,6 +983,10 @@ LH_MIRROR_BINARY="${LH_MIRROR_BINARY}"
 # \$LH_MIRROR_BINARY_SECURITY: set security mirror which ends up in the image
 # (Default: ${LH_MIRROR_BINARY_SECURITY})
 LH_MIRROR_BINARY_SECURITY="${LH_MIRROR_BINARY_SECURITY}"
+
+# \$LH_MIRROR_DEBIAN_INSTALLER: set debian-installer mirror
+# (Default: ${LH_MIRROR_BOOTSTRAP})
+LH_MIRROR_DEBIAN_INSTALLER="${LH_MIRROR_DEBIAN_INSTALLER}"
 
 # \$LH_ARCHIVE_AREAS: select archive areas to use
 # (Default: ${LH_ARCHIVE_AREAS})

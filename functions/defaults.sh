@@ -385,6 +385,8 @@ Set_defaults ()
 		esac
 	fi
 
+	LH_MIRROR_DEBIAN_INSTALLER="${LH_MIRROR_DEBIAN_INSTALLER:-${LH_MIRROR_BOOTSTRAP}}"
+
 	# Setting archive areas value
 	if [ -z "${LH_ARCHIVE_AREAS}" ]
 	then

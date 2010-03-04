@@ -134,6 +134,8 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-mirror\-chroot\-security\fR \fIURL\fR]
 .br
+	[\fB\-\-mirror\-debian\-installer\fR \fIURL\fR]
+.br
 	[\fB\-\-mode\fR debian|emdebian|ubuntu]
 .br
 	[\fB\-\-net\-root\-filesystem\fR nfs|cfs]
@@ -334,6 +336,8 @@ sets the location of the debian security package mirror that should end up confi
 sets the location of the debian package mirror that will be used to fetch the packages in order to build the live system. By default, this points to http://ftp.us.debian.org/debian/ which may not be a good default if you live outside the U.S.
 .IP "\fB\-\-mirror\-chroot\-security\fR \fIURL\fR" 4
 sets the location of the debian security package mirror that will be used to fetch the packages in order to build the live system. By default, this points to http://security.debian.org/debian/.
+.IP "\fB\-\-mirror\-debian\-installer\fR \fIURL\fR" 4
+sets the location of the mirror that will be used to fetch the debian installer images. By default, this points to the same mirror used to build the live system.
 .IP "\fB\-\-mode\fR debian|emdebian|ubuntu" 4
 defines a global mode to load project specific defaults. By default this is set to debian.
 .IP "\fB\-\-net\-root\-filesystem\fR nfs|cfs" 4
