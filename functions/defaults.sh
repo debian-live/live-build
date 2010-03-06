@@ -333,6 +333,22 @@ Set_defaults ()
 		esac
 	fi
 
+	# Setting volatile mirror to fetch packages from
+	if [ -z "${LH_MIRROR_CHROOT_VOLATILE}" ]
+	then
+		case "${LH_MODE}" in
+			debian|debian-release)
+				case "${LH_DISTRIBUTION}" in
+					lenny)
+						LH_MIRROR_CHROOT_VOLATILE="http://volatile.debian.org/debian-volatile/"
+						;;
+				esac
+				;;
+		esac
+
+		LH_MIRROR_CHROOT_VOLATILE="${LH_MIRROR_CHROOT_VOLATILE:-none}"
+	fi
+
 	# Setting mirror which ends up in the image
 	if [ -z "${LH_MIRROR_BINARY}" ]
 	then
@@ -383,6 +399,22 @@ Set_defaults ()
 				esac
 				;;
 		esac
+	fi
+
+	# Setting volatile mirror which ends up in the image
+	if [ -z "${LH_MIRROR_BINARY_VOLATILE}" ]
+	then
+		case "${LH_MODE}" in
+			debian|debian-release)
+				case "${LH_DISTRIBUTION}" in
+					lenny)
+						LH_MIRROR_BINARY_VOLATILE="http://volatile.debian.org/debian-volatile/"
+						;;
+				esac
+				;;
+		esac
+
+		LH_MIRROR_BINARY_VOLATILE="${LH_MIRROR_BINARY_VOLATILE:-none}"
 	fi
 
 	LH_MIRROR_DEBIAN_INSTALLER="${LH_MIRROR_DEBIAN_INSTALLER:-${LH_MIRROR_BOOTSTRAP}}"
@@ -684,6 +716,14 @@ Set_defaults ()
 	fi
 
 	LH_SECURITY="${LH_SECURITY:-true}"
+
+	# Setting volatile updates option
+	if [ "${LH_MIRROR_CHROOT_VOLATILE}" = "none" ] || [ "${LH_MIRROR_BINARY_VOLATILE}" = "none" ]
+	then
+		LH_VOLATILE="false"
+	fi
+
+	LH_VOLATILE="${LH_VOLATILE:-true}"
 
 	# Setting symlink convertion option
 	LH_SYMLINKS="${LH_SYMLINKS:-false}"
