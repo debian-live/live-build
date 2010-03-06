@@ -804,7 +804,15 @@ Set_defaults ()
 	# Setting debian-installer-gui
 	case "${LH_MODE}" in
 		debian)
-			LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-true}"
+			case "${LH_DISTRIBUTION}" in
+				squeeze|sid)
+					LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-false}"
+					;;
+
+				*)
+					LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-true}"
+					;;
+			esac
 			;;
 
 		ubuntu)
