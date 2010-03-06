@@ -91,8 +91,10 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [-m|--mirror-bootstrap URL]\n\
 \t    [--mirror-chroot URL]\n\
 \t    [--mirror-chroot-security URL]\n\
+\t    [--mirror-chroot-volatile URL]\n\
 \t    [--mirror-binary URL]\n\
 \t    [--mirror-binary-security URL]\n\
+\t    [--mirror-binary-volatile URL]\n\
 \t    [--mirror-debian-installer URL]\n\
 \t    [--mode debian|emdebian]\n\
 \t    [--net-root-filesystem nfs|cfs]\n\
@@ -122,6 +124,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--tasks TASK]\n\
 \t    [--templates PATH]\n\
 \t    [--virtual-root-size MB]\n\
+\t    [--volatile true|false]\n\
 \t    [--exposed-root true|false]\n\
 \t    [--username NAME]\n\
 \t    [--verbose]\n\
@@ -134,10 +137,10 @@ Local_arguments ()
 		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
 		initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,
 		templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,clean,
-		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,
-		mirror-binary-security:,mirror-debian-installer:,archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
+		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-binary:,
+		mirror-binary-security:,mirror-binary-volatile:,mirror-debian-installer:,archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
-		packages:,packages-lists:,tasks:,security:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,
+		packages:,packages-lists:,tasks:,security:,volatile:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,
 		binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
 		encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,
@@ -406,6 +409,11 @@ Local_arguments ()
 				shift 2
 				;;
 
+			--mirror-chroot-volatile)
+				LH_MIRROR_CHROOT_VOLATILE="${2}"
+				shift 2
+				;;
+
 			--mirror-binary)
 				LH_MIRROR_BINARY="${2}"
 				shift 2
@@ -413,6 +421,11 @@ Local_arguments ()
 
 			--mirror-binary-security)
 				LH_MIRROR_BINARY_SECURITY="${2}"
+				shift 2
+				;;
+
+			--mirror-binary-volatile)
+				LH_MIRROR_BINARY_VOLATILE="${2}"
 				shift 2
 				;;
 
@@ -494,6 +507,11 @@ Local_arguments ()
 
 			--security)
 				LH_SECURITY="${2}"
+				shift 2
+				;;
+
+			--volatile)
+				LH_VOLATILE="${2}"
 				shift 2
 				;;
 
@@ -976,6 +994,10 @@ LH_MIRROR_CHROOT="${LH_MIRROR_CHROOT}"
 # (Default: ${LH_MIRROR_CHROOT_SECURITY})
 LH_MIRROR_CHROOT_SECURITY="${LH_MIRROR_CHROOT_SECURITY}"
 
+# \$LH_MIRROR_CHROOT_VOLATILE: set volatile mirror to fetch packages from
+# (Default: ${LH_MIRROR_CHROOT_VOLATILE})
+LH_MIRROR_CHROOT_VOLATILE="${LH_MIRROR_CHROOT_VOLATILE}"
+
 # \$LH_MIRROR_BINARY: set mirror which ends up in the image
 # (Default: ${LH_MIRROR_BINARY})
 LH_MIRROR_BINARY="${LH_MIRROR_BINARY}"
@@ -983,6 +1005,10 @@ LH_MIRROR_BINARY="${LH_MIRROR_BINARY}"
 # \$LH_MIRROR_BINARY_SECURITY: set security mirror which ends up in the image
 # (Default: ${LH_MIRROR_BINARY_SECURITY})
 LH_MIRROR_BINARY_SECURITY="${LH_MIRROR_BINARY_SECURITY}"
+
+# \$LH_MIRROR_BINARY_VOLATILE: set volatile mirror which ends up in the image
+# (Default: ${LH_MIRROR_BINARY_VOLATILE})
+LH_MIRROR_BINARY_VOLATILE="${LH_MIRROR_BINARY_VOLATILE}"
 
 # \$LH_MIRROR_DEBIAN_INSTALLER: set debian-installer mirror
 # (Default: ${LH_MIRROR_BOOTSTRAP})
@@ -1061,6 +1087,10 @@ LH_TASKS="${LH_TASKS}"
 # \$LH_SECURITY: enable security updates
 # (Default: ${LH_SECURITY})
 LH_SECURITY="${LH_SECURITY}"
+
+# \$LH_VOLATILE: enable volatile updates
+# (Default: ${LH_VOLATILE})
+LH_VOLATILE="${LH_VOLATILE}"
 
 # \$LH_SYMLINKS: enable symlink convertion
 # (Default: ${LH_SYMLINKS})

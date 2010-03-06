@@ -75,6 +75,19 @@ case "${1}" in
 			esac
 		fi
 
+		if [ "${LH_VOLATILE}" = "true" ]
+		then
+			if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
+			then
+				echo "deb ${LH_MIRROR_CHROOT_VOLATILE} ${LH_DISTRIBUTION}/volatile ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+
+				if [ "${LH_SOURCE}" = "true" ]
+				then
+					echo "deb-src ${LH_MIRROR_CHROOT_VOLATILE} ${LH_DISTRIBUTION}/volatile ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+				fi
+			fi
+		fi
+
 		# Check local sources.list
 		if Find_files config/chroot_sources/*.chroot
 		then
@@ -399,6 +412,19 @@ case "${1}" in
 					fi
 					;;
 			esac
+		fi
+
+		if [ "${LH_VOLATILE}" = "true" ]
+		then
+			if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
+			then
+				echo "deb ${LH_MIRROR_BINARY_VOLATILE} ${LH_DISTRIBUTION}/volatile ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+
+				if [ "${LH_SOURCE}" = "true" ]
+				then
+					echo "deb-src ${LH_MIRROR_BINARY_VOLATILE} ${LH_DISTRIBUTION}/volatile ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+				fi
+			fi
 		fi
 
 		# Check local sources.list
