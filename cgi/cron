@@ -15,9 +15,6 @@ do
 	. "${_FUNCTION}"
 done
 
-# Reading common
-. /usr/share/live-webhelper/common
-
 # Reading defaults
 if [ -r /etc/default/live-webhelper ]
 then
