@@ -1,0 +1,18 @@
+# Defaults for /etc/cron.daily/live-webhelper
+
+_WEBBUILD="disabled"
+
+_MODE="debian-official"
+
+_DEBUG="disabled"
+
+_DESTDIR="/srv/debian-live/www/webhelper"
+_TEMPLATES="/usr/share/live-webhelper/templates/${_MODE}"
+_TEMPDIR="/srv/tmp/live-webhelper"
+
+LH_MIRROR_BOOTSTRAP="http://ftp.de.debian.org/debian/"
+LH_MIRROR_BOOTSTRAP_SECURITY="http://ftp.de.debian.org/debian-security/"
+LH_MIRROR_BINARY="http://ftp.debian.org/debian/"
+LH_MIRROR_BINARY_SECURITY="http://security.debian.org/"
+
+_SERVER="http://live.debian.net/webhelper"

@@ -1,0 +1,16 @@
+Subject: Debian Live Webhelper - Build BUILD
+From: Debian Live Webhelper <debian-live@lists.debian.org>
+To: EMAIL
+
+Hi,
+
+This is webhelper of the Debian Live project <http://debian-live.alioth.debian.org/>.
+
+Your build BUILD was started DATE_START and ended DATE_END with status 'STATUS'.
+
+You can see the log file and download the images from <SERVER/BUILD/>.
+
+Note that builds are removed after 24 hours.
+
+Have fun,
+The Debian Live Team

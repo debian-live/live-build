@@ -1,0 +1,239 @@
+#!/bin/bash
+
+# live-webhelper - web interface to live-helper
+# Copyright (C) 2007-2010 Daniel Baumann <daniel@debian.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+#
+# On Debian systems, the complete text of the GNU General Public License
+# can be found in /usr/share/common-licenses/GPL-2 file.
+
+# Reading common
+. /usr/share/live-webhelper/common
+
+# Reading defaults
+if [ -r /etc/default/live-webhelper ]
+then
+        . /etc/default/live-webhelper
+else
+        echo "E: /etc/default/live-webhelper missing"
+        exit 1
+fi
+
+# Sending http header
+echo "Content-type: text/html"
+echo
+
+# Sending html header
+cat "${_TEMPLATES}"/header.html
+
+# CGI
+if [ -z "${QUERY_STRING}" ]
+then
+	# Sending html form
+	sed -e "s#LH_MIRROR_BOOTSTRAP_SECURITY#${LH_MIRROR_BOOTSTRAP_SECURITY}#" \
+	    -e "s#LH_MIRROR_BOOTSTRAP#${LH_MIRROR_BOOTSTRAP}#" \
+	    -e "s#LH_MIRROR_BINARY_SECURITY#${LH_MIRROR_BINARY_SECURITY}#" \
+	    -e "s#LH_MIRROR_BINARY#${LH_MIRROR_BINARY}#" \
+	    -e "s/VERSION/${VERSION}/" \
+	    -e "s/DATE/`date +%Y%m%d-%H:%M`/" \
+	"${_TEMPLATES}"/form.html
+else
+	# Converting spaces:	sed 's/+/ /g'
+	# Converting '@':	sed 's/%40/@/g'
+	# Converting ':':	sed 's/%3A/:/g'
+	# Converting ';':	sed 's/%3B/\;/g'
+	# Converting '/':	sed 's/%2F/\//g'
+	# Converting '~':	sed 's/%7E/\~/g'
+
+	# Translate parameters
+        QUERY_STRING=$(echo "${QUERY_STRING}" | sed -e 's/%2F/\//g' -e 's/+/ /g' -e 's/%3B/;/g' -e 's/%7E/~/g' -e 's/%3A/:/g' -e 's/%40/@/g')
+	# Debug the filtering string
+	# echo ${QUERY_STRING}
+
+	# Email
+	_EMAIL=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])email=[0-9,a-z,A-Z,.,_,-,@]+' | cut -f 2 -d '=' | head -n1)
+
+	# Standard options
+	LH_BINARY_IMAGES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])binary_images=[a-z,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_DISTRIBUTION=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])distribution=[a-z]+' | cut -f 2 -d '=' | head -n1)
+	LH_PACKAGES_LISTS=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])packages_lists=[0-9,a-z,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_PACKAGES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])packages=[0-9,a-z,A-Z,., ,_,-]+' | cut -f 2 -d '=' | head -n1)
+
+	# Advanced bootstrap options
+	LH_ARCHITECTURE=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])architecture=[0-9,a-z]+' | cut -f 2 -d '=' | head -n1)
+	LH_BOOTSTRAP_FLAVOUR=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])bootstrap_flavour=[a-z]+' | cut -f 2 -d '=' | head -n1)
+	LH_MIRROR_BOOTSTRAP=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])mirror_bootstrap=[0-9,a-z,A-Z,.,~,:,/,_,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_MIRROR_BOOTSTRAP_SECURITY=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])mirror_bootstrap=[0-9,a-z,A-Z,.,~,:,/,_,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_MIRROR_BINARY=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])mirror_binary=[0-9,a-z,A-Z,.,~,:,/,_,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_MIRROR_BINARY_SECURITY=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])mirror_binary_security=[0-9,a-z,A-Z,.,~,:,/,_,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_SECTIONS=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])sections=[a-z]+' | cut -f 2 -d '=' | head -n1)
+
+	# Advanced chroot options
+	LH_CHROOT_FILESYSTEM=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])chroot_filesystem=[0-9,a-z]+' | cut -f 2 -d '=' | head -n1)
+	LH_LINUX_FLAVOURS=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])linux_flavours=[0-9,a-z,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_SECURITY=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])security=[a-z]+' | cut -f 2 -d '=' | head -n1)
+	LH_SYMLINKS=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])symlinks=[a-z]+' | cut -f 2 -d '=' | head -n1)
+	LH_SYSVINIT=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])sysvinit=[a-z]+' | cut -f 2 -d '=' | head -n1)
+
+	# Advanced binary options
+	LH_BINARY_INDICES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])binary_indices=[a-z]+' | cut -f 2 -d '=' | head -n1)
+	LH_BOOTAPPEND=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])bootappend=[0-9,a-z,A-Z,., ,_,+,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_BOOTLOADER=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])bootloader=[a-z]+' | cut -f 2 -d '=' | head -n1)
+	LH_DEBIAN_INSTALLER=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])debian_installer=[a-z]+' | cut -f 2 -d '=' | head -n1)
+	LH_ENCRYPTION=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])encryption=[0-9,a-z,A-Z]+' | cut -f 2 -d '=' | head -n1)
+	LH_HOSTNAME=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])hostname=[0-9,a-z,A-Z,.,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_ISO_APPLICATION=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])iso_application=[0-9,a-z,A-Z,., ,~,;,:,/,_,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_ISO_PREPARER=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])iso_preparer=[0-9,a-z,A-Z,., ,~,;,:,/,_,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_ISO_PUBLISHER=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])iso_publisher=[0-9,a-z,A-Z,., ,~,;,:,/,_,/,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_ISO_VOLUME=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])iso_volume=[0-9,a-z,A-Z,., ,~,;,:,/,_,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_MEMTEST=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])memtest=[0-9,a-z,A-Z,.,_,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_NET_ROOT_PATH=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])net_path=[0-9,a-z,A-Z,.,_,/,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_NET_ROOT_SERVER=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])net_server=[0-9,a-z,A-Z,.,_,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_USERNAME=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])username=[0-9,a-z,A-Z,.,-]+' | cut -f 2 -d '=' | head -n1)
+
+	# Advanced source options
+	LH_SOURCE=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])source=[a-z]+' | cut -f 2 -d '=' | head -n1)
+	LH_SOURCE_IMAGES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])source_images=[a-z]+' | cut -f 2 -d '=' | head -n1)
+
+	# Unofficial options
+	_CUSTOM_BOOTSTRAP=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])custom_bootstrap=[0-9,a-z,A-Z,., ,~,;,:,/,_,-]+' | cut -f 2 -d '=' | head -n1)
+	_CUSTOM_BINARY=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])custom_binary=[0-9,a-z,A-Z,., ,~,;,:,/,_,-]+' | cut -f 2 -d '=' | head -n1)
+
+	# FIXME: filter invalid options
+	unset QUERY_STRING
+
+	if [ -z "${_EMAIL}" ]
+	then
+		echo "<h2><div style='color: red;'>Error: No email address specified.</div></h2>"
+
+		sed -e "s#LH_MIRROR_BOOTSTRAP_SECURITY#${LH_MIRROR_BOOTSTRAP_SECURITY}#" \
+		    -e "s#LH_MIRROR_BOOTSTRAP#${LH_MIRROR_BOOTSTRAP}#" \
+		    -e "s#LH_MIRROR_BINARY_SECURITY#${LH_MIRROR_BINARY_SECURITY}#" \
+		    -e "s#LH_MIRROR_BINARY#${LH_MIRROR_BINARY}#" \
+		    -e "s/VERSION/${VERSION}/" \
+		    -e "s/DATE/`date +%Y%m%d-%H:%M`/" \
+		"${_TEMPLATES}"/form.html
+
+		exit
+	fi
+
+	# Getting build identifier
+	_BUILD=$(date +%Y%m%d.%H%M%S.%N)
+
+	#echo "${QUERY_STRING}"
+	# Sending html confirmation
+	# Note: On each string remember to use a delimeter that is not in the string.
+	sed -e "s/BUILD/${_BUILD}/g" \
+	    -e "s/EMAIL/${_EMAIL}/" \
+	    -e "s/LH_BINARY_IMAGES/${LH_BINARY_IMAGES}/" \
+	    -e "s/LH_DISTRIBUTION/${LH_DISTRIBUTION}/" \
+	    -e "s/LH_PACKAGES_LISTS/${LH_PACKAGES_LISTS}/" \
+	    -e "s/LH_PACKAGES/${LH_PACKAGES}/" \
+	    -e "s/LH_ARCHITECTURE/${LH_ARCHITECTURE}/" \
+	    -e "s/LH_BOOTSTRAP_FLAVOUR/${LH_BOOTSTRAP_FLAVOUR}/" \
+	    -e "s#LH_MIRROR_BOOTSTRAP_SECURITY#${LH_MIRROR_BOOTSTRAP_SECURITY}#" \
+	    -e "s#LH_MIRROR_BOOTSTRAP#${LH_MIRROR_BOOTSTRAP}#" \
+	    -e "s#LH_MIRROR_BINARY_SECURITY#${LH_MIRROR_BINARY_SECURITY}#" \
+	    -e "s#LH_MIRROR_BINARY#${LH_MIRROR_BINARY}#" \
+	    -e "s/LH_SECTIONS/${LH_SECTIONS}/" \
+	    -e "s/LH_CHROOT_FILESYSTEM/${LH_CHROOT_FILESYSTEM}/" \
+	    -e "s/LH_LINUX_FLAVOURS/${LH_LINUX_FLAVOURS}/" \
+	    -e "s/LH_SECURITY/${LH_SECURITY}/" \
+	    -e "s/LH_SYMLINKS/${LH_SYMLINKS}/" \
+	    -e "s/LH_SYSVINIT/${LH_SYSVINIT}/" \
+	    -e "s/LH_BINARY_INDICES/${LH_BINARY_INDICES}/" \
+	    -e "s/LH_BOOTAPPEND/${LH_BOOTAPPEND}/" \
+	    -e "s/LH_BOOTLOADER/${LH_BOOTLOADER}/" \
+	    -e "s/LH_DEBIAN_INSTALLER/${LH_DEBIAN_INSTALLER}/" \
+	    -e "s/LH_ENCRYPTION/${LH_ENCRYPTION}/" \
+	    -e "s/LH_HOSTNAME/${LH_HOSTNAME}/" \
+	    -e "s#LH_ISO_APPLICATION#${LH_ISO_APPLICATION}#" \
+	    -e "s#LH_ISO_PREPARER#${LH_ISO_PREPARER}#" \
+	    -e "s#LH_ISO_PUBLISHER#${LH_ISO_PUBLISHER}#" \
+	    -e "s#LH_ISO_VOLUME#${LH_ISO_VOLUME}#" \
+	    -e "s/LH_MEMTEST/${LH_MEMTEST}/" \
+	    -e "s#LH_NET_ROOT_PATH#${LH_NET_ROOT_PATH}#" \
+	    -e "s/LH_NET_ROOT_SERVER/${LH_NET_ROOT_SERVER}/" \
+	    -e "s#SERVER#${_SERVER}#g" \
+	    -e "s/LH_USERNAME/${LH_USERNAME}/" \
+	    -e "s/LH_SOURCE_IMAGES/${LH_SOURCE_IMAGES}/" \
+	    -e "s/LH_SOURCE/${LH_SOURCE}/" \
+	    -e "s#CUSTOM_BOOTSTRAP#${_CUSTOM_BOOTSTRAP}#" \
+	    -e "s#CUSTOM_BINARY#${_CUSTOM_BINARY}#" \
+	"${_TEMPLATES}"/build.html
+
+	# Creating temporary directory
+	mkdir -p "${_TEMPDIR}"
+
+# Writing build file
+cat > "${_TEMPDIR}"/"${_BUILD}".build << EOF
+# live-webhelper "${VERSION}" build file
+# `date -R`
+
+_BUILD="${_BUILD}"
+_EMAIL="${_EMAIL}"
+
+# Standard options
+LH_BINARY_IMAGES="${LH_BINARY_IMAGES}"
+LH_DISTRIBUTION="${LH_DISTRIBUTION}"
+LH_PACKAGES_LISTS="${LH_PACKAGES_LISTS}"
+LH_PACKAGES="${LH_PACKAGES}"
+
+# Advanced bootstrap options
+LH_ARCHITECTURE="${LH_ARCHITECTURE}"
+LH_MIRROR_BOOTSTRAP_SECURITY="${LH_MIRROR_BOOTSTRAP}"
+LH_MIRROR_BOOTSTRAP="${LH_MIRROR_BOOTSTRAP}"
+LH_MIRROR_BINARY_SECURITY="${LH_MIRROR_BINARY_SECURITY}"
+LH_MIRROR_BINARY="${LH_MIRROR_BINARY}"
+LH_SECTIONS="${LH_SECTIONS}"
+
+# Advanced chroot options
+LH_CHROOT_FILESYSTEM="${LH_CHROOT_FILESYSTEM}"
+LH_LINUX_FLAVOURS="${LH_LINUX_FLAVOURS}"
+LH_SECURITY="${LH_SECURITY}"
+LH_SYMLINKS="${LH_SYMLINKS}"
+LH_SYSVINIT="${LH_SYSVINIT}"
+
+# Advanced binary options
+LH_BINARY_INDICES="${LH_BINARY_INDICES}"
+LH_BOOTAPPEND="${LH_BOOTAPPEND}"
+LH_BOOTLOADER="${LH_BOOTLOADER}"
+LH_DEBIAN_INSTALLER="${LH_DEBIAN_INSTALLER}"
+LH_ENCRYPTION="${LH_ENCRYPTION}"
+LH_HOSTNAME="${LH_HOSTNAME}"
+LH_ISO_APPLICATION="${LH_ISO_APPLICATION}"
+LH_ISO_PREPARER="${LH_ISO_PREPARER}"
+LH_ISO_PUBLISHER="${LH_ISO_PUBLISHER}"
+LH_ISO_VOLUME="${LH_ISO_VOLUME}"
+LH_MEMTEST="${LH_MEMTEST}"
+LH_NET_ROOT_PATH="${LH_NET_ROOT_PATH}"
+LH_NET_ROOT_SERVER="${LH_NET_ROOT_SERVER}"
+LH_USERNAME="${LH_USERNAME}"
+
+# Advanced source options
+LH_SOURCE_IMAGES="${LH_SOURCE_IMAGES}"
+LH_SOURCE="${LH_SOURCE}"
+
+# Unofficial options
+_CUSTOM_BOOTSTRAP="${_CUSTOM_BOOTSTRAP}"
+_CUSTOM_BINARY="${_CUSTOM_BINARY}"
+EOF
+
+	echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-webhelper: add web build (${_BUILD})." >> /var/log/live
+	echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-webhelper: options ${_BUILD} |email ${_EMAIL}|binary_images ${LH_BINARY_IMAGES}|distribution ${LH_DISTRIBUTION}|packages_lists ${LH_PACKAGES_LISTS}|packages ${LH_PACKAGES}|architecture ${LH_ARCHITECTURE}|mirror_bootstrap_security ${LH_MIRROR_BOOTSTRAP}|mirror_bootstrap ${LH_MIRROR_BOOTSTRAP}|mirror_binary_security ${LH_MIRROR_BINARY_SECURITY}|mirror_binary ${LH_MIRROR_BINARY}|sections ${LH_SECTIONS}|chroot_filesystem ${LH_CHROOT_FILESYSTEM}|linux_flavours ${LH_LINUX_FLAVOURS}|security ${LH_SECURITY}|symlinks ${LH_SYMLINKS}|sysvinit ${LH_SYSVINIT}|binary_indices ${LH_BINARY_INDICES}|bootappend ${LH_BOOTAPPEND}|bootloader ${LH_BOOTLOADER}|debian_installer ${LH_DEBIAN_INSTALLER}|encryption ${LH_ENCRYPTION}|hostname ${LH_HOSTNAME}|iso_application ${LH_ISO_APPLICATION}|iso_preparer ${LH_ISO_PREPARER}|iso_publisher ${LH_ISO_PUBLISHER}|iso_volume ${LH_ISO_VOLUME}|memtest ${LH_MEMTEST}|net_path ${LH_NET_ROOT_PATH}|net_server ${LH_NET_ROOT_SERVER}|username ${LH_USERNAME}|source_images ${LH_SOURCE_IMAGES}|source ${LH_SOURCE}|custom_bootstrap ${_CUSTOM_BOOTSTRAP}|custom_binary ${_CUSTOM_BINARY}\n" >> /var/log/live
+fi
+
+sed -e "s/VERSION/${VERSION}/" "${_TEMPLATES}"/footer.html
