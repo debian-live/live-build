@@ -14,8 +14,6 @@ override_dh_auto_install:
 
 	$(MAKE) -C po install DESTDIR=$(CURDIR)/debian/live-helper
 
-	install -D -m 0644 debian/live-helper.default debian/live-helper/etc/default/live-helper_autobuild
-
 	# Preparing alternatives
 	mv debian/live-helper/usr/share/live-helper/includes debian/live-helper/usr/share/live-helper/includes.debian
 	mv debian/live-helper/usr/share/live-helper/templates debian/live-helper/usr/share/live-helper/templates.debian
@@ -24,7 +22,7 @@ override_dh_auto_install:
 	rm -f debian/live-helper/usr/share/doc/live-helper/COPYING
 	rm -f debian/live-helper/usr/share/doc/live-helper/ChangeLog
 	mv debian/live-helper/usr/share/doc/live-helper/ChangeLog.live-package debian/live-helper/usr/share/doc/live-helper/changelog.live-package
-
+	mv debian/live-helper/usr/share/doc/live-helper/ChangeLog.live-webhelper debian/live-helper/usr/share/doc/live-helper/changelog.live-webhelper
 
 override_dh_installchangelogs:
 	dh_installchangelogs docs/ChangeLog
