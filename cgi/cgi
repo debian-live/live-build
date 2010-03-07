@@ -8,11 +8,11 @@
 # under certain conditions; see COPYING for details.
 
 # Reading defaults
-if [ -r /etc/default/live-webhelper ]
+if [ -r /etc/default/live-helper.cgi ]
 then
-        . /etc/default/live-webhelper
+        . /etc/default/live-helper.cgi
 else
-        echo "E: /etc/default/live-webhelper missing"
+        echo "E: /etc/default/live-helper.cgi missing"
         exit 1
 fi
 
@@ -164,7 +164,7 @@ else
 
 # Writing build file
 cat > "${_TEMPDIR}"/"${_BUILD}".build << EOF
-# live-webhelper "${VERSION}" build file
+# live-helper.cgi "${VERSION}" build file
 # `date -R`
 
 _BUILD="${_BUILD}"
@@ -216,8 +216,8 @@ _CUSTOM_BOOTSTRAP="${_CUSTOM_BOOTSTRAP}"
 _CUSTOM_BINARY="${_CUSTOM_BINARY}"
 EOF
 
-	echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-webhelper: add web build (${_BUILD})." >> /var/log/live
-	echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-webhelper: options ${_BUILD} |email ${_EMAIL}|binary_images ${LH_BINARY_IMAGES}|distribution ${LH_DISTRIBUTION}|packages_lists ${LH_PACKAGES_LISTS}|packages ${LH_PACKAGES}|architecture ${LH_ARCHITECTURE}|mirror_bootstrap_security ${LH_MIRROR_BOOTSTRAP}|mirror_bootstrap ${LH_MIRROR_BOOTSTRAP}|mirror_binary_security ${LH_MIRROR_BINARY_SECURITY}|mirror_binary ${LH_MIRROR_BINARY}|sections ${LH_SECTIONS}|chroot_filesystem ${LH_CHROOT_FILESYSTEM}|linux_flavours ${LH_LINUX_FLAVOURS}|security ${LH_SECURITY}|symlinks ${LH_SYMLINKS}|sysvinit ${LH_SYSVINIT}|binary_indices ${LH_BINARY_INDICES}|bootappend ${LH_BOOTAPPEND}|bootloader ${LH_BOOTLOADER}|debian_installer ${LH_DEBIAN_INSTALLER}|encryption ${LH_ENCRYPTION}|hostname ${LH_HOSTNAME}|iso_application ${LH_ISO_APPLICATION}|iso_preparer ${LH_ISO_PREPARER}|iso_publisher ${LH_ISO_PUBLISHER}|iso_volume ${LH_ISO_VOLUME}|memtest ${LH_MEMTEST}|net_path ${LH_NET_ROOT_PATH}|net_server ${LH_NET_ROOT_SERVER}|username ${LH_USERNAME}|source_images ${LH_SOURCE_IMAGES}|source ${LH_SOURCE}|custom_bootstrap ${_CUSTOM_BOOTSTRAP}|custom_binary ${_CUSTOM_BINARY}\n" >> /var/log/live
+	echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper.cgi: add web build (${_BUILD})." >> /var/log/live
+	echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper.cgi: options ${_BUILD} |email ${_EMAIL}|binary_images ${LH_BINARY_IMAGES}|distribution ${LH_DISTRIBUTION}|packages_lists ${LH_PACKAGES_LISTS}|packages ${LH_PACKAGES}|architecture ${LH_ARCHITECTURE}|mirror_bootstrap_security ${LH_MIRROR_BOOTSTRAP}|mirror_bootstrap ${LH_MIRROR_BOOTSTRAP}|mirror_binary_security ${LH_MIRROR_BINARY_SECURITY}|mirror_binary ${LH_MIRROR_BINARY}|sections ${LH_SECTIONS}|chroot_filesystem ${LH_CHROOT_FILESYSTEM}|linux_flavours ${LH_LINUX_FLAVOURS}|security ${LH_SECURITY}|symlinks ${LH_SYMLINKS}|sysvinit ${LH_SYSVINIT}|binary_indices ${LH_BINARY_INDICES}|bootappend ${LH_BOOTAPPEND}|bootloader ${LH_BOOTLOADER}|debian_installer ${LH_DEBIAN_INSTALLER}|encryption ${LH_ENCRYPTION}|hostname ${LH_HOSTNAME}|iso_application ${LH_ISO_APPLICATION}|iso_preparer ${LH_ISO_PREPARER}|iso_publisher ${LH_ISO_PUBLISHER}|iso_volume ${LH_ISO_VOLUME}|memtest ${LH_MEMTEST}|net_path ${LH_NET_ROOT_PATH}|net_server ${LH_NET_ROOT_SERVER}|username ${LH_USERNAME}|source_images ${LH_SOURCE_IMAGES}|source ${LH_SOURCE}|custom_bootstrap ${_CUSTOM_BOOTSTRAP}|custom_binary ${_CUSTOM_BINARY}\n" >> /var/log/live
 fi
 
 sed -e "s/VERSION/${VERSION}/" "${_TEMPLATES}"/footer.html

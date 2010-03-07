@@ -1,4 +1,4 @@
-# Defaults for /etc/cron.daily/live-webhelper
+# Defaults for /etc/cron.daily/live-helper.cgi
 
 _WEBBUILD="disabled"
 
@@ -6,13 +6,13 @@ _MODE="debian-official"
 
 _DEBUG="disabled"
 
-_DESTDIR="/srv/debian-live/www/webhelper"
-_TEMPLATES="/usr/share/live-webhelper/templates/${_MODE}"
-_TEMPDIR="/srv/tmp/live-webhelper"
+_DESTDIR="/srv/debian-live/build/www"
+_TEMPLATES="/usr/share/live-helper/templates/cgi/${_MODE}"
+_TEMPDIR="/srv/debian-live/build/tmp"
 
 LH_MIRROR_BOOTSTRAP="http://ftp.de.debian.org/debian/"
 LH_MIRROR_BOOTSTRAP_SECURITY="http://ftp.de.debian.org/debian-security/"
 LH_MIRROR_BINARY="http://ftp.debian.org/debian/"
 LH_MIRROR_BINARY_SECURITY="http://security.debian.org/"
 
-_SERVER="http://live.debian.net/webhelper"
+_SERVER="http://live.debian.net/build"
