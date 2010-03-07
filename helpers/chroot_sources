@@ -254,7 +254,7 @@ case "${1}" in
 
 			if Find_files cache/indices_bootstrap/trusted.gpg*
 			then
-				cp -f cache/indices_bootstrap/trusted.gpg* chroot/etc/apt
+				cp -rf cache/indices_bootstrap/trusted.gpg* chroot/etc/apt
 			fi
 
 			if [ -f cache/indices_bootstrap/pkgcache.bin ]
@@ -332,7 +332,7 @@ case "${1}" in
 				mkdir -p cache/indices_bootstrap
 
 				cp -f chroot/etc/apt/secring.gpg* cache/indices_bootstrap
-				cp -f chroot/etc/apt/trusted.gpg* cache/indices_bootstrap
+				cp -rf chroot/etc/apt/trusted.gpg* cache/indices_bootstrap
 
 				cp -f chroot/var/cache/apt/pkgcache.bin cache/indices_bootstrap
 
