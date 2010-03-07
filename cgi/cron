@@ -1,9 +1,9 @@
 #!/bin/sh
 
-# live-webhelper - web interface to live-helper
-# Copyright (C) 2007-2010 Daniel Baumann <daniel@debian.org>
+# cgi - simple webfrontend for live-helper (cronjob)
+# Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
 #
-# live-webhelper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 # This is free software, and you are welcome to redistribute it
 # under certain conditions; see COPYING for details.
 
