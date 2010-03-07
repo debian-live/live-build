@@ -8,12 +8,7 @@
 # under certain conditions; see COPYING for details.
 
 # Including common functions
-LH_BASE="${LH_BASE:-/usr/share/live-helper}"
-
-for _FUNCTION in "${LH_BASE}"/functions/*.sh
-do
-	. "${_FUNCTION}"
-done
+. "${LH_BASE:-/usr/share/live-helper}"/live-helper.sh
 
 # Reading defaults
 if [ -r /etc/default/live-webhelper ]
