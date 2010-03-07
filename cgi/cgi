@@ -20,9 +20,6 @@
 # On Debian systems, the complete text of the GNU General Public License
 # can be found in /usr/share/common-licenses/GPL-2 file.
 
-# Reading common
-. /usr/share/live-webhelper/common
-
 # Reading defaults
 if [ -r /etc/default/live-webhelper ]
 then
