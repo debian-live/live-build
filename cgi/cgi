@@ -27,8 +27,7 @@ cat "${_TEMPLATES}"/header.html
 if [ -z "${QUERY_STRING}" ]
 then
 	# Sending html form
-	sed -e "s#LH_MIRROR_BOOTSTRAP_SECURITY#${LH_MIRROR_BOOTSTRAP_SECURITY}#" \
-	    -e "s#LH_MIRROR_BOOTSTRAP#${LH_MIRROR_BOOTSTRAP}#" \
+	sed -e "s#LH_MIRROR_BOOTSTRAP#${LH_MIRROR_BOOTSTRAP}#" \
 	    -e "s#LH_MIRROR_BINARY_SECURITY#${LH_MIRROR_BINARY_SECURITY}#" \
 	    -e "s#LH_MIRROR_BINARY#${LH_MIRROR_BINARY}#" \
 	    -e "s/VERSION/${VERSION}/" \
@@ -60,7 +59,6 @@ else
 	LH_ARCHITECTURE=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])architecture=[0-9,a-z]+' | cut -f 2 -d '=' | head -n1)
 	LH_BOOTSTRAP_FLAVOUR=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])bootstrap_flavour=[a-z]+' | cut -f 2 -d '=' | head -n1)
 	LH_MIRROR_BOOTSTRAP=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])mirror_bootstrap=[0-9,a-z,A-Z,.,~,:,/,_,-]+' | cut -f 2 -d '=' | head -n1)
-	LH_MIRROR_BOOTSTRAP_SECURITY=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])mirror_bootstrap=[0-9,a-z,A-Z,.,~,:,/,_,-]+' | cut -f 2 -d '=' | head -n1)
 	LH_MIRROR_BINARY=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])mirror_binary=[0-9,a-z,A-Z,.,~,:,/,_,-]+' | cut -f 2 -d '=' | head -n1)
 	LH_MIRROR_BINARY_SECURITY=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])mirror_binary_security=[0-9,a-z,A-Z,.,~,:,/,_,-]+' | cut -f 2 -d '=' | head -n1)
 	LH_SECTIONS=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])sections=[a-z]+' | cut -f 2 -d '=' | head -n1)
@@ -103,8 +101,7 @@ else
 	then
 		echo "<h2><div style='color: red;'>Error: No email address specified.</div></h2>"
 
-		sed -e "s#LH_MIRROR_BOOTSTRAP_SECURITY#${LH_MIRROR_BOOTSTRAP_SECURITY}#" \
-		    -e "s#LH_MIRROR_BOOTSTRAP#${LH_MIRROR_BOOTSTRAP}#" \
+		sed -e "s#LH_MIRROR_BOOTSTRAP#${LH_MIRROR_BOOTSTRAP}#" \
 		    -e "s#LH_MIRROR_BINARY_SECURITY#${LH_MIRROR_BINARY_SECURITY}#" \
 		    -e "s#LH_MIRROR_BINARY#${LH_MIRROR_BINARY}#" \
 		    -e "s/VERSION/${VERSION}/" \
@@ -128,7 +125,6 @@ else
 	    -e "s/LH_PACKAGES/${LH_PACKAGES}/" \
 	    -e "s/LH_ARCHITECTURE/${LH_ARCHITECTURE}/" \
 	    -e "s/LH_BOOTSTRAP_FLAVOUR/${LH_BOOTSTRAP_FLAVOUR}/" \
-	    -e "s#LH_MIRROR_BOOTSTRAP_SECURITY#${LH_MIRROR_BOOTSTRAP_SECURITY}#" \
 	    -e "s#LH_MIRROR_BOOTSTRAP#${LH_MIRROR_BOOTSTRAP}#" \
 	    -e "s#LH_MIRROR_BINARY_SECURITY#${LH_MIRROR_BINARY_SECURITY}#" \
 	    -e "s#LH_MIRROR_BINARY#${LH_MIRROR_BINARY}#" \
@@ -178,7 +174,6 @@ LH_PACKAGES="${LH_PACKAGES}"
 
 # Advanced bootstrap options
 LH_ARCHITECTURE="${LH_ARCHITECTURE}"
-LH_MIRROR_BOOTSTRAP_SECURITY="${LH_MIRROR_BOOTSTRAP}"
 LH_MIRROR_BOOTSTRAP="${LH_MIRROR_BOOTSTRAP}"
 LH_MIRROR_BINARY_SECURITY="${LH_MIRROR_BINARY_SECURITY}"
 LH_MIRROR_BINARY="${LH_MIRROR_BINARY}"

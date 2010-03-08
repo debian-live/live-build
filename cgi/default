@@ -11,7 +11,6 @@ _TEMPLATES="/usr/share/live-helper/templates/cgi/${_MODE}"
 _TEMPDIR="/srv/debian-live/build/tmp"
 
 LH_MIRROR_BOOTSTRAP="http://ftp.de.debian.org/debian/"
-LH_MIRROR_BOOTSTRAP_SECURITY="http://ftp.de.debian.org/debian-security/"
 LH_MIRROR_BINARY="http://ftp.debian.org/debian/"
 LH_MIRROR_BINARY_SECURITY="http://security.debian.org/"
 
