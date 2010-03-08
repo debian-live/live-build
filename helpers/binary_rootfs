@@ -183,6 +183,9 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					touch .lock
 				else
 					rm -rf chroot/chroot
+
+					# Removing depends
+					Remove_package
 				fi
 				;;
 
@@ -193,9 +196,6 @@ case "${LH_CHROOT_FILESYSTEM}" in
 
 		# Saving cache
 		Save_cache cache/packages_binary
-
-		# Removing depends
-		Remove_package
 		;;
 
 	jffs2)
@@ -267,6 +267,9 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					touch .lock
 				else
 					rm -rf chroot/chroot
+
+					# Removing depends
+					Remove_package
 				fi
 				;;
 
@@ -277,9 +280,6 @@ case "${LH_CHROOT_FILESYSTEM}" in
 
 		# Saving cache
 		Save_cache cache/packages_binary
-
-		# Removing depends
-		Remove_package
 		;;
 
 	plain)
@@ -384,6 +384,9 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					touch .lock
 				else
 					rm -rf chroot/chroot
+
+					# Removing depends
+					Remove_package
 				fi
 
 				${LH_ROOT_COMMAND} chmod 0644 binary/${INITFS}/filesystem.squashfs
@@ -410,9 +413,6 @@ case "${LH_CHROOT_FILESYSTEM}" in
 
 		# Saving cache
 		Save_cache cache/packages_binary
-
-		# Removing depends
-		Remove_package
 		;;
 
 	none)
