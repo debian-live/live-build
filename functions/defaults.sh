@@ -322,7 +322,7 @@ Set_defaults ()
 			ubuntu)
 				case "${LH_ARCHITECTURE}" in
 					amd64|i386)
-						LH_MIRROR_CHROOT_SECURITY="http://archive.ubuntu.com/ubuntu/"
+						LH_MIRROR_CHROOT_SECURITY="http://security.ubuntu.com/ubuntu/"
 						;;
 
 					*)
