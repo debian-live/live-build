@@ -344,6 +344,18 @@ Set_defaults ()
 						;;
 				esac
 				;;
+
+			ubuntu)
+				case "${LH_ARCHITECTURE}" in
+					amd64|i386)
+						LH_MIRROR_CHROOT_VOLATILE="http://security.ubuntu.com/ubuntu/"
+						;;
+
+					*)
+						LH_MIRROR_CHROOT_VOLATILE="http://ports.ubuntu.com/"
+						;;
+				esac
+				;;
 		esac
 
 		LH_MIRROR_CHROOT_VOLATILE="${LH_MIRROR_CHROOT_VOLATILE:-none}"
@@ -409,6 +421,18 @@ Set_defaults ()
 				case "${LH_DISTRIBUTION}" in
 					lenny)
 						LH_MIRROR_BINARY_VOLATILE="http://volatile.debian.org/debian-volatile/"
+						;;
+				esac
+				;;
+
+			ubuntu)
+				case "${LH_ARCHITECTURE}" in
+					amd64|i386)
+						LH_MIRROR_BINARY_VOLATILE="http://security.ubuntu.com/ubuntu/"
+						;;
+
+					*)
+						LH_MIRROR_BINARY_VOLATILE="http://ports.ubuntu.com/"
 						;;
 				esac
 				;;

@@ -77,15 +77,28 @@ case "${1}" in
 
 		if [ "${LH_VOLATILE}" = "true" ]
 		then
-			if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
-			then
-				echo "deb ${LH_MIRROR_CHROOT_VOLATILE} ${LH_DISTRIBUTION}/volatile ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+			case "${LH_MODE}" in
+				debian|debian-release)
+					if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
+					then
+						echo "deb ${LH_MIRROR_CHROOT_VOLATILE} ${LH_DISTRIBUTION}/volatile ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
-				if [ "${LH_SOURCE}" = "true" ]
-				then
-					echo "deb-src ${LH_MIRROR_CHROOT_VOLATILE} ${LH_DISTRIBUTION}/volatile ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
-				fi
-			fi
+						if [ "${LH_SOURCE}" = "true" ]
+						then
+							echo "deb-src ${LH_MIRROR_CHROOT_VOLATILE} ${LH_DISTRIBUTION}/volatile ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						fi
+					fi
+					;;
+
+				ubuntu)
+					echo "deb ${LH_MIRROR_CHROOT_VOLATILE} ${LH_DISTRIBUTION}-updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+
+					if [ "${LH_SOURCE}" = "true" ]
+					then
+						echo "deb-src ${LH_MIRROR_CHROOT_VOLATILE} ${LH_DISTRIBUTION}-updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+					fi
+					;;
+			esac
 		fi
 
 		# Check local sources.list
@@ -416,15 +429,28 @@ case "${1}" in
 
 		if [ "${LH_VOLATILE}" = "true" ]
 		then
-			if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
-			then
-				echo "deb ${LH_MIRROR_BINARY_VOLATILE} ${LH_DISTRIBUTION}/volatile ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+			case "${LH_MODE}" in
+				debian|debian-release)
+					if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
+					then
+						echo "deb ${LH_MIRROR_BINARY_VOLATILE} ${LH_DISTRIBUTION}/volatile ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
-				if [ "${LH_SOURCE}" = "true" ]
-				then
-					echo "deb-src ${LH_MIRROR_BINARY_VOLATILE} ${LH_DISTRIBUTION}/volatile ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
-				fi
-			fi
+						if [ "${LH_SOURCE}" = "true" ]
+						then
+							echo "deb-src ${LH_MIRROR_BINARY_VOLATILE} ${LH_DISTRIBUTION}/volatile ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						fi
+					fi
+					;;
+
+				ubuntu)
+					echo "deb ${LH_MIRROR_BINARY_VOLATILE} ${LH_DISTRIBUTION}-updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+
+					if [ "${LH_SOURCE}" = "true" ]
+					then
+						echo "deb-src ${LH_MIRROR_BINARY_VOLATILE} ${LH_DISTRIBUTION}-updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+					fi
+					;;
+			esac
 		fi
 
 		# Check local sources.list
