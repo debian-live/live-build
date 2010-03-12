@@ -141,7 +141,9 @@ zorp
 netbase
 rdate
 ntpdate
+#if DISTRIBUTION lenny
 msntp
+#endif
 dhcp3-client
 ppp
 pppconfig
