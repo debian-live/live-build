@@ -40,7 +40,7 @@ Create_lockfile .lock
 # Handling default desktop configuration
 for TASK in ${LH_TASKS}
 do
-	case "${TASKS}" in
+	case "${TASK}" in
 		gnome-desktop)
 			# gnome is the only desktop environment in this image
 			if [ -z "$(echo ${LH_TASKS} | sed -e 's|gnome-desktop||' -e 's| desktop ||' | grep desktop)" ]
