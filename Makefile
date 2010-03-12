@@ -16,7 +16,7 @@ test:
 	# Checking for bashisms
 	if [ -x /usr/bin/checkbashisms ]; \
 	then \
-		checkbashisms live-helper.sh cgi/* functions/* examples/*/*.sh helpers/* hooks/*; \
+		checkbashisms live-helper.sh functions/* examples/*/*.sh helpers/* hooks/*; \
 	else \
 		echo "WARNING: skipping bashism test - you need to install devscripts."; \
 	fi
