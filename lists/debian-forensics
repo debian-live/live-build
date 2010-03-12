@@ -5,17 +5,46 @@
 
 # http://qa.debian.org/developer.php?login=forensics-devel@lists.alioth.debian.org
 
-galleta grokevt memdump missidentify myrescue pasco reglookup
-scrounge-ntfs sleuthkit ssdeep tableau-parm tct unhide wipe
+## Packages available as of lenny
+
 #if ARCHITECTURE amd64 i386
-ext3grep gpart
+ext3grep
+galleta
+gpart
 #endif
+
+grokevt
+memdump
+missidentify
+myrescue
+pasco
+reglookup
+scrounge-ntfs
+sleuthkit
+ssdeep
+tableau-parm
+tct
+unhide
+wipe
+
+## Packages available as of squeeze
 
 #if DISTRIBUTION squeeze sid
-aesfix aeskeyfind chaosreader guymager ewf-tools md5deep pipebench
-recoverdm rifiuti rifiuti2 safecopy shed
-#endif
-
-#if DISTRIBUTION sid
+aesfix
+aeskeyfind
 afflib-tools
+chaosreader
+ed2k-hash
+guymager
+ewf-tools
+libguytools1
+libphash0
+md5deep
+nasty
+pipebench
+recoverdm
+rifiuti
+rifiuti2
+safecopy
+shed
 #endif
