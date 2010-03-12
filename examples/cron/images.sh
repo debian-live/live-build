@@ -68,7 +68,7 @@ Set_defaults ()
 			DEBIAN_INSTALLER_GUI="false"
 
 			LIVE_INSTALLER="16"
-			LIVE_INITRAMFS="1.173.3-1"
+			LIVE_INITRAMFS="1.173.4-1"
 
 			mkdir -p config/binary_local-udebs
 			cd config/binary_local-udebs
@@ -126,11 +126,10 @@ do
 			--mirror-chroot-security ${MIRROR_SECURITY} \
 			${PACKAGES} \
 			--packages-lists ${FLAVOUR} \
-			--source ${SOURCE} \
 			--tasksel ${TASKSEL} ${KERNEL}
 
 		# TEMPORARY HACK until memtest86+ maintainers fixes his package
-		if [ ${FLAVOUR} = rescue ]
+		if [ ${DISTRIBUTION} = "squeeze" ] && [ ${FLAVOUR} = rescue ]
 		then
 			lh config --memtest none
 		fi
@@ -140,12 +139,6 @@ do
 		mv binary*.iso debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso
 		mv binary.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.list
 		mv binary.packages debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.packages
-
-		if [ "${SOURCE}" = "true" ]
-		then
-			mv source.tar.gz debian-live-${DISTRIBUTION}-source-${FLAVOUR}.tar.gz
-			mv source.list debian-live-${DISTRIBUTION}-source-${FLAVOUR}.tar.gz.list
-		fi
 
 		if [ "${DISTRIBUTION}" = "lenny" ]
 		then
@@ -162,12 +155,25 @@ do
 		rm -rf cache/stages_rootfs
 		lh config --binary-images net
 
-		lh build 2>&1 | tee debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}-net.tar.gz.log
+		lh build 2>&1 | tee debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.tar.gz.log
 
-		mv binary-net.tar.gz debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}-net.tar.gz
-		mv binary.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}-net.tar.gz.list
-		mv binary.packages debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}-net.tar.gz.packages
+		mv binary-net.tar.gz debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.tar.gz
+		mv binary.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.tar.gz.list
+		mv binary.packages debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.tar.gz.packages
 
 		mv binary/*/filesystem.squashfs debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.squashfs
+		for memtest in tftpboot/debian-live/${ARCHITECTURE}/memtest*; do cp -f ${memtest} debian-live-${DISTRIBUTION}-${ARCHITECTURE}.$(basename ${memtest}); done || true
+		for kernel in tftpboot/debian-live/${ARCHITECTURE}/vmlinuz*; do cp -f ${kernel} debian-live-${DISTRIBUTION}-${ARCHITECTURE}.$(basename ${kernel}); done
+		for initrd in tftpboot/debian-live/${ARCHITECTURE}/initrd*; do cp ${initrd} debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.$(basename ${initrd}); done
+
+		if [ "${SOURCE}" = "true" ]
+		then
+			lh config --source true
+
+			lh source 2>&1 | tee debian-live-${DISTRIBUTION}-source-${FLAVOUR}.tar.gz.log
+
+			mv source.tar.gz debian-live-${DISTRIBUTION}-source-${FLAVOUR}.tar.gz
+			mv source.list debian-live-${DISTRIBUTION}-source-${FLAVOUR}.tar.gz.list
+		fi
 	done
 done
