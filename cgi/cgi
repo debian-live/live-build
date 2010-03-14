@@ -10,10 +10,10 @@
 # Reading defaults
 if [ -r /etc/default/live-helper.cgi ]
 then
-        . /etc/default/live-helper.cgi
+	. /etc/default/live-helper.cgi
 else
-        echo "E: /etc/default/live-helper.cgi missing"
-        exit 1
+	echo "E: /etc/default/live-helper.cgi missing"
+	exit 1
 fi
 
 # Turn on debug if enabled
