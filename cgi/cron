@@ -25,6 +25,12 @@ then
 	exit 0
 fi
 
+# Turn on debug if enabled
+if [ "${_DEBUG}" = "enabled" ]
+then
+	set -x
+fi
+
 # Checking lock file
 if [ -f /var/lock/live-helper.cgi.lock ]
 then
