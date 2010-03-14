@@ -48,7 +48,7 @@ fi
 
 # Ok from here spin through the live-helper.cgi files we have waiting to build
 #if ls "${_TEMPDIR}"/*.build > /dev/null 2>&1
-if Find_files ${_TEMPDIR}/*.build 
+if Find_files ${_TEMPDIR}/*.build
 then
 	for _FILE in "${_TEMPDIR}"/*.build
 	do
@@ -61,7 +61,7 @@ then
 		_CUSTOM_BOOTSTRAP=`awk -F\" '/^_CUSTOM_BOOTSTRAP=/{print $2}' ${_FILE}`
 		# Pull in the custom binary
 		_CUSTOM_BINARY=`awk -F\" '/^_CUSTOM_BINARY=/{print $2}' ${_FILE}`
-		
+
 		# Drop out some build data for information if something goes wrong.
 		echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper.cgi: begin web build (${_BUILD})." >> /var/log/live
 
