@@ -1,3 +1,83 @@
+live-helper (2.0~a9-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Applying slightly modified patch from Cody A.W. Somerville
+    <cody.somerville@canonical.com> to add support for custom debian
+    installer images mirror.
+
+  [ Trent W. Buck ]
+  * Adding helper to prevent upstart from being run during chroot phase
+    (Closes: #571056).
+
+  [ Daniel Baumann ]
+  * Adding lh_chroot_upstart manpage.
+  * Updating year to 2010 in copyright notices.
+  * Adding support for debian-volatile archive.
+  * Setting debian-installer-gui default to false for squeeze and sid.
+  * Removing outdated crontab and cronjob examples.
+  * Merging live-webhelper.
+  * Removing obsolete common file in cgi.
+  * Updating function reading in the cgi.
+  * Updating copyright headers in cgi.
+  * Shuffeling cgi files arround.
+  * Updating filesystem pathes in cgi.
+  * Removing obsolete mechanism of using alternatives for templates, has
+    never been used anyway and it's more suitable to directly specify
+    them in the config tree instead.
+  * Removing obsolete removal of (not used) logfile in the maintainer
+    scripts.
+  * Excluding cgi from checkbashism (checkbashism is too stupid).
+  * Correcting she-bang in cgi.
+
+  [ Steven Shiau ]
+  * Fixing build failure with indices caching.
+
+  [ Daniel Baumann ]
+  * Only remove auxilliary packages in rootfs when not using pre-cached
+    chroot (Closes: #572976).
+
+  [ Richard Nelson ]
+  * Removing LH_MIRROR_BOOTSTRAP_SECURITY in the cgi.
+  * Cleaning up cgi templates.
+  * Updating variables for live-helper 2 in the cgi.
+
+  [ Daniel Baumann ]
+  * Adding temporary makefile for the cgi.
+
+  [ Richard Nelson ]
+  * Removing etch legacy options in the cgi.
+  * Updating booleans for live-helper 2 in the cgi.
+  * Updating mail contents in the cgi.
+  * Updating cron for live-helper 2 in the cgi.
+  * Updating packages lists for live-helper 2 in the cgi.
+  * Removing unused version variable in the cgi templates.
+  * Updating homepage location in the cgi templates.
+
+  [ Daniel Baumann ]
+  * Updating hostname of ubuntu security updates.
+  * Adding update repositories as volatile when building in ubuntu mode
+    (Closes: #572983).
+  * Correcting typo in desktop hacks.
+  * Updating rescue list for squeeze.
+  * Updating debian-forensics list.
+  * Manually removing resolvconf when building kde-desktop release
+    images.
+  * Updating menu splash image for new syslinux.
+  * Updating contact information in copyright file.
+  * Updating autobuild script for squeeze alpha1 images.
+
+  [ Richard Nelson ]
+  * Clean out trailing white space and tabs on l-h.cgi cron.
+  * Added debug option on l-h.cgi cron.
+  * Added debug option on l-h.cgi cgi.
+  * Clean out leading white space on l-h.cgi cgi.
+
+  [ Daniel Baumann ]
+  * Simplifying wording in bug-presubj file.
+  * Reordering auto install overrides in rules file.
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 14 Mar 2010 23:31:59 +0100
+
 live-helper (2.0~a8-1) unstable; urgency=low
 
   [ Daniel Baumann ]
