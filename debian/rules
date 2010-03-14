@@ -12,13 +12,13 @@ override_dh_auto_build:
 override_dh_auto_install:
 	dh_auto_install
 
-	$(MAKE) -C po install DESTDIR=$(CURDIR)/debian/live-helper
+	$(MAKE) -C po DESTDIR=$(CURDIR)/debian/live-helper install
 
-	# Removing double files
-	rm -f debian/live-helper/usr/share/doc/live-helper/COPYING
-	rm -f debian/live-helper/usr/share/doc/live-helper/ChangeLog
 	mv debian/live-helper/usr/share/doc/live-helper/ChangeLog.live-package debian/live-helper/usr/share/doc/live-helper/changelog.live-package
 	mv debian/live-helper/usr/share/doc/live-helper/ChangeLog.live-webhelper debian/live-helper/usr/share/doc/live-helper/changelog.live-webhelper
+
+	rm -f debian/live-helper/usr/share/doc/live-helper/COPYING
+	rm -f debian/live-helper/usr/share/doc/live-helper/ChangeLog
 
 override_dh_installchangelogs:
 	dh_installchangelogs docs/ChangeLog
