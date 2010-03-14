@@ -16,6 +16,12 @@ else
         exit 1
 fi
 
+# Turn on debug if enabled
+if [ "${_DEBUG}" = "enabled" ]
+then
+	set -x
+fi
+
 # Sending http header
 echo "Content-type: text/html"
 echo
