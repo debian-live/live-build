@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # defaults.sh - handle default values
-# Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
+# Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 # This is free software, and you are welcome to redistribute it
@@ -322,7 +322,7 @@ Set_defaults ()
 			ubuntu)
 				case "${LH_ARCHITECTURE}" in
 					amd64|i386)
-						LH_MIRROR_CHROOT_SECURITY="http://archive.ubuntu.com/ubuntu/"
+						LH_MIRROR_CHROOT_SECURITY="http://security.ubuntu.com/ubuntu/"
 						;;
 
 					*)
@@ -331,6 +331,34 @@ Set_defaults ()
 				esac
 				;;
 		esac
+	fi
+
+	# Setting volatile mirror to fetch packages from
+	if [ -z "${LH_MIRROR_CHROOT_VOLATILE}" ]
+	then
+		case "${LH_MODE}" in
+			debian|debian-release)
+				case "${LH_DISTRIBUTION}" in
+					lenny)
+						LH_MIRROR_CHROOT_VOLATILE="http://volatile.debian.org/debian-volatile/"
+						;;
+				esac
+				;;
+
+			ubuntu)
+				case "${LH_ARCHITECTURE}" in
+					amd64|i386)
+						LH_MIRROR_CHROOT_VOLATILE="http://security.ubuntu.com/ubuntu/"
+						;;
+
+					*)
+						LH_MIRROR_CHROOT_VOLATILE="http://ports.ubuntu.com/"
+						;;
+				esac
+				;;
+		esac
+
+		LH_MIRROR_CHROOT_VOLATILE="${LH_MIRROR_CHROOT_VOLATILE:-none}"
 	fi
 
 	# Setting mirror which ends up in the image
@@ -384,6 +412,36 @@ Set_defaults ()
 				;;
 		esac
 	fi
+
+	# Setting volatile mirror which ends up in the image
+	if [ -z "${LH_MIRROR_BINARY_VOLATILE}" ]
+	then
+		case "${LH_MODE}" in
+			debian|debian-release)
+				case "${LH_DISTRIBUTION}" in
+					lenny)
+						LH_MIRROR_BINARY_VOLATILE="http://volatile.debian.org/debian-volatile/"
+						;;
+				esac
+				;;
+
+			ubuntu)
+				case "${LH_ARCHITECTURE}" in
+					amd64|i386)
+						LH_MIRROR_BINARY_VOLATILE="http://security.ubuntu.com/ubuntu/"
+						;;
+
+					*)
+						LH_MIRROR_BINARY_VOLATILE="http://ports.ubuntu.com/"
+						;;
+				esac
+				;;
+		esac
+
+		LH_MIRROR_BINARY_VOLATILE="${LH_MIRROR_BINARY_VOLATILE:-none}"
+	fi
+
+	LH_MIRROR_DEBIAN_INSTALLER="${LH_MIRROR_DEBIAN_INSTALLER:-${LH_MIRROR_BOOTSTRAP}}"
 
 	# Setting archive areas value
 	if [ -z "${LH_ARCHIVE_AREAS}" ]
@@ -683,6 +741,14 @@ Set_defaults ()
 
 	LH_SECURITY="${LH_SECURITY:-true}"
 
+	# Setting volatile updates option
+	if [ "${LH_MIRROR_CHROOT_VOLATILE}" = "none" ] || [ "${LH_MIRROR_BINARY_VOLATILE}" = "none" ]
+	then
+		LH_VOLATILE="false"
+	fi
+
+	LH_VOLATILE="${LH_VOLATILE:-true}"
+
 	# Setting symlink convertion option
 	LH_SYMLINKS="${LH_SYMLINKS:-false}"
 
@@ -762,7 +828,15 @@ Set_defaults ()
 	# Setting debian-installer-gui
 	case "${LH_MODE}" in
 		debian)
-			LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-true}"
+			case "${LH_DISTRIBUTION}" in
+				squeeze|sid)
+					LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-false}"
+					;;
+
+				*)
+					LH_DEBIAN_INSTALLER_GUI="${LH_DEBIAN_INSTALLER_GUI:-true}"
+					;;
+			esac
 			;;
 
 		ubuntu)

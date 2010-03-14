@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # lh_binary_rootfs(1) - build rootfs image
-# Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
+# Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 # This is free software, and you are welcome to redistribute it
@@ -154,6 +154,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					lh chroot_resolv remove ${*}
 					lh chroot_hosts remove ${*}
 					lh chroot_sysv-rc remove ${*}
+					lh chroot_upstart remove ${*}
 					lh chroot_dpkg remove ${*}
 					lh chroot_debianchroot remove ${*}
 					lh chroot_sysfs remove ${*}
@@ -171,6 +172,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					lh chroot_debianchroot install ${*}
 					lh chroot_dpkg install ${*}
 					lh chroot_sysv-rc install ${*}
+					lh chroot_upstart install ${*}
 					lh chroot_hosts install ${*}
 					lh chroot_resolv install ${*}
 					lh chroot_hostname install ${*}
@@ -181,6 +183,9 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					touch .lock
 				else
 					rm -rf chroot/chroot
+
+					# Removing depends
+					Remove_package
 				fi
 				;;
 
@@ -191,9 +196,6 @@ case "${LH_CHROOT_FILESYSTEM}" in
 
 		# Saving cache
 		Save_cache cache/packages_binary
-
-		# Removing depends
-		Remove_package
 		;;
 
 	jffs2)
@@ -236,6 +238,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					lh chroot_resolv remove ${*}
 					lh chroot_hosts remove ${*}
 					lh chroot_sysv-rc remove ${*}
+					lh chroot_upstart remove ${*}
 					lh chroot_dpkg remove ${*}
 					lh chroot_debianchroot remove ${*}
 					lh chroot_sysfs remove ${*}
@@ -253,6 +256,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					lh chroot_debianchroot install ${*}
 					lh chroot_dpkg install ${*}
 					lh chroot_sysv-rc install ${*}
+					lh chroot_upstart install ${*}
 					lh chroot_hosts install ${*}
 					lh chroot_resolv install ${*}
 					lh chroot_hostname install ${*}
@@ -263,6 +267,9 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					touch .lock
 				else
 					rm -rf chroot/chroot
+
+					# Removing depends
+					Remove_package
 				fi
 				;;
 
@@ -273,9 +280,6 @@ case "${LH_CHROOT_FILESYSTEM}" in
 
 		# Saving cache
 		Save_cache cache/packages_binary
-
-		# Removing depends
-		Remove_package
 		;;
 
 	plain)
@@ -351,6 +355,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					lh chroot_resolv remove ${*}
 					lh chroot_hosts remove ${*}
 					lh chroot_sysv-rc remove ${*}
+					lh chroot_upstart remove ${*}
 					lh chroot_dpkg remove ${*}
 					lh chroot_debianchroot remove ${*}
 					lh chroot_sysfs remove ${*}
@@ -368,6 +373,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					lh chroot_debianchroot install ${*}
 					lh chroot_dpkg install ${*}
 					lh chroot_sysv-rc install ${*}
+					lh chroot_upstart install ${*}
 					lh chroot_hosts install ${*}
 					lh chroot_resolv install ${*}
 					lh chroot_hostname install ${*}
@@ -378,6 +384,9 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					touch .lock
 				else
 					rm -rf chroot/chroot
+
+					# Removing depends
+					Remove_package
 				fi
 
 				${LH_ROOT_COMMAND} chmod 0644 binary/${INITFS}/filesystem.squashfs
@@ -404,9 +413,6 @@ case "${LH_CHROOT_FILESYSTEM}" in
 
 		# Saving cache
 		Save_cache cache/packages_binary
-
-		# Removing depends
-		Remove_package
 		;;
 
 	none)

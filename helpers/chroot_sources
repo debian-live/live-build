@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # lh_chroot_sources(1) - manage /etc/apt/sources.list
-# Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
+# Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 # This is free software, and you are welcome to redistribute it
@@ -70,6 +70,32 @@ case "${1}" in
 						then
 							echo "deb-src ${LH_MIRROR_CHROOT_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 						fi
+					fi
+					;;
+			esac
+		fi
+
+		if [ "${LH_VOLATILE}" = "true" ]
+		then
+			case "${LH_MODE}" in
+				debian|debian-release)
+					if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
+					then
+						echo "deb ${LH_MIRROR_CHROOT_VOLATILE} ${LH_DISTRIBUTION}/volatile ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+
+						if [ "${LH_SOURCE}" = "true" ]
+						then
+							echo "deb-src ${LH_MIRROR_CHROOT_VOLATILE} ${LH_DISTRIBUTION}/volatile ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						fi
+					fi
+					;;
+
+				ubuntu)
+					echo "deb ${LH_MIRROR_CHROOT_VOLATILE} ${LH_DISTRIBUTION}-updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+
+					if [ "${LH_SOURCE}" = "true" ]
+					then
+						echo "deb-src ${LH_MIRROR_CHROOT_VOLATILE} ${LH_DISTRIBUTION}-updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 					fi
 					;;
 			esac
@@ -241,7 +267,7 @@ case "${1}" in
 
 			if Find_files cache/indices_bootstrap/trusted.gpg*
 			then
-				cp -f cache/indices_bootstrap/trusted.gpg* chroot/etc/apt
+				cp -rf cache/indices_bootstrap/trusted.gpg* chroot/etc/apt
 			fi
 
 			if [ -f cache/indices_bootstrap/pkgcache.bin ]
@@ -319,7 +345,7 @@ case "${1}" in
 				mkdir -p cache/indices_bootstrap
 
 				cp -f chroot/etc/apt/secring.gpg* cache/indices_bootstrap
-				cp -f chroot/etc/apt/trusted.gpg* cache/indices_bootstrap
+				cp -rf chroot/etc/apt/trusted.gpg* cache/indices_bootstrap
 
 				cp -f chroot/var/cache/apt/pkgcache.bin cache/indices_bootstrap
 
@@ -396,6 +422,32 @@ case "${1}" in
 						then
 							echo "deb-src ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 						fi
+					fi
+					;;
+			esac
+		fi
+
+		if [ "${LH_VOLATILE}" = "true" ]
+		then
+			case "${LH_MODE}" in
+				debian|debian-release)
+					if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
+					then
+						echo "deb ${LH_MIRROR_BINARY_VOLATILE} ${LH_DISTRIBUTION}/volatile ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+
+						if [ "${LH_SOURCE}" = "true" ]
+						then
+							echo "deb-src ${LH_MIRROR_BINARY_VOLATILE} ${LH_DISTRIBUTION}/volatile ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						fi
+					fi
+					;;
+
+				ubuntu)
+					echo "deb ${LH_MIRROR_BINARY_VOLATILE} ${LH_DISTRIBUTION}-updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+
+					if [ "${LH_SOURCE}" = "true" ]
+					then
+						echo "deb-src ${LH_MIRROR_BINARY_VOLATILE} ${LH_DISTRIBUTION}-updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 					fi
 					;;
 			esac

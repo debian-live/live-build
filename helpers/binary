@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # lh_binary(1) - build binary images
-# Copyright (C) 2006-2009 Daniel Baumann <daniel@debian.org>
+# Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 # This is free software, and you are welcome to redistribute it
@@ -40,6 +40,7 @@ then
 	lh chroot_resolv install ${*}
 	lh chroot_hostname install ${*}
 	lh chroot_sysv-rc install ${*}
+	lh chroot_upstart install ${*}
 	lh chroot_apt install-binary ${*}
 	lh chroot_sources install ${*}
 fi
@@ -93,6 +94,7 @@ fi
 lh chroot_apt remove ${*}
 lh chroot_sysv-rc remove ${*}
 lh chroot_sysfs remove ${*}
+lh chroot_upstart remove ${*}
 lh chroot_selinuxfs remove ${*}
 lh chroot_proc remove ${*}
 lh chroot_devpts remove ${*}

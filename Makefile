@@ -8,7 +8,7 @@ all: test install
 
 test:
 	# Checking for syntax errors
-	for SCRIPT in live-helper.sh functions/* examples/*/*.sh helpers/* hooks/*; \
+	for SCRIPT in live-helper.sh cgi/* functions/* examples/*/*.sh helpers/* hooks/*; \
 	do \
 		sh -n $$SCRIPT; \
 	done
@@ -27,7 +27,7 @@ build:
 install:
 	# Installing shared data
 	mkdir -p $(DESTDIR)/usr/share/live-helper
-	cp -r data examples live-helper.sh functions helpers hooks includes lists templates $(DESTDIR)/usr/share/live-helper
+	cp -r cgi data examples live-helper.sh functions helpers hooks includes lists templates $(DESTDIR)/usr/share/live-helper
 
 	# Installing executables
 	mkdir -p $(DESTDIR)/usr/bin
