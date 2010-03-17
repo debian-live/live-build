@@ -448,7 +448,7 @@ then
 	esac
 fi
 
-if [ "${LH_UNION_FILESYSTEM}" != "unionfs" ]
+if [ "${LH_UNION_FILESYSTEM}" != "aufs" ]
 then
 	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} union=${LH_UNION_FILESYSTEM}"
 fi
