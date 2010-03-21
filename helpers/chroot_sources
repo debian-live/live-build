@@ -120,6 +120,50 @@ case "${1}" in
 			done
 		fi
 
+		# Configure third-party repositories
+		if [ -n "${LH_REPOSITORIES}" ]
+		then
+			for REPOSITORY in ${LH_REPOSITORIES}
+			do
+				for PLACE in config/repositories "${LH_BASE}/repositories"
+				do
+					# Prefer repositories from the config tree
+					# over the global ones.
+					if ! ls "${PLACE}/${REPOSITORY}"* > /dev/null 2>&1
+					then
+						continue
+					fi
+
+					# Adding sources.list entries (chroot)
+					if [ -e "${PLACE}/${REPOSITORY}.chroot" ]
+					then
+						sed -e "s|@DISTRIBUTION@|${LH_DISTRIBUTION}|g" \
+						    -e "s|@ARCHIVE_AREAS@|${LH_ARCHIVE_AREAS}|g" \
+						"${PLACE}/${REPOSITORY}.chroot" > \
+						"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
+					elif [ -e "${PLACE}/${REPOSITORY}" ]
+					then
+						sed -e "s|@DISTRIBUTION@|${LH_DISTRIBUTION}|g" \
+						    -e "s|@ARCHIVE_AREAS@|${LH_ARCHIVE_AREAS}|g" \
+						"${PLACE}/${REPOSITORY}" > \
+						"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
+					fi
+
+					if [ "${LH_APT_SECURE}" != false ]
+					then
+						# Adding archive signing keys (chroot)
+						if [ -e "${PLACE}/${REPOSITORY}.chroot.gpg" ]
+						then
+							cat "${PLACE}/${REPOSITORY}.chroot.gpg" | Chroot chroot "apt-key add -"
+						elif [ -e "${PLACE}/${REPOSITORY}.gpg" ]
+						then
+							cat "${PLACE}/${REPOSITORY}.gpg" | Chroot chroot "apt-key add -"
+						fi
+					fi
+				done
+			done
+		fi
+
 		# Configure local package repository
 		if Find_files config/chroot_local-packages/*.deb
 		then
@@ -451,6 +495,53 @@ case "${1}" in
 					fi
 					;;
 			esac
+		fi
+
+		# Configure third-party repositories
+		if [ -n "${LH_REPOSITORIES}" ]
+		then
+			for REPOSITORY in ${LH_REPOSITORIES}
+			do
+				# Removing sources.list entries (chroot)
+				rm -f "chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
+
+				for PLACE in config/repositories "${LH_BASE}/repositories"
+				do
+					# Prefer repositories from the config tree
+					# over the global ones.
+					if ! ls "${PLACE}/${REPOSITORY}"* > /dev/null 2>&1
+					then
+						continue
+					fi
+
+					# Adding sources.list entries (binary)
+					if [ -e "${PLACE}/${REPOSITORY}.binary" ]
+					then
+						sed -e "s|@DISTRIBUTION@|${LH_DISTRIBUTION}|g" \
+						    -e "s|@ARCHIVE_AREAS@|${LH_ARCHIVE_AREAS}|g" \
+						"${PLACE}/${REPOSITORY}.binary" > \
+						"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
+					elif [ -e "${PLACE}/${REPOSITORY}" ]
+					then
+						sed -e "s|@DISTRIBUTION@|${LH_DISTRIBUTION}|g" \
+						    -e "s|@ARCHIVE_AREAS@|${LH_ARCHIVE_AREAS}|g" \
+						"${PLACE}/${REPOSITORY}" > \
+						"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
+					fi
+
+					if [ "${LH_APT_SECURE}" != false ]
+					then
+						# Adding archive signing keys (binary)
+						if [ -e "${PLACE}/${REPOSITORY}.binary.gpg" ]
+						then
+							cat "${PLACE}/${REPOSITORY}.binary.gpg" | Chroot chroot "apt-key add -"
+						elif [ -e "${PLACE}/${REPOSITORY}.gpg" ]
+						then
+							cat "${PLACE}/${REPOSITORY}.gpg" | Chroot chroot "apt-key add -"
+						fi
+					fi
+				done
+			done
 		fi
 
 		# Check local sources.list

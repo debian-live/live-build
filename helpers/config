@@ -109,6 +109,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [-p|--packages-lists FILE]\n\
 \t    [--packages PACKAGE|\"PACKAGES\"]\n\
 \t    [--quiet]\n\
+\t    [-r|--repositories REPOSITORY|\"REPOSITORIES\"]\n\
 \t    [--root-command sudo]\n\
 \t    [--use-fakeroot true|false]\n\
 \t    [--archive-areas ARCHIVE_AREA|\"ARCHIVE_AREAS\"]\n\
@@ -135,7 +136,7 @@ Local_arguments ()
 	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-options:,aptitute-options:,
 		apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,
 		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
-		initramfs:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,
+		initramfs:,fdisk:,losetup:,mode:,repositories:,root-command:,use-fakeroot:,tasksel:,includes:,
 		templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,clean,
 		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-binary:,
 		mirror-binary-security:,mirror-binary-volatile:,mirror-debian-installer:,archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
@@ -151,7 +152,7 @@ Local_arguments ()
 		help,ignore-system-defaults,quiet,usage,verbose,version"
 	# Remove spaces added by indentation
 	LONG_OPTIONS="$(echo ${LONG_OPTIONS} | tr -d ' ')"
-	ARGUMENTS="$(getopt --longoptions ${LONG_OPTIONS} --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
+	ARGUMENTS="$(getopt --longoptions ${LONG_OPTIONS} --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:r:s:c:huv --shell sh -- "${@}")"
 
 	if [ "${?}" != "0" ]
 	then
@@ -327,6 +328,11 @@ Local_arguments ()
 
 			--mode)
 				LH_MODE="${2}"
+				shift 2
+				;;
+
+			-r|--repositories)
+				LH_REPOSITORIES="${2}"
 				shift 2
 				;;
 
@@ -1071,6 +1077,10 @@ LH_LINUX_FLAVOURS="${LH_LINUX_FLAVOURS}"
 # \$LH_LINUX_PACKAGES: set kernel packages to use
 # (Default: autodetected)
 LH_LINUX_PACKAGES="${LH_LINUX_PACKAGES}"
+
+# \$LH_REPOSITORIES: enable available third-party repositories
+# (Default: empty)
+LH_REPOSITORIES="${LH_REPOSITORIES}"
 
 # \$LH_PACKAGES: set packages to install
 # (Default: empty)
