@@ -52,6 +52,17 @@ EOF
 
 		chmod 755 chroot/sbin/start-stop-daemon
 
+		# Manual hacks for special packages
+
+		# samhain
+		if [ -e /var/state/samhain/samhain_file ]
+		then
+			mv /var/state/samhain/samhain_file /var/state/samhain/samhain_file.orig
+		else
+			mkdir -p /var/state/samhain
+			touch /var/state/samhain/samhain_file
+		fi
+
 		# Creating stage file
 		Create_stagefile .stage/chroot_dpkg
 		;;
@@ -64,6 +75,18 @@ EOF
 
 		# Creating lock file
 		Create_lockfile .lock
+
+		# Manual hacks for special packages
+
+		# samhain
+		if [ -e /var/state/samhain/samhain_file.orig ]
+		then
+			mv /var/state/samhain/samhain_file.orig /var/state/samhain/samhain_file
+		elif [ -d /var/state/samhain ]
+		then
+			rm -f /var/state/samhain/samhain_file
+			rmdir --ignore-fail-on-non-empty /var/state/samhain
+		fi
 
 		# Restore start-stop-daemon program
 		if [ -e chroot/sbin/start-stop-daemon.orig ]
