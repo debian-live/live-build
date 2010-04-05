@@ -1343,5 +1343,8 @@ EOF
 	cp config/chroot_sources/${LH_DISTRIBUTION}-backports.chroot.gpg config/chroot_sources/${LH_DISTRIBUTION}-backports.binary.gpg
 fi
 
+# Checking defaults again
+Check_defaults
+
 # Creating stage file
 Create_stagefile .stage/config
