@@ -33,7 +33,7 @@ live-helper (2.0~a9-1) unstable; urgency=low
   * Fixing build failure with indices caching.
 
   [ Daniel Baumann ]
-  * Only remove auxilliary packages in rootfs when not using pre-cached
+  * Only remove auxiliary packages in rootfs when not using pre-cached
     chroot (Closes: #572976).
 
   [ Richard Nelson ]
