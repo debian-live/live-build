@@ -325,7 +325,7 @@ hostapd
 
 # Flab
 emacs22-nox
-build-essential gfortran gnat
+build-essential gdb gfortran gnat
 
 #if ARCHITECTURE i386
 bin86
