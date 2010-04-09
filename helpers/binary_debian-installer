@@ -415,14 +415,14 @@ then
 	if [ "${LH_DEBIAN_INSTALLER}" != "live" ]
 	then
 		# Including base debian packages
-		if [ -d cache/packages_bootstrap ]
+		if ls cache/packages_bootstrap/*.deb > /dev/null 2>&1
 		then
 			for FILE in cache/packages_bootstrap/*.deb
 			do
 				Install_file "${FILE}" "binary/pool/main"
 			done
 		else
-			Echo_error "Could not find cache/packages_bootstrap."
+			Echo_error "Could not find packages in cache/packages_bootstrap."
 			Echo_error "You selected values of LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES and LH_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being cached - these are required when integrating the Debian Installer."
 			exit 1
 		fi

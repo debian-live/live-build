@@ -116,7 +116,7 @@ if [ -x "/usr/sbin/debootstrap" ]
 then
 	if [ "${LH_CACHE_PACKAGES}" = "true" ]
 	then
-		if [ -d cache/packages_bootstrap ]
+		if ls cache/packages_bootstrap/*.deb > /dev/null 2>&1
 		then
 			mkdir -p chroot/var/cache/apt/archives
 			cp cache/packages_bootstrap/*.deb chroot/var/cache/apt/archives
@@ -131,14 +131,10 @@ then
 		fi
 
 		# Removing old cache
-		if [ -d cache/packages_bootstrap ]
-		then
-			rm -f cache/packages_bootstrap/*.deb
-		fi
+		rm -f cache/packages_bootstrap/*.deb
 
 		# Saving new cache
 		mkdir -p cache/packages_bootstrap
-
 		cp chroot/var/cache/apt/archives/*.deb cache/packages_bootstrap
 	fi
 

@@ -19,7 +19,14 @@ USAGE="FIXME"
 
 case "${1}" in
 	-h|--help)
-		Man
+		if [ -x "$(which man 2>/dev/null)" ]
+		then
+			man lh
+			exit 0
+		else
+			${0} --usage
+			exit 0
+		fi
 		;;
 
 	""|-u|--usage)

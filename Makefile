@@ -27,7 +27,7 @@ build:
 install:
 	# Installing shared data
 	mkdir -p $(DESTDIR)/usr/share/live-helper
-	cp -r cgi data examples live-helper.sh functions helpers hooks includes lists templates $(DESTDIR)/usr/share/live-helper
+	cp -r cgi data examples live-helper.sh functions helpers hooks includes lists repositories templates $(DESTDIR)/usr/share/live-helper
 
 	# Installing executables
 	mkdir -p $(DESTDIR)/usr/bin
