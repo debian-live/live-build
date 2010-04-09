@@ -1,3 +1,23 @@
+live-helper (2.0~a10-1) unstable; urgency=low
+
+  * Updating appending of union boot paramater to only append, when
+    we're not using aufs.
+  * Adding -r, --repositories option to select preconfigured third-party
+    repositories more easily.
+  * Making handling of cache/packages_bootstrap a bit more error proove,
+    thanks to Michal Suchanek <michal.suchanek@ruk.cuni.cz> for bringing
+    it up.
+  * Adding special hack to prevent samhain from initializing.
+  * Removing powerpc condition on gnu-fdisk recommends.
+  * Calling Check_defaults twice in lh_config, once when we initialize
+    and once when the modified configuration is written (Closes:
+    #576573).
+  * Correcting spelling typo in previous changelog entry.
+  * Adding gdb to rescue list.
+  * Updating Man function to work with lh as wrapper.
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 09 Apr 2010 21:29:10 +0200
+
 live-helper (2.0~a9-1) unstable; urgency=low
 
   [ Daniel Baumann ]
