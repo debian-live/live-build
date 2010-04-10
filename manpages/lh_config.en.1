@@ -156,7 +156,7 @@ lh_config \- create configuration for live\-helper
 .br
 	[\fB\-\-net\-tarball\fR bzip2|gzip|tar|none]
 .br
-	[\-p|\fB\-\-packages\-lists\fR \fIFILE\fR]
+	[\-p|\fB\-\-packages\-lists\fR \fILIST\fR|\fI"LISTS"\fR]
 .br
 	[\fB\-\-packages\fR \fIPACKAGE\fR|\fI"PACKAGES"\fR]
 .br
@@ -367,7 +367,7 @@ Example:
 sets the IP or hostname that will be configured in the bootloader configuration for the copy-on-write filesystem of your netboot image and is by default empty.
 .IP "\fB\-\-net\-tarball\fR bzip2|gzip|tar|none" 4
 defines the format of the netboot image. Choosing tar results in a not compressed tarball, bzip2 and gzip in a bzip2 resp. gzip compressed tarball. Choosing none leads to no tarball at all, the plain binary directory is considered the output in this case. Default is gzip.
-.IP "\-p|\fB\-\-packages\-lists\fR \fIFILE\fR" 4
+.IP "\-p|\fB\-\-packages\-lists\fR \fILIST\fR|\fI""LISTS""\fR" 4
 defines which lists available in /usr/share/live-helper/lists should be used. By default, this is set to standard. Note that in case you have local packages lists, you don't need to list them here. Putting them into config/chroot_local-packageslists is enough (the filename needs to have the .list suffix though).
 .IP "\fB\-\-packages\fR \fIPACKAGE\fR|\fI""PACKAGES""\fR" 4
 defines one or more packages to be installed in the live system. This is a quick and convenient place to add a few packages when building an image (limited by the max length of shell). Packages that should be permanently installed should be put into a local packages list.
