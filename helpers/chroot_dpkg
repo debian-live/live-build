@@ -85,7 +85,7 @@ EOF
 		elif [ -d /var/state/samhain ]
 		then
 			rm -f /var/state/samhain/samhain_file
-			rmdir --ignore-fail-on-non-empty /var/state/samhain
+			rmdir --ignore-fail-on-non-empty /var/state/samhain || true
 		fi
 
 		# Restore start-stop-daemon program
