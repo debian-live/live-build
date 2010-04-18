@@ -10,12 +10,12 @@
 set -e
 
 # Read meta config
-if [ "${1}" != "noautoconfig" ] && [ -x auto/config ]
+if [ "${1}" != "noauto" ] && [ -x auto/config ]
 then
 	./auto/config ${@}
 fi
 
-if [ "${1}" = "noautoconfig" ]
+if [ "${1}" = "noauto" ]
 then
 	shift
 fi
