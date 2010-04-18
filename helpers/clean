@@ -12,6 +12,7 @@ set -e
 # Read meta config
 if [ "${1}" != "noauto" ] && [ -x auto/clean ]
 then
+	Echo_message "Executing auto/clean script."
 	./auto/clean ${@}
 fi
 

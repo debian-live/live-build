@@ -12,6 +12,7 @@ set -e
 # Read meta config
 if [ "${1}" != "noauto" ] && [ -x auto/config ]
 then
+	Echo_message "Executing auto/config script."
 	./auto/config ${@}
 fi
 
