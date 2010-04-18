@@ -1,7 +1,7 @@
 Source: live-helper
 Section: misc
 Priority: optional
-Maintainer: Debian Live <debian-live@lists.debian.org>
+Maintainer: Debian Live Project <debian-live@lists.debian.org>
 Uploaders: Daniel Baumann <daniel@debian.org>
 Build-Depends: debhelper (>= 7.0.50~)
 Build-Depends-Indep: gettext
