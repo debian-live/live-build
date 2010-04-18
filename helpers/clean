@@ -9,6 +9,9 @@
 
 set -e
 
+# Including common functions
+. "${LH_BASE:-/usr/share/live-helper}"/live-helper.sh
+
 # Read meta config
 if [ "${1}" != "noauto" ] && [ -x auto/clean ]
 then
@@ -20,9 +23,6 @@ if [ "${1}" = "noauto" ]
 then
 	shift
 fi
-
-# Including common functions
-. "${LH_BASE:-/usr/share/live-helper}"/live-helper.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'clean up system build directories')"
