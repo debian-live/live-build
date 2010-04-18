@@ -1,6 +1,6 @@
 live-helper (2.0~a10-1) unstable; urgency=low
 
-  * Updating appending of union boot paramater to only append, when
+  * Updating appending of union boot parameter to only append, when
     we're not using aufs.
   * Adding -r, --repositories option to select preconfigured third-party
     repositories more easily.
