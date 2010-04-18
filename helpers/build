@@ -22,6 +22,7 @@ fi
 # Read meta config
 if [ "${1}" != "noauto" ] && [ -x auto/build ]
 then
+	Echo_message "Executing auto/build script."
 	./auto/build ${@}
 fi
 
