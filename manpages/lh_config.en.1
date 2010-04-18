@@ -236,9 +236,9 @@ defines the image type to build. By default this is set to iso to build CD/DVD i
 defines the filesystem to be used in the image type. This only has an effect if the selected binary image type does allow to choose a filesystem. For example, when selection iso the resulting CD/DVD has always the filesystem ISO9660. When building usb-hdd images for usb sticks, this is active. Note that it defaults to fat16 on all architectures except sparc where it defaults to ext2. Also note that if you choose fat16 and your resulting binary image gets bigger than 2GB, the binary filesystem automatically gets switched to fat32.
 .IP "\fB\-\-binary\-indices\fR true|false|none" 4
 defines if the resulting images should have binary indices or not and defaults to true. If set to none, no indices are included at all.
-.IP "\fB\-\-bootappend\-install\fR \fIPARAMETER\fR|\fI""PARAMETERS""\fR" 4
+.IP "\fB\-\-bootappend\-install\fR \fIPARAMETER\fR|""\fIPARAMETERS\fR""" 4
 sets boot parameters specific to debian-installer, if included.
-.IP "\fB\-\-bootappend\-live\fR \fIPARAMETER\fR|\fI""PARAMETERS""\fR" 4
+.IP "\fB\-\-bootappend\-live\fR \fIPARAMETER\fR|""\fIPARAMETERS\fR""" 4
 sets boot parameters specific to debian-live. A complete list of boot parameters can be found, for etch, in the manpage of casper, for all other distributions in the manpage of live-initramfs. On the images, a list of all parameters (without comments) is included in the /parameters.txt.
 .IP "\fB\-\-bootloader\fR grub|syslinux|yaboot" 4
 defines which bootloader is beeing used in the generated image. This has only an effect if the selected binary image type does allow to choose the bootloader. For example, if you build a iso, always syslinux (or more precise, isolinux) is being used. Also note that some combinations of binary images types and bootloaders may be possible but live\-helper does not support them yet. lh_config will fail to create such a not yet supported configuration and give a explanation about it. For usb-hdd images on amd64 and i386, the default is syslinux. yaboot is only used on powerpc.
@@ -256,7 +256,7 @@ defines globally if any cache should be used at all. Different caches can be con
 defines if downloaded package indices and lists should be cached which is false by default. Enabling it would allow to rebuild an image completely offline, however, you would not get updates anymore then.
 .IP "\fB\-\-cache\-packages\fR true|false" 4
 defines if downloaded packages files should be cached which is true by default. Disabling it does save space consumtion in your build directory, but remember that you will cause much unnecessary traffic if you do a couple of rebuilds. In general you should always leave it true, however, in some particular rare build setups, it can be faster to refetch packages from the local network mirror rather than to utilize the local disk.
-.IP "\fB\-\-cache\-stages\fR true|false|\fISTAGE\fR|\fI""STAGES""\fR" 4
+.IP "\fB\-\-cache\-stages\fR true|false|\fISTAGE\fR|""\fISTAGES\fR""" 4
 sets which stages should be cached. By default set to bootstrap. As an exception to the normal stage names, also rootfs can be used here which does only cache the generated root filesystem in filesystem.{dir,ext*,squashfs}. This is useful during development if you want to rebuild the binary stage but not regenerate the root filesystem all the time.
 .IP "\fB\-\-checksums\fR true|false" 4
 defines if the binary image should contain a file called md5sums.txt that lists all files on the image together with their md5 checksums. This in turn can be used by live-initramfs' built-in integrity-check to verify the medium if specified at boot prompt. In general, this should not be false and is an important feature of live system released to the public. However, during development of very big images it can save some time by not calculating the checksums.
@@ -316,13 +316,13 @@ sets the PUBLISHED field in the header of a resulting CD/DVD image. By default, 
 sets the VOLUME field in the header of a resulting CD/DVD and defaults to '(\fIMODE\fR) (\fIDISTRIBUTION\fR) (\fIDATE\fR)' whereas MODE is expanded to the name of the mode in use, DISTRIBUTION the distribution name, and DATE with the current date and time of the generation. When running in debian-release mode however, it will instead default to 'Debian (\fIVERSION\fR) (\fIARCHITECTURE\fR) live' where VERSION becomes the numerical version of the release being built and ARCHITECTURE becomes the name of the architecture.
 .IP "\fB\-\-jffs2\-eraseblock\fR \fISIZE\fR" 4
 sets the eraseblock size for a JFFS2 (Second Journalling Flash File System) filesystem. The default is 64 KiB. If you use an erase block size different than the erase block size of the target MTD device, JFFS2 may not perform optimally. If the SIZE specified is below 4096, the units are assumed to be KiB.
-.IP "[\fB\-\-keyring\-packages\fR \fIPACKAGE\fI|\fI"PACKAGES"\fR" 4
+.IP "\fB\-\-keyring\-packages\fR \fIPACKAGE\fI|""\fIPACKAGES\fR""" 4
 sets the keyring package or additional keyring packages. By default this is set to debian-archive-keyring.
 .IP "\-l|\fB\-\-language\fR \fILANGUAGE\fR" 4
 sets the language of a live system by installing l10n related packages and enables generation of the correct locales through automatically setting the right boot parameters.
-.IP "\-k|\fB\-\-linux\-flavours\fR \fIFLAVOUR\fR|\fI"FLAVOURS"\fR" 4
+.IP "\-k|\fB\-\-linux\-flavours\fR \fIFLAVOUR\fR|""\fIFLAVOURS\fR""" 4
 sets the kernel flavours to be installed. Note that in case you specify more than that the first will be configured the default kernel that gets booted.
-.IP "\fB\-\-linux\-packages\fR \fI"PACKAGES"\fR" 4
+.IP "\fB\-\-linux\-packages\fR ""\fIPACKAGES\fR""" 4
 sets the internal name of the kernel packages naming scheme. If you use debian kernel packages, you will not have to adjust it. If you decide to use custom kernel packages that do not follow the debian naming scheme, remember to set this option to the stub of the packages only (for debian this is linux-image-2.6), so that \fISTUB\fR-\fIFLAVOUR\fR results in a valid package name (for debian e.g. linux-image-2.6-486). Preferably you use the meta package name, if any, for the stub, so that your configuration is ABI independent. Also don't forget that you have to include stubs of the binary modules packages for unionfs or aufs, and squashfs if you built them out-of-tree.
 .IP "\fB\-\-losetup\fR losetup|losetup.orig" 4
 sets the filename of the losetup binary from the host system that should be used. This is autodetected and does generally not need any customization.
@@ -367,17 +367,17 @@ Example:
 sets the IP or hostname that will be configured in the bootloader configuration for the copy-on-write filesystem of your netboot image and is by default empty.
 .IP "\fB\-\-net\-tarball\fR bzip2|gzip|tar|none" 4
 defines the format of the netboot image. Choosing tar results in a not compressed tarball, bzip2 and gzip in a bzip2 resp. gzip compressed tarball. Choosing none leads to no tarball at all, the plain binary directory is considered the output in this case. Default is gzip.
-.IP "\-p|\fB\-\-packages\-lists\fR \fILIST\fR|\fI""LISTS""\fR" 4
+.IP "\-p|\fB\-\-packages\-lists\fR \fILIST\fR|""\fILISTS\fR""" 4
 defines which lists available in /usr/share/live-helper/lists should be used. By default, this is set to standard. Note that in case you have local packages lists, you don't need to list them here. Putting them into config/chroot_local-packageslists is enough (the filename needs to have the .list suffix though).
-.IP "\fB\-\-packages\fR \fIPACKAGE\fR|\fI""PACKAGES""\fR" 4
+.IP "\fB\-\-packages\fR \fIPACKAGE\fR|""\fIPACKAGES\fR""" 4
 defines one or more packages to be installed in the live system. This is a quick and convenient place to add a few packages when building an image (limited by the max length of shell). Packages that should be permanently installed should be put into a local packages list.
-.IP "\fB\-r, \-\-repositories\fR \fIREPOSITORY\fR|\fI""REPOSITORIES""\fR" 4
+.IP "\fB\-r, \-\-repositories\fR \fIREPOSITORY\fR|""\fIREPOSITORIES\fR""" 4
 enables one of available third-party repository configurations in /usr/share/live-helper/repositories.
 .IP "\fB\-\-root-command\fR sudo" 4
 controls if live-helper should use sudo internally to build the live image. Note that this is not well tested and that you should, when relying on sudo, call the individual live\-helper command with sudo itself.
 .IP "\fB\-\-use-fakeroot\fR true|false" 4
 controls if live-helper should utilize fakeroot and fakechroot to try and avoid requiring root privillages where possible. By default, this option is false.
-.IP "\fB\-\-archive\-areas\fR \fIARCHIVE_AREA\fR|\fI""ARCHIVE_AREAS""\fR" 4
+.IP "\fB\-\-archive\-areas\fR \fIARCHIVE_AREA\fR|""\fIARCHIVE_AREAS\fR""" 4
 defines which package archive areas of a debian packages archive should be used for configured debian package mirrors. By default, this is set to main. Remember to check the licenses of each packages with respect to their redistributability in your juristiction when enabling contrib or non-free with this mechanism.
 .IP "\fB\-\-security\fR true|false" 4
 defines if the security repositories specified in the security mirror options should be used or not.
