@@ -10,12 +10,12 @@
 set -e
 
 # Read meta config
-if [ "${1}" != "noautoconfig" ] && [ -x auto/clean ]
+if [ "${1}" != "noauto" ] && [ -x auto/clean ]
 then
 	./auto/clean ${@}
 fi
 
-if [ "${1}" = "noautoconfig" ]
+if [ "${1}" = "noauto" ]
 then
 	shift
 fi
@@ -54,10 +54,10 @@ for ARGUMENT in ${ARGUMENTS}
 do
 	case "${ARGUMENT}" in
 		--all)
-			LH=1 "${0}" noautoconfig --chroot
-			LH=1 "${0}" noautoconfig --binary
-			LH=1 "${0}" noautoconfig --stage
-			LH=1 "${0}" noautoconfig --source
+			LH=1 "${0}" noauto --chroot
+			LH=1 "${0}" noauto --binary
+			LH=1 "${0}" noauto --stage
+			LH=1 "${0}" noauto --source
 
 			if [ -d auto ]
 			then

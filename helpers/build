@@ -20,12 +20,12 @@ then
 fi
 
 # Read meta config
-if [ "${1}" != "noautoconfig" ] && [ -x auto/build ]
+if [ "${1}" != "noauto" ] && [ -x auto/build ]
 then
 	./auto/build ${@}
 fi
 
-if [ "${1}" = "noautoconfig" ]
+if [ "${1}" = "noauto" ]
 then
 	shift
 fi
