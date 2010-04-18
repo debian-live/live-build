@@ -11,10 +11,9 @@ install:
 	chown www-data:www-data $(DESTDIR)/var/log/live
 
 uninstall:
-	rm $(DESTDIR)/usr/lib/cgi-bin/live-helper
-	rm $(DESTDIR)/etc/cron.d/live-helper.cgi
-	rm $(DESTDIR)/etc/default/live-helper.cgi
-	rm $(DESTDIR)/etc/logrotate.d/live-helper.cgi
+	rm -f $(DESTDIR)/usr/lib/cgi-bin/live-helper
+	rm -f $(DESTDIR)/etc/cron.d/live-helper.cgi
+	rm -f $(DESTDIR)/etc/default/live-helper.cgi
+	rm -f $(DESTDIR)/etc/logrotate.d/live-helper.cgi
 
 reinstall: uninstall install
-
