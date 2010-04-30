@@ -1,3 +1,28 @@
+live-helper (2.0~a11-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Updating references to project homepage in the manpages.
+  * Updating references to project homepage in the templates.
+  * Updating synopsis of --packages-lists in lh_config manpage.
+  * Don't fail on samhain workaround when we're cleaning up.
+
+  [ Richard Nelson ]
+  * Add uninstall and reinstall for l-h.cgi Makefile.
+  * Remove plural typo on l-h.cgi mail.txt .
+
+  [ Daniel Baumann ]
+  * Updating uninstall and reinstall targets in cgi/Makefile.
+  * Correcting spelling typo in previous changelog.
+  * Correcting a couple of formating glitches in lh_config manpage.
+  * Replacing 'noautoconfig' string in auto/ scripts with 'noauto'.
+  * Printing message when auto scripts are used to make debug logs more
+    understandable.
+  * Making sure live-helper.sh is sourced early enough wrt/ auto
+    scripts.
+  * Updating maintainer field.
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 30 Apr 2010 17:10:38 +0200
+
 live-helper (2.0~a10-1) unstable; urgency=low
 
   * Updating appending of union boot parameter to only append, when
