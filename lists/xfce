@@ -4,4 +4,10 @@
 #include <standard-x11>
 
 xfce4
-gdm desktop-base
+#if DISTRIBUTION lenny
+gdm
+#endif
+#if DISTRIBUTION squeeze sid
+gdm3
+#endif
+desktop-base
