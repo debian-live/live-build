@@ -5,9 +5,11 @@
 
 lxde
 #if DISTRIBUTION lenny
+gdm
 lxnm
 #endif
 #if DISTRIBUTION squeeze sid
+gdm3
 wicd
 #endif
-gdm desktop-base
+desktop-base
