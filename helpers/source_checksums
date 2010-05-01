@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_binary_md5sum(1) - create binary md5sums
+# lh_source_checksums(1) - create source checksumss
 # Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -13,7 +13,7 @@ set -e
 . "${LH_BASE:-/usr/share/live-helper}"/live-helper.sh
 
 # Setting static variables
-DESCRIPTION="$(Echo 'create binary md5sums')"
+DESCRIPTION="$(Echo 'create source checksums')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -23,18 +23,23 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_CHECKSUMS}" != "true" ] || [ "${LH_BINARY_IMAGES}" = "virtual-hdd" ]
+if [ "${LH_SOURCE}" != "true" ]
 then
 	exit 0
 fi
 
-Echo_message "Begin creating binary md5sum.txt..."
+if [ "${LH_CHECKSUMS}" != "true" ]
+then
+	exit 0
+fi
+
+Echo_message "Begin creating source md5sum.txt..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .stage/config .stage/source_debian
 
 # Checking stage file
-Check_stagefile .stage/binary_md5sum
+Check_stagefile .stage/source_checksums
 
 # Checking lock file
 Check_lockfile .lock
@@ -43,14 +48,14 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Remove old md5sums
-if [ -f binary/md5sum.txt ]
+if [ -f source/md5sum.txt ]
 then
-	rm -f binary/md5sum.txt
+	rm -f source/md5sum.txt
 fi
 
 # Calculating md5sums
-cd binary
-find . -type f \! -path './isolinux/isolinux.bin' \! -path './boot/grub/stage2_eltorito' -print0 | sort -z | xargs -0 md5sum > ../md5sum.txt
+cd source
+find . -type f -print0 | sort -z | xargs -0 md5sum > ../md5sum.txt
 
 cat > md5sum.txt << EOF
 This file contains the list of md5 checksums of all files on this medium.
@@ -65,9 +70,9 @@ cat ../md5sum.txt >> md5sum.txt
 rm -f ../md5sum.txt
 
 # File list
-find . | sed -e 's|^.||g' | grep "^/" | sort > ../binary.list
+find . | sed -e 's|^.||g' | grep "^/" | sort > ../source.list
 
 cd "${OLDPWD}"
 
 # Creating stage file
-Create_stagefile .stage/binary_md5sum
+Create_stagefile .stage/source_checksums
