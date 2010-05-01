@@ -65,7 +65,7 @@ lh binary_win32-loader ${*}
 lh binary_includes ${*}
 lh binary_local-includes ${*}
 lh binary_local-hooks ${*}
-lh binary_md5sum ${*}
+lh binary_checksums ${*}
 
 if [ "${LH_CHROOT_BUILD}" != "true" ]
 then
