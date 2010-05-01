@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# lh_source_checksums(1) - create source checksumss
+# lh_source_checksums(1) - create source checksums
 # Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
 #
 # live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -23,17 +23,10 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_SOURCE}" != "true" ]
+if [ "${LH_CHECKSUMS}" = "none" ] || [ "${LH_SOURCE}" != "true" ]
 then
 	exit 0
 fi
-
-if [ "${LH_CHECKSUMS}" != "true" ]
-then
-	exit 0
-fi
-
-Echo_message "Begin creating source md5sum.txt..."
 
 # Requiring stage file
 Require_stagefile .stage/config .stage/source_debian
@@ -47,31 +40,42 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-# Remove old md5sums
-if [ -f source/md5sum.txt ]
-then
-	rm -f source/md5sum.txt
-fi
+for CHECKSUM in ${LH_CHECKSUMS}
+do
+	Echo_message "Begin creating source ${CHECKSUM}sum.txt..."
 
-# Calculating md5sums
-cd source
-find . -type f -print0 | sort -z | xargs -0 md5sum > ../md5sum.txt
+	# Remove old checksums
+	if [ -f source/${CHECKSUM}sum.txt ]
+	then
+		rm -f source/${CHECKSUM}sum.txt
+	fi
 
-cat > md5sum.txt << EOF
-This file contains the list of md5 checksums of all files on this medium.
+	# Calculating checksums
+	cd source
+	find . -type f \
+		\! -path './md5sum.txt' \
+		\! -path './sha1sum.txt' \
+		\! -path './sha256sum.txt' \
+	-print0 | sort -z | xargs -0 ${CHECKSUM}sum > ../${CHECKSUM}sum.txt
+
+cat > ${CHECKSUM}sum.txt << EOF
+This file contains the list of ${CHECKSUM} checksums of all files on this medium.
 
 You can verify them automatically with the 'integrity-check' boot parameter,
-or, manually with: 'md5sum -c md5sum.txt'.
+or, manually with: '${CHECKSUM}sum -c ${CHECKSUM}sum.txt'.
 
 
 EOF
 
-cat ../md5sum.txt >> md5sum.txt
-rm -f ../md5sum.txt
+	cat ../${CHECKSUM}sum.txt >> ${CHECKSUM}sum.txt
+	rm -f ../${CHECKSUM}sum.txt
+
+	cd "${OLDPWD}"
+done
 
 # File list
+cd source
 find . | sed -e 's|^.||g' | grep "^/" | sort > ../source.list
-
 cd "${OLDPWD}"
 
 # Creating stage file

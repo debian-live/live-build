@@ -52,7 +52,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--cache-indices true|false]\n\
 \t    [--cache-packages true|false]\n\
 \t    [--cache-stages STAGE|\"STAGES\"]\n\
-\t    [--checksums true|false]\n\
+\t    [--checksums md5|sha1|sha256|none]\n\
 \t    [--chroot-build true|false]\n\
 \t    [--chroot-filesystem ext2|ext3|squashfs|plain|jffs2]\n\
 \t    [-c|--conffile FILE]\n\

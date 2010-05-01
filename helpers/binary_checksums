@@ -23,12 +23,10 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_CHECKSUMS}" != "true" ] || [ "${LH_BINARY_IMAGES}" = "virtual-hdd" ]
+if [ "${LH_CHECKSUMS}" = "none" ] || [ "${LH_BINARY_IMAGES}" = "virtual-hdd" ]
 then
 	exit 0
 fi
-
-Echo_message "Begin creating binary md5sum.txt..."
 
 # Requiring stage file
 Require_stagefile .stage/config .stage/bootstrap
@@ -42,31 +40,44 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-# Remove old md5sums
-if [ -f binary/md5sum.txt ]
-then
-	rm -f binary/md5sum.txt
-fi
+for CHECKSUM in ${LH_CHECKSUMS}
+do
+	Echo_message "Begin creating binary ${CHECKSUM}sum.txt..."
 
-# Calculating md5sums
-cd binary
-find . -type f \! -path './isolinux/isolinux.bin' \! -path './boot/grub/stage2_eltorito' -print0 | sort -z | xargs -0 md5sum > ../md5sum.txt
+	# Remove old checksums
+	if [ -f binary/${CHECKSUM}sum.txt ]
+	then
+		rm -f binary/${CHECKSUM}sum.txt
+	fi
 
-cat > md5sum.txt << EOF
-This file contains the list of md5 checksums of all files on this medium.
+	# Calculating checksums
+	cd binary
+	find . -type f \
+		\! -path './isolinux/isolinux.bin' \
+		\! -path './boot/grub/stage2_eltorito' \
+		\! -path './md5sum.txt' \
+		\! -path './sha1sum.txt' \
+		\! -path './sha256sum.txt' \
+	-print0 | sort -z | xargs -0 ${CHECKSUM}sum > ../${CHECKSUM}sum.txt
+
+cat > ${CHECKSUM}sum.txt << EOF
+This file contains the list of ${CHECKSUM} checksums of all files on this medium.
 
 You can verify them automatically with the 'integrity-check' boot parameter,
-or, manually with: 'md5sum -c md5sum.txt'.
+or, manually with: '${CHECKSUM}sum -c ${CHECKSUM}sum.txt'.
 
 
 EOF
 
-cat ../md5sum.txt >> md5sum.txt
-rm -f ../md5sum.txt
+	cat ../${CHECKSUM}sum.txt >> ${CHECKSUM}sum.txt
+	rm -f ../${CHECKSUM}sum.txt
+
+	cd "${OLDPWD}"
+done
 
 # File list
+cd binary
 find . | sed -e 's|^.||g' | grep "^/" | sort > ../binary.list
-
 cd "${OLDPWD}"
 
 # Creating stage file
