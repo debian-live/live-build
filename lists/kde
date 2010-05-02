@@ -7,7 +7,7 @@
 kde
 #endif
 #if DISTRIBUTION squeeze sid
-kde-full
+kde-standard
 #endif
 kdm
 desktop-base
