@@ -1,0 +1,53 @@
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH LIVE\-HELPER 1 2010\-05\-08 2.0~a11 "Debian Live Project"
+
+.SH NAME
+\fBlh testroot\fP \- Ensure that a system is built as root
+
+.SH SYNOPSIS
+\fBlh testroot\fP [\fIlive\-helper options\fP]
+
+.SH DESCRIPTION
+\fBlh testroot\fP is a high\-level command (porcelain) of \fIlive\-helper\fP(7), the
+Debian Live tool suite.
+.PP
+.\" FIXME
+\fBlh testroot\fP simply checks to see if you are root. If not, it exits with
+an error. Debian Live images must currently be built as real root.
+.PP
+.\" FIXME
+Note: Support for using \fIfakeroot\fP(1) and \fIsudo\fP(8) internally in
+live\-helper itself is still experimental, however, calling a helper yourself
+with sudo is safe.
+
+.SH OPTIONS
+\fBlh testroot\fP has no specific options but understands all generic
+live\-helper options. See \fIlive\-helper\fP(7) for a complete list of all
+generic live\-helper options.
+
+.SH FILES
+.IP \fBnone\fP 4
+
+.SH "SEE ALSO"
+\fIlive\-helper\fP(7)
+.PP
+This program is a part of live\-helper.
+
+.SH HOMEPAGE
+More information about live\-helper and the Debian Live project can be found
+on the homepage at <\fIhttp://live.debian.net/\fP> and in the manual at
+<\fIhttp://live.debian.net/manual/\fP>.
+
+.SH BUGS
+Bugs can be reported by sumbitting a bugreport for the live\-helper package
+in the Debian Bug Tracking System at <\fIhttp://bugs.debian.org/\fP> or
+by writing a mail to the Debian Live mailing list at
+<\fIdebian\-live@lists.debian.org\fP>.
+
+.SH AUTHOR
+live\-helper was written by Daniel Baumann <\fIdaniel@debian.org\fP> for
+the Debian project.
