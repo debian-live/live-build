@@ -2,7 +2,7 @@
 
 SHELL := sh -e
 
-#TRANSLATIONS="de"
+LANGUAGES = de
 
 all: test install
 
@@ -10,7 +10,7 @@ test:
 	# Checking for syntax errors
 	for SCRIPT in live-helper.sh cgi/* functions/* examples/*/*.sh helpers/* hooks/*; \
 	do \
-		sh -n $$SCRIPT; \
+		sh -n $${SCRIPT}; \
 	done
 
 	# Checking for bashisms
@@ -38,25 +38,18 @@ install:
 	cp -r COPYING docs/* $(DESTDIR)/usr/share/doc/live-helper
 
 	# Installing manpages
-	for MANPAGE in manpages/*.en.1; \
+	for MANPAGE in manpages/en/*; \
 	do \
-		install -D -m 0644 $$MANPAGE $(DESTDIR)/usr/share/man/man1/$$(basename $$MANPAGE .en.1).1; \
+		SECTION="$$(basename $${MANPAGE} | awk -F. '{ print $$2 }')"; \
+		install -D -m 0644 $${MANPAGE} $(DESTDIR)/usr/share/man/man$${SECTION}/$$(basename $${MANPAGE} .en.$${SECTION}).$${SECTION}; \
 	done
 
-	for MANPAGE in manpages/*.en.7; \
+	for LANGUAGE in $(LANGUAGES); \
 	do \
-		install -D -m 0644 $$MANPAGE $(DESTDIR)/usr/share/man/man7/$$(basename $$MANPAGE .en.7).7; \
-	done
-
-	for TRANSLATIONS in $$TRANSLATIONS; \
-	do \
-		for MANPAGE in manpages/*.$$TRANSLATION.1; \
+		for MANPAGE in manpages/$${LANGUAGE}/*; \
 		do \
-			install -D -m 0644 $$MANPAGE $(DESTDIR)/usr/share/man/$$TRANSLATION/man1/$$(basename $$MANPAGE .$$TRANSLATION.1).1; \
-		done; \
-		for MANPAGE in manpages/*.$$TRANSLATION.7; \
-		do \
-			install -D -m 0644 $$MANPAGE $(DESTDIR)/usr/share/man/$$TRANSLATION/man7/$$(basename $$MANPAGE .$$TRANSLATION.7).7; \
+			SECTION="$$(basename $${MANPAGE} | awk -F. '{ print $$3 }')"; \
+			install -D -m 0644 $${MANPAGE} $(DESTDIR)/usr/share/man/$${LANGUAGE}/man$${SECTION}/$$(basename $${MANPAGE} .$${LANGUAGE}.$${SECTION}).$${SECTION}; \
 		done; \
 	done
 
@@ -74,25 +67,18 @@ uninstall:
 	rm -rf $(DESTDIR)/usr/share/doc/live-helper
 
 	# Uninstalling manpages
-	for MANPAGE in manpages/*.en.1; \
+	for MANPAGE in manpages/en/*; \
 	do \
-		rm -f $(DESTDIR)/usr/share/man/man1/$$(basename $$MANPAGE .en.1).1*; \
+		SECTION="$$(basename $${MANPAGE} | awk -F. '{ print $$2 }')"; \
+		rm -f $(DESTDIR)/usr/share/man/man$${SECTION}/$$(basename $${MANPAGE} .en.$${SECTION}).$${SECTION}; \
 	done
 
-	for MANPAGE in manpages/*.en.7; \
+	for LANGUAGE in $(LANGUAGES); \
 	do \
-		rm -f $(DESTDIR)/usr/share/man/man7/$$(basename $$MANPAGE .en.7).7*; \
-	done
-
-	for TRANSLATIONS in $$TRANSLATIONS; \
-	do \
-		for MANPAGE in manpages/*.$$TRANSLATION.1; \
+		for MANPAGE in manpages/$${LANGUAGE}/*; \
 		do \
-			rm -f $(DESTDIR)/usr/share/man/$$TRANSLATION/man1/$$(basename $$MANPAGE .$$TRANSLATION.1).1*; \
-		done; \
-		for MANPAGE in manpages/*.$$TRANSLATION.7; \
-		do \
-			rm -f $(DESTDIR)/usr/share/man/$$TRANSLATION/man7/$$(basename $$MANPAGE .$$TRANSLATION.7).7*; \
+			SECTION="$$(basename $${MANPAGE} | awk -F. '{ print $$3 }')"; \
+			rm -f $(DESTDIR)/usr/share/man/$${LANGUAGE}/man$${SECTION}/$$(basename $${MANPAGE} .$${LANGUAGE}.$${SECTION}).$${SECTION}; \
 		done; \
 	done
 
@@ -101,13 +87,3 @@ clean:
 distclean:
 
 reinstall: uninstall install
-
-po4a:
-	# Automatic generation of translated manpages
-	if [ $$(which po4a) ]; \
-	then \
-		cd manpages; \
-		po4a po4a/live-helper.cfg; \
-	else \
-		echo "ERROR: skipping po generation - you need to install po4a <http://po4a.alioth.debian.org/>."; \
-	fi
