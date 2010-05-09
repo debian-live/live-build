@@ -3,71 +3,77 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-HELPER 1 2010\-05\-08 2.0~a11 "Debian Live Project"
+.TH LIVE\-HELPER 1 09.05.2010 2.0~a11 "Debian Live Projekt"
 
 .SH NAME
-\fBlh clean\fP \- Clean build directory
+\fBlh clean\fP \- Raeumt das Arbeitsverzeichnis auf
 
-.SH SYNOPSIS
-\fBlh clean\fP [\fIlive\-helper options\fP]
+.SH UEBERSICHT
+\fBlh clean\fP [\fIlive\-helper Optionen\fP]
 
-.SH DESCRIPTION
-\fBlh clean\fP is a high\-level command (porcelain) of \fIlive\-helper\fP(7), the
-Debian Live tool suite.
+.SH BESCHREIBUNG
+\fBlh clean\fP ist ein high\-level Befehl ("porcelain") von \fIlive\-helper\fP(7),
+der Debian Live Tool Suite.
 .PP
 .\" FIXME
 .\" FIXME
-\fBlh clean\fP is responsible for cleaning up after a system is built. It
-removes the build directories, and removes some other files including stage
-files, and any detritus left behind by other live\-helper commands.
+\fBlh clean\fP ist verantwortlich fuer das Aufraeumen nachdem ein System
+erstellt wurde. Es entfernt die Arbeitsverzeichnisse und einige andere
+Dateien, einschliesslich der "stage" Dateien, sowie Ueberbleibsel anderer
+live\-helper Befehle.
 
-.SH OPTIONS
-In addition to its specific options \fBlh clean\fP understands all generic
-live\-helper options. See \fIlive\-helper\fP(7) for a complete list of all
-generic live\-helper options.
+.SH OPTIONEN
+\fBlh chroot_apt\fP unterstuetzt zusaetzlich zu spezifischen Optionen auch alle
+allgemeinen live\-helper Optionen. Siehe \fIlive\-helper\fP(7) fuer eine
+vollstaendige Liste aller allgemeinen live\-helper Optionen.
 .PP
 .\" FIXME
 .IP \fB\-\-all\fP 4
-removes chroot, binary, stage, and source. The cache directory is kept. This
-is the default operation and will be performed if no argument is given.
+entfernt "chroot", "binary", "stage" und "source" Stufen. Das cache
+Verzeichnis bleibt bestehen. Dies ist die Standardoperation und wird
+ausgefuehrt, wenn kein Argument angegeben wird.
 .IP \fB\-\-cache\fP 4
-removes the cache directories.
+entfernt the Cache Verzeichnisse.
 .IP \fB\-\-chroot\fP 4
-unmounts and removes the chroot directory.
+haengt "chroot" Verzeichnis aus und entfernt es.
 .IP \fB\-\-binary\fP 4
-removes all binary related caches, files, directories, and stages files.
+entfernt alle auf "binary" bezogenen Caches, Dateien, Verzeichnisse und
+"stage" Dateien.
 .IP \fB\-\-purge\fP 4
-removes everything, including all caches. The config directory is kept.
+entfernt alles, inklusive aller Caches. Das "config" Verzeichnis bleibt
+bestehen.
 .IP \fB\-\-remove\fP 4
-removes everything, including package cache but not stage cache. The config
-directory is kept.
+entfernt alles, inklusive Paket\-Cache, aber nicht "stage" Cache. Das
+"config" Verzeichnis bleibt bestehen.
 .IP \fB\-\-stage\fP 4
-removes all stage files.
+entfernt alle "stage" Dateien.
 .IP \fB\-\-source\fP 4
 .\" FIXME
-removes all source related caches, files, directories, and stage files.
+entfernt alle auf "source" bezogenen Caches, Dateien, Verzeichnisse und
+"stage" Dateien.
 
-.SH FILES
+.SH DATEIEN
 .\" FIXME
 .IP \fBauto/clean\fP 4
 
 .\" FIXME
-.SH "SEE ALSO"
+.SH "SIEHE AUCH"
 \fIlive\-helper\fP(7)
 .PP
-This program is a part of live\-helper.
+Dieses Programm ist Teil von live\-helper.
 
 .SH HOMEPAGE
-More information about live\-helper and the Debian Live project can be found
-on the homepage at <\fIhttp://live.debian.net/\fP> and in the manual at
-<\fIhttp://live.debian.net/manual/\fP>.
+Weitere Informationen ueber live\-helper und das Debian Live Projekt koennen
+auf der Homepage unter <\fIhttp://live.debian.net/\fP> und im Handbuch
+unter <\fIhttp://live.debian.net/manual/\fP> gefunden werden.
 
-.SH BUGS
-Bugs can be reported by sumbitting a bugreport for the live\-helper package
-in the Debian Bug Tracking System at <\fIhttp://bugs.debian.org/\fP> or
-by writing a mail to the Debian Live mailing list at
-<\fIdebian\-live@lists.debian.org\fP>.
+.SH FEHLER
+Fehler koennen durch Einreichen eines Fehlerberichtes fuer das live\-helper
+Paket im Debian Bug Tracking System unter
+<\fIhttp://bugs.debian.org/\fP> oder durch Senden einer E\-Mail an die
+Debian Live Mailing Liste unter <\fIdebian\-live@lists.debian.org\fP>
+(englischsprachig) mitgeteilt werden.
 
-.SH AUTHOR
-live\-helper was written by Daniel Baumann <\fIdaniel@debian.org\fP> for
-the Debian project.
+.SH AUTOR
+live\-helper wurde von Daniel Baumann <\fIdaniel@debian.org\fP> fuer das
+Debian Projekt geschrieben.
