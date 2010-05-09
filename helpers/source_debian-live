@@ -57,18 +57,5 @@ then
 	cp -a auto source/debian-live
 fi
 
-# Create tarball
-cd source
-
-SUFFIX="$(date +%Y%m%d.%s)"
-
-tar cf debian-live-config_${SUFFIX}.tar debian-live
-gzip ${GZIP_OPTIONS} debian-live-config_${SUFFIX}.tar
-
-cd "${OLDPWD}"
-
-rm -rf source/debian-live/config
-mv source/debian-live-config_${SUFFIX}.tar.gz source/debian-live
-
 # Creating stage file
 Create_stagefile .stage/source_debian-live

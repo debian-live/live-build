@@ -40,23 +40,30 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-for CHECKSUM in ${LH_CHECKSUMS}
+for DIRECTORY in source/debian source/debian-live
 do
-	Echo_message "Begin creating source ${CHECKSUM}sum.txt..."
-
-	# Remove old checksums
-	if [ -f source/${CHECKSUM}sum.txt ]
+	if [ ! -d ${DIRECTORY} ]
 	then
-		rm -f source/${CHECKSUM}sum.txt
+		continue
 	fi
 
-	# Calculating checksums
-	cd source
-	find . -type f \
-		\! -path './md5sum.txt' \
-		\! -path './sha1sum.txt' \
-		\! -path './sha256sum.txt' \
-	-print0 | sort -z | xargs -0 ${CHECKSUM}sum > ../${CHECKSUM}sum.txt
+	for CHECKSUM in ${LH_CHECKSUMS}
+	do
+		Echo_message "Begin creating source ${CHECKSUM}sum.txt..."
+
+		# Remove old checksums
+		if [ -f ${DIRECTORY}/${CHECKSUM}sum.txt ]
+		then
+			rm -f ${DIRECTORY}/${CHECKSUM}sum.txt
+		fi
+
+		# Calculating checksums
+		cd ${DIRECTORY}
+		find . -type f \
+			\! -path './md5sum.txt' \
+			\! -path './sha1sum.txt' \
+			\! -path './sha256sum.txt' \
+		-print0 | sort -z | xargs -0 ${CHECKSUM}sum > ../${CHECKSUM}sum.txt
 
 cat > ${CHECKSUM}sum.txt << EOF
 This file contains the list of ${CHECKSUM} checksums of all files on this medium.
@@ -67,16 +74,17 @@ or, manually with: '${CHECKSUM}sum -c ${CHECKSUM}sum.txt'.
 
 EOF
 
-	cat ../${CHECKSUM}sum.txt >> ${CHECKSUM}sum.txt
-	rm -f ../${CHECKSUM}sum.txt
+		cat ../${CHECKSUM}sum.txt >> ${CHECKSUM}sum.txt
+		rm -f ../${CHECKSUM}sum.txt
 
+		cd "${OLDPWD}"
+	done
+
+	# File list
+	cd ${DIRECTORY}
+	find . | sed -e 's|^.||g' | grep "^/" | sort > ../../$(echo ${DIRECTORY} | sed -e 's|/|.|').list
 	cd "${OLDPWD}"
 done
-
-# File list
-cd source
-find . | sed -e 's|^.||g' | grep "^/" | sort > ../source.list
-cd "${OLDPWD}"
 
 # Creating stage file
 Create_stagefile .stage/source_checksums

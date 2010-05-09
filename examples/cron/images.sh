@@ -170,10 +170,12 @@ do
 		then
 			lh config --source true
 
-			lh source 2>&1 | tee debian-live-${DISTRIBUTION}-source-${FLAVOUR}.tar.gz.log
+			lh source 2>&1 | tee debian-live-${DISTRIBUTION}-source-${FLAVOUR}.log
 
-			mv source.tar.gz debian-live-${DISTRIBUTION}-source-${FLAVOUR}.tar.gz
-			mv source.list debian-live-${DISTRIBUTION}-source-${FLAVOUR}.tar.gz.list
+			mv source.debian.tar.gz debian-live-${DISTRIBUTION}-source-${FLAVOUR}.debian.tar.gz
+			mv source.debian.list debian-live-${DISTRIBUTION}-source-${FLAVOUR}.debian.tar.gz.list
+			mv source.debian-live.tar.gz debian-live-${DISTRIBUTION}-source-${FLAVOUR}.debian-live.tar.gz
+			mv source.debian-live.list debian-live-${DISTRIBUTION}-source-${FLAVOUR}.debian-live.tar.gz.list
 		fi
 	done
 done
