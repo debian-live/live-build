@@ -3,13 +3,13 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-HELPER 1 2010\-05\-08 2.0~a11 "Debian Live Project"
+.TH LIVE\-HELPER 1 09.05.2010 2.0~a11 "Debian Live Projekt"
 
 .SH NAME
-\fBlh config\fP \- Create config directory
+\fBlh config\fP \- Erstellen des config Verzeichnisses
 
-.SH SYNOPSIS
-\fBlh config\fP [\fIlive\-helper options\fP]
+.SH UEBERSICHT
+\fBlh config\fP [\fIlive\-helper Opitonen\fP]
 .PP
 .\" FIXME
 \fBlh config\fP
@@ -209,7 +209,7 @@
 .\" FIXME
   [\fB\-\-win32\-loader true|false]\fP
 
-.SH DESCRIPTION
+.SH BESCHREIBUNG
 \fBlh config\fP is a high\-level command (porcelain) of \fIlive\-helper\fP(7), the
 Debian Live tool suite.
 .PP
@@ -232,7 +232,7 @@ impossible combinations that would lead to non working live systems. If
 unsure, remove config/{binary,bootstrap,chroot,common,source} and call \fBlh
 config\fP again.
 
-.SH OPTIONS
+.SH OPTIONEN
 In addition to its specific options \fBlh config\fP understands all generic
 live\-helper options. See \fIlive\-helper\fP(7) for a complete list of all
 generic live\-helper options.
@@ -689,7 +689,7 @@ environment variable. Environment variables are name LH_FOO, means,
 e.g. \-\-apt\-ftp\-proxy becomes LH_APT_FTP_PROXY. However, this generally
 should not be used.
 
-.SH FILES
+.SH DATEIEN
 .\" FIXME
 .IP \fBauto/config\fP 4
 .IP \fB/etc/default/live\-helper\fP 4
@@ -698,22 +698,23 @@ An optional, global configuration file for \fBlh config\fP variables. It is
 useful to specify a few system wide defaults, like LH_MIRROR_BOOTSTRAP. This
 feature can be false by specifying the \fB\-\-ignore\-system\-defaults\fP option.
 
-.SH "SEE ALSO"
+.SH "SIEHE AUCH"
 \fIlive\-helper\fP(7)
 .PP
-This program is a part of live\-helper.
+Dieses Programm ist Teil von live\-helper.
 
 .SH HOMEPAGE
-More information about live\-helper and the Debian Live project can be found
-on the homepage at <\fIhttp://live.debian.net/\fP> and in the manual at
-<\fIhttp://live.debian.net/manual/\fP>.
+Weitere Informationen ueber live\-helper und das Debian Live Projekt koennen
+auf der Homepage unter <\fIhttp://live.debian.net/\fP> und im Handbuch
+unter <\fIhttp://live.debian.net/manual/\fP> gefunden werden.
 
-.SH BUGS
-Bugs can be reported by sumbitting a bugreport for the live\-helper package
-in the Debian Bug Tracking System at <\fIhttp://bugs.debian.org/\fP> or
-by writing a mail to the Debian Live mailing list at
-<\fIdebian\-live@lists.debian.org\fP>.
+.SH FEHLER
+Fehler koennen durch Einreichen eines Fehlerberichtes fuer das live\-helper
+Paket im Debian Bug Tracking System unter
+<\fIhttp://bugs.debian.org/\fP> oder durch Senden einer E\-Mail an die
+Debian Live Mailing Liste unter <\fIdebian\-live@lists.debian.org\fP>
+(englischsprachig) mitgeteilt werden.
 
-.SH AUTHOR
-live\-helper was written by Daniel Baumann <\fIdaniel@debian.org\fP> for
-the Debian project.
+.SH AUTOR
+live\-helper wurde von Daniel Baumann <\fIdaniel@debian.org\fP> fuer das
+Debian Projekt geschrieben.

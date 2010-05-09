@@ -28,10 +28,10 @@ build: po4a.cfg
 		exit 1; \
 	fi
 
-	po4a --keep 0 --package-name live-helper po4a.cfg
+	po4a --keep 0 --no-backups --package-name live-helper po4a.cfg
 
 clean:
-	rm -f */*.po~
+	rm -f po/*/*.po~
 
 distclean: clean
 	rm -f po4a.cfg
