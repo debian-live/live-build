@@ -1,3 +1,27 @@
+live-helper (2.0~a12-1) unstable; urgency=low
+
+  * Updating package lists for gdm3.
+  * Renaming md5sum helpers to checksums.
+  * Allow to include multiple checksum files and specify which hashes to
+    use.
+  * Removing old NEWS file, news are stored in the wiki at
+    live.debian.net since a while already.
+  * Removing old DOWNLOAD file.
+  * Removing old README file.
+  * Updating kde-core list for sid, thanks to Diederik de Haas
+    <didi.debian@cknow.org>.
+  * Reworking manpages for live-helper 2.
+  * Adding German manpage translations.
+  * Seperating source tarballs into to, one for debian, one for debian-
+    live.
+  * Updating win32-loader pathes for squeeze (Closes: #580952).
+  * Adding repository pre-configurations files for
+    administration.debian-projects.org and customization.debian-
+    projects.org.
+  * Setting version number.
+
+ -- Daniel Baumann <daniel@debian.org>  Wed, 12 May 2010 06:01:39 +0200
+
 live-helper (2.0~a11-1) unstable; urgency=low
 
   [ Daniel Baumann ]
