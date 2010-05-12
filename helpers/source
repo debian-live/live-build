@@ -38,7 +38,7 @@ lh chroot_sources install ${*}
 lh source_debian-live ${*}
 lh source_debian ${*}
 lh source_disk ${*}
-lh source_md5sum ${*}
+lh source_checksums ${*}
 
 # Building images
 lh source_iso ${*}

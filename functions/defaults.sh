@@ -814,7 +814,7 @@ Set_defaults ()
 	fi
 
 	# Setting checksums
-	LH_CHECKSUMS="${LH_CHECKSUMS:-true}"
+	LH_CHECKSUMS="${LH_CHECKSUMS:-md5}"
 
 	# Setting chroot option
 	LH_CHROOT_BUILD="${LH_CHROOT_BUILD:-true}"
