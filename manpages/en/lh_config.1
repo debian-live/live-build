@@ -338,11 +338,11 @@ defines if memtest, memtest86+ or no memory tester at all should be included as 
 .IP "\-m|\fB\-\-mirror\-bootstrap\fR \fIURL\fR" 4
 sets the location of the debian package mirror that should be used to bootstrap from.
 .IP "\fB\-\-mirror\-binary\fR \fIURL\fR" 4
-sets the location of the debian package mirror that should end up configured in the final image and which is the one a user would see and use. This has not necessarily to be the same that is used to build the image, e.g. if you use a local mirror but want to have an official mirror in the image. By default, the same value that is used for \-\-mirror\-chroot is used here unless specified different.
+sets the location of the debian package mirror that should end up configured in the final image and which is the one a user would see and use. This has not necessarily to be the same that is used to build the image, e.g. if you use a local mirror but want to have an official mirror in the image. By default, 'http://cdn.debian.net/debian/' is used.
 .IP "\fB\-\-mirror\-binary\-security\fR \fIURL\fR" 4
-sets the location of the debian security package mirror that should end up configuered in the final image. By default, the same value that is used for \-\-mirror\-chroot\-security is used here unless specified different.
+sets the location of the debian security package mirror that should end up configuered in the final image. By default, 'http://cdn.debian.net/debian-security/' is used.
 .IP "\fB\-\-mirror\-chroot\fR \fIURL\fR" 4
-sets the location of the debian package mirror that will be used to fetch the packages in order to build the live system. By default, this points to http://ftp.us.debian.org/debian/ which may not be a good default if you live outside the U.S.
+sets the location of the debian package mirror that will be used to fetch the packages in order to build the live system. By default, this points to http://ftp.de.debian.org/debian/ which may not be a good default if you live outside the U.S.
 .IP "\fB\-\-mirror\-chroot\-security\fR \fIURL\fR" 4
 sets the location of the debian security package mirror that will be used to fetch the packages in order to build the live system. By default, this points to http://security.debian.org/debian/.
 .IP "\fB\-\-mirror\-debian\-installer\fR \fIURL\fR" 4

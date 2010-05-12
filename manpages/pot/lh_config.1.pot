@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-helper VERSION\n"
-"POT-Creation-Date: 2010-05-12 05:55+0300\n"
+"POT-Creation-Date: 2010-05-12 17:42+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2125,8 +2125,7 @@ msgid ""
 "in the final image and which is the one a user would see and use. This has "
 "not necessarily to be the same that is used to build the image, e.g. if you "
 "use a local mirror but want to have an official mirror in the image. By "
-"default, the same value that is used for --mirror-chroot is used here unless "
-"specified different."
+"default, 'http://cdn.debian.net/debian/' is used."
 msgstr ""
 
 #. type: IP
@@ -2139,8 +2138,8 @@ msgstr ""
 #: en/lh_config.1:344
 msgid ""
 "sets the location of the debian security package mirror that should end up "
-"configuered in the final image. By default, the same value that is used for "
-"--mirror-chroot-security is used here unless specified different."
+"configuered in the final image. By default, 'http://cdn.debian.net/debian-"
+"security/' is used."
 msgstr ""
 
 #. type: IP
@@ -2154,7 +2153,7 @@ msgstr ""
 msgid ""
 "sets the location of the debian package mirror that will be used to fetch "
 "the packages in order to build the live system. By default, this points to "
-"http://ftp.us.debian.org/debian/ which may not be a good default if you live "
+"http://ftp.de.debian.org/debian/ which may not be a good default if you live "
 "outside the U.S."
 msgstr ""
 
