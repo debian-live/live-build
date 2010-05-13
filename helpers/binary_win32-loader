@@ -50,7 +50,7 @@ case "${LH_ARCHITECTURE}" in
 				;;
 
 			*)
-				WIN32_LOADER="/usr/share/win32-loader"
+				WIN32_LOADER="/usr/share/win32"
 				;;
 		esac
 
