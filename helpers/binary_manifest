@@ -45,17 +45,20 @@ Create_lockfile .lock
 case "${LH_INITRAMFS}" in
 	casper)
 		INITFS="casper"
+		SUFFIX="manifest"
 		;;
 
 	live-initramfs)
 		INITFS="live"
+		SUFFIX="packages"
 		;;
 esac
 
-# Add filesystem.manifest
-Chroot chroot "dpkg-query -W" > binary/"${INITFS}"/filesystem.manifest
-# Copy filesystem.manifest in image to binary.manifest as build output.
-cp binary/"${INITFS}"/filesystem.manifest binary.manifest
+# Add filesystem.packages
+Chroot chroot "dpkg-query -W" > binary/"${INITFS}"/filesystem.${SUFFIX}
+
+# Copy manifest as build output.
+cp binary/"${INITFS}"/filesystem.${SUFFIX} binary.${SUFFIX}
 
 # Creating stage file
 Create_stagefile .stage/binary_manifest
