@@ -142,7 +142,17 @@ EOF
 esac
 
 # Update initramfs (always, because of udev rules in initrd)
-Chroot chroot "CASPER_GENERATE_UUID=1 update-initramfs -k all -t -u"
+case "${LH_INITRAMFS}" in
+	live-initramfs)
+		#UPDATE_INITRAMFS_OPTIONS="LIVE_GENERATE_UUID=1"
+		;;
+
+	casper)
+		UPDATE_INITRAMFS_OPTIONS="CASPER_GENERATE_UUID=1"
+		;;
+esac
+
+Chroot chroot "${UPDATE_INITRAMFS_OPTIONS} update-initramfs -k all -t -u"
 
 # Ensure readable permissions on initramfs. loop-aes-utils sets umask to
 # protect GPG keys, which live-helper does not support.
