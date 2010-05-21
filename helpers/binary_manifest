@@ -45,9 +45,6 @@ Create_lockfile .lock
 case "${LH_INITRAMFS}" in
 	casper)
 		INITFS="casper"
-
-		# Add filesystem.manifest
-		Chroot chroot "dpkg --get-selections" | awk '{ print $1 }' | sort -u > binary/casper/filesystem.manifest
 		;;
 
 	live-initramfs)
@@ -55,16 +52,10 @@ case "${LH_INITRAMFS}" in
 		;;
 esac
 
-# Add packages.list
-cat > binary/${INITFS}/packages.txt << EOF
-This file contains the list of all packages installed in this live system.
-
-
-EOF
-
-Chroot chroot "dpkg -l" >> binary/${INITFS}/packages.txt
-
-cp binary/${INITFS}/packages.txt binary.packages
+# Add filesystem.manifest
+Chroot chroot "dpkg-query -W" > binary/"${INITFS}"/filesystem.manifest
+# Copy filesystem.manifest in image to binary.manifest as build output.
+cp binary/"${INITFS}"/filesystem.manifest binary.manifest
 
 # Creating stage file
 Create_stagefile .stage/binary_manifest
