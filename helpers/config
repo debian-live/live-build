@@ -78,6 +78,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--includes PATH]\n\
 \t    [--initramfs auto|live-initramfs|casper]\n\
 \t    [--interactive shell]\n\
+\t    [--isohybrid-options OPTION|\"OPTIONS\"]\n\
 \t    [--iso-application NAME]\n\
 \t    [--iso-preparer NAME]\n\
 \t    [--iso-publisher NAME]\n\
@@ -145,7 +146,7 @@ Local_arguments ()
 		packages:,packages-lists:,tasks:,security:,volatile:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,
 		binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
-		encryption:,grub-splash:,hostname:,iso-application:,iso-preparer:,iso-publisher:,
+		encryption:,grub-splash:,hostname:,isohybrid-options:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
 		net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,
 		net-cow-server:,net-tarball:,syslinux-splash:,syslinux-timeout:,syslinux-menu:,
@@ -608,6 +609,11 @@ Local_arguments ()
 				shift 2
 				;;
 
+			--isohybrid-options)
+				LH_ISOHYBRID_OPTIONS="${2}"
+				shift 2
+				;;
+
 			--iso-application)
 				LH_ISO_APPLICATION="${2}"
 				shift 2
@@ -955,6 +961,7 @@ _QUIET="${_QUIET}"
 APT_OPTIONS="${APT_OPTIONS}"
 APTITUDE_OPTIONS="${APTITUDE_OPTIONS}"
 GZIP_OPTIONS="${GZIP_OPTIONS}"
+ISOHYBRID_OPTIONS="${ISOHYBRID_OPTIONS}"
 EOF
 
 # Creating lh_bootstrap_* configuration

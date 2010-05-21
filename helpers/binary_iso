@@ -194,7 +194,7 @@ then
 
 cat >> binary.sh << EOF
 
-isohybrid ${IMAGE}
+isohybrid ${ISOHYBRID_OPTIONS} ${IMAGE}
 EOF
 
 fi
