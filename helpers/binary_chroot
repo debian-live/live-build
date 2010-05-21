@@ -67,7 +67,7 @@ then
 	find /dev | cpio -dmpu chroot
 fi
 
-if [ "${LH_CHROOT_BUILD}" = "false" ]
+if [ "${LH_BUILD_WITH_CHROOT}" = "false" ]
 then
 	exit 0
 fi

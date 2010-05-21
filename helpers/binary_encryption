@@ -85,7 +85,7 @@ Install_package
 
 Echo_message "Encrypting binary/%s/filesystem.%s with %s..." "${INITFS}" "${LH_CHROOT_FILESYSTEM}" "${LH_ENCRYPTION}"
 
-if [ "${LH_CHROOT_BUILD}" = "true" ]
+if [ "${LH_BUILD_WITH_CHROOT}" = "true" ]
 then
 	# Moving image
 	mv binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM} chroot
@@ -100,7 +100,7 @@ do
 	Echo " (Passwords must be at least 20 characters long)"
 	echo
 
-	case "${LH_CHROOT_BUILD}" in
+	case "${LH_BUILD_WITH_CHROOT}" in
 		true)
 			if Chroot chroot aespipe -e ${LH_ENCRYPTION} -T \
 				< chroot/filesystem.${LH_CHROOT_FILESYSTEM} \

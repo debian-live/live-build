@@ -229,7 +229,7 @@ case "${LH_BINARY_IMAGES}" in
 		# Copying silo
 		mkdir -p binary/boot
 
-		case "${LH_CHROOT_BUILD}" in
+		case "${LH_BUILD_WITH_CHROOT}" in
 			true)
 				cp chroot/boot/second.b binary/boot
 				;;

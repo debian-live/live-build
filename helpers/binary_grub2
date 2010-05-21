@@ -258,7 +258,7 @@ case ${LH_BINARY_IMAGES} in
 		;;
 esac
 
-if [ "${LH_CHROOT_BUILD}" = "false" ]
+if [ "${LH_BUILD_WITH_CHROOT}" = "false" ]
 then
 	FILES="$(echo ${FILES} | sed -e 's|chroot||g')"
 fi
