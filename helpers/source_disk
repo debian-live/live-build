@@ -65,7 +65,7 @@ case "${LH_MODE}" in
 		;;
 
 	ubuntu)
-		TITLE="Ubuntu GNU/Linux"
+		TITLE="Ubuntu"
 		STRING="Build ${ARCHITECTURE}"
 		TRACE=""
 		;;
