@@ -28,7 +28,7 @@ Exit ()
 			umount ${DIRECTORY} > /dev/null 2>&1 || true
 		done
 	else
-		for DIRECTORY in /dev/pts /dev /proc /selinux /sys
+		for DIRECTORY in /dev/shm /dev/pts /dev /proc /selinux /sys
 		do
 			umount -f chroot/${DIRECTORY} > /dev/null 2>&1 || true
 		done
