@@ -83,7 +83,7 @@ do
 done
 
 # Handling chroot excludes
-if [ "${LH_CHROOT_BUILD}" = "true" ]
+if [ "${LH_BUILD_WITH_CHROOT}" = "true" ]
 then
 	if [ -f config/binary_rootfs/excludes ]
 	then
@@ -135,7 +135,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 
 		RESERVED_PERCENTAGE="--reserved-percentage"
 
-		case "${LH_CHROOT_BUILD}" in
+		case "${LH_BUILD_WITH_CHROOT}" in
 			true)
 				Chroot chroot "genext2fs --size-in-blocks=${REAL_DIM} ${RESERVED_PERCENTAGE}=0 --root=chroot filesystem.${LH_CHROOT_FILESYSTEM}"
 
@@ -219,7 +219,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 			JFFS2_OPTIONS="--eraseblock=${LH_JFFS2_ERASEBLOCK}"
 		fi
 
-		case "${LH_CHROOT_BUILD}" in
+		case "${LH_BUILD_WITH_CHROOT}" in
 			true)
 				Chroot chroot "mkfs.jffs2 ${JFFS2_OPTIONS} --root=chroot --output filesystem.jffs2"
 
@@ -288,7 +288,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 			rm -rf binary/${INITFS}/filesystem.dir
 		fi
 
-		case "${LH_CHROOT_BUILD}" in
+		case "${LH_BUILD_WITH_CHROOT}" in
 			true)
 				mv chroot/chroot binary/${INITFS}/filesystem.dir
 				;;
@@ -334,7 +334,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 			cp config/binary_rootfs/squashfs.sort chroot #FIXME
 		fi
 
-		case "${LH_CHROOT_BUILD}" in
+		case "${LH_BUILD_WITH_CHROOT}" in
 			true)
 				# Create image
 				Chroot chroot "mksquashfs chroot filesystem.squashfs ${MKSQUASHFS_OPTIONS}"
@@ -421,7 +421,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 			rm -rf binary
 		fi
 
-		case "${LH_CHROOT_BUILD}" in
+		case "${LH_BUILD_WITH_CHROOT}" in
 			true)
 				mv chroot/chroot binary
 				;;

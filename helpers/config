@@ -53,7 +53,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--cache-packages true|false]\n\
 \t    [--cache-stages STAGE|\"STAGES\"]\n\
 \t    [--checksums md5|sha1|sha256|none]\n\
-\t    [--chroot-build true|false]\n\
+\t    [--build-with-chroot true|false]\n\
 \t    [--chroot-filesystem ext2|ext3|squashfs|plain|jffs2]\n\
 \t    [-c|--conffile FILE]\n\
 \t    [--clean\n\
@@ -144,7 +144,7 @@ Local_arguments ()
 		mirror-binary-security:,mirror-binary-volatile:,mirror-debian-installer:,archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
 		packages:,packages-lists:,tasks:,security:,volatile:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,
-		binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,chroot-build:,
+		binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
 		encryption:,grub-splash:,hostname:,isohybrid-options:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
@@ -569,8 +569,8 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--chroot-build)
-				LH_CHROOT_BUILD="${2}"
+			--build-with-chroot)
+				LH_BUILD_WITH_CHROOT="${2}"
 				shift 2
 				;;
 
@@ -1162,10 +1162,10 @@ LH_BOOTLOADER="${LH_BOOTLOADER}"
 # (Default: ${LH_CHECKSUMS})
 LH_CHECKSUMS="${LH_CHECKSUMS}"
 
-# \${LH_CHROOT_BUILD: control if we build binary images chrooted
-# (Default: ${LH_CHROOT_BUILD})
+# \${LH_BUILD_WITH_CHROOT: control if we build binary images chrooted
+# (Default: ${LH_BUILD_WITH_CHROOT})
 # DO NEVER, *NEVER*, *N*E*V*E*R* SET THIS OPTION to false.
-LH_CHROOT_BUILD="${LH_CHROOT_BUILD}"
+LH_BUILD_WITH_CHROOT="${LH_BUILD_WITH_CHROOT}"
 
 # \$LH_DEBIAN_INSTALLER: set debian-installer
 # (Default: ${LH_DEBIAN_INSTALLER})

@@ -817,7 +817,7 @@ Set_defaults ()
 	LH_CHECKSUMS="${LH_CHECKSUMS:-md5}"
 
 	# Setting chroot option
-	LH_CHROOT_BUILD="${LH_CHROOT_BUILD:-true}"
+	LH_BUILD_WITH_CHROOT="${LH_BUILD_WITH_CHROOT:-true}"
 
 	# Setting debian-installer option
 	LH_DEBIAN_INSTALLER="${LH_DEBIAN_INSTALLER:-false}"

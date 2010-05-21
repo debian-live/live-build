@@ -199,7 +199,7 @@ EOF
 
 fi
 
-case "${LH_CHROOT_BUILD}" in
+case "${LH_BUILD_WITH_CHROOT}" in
 	true)
 		# Moving image
 		mv binary.sh chroot

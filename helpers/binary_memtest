@@ -48,7 +48,7 @@ then
 	exit 0
 fi
 
-if [ "${LH_CHROOT_BUILD}" = "true" ]
+if [ "${LH_BUILD_WITH_CHROOT}" = "true" ]
 then
 
 	if [ -f chroot/usr/sbin/grub ] && [ ! -f chroot/boot/grub/menu.lst ]
@@ -94,7 +94,7 @@ Check_multiarchitecture
 mkdir -p "${DESTDIR}"
 
 # Installing memtest
-case "${LH_CHROOT_BUILD}" in
+case "${LH_BUILD_WITH_CHROOT}" in
 	true)
 		cp chroot/boot/${LH_MEMTEST}.bin "${DESTDIR}"/memtest
 		;;

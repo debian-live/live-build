@@ -220,7 +220,7 @@ Copy_syslinux_templates ()
 				;;
 		esac
 
-		case "${LH_CHROOT_BUILD}" in
+		case "${LH_BUILD_WITH_CHROOT}" in
 			true)
 				cp chroot/usr/lib/syslinux/"${MENUMODULE}" ${DATA_PATH}
 				;;
@@ -582,7 +582,7 @@ Configure_syslinux_templates
 # Configure syslinux setup per boot method
 case "${LH_BINARY_IMAGES}" in
 	iso*)
-		case "${LH_CHROOT_BUILD}" in
+		case "${LH_BUILD_WITH_CHROOT}" in
 			true)
 				cp chroot/usr/lib/syslinux/isolinux.bin ${SCREEN_PATH}
 				;;
@@ -601,7 +601,7 @@ case "${LH_BINARY_IMAGES}" in
 		;;
 
 	net)
-		case "${LH_CHROOT_BUILD}" in
+		case "${LH_BUILD_WITH_CHROOT}" in
 			true)
 				cp chroot/usr/lib/syslinux/pxelinux.0 ${KERNEL_PATH}
 				;;
@@ -632,7 +632,7 @@ case "${LH_BINARY_IMAGES}" in
 		;;
 
 	usb*|tar)
-		case "${LH_CHROOT_BUILD}" in
+		case "${LH_BUILD_WITH_CHROOT}" in
 			true)
 				cp chroot/usr/lib/syslinux/isolinux.bin ${SCREEN_PATH}/syslinux.bin
 				;;

@@ -276,7 +276,7 @@ case "${LH_BINARY_IMAGES}" in
 		# Copying yaboot
 		mkdir -p binary/yaboot
 
-		case "${LH_CHROOT_BUILD}" in
+		case "${LH_BUILD_WITH_CHROOT}" in
 			true)
 				cp chroot/usr/lib/yaboot/yaboot binary/yaboot
 				;;
