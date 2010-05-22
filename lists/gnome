@@ -3,7 +3,10 @@
 ## LH: GNOME Desktop
 #include <gnome-core>
 
-gdm-themes gnome-desktop-environment system-config-printer gnome-screensaver
+#if DISTRIBUTION lenny
+gdm-themes
+#endif
+gnome-desktop-environment system-config-printer gnome-screensaver
 gnome-themes-extras
 
 rhythmbox synaptic
