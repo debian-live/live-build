@@ -9,7 +9,7 @@ gdm
 lxnm
 #endif
 #if DISTRIBUTION squeeze sid
-gdm3
+nodm
 wicd
 #endif
 desktop-base
