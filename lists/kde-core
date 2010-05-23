@@ -6,12 +6,8 @@
 #if DISTRIBUTION lenny
 kde-core
 #endif
-#if DISTRIBUTION sid
-kde-minimal
-#endif
-#if DISTRIBUTION sid
+#if DISTRIBUTION squeeze sid
 kde-plasma-desktop
 #endif
-
 kdm
 desktop-base
