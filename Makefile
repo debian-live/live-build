@@ -4,22 +4,33 @@ SHELL := sh -e
 
 LANGUAGES = de
 
-all: test install
+all: test build
 
 test:
-	# Checking for syntax errors
-	for SCRIPT in live-helper.sh cgi/* functions/* examples/*/*.sh helpers/* hooks/*; \
+	@echo -n "Checking for syntax errors"
+
+	@for SCRIPT in live-helper.sh cgi/* functions/* examples/*/*.sh helpers/* hooks/*; \
 	do \
 		sh -n $${SCRIPT}; \
+		echo -n "."; \
 	done
 
-	# Checking for bashisms
-	if [ -x /usr/bin/checkbashisms ]; \
+	@echo " done."
+
+	@echo -n "Checking for bashisms"
+
+	@if [ -x /usr/bin/checkbashisms ]; \
 	then \
-		checkbashisms live-helper.sh functions/* examples/*/*.sh helpers/* hooks/*; \
+		for SCRIPT in live-helper.sh functions/* examples/*/*.sh helpers/* hooks/*; \
+		do \
+			checkbashisms $${SCRIPT}; \
+			echo -n "."; \
+		done; \
 	else \
 		echo "WARNING: skipping bashism test - you need to install devscripts."; \
 	fi
+
+	@echo " done."
 
 build:
 	@echo "Nothing to build."
