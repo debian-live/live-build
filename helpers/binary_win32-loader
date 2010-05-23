@@ -50,11 +50,11 @@ case "${LH_ARCHITECTURE}" in
 				;;
 
 			*)
-				WIN32_LOADER="/usr/share/win32-loader"
+				WIN32_LOADER="/usr/share/win32"
 				;;
 		esac
 
-		if [ "${LH_CHROOT_BUILD}" = "true" ]
+		if [ "${LH_BUILD_WITH_CHROOT}" = "true" ]
 		then
 			# Checking depends
 			Check_package chroot/${WIN32_LOADER}/win32-loader.exe win32-loader

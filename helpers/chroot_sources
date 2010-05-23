@@ -191,7 +191,7 @@ case "${1}" in
 				# If we bootstrapped a minimal chroot, we need
 				# to install apt-utils before we have have
 				# completed all the indices.
-				case "${LH_BOOTSTRAP_FLAVOUR}" in
+				case "${LH_PACKAGES_LISTS}" in
 					stripped|minimal)
 						Chroot chroot "apt-get update"
 						;;

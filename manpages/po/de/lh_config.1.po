@@ -1,15 +1,15 @@
-# German translations for PACKAGE package
-# Copyright (C) 2010 Free Software Foundation, Inc.
+# German translations for live-helper package
+# Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
 # This file is distributed under the same license as the live-helper package.
-# Automatically generated, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: live-helper VERSION\n"
-"POT-Creation-Date: 2010-05-12 05:55+0300\n"
+"Project-Id-Version: live-helper 2.0~a12\n"
+"POT-Creation-Date: 2010-05-23 12:35+0300\n"
 "PO-Revision-Date: 2010-05-08 23:50+0300\n"
-"Last-Translator: Automatically generated\n"
+"Last-Translator: Daniel Baumann <daniel@debian.org>\n"
 "Language-Team: none\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ASCII\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -82,8 +82,8 @@ msgstr "LIVE-HELPER"
 #: en/lh_source_net.1:1 en/lh_source_tar.1:1 en/lh_source_usb.1:1
 #: en/lh_source_virtual-hdd.1:1 en/lh_testroot.1:1 en/live-helper.7:1
 #, no-wrap
-msgid "2010-05-12"
-msgstr "12.05.2010"
+msgid "2010-05-23"
+msgstr "23.05.2010"
 
 #. type: TH
 #: en/lh.1:1 en/lh_binary.1:1 en/lh_binary_checksums.1:1
@@ -116,8 +116,9 @@ msgstr "12.05.2010"
 #: en/lh_source_debian-live.1:1 en/lh_source_disk.1:1 en/lh_source_iso.1:1
 #: en/lh_source_net.1:1 en/lh_source_tar.1:1 en/lh_source_usb.1:1
 #: en/lh_source_virtual-hdd.1:1 en/lh_testroot.1:1 en/live-helper.7:1
-#, no-wrap
-msgid "2.0~a12"
+#, fuzzy, no-wrap
+#| msgid "2.0~a12"
+msgid "2.0~a13"
 msgstr "2.0~a12"
 
 #. type: TH
@@ -836,7 +837,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/lh_config.1:63
-msgid "  [B<--chroot-build> true|false]"
+msgid "  [B<--build-with-chroot> true|false]"
 msgstr ""
 
 #. type: Plain text
@@ -1610,7 +1611,7 @@ msgstr ""
 #. type: IP
 #: en/lh_config.1:270
 #, no-wrap
-msgid "B<--chroot-build> true|false"
+msgid "B<--build-with-chroot> true|false"
 msgstr ""
 
 #. type: Plain text
@@ -2135,8 +2136,7 @@ msgid ""
 "in the final image and which is the one a user would see and use. This has "
 "not necessarily to be the same that is used to build the image, e.g. if you "
 "use a local mirror but want to have an official mirror in the image. By "
-"default, the same value that is used for --mirror-chroot is used here unless "
-"specified different."
+"default, 'http://cdn.debian.net/debian/' is used."
 msgstr ""
 
 #. type: IP
@@ -2149,8 +2149,8 @@ msgstr ""
 #: en/lh_config.1:344
 msgid ""
 "sets the location of the debian security package mirror that should end up "
-"configuered in the final image. By default, the same value that is used for "
-"--mirror-chroot-security is used here unless specified different."
+"configuered in the final image. By default, 'http://cdn.debian.net/debian-"
+"security/' is used."
 msgstr ""
 
 #. type: IP
@@ -2164,7 +2164,7 @@ msgstr ""
 msgid ""
 "sets the location of the debian package mirror that will be used to fetch "
 "the packages in order to build the live system. By default, this points to "
-"http://ftp.us.debian.org/debian/ which may not be a good default if you live "
+"http://ftp.de.debian.org/debian/ which may not be a good default if you live "
 "outside the U.S."
 msgstr ""
 

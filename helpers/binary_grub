@@ -67,7 +67,7 @@ Grub_live_entry ()
 	APPEND="${4}"
 
 	LINUX_LIVE="${LINUX_LIVE}\ntitle\t\tDebian GNU/Linux - ${LABEL}"
-	LINUX_LIVE="${LINUX_LIVE}\nkernel\t\t/${KERNEL} boot=${INITFS} LH_BOOTAPPEND_LIVE ${APPEND}"
+	LINUX_LIVE="${LINUX_LIVE}\nkernel\t\t/${KERNEL} boot=${INITFS} live-config LH_BOOTAPPEND_LIVE ${APPEND}"
 	LINUX_LIVE="${LINUX_LIVE}\ninitrd\t\t/${INITRD}"
 }
 
@@ -285,7 +285,7 @@ case ${LH_BINARY_IMAGES} in
 		;;
 esac
 
-if [ "${LH_CHROOT_BUILD}" = "false" ]
+if [ "${LH_BUILD_WITH_CHROOT}" = "false" ]
 then
 	FILES="$(echo ${FILES} | sed -e 's|chroot||g')"
 fi

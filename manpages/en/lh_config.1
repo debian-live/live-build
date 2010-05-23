@@ -1,4 +1,4 @@
-.TH LIVE\-HELPER 1 2010\-05\-12 2.0~a12 "Debian Live Project"
+.TH LIVE\-HELPER 1 2010\-05\-23 2.0~a13 "Debian Live Project"
 
 .SH NAME
 \fBlh config\fR \- Create config directory
@@ -59,7 +59,7 @@
 .br
 	[\fB\-\-checksums\fR md5|sha1|sha256|none]
 .br
-	[\fB\-\-chroot\-build\fR true|false]
+	[\fB\-\-build\-with\-chroot\fR true|false]
 .br
 	[\fB\-\-chroot\-filesystem\fR ext2|ext3|squashfs|plain|jffs2]
 .br
@@ -267,7 +267,7 @@ defines if downloaded packages files should be cached which is true by default. 
 sets which stages should be cached. By default set to bootstrap. As an exception to the normal stage names, also rootfs can be used here which does only cache the generated root filesystem in filesystem.{dir,ext*,squashfs}. This is useful during development if you want to rebuild the binary stage but not regenerate the root filesystem all the time.
 .IP "\fB\-\-checksums\fR md5|sha1|sha256|none" 4
 defines if the binary image should contain a file called md5sums.txt, sha1sums.txt and/or sha256sums.txt. These lists all files on the image together with their checksums. This in turn can be used by live\-initramfs' built\-in integrity\-check to verify the medium if specified at boot prompt. In general, this should not be false and is an important feature of live system released to the public. However, during development of very big images it can save some time by not calculating the checksums.
-.IP "\fB\-\-chroot\-build\fR true|false" 4
+.IP "\fB\-\-build\-with\-chroot\fR true|false" 4
 defines whetever live\-helper should use the tools from within the chroot to build the binary image or not by using and including the host systems tools. This is a very dangerous option, using the tools of the host system can lead to tainted and even non-bootable images if the host systems version of the required tools (mainly these are the bootloaders such as syslinux, grub and yaboot, and the auxilliary tools such as dosfstools, genisoimage, squashfs-tools and others) do not \fBexactely\fR match what is present at build-time in the target distribution. Never do disable this option unless you are \fBexactely\fR sure what you are doing and have \fBcompletely\fI understood its consequences.
 .IP "\fB\-\-chroot\-filesystem\fR ext2|ext3|squashfs|plain|jffs2" 4
 defines which filesystem type should be used for the root filesystem image. If you use plain, then no filesystem image is created and the root filesystem content is copied on the binary image filesystem as flat files. Depending on what binary filesystem you have choosen, it may not be possible to build with a plain root filesystem, e.g. fat16/fat32 and plain don't work as linux does not support to run on them.
@@ -338,11 +338,11 @@ defines if memtest, memtest86+ or no memory tester at all should be included as 
 .IP "\-m|\fB\-\-mirror\-bootstrap\fR \fIURL\fR" 4
 sets the location of the debian package mirror that should be used to bootstrap from.
 .IP "\fB\-\-mirror\-binary\fR \fIURL\fR" 4
-sets the location of the debian package mirror that should end up configured in the final image and which is the one a user would see and use. This has not necessarily to be the same that is used to build the image, e.g. if you use a local mirror but want to have an official mirror in the image. By default, the same value that is used for \-\-mirror\-chroot is used here unless specified different.
+sets the location of the debian package mirror that should end up configured in the final image and which is the one a user would see and use. This has not necessarily to be the same that is used to build the image, e.g. if you use a local mirror but want to have an official mirror in the image. By default, 'http://cdn.debian.net/debian/' is used.
 .IP "\fB\-\-mirror\-binary\-security\fR \fIURL\fR" 4
-sets the location of the debian security package mirror that should end up configuered in the final image. By default, the same value that is used for \-\-mirror\-chroot\-security is used here unless specified different.
+sets the location of the debian security package mirror that should end up configuered in the final image. By default, 'http://cdn.debian.net/debian-security/' is used.
 .IP "\fB\-\-mirror\-chroot\fR \fIURL\fR" 4
-sets the location of the debian package mirror that will be used to fetch the packages in order to build the live system. By default, this points to http://ftp.us.debian.org/debian/ which may not be a good default if you live outside the U.S.
+sets the location of the debian package mirror that will be used to fetch the packages in order to build the live system. By default, this points to http://ftp.de.debian.org/debian/ which may not be a good default if you live outside the U.S.
 .IP "\fB\-\-mirror\-chroot\-security\fR \fIURL\fR" 4
 sets the location of the debian security package mirror that will be used to fetch the packages in order to build the live system. By default, this points to http://security.debian.org/debian/.
 .IP "\fB\-\-mirror\-debian\-installer\fR \fIURL\fR" 4

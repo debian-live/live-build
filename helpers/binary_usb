@@ -141,7 +141,7 @@ case "${LH_BINARY_FILESYSTEM}" in
 		;;
 esac
 
-case "${LH_CHROOT_BUILD}" in
+case "${LH_BUILD_WITH_CHROOT}" in
 	true)
 		Chroot chroot "parted -s ${FREELO} mklabel ${PARTITION_TABLE_TYPE}" || true
 		Chroot chroot "parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100%" || true
@@ -190,7 +190,7 @@ case "${LH_BINARY_FILESYSTEM}" in
 		;;
 esac
 
-case "${LH_CHROOT_BUILD}" in
+case "${LH_BUILD_WITH_CHROOT}" in
 	true)
 		Chroot chroot "mkfs.${MKFS} ${MKFS_OPTIONS} ${FREELO}"
 		;;
@@ -246,7 +246,7 @@ rmdir chroot/binary.tmp
 
 if [ "${LH_BOOTLOADER}" = "syslinux" ]
 then
-	case "${LH_CHROOT_BUILD}" in
+	case "${LH_BUILD_WITH_CHROOT}" in
 		true)
 			Chroot chroot "syslinux ${FREELO}"
 			;;

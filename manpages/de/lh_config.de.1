@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-HELPER 1 12.05.2010 2.0~a12 "Debian Live Projekt"
+.TH LIVE\-HELPER 1 23.05.2010 2.0~a13 "Debian Live Projekt"
 
 .SH NAME
 \fBlh config\fP \- Erstellen des config Verzeichnisses
@@ -64,7 +64,7 @@
 .br
   [\fB\-\-checksums\fP md5|sha1|sha256|none]
 .br
-  [\fB\-\-chroot\-build\fP true|false]
+  [\fB\-\-build\-with\-chroot\fP true|false]
 .br
   [\fB\-\-chroot\-filesystem\fP ext2|ext3|squashfs|plain|jffs2]
 .br
@@ -359,7 +359,7 @@ built\-in integrity\-check to verify the medium if specified at boot
 prompt. In general, this should not be false and is an important feature of
 live system released to the public. However, during development of very big
 images it can save some time by not calculating the checksums.
-.IP "\fB\-\-chroot\-build\fP true|false" 4
+.IP "\fB\-\-build\-with\-chroot\fP true|false" 4
 defines whetever live\-helper should use the tools from within the chroot to
 build the binary image or not by using and including the host systems
 tools. This is a very dangerous option, using the tools of the host system
@@ -532,16 +532,15 @@ sets the location of the debian package mirror that should end up configured
 in the final image and which is the one a user would see and use. This has
 not necessarily to be the same that is used to build the image, e.g. if you
 use a local mirror but want to have an official mirror in the image. By
-default, the same value that is used for \-\-mirror\-chroot is used here unless
-specified different.
+default, 'http://cdn.debian.net/debian/' is used.
 .IP "\fB\-\-mirror\-binary\-security\fP \fIURL\fP" 4
 sets the location of the debian security package mirror that should end up
-configuered in the final image. By default, the same value that is used for
-\-\-mirror\-chroot\-security is used here unless specified different.
+configuered in the final image. By default,
+\&'http://cdn.debian.net/debian\-security/' is used.
 .IP "\fB\-\-mirror\-chroot\fP \fIURL\fP" 4
 sets the location of the debian package mirror that will be used to fetch
 the packages in order to build the live system. By default, this points to
-http://ftp.us.debian.org/debian/ which may not be a good default if you live
+http://ftp.de.debian.org/debian/ which may not be a good default if you live
 outside the U.S.
 .IP "\fB\-\-mirror\-chroot\-security\fP \fIURL\fP" 4
 sets the location of the debian security package mirror that will be used to
