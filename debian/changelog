@@ -1,3 +1,39 @@
+live-helper (2.0~a13-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Updating lh_config manpage wrt/ mirror defaults.
+  * Once again updating path for win32-loader for squeeze and newer.
+  * Visually improving test target of Makefile.
+  * Updating default boot parameters to include live-config.
+  * Thinking about removing openssh-server hostkeys, as they should be
+    regenerated during boot anyway.
+  * Using kde-plasma-desktop instead of kde-minimal for squeeze and
+    newer in kde-core list, thanks to Diederik de Haas
+    <didi.debian@cknow.org>.
+  * Updating headers of German manpage po files.
+  * Applying slightly modified patch from Cody A.W. Somerville
+    <cody.somerville@canonical.com> to update titles for Ubuntu in live-
+    media disk info.
+
+  [ Cody A.W. Somerville ]
+  * Generating casper uuid file in casper initrd.
+
+  [ Daniel Baumann ]
+  * Generalizing uuid handling so that we can enable it in debian later
+    too.
+  * Adding option for custom isohybrid arguments.
+  * Also (try) unmounting /dev/shm in exit function.
+  * Renaming --chroot-build to --build-with-chroot.
+  * Correcting wrong apt-utils workaround in chroot_sources when using
+    minimal and local packages.
+  * Only installing gdm-themes for lenny in gnome packages list.
+  * Using nodm instead of gdm in lxde packages list for squeeze and
+    newer.
+  * Adding user-setup to minimal packages list.
+  * Setting version number to 2.0~a13.
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 23 May 2010 12:37:33 +0200
+
 live-helper (2.0~a12-1) unstable; urgency=low
 
   * Updating package lists for gdm3.
