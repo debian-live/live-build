@@ -52,7 +52,7 @@ install:
 	for MANPAGE in manpages/en/*; \
 	do \
 		SECTION="$$(basename $${MANPAGE} | awk -F. '{ print $$2 }')"; \
-		install -D -m 0644 $${MANPAGE} $(DESTDIR)/usr/share/man/man$${SECTION}/$$(basename $${MANPAGE} .en.$${SECTION}).$${SECTION}; \
+		install -D -m 0644 $${MANPAGE} $(DESTDIR)/usr/share/man/man$${SECTION}/$$(basename $${MANPAGE}); \
 	done
 
 	for LANGUAGE in $(LANGUAGES); \
