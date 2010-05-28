@@ -223,7 +223,7 @@ msgstr "NAME"
 #: en/lh_source_virtual-hdd.1:6 en/lh_testroot.1:6 en/live-helper.7:6
 #, no-wrap
 msgid "SYNOPSIS"
-msgstr "UEBERSICHT"
+msgstr "ÜBERSICHT"
 
 #. type: SH
 #: en/lh.1:11 en/lh_binary.1:9 en/lh_binary_checksums.1:9
@@ -526,7 +526,7 @@ msgid ""
 "on the homepage at E<lt>I<http://live.debian.net/>E<gt> and in the manual at "
 "E<lt>I<http://live.debian.net/manual/>E<gt>."
 msgstr ""
-"Weitere Informationen ueber live-helper und das Debian Live Projekt koennen "
+"Weitere Informationen über live-helper und das Debian Live Projekt können "
 "auf der Homepage unter E<lt>I<http://live.debian.net/>E<gt> und im Handbuch "
 "unter E<lt>I<http://live.debian.net/manual/>E<gt> gefunden werden."
 
@@ -608,7 +608,7 @@ msgid ""
 "by writing a mail to the Debian Live mailing list at E<lt>I<debian-"
 "live@lists.debian.org>E<gt>."
 msgstr ""
-"Fehler koennen durch Einreichen eines Fehlerberichtes fuer das live-helper "
+"Fehler können durch Einreichen eines Fehlerberichtes für das live-helper "
 "Paket im Debian Bug Tracking System unter E<lt>I<http://bugs.debian.org/"
 ">E<gt> oder durch Senden einer E-Mail an die Debian Live Mailing Liste unter "
 "E<lt>I<debian-live@lists.debian.org>E<gt> (englischsprachig) mitgeteilt "
@@ -690,13 +690,13 @@ msgid ""
 "live-helper was written by Daniel Baumann E<lt>I<daniel@debian.org>E<gt> for "
 "the Debian project."
 msgstr ""
-"live-helper wurde von Daniel Baumann E<lt>I<daniel@debian.org>E<gt> fuer das "
+"live-helper wurde von Daniel Baumann E<lt>I<daniel@debian.org>E<gt> für das "
 "Debian Projekt geschrieben."
 
 #. type: Plain text
 #: en/lh_clean.1:5
 msgid "B<lh clean> - Clean build directory"
-msgstr "B<lh clean> - Raeumt das Arbeitsverzeichnis auf"
+msgstr "B<lh clean> - Räumt das Arbeitsverzeichnis auf"
 
 #. type: Plain text
 #: en/lh_clean.1:8
@@ -721,10 +721,10 @@ msgid ""
 "removes the build directories, and removes some other files including stage "
 "files, and any detritus left behind by other live-helper commands."
 msgstr ""
-"B<lh clean> ist verantwortlich fuer das Aufraeumen nachdem ein System "
-"erstellt wurde. Es entfernt die Arbeitsverzeichnisse und einige andere "
-"Dateien, einschliesslich der \"stage\" Dateien, sowie Ueberbleibsel anderer "
-"live-helper Befehle."
+"B<lh clean> ist verantwortlich für das Aufräumen nachdem ein System erstellt "
+"wurde. Es entfernt die Arbeitsverzeichnisse und einige andere Dateien, "
+"einschliesslich der \"stage\" Dateien, sowie Überbleibsel anderer live-"
+"helper Befehle."
 
 #. type: Plain text
 #: en/lh_clean.1:18
@@ -733,9 +733,9 @@ msgid ""
 "helper options. See I<live-helper>(7) for a complete list of all generic "
 "live-helper options."
 msgstr ""
-"B<lh chroot_apt> unterstuetzt zusaetzlich zu spezifischen Optionen auch alle "
-"allgemeinen live-helper Optionen. Siehe I<live-helper>(7) fuer eine "
-"vollstaendige Liste aller allgemeinen live-helper Optionen."
+"B<lh chroot_apt> unterstützt zusätzlich zu spezifischen Optionen auch alle "
+"allgemeinen live-helper Optionen. Siehe I<live-helper>(7) für eine "
+"vollständige Liste aller allgemeinen live-helper Optionen."
 
 #.  FIXME
 #. type: IP
@@ -752,7 +752,7 @@ msgid ""
 msgstr ""
 "entfernt \"chroot\", \"binary\", \"stage\" und \"source\" Stufen. Das cache "
 "Verzeichnis bleibt bestehen. Dies ist die Standardoperation und wird "
-"ausgefuehrt, wenn kein Argument angegeben wird."
+"ausgeführt, wenn kein Argument angegeben wird."
 
 #. type: IP
 #: en/lh_clean.1:22
@@ -763,7 +763,7 @@ msgstr "B<--cache>"
 #. type: Plain text
 #: en/lh_clean.1:24
 msgid "removes the cache directories."
-msgstr "entfernt the Cache Verzeichnisse."
+msgstr "entfernt die Cache Verzeichnisse."
 
 #. type: IP
 #: en/lh_clean.1:24
@@ -774,7 +774,7 @@ msgstr "B<--chroot>"
 #. type: Plain text
 #: en/lh_clean.1:26
 msgid "unmounts and removes the chroot directory."
-msgstr "haengt \"chroot\" Verzeichnis aus und entfernt es."
+msgstr "hängt \"chroot\" Verzeichnis aus und entfernt es."
 
 #. type: IP
 #: en/lh_clean.1:26
