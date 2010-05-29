@@ -45,7 +45,7 @@ Create_lockfile .lock
 case "${LH_ARCHITECTURE}" in
 	amd64|i386)
 		case "${LH_DISTRIBUTION}" in
-			lenny)
+			lenny|squeeze)
 				WIN32_LOADER="/usr/lib/win32-loader"
 				;;
 
