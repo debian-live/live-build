@@ -1,3 +1,19 @@
+live-helper (2.0~a14-1) unstable; urgency=low
+
+  [ Cody A.W. Somerville ]
+  * Standardize to machine readable package manifest.
+
+  [ Daniel Baumann ]
+  * Renaming manifest files to packages on debian.
+  * Correcting install command for manpages in Makefile.
+  * Simplyfing makefile a bit.
+  * Also including grub2 in the debian-installer pool.
+  * Using UTF-8 in German manpages.
+  * Using umlauts in German manpages.
+  * Using old pathes for win32-loader on squeeze too.
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 30 May 2010 09:43:00 +0200
+
 live-helper (2.0~a13-1) unstable; urgency=low
 
   [ Daniel Baumann ]
