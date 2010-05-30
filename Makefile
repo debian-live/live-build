@@ -4,12 +4,14 @@ SHELL := sh -e
 
 LANGUAGES = de
 
+SCRIPTS = live-helper.sh cgi/* functions/* examples/*/*.sh helpers/* hooks/*
+
 all: test build
 
 test:
 	@echo -n "Checking for syntax errors"
 
-	@for SCRIPT in live-helper.sh cgi/* functions/* examples/*/*.sh helpers/* hooks/*; \
+	@for SCRIPT in $(SCRIPTS); \
 	do \
 		sh -n $${SCRIPT}; \
 		echo -n "."; \
@@ -17,13 +19,14 @@ test:
 
 	@echo " done."
 
+	@# We can't just fail yet on bashisms (FIXME)
 	@echo -n "Checking for bashisms"
 
 	@if [ -x /usr/bin/checkbashisms ]; \
 	then \
-		for SCRIPT in live-helper.sh functions/* examples/*/*.sh helpers/* hooks/*; \
+		for SCRIPT in $(SCRIPTS); \
 		do \
-			checkbashisms $${SCRIPT}; \
+			checkbashisms $${SCRIPT} || true; \
 			echo -n "."; \
 		done; \
 	else \
@@ -52,7 +55,7 @@ install:
 	for MANPAGE in manpages/en/*; \
 	do \
 		SECTION="$$(basename $${MANPAGE} | awk -F. '{ print $$2 }')"; \
-		install -D -m 0644 $${MANPAGE} $(DESTDIR)/usr/share/man/man$${SECTION}/$$(basename $${MANPAGE} .en.$${SECTION}).$${SECTION}; \
+		install -D -m 0644 $${MANPAGE} $(DESTDIR)/usr/share/man/man$${SECTION}/$$(basename $${MANPAGE}); \
 	done
 
 	for LANGUAGE in $(LANGUAGES); \

@@ -4,14 +4,14 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: live-helper 2.0~a12\n"
-"POT-Creation-Date: 2010-05-23 12:35+0300\n"
+"Project-Id-Version: live-helper 2.0~a13\n"
+"POT-Creation-Date: 2010-05-28 08:49+0300\n"
 "PO-Revision-Date: 2010-05-08 23:50+0300\n"
 "Last-Translator: Daniel Baumann <daniel@debian.org>\n"
 "Language-Team: none\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -82,8 +82,8 @@ msgstr "LIVE-HELPER"
 #: en/lh_source_net.1:1 en/lh_source_tar.1:1 en/lh_source_usb.1:1
 #: en/lh_source_virtual-hdd.1:1 en/lh_testroot.1:1 en/live-helper.7:1
 #, no-wrap
-msgid "2010-05-23"
-msgstr "23.05.2010"
+msgid "2010-05-28"
+msgstr "28.05.2010"
 
 #. type: TH
 #: en/lh.1:1 en/lh_binary.1:1 en/lh_binary_checksums.1:1
@@ -116,10 +116,9 @@ msgstr "23.05.2010"
 #: en/lh_source_debian-live.1:1 en/lh_source_disk.1:1 en/lh_source_iso.1:1
 #: en/lh_source_net.1:1 en/lh_source_tar.1:1 en/lh_source_usb.1:1
 #: en/lh_source_virtual-hdd.1:1 en/lh_testroot.1:1 en/live-helper.7:1
-#, fuzzy, no-wrap
-#| msgid "2.0~a12"
+#, no-wrap
 msgid "2.0~a13"
-msgstr "2.0~a12"
+msgstr "2.0~a13"
 
 #. type: TH
 #: en/lh.1:1 en/lh_binary.1:1 en/lh_binary_checksums.1:1
@@ -224,7 +223,7 @@ msgstr "NAME"
 #: en/lh_source_virtual-hdd.1:6 en/lh_testroot.1:6 en/live-helper.7:6
 #, no-wrap
 msgid "SYNOPSIS"
-msgstr "UEBERSICHT"
+msgstr "ÜBERSICHT"
 
 #. type: SH
 #: en/lh.1:11 en/lh_binary.1:9 en/lh_binary_checksums.1:9
@@ -527,7 +526,7 @@ msgid ""
 "on the homepage at E<lt>I<http://live.debian.net/>E<gt> and in the manual at "
 "E<lt>I<http://live.debian.net/manual/>E<gt>."
 msgstr ""
-"Weitere Informationen ueber live-helper und das Debian Live Projekt koennen "
+"Weitere Informationen über live-helper und das Debian Live Projekt können "
 "auf der Homepage unter E<lt>I<http://live.debian.net/>E<gt> und im Handbuch "
 "unter E<lt>I<http://live.debian.net/manual/>E<gt> gefunden werden."
 
@@ -609,7 +608,7 @@ msgid ""
 "by writing a mail to the Debian Live mailing list at E<lt>I<debian-"
 "live@lists.debian.org>E<gt>."
 msgstr ""
-"Fehler koennen durch Einreichen eines Fehlerberichtes fuer das live-helper "
+"Fehler können durch Einreichen eines Fehlerberichtes für das live-helper "
 "Paket im Debian Bug Tracking System unter E<lt>I<http://bugs.debian.org/"
 ">E<gt> oder durch Senden einer E-Mail an die Debian Live Mailing Liste unter "
 "E<lt>I<debian-live@lists.debian.org>E<gt> (englischsprachig) mitgeteilt "
@@ -691,7 +690,7 @@ msgid ""
 "live-helper was written by Daniel Baumann E<lt>I<daniel@debian.org>E<gt> for "
 "the Debian project."
 msgstr ""
-"live-helper wurde von Daniel Baumann E<lt>I<daniel@debian.org>E<gt> fuer das "
+"live-helper wurde von Daniel Baumann E<lt>I<daniel@debian.org>E<gt> für das "
 "Debian Projekt geschrieben."
 
 #.  FIXME
@@ -757,6 +756,6 @@ msgid ""
 "helper options. See I<live-helper>(7) for a complete list of all generic "
 "live-helper options."
 msgstr ""
-"B<lh chroot_tasks> hat keine spezifischen Optionen aber unterstuetzt alle "
-"allgemeinen live-helper Optionen. Siehe I<live-helper>(7) fuer eine "
-"vollstaendige Liste aller allgemeinen live-helper Optionen."
+"B<lh chroot_tasks> hat keine spezifischen Optionen aber unterstützt alle "
+"allgemeinen live-helper Optionen. Siehe I<live-helper>(7) für eine "
+"vollständige Liste aller allgemeinen live-helper Optionen."
