@@ -3,4 +3,12 @@
 ## LH: Standard
 #include <minimal>
 
-console-setup console-common kbd locales
+#if DISTRIBUTION lenny
+console-setup console-common kbd
+#endif
+
+#if DISTRIBUTION squeeze
+keyboard-configuration
+#endif
+
+locales
