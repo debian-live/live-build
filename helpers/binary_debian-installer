@@ -322,7 +322,8 @@ then
 
 	case "${LH_ARCHITECTURE}" in
 		amd64)
-			DI_REQ_PACKAGES="lilo grub grub2"
+			#DI_REQ_PACKAGES="lilo grub grub2"
+			DI_REQ_PACKAGES="lilo grub"
 
 			case "${LH_MODE}" in
 				ubuntu)
@@ -336,7 +337,8 @@ then
 			;;
 
 		i386)
-			DI_REQ_PACKAGES="elilo lilo grub grub2"
+			#DI_REQ_PACKAGES="elilo lilo grub grub2"
+			DI_REQ_PACKAGES="elilo lilo grub"
 
 			case "${LH_MODE}" in
 				ubuntu)

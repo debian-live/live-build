@@ -48,7 +48,7 @@ else
 	# Converting '~':	sed 's/%7E/\~/g'
 
 	# Translate parameters
-        QUERY_STRING=$(echo "${QUERY_STRING}" | sed -e 's/%2F/\//g' -e 's/+/ /g' -e 's/%3B/;/g' -e 's/%7E/~/g' -e 's/%3A/:/g' -e 's/%40/@/g')
+	QUERY_STRING=$(echo "${QUERY_STRING}" | sed -e 's/%2F/\//g' -e 's/+/ /g' -e 's/%3B/;/g' -e 's/%7E/~/g' -e 's/%3A/:/g' -e 's/%40/@/g')
 	# Debug the filtering string
 	# echo ${QUERY_STRING}
 
