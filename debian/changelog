@@ -1,3 +1,21 @@
+live-helper (2.0~a15-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Running checkbashisms with -f and -x in Makefile.
+  * Updating update-version script.
+  * Directly depend on keyboard-configuration (rather than through
+    console-setup) for squeeze in standard packages list.
+  * Adding gnupg in minmal list for ubuntu (Closes: #586067).
+
+  [ Richard Nelson ]
+  * Whitespace removal
+
+  [ Daniel Baumann ]
+  * Temporarily removing grub2 from d-i packages again, needs some fixes
+    first.
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 18 Jun 2010 04:01:29 +0200
+
 live-helper (2.0~a14-1) unstable; urgency=low
 
   [ Cody A.W. Somerville ]
