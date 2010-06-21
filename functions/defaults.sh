@@ -73,12 +73,9 @@ Set_defaults ()
 
 	GZIP_OPTIONS="${GZIP_OPTIONS:---best}"
 
-	if gzip --help | grep -qs "\-\-rsyncable" && \
-	! echo ${GZIP_OPTIONS} | grep -q rsyncable
+	if gzip --help | grep -qs "\-\-rsyncable"
 	then
-		GZIP_OPTIONS="${GZIP_OPTIONS} --rsyncable"
-	else
-		GZIP_OPTIONS="$(echo ${GZIP_OPTIONS} | sed -e 's|--rsyncable||')"
+		GZIP_OPTIONS="$(echo ${GZIP_OPTIONS} | sed -e 's|--rsyncable||') --rsyncable"
 	fi
 
 	# Setting apt recommends
