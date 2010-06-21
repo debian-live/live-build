@@ -215,6 +215,9 @@ LH_SOURCE="${LH_SOURCE}"
 # Unofficial options
 _CUSTOM_BOOTSTRAP="${_CUSTOM_BOOTSTRAP}"
 _CUSTOM_BINARY="${_CUSTOM_BINARY}"
+
+# Other
+LH_REPOSITORIES="${LH_REPOSITORIES}"
 EOF
 
 	echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper.cgi: add web build (${_BUILD})." >> /var/log/live
