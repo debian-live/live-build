@@ -110,6 +110,37 @@ then
 	done
 fi
 
+# Handling chroot excludes
+if [ "${LH_BUILD_WITH_CHROOT}" = "true" ]
+then
+	if [ -f config/binary_rootfs/excludes ]
+	then
+		cp config/binary_rootfs/excludes chroot/chroot/excludes
+		chroot chroot/chroot /usr/bin/env -i xargs --arg-file=/excludes -I FILE bash -c 'rm -rf FILE'
+		rm -f chroot/chroot/excludes
+	fi
+
+	if [ "${LH_DEBIAN_INSTALLER}" != "live" ]
+	then
+		case "${LH_PACKAGES_LISTS}" in
+			stripped|minimal)
+				# kernel images
+				rm -f chroot/chroot/boot/${LINUX}*
+				rm -f chroot/chroot/boot/initrd.img*
+
+				# kernel symlinks
+				rm -f chroot/chroot/${LINUX}*
+				rm -f chroot/chroot/initrd.img*
+				;;
+		esac
+	fi
+else
+	if [ "${LH_CHROOT_FILESYSTEM}" != "squashfs" ]
+	then
+		Echo_warning "rootfs excludes are not supported on non-chrooted builds unless squashfs as chroot filesystem is used, thus ignoring excludes now."
+	fi
+fi
+
 if [ -n "${LH_ROOT_COMMAND}" ]
 then
 	${LH_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
