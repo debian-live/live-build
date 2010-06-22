@@ -73,7 +73,10 @@ cp chroot/boot/initrd.img-* "${DESTDIR}"
 
 case "${LH_INITRAMFS}" in
 	live-initramfs)
-		cp chroot/usr/share/doc/live-initramfs/parameters.txt "${DESTDIR}"/parameters.txt || true
+		if [ -e chroot/usr/share/doc/live-initramfs/parameters.txt ]
+		then
+			cp chroot/usr/share/doc/live-initramfs/parameters.txt "${DESTDIR}"/parameters.txt
+		fi
 		;;
 esac
 
