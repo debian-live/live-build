@@ -60,7 +60,7 @@ else
 	LH_BINARY_IMAGES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])binary_images=[-a-z]+' | cut -f 2 -d '=' | head -n1)
 	LH_DISTRIBUTION=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])distribution=[a-z]+' | cut -f 2 -d '=' | head -n1)
 	LH_PACKAGES_LISTS=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])packages_lists=[-0-9a-z]+' | cut -f 2 -d '=' | head -n1)
-	LH_PACKAGES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])packages=[0-9,a-z,A-Z,., ,_,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_PACKAGES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])packages=[-0-9a-zA-Z. _]+' | cut -f 2 -d '=' | head -n1)
 
 	# Advanced bootstrap options
 	LH_ARCHITECTURE=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])architecture=[0-9,a-z]+' | cut -f 2 -d '=' | head -n1)
