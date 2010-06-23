@@ -72,7 +72,7 @@ else
 
 	# Advanced chroot options
 	LH_CHROOT_FILESYSTEM=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])chroot_filesystem=[0-9a-z]+' | cut -f 2 -d '=' | head -n1)
-	LH_LINUX_FLAVOURS=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])linux_flavours=[0-9,a-z,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_LINUX_FLAVOURS=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])linux_flavours=[-0-9a-z]+' | cut -f 2 -d '=' | head -n1)
 	LH_SECURITY=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])security=[a-z]+' | cut -f 2 -d '=' | head -n1)
 	LH_SYMLINKS=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])symlinks=[a-z]+' | cut -f 2 -d '=' | head -n1)
 	LH_SYSVINIT=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])sysvinit=[a-z]+' | cut -f 2 -d '=' | head -n1)
