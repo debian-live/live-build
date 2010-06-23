@@ -126,7 +126,7 @@ Here's a list of all build-options that were used to build your image:
 
 EOF
 
-		cat "${_DESTDIR}"/"${_BUILD}"/build >> "${_DESTDIR}"/"${_BUILD}"/mail
+		cat "${_TEMPDIR}"/"${_BUILD}".build >> "${_DESTDIR}"/"${_BUILD}"/mail
 
 		# Moving binary image
 		#if ls "${_TEMPDIR}"/"${_BUILD}"/binary*.* > /dev/null 2>&1
