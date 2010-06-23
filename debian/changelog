@@ -1,3 +1,60 @@
+live-helper (2.0~a16-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Also passing repositories to cgi build jobs.
+  * Correcting wrong handling of --rsyncable in defaults autodetection
+    of gzip options.
+  * Also including url of the webbuilder in its images.
+  * Including note where to send feedback to in webmails mail templates.
+  * Including build-job in the mail that is sent by the cgi.
+  * Silencing copying of parameters.txt in binary_linux-image.
+  * Moving chroot exclude mechanisms to one central place in
+    binary_chroot helper.
+  * Adding nomodeset to failsafe parameters to disable kms.
+
+  [ Richard Nelson ]
+  * Cleaned up expression LH_BOOTAPPEND and included = for live-config
+    calls.
+  * Added : and / to LH_BOOTAPPEND for live-config.hooks calls.
+  * LH_BINARY_IMAGES expression cleanup.
+  * LH_PACKAGES_LISTS expression cleanup.
+  * LH_PACKAGES expression cleanup.
+  * LH_ARCHITECTURE expression cleanup.
+  * LH_MIRROR_BOOTSTRAP expression cleanup.
+  * LH_MIRROR_BINARY expression cleanup.
+  * LH_MIRROR_BINARY_SECURITY expression cleanup.
+  * LH_CHROOT_FILESYSTEM expression cleanup.
+  * LH_LINUX_FLAVOURS expression cleanup.
+  * Match encryption param man page and case for expression cleanup on
+    l-h.cgi.
+  * LH_ENCRYPTION expression cleanup.
+  * LH_HOSTNAME expression cleanup.
+  * LH_ISO_APPLICATION expression cleanup.
+  * LH_ISO_PREPARER expression cleanup.
+  * LH_ISO_PUBLISHER expression cleanup.
+  * LH_ISO_VOLUME expression cleanup.
+  * LH_MEMTEST expression cleanup.
+  * LH_NET_ROOT_PATH expression cleanup.
+  * LH_NET_ROOT_SERVER expression cleanup.
+  * LH_USERNAME expression cleanup and build output cleanup.
+  * _CUSTOM_BOOTSTRAP and _CUSTOM_BINARY expression cleanup.
+  * Removed hostname from forms and cgi and can be configured with live-
+    config.hostname= on bootappend.
+  * Removed username from forms and cgi and can be configured with live-
+    config.username= on bootappend.
+  * Path correction on cgi/cron build file append to mailer.
+
+  [ Daniel Baumann ]
+  * Globally using packages cache during runtime of chroot_source
+    (Closes: #586927).
+  * Removing double implementation of binary_rootfs/excludes.
+  * Removing distribution check for assemblink mksquashfs options in
+    binary_rootfs, not required anymore.
+  * Making excludes handling simpler, and dropping excluding of kernel
+    images for minimal or stripped images (Closes: #586367).
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 24 Jun 2010 01:49:57 +0200
+
 live-helper (2.0~a15-1) unstable; urgency=low
 
   [ Daniel Baumann ]
