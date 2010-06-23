@@ -99,8 +99,8 @@ else
 	LH_SOURCE_IMAGES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])source_images=[a-z]+' | cut -f 2 -d '=' | head -n1)
 
 	# Unofficial options
-	_CUSTOM_BOOTSTRAP=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])custom_bootstrap=[0-9,a-z,A-Z,., ,~,;,:,/,_,-]+' | cut -f 2 -d '=' | head -n1)
-	_CUSTOM_BINARY=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])custom_binary=[0-9,a-z,A-Z,., ,~,;,:,/,_,-]+' | cut -f 2 -d '=' | head -n1)
+	_CUSTOM_BOOTSTRAP=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])custom_bootstrap=[-0-9a-zA-Z.~:/_]+' | cut -f 2 -d '=' | head -n1)
+	_CUSTOM_BINARY=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])custom_binary=[-0-9a-zA-Z.~:/_]+' | cut -f 2 -d '=' | head -n1)
 
 	# FIXME: filter invalid options
 	unset QUERY_STRING
