@@ -47,9 +47,10 @@ else
 	# Converting '/':	sed 's/%2F/\//g'
 	# Converting '~':	sed 's/%7E/\~/g'
 	# Converting '=':	sed 's/%3D/=/g'
+	# Converting '+':	sed 's/%2B/+/g'
 
 	# Translate parameters
-	QUERY_STRING=$(echo "${QUERY_STRING}" | sed -e 's/%2F/\//g' -e 's/+/ /g' -e 's/%3B/;/g' -e 's/%7E/~/g' -e 's/%3A/:/g' -e 's/%40/@/g' -e 's/%3D/=/g')
+	QUERY_STRING=$(echo "${QUERY_STRING}" | sed -e 's/%2F/\//g' -e 's/+/ /g' -e 's/%3B/;/g' -e 's/%7E/~/g' -e 's/%3A/:/g' -e 's/%40/@/g' -e 's/%3D/=/g' -e 's/%2B/+/g')
 	# Debug the filtering string
 	# echo ${QUERY_STRING}
 
@@ -88,7 +89,7 @@ else
 	LH_ISO_PREPARER=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])iso_preparer=[-0-9a-zA-Z. ~;:/_]+' | cut -f 2 -d '=' | head -n1)
 	LH_ISO_PUBLISHER=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])iso_publisher=[-0-9a-zA-Z. ~;:/_@]+' | cut -f 2 -d '=' | head -n1)
 	LH_ISO_VOLUME=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])iso_volume=[-0-9a-zA-Z. ~;:/_]+' | cut -f 2 -d '=' | head -n1)
-	LH_MEMTEST=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])memtest=[0-9,a-z,A-Z,.,_,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_MEMTEST=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])memtest=[0-9a-z+]+' | cut -f 2 -d '=' | head -n1)
 	LH_NET_ROOT_PATH=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])net_path=[0-9,a-z,A-Z,.,_,/,-]+' | cut -f 2 -d '=' | head -n1)
 	LH_NET_ROOT_SERVER=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])net_server=[0-9,a-z,A-Z,.,_,-]+' | cut -f 2 -d '=' | head -n1)
 	LH_USERNAME=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])username=[0-9,a-z,A-Z,.,-]+' | cut -f 2 -d '=' | head -n1)
