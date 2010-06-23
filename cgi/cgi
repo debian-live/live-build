@@ -90,7 +90,7 @@ else
 	LH_ISO_PUBLISHER=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])iso_publisher=[-0-9a-zA-Z. ~;:/_@]+' | cut -f 2 -d '=' | head -n1)
 	LH_ISO_VOLUME=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])iso_volume=[-0-9a-zA-Z. ~;:/_]+' | cut -f 2 -d '=' | head -n1)
 	LH_MEMTEST=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])memtest=[0-9a-z+]+' | cut -f 2 -d '=' | head -n1)
-	LH_NET_ROOT_PATH=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])net_path=[0-9,a-z,A-Z,.,_,/,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_NET_ROOT_PATH=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])net_path=[-0-9a-zA-Z._/]+' | cut -f 2 -d '=' | head -n1)
 	LH_NET_ROOT_SERVER=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])net_server=[0-9,a-z,A-Z,.,_,-]+' | cut -f 2 -d '=' | head -n1)
 	LH_USERNAME=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])username=[0-9,a-z,A-Z,.,-]+' | cut -f 2 -d '=' | head -n1)
 
