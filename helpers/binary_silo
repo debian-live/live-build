@@ -181,7 +181,7 @@ fi
 LH_BOOTAPPEND_LIVE="$(echo ${LH_BOOTAPPEND_LIVE} | sed -e 's|  ||')"
 
 # Parameters are listed at: linux/Documentation/kernel-parameters.txt
-FAILSAFE="noapic noapm nodma nomce nolapic nosmp vga=ofonly"
+FAILSAFE="noapic noapm nodma nomce nolapic nomodeset nosmp vga=ofonly"
 
 # Assembling kernel configuration
 

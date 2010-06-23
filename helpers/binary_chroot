@@ -95,19 +95,22 @@ fi
 
 ${LH_ROOT_COMMAND} mv chroot.tmp chroot/chroot
 
-if [ -f config/binary_rootfs/exclude ]
+# Handling chroot excludes
+if [ -f config/binary_rootfs/excludes ]
 then
-	# Read exclude file and expand wildcards.
-	for EXCLUDE in $(cat config/binary_rootfs/exclude)
-	do
-		if [ -e chroot/chroot/"${EXCLUDE}" ]
-		then
-			# Run "rm" inside the chroot so it cannot possibly remove host files.
-			Chroot chroot "rm -r chroot/${EXCLUDE}"
-		else
-			Echo_warning "Excluded path does not exist: %s" "${EXCLUDE}"
-		fi
-	done
+	case "${LH_BUILD_WITH_CHROOT}" in
+		true)
+			cp config/binary_rootfs/excludes chroot/chroot/excludes
+			chroot chroot/chroot /usr/bin/env -i xargs --arg-file=/excludes -I FILE bash -c 'rm -rf FILE'
+			rm -f chroot/chroot/excludes
+			;;
+
+		false)
+			cp config/binary_rootfs/excludes chroot/excludes
+			chroot chroot /usr/bin/env -i xargs --arg-file=/excludes -I FILE bash -c 'rm -rf FILE'
+			rm -f chroot/excludes
+			;;
+	esac
 fi
 
 if [ -n "${LH_ROOT_COMMAND}" ]
