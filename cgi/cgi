@@ -82,7 +82,7 @@ else
 	LH_BOOTAPPEND=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])bootappend=[-0-9a-zA-Z. _+=:/]+' | cut -f2- -d '=' | head -n1)
 	LH_BOOTLOADER=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])bootloader=[a-z]+' | cut -f 2 -d '=' | head -n1)
 	LH_DEBIAN_INSTALLER=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])debian_installer=[a-z]+' | cut -f 2 -d '=' | head -n1)
-	LH_ENCRYPTION=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])encryption=[0-9,a-z,A-Z]+' | cut -f 2 -d '=' | head -n1)
+	LH_ENCRYPTION=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])encryption=[0-9a-z]+' | cut -f 2 -d '=' | head -n1)
 	LH_HOSTNAME=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])hostname=[0-9,a-z,A-Z,.,-]+' | cut -f 2 -d '=' | head -n1)
 	LH_ISO_APPLICATION=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])iso_application=[0-9,a-z,A-Z,., ,~,;,:,/,_,-]+' | cut -f 2 -d '=' | head -n1)
 	LH_ISO_PREPARER=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])iso_preparer=[0-9,a-z,A-Z,., ,~,;,:,/,_,-]+' | cut -f 2 -d '=' | head -n1)
