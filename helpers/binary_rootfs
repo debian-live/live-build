@@ -364,11 +364,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 			false)
 				if [ -f config/binary_rootfs/excludes ]
 				then
-					case "${LH_DISTRIBUTION}" in
-						lenny|sid)
-							MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -wildcards -ef config/binary_rootfs/excludes"
-							;;
-					esac
+					MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -wildcards -ef config/binary_rootfs/excludes"
 				fi
 
 				mksquashfs chroot binary/${INITFS}/filesystem.squashfs ${MKSQUASHFS_OPTIONS}
