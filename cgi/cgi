@@ -91,7 +91,6 @@ else
 	LH_MEMTEST=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])memtest=[0-9a-z+]+' | cut -f 2 -d '=' | head -n1)
 	LH_NET_ROOT_PATH=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])net_path=[-0-9a-zA-Z._/]+' | cut -f 2 -d '=' | head -n1)
 	LH_NET_ROOT_SERVER=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])net_server=[0-9.]+' | cut -f 2 -d '=' | head -n1)
-	LH_USERNAME=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])username=[-0-9a-zA-Z.]+' | cut -f 2 -d '=' | head -n1)
 
 	# Advanced source options
 	LH_SOURCE=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])source=[a-z]+' | cut -f 2 -d '=' | head -n1)
@@ -154,7 +153,6 @@ else
 	    -e "s#LH_NET_ROOT_PATH#${LH_NET_ROOT_PATH}#" \
 	    -e "s/LH_NET_ROOT_SERVER/${LH_NET_ROOT_SERVER}/" \
 	    -e "s#SERVER#${_SERVER}#g" \
-	    -e "s/LH_USERNAME/${LH_USERNAME}/" \
 	    -e "s/LH_SOURCE_IMAGES/${LH_SOURCE_IMAGES}/" \
 	    -e "s/LH_SOURCE/${LH_SOURCE}/" \
 	    -e "s#CUSTOM_BOOTSTRAP#${_CUSTOM_BOOTSTRAP}#" \
@@ -205,7 +203,6 @@ LH_ISO_VOLUME="${LH_ISO_VOLUME}"
 LH_MEMTEST="${LH_MEMTEST}"
 LH_NET_ROOT_PATH="${LH_NET_ROOT_PATH}"
 LH_NET_ROOT_SERVER="${LH_NET_ROOT_SERVER}"
-LH_USERNAME="${LH_USERNAME}"
 
 # Advanced source options
 LH_SOURCE_IMAGES="${LH_SOURCE_IMAGES}"
@@ -220,7 +217,7 @@ LH_REPOSITORIES="${LH_REPOSITORIES}"
 EOF
 
 	echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper.cgi: add web build (${_BUILD})." >> /var/log/live
-	echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper.cgi: options ${_BUILD} |email ${_EMAIL}|binary_images ${LH_BINARY_IMAGES}|distribution ${LH_DISTRIBUTION}|packages_lists ${LH_PACKAGES_LISTS}|packages ${LH_PACKAGES}|architecture ${LH_ARCHITECTURE}|mirror_bootstrap_security ${LH_MIRROR_BOOTSTRAP}|mirror_bootstrap ${LH_MIRROR_BOOTSTRAP}|mirror_binary_security ${LH_MIRROR_BINARY_SECURITY}|mirror_binary ${LH_MIRROR_BINARY}|archive_areas ${LH_ARCHIVE_AREAS}|chroot_filesystem ${LH_CHROOT_FILESYSTEM}|linux_flavours ${LH_LINUX_FLAVOURS}|security ${LH_SECURITY}|symlinks ${LH_SYMLINKS}|sysvinit ${LH_SYSVINIT}|binary_indices ${LH_BINARY_INDICES}|bootappend ${LH_BOOTAPPEND}|bootloader ${LH_BOOTLOADER}|debian_installer ${LH_DEBIAN_INSTALLER}|encryption ${LH_ENCRYPTION}|iso_application ${LH_ISO_APPLICATION}|iso_preparer ${LH_ISO_PREPARER}|iso_publisher ${LH_ISO_PUBLISHER}|iso_volume ${LH_ISO_VOLUME}|memtest ${LH_MEMTEST}|net_path ${LH_NET_ROOT_PATH}|net_server ${LH_NET_ROOT_SERVER}|username ${LH_USERNAME}|source_images ${LH_SOURCE_IMAGES}|source ${LH_SOURCE}|custom_bootstrap ${_CUSTOM_BOOTSTRAP}|custom_binary ${_CUSTOM_BINARY}\n" >> /var/log/live
+	echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper.cgi: options ${_BUILD} |email ${_EMAIL}|binary_images ${LH_BINARY_IMAGES}|distribution ${LH_DISTRIBUTION}|packages_lists ${LH_PACKAGES_LISTS}|packages ${LH_PACKAGES}|architecture ${LH_ARCHITECTURE}|mirror_bootstrap_security ${LH_MIRROR_BOOTSTRAP}|mirror_bootstrap ${LH_MIRROR_BOOTSTRAP}|mirror_binary_security ${LH_MIRROR_BINARY_SECURITY}|mirror_binary ${LH_MIRROR_BINARY}|archive_areas ${LH_ARCHIVE_AREAS}|chroot_filesystem ${LH_CHROOT_FILESYSTEM}|linux_flavours ${LH_LINUX_FLAVOURS}|security ${LH_SECURITY}|symlinks ${LH_SYMLINKS}|sysvinit ${LH_SYSVINIT}|binary_indices ${LH_BINARY_INDICES}|bootappend ${LH_BOOTAPPEND}|bootloader ${LH_BOOTLOADER}|debian_installer ${LH_DEBIAN_INSTALLER}|encryption ${LH_ENCRYPTION}|iso_application ${LH_ISO_APPLICATION}|iso_preparer ${LH_ISO_PREPARER}|iso_publisher ${LH_ISO_PUBLISHER}|iso_volume ${LH_ISO_VOLUME}|memtest ${LH_MEMTEST}|net_path ${LH_NET_ROOT_PATH}|net_server ${LH_NET_ROOT_SERVER}|source_images ${LH_SOURCE_IMAGES}|source ${LH_SOURCE}|custom_bootstrap ${_CUSTOM_BOOTSTRAP}|custom_binary ${_CUSTOM_BINARY}\n" >> /var/log/live
 fi
 
 sed -e "s/VERSION/${VERSION}/" "${_TEMPLATES}"/footer.html
