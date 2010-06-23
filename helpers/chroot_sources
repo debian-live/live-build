@@ -41,6 +41,9 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
+		# Restoring cache
+		Restore_cache cache/packages_chroot
+
 		# Configure custom sources.list
 		echo "deb ${LH_MIRROR_CHROOT} ${LH_DISTRIBUTION} ${LH_ARCHIVE_AREAS}" > chroot/etc/apt/sources.list
 
@@ -197,9 +200,6 @@ case "${1}" in
 						;;
 				esac
 
-				# Restoring cache
-				Restore_cache cache/packages_chroot
-
 				# Check depends
 				Check_package chroot/usr/bin/apt-ftparchive apt-utils
 
@@ -293,9 +293,6 @@ case "${1}" in
 
 				# Removing depends
 				Remove_package
-
-				# Saving cache
-				Save_cache cache/packages_chroot
 			else
 				Echo_warning "Local packages must be named with suffix '_all.deb' or '_\$architecture.deb'."
 			fi
@@ -408,6 +405,9 @@ case "${1}" in
 				cp -f chroot/var/lib/apt/lists/*_Release* cache/indices_bootstrap
 			fi
 		fi
+
+		# Saving cache
+		Save_cache cache/packages_chroot
 
 		# Creating stage file
 		Create_stagefile .stage/chroot_sources
