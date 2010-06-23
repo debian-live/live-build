@@ -67,7 +67,7 @@ else
 	LH_BOOTSTRAP_FLAVOUR=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])bootstrap_flavour=[a-z]+' | cut -f 2 -d '=' | head -n1)
 	LH_MIRROR_BOOTSTRAP=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])mirror_bootstrap=[-0-9a-zA-Z.~:/_]+' | cut -f 2 -d '=' | head -n1)
 	LH_MIRROR_BINARY=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])mirror_binary=[-0-9a-zA-Z.~:/_]+' | cut -f 2 -d '=' | head -n1)
-	LH_MIRROR_BINARY_SECURITY=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])mirror_binary_security=[0-9,a-z,A-Z,.,~,:,/,_,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_MIRROR_BINARY_SECURITY=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])mirror_binary_security=[-0-9a-zA-Z.~:/_]+' | cut -f 2 -d '=' | head -n1)
 	LH_ARCHIVE_AREAS=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])archive_areas=[a-z]+' | cut -f 2 -d '=' | head -n1)
 
 	# Advanced chroot options
