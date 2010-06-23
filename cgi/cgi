@@ -46,9 +46,10 @@ else
 	# Converting ';':	sed 's/%3B/\;/g'
 	# Converting '/':	sed 's/%2F/\//g'
 	# Converting '~':	sed 's/%7E/\~/g'
+	# Converting '=':	sed 's/%3D/=/g'
 
 	# Translate parameters
-	QUERY_STRING=$(echo "${QUERY_STRING}" | sed -e 's/%2F/\//g' -e 's/+/ /g' -e 's/%3B/;/g' -e 's/%7E/~/g' -e 's/%3A/:/g' -e 's/%40/@/g')
+	QUERY_STRING=$(echo "${QUERY_STRING}" | sed -e 's/%2F/\//g' -e 's/+/ /g' -e 's/%3B/;/g' -e 's/%7E/~/g' -e 's/%3A/:/g' -e 's/%40/@/g' -e 's/%3D/=/g')
 	# Debug the filtering string
 	# echo ${QUERY_STRING}
 
@@ -78,7 +79,7 @@ else
 
 	# Advanced binary options
 	LH_BINARY_INDICES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])binary_indices=[a-z]+' | cut -f 2 -d '=' | head -n1)
-	LH_BOOTAPPEND=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])bootappend=[0-9,a-z,A-Z,., ,_,+,-]+' | cut -f 2 -d '=' | head -n1)
+	LH_BOOTAPPEND=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])bootappend=[-0-9a-zA-Z. _+=]+' | cut -f2- -d '=' | head -n1)
 	LH_BOOTLOADER=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])bootloader=[a-z]+' | cut -f 2 -d '=' | head -n1)
 	LH_DEBIAN_INSTALLER=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])debian_installer=[a-z]+' | cut -f 2 -d '=' | head -n1)
 	LH_ENCRYPTION=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])encryption=[0-9,a-z,A-Z]+' | cut -f 2 -d '=' | head -n1)
