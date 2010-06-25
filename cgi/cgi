@@ -7,6 +7,9 @@
 # This is free software, and you are welcome to redistribute it
 # under certain conditions; see COPYING for details.
 
+# Including common functions
+. "${LH_BASE:-/usr/share/live-helper}"/live-helper.sh
+
 # Reading defaults
 if [ -r /etc/default/live-helper.cgi ]
 then
