@@ -10,6 +10,6 @@ lxnm
 #endif
 #if DISTRIBUTION squeeze sid
 nodm
-wicd
+network-manager-gnome
 #endif
 desktop-base
