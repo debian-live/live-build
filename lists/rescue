@@ -324,7 +324,12 @@ hostap-utils
 hostapd
 
 # Flab
+#if DISTRIBUTION lenny
 emacs22-nox
+#endif
+#if DISTRIBUTON squeeze sid
+emacs23-nox
+#endif
 build-essential gdb gfortran gnat
 
 #if ARCHITECTURE i386
