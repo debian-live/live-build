@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-HELPER 1 24.06.2010 2.0~a16 "Debian Live Projekt"
+.TH LIVE\-HELPER 1 02.07.2010 2.0~a16 "Debian Live Projekt"
 
 .SH NAME
 \fBlh config\fP \- Erstellen des config Verzeichnisses
@@ -500,9 +500,10 @@ KiB.
 sets the keyring package or additional keyring packages. By default this is
 set to debian\-archive\-keyring.
 .IP "\-l|\fB\-\-language\fP \fILANGUAGE\fP" 4
-sets the language of a live system by installing l10n related packages and
-enables generation of the correct locales through automatically setting the
-right boot parameters.
+sets the language of a live system by installing l10n related packages. It
+doesn't enable generation of the correct locales through setting the right
+boot parameters, those need to be done through the bootappend\-live
+parameter.
 .IP "\-k|\fB\-\-linux\-flavours\fP \fIFLAVOUR\fP|\(dq\fIFLAVOURS\fP\(dq" 4
 sets the kernel flavours to be installed. Note that in case you specify more
 than that the first will be configured the default kernel that gets booted.
