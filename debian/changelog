@@ -1,3 +1,37 @@
+live-helper (2.0~a17-1) unstable; urgency=low
+
+  [ Richard Nelson ]
+  * LH_BOOTAPPEND to LH_BOOTAPPEND_LIVE correction cgi operations.
+  * LH_BOOTAPPEND_INSTALL added to cgi operations.
+  * Add VERSION information and source in common live-helper common
+    functions.
+
+  [ Daniel Baumann ]
+  * Using network-manager-gnome instead of wicd in lxde list for squeeze
+    and newer.
+  * Adding emacs23-nox for squeeze and newer in rescue list.
+
+  [ Alexander Sack ]
+  * Ensure that mtab is properly linked to /proc/mounts in
+    binary_virtual-hdd.
+  * Fix virtual-hdd packing only the stuff inside the binary/ tree in
+    the image in binary_virtual-hdd.
+
+  [ Daniel Baumann ]
+  * Adding slightly modified patch from Alexander Sack <asac@linaro.org>
+    to add meta info about filesystem size in binary_rootfs.
+
+  [ Alexander Sack ]
+  * Fix linux-image generation for no initramfs images.
+
+  [ Daniel Baumann ]
+  * Going back to using gdm for lxde as this is what the lxde meta
+    package recommends.
+  * Correcting entry about --language in lh_config manpage, it doesn't
+    set the bootparameters automatically for locale selection.
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 02 Jul 2010 18:23:47 +0200
+
 live-helper (2.0~a16-1) unstable; urgency=low
 
   [ Daniel Baumann ]
