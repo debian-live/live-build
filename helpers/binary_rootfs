@@ -111,6 +111,12 @@ case "${LH_CHROOT_FILESYSTEM}" in
 				# Move image
 				mv chroot/filesystem.${LH_CHROOT_FILESYSTEM} binary/${INITFS}
 
+				case "${LH_MODE}" in
+					ubuntu)
+						du -B 1 -s chroot/chroot | cut -f1 > binary/${INITFS}/filesystem.size
+						;;
+				esac
+
 				if [ -e chroot/chroot.cache ]
 				then
 					rm -f .lock
@@ -308,6 +314,12 @@ case "${LH_CHROOT_FILESYSTEM}" in
 				# Create image
 				Chroot chroot "mksquashfs chroot filesystem.squashfs ${MKSQUASHFS_OPTIONS}"
 
+				case "${LH_MODE}" in
+					ubuntu)
+						du -B 1 -s chroot/chroot | cut -f1 > binary/${INITFS}/filesystem.size
+						;;
+				esac
+
 				# Move image
 				${LH_ROOT_COMMAND} mv chroot/filesystem.squashfs binary/${INITFS}
 				${LH_ROOT_COMMAND} rm -f chroot/squashfs.sort
@@ -363,6 +375,12 @@ case "${LH_CHROOT_FILESYSTEM}" in
 
 			false)
 				mksquashfs chroot binary/${INITFS}/filesystem.squashfs ${MKSQUASHFS_OPTIONS}
+
+				case "${LH_MODE}" in
+					ubuntu)
+						du -B 1 -s chroot | cut -f1 > binary/${INITFS}/filesystem.size
+						;;
+				esac
 				;;
 		esac
 
