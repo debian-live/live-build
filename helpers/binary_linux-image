@@ -50,6 +50,10 @@ case "${LH_INITRAMFS}" in
 	live-initramfs)
 		DESTDIR="binary/live"
 		;;
+
+	*)
+		DESTDIR="binary/boot"
+		;;
 esac
 
 case "${LH_ARCHITECTURE}" in
