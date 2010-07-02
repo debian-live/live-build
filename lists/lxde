@@ -4,12 +4,11 @@
 #include <standard-x11>
 
 lxde
-#if DISTRIBUTION lenny
 gdm
+#if DISTRIBUTION lenny
 lxnm
 #endif
 #if DISTRIBUTION squeeze sid
-nodm
 network-manager-gnome
 #endif
 desktop-base
