@@ -70,6 +70,13 @@ if [ "${LH_BUILD_WITH_CHROOT}" = "true" ]
 then
 	mv binary-virtual.img chroot
 
+	# hack to recreate mtab from chroot_hacks if its gone for some reason
+	if ! Chroot chroot "test -s /etc/mtab"
+	then
+		Chroot chroot "rm -f /etc/mtab"
+		Chroot chroot "ln -s /proc/mounts /etc/mtab"
+	fi
+
 	case "${LH_BINARY_FILESYSTEM}" in
 		ext2)
 			Chroot chroot "mkfs.ext2 -F binary-virtual.img"
