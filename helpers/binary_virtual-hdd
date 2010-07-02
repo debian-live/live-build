@@ -102,7 +102,8 @@ fi
 
 mkdir -p binary.tmp
 ${LH_ROOT_COMMAND} mount -o loop binary-virtual.img binary.tmp
-cp -a binary/ binary.tmp
+cp -a binary/* binary.tmp
+cp -af binary/.disk* binary.tmp
 
 ${LH_ROOT_COMMAND} umount binary.tmp
 rmdir binary.tmp
