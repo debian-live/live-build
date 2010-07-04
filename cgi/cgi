@@ -175,6 +175,8 @@ cat > "${_TEMPDIR}"/"${_BUILD}".build << EOF
 _BUILD="${_BUILD}"
 _EMAIL="${_EMAIL}"
 
+REMOTE_ADDR="${REMOTE_ADDR}"
+
 # Standard options
 LH_BINARY_IMAGES="${LH_BINARY_IMAGES}"
 LH_DISTRIBUTION="${LH_DISTRIBUTION}"
@@ -222,7 +224,7 @@ _CUSTOM_BINARY="${_CUSTOM_BINARY}"
 LH_REPOSITORIES="${LH_REPOSITORIES}"
 EOF
 
-	echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper.cgi: add web build (${_BUILD})." >> /var/log/live
+	echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper.cgi: add web build (${_BUILD}) from ${REMOTE_ADDR}." >> /var/log/live
 	echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-helper.cgi: options ${_BUILD} |email ${_EMAIL}|binary_images ${LH_BINARY_IMAGES}|distribution ${LH_DISTRIBUTION}|packages_lists ${LH_PACKAGES_LISTS}|packages ${LH_PACKAGES}|architecture ${LH_ARCHITECTURE}|mirror_bootstrap_security ${LH_MIRROR_BOOTSTRAP}|mirror_bootstrap ${LH_MIRROR_BOOTSTRAP}|mirror_binary_security ${LH_MIRROR_BINARY_SECURITY}|mirror_binary ${LH_MIRROR_BINARY}|archive_areas ${LH_ARCHIVE_AREAS}|chroot_filesystem ${LH_CHROOT_FILESYSTEM}|linux_flavours ${LH_LINUX_FLAVOURS}|security ${LH_SECURITY}|symlinks ${LH_SYMLINKS}|sysvinit ${LH_SYSVINIT}|binary_indices ${LH_BINARY_INDICES}|bootappend_install ${LH_BOOTAPPEND_INSTALL}|bootappend_live ${LH_BOOTAPPEND_LIVE}|bootloader ${LH_BOOTLOADER}|debian_installer ${LH_DEBIAN_INSTALLER}|encryption ${LH_ENCRYPTION}|iso_application ${LH_ISO_APPLICATION}|iso_preparer ${LH_ISO_PREPARER}|iso_publisher ${LH_ISO_PUBLISHER}|iso_volume ${LH_ISO_VOLUME}|memtest ${LH_MEMTEST}|net_path ${LH_NET_ROOT_PATH}|net_server ${LH_NET_ROOT_SERVER}|source_images ${LH_SOURCE_IMAGES}|source ${LH_SOURCE}|custom_bootstrap ${_CUSTOM_BOOTSTRAP}|custom_binary ${_CUSTOM_BINARY}\n" >> /var/log/live
 fi
 
