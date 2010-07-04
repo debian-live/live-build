@@ -63,6 +63,12 @@ then
 		_BUILD=`awk -F\" '/^_BUILD=/{print $2}' ${_FILE}`
 		# Pull in the email address
 		_EMAIL=`awk -F\" '/^_EMAIL=/{print $2}' ${_FILE}`
+		# Pull in the remote address, atchitecture, and distribution
+		_REMOTE_ADDR=`awk -F\" '/^REMOTE_ADDR=/{print $2}' ${_FILE}`
+		_LH_ARCHITECTURE=`awk -F\" '/^LH_ARCHITECTURE=/{print $2}' ${_FILE}`
+		_LH_DISTRIBUTION=`awk -F\" '/^LH_DISTRIBUTION=/{print $2}' ${_FILE}`
+		_LH_PACKAGES_LISTS=`awk -F\" '/^LH_PACKAGES_LISTS=/{print $2}' ${_FILE}`
+		_LH_PACKAGES=`awk -F\" '/^LH_PACKAGES=/{print $2}' ${_FILE}`
 		# Pull in the custom bootstrap
 		_CUSTOM_BOOTSTRAP=`awk -F\" '/^_CUSTOM_BOOTSTRAP=/{print $2}' ${_FILE}`
 		# Pull in the custom binary
@@ -101,12 +107,14 @@ then
 		# Creating image directory
 		mkdir -p "${_DESTDIR}"/"${_BUILD}"
 
-		# Creating mail
+		# Creating mail and logging.
 		if [ "${_ERRORCONFIG}" -eq "0" ] && [ "${_ERRORBUILD}" -eq "0" ]
 		then
 			_STATUS="maybe-successful"
+			echo "${_REMOTE_ADDR} - - [${_DATE_END}] \"${_BUILD} ${_LH_ARCHITECTURE}/${_LH_DISTRIBUTION}/${_LH_PACKAGES_LISTS}/${_LH_PACKAGES}\" 200 - \"-\" \"\"">>/var/log/live-cgi.builds 
 		else
 			_STATUS="maybe-failed"
+			echo "${_REMOTE_ADDR} - - [${_DATE_END}] \"${_BUILD} ${_LH_ARCHITECTURE}/${_LH_DISTRIBUTION}/${_LH_PACKAGES_LISTS}/${_LH_PACKAGES}\" 404 - \"-\" \"\"">>/var/log/live-cgi.builds 
 		fi
 
 		sed -e "s/BUILD/${_BUILD}/g" \
