@@ -111,10 +111,10 @@ then
 		if [ "${_ERRORCONFIG}" -eq "0" ] && [ "${_ERRORBUILD}" -eq "0" ]
 		then
 			_STATUS="maybe-successful"
-			echo "${_REMOTE_ADDR} - - [${_DATE_END}] \"${_BUILD} ${_LH_ARCHITECTURE}/${_LH_DISTRIBUTION}/${_LH_PACKAGES_LISTS}/${_LH_PACKAGES}\" 200 - \"-\" \"\"">>/var/log/live-cgi.builds 
+			echo "${_REMOTE_ADDR} - - `date +[%d/%b/%Y:%H:%m:%S\ %z]` \"${_BUILD} ${_LH_ARCHITECTURE}/${_LH_DISTRIBUTION}/${_LH_PACKAGES_LISTS}/${_LH_PACKAGES}\" 200 - \"-\" \"\"">>/var/log/live-cgi.builds 
 		else
 			_STATUS="maybe-failed"
-			echo "${_REMOTE_ADDR} - - [${_DATE_END}] \"${_BUILD} ${_LH_ARCHITECTURE}/${_LH_DISTRIBUTION}/${_LH_PACKAGES_LISTS}/${_LH_PACKAGES}\" 404 - \"-\" \"\"">>/var/log/live-cgi.builds 
+			echo "${_REMOTE_ADDR} - - `date +[%d/%b/%Y:%H:%m:%S\ %z]` \"${_BUILD} ${_LH_ARCHITECTURE}/${_LH_DISTRIBUTION}/${_LH_PACKAGES_LISTS}/${_LH_PACKAGES}\" 404 - \"-\" \"\"">>/var/log/live-cgi.builds 
 		fi
 
 		sed -e "s/BUILD/${_BUILD}/g" \
