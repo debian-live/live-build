@@ -6,7 +6,12 @@
 #if DISTRIBUTION lenny
 gdm-themes
 #endif
-gnome-desktop-environment system-config-printer gnome-screensaver
-gnome-themes-extras
+gnome-desktop-environment gnome-screensaver gnome-themes-extras
+#if MODE debian
+system-config-printer
+#endif
+#if MODE ubuntu
+system-config-printer-gnome
+#endif
 
 rhythmbox synaptic
