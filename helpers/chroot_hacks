@@ -40,17 +40,27 @@ Create_lockfile .lock
 # Handling default desktop configuration
 for TASK in ${LH_TASKS}
 do
+	case "${LH_DISTRIBUTION}" in
+		lenny)
+			GDM="gdm"
+			;;
+
+		*)
+			GDM="gdm3"
+			;;
+	esac
+
 	case "${TASK}" in
 		gnome-desktop)
 			# gnome is the only desktop environment in this image
 			if [ -z "$(echo ${LH_TASKS} | sed -e 's|gnome-desktop||' -e 's| desktop ||' | grep desktop)" ]
 			then
 				# set display manager
-				echo "gdm shared/default-x-display-manager select gdm" > chroot/root/preseed
+				echo "${GDM} shared/default-x-display-manager select ${GDM}" > chroot/root/preseed
 				Chroot chroot "debconf-set-selections /root/preseed"
 				rm -f chroot/root/preseed
-				Chroot chroot "dpkg-reconfigure gdm"
-				echo "/usr/bin/gdm" > chroot/etc/X11/default-display-manager
+				Chroot chroot "dpkg-reconfigure ${GDM}"
+				echo "/usr/bin/${GDM}" > chroot/etc/X11/default-display-manager
 
 				# set session manager
 				Chroot chroot "update-alternatives --set x-session-manager /usr/bin/gnome-session"
@@ -81,11 +91,11 @@ do
 			if [ -z "$(echo ${LH_TASKS} | sed -e 's|lxde-desktop||' -e 's| desktop ||' | grep desktop)" ]
 			then
 				# set display manager
-				echo "gdm shared/default-x-display-manager select gdm" > chroot/root/preseed
+				echo "${GDM} shared/default-x-display-manager select ${GDM}" > chroot/root/preseed
 				Chroot chroot "debconf-set-selections /root/preseed"
 				rm -f chroot/root/preseed
-				Chroot chroot "dpkg-reconfigure gdm"
-				echo "/usr/bin/gdm" > chroot/etc/X11/default-display-manager
+				Chroot chroot "dpkg-reconfigure ${GDM}"
+				echo "/usr/bin/${GDM}" > chroot/etc/X11/default-display-manager
 
 				# set session manager
 				Chroot chroot "update-alternatives --set x-session-manager /usr/bin/startlxde"
@@ -97,11 +107,11 @@ do
 			if [ -z "$(echo ${LH_TASKS} | sed -e 's|xfce-desktop||' -e 's| desktop ||' | grep desktop)" ]
 			then
 				# set display manager
-				echo "gdm shared/default-x-display-manager select gdm" > chroot/root/preseed
+				echo "${GDM} shared/default-x-display-manager select ${GDM}" > chroot/root/preseed
 				Chroot chroot "debconf-set-selections /root/preseed"
 				rm -f chroot/root/preseed
-				Chroot chroot "dpkg-reconfigure gdm"
-				echo "/usr/bin/gdm" > chroot/etc/X11/default-display-manager
+				Chroot chroot "dpkg-reconfigure ${GDM}"
+				echo "/usr/bin/${GDM}" > chroot/etc/X11/default-display-manager
 
 				# set session manager
 				Chroot chroot "update-alternatives --set x-session-manager /usr/bin/xfce4-session"
