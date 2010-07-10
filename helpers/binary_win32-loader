@@ -66,9 +66,9 @@ case "${LH_ARCHITECTURE}" in
 			Install_package
 
 			# Copying win32-loader
-			cp chroot/${WIN32_LOADER}/* binary
+			cp -r chroot/${WIN32_LOADER}/* binary
 		else
-			cp ${WIN32_LOADER}/* binary
+			cp -r ${WIN32_LOADER}/* binary
 		fi
 
 		mv binary/win32-loader.exe binary/setup.exe
