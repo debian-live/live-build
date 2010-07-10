@@ -1,3 +1,23 @@
+live-helper (2.0~a18-1) unstable; urgency=low
+
+  [ Richard Nelson ]
+  * Added REMOTE_ADDR to l-h.cgi log file.
+  * Added logging features to l-h.cgi cron.
+  * Matching logging date format to apache to use log analyzers on l-
+    h.cgi builds.
+
+  [ Daniel Baumann ]
+  * Adding ubuntu specifics for system-config-printer in gnome list,
+    thanks to Philippe Lelédy <debian@leledy.fr>.
+  * Updating package name for isohybrid, in syslinux 4 it's in syslinux
+    instead of syslinux-common.
+  * Updating package to standards version 3.9.0.
+  * Updating hacks to cope with gdm and gdm3 packages.
+  * Copying win32-loader recursively to cope with another win32-loader
+    file re-arangement.
+
+ -- Daniel Baumann <daniel@debian.org>  Sat, 10 Jul 2010 22:43:00 +0200
+
 live-helper (2.0~a17-1) unstable; urgency=low
 
   [ Richard Nelson ]
