@@ -174,14 +174,13 @@ find chroot/boot -name 'initrd*' -print0 | xargs -r -0 chmod go+r
 echo "0.0 0 0.0" > chroot/etc/adjtime
 
 # Remove cruft
-Truncate chroot/var/log/apt/term.log
-
 rm -f chroot/boot/initrd*bak*
 rm -f chroot/etc/apt/trusted.gpg~
 rm -f chroot/etc/group- chroot/etc/passwd-
 rm -f chroot/etc/gshadow- chroot/etc/shadow-
 rm -f chroot/var/cache/debconf/*-old
 rm -f chroot/var/lib/dpkg/*-old
+rm -f chroot/var/log/apt/term.log
 
 if [ -n "${LH_ROOT_COMMAND}" ]
 then
