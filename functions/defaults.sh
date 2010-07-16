@@ -901,7 +901,7 @@ Set_defaults ()
 	fi
 
 	case "${LH_BINARY_IMAGES}" in
-		usb*)
+		iso-hybrid|usb*)
 			# Try USB block devices for install media
 			if ! echo "${LH_BOOTAPPEND_INSTALL}" | grep -q try-usb
 			then
