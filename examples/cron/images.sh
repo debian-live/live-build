@@ -142,12 +142,6 @@ do
 			--packages-lists ${FLAVOUR} \
 			--tasksel ${TASKSEL} ${KERNEL}
 
-		# TEMPORARY HACK until memtest86+ maintainers fixes his package
-		if [ ${DISTRIBUTION} = "squeeze" ] && [ ${FLAVOUR} = rescue ]
-		then
-			lh config --memtest none
-		fi
-
 		lh build 2>&1 | tee debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.log
 
 		mv binary*.iso debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso
