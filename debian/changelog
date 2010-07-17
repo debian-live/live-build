@@ -1,3 +1,25 @@
+live-helper (2.0~a19-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Also creating .disk meta information on usb images, otherwise
+    debian-installer doesn't detect the installer media.
+
+  [ Richard Nelson ]
+  * Allowing input for --mirror-binary on l-h.cgi.
+
+  [ Daniel Baumann ]
+  * Updating binary_local-packageslists to treat non-main packages
+    correctly.
+  * Truncating apts term.log to.
+  * Removing apt log instead of truncating it, this is an additional
+    file over a bootstrapped chroot.
+  * Updating defaults to also add try-usb parameter for cdrom-detect
+    when building iso-hybrid images with included debian-installer.
+  * Updating syslinux splash screen for squeeze.
+  * Updating image autobuild script for squeeze alpha2.
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 18 Jul 2010 01:16:13 +0200
+
 live-helper (2.0~a18-1) unstable; urgency=low
 
   [ Richard Nelson ]
