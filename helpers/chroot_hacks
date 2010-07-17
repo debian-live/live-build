@@ -180,6 +180,7 @@ rm -f chroot/etc/group- chroot/etc/passwd-
 rm -f chroot/etc/gshadow- chroot/etc/shadow-
 rm -f chroot/var/cache/debconf/*-old
 rm -f chroot/var/lib/dpkg/*-old
+rm -f chroot/var/log/apt/term.log
 
 if [ -n "${LH_ROOT_COMMAND}" ]
 then

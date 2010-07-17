@@ -67,6 +67,7 @@ then
 	for FILE in chroot/binary.deb/archives/*.deb
 	do
 		SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
+		SECTION="$(dpkg -f ${FILE} Section | awk '{ print $1 }')"
 
 		if [ -z "${SOURCE}" ]
 		then
@@ -83,17 +84,34 @@ then
 				;;
 		esac
 
+		if echo "${SECTION}" | grep -qs contrib
+		then
+			SECTION="contrib"
+		elif echo "${SECTION}" | grep -qs non-free
+		then
+			SECTION="non-free"
+		else
+			SECTION="main"
+		fi
+
 		# Install directory
-		mkdir -p binary/pool/main/"${LETTER}"/"${SOURCE}"
+		mkdir -p binary/pool/${SECTION}/"${LETTER}"/"${SOURCE}"
 
 		# Move files
-		mv "${FILE}" binary/pool/main/"${LETTER}"/"${SOURCE}"
+		mv "${FILE}" binary/pool/${SECTION}/"${LETTER}"/"${SOURCE}"
 	done
 
 	cd binary
-	mkdir -p dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}
-	apt-ftparchive packages pool/main > dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages
-	gzip -9 -c dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages > dists/${LH_DISTRIBUTION}/main/binary-${LH_ARCHITECTURE}/Packages.gz
+
+	for SECTION in pool/*
+	do
+		SECTION="$(basename ${SECTION})"
+
+		mkdir -p dists/${LH_DISTRIBUTION}/${SECTION}/binary-${LH_ARCHITECTURE}
+		apt-ftparchive packages pool/${SECTION} > dists/${LH_DISTRIBUTION}/${SECTION}/binary-${LH_ARCHITECTURE}/Packages
+		gzip -9 -c dists/${LH_DISTRIBUTION}/${SECTION}/binary-${LH_ARCHITECTURE}/Packages > dists/${LH_DISTRIBUTION}/${SECTION}/binary-${LH_ARCHITECTURE}/Packages.gz
+	done
+
 	cd "${OLDPWD}"
 
 	rm -rf chroot/binary.deb
