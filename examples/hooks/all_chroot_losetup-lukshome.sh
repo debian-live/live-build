@@ -52,18 +52,28 @@
 # create-lukshome-file.sh script.
 #
 # Reboot and now use the "lukshome" boot option to mount the encrypted /home,
-# like in using "persistent" boot option with a home-rw file in some partition.
+# like when using "persistent" boot option with a home-rw file in some partition.
 #
 
 
-echo "I: to see how use lukshome hook run create-lukshome-file.sh as root."
+# install needed packages (in case apt recommends are off)
+# make sure that cryptsetup is installed
+echo "I: checking for cryptsetup."
+if [ ! -x /sbin/cryptsetup ]
+then
+	echo "I: installing cryptsetup."
+	DEBIAN_FRONTEND="dialog" apt-get install --yes --force-yes -y cryptsetup
+fi
+
+
+echo "I: to see how to use lukshome hook run create-lukshome-file.sh as root."
 echo "I: creating script /usr/local/sbin/create-lukshome-file.sh"
 cat > /usr/local/sbin/create-lukshome-file.sh << 'EOF'
 #!/bin/sh
 
-# This script is to create an encrypted filesystem in a file to
+# This script will create an encrypted filesystem in a file to
 # be used as /home in a live system built with Debian Live Helper with
-# the lukshome hook in config/chroot_local-hooks/.
+# this hook in config/chroot_local-hooks/.
 #
 # The lukshome boot option will do the following:
 #	- search for a partition with label 'lukshome'
@@ -109,6 +119,19 @@ cat > /usr/local/sbin/create-lukshome-file.sh << 'EOF'
 # Reboot and use the "lukshome" boot option to mount the encrypted /home,
 # like in using "persistent" boot option with a home-rw file in some partition.
 #
+# To use another partition label use the following boot options:
+#	lukshome lukspart=partition_label
+#
+# If you want to use another filename instead of luks-home.img, rename (mv)
+# the file and use the following boot options:
+#	lukshome luksfile=filename
+#
+# Both boot options can be used at the same time, but always with lukshome:
+#	lukshome lukspart=partition_label luksfile=filename
+#
+# By default, if just the lukshome boot option is used, the script will
+# search for a partition labeled 'lukshome' and a file named 'luks-home.img'.
+#
 # Press Shift-PgUp/Shift-PgDn to scrool the instructions on the screen.
 
 
@@ -144,7 +167,7 @@ fi
 # show instructions
 echo ""
 echo "** Instructions to use create-lukshome-file.sh (this script):"
-sed -n '2,51p' /usr/local/sbin/create-lukshome-file.sh | sed 's/^.//'
+sed -n '2,64p' /usr/local/sbin/create-lukshome-file.sh | sed 's/^.//'
 echo ""
 
 
@@ -171,13 +194,13 @@ read FILE_SIZE
 echo ""
 echo "** Creating file luks-home.img."
 echo "** Filling file image with /dev/urandom output. It will take some time."
-echo "(Edit this script to use /dev/random. It's know to more secure but "
+echo "(Edit this script to use /dev/random. It's known to be more secure but "
 echo "it will take a *very* long time to complete."
 dd if=/dev/urandom of=luks-home.img bs=1M count=${FILE_SIZE}
 # To use /dev/random comment the line above and uncomment the next line
 #dd if=/dev/random of=luks-home.img ibs=128 obs=128 count=$((8192*${FILE_SIZE}))
 # You might have to increase kernel entropy by moving the mouse, typing keyboard,
-# make the computer read disk or use network connections.
+# make the computer read the disk or use network connections.
 echo "** Done."
 echo ""
 
@@ -287,16 +310,39 @@ cat > /usr/local/sbin/lukshome.sh << 'EOF'
 # functions taken from live-helpers
 . /usr/share/initramfs-tools/scripts/live-helpers
 
-# search for a partition labeled "lukshome"
+# set default values
+LUKSPART="lukshome"
+LUKSFILE="luks-home.img"
+
+# get boot option lukshome - adapted from live-helpers
+for ARGUMENT in $(cat /proc/cmdline)
+do
+	case "${ARGUMENT}" in
+		lukshome)
+			LUKSHOME=1
+			;;
+		luksfile=*)
+			LUKSFILE="${ARGUMENT#luksfile=}"
+			LUKSHOME=1
+			;;
+		lukspart=*)
+			LUKSPART="${ARGUMENT#lukspart=}"
+			LUKSHOME=1
+			;;
+
+	esac
+done
+
+# search for a partition labeled "lukshome" or $LUKSPART
 for sysblock in $(echo /sys/block/* | tr ' ' '\n' | grep -v loop | grep -v ram | grep -v fd)
 do
 	for dev in $(subdevices "${sysblock}")
 	do
 		devname=$(sys2dev "${dev}")
 		# find partition name and filesystem type
-		if [ "$(/lib/udev/vol_id -l ${devname} 2>/dev/null)" = "lukshome" ]
+		if [ "$(/lib/udev/vol_id -l ${devname} 2>/dev/null)" = "${LUKSPART}" ]
 		then
-			# found one partition named "lukshome"
+			# found one partition with correct label
 			CRYPTHOME="${devname}"
 			# don't search further
 			break
@@ -312,7 +358,7 @@ done
 # if no partition found, exit
 if [ -z "${CRYPTHOME}" ]
 then
-	echo "Could not find any partition with lukshome label. "
+	echo "Could not find any partition with ${LUKSPART} label. "
 	echo "Proceeding with no encrypted /home."
 	exit 0
 fi
@@ -324,11 +370,11 @@ mount -t $(get_fstype "${CRYPTHOME}") "${CRYPTHOME}" /luks-home
 
 # mount losetup encrypted file
 FREE_LOOP="$(/sbin/losetup -f)"
-echo "Opening /luks-home/luks-home.img in ${FREE_LOOP}."
+echo "Opening file /luks-home/${LUKSFILE} in ${FREE_LOOP}."
 
-if [ -f /luks-home/luks-home.img ]
+if [ -f /luks-home/"${LUKSFILE}" ]
 then
-	/sbin/losetup ${FREE_LOOP} /luks-home/luks-home.img
+	/sbin/losetup ${FREE_LOOP} /luks-home/"${LUKSFILE}"
 
 	echo "Adding ${FREE_LOOP} home to /etc/crypttab and setting it as /home in /etc/fstab."
 
@@ -338,8 +384,9 @@ then
 	# update fstab
 	echo "/dev/mapper/home	/home	ext2	defaults,noatime	0	0" >> /etc/fstab
 else
-	echo "Did not found any luks-home.img file in ${CRYPTHOME}!"
+	echo "Did not found any file named ${LUKSFILE} in ${CRYPTHOME}!"
 	echo "Proceeding with no encrypted /home."
+	sleep 2
 	umount -r /luks-home
 	exit 0
 fi
@@ -403,6 +450,15 @@ do
 		lukshome)
 			LUKSHOME=1
 			;;
+		luksfile=*)
+			LUKSFILE="${ARGUMENT#luksfile=}"
+			LUKSHOME=1
+			;;
+		lukspart=*)
+			LUKSPART="${ARGUMENT#lukspart=}"
+			LUKSHOME=1
+			;;
+
 	esac
 done
 
@@ -436,9 +492,8 @@ umount /root/sys
 umount /root/proc
 umount /root/dev
 
-# delete the lukshome scripts, not needed anymore
+# delete the lukshome.sh script, not needed anymore
 # rm -f /root/usr/local/sbin/lukshome.sh
-# rm -f /root/usr/local/sbin/create-lukshome-file.sh
 
 log_end_msg
 
