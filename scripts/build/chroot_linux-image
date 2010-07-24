@@ -1,0 +1,107 @@
+#!/bin/sh
+
+# lh_chroot_linux-image(1) - manage /etc/kernel-img.conf
+# Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Including common functions
+. "${LH_BASE:-/usr/share/live-helper}"/scripts/build.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'manage /etc/kernel-img.conf')"
+HELP=""
+USAGE="${PROGRAM} {install|remove} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+# Requiring stage file
+Require_stagefile .stage/config .stage/bootstrap
+
+case "${1}" in
+	install)
+		Echo_message "Configuring file /etc/kernel-img.conf"
+
+		# Checking stage file
+		Check_stagefile .stage/chroot_linux-image
+
+		# Checking lock file
+		Check_lockfile .lock
+
+		# Creating lock file
+		Create_lockfile .lock
+
+		if [ -f chroot/etc/kernel-img.conf ]
+		then
+			# Saving kernel-img.conf
+			cp chroot/etc/kernel-img.conf chroot/etc/kernel-img.conf.old
+		fi
+
+		# Configuring kernel-img.conf
+cat >> chroot/etc/kernel-img.conf << EOF
+do_bootloader = No
+do_initrd = Yes
+warn_initrd = No
+EOF
+
+		# Diverting update-initramfs
+		#if [ "${LH_INITRAMFS}" = "live-initramfs" ]
+		#then
+		#	mv chroot/usr/sbin/update-initramfs chroot/usr/sbin/update-initramfs.live-helper
+		#fi
+
+		if [ "${LH_LINUX_PACKAGES}" != "none" ]
+		then
+			for FLAVOUR in ${LH_LINUX_FLAVOURS}
+			do
+				for PACKAGE in ${LH_LINUX_PACKAGES}
+				do
+					echo ${PACKAGE}-${FLAVOUR} >> chroot/root/chroot_packages
+				done
+			done
+		fi
+
+		# Queue installation of linux-image and ${LH_INITRAMFS}
+		if [ "${LH_INITRAMFS}" != "none" ]
+		then
+			echo ${LH_INITRAMFS} >> chroot/root/chroot_packages
+		fi
+
+		# Creating stage file
+		Create_stagefile .stage/chroot_linux-image
+		;;
+
+	remove)
+		Echo_message "Deconfiguring file /etc/kernel-img.conf"
+
+		# Checking lock file
+		Check_lockfile .lock
+
+		# Creating lock file
+		Create_lockfile .lock
+
+		if [ -f chroot/etc/kernel-img.conf.old ]
+		then
+			# Restoring kernel-img.conf file
+			mv chroot/etc/kernel-img.conf.old chroot/etc/kernel-img.conf
+		else
+			# Removing kernel-img.conf file
+			Truncate chroot/etc/kernel-img.conf
+		fi
+
+		# Removing stage file
+		rm -f .stage/chroot_linux-image
+		;;
+
+	*)
+		Usage
+		;;
+esac

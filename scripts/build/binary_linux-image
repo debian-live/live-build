@@ -1,0 +1,88 @@
+#!/bin/sh
+
+# lh_binary_linux-image(1) - install linux-image into binary
+# Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Including common functions
+. "${LH_BASE:-/usr/share/live-helper}"/scripts/build.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'install linux-image into binary')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+if [ "${LH_BINARY_IMAGES}" = "virtual-hdd" ]
+then
+	exit 0
+fi
+
+Echo_message "Begin install linux-image..."
+
+# Requiring stage file
+Require_stagefile .stage/config .stage/bootstrap
+
+# Checking stage file
+Check_stagefile .stage/binary_linux-image
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+case "${LH_INITRAMFS}" in
+	casper)
+		DESTDIR="binary/casper"
+		;;
+
+	live-initramfs)
+		DESTDIR="binary/live"
+		;;
+
+	*)
+		DESTDIR="binary/boot"
+		;;
+esac
+
+case "${LH_ARCHITECTURE}" in
+	powerpc)
+		LINUX="vmlinux"
+		;;
+
+	*)
+		LINUX="vmlinuz"
+		;;
+esac
+
+Check_multiarchitecture
+
+# Creating directory
+mkdir -p "${DESTDIR}"
+
+# Installing linux-image
+cp chroot/boot/"${LINUX}"-* "${DESTDIR}"
+cp chroot/boot/initrd.img-* "${DESTDIR}"
+
+case "${LH_INITRAMFS}" in
+	live-initramfs)
+		if [ -e chroot/usr/share/doc/live-initramfs/parameters.txt ]
+		then
+			cp chroot/usr/share/doc/live-initramfs/parameters.txt "${DESTDIR}"/parameters.txt
+		fi
+		;;
+esac
+
+# Creating stage file
+Create_stagefile .stage/binary_linux-image

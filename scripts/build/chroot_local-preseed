@@ -1,0 +1,64 @@
+#!/bin/sh
+
+# lh_chroot_local-preseed(1) - use debconf local preseeding file
+# Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Including common functions
+. "${LH_BASE:-/usr/share/live-helper}"/scripts/build.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'execute local preseed in chroot')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+Echo_message "Begin executing local preseeds..."
+
+# Requiring stage file
+Require_stagefile .stage/config .stage/bootstrap
+
+# Checking stage file
+Check_stagefile .stage/chroot_local-preseed
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+if Find_files config/chroot_local-preseed/*
+then
+	# Check dependency
+	Check_package chroot/usr/bin/debconf-set-selections debconf
+
+	# Install dependency
+	Install_package
+
+	for PRESEED in config/chroot_local-preseed/*
+	do
+		# Copying local preseed
+		cp "${PRESEED}" chroot/root/preseed
+
+		Chroot chroot "debconf-set-selections /root/preseed"
+
+		# Removing local preseed file
+		rm -f chroot/root/preseed
+	done
+
+	# Remove dependency
+	Remove_package
+
+	# Creating stage file
+	Create_stagefile .stage/chroot_local-preseed
+fi
