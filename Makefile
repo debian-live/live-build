@@ -4,7 +4,7 @@ SHELL := sh -e
 
 LANGUAGES = de
 
-SCRIPTS = live-helper.sh cgi/* functions/* examples/*/*.sh helpers/* hooks/*
+SCRIPTS = cgi/* functions/* examples/*/*.sh scripts/*.sh scripts/*/*
 
 all: test build
 
@@ -41,11 +41,11 @@ build:
 install:
 	# Installing shared data
 	mkdir -p $(DESTDIR)/usr/share/live-helper
-	cp -r cgi data examples live-helper.sh functions helpers hooks includes lists repositories templates $(DESTDIR)/usr/share/live-helper
+	cp -r cgi data examples functions scripts hooks includes lists repositories templates $(DESTDIR)/usr/share/live-helper
 
 	# Installing executables
 	mkdir -p $(DESTDIR)/usr/bin
-	mv $(DESTDIR)/usr/share/live-helper/helpers/lh $(DESTDIR)/usr/share/live-helper/helpers/live-helper $(DESTDIR)/usr/bin
+	mv $(DESTDIR)/usr/share/live-helper/scripts/build/lh $(DESTDIR)/usr/share/live-helper/scripts/build/live-helper $(DESTDIR)/usr/bin
 
 	# Installing documentation
 	mkdir -p $(DESTDIR)/usr/share/doc/live-helper

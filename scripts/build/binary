@@ -1,0 +1,100 @@
+#!/bin/sh
+
+# lh_binary(1) - build binary images
+# Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Including common functions
+. "${LH_BASE:-/usr/share/live-helper}"/scripts/build.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'build binary images')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+# Setup cleanup function
+Setup_cleanup
+
+# Preparing root filesystem
+lh binary_chroot ${*}
+
+if [ "${LH_BUILD_WITH_CHROOT}" = "true" ]
+then
+	# Configuring chroot
+	lh chroot_devpts install ${*}
+	lh chroot_proc install ${*}
+	lh chroot_selinuxfs install ${*}
+	lh chroot_sysfs install ${*}
+	lh chroot_hosts install ${*}
+	lh chroot_resolv install ${*}
+	lh chroot_hostname install ${*}
+	lh chroot_sysv-rc install ${*}
+	lh chroot_upstart install ${*}
+	lh chroot_apt install-binary ${*}
+	lh chroot_sources install ${*}
+fi
+
+# Building root filesystem
+lh binary_rootfs ${*}
+lh binary_manifest ${*}
+lh binary_encryption ${*}
+
+# Prepare images
+lh binary_local-packageslists ${*}
+lh binary_linux-image ${*}
+lh binary_debian-installer ${*}
+lh binary_memtest ${*}
+lh binary_grub ${*}
+lh binary_grub2 ${*}
+lh binary_syslinux ${*}
+lh binary_yaboot ${*}
+lh binary_silo ${*}
+lh binary_disk ${*}
+lh binary_win32-loader ${*}
+lh binary_includes ${*}
+lh binary_local-includes ${*}
+lh binary_local-hooks ${*}
+lh binary_checksums ${*}
+
+if [ "${LH_BUILD_WITH_CHROOT}" != "true" ]
+then
+	lh chroot_devpts install ${*}
+	lh chroot_proc install ${*}
+	lh chroot_selinuxfs install ${*}
+	lh chroot_sysfs install ${*}
+fi
+
+# Building images
+lh binary_iso ${*}
+lh binary_net ${*}
+lh binary_tar ${*}
+lh binary_usb ${*}
+lh binary_virtual-hdd ${*}
+
+if [ "${LH_BUILD_WITH_CHROOT}" = "true" ]
+then
+	# Deconfiguring chroot
+	rm -f .stage/chroot_sources
+	lh chroot_hostname remove ${*}
+	lh chroot_resolv remove ${*}
+	lh chroot_hosts remove ${*}
+fi
+
+lh chroot_apt remove ${*}
+lh chroot_sysv-rc remove ${*}
+lh chroot_sysfs remove ${*}
+lh chroot_upstart remove ${*}
+lh chroot_selinuxfs remove ${*}
+lh chroot_proc remove ${*}
+lh chroot_devpts remove ${*}

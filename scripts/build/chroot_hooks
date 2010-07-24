@@ -1,0 +1,65 @@
+#!/bin/sh
+
+# lh_chroot_hooks(1) - execute hooks in chroot
+# Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Including common functions
+. "${LH_BASE:-/usr/share/live-helper}"/scripts/build.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'execute hooks in chroot')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+Echo_message "Begin executing hooks..."
+
+# Requiring stage file
+Require_stagefile .stage/config .stage/bootstrap
+
+# Checking stage file
+Check_stagefile .stage/chroot_hooks
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+# Processing hooks
+HOOKS="$(echo ${LH_HOOKS} ${LH_PACKAGES_LISTS} ${LH_TASKS} | sed -e 's| |\n|g' | sort -u)"
+
+for HOOK in ${HOOKS}
+do
+	if [ -f ${LH_BASE:-/usr/share/live-helper}/hooks/"${HOOK}" ]
+	then
+		# Copying hook
+		cp ${LH_BASE:-/usr/share/live-helper}/hooks/"${HOOK}" chroot/root
+
+		# Making hook executable
+		if [ ! -x chroot/root/"${HOOK}" ]
+		then
+			chmod +x chroot/root/"${HOOK}"
+		fi
+
+		# Executing hook
+		Chroot chroot "./root/${HOOK}" || ( Echo_error "${HOOK} failed (exit non-zero). You should check for errors."; exit 1 )
+
+		# Removing hook
+		rm -f chroot/root/"${HOOK}"
+
+		# Creating stage file
+		Create_stagefile .stage/chroot_hooks
+	fi
+done

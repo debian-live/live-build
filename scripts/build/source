@@ -1,0 +1,54 @@
+#!/bin/sh
+
+# lh_source(1) - build source images
+# Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Including common functions
+. "${LH_BASE:-/usr/share/live-helper}"/scripts/build.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'build source images')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+Require_stagefile .stage/chroot_install-packages
+
+# Setup cleanup function
+Setup_cleanup
+
+# Enabling network in chroot
+lh chroot_hosts install ${*}
+lh chroot_resolv install ${*}
+lh chroot_hostname install ${*}
+lh chroot_sources install ${*}
+
+# Preparing images
+lh source_debian-live ${*}
+lh source_debian ${*}
+lh source_disk ${*}
+lh source_checksums ${*}
+
+# Building images
+lh source_iso ${*}
+lh source_net ${*}
+lh source_tar ${*}
+lh source_usb ${*}
+lh source_virtual-hdd ${*}
+
+# Deconfiguring chroot
+rm -f .stage/chroot_sources
+lh chroot_hostname remove ${*}
+lh chroot_resolv remove ${*}
+lh chroot_hosts remove ${*}

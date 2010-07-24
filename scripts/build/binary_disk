@@ -1,0 +1,137 @@
+#!/bin/sh
+
+# lh_binary_disk (1) - install disk information into binary
+# Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Including common functions
+. "${LH_BASE:-/usr/share/live-helper}"/scripts/build.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'install disk information into binary')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+case "${LH_BINARY_IMAGES}" in
+	iso*|usb*)
+		;;
+	*)
+		exit 0
+		;;
+esac
+
+Echo_message "Begin installing disk information..."
+
+# Requiring stage file
+Require_stagefile .stage/config .stage/bootstrap
+
+# Checking stage file
+Check_stagefile .stage/binary_disk
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+mkdir -p binary/.disk
+
+ARCHITECTURE="$(echo ${LH_ARCHITECTURE} | sed -e 's| |/|g')"
+DISTRIBUTION="$(echo ${LH_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]')"
+DISTRIBUTION="${DISTRIBUTION}$(echo ${LH_DISTRIBUTION} | cut -b 2-)"
+eval VERSION="$`echo RELEASE_${LH_DISTRIBUTION}`"
+
+TITLE="Debian GNU/Linux"
+case "${LH_MODE}" in
+	debian)
+		STRING="Official Snapshot ${ARCHITECTURE}"
+		TRACE="project/trace/ftp-master.debian.org"
+		;;
+
+	debian-release)
+		STRING="Official ${ARCHITECTURE}"
+		TRACE="project/trace/ftp-master.debian.org"
+		;;
+
+	ubuntu)
+		TITLE="Ubuntu"
+		STRING="Build ${ARCHITECTURE}"
+		TRACE=""
+		;;
+
+	*)
+		STRING="Snapshot ${ARCHITECTURE}"
+		TRACE=""
+		;;
+esac
+
+if [ -n "${TRACE}" ]
+then
+	echo "$(wget -q ${LH_MIRROR_BOOTSTRAP}/${TRACE} -O - | head -n 1)" \
+	> binary/.disk/archive_trace
+fi
+
+case "${LH_DEBIAN_INSTALLER}" in
+	cdrom)
+		echo "main" > binary/.disk/base_components
+
+		touch binary/.disk/base_installable
+
+		echo "full_cd" > binary/.disk/cd_type
+
+		echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/CD Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
+
+		cp "${LH_BASE}"/data/debian-cd/${LH_DISTRIBUTION}/${LH_ARCHITECTURE}_udeb_include binary/.disk/udeb_include
+		;;
+
+	true|netinst|live)
+		echo "main" > binary/.disk/base_components
+
+		touch binary/.disk/base_installable
+
+		echo "not_complete" > binary/.disk/cd_type
+
+		if [ "${LH_DEBIAN_INSTALLER}" = "live" ]
+		then
+			echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/INSTALL Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
+		else
+			echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/NETINST Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
+
+		fi
+
+		cp "${LH_BASE}"/data/debian-cd/${LH_DISTRIBUTION}/${LH_ARCHITECTURE}_netinst_udeb_include binary/.disk/udeb_include
+
+		if [ "${LH_DEBIAN_INSTALLER}" = "live" ]
+		then
+			echo "live-installer" >> binary/.disk/udeb_include
+		fi
+		;;
+
+	businesscard)
+		echo "main" > binary/.disk/base_components
+
+		echo "not_complete" > binary/.disk/cd_type
+
+		echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/BC Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
+
+		cp "${LH_BASE}"/data/debian-cd/${LH_DISTRIBUTION}/${LH_ARCHITECTURE}_businesscard_udeb_include binary/.disk/udeb_include
+		;;
+
+	false)
+		echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
+		;;
+esac
+
+# Creating stage file
+Create_stagefile .stage/binary_disk
