@@ -1,4 +1,4 @@
-Source: live-helper
+Source: live-build
 Section: misc
 Priority: optional
 Maintainer: Debian Live Project <debian-live@lists.debian.org>
@@ -6,22 +6,34 @@ Uploaders: Daniel Baumann <daniel@debian.org>
 Build-Depends: debhelper (>= 7.0.50~)
 Build-Depends-Indep: gettext
 Standards-Version: 3.9.0
-Homepage: http://live.debian.net/devel/live-helper/
-Vcs-Browser: http://live.debian.net/gitweb/?p=live-helper.git
-Vcs-Git: git://live.debian.net/git/live-helper.git
+Homepage: http://live.debian.net/devel/live-build/
+Vcs-Browser: http://live.debian.net/gitweb/?p=live-build.git
+Vcs-Git: git://live.debian.net/git/live-build.git
 
-Package: live-helper
+Package: live-build
 Architecture: all
 Depends: ${misc:Depends}, debootstrap | cdebootstrap | cdebootstrap-static
+Conflicts: live-helper (<< 2.0~a20)
+Replaces: live-helper
 Recommends: cpio, gettext-base, gnu-fdisk
 Suggests:
  dosfstools, genisoimage, memtest86+ | memtest86, mtools, parted,
  squashfs-tools | genext2fs | mtd-tools, sudo | fakeroot, syslinux | grub,
  uuid-runtime, win32-loader
-Description: Debian Live build scripts
- live-helper is a set of scripts to build Debian Live system images.
+Description: Debian Live - System Build Scripts
+ live-build is a set of scripts to build Debian Live system images.
  .
- The idea behind live-helper is a framework that uses a configuration directory
+ The idea behind live-build is a framework that uses a configuration directory
  to completely automate and customize all aspects of building a Live image.
  .
- An introduction to live-helper can be found in the live-helper(7) manpage.
+ An introduction to live-build can be found in the live-build(7) manpage.
+
+Package: live-helper
+Architecture: all
+Depends: ${misc:Depends}, live-helper
+Description: Debian Live - System Build Scripts (transitional package)
+ Package to ease upgrading from older live-helper packages to the new
+ live-build package.
+ .
+ This package can be purged at anytime once the live-build package has been
+ installed.
