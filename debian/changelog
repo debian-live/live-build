@@ -1,3 +1,20 @@
+live-build (2.0~a20-1) unstable; urgency=low
+
+  * Removing temporary hack to skip memtest86+ in image autobuild
+    script.
+  * Adding updated losetup-lukshome hook from Rui Miguel P. Bernardo
+    <rui.bernardo.pt@gmail.com>.
+  * Renaming live-helper package to its generic name live-build, now all
+    Debian Live are consistently and properly named.
+  * Splitting out cgi frontend to own package.
+  * Rearranging helpers scripts in source tree.
+  * Using global version file.
+  * Updating po makefile.
+  * Removing example sources, not really useful anymore since
+    repositories are in place.
+
+ -- Daniel Baumann <daniel@debian.org>  Sat, 24 Jul 2010 17:22:56 +0200
+
 live-helper (2.0~a19-1) unstable; urgency=low
 
   [ Daniel Baumann ]
