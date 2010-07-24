@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# lh_testroot(1) - ensure that a system is built as root
+# Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Including common functions
+. "${LH_BASE:-/usr/share/live-helper}"/scripts/build.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'ensure that a system is built as root')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+# Checking user account
+if [ "$(${LH_ROOT_COMMAND} id -u)" -ne "0" ]
+then
+	Echo_error "need root privileges"
+	exit 1
+fi

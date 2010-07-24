@@ -1,0 +1,86 @@
+#!/bin/sh
+
+# lh_chroot_upstart(1) - manage /usr/sbin/initctl
+# Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
+#
+# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions; see COPYING for details.
+
+set -e
+
+# Including common functions
+. "${LH_BASE:-/usr/share/live-helper}"/scripts/build.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'manage /usr/sbin/initctl')"
+HELP=""
+USAGE="${PROGRAM} {install|remove} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+# Requiring stage file
+Require_stagefile .stage/config .stage/bootstrap
+
+case "${1}" in
+	install)
+		Echo_message "Configuring file /usr/sbin/initctl"
+
+		# Checking stage file
+		Check_stagefile .stage/chroot_upstart
+
+		# Checking lock file
+		Check_lockfile .lock
+
+		# Creating lock file
+		Create_lockfile .lock
+
+		if [ -f chroot/usr/sbin/initctl ]
+		then
+			# Save initctl file
+			mv chroot/usr/sbin/initctl chroot/usr/sbin/initctl.orig
+		fi
+
+		# Create initctl file
+cat > chroot/usr/sbin/initctl << EOF
+#!/bin/sh
+echo "All runlevel operations denied by policy" >&2
+exit 101
+EOF
+
+		chmod 0755 chroot/usr/sbin/initctl
+
+		# Creating stage file
+		Create_stagefile .stage/chroot_upstart
+		;;
+
+	remove)
+		Echo_message "Deconfiguring file /usr/sbin/initctl"
+
+		# Checking lock file
+		Check_lockfile .lock
+
+		# Creating lock file
+		Create_lockfile .lock
+
+		if [ -f chroot/usr/sbin/initctl.orig ]
+		then
+			# Restore initctl file
+			mv chroot/usr/sbin/initctl.orig chroot/usr/sbin/initctl
+		else
+			# Remove initctl file
+			rm -f chroot/usr/sbin/initctl
+		fi
+
+		# Removing stage file
+		rm -f .stage/chroot_upstart
+		;;
+
+	*)
+		Usage
+		;;
+esac

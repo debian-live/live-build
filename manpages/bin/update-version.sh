@@ -2,11 +2,9 @@
 
 set -e
 
-. ../functions/common.sh
-
 DATE="$(LC_ALL=C date +%Y\\\\-%m\\\\-%d)"
 PROGRAM="LIVE\\\-HELPER"
-VERSION="${CONFIG_VERSION}"
+VERSION="$(cat ../VERSION)"
 
 echo "Updating version headers..."
 
