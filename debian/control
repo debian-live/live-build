@@ -28,6 +28,17 @@ Description: Debian Live - System Build Scripts
  .
  An introduction to live-build can be found in the live-build(7) manpage.
 
+Package: live-build-cgi
+Architecture: all
+Depends: ${misc:Depends}, live-helper (= ${source:Version})
+Conflicts: live-helper (<< 2.0~a20)
+Replaces: live-helper
+Recommends: apache2 | httpd
+Description: Debian Live - System Build Scripts (cgi frontend)
+ live-build is a set of scripts to build Debian Live system images.
+ .
+ This package contains the cgi frontend.
+
 Package: live-helper
 Architecture: all
 Depends: ${misc:Depends}, live-helper
