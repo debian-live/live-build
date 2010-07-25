@@ -58,7 +58,7 @@ else
 	# echo ${QUERY_STRING}
 
 	# Email
-	_EMAIL=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])email=[0-9,a-z,A-Z,.,_,-,@]+' | cut -f 2 -d '=' | head -n1)
+	_EMAIL=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])email=[-0-9a-zA-Z._@]+' | cut -f 2 -d '=' | head -n1)
 
 	# Standard options
 	LH_BINARY_IMAGES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])binary_images=[-a-z]+' | cut -f 2 -d '=' | head -n1)
