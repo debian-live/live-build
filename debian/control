@@ -41,7 +41,7 @@ Description: Debian Live - System Build Scripts (cgi frontend)
 
 Package: live-helper
 Architecture: all
-Depends: ${misc:Depends}, live-helper
+Depends: ${misc:Depends}, live-build
 Description: Debian Live - System Build Scripts (transitional package)
  Package to ease upgrading from older live-helper packages to the new
  live-build package.
