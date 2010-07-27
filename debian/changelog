@@ -1,3 +1,20 @@
+live-build (2.0~a21-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Removing outdated repository configurations.
+  * Updating backports repository configuration.
+
+  [ Richard Nelson ]
+  * Correct expression on l-b.cgi email field.
+
+  [ Daniel Baumann ]
+  * Updating package to standards version 3.9.1.
+
+  [ Marco Amadori ]
+  * Correcting typo, live-helper should depend on live-build.
+
+ -- Daniel Baumann <daniel@debian.org>  Tue, 27 Jul 2010 16:07:52 +0200
+
 live-build (2.0~a20-1) unstable; urgency=low
 
   * Removing temporary hack to skip memtest86+ in image autobuild
