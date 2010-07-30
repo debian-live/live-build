@@ -1109,7 +1109,7 @@ Check_defaults ()
 			exit 1
 		elif [ ${CURRENT_CONFIG_VERSION} -eq 1 ]
 		then
-			Echo_error "This config tree is too old for this version of live-heloer (${VERSION})."
+			Echo_error "This config tree is too old for this version of live-helper (${VERSION})."
 			Echo_error "Aborting build, please repopulate the config tree."
 			exit 1
 		elif [ ${CURRENT_CONFIG_VERSION} -lt 1 ]
