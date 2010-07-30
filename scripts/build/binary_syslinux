@@ -193,9 +193,9 @@ Copy_syslinux_templates ()
 
 	if [ "${LH_SYSLINUX_MENU}" = "false" ]
 	then
-		cp "${TEMPLATES}"/normal/* ${SCREEN_PATH}
+		cp -r "${TEMPLATES}"/normal/* ${SCREEN_PATH}
 	else
-		cp "${TEMPLATES}"/menu/* ${SCREEN_PATH}
+		cp -r "${TEMPLATES}"/menu/* ${SCREEN_PATH}
 
 		case "${LH_SYSLINUX_MENU}" in
 			gfxboot)
