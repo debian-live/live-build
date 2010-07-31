@@ -3,7 +3,7 @@
 0fAvailable boot methods:07
 
 0flive07
-  Start the live system -- this is the default LH_MEDIA method.
+  Start the live system -- this is the default {$LH_MEDIA} method.
 0flivefailsafe07
   Start the live system in fail-safe mode.
 
