@@ -1,0 +1,24 @@
+0fMODO DE RECUPERAÇÃO07                                                                   09F407
+
+0fUse um desses métodos de inicialização para recuperar uma instalação existente:07
+
+0frescue07
+  Inicializa dentro do modo de recuperação.
+
+0fmemtest07
+  Inicia teste de memória (memtest) para varrer sua RAM em busca de erros.
+0ffloppy07, 0fdisk107 or 0fdisk207
+  Inicia a partir do disquete, primeiro ou segundo disco rígido.
+
+
+
+Para usar um desses métodos de inicialização, digite-o no prompt, opcionalmente
+seguido de algum parâmetro de inicialização. Por exemplo:
+
+  boot: rescue acpi=off
+
+
+
+
+
+Pressione F1control e F seguido de 1 para o índice de ajuda, ou ENTER para 
