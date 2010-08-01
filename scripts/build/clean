@@ -79,6 +79,7 @@ do
 			${LH_ROOT_COMMAND} umount -f chroot/dev/shm > /dev/null 2>&1 || true
 			${LH_ROOT_COMMAND} umount -f chroot/dev/pts > /dev/null 2>&1 || true
 			${LH_ROOT_COMMAND} umount -f chroot/dev > /dev/null 2>&1 || true
+			${LH_ROOT_COMMAND} umount -f chroot/var/lib/dpkg > /dev/null 2>&1 || true
 
 			${LH_ROOT_COMMAND} umount -f chroot/binary.tmp > /dev/null 2>&1 || true
 			${LH_ROOT_COMMAND} umount -f chroot/dev.tmp/pts > /dev/null 2>&1 || true
