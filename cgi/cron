@@ -8,7 +8,7 @@
 # under certain conditions; see COPYING for details.
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live-helper}"/live-helper.sh
+. "${LH_BASE:-/usr/share/live-helper}"/scripts/build.sh
 
 # Reading defaults
 if [ -r /etc/default/live-helper.cgi ]
