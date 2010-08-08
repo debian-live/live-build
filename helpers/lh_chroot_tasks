@@ -65,6 +65,28 @@ then
 		tasksel)
 			for TASK in ${LH_TASKS}
 			do
+				case "${TASK}" in
+					gnome*)
+						DESKTOP="${DESKTOP} gnome"
+						;;
+
+					kde*)
+						DESKTOP="${DESKTOP} kde"
+						;;
+
+					lxde*)
+						DESKTOP="${DESKTOP} lxde"
+						;;
+
+					xfce*)
+						DESKTOP="${DESKTOP} xfce"
+						;;
+				esac
+
+				echo "tasksel tasksel/desktop multiselect ${DESKTOP}" > chroot/root/preseed
+				Chroot chroot "debconf-set-selections /root/preseed"
+				rm -f chroot/root/preseed
+
 				Chroot chroot "tasksel --debconf-apt-progress --logstderr install ${TASK}"
 			done
 			;;
