@@ -45,15 +45,15 @@ Create_lockfile .lock
 case "${LH_INTERACTIVE}" in
 	true|shell)
 		Echo_message "Pausing build: starting interactive shell..."
-			Chroot chroot "/bin/bash --login"
+		Chroot chroot "/bin/bash --login"
 		;;
-		x11)
+	x11)
 		Echo_message "Pausing build: starting interactive X11..."
-			Chroot chroot "startx"
+		Chroot chroot "startx"
 		;;
-		xnest)
+	xnest)
 		Echo_message "Pausing build: starting interactive Xnest..."
-			#Chroot chroot "" # FIXME
+		#Chroot chroot "" # FIXME
 		;;
 esac
 
