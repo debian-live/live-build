@@ -1,3 +1,39 @@
+live-build (2.0~a22-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Making cp calls for syslinux templates recursive, thanks to Tiago
+    Bortoletto Vaz <tiago@debian.org>.
+
+  [ Chris Lamb ]
+  * Fixing spelling typo.
+  * Run chroot stage with /var/lib/dpkg mounted as a tmpfs
+
+  [ Richard Nelson ]
+  * Correct typo on build.html.
+  * Update to change in location and name of /live-helper.sh to
+    /scripts/build.sh.
+
+  [ Daniel Baumann ]
+  * Marking ndiff as lenny only in rescue list (Closes: #591469).
+
+  [ Tiago Bortoletto Vaz ]
+  * Adding curly braces to LH_MEDIA in syslinux template.
+  * Fixing all LH_MEDIA related stuff in syslinux templates.
+  * Adding Brazilian Portuguese templates for syslinux.
+
+  [ Daniel Baumann ]
+  * Updating debian-cd data.
+
+  [ Chris Lamb ]
+  * Fix LH_INTERACTIVE switch statement.
+
+  [ Daniel Baumann ]
+  * Setting default desktop for tasksel when installing package tasks to
+    avoid ending up with a pulled in gnome in all cases, thanks a lot to
+    Ben Armstrong <synrg@debian.org> for finding this solution.
+
+ -- Daniel Baumann <daniel@debian.org>  Tue, 10 Aug 2010 04:21:01 +0200
+
 live-build (2.0~a21-1) unstable; urgency=low
 
   [ Daniel Baumann ]
