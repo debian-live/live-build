@@ -13,15 +13,15 @@ override_dh_auto_install:
 	$(MAKE) DESTDIR=$(CURDIR)/debian/live-build install
 	$(MAKE) -C po DESTDIR=$(CURDIR)/debian/live-build install
 
-	mv debian/live-build/usr/share/doc/live-helper/ChangeLog.live-package debian/live-build/usr/share/doc/live-helper/changelog.live-package
-	mv debian/live-build/usr/share/doc/live-helper/ChangeLog.live-webhelper debian/live-build/usr/share/doc/live-helper/changelog.live-webhelper
+	mv debian/live-build/usr/share/doc/live-build/ChangeLog.live-package debian/live-build/usr/share/doc/live-build/changelog.live-package
+	mv debian/live-build/usr/share/doc/live-build/ChangeLog.live-webhelper debian/live-build/usr/share/doc/live-build/changelog.live-webhelper
 
-	rm -f debian/live-build/usr/share/doc/live-helper/COPYING
-	rm -f debian/live-build/usr/share/doc/live-helper/ChangeLog
+	rm -f debian/live-build/usr/share/doc/live-build/COPYING
+	rm -f debian/live-build/usr/share/doc/live-build/ChangeLog
 
 	# live-buld-cgi
-	mkdir -p debian/live-build-cgi/usr/share/live-helper
-	mv debian/live-build/usr/share/live-helper/cgi debian/live-build-cgi/usr/share/live-helper
+	mkdir -p debian/live-build-cgi/usr/share/live/build
+	mv debian/live-build/usr/share/live/build/cgi debian/live-build-cgi/usr/share/live/build
 
 override_dh_installchangelogs:
 	dh_installchangelogs docs/ChangeLog

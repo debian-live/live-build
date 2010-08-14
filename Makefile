@@ -40,16 +40,16 @@ build:
 
 install:
 	# Installing shared data
-	mkdir -p $(DESTDIR)/usr/share/live-helper
-	cp -r cgi data examples functions scripts hooks includes lists repositories templates $(DESTDIR)/usr/share/live-helper
+	mkdir -p $(DESTDIR)/usr/share/live/build
+	cp -r cgi data examples functions scripts hooks includes lists repositories templates $(DESTDIR)/usr/share/live/build
 
 	# Installing executables
 	mkdir -p $(DESTDIR)/usr/bin
-	mv $(DESTDIR)/usr/share/live-helper/scripts/build/lh $(DESTDIR)/usr/share/live-helper/scripts/build/live-helper $(DESTDIR)/usr/bin
+	mv $(DESTDIR)/usr/share/live/build/scripts/build/lh $(DESTDIR)/usr/share/live/build/scripts/build/live-helper $(DESTDIR)/usr/bin
 
 	# Installing documentation
-	mkdir -p $(DESTDIR)/usr/share/doc/live-helper
-	cp -r COPYING docs/* $(DESTDIR)/usr/share/doc/live-helper
+	mkdir -p $(DESTDIR)/usr/share/doc/live-build
+	cp -r COPYING docs/* $(DESTDIR)/usr/share/doc/live-build
 
 	# Installing manpages
 	for MANPAGE in manpages/en/*; \
@@ -72,13 +72,14 @@ install:
 
 uninstall:
 	# Uninstalling shared data
-	rm -rf $(DESTDIR)/usr/share/live-helper
+	rm -rf $(DESTDIR)/usr/share/live/build
+	rmdir --ignore-fail-on-non-empty $(DESTDIR)/usr/share/live
 
 	# Uninstalling executables
 	rm -f $(DESTDIR)/usr/bin/lh $(DESTDIR)/usr/bin/live-helper
 
 	# Uninstalling documentation
-	rm -rf $(DESTDIR)/usr/share/doc/live-helper
+	rm -rf $(DESTDIR)/usr/share/doc/live-build
 
 	# Uninstalling manpages
 	for MANPAGE in manpages/en/*; \

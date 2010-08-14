@@ -10,7 +10,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live-helper}"/scripts/build.sh
+. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'utility to build Debian Live systems')"
@@ -44,9 +44,9 @@ case "${1}" in
 		if [ -x "${LH_BASE}/scripts/build/${COMMAND}" ]
 		then
 			LH=1 exec "${LH_BASE}/scripts/build/${COMMAND}" "${@}"
-		elif [ -x /usr/share/live-helper/scripts/build/${COMMAND} ]
+		elif [ -x /usr/share/live/build/scripts/build/${COMMAND} ]
 		then
-			LH=1 exec /usr/share/live-helper/scripts/build/"${COMMAND}" "${@}"
+			LH=1 exec /usr/share/live/build/scripts/build/"${COMMAND}" "${@}"
 		elif [ -x "$(which ${COMMAND} 2>/dev/null)" ]
 		then
 			LH=1 exec "${COMMAND}" "${@}"

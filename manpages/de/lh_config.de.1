@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-HELPER 1 10.08.2010 2.0~a22 "Debian Live Projekt"
+.TH LIVE\-HELPER 1 14.08.2010 2.0~a22 "Debian Live Projekt"
 
 .SH NAME
 \fBlh config\fP \- Erstellen des config Verzeichnisses
@@ -438,9 +438,9 @@ call during the building of the image. By default, this is set to \-\-best to
 use highest (but slowest) compression. Dynamically, if the host system
 supports it, also \-\-rsyncable is added.
 .IP "\fB\-\-hooks\fP \fIFILE\fP" 4
-defines which hooks available in /usr/share/live\-helper/examples/hooks
-should be activated. Normally, there are no hooks executed. Make sure you
-know and understood the hook before you enable it.
+defines which hooks available in /usr/share/live/build/examples/hooks should
+be activated. Normally, there are no hooks executed. Make sure you know and
+understood the hook before you enable it.
 .IP "\fB\-\-hostname\fP \fINAME\fP" 4
 sets the hostname of the live system.
 .IP \fB\-\-ignore\-system\-defaults\fP 4
@@ -451,7 +451,7 @@ specify them all of the time.
 .IP "\fB\-\-includes\fP \fIPATH\fP" 4
 sets the path to the includes that live\-helper is going to use,
 e.g. additional minimal documentation that you want to have on all live
-systems. By default, this is set to /usr/share/live\-helper/includes/.
+systems. By default, this is set to /usr/share/live/build/includes/.
 .IP "\fB\-\-initramfs\fP auto|live\-initramfs|casper" 4
 sets the name of package that contains the live system specific initramfs
 modification. By default, auto is used, which means that at build time of
@@ -595,7 +595,7 @@ compressed tarball, bzip2 and gzip in a bzip2 resp. gzip compressed
 tarball. Choosing none leads to no tarball at all, the plain binary
 directory is considered the output in this case. Default is gzip.
 .IP "\-p|\fB\-\-packages\-lists\fP \fILIST\fP|\(dq\fILISTS\fP\(dq" 4
-defines which lists available in /usr/share/live\-helper/lists should be
+defines which lists available in /usr/share/live/build/lists should be
 used. By default, this is set to standard. Note that in case you have local
 packages lists, you don't need to list them here. Putting them into
 config/chroot_local\-packageslists is enough (the filename needs to have the
@@ -607,7 +607,7 @@ quick and convenient place to add a few packages when building an image
 installed should be put into a local packages list.
 .IP "\fB\-r, \-\-repositories\fP \fIREPOSITORY\fP|\(dq\fIREPOSITORIES\fP\(dq" 4
 enables one of available third\-party repository configurations in
-/usr/share/live\-helper/repositories.
+/usr/share/live/build/repositories.
 .IP "\fB\-\-root\-command\fP sudo" 4
 controls if live\-helper should use sudo internally to build the live
 image. Note that this is not well tested and that you should, when relying
@@ -663,7 +663,7 @@ quite big images. If you want to have finer grained package selections,
 local packages lists should be used instead.
 .IP "\fB\-\-templates\fP \fIPATH\fP" 4
 sets the path to the templates that live\-helper is going to use, e.g. for
-bootloaders. By default, this is set to /usr/share/live\-helper/templates/.
+bootloaders. By default, this is set to /usr/share/live/build/templates/.
 .IP "\fB\-\-virtual\-root\-filesystem\fP ext3" 4
 defines what filesystem to format the root filesystem when building
 virtual\-hdd images.

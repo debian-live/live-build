@@ -21,7 +21,7 @@ Expand_packagelist ()
 		_LH_NESTED=0
 		_LH_ENABLED=1
 
-		for _LH_SEARCH_PATH in ${@} "${LH_BASE:-/usr/share/live-helper}/lists"
+		for _LH_SEARCH_PATH in ${@} "${LH_BASE:-/usr/share/live/build}/lists"
 		do
 			if [ -e "${_LH_SEARCH_PATH}/${_LH_LIST_NAME}" ]
 			then

@@ -10,7 +10,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live-helper}"/scripts/build.sh
+. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Read meta config
 if [ "${1}" != "noauto" ] && [ -x auto/config ]

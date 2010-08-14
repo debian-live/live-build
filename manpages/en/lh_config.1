@@ -1,4 +1,4 @@
-.TH LIVE\-HELPER 1 2010\-08\-10 2.0~a22 "Debian Live Project"
+.TH LIVE\-HELPER 1 2010\-08\-14 2.0~a22 "Debian Live Project"
 
 .SH NAME
 \fBlh config\fR \- Create config directory
@@ -302,13 +302,13 @@ defines the name of an optional to be included splash screen graphic for the gru
 .IP "\fB\-\-gzip\-options\fR \fIOPTION\fR|""\fIOPTIONS\fR""" 4
 defines the default options that will be appended to (almost) every gzip call during the building of the image. By default, this is set to \-\-best to use highest (but slowest) compression. Dynamically, if the host system supports it, also \-\-rsyncable is added.
 .IP "\fB\-\-hooks\fR \fIFILE\fR" 4
-defines which hooks available in /usr/share/live\-helper/examples/hooks should be activated. Normally, there are no hooks executed. Make sure you know and understood the hook before you enable it.
+defines which hooks available in /usr/share/live/build/examples/hooks should be activated. Normally, there are no hooks executed. Make sure you know and understood the hook before you enable it.
 .IP "\fB\-\-hostname\fR \fINAME\fR" 4
 sets the hostname of the live system.
 .IP "\fB\-\-ignore\-system\-defaults\fR" 4
 \fBlh config\fR by default reads system defaults from /etc/default/live\-helper when generating a new live system config directory. This is useful if you want to set global settings, such as mirror locations, and don't want to specify them all of the time.
 .IP "\fB\-\-includes\fR \fIPATH\fR" 4
-sets the path to the includes that live\-helper is going to use, e.g. additional minimal documentation that you want to have on all live systems. By default, this is set to /usr/share/live\-helper/includes/.
+sets the path to the includes that live\-helper is going to use, e.g. additional minimal documentation that you want to have on all live systems. By default, this is set to /usr/share/live/build/includes/.
 .IP "\fB\-\-initramfs\fR auto|live\-initramfs|casper" 4
 sets the name of package that contains the live system specific initramfs modification. By default, auto is used, which means that at build time of the image rather than on configuration time, the value will be expanded to casper when building etch systems and to live\-initramfs for all other systems.
 .IP "\fB\-\-interactive\fR shell" 4
@@ -375,11 +375,11 @@ sets the IP or hostname that will be configured in the bootloader configuration 
 .IP "\fB\-\-net\-tarball\fR bzip2|gzip|tar|none" 4
 defines the format of the netboot image. Choosing tar results in a not compressed tarball, bzip2 and gzip in a bzip2 resp. gzip compressed tarball. Choosing none leads to no tarball at all, the plain binary directory is considered the output in this case. Default is gzip.
 .IP "\-p|\fB\-\-packages\-lists\fR \fILIST\fR|""\fILISTS\fR""" 4
-defines which lists available in /usr/share/live\-helper/lists should be used. By default, this is set to standard. Note that in case you have local packages lists, you don't need to list them here. Putting them into config/chroot_local-packageslists is enough (the filename needs to have the .list suffix though).
+defines which lists available in /usr/share/live/build/lists should be used. By default, this is set to standard. Note that in case you have local packages lists, you don't need to list them here. Putting them into config/chroot_local-packageslists is enough (the filename needs to have the .list suffix though).
 .IP "\fB\-\-packages\fR \fIPACKAGE\fR|""\fIPACKAGES\fR""" 4
 defines one or more packages to be installed in the live system. This is a quick and convenient place to add a few packages when building an image (limited by the max length of shell). Packages that should be permanently installed should be put into a local packages list.
 .IP "\fB\-r, \-\-repositories\fR \fIREPOSITORY\fR|""\fIREPOSITORIES\fR""" 4
-enables one of available third-party repository configurations in /usr/share/live\-helper/repositories.
+enables one of available third-party repository configurations in /usr/share/live/build/repositories.
 .IP "\fB\-\-root-command\fR sudo" 4
 controls if live\-helper should use sudo internally to build the live image. Note that this is not well tested and that you should, when relying on sudo, call the individual live\-helper command with sudo itself.
 .IP "\fB\-\-use-fakeroot\fR true|false" 4
@@ -407,7 +407,7 @@ selects which program is used to install tasks. By default, this is set to tasks
 .IP "\fB\-\-tasks\fR \fITASK\fR|""\fITASKS\fR""" 4
 defines one or more package tasks to be installed in the live system. This is a quick and convenient way to get a reasonable default selection of packages suitable for most users when building an image, but it results in quite big images. If you want to have finer grained package selections,  local packages lists should be used instead.
 .IP "\fB\-\-templates\fR \fIPATH\fR" 4
-sets the path to the templates that live\-helper is going to use, e.g. for bootloaders. By default, this is set to /usr/share/live\-helper/templates/.
+sets the path to the templates that live\-helper is going to use, e.g. for bootloaders. By default, this is set to /usr/share/live/build/templates/.
 .IP "\fB\-\-virtual\-root\-filesystem\fR ext3" 4
 defines what filesystem to format the root filesystem when building virtual\-hdd images.
 .IP "\fB\-\-virtual\-root\-size\fR MB" 4
