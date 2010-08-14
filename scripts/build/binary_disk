@@ -82,6 +82,28 @@ then
 	> binary/.disk/archive_trace
 fi
 
+case "${LH_INITRAMFS}" in
+	casper)
+		for INITRD in binary/casper/initrd.img*
+		do
+			mkdir uuid
+			cd uuid
+
+			zcat "../${INITRD}" | cpio --quiet -id conf/uuid.conf
+
+			if [ -e conf/uuid.conf ]
+			then
+				mv conf/uuid.conf "../binary/.disk/casper-uuid${INITRD#binary/casper/initrd.img}"
+			else
+				Echo_warning "Failed to find casper uuid.conf in '${INITRD}'"
+			fi
+
+			cd ..
+			rm -rf uuid
+		done
+		;;
+esac
+
 case "${LH_DEBIAN_INSTALLER}" in
 	cdrom)
 		echo "main" > binary/.disk/base_components
