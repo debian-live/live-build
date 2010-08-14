@@ -24,7 +24,7 @@ Set_defaults ()
 	then
 		case "${LH_MODE}" in
 			debian|debian-release)
-				LH_DISTRIBUTION="lenny"
+				LH_DISTRIBUTION="squeeze"
 				;;
 
 			emdebian)
