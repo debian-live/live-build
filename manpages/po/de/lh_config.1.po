@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-helper 2.0~a22\n"
-"POT-Creation-Date: 2010-08-10 04:21+0300\n"
+"POT-Creation-Date: 2010-08-14 20:30+0300\n"
 "PO-Revision-Date: 2010-05-08 23:50+0300\n"
 "Last-Translator: Daniel Baumann <daniel@debian.org>\n"
 "Language-Team: none\n"
@@ -82,8 +82,8 @@ msgstr "LIVE-HELPER"
 #: en/lh_source_net.1:1 en/lh_source_tar.1:1 en/lh_source_usb.1:1
 #: en/lh_source_virtual-hdd.1:1 en/lh_testroot.1:1 en/live-helper.7:1
 #, no-wrap
-msgid "2010-08-10"
-msgstr "10.08.2010"
+msgid "2010-08-14"
+msgstr "14.08.2010"
 
 #. type: TH
 #: en/lh.1:1 en/lh_binary.1:1 en/lh_binary_checksums.1:1
@@ -1863,9 +1863,9 @@ msgstr ""
 #. type: Plain text
 #: en/lh_config.1:306
 msgid ""
-"defines which hooks available in /usr/share/live-helper/examples/hooks "
-"should be activated. Normally, there are no hooks executed. Make sure you "
-"know and understood the hook before you enable it."
+"defines which hooks available in /usr/share/live/build/examples/hooks should "
+"be activated. Normally, there are no hooks executed. Make sure you know and "
+"understood the hook before you enable it."
 msgstr ""
 
 #. type: IP
@@ -1905,7 +1905,7 @@ msgstr ""
 msgid ""
 "sets the path to the includes that live-helper is going to use, e.g. "
 "additional minimal documentation that you want to have on all live systems. "
-"By default, this is set to /usr/share/live-helper/includes/."
+"By default, this is set to /usr/share/live/build/includes/."
 msgstr ""
 
 #. type: IP
@@ -2355,8 +2355,8 @@ msgstr ""
 #. type: Plain text
 #: en/lh_config.1:379
 msgid ""
-"defines which lists available in /usr/share/live-helper/lists should be "
-"used. By default, this is set to standard. Note that in case you have local "
+"defines which lists available in /usr/share/live/build/lists should be used. "
+"By default, this is set to standard. Note that in case you have local "
 "packages lists, you don't need to list them here. Putting them into config/"
 "chroot_local-packageslists is enough (the filename needs to have the .list "
 "suffix though)."
@@ -2387,7 +2387,7 @@ msgstr ""
 #: en/lh_config.1:383
 msgid ""
 "enables one of available third-party repository configurations in /usr/share/"
-"live-helper/repositories."
+"live/build/repositories."
 msgstr ""
 
 #. type: IP
@@ -2582,7 +2582,7 @@ msgstr ""
 #: en/lh_config.1:411
 msgid ""
 "sets the path to the templates that live-helper is going to use, e.g. for "
-"bootloaders. By default, this is set to /usr/share/live-helper/templates/."
+"bootloaders. By default, this is set to /usr/share/live/build/templates/."
 msgstr ""
 
 #. type: IP

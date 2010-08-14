@@ -11,7 +11,7 @@ Set_defaults ()
 {
 	## config/common
 
-	LH_BASE="${LH_BASE:-/usr/share/live-helper}"
+	LH_BASE="${LH_BASE:-/usr/share/live/build}"
 
 	# Setting mode
 	if [ -z "${LH_MODE}" ]
