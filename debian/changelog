@@ -1,3 +1,14 @@
+live-build (2.0~a23-1) unstable; urgency=low
+
+  * Adding slightly modified patch from Cody A.W. Somerville
+    <cody.somerville@canonical.com> to extract casper uuid file from
+    casper initrds.
+  * Setting default distribution to squeeze.
+  * Moving /usr/share/live-helper to /usr/share/live/build.
+  * Removing old and unmaintained po files.
+
+ -- Daniel Baumann <daniel@debian.org>  Sat, 14 Aug 2010 20:53:08 +0200
+
 live-build (2.0~a22-1) unstable; urgency=low
 
   [ Daniel Baumann ]
