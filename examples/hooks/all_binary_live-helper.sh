@@ -18,7 +18,7 @@ else
 	mkdir -p "${DIRECTORY}"/live-helper/bin
 	cp -a /usr/bin/lh* "${DIRECTORY}"/live-helper/bin
 
-	cp -a /usr/share/live-helper "${DIRECTORY}"/live-helper/share
+	cp -a /usr/share/live/build "${DIRECTORY}"/live-helper/share
 
-	cp -a /usr/share/doc/live-helper "${DIRECTORY}"/live-helper/doc
+	cp -a /usr/share/doc/live-build "${DIRECTORY}"/live-helper/doc
 fi

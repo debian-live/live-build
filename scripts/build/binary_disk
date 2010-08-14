@@ -10,7 +10,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live-helper}"/scripts/build.sh
+. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'install disk information into binary')"
@@ -81,6 +81,28 @@ then
 	echo "$(wget -q ${LH_MIRROR_BOOTSTRAP}/${TRACE} -O - | head -n 1)" \
 	> binary/.disk/archive_trace
 fi
+
+case "${LH_INITRAMFS}" in
+	casper)
+		for INITRD in binary/casper/initrd.img*
+		do
+			mkdir uuid
+			cd uuid
+
+			zcat "../${INITRD}" | cpio --quiet -id conf/uuid.conf
+
+			if [ -e conf/uuid.conf ]
+			then
+				mv conf/uuid.conf "../binary/.disk/casper-uuid${INITRD#binary/casper/initrd.img}"
+			else
+				Echo_warning "Failed to find casper uuid.conf in '${INITRD}'"
+			fi
+
+			cd ..
+			rm -rf uuid
+		done
+		;;
+esac
 
 case "${LH_DEBIAN_INSTALLER}" in
 	cdrom)
