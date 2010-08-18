@@ -480,7 +480,7 @@ Set_defaults ()
 			;;
 
 		emdebian)
-			LH_KEYRING_PACKAGES="${LH_kEYRING_PACKAGES:-debian-archive-keyring}"
+			LH_KEYRING_PACKAGES="${LH_KEYRING_PACKAGES:-debian-archive-keyring}"
 			;;
 
 		ubuntu)
