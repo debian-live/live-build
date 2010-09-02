@@ -1,3 +1,10 @@
+live-build (2.0~a25-1) unstable; urgency=low
+
+  * Updating internal calls to use live-build instead of live-helper.
+  * Updating lenny point release number.
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 02 Sep 2010 15:15:31 +0200
+
 live-build (2.0~a24-1) unstable; urgency=low
 
   [ Richard Nelson ]
