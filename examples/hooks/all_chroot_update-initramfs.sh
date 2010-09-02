@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# This is a hook for live-helper(7) to rebuild the initramfs image.
+# This is a hook for live-build(7) to rebuild the initramfs image.
 # To enable it, copy or symlink this hook into your config/chroot_local-hooks
 # directory.
 #

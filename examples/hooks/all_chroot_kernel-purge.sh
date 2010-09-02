@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# This is a hook for live-helper(7) to remove any kernel except the newest one.
+# This is a hook for live-build(7) to remove any kernel except the newest one.
 # To enable it, copy or symlink this hook into your config/chroot_local-hooks
 # directory.
 
