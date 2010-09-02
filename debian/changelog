@@ -1,3 +1,32 @@
+live-build (2.0~a24-1) unstable; urgency=low
+
+  [ Richard Nelson ]
+  * Add param to cgi for --tasks.
+  * Add param to the build.html templates for --tasks.
+  * Add param to the form.html templates for --tasks.
+
+  [ Daniel Baumann ]
+  * Correcting typo in emdebian keyring packages variable (Closes:
+    #593346).
+  * Updating copyright headers for live-build.
+  * Replacing some references to live-helper with live-build.
+  * Adding legacy symlinks for lh in live-helper transitional package.
+  * Renaming manpages for live-build.
+  * Replacing some references to live-helper with live-build in
+    manpages.
+  * Replacing some references to live-helper with live-build in
+    templates.
+  * Replacing some more references to live-helper with live-build in
+    scripts.
+  * Replacing some references to live-helper with live-build in the cgi.
+  * Replacing some references to live-helper with live-build in
+    examples.
+  * Replacing some references to live-helper with live-build in lists.
+  * Replacing some references to live-helper with live-build in
+    debhelper bug files.
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 02 Sep 2010 15:06:23 +0200
+
 live-build (2.0~a23-1) unstable; urgency=low
 
   * Adding slightly modified patch from Cody A.W. Somerville
