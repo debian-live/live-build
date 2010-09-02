@@ -498,7 +498,7 @@ Set_defaults ()
 		case "${LH_ARCHITECTURE}" in
 			arm|armel)
 				Echo_error "There is no default kernel flavour defined for your architecture."
-				Echo_error "Please configure it manually with 'lh config -k FLAVOUR'."
+				Echo_error "Please configure it manually with 'lb config -k FLAVOUR'."
 				exit 1
 				;;
 

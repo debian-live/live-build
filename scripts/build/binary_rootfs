@@ -123,38 +123,38 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					rm -f .lock
 					mv chroot/chroot chroot.tmp
 
-					lh chroot_linux-image remove ${*}
-					lh chroot_sources remove ${*}
-					lh chroot_apt remove ${*}
-					lh chroot_hostname remove ${*}
-					lh chroot_resolv remove ${*}
-					lh chroot_hosts remove ${*}
-					lh chroot_sysv-rc remove ${*}
-					lh chroot_upstart remove ${*}
-					lh chroot_dpkg remove ${*}
-					lh chroot_debianchroot remove ${*}
-					lh chroot_sysfs remove ${*}
-					lh chroot_selinuxfs remove ${*}
-					lh chroot_proc remove ${*}
-					lh chroot_devpts remove ${*}
+					lb chroot_linux-image remove ${*}
+					lb chroot_sources remove ${*}
+					lb chroot_apt remove ${*}
+					lb chroot_hostname remove ${*}
+					lb chroot_resolv remove ${*}
+					lb chroot_hosts remove ${*}
+					lb chroot_sysv-rc remove ${*}
+					lb chroot_upstart remove ${*}
+					lb chroot_dpkg remove ${*}
+					lb chroot_debianchroot remove ${*}
+					lb chroot_sysfs remove ${*}
+					lb chroot_selinuxfs remove ${*}
+					lb chroot_proc remove ${*}
+					lb chroot_devpts remove ${*}
 
 					rm -rf chroot
 					mv chroot.tmp chroot
 
-					lh chroot_devpts install ${*}
-					lh chroot_proc install ${*}
-					lh chroot_selinuxfs install ${*}
-					lh chroot_sysfs install ${*}
-					lh chroot_debianchroot install ${*}
-					lh chroot_dpkg install ${*}
-					lh chroot_sysv-rc install ${*}
-					lh chroot_upstart install ${*}
-					lh chroot_hosts install ${*}
-					lh chroot_resolv install ${*}
-					lh chroot_hostname install ${*}
-					lh chroot_apt install ${*}
-					lh chroot_sources install ${*}
-					lh chroot_linux-image install ${*}
+					lb chroot_devpts install ${*}
+					lb chroot_proc install ${*}
+					lb chroot_selinuxfs install ${*}
+					lb chroot_sysfs install ${*}
+					lb chroot_debianchroot install ${*}
+					lb chroot_dpkg install ${*}
+					lb chroot_sysv-rc install ${*}
+					lb chroot_upstart install ${*}
+					lb chroot_hosts install ${*}
+					lb chroot_resolv install ${*}
+					lb chroot_hostname install ${*}
+					lb chroot_apt install ${*}
+					lb chroot_sources install ${*}
+					lb chroot_linux-image install ${*}
 
 					touch .lock
 				else
@@ -207,38 +207,38 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					rm -f .lock
 					mv chroot/chroot chroot.tmp
 
-					lh chroot_linux-image remove ${*}
-					lh chroot_sources remove ${*}
-					lh chroot_apt remove ${*}
-					lh chroot_hostname remove ${*}
-					lh chroot_resolv remove ${*}
-					lh chroot_hosts remove ${*}
-					lh chroot_sysv-rc remove ${*}
-					lh chroot_upstart remove ${*}
-					lh chroot_dpkg remove ${*}
-					lh chroot_debianchroot remove ${*}
-					lh chroot_sysfs remove ${*}
-					lh chroot_selinuxfs remove ${*}
-					lh chroot_proc remove ${*}
-					lh chroot_devpts remove ${*}
+					lb chroot_linux-image remove ${*}
+					lb chroot_sources remove ${*}
+					lb chroot_apt remove ${*}
+					lb chroot_hostname remove ${*}
+					lb chroot_resolv remove ${*}
+					lb chroot_hosts remove ${*}
+					lb chroot_sysv-rc remove ${*}
+					lb chroot_upstart remove ${*}
+					lb chroot_dpkg remove ${*}
+					lb chroot_debianchroot remove ${*}
+					lb chroot_sysfs remove ${*}
+					lb chroot_selinuxfs remove ${*}
+					lb chroot_proc remove ${*}
+					lb chroot_devpts remove ${*}
 
 					rm -rf chroot
 					mv chroot.tmp chroot
 
-					lh chroot_devpts install ${*}
-					lh chroot_proc install ${*}
-					lh chroot_selinuxfs install ${*}
-					lh chroot_sysfs install ${*}
-					lh chroot_debianchroot install ${*}
-					lh chroot_dpkg install ${*}
-					lh chroot_sysv-rc install ${*}
-					lh chroot_upstart install ${*}
-					lh chroot_hosts install ${*}
-					lh chroot_resolv install ${*}
-					lh chroot_hostname install ${*}
-					lh chroot_apt install ${*}
-					lh chroot_sources install ${*}
-					lh chroot_linux-image install ${*}
+					lb chroot_devpts install ${*}
+					lb chroot_proc install ${*}
+					lb chroot_selinuxfs install ${*}
+					lb chroot_sysfs install ${*}
+					lb chroot_debianchroot install ${*}
+					lb chroot_dpkg install ${*}
+					lb chroot_sysv-rc install ${*}
+					lb chroot_upstart install ${*}
+					lb chroot_hosts install ${*}
+					lb chroot_resolv install ${*}
+					lb chroot_hostname install ${*}
+					lb chroot_apt install ${*}
+					lb chroot_sources install ${*}
+					lb chroot_linux-image install ${*}
 
 					touch .lock
 				else
@@ -330,38 +330,38 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					rm -f .lock
 					mv chroot/chroot chroot.tmp
 
-					lh chroot_linux-image remove ${*}
-					lh chroot_sources remove ${*}
-					lh chroot_apt remove ${*}
-					lh chroot_hostname remove ${*}
-					lh chroot_resolv remove ${*}
-					lh chroot_hosts remove ${*}
-					lh chroot_sysv-rc remove ${*}
-					lh chroot_upstart remove ${*}
-					lh chroot_dpkg remove ${*}
-					lh chroot_debianchroot remove ${*}
-					lh chroot_sysfs remove ${*}
-					lh chroot_selinuxfs remove ${*}
-					lh chroot_proc remove ${*}
-					lh chroot_devpts remove ${*}
+					lb chroot_linux-image remove ${*}
+					lb chroot_sources remove ${*}
+					lb chroot_apt remove ${*}
+					lb chroot_hostname remove ${*}
+					lb chroot_resolv remove ${*}
+					lb chroot_hosts remove ${*}
+					lb chroot_sysv-rc remove ${*}
+					lb chroot_upstart remove ${*}
+					lb chroot_dpkg remove ${*}
+					lb chroot_debianchroot remove ${*}
+					lb chroot_sysfs remove ${*}
+					lb chroot_selinuxfs remove ${*}
+					lb chroot_proc remove ${*}
+					lb chroot_devpts remove ${*}
 
 					rm -rf chroot
 					mv chroot.tmp chroot
 
-					lh chroot_devpts install ${*}
-					lh chroot_proc install ${*}
-					lh chroot_selinuxfs install ${*}
-					lh chroot_sysfs install ${*}
-					lh chroot_debianchroot install ${*}
-					lh chroot_dpkg install ${*}
-					lh chroot_sysv-rc install ${*}
-					lh chroot_upstart install ${*}
-					lh chroot_hosts install ${*}
-					lh chroot_resolv install ${*}
-					lh chroot_hostname install ${*}
-					lh chroot_apt install ${*}
-					lh chroot_sources install ${*}
-					lh chroot_linux-image install ${*}
+					lb chroot_devpts install ${*}
+					lb chroot_proc install ${*}
+					lb chroot_selinuxfs install ${*}
+					lb chroot_sysfs install ${*}
+					lb chroot_debianchroot install ${*}
+					lb chroot_dpkg install ${*}
+					lb chroot_sysv-rc install ${*}
+					lb chroot_upstart install ${*}
+					lb chroot_hosts install ${*}
+					lb chroot_resolv install ${*}
+					lb chroot_hostname install ${*}
+					lb chroot_apt install ${*}
+					lb chroot_sources install ${*}
+					lb chroot_linux-image install ${*}
 
 					touch .lock
 				else

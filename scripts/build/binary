@@ -28,74 +28,74 @@ Set_defaults
 Setup_cleanup
 
 # Preparing root filesystem
-lh binary_chroot ${*}
+lb binary_chroot ${*}
 
 if [ "${LH_BUILD_WITH_CHROOT}" = "true" ]
 then
 	# Configuring chroot
-	lh chroot_devpts install ${*}
-	lh chroot_proc install ${*}
-	lh chroot_selinuxfs install ${*}
-	lh chroot_sysfs install ${*}
-	lh chroot_hosts install ${*}
-	lh chroot_resolv install ${*}
-	lh chroot_hostname install ${*}
-	lh chroot_sysv-rc install ${*}
-	lh chroot_upstart install ${*}
-	lh chroot_apt install-binary ${*}
-	lh chroot_sources install ${*}
+	lb chroot_devpts install ${*}
+	lb chroot_proc install ${*}
+	lb chroot_selinuxfs install ${*}
+	lb chroot_sysfs install ${*}
+	lb chroot_hosts install ${*}
+	lb chroot_resolv install ${*}
+	lb chroot_hostname install ${*}
+	lb chroot_sysv-rc install ${*}
+	lb chroot_upstart install ${*}
+	lb chroot_apt install-binary ${*}
+	lb chroot_sources install ${*}
 fi
 
 # Building root filesystem
-lh binary_rootfs ${*}
-lh binary_manifest ${*}
-lh binary_encryption ${*}
+lb binary_rootfs ${*}
+lb binary_manifest ${*}
+lb binary_encryption ${*}
 
 # Prepare images
-lh binary_local-packageslists ${*}
-lh binary_linux-image ${*}
-lh binary_debian-installer ${*}
-lh binary_memtest ${*}
-lh binary_grub ${*}
-lh binary_grub2 ${*}
-lh binary_syslinux ${*}
-lh binary_yaboot ${*}
-lh binary_silo ${*}
-lh binary_disk ${*}
-lh binary_win32-loader ${*}
-lh binary_includes ${*}
-lh binary_local-includes ${*}
-lh binary_local-hooks ${*}
-lh binary_checksums ${*}
+lb binary_local-packageslists ${*}
+lb binary_linux-image ${*}
+lb binary_debian-installer ${*}
+lb binary_memtest ${*}
+lb binary_grub ${*}
+lb binary_grub2 ${*}
+lb binary_syslinux ${*}
+lb binary_yaboot ${*}
+lb binary_silo ${*}
+lb binary_disk ${*}
+lb binary_win32-loader ${*}
+lb binary_includes ${*}
+lb binary_local-includes ${*}
+lb binary_local-hooks ${*}
+lb binary_checksums ${*}
 
 if [ "${LH_BUILD_WITH_CHROOT}" != "true" ]
 then
-	lh chroot_devpts install ${*}
-	lh chroot_proc install ${*}
-	lh chroot_selinuxfs install ${*}
-	lh chroot_sysfs install ${*}
+	lb chroot_devpts install ${*}
+	lb chroot_proc install ${*}
+	lb chroot_selinuxfs install ${*}
+	lb chroot_sysfs install ${*}
 fi
 
 # Building images
-lh binary_iso ${*}
-lh binary_net ${*}
-lh binary_tar ${*}
-lh binary_usb ${*}
-lh binary_virtual-hdd ${*}
+lb binary_iso ${*}
+lb binary_net ${*}
+lb binary_tar ${*}
+lb binary_usb ${*}
+lb binary_virtual-hdd ${*}
 
 if [ "${LH_BUILD_WITH_CHROOT}" = "true" ]
 then
 	# Deconfiguring chroot
 	rm -f .stage/chroot_sources
-	lh chroot_hostname remove ${*}
-	lh chroot_resolv remove ${*}
-	lh chroot_hosts remove ${*}
+	lb chroot_hostname remove ${*}
+	lb chroot_resolv remove ${*}
+	lb chroot_hosts remove ${*}
 fi
 
-lh chroot_apt remove ${*}
-lh chroot_sysv-rc remove ${*}
-lh chroot_sysfs remove ${*}
-lh chroot_upstart remove ${*}
-lh chroot_selinuxfs remove ${*}
-lh chroot_proc remove ${*}
-lh chroot_devpts remove ${*}
+lb chroot_apt remove ${*}
+lb chroot_sysv-rc remove ${*}
+lb chroot_sysfs remove ${*}
+lb chroot_upstart remove ${*}
+lb chroot_selinuxfs remove ${*}
+lb chroot_proc remove ${*}
+lb chroot_devpts remove ${*}

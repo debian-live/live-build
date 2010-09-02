@@ -30,26 +30,26 @@ Require_stagefile .stage/chroot_install-packages
 Setup_cleanup
 
 # Enabling network in chroot
-lh chroot_hosts install ${*}
-lh chroot_resolv install ${*}
-lh chroot_hostname install ${*}
-lh chroot_sources install ${*}
+lb chroot_hosts install ${*}
+lb chroot_resolv install ${*}
+lb chroot_hostname install ${*}
+lb chroot_sources install ${*}
 
 # Preparing images
-lh source_debian-live ${*}
-lh source_debian ${*}
-lh source_disk ${*}
-lh source_checksums ${*}
+lb source_debian-live ${*}
+lb source_debian ${*}
+lb source_disk ${*}
+lb source_checksums ${*}
 
 # Building images
-lh source_iso ${*}
-lh source_net ${*}
-lh source_tar ${*}
-lh source_usb ${*}
-lh source_virtual-hdd ${*}
+lb source_iso ${*}
+lb source_net ${*}
+lb source_tar ${*}
+lb source_usb ${*}
+lb source_virtual-hdd ${*}
 
 # Deconfiguring chroot
 rm -f .stage/chroot_sources
-lh chroot_hostname remove ${*}
-lh chroot_resolv remove ${*}
-lh chroot_hosts remove ${*}
+lb chroot_hostname remove ${*}
+lb chroot_resolv remove ${*}
+lb chroot_hosts remove ${*}
