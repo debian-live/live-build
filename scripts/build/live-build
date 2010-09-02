@@ -27,13 +27,13 @@ set -e
 
 if [ -x "$(which man 2>/dev/null)" ]
 then
-	man live-helper
+	man live-build
 	exit 0
 else
-	Echo "live-helper is a set of scripts to build Debian Live system images."
+	Echo "live-build is a set of scripts to build Debian Live system images."
 	echo
-	Echo "The idea behind live-helper is a framework that uses a configuration directory to completely automate and customize all aspects of building a Live image."
+	Echo "The idea behind live-build is a framework that uses a configuration directory to completely automate and customize all aspects of building a Live image."
 	echo
-	Echo "An introduction to live-helper can be found in the live-helper(7) manpage."
+	Echo "An introduction to live-build can be found in the live-build(7) manpage."
 	exit 0
 fi
