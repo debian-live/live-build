@@ -3,7 +3,7 @@
 set -e
 
 DATE="$(LC_ALL=C date +%Y\\\\-%m\\\\-%d)"
-PROGRAM="LIVE\\\-HELPER"
+PROGRAM="LIVE\\\-BUILD"
 VERSION="$(cat ../VERSION)"
 
 echo "Updating version headers..."
