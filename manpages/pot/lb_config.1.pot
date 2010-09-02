@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE
 # Copyright (C) YEAR Free Software Foundation, Inc.
-# This file is distributed under the same license as the live-helper package.
+# This file is distributed under the same license as the live-build package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: live-helper VERSION\n"
-"POT-Creation-Date: 2010-09-02 13:28+0300\n"
+"Project-Id-Version: live-build VERSION\n"
+"POT-Creation-Date: 2010-09-02 14:29+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -410,7 +410,7 @@ msgstr ""
 #: en/lb_source_debian-live.1:23 en/lb_source_disk.1:23 en/lb_source_iso.1:23
 #: en/lb_source_net.1:23 en/lb_source_tar.1:23 en/lb_source_usb.1:23
 #: en/lb_source_virtual-hdd.1:23 en/lb_testroot.1:26
-msgid "I<live-helper>(7)"
+msgid "I<live-build>(7)"
 msgstr ""
 
 #. type: Plain text
@@ -447,7 +447,7 @@ msgstr ""
 #: en/lb_source_debian-live.1:25 en/lb_source_disk.1:25 en/lb_source_iso.1:25
 #: en/lb_source_net.1:25 en/lb_source_tar.1:25 en/lb_source_usb.1:25
 #: en/lb_source_virtual-hdd.1:25 en/lb_testroot.1:28 en/live-build.7:248
-msgid "This program is a part of live-helper."
+msgid "This program is a part of live-build."
 msgstr ""
 
 #. type: SH
@@ -523,7 +523,7 @@ msgstr ""
 #: en/lb_source_net.1:28 en/lb_source_tar.1:28 en/lb_source_usb.1:28
 #: en/lb_source_virtual-hdd.1:28 en/lb_testroot.1:31 en/live-build.7:251
 msgid ""
-"More information about live-helper and the Debian Live project can be found "
+"More information about live-build and the Debian Live project can be found "
 "on the homepage at E<lt>I<http://live.debian.net/>E<gt> and in the manual at "
 "E<lt>I<http://live.debian.net/manual/>E<gt>."
 msgstr ""
@@ -601,10 +601,10 @@ msgstr ""
 #: en/lb_source_net.1:31 en/lb_source_tar.1:31 en/lb_source_usb.1:31
 #: en/lb_source_virtual-hdd.1:31 en/lb_testroot.1:34 en/live-build.7:254
 msgid ""
-"Bugs can be reported by submitting a bugreport for the live-helper package "
-"in the Debian Bug Tracking System at E<lt>I<http://bugs.debian.org/>E<gt> or "
-"by writing a mail to the Debian Live mailing list at E<lt>I<debian-"
-"live@lists.debian.org>E<gt>."
+"Bugs can be reported by submitting a bugreport for the live-build package in "
+"the Debian Bug Tracking System at E<lt>I<http://bugs.debian.org/>E<gt> or by "
+"writing a mail to the Debian Live mailing list at E<lt>I<debian-live@lists."
+"debian.org>E<gt>."
 msgstr ""
 
 #. type: SH
@@ -680,24 +680,24 @@ msgstr ""
 #: en/lb_source_net.1:33 en/lb_source_tar.1:33 en/lb_source_usb.1:33
 #: en/lb_source_virtual-hdd.1:33 en/lb_testroot.1:36 en/live-build.7:256
 msgid ""
-"live-helper was written by Daniel Baumann E<lt>I<daniel@debian.org>E<gt> for "
+"live-build was written by Daniel Baumann E<lt>I<daniel@debian.org>E<gt> for "
 "the Debian project."
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:5
-msgid "B<lh config> - Create config directory"
+msgid "B<lb config> - Create config directory"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:8
-msgid "B<lh config> [I<live-helper options>]"
+msgid "B<lb config> [I<live-build options>]"
 msgstr ""
 
 #.  FIXME
 #. type: Plain text
 #: en/lb_config.1:11
-msgid "B<lh config>"
+msgid "B<lb config>"
 msgstr ""
 
 #. type: Plain text
@@ -1190,7 +1190,7 @@ msgstr ""
 #. type: Plain text
 #: en/lb_config.1:209
 msgid ""
-"B<lh config> is a high-level command (porcelain) of I<live-helper>(7), the "
+"B<lb config> is a high-level command (porcelain) of I<live-build>(7), the "
 "Debian Live tool suite."
 msgstr ""
 
@@ -1198,34 +1198,34 @@ msgstr ""
 #. type: Plain text
 #: en/lb_config.1:212
 msgid ""
-"B<lh config> populates the configuration directory for live-helper. By "
+"B<lb config> populates the configuration directory for live-build. By "
 "default, this directory is named 'config' and is created in the current "
-"directory where B<lh config> was executed."
+"directory where B<lb config> was executed."
 msgstr ""
 
 #.  FIXME
 #. type: Plain text
 #: en/lb_config.1:215
 msgid ""
-"Note: Currently B<lh config> tries to be smart and sets defaults for some "
+"Note: Currently B<lb config> tries to be smart and sets defaults for some "
 "options depending on the setting of other options (e.g. which linux packages "
 "to be used depending on if a lenny system gets build or not). This means "
-"that when generating a new configuration, you should call B<lh config> only "
+"that when generating a new configuration, you should call B<lb config> only "
 "once with all options specified. Calling it several times with only a subset "
 "of the options each can result in non working configurations. This is also "
-"caused by the fact that B<lh config> called with one option only changes "
+"caused by the fact that B<lb config> called with one option only changes "
 "that option, and leaves everything else as is unless its not defined. "
-"However, B<lh config> does warn about know impossible or likely impossible "
+"However, B<lb config> does warn about know impossible or likely impossible "
 "combinations that would lead to non working live systems. If unsure, remove "
-"config/{binary,bootstrap,chroot,common,source} and call B<lh config> again."
+"config/{binary,bootstrap,chroot,common,source} and call B<lb config> again."
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:218
 msgid ""
-"In addition to its specific options B<lh config> understands all generic "
-"live-helper options. See I<live-helper>(7) for a complete list of all "
-"generic live-helper options."
+"In addition to its specific options B<lb config> understands all generic "
+"live-build options. See I<live-build>(7) for a complete list of all generic "
+"live-build options."
 msgstr ""
 
 #.  FIXME
@@ -1326,8 +1326,8 @@ msgid ""
 "be a value from 0 to 5 indicating how many outstanding requests APT should "
 "send. A value of zero MUST be specified if the remote host does not properly "
 "linger on TCP connections - otherwise data corruption will occur. Hosts "
-"which require this are in violation of RFC 2068. By default, live-helper "
-"does not set this option."
+"which require this are in violation of RFC 2068. By default, live-build does "
+"not set this option."
 msgstr ""
 
 #. type: IP
@@ -1456,8 +1456,8 @@ msgid ""
 "only an effect if the selected binary image type does allow to choose the "
 "bootloader. For example, if you build a iso, always syslinux (or more "
 "precise, isolinux) is being used. Also note that some combinations of binary "
-"images types and bootloaders may be possible but live-helper does not "
-"support them yet. B<lh config> will fail to create such a not yet supported "
+"images types and bootloaders may be possible but live-build does not support "
+"them yet. B<lb config> will fail to create such a not yet supported "
 "configuration and give a explanation about it. For usb-hdd images on amd64 "
 "and i386, the default is syslinux. yaboot is only used on powerpc."
 msgstr ""
@@ -1607,7 +1607,7 @@ msgstr ""
 #. type: Plain text
 #: en/lb_config.1:272
 msgid ""
-"defines whetever live-helper should use the tools from within the chroot to "
+"defines whetever live-build should use the tools from within the chroot to "
 "build the binary image or not by using and including the host systems tools. "
 "This is a very dangerous option, using the tools of the host system can lead "
 "to tainted and even non-bootable images if the host systems version of the "
@@ -1786,7 +1786,7 @@ msgstr ""
 #: en/lb_config.1:296
 msgid ""
 "prepares a report of the currently present live system configuration and the "
-"version of live-helper used. This is useful to provide if you submit bug "
+"version of live-build used. This is useful to provide if you submit bug "
 "reports, we do get all informations required for us to locate and replicate "
 "an error."
 msgstr ""
@@ -1879,7 +1879,7 @@ msgstr ""
 #. type: Plain text
 #: en/lb_config.1:310
 msgid ""
-"B<lh config> by default reads system defaults from /etc/default/live-helper "
+"B<lb config> by default reads system defaults from /etc/default/live-build "
 "when generating a new live system config directory. This is useful if you "
 "want to set global settings, such as mirror locations, and don't want to "
 "specify them all of the time."
@@ -1894,7 +1894,7 @@ msgstr ""
 #. type: Plain text
 #: en/lb_config.1:312
 msgid ""
-"sets the path to the includes that live-helper is going to use, e.g. "
+"sets the path to the includes that live-build is going to use, e.g. "
 "additional minimal documentation that you want to have on all live systems. "
 "By default, this is set to /usr/share/live/build/includes/."
 msgstr ""
@@ -1959,8 +1959,8 @@ msgstr ""
 #: en/lb_config.1:320
 msgid ""
 "sets the PREPARER field in the header of a resulting CD/DVD image. By "
-"default this is set to \"live-helper I<VERSION>; http://packages.qa.debian."
-"org/live-helper\", whereas VERSION is expanded to the version of live-helper "
+"default this is set to \"live-build I<VERSION>; http://packages.qa.debian."
+"org/live-build\", whereas VERSION is expanded to the version of live-build "
 "that was used to build the image."
 msgstr ""
 
@@ -2390,9 +2390,9 @@ msgstr ""
 #. type: Plain text
 #: en/lb_config.1:385
 msgid ""
-"controls if live-helper should use sudo internally to build the live image. "
+"controls if live-build should use sudo internally to build the live image. "
 "Note that this is not well tested and that you should, when relying on sudo, "
-"call the individual live-helper command with sudo itself."
+"call the individual live-build command with sudo itself."
 msgstr ""
 
 #. type: IP
@@ -2404,7 +2404,7 @@ msgstr ""
 #. type: Plain text
 #: en/lb_config.1:387
 msgid ""
-"controls if live-helper should utilize fakeroot and fakechroot to try and "
+"controls if live-build should utilize fakeroot and fakechroot to try and "
 "avoid requiring root privillages where possible. By default, this option is "
 "false."
 msgstr ""
@@ -2572,7 +2572,7 @@ msgstr ""
 #. type: Plain text
 #: en/lb_config.1:411
 msgid ""
-"sets the path to the templates that live-helper is going to use, e.g. for "
+"sets the path to the templates that live-build is going to use, e.g. for "
 "bootloaders. By default, this is set to /usr/share/live/build/templates/."
 msgstr ""
 
@@ -2667,14 +2667,14 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:431
 #, no-wrap
-msgid "B</etc/default/live-helper>"
+msgid "B</etc/default/live-build>"
 msgstr ""
 
 #.  FIXME
 #. type: Plain text
 #: en/lb_config.1:434
 msgid ""
-"An optional, global configuration file for B<lh config> variables. It is "
+"An optional, global configuration file for B<lb config> variables. It is "
 "useful to specify a few system wide defaults, like LH_MIRROR_BOOTSTRAP. This "
 "feature can be false by specifying the B<--ignore-system-defaults> option."
 msgstr ""
