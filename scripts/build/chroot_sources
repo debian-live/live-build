@@ -1,11 +1,12 @@
 #!/bin/sh
 
-# lh_chroot_sources(1) - manage /etc/apt/sources.list
-# Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
-#
-# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
-# This is free software, and you are welcome to redistribute it
-# under certain conditions; see COPYING for details.
+## live-build(7) - System Build Scripts
+## Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
+##
+## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+## This is free software, and you are welcome to redistribute it
+## under certain conditions; see COPYING for details.
+
 
 set -e
 
@@ -26,7 +27,7 @@ Set_defaults
 # Requiring stage file
 Require_stagefile .stage/config .stage/bootstrap
 
-_LH_LOCAL_KEY_EMAIL="live-helper-local-key@invalid"
+_LH_LOCAL_KEY_EMAIL="live-build-local-key@invalid"
 
 case "${1}" in
 	install)
@@ -241,7 +242,7 @@ case "${1}" in
 						      Key-Length: 1024
 						      Subkey-Type: ELG-E
 						      Subkey-Length: 1024
-						      Name-Real: live-helper local packages key
+						      Name-Real: live-build local packages key
 						      Name-Email: ${_LH_LOCAL_KEY_EMAIL}
 						      Expire-Date: 0
 						      %secring /root/local-package-keyring.sec

@@ -12,7 +12,7 @@ permitted by applicable law.
 
 ---
 
-This Debian Live system was built with live-helper, version {$LH_VERSION}.
+This Debian Live system was built with live-build, version {$LH_VERSION}.
 
 More information about the Debian Live project can be found at
 <http://live.debian.net/>.

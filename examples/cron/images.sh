@@ -113,7 +113,7 @@ do
 	do
 		if [ -e .stage ]
 		then
-			lh clean
+			lb clean
 		fi
 
 		if [ -e config ]
@@ -127,7 +127,7 @@ do
 
 		Set_defaults
 
-		lh config \
+		lb config \
 			--apt-recommends ${APT_RECOMMENDS} \
 			--binary-indices ${BINARY_INDICES} \
 			--cache-stages "bootstrap rootfs" \
@@ -142,7 +142,7 @@ do
 			--packages-lists ${FLAVOUR} \
 			--tasksel ${TASKSEL} ${KERNEL}
 
-		lh build 2>&1 | tee debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.log
+		lb build 2>&1 | tee debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.log
 
 		mv binary*.iso debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso
 		mv binary.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.list
@@ -150,9 +150,9 @@ do
 
 		if [ "${DISTRIBUTION}" = "lenny" ] && [ "${ARCHITECTURE}" != "powerpc" ]
 		then
-			lh clean --binary
-			lh config -binary-images usb-hdd
-			lh binary 2>&1 | tee debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.img.log
+			lb clean --binary
+			lb config -binary-images usb-hdd
+			lb binary 2>&1 | tee debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.img.log
 
 			mv binary.img debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.img
 			mv binary.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.img.list
@@ -161,11 +161,11 @@ do
 
 		if [ "${ARCHITECTURE}" != "powerpc" ]
 		then
-			lh clean
+			lb clean
 			rm -rf cache/stages_rootfs
-			lh config --binary-images net
+			lb config --binary-images net
 
-			lh build 2>&1 | tee debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.tar.gz.log
+			lb build 2>&1 | tee debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.tar.gz.log
 
 			mv binary-net.tar.gz debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.tar.gz
 			mv binary.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.tar.gz.list
@@ -179,9 +179,9 @@ do
 
 		if [ "${SOURCE}" = "true" ]
 		then
-			lh config --source true
+			lb config --source true
 
-			lh source 2>&1 | tee debian-live-${DISTRIBUTION}-source-${FLAVOUR}.log
+			lb source 2>&1 | tee debian-live-${DISTRIBUTION}-source-${FLAVOUR}.log
 
 			mv source.debian.tar.gz debian-live-${DISTRIBUTION}-source-${FLAVOUR}.debian.tar.gz
 			mv source.debian.list debian-live-${DISTRIBUTION}-source-${FLAVOUR}.debian.tar.gz.list

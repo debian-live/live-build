@@ -1,11 +1,12 @@
 #!/bin/sh
 
-# lh_chroot_hacks(1) - execute hacks in chroot
-# Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
-#
-# live-helper comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
-# This is free software, and you are welcome to redistribute it
-# under certain conditions; see COPYING for details.
+## live-build(7) - System Build Scripts
+## Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
+##
+## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+## This is free software, and you are welcome to redistribute it
+## under certain conditions; see COPYING for details.
+
 
 set -e
 
@@ -165,7 +166,7 @@ esac
 Chroot chroot "${UPDATE_INITRAMFS_OPTIONS} update-initramfs -k all -t -u"
 
 # Ensure readable permissions on initramfs. loop-aes-utils sets umask to
-# protect GPG keys, which live-helper does not support.
+# protect GPG keys, which live-build does not support.
 # Note: Use find rather than chmod on the wildcard, one never knows what
 # people might do in local hooks, and there might be no initrds at all.
 find chroot/boot -name 'initrd*' -print0 | xargs -r -0 chmod go+r

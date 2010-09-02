@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# This is a hook for live-helper(7) to enable automaunting with hal for block devices.
+# This is a hook for live-build(7) to enable automaunting with hal for block devices.
 #
 # To enable it, copy or symlink this hook into your config/chroot_local-hooks
 # directory.

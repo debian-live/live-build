@@ -1,4 +1,4 @@
-# /usr/share/live/build/lists/debian-live - package list for live-helper(7)
+# /usr/share/live/build/lists/debian-live - package list for live-build(7)
 
 ## LH: Debian Live
 #include <standard>
@@ -6,7 +6,13 @@
 # http://qa.debian.org/developer.php?login=debian-live@lists.debian.org
 
 # debian-live
-live-helper git-core
+#if DISTRIBUTION lenny
+live-helper
+#endif
+#if DISTRIBUTION squeeze sid
+live-build
+#endif
+git-core
 debootstrap cdebootstrap
 dosfstools genisoimage memtest86+ memtest86 mtools parted squashfs-tools genext2fs mtd-tools sudo fakeroot syslinux grub
 

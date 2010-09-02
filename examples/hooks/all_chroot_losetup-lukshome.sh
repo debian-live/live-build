@@ -36,7 +36,7 @@
 # --------------
 #
 # First build your live system with this hook inside config/chroot_local-hooks/.
-# If you have an existing live-helper build directory with a previous live
+# If you have an existing live-build build directory with a previous live
 # build, you might have to run
 #
 #	lh_clean
