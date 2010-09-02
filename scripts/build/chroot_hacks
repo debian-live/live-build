@@ -166,7 +166,7 @@ esac
 Chroot chroot "${UPDATE_INITRAMFS_OPTIONS} update-initramfs -k all -t -u"
 
 # Ensure readable permissions on initramfs. loop-aes-utils sets umask to
-# protect GPG keys, which live-helper does not support.
+# protect GPG keys, which live-build does not support.
 # Note: Use find rather than chmod on the wildcard, one never knows what
 # people might do in local hooks, and there might be no initrds at all.
 find chroot/boot -name 'initrd*' -print0 | xargs -r -0 chmod go+r

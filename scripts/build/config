@@ -26,8 +26,8 @@ then
 fi
 
 # Setting static variables
-SYSTEM_LH_CONFFILE="/etc/default/live-helper"
-DESCRIPTION="$(Echo 'create configuration for live-helper(7)')"
+SYSTEM_LH_CONFFILE="/etc/default/live-build"
+DESCRIPTION="$(Echo 'create configuration for live-build(7)')"
 USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--apt-ftp-proxy URL]\n\
 \t    [--apt-http-proxy URL]\n\
@@ -172,10 +172,10 @@ Local_arguments ()
 				# Dump version
 				if [ -x "$(which dpkg-query 2>/dev/null)" ]
 				then
-					VERSION_DPKG="$(dpkg-query -f='${Version}' --show live-helper)"
+					VERSION_DPKG="$(dpkg-query -f='${Version}' --show live-build)"
 				fi
 
-				Echo "%s: This is live-helper version %s" "${0}" "${VERSION_DPKG:-${VERSION}}"
+				Echo "%s: This is live-build version %s" "${0}" "${VERSION_DPKG:-${VERSION}}"
 
 				# Dump conffile contents
 				Print_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
@@ -829,9 +829,9 @@ mkdir -p config
 mkdir -p config/includes
 mkdir -p config/templates
 
-# Creating live-helper configuration
+# Creating live-build configuration
 cat > config/common << EOF
-# config/common - common options for live-helper(7)
+# config/common - common options for live-build(7)
 
 # LH_CONFIG_VERSION: internal version of the configuration file format
 LH_CONFIG_VERSION="${CONFIG_VERSION}"
@@ -967,7 +967,7 @@ EOF
 
 # Creating lh_bootstrap_* configuration
 cat > config/bootstrap << EOF
-# config/bootstrap - options for live-helper(7), bootstrap stage
+# config/bootstrap - options for live-build(7), bootstrap stage
 
 # \$LH_ARCHITECTURE: select chroot architecture
 # (Default: autodetected)
@@ -1045,7 +1045,7 @@ mkdir -p config/chroot_local-preseed
 mkdir -p config/chroot_sources
 
 cat > config/chroot << EOF
-# config/chroot - options for live-helper(7), chroot stage
+# config/chroot - options for live-build(7), chroot stage
 
 # \$LH_CHROOT_FILESYSTEM: set chroot filesystem
 # (Default: ${LH_CHROOT_FILESYSTEM})
@@ -1133,7 +1133,7 @@ mkdir -p config/binary_rootfs
 mkdir -p config/binary_syslinux
 
 cat > config/binary << EOF
-# config/binary - options for live-helper(7), binary stage
+# config/binary - options for live-build(7), binary stage
 
 # \$LH_BINARY_FILESYSTEM: set image filesystem
 # (Default: ${LH_BINARY_FILESYSTEM})
@@ -1295,7 +1295,7 @@ EOF
 
 # Creating lh_source_* configuration
 cat > config/source << EOF
-# config/source - options for live-helper(7), source stage
+# config/source - options for live-build(7), source stage
 
 # \$LH_SOURCE: set source option
 # (Default: ${LH_SOURCE})
