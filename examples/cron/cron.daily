@@ -5,18 +5,18 @@ set -e
 BUILD="daily"
 HOST="$(hostname)"
 
-# Checking for live-helper availability
-if [ ! -x /usr/bin/lh_config ]
+# Checking for live-build availability
+if [ ! -x /usr/bin/lb ]
 then
 	exit 0
 fi
 
-# Checking for live-helper defaults
-if [ -r /etc/default/live-helper_autobuild ]
+# Checking for live-build defaults
+if [ -r /etc/default/live-build_autobuild ]
 then
-	. /etc/default/live-helper_autobuild
+	. /etc/default/live-build_autobuild
 else
-	echo "E: /etc/default/live-helper_autobuild missing."
+	echo "E: /etc/default/live-build_autobuild missing."
 	exit 1
 fi
 
@@ -36,7 +36,7 @@ else
 	exit 1
 fi
 
-echo "$(date +%b\ %d\ %H:%M:%S) ${HOST} live-helper: begin daily build." >> /var/log/live
+echo "$(date +%b\ %d\ %H:%M:%S) ${HOST} live-build: begin daily build." >> /var/log/live
 
 for ARCHITECTURE in ${ARCHITECTURES}
 do
@@ -79,7 +79,7 @@ do
 
 			if [ ! -f "${DESTDIR}"/"${BUILD}"-builds/${DATE}/log/debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${PACKAGES_LIST}_${DATE}-usb-hdd-log.txt ]
 			then
-				# Workaround of missing multi-binary support in live-helper
+				# Workaround of missing multi-binary support in live-build
 				mv "${TEMPDIR}"/debian-live/binary/casper "${TEMPDIR}"/debian-live/casper.tmp
 				rm -rf "${TEMPDIR}"/debian-live/binary* "${TEMPDIR}"/debian-live/.stage/binary_*
 				mkdir "${TEMPDIR}"/debian-live/binary
@@ -152,4 +152,4 @@ done
 rm -f "${DESTDIR}"/"${BUILD}"-builds/current
 ln -s ${DATE} "${DESTDIR}"/"${BUILD}"-builds/current
 
-echo "$(date +%b\ %d\ %H:%M:%S) ${HOST} live-helper: end daily build." >> /var/log/live
+echo "$(date +%b\ %d\ %H:%M:%S) ${HOST} live-build: end daily build." >> /var/log/live

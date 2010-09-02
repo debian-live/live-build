@@ -1,10 +1,10 @@
-# Defaults for /etc/cron.daily/live-helper_autobuild
+# Defaults for /etc/cron.daily/live-build_autobuild
 
 AUTOBUILD="false"
 
 DATE="$(date +%Y%m%d)"
 DESTDIR="/srv/debian-live"
-TEMPDIR="/srv/tmp/live-helper"
+TEMPDIR="/srv/tmp/live-build"
 
 OPTIONS="--binary-indices false"
 
