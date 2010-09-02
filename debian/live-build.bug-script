@@ -14,3 +14,5 @@ if [ -e "${DEFAULT_SETTINGS}" ]; then
 else
 	echo "${DEFAULT_SETTINGS} does not exist."
 fi
+
+exit 0
