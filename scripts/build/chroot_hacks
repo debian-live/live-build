@@ -38,19 +38,24 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
+case "${LH_DISTRIBUTION}" in
+	squeeze|sid)
+		if echo "${LH_TASKS}" | grep -qs lxde
+		then
+			GDM="gdm"
+		else
+			GDM="gdm3"
+		fi
+		;;
+
+	*)
+		GDM="gdm"
+		;;
+esac
+
 # Handling default desktop configuration
 for TASK in ${LH_TASKS}
 do
-	case "${LH_DISTRIBUTION}" in
-		lenny)
-			GDM="gdm"
-			;;
-
-		*)
-			GDM="gdm3"
-			;;
-	esac
-
 	case "${TASK}" in
 		gnome-desktop)
 			# gnome is the only desktop environment in this image
