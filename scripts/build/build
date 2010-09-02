@@ -17,7 +17,7 @@ set -e
 if [ -x auto/config ] && [ ! -e .stage/config ]
 then
 	Echo_message "Automatically populating config tree."
-	lh config
+	lb config
 fi
 
 # Read meta config
@@ -64,13 +64,13 @@ Set_defaults
 Check_defaults
 
 # Bootstrapping system
-lh bootstrap ${*}
+lb bootstrap ${*}
 
 # Customizing chroot
-lh chroot ${*}
+lb chroot ${*}
 
 # Building binary images
-lh binary ${*}
+lb binary ${*}
 
 # Building source images
-lh source ${*}
+lb source ${*}

@@ -35,7 +35,7 @@ Check_crossarchitecture
 Echo_message "Begin bootstrapping system..."
 
 # Ensure that a system is built as root
-lh testroot
+lb testroot
 
 # Checking stage file
 Check_stagefile .stage/bootstrap
