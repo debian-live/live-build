@@ -1,4 +1,4 @@
-# Defaults for /etc/cron.daily/live-helper.cgi
+# Defaults for /etc/cron.daily/live-build.cgi
 
 _WEBBUILD="disabled"
 
