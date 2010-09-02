@@ -6,13 +6,13 @@
 .TH LIVE\-BUILD 1 02.09.2010 2.0~a23 "Debian Live Projekt"
 
 .SH NAME
-\fBlh config\fP \- Erstellen des config Verzeichnisses
+\fBlb config\fP \- Erstellen des config Verzeichnisses
 
 .SH ÜBERSICHT
-\fBlh config\fP [\fIlive\-helper Opitonen\fP]
+\fBlb config\fP [\fIlive\-build Opitonen\fP]
 .PP
 .\" FIXME
-\fBlh config\fP
+\fBlb config\fP
 .br
 \fB	[\-\-apt\fP apt|aptitude]
 .br
@@ -210,32 +210,32 @@
   [\fB\-\-win32\-loader true|false]\fP
 
 .SH BESCHREIBUNG
-\fBlh config\fP is a high\-level command (porcelain) of \fIlive\-helper\fP(7), the
-Debian Live tool suite.
+\fBlb clean\fP ist ein high\-level Befehl ("porcelain") von \fIlive\-build\fP(7),
+der Debian Live Tool Suite.
 .PP
 .\" FIXME
-\fBlh config\fP populates the configuration directory for live\-helper. By
+\fBlb config\fP populates the configuration directory for live\-build. By
 default, this directory is named 'config' and is created in the current
-directory where \fBlh config\fP was executed.
+directory where \fBlb config\fP was executed.
 .PP
 .\" FIXME
-Note: Currently \fBlh config\fP tries to be smart and sets defaults for some
+Note: Currently \fBlb config\fP tries to be smart and sets defaults for some
 options depending on the setting of other options (e.g. which linux packages
 to be used depending on if a lenny system gets build or not). This means
-that when generating a new configuration, you should call \fBlh config\fP only
+that when generating a new configuration, you should call \fBlb config\fP only
 once with all options specified. Calling it several times with only a subset
 of the options each can result in non working configurations. This is also
-caused by the fact that \fBlh config\fP called with one option only changes
+caused by the fact that \fBlb config\fP called with one option only changes
 that option, and leaves everything else as is unless its not
-defined. However, \fBlh config\fP does warn about know impossible or likely
+defined. However, \fBlb config\fP does warn about know impossible or likely
 impossible combinations that would lead to non working live systems. If
-unsure, remove config/{binary,bootstrap,chroot,common,source} and call \fBlh
+unsure, remove config/{binary,bootstrap,chroot,common,source} and call \fBlb
 config\fP again.
 
 .SH OPTIONEN
-In addition to its specific options \fBlh config\fP understands all generic
-live\-helper options. See \fIlive\-helper\fP(7) for a complete list of all
-generic live\-helper options.
+\fBlb chroot_apt\fP unterstützt zusätzlich zu spezifischen Optionen auch alle
+allgemeinen live\-build Optionen. Siehe \fIlive\-build\fP(7) für eine
+vollständige Liste aller allgemeinen live\-build Optionen.
 .PP
 .\" FIXME
 .IP "\fB\-\-apt\fP apt|aptitude" 4
@@ -267,8 +267,8 @@ server is not RFC conforming or buggy (such as Squid 2.0.2) this option can
 be a value from 0 to 5 indicating how many outstanding requests APT should
 send. A value of zero MUST be specified if the remote host does not properly
 linger on TCP connections \- otherwise data corruption will occur. Hosts
-which require this are in violation of RFC 2068. By default, live\-helper
-does not set this option.
+which require this are in violation of RFC 2068. By default, live\-build does
+not set this option.
 .IP "\fB\-\-apt\-recommends\fP true|false" 4
 defines if apt should install recommended packages automatically. By
 default, this is true except in emdebian mode.
@@ -308,8 +308,8 @@ defines which bootloader is beeing used in the generated image. This has
 only an effect if the selected binary image type does allow to choose the
 bootloader. For example, if you build a iso, always syslinux (or more
 precise, isolinux) is being used. Also note that some combinations of binary
-images types and bootloaders may be possible but live\-helper does not
-support them yet. \fBlh config\fP will fail to create such a not yet supported
+images types and bootloaders may be possible but live\-build does not support
+them yet. \fBlb config\fP will fail to create such a not yet supported
 configuration and give a explanation about it. For usb\-hdd images on amd64
 and i386, the default is syslinux. yaboot is only used on powerpc.
 .IP "\fB\-\-bootstrap\fP cdebootstrap|cdebootstrap\-static|debootstrap|copy" 4
@@ -360,7 +360,7 @@ prompt. In general, this should not be false and is an important feature of
 live system released to the public. However, during development of very big
 images it can save some time by not calculating the checksums.
 .IP "\fB\-\-build\-with\-chroot\fP true|false" 4
-defines whetever live\-helper should use the tools from within the chroot to
+defines whetever live\-build should use the tools from within the chroot to
 build the binary image or not by using and including the host systems
 tools. This is a very dangerous option, using the tools of the host system
 can lead to tainted and even non\-bootable images if the host systems version
@@ -420,7 +420,7 @@ whereas otherwise false, by default.
 defines the distribution of the resulting live system.
 .IP \-\-\fBdump\fP 4
 prepares a report of the currently present live system configuration and the
-version of live\-helper used. This is useful to provide if you submit bug
+version of live\-build used. This is useful to provide if you submit bug
 reports, we do get all informations required for us to locate and replicate
 an error.
 .IP "\-e|\fB\-\-encryption\fP false|aes128|aes192|aes256" 4
@@ -444,12 +444,12 @@ understood the hook before you enable it.
 .IP "\fB\-\-hostname\fP \fINAME\fP" 4
 sets the hostname of the live system.
 .IP \fB\-\-ignore\-system\-defaults\fP 4
-\fBlh config\fP by default reads system defaults from /etc/default/live\-helper
+\fBlb config\fP by default reads system defaults from /etc/default/live\-build
 when generating a new live system config directory. This is useful if you
 want to set global settings, such as mirror locations, and don't want to
 specify them all of the time.
 .IP "\fB\-\-includes\fP \fIPATH\fP" 4
-sets the path to the includes that live\-helper is going to use,
+sets the path to the includes that live\-build is going to use,
 e.g. additional minimal documentation that you want to have on all live
 systems. By default, this is set to /usr/share/live/build/includes/.
 .IP "\fB\-\-initramfs\fP auto|live\-initramfs|casper" 4
@@ -474,9 +474,9 @@ defaults to "Debian Live" in debian mode, and to "Emdebian Live" in emdebian
 mode, and "Ubuntu Live" in ubuntu mode.
 .IP "\fB\-\-iso\-preparer\fP \fINAME\fP" 4
 sets the PREPARER field in the header of a resulting CD/DVD image. By
-default this is set to "live\-helper \fIVERSION\fP;
-http://packages.qa.debian.org/live\-helper", whereas VERSION is expanded to
-the version of live\-helper that was used to build the image.
+default this is set to "live\-build \fIVERSION\fP;
+http://packages.qa.debian.org/live\-build", whereas VERSION is expanded to
+the version of live\-build that was used to build the image.
 .IP "\fB\-\-iso\-publisher\fP \fINAME\fP" 4
 sets the PUBLISHED field in the header of a resulting CD/DVD image. By
 default, this is set to 'Debian Live project; http:/live.debian.net/;
@@ -609,11 +609,11 @@ installed should be put into a local packages list.
 enables one of available third\-party repository configurations in
 /usr/share/live/build/repositories.
 .IP "\fB\-\-root\-command\fP sudo" 4
-controls if live\-helper should use sudo internally to build the live
+controls if live\-build should use sudo internally to build the live
 image. Note that this is not well tested and that you should, when relying
-on sudo, call the individual live\-helper command with sudo itself.
+on sudo, call the individual live\-build command with sudo itself.
 .IP "\fB\-\-use\-fakeroot\fP true|false" 4
-controls if live\-helper should utilize fakeroot and fakechroot to try and
+controls if live\-build should utilize fakeroot and fakechroot to try and
 avoid requiring root privillages where possible. By default, this option is
 false.
 .IP "\fB\-\-archive\-areas\fP \fIARCHIVE_AREA\fP|\(dq\fIARCHIVE_AREAS\fP\(dq" 4
@@ -662,7 +662,7 @@ packages suitable for most users when building an image, but it results in
 quite big images. If you want to have finer grained package selections,
 local packages lists should be used instead.
 .IP "\fB\-\-templates\fP \fIPATH\fP" 4
-sets the path to the templates that live\-helper is going to use, e.g. for
+sets the path to the templates that live\-build is going to use, e.g. for
 bootloaders. By default, this is set to /usr/share/live/build/templates/.
 .IP "\fB\-\-virtual\-root\-filesystem\fP ext3" 4
 defines what filesystem to format the root filesystem when building
@@ -692,29 +692,29 @@ should not be used.
 .SH DATEIEN
 .\" FIXME
 .IP \fBauto/config\fP 4
-.IP \fB/etc/default/live\-helper\fP 4
+.IP \fB/etc/default/live\-build\fP 4
 .\" FIXME
-An optional, global configuration file for \fBlh config\fP variables. It is
+An optional, global configuration file for \fBlb config\fP variables. It is
 useful to specify a few system wide defaults, like LH_MIRROR_BOOTSTRAP. This
 feature can be false by specifying the \fB\-\-ignore\-system\-defaults\fP option.
 
 .SH "SIEHE AUCH"
-\fIlive\-helper\fP(7)
+\fIlive\-build\fP(7)
 .PP
-Dieses Programm ist Teil von live\-helper.
+Dieses Programm ist Teil von live\-build.
 
 .SH HOMEPAGE
-Weitere Informationen über live\-helper und das Debian Live Projekt können
-auf der Homepage unter <\fIhttp://live.debian.net/\fP> und im Handbuch
+Weitere Informationen über live\-build und das Debian Live Projekt können auf
+der Homepage unter <\fIhttp://live.debian.net/\fP> und im Handbuch
 unter <\fIhttp://live.debian.net/manual/\fP> gefunden werden.
 
 .SH FEHLER
-Fehler können durch Einreichen eines Fehlerberichtes für das live\-helper
+Fehler können durch Einreichen eines Fehlerberichtes für das live\-build
 Paket im Debian Bug Tracking System unter
 <\fIhttp://bugs.debian.org/\fP> oder durch Senden einer E\-Mail an die
 Debian Live Mailing Liste unter <\fIdebian\-live@lists.debian.org\fP>
 (englischsprachig) mitgeteilt werden.
 
 .SH AUTOR
-live\-helper wurde von Daniel Baumann <\fIdaniel@debian.org\fP> für das
+live\-build wurde von Daniel Baumann <\fIdaniel@debian.org\fP> für das
 Debian Projekt geschrieben.

@@ -1,11 +1,11 @@
-# German translations for live-helper package
+# German translations for live-build package
 # Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
-# This file is distributed under the same license as the live-helper package.
+# This file is distributed under the same license as the live-build package.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: live-helper 2.0~a23\n"
-"POT-Creation-Date: 2010-09-02 13:28+0300\n"
+"Project-Id-Version: live-build 2.0~a23\n"
+"POT-Creation-Date: 2010-09-02 13:50+0300\n"
 "PO-Revision-Date: 2010-05-09 11:47+0300\n"
 "Last-Translator: Daniel Baumann <daniel@debian.org>\n"
 "Language-Team: none\n"
@@ -409,8 +409,8 @@ msgstr "SIEHE AUCH"
 #: en/lb_source_debian-live.1:23 en/lb_source_disk.1:23 en/lb_source_iso.1:23
 #: en/lb_source_net.1:23 en/lb_source_tar.1:23 en/lb_source_usb.1:23
 #: en/lb_source_virtual-hdd.1:23 en/lb_testroot.1:26
-msgid "I<live-helper>(7)"
-msgstr "I<live-helper>(7)"
+msgid "I<live-build>(7)"
+msgstr "I<live-build>(7)"
 
 #. type: Plain text
 #: en/lb.1:26 en/lb_binary.1:24 en/lb_binary_checksums.1:25
@@ -446,8 +446,8 @@ msgstr "I<live-helper>(7)"
 #: en/lb_source_debian-live.1:25 en/lb_source_disk.1:25 en/lb_source_iso.1:25
 #: en/lb_source_net.1:25 en/lb_source_tar.1:25 en/lb_source_usb.1:25
 #: en/lb_source_virtual-hdd.1:25 en/lb_testroot.1:28 en/live-build.7:248
-msgid "This program is a part of live-helper."
-msgstr "Dieses Programm ist Teil von live-helper."
+msgid "This program is a part of live-build."
+msgstr "Dieses Programm ist Teil von live-build."
 
 #. type: SH
 #: en/lb.1:27 en/lb_binary.1:25 en/lb_binary_checksums.1:26
@@ -522,12 +522,12 @@ msgstr "HOMEPAGE"
 #: en/lb_source_net.1:28 en/lb_source_tar.1:28 en/lb_source_usb.1:28
 #: en/lb_source_virtual-hdd.1:28 en/lb_testroot.1:31 en/live-build.7:251
 msgid ""
-"More information about live-helper and the Debian Live project can be found "
+"More information about live-build and the Debian Live project can be found "
 "on the homepage at E<lt>I<http://live.debian.net/>E<gt> and in the manual at "
 "E<lt>I<http://live.debian.net/manual/>E<gt>."
 msgstr ""
-"Weitere Informationen über live-helper und das Debian Live Projekt können "
-"auf der Homepage unter E<lt>I<http://live.debian.net/>E<gt> und im Handbuch "
+"Weitere Informationen über live-build und das Debian Live Projekt können auf "
+"der Homepage unter E<lt>I<http://live.debian.net/>E<gt> und im Handbuch "
 "unter E<lt>I<http://live.debian.net/manual/>E<gt> gefunden werden."
 
 #. type: SH
@@ -603,12 +603,12 @@ msgstr "FEHLER"
 #: en/lb_source_net.1:31 en/lb_source_tar.1:31 en/lb_source_usb.1:31
 #: en/lb_source_virtual-hdd.1:31 en/lb_testroot.1:34 en/live-build.7:254
 msgid ""
-"Bugs can be reported by submitting a bugreport for the live-helper package "
-"in the Debian Bug Tracking System at E<lt>I<http://bugs.debian.org/>E<gt> or "
-"by writing a mail to the Debian Live mailing list at E<lt>I<debian-"
-"live@lists.debian.org>E<gt>."
+"Bugs can be reported by submitting a bugreport for the live-build package in "
+"the Debian Bug Tracking System at E<lt>I<http://bugs.debian.org/>E<gt> or by "
+"writing a mail to the Debian Live mailing list at E<lt>I<debian-live@lists."
+"debian.org>E<gt>."
 msgstr ""
-"Fehler können durch Einreichen eines Fehlerberichtes für das live-helper "
+"Fehler können durch Einreichen eines Fehlerberichtes für das live-build "
 "Paket im Debian Bug Tracking System unter E<lt>I<http://bugs.debian.org/"
 ">E<gt> oder durch Senden einer E-Mail an die Debian Live Mailing Liste unter "
 "E<lt>I<debian-live@lists.debian.org>E<gt> (englischsprachig) mitgeteilt "
@@ -687,10 +687,10 @@ msgstr "AUTOR"
 #: en/lb_source_net.1:33 en/lb_source_tar.1:33 en/lb_source_usb.1:33
 #: en/lb_source_virtual-hdd.1:33 en/lb_testroot.1:36 en/live-build.7:256
 msgid ""
-"live-helper was written by Daniel Baumann E<lt>I<daniel@debian.org>E<gt> for "
+"live-build was written by Daniel Baumann E<lt>I<daniel@debian.org>E<gt> for "
 "the Debian project."
 msgstr ""
-"live-helper wurde von Daniel Baumann E<lt>I<daniel@debian.org>E<gt> für das "
+"live-build wurde von Daniel Baumann E<lt>I<daniel@debian.org>E<gt> für das "
 "Debian Projekt geschrieben."
 
 #.  FIXME
@@ -732,30 +732,30 @@ msgstr "B<n/a>"
 
 #. type: Plain text
 #: en/lb_source_checksums.1:5
-msgid "B<lh source_checksums> - Complete the source stage"
-msgstr "B<lh source_checksums> - Erstellt die \"source\" Stufe"
+msgid "B<lb source_checksums> - Complete the source stage"
+msgstr "B<lb source_checksums> - Erstellt die \"source\" Stufe"
 
 #. type: Plain text
 #: en/lb_source_checksums.1:8
-msgid "B<lh source_checksums> [I<live-helper options>]"
-msgstr "B<lh source_checksums> [I<live-helper Optionen>]"
+msgid "B<lb source_checksums> [I<live-build options>]"
+msgstr "B<lb source_checksums> [I<live-build Optionen>]"
 
 #. type: Plain text
 #: en/lb_source_checksums.1:11
 msgid ""
-"B<lh source_checksums> is a low-level command (plumbing) of I<live-helper>"
+"B<lb source_checksums> is a low-level command (plumbing) of I<live-build>"
 "(7), the Debian Live tool suite."
 msgstr ""
-"B<lh source_checksums> ist ein low-level Befehl (\"plumbing\") von I<live-"
-"helper>(7), der Debian Live Tool Suite."
+"B<lb source_checksums> ist ein low-level Befehl (\"plumbing\") von I<live-"
+"build>(7), der Debian Live Tool Suite."
 
 #. type: Plain text
 #: en/lb_source_checksums.1:16
 msgid ""
-"B<lh source_checksums> has no specific options but understands all generic "
-"live-helper options. See I<live-helper>(7) for a complete list of all "
-"generic live-helper options."
+"B<lb source_checksums> has no specific options but understands all generic "
+"live-build options. See I<live-build>(7) for a complete list of all generic "
+"live-build options."
 msgstr ""
-"B<lh source_checksums> hat keine spezifischen Optionen aber unterstützt alle "
-"allgemeinen live-helper Optionen. Siehe I<live-helper>(7) für eine "
-"vollständige Liste aller allgemeinen live-helper Optionen."
+"B<lb source_checksums> hat keine spezifischen Optionen aber unterstützt alle "
+"allgemeinen live-build Optionen. Siehe I<live-build>(7) für eine "
+"vollständige Liste aller allgemeinen live-build Optionen."
