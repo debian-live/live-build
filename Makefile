@@ -45,7 +45,7 @@ install:
 
 	# Installing executables
 	mkdir -p $(DESTDIR)/usr/bin
-	mv $(DESTDIR)/usr/share/live/build/scripts/build/lh $(DESTDIR)/usr/share/live/build/scripts/build/live-helper $(DESTDIR)/usr/bin
+	mv $(DESTDIR)/usr/share/live/build/scripts/build/lb $(DESTDIR)/usr/share/live/build/scripts/build/live-build $(DESTDIR)/usr/bin
 
 	# Installing documentation
 	mkdir -p $(DESTDIR)/usr/share/doc/live-build
@@ -76,7 +76,7 @@ uninstall:
 	rmdir --ignore-fail-on-non-empty $(DESTDIR)/usr/share/live
 
 	# Uninstalling executables
-	rm -f $(DESTDIR)/usr/bin/lh $(DESTDIR)/usr/bin/live-helper
+	rm -f $(DESTDIR)/usr/bin/lb $(DESTDIR)/usr/bin/live-build
 
 	# Uninstalling documentation
 	rm -rf $(DESTDIR)/usr/share/doc/live-build

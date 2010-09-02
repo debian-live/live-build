@@ -961,7 +961,7 @@ Set_defaults ()
 	fi
 
 	# Set iso preparer
-	LH_ISO_PREPARER="${LH_ISO_PREPARER:-live-helper \$VERSION; http://packages.qa.debian.org/live-helper}"
+	LH_ISO_PREPARER="${LH_ISO_PREPARER:-live-build \$VERSION; http://packages.qa.debian.org/live-build}"
 
 	# Set iso publisher
 	LH_ISO_PUBLISHER="${LH_ISO_PUBLISHER:-Debian Live project; http://debian-live.alioth.debian.org/; debian-live@lists.debian.org}"
@@ -1097,20 +1097,20 @@ Check_defaults ()
 	then
 		# We're only checking when we're actually running the checks
 		# that's why the check for emptyness of the version;
-		# however, as live-helper always declares LH_CONFIG_VERSION
+		# however, as live-build always declares LH_CONFIG_VERSION
 		# internally, this is safe assumption (no cases where it's unset,
 		# except when bootstrapping the functions/defaults etc.).
 		CURRENT_CONFIG_VERSION="$(echo ${LH_CONFIG_VERSION} | awk -F. '{ print $1 }')"
 
 		if [ ${CURRENT_CONFIG_VERSION} -ge 3 ]
 		then
-			Echo_error "This config tree is too new for this version of live-helper (${VERSION})."
-			Echo_error "Aborting build, please get a new version of live-helper."
+			Echo_error "This config tree is too new for this version of live-build (${VERSION})."
+			Echo_error "Aborting build, please get a new version of live-build."
 
 			exit 1
 		elif [ ${CURRENT_CONFIG_VERSION} -eq 1 ]
 		then
-			Echo_error "This config tree is too old for this version of live-helper (${VERSION})."
+			Echo_error "This config tree is too old for this version of live-build (${VERSION})."
 			Echo_error "Aborting build, please repopulate the config tree."
 			exit 1
 		elif [ ${CURRENT_CONFIG_VERSION} -lt 1 ]
@@ -1155,7 +1155,7 @@ Check_defaults ()
 			# grub or yaboot + usb
 			case "${LH_BOOTLOADER}" in
 				grub|yaboot)
-					Echo_error "You have selected a combination of bootloader and image type that is currently not supported by live-helper. Please use either another bootloader or a different image type."
+					Echo_error "You have selected a combination of bootloader and image type that is currently not supported by live-build. Please use either another bootloader or a different image type."
 					exit 1
 					;;
 			esac

@@ -8,7 +8,7 @@
 ## under certain conditions; see COPYING for details.
 
 
-PACKAGE="live-helper"
+PACKAGE="live-build"
 VERSION="2.0~a23-1"
 CONFIG_VERSION="$(echo ${VERSION} | awk -F- '{ print $1 }')"
 

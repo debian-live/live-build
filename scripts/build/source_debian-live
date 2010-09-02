@@ -29,7 +29,7 @@ then
 	exit 0
 fi
 
-Echo_message "Begin copying live-helper configuration..."
+Echo_message "Begin copying live-build configuration..."
 
 # Requiring stage file
 Require_stagefile .stage/config .stage/bootstrap

@@ -56,7 +56,7 @@ EOF
 		# Diverting update-initramfs
 		#if [ "${LH_INITRAMFS}" = "live-initramfs" ]
 		#then
-		#	mv chroot/usr/sbin/update-initramfs chroot/usr/sbin/update-initramfs.live-helper
+		#	mv chroot/usr/sbin/update-initramfs chroot/usr/sbin/update-initramfs.live-build
 		#fi
 
 		if [ "${LH_LINUX_PACKAGES}" != "none" ]

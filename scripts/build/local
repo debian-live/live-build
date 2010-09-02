@@ -8,7 +8,7 @@
 ## under certain conditions; see COPYING for details.
 
 
-LH_BASE="${PWD}/live-helper"
+LH_BASE="${PWD}/live-build"
 PATH="${LH_BASE}/helpers:${PATH}"
 
 export LH_BASE PATH

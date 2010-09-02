@@ -75,7 +75,7 @@ fi
 # Handle genisoimage generic options
 GENISOIMAGE_OPTIONS="-J -l -cache-inodes -allow-multidot"
 
-# Handle genisoimage live-helper specific options
+# Handle genisoimage live-build specific options
 if [ "${_QUIET}" = "true" ]
 then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -quiet"
@@ -139,7 +139,7 @@ case "${LH_BOOTLOADER}" in
 		;;
 
 	*)
-		Echo_warning "Bootloader on your architecture not yet supported by live-helper."
+		Echo_warning "Bootloader on your architecture not yet supported by live-build."
 		Echo_warning "This will produce a most likely not bootable image (Continuing in 5 seconds)."
 		sleep 5
 		;;

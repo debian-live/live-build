@@ -144,7 +144,7 @@ case "${LH_BINARY_IMAGES}" in
 		;;
 
 	usb*|net)
-		Echo_warning "Bootloader in this image type not yet supported by live-helper."
+		Echo_warning "Bootloader in this image type not yet supported by live-build."
 		Echo_warning "This would produce a not bootable image, aborting (FIXME)."
 		exit 1
 	;;
