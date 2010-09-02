@@ -97,9 +97,9 @@ then
 
 		# Generating image
 		cd "${_TEMPDIR}"/"${_BUILD}"
-		lh config -c ${_FILE} >> "${_TEMPDIR}"/"${_BUILD}"/log 2>&1
+		lb config -c ${_FILE} >> "${_TEMPDIR}"/"${_BUILD}"/log 2>&1
 		_ERRORCONFIG="${?}"
-		lh build >> "${_TEMPDIR}"/"${_BUILD}"/log 2>&1
+		lb build >> "${_TEMPDIR}"/"${_BUILD}"/log 2>&1
 		_ERRORBUILD="${?}"
 
 		_DATE_END="`date -R`"

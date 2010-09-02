@@ -37,7 +37,7 @@ Echo_message "Begin bootstrapping system..."
 Check_package /usr/bin/${LH_BOOTSTRAP} cdebootstrap
 
 # Ensure that a system is built as root
-lh testroot
+lb testroot
 
 # Checking stage file
 Check_stagefile .stage/bootstrap
