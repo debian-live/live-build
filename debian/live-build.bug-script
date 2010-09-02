@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DEFAULT_SETTINGS="/etc/default/live-helper"
+DEFAULT_SETTINGS="/etc/default/live-build"
 
 # Checking depends
 dpkg -l debootstrap cdebootstrap
