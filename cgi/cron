@@ -12,11 +12,11 @@
 . "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Reading defaults
-if [ -r /etc/default/live-helper.cgi ]
+if [ -r /etc/default/live-build.cgi ]
 then
-	. /etc/default/live-helper.cgi
+	. /etc/default/live-build.cgi
 else
-	echo "E: /etc/default/live-helper.cgi missing"
+	echo "E: /etc/default/live-build.cgi missing"
 	exit 1
 fi
 
@@ -33,27 +33,27 @@ then
 fi
 
 # Checking lock file
-if [ -f /var/lock/live-helper.cgi.lock ]
+if [ -f /var/lock/live-build.cgi.lock ]
 then
-	echo "E: live-helper.cgi already/still running."
+	echo "E: live-build.cgi already/still running."
 	exit 1
 fi
 
 # Creating lock trap
-trap "test -f /var/lock/live-helper.cgi.lock && rm -f /var/lock/live-helper.cgi.lock; exit 0" 0 1 2 3 9 15
+trap "test -f /var/lock/live-build.cgi.lock && rm -f /var/lock/live-build.cgi.lock; exit 0" 0 1 2 3 9 15
 
 # Creating lock file
-touch /var/lock/live-helper.cgi.lock
+touch /var/lock/live-build.cgi.lock
 
 # Cleanup old builds: cron should be run at least once per hour to take effect
 if ls "${_DESTDIR}"/`date -d yesterday +%Y%m%d.%H`* > /dev/null 2>&1
 then
 	rm -rf "${_DESTDIR}"/`date -d yesterday +%Y%m%d.%H`*
 
-	echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper.cgi: remove web build (`date -d yesterday +%Y%m%d.%H`*)." >> /var/log/live
+	echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-build.cgi: remove web build (`date -d yesterday +%Y%m%d.%H`*)." >> /var/log/live
 fi
 
-# Ok from here spin through the live-helper.cgi files we have waiting to build
+# Ok from here spin through the live-build.cgi files we have waiting to build
 #if ls "${_TEMPDIR}"/*.build > /dev/null 2>&1
 if Find_files ${_TEMPDIR}/*.build
 then
@@ -76,7 +76,7 @@ then
 		_CUSTOM_BINARY=`awk -F\" '/^_CUSTOM_BINARY=/{print $2}' ${_FILE}`
 
 		# Drop out some build data for information if something goes wrong.
-		echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper.cgi: begin web build (${_BUILD})." >> /var/log/live
+		echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-build.cgi: begin web build (${_BUILD})." >> /var/log/live
 
 		# Creating build directory which also creates the config/chroot_sources folder
 		mkdir -p "${_TEMPDIR}"/"${_BUILD}"/config/chroot_sources
@@ -187,6 +187,6 @@ EOF
 		# Removing build directory
 		rm -rf "${_TEMPDIR}"/"${_BUILD}"
 
-		echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-helper.cgi: end web build (${_BUILD}: ${_STATUS})." >> /var/log/live
+		echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-build.cgi: end web build (${_BUILD}: ${_STATUS})." >> /var/log/live
 	done
 fi

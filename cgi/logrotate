@@ -1,4 +1,4 @@
-# /etc/logrotate.d/live-helper
+# /etc/logrotate.d/live-build
 
 /var/log/live
 {
