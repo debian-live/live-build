@@ -932,7 +932,7 @@ LH_INCLUDES="${LH_INCLUDES}"
 # (Default: ${LH_TEMPLATES})
 LH_TEMPLATES="${LH_TEMPLATES}"
 
-# Live-helper options
+# live-build options
 
 # \$_BREAKPOINTS: enable breakpoints
 # (Default: ${_BREAKPOINTS})
