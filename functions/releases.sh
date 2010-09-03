@@ -10,7 +10,8 @@
 
 # Debian releases
 RELEASE_lenny="5.0.5"
-RELEASE_squeeze="6"
+RELEASE_squeeze="6.0.0"
+RELEASE_wheezy="7"
 RELEASE_sid="unstable"
 
 # Ubuntu releases
