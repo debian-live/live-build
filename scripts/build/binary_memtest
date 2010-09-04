@@ -84,7 +84,7 @@ case "${LH_INITRAMFS}" in
 		DESTDIR="binary/casper"
 		;;
 
-	live-initramfs)
+	live-initramfs|live-boot)
 		DESTDIR="binary/live"
 		;;
 esac
