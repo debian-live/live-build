@@ -159,12 +159,12 @@ esac
 
 # Update initramfs (always, because of udev rules in initrd)
 case "${LH_INITRAMFS}" in
-	live-initramfs)
-		#UPDATE_INITRAMFS_OPTIONS="LIVE_GENERATE_UUID=1"
-		;;
-
 	casper)
 		UPDATE_INITRAMFS_OPTIONS="CASPER_GENERATE_UUID=1"
+		;;
+
+	live-initramfs|live-boot)
+		#UPDATE_INITRAMFS_OPTIONS="LIVE_GENERATE_UUID=1"
 		;;
 esac
 
@@ -198,7 +198,7 @@ case "${LH_INITRAMFS}" in
 		ID="999"
 		;;
 
-	*)
+	live-initramfs|live-boot)
 		ID="1000"
 		;;
 esac
