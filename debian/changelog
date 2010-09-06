@@ -1,3 +1,18 @@
+live-build (2.0~a26-1) unstable; urgency=low
+
+  * Removing desktop-base entry in gnome-full list, already inherited
+    through the gnome-core list.
+  * Exiting with 0 in live-boot bug script.
+  * Updating debian-live homepage in various locations.
+  * Updating gdm handling for lxde.
+  * Adding support for wheezy.
+  * Adding support for standalone live-boot as initramfs generator.
+  * Updating lenny point release number.
+  * Also deconfiguring /etc/hosts when using debootstrap to bootstrap
+    system.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 06 Sep 2010 15:31:28 +0200
+
 live-build (2.0~a25-1) unstable; urgency=low
 
   * Updating internal calls to use live-build instead of live-helper.
