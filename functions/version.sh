@@ -31,7 +31,7 @@ Version ()
 	Echo "On Debian systems, the complete text of the GNU General Public License"
 	Echo "can be found in /usr/share/common-licenses/GPL-3 file."
 	echo
-	Echo "Homepage: <http://debian-live.alioth.debian.org/>"
+	Echo "Homepage: <http://live.debian.net/>"
 
 	exit 0
 }

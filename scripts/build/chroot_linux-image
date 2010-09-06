@@ -54,10 +54,11 @@ warn_initrd = No
 EOF
 
 		# Diverting update-initramfs
-		#if [ "${LH_INITRAMFS}" = "live-initramfs" ]
-		#then
-		#	mv chroot/usr/sbin/update-initramfs chroot/usr/sbin/update-initramfs.live-build
-		#fi
+		#case "${LH_INITRAMFS}" in
+		#	live-initramfs|live-boot)
+		#		mv chroot/usr/sbin/update-initramfs chroot/usr/sbin/update-initramfs.live-build
+		#		;;
+		#esac
 
 		if [ "${LH_LINUX_PACKAGES}" != "none" ]
 		then

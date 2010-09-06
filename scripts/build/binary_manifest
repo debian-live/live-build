@@ -49,7 +49,7 @@ case "${LH_INITRAMFS}" in
 		SUFFIX="manifest"
 		;;
 
-	live-initramfs)
+	live-initramfs|live-boot)
 		INITFS="live"
 		SUFFIX="packages"
 		;;

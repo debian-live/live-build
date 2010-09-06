@@ -53,7 +53,7 @@ case "${LH_INITRAMFS}" in
 		INITFS="casper"
 		;;
 
-	live-initramfs)
+	live-initramfs|live-boot)
 		INITFS="live"
 		;;
 esac
