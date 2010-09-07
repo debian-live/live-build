@@ -909,7 +909,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:58
 #, no-wrap
-msgid "B<lh_config>(1)"
+msgid "B<lb_config>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -920,7 +920,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:60
 #, no-wrap
-msgid "B<lh_bootstrap>(1)"
+msgid "B<lb_bootstrap>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -931,7 +931,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:62
 #, no-wrap
-msgid "B<lh_chroot>(1)"
+msgid "B<lb_chroot>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -942,7 +942,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:64
 #, no-wrap
-msgid "B<lh_binary>(1)"
+msgid "B<lb_binary>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -953,7 +953,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:66
 #, no-wrap
-msgid "B<lh_source>(1)"
+msgid "B<lb_source>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -964,7 +964,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:68
 #, no-wrap
-msgid "B<lh_clean>(1)"
+msgid "B<lb_clean>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -992,7 +992,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:73
 #, no-wrap
-msgid "B<lh_build>(1)"
+msgid "B<lb_build>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1003,7 +1003,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:75
 #, no-wrap
-msgid "B<lh_local>(1)"
+msgid "B<lb_local>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1014,7 +1014,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:77
 #, no-wrap
-msgid "B<lh_testroot>(1)"
+msgid "B<lb_testroot>(1)"
 msgstr ""
 
 #.  FIXME
@@ -1059,7 +1059,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:87
 #, no-wrap
-msgid "B<lh_bootstrap_cache>(1)"
+msgid "B<lb_bootstrap_cache>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1070,7 +1070,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:89
 #, no-wrap
-msgid "B<lh_bootstrap_cdebootstrap>(1)"
+msgid "B<lb_bootstrap_cdebootstrap>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1081,7 +1081,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:91
 #, no-wrap
-msgid "B<lh_bootstrap_copy>(1)"
+msgid "B<lb_bootstrap_copy>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1092,7 +1092,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:93
 #, no-wrap
-msgid "B<lh_bootstrap_debootstrap>(1)"
+msgid "B<lb_bootstrap_debootstrap>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1109,7 +1109,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:96
 #, no-wrap
-msgid "B<lh_chroot_apt>(1)"
+msgid "B<lb_chroot_apt>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1120,7 +1120,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:98
 #, no-wrap
-msgid "B<lh_chroot_cache>(1)"
+msgid "B<lb_chroot_cache>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1131,7 +1131,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:100
 #, no-wrap
-msgid "B<lh_chroot_debianchroot>(1)"
+msgid "B<lb_chroot_debianchroot>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1142,7 +1142,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:102
 #, no-wrap
-msgid "B<lh_chroot_devpts>(1)"
+msgid "B<lb_chroot_devpts>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1153,7 +1153,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:104
 #, no-wrap
-msgid "B<lh_chroot_dpkg>(1)"
+msgid "B<lb_chroot_dpkg>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1164,7 +1164,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:106
 #, no-wrap
-msgid "B<lh_chroot_hacks>(1)"
+msgid "B<lb_chroot_hacks>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1175,7 +1175,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:108
 #, no-wrap
-msgid "B<lh_chroot_hooks>(1)"
+msgid "B<lb_chroot_hooks>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1186,7 +1186,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:110
 #, no-wrap
-msgid "B<lh_chroot_hostname>(1)"
+msgid "B<lb_chroot_hostname>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1197,7 +1197,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:112
 #, no-wrap
-msgid "B<lh_chroot_hosts>(1)"
+msgid "B<lb_chroot_hosts>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1208,7 +1208,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:114
 #, no-wrap
-msgid "B<lh_chroot_install-packages>(1)"
+msgid "B<lb_chroot_install-packages>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1219,7 +1219,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:116
 #, no-wrap
-msgid "B<lh_chroot_interactive>(1)"
+msgid "B<lb_chroot_interactive>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1230,7 +1230,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:118
 #, no-wrap
-msgid "B<lh_chroot_linux-image>(1)"
+msgid "B<lb_chroot_linux-image>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1241,7 +1241,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:120
 #, no-wrap
-msgid "B<lh_chroot_local-hooks>(1)"
+msgid "B<lb_chroot_local-hooks>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1252,7 +1252,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:122
 #, no-wrap
-msgid "B<lh_chroot_local-includes>(1)"
+msgid "B<lb_chroot_local-includes>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1263,7 +1263,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:124
 #, no-wrap
-msgid "B<lh_chroot_localization>(1)"
+msgid "B<lb_chroot_localization>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1274,7 +1274,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:126
 #, no-wrap
-msgid "B<lh_chroot_local-packages>(1)"
+msgid "B<lb_chroot_local-packages>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1285,7 +1285,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:128
 #, no-wrap
-msgid "B<lh_chroot_local-patches>(1)"
+msgid "B<lb_chroot_local-patches>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1296,7 +1296,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:130
 #, no-wrap
-msgid "B<lh_chroot_local-preseed>(1)"
+msgid "B<lb_chroot_local-preseed>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1307,7 +1307,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:132
 #, no-wrap
-msgid "B<lh_chroot_packages>(1)"
+msgid "B<lb_chroot_packages>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1318,7 +1318,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:134
 #, no-wrap
-msgid "B<lh_chroot_packageslists>(1)"
+msgid "B<lb_chroot_packageslists>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1329,7 +1329,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:136
 #, no-wrap
-msgid "B<lh_chroot_preseed>(1)"
+msgid "B<lb_chroot_preseed>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1340,7 +1340,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:138
 #, no-wrap
-msgid "B<lh_chroot_proc>(1)"
+msgid "B<lb_chroot_proc>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1351,7 +1351,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:140
 #, no-wrap
-msgid "B<lh_chroot_resolv>(1)"
+msgid "B<lb_chroot_resolv>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1362,7 +1362,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:142
 #, no-wrap
-msgid "B<lh_chroot_selinuxfs>(1)"
+msgid "B<lb_chroot_selinuxfs>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1373,7 +1373,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:144
 #, no-wrap
-msgid "B<lh_chroot_sources>(1)"
+msgid "B<lb_chroot_sources>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1384,7 +1384,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:146
 #, no-wrap
-msgid "B<lh_chroot_symlinks>(1)"
+msgid "B<lb_chroot_symlinks>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1395,7 +1395,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:148
 #, no-wrap
-msgid "B<lh_chroot_sysfs>(1)"
+msgid "B<lb_chroot_sysfs>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1406,7 +1406,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:150
 #, no-wrap
-msgid "B<lh_chroot_sysvinit>(1)"
+msgid "B<lb_chroot_sysvinit>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1417,7 +1417,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:152
 #, no-wrap
-msgid "B<lh_chroot_sysv-rc>(1)"
+msgid "B<lb_chroot_sysv-rc>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1428,7 +1428,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:154
 #, no-wrap
-msgid "B<lh_chroot_tasks>(1)"
+msgid "B<lb_chroot_tasks>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1445,7 +1445,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:157
 #, no-wrap
-msgid "B<lh_binary_chroot>(1)"
+msgid "B<lb_binary_chroot>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1456,7 +1456,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:159
 #, no-wrap
-msgid "B<lh_binary_debian-installer>(1)"
+msgid "B<lb_binary_debian-installer>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1467,7 +1467,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:161
 #, no-wrap
-msgid "B<lh_binary_disk>(1)"
+msgid "B<lb_binary_disk>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1478,7 +1478,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:163
 #, no-wrap
-msgid "B<lh_binary_encryption>(1)"
+msgid "B<lb_binary_encryption>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1489,7 +1489,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:165
 #, no-wrap
-msgid "B<lh_binary_grub>(1)"
+msgid "B<lb_binary_grub>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1500,7 +1500,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:167
 #, no-wrap
-msgid "B<lh_binary_grub2>(1)"
+msgid "B<lb_binary_grub2>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1511,7 +1511,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:169
 #, no-wrap
-msgid "B<lh_binary_includes>(1)"
+msgid "B<lb_binary_includes>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1522,7 +1522,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:171
 #, no-wrap
-msgid "B<lh_binary_iso>(1)"
+msgid "B<lb_binary_iso>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1533,7 +1533,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:173
 #, no-wrap
-msgid "B<lh_binary_linux-image>(1)"
+msgid "B<lb_binary_linux-image>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1544,7 +1544,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:175
 #, no-wrap
-msgid "B<lh_binary_local-hooks>(1)"
+msgid "B<lb_binary_local-hooks>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1555,13 +1555,13 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:177
 #, no-wrap
-msgid "B<lh_binary_local-includes>(1)"
+msgid "B<lb_binary_local-includes>(1)"
 msgstr ""
 
 #. type: IP
 #: en/live-build.7:179
 #, no-wrap
-msgid "B<lh_binary_local-packageslists>(1)"
+msgid "B<lb_binary_local-packageslists>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1572,7 +1572,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:181
 #, no-wrap
-msgid "B<lh_binary_manifest>(1)"
+msgid "B<lb_binary_manifest>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1583,7 +1583,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:183
 #, no-wrap
-msgid "B<lh_binary_checksums>(1)"
+msgid "B<lb_binary_checksums>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1594,7 +1594,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:185
 #, no-wrap
-msgid "B<lh_binary_memtest>(1)"
+msgid "B<lb_binary_memtest>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1605,7 +1605,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:187
 #, no-wrap
-msgid "B<lh_binary_net>(1)"
+msgid "B<lb_binary_net>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1616,7 +1616,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:189
 #, no-wrap
-msgid "B<lh_binary_rootfs>(1)"
+msgid "B<lb_binary_rootfs>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1627,7 +1627,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:191
 #, no-wrap
-msgid "B<lh_binary_silo>(1)"
+msgid "B<lb_binary_silo>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1638,7 +1638,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:193
 #, no-wrap
-msgid "B<lh_binary_syslinux>(1)"
+msgid "B<lb_binary_syslinux>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1649,7 +1649,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:195
 #, no-wrap
-msgid "B<lh_binary_tar>(1)"
+msgid "B<lb_binary_tar>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1660,7 +1660,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:197
 #, no-wrap
-msgid "B<lh_binary_usb>(1)"
+msgid "B<lb_binary_usb>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1671,7 +1671,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:199
 #, no-wrap
-msgid "B<lh_binary_virtual-hdd>(1)"
+msgid "B<lb_binary_virtual-hdd>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1682,7 +1682,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:201
 #, no-wrap
-msgid "B<lh_binary_win32-loader>(1)"
+msgid "B<lb_binary_win32-loader>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1693,7 +1693,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:203
 #, no-wrap
-msgid "B<lh_binary_yaboot>(1)"
+msgid "B<lb_binary_yaboot>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1710,7 +1710,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:206
 #, no-wrap
-msgid "B<lh_source_debian>(1)"
+msgid "B<lb_source_debian>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1721,7 +1721,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:208
 #, no-wrap
-msgid "B<lh_source_debian-live>(1)"
+msgid "B<lb_source_debian-live>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1732,7 +1732,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:210
 #, no-wrap
-msgid "B<lh_source_disk>(1)"
+msgid "B<lb_source_disk>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1743,7 +1743,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:212
 #, no-wrap
-msgid "B<lh_source_iso>(1)"
+msgid "B<lb_source_iso>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1754,7 +1754,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:214
 #, no-wrap
-msgid "B<lh_source_checksums>(1)"
+msgid "B<lb_source_checksums>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1765,7 +1765,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:216
 #, no-wrap
-msgid "B<lh_source_net>(1)"
+msgid "B<lb_source_net>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1776,7 +1776,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:218
 #, no-wrap
-msgid "B<lh_source_tar>(1)"
+msgid "B<lb_source_tar>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1787,7 +1787,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:220
 #, no-wrap
-msgid "B<lh_source_usb>(1)"
+msgid "B<lb_source_usb>(1)"
 msgstr ""
 
 #. type: Plain text
@@ -1798,7 +1798,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:222
 #, no-wrap
-msgid "B<lh_source_virtual-hdd>(1)"
+msgid "B<lb_source_virtual-hdd>(1)"
 msgstr ""
 
 #.  FIXME
@@ -1829,7 +1829,7 @@ msgstr ""
 #. type: Plain text
 #: en/live-build.7:231
 msgid ""
-"For example, lh_bootstrap_debootstrap uses files named config/bootstrap and "
+"For example, lb_bootstrap_debootstrap uses files named config/bootstrap and "
 "config/bootstrap_debootstrap to read the options it will use. See the man "
 "pages of individual commands for details about the names and formats of the "
 "files they use. Generally, these files contain variables with values "
