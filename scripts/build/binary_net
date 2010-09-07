@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'build netboot binary image')"
@@ -24,12 +24,12 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if ! In_list net "${LH_BINARY_IMAGES}"
+if ! In_list net "${LB_BINARY_IMAGES}"
 then
 	exit 0
 fi
 
-if [ "${LH_NET_TARBALL}" = "none" ]
+if [ "${LB_NET_TARBALL}" = "none" ]
 then
 	exit 0
 fi
@@ -48,7 +48,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ "${LH_ARCHITECTURE}" = "sparc" ]
+if [ "${LB_ARCHITECTURE}" = "sparc" ]
 then
 	# Checking depends
 	Check_package chroot/usr/bin/elftoaout sparc-utils
@@ -61,7 +61,7 @@ then
 
 	# Set target and source directories
 	DESTDIR="tftpboot"
-	case "${LH_INITRAMFS}" in
+	case "${LB_INITRAMFS}" in
 		casper)
 			ORIGDIR="binary/casper"
 			;;
@@ -72,7 +72,7 @@ then
 	esac
 
 	# Find defaults
-	DEFAULT_FLAVOUR="$(echo ${LH_LINUX_FLAVOURS} | awk '{ print $1 }')"
+	DEFAULT_FLAVOUR="$(echo ${LB_LINUX_FLAVOURS} | awk '{ print $1 }')"
 	DEFAULT_KERNEL="$(basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR})"
 	DEFAULT_INITRD="initrd.img-$(echo ${DEFAULT_KERNEL} | sed -e 's|vmlinuz-||')"
 	DEFAULT_MAP="$(echo chroot/boot/System.map-*${DEFAULT_FLAVOUR})"
@@ -120,7 +120,7 @@ rm -f binary-net.tar.gz
 rm -f binary-net.tar
 
 # Creating image file
-ROOT_DIR=$(basename ${LH_NET_ROOT_PATH})
+ROOT_DIR=$(basename ${LB_NET_ROOT_PATH})
 if [ "${ROOT_DIR}" = "chroot" ]
 then
 	mv chroot chroot.tmp
@@ -135,7 +135,7 @@ mkdir binary.tmp
 mv ${ROOT_DIR} tftpboot binary.tmp
 cd binary.tmp
 
-case "${LH_NET_TARBALL}" in
+case "${LB_NET_TARBALL}" in
 	bzip2)
 		tar cfj ../binary-net-tar.bz2 *
 		;;

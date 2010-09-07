@@ -10,89 +10,89 @@
 
 Expand_packagelist ()
 {
-	_LH_EXPAND_QUEUE="$(basename "${1}")"
+	_LB_EXPAND_QUEUE="$(basename "${1}")"
 
 	shift
 
-	while [ -n "${_LH_EXPAND_QUEUE}" ]
+	while [ -n "${_LB_EXPAND_QUEUE}" ]
 	do
-		_LH_LIST_NAME="$(echo ${_LH_EXPAND_QUEUE} | cut -d" " -f1)"
-		_LH_EXPAND_QUEUE="$(echo ${_LH_EXPAND_QUEUE} | cut -s -d" " -f2-)"
-		_LH_LIST_LOCATION=""
-		_LH_NESTED=0
-		_LH_ENABLED=1
+		_LB_LIST_NAME="$(echo ${_LB_EXPAND_QUEUE} | cut -d" " -f1)"
+		_LB_EXPAND_QUEUE="$(echo ${_LB_EXPAND_QUEUE} | cut -s -d" " -f2-)"
+		_LB_LIST_LOCATION=""
+		_LB_NESTED=0
+		_LB_ENABLED=1
 
-		for _LH_SEARCH_PATH in ${@} "${LH_BASE:-/usr/share/live/build}/lists"
+		for _LB_SEARCH_PATH in ${@} "${LB_BASE:-/usr/share/live/build}/lists"
 		do
-			if [ -e "${_LH_SEARCH_PATH}/${_LH_LIST_NAME}" ]
+			if [ -e "${_LB_SEARCH_PATH}/${_LB_LIST_NAME}" ]
 			then
-				_LH_LIST_LOCATION="${_LH_SEARCH_PATH}/${_LH_LIST_NAME}"
+				_LB_LIST_LOCATION="${_LB_SEARCH_PATH}/${_LB_LIST_NAME}"
 				break
 			fi
 		done
 
-		if [ -z "${_LH_LIST_LOCATION}" ]
+		if [ -z "${_LB_LIST_LOCATION}" ]
 		then
-			echo "W: Unknown package list '${_LH_LIST_NAME}'" >&2
+			echo "W: Unknown package list '${_LB_LIST_NAME}'" >&2
 			continue
 		fi
 
-		while read _LH_LINE
+		while read _LB_LINE
 		do
-			case "${_LH_LINE}" in
+			case "${_LB_LINE}" in
 				\#if\ *)
-					if [ ${_LH_NESTED} -eq 1 ]
+					if [ ${_LB_NESTED} -eq 1 ]
 					then
 						echo "E: Nesting conditionals is not supported" >&2
 						exit 1
 					fi
-					_LH_NESTED=1
+					_LB_NESTED=1
 
-					_LH_NEEDLE="$(echo "${_LH_LINE}" | cut -d' ' -f3-)"
-					_LH_HAYSTACK="$(eval "echo \$LH_$(echo "${_LH_LINE}" | cut -d' ' -f2)")"
+					_LB_NEEDLE="$(echo "${_LB_LINE}" | cut -d' ' -f3-)"
+					_LB_HAYSTACK="$(eval "echo \$LB_$(echo "${_LB_LINE}" | cut -d' ' -f2)")"
 
-					_LH_ENABLED=0
-					for _LH_NEEDLE_PART in ${_LH_NEEDLE}
+					_LB_ENABLED=0
+					for _LB_NEEDLE_PART in ${_LB_NEEDLE}
 					do
-						for _LH_HAYSTACK_PART in ${_LH_HAYSTACK}
+						for _LB_HAYSTACK_PART in ${_LB_HAYSTACK}
 						do
-							if [ "${_LH_NEEDLE_PART}" = "${_LH_HAYSTACK_PART}" ]
+							if [ "${_LB_NEEDLE_PART}" = "${_LB_HAYSTACK_PART}" ]
 							then
-								_LH_ENABLED=1
+								_LB_ENABLED=1
 							fi
 						done
 					done
 					;;
 
 				\#endif*)
-					_LH_NESTED=0
-					_LH_ENABLED=1
+					_LB_NESTED=0
+					_LB_ENABLED=1
 					;;
 
 				\#*)
-					if [ ${_LH_ENABLED} -ne 1 ]
+					if [ ${_LB_ENABLED} -ne 1 ]
 					then
 						continue
 					fi
 
 					# Find includes
-					_LH_INCLUDES="$(echo "${_LH_LINE}" | sed -n \
+					_LB_INCLUDES="$(echo "${_LB_LINE}" | sed -n \
 						-e 's|^#<include> \([^ ]*\)|\1|gp' \
 						-e 's|^#include <\([^ ]*\)>|\1|gp')"
 
 					# Add to queue
-					_LH_EXPAND_QUEUE="$(echo ${_LH_EXPAND_QUEUE} ${_LH_INCLUDES} |
+					_LB_EXPAND_QUEUE="$(echo ${_LB_EXPAND_QUEUE} ${_LB_INCLUDES} |
 						sed -e 's|[ ]*$||' -e 's|^[ ]*||')"
 					;;
 
 				*)
-					if [ ${_LH_ENABLED} -eq 1 ]
+					if [ ${_LB_ENABLED} -eq 1 ]
 					then
-						echo "${_LH_LINE}"
+						echo "${_LB_LINE}"
 					fi
 					;;
 
 			esac
-		done < "${_LH_LIST_LOCATION}"
+		done < "${_LB_LIST_LOCATION}"
 	done
 }

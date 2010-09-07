@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'build binary image')"
@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if ! In_list virtual-hdd "${LH_BINARY_IMAGES}"
+if ! In_list virtual-hdd "${LB_BINARY_IMAGES}"
 then
 	exit 0
 fi
@@ -43,9 +43,9 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ "${LH_BUILD_WITH_CHROOT}" = "true" ]
+if [ "${LB_BUILD_WITH_CHROOT}" = "true" ]
 then
-	case "${LH_BINARY_FILESYSTEM}" in
+	case "${LB_BINARY_FILESYSTEM}" in
 		ext2|ext3)
 			Check_package chroot/sbin/mkfs.ext2 e2fsprogs
 			;;
@@ -65,9 +65,9 @@ then
 fi
 
 Echo_message "Creating virtual disk image..."
-dd if=/dev/zero of=binary-virtual.img bs=1024k count=0 seek=${LH_VIRTUAL_ROOT_SIZE}
+dd if=/dev/zero of=binary-virtual.img bs=1024k count=0 seek=${LB_VIRTUAL_ROOT_SIZE}
 
-if [ "${LH_BUILD_WITH_CHROOT}" = "true" ]
+if [ "${LB_BUILD_WITH_CHROOT}" = "true" ]
 then
 	mv binary-virtual.img chroot
 
@@ -78,7 +78,7 @@ then
 		Chroot chroot "ln -s /proc/mounts /etc/mtab"
 	fi
 
-	case "${LH_BINARY_FILESYSTEM}" in
+	case "${LB_BINARY_FILESYSTEM}" in
 		ext2)
 			Chroot chroot "mkfs.ext2 -F binary-virtual.img"
 			;;
@@ -90,7 +90,7 @@ then
 
 	mv chroot/binary-virtual.img ./
 else
-	case "${LH_BINARY_FILESYSTEM}" in
+	case "${LB_BINARY_FILESYSTEM}" in
 		ext2)
 			mkfs.ext2 -F binary-virtual.img
 			;;
@@ -102,11 +102,11 @@ else
 fi
 
 mkdir -p binary.tmp
-${LH_ROOT_COMMAND} mount -o loop binary-virtual.img binary.tmp
+${LB_ROOT_COMMAND} mount -o loop binary-virtual.img binary.tmp
 cp -a binary/* binary.tmp
 cp -af binary/.disk* binary.tmp
 
-${LH_ROOT_COMMAND} umount binary.tmp
+${LB_ROOT_COMMAND} umount binary.tmp
 rmdir binary.tmp
 
 # Saving cache

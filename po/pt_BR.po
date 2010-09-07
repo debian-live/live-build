@@ -69,12 +69,12 @@ msgstr "Não encontrei cache/packages_bootstrap."
 
 #: ../helpers/lh_binary_debian-installer:467
 msgid ""
-"You selected values of LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES and "
-"LH_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being "
+"You selected values of LB_CACHE, LB_CACHE_PACKAGES, LB_CACHE_STAGES and "
+"LB_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being "
 "cached - these are required when integrating the Debian Installer."
 msgstr ""
-"Você selecionou valores para LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES e "
-"LH_DEBIAN_INSTALLER que resultará na não realização de cache dos pacotes de "
+"Você selecionou valores para LB_CACHE, LB_CACHE_PACKAGES, LB_CACHE_STAGES e "
+"LB_DEBIAN_INSTALLER que resultará na não realização de cache dos pacotes de "
 "'bootstrap' - note que estes são requeridos quando há integração com o "
 "Instalador do Debian."
 
@@ -926,17 +926,17 @@ msgstr "Arquitetura ainda não suportada (FIXME)"
 msgid ""
 "You have placed some preseeding files into config/binary_debian-installer "
 "but you didn't specify the default preseeding file through "
-"LH_DEBIAN_INSTALLER_PRESEEDFILE. This means that debian-installer will not "
+"LB_DEBIAN_INSTALLER_PRESEEDFILE. This means that debian-installer will not "
 "take up a preseeding file by default."
 msgstr ""
 "Você colocou alguns arquivos de preseeding dentro de config/binary_debian-"
 "installer mas você não especificou o arquivo de preseeding padrão através de"
-"LH_DEBIAN_INSTALLER_PRESEEDFILE. Isso significa que o instalador do "
+"LB_DEBIAN_INSTALLER_PRESEEDFILE. Isso significa que o instalador do "
 "Debian não utilizará um arquivo de preseeding por padrão."
 
 #: ../functions/defaults.sh:769
 msgid ""
-"You selected LH_DISTRIBUTION='etch' and LH_INITRAMFS='live-initramfs' This "
+"You selected LB_DISTRIBUTION='etch' and LB_INITRAMFS='live-initramfs' This "
 "is a possible unsafe configuration as live-initramfs is not part of the etch "
 "distribution. Either make sure that live-initramfs is installable (e.g. "
 "through setting up etch-backports repository as third-party source or "
@@ -946,7 +946,7 @@ msgstr ""
 
 #: ../functions/defaults.sh:775
 msgid ""
-"You selected LH_DISTRIBUTION='etch' and LH_UNION_FILESYSTEM='aufs' This is a "
+"You selected LB_DISTRIBUTION='etch' and LB_UNION_FILESYSTEM='aufs' This is a "
 "possible unsafe configuration as aufs is not part of the etch distribution. "
 "Either make sure that aufs modules for your kernel are installable (e.g. "
 "through setting up etch-backports repository as third-party source or "
@@ -955,20 +955,20 @@ msgid ""
 msgstr ""
 
 #: ../functions/defaults.sh:785
-msgid "You selected LH_PACKAGES_LISTS='%s' and LH_APT='aptitude'"
-msgstr "Você selecionou LH_PACKAGES_LISTS='%s' e LH_APT='aptitude'"
+msgid "You selected LB_PACKAGES_LISTS='%s' and LB_APT='aptitude'"
+msgstr "Você selecionou LB_PACKAGES_LISTS='%s' e LB_APT='aptitude'"
 
 #: ../functions/defaults.sh:794
 msgid ""
-"You have selected values of LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES an "
-"dLH_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being "
+"You have selected values of LB_CACHE, LB_CACHE_PACKAGES, LB_CACHE_STAGES an "
+"dLB_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being "
 "cached. This is a possible unsafe configuration as the bootstrap packages "
 "are re-used when integrating the Debian Installer."
 msgstr ""
 
 #: ../functions/defaults.sh:805
 msgid ""
-"You have selected values of LH_BOOTLOADER and LH_BINARY_FILESYSTEM which are "
+"You have selected values of LB_BOOTLOADER and LB_BINARY_FILESYSTEM which are "
 "incompatible - syslinux only supports FAT filesystems."
 msgstr ""
 

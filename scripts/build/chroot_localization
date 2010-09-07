@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'install localization packages into chroot')"
@@ -39,9 +39,9 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Setting localizations
-if [ -n "${LH_LANGUAGE}" ]
+if [ -n "${LB_LANGUAGE}" ]
 then
-	case "${LH_LANGUAGE}" in
+	case "${LB_LANGUAGE}" in
 		af)
 			# Afrikaans
 			LOCALIZATIONS="iceweasel kde openoffice"
@@ -593,12 +593,12 @@ then
 	esac
 
 	# Setting languages
-	ICEAPE="${ICEAPE:-$LH_LANGUAGE}"
-	ICEDOVE="${ICEDOVE:-$LH_LANGUAGE}"
-	ICEWEASEL="${ICEWEASEL:-$LH_LANGUAGE}"
-	KDE="${KDE:-$LH_LANGUAGE}"
-	KOFFICE="${KOFFICE:-$LH_LANGUAGE}"
-	OPENOFFICE="${OPENOFFICE:-$LH_LANGUAGE}"
+	ICEAPE="${ICEAPE:-$LB_LANGUAGE}"
+	ICEDOVE="${ICEDOVE:-$LB_LANGUAGE}"
+	ICEWEASEL="${ICEWEASEL:-$LB_LANGUAGE}"
+	KDE="${KDE:-$LB_LANGUAGE}"
+	KOFFICE="${KOFFICE:-$LB_LANGUAGE}"
+	OPENOFFICE="${OPENOFFICE:-$LB_LANGUAGE}"
 
 	# Setting packages
 	for LOCALIZATION in ${LOCALIZATIONS}
@@ -612,7 +612,7 @@ then
 				Check_installed chroot/usr/bin/icedove icedove
 				if [ $INSTALL_STATUS -eq 0 ]
 				then
-					if [ "${LH_DISTRIBUTION}" = lenny ]
+					if [ "${LB_DISTRIBUTION}" = lenny ]
 					then
 						Check_package "" icedove-locale-"${ICEDOVE}"
 					else
@@ -639,7 +639,7 @@ then
 		esac
 	done
 
-	if [ "${LH_DISTRIBUTION}" = "lenny" ]
+	if [ "${LB_DISTRIBUTION}" = "lenny" ]
 	then
 		Check_installed chroot/usr/bin/gwenview gwenview; [ $INSTALL_STATUS -eq 0 ] && Check_package "" gwenview-i18n
 	fi

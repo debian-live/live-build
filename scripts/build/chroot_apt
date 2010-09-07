@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'manage /etc/apt/apt.conf')"
@@ -43,19 +43,19 @@ case "${1}" in
 		mkdir -p chroot/etc/apt/apt.conf.d
 
 		# Configuring apt ftp proxy
-		if [ -n "${LH_APT_FTP_PROXY}" ]
+		if [ -n "${LB_APT_FTP_PROXY}" ]
 		then
-			echo "Acquire::ftp::Proxy \"${LH_APT_FTP_PROXY}\";" > chroot/etc/apt/apt.conf.d/00ftp-proxy
+			echo "Acquire::ftp::Proxy \"${LB_APT_FTP_PROXY}\";" > chroot/etc/apt/apt.conf.d/00ftp-proxy
 		fi
 
 		# Configuring apt http proxy
-		if [ -n "${LH_APT_HTTP_PROXY}" ]
+		if [ -n "${LB_APT_HTTP_PROXY}" ]
 		then
-			echo "Acquire::http::Proxy \"${LH_APT_HTTP_PROXY}\";" > chroot/etc/apt/apt.conf.d/00http-proxy
+			echo "Acquire::http::Proxy \"${LB_APT_HTTP_PROXY}\";" > chroot/etc/apt/apt.conf.d/00http-proxy
 		fi
 
 		# Configuring apt pdiffs
-		case "${LH_APT_PDIFFS}" in
+		case "${LB_APT_PDIFFS}" in
 			true)
 				echo "Acquire::PDiffs \"true\";" > chroot/etc/apt/apt.conf.d/00pdiffs
 				;;
@@ -66,13 +66,13 @@ case "${1}" in
 		esac
 
 		# Configuring apt pipeline
-		if [ -n "${LH_APT_PIPELINE}" ]
+		if [ -n "${LB_APT_PIPELINE}" ]
 		then
-			echo "Acquire::http::Pipeline-Depth \"${LH_APT_PIPELINE}\";" > chroot/etc/apt/apt.conf.d/00pipeline
+			echo "Acquire::http::Pipeline-Depth \"${LB_APT_PIPELINE}\";" > chroot/etc/apt/apt.conf.d/00pipeline
 		fi
 
 		# Configuring apt recommends
-		case "${LH_APT_RECOMMENDS}" in
+		case "${LB_APT_RECOMMENDS}" in
 			true)
 				echo "APT::Install-Recommends \"true\";" > chroot/etc/apt/apt.conf.d/00recommends
 				echo "Aptitude::Recommends-Important \"true\";" >> chroot/etc/apt/apt.conf.d/00recommends
@@ -85,7 +85,7 @@ case "${1}" in
 		esac
 
 		# Configuring apt secure
-		case "${LH_APT_SECURE}" in
+		case "${LB_APT_SECURE}" in
 			true)
 				echo "APT::Get::AllowUnauthenticated \"false\";" > chroot/etc/apt/apt.conf.d/00secure
 				echo "Aptitude::CmdLine::Ignore-Trust-Violations \"false\";" >> chroot/etc/apt/apt.conf.d/00secure
@@ -164,7 +164,7 @@ case "${1}" in
 		rm -f chroot/etc/apt/apt.conf.d/00http-proxy
 
 		# Deconfiguring aptitude pdiffs
-		if [ "${LH_APT_PDIFFS}" = "true" ]
+		if [ "${LB_APT_PDIFFS}" = "true" ]
 		then
 			rm -f chroot/etc/apt/apt.conf.d/00pdiffs
 		fi
@@ -173,13 +173,13 @@ case "${1}" in
 		rm -f chroot/etc/apt/apt.conf.d/00pipeline
 
 		# Deconfiguring aptitude recommends
-		if [ "${LH_APT_RECOMMENDS}" = "true" ]
+		if [ "${LB_APT_RECOMMENDS}" = "true" ]
 		then
 			rm -f chroot/etc/apt/apt.conf.d/00recommends
 		fi
 
 		# Deconfiguring aptitude secure
-		if [ "${LH_APT_SECURE}" = "true" ]
+		if [ "${LB_APT_SECURE}" = "true" ]
 		then
 			rm -f chroot/etc/apt/apt.conf.d/00secure
 		fi

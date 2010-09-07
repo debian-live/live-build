@@ -238,7 +238,7 @@ Echo_file ()
 
 Echo_breakage ()
 {
-	case "${LH_DISTRIBUTION}" in
+	case "${LB_DISTRIBUTION}" in
 		sid|unstable)
 			Echo_message "If the following stage fails, the most likely cause of the problem is with your mirror configuration, a caching proxy or the sid distribution."
 			;;

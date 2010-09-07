@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'execute preseed in chroot')"
@@ -39,9 +39,9 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Processing preseeds
-for PRESEED in ${LH_PACKAGES_LISTS} ${LH_TASKS}
+for PRESEED in ${LB_PACKAGES_LISTS} ${LB_TASKS}
 do
-	if [ -f ${LH_BASE:-/usr/share/live/build}/preseed/"${PRESEED}" ]
+	if [ -f ${LB_BASE:-/usr/share/live/build}/preseed/"${PRESEED}" ]
 	then
 		# Check dependency
 		Check_package chroot/usr/bin/debconf-set-selections debconf

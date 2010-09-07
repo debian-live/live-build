@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'manage /etc/kernel-img.conf')"
@@ -54,27 +54,27 @@ warn_initrd = No
 EOF
 
 		# Diverting update-initramfs
-		#case "${LH_INITRAMFS}" in
+		#case "${LB_INITRAMFS}" in
 		#	live-initramfs|live-boot)
 		#		mv chroot/usr/sbin/update-initramfs chroot/usr/sbin/update-initramfs.live-build
 		#		;;
 		#esac
 
-		if [ "${LH_LINUX_PACKAGES}" != "none" ]
+		if [ "${LB_LINUX_PACKAGES}" != "none" ]
 		then
-			for FLAVOUR in ${LH_LINUX_FLAVOURS}
+			for FLAVOUR in ${LB_LINUX_FLAVOURS}
 			do
-				for PACKAGE in ${LH_LINUX_PACKAGES}
+				for PACKAGE in ${LB_LINUX_PACKAGES}
 				do
 					echo ${PACKAGE}-${FLAVOUR} >> chroot/root/chroot_packages
 				done
 			done
 		fi
 
-		# Queue installation of linux-image and ${LH_INITRAMFS}
-		if [ "${LH_INITRAMFS}" != "none" ]
+		# Queue installation of linux-image and ${LB_INITRAMFS}
+		if [ "${LB_INITRAMFS}" != "none" ]
 		then
-			echo ${LH_INITRAMFS} >> chroot/root/chroot_packages
+			echo ${LB_INITRAMFS} >> chroot/root/chroot_packages
 		fi
 
 		# Creating stage file

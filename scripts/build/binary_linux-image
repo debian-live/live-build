@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'install linux-image into binary')"
@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_BINARY_IMAGES}" = "virtual-hdd" ]
+if [ "${LB_BINARY_IMAGES}" = "virtual-hdd" ]
 then
 	exit 0
 fi
@@ -43,7 +43,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-case "${LH_INITRAMFS}" in
+case "${LB_INITRAMFS}" in
 	casper)
 		DESTDIR="binary/casper"
 		;;
@@ -57,7 +57,7 @@ case "${LH_INITRAMFS}" in
 		;;
 esac
 
-case "${LH_ARCHITECTURE}" in
+case "${LB_ARCHITECTURE}" in
 	powerpc)
 		LINUX="vmlinux"
 		;;
@@ -76,7 +76,7 @@ mkdir -p "${DESTDIR}"
 cp chroot/boot/"${LINUX}"-* "${DESTDIR}"
 cp chroot/boot/initrd.img-* "${DESTDIR}"
 
-case "${LH_INITRAMFS}" in
+case "${LB_INITRAMFS}" in
 	live-initramfs|live-boot)
 		if [ -e chroot/usr/share/doc/live-initramfs/parameters.txt ]
 		then

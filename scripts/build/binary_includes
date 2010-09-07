@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'copy files into binary')"
@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_INCLUDES}" = "none" ]
+if [ "${LB_INCLUDES}" = "none" ]
 then
 	exit 0
 fi
@@ -44,25 +44,25 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Check user includes
-if [ ! -d "${LH_INCLUDES}" ]
+if [ ! -d "${LB_INCLUDES}" ]
 then
-	if [ -d ../"${LH_INCLUDES}" ]
+	if [ -d ../"${LB_INCLUDES}" ]
 	then
-		LH_INCLUDES="../${LH_INCLUDES}"
+		LB_INCLUDES="../${LB_INCLUDES}"
 	else
-		Echo_error "user specified includes not accessible in %s" "${LH_INCLUDES}"
+		Echo_error "user specified includes not accessible in %s" "${LB_INCLUDES}"
 		exit 1
 	fi
 fi
 
 # Checking local includes
-if [ -d config/includes/"${LH_DISTRIBUTION}" ]
+if [ -d config/includes/"${LB_DISTRIBUTION}" ]
 then
-	LH_INCLUDES="config/includes"
+	LB_INCLUDES="config/includes"
 fi
 
 # Assemble architecture
-case "${LH_ARCHITECTURE}" in
+case "${LB_ARCHITECTURE}" in
 	amd64)
 		ARCH="amd"
 		;;
@@ -81,9 +81,9 @@ case "${LH_ARCHITECTURE}" in
 esac
 
 # Working arround vfat limitations
-case "${LH_BINARY_IMAGES}" in
+case "${LB_BINARY_IMAGES}" in
 	usb*)
-		case "${LH_BINARY_FILESYSTEM}" in
+		case "${LB_BINARY_FILESYSTEM}" in
 			fat*)
 				CP_OPTIONS="-L"
 				;;
@@ -92,51 +92,51 @@ case "${LH_BINARY_IMAGES}" in
 esac
 
 # Copying common templates
-if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common ] && \
-Find_files "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common/*
+if [ -d "${LB_INCLUDES}"/"${LB_DISTRIBUTION}"/common ] && \
+Find_files "${LB_INCLUDES}"/"${LB_DISTRIBUTION}"/common/*
 then
-	cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common/* binary
+	cp -r ${CP_OPTIONS} "${LB_INCLUDES}"/"${LB_DISTRIBUTION}"/common/* binary
 fi
 
-if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common."${ARCH}" ] && \
-Find_files "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common."${ARCH}"/*
+if [ -d "${LB_INCLUDES}"/"${LB_DISTRIBUTION}"/common."${ARCH}" ] && \
+Find_files "${LB_INCLUDES}"/"${LB_DISTRIBUTION}"/common."${ARCH}"/*
 then
-	cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/common."${ARCH}"/* binary
+	cp -r ${CP_OPTIONS} "${LB_INCLUDES}"/"${LB_DISTRIBUTION}"/common."${ARCH}"/* binary
 fi
 
 # Copying live templates
-if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live ] && \
-Find_files "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live/*
+if [ -d "${LB_INCLUDES}"/"${LB_DISTRIBUTION}"/live ] && \
+Find_files "${LB_INCLUDES}"/"${LB_DISTRIBUTION}"/live/*
 then
-	cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live/* binary
+	cp -r ${CP_OPTIONS} "${LB_INCLUDES}"/"${LB_DISTRIBUTION}"/live/* binary
 fi
 
-if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live."${ARCH}" ] && \
-Find_files "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live."${ARCH}"/*
+if [ -d "${LB_INCLUDES}"/"${LB_DISTRIBUTION}"/live."${ARCH}" ] && \
+Find_files "${LB_INCLUDES}"/"${LB_DISTRIBUTION}"/live."${ARCH}"/*
 then
-	cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/live."${ARCH}"/* binary
+	cp -r ${CP_OPTIONS} "${LB_INCLUDES}"/"${LB_DISTRIBUTION}"/live."${ARCH}"/* binary
 fi
 
-if [ "${LH_DEBIAN_INSTALLER}" != "false" ]
+if [ "${LB_DEBIAN_INSTALLER}" != "false" ]
 then
 	# Copying install templates
-	if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install ] && \
-	Find_files "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install/*
+	if [ -d "${LB_INCLUDES}"/"${LB_DISTRIBUTION}"/install ] && \
+	Find_files "${LB_INCLUDES}"/"${LB_DISTRIBUTION}"/install/*
 	then
-		cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install/* binary
+		cp -r ${CP_OPTIONS} "${LB_INCLUDES}"/"${LB_DISTRIBUTION}"/install/* binary
 	fi
 
-	if [ -d "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install."${ARCH}" ] && \
-	Find_files "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install."${ARCH}"/*
+	if [ -d "${LB_INCLUDES}"/"${LB_DISTRIBUTION}"/install."${ARCH}" ] && \
+	Find_files "${LB_INCLUDES}"/"${LB_DISTRIBUTION}"/install."${ARCH}"/*
 	then
-		cp -r ${CP_OPTIONS} "${LH_INCLUDES}"/"${LH_DISTRIBUTION}"/install."${ARCH}"/* binary
+		cp -r ${CP_OPTIONS} "${LB_INCLUDES}"/"${LB_DISTRIBUTION}"/install."${ARCH}"/* binary
 	fi
 
 	# Adjusting install templates
-	ARCHITECTURE="$(echo ${LH_ARCHITECTURE} | sed -e 's| |/|g')"
-	DISTRIBUTION="$(echo ${LH_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]')"
-	DISTRIBUTION="${DISTRIBUTION}$(echo ${LH_DISTRIBUTION} | cut -b 2-)"
-	eval VERSION="$`echo RELEASE_${LH_DISTRIBUTION}`"
+	ARCHITECTURE="$(echo ${LB_ARCHITECTURE} | sed -e 's| |/|g')"
+	DISTRIBUTION="$(echo ${LB_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]')"
+	DISTRIBUTION="${DISTRIBUTION}$(echo ${LB_DISTRIBUTION} | cut -b 2-)"
+	eval VERSION="$`echo RELEASE_${LB_DISTRIBUTION}`"
 
 	if [ -d binary/pool/main/l/live-installer ]
 	then
@@ -148,7 +148,7 @@ then
 	DEBIAN_NAME="Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} ${TYPE} Binary $(date +%Y%m%d-%H:%M)"
 	DEBIAN_DATE="$(date +%Y%m%d-%H:%M)"
 
-	if [ "${LH_ARCHITECTURE}" = "i386" ]
+	if [ "${LB_ARCHITECTURE}" = "i386" ]
 	then
 		DEBIAN_TOOLS_HTML=" <P>\n <tt>&nbsp;\n <A href="tools/">/tools/</a>\n </tt>\n\n and\n <tt>&nbsp;\n <A href="install/floppy/">/install/floppy/</a>\n </tt>"
 		DEBIAN_TOOLS_TXT="/tools/ and   /install/floppy/"

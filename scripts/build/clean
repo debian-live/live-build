@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Read meta config
 if [ "${1}" != "noauto" ] && [ -x auto/clean ]
@@ -68,30 +68,30 @@ do
 			;;
 
 		--cache)
-			${LH_ROOT_COMMAND} rm -rf cache
+			${LB_ROOT_COMMAND} rm -rf cache
 			;;
 
 		--chroot)
 			Echo_message "Cleaning chroot"
-			${LH_ROOT_COMMAND} umount -f chroot/sys > /dev/null 2>&1 || true
-			${LH_ROOT_COMMAND} umount -f chroot/proc/sys/fs/binfmt_misc > /dev/null 2>&1 || true
-			${LH_ROOT_COMMAND} umount -f chroot/proc > /dev/null 2>&1 || true
-			${LH_ROOT_COMMAND} umount -f chroot/lib/init/rw > /dev/null 2>&1 || true
-			${LH_ROOT_COMMAND} umount -f chroot/dev/shm > /dev/null 2>&1 || true
-			${LH_ROOT_COMMAND} umount -f chroot/dev/pts > /dev/null 2>&1 || true
-			${LH_ROOT_COMMAND} umount -f chroot/dev > /dev/null 2>&1 || true
-			${LH_ROOT_COMMAND} umount -f chroot/var/lib/dpkg > /dev/null 2>&1 || true
+			${LB_ROOT_COMMAND} umount -f chroot/sys > /dev/null 2>&1 || true
+			${LB_ROOT_COMMAND} umount -f chroot/proc/sys/fs/binfmt_misc > /dev/null 2>&1 || true
+			${LB_ROOT_COMMAND} umount -f chroot/proc > /dev/null 2>&1 || true
+			${LB_ROOT_COMMAND} umount -f chroot/lib/init/rw > /dev/null 2>&1 || true
+			${LB_ROOT_COMMAND} umount -f chroot/dev/shm > /dev/null 2>&1 || true
+			${LB_ROOT_COMMAND} umount -f chroot/dev/pts > /dev/null 2>&1 || true
+			${LB_ROOT_COMMAND} umount -f chroot/dev > /dev/null 2>&1 || true
+			${LB_ROOT_COMMAND} umount -f chroot/var/lib/dpkg > /dev/null 2>&1 || true
 
-			${LH_ROOT_COMMAND} umount -f chroot/binary.tmp > /dev/null 2>&1 || true
-			${LH_ROOT_COMMAND} umount -f chroot/dev.tmp/pts > /dev/null 2>&1 || true
+			${LB_ROOT_COMMAND} umount -f chroot/binary.tmp > /dev/null 2>&1 || true
+			${LB_ROOT_COMMAND} umount -f chroot/dev.tmp/pts > /dev/null 2>&1 || true
 
-			${LH_ROOT_COMMAND} rm -rf chroot chroot.tmp
+			${LB_ROOT_COMMAND} rm -rf chroot chroot.tmp
 
 			rm -f .stage/chroot*
 			;;
 
 		--binary)
-			${LH_ROOT_COMMAND} umount -f binary.tmp > /dev/null 2>&1 || true
+			${LB_ROOT_COMMAND} umount -f binary.tmp > /dev/null 2>&1 || true
 			rm -rf binary.tmp binary.deb binary.udeb
 			rm -f binary*.iso
 			rm -f binary*.img

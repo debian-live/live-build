@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'installs syslinux into binary')"
@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_BOOTLOADER}" != "syslinux" ]
+if [ "${LB_BOOTLOADER}" != "syslinux" ]
 then
 	exit 0
 fi
@@ -90,7 +90,7 @@ Syslinux_live_entry ()
 	INITRD="${4}"
 	APPEND="${5}"
 
-	case "${LH_BINARY_IMAGES}" in
+	case "${LB_BINARY_IMAGES}" in
 		iso*|usb*)
 			NUMBER="$(ls -1 ${KERNEL_PATH} | grep 'vmlinuz[0-9]\+$' | wc -l)"
 			NUMBER="$((${NUMBER} +1))"
@@ -127,7 +127,7 @@ Syslinux_live_entry ()
 	fi
 
 	LINUX_LIVE="${LINUX_LIVE}\tkernel ${LIVE_KERNEL_PATH}/${KERNEL}\n"
-	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=${LIVE_KERNEL_PATH}/${INITRD} boot=${INITFS} live-config ${LH_BOOTAPPEND_LIVE} ${APPEND}\n"
+	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=${LIVE_KERNEL_PATH}/${INITRD} boot=${INITFS} live-config ${LB_BOOTAPPEND_LIVE} ${APPEND}\n"
 
 	# Failsafe kernel
 	LINUX_LIVE="${LINUX_LIVE}\nlabel ${LABEL}failsafe\n"
@@ -139,7 +139,7 @@ Syslinux_live_entry ()
 	fi
 
 	LINUX_LIVE="${LINUX_LIVE}\tkernel ${LIVE_KERNEL_PATH}/${KERNEL}\n"
-	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=${LIVE_KERNEL_PATH}/${INITRD} boot=${INITFS} live-config ${LH_BOOTAPPEND_LIVE} ${APPEND} ${FAILSAFE}\n"
+	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=${LIVE_KERNEL_PATH}/${INITRD} boot=${INITFS} live-config ${LB_BOOTAPPEND_LIVE} ${APPEND} ${FAILSAFE}\n"
 }
 
 Syslinux_install_entry ()
@@ -184,7 +184,7 @@ Syslinux_install_entry ()
 		LINUX_INSTALL="${LINUX_INSTALL}\nlabel $(echo "${TYPE}" | tr A-Z a-z)${TYPE_SUFFIX}\n"
 		LINUX_INSTALL="${LINUX_INSTALL}\tmenu label ${LABEL} ${TYPE}\n"
 		LINUX_INSTALL="${LINUX_INSTALL}\tkernel ${LIVE_INSTALL_KERNEL_PATH}/${KERNEL}\n"
-		LINUX_INSTALL="${LINUX_INSTALL}\tappend initrd=${LIVE_INSTALL_KERNEL_PATH}/${INITRD} ${TAPPEND} ${LH_BOOTAPPEND_INSTALL}\n"
+		LINUX_INSTALL="${LINUX_INSTALL}\tappend initrd=${LIVE_INSTALL_KERNEL_PATH}/${INITRD} ${TAPPEND} ${LB_BOOTAPPEND_INSTALL}\n"
 	done
 }
 
@@ -192,13 +192,13 @@ Copy_syslinux_templates ()
 {
 	cp -r "${TEMPLATES}"/common/* ${SCREEN_PATH}
 
-	if [ "${LH_SYSLINUX_MENU}" = "false" ]
+	if [ "${LB_SYSLINUX_MENU}" = "false" ]
 	then
 		cp -r "${TEMPLATES}"/normal/* ${SCREEN_PATH}
 	else
 		cp -r "${TEMPLATES}"/menu/* ${SCREEN_PATH}
 
-		case "${LH_SYSLINUX_MENU}" in
+		case "${LB_SYSLINUX_MENU}" in
 			gfxboot)
 				MENUMODULE="gfxboot.c32"
 				;;
@@ -212,16 +212,16 @@ Copy_syslinux_templates ()
 				;;
 
 			*)
-				if [ -z "${LH_SYSLINUX_CFG}" ]
+				if [ -z "${LB_SYSLINUX_CFG}" ]
 				then
 					MENUMODULE=$(grep 'menu.c32' ${TEMPLATES}/menu/syslinux.cfg | sed 's|default\s*.*/\(.*menu.c32\)$|\1|g')
 				else
-					LH_SYSLINUX_CFG="${LH_SYSLINUX_CFG:-${TEMPLATES}/menu/syslinux.cfg}"
+					LB_SYSLINUX_CFG="${LB_SYSLINUX_CFG:-${TEMPLATES}/menu/syslinux.cfg}"
 				fi
 				;;
 		esac
 
-		case "${LH_BUILD_WITH_CHROOT}" in
+		case "${LB_BUILD_WITH_CHROOT}" in
 			true)
 				cp chroot/usr/lib/syslinux/"${MENUMODULE}" ${DATA_PATH}
 				;;
@@ -231,9 +231,9 @@ Copy_syslinux_templates ()
 		esac
 	fi
 
-	if ls "${TEMPLATES}/${LH_LANGUAGE}"/* > /dev/null 2>&1
+	if ls "${TEMPLATES}/${LB_LANGUAGE}"/* > /dev/null 2>&1
 	then
-		cp -r "${TEMPLATES}"/"${LH_LANGUAGE}"/* ${SCREEN_PATH}
+		cp -r "${TEMPLATES}"/"${LB_LANGUAGE}"/* ${SCREEN_PATH}
 	else
 		if ls "${TEMPLATES}"/en/* > /dev/null 2>&1
 		then
@@ -249,7 +249,7 @@ Copy_syslinux_templates ()
 		done
 	fi
 
-	if [ "${LH_DEBIAN_INSTALLER}" != "false" ]
+	if [ "${LB_DEBIAN_INSTALLER}" != "false" ]
 	then
 		if ls ${SCREEN_PATH}/*.install > /dev/null 2>&1
 		then
@@ -259,7 +259,7 @@ Copy_syslinux_templates ()
 			done
 		fi
 
-		case "${LH_ARCHITECTURE}" in
+		case "${LB_ARCHITECTURE}" in
 			amd64|i386|powerpc)
 				if ls ${SCREEN_PATH}/*.install.g-i > /dev/null 2>&1
 				then
@@ -278,36 +278,36 @@ Copy_syslinux_templates ()
 		rm -f ${SCREEN_PATH}/*.install*
 	fi
 
-	if [ "${LH_SYSLINUX_MENU}" != "false" ]
+	if [ "${LB_SYSLINUX_MENU}" != "false" ]
 	then
 		rm -f ${DATA_PATH}/boot.txt
 	fi
 
 	# Copying custom splash screen
-	if [ "${LH_SYSLINUX_SPLASH}" = "none" ]
+	if [ "${LB_SYSLINUX_SPLASH}" = "none" ]
 	then
 		# no splash screen
 		SPLASH=""
 		rm -f ${SCREEN_PATH}/splash.rle
 		rm -f ${DATA_PATH}/splash.png
 	else
-		if [ "${LH_SYSLINUX_MENU}" = "false" ]
+		if [ "${LB_SYSLINUX_MENU}" = "false" ]
 		then
 			SPLASH="${LIVE_DATA_PATH}/splash.rle"
 		else
 			SPLASH="${LIVE_DATA_PATH}/splash.png"
 		fi
 
-		if [ -n "${LH_SYSLINUX_SPLASH}" ]
+		if [ -n "${LB_SYSLINUX_SPLASH}" ]
 		then
-			if [ ! -e "${LH_SYSLINUX_SPLASH}" ]
+			if [ ! -e "${LB_SYSLINUX_SPLASH}" ]
 			then
-				Echo_error "%s doen't exist" "${LH_SYSLINUX_SPLASH}"
+				Echo_error "%s doen't exist" "${LB_SYSLINUX_SPLASH}"
 				exit 1
 			else
 				rm -f ${SCREEN_PATH}/splash.rle
 				rm -f ${DATA_PATH}/splash.png
-				cp -f "${LH_SYSLINUX_SPLASH}" ${DATA_PATH}/$(basename ${SPLASH})
+				cp -f "${LB_SYSLINUX_SPLASH}" ${DATA_PATH}/$(basename ${SPLASH})
 			fi
 		fi
 	fi
@@ -326,15 +326,15 @@ Configure_syslinux_templates ()
 		       -e "s|{\$LIVE_DATA_PATH}|${LIVE_DATA_PATH}|" \
 		       -e "s|{\$LIVE_KERNEL_PATH}|${LIVE_KERNEL_PATH}|" \
 		       -e "s|{\$SPLASH}|${SPLASH}|" \
-		       -e "s|{\$LH_DISTRIBUTION}|${LH_DISTRIBUTION}|" \
-		       -e "s|{\$LH_DATE}|$(date +%Y%m%d)|" \
-		       -e "s|{\$LH_MEDIA}|${MEDIA}|" \
-		       -e "s|{\$LH_VERSION}|${VERSION}|" \
-		       -e "s|{\$LH_SYSLINUX_TIMEOUT}|${LH_SYSLINUX_TIMEOUT}0|" \
+		       -e "s|{\$LB_DISTRIBUTION}|${LB_DISTRIBUTION}|" \
+		       -e "s|{\$LB_DATE}|$(date +%Y%m%d)|" \
+		       -e "s|{\$LB_MEDIA}|${MEDIA}|" \
+		       -e "s|{\$LB_VERSION}|${VERSION}|" \
+		       -e "s|{\$LB_SYSLINUX_TIMEOUT}|${LB_SYSLINUX_TIMEOUT}0|" \
 		$template_file
 	done
 
-	case "${LH_BINARY_IMAGES}" in
+	case "${LB_BINARY_IMAGES}" in
 		usb*)
 			if [ -f "${SYSLINUX_PATH}/exithelp.cfg" ]
 			then
@@ -352,7 +352,7 @@ Configure_syslinux_templates ()
 }
 
 # Setting up common variables
-case "${LH_INITRAMFS}" in
+case "${LB_INITRAMFS}" in
 	casper)
 		INITFS="casper"
 		;;
@@ -363,7 +363,7 @@ case "${LH_INITRAMFS}" in
 esac
 
 # Setting boot method specific variables
-case "${LH_BINARY_IMAGES}" in
+case "${LB_BINARY_IMAGES}" in
 	iso*)
 		SYSLINUX_PATH="binary/isolinux"
 		KERNEL_PATH="binary/${INITFS}"
@@ -378,12 +378,12 @@ case "${LH_BINARY_IMAGES}" in
 
 	net)
 		SYSLINUX_PATH="tftpboot"
-		KERNEL_PATH="${SYSLINUX_PATH}/debian-live/${LH_ARCHITECTURE}"
-		SCREEN_PATH="${SYSLINUX_PATH}/debian-live/${LH_ARCHITECTURE}/boot-screens"
+		KERNEL_PATH="${SYSLINUX_PATH}/debian-live/${LB_ARCHITECTURE}"
+		SCREEN_PATH="${SYSLINUX_PATH}/debian-live/${LB_ARCHITECTURE}/boot-screens"
 		DATA_PATH="${SCREEN_PATH}"
-		LIVE_KERNEL_PATH="debian-live/${LH_ARCHITECTURE}"
-		LIVE_INSTALL_KERNEL_PATH="debian-install/${LH_ARCHITECTURE}"
-		LIVE_SCREEN_PATH="debian-live/${LH_ARCHITECTURE}/boot-screens"
+		LIVE_KERNEL_PATH="debian-live/${LB_ARCHITECTURE}"
+		LIVE_INSTALL_KERNEL_PATH="debian-install/${LB_ARCHITECTURE}"
+		LIVE_SCREEN_PATH="debian-live/${LB_ARCHITECTURE}/boot-screens"
 		LIVE_DATA_PATH="${LIVE_SCREEN_PATH}"
 		MEDIA="netboot"
 		;;
@@ -409,65 +409,65 @@ mkdir -p "${SCREEN_PATH}"
 mkdir -p "${DATA_PATH}"
 
 # Setting boot parameters
-case "${LH_ENCRYPTION}" in
+case "${LB_ENCRYPTION}" in
 	""|false)
 		;;
 	*)
-		LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} encryption=${LH_ENCRYPTION}"
+		LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} encryption=${LB_ENCRYPTION}"
 		;;
 esac
 
-if [ -n "${LH_USERNAME}" ]
+if [ -n "${LB_USERNAME}" ]
 then
-	case "${LH_INITRAMFS}" in
+	case "${LB_INITRAMFS}" in
 		casper)
-			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} username=${LH_USERNAME}"
+			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} username=${LB_USERNAME}"
 			;;
 
 		live-initramfs|live-boot)
-			if [ "${LH_USERNAME}" != "user" ]
+			if [ "${LB_USERNAME}" != "user" ]
 			then
-				LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} username=${LH_USERNAME}"
+				LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} username=${LB_USERNAME}"
 			fi
 			;;
 	esac
 fi
 
-if [ -n "${LH_HOSTNAME}" ]
+if [ -n "${LB_HOSTNAME}" ]
 then
-	case "${LH_INITRAMFS}" in
+	case "${LB_INITRAMFS}" in
 		casper)
-			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} hostname=${LH_HOSTNAME}"
+			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} hostname=${LB_HOSTNAME}"
 			;;
 
 		live-initramfs|live-boot)
-			if [ "${LH_HOSTNAME}" != "debian" ]
+			if [ "${LB_HOSTNAME}" != "debian" ]
 			then
-				LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} hostname=${LH_HOSTNAME}"
+				LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} hostname=${LB_HOSTNAME}"
 			fi
 			;;
 	esac
 fi
 
-if [ "${LH_UNION_FILESYSTEM}" != "aufs" ]
+if [ "${LB_UNION_FILESYSTEM}" != "aufs" ]
 then
-	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} union=${LH_UNION_FILESYSTEM}"
+	LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} union=${LB_UNION_FILESYSTEM}"
 fi
 
-if [ "${LH_EXPOSED_ROOT}" != "false" ]
+if [ "${LB_EXPOSED_ROOT}" != "false" ]
 then
-	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} exposedroot"
+	LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} exposedroot"
 fi
 
-if [ "${LH_BINARY_IMAGES}" = "net" ]
+if [ "${LB_BINARY_IMAGES}" = "net" ]
 then
-	case "${LH_NET_ROOT_FILESYSTEM}" in
+	case "${LB_NET_ROOT_FILESYSTEM}" in
 		nfs)
-			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} netboot=nfs nfsroot=${LH_NET_ROOT_SERVER}:${LH_NET_ROOT_PATH}"
+			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} netboot=nfs nfsroot=${LB_NET_ROOT_SERVER}:${LB_NET_ROOT_PATH}"
 			;;
 
 		cifs)
-			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} netboot=cifs nfsroot=//${LH_NET_ROOT_SERVER}${LH_NET_ROOT_PATH}"
+			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} netboot=cifs nfsroot=//${LB_NET_ROOT_SERVER}${LB_NET_ROOT_PATH}"
 			;;
 
 		*)
@@ -476,22 +476,22 @@ then
 			;;
 	esac
 
-	if [ -n "${LH_NET_ROOT_MOUNTOPTIONS}" ]
+	if [ -n "${LB_NET_ROOT_MOUNTOPTIONS}" ]
 	then
-		LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} nfsopts=${LH_NET_ROOT_MOUNTOPTIONS}"
+		LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} nfsopts=${LB_NET_ROOT_MOUNTOPTIONS}"
 	fi
 fi
 
-if [ -n "${LH_NET_COW_PATH}" ]
+if [ -n "${LB_NET_COW_PATH}" ]
 then
-	case "${LH_NET_COW_FILESYSTEM}" in
+	case "${LB_NET_COW_FILESYSTEM}" in
 		nfs)
-			if [ -n "${LH_NET_COW_MOUNTOPTIONS}" ]
+			if [ -n "${LB_NET_COW_MOUNTOPTIONS}" ]
 			then
-				LH_NET_COW_MOUNTOPTIONS=",${LH_NET_COW_MOUNTOPTIONS}"
+				LB_NET_COW_MOUNTOPTIONS=",${LB_NET_COW_MOUNTOPTIONS}"
 			fi
 
-			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} nfscow=${LH_NET_COW_SERVER}:${LH_NET_COW_PATH}${LH_NET_COW_MOUNTOPTIONS}"
+			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} nfscow=${LB_NET_COW_SERVER}:${LB_NET_COW_PATH}${LB_NET_COW_MOUNTOPTIONS}"
 			;;
 
 		*)
@@ -501,7 +501,7 @@ then
 	esac
 fi
 
-LH_BOOTAPPEND_LIVE="$(echo ${LH_BOOTAPPEND_LIVE} | sed -e 's|  ||')"
+LB_BOOTAPPEND_LIVE="$(echo ${LB_BOOTAPPEND_LIVE} | sed -e 's|  ||')"
 
 # Parameters are listed at: linux/Documentation/kernel-parameters.txt
 FAILSAFE="noapic noapm nodma nomce nolapic nomodeset nosmp vga=normal"
@@ -512,34 +512,34 @@ then
 	mv binary/${INITFS}/vmlinuz* ${KERNEL_PATH}
 	mv binary/${INITFS}/initrd* ${KERNEL_PATH}
 
-	if [ "${LH_MEMTEST}" != "false" ] && [ "${LH_MEMTEST}" != "none" ]
+	if [ "${LB_MEMTEST}" != "false" ] && [ "${LB_MEMTEST}" != "none" ]
 	then
 		mv binary/${INITFS}/memtest ${KERNEL_PATH}
 	fi
 fi
 
 # Default entries
-DEFAULT_FLAVOUR="$(echo ${LH_LINUX_FLAVOURS} | awk '{ print $1 }')"
+DEFAULT_FLAVOUR="$(echo ${LB_LINUX_FLAVOURS} | awk '{ print $1 }')"
 DEFAULT_KERNEL="$(basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR})"
 DEFAULT_INITRD="initrd.img-$(echo ${DEFAULT_KERNEL} | sed -e 's|vmlinuz-||')"
 
-Syslinux_live_entry "live" "${LH_SYSLINUX_MENU_LIVE_ENTRY}" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
+Syslinux_live_entry "live" "${LB_SYSLINUX_MENU_LIVE_ENTRY}" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
 
-if [ "$(echo ${LH_LINUX_FLAVOURS} | wc -w)" -gt "1" ]
+if [ "$(echo ${LB_LINUX_FLAVOURS} | wc -w)" -gt "1" ]
 then
-	for FLAVOUR in ${LH_LINUX_FLAVOURS}
+	for FLAVOUR in ${LB_LINUX_FLAVOURS}
 	do
 		if [ "${FLAVOUR}" != "${DEFAULT_FLAVOUR}" ]
 		then
 			FLAVOUR_KERNEL="$(basename chroot/boot/vmlinuz-*${FLAVOUR})"
 			FLAVOUR_INITRD="initrd.img-$(echo ${FLAVOUR_KERNEL} | sed -e 's|vmlinuz-||')"
-			Syslinux_live_entry "live-${FLAVOUR}" "${LH_SYSLINUX_MENU_LIVE_ENTRY} ${FLAVOUR}" "${FLAVOUR_KERNEL}" "${FLAVOUR_INITRD}"
+			Syslinux_live_entry "live-${FLAVOUR}" "${LB_SYSLINUX_MENU_LIVE_ENTRY} ${FLAVOUR}" "${FLAVOUR_KERNEL}" "${FLAVOUR_INITRD}"
 		fi
 	done
 fi
 
 # Only needed for non-vesamenu, non-gfxboot syslinux
-case "${LH_SYSLINUX_MENU}" in
+case "${LB_SYSLINUX_MENU}" in
 	false|menu)
 		# Adding syslinux hardcoded default label entry
 		Syslinux_live_entry "linux" "" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
@@ -547,7 +547,7 @@ case "${LH_SYSLINUX_MENU}" in
 esac
 
 # Assembling debian-installer configuration
-if [ "${LH_DEBIAN_INSTALLER}" != "false" ]
+if [ "${LB_DEBIAN_INSTALLER}" != "false" ]
 then
 	VMLINUZ_DI="vmlinuz"
 	INITRD_DI="initrd.gz"
@@ -571,7 +571,7 @@ fi
 # Assembling memtest configuration
 if [ -f "${KERNEL_PATH}"/memtest ]
 then
-	Syslinux_memtest_entry "memtest" "${LH_SYSLINUX_MENU_MEMTEST_ENTRY}" "memtest"
+	Syslinux_memtest_entry "memtest" "${LB_SYSLINUX_MENU_MEMTEST_ENTRY}" "memtest"
 fi
 
 # Copy templates to base syslinux directory
@@ -581,9 +581,9 @@ Copy_syslinux_templates
 Configure_syslinux_templates
 
 # Configure syslinux setup per boot method
-case "${LH_BINARY_IMAGES}" in
+case "${LB_BINARY_IMAGES}" in
 	iso*)
-		case "${LH_BUILD_WITH_CHROOT}" in
+		case "${LB_BUILD_WITH_CHROOT}" in
 			true)
 				cp chroot/usr/lib/syslinux/isolinux.bin ${SCREEN_PATH}
 				;;
@@ -595,14 +595,14 @@ case "${LH_BINARY_IMAGES}" in
 		mv ${SCREEN_PATH}/syslinux.cfg ${SCREEN_PATH}/isolinux.cfg
 
 		# Copying configuration file
-		if [ -n "${LH_SYSLINUX_CFG}" ]
+		if [ -n "${LB_SYSLINUX_CFG}" ]
 		then
-			cp "${LH_SYSLINUX_CFG}" ${SCREEN_PATH}/isolinux.cfg
+			cp "${LB_SYSLINUX_CFG}" ${SCREEN_PATH}/isolinux.cfg
 		fi
 		;;
 
 	net)
-		case "${LH_BUILD_WITH_CHROOT}" in
+		case "${LB_BUILD_WITH_CHROOT}" in
 			true)
 				cp chroot/usr/lib/syslinux/pxelinux.0 ${KERNEL_PATH}
 				;;
@@ -626,14 +626,14 @@ case "${LH_BINARY_IMAGES}" in
 		mv ${SCREEN_PATH}/syslinux.cfg ${KERNEL_PATH}/pxelinux.cfg/default
 
 		# Copying configuration file
-		if [ -n "${LH_SYSLINUX_CFG}" ]
+		if [ -n "${LB_SYSLINUX_CFG}" ]
 		then
-			cp "${LH_SYSLINUX_CFG}" ${KERNEL_PATH}/pxelinux.cfg/default
+			cp "${LB_SYSLINUX_CFG}" ${KERNEL_PATH}/pxelinux.cfg/default
 		fi
 		;;
 
 	usb*|tar)
-		case "${LH_BUILD_WITH_CHROOT}" in
+		case "${LB_BUILD_WITH_CHROOT}" in
 			true)
 				cp chroot/usr/lib/syslinux/isolinux.bin ${SCREEN_PATH}/syslinux.bin
 				;;
@@ -643,9 +643,9 @@ case "${LH_BINARY_IMAGES}" in
 		esac
 
 		# Copying configuration file
-		if [ -n "${LH_SYSLINUX_CFG}" ]
+		if [ -n "${LB_SYSLINUX_CFG}" ]
 		then
-			cp "${LH_SYSLINUX_CFG}" ${SCREEN_PATH}/syslinux.cfg
+			cp "${LB_SYSLINUX_CFG}" ${SCREEN_PATH}/syslinux.cfg
 		fi
 		;;
 esac

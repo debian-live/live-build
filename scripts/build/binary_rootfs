@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'build rootfs image')"
@@ -38,7 +38,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-case "${LH_ARCHITECTURE}" in
+case "${LB_ARCHITECTURE}" in
 	amd64|i386)
 		LINUX="vmlinuz"
 		;;
@@ -48,7 +48,7 @@ case "${LH_ARCHITECTURE}" in
 		;;
 esac
 
-case "${LH_INITRAMFS}" in
+case "${LB_INITRAMFS}" in
 	casper)
 		INITFS="casper"
 		;;
@@ -61,7 +61,7 @@ esac
 # Creating directory
 mkdir -p binary/${INITFS}
 
-for STAGE in ${LH_CACHE_STAGES}
+for STAGE in ${LB_CACHE_STAGES}
 do
 	if [ "${STAGE}" = "rootfs" ] && [ -d cache/stages_rootfs ]
 	then
@@ -70,11 +70,11 @@ do
 
 		# Restoring old cache
 		mkdir -p binary/"${INITFS}"
-		${LH_ROOT_COMMAND} cp -a cache/stages_rootfs/filesystem.* binary/"${INITFS}"
+		${LB_ROOT_COMMAND} cp -a cache/stages_rootfs/filesystem.* binary/"${INITFS}"
 
-		if [ -n "${LH_ROOT_COMMAND}" ]
+		if [ -n "${LB_ROOT_COMMAND}" ]
 		then
-			${LH_ROOT_COMMAND} chown -R $(whoami):$(whoami) binary
+			${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) binary
 		fi
 
 		# Creating stage file
@@ -83,7 +83,7 @@ do
 	fi
 done
 
-case "${LH_CHROOT_FILESYSTEM}" in
+case "${LB_CHROOT_FILESYSTEM}" in
 	ext2|ext3)
 		# Checking depends
 		Check_package chroot/usr/bin/genext2fs genext2fs
@@ -95,24 +95,24 @@ case "${LH_CHROOT_FILESYSTEM}" in
 		Install_package
 
 		# Remove old image
-		if [ -f binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM} ]
+		if [ -f binary/${INITFS}/filesystem.${LB_CHROOT_FILESYSTEM} ]
 		then
-			rm -f binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM}
+			rm -f binary/${INITFS}/filesystem.${LB_CHROOT_FILESYSTEM}
 		fi
 
 		DU_DIM="$(du -ks chroot/chroot | cut -f1)"
-		REAL_DIM="$(Calculate_partition_size ${DU_DIM} ${LH_CHROOT_FILESYSTEM})"
+		REAL_DIM="$(Calculate_partition_size ${DU_DIM} ${LB_CHROOT_FILESYSTEM})"
 
 		RESERVED_PERCENTAGE="--reserved-percentage"
 
-		case "${LH_BUILD_WITH_CHROOT}" in
+		case "${LB_BUILD_WITH_CHROOT}" in
 			true)
-				Chroot chroot "genext2fs --size-in-blocks=${REAL_DIM} ${RESERVED_PERCENTAGE}=0 --root=chroot filesystem.${LH_CHROOT_FILESYSTEM}"
+				Chroot chroot "genext2fs --size-in-blocks=${REAL_DIM} ${RESERVED_PERCENTAGE}=0 --root=chroot filesystem.${LB_CHROOT_FILESYSTEM}"
 
 				# Move image
-				mv chroot/filesystem.${LH_CHROOT_FILESYSTEM} binary/${INITFS}
+				mv chroot/filesystem.${LB_CHROOT_FILESYSTEM} binary/${INITFS}
 
-				case "${LH_MODE}" in
+				case "${LB_MODE}" in
 					ubuntu)
 						du -B 1 -s chroot/chroot | cut -f1 > binary/${INITFS}/filesystem.size
 						;;
@@ -166,7 +166,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 				;;
 
 			false)
-				genext2fs --size-in-blocks=${REAL_DIM} ${RESERVED_PERCENTAGE}=0 --root=chroot binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM}
+				genext2fs --size-in-blocks=${REAL_DIM} ${RESERVED_PERCENTAGE}=0 --root=chroot binary/${INITFS}/filesystem.${LB_CHROOT_FILESYSTEM}
 				;;
 		esac
 
@@ -190,12 +190,12 @@ case "${LH_CHROOT_FILESYSTEM}" in
 			rm -f binary/${INITFS}/filesystem.jffs2
 		fi
 
-		if [ -n "${LH_JFFS2_ERASEBLOCK}" ]
+		if [ -n "${LB_JFFS2_ERASEBLOCK}" ]
 		then
-			JFFS2_OPTIONS="--eraseblock=${LH_JFFS2_ERASEBLOCK}"
+			JFFS2_OPTIONS="--eraseblock=${LB_JFFS2_ERASEBLOCK}"
 		fi
 
-		case "${LH_BUILD_WITH_CHROOT}" in
+		case "${LB_BUILD_WITH_CHROOT}" in
 			true)
 				Chroot chroot "mkfs.jffs2 ${JFFS2_OPTIONS} --root=chroot --output filesystem.jffs2"
 
@@ -264,7 +264,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 			rm -rf binary/${INITFS}/filesystem.dir
 		fi
 
-		case "${LH_BUILD_WITH_CHROOT}" in
+		case "${LB_BUILD_WITH_CHROOT}" in
 			true)
 				mv chroot/chroot binary/${INITFS}/filesystem.dir
 				;;
@@ -310,20 +310,20 @@ case "${LH_CHROOT_FILESYSTEM}" in
 			cp config/binary_rootfs/squashfs.sort chroot #FIXME
 		fi
 
-		case "${LH_BUILD_WITH_CHROOT}" in
+		case "${LB_BUILD_WITH_CHROOT}" in
 			true)
 				# Create image
 				Chroot chroot "mksquashfs chroot filesystem.squashfs ${MKSQUASHFS_OPTIONS}"
 
-				case "${LH_MODE}" in
+				case "${LB_MODE}" in
 					ubuntu)
 						du -B 1 -s chroot/chroot | cut -f1 > binary/${INITFS}/filesystem.size
 						;;
 				esac
 
 				# Move image
-				${LH_ROOT_COMMAND} mv chroot/filesystem.squashfs binary/${INITFS}
-				${LH_ROOT_COMMAND} rm -f chroot/squashfs.sort
+				${LB_ROOT_COMMAND} mv chroot/filesystem.squashfs binary/${INITFS}
+				${LB_ROOT_COMMAND} rm -f chroot/squashfs.sort
 
 				if [ -e chroot/chroot.cache ]
 				then
@@ -371,13 +371,13 @@ case "${LH_CHROOT_FILESYSTEM}" in
 					Remove_package
 				fi
 
-				${LH_ROOT_COMMAND} chmod 0644 binary/${INITFS}/filesystem.squashfs
+				${LB_ROOT_COMMAND} chmod 0644 binary/${INITFS}/filesystem.squashfs
 				;;
 
 			false)
 				mksquashfs chroot binary/${INITFS}/filesystem.squashfs ${MKSQUASHFS_OPTIONS}
 
-				case "${LH_MODE}" in
+				case "${LB_MODE}" in
 					ubuntu)
 						du -B 1 -s chroot | cut -f1 > binary/${INITFS}/filesystem.size
 						;;
@@ -385,9 +385,9 @@ case "${LH_CHROOT_FILESYSTEM}" in
 				;;
 		esac
 
-		if [ -n "${LH_ROOT_COMMAND}" ]
+		if [ -n "${LB_ROOT_COMMAND}" ]
 		then
-			${LH_ROOT_COMMAND} chown -R $(whoami):$(whoami) binary/${INITFS}
+			${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) binary/${INITFS}
 		fi
 
 		# Saving cache
@@ -400,7 +400,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 			rm -rf binary
 		fi
 
-		case "${LH_BUILD_WITH_CHROOT}" in
+		case "${LB_BUILD_WITH_CHROOT}" in
 			true)
 				mv chroot/chroot binary
 				;;
@@ -414,7 +414,7 @@ case "${LH_CHROOT_FILESYSTEM}" in
 
 esac
 
-for STAGE in ${LH_CACHE_STAGES}
+for STAGE in ${LB_CACHE_STAGES}
 do
 	if [ "${STAGE}" = "rootfs" ]
 	then
@@ -422,14 +422,14 @@ do
 
 		mkdir -p cache/stages_rootfs
 
-		if [ "${LH_CHROOT_FILESYSTEM}" != "none" ]
+		if [ "${LB_CHROOT_FILESYSTEM}" != "none" ]
 		then
-			${LH_ROOT_COMMAND} cp -a binary/"${INITFS}"/filesystem.* cache/stages_rootfs
+			${LB_ROOT_COMMAND} cp -a binary/"${INITFS}"/filesystem.* cache/stages_rootfs
 		fi
 
-		if [ -n "${LH_ROOT_COMMAND}" ]
+		if [ -n "${LB_ROOT_COMMAND}" ]
 		then
-			${LH_ROOT_COMMAND} chown -R $(whoami):$(whoami) cache/stages_rootfs
+			${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) cache/stages_rootfs
 		fi
 	fi
 done

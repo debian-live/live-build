@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'copy files into binary')"
@@ -46,7 +46,7 @@ then
 	cd "${OLDPWD}"
 
 	# Removing symlinks
-	case "${LH_BINARY_IMAGES}" in
+	case "${LB_BINARY_IMAGES}" in
 		usb*)
 			find binary -type l | xargs rm -f
 			;;

@@ -8,10 +8,10 @@
 ## under certain conditions; see COPYING for details.
 
 
-LH_BASE="${PWD}/live-build"
-PATH="${LH_BASE}/helpers:${PATH}"
+LB_BASE="${PWD}/live-build"
+PATH="${LB_BASE}/helpers:${PATH}"
 
-export LH_BASE PATH
+export LB_BASE PATH
 
 if [ ! -z "${1}" ]
 then

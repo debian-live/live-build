@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'bootstrap a Debian system with debootstrap(8)')"
@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_BOOTSTRAP}" != "debootstrap" ]
+if [ "${LB_BOOTSTRAP}" != "debootstrap" ]
 then
 	exit 0
 fi
@@ -53,47 +53,47 @@ Create_lockfile .lock
 mkdir -p chroot
 
 # Setting debootstrap options
-if [ -n "${LH_ARCHITECTURE}" ]
+if [ -n "${LB_ARCHITECTURE}" ]
 then
-	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --arch ${LH_ARCHITECTURE}"
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --arch ${LB_ARCHITECTURE}"
 fi
 
-if [ "${LH_ARCHIVE_AREAS}" != "main" ]
+if [ "${LB_ARCHIVE_AREAS}" != "main" ]
 then
 	# Modify archive areas to remove leading/trailing whitespaces and replace other whitepspace with commas
-	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --components $(echo ${LH_ARCHIVE_AREAS} | sed -e 's| |,|g')"
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --components $(echo ${LB_ARCHIVE_AREAS} | sed -e 's| |,|g')"
 fi
 
-if [ -n "${LH_BOOTSTRAP_CONFIG}" ]
+if [ -n "${LB_BOOTSTRAP_CONFIG}" ]
 then
 	if [ -d "/usr/share/debootstrap/scripts/" ]
 	then
-		LH_DEBOOTSTRAP_SCRIPT="/usr/share/debootstrap/scripts/${LH_BOOTSTRAP_CONFIG}"
+		LB_DEBOOTSTRAP_SCRIPT="/usr/share/debootstrap/scripts/${LB_BOOTSTRAP_CONFIG}"
 	else
-		LH_DEBOOTSTRAP_SCRIPT="/usr/lib/debootstrap/scripts/${LH_BOOTSTRAP_CONFIG}"
+		LB_DEBOOTSTRAP_SCRIPT="/usr/lib/debootstrap/scripts/${LB_BOOTSTRAP_CONFIG}"
 	fi
 fi
 
-if [ -n "${LH_BOOTSTRAP_INCLUDE}" ]
+if [ -n "${LB_BOOTSTRAP_INCLUDE}" ]
 then
-	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --include=$(echo ${LH_BOOTSTRAP_INCLUDE} | sed 's|  *|,|g')"
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --include=$(echo ${LB_BOOTSTRAP_INCLUDE} | sed 's|  *|,|g')"
 fi
 
-if [ -n "${LH_BOOTSTRAP_EXCLUDE}" ]
+if [ -n "${LB_BOOTSTRAP_EXCLUDE}" ]
 then
-	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --exclude=$(echo ${LH_BOOTSTRAP_EXCLUDE} | sed 's|  *|,|g')"
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --exclude=$(echo ${LB_BOOTSTRAP_EXCLUDE} | sed 's|  *|,|g')"
 fi
 
-if [ "${LH_USE_FAKEROOT}" != "true" ]
+if [ "${LB_USE_FAKEROOT}" != "true" ]
 then
-	if [ -z "${LH_BOOTSTRAP_FLAVOUR}" ]
+	if [ -z "${LB_BOOTSTRAP_FLAVOUR}" ]
 	then
-		if In_list "stripped minimal" "${LH_PACKAGES_LISTS}"
+		if In_list "stripped minimal" "${LB_PACKAGES_LISTS}"
 		then
 			DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=minbase"
 		fi
 	else
-		case "${LH_BOOTSTRAP_FLAVOUR}" in
+		case "${LB_BOOTSTRAP_FLAVOUR}" in
 			stripped|minimal)
 				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=minbase"
 				;;
@@ -101,7 +101,7 @@ then
 				;;
 
 			*)
-				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=${LH_BOOTSTRAP_FLAVOUR}"
+				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=${LB_BOOTSTRAP_FLAVOUR}"
 		esac
 	fi
 else
@@ -115,7 +115,7 @@ fi
 
 if [ -x "/usr/sbin/debootstrap" ]
 then
-	if [ "${LH_CACHE_PACKAGES}" = "true" ]
+	if [ "${LB_CACHE_PACKAGES}" = "true" ]
 	then
 		if ls cache/packages_bootstrap/*.deb > /dev/null 2>&1
 		then
@@ -124,11 +124,11 @@ then
 		fi
 
 		Echo_breakage "Running debootstrap (download-only)... "
-		${LH_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LH_DISTRIBUTION}" chroot "${LH_MIRROR_BOOTSTRAP}" "${LH_DEBOOTSTRAP_SCRIPT}"
+		${LB_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LB_DISTRIBUTION}" chroot "${LB_MIRROR_BOOTSTRAP}" "${LB_DEBOOTSTRAP_SCRIPT}"
 
-		if [ -n "${LH_ROOT_COMMAND}" ]
+		if [ -n "${LB_ROOT_COMMAND}" ]
 		then
-			${LH_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
+			${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
 		fi
 
 		# Removing old cache
@@ -140,11 +140,11 @@ then
 	fi
 
 	Echo_breakage "Running debootstrap... "
-	${LH_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} "${LH_DISTRIBUTION}" chroot "${LH_MIRROR_BOOTSTRAP}" "${LH_DEBOOTSTRAP_SCRIPT}"
+	${LB_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} "${LB_DISTRIBUTION}" chroot "${LB_MIRROR_BOOTSTRAP}" "${LB_DEBOOTSTRAP_SCRIPT}"
 
-	if [ -n "${LH_ROOT_COMMAND}" ]
+	if [ -n "${LB_ROOT_COMMAND}" ]
 	then
-		${LH_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
+		${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
 	fi
 
 	# Deconfiguring debootstrap configurations

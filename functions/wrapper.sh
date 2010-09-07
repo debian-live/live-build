@@ -10,7 +10,7 @@
 
 Apt ()
 {
-	case "${LH_APT}" in
+	case "${LB_APT}" in
 		apt|apt-get)
 			Chroot chroot apt-get ${APT_OPTIONS} ${@}
 			;;

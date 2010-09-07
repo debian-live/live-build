@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'build iso source image')"
@@ -24,12 +24,12 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_SOURCE}" != "true" ]
+if [ "${LB_SOURCE}" != "true" ]
 then
 	exit 0
 fi
 
-case "${LH_SOURCE_IMAGES}" in
+case "${LB_SOURCE_IMAGES}" in
 	iso*)
 		;;
 
@@ -74,24 +74,24 @@ then
 	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -v"
 fi
 
-if [ -n "${LH_ISO_APPLICATION}" ] && [ "${LH_ISO_APPLICATION}" != "none" ]
+if [ -n "${LB_ISO_APPLICATION}" ] && [ "${LB_ISO_APPLICATION}" != "none" ]
 then
-	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -A \"${LH_ISO_APPLICATION}\""
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -A \"${LB_ISO_APPLICATION}\""
 fi
 
-if [ -n "${LH_ISO_PREPARER}" ] && [ "${LH_ISO_PREPARER}" != "none" ]
+if [ -n "${LB_ISO_PREPARER}" ] && [ "${LB_ISO_PREPARER}" != "none" ]
 then
-	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -p \"${LH_ISO_PREPARER}\""
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -p \"${LB_ISO_PREPARER}\""
 fi
 
-if [ -n "${LH_ISO_PUBLISHER}" ] && [ "${LH_ISO_PUBLISHER}" != "none" ]
+if [ -n "${LB_ISO_PUBLISHER}" ] && [ "${LB_ISO_PUBLISHER}" != "none" ]
 then
-	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -publisher \"${LH_ISO_PUBLISHER}\""
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -publisher \"${LB_ISO_PUBLISHER}\""
 fi
 
-if [ -n "${LH_ISO_VOLUME}" ] && [ "${LH_ISO_VOLUME}" != "none" ]
+if [ -n "${LB_ISO_VOLUME}" ] && [ "${LB_ISO_VOLUME}" != "none" ]
 then
-	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -V \"${LH_ISO_VOLUME}\""
+	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -V \"${LB_ISO_VOLUME}\""
 fi
 
 # Moving image

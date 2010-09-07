@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'install tasks into chroot')"
@@ -38,13 +38,13 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ -n "${LH_TASKS}" ] && [ "${LH_TASKS}" != "none" ]
+if [ -n "${LB_TASKS}" ] && [ "${LB_TASKS}" != "none" ]
 then
 	# Restoring cache
 	Restore_cache cache/packages_chroot
 
 	# Checking depends
-	case "${LH_TASKSEL}" in
+	case "${LB_TASKSEL}" in
 		aptitude)
 			Check_package chroot/usr/bin/aptitude aptitude
 			;;
@@ -58,13 +58,13 @@ then
 	Install_package
 
 	# Installing tasks
-	case "${LH_TASKSEL}" in
+	case "${LB_TASKSEL}" in
 		aptitude)
-			Chroot chroot "aptitude ${APTITUDE_OPTIONS} install ${LH_TASKS}"
+			Chroot chroot "aptitude ${APTITUDE_OPTIONS} install ${LB_TASKS}"
 			;;
 
 		tasksel)
-			for TASK in ${LH_TASKS}
+			for TASK in ${LB_TASKS}
 			do
 				case "${TASK}" in
 					gnome*)

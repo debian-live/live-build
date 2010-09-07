@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'cache bootstrap stage')"
@@ -29,7 +29,7 @@ Check_crossarchitecture
 
 Echo_message "Begin caching bootstrap stage..."
 
-for STAGE in ${LH_CACHE_STAGES}
+for STAGE in ${LB_CACHE_STAGES}
 do
 	if [ "${STAGE}" = "bootstrap" ]
 	then
@@ -50,11 +50,11 @@ do
 					rm -rf chroot
 
 					# Restoring old cache
-					${LH_ROOT_COMMAND} cp -a cache/stages_bootstrap chroot
+					${LB_ROOT_COMMAND} cp -a cache/stages_bootstrap chroot
 
-					if [ -n "${LH_ROOT_COMMAND}" ]
+					if [ -n "${LB_ROOT_COMMAND}" ]
 					then
-						${LH_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
+						${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
 					fi
 
 					# Creating stage file
@@ -79,11 +79,11 @@ do
 
 				mkdir -p cache
 
-				${LH_ROOT_COMMAND} cp -a chroot cache/stages_bootstrap
+				${LB_ROOT_COMMAND} cp -a chroot cache/stages_bootstrap
 
-				if [ -n "${LH_ROOT_COMMAND}" ]
+				if [ -n "${LB_ROOT_COMMAND}" ]
 				then
-					${LH_ROOT_COMMAND} chown -R $(whoami):$(whoami) cache/stages_bootstrap
+					${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) cache/stages_bootstrap
 				fi
 
 				# Creating stage file
