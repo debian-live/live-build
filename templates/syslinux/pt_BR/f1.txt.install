@@ -1,7 +1,7 @@
                   0fBem vindo(a) ao Debian GNU/Linux!07                                09F107
 
-Este é o Debian {$LH_DISTRIBUTION} combinando um sistema live e instalação
-{$LH_MEDIA}. Ele foi construído em {$LH_DATE}.
+Este é o Debian {$LB_DISTRIBUTION} combinando um sistema live e instalação
+{$LB_MEDIA}. Ele foi construído em {$LB_DATE}.
 
 0fÍNDICE DE AJUDA07
 
@@ -9,7 +9,7 @@ Este é o Debian {$LH_DISTRIBUTION} combinando um sistema live e instalação
 
 <09F107>   Página atual, o índice de ajuda.
 <09F207>   Pre-requisitos para instalar o Debian.
-<09F307>   Métodos especiais de inicialização para usar neste {$LH_MEDIA}
+<09F307>   Métodos especiais de inicialização para usar neste {$LB_MEDIA}
 <09F407>   Métodos adicionais de inicialização; modo de recuperação.
 <09F507>   Parâmetros de inicialização especiais, visão geral.
 <09F607>   Parâmetros de inicialização especiais para máquinas específicas.

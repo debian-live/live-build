@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'encrypts rootfs')"
@@ -24,29 +24,29 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_BINARY_IMAGES}" = "virtual-hdd" ]
+if [ "${LB_BINARY_IMAGES}" = "virtual-hdd" ]
 then
 	exit 0
 fi
 
-case "${LH_ENCRYPTION}" in
+case "${LB_ENCRYPTION}" in
 	aes128|aes192|aes256)
 		;;
 	""|false)
 		exit 0
 		;;
 	*)
-		Echo_error "Encryption type %s not supported." "${LH_ENCRYPTION}"
+		Echo_error "Encryption type %s not supported." "${LB_ENCRYPTION}"
 		exit 1
 		;;
 esac
 
-case "${LH_CHROOT_FILESYSTEM}" in
+case "${LB_CHROOT_FILESYSTEM}" in
 	ext2|squashfs)
 		;;
 
 	*)
-		Echo_error "Encryption not yet supported on %s filesystems." "${LH_CHROOT_FILESYSTEM}"
+		Echo_error "Encryption not yet supported on %s filesystems." "${LB_CHROOT_FILESYSTEM}"
 		exit 1
 		;;
 esac
@@ -65,7 +65,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-case "${LH_INITRAMFS}" in
+case "${LB_INITRAMFS}" in
 	casper)
 		INITFS="casper"
 		;;
@@ -84,12 +84,12 @@ Restore_cache cache/packages_binary
 # Installing depends
 Install_package
 
-Echo_message "Encrypting binary/%s/filesystem.%s with %s..." "${INITFS}" "${LH_CHROOT_FILESYSTEM}" "${LH_ENCRYPTION}"
+Echo_message "Encrypting binary/%s/filesystem.%s with %s..." "${INITFS}" "${LB_CHROOT_FILESYSTEM}" "${LB_ENCRYPTION}"
 
-if [ "${LH_BUILD_WITH_CHROOT}" = "true" ]
+if [ "${LB_BUILD_WITH_CHROOT}" = "true" ]
 then
 	# Moving image
-	mv binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM} chroot
+	mv binary/${INITFS}/filesystem.${LB_CHROOT_FILESYSTEM} chroot
 fi
 
 while true
@@ -101,22 +101,22 @@ do
 	Echo " (Passwords must be at least 20 characters long)"
 	echo
 
-	case "${LH_BUILD_WITH_CHROOT}" in
+	case "${LB_BUILD_WITH_CHROOT}" in
 		true)
-			if Chroot chroot aespipe -e ${LH_ENCRYPTION} -T \
-				< chroot/filesystem.${LH_CHROOT_FILESYSTEM} \
-				> chroot/filesystem.${LH_CHROOT_FILESYSTEM}.tmp
+			if Chroot chroot aespipe -e ${LB_ENCRYPTION} -T \
+				< chroot/filesystem.${LB_CHROOT_FILESYSTEM} \
+				> chroot/filesystem.${LB_CHROOT_FILESYSTEM}.tmp
 			then
-				mv chroot/filesystem.${LH_CHROOT_FILESYSTEM}.tmp binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM}
+				mv chroot/filesystem.${LB_CHROOT_FILESYSTEM}.tmp binary/${INITFS}/filesystem.${LB_CHROOT_FILESYSTEM}
 				break
 			fi
 			;;
 		false)
-			if aespipe -e ${LH_ENCRYPTION} -T \
-				< binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM} \
-				> binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM}.tmp
+			if aespipe -e ${LB_ENCRYPTION} -T \
+				< binary/${INITFS}/filesystem.${LB_CHROOT_FILESYSTEM} \
+				> binary/${INITFS}/filesystem.${LB_CHROOT_FILESYSTEM}.tmp
 			then
-				mv binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM}.tmp binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM}
+				mv binary/${INITFS}/filesystem.${LB_CHROOT_FILESYSTEM}.tmp binary/${INITFS}/filesystem.${LB_CHROOT_FILESYSTEM}
 				break
 			fi
 			;;
@@ -133,9 +133,9 @@ do
 done
 	
 # Cleanup temporary filesystems
-rm -f chroot/filesystem.${LH_CHROOT_FILESYSTEM}
-rm -f chroot/filesystem.${LH_CHROOT_FILESYSTEM}.tmp
-rm -f binary/${INITFS}/filesystem.${LH_CHROOT_FILESYSTEM}.tmp
+rm -f chroot/filesystem.${LB_CHROOT_FILESYSTEM}
+rm -f chroot/filesystem.${LB_CHROOT_FILESYSTEM}.tmp
+rm -f binary/${INITFS}/filesystem.${LB_CHROOT_FILESYSTEM}.tmp
 
 # Saving cache
 Save_cache cache/packages_binary

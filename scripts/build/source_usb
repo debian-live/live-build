@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'build source image')"
@@ -24,12 +24,12 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_SOURCE}" != "true" ]
+if [ "${LB_SOURCE}" != "true" ]
 then
 	exit 0
 fi
 
-if ! In_list usb-hdd "${LH_SOURCE_IMAGES}"
+if ! In_list usb-hdd "${LB_SOURCE_IMAGES}"
 then
 	exit 0
 fi
@@ -63,9 +63,9 @@ fi
 
 # Everything which comes here needs to be cleaned up,
 DU_DIM="$(du -ms source | cut -f1)"
-REAL_DIM="$(Calculate_partition_size ${DU_DIM} ${LH_BINARY_FILESYSTEM})"
+REAL_DIM="$(Calculate_partition_size ${DU_DIM} ${LB_BINARY_FILESYSTEM})"
 dd if=/dev/zero of=source.img bs=1024k count=0 seek=${REAL_DIM}
-FREELO="$(${LH_LOSETUP} -f)"
+FREELO="$(${LB_LOSETUP} -f)"
 if [ ! -b chroot/${FREELO} ]
 then
 	MAKEDEV="true"
@@ -74,17 +74,17 @@ then
 	find /dev | cpio -dmpu chroot
 fi
 
-case "${LH_BINARY_FILESYSTEM}" in
+case "${LB_BINARY_FILESYSTEM}" in
 	ext2|ext3)
 		PARTITION_TYPE="ext2"
 		;;
 
 	fat16|fat32)
-		PARTITION_TYPE="${LH_BINARY_FILESYSTEM}"
+		PARTITION_TYPE="${LB_BINARY_FILESYSTEM}"
 		;;
 
 	*)
-		Echo_error "Unsupported binary filesystem %s" "${LH_BINARY_FILESYSTEM}"
+		Echo_error "Unsupported binary filesystem %s" "${LB_BINARY_FILESYSTEM}"
 		exit 1
 		;;
 esac
@@ -95,13 +95,13 @@ Chroot chroot "parted -s ${FREELO} mklabel msdos" || true
 Chroot chroot "parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100%" || true
 Chroot chroot "parted -s ${FREELO} set 1 lba off" || true
 sleep 1
-${LH_LOSETUP} -d ${FREELO}
+${LB_LOSETUP} -d ${FREELO}
 
 Losetup $FREELO source.img 1
 
-case "${LH_BINARY_FILESYSTEM}" in
+case "${LB_BINARY_FILESYSTEM}" in
 	ext2|ext3)
-		MKFS="${LH_BINARY_FILESYSTEM}"
+		MKFS="${LB_BINARY_FILESYSTEM}"
 		MKFS_OPTIONS="-L DEBIAN_LIVE -m 0"
 		;;
 
@@ -119,12 +119,12 @@ esac
 Chroot chroot "mkfs.${MKFS} ${MKFS_OPTIONS} ${FREELO}"
 
 mkdir -p source.tmp
-${LH_ROOT_COMMAND} mount ${FREELO} source.tmp
+${LB_ROOT_COMMAND} mount ${FREELO} source.tmp
 cp -r source/* source.tmp
-${LH_ROOT_COMMAND} umount source.tmp
+${LB_ROOT_COMMAND} umount source.tmp
 rmdir source.tmp
 sleep 1
-${LH_LOSETUP} -d ${FREELO}
+${LB_LOSETUP} -d ${FREELO}
 Echo_warning "!!! The above error/warning messages can be ignored !!!"
 
 if [ -n "${MAKEDEV}" ]

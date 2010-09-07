@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'install queued packages into chroot')"
@@ -44,7 +44,7 @@ then
 	Restore_cache cache/packages_chroot
 
 	# Installing packages
-	case "${LH_APT}" in
+	case "${LB_APT}" in
 		apt|apt-get)
 			Chroot chroot "xargs --arg-file=/root/chroot_packages apt-get ${APT_OPTIONS} install"
 			;;

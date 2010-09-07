@@ -12,7 +12,7 @@ Restore_cache ()
 {
 	DIRECTORY="${1}"
 
-	if [ "${LH_CACHE}" = "true" ] && [ "${LH_CACHE_PACKAGES}" = "true" ]
+	if [ "${LB_CACHE}" = "true" ] && [ "${LB_CACHE_PACKAGES}" = "true" ]
 	then
 		if [ -d "${DIRECTORY}" ]
 		then
@@ -33,7 +33,7 @@ Save_cache ()
 {
 	DIRECTORY="${1}"
 
-	if [ "${LH_CACHE}" = "true" ] && [ "${LH_CACHE_PACKAGES}" = "true" ]
+	if [ "${LB_CACHE}" = "true" ] && [ "${LB_CACHE_PACKAGES}" = "true" ]
 	then
 		# Cleaning current cache
 		Chroot chroot "apt-get autoclean"

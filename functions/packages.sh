@@ -17,7 +17,7 @@ Check_package ()
 
 	case "${INSTALL_STATUS}" in
 		1)
-			_LH_PACKAGES="${_LH_PACKAGES} ${PACKAGE}"
+			_LB_PACKAGES="${_LB_PACKAGES} ${PACKAGE}"
 			;;
 
 		2)
@@ -29,15 +29,15 @@ Check_package ()
 
 Install_package ()
 {
-	if [ -n "${_LH_PACKAGES}" ] && [ "${LH_BUILD_WITH_CHROOT}" != "false" ]
+	if [ -n "${_LB_PACKAGES}" ] && [ "${LB_BUILD_WITH_CHROOT}" != "false" ]
 	then
-		case "${LH_APT}" in
+		case "${LB_APT}" in
 			apt|apt-get)
-				Chroot chroot "apt-get install -o APT::Install-Recommends=false ${APT_OPTIONS} ${_LH_PACKAGES}"
+				Chroot chroot "apt-get install -o APT::Install-Recommends=false ${APT_OPTIONS} ${_LB_PACKAGES}"
 				;;
 
 			aptitude)
-				Chroot chroot "aptitude install --without-recommends ${APTITUDE_OPTIONS} ${_LH_PACKAGES}"
+				Chroot chroot "aptitude install --without-recommends ${APTITUDE_OPTIONS} ${_LB_PACKAGES}"
 				;;
 		esac
 	fi
@@ -45,15 +45,15 @@ Install_package ()
 
 Remove_package ()
 {
-	if [ -n "${_LH_PACKAGES}" ] && [ "${LH_BUILD_WITH_CHROOT}" != "false" ]
+	if [ -n "${_LB_PACKAGES}" ] && [ "${LB_BUILD_WITH_CHROOT}" != "false" ]
 	then
-		case "${LH_APT}" in
+		case "${LB_APT}" in
 			apt|apt-get)
-				Chroot chroot "apt-get remove --purge ${APT_OPTIONS} ${_LH_PACKAGES}"
+				Chroot chroot "apt-get remove --purge ${APT_OPTIONS} ${_LB_PACKAGES}"
 				;;
 
 			aptitude)
-				Chroot chroot "aptitude purge ${APTITUDE_OPTIONS} ${_LH_PACKAGES}"
+				Chroot chroot "aptitude purge ${APTITUDE_OPTIONS} ${_LB_PACKAGES}"
 				;;
 		esac
 	fi
@@ -69,7 +69,7 @@ Check_installed ()
 	FILE="${1}"
 	PACKAGE="${2}"
 
-	case "${LH_BUILD_WITH_CHROOT}" in
+	case "${LB_BUILD_WITH_CHROOT}" in
 		true)
 			if Chroot chroot "dpkg-query -s ${PACKAGE}" 2> /dev/null | grep -qs "Status: install"
 			then

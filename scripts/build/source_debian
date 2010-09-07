@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'debian sources')"
@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_SOURCE}" != "true" ]
+if [ "${LB_SOURCE}" != "true" ]
 then
 	exit 0
 fi
@@ -53,9 +53,9 @@ fi
 Chroot chroot "dpkg --get-selections" | awk '{ print $1 }' > source-selection.txt
 
 cat >> source-selection.txt << EOF
-${LH_BOOTLOADER}
+${LB_BOOTLOADER}
 live-helper
-${LH_INITRAMFS}
+${LB_INITRAMFS}
 dosfstools
 genisoimage
 parted
@@ -64,7 +64,7 @@ genext2fs
 mtd-tools
 EOF
 
-case "${LH_ARCHITECTURE}" in
+case "${LB_ARCHITECTURE}" in
 	amd64|i386)
 
 cat >> source-selection.txt << EOF
@@ -73,9 +73,9 @@ syslinux
 grub
 EOF
 
-		if [ "${LH_MEMTEST}" != "false" ] && [ "${LH_MEMTEST}" != "none" ]
+		if [ "${LB_MEMTEST}" != "false" ] && [ "${LB_MEMTEST}" != "none" ]
 		then
-			echo "${LH_MEMTEST}" >> source-selection.txt
+			echo "${LB_MEMTEST}" >> source-selection.txt
 		fi
 		;;
 
@@ -93,9 +93,9 @@ EOF
 		;;
 esac
 
-if [ -n "${LH_TASKS}" ]
+if [ -n "${LB_TASKS}" ]
 then
-	echo "${LH_TASKSEL}" >> source-selection.txt
+	echo "${LB_TASKSEL}" >> source-selection.txt
 fi
 
 MISSING=""

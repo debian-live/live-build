@@ -23,7 +23,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 if [ -x "$(which man 2>/dev/null)" ]
 then

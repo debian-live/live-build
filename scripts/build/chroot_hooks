@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'execute hooks in chroot')"
@@ -39,14 +39,14 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Processing hooks
-HOOKS="$(echo ${LH_HOOKS} ${LH_PACKAGES_LISTS} ${LH_TASKS} | sed -e 's| |\n|g' | sort -u)"
+HOOKS="$(echo ${LB_HOOKS} ${LB_PACKAGES_LISTS} ${LB_TASKS} | sed -e 's| |\n|g' | sort -u)"
 
 for HOOK in ${HOOKS}
 do
-	if [ -f ${LH_BASE:-/usr/share/live/build}/hooks/"${HOOK}" ]
+	if [ -f ${LB_BASE:-/usr/share/live/build}/hooks/"${HOOK}" ]
 	then
 		# Copying hook
-		cp ${LH_BASE:-/usr/share/live/build}/hooks/"${HOOK}" chroot/root
+		cp ${LB_BASE:-/usr/share/live/build}/hooks/"${HOOK}" chroot/root
 
 		# Making hook executable
 		if [ ! -x chroot/root/"${HOOK}" ]

@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'build binary images')"
@@ -30,7 +30,7 @@ Setup_cleanup
 # Preparing root filesystem
 lb binary_chroot ${*}
 
-if [ "${LH_BUILD_WITH_CHROOT}" = "true" ]
+if [ "${LB_BUILD_WITH_CHROOT}" = "true" ]
 then
 	# Configuring chroot
 	lb chroot_devpts install ${*}
@@ -68,7 +68,7 @@ lb binary_local-includes ${*}
 lb binary_local-hooks ${*}
 lb binary_checksums ${*}
 
-if [ "${LH_BUILD_WITH_CHROOT}" != "true" ]
+if [ "${LB_BUILD_WITH_CHROOT}" != "true" ]
 then
 	lb chroot_devpts install ${*}
 	lb chroot_proc install ${*}
@@ -83,7 +83,7 @@ lb binary_tar ${*}
 lb binary_usb ${*}
 lb binary_virtual-hdd ${*}
 
-if [ "${LH_BUILD_WITH_CHROOT}" = "true" ]
+if [ "${LB_BUILD_WITH_CHROOT}" = "true" ]
 then
 	# Deconfiguring chroot
 	rm -f .stage/chroot_sources

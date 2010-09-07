@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'create source checksums')"
@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_CHECKSUMS}" = "none" ] || [ "${LH_SOURCE}" != "true" ]
+if [ "${LB_CHECKSUMS}" = "none" ] || [ "${LB_SOURCE}" != "true" ]
 then
 	exit 0
 fi
@@ -48,7 +48,7 @@ do
 		continue
 	fi
 
-	for CHECKSUM in ${LH_CHECKSUMS}
+	for CHECKSUM in ${LB_CHECKSUMS}
 	do
 		Echo_message "Begin creating source ${CHECKSUM}sum.txt..."
 

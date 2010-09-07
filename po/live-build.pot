@@ -334,8 +334,8 @@ msgstr ""
 
 #: ../helpers/lh_binary_debian-installer:467
 msgid ""
-"You selected values of LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES and "
-"LH_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being "
+"You selected values of LB_CACHE, LB_CACHE_PACKAGES, LB_CACHE_STAGES and "
+"LB_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being "
 "cached - these are required when integrating the Debian Installer."
 msgstr ""
 
@@ -1034,13 +1034,13 @@ msgstr ""
 msgid ""
 "You have placed some preseeding files into config/binary_debian-installer "
 "but you didn't specify the default preseeding file through "
-"LH_DEBIAN_INSTALLER_PRESEEDFILE. This means that debian-installer will not "
+"LB_DEBIAN_INSTALLER_PRESEEDFILE. This means that debian-installer will not "
 "take up a preseeding file by default."
 msgstr ""
 
 #: ../functions/defaults.sh:769
 msgid ""
-"You selected LH_DISTRIBUTION='etch' and LH_INITRAMFS='live-initramfs' This "
+"You selected LB_DISTRIBUTION='etch' and LB_INITRAMFS='live-initramfs' This "
 "is a possible unsafe configuration as live-initramfs is not part of the etch "
 "distribution. Either make sure that live-initramfs is installable (e.g. "
 "through setting up etch-backports repository as third-party source or "
@@ -1050,7 +1050,7 @@ msgstr ""
 
 #: ../functions/defaults.sh:775
 msgid ""
-"You selected LH_DISTRIBUTION='etch' and LH_UNION_FILESYSTEM='aufs' This is a "
+"You selected LB_DISTRIBUTION='etch' and LB_UNION_FILESYSTEM='aufs' This is a "
 "possible unsafe configuration as aufs is not part of the etch distribution. "
 "Either make sure that aufs modules for your kernel are installable (e.g. "
 "through setting up etch-backports repository as third-party source or "
@@ -1059,20 +1059,20 @@ msgid ""
 msgstr ""
 
 #: ../functions/defaults.sh:785
-msgid "You selected LH_PACKAGES_LISTS='%s' and LH_APT='aptitude'"
+msgid "You selected LB_PACKAGES_LISTS='%s' and LB_APT='aptitude'"
 msgstr ""
 
 #: ../functions/defaults.sh:794
 msgid ""
-"You have selected values of LH_CACHE, LH_CACHE_PACKAGES, LH_CACHE_STAGES an "
-"dLH_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being "
+"You have selected values of LB_CACHE, LB_CACHE_PACKAGES, LB_CACHE_STAGES an "
+"dLB_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being "
 "cached. This is a possible unsafe configuration as the bootstrap packages "
 "are re-used when integrating the Debian Installer."
 msgstr ""
 
 #: ../functions/defaults.sh:805
 msgid ""
-"You have selected values of LH_BOOTLOADER and LH_BINARY_FILESYSTEM which are "
+"You have selected values of LB_BOOTLOADER and LB_BINARY_FILESYSTEM which are "
 "incompatible - syslinux only supports FAT filesystems."
 msgstr ""
 

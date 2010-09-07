@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'installs silo into binary')"
@@ -24,13 +24,13 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_BOOTLOADER}" != "silo" ]
+if [ "${LB_BOOTLOADER}" != "silo" ]
 then
 	exit 0
 fi
 
 # Check image type
-case "${LH_BINARY_IMAGES}" in
+case "${LB_BINARY_IMAGES}" in
 	iso*|usb*|tar)
 		;;
 
@@ -82,7 +82,7 @@ Silo_live_entry ()
 	LINUX_LIVE="${LINUX_LIVE}\nimage=${DIRECTORY}/${KERNEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\t  label=${LABEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\t  initrd=${DIRECTORY}/${INITRD}\n"
-	LINUX_LIVE="${LINUX_LIVE}\t  append=\"boot=${INITFS} live-config LH_BOOTAPPEND_LIVE ${APPEND}\"\n"
+	LINUX_LIVE="${LINUX_LIVE}\t  append=\"boot=${INITFS} live-config LB_BOOTAPPEND_LIVE ${APPEND}\"\n"
 }
 
 Silo_install_entry ()
@@ -102,12 +102,12 @@ Silo_install_entry ()
 	LINUX_INSTALL="${LINUX_INSTALL}\nimage=${DIRECTORY}/${KERNEL}\n"
 	LINUX_INSTALL="${LINUX_INSTALL}\t  label=${LABEL}\n"
 	LINUX_INSTALL="${LINUX_INSTALL}\t  initrd=${DIRECTORY}/${INITRD}\n"
-	LINUX_INSTALL="${LINUX_INSTALL}\t  append=\"LH_BOOTAPPEND_LIVE ${APPEND} LH_BOOTAPPEND_INSTALL\"\n"
+	LINUX_INSTALL="${LINUX_INSTALL}\t  append=\"LB_BOOTAPPEND_LIVE ${APPEND} LB_BOOTAPPEND_INSTALL\"\n"
 }
 
 # Setting destination directories
 DESTDIR_INSTALL="binary/install"
-case "${LH_INITRAMFS}" in
+case "${LB_INITRAMFS}" in
 	casper)
 		INITFS="casper"
 		DESTDIR_LIVE="binary/casper"
@@ -123,63 +123,63 @@ esac
 mkdir -p "${DESTDIR_LIVE}"
 
 # Setting boot parameters
-case "${LH_ENCRYPTION}" in
+case "${LB_ENCRYPTION}" in
 	""|false)
 		;;
 	*)
-		LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} encryption=${LH_ENCRYPTION}"
+		LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} encryption=${LB_ENCRYPTION}"
 		;;
 esac
 
-if [ -n "${LH_USERNAME}" ]
+if [ -n "${LB_USERNAME}" ]
 then
-	case "${LH_INITRAMFS}" in
+	case "${LB_INITRAMFS}" in
 		casper)
-			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} username=${LH_USERNAME}"
+			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} username=${LB_USERNAME}"
 			;;
 
 		live-initramfs|live-boot)
-			if [ "${LH_USERNAME}" != "user" ]
+			if [ "${LB_USERNAME}" != "user" ]
 			then
-				LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} username=${LH_USERNAME}"
+				LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} username=${LB_USERNAME}"
 			fi
 			;;
 	esac
 fi
 
-if [ -n "${LH_HOSTNAME}" ]
+if [ -n "${LB_HOSTNAME}" ]
 then
-	case "${LH_INITRAMFS}" in
+	case "${LB_INITRAMFS}" in
 		casper)
-			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} hostname=${LH_HOSTNAME}"
+			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} hostname=${LB_HOSTNAME}"
 			;;
 
 		live-initramfs|live-boot)
-			if [ "${LH_HOSTNAME}" != "debian" ]
+			if [ "${LB_HOSTNAME}" != "debian" ]
 			then
-				LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} hostname=${LH_HOSTNAME}"
+				LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} hostname=${LB_HOSTNAME}"
 			fi
 			;;
 	esac
 fi
 
-if [ "${LH_UNION_FILESYSTEM}" != "aufs" ]
+if [ "${LB_UNION_FILESYSTEM}" != "aufs" ]
 then
-	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} union=${LH_UNION_FILESYSTEM}"
+	LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} union=${LB_UNION_FILESYSTEM}"
 fi
 
-if [ -n "${LH_NET_COW_PATH}" ]
+if [ -n "${LB_NET_COW_PATH}" ]
 then
 	Echo_error "Net cow not supported on silo"
 	exit 1
 fi
 
-if [ "${LH_EXPOSED_ROOT}" != "false" ]
+if [ "${LB_EXPOSED_ROOT}" != "false" ]
 then
-	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} exposedroot"
+	LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} exposedroot"
 fi
 
-LH_BOOTAPPEND_LIVE="$(echo ${LH_BOOTAPPEND_LIVE} | sed -e 's|  ||')"
+LB_BOOTAPPEND_LIVE="$(echo ${LB_BOOTAPPEND_LIVE} | sed -e 's|  ||')"
 
 # Parameters are listed at: linux/Documentation/kernel-parameters.txt
 FAILSAFE="noapic noapm nodma nomce nolapic nomodeset nosmp vga=ofonly"
@@ -187,14 +187,14 @@ FAILSAFE="noapic noapm nodma nomce nolapic nomodeset nosmp vga=ofonly"
 # Assembling kernel configuration
 
 # Default entries
-DEFAULT_FLAVOUR="$(echo ${LH_LINUX_FLAVOURS} | awk '{ print $1 }')"
+DEFAULT_FLAVOUR="$(echo ${LB_LINUX_FLAVOURS} | awk '{ print $1 }')"
 DEFAULT_KERNEL="$(basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR})"
 DEFAULT_INITRD="initrd.img-$(echo ${DEFAULT_KERNEL} | sed -e 's|vmlinuz-||')"
 
 Silo_live_entry "live" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
 Silo_live_entry "live-failsafe" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}" "${FAILSAFE}"
 
-if [ "$(echo ${LH_LINUX_FLAVOURS} | wc -w)" -gt "1" ]
+if [ "$(echo ${LB_LINUX_FLAVOURS} | wc -w)" -gt "1" ]
 then
 	for KERNEL in chroot/boot/vmlinuz-*
 	do
@@ -210,7 +210,7 @@ fi
 LINUX_LIVE="$(/bin/echo ${LINUX_LIVE} | sed -e 's|binary||g' -e 's|//|/|g')"
 
 # Assembling debian-installer configuration
-if [ "${LH_DEBIAN_INSTALLER}" != "false" ]
+if [ "${LB_DEBIAN_INSTALLER}" != "false" ]
 then
 	VMLINUZ_DI="vmlinuz"
 	INITRD_DI="initrd.gz"
@@ -225,12 +225,12 @@ fi
 
 LINUX_INSTALL="$(/bin/echo ${LINUX_INSTALL} | sed -e 's|binary||g' -e 's|//|/|g')"
 
-case "${LH_BINARY_IMAGES}" in
+case "${LB_BINARY_IMAGES}" in
 	iso*|usb*)
 		# Copying silo
 		mkdir -p binary/boot
 
-		case "${LH_BUILD_WITH_CHROOT}" in
+		case "${LB_BUILD_WITH_CHROOT}" in
 			true)
 				cp chroot/boot/second.b binary/boot
 				;;
@@ -242,7 +242,7 @@ case "${LH_BINARY_IMAGES}" in
 
 		cp -r "${TEMPLATES}"/* binary/boot
 
-		if [ "${LH_DEBIAN_INSTALLER}" = "false" ]
+		if [ "${LB_DEBIAN_INSTALLER}" = "false" ]
 		then
 			rm -f binary/boot/debian.txt.install
 		else
@@ -253,12 +253,12 @@ case "${LH_BINARY_IMAGES}" in
 		sed -i -e "s|LINUX_LIVE|${LINUX_LIVE}|" \
 		       -e "s|LINUX_INSTALL|${LINUX_INSTALL}|" \
 		       binary/boot/silo.conf
-		sed -i -e "s|LH_BOOTAPPEND_INSTALL|${LH_BOOTAPPEND_INSTALL}|" \
-		       -e "s|LH_BOOTAPPEND_LIVE|${LH_BOOTAPPEND_LIVE}|" \
+		sed -i -e "s|LB_BOOTAPPEND_INSTALL|${LB_BOOTAPPEND_INSTALL}|" \
+		       -e "s|LB_BOOTAPPEND_LIVE|${LB_BOOTAPPEND_LIVE}|" \
 		       binary/boot/silo.conf
-		sed -i -e "s|LH_DATE|$(date +%Y%m%d)|" \
-		       -e "s|LH_VERSION|${VERSION}|" \
-		       -e "s|LH_DISTRIBUTION|${LH_DISTRIBUTION}|" \
+		sed -i -e "s|LB_DATE|$(date +%Y%m%d)|" \
+		       -e "s|LB_VERSION|${VERSION}|" \
+		       -e "s|LB_DISTRIBUTION|${LB_DISTRIBUTION}|" \
 		       binary/boot/debian.txt
 		;;
 esac

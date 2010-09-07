@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'build source image')"
@@ -24,12 +24,12 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_SOURCE}" != "true" ]
+if [ "${LB_SOURCE}" != "true" ]
 then
 	exit 0
 fi
 
-if ! In_list virtual-hdd "${LH_SOURCE_IMAGES}"
+if ! In_list virtual-hdd "${LB_SOURCE_IMAGES}"
 then
 	exit 0
 fi
@@ -48,9 +48,9 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ "${LH_BUILD_WITH_CHROOT}" = "true" ]
+if [ "${LB_BUILD_WITH_CHROOT}" = "true" ]
 then
-	case "${LH_BINARY_FILESYSTEM}" in
+	case "${LB_BINARY_FILESYSTEM}" in
 		ext2|ext3)
 			Check_package chroot/sbin/mkfs.ext2 e2fsprogs
 			;;
@@ -68,14 +68,14 @@ fi
 
 # Everything which comes here needs to be cleaned up,
 DU_DIM="$(du -ms source | cut -f1)"
-REAL_DIM="$(Calculate_partition_size ${DU_DIM} ${LH_BINARY_FILESYSTEM})"
+REAL_DIM="$(Calculate_partition_size ${DU_DIM} ${LB_BINARY_FILESYSTEM})"
 dd if=/dev/zero of=source-virtual.img bs=1024k count=0 seek=${REAL_DIM}
 
-if [ "${LH_BUILD_WITH_CHROOT}" = "true" ]
+if [ "${LB_BUILD_WITH_CHROOT}" = "true" ]
 then
 	mv source-virtual.img chroot
 
-	case "${LH_BINARY_FILESYSTEM}" in
+	case "${LB_BINARY_FILESYSTEM}" in
 		ext2)
 			Chroot chroot "mkfs.ext2 -F -m 0 source-virtual.img"
 			;;
@@ -87,7 +87,7 @@ then
 
 	mv chroot/source-virtual.img ./
 else
-	case "${LH_BINARY_FILESYSTEM}" in
+	case "${LB_BINARY_FILESYSTEM}" in
 		ext2)
 			mkfs.ext2 -F -m 0 source-virtual.img
 			;;
@@ -99,10 +99,10 @@ else
 fi
 
 mkdir -p source.tmp
-${LH_ROOT_COMMAND} mount -o loop source-virtual.img source.tmp
+${LB_ROOT_COMMAND} mount -o loop source-virtual.img source.tmp
 cp -r source/* source.tmp
 
-${LH_ROOT_COMMAND} umount source.tmp
+${LB_ROOT_COMMAND} umount source.tmp
 rmdir source.tmp
 
 # Saving cache

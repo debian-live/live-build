@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'create binary checksums')"
@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_CHECKSUMS}" = "none" ] || [ "${LH_BINARY_IMAGES}" = "virtual-hdd" ]
+if [ "${LB_CHECKSUMS}" = "none" ] || [ "${LB_BINARY_IMAGES}" = "virtual-hdd" ]
 then
 	exit 0
 fi
@@ -41,7 +41,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-for CHECKSUM in ${LH_CHECKSUMS}
+for CHECKSUM in ${LB_CHECKSUMS}
 do
 	Echo_message "Begin creating binary ${CHECKSUM}sum.txt..."
 

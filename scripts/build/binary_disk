@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'install disk information into binary')"
@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-case "${LH_BINARY_IMAGES}" in
+case "${LB_BINARY_IMAGES}" in
 	iso*|usb*)
 		;;
 	*)
@@ -48,13 +48,13 @@ Create_lockfile .lock
 
 mkdir -p binary/.disk
 
-ARCHITECTURE="$(echo ${LH_ARCHITECTURE} | sed -e 's| |/|g')"
-DISTRIBUTION="$(echo ${LH_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]')"
-DISTRIBUTION="${DISTRIBUTION}$(echo ${LH_DISTRIBUTION} | cut -b 2-)"
-eval VERSION="$`echo RELEASE_${LH_DISTRIBUTION}`"
+ARCHITECTURE="$(echo ${LB_ARCHITECTURE} | sed -e 's| |/|g')"
+DISTRIBUTION="$(echo ${LB_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]')"
+DISTRIBUTION="${DISTRIBUTION}$(echo ${LB_DISTRIBUTION} | cut -b 2-)"
+eval VERSION="$`echo RELEASE_${LB_DISTRIBUTION}`"
 
 TITLE="Debian GNU/Linux"
-case "${LH_MODE}" in
+case "${LB_MODE}" in
 	debian)
 		STRING="Official Snapshot ${ARCHITECTURE}"
 		TRACE="project/trace/ftp-master.debian.org"
@@ -79,11 +79,11 @@ esac
 
 if [ -n "${TRACE}" ]
 then
-	echo "$(wget -q ${LH_MIRROR_BOOTSTRAP}/${TRACE} -O - | head -n 1)" \
+	echo "$(wget -q ${LB_MIRROR_BOOTSTRAP}/${TRACE} -O - | head -n 1)" \
 	> binary/.disk/archive_trace
 fi
 
-case "${LH_INITRAMFS}" in
+case "${LB_INITRAMFS}" in
 	casper)
 		for INITRD in binary/casper/initrd.img*
 		do
@@ -105,7 +105,7 @@ case "${LH_INITRAMFS}" in
 		;;
 esac
 
-case "${LH_DEBIAN_INSTALLER}" in
+case "${LB_DEBIAN_INSTALLER}" in
 	cdrom)
 		echo "main" > binary/.disk/base_components
 
@@ -115,7 +115,7 @@ case "${LH_DEBIAN_INSTALLER}" in
 
 		echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/CD Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
 
-		cp "${LH_BASE}"/data/debian-cd/${LH_DISTRIBUTION}/${LH_ARCHITECTURE}_udeb_include binary/.disk/udeb_include
+		cp "${LB_BASE}"/data/debian-cd/${LB_DISTRIBUTION}/${LB_ARCHITECTURE}_udeb_include binary/.disk/udeb_include
 		;;
 
 	true|netinst|live)
@@ -125,7 +125,7 @@ case "${LH_DEBIAN_INSTALLER}" in
 
 		echo "not_complete" > binary/.disk/cd_type
 
-		if [ "${LH_DEBIAN_INSTALLER}" = "live" ]
+		if [ "${LB_DEBIAN_INSTALLER}" = "live" ]
 		then
 			echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/INSTALL Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
 		else
@@ -133,9 +133,9 @@ case "${LH_DEBIAN_INSTALLER}" in
 
 		fi
 
-		cp "${LH_BASE}"/data/debian-cd/${LH_DISTRIBUTION}/${LH_ARCHITECTURE}_netinst_udeb_include binary/.disk/udeb_include
+		cp "${LB_BASE}"/data/debian-cd/${LB_DISTRIBUTION}/${LB_ARCHITECTURE}_netinst_udeb_include binary/.disk/udeb_include
 
-		if [ "${LH_DEBIAN_INSTALLER}" = "live" ]
+		if [ "${LB_DEBIAN_INSTALLER}" = "live" ]
 		then
 			echo "live-installer" >> binary/.disk/udeb_include
 		fi
@@ -148,7 +148,7 @@ case "${LH_DEBIAN_INSTALLER}" in
 
 		echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/BC Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
 
-		cp "${LH_BASE}"/data/debian-cd/${LH_DISTRIBUTION}/${LH_ARCHITECTURE}_businesscard_udeb_include binary/.disk/udeb_include
+		cp "${LB_BASE}"/data/debian-cd/${LB_DISTRIBUTION}/${LB_ARCHITECTURE}_businesscard_udeb_include binary/.disk/udeb_include
 		;;
 
 	false)

@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'execute hacks in chroot')"
@@ -38,9 +38,9 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-case "${LH_DISTRIBUTION}" in
+case "${LB_DISTRIBUTION}" in
 	squeeze|sid)
-		if echo "${LH_TASKS}" | grep -qs lxde
+		if echo "${LB_TASKS}" | grep -qs lxde
 		then
 			GDM="gdm"
 		else
@@ -54,12 +54,12 @@ case "${LH_DISTRIBUTION}" in
 esac
 
 # Handling default desktop configuration
-for TASK in ${LH_TASKS}
+for TASK in ${LB_TASKS}
 do
 	case "${TASK}" in
 		gnome-desktop)
 			# gnome is the only desktop environment in this image
-			if [ -z "$(echo ${LH_TASKS} | sed -e 's|gnome-desktop||' -e 's| desktop ||' | grep desktop)" ]
+			if [ -z "$(echo ${LB_TASKS} | sed -e 's|gnome-desktop||' -e 's| desktop ||' | grep desktop)" ]
 			then
 				# set display manager
 				echo "${GDM} shared/default-x-display-manager select ${GDM}" > chroot/root/preseed
@@ -75,7 +75,7 @@ do
 
 		kde-desktop)
 			# kde is the only desktop-environment in this image
-			if [ -z "$(echo ${LH_TASKS} | sed -e 's|kde-desktop||' -e 's| desktop ||' | grep desktop)" ]
+			if [ -z "$(echo ${LB_TASKS} | sed -e 's|kde-desktop||' -e 's| desktop ||' | grep desktop)" ]
 			then
 				# set display manager
 				echo "kdm shared/default-x-display-manager select kdm" > chroot/root/preseed
@@ -94,7 +94,7 @@ do
 
 		lxde-desktop)
 			# lxde is the only desktop environment in this image
-			if [ -z "$(echo ${LH_TASKS} | sed -e 's|lxde-desktop||' -e 's| desktop ||' | grep desktop)" ]
+			if [ -z "$(echo ${LB_TASKS} | sed -e 's|lxde-desktop||' -e 's| desktop ||' | grep desktop)" ]
 			then
 				# set display manager
 				echo "${GDM} shared/default-x-display-manager select ${GDM}" > chroot/root/preseed
@@ -110,7 +110,7 @@ do
 
 		xfce-desktop)
 			# xfce is the only desktop environment in this image
-			if [ -z "$(echo ${LH_TASKS} | sed -e 's|xfce-desktop||' -e 's| desktop ||' | grep desktop)" ]
+			if [ -z "$(echo ${LB_TASKS} | sed -e 's|xfce-desktop||' -e 's| desktop ||' | grep desktop)" ]
 			then
 				# set display manager
 				echo "${GDM} shared/default-x-display-manager select ${GDM}" > chroot/root/preseed
@@ -134,7 +134,7 @@ done
 # Removing udev mac caching rule
 rm -f chroot/etc/udev/rules.d/*persistent-net.rules
 
-case "${LH_BINARY_IMAGES}" in
+case "${LB_BINARY_IMAGES}" in
 	net)
 		if [ ! -f chroot/usr/bin/smbmount ]
 		then
@@ -158,7 +158,7 @@ EOF
 esac
 
 # Update initramfs (always, because of udev rules in initrd)
-case "${LH_INITRAMFS}" in
+case "${LB_INITRAMFS}" in
 	casper)
 		UPDATE_INITRAMFS_OPTIONS="CASPER_GENERATE_UUID=1"
 		;;
@@ -188,12 +188,12 @@ rm -f chroot/var/cache/debconf/*-old
 rm -f chroot/var/lib/dpkg/*-old
 rm -f chroot/var/log/apt/term.log
 
-if [ -n "${LH_ROOT_COMMAND}" ]
+if [ -n "${LB_ROOT_COMMAND}" ]
 then
-	${LH_ROOT_COMMAND} chown -R --quiet $(whoami):$(whoami) chroot
+	${LB_ROOT_COMMAND} chown -R --quiet $(whoami):$(whoami) chroot
 fi
 
-case "${LH_INITRAMFS}" in
+case "${LB_INITRAMFS}" in
 	casper)
 		ID="999"
 		;;
@@ -203,12 +203,12 @@ case "${LH_INITRAMFS}" in
 		;;
 esac
 
-if [ -d chroot/home/${LH_USERNAME} ]
+if [ -d chroot/home/${LB_USERNAME} ]
 then
-	chown -R --quiet ${ID}:${ID} chroot/home/${LH_USERNAME}
+	chown -R --quiet ${ID}:${ID} chroot/home/${LB_USERNAME}
 fi
 
-if [ "${LH_DEBIAN_INSTALLER}" = "live" ]
+if [ "${LB_DEBIAN_INSTALLER}" = "live" ]
 then
 	# This is a temporary hack to get rid of fstab;
 	# needs cleanup in live-initramfs first to proper fix.
@@ -221,9 +221,9 @@ then
 	# packages lists. As a very cheap workaround, we ensure that the
 	# bootloader is already installed in the image. Very ugly, but it's to
 	# late to fix it in d-i because lenny rc2 has been already released.
-	case "${LH_ARCHITECTURE}" in
+	case "${LB_ARCHITECTURE}" in
 		amd64|i386)
-			case "${LH_BOOTLOADER}" in
+			case "${LB_BOOTLOADER}" in
 				grub)
 					Apt install grub
 					;;
@@ -240,7 +240,7 @@ then
 	esac
 fi
 
-if [ "${LH_EXPOSED_ROOT}" = "true" ]
+if [ "${LB_EXPOSED_ROOT}" = "true" ]
 then
 	# Make sure RW dirs exist so that the initramfs script has
 	# a directory in which to bind the tmpfs filesystems

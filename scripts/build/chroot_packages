@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'queue install of packages into chroot')"
@@ -38,9 +38,9 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ -n "${LH_PACKAGES}" ] && [ "${LH_PACKAGES}" != "none" ]
+if [ -n "${LB_PACKAGES}" ] && [ "${LB_PACKAGES}" != "none" ]
 then
-	echo ${LH_PACKAGES} >> chroot/root/chroot_packages
+	echo ${LB_PACKAGES} >> chroot/root/chroot_packages
 
 	# Creating stage file
 	Create_stagefile .stage/chroot_packages

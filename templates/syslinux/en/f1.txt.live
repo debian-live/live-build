@@ -1,7 +1,7 @@
                   0fWelcome to Debian GNU/Linux!07                                09F107
 
-This is a Debian {$LH_DISTRIBUTION} live {$LH_MEDIA}.
-It was built on {$LH_DATE}.
+This is a Debian {$LB_DISTRIBUTION} live {$LB_MEDIA}.
+It was built on {$LB_DATE}.
 
 0fHELP INDEX07
 
@@ -9,7 +9,7 @@ It was built on {$LH_DATE}.
 
 <09F107>   This page, the help index.
 <09F207>   Prerequisites for installing Debian.
-<09F307>   Boot methods for special ways of using this {$LH_MEDIA}
+<09F307>   Boot methods for special ways of using this {$LB_MEDIA}
 <09F407>   Additional boot methods.
 <09F507>   Special boot parameters, overview.
 <09F607>   Special boot parameters for special machines.

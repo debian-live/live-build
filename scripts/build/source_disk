@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'install disk information into source')"
@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-case "${LH_SOURCE_IMAGES}" in
+case "${LB_SOURCE_IMAGES}" in
 	iso*|usb*)
 		;;
 
@@ -50,11 +50,11 @@ Create_lockfile .lock
 mkdir -p source/.disk
 
 TITLE="Debian GNU/Linux"
-DISTRIBUTION="$(echo ${LH_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]')"
-DISTRIBUTION="${DISTRIBUTION}$(echo ${LH_DISTRIBUTION} | cut -b 2-)"
-eval VERSION="$`echo RELEASE_${LH_DISTRIBUTION}`"
+DISTRIBUTION="$(echo ${LB_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]')"
+DISTRIBUTION="${DISTRIBUTION}$(echo ${LB_DISTRIBUTION} | cut -b 2-)"
+eval VERSION="$`echo RELEASE_${LB_DISTRIBUTION}`"
 
-case "${LH_MODE}" in
+case "${LB_MODE}" in
 	debian)
 		STRING="Official Snapshot ${ARCHITECTURE}"
 		TRACE="project/trace/ftp-master.debian.org"
@@ -79,11 +79,11 @@ esac
 
 if [ -n "${TRACE}" ]
 then
-	echo "$(wget -q ${LH_MIRROR_BOOTSTRAP}/${TRACE} -O - | head -n 1)" \
+	echo "$(wget -q ${LB_MIRROR_BOOTSTRAP}/${TRACE} -O - | head -n 1)" \
 	> source/.disk/archive_trace
 fi
 
-case "${LH_DEBIAN_INSTALLER}" in
+case "${LB_DEBIAN_INSTALLER}" in
 	cdrom)
 		echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/CD Source $(date +%Y%m%d-%H:%M)" > source/.disk/info
 		;;
