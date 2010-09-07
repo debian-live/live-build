@@ -70,26 +70,26 @@ man pages for additional documentation.
 We separate the porcelain commands into the main commands and some ancillary
 user utilities.
 .SS "Main porcelain commands"
-.IP \fBlh_config\fP(1) 4
+.IP \fBlb_config\fP(1) 4
 create configuration for live\-build
-.IP \fBlh_bootstrap\fP(1) 4
+.IP \fBlb_bootstrap\fP(1) 4
 create the first stage by bootstrapping a basic debian system
-.IP \fBlh_chroot\fP(1) 4
+.IP \fBlb_chroot\fP(1) 4
 create the second stage by customizing the chroot
-.IP \fBlh_binary\fP(1) 4
+.IP \fBlb_binary\fP(1) 4
 create the third stage by generating a binary image
-.IP \fBlh_source\fP(1) 4
+.IP \fBlb_source\fP(1) 4
 create the optional fourth stage by generating a source image
-.IP \fBlh_clean\fP(1) 4
+.IP \fBlb_clean\fP(1) 4
 clean up system build directories
 .SS "Ancillary Commands"
 .IP \fBlh\fP(1) 4
 generic live\-build wrapper
-.IP \fBlh_build\fP(1) 4
+.IP \fBlb_build\fP(1) 4
 alias for all stages
-.IP \fBlh_local\fP(1) 4
+.IP \fBlb_local\fP(1) 4
 helper for using a local live\-build
-.IP \fBlh_testroot\fP(1) 4
+.IP \fBlb_testroot\fP(1) 4
 .\" FIXME
 ensure that a system is built as root
 
@@ -107,142 +107,142 @@ low\-level commands are meant to be a lot more stable than Porcelain level
 commands. The interface to Porcelain commands on the other hand are subject
 to change in order to improve the end user experience.
 .SS "Bootstrap commands"
-.IP \fBlh_bootstrap_cache\fP(1) 4
+.IP \fBlb_bootstrap_cache\fP(1) 4
 cache bootstrap stage
-.IP \fBlh_bootstrap_cdebootstrap\fP(1) 4
+.IP \fBlb_bootstrap_cdebootstrap\fP(1) 4
 bootstrap a Debian system with cdebootstrap(1)
-.IP \fBlh_bootstrap_copy\fP(1) 4
+.IP \fBlb_bootstrap_copy\fP(1) 4
 bootstrap by copying the host system
-.IP \fBlh_bootstrap_debootstrap\fP(1) 4
+.IP \fBlb_bootstrap_debootstrap\fP(1) 4
 bootstrap a Debian system with debootstrap(8)
 .SS "Chroot commands"
-.IP \fBlh_chroot_apt\fP(1) 4
+.IP \fBlb_chroot_apt\fP(1) 4
 manage /etc/apt/apt.conf
-.IP \fBlh_chroot_cache\fP(1) 4
+.IP \fBlb_chroot_cache\fP(1) 4
 cache chroot stage
-.IP \fBlh_chroot_debianchroot\fP(1) 4
+.IP \fBlb_chroot_debianchroot\fP(1) 4
 manage /etc/debian_chroot
-.IP \fBlh_chroot_devpts\fP(1) 4
+.IP \fBlb_chroot_devpts\fP(1) 4
 mount /dev/pts
-.IP \fBlh_chroot_dpkg\fP(1) 4
+.IP \fBlb_chroot_dpkg\fP(1) 4
 manage /sbin/dpkg
-.IP \fBlh_chroot_hacks\fP(1) 4
+.IP \fBlb_chroot_hacks\fP(1) 4
 execute hacks in chroot
-.IP \fBlh_chroot_hooks\fP(1) 4
+.IP \fBlb_chroot_hooks\fP(1) 4
 execute hooks in chroot
-.IP \fBlh_chroot_hostname\fP(1) 4
+.IP \fBlb_chroot_hostname\fP(1) 4
 manage /bin/hostname
-.IP \fBlh_chroot_hosts\fP(1) 4
+.IP \fBlb_chroot_hosts\fP(1) 4
 manage /etc/hosts
-.IP \fBlh_chroot_install\-packages\fP(1) 4
+.IP \fBlb_chroot_install\-packages\fP(1) 4
 install queued packages into chroot
-.IP \fBlh_chroot_interactive\fP(1) 4
+.IP \fBlb_chroot_interactive\fP(1) 4
 make build interactive
-.IP \fBlh_chroot_linux\-image\fP(1) 4
+.IP \fBlb_chroot_linux\-image\fP(1) 4
 manage /etc/kernel\-img.conf
-.IP \fBlh_chroot_local\-hooks\fP(1) 4
+.IP \fBlb_chroot_local\-hooks\fP(1) 4
 execute local hooks in chroot
-.IP \fBlh_chroot_local\-includes\fP(1) 4
+.IP \fBlb_chroot_local\-includes\fP(1) 4
 copy local files into chroot
-.IP \fBlh_chroot_localization\fP(1) 4
+.IP \fBlb_chroot_localization\fP(1) 4
 install localization packages into chroot
-.IP \fBlh_chroot_local\-packages\fP(1) 4
+.IP \fBlb_chroot_local\-packages\fP(1) 4
 queue install of local packages into chroot
-.IP \fBlh_chroot_local\-patches\fP(1) 4
+.IP \fBlb_chroot_local\-patches\fP(1) 4
 apply local patches against chroot
-.IP \fBlh_chroot_local\-preseed\fP(1) 4
+.IP \fBlb_chroot_local\-preseed\fP(1) 4
 use debconf local preseeding file
-.IP \fBlh_chroot_packages\fP(1) 4
+.IP \fBlb_chroot_packages\fP(1) 4
 queue install of packages into chroot
-.IP \fBlh_chroot_packageslists\fP(1) 4
+.IP \fBlb_chroot_packageslists\fP(1) 4
 queue install of packages lists into chroot
-.IP \fBlh_chroot_preseed\fP(1) 4
+.IP \fBlb_chroot_preseed\fP(1) 4
 use debconf preseeding file
-.IP \fBlh_chroot_proc\fP(1) 4
+.IP \fBlb_chroot_proc\fP(1) 4
 mount /proc
-.IP \fBlh_chroot_resolv\fP(1) 4
+.IP \fBlb_chroot_resolv\fP(1) 4
 manage /etc/resolv.conf
-.IP \fBlh_chroot_selinuxfs\fP(1) 4
+.IP \fBlb_chroot_selinuxfs\fP(1) 4
 mount /selinux
-.IP \fBlh_chroot_sources\fP(1) 4
+.IP \fBlb_chroot_sources\fP(1) 4
 manage /etc/apt/sources.list
-.IP \fBlh_chroot_symlinks\fP(1) 4
+.IP \fBlb_chroot_symlinks\fP(1) 4
 convert symlinks
-.IP \fBlh_chroot_sysfs\fP(1) 4
+.IP \fBlb_chroot_sysfs\fP(1) 4
 mount /sys
-.IP \fBlh_chroot_sysvinit\fP(1) 4
+.IP \fBlb_chroot_sysvinit\fP(1) 4
 configure sysvinit
-.IP \fBlh_chroot_sysv\-rc\fP(1) 4
+.IP \fBlb_chroot_sysv\-rc\fP(1) 4
 manage /usr/sbin/policy\-rc.d
-.IP \fBlh_chroot_tasks\fP(1) 4
+.IP \fBlb_chroot_tasks\fP(1) 4
 install tasks into chroot
 .SS "Binary commands"
-.IP \fBlh_binary_chroot\fP(1) 4
+.IP \fBlb_binary_chroot\fP(1) 4
 copy chroot into chroot
-.IP \fBlh_binary_debian\-installer\fP(1) 4
+.IP \fBlb_binary_debian\-installer\fP(1) 4
 install debian\-installer into binary
-.IP \fBlh_binary_disk\fP(1) 4
+.IP \fBlb_binary_disk\fP(1) 4
 install disk information into binary
-.IP \fBlh_binary_encryption\fP(1) 4
+.IP \fBlb_binary_encryption\fP(1) 4
 encrypts rootfs
-.IP \fBlh_binary_grub\fP(1) 4
+.IP \fBlb_binary_grub\fP(1) 4
 installs grub into binary
-.IP \fBlh_binary_grub2\fP(1) 4
+.IP \fBlb_binary_grub2\fP(1) 4
 installs grub2 into binary
-.IP \fBlh_binary_includes\fP(1) 4
+.IP \fBlb_binary_includes\fP(1) 4
 copy files into binary
-.IP \fBlh_binary_iso\fP(1) 4
+.IP \fBlb_binary_iso\fP(1) 4
 build iso binary image
-.IP \fBlh_binary_linux\-image\fP(1) 4
+.IP \fBlb_binary_linux\-image\fP(1) 4
 install linux\-image into binary
-.IP \fBlh_binary_local\-hooks\fP(1) 4
+.IP \fBlb_binary_local\-hooks\fP(1) 4
 execute local hooks in binary
-.IP \fBlh_binary_local\-includes\fP(1) 4
+.IP \fBlb_binary_local\-includes\fP(1) 4
 copy files into binary
-.IP \fBlh_binary_local\-packageslists\fP(1) 4
+.IP \fBlb_binary_local\-packageslists\fP(1) 4
 install local packages lists into binary
-.IP \fBlh_binary_manifest\fP(1) 4
+.IP \fBlb_binary_manifest\fP(1) 4
 create manifest
-.IP \fBlh_binary_checksums\fP(1) 4
+.IP \fBlb_binary_checksums\fP(1) 4
 create binary checksums (md5, sha1, and/or sha256)
-.IP \fBlh_binary_memtest\fP(1) 4
+.IP \fBlb_binary_memtest\fP(1) 4
 installs a memtest into binary
-.IP \fBlh_binary_net\fP(1) 4
+.IP \fBlb_binary_net\fP(1) 4
 build netboot binary image
-.IP \fBlh_binary_rootfs\fP(1) 4
+.IP \fBlb_binary_rootfs\fP(1) 4
 build rootfs image
-.IP \fBlh_binary_silo\fP(1) 4
+.IP \fBlb_binary_silo\fP(1) 4
 installs silo into binary
-.IP \fBlh_binary_syslinux\fP(1) 4
+.IP \fBlb_binary_syslinux\fP(1) 4
 installs syslinux into binary
-.IP \fBlh_binary_tar\fP(1) 4
+.IP \fBlb_binary_tar\fP(1) 4
 build harddisk binary image
-.IP \fBlh_binary_usb\fP(1) 4
+.IP \fBlb_binary_usb\fP(1) 4
 build binary usb\-hdd image
-.IP \fBlh_binary_virtual\-hdd\fP(1) 4
+.IP \fBlb_binary_virtual\-hdd\fP(1) 4
 build binary virtual\-hdd image
-.IP \fBlh_binary_win32\-loader\fP(1) 4
+.IP \fBlb_binary_win32\-loader\fP(1) 4
 installs win32\-loader into binary
-.IP \fBlh_binary_yaboot\fP(1) 4
+.IP \fBlb_binary_yaboot\fP(1) 4
 installs yaboot into binary
 .SS "Source commands"
-.IP \fBlh_source_debian\fP(1) 4
+.IP \fBlb_source_debian\fP(1) 4
 download sources
-.IP \fBlh_source_debian\-live\fP(1) 4
+.IP \fBlb_source_debian\-live\fP(1) 4
 copy debian\-live config into source
-.IP \fBlh_source_disk\fP(1) 4
+.IP \fBlb_source_disk\fP(1) 4
 install disk information into source
-.IP \fBlh_source_iso\fP(1) 4
+.IP \fBlb_source_iso\fP(1) 4
 build iso source image
-.IP \fBlh_source_checksums\fP(1) 4
+.IP \fBlb_source_checksums\fP(1) 4
 create source checksums (md5, sha1, and/or sha256)
-.IP \fBlh_source_net\fP(1) 4
+.IP \fBlb_source_net\fP(1) 4
 build source net image
-.IP \fBlh_source_tar\fP(1) 4
+.IP \fBlb_source_tar\fP(1) 4
 build source tarball
-.IP \fBlh_source_usb\fP(1) 4
+.IP \fBlb_source_usb\fP(1) 4
 build source usb\-hdd image
-.IP \fBlh_source_virtual\-hdd\fP(1) 4
+.IP \fBlb_source_virtual\-hdd\fP(1) 4
 .\" FIXME
 build source virtual\-hdd image
 
@@ -256,7 +256,7 @@ config/stage or config/stage_helper (where "stage" of course, is replaced
 with the name of the stage that they belong to, and "helper" with the name
 of the helper).
 .PP
-For example, lh_bootstrap_debootstrap uses files named config/bootstrap and
+For example, lb_bootstrap_debootstrap uses files named config/bootstrap and
 config/bootstrap_debootstrap to read the options it will use. See the man
 pages of individual commands for details about the names and formats of the
 files they use. Generally, these files contain variables with values
