@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'mount /selinux')"
@@ -45,13 +45,13 @@ case "${1}" in
 			# Creating lock file
 			Create_lockfile .lock
 
-			if [ "${LH_USE_FAKEROOT}" != "true" ]
+			if [ "${LB_USE_FAKEROOT}" != "true" ]
 			then
 				# Create mountpoint
 				mkdir -p chroot/selinux
 
 				# Mounting /selinux
-				${LH_ROOT_COMMAND} mount selinuxfs-live -t selinuxfs chroot/selinux
+				${LB_ROOT_COMMAND} mount selinuxfs-live -t selinuxfs chroot/selinux
 			else
 				rm -rf chroot/selinux
 				ln -s /selinux chroot/
@@ -71,13 +71,13 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ "${LH_USE_FAKEROOT}" != "true" ]
+		if [ "${LB_USE_FAKEROOT}" != "true" ]
 		then
 			# Unmounting /selinux
 			#fuser -km chroot/selinux
 			if [ -e chroot/selinux/enforce ]
 			then
-				${LH_ROOT_COMMAND} umount chroot/selinux
+				${LB_ROOT_COMMAND} umount chroot/selinux
 			fi
 		else
 			if [ -e chroot/selinux ]

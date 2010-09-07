@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'mount /dev/pts')"
@@ -43,13 +43,13 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ "${LH_USE_FAKEROOT}" != "true" ]
+		if [ "${LB_USE_FAKEROOT}" != "true" ]
 		then
 			# Creating mountpoint
 			mkdir -p chroot/dev/pts
 
 			# Mounting /dev/pts
-			${LH_ROOT_COMMAND} mount devpts-live -t devpts chroot/dev/pts || true
+			${LB_ROOT_COMMAND} mount devpts-live -t devpts chroot/dev/pts || true
 		fi
 
 		# Creating stage file
@@ -66,13 +66,13 @@ case "${1}" in
 		Create_lockfile .lock
 
 		# Unmounting /dev/pts
-		if [ "${LH_USE_FAKEROOT}" != "true" ]
+		if [ "${LB_USE_FAKEROOT}" != "true" ]
 		then
 			if grep -qs "$(pwd)/chroot/dev/pts" /proc/mounts || Find_files chroot/dev/pts/*
 			then
-				${LH_ROOT_COMMAND} umount chroot/dev/pts
+				${LB_ROOT_COMMAND} umount chroot/dev/pts
 			else
-				${LH_ROOT_COMMAND} umount -f chroot/dev/pts > /dev/null 2>&1 || true
+				${LB_ROOT_COMMAND} umount -f chroot/dev/pts > /dev/null 2>&1 || true
 			fi
 		fi
 

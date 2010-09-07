@@ -10,13 +10,13 @@
 
 Get_conffiles ()
 {
-	if [ -n "${LH_CONFIG}" ]
+	if [ -n "${LB_CONFIG}" ]
 	then
-		FILES="${LH_CONFIG}"
+		FILES="${LB_CONFIG}"
 	else
 		for FILE in ${@}
 		do
-			FILES="${FILES} ${FILE} ${FILE}.${LH_ARCHITECTURE} ${FILE}.${DISTRIBUTION}"
+			FILES="${FILES} ${FILE} ${FILE}.${LB_ARCHITECTURE} ${FILE}.${DISTRIBUTION}"
 			FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's|^lh_||')"
 			FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's|^lh_||').${ARCHITECTURE}"
 			FILES="${FILES} config/$(echo ${PROGRAM} | sed -e 's|^lh_||').${DISTRIBUTION}"

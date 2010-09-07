@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'copy chroot into chroot')"
@@ -41,9 +41,9 @@ Create_lockfile .lock
 # Normally, virtual filesystems are not mounted here, but people tend to be lazy
 if [ -f chroot/proc/version ]
 then
-	if [ "${LH_USE_FAKEROOT}" != "true" ]
+	if [ "${LB_USE_FAKEROOT}" != "true" ]
 then
-		${LH_ROOT_COMMAND} umount chroot/proc
+		${LB_ROOT_COMMAND} umount chroot/proc
 	else
 		rm -rf chroot/proc
 		mkdir -p chroot/proc
@@ -52,9 +52,9 @@ fi
 
 if [ -d chroot/sys/kernel ]
 then
-	if [ "${LH_USE_FAKEROOT}" != "true" ]
+	if [ "${LB_USE_FAKEROOT}" != "true" ]
 	then
-		${LH_ROOT_COMMAND} umount chroot/sys
+		${LB_ROOT_COMMAND} umount chroot/sys
 	else
 		rm -rf chroot/sys
 		mkdir -p chroot/sys
@@ -62,18 +62,18 @@ then
 fi
 
 # Copying /dev if using fakeroot
-if [ "${LH_USE_FAKEROOT}" = "true" ]
+if [ "${LB_USE_FAKEROOT}" = "true" ]
 then
 	rm -rf chroot/dev
 	find /dev | cpio -dmpu chroot
 fi
 
-if [ "${LH_BUILD_WITH_CHROOT}" = "false" ]
+if [ "${LB_BUILD_WITH_CHROOT}" = "false" ]
 then
 	exit 0
 fi
 
-if [ "${LH_CACHE}" = "true" ] && Find_files cache/stages_rootfs/filesystem*
+if [ "${LB_CACHE}" = "true" ] && Find_files cache/stages_rootfs/filesystem*
 then
 	exit 0
 fi
@@ -81,25 +81,25 @@ fi
 Echo_message "This may take a while."
 
 # Removing old chroot
-${LH_ROOT_COMMAND} rm -rf chroot/chroot
-${LH_ROOT_COMMAND} rm -rf chroot.tmp
+${LB_ROOT_COMMAND} rm -rf chroot/chroot
+${LB_ROOT_COMMAND} rm -rf chroot.tmp
 
 # Copying new chroot
-if [ -d cache/stages_bootstrap ] && [ "${LH_CHROOT_FILESYSTEM}" != "plain" ]
+if [ -d cache/stages_bootstrap ] && [ "${LB_CHROOT_FILESYSTEM}" != "plain" ]
 then
-	${LH_ROOT_COMMAND} mv chroot chroot.tmp
-	${LH_ROOT_COMMAND} cp -a cache/stages_bootstrap chroot
-	${LH_ROOT_COMMAND} touch chroot/chroot.cache
+	${LB_ROOT_COMMAND} mv chroot chroot.tmp
+	${LB_ROOT_COMMAND} cp -a cache/stages_bootstrap chroot
+	${LB_ROOT_COMMAND} touch chroot/chroot.cache
 else
-	${LH_ROOT_COMMAND} cp -a chroot chroot.tmp
+	${LB_ROOT_COMMAND} cp -a chroot chroot.tmp
 fi
 
-${LH_ROOT_COMMAND} mv chroot.tmp chroot/chroot
+${LB_ROOT_COMMAND} mv chroot.tmp chroot/chroot
 
 # Handling chroot excludes
 if [ -f config/binary_rootfs/excludes ]
 then
-	case "${LH_BUILD_WITH_CHROOT}" in
+	case "${LB_BUILD_WITH_CHROOT}" in
 		true)
 			cp config/binary_rootfs/excludes chroot/chroot/excludes
 			chroot chroot/chroot /usr/bin/env -i xargs --arg-file=/excludes -I FILE bash -c 'rm -rf FILE'
@@ -114,9 +114,9 @@ then
 	esac
 fi
 
-if [ -n "${LH_ROOT_COMMAND}" ]
+if [ -n "${LB_ROOT_COMMAND}" ]
 then
-	${LH_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
+	${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
 fi
 
 # Creating stage file

@@ -2666,8 +2666,8 @@ msgstr ""
 #: en/lb_config.1:427
 msgid ""
 "All command line switches can also be specified through the corresponding "
-"environment variable. Environment variables are name LH_FOO, means, e.g. --"
-"apt-ftp-proxy becomes LH_APT_FTP_PROXY. However, this generally should not "
+"environment variable. Environment variables are name LB_FOO, means, e.g. --"
+"apt-ftp-proxy becomes LB_APT_FTP_PROXY. However, this generally should not "
 "be used."
 msgstr ""
 
@@ -2689,6 +2689,6 @@ msgstr "B</etc/default/live-build>"
 #: en/lb_config.1:434
 msgid ""
 "An optional, global configuration file for B<lb config> variables. It is "
-"useful to specify a few system wide defaults, like LH_MIRROR_BOOTSTRAP. This "
+"useful to specify a few system wide defaults, like LB_MIRROR_BOOTSTRAP. This "
 "feature can be false by specifying the B<--ignore-system-defaults> option."
 msgstr ""

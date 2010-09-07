@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'mount /proc')"
@@ -43,13 +43,13 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ "${LH_USE_FAKEROOT}" != "true" ]
+		if [ "${LB_USE_FAKEROOT}" != "true" ]
 		then
 			# Creating mountpoint
 			mkdir -p chroot/proc
 
 			# Mounting /proc
-			${LH_ROOT_COMMAND} mount proc-live -t proc chroot/proc
+			${LB_ROOT_COMMAND} mount proc-live -t proc chroot/proc
 		else
 			rm -rf chroot/proc
 			ln -s /proc chroot/
@@ -68,19 +68,19 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ "${LH_USE_FAKEROOT}" != "true" ]
+		if [ "${LB_USE_FAKEROOT}" != "true" ]
 		then
 			# Workaround binfmt-support /proc locking
 			if [ -e chroot/proc/sys/fs/binfmt_misc/status ]
 			then
-				${LH_ROOT_COMMAND} umount chroot/proc/sys/fs/binfmt_misc
+				${LB_ROOT_COMMAND} umount chroot/proc/sys/fs/binfmt_misc
 			fi
 
 			# Unmounting /proc
 			#fuser -km chroot/proc
 			if [ -e chroot/proc/version ]
 			then
-				${LH_ROOT_COMMAND} umount chroot/proc
+				${LB_ROOT_COMMAND} umount chroot/proc
 			fi
 		else
 			rm -rf chroot/proc

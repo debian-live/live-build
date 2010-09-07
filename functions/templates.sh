@@ -15,11 +15,11 @@ Check_templates ()
 	if [ -d "config/templates/${PACKAGE}" ]
 	then
 		TEMPLATES="config/templates/${PACKAGE}"
-	elif [ -d "${LH_TEMPLATES}/${PACKAGE}" ]
+	elif [ -d "${LB_TEMPLATES}/${PACKAGE}" ]
 	then
-		TEMPLATES="${LH_TEMPLATES}/${PACKAGE}"
+		TEMPLATES="${LB_TEMPLATES}/${PACKAGE}"
 	else
-		Echo_error "%s templates not accessible in %s nor config/templates" "${PACKAGE}" "${LH_TEMPLATES}"
+		Echo_error "%s templates not accessible in %s nor config/templates" "${PACKAGE}" "${LB_TEMPLATES}"
 		exit 1
 	fi
 }

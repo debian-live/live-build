@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'bootstrap a Debian system with cdebootstrap(1)')"
@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_BOOTSTRAP}" != "cdebootstrap" ] && [ "${LH_BOOTSTRAP}" != "cdebootstrap-static" ]
+if [ "${LB_BOOTSTRAP}" != "cdebootstrap" ] && [ "${LB_BOOTSTRAP}" != "cdebootstrap-static" ]
 then
 	exit 0
 fi
@@ -34,7 +34,7 @@ Check_crossarchitecture
 
 Echo_message "Begin bootstrapping system..."
 
-Check_package /usr/bin/${LH_BOOTSTRAP} cdebootstrap
+Check_package /usr/bin/${LB_BOOTSTRAP} cdebootstrap
 
 # Ensure that a system is built as root
 lb testroot
@@ -53,34 +53,34 @@ Create_lockfile .lock
 mkdir -p chroot
 
 # Setting cdebootstrap options
-if [ -n "${LH_ARCHITECTURE}" ]
+if [ -n "${LB_ARCHITECTURE}" ]
 then
-	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --arch=${LH_ARCHITECTURE}"
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --arch=${LB_ARCHITECTURE}"
 fi
 
-if [ -n "${LH_BOOTSTRAP_CONFIG}" ]
+if [ -n "${LB_BOOTSTRAP_CONFIG}" ]
 then
-	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --suite-config=${LH_BOOTSTRAP_CONFIG}"
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --suite-config=${LB_BOOTSTRAP_CONFIG}"
 fi
 
-if [ -n "${LH_BOOTSTRAP_INCLUDE}" ]
+if [ -n "${LB_BOOTSTRAP_INCLUDE}" ]
 then
-	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --include=$(echo ${LH_BOOTSTRAP_INCLUDE} | sed 's|  *|,|g')"
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --include=$(echo ${LB_BOOTSTRAP_INCLUDE} | sed 's|  *|,|g')"
 fi
 
-if [ -n "${LH_BOOTSTRAP_EXCLUDE}" ]
+if [ -n "${LB_BOOTSTRAP_EXCLUDE}" ]
 then
-	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --exclude=$(echo ${LH_BOOTSTRAP_EXCLUDE} | sed 's|  *|,|g')"
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --exclude=$(echo ${LB_BOOTSTRAP_EXCLUDE} | sed 's|  *|,|g')"
 fi
 
-if [ -n "${LH_BOOTSTRAP_KEYRING}" ]
+if [ -n "${LB_BOOTSTRAP_KEYRING}" ]
 then
-	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --keyring=${LH_BOOTSTRAP_KEYRING}"
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --keyring=${LB_BOOTSTRAP_KEYRING}"
 fi
 
-if [ -z "${LH_BOOTSTRAP_FLAVOUR}" ]
+if [ -z "${LB_BOOTSTRAP_FLAVOUR}" ]
 then
-	case "${LH_PACKAGES_LISTS}" in
+	case "${LB_PACKAGES_LISTS}" in
 		stripped|minimal)
 			CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=minimal"
 			;;
@@ -89,13 +89,13 @@ then
 			;;
 	esac
 else
-	case "${LH_BOOTSTRAP_FLAVOUR}" in
+	case "${LB_BOOTSTRAP_FLAVOUR}" in
 		stripped|minimal)
 			CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=minimal"
 			;;
 
 		*)
-			CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=${LH_BOOTSTRAP_FLAVOUR}"
+			CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=${LB_BOOTSTRAP_FLAVOUR}"
 			;;
 	esac
 fi
@@ -115,14 +115,14 @@ then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --verbose"
 fi
 
-if [ "${LH_APT_SECURE}" = "false" ]
+if [ "${LB_APT_SECURE}" = "false" ]
 then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --allow-unauthenticated"
 fi
 
 if [ -x "/usr/bin/cdebootstrap" ] || [ -x "/usr/bin/cdebootstrap-static" ]
 then
-	if [ "${LH_CACHE_PACKAGES}" = "true" ]
+	if [ "${LB_CACHE_PACKAGES}" = "true" ]
 	then
 		if ls cache/packages_bootstrap/*.deb > /dev/null 2>&1
 		then
@@ -130,12 +130,12 @@ then
 			cp cache/packages_bootstrap/*.deb chroot/var/cache/bootstrap
 		fi
 
-		Echo_breakage "Running ${LH_BOOTSTRAP} (download-only)... "
-		${LH_ROOT_COMMAND} ${LH_BOOTSTRAP} ${CDEBOOTSTRAP_OPTIONS} --download-only "${LH_DISTRIBUTION}" chroot "${LH_MIRROR_BOOTSTRAP}"
+		Echo_breakage "Running ${LB_BOOTSTRAP} (download-only)... "
+		${LB_ROOT_COMMAND} ${LB_BOOTSTRAP} ${CDEBOOTSTRAP_OPTIONS} --download-only "${LB_DISTRIBUTION}" chroot "${LB_MIRROR_BOOTSTRAP}"
 
-		if [ -n "${LH_ROOT_COMMAND}" ]
+		if [ -n "${LB_ROOT_COMMAND}" ]
 		then
-			${LH_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
+			${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
 		fi
 
 		# Removing old cache
@@ -146,16 +146,16 @@ then
 		cp chroot/var/cache/bootstrap/*.deb cache/packages_bootstrap
 	fi
 
-	Echo_breakage "Running ${LH_BOOTSTRAP}... "
-	${LH_ROOT_COMMAND} ${LH_BOOTSTRAP} ${CDEBOOTSTRAP_OPTIONS} "${LH_DISTRIBUTION}" chroot "${LH_MIRROR_BOOTSTRAP}"
+	Echo_breakage "Running ${LB_BOOTSTRAP}... "
+	${LB_ROOT_COMMAND} ${LB_BOOTSTRAP} ${CDEBOOTSTRAP_OPTIONS} "${LB_DISTRIBUTION}" chroot "${LB_MIRROR_BOOTSTRAP}"
 
-	if [ -n "${LH_ROOT_COMMAND}" ]
+	if [ -n "${LB_ROOT_COMMAND}" ]
 	then
-		${LH_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
+		${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
 	fi
 
 	# Remove cdebootstrap-helper-diverts (needed at least for minimal flavours)
-	case "${LH_PACKAGES_LISTS}" in
+	case "${LB_PACKAGES_LISTS}" in
 		stripped|minimal)
 			Chroot chroot "dpkg -P cdebootstrap-helper-diverts"
 			;;
@@ -172,6 +172,6 @@ then
 	# Creating stage file
 	Create_stagefile .stage/bootstrap
 else
-	Echo_error "Can't process file /usr/bin/${LH_BOOTSTRAP} (FIXME)"
+	Echo_error "Can't process file /usr/bin/${LB_BOOTSTRAP} (FIXME)"
 	exit 1
 fi

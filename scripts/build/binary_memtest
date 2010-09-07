@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'installs a memtest into binary')"
@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_BINARY_IMAGES}" = "virtual-hdd" ] || [ "${LH_MEMTEST}" = "false" ] || [ "${LH_MEMTEST}" = "none" ]
+if [ "${LB_BINARY_IMAGES}" = "virtual-hdd" ] || [ "${LB_MEMTEST}" = "false" ] || [ "${LB_MEMTEST}" = "none" ]
 then
 	exit 0
 fi
@@ -43,13 +43,13 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ "${LH_ARCHITECTURE}" != "amd64" ] && [ "${LH_ARCHITECTURE}" != "i386" ]
+if [ "${LB_ARCHITECTURE}" != "amd64" ] && [ "${LB_ARCHITECTURE}" != "i386" ]
 then
 	Echo_warning "skipping binary_memtest, foreign architecture."
 	exit 0
 fi
 
-if [ "${LH_BUILD_WITH_CHROOT}" = "true" ]
+if [ "${LB_BUILD_WITH_CHROOT}" = "true" ]
 then
 
 	if [ -f chroot/usr/sbin/grub ] && [ ! -f chroot/boot/grub/menu.lst ]
@@ -62,7 +62,7 @@ then
 fi
 
 # Checking depends
-case "${LH_MEMTEST}" in
+case "${LB_MEMTEST}" in
 	memtest86)
 		Check_package chroot/boot/memtest86.bin memtest86
 		;;
@@ -79,7 +79,7 @@ Restore_cache cache/packages_binary
 Install_package
 
 # Setting destination directory
-case "${LH_INITRAMFS}" in
+case "${LB_INITRAMFS}" in
 	casper)
 		DESTDIR="binary/casper"
 		;;
@@ -95,13 +95,13 @@ Check_multiarchitecture
 mkdir -p "${DESTDIR}"
 
 # Installing memtest
-case "${LH_BUILD_WITH_CHROOT}" in
+case "${LB_BUILD_WITH_CHROOT}" in
 	true)
-		cp chroot/boot/${LH_MEMTEST}.bin "${DESTDIR}"/memtest
+		cp chroot/boot/${LB_MEMTEST}.bin "${DESTDIR}"/memtest
 		;;
 
 	false)
-		cp /boot/${LH_MEMTEST}.bin "${DESTDIR}"/memtest
+		cp /boot/${LB_MEMTEST}.bin "${DESTDIR}"/memtest
 		;;
 esac
 

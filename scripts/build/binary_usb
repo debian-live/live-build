@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'build binary image')"
@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if ! In_list usb-hdd "${LH_BINARY_IMAGES}"
+if ! In_list usb-hdd "${LB_BINARY_IMAGES}"
 then
 	exit 0
 fi
@@ -48,9 +48,9 @@ Check_package chroot/sbin/mkdosfs dosfstools
 Check_package chroot/usr/share/doc/mtools mtools
 Check_package chroot/sbin/parted parted
 
-if [ "${LH_ARCHITECTURE}" = "sparc" ]
+if [ "${LB_ARCHITECTURE}" = "sparc" ]
 then
-	case "${LH_BINARY_FILESYSTEM}" in
+	case "${LB_BINARY_FILESYSTEM}" in
 		ext2|ext3)
 			Check_package chroot/sbin/mkfs.ext2 e2fsprogs
 			;;
@@ -62,7 +62,7 @@ then
 	esac
 fi
 
-case "${LH_BOOTLOADER}" in
+case "${LB_BOOTLOADER}" in
 	grub)
 		Check_package chroot/usr/sbin/grub grub
 		;;
@@ -85,28 +85,28 @@ then
 fi
 
 # Enforce fat32 if we find individual files bigger than 2GB
-if [ "${LH_BINARY_FILESYSTEM}" = "fat16" ] && [ -n "$(find binary -size +1999M)" ]
+if [ "${LB_BINARY_FILESYSTEM}" = "fat16" ] && [ -n "$(find binary -size +1999M)" ]
 then
 	Echo_warning "FAT16 doesn't support files larger than 2GB, automatically enforcing FAT32."
 
-	LH_BINARY_FILESYSTEM="fat32"
-	export LH_BINARY_FILESYSTEM
+	LB_BINARY_FILESYSTEM="fat32"
+	export LB_BINARY_FILESYSTEM
 fi
 
 # Enforce fat32 if we have images in total bigger than 2GB
-if [ "${LH_BINARY_FILESYSTEM}" = "fat16" ] && [ "$(du -s binary | awk '{ print $1 }')" -gt "1900000" ]
+if [ "${LB_BINARY_FILESYSTEM}" = "fat16" ] && [ "$(du -s binary | awk '{ print $1 }')" -gt "1900000" ]
 then
 	Echo_warning "FAT16 doesn't support partitions larger than 2GB, automatically enforcing FAT32"
 
-	LH_BINARY_FILESYSTEM="fat32"
-	export LH_BINARY_FILESYSTEM
+	LB_BINARY_FILESYSTEM="fat32"
+	export LB_BINARY_FILESYSTEM
 fi
 
 # Everything which comes here needs to be cleaned up,
 DU_DIM="$(du -ms binary | cut -f1)"
-REAL_DIM="$(Calculate_partition_size ${DU_DIM} ${LH_BINARY_FILESYSTEM})"
+REAL_DIM="$(Calculate_partition_size ${DU_DIM} ${LB_BINARY_FILESYSTEM})"
 dd if=/dev/zero of=chroot/binary.img bs=1024k count=0 seek=${REAL_DIM}
-FREELO="$(${LH_LOSETUP} -f)"
+FREELO="$(${LB_LOSETUP} -f)"
 if [ ! -b chroot/${FREELO} ]
 then
 	MAKEDEV="true"
@@ -118,7 +118,7 @@ fi
 echo "!!! The following error/warning messages can be ignored !!!"
 Losetup $FREELO chroot/binary.img 0
 
-case "${LH_ARCHITECTURE}" in
+case "${LB_ARCHITECTURE}" in
 	sparc)
 		PARTITION_TABLE_TYPE="sun"
 		;;
@@ -127,29 +127,29 @@ case "${LH_ARCHITECTURE}" in
 		;;
 esac
 
-case "${LH_BINARY_FILESYSTEM}" in
+case "${LB_BINARY_FILESYSTEM}" in
 	ext2|ext3)
 		PARTITION_TYPE="ext2"
 		;;
 
 	fat16|fat32)
-		PARTITION_TYPE="${LH_BINARY_FILESYSTEM}"
+		PARTITION_TYPE="${LB_BINARY_FILESYSTEM}"
 		;;
 
 	*)
-		Echo_error "Unsupported binary filesystem %s" "${LH_BINARY_FILESYSTEM}"
+		Echo_error "Unsupported binary filesystem %s" "${LB_BINARY_FILESYSTEM}"
 		exit 1
 		;;
 esac
 
-case "${LH_BUILD_WITH_CHROOT}" in
+case "${LB_BUILD_WITH_CHROOT}" in
 	true)
 		Chroot chroot "parted -s ${FREELO} mklabel ${PARTITION_TABLE_TYPE}" || true
 		Chroot chroot "parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100%" || true
 		Chroot chroot "parted -s ${FREELO} set 1 boot on" || true
 		Chroot chroot "parted -s ${FREELO} set 1 lba off" || true
 
-		if [ "${LH_BOOTLOADER}" = "syslinux" ]
+		if [ "${LB_BOOTLOADER}" = "syslinux" ]
 		then
 			dd if=chroot/usr/lib/syslinux/mbr.bin of=${FREELO} bs=440 count=1
 		fi
@@ -161,7 +161,7 @@ case "${LH_BUILD_WITH_CHROOT}" in
 		parted -s ${FREELO} set 1 boot on || true
 		parted -s ${FREELO} set 1 lba off || true
 
-		if [ "${LH_BOOTLOADER}" = "syslinux" ]
+		if [ "${LB_BOOTLOADER}" = "syslinux" ]
 		then
 			dd if=/usr/lib/syslinux/mbr.bin of=${FREELO} bs=440 count=1
 		fi
@@ -169,14 +169,14 @@ case "${LH_BUILD_WITH_CHROOT}" in
 esac
 
 sleep 1
-${LH_LOSETUP} -d ${FREELO}
+${LB_LOSETUP} -d ${FREELO}
 
-FREELO="$(${LH_LOSETUP} -f)"
+FREELO="$(${LB_LOSETUP} -f)"
 Losetup $FREELO chroot/binary.img 1
 
-case "${LH_BINARY_FILESYSTEM}" in
+case "${LB_BINARY_FILESYSTEM}" in
 	ext2|ext3)
-		MKFS="${LH_BINARY_FILESYSTEM}"
+		MKFS="${LB_BINARY_FILESYSTEM}"
 		MKFS_OPTIONS="-L DEBIAN_LIVE -m 0"
 		;;
 
@@ -191,7 +191,7 @@ case "${LH_BINARY_FILESYSTEM}" in
 		;;
 esac
 
-case "${LH_BUILD_WITH_CHROOT}" in
+case "${LB_BUILD_WITH_CHROOT}" in
 	true)
 		Chroot chroot "mkfs.${MKFS} ${MKFS_OPTIONS} ${FREELO}"
 		;;
@@ -201,19 +201,19 @@ case "${LH_BUILD_WITH_CHROOT}" in
 		;;
 esac
 
-case "${LH_BINARY_FILESYSTEM}" in
+case "${LB_BINARY_FILESYSTEM}" in
 	fat*)
 		CP_OPTIONS="-L"
 		;;
 esac
 
 mkdir -p chroot/binary.tmp
-${LH_ROOT_COMMAND} mount ${FREELO} chroot/binary.tmp
+${LB_ROOT_COMMAND} mount ${FREELO} chroot/binary.tmp
 cp -r -T ${CP_OPTIONS} binary/ chroot/binary.tmp
 
 FIXME()
 {
-if [ "${LH_BOOTLOADER}" = "grub" ]
+if [ "${LB_BOOTLOADER}" = "grub" ]
 then
 
 cat > chroot/grub.sh << EOF
@@ -242,12 +242,12 @@ EOF
 fi
 }
 
-${LH_ROOT_COMMAND} umount chroot/binary.tmp
+${LB_ROOT_COMMAND} umount chroot/binary.tmp
 rmdir chroot/binary.tmp
 
-if [ "${LH_BOOTLOADER}" = "syslinux" ]
+if [ "${LB_BOOTLOADER}" = "syslinux" ]
 then
-	case "${LH_BUILD_WITH_CHROOT}" in
+	case "${LB_BUILD_WITH_CHROOT}" in
 		true)
 			Chroot chroot "syslinux ${FREELO}"
 			;;
@@ -259,7 +259,7 @@ then
 fi
 
 sleep 1
-${LH_LOSETUP} -d ${FREELO}
+${LB_LOSETUP} -d ${FREELO}
 
 echo "!!! The above error/warning messages can be ignored !!!"
 

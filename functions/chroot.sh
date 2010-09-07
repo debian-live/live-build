@@ -16,12 +16,12 @@ Chroot ()
 	# Executing commands in chroot
 	Echo_debug "Executing: %s" "${COMMANDS}"
 
-	if [ "${LH_USE_FAKEROOT}" != "true" ]
+	if [ "${LB_USE_FAKEROOT}" != "true" ]
 	then
-		${LH_ROOT_COMMAND} /usr/sbin/chroot "${CHROOT}" /usr/bin/env -i HOME="/root" PATH="/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin" TERM="${TERM}" ftp_proxy="${LH_APT_FTP_PROXY}" http_proxy="${LH_APT_HTTP_PROXY}" DEBIAN_FRONTEND="${LH_DEBCONF_FRONTEND}" DEBIAN_PRIORITY="${LH_DEBCONF_PRIORITY}" DEBCONF_NOWARNINGS="${LH_DEBCONF_NOWARNINGS}" XORG_CONFIG="custom" ${COMMANDS}
+		${LB_ROOT_COMMAND} /usr/sbin/chroot "${CHROOT}" /usr/bin/env -i HOME="/root" PATH="/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin" TERM="${TERM}" ftp_proxy="${LB_APT_FTP_PROXY}" http_proxy="${LB_APT_HTTP_PROXY}" DEBIAN_FRONTEND="${LB_DEBCONF_FRONTEND}" DEBIAN_PRIORITY="${LB_DEBCONF_PRIORITY}" DEBCONF_NOWARNINGS="${LB_DEBCONF_NOWARNINGS}" XORG_CONFIG="custom" ${COMMANDS}
 	else
 		# Building with fakeroot/fakechroot
-		${LH_ROOT_COMMAND} /usr/sbin/chroot "${CHROOT}" ${COMMANDS}
+		${LB_ROOT_COMMAND} /usr/sbin/chroot "${CHROOT}" ${COMMANDS}
 	fi
 
 	return "${?}"

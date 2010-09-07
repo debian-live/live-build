@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'manage /etc/apt/sources.list')"
@@ -27,7 +27,7 @@ Set_defaults
 # Requiring stage file
 Require_stagefile .stage/config .stage/bootstrap
 
-_LH_LOCAL_KEY_EMAIL="live-build-local-key@invalid"
+_LB_LOCAL_KEY_EMAIL="live-build-local-key@invalid"
 
 case "${1}" in
 	install)
@@ -46,60 +46,60 @@ case "${1}" in
 		Restore_cache cache/packages_chroot
 
 		# Configure custom sources.list
-		echo "deb ${LH_MIRROR_CHROOT} ${LH_DISTRIBUTION} ${LH_ARCHIVE_AREAS}" > chroot/etc/apt/sources.list
+		echo "deb ${LB_MIRROR_CHROOT} ${LB_DISTRIBUTION} ${LB_ARCHIVE_AREAS}" > chroot/etc/apt/sources.list
 
-		if [ "${LH_SOURCE}" = "true" ]
+		if [ "${LB_SOURCE}" = "true" ]
 		then
-			echo "deb-src ${LH_MIRROR_CHROOT} ${LH_DISTRIBUTION} ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+			echo "deb-src ${LB_MIRROR_CHROOT} ${LB_DISTRIBUTION} ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 		fi
 
-		if [ "${LH_SECURITY}" = "true" ]
+		if [ "${LB_SECURITY}" = "true" ]
 		then
-			case "${LH_MODE}" in
+			case "${LB_MODE}" in
 				ubuntu)
-					echo "deb ${LH_MIRROR_CHROOT_SECURITY} ${LH_DISTRIBUTION}-security ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+					echo "deb ${LB_MIRROR_CHROOT_SECURITY} ${LB_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
-					if [ "${LH_SOURCE}" = "true" ]
+					if [ "${LB_SOURCE}" = "true" ]
 					then
-						echo "deb-src ${LH_MIRROR_CHROOT_SECURITY} ${LH_DISTRIBUTION}-security ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						echo "deb-src ${LB_MIRROR_CHROOT_SECURITY} ${LB_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 					fi
 					;;
 
 				*)
-					if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
+					if [ "${LB_DISTRIBUTION}" != "sid" ] && [ "${LB_DISTRIBUTION}" != "unstable" ]
 					then
-						echo "deb ${LH_MIRROR_CHROOT_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						echo "deb ${LB_MIRROR_CHROOT_SECURITY} ${LB_DISTRIBUTION}/updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
-						if [ "${LH_SOURCE}" = "true" ]
+						if [ "${LB_SOURCE}" = "true" ]
 						then
-							echo "deb-src ${LH_MIRROR_CHROOT_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+							echo "deb-src ${LB_MIRROR_CHROOT_SECURITY} ${LB_DISTRIBUTION}/updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 						fi
 					fi
 					;;
 			esac
 		fi
 
-		if [ "${LH_VOLATILE}" = "true" ]
+		if [ "${LB_VOLATILE}" = "true" ]
 		then
-			case "${LH_MODE}" in
+			case "${LB_MODE}" in
 				debian|debian-release)
-					if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
+					if [ "${LB_DISTRIBUTION}" != "sid" ] && [ "${LB_DISTRIBUTION}" != "unstable" ]
 					then
-						echo "deb ${LH_MIRROR_CHROOT_VOLATILE} ${LH_DISTRIBUTION}/volatile ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						echo "deb ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}/volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
-						if [ "${LH_SOURCE}" = "true" ]
+						if [ "${LB_SOURCE}" = "true" ]
 						then
-							echo "deb-src ${LH_MIRROR_CHROOT_VOLATILE} ${LH_DISTRIBUTION}/volatile ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+							echo "deb-src ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}/volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 						fi
 					fi
 					;;
 
 				ubuntu)
-					echo "deb ${LH_MIRROR_CHROOT_VOLATILE} ${LH_DISTRIBUTION}-updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+					echo "deb ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
-					if [ "${LH_SOURCE}" = "true" ]
+					if [ "${LB_SOURCE}" = "true" ]
 					then
-						echo "deb-src ${LH_MIRROR_CHROOT_VOLATILE} ${LH_DISTRIBUTION}-updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						echo "deb-src ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 					fi
 					;;
 			esac
@@ -125,11 +125,11 @@ case "${1}" in
 		fi
 
 		# Configure third-party repositories
-		if [ -n "${LH_REPOSITORIES}" ]
+		if [ -n "${LB_REPOSITORIES}" ]
 		then
-			for REPOSITORY in ${LH_REPOSITORIES}
+			for REPOSITORY in ${LB_REPOSITORIES}
 			do
-				for PLACE in config/repositories "${LH_BASE}/repositories"
+				for PLACE in config/repositories "${LB_BASE}/repositories"
 				do
 					# Prefer repositories from the config tree
 					# over the global ones.
@@ -141,19 +141,19 @@ case "${1}" in
 					# Adding sources.list entries (chroot)
 					if [ -e "${PLACE}/${REPOSITORY}.chroot" ]
 					then
-						sed -e "s|@DISTRIBUTION@|${LH_DISTRIBUTION}|g" \
-						    -e "s|@ARCHIVE_AREAS@|${LH_ARCHIVE_AREAS}|g" \
+						sed -e "s|@DISTRIBUTION@|${LB_DISTRIBUTION}|g" \
+						    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
 						"${PLACE}/${REPOSITORY}.chroot" > \
 						"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
 					elif [ -e "${PLACE}/${REPOSITORY}" ]
 					then
-						sed -e "s|@DISTRIBUTION@|${LH_DISTRIBUTION}|g" \
-						    -e "s|@ARCHIVE_AREAS@|${LH_ARCHIVE_AREAS}|g" \
+						sed -e "s|@DISTRIBUTION@|${LB_DISTRIBUTION}|g" \
+						    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
 						"${PLACE}/${REPOSITORY}" > \
 						"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
 					fi
 
-					if [ "${LH_APT_SECURE}" != false ]
+					if [ "${LB_APT_SECURE}" != false ]
 					then
 						# Adding archive signing keys (chroot)
 						if [ -e "${PLACE}/${REPOSITORY}.chroot.gpg" ]
@@ -180,9 +180,9 @@ case "${1}" in
 			fi
 
 			# Copy packages
-			if Find_files config/chroot_local-packages/*_"${LH_ARCHITECTURE}".deb
+			if Find_files config/chroot_local-packages/*_"${LB_ARCHITECTURE}".deb
 			then
-				cp ${CP_OPTIONS} config/chroot_local-packages/*_"${LH_ARCHITECTURE}".deb chroot/root/local-packages
+				cp ${CP_OPTIONS} config/chroot_local-packages/*_"${LB_ARCHITECTURE}".deb chroot/root/local-packages
 			fi
 
 			if Find_files config/chroot_local-packages/*_all.deb
@@ -195,7 +195,7 @@ case "${1}" in
 				# If we bootstrapped a minimal chroot, we need
 				# to install apt-utils before we have have
 				# completed all the indices.
-				case "${LH_PACKAGES_LISTS}" in
+				case "${LB_PACKAGES_LISTS}" in
 					stripped|minimal)
 						Chroot chroot "apt-get update"
 						;;
@@ -216,12 +216,12 @@ case "${1}" in
 					-o APT::FTPArchive::Release::Origin=chroot_local-packages \
 					release . > Release" | Chroot chroot sh
 
-				if [ "${LH_APT_SECURE}" = "true" ]
+				if [ "${LB_APT_SECURE}" = "true" ]
 				then
-					_LH_DOTGNUPG_EXISTED=0
+					_LB_DOTGNUPG_EXISTED=0
 					if [ -d chroot/root/.gnupg ]
 					then
-						_LH_DOTGNUPG_EXISTED=1
+						_LB_DOTGNUPG_EXISTED=1
 					fi
 
 					# Ensure ~/.gnupg exists (required for gnupg >= ~1.4.9)
@@ -243,21 +243,21 @@ case "${1}" in
 						      Subkey-Type: ELG-E
 						      Subkey-Length: 1024
 						      Name-Real: live-build local packages key
-						      Name-Email: ${_LH_LOCAL_KEY_EMAIL}
+						      Name-Email: ${_LB_LOCAL_KEY_EMAIL}
 						      Expire-Date: 0
 						      %secring /root/local-package-keyring.sec
 						      %pubring /root/local-package-keyring.pub
-						      %commit" | Chroot chroot "gpg --batch --gen-key" || _LH_RET=${?}
+						      %commit" | Chroot chroot "gpg --batch --gen-key" || _LB_RET=${?}
 
-						case "${_LH_RET}" in
+						case "${_LB_RET}" in
 							""|2)
 								# Gnupg sometimes seems to return with a status of 2 when there was not
 								# enough entropy (and key creation blocks temporarily) even if the
 								# operation was ultimately successful.
 								;;
 							*)
-								Echo_error "GPG exited with error status %s" "${_LH_RET}"
-								exit ${_LH_RET}
+								Echo_error "GPG exited with error status %s" "${_LB_RET}"
+								exit ${_LB_RET}
 								;;
 						esac
 
@@ -273,7 +273,7 @@ case "${1}" in
 					# Import key
 					Chroot chroot "gpg --no-default-keyring --secret-keyring /root/local-package-keyring.sec \
 						--keyring /root/local-package-keyring.pub --armor \
-						--export ${_LH_LOCAL_KEY_EMAIL}" | Chroot chroot "apt-key add -"
+						--export ${_LB_LOCAL_KEY_EMAIL}" | Chroot chroot "apt-key add -"
 
 					# Remove temporary keyrings
 					rm chroot/root/local-package-keyring.pub
@@ -283,7 +283,7 @@ case "${1}" in
 					mv chroot/dev/random.orig chroot/dev/random
 
 					# Remove /root/.gnupg if we created it during the signing process
-					if [ "${_LH_DOTGNUPG_EXISTED}" -eq 0 ]
+					if [ "${_LB_DOTGNUPG_EXISTED}" -eq 0 ]
 					then
 						rm -rf chroot/root/.gnupg
 					fi
@@ -300,7 +300,7 @@ case "${1}" in
 		fi
 
 		# Update indices from cache
-		if [ "${LH_CACHE_INDICES}" = "true" ] && [ -d cache/indices_bootstrap ]
+		if [ "${LB_CACHE_INDICES}" = "true" ] && [ -d cache/indices_bootstrap ]
 		then
 			if Find_files cache/indices_bootstrap/secring.gpg*
 			then
@@ -337,7 +337,7 @@ case "${1}" in
 				cp -f cache/indices_bootstrap/*_Release* chroot/var/lib/apt/lists
 			fi
 
-			if [ "${LH_APT}" = "aptitude" ] && [ ! -x /usr/bin/aptitude ]
+			if [ "${LB_APT}" = "aptitude" ] && [ ! -x /usr/bin/aptitude ]
 			then
 				Chroot chroot "apt-get ${APT_OPTIONS} install aptitude"
 			fi
@@ -365,7 +365,7 @@ case "${1}" in
 			fi
 
 			# Installing aptitude
-			if [ "${LH_APT}" = "aptitude" ] && [ ! -x /usr/bin/aptitude ]
+			if [ "${LB_APT}" = "aptitude" ] && [ ! -x /usr/bin/aptitude ]
 			then
 				Chroot chroot "apt-get ${APT_OPTIONS} update"
 				Chroot chroot "apt-get ${APT_OPTIONS} install aptitude"
@@ -376,13 +376,13 @@ case "${1}" in
 			Apt dist-upgrade
 
 			# Installing keyring packages
-			if [ -n "${LH_KEYRING_PACKAGES}" ]
+			if [ -n "${LB_KEYRING_PACKAGES}" ]
 			then
-				Chroot chroot "apt-get --yes --force-yes install ${LH_KEYRING_PACKAGES}"
+				Chroot chroot "apt-get --yes --force-yes install ${LB_KEYRING_PACKAGES}"
 				Apt update
 			fi
 
-			if [ "${LH_CACHE_INDICES}" = "true" ]
+			if [ "${LB_CACHE_INDICES}" = "true" ]
 			then
 				mkdir -p cache/indices_bootstrap
 
@@ -425,8 +425,8 @@ case "${1}" in
 
 		# Configure generic indices
 		# Don't do anything if it's not required
-		if [ "${LH_MIRROR_CHROOT}" = "${LH_MIRROR_BINARY}" ] && \
-		[ "${LH_MIRROR_CHROOT_SECURITY}" = "${LH_MIRROR_BINARY_SECURITY}" ] && \
+		if [ "${LB_MIRROR_CHROOT}" = "${LB_MIRROR_BINARY}" ] && \
+		[ "${LB_MIRROR_CHROOT_SECURITY}" = "${LB_MIRROR_BINARY_SECURITY}" ] && \
 		[ ! -d chroot/root/local-packages ]
 		then
 			# Removing stage file
@@ -439,74 +439,74 @@ case "${1}" in
 		rm -rf chroot/var/lib/apt/lists
 		mkdir -p chroot/var/lib/apt/lists/partial
 
-		echo "deb ${LH_MIRROR_BINARY} ${LH_DISTRIBUTION} ${LH_ARCHIVE_AREAS}" > chroot/etc/apt/sources.list
+		echo "deb ${LB_MIRROR_BINARY} ${LB_DISTRIBUTION} ${LB_ARCHIVE_AREAS}" > chroot/etc/apt/sources.list
 
-		if [ "${LH_SOURCE}" = "true" ]
+		if [ "${LB_SOURCE}" = "true" ]
 		then
-			echo "deb-src ${LH_MIRROR_BINARY} ${LH_DISTRIBUTION} ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+			echo "deb-src ${LB_MIRROR_BINARY} ${LB_DISTRIBUTION} ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 		fi
 
-		if [ "${LH_SECURITY}" = "true" ]
+		if [ "${LB_SECURITY}" = "true" ]
 		then
-			case "${LH_MODE}" in
+			case "${LB_MODE}" in
 				ubuntu)
-					echo "deb ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}-security ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+					echo "deb ${LB_MIRROR_BINARY_SECURITY} ${LB_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
-					if [ "${LH_SOURCE}" = "true" ]
+					if [ "${LB_SOURCE}" = "true" ]
 					then
-						echo "deb-src ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}-security ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						echo "deb-src ${LB_MIRROR_BINARY_SECURITY} ${LB_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 					fi
 					;;
 
 				*)
-					if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
+					if [ "${LB_DISTRIBUTION}" != "sid" ] && [ "${LB_DISTRIBUTION}" != "unstable" ]
 					then
-						echo "deb ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						echo "deb ${LB_MIRROR_BINARY_SECURITY} ${LB_DISTRIBUTION}/updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
-						if [ "${LH_SOURCE}" = "true" ]
+						if [ "${LB_SOURCE}" = "true" ]
 						then
-							echo "deb-src ${LH_MIRROR_BINARY_SECURITY} ${LH_DISTRIBUTION}/updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+							echo "deb-src ${LB_MIRROR_BINARY_SECURITY} ${LB_DISTRIBUTION}/updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 						fi
 					fi
 					;;
 			esac
 		fi
 
-		if [ "${LH_VOLATILE}" = "true" ]
+		if [ "${LB_VOLATILE}" = "true" ]
 		then
-			case "${LH_MODE}" in
+			case "${LB_MODE}" in
 				debian|debian-release)
-					if [ "${LH_DISTRIBUTION}" != "sid" ] && [ "${LH_DISTRIBUTION}" != "unstable" ]
+					if [ "${LB_DISTRIBUTION}" != "sid" ] && [ "${LB_DISTRIBUTION}" != "unstable" ]
 					then
-						echo "deb ${LH_MIRROR_BINARY_VOLATILE} ${LH_DISTRIBUTION}/volatile ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						echo "deb ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}/volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
-						if [ "${LH_SOURCE}" = "true" ]
+						if [ "${LB_SOURCE}" = "true" ]
 						then
-							echo "deb-src ${LH_MIRROR_BINARY_VOLATILE} ${LH_DISTRIBUTION}/volatile ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+							echo "deb-src ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}/volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 						fi
 					fi
 					;;
 
 				ubuntu)
-					echo "deb ${LH_MIRROR_BINARY_VOLATILE} ${LH_DISTRIBUTION}-updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+					echo "deb ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
-					if [ "${LH_SOURCE}" = "true" ]
+					if [ "${LB_SOURCE}" = "true" ]
 					then
-						echo "deb-src ${LH_MIRROR_BINARY_VOLATILE} ${LH_DISTRIBUTION}-updates ${LH_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						echo "deb-src ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 					fi
 					;;
 			esac
 		fi
 
 		# Configure third-party repositories
-		if [ -n "${LH_REPOSITORIES}" ]
+		if [ -n "${LB_REPOSITORIES}" ]
 		then
-			for REPOSITORY in ${LH_REPOSITORIES}
+			for REPOSITORY in ${LB_REPOSITORIES}
 			do
 				# Removing sources.list entries (chroot)
 				rm -f "chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
 
-				for PLACE in config/repositories "${LH_BASE}/repositories"
+				for PLACE in config/repositories "${LB_BASE}/repositories"
 				do
 					# Prefer repositories from the config tree
 					# over the global ones.
@@ -518,19 +518,19 @@ case "${1}" in
 					# Adding sources.list entries (binary)
 					if [ -e "${PLACE}/${REPOSITORY}.binary" ]
 					then
-						sed -e "s|@DISTRIBUTION@|${LH_DISTRIBUTION}|g" \
-						    -e "s|@ARCHIVE_AREAS@|${LH_ARCHIVE_AREAS}|g" \
+						sed -e "s|@DISTRIBUTION@|${LB_DISTRIBUTION}|g" \
+						    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
 						"${PLACE}/${REPOSITORY}.binary" > \
 						"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
 					elif [ -e "${PLACE}/${REPOSITORY}" ]
 					then
-						sed -e "s|@DISTRIBUTION@|${LH_DISTRIBUTION}|g" \
-						    -e "s|@ARCHIVE_AREAS@|${LH_ARCHIVE_AREAS}|g" \
+						sed -e "s|@DISTRIBUTION@|${LB_DISTRIBUTION}|g" \
+						    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
 						"${PLACE}/${REPOSITORY}" > \
 						"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
 					fi
 
-					if [ "${LH_APT_SECURE}" != false ]
+					if [ "${LB_APT_SECURE}" != false ]
 					then
 						# Adding archive signing keys (binary)
 						if [ -e "${PLACE}/${REPOSITORY}.binary.gpg" ]
@@ -583,7 +583,7 @@ case "${1}" in
 		mkdir -p chroot/var/cache/apt/archives/partial
 
 		# Cleaning apt package lists
-		if [ "${LH_BINARY_INDICES}" = "false" ]
+		if [ "${LB_BINARY_INDICES}" = "false" ]
 		then
 			rm -rf chroot/var/lib/apt/lists
 			mkdir -p chroot/var/lib/apt/lists/partial
@@ -594,9 +594,9 @@ case "${1}" in
 		rm -rf chroot/root/local-packages
 
 		# Remove local packages key if it exists
-		if apt-key list | grep -q ${_LH_LOCAL_KEY_EMAIL}
+		if apt-key list | grep -q ${_LB_LOCAL_KEY_EMAIL}
 		then
-			apt-key del ${_LH_LOCAL_KEY_EMAIL}
+			apt-key del ${_LB_LOCAL_KEY_EMAIL}
 		fi
 
 		# Removing stage file

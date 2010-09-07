@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LH_BASE:-/usr/share/live/build}"/scripts/build.sh
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'installs grub2 into binary')"
@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LH_BOOTLOADER}" != "grub2" ]
+if [ "${LB_BOOTLOADER}" != "grub2" ]
 then
 	exit 0
 fi
@@ -68,7 +68,7 @@ Grub_live_entry ()
 	APPEND="${4}"
 
 	LINUX_LIVE="${LINUX_LIVE}\nmenuentry \"Debian GNU/Linux - ${LABEL}\" {"
-	LINUX_LIVE="${LINUX_LIVE}\nlinux\t\t/${KERNEL} boot=${INITFS} live-config LH_BOOTAPPEND_LIVE ${APPEND}"
+	LINUX_LIVE="${LINUX_LIVE}\nlinux\t\t/${KERNEL} boot=${INITFS} live-config LB_BOOTAPPEND_LIVE ${APPEND}"
 	LINUX_LIVE="${LINUX_LIVE}\ninitrd\t\t/${INITRD}"
 	LINUX_LIVE="${LINUX_LIVE}\n}"
 }
@@ -86,12 +86,12 @@ Grub_install_entry ()
 	fi
 
 	LINUX_INSTALL="${LINUX_INSTALL}\nmenuentry \"Debian GNU/Linux - ${LABEL}\" {"
-	LINUX_INSTALL="${LINUX_INSTALL}\nlinux\t\t/${KERNEL} ${APPEND} LH_BOOTAPPEND_INSTALL"
+	LINUX_INSTALL="${LINUX_INSTALL}\nlinux\t\t/${KERNEL} ${APPEND} LB_BOOTAPPEND_INSTALL"
 	LINUX_INSTALL="${LINUX_INSTALL}\ninitrd\t\t/${INITRD}"
 	LINUX_INSTALL="${LINUX_INSTALL}\n}"
 }
 
-case "${LH_INITRAMFS}" in
+case "${LB_INITRAMFS}" in
 	casper)
 		INITFS="casper"
 		;;
@@ -102,9 +102,9 @@ case "${LH_INITRAMFS}" in
 esac
 
 # Setting destination directory
-case "${LH_BINARY_IMAGES}" in
+case "${LB_BINARY_IMAGES}" in
 	iso*|tar)
-		case "${LH_INITRAMFS}" in
+		case "${LB_INITRAMFS}" in
 			casper)
 				DESTDIR_LIVE="binary/casper"
 				;;
@@ -131,62 +131,62 @@ mkdir -p "${DESTDIR_LIVE}"
 
 # Setting boot parameters
 
-case "${LH_ENCRYPTION}" in
+case "${LB_ENCRYPTION}" in
 	""|false)
 		;;
 	*)
-		LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} encryption=${LH_ENCRYPTION}"
+		LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} encryption=${LB_ENCRYPTION}"
 esac
 
-if [ -n "${LH_USERNAME}" ]
+if [ -n "${LB_USERNAME}" ]
 then
-	case "${LH_INITRAMFS}" in
+	case "${LB_INITRAMFS}" in
 		casper)
-			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} username=${LH_USERNAME}"
+			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} username=${LB_USERNAME}"
 			;;
 
 		live-initramfs|live-boot)
-			if [ "${LH_USERNAME}" != "user" ]
+			if [ "${LB_USERNAME}" != "user" ]
 			then
-				LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} username=${LH_USERNAME}"
+				LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} username=${LB_USERNAME}"
 			fi
 			;;
 	esac
 fi
 
-if [ -n "${LH_HOSTNAME}" ]
+if [ -n "${LB_HOSTNAME}" ]
 then
-	case "${LH_INITRAMFS}" in
+	case "${LB_INITRAMFS}" in
 		casper)
-			LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} hostname=${LH_HOSTNAME}"
+			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} hostname=${LB_HOSTNAME}"
 			;;
 
 		live-initramfs|live-boot)
-			if [ "${LH_HOSTNAME}" != "debian" ]
+			if [ "${LB_HOSTNAME}" != "debian" ]
 			then
-				LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} hostname=${LH_HOSTNAME}"
+				LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} hostname=${LB_HOSTNAME}"
 			fi
 			;;
 	esac
 fi
 
-if [ "${LH_UNION_FILESYSTEM}" != "aufs" ]
+if [ "${LB_UNION_FILESYSTEM}" != "aufs" ]
 then
-	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} union=${LH_UNION_FILESYSTEM}"
+	LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} union=${LB_UNION_FILESYSTEM}"
 fi
 
-if [ -n "${LH_NET_COW_PATH}" ]
+if [ -n "${LB_NET_COW_PATH}" ]
 then
 	Echo_error "Net cow not yet supported on grub"
 	exit 1
 fi
 
-if [ "${LH_EXPOSED_ROOT}" != "false" ]
+if [ "${LB_EXPOSED_ROOT}" != "false" ]
 then
-	LH_BOOTAPPEND_LIVE="${LH_BOOTAPPEND_LIVE} exposedroot"
+	LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} exposedroot"
 fi
 
-LH_BOOTAPPEND_LIVE="$(echo ${LH_BOOTAPPEND_LIVE} | sed -e 's|  ||')"
+LB_BOOTAPPEND_LIVE="$(echo ${LB_BOOTAPPEND_LIVE} | sed -e 's|  ||')"
 
 # Parameters are listed at: linux/Documentation/kernel-parameters.txt
 FAILSAFE="noapic noapm nodma nomce nolapic nomodeset nosmp vga=normal"
@@ -194,7 +194,7 @@ FAILSAFE="noapic noapm nodma nomce nolapic nomodeset nosmp vga=normal"
 # Assembling kernel configuration
 
 # Default entries
-DEFAULT_FLAVOUR="$(echo ${LH_LINUX_FLAVOURS} | awk '{ print $1 }')"
+DEFAULT_FLAVOUR="$(echo ${LB_LINUX_FLAVOURS} | awk '{ print $1 }')"
 DEFAULT_KERNEL="$(basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR})"
 DEFAULT_INITRD="initrd.img-$(echo ${DEFAULT_KERNEL} | sed -e 's|vmlinuz-||')"
 
@@ -212,7 +212,7 @@ done
 LINUX_LIVE="$(/bin/echo ${LINUX_LIVE} | sed -e 's|binary||g' -e 's|//|/|g')"
 
 # Assembling debian-installer configuration
-if [ "${LH_DEBIAN_INSTALLER}" != "false" ]
+if [ "${LB_DEBIAN_INSTALLER}" != "false" ]
 then
 	LINUX_LIVE="#\t \"Live\"\n${LINUX_LIVE}"
 	LINUX_INSTALL="#\t \"Installer\"\n"
@@ -241,7 +241,7 @@ LINUX_INSTALL="$(/bin/echo ${LINUX_INSTALL} | sed -e 's|binary||g' -e 's|//|/|g'
 if [ -f "${DESTDIR_LIVE}"/memtest ]
 then
 	MEMTEST="#\t \"Other\"\n"
-	MEMTEST="${MEMTEST}\nmenuentry\t\"${LH_MEMTEST}\" {\nlinux16\t$(basename ${DESTDIR_LIVE})/memtest\n}"
+	MEMTEST="${MEMTEST}\nmenuentry\t\"${LB_MEMTEST}\" {\nlinux16\t$(basename ${DESTDIR_LIVE})/memtest\n}"
 	MEMTEST="$(/bin/echo ${MEMTEST} | sed -e 's|//|/|g')"
 fi
 
@@ -249,7 +249,7 @@ fi
 mkdir -p binary/boot/grub
 cp -r "${TEMPLATES}"/* binary/boot/grub
 
-case ${LH_BINARY_IMAGES} in
+case ${LB_BINARY_IMAGES} in
 	iso*)
 		FILES="chroot/usr/lib/grub/i386-pc/*.mod chroot/usr/lib/grub/i386-pc/*.lst chroot/usr/lib/grub/i386-pc/efiemu??.o chroot/usr/share/grub/*.pf2"
 		;;
@@ -259,7 +259,7 @@ case ${LH_BINARY_IMAGES} in
 		;;
 esac
 
-if [ "${LH_BUILD_WITH_CHROOT}" = "false" ]
+if [ "${LB_BUILD_WITH_CHROOT}" = "false" ]
 then
 	FILES="$(echo ${FILES} | sed -e 's|chroot||g')"
 fi
@@ -276,12 +276,12 @@ fi
 # Copying splash screen
 if [ -f config/binary_grub/splash.tga ]
 then
-	LH_GRUB_SPLASH="config/binary_grub/splash.tga"
+	LB_GRUB_SPLASH="config/binary_grub/splash.tga"
 fi
 
-if [ -n "${LH_GRUB_SPLASH}" ]
+if [ -n "${LB_GRUB_SPLASH}" ]
 then
-	if [ "${LH_GRUB_SPLASH}" = "none" ]
+	if [ "${LB_GRUB_SPLASH}" = "none" ]
 	then
 		# Removing splash file
 		rm -f binary/boot/grub/splash.tga
@@ -290,13 +290,13 @@ then
 		sed -i -e "s|background_image.*||" binary/boot/grub/grub.cfg
 	else
 		# Overwriting splash file
-		cp -f "${LH_GRUB_SPLASH}" binary/boot/grub
-		sed -i -e "s|background_image .*.tga|background_image \$\(root\)/boot/grub/$(basename ${LH_GRUB_SPLASH})|" binary/boot/grub/grub.cfg
+		cp -f "${LB_GRUB_SPLASH}" binary/boot/grub
+		sed -i -e "s|background_image .*.tga|background_image \$\(root\)/boot/grub/$(basename ${LB_GRUB_SPLASH})|" binary/boot/grub/grub.cfg
 	fi
 fi
 
 sed -i -e "s|LINUX_LIVE|${LINUX_LIVE}|" -e "s|LINUX_INSTALL|${LINUX_INSTALL}|" -e "s|MEMTEST|${MEMTEST}|" binary/boot/grub/grub.cfg
-sed -i -e "s|LH_BOOTAPPEND_INSTALL|${LH_BOOTAPPEND_INSTALL}|" -e "s|LH_BOOTAPPEND_LIVE|${LH_BOOTAPPEND_LIVE}|" binary/boot/grub/grub.cfg
+sed -i -e "s|LB_BOOTAPPEND_INSTALL|${LB_BOOTAPPEND_INSTALL}|" -e "s|LB_BOOTAPPEND_LIVE|${LB_BOOTAPPEND_LIVE}|" binary/boot/grub/grub.cfg
 
 sed -i -e 's|\ $||g' binary/boot/grub/grub.cfg
 

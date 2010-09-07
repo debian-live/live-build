@@ -1,7 +1,7 @@
                   0f­Bienvenido a Debian GNU/Linux!07                               09F107
 
-Esto es una Debian {$LH_DISTRIBUTION} live de {$LH_MEDIA}.
-Fue construida el {$LH_DATE}.
+Esto es una Debian {$LB_DISTRIBUTION} live de {$LB_MEDIA}.
+Fue construida el {$LB_DATE}.
 
 0fMEN£ DE AYUDA07
 
@@ -9,7 +9,7 @@ Fue construida el {$LH_DATE}.
 
 <09F107>   Esta p gina, el ¡ndice.
 <09F207>   Prerrequisitos para instalar Debian.
-<09F307>   M‚todos de arranques especiales usando este {$LH_MEDIA}.
+<09F307>   M‚todos de arranques especiales usando este {$LB_MEDIA}.
 <09F407>   M‚todos adicionales de arranque.
 <09F507>   Repaso de los par metros especiales de arranque.
 <09F607>   Par metros especiales para algunas m quinas especiales.

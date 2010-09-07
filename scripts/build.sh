@@ -1,9 +1,9 @@
 #!/bin/sh
 
-LH_BASE="${LH_BASE:-/usr/share/live/build}"
+LB_BASE="${LB_BASE:-/usr/share/live/build}"
 
 # Source global functions
-for FUNCTION in "${LH_BASE}"/functions/*.sh
+for FUNCTION in "${LB_BASE}"/functions/*.sh
 do
 	. "${FUNCTION}"
 done

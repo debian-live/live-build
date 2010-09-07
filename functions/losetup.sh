@@ -14,9 +14,9 @@ Losetup ()
 	FILE="${2}"
 	PARTITION="${3:-1}"
 
-	${LH_ROOT_COMMAND} ${LH_LOSETUP} "${DEVICE}" "${FILE}"
-	FDISK_OUT="$(${LH_FDISK} -l -u ${DEVICE} 2>&1)"
-	${LH_ROOT_COMMAND} ${LH_LOSETUP} -d "${DEVICE}"
+	${LB_ROOT_COMMAND} ${LB_LOSETUP} "${DEVICE}" "${FILE}"
+	FDISK_OUT="$(${LB_FDISK} -l -u ${DEVICE} 2>&1)"
+	${LB_ROOT_COMMAND} ${LB_LOSETUP} -d "${DEVICE}"
 
 	LOOPDEVICE="$(echo ${DEVICE}p${PARTITION})"
 
@@ -24,14 +24,14 @@ Losetup ()
 	then
 		Echo_message "Mounting %s with offset 0" "${DEVICE}"
 
-		${LH_ROOT_COMMAND} ${LH_LOSETUP} "${DEVICE}" "${FILE}"
+		${LB_ROOT_COMMAND} ${LB_LOSETUP} "${DEVICE}" "${FILE}"
 	else
 		SECTORS="$(echo "$FDISK_OUT" | sed -ne "s|^$LOOPDEVICE[ *]*\([0-9]*\).*|\1|p")"
 		OFFSET="$(expr ${SECTORS} '*' 512)"
 
 		Echo_message "Mounting %s with offset %s" "${DEVICE}" "${OFFSET}"
 
-		${LH_ROOT_COMMAND} ${LH_LOSETUP} -o "${OFFSET}" "${DEVICE}" "${FILE}"
+		${LB_ROOT_COMMAND} ${LB_LOSETUP} -o "${OFFSET}" "${DEVICE}" "${FILE}"
 	fi
 }
 
