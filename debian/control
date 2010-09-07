@@ -21,12 +21,8 @@ Suggests:
  squashfs-tools | genext2fs | mtd-tools, sudo | fakeroot, syslinux | grub,
  uuid-runtime, win32-loader
 Description: Debian Live - System Build Scripts
- live-build is a set of scripts to build Debian Live system images.
- .
- The idea behind live-build is a framework that uses a configuration directory
- to completely automate and customize all aspects of building a Live image.
- .
- An introduction to live-build can be found in the live-build(7) manpage.
+ live-build contains the scripts that build a Debian Live system image from a
+ configuration directory.
 
 Package: live-build-cgi
 Architecture: all
@@ -35,7 +31,8 @@ Conflicts: live-helper (<< 2.0~a20)
 Replaces: live-helper
 Recommends: apache2 | httpd
 Description: Debian Live - System Build Scripts (cgi frontend)
- live-build is a set of scripts to build Debian Live system images.
+ live-build contains the scripts that build a Debian Live system image from a
+ configuration directory.
  .
  This package contains the cgi frontend.
 
