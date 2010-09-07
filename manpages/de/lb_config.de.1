@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 06.09.2010 2.0~a26 "Debian Live Projekt"
+.TH LIVE\-BUILD 1 07.09.2010 2.0~a26 "Debian Live Projekt"
 
 .SH NAME
 \fBlb config\fP \- Erstellen des config Verzeichnisses
@@ -444,10 +444,10 @@ understood the hook before you enable it.
 .IP "\fB\-\-hostname\fP \fINAME\fP" 4
 sets the hostname of the live system.
 .IP \fB\-\-ignore\-system\-defaults\fP 4
-\fBlb config\fP by default reads system defaults from /etc/default/live\-build
-when generating a new live system config directory. This is useful if you
-want to set global settings, such as mirror locations, and don't want to
-specify them all of the time.
+\fBlb config\fP by default reads system defaults from /etc/live/build.conf and
+/etc/live/build.d when generating a new live system config directory. This
+is useful if you want to set global settings, such as mirror locations, and
+don't want to specify them all of the time.
 .IP "\fB\-\-includes\fP \fIPATH\fP" 4
 sets the path to the includes that live\-build is going to use,
 e.g. additional minimal documentation that you want to have on all live
@@ -692,7 +692,7 @@ should not be used.
 .SH DATEIEN
 .\" FIXME
 .IP \fBauto/config\fP 4
-.IP \fB/etc/default/live\-build\fP 4
+.IP "\fB/etc/live/build.conf, /etc/live/build.d\fP" 4
 .\" FIXME
 An optional, global configuration file for \fBlb config\fP variables. It is
 useful to specify a few system wide defaults, like LB_MIRROR_BOOTSTRAP. This

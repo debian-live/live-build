@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2010-09-06 15:24+0300\n"
+"POT-Creation-Date: 2010-09-07 16:17+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,7 +83,7 @@ msgstr ""
 #: en/lb_source_net.1:1 en/lb_source_tar.1:1 en/lb_source_usb.1:1
 #: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "2010-09-06"
+msgid "2010-09-07"
 msgstr ""
 
 #. type: TH
@@ -1879,10 +1879,10 @@ msgstr ""
 #. type: Plain text
 #: en/lb_config.1:310
 msgid ""
-"B<lb config> by default reads system defaults from /etc/default/live-build "
-"when generating a new live system config directory. This is useful if you "
-"want to set global settings, such as mirror locations, and don't want to "
-"specify them all of the time."
+"B<lb config> by default reads system defaults from /etc/live/build.conf and /"
+"etc/live/build.d when generating a new live system config directory. This is "
+"useful if you want to set global settings, such as mirror locations, and "
+"don't want to specify them all of the time."
 msgstr ""
 
 #. type: IP
@@ -2667,7 +2667,7 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:431
 #, no-wrap
-msgid "B</etc/default/live-build>"
+msgid "B</etc/live/build.conf, /etc/live/build.d>"
 msgstr ""
 
 #.  FIXME
