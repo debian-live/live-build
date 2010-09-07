@@ -1,3 +1,16 @@
+live-build (2.0~a27-1) unstable; urgency=low
+
+  * Shortening package description.
+  * Updating internal variables from lh to lb scheme, should be the last
+    piece to finish the live-helper to live-build rename.
+  * Moving location of the global configuration file from
+    /etc/default/live-build to /etc/live/build.conf resp.
+    /etc/live/build.d/.
+  * Correcting --clean handling in lb_config.
+  * Replacing references to lh commands with lb in live-build manpage.
+
+ -- Daniel Baumann <daniel@debian.org>  Tue, 07 Sep 2010 21:41:44 +0200
+
 live-build (2.0~a26-1) unstable; urgency=low
 
   * Removing desktop-base entry in gnome-full list, already inherited
