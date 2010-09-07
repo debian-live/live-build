@@ -204,28 +204,8 @@ Local_arguments ()
 				;;
 
 			--clean)
-				# Remove empty directories in config tree
-				if ls config/*/ > /dev/null 2>&1
-				then
-					rmdir --ignore-fail-on-non-empty config/*/
-				fi
-
-				if [ -d config ]
-				then
-					rmdir --ignore-fail-on-non-empty config
-				fi
-
-				if [ -d auto/functions ]
-				then
-					rmdir --ignore-fail-on-non-empty auto/functions
-				fi
-
-				if [ -d auto ]
-				then
-					rmdir --ignore-fail-on-non-empty auto
-				fi
-
-				exit 0
+				_CLEAN="true"
+				shift
 				;;
 
 			# config/common
@@ -1354,6 +1334,30 @@ fi
 
 # Checking defaults again
 Check_defaults
+
+if [ "${_CLEAN}" = "true" ]
+then
+	# Remove empty directories in config tree
+	if ls config/*/ > /dev/null 2>&1
+	then
+		rmdir --ignore-fail-on-non-empty config/*/
+	fi
+
+	if [ -d config ]
+	then
+		rmdir --ignore-fail-on-non-empty config
+	fi
+
+	if [ -d auto/functions ]
+	then
+		rmdir --ignore-fail-on-non-empty auto/functions
+	fi
+
+	if [ -d auto ]
+	then
+		rmdir --ignore-fail-on-non-empty auto
+	fi
+fi
 
 # Creating stage file
 Create_stagefile .stage/config
