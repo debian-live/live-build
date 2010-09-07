@@ -26,7 +26,6 @@ then
 fi
 
 # Setting static variables
-SYSTEM_LB_CONFFILE="/etc/default/live-build"
 DESCRIPTION="$(Echo 'create configuration for live-build(7)')"
 USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--apt-ftp-proxy URL]\n\
@@ -795,10 +794,11 @@ Local_arguments ()
 }
 
 # Reading system configuration
-if [ -f "${SYSTEM_LB_CONFFILE}" ] && ! In_list "--ignore-system-defaults" "${@}"
+if ! In_list "--ignore-system-defaults" "${@}"
 then
-	Echo_message "Considering defaults defined in %s" "${SYSTEM_LB_CONFFILE}"
-	Read_conffiles "${SYSTEM_LB_CONFFILE}"
+	Echo_message "Considering defaults defined in %s" "/etc/live/build.conf"
+
+	Read_conffiles /etc/live/config.conf /etc/live/config.d/*
 fi
 
 # Reading existing configuration

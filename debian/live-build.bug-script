@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DEFAULT_SETTINGS="/etc/default/live-build"
+DEFAULT_SETTINGS="/etc/live/build.conf"
 
 # Checking depends
 dpkg -l debootstrap cdebootstrap
