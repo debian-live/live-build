@@ -39,7 +39,7 @@ case "${1}" in
 		;;
 
 	*)
-		COMMAND="${1}"
+		COMMAND="lb_${1}"
 		shift
 
 		if [ -x "${LB_BASE}/scripts/build/${COMMAND}" ]
