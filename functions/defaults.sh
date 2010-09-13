@@ -226,7 +226,7 @@ Set_defaults ()
 		LB_TEMPLATES="${LB_BASE}/templates"
 	fi
 
-	# Setting live helper options
+	# Setting live build options
 	_BREAKPOINTS="${_BREAKPOINTS:-false}"
 	_COLOR="${_COLOR:-false}"
 	_DEBUG="${_DEBUG:-false}"

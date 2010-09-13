@@ -12,4 +12,4 @@ PACKAGE="live-build"
 VERSION="2.0~a28-1"
 CONFIG_VERSION="$(echo ${VERSION} | awk -F- '{ print $1 }')"
 
-PATH="${PWD}/auto/helpers:${PATH}"
+PATH="${PWD}/auto/scripts:${PATH}"
