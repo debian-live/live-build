@@ -9,7 +9,7 @@
 
 
 LB_BASE="${PWD}/live-build"
-PATH="${LB_BASE}/helpers:${PATH}"
+PATH="${LB_BASE}/scripts/build:${PATH}"
 
 export LB_BASE PATH
 
