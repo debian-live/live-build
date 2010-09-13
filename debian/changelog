@@ -1,3 +1,18 @@
+live-build (2.0~a28-1) unstable; urgency=low
+
+  [ Cody A.W. Somerville ]
+  * Addding maverick to list of releases.
+
+  [ Daniel Baumann ]
+  * Removing EOL Ubuntu releases.
+  * Adding preconfig project to repositories.
+  * Updating path in local helper for live-build.
+  * Prefixing helper scripts to make 'out of source' usage usable
+    (Closes: #572455).
+  * Avoid running helpers twice when using auto (Closes: #584884).
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 13 Sep 2010 21:28:16 +0200
+
 live-build (2.0~a27-1) unstable; urgency=low
 
   * Shortening package description.
