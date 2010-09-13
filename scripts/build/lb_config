@@ -1288,6 +1288,7 @@ LB_SOURCE_IMAGES="${LB_SOURCE_IMAGES}"
 EOF
 
 mkdir -p auto/functions
+mkdir -p auto/scripts
 
 if [ "${CONFIG}" = "clone" ] # FIXME
 then
@@ -1352,6 +1353,11 @@ then
 	if [ -d auto/functions ]
 	then
 		rmdir --ignore-fail-on-non-empty auto/functions
+	fi
+
+	if [ -d auto/scripts]
+	then
+		rmdir --ignore-fail-on-non-empty auto/scripts
 	fi
 
 	if [ -d auto ]
