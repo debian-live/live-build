@@ -90,6 +90,9 @@ Syslinux_live_entry ()
 	INITRD="${4}"
 	APPEND="${5}"
 
+	# Boot in quiet mode where appropriate
+	QAPPEND="quiet"
+
 	case "${LB_BINARY_IMAGES}" in
 		iso*|usb*)
 			NUMBER="$(ls -1 ${KERNEL_PATH} | grep 'vmlinuz[0-9]\+$' | wc -l)"
@@ -127,7 +130,7 @@ Syslinux_live_entry ()
 	fi
 
 	LINUX_LIVE="${LINUX_LIVE}\tkernel ${LIVE_KERNEL_PATH}/${KERNEL}\n"
-	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=${LIVE_KERNEL_PATH}/${INITRD} boot=${INITFS} live-config ${LB_BOOTAPPEND_LIVE} ${APPEND}\n"
+	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=${LIVE_KERNEL_PATH}/${INITRD} boot=${INITFS} live-config ${LB_BOOTAPPEND_LIVE} ${APPEND} ${QAPPEND}\n"
 
 	# Failsafe kernel
 	LINUX_LIVE="${LINUX_LIVE}\nlabel ${LABEL}failsafe\n"
