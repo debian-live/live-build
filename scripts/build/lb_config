@@ -1355,7 +1355,7 @@ then
 		rmdir --ignore-fail-on-non-empty auto/functions
 	fi
 
-	if [ -d auto/scripts]
+	if [ -d auto/scripts ]
 	then
 		rmdir --ignore-fail-on-non-empty auto/scripts
 	fi
