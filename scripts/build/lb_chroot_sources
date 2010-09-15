@@ -46,7 +46,12 @@ case "${1}" in
 		Restore_cache cache/packages_chroot
 
 		# Configure custom sources.list
-		echo "deb ${LB_MIRROR_CHROOT} ${LB_DISTRIBUTION} ${LB_ARCHIVE_AREAS}" > chroot/etc/apt/sources.list
+
+cat > chroot/etc/apt/sources.list << EOF
+# /etc/apt/sources.list
+
+deb ${LB_MIRROR_CHROOT} ${LB_DISTRIBUTION} ${LB_ARCHIVE_AREAS}
+EOF
 
 		if [ "${LB_SOURCE}" = "true" ]
 		then
@@ -439,7 +444,11 @@ case "${1}" in
 		rm -rf chroot/var/lib/apt/lists
 		mkdir -p chroot/var/lib/apt/lists/partial
 
-		echo "deb ${LB_MIRROR_BINARY} ${LB_DISTRIBUTION} ${LB_ARCHIVE_AREAS}" > chroot/etc/apt/sources.list
+cat > chroot/etc/apt/sources.lis << EOF
+# /etc/apt/sources.list
+
+deb ${LB_MIRROR_BINARY} ${LB_DISTRIBUTION} ${LB_ARCHIVE_AREAS}
+EOF
 
 		if [ "${LB_SOURCE}" = "true" ]
 		then
