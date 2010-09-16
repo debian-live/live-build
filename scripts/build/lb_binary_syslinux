@@ -129,7 +129,7 @@ Syslinux_live_entry ()
 	fi
 
 	LINUX_LIVE="${LINUX_LIVE}\tkernel ${LIVE_KERNEL_PATH}/${KERNEL}\n"
-	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=${LIVE_KERNEL_PATH}/${INITRD} boot=${INITFS} live-config ${LB_BOOTAPPEND_LIVE} ${APPEND} ${QAPPEND}\n"
+	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=${LIVE_KERNEL_PATH}/${INITRD} boot=${INITFS} config ${LB_BOOTAPPEND_LIVE} ${APPEND} ${QAPPEND}\n"
 
 	# Failsafe kernel
 	LINUX_LIVE="${LINUX_LIVE}\nlabel ${LABEL}failsafe\n"
@@ -141,7 +141,7 @@ Syslinux_live_entry ()
 	fi
 
 	LINUX_LIVE="${LINUX_LIVE}\tkernel ${LIVE_KERNEL_PATH}/${KERNEL}\n"
-	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=${LIVE_KERNEL_PATH}/${INITRD} boot=${INITFS} live-config ${LB_BOOTAPPEND_LIVE} ${APPEND} ${FAILSAFE}\n"
+	LINUX_LIVE="${LINUX_LIVE}\tappend initrd=${LIVE_KERNEL_PATH}/${INITRD} boot=${INITFS} config ${LB_BOOTAPPEND_LIVE} ${APPEND} ${FAILSAFE}\n"
 }
 
 Syslinux_install_entry ()

@@ -72,7 +72,7 @@ Yaboot_live_entry ()
 	LINUX_LIVE="${LINUX_LIVE}\nimage=${DIRECTORY}/${KERNEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\tlabel=${LABEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\tinitrd=${DIRECTORY}/${INITRD}\n"
-	LINUX_LIVE="${LINUX_LIVE}\tappend=\"boot=${INITFS} live-config LB_BOOTAPPEND_LIVE ${APPEND}\"\n"
+	LINUX_LIVE="${LINUX_LIVE}\tappend=\"boot=${INITFS} config LB_BOOTAPPEND_LIVE ${APPEND}\"\n"
 	LINUX_LIVE="${LINUX_LIVE}\tinitrd-size=10240\n"
 }
 
