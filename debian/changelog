@@ -1,3 +1,21 @@
+live-build (2.0~a29-1) unstable; urgency=low
+
+  * Updating auto/scripts handling.
+  * Adding somewhat prettier header in /etc/apt/sources.list.
+  * Fixing lb_binary_syslinux to add quiet for the default live entries.
+  * Correcting typo in lb_config when cleaning up auto/config.
+  * Adding support for inclusion of the debian-backports repository.
+  * Correcting freudian typo when reading in config files.
+  * Correcting to narrow pattern for counting kernel images (Closes:
+    #581252).
+  * Updating kernel images number when installing them into live media.
+  * Also populating config tree automatically when calling other top-
+    level commands apart from lb_build.
+  * Allowing also symlinks in chroot_local-packages (Closes: #593186).
+  * Correcting typo in binary sources.list creating.
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 16 Sep 2010 21:13:58 +0200
+
 live-build (2.0~a28-1) unstable; urgency=low
 
   [ Cody A.W. Somerville ]
