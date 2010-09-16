@@ -797,7 +797,7 @@ if ! In_list "--ignore-system-defaults" "${@}"
 then
 	Echo_message "Considering defaults defined in %s" "/etc/live/build.conf"
 
-	Read_conffiles /etc/live/config.conf /etc/live/config.d/*
+	Read_conffiles /etc/live/build.conf /etc/live/build.d/*
 fi
 
 # Reading existing configuration
