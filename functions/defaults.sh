@@ -359,6 +359,22 @@ Set_defaults ()
 		LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE:-none}"
 	fi
 
+	# Setting backports mirror to fetch packages from
+	if [ -z "${LB_MIRROR_CHROOT_BACKPORTS}" ]
+	then
+		case "${LB_MODE}" in
+			debian|debian-release)
+				case "${LB_DISTRIBUTION}" in
+					lenny|squeeze)
+						LB_MIRROR_CHROOT_BACKPORTS="http://backports.debian.org/debian-backports/"
+						;;
+				esac
+				;;
+		esac
+
+		LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-none}"
+	fi
+
 	# Setting mirror which ends up in the image
 	if [ -z "${LB_MIRROR_BINARY}" ]
 	then
@@ -437,6 +453,22 @@ Set_defaults ()
 		esac
 
 		LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY_VOLATILE:-none}"
+	fi
+
+	# Setting backports mirror which ends up in the image
+	if [ -z "${LB_MIRROR_BINARY_BACKPORTS}" ]
+	then
+		case "${LB_MODE}" in
+			debian|debian-release)
+				case "${LB_DISTRIBUTION}" in
+					lenny|squeeze)
+						LB_MIRROR_BINARY_BACKPORTS="http://backports.debian.org/debian-backports/"
+						;;
+				esac
+				;;
+		esac
+
+		LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-none}"
 	fi
 
 	LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER:-${LB_MIRROR_BOOTSTRAP}}"

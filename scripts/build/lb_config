@@ -95,9 +95,11 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--mirror-chroot URL]\n\
 \t    [--mirror-chroot-security URL]\n\
 \t    [--mirror-chroot-volatile URL]\n\
+\t    [--mirror-chroot-backports URL]\n\
 \t    [--mirror-binary URL]\n\
 \t    [--mirror-binary-security URL]\n\
 \t    [--mirror-binary-volatile URL]\n\
+\t    [--mirror-binary-backports URL]\n\
 \t    [--mirror-debian-installer URL]\n\
 \t    [--mode debian|emdebian]\n\
 \t    [--net-root-filesystem nfs|cfs]\n\
@@ -129,6 +131,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--templates PATH]\n\
 \t    [--virtual-root-size MB]\n\
 \t    [--volatile true|false]\n\
+\t    [--backports true|false]\n\
 \t    [--exposed-root true|false]\n\
 \t    [--username NAME]\n\
 \t    [--verbose]\n\
@@ -141,10 +144,10 @@ Local_arguments ()
 		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
 		initramfs:,fdisk:,losetup:,mode:,repositories:,root-command:,use-fakeroot:,tasksel:,includes:,
 		templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,clean,
-		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-binary:,
-		mirror-binary-security:,mirror-binary-volatile:,mirror-debian-installer:,archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
+		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-chroot-backports:,mirror-binary:,
+		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
-		packages:,packages-lists:,tasks:,security:,volatile:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,
+		packages:,packages-lists:,tasks:,security:,volatile:,backports:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,
 		binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
 		encryption:,grub-splash:,hostname:,isohybrid-options:,iso-application:,iso-preparer:,iso-publisher:,
@@ -403,6 +406,11 @@ Local_arguments ()
 				shift 2
 				;;
 
+			--mirror-chroot-backports)
+				LB_MIRROR_CHROOT_BACKPORTS="${2}"
+				shift 2
+				;;
+
 			--mirror-binary)
 				LB_MIRROR_BINARY="${2}"
 				shift 2
@@ -415,6 +423,11 @@ Local_arguments ()
 
 			--mirror-binary-volatile)
 				LB_MIRROR_BINARY_VOLATILE="${2}"
+				shift 2
+				;;
+
+			--mirror-binary-backports)
+				LB_MIRROR_BINARY_BACKPORTS="${2}"
 				shift 2
 				;;
 
@@ -501,6 +514,11 @@ Local_arguments ()
 
 			--volatile)
 				LB_VOLATILE="${2}"
+				shift 2
+				;;
+
+			--backports)
+				LB_BACKPORTS="${2}"
 				shift 2
 				;;
 
@@ -994,6 +1012,10 @@ LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY}"
 # (Default: ${LB_MIRROR_CHROOT_VOLATILE})
 LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE}"
 
+# \$LB_MIRROR_CHROOT_BACKPORTS: set backports mirror to fetch packages from
+# (Default: ${LB_MIRROR_CHROOT_BACKPORTS})
+LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS}"
+
 # \$LB_MIRROR_BINARY: set mirror which ends up in the image
 # (Default: ${LB_MIRROR_BINARY})
 LB_MIRROR_BINARY="${LB_MIRROR_BINARY}"
@@ -1005,6 +1027,10 @@ LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY}"
 # \$LB_MIRROR_BINARY_VOLATILE: set volatile mirror which ends up in the image
 # (Default: ${LB_MIRROR_BINARY_VOLATILE})
 LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY_VOLATILE}"
+
+# \$LB_MIRROR_BINARY_BACKPORTS: set backports mirror which ends up in the image
+# (Default: ${LB_MIRROR_BINARY_BACKPORTS})
+LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS}"
 
 # \$LB_MIRROR_DEBIAN_INSTALLER: set debian-installer mirror
 # (Default: ${LB_MIRROR_BOOTSTRAP})
@@ -1091,6 +1117,10 @@ LB_SECURITY="${LB_SECURITY}"
 # \$LB_VOLATILE: enable volatile updates
 # (Default: ${LB_VOLATILE})
 LB_VOLATILE="${LB_VOLATILE}"
+
+# \$LB_BACKPORTS: enable backports updates
+# (Default: ${LB_BACKPORTS})
+LB_BACKPORTS="${LB_BACKPORTS}"
 
 # \$LB_SYMLINKS: enable symlink convertion
 # (Default: ${LB_SYMLINKS})

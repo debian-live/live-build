@@ -110,6 +110,23 @@ EOF
 			esac
 		fi
 
+		if [ "${LB_BACKPORTS}" = "true" ]
+		then
+			case "${LB_MODE}" in
+				debian|debian-release)
+					if [ "${LB_DISTRIBUTION}" != "sid" ] && [ "${LB_DISTRIBUTION}" != "unstable" ]
+					then
+						echo "deb ${LB_MIRROR_CHROOT_BACKPORTS} ${LB_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+
+						if [ "${LB_SOURCE}" = "true" ]
+						then
+							echo "deb-src ${LB_MIRROR_CHROOT_BACKPORTS} ${LB_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						fi
+					fi
+					;;
+			esac
+		fi
+
 		# Check local sources.list
 		if Find_files config/chroot_sources/*.chroot
 		then
@@ -502,6 +519,23 @@ EOF
 					if [ "${LB_SOURCE}" = "true" ]
 					then
 						echo "deb-src ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+					fi
+					;;
+			esac
+		fi
+
+		if [ "${LB_BACKPORTS}" = "true" ]
+		then
+			case "${LB_MODE}" in
+				debian|debian-release)
+					if [ "${LB_DISTRIBUTION}" != "sid" ] && [ "${LB_DISTRIBUTION}" != "unstable" ]
+					then
+						echo "deb ${LB_MIRROR_BINARY_BACKPORTS} ${LB_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+
+						if [ "${LB_SOURCE}" = "true" ]
+						then
+							echo "deb-src ${LB_MIRROR_BINARY_BACKPORTS} ${LB_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						fi
 					fi
 					;;
 			esac
