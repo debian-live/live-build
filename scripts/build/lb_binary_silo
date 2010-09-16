@@ -82,7 +82,7 @@ Silo_live_entry ()
 	LINUX_LIVE="${LINUX_LIVE}\nimage=${DIRECTORY}/${KERNEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\t  label=${LABEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\t  initrd=${DIRECTORY}/${INITRD}\n"
-	LINUX_LIVE="${LINUX_LIVE}\t  append=\"boot=${INITFS} live-config LB_BOOTAPPEND_LIVE ${APPEND}\"\n"
+	LINUX_LIVE="${LINUX_LIVE}\t  append=\"boot=${INITFS} config LB_BOOTAPPEND_LIVE ${APPEND}\"\n"
 }
 
 Silo_install_entry ()
