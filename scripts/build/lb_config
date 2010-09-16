@@ -1370,30 +1370,11 @@ Check_defaults
 if [ "${_CLEAN}" = "true" ]
 then
 	# Remove empty directories in config tree
-	if ls config/*/ > /dev/null 2>&1
-	then
-		rmdir --ignore-fail-on-non-empty config/*/
-	fi
-
-	if [ -d config ]
-	then
-		rmdir --ignore-fail-on-non-empty config
-	fi
-
-	if [ -d auto/functions ]
-	then
-		rmdir --ignore-fail-on-non-empty auto/functions
-	fi
-
-	if [ -d auto/scripts ]
-	then
-		rmdir --ignore-fail-on-non-empty auto/scripts
-	fi
-
-	if [ -d auto ]
-	then
-		rmdir --ignore-fail-on-non-empty auto
-	fi
+	rmdir --ignore-fail-on-non-empty config/*/ > /dev/null 2>&1 || true
+	rmdir --ignore-fail-on-non-empty config > /dev/null 2>&1 || true
+	rmdir --ignore-fail-on-non-empty auto/functions > /dev/null 2>&1 || true
+	rmdir --ignore-fail-on-non-empty auto/scripts > /dev/null 2>&1 || true
+	rmdir --ignore-fail-on-non-empty auto > /dev/null 2>&1 || true
 fi
 
 # Creating stage file
