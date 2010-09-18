@@ -22,7 +22,7 @@ Expand_packagelist ()
 		_LB_NESTED=0
 		_LB_ENABLED=1
 
-		for _LB_SEARCH_PATH in ${@} "${LB_BASE:-/usr/share/live/build}/lists"
+		for _LB_SEARCH_PATH in ${@} config/lists "${LB_BASE:-/usr/share/live/build}/lists"
 		do
 			if [ -e "${_LB_SEARCH_PATH}/${_LB_LIST_NAME}" ]
 			then
