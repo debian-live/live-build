@@ -6,6 +6,6 @@
 #if DISTRIBUTION lenny
 koffice
 #endif
-#if DISTRIBUTION squeeze sid
+#if DISTRIBUTION squeeze wheezy sid
 kde-full
 #endif

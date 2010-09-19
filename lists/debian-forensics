@@ -29,7 +29,7 @@ wipe
 
 ## Packages available as of squeeze
 
-#if DISTRIBUTION squeeze sid
+#if DISTRIBUTION squeeze wheezy sid
 aesfix
 aeskeyfind
 afflib-tools

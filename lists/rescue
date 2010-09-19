@@ -7,12 +7,12 @@
 #include <debian-forensics>
 
 # Other forensic packages
-#if DISTRIBUTION lenny squeeze sid
+#if DISTRIBUTION lenny squeeze wheezy sid
 scalpel
 #endif
 
 # Bootloaders
-#if DISTRIBUTION lenny squeeze sid
+#if DISTRIBUTION lenny squeeze wheezy sid
 syslinux-common
 #endif
 #if ARCHITECTURE amd64 i386
@@ -86,10 +86,7 @@ colordiff
 chrootuid
 cpio
 cryptcat
-#if DISTRIBUTION lenny sid
-# currently not in squeeze (FIXME)
 directvnc
-#endif
 etherwake
 ftp
 ifenslave-2.6
@@ -329,7 +326,7 @@ hostapd
 #if DISTRIBUTION lenny
 emacs22-nox
 #endif
-#if DISTRIBUTON squeeze sid
+#if DISTRIBUTON squeeze wheezy sid
 emacs23-nox
 #endif
 build-essential gdb gfortran gnat
