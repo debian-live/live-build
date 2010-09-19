@@ -38,7 +38,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if Find_files config/binary_local-packageslists/*
+if Find_files config/binary_local-packageslists/*.list
 then
 	# Restoring cache
 	Restore_cache cache/packages_chroot
@@ -53,7 +53,7 @@ then
 	mv chroot/var/lib/dpkg/status chroot/var/lib/dpkg/status.tmp
 	touch chroot/var/lib/dpkg/status
 
-	for PACKAGESLIST in config/binary_local-packageslists/*
+	for PACKAGESLIST in config/binary_local-packageslists/*.list
 	do
 		# Generate package list
 		Expand_packagelist "${PACKAGESLIST}" "config/binary_local-packageslists" "config/chroot_local-packageslists" > chroot/root/"$(basename ${PACKAGESLIST})"
