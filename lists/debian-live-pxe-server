@@ -1,0 +1,22 @@
+# /usr/share/live/build/lists/debian-live-pxe-server - package list for live-build(7)
+
+## LH: Debian Live
+#include <standard>
+
+bind9
+
+#if DISTRIBUTION lenny
+dhcp3-server
+#endif
+#if DISTRIBUTION squeeze wheezy sid
+isc-dhcp-server
+#endif
+
+nfs-kernel-server
+syslinux-common
+tftpd-hpa
+
+#if DISTRIBUTION squeeze wheezy sid
+debian-installer-netboot-amd64
+debian-installer-netboot-i386
+#endif
