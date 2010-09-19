@@ -8,13 +8,21 @@
 # debian-live
 #if DISTRIBUTION lenny
 live-helper
-#endif
-#if DISTRIBUTION squeeze sid
-live-build
-#endif
 git-core
+grub
+#endif
+
+#if DISTRIBUTION squeeze wheezy sid
+live-build
+git
+grub-pc grub-legacy
+#endif
+
 debootstrap cdebootstrap
-dosfstools genisoimage memtest86+ memtest86 mtools parted squashfs-tools genext2fs mtd-tools sudo fakeroot syslinux grub
+syslinux
+memtest86+ memtest86
+dosfstools genisoimage mtools parted squashfs-tools genext2fs mtd-tools
+fakeroot fakechroot sudo
 
 # kernel
 #if DISTRIBUTION lenny squeeze sid
@@ -30,12 +38,6 @@ squashfs-tools
 squashfs-source
 #endif
 #linux-headers-2.6-all
-
-# netboot/pxe
-dhcp3-server nfs-kernel-server tftp-hpa
-
-# webboot
-apache2
 
 # some other stuff
 vim less screen gnupg dash posh
