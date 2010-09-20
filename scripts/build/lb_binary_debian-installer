@@ -365,6 +365,20 @@ then
 
 	DI_PACKAGES="${DI_PACKAGES} busybox cryptsetup lvm2"
 
+	case "${LB_MODE}" in
+		debian)
+			case "${LB_DISTRIBUTION}" in
+				lenny)
+					DI_PACKAGES="${DI_PACKAGES} console-setup"
+					;;
+
+				*)
+					DI_PACKAGES="${DI_PACKAGES} console-setup keyboard-configuration"
+					;;
+			esac
+			;;
+	esac
+
 	# Set apt command prefix
 	_LB_APT_COMMAND="apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb -o APT::Install-Recommends=false --download-only"
 
