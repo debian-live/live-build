@@ -3,12 +3,6 @@
 ## LH: Standard
 #include <minimal>
 
-#if DISTRIBUTION lenny
 console-setup console-common kbd
-#endif
-
-#if DISTRIBUTION squeeze wheezy sid
-keyboard-configuration
-#endif
 
 locales
