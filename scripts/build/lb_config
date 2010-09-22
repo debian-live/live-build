@@ -1348,12 +1348,12 @@ EOF
 	cp config/chroot_sources/${LB_DISTRIBUTION}-backports.chroot config/chroot_sources/${LB_DISTRIBUTION}-backports.binary
 
 	# Adding apt preferences
-	if ! grep -qs "^Pin: release o=backports.debian-maintainerns.org" config/chroot_apt/preferences
+	if ! grep -qs "^Pin: release o=backports.debian-maintainers.org" config/chroot_apt/preferences
 	then
 
 cat >> config/chroot_apt/preferences << EOF
 Package: *
-Pin: release o=backports.debian-maintainerns.org
+Pin: release o=backports.debian-maintainers.org
 Pin-Priority: 999
 EOF
 
