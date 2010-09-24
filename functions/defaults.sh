@@ -142,7 +142,15 @@ Set_defaults ()
 					;;
 
 				*)
-					LB_INITRAMFS="live-initramfs"
+					case "${LB_DISTRIBUTION}" in
+						wheezy)
+							LB_INITRAMFS="live-boot"
+							;;
+
+						*)
+							LB_INITRAMFS="live-initramfs"
+							;;
+					esac
 					;;
 			esac
 		fi

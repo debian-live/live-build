@@ -12,3 +12,7 @@ eject file user-setup sudo
 #if MODE ubuntu
 gnupg
 #endif
+
+#if DISTRIBUTION wheezy
+live-config
+#endif
