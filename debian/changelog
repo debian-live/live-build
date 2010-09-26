@@ -1,3 +1,41 @@
+live-build (2.0.0-1) unstable; urgency=medium
+
+  [ Daniel Baumann ]
+  * Using short boot parameter 'config' to enable live-config, requires
+    live-config 2.0.7.
+  * Making rmdir calls on cleanups more robust.
+  * Also supportin local global lists in config/lists, thanks to Mark
+    Schneider <ms@it-infrastrukturen.org>.
+  * Updating debian-live list for squeeze.
+  * Renaming debian-live list to debian-live-devel.
+  * Adding debian-live-pxe-server packages list.
+  * Updating packages list for squeeze and wheezy.
+  * Also only respecting packages lists with .list suffix in
+    binary_local-packageslists for consistency.
+  * Adding consle-setup and keyboard-configuration manually to package
+    pool for debian-installer in order to workaround a flawed debian-
+    installer change in squeeze.
+  * Updating keyboard related packages to be in consistency with debian-
+    installer.
+  * Also handling console related packages in debian-installer when
+    live-installer is used.
+  * Also adding kbd to debian-installer packages.
+
+  [ Hector Oron ]
+  * Fixing bpo debian-maintainers.org typo (Closes: #597715).
+
+  [ Daniel Baumann ]
+  * Adding warning about using minimal directly in minimal packages
+    list.
+  * Adding initramfs related defaults for wheezy.
+  * Using the same path for win32-loader in squeeze as in sid as it has
+    finally migrated some time ago.
+  * Not fail if /dev/random is not available in chroot, newer
+    debootstrap seems not to create it anymore.
+  * Releasing debian version 2.0.0-1.
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 26 Sep 2010 12:14:46 +0200
+
 live-build (2.0~a29-1) unstable; urgency=low
 
   * Updating auto/scripts handling.
