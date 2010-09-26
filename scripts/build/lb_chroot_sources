@@ -268,8 +268,11 @@ EOF
 					# Temporarily replace /dev/random with /dev/urandom so as not
 					# to block automated image builds; we don't care about the
 					# security of this key anyway.
-					mv chroot/dev/random chroot/dev/random.orig
-					cp -a chroot/dev/urandom chroot/dev/random
+					if [ -e chroot/dev/random ]
+					then
+						mv chroot/dev/random chroot/dev/random.orig
+						cp -a chroot/dev/urandom chroot/dev/random
+					fi
 
 					if Find_files cache/local-package-keyring.*
 					then
@@ -318,7 +321,10 @@ EOF
 					rm chroot/root/local-package-keyring.sec
 
 					# Revert /dev/random
-					mv chroot/dev/random.orig chroot/dev/random
+					if [ -e chroot/dev/random.orig ]
+					then
+						mv chroot/dev/random.orig chroot/dev/random
+					fi
 
 					# Remove /root/.gnupg if we created it during the signing process
 					if [ "${_LB_DOTGNUPG_EXISTED}" -eq 0 ]
