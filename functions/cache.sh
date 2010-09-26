@@ -25,6 +25,9 @@ Restore_cache ()
 				# without hardlinks
 				cp "${DIRECTORY}"/*.deb chroot/var/cache/apt/archives
 			fi
+
+			mkdir -p .stage
+			touch .stage/cache_$(echo ${DIRECTORY} | sed -e 's|/|_|g')
 		fi
 	fi
 }
@@ -58,4 +61,6 @@ Save_cache ()
 		# Purging current cache
 		rm -f chroot/var/cache/apt/archives/*.deb
 	fi
+
+	rm -f .stage/cache_$(echo ${DIRECTORY} | sed -e 's|/|_|g')
 }

@@ -35,6 +35,14 @@ Exit ()
 		done
 	fi
 
+	# Saving package cache
+	if ls .stage/cache_* > /dev/null 2>&1
+	then
+		_CACHE="$(basename .stage/cache_* | sed -e 's|cache_||' -e 's|_|/|g')"
+
+		Save_cache ${_CACHE}
+	fi
+
 	return ${VALUE}
 }
 
