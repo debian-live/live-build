@@ -62,10 +62,7 @@ do
 			LH=1 "${0}" noauto --stage
 			LH=1 "${0}" noauto --source
 
-			if [ -d auto ]
-			then
-				rmdir --ignore-fail-on-non-empty auto
-			fi
+			rmdir --ignore-fail-on-non-empty auto > /dev/null 2>&1 || true
 			;;
 
 		--cache)

@@ -6,7 +6,7 @@
 #if DISTRIBUTION lenny
 kde
 #endif
-#if DISTRIBUTION squeeze sid
+#if DISTRIBUTION squeeze wheezy sid
 kde-standard
 #endif
 kdm

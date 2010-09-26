@@ -8,8 +8,10 @@
 ## under certain conditions; see COPYING for details.
 
 
-PACKAGE="live-build"
-VERSION="2.0.0-1"
-CONFIG_VERSION="$(echo ${VERSION} | awk -F- '{ print $1 }')"
+set -e
 
-PATH="${PWD}/auto/scripts:${PATH}"
+# Adding symlink in /srv/tftp for debian-installer netboot images
+ARCHITECTURE="$(dpkg --print-architecture)"
+
+rm -rf /srv/tftp
+ln -s /usr/lib/debian-installer/images/${ARCHITECTURE}/text /srv/tftp

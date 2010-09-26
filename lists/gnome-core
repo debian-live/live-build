@@ -7,7 +7,7 @@ gnome-core
 #if DISTRIBUTION lenny
 gdm
 #endif
-#if DISTRIBUTION squeeze sid
+#if DISTRIBUTION squeeze wheezy sid
 gdm3
 #endif
 desktop-base
