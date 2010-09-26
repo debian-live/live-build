@@ -1,3 +1,16 @@
+live-build (3.0~a3-1) experimental; urgency=low
+
+  [ Otavio Salvador ]
+  * Fixing debian-installer index generation.
+  * Fixing debian-installer Release file generation.
+
+  [ Daniel Baumann ]
+  * Also correcting version number in debian-installer release file.
+  * Avoid using bashism when handling codename/suite mapping for debian-
+    installer release file.
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 26 Sep 2010 23:24:01 +0200
+
 live-build (3.0~a2-1) experimental; urgency=low
 
   * Replacing lb_chroot_symlinks with a hook, that's more approriate.
