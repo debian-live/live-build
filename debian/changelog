@@ -1,3 +1,11 @@
+live-build (3.0~a2-1) experimental; urgency=low
+
+  * Replacing lb_chroot_symlinks with a hook, that's more approriate.
+  * Adding option to allow using the live-media pool in live system.
+  * Updating version constraints in config tree version check.
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 26 Sep 2010 20:09:14 +0200
+
 live-build (3.0~a1-1) experimental; urgency=low
 
   * Removing lenny support.
