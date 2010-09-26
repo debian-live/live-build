@@ -830,6 +830,8 @@ Set_defaults ()
 		LB_BINARY_INDICES="${LB_BINARY_INDICES:-true}"
 	fi
 
+	LB_BINARY_POOL="${LB_BINARY_POOL:-false}"
+
 	# Setting bootloader
 	if [ -z "${LB_BOOTLOADER}" ]
 	then

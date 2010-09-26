@@ -411,8 +411,9 @@ case "${LB_CHROOT_FILESYSTEM}" in
 				;;
 		esac
 		;;
-
 esac
+
+rm -f chroot/etc/apt/sources.list.d/live-media.list
 
 for STAGE in ${LB_CACHE_STAGES}
 do
