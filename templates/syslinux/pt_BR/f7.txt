@@ -1,0 +1,24 @@
+0fPARÂMETROS ESPECIAIS DE INICIALIZAÇÃO - VÁRIOS DRIVES DE DISCO07                                 09F707
+
+Você pode utilizar os seguintes parâmetros de inicialização no prompt
+0fboot:07. em combinação com o método de inicializaçãoi (veja
+<09F307>).
+0f
+HARDWARE                     PARÂMETROS A ESPECIFICAR07
+Adaptec 151x, 152x           0faha152x.aha152x=0biobase07[0f,0birq07[0f,0bscsi-id07[0f,0breconnect07]]]
+Adaptec 1542                 0faha1542.aha1542=0biobase07[0f,0bbuson0f,0bbusoff07[0f,0bdmaspeed07]]
+Adaptec 274x, 284x           0faic7xxx.aic7xxx=no_reset07    (enabled if non-zero)
+BusLogic SCSI Hosts          0fBusLogic.BusLogic=0biobase07
+Certas máquinas DELL         0faic7xxx.aic7xxx=no_probe07
+
+Este lista está incompleta, veja o arquivo kernel-parameters.txt para conhecer mais.
+
+
+
+
+
+Por exemplo:
+  boot: install aic7xxx.aic7xxx=no_probe
+
+
+Pressione F1control e F seguido de 1 para o índice de ajuda, ou ENTER para 

@@ -1,0 +1,79 @@
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH LIVE\-BUILD 1 26.09.2010 3.0~a1 "Debian Live Projekt"
+
+.SH NAME
+\fBlb clean\fP \- Räumt das Arbeitsverzeichnis auf
+
+.SH ÜBERSICHT
+\fBlb clean\fP [\fIlive\-build Optionen\fP]
+
+.SH BESCHREIBUNG
+\fBlb clean\fP ist ein high\-level Befehl ("porcelain") von \fIlive\-build\fP(7),
+der Debian Live Tool Suite.
+.PP
+.\" FIXME
+.\" FIXME
+\fBlb clean\fP ist verantwortlich für das Aufräumen nachdem ein System erstellt
+wurde. Es entfernt die Arbeitsverzeichnisse und einige andere Dateien,
+einschliesslich der "stage" Dateien, sowie Überbleibsel anderer live\-build
+Befehle.
+
+.SH OPTIONEN
+\fBlb chroot_apt\fP unterstützt zusätzlich zu spezifischen Optionen auch alle
+allgemeinen live\-build Optionen. Siehe \fIlive\-build\fP(7) für eine
+vollständige Liste aller allgemeinen live\-build Optionen.
+.PP
+.\" FIXME
+.IP \fB\-\-all\fP 4
+entfernt "chroot", "binary", "stage" und "source" Stufen. Das cache
+Verzeichnis bleibt bestehen. Dies ist die Standardoperation und wird
+ausgeführt, wenn kein Argument angegeben wird.
+.IP \fB\-\-cache\fP 4
+entfernt die Cache Verzeichnisse.
+.IP \fB\-\-chroot\fP 4
+hängt "chroot" Verzeichnis aus und entfernt es.
+.IP \fB\-\-binary\fP 4
+entfernt alle auf "binary" bezogenen Caches, Dateien, Verzeichnisse und
+"stage" Dateien.
+.IP \fB\-\-purge\fP 4
+entfernt alles, inklusive aller Caches. Das "config" Verzeichnis bleibt
+bestehen.
+.IP \fB\-\-remove\fP 4
+entfernt alles, inklusive Paket\-Cache, aber nicht "stage" Cache. Das
+"config" Verzeichnis bleibt bestehen.
+.IP \fB\-\-stage\fP 4
+entfernt alle "stage" Dateien.
+.IP \fB\-\-source\fP 4
+.\" FIXME
+entfernt alle auf "source" bezogenen Caches, Dateien, Verzeichnisse und
+"stage" Dateien.
+
+.SH DATEIEN
+.\" FIXME
+.IP \fBauto/clean\fP 4
+
+.\" FIXME
+.SH "SIEHE AUCH"
+\fIlive\-build\fP(7)
+.PP
+Dieses Programm ist Teil von live\-build.
+
+.SH HOMEPAGE
+Weitere Informationen über live\-build und das Debian Live Projekt können auf
+der Homepage unter <\fIhttp://live.debian.net/\fP> und im Handbuch
+unter <\fIhttp://live.debian.net/manual/\fP> gefunden werden.
+
+.SH FEHLER
+Fehler können durch Einreichen eines Fehlerberichtes für das live\-build
+Paket im Debian Bug Tracking System unter
+<\fIhttp://bugs.debian.org/\fP> oder durch Senden einer E\-Mail an die
+Debian Live Mailing Liste unter <\fIdebian\-live@lists.debian.org\fP>
+(englischsprachig) mitgeteilt werden.
+
+.SH AUTOR
+live\-build wurde von Daniel Baumann <\fIdaniel@debian.org\fP> für das
+Debian Projekt geschrieben.

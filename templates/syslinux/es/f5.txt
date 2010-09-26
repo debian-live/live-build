@@ -1,0 +1,24 @@
+0fPAR METROS ESPECIALES DE ARRANQUE - RESUMEN07                                  09F507
+
+Puedes ser necesario a¤adir alg£n par metro para arrancar el equipo al
+indicador 0fboot:07 en algunos sistemas. Por ejemplo, si Linux no puede
+detectar autom ticamente alg£n dispositivo ser¡a necesario indicarle
+expl¡citametne su ubicaci¢n o tipo para que lo reconozca.
+
+Puede pulsar las siguientes teclas para obtener m s informaci¢n sobre los
+par metros de arranque que puede utilizar:
+
+ <09F607> -- par metros de arranque para m quinas especiales
+ <09F707> -- par metros de arranque para distintos controladores de disco
+ <09F807> -- par metros de arranque que entiende el sistema de instalaci¢n
+
+Si desea especificar un par mentro para un m¢dulo particular del n£cleo puede
+utilizar el formato  m¢dulo.par metro=valor. 
+Por ejemplo: libata.atapi_enabled=1
+
+
+
+
+
+
+Pulse F1control y F, y entonces 1 para ver el men£ de ayuda, o INTRO para 

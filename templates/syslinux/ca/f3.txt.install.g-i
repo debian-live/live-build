@@ -1,0 +1,24 @@
+0fMŠTODES D'ARRENCADA07                                                           09F307
+
+0fMŠtodes d'arrancada disponibles:07
+
+0flive07
+  Inicia el sistema live -- aquest es el mŠtode de {$LB_MEDIA} per defecte.
+0flivefailsafe07
+  Inicia el sistema en mode a prova de falles.
+0finstall07 or 0finstallgui07
+  Inicia la instalaci¢ utilitzant el instalúlador normal o el gr…fic.
+0fexpert07 and 0fexpertgui07
+  Inicia la instalúlaci¢ en mode d'experts, per tenir el m…xim control.
+
+Per usar un d'aquests mŠtodes d'arrencada, escriviu-lo a l'indicador d'ordres,
+seguit opcionalment dels par…metres que convinguin. Per exemple:
+  boot: install acpi=off
+
+Si dubteu, haur¡eu d'usar el mŠtode per defecte, sense cap par…metre especial,
+prenent simplement la tecla ENTER a l'indicador d'ordres.
+
+Excepte en el mode d'experts, els missatges d'arrancada seran suprimits.
+
+
+Preneu F1control i F, i llavors 1 per veure el men£ d'ajuda, o ENTER per a 

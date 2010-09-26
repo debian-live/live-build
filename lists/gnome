@@ -1,0 +1,14 @@
+# /usr/share/live/build/lists/gnome - package list for live-build(7)
+
+## LH: GNOME Desktop
+#include <gnome-core>
+
+gnome-desktop-environment gnome-screensaver gnome-themes-extras
+#if MODE debian
+system-config-printer
+#endif
+#if MODE ubuntu
+system-config-printer-gnome
+#endif
+
+rhythmbox synaptic

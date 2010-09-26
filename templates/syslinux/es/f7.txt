@@ -1,0 +1,24 @@
+0fPAR METROS ESPECIALES DE ARRANQUE - VARIAS CONTROLADORAS DE DISCO07             09F707
+
+Puede usar los siguientes par metros de arranque en el indicador 0fboot:07, 
+en combinaci¢n con los m‚todos de arranque (vea <09F307>).
+0f
+HARDWARE                     PAR METRO QUE SE DEBE ESPECIFICAR07
+Adaptec 151x, 152x           0faha152x.aha152x=0biobase07[0f,0birq07[0f,0bscsi-id07[0f,0breconnect07]]]
+Adaptec 1542                 0faha1542.aha1542=0biobase07[0f,0bbuson0f,0bbusoff07[0f,0bdmaspeed07]]
+Adaptec 274x, 284x           0faic7xxx.aic7xxx=no_reset07    (enabled if non-zero)
+BusLogic SCSI Hosts          0fBusLogic.BusLogic=0biobase07
+Ciertas m quinas Dell        0faic7xxx.aic7xxx=no_probe07
+
+Hay m s par metros que los que aqu¡ se muestran; la lista completa est  en
+el fichero kernel-parameters.txt de las fuentes del n£cleo. 
+
+
+
+
+
+Por ejemplo:
+  boot: install aic7xxx.aic7xxx=no_probe
+
+
+Pulse F1control y F, y entonces 1 para obtener ayuda, o INTRO para 

@@ -1,0 +1,24 @@
+0fPARÖMETRES ESPECIALS D'ARRENCADA - DIVERSOS DISPOSITIUS07                       09F607
+
+Podeu usar els segÅents parÖmetres a l'indicador 0fboot:07, 
+en combinaci¢ amb el mätode d'arrencada (vegeu <09F307>).
+Si useu nombres hexadecimals s'ha de posar el präfix 0x (p.ex., 0x300).
+0f
+MAQUINARI                                PAR†METRE A ESPECIFICAR07
+IBM PS/1 o ValuePoint (disc IDE)         0fhd=0bcilindres0f,0bcapáals0f,0bsectors07
+Qualcuns ThinkPads de IBM                0ffloppy.floppy=thinkpad07
+Protegir regions de ports d'E/S          0freserve=0biobase0f,0bextent07[0f,0b...07]
+PortÖtils amb problemes a la pantalla    0fvga=77107
+Usar el primer port särie a 9600 baud    0fconsole=ttyS0,9600n807
+Foráar l'£s del controlador genäric IDE  0fgeneric.all_generic_ide=107
+
+Possibles solucions temporals a bloqueixos o fallades de maquinari:
+Desactivar la interrupci¢ de l'APIC      0fnoapic nolapic07
+Desactivar enrutado d'interrupcions ACPI 0facpi=noirq07 o 0facpi=off07
+Desactivar l'USB                         0fnousb07
+
+Per exemple:
+  boot: install vga=771 noapic nolapic
+
+
+Preneu F1control i F, i llavors 1 per veure el men£ d'ajuda, o ENTER per a 

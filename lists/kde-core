@@ -1,0 +1,8 @@
+# /usr/share/live/build/lists/kde-core - package list for live-build(7)
+
+## LH: KDE Core
+#include <standard-x11>
+
+kde-plasma-desktop
+kdm
+desktop-base
