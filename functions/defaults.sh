@@ -787,9 +787,6 @@ Set_defaults ()
 
 	LB_VOLATILE="${LB_VOLATILE:-true}"
 
-	# Setting symlink convertion option
-	LB_SYMLINKS="${LB_SYMLINKS:-false}"
-
 	# Setting sysvinit option
 	LB_SYSVINIT="${LB_SYSVINIT:-false}"
 
