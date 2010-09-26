@@ -1,12 +1,8 @@
 # /usr/share/live/build/lists/kde - package list for live-build(7)
 
+## LH: KDE
 #include <kde-core>
 
-#if DISTRIBUTION lenny
-kde
-#endif
-#if DISTRIBUTION squeeze wheezy sid
 kde-standard
-#endif
 kdm
 desktop-base

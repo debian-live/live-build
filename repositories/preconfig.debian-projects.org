@@ -1,0 +1,3 @@
+# Preconfig Project
+deb http://preconfig.debian-projects.org/ @DISTRIBUTION@ @ARCHIVE_AREAS@
+deb-src http://preconfig.debian-projects.org/ @DISTRIBUTION@ @ARCHIVE_AREAS@

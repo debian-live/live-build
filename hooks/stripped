@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2011 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
 ##
 ## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -9,15 +9,6 @@
 
 
 set -e
-
-# WARNING: Using this hook will result in a stripped system, means,
-# it may very well be possible that other packages are depending
-# on certain files that get removed here.
-# Therefore, this hooks is merely an inspiration for what could be
-# removed and not a generic nor recommendet solution to get the
-# image filesize down. In any event, using this hook can lead to
-# unforseen bugs and breakages in other packages and you should
-# be prepared to find and fix it for your own images.
 
 # Removing unused packages
 for PACKAGE in apt-utils aptitude man-db manpages info wget dselect

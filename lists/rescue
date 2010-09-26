@@ -1,19 +1,16 @@
 # /usr/share/live/build/lists/rescue - package list for live-build(7)
 
+## LH: Rescue
 #include <standard>
 
 # Debian Forensics
 #include <debian-forensics>
 
 # Other forensic packages
-#if DISTRIBUTION lenny squeeze wheezy sid
 scalpel
-#endif
 
 # Bootloaders
-#if DISTRIBUTION lenny squeeze wheezy sid
 syslinux-common
-#endif
 #if ARCHITECTURE amd64 i386
 grub lilo mbr syslinux
 #endif
@@ -37,9 +34,6 @@ aview mc nano-tiny mg vim wdiff hexedit nvi tweak
 # Harddisk
 dvd+rw-tools genisoimage sdparm hdparm blktool parted partimage secure-delete scsitools smartmontools testdisk wodim wipe hddtemp bonnie++
 par2 dvd+rw-tools
-#if DISTRIBUTION squeeze wheezy sid
-fsarchiver
-#endif
 
 # for /usr/bin/summer:
 chiark-utils-bin
@@ -78,10 +72,7 @@ b43-fwcutter
 # Backup
 dar gddrescue dump ddrescue
 mt-st
-#if DISTRIBUTION lenny sid
-afio tob
-#endif
-dar duplicity
+afio dar duplicity tob
 
 # File comparison
 rdiff rdiff-backup rsnapshot
@@ -104,12 +95,8 @@ gkermit
 netcat
 netcat6
 netmask
-#if DISTRIBUTION lenny
-openntpd
-#endif
 openssl
 openvpn
-vpnc
 strongswan
 sipcalc
 socat
@@ -136,17 +123,11 @@ iptables
 knockd
 portsentry
 vlan
-#if DISTRIBUTION lenny
-zorp
-#endif
 
 # Essential networking
 netbase
 rdate
 ntpdate
-#if DISTRIBUTION lenny
-msntp
-#endif
 dhcp3-client
 ppp
 pppconfig
@@ -168,9 +149,7 @@ cutter
 iproute
 iproute-doc
 iputils-tracepath
-#if DISTRIBUTION lenny
 mrt
-#endif
 mtr-tiny
 tcptraceroute
 traceroute
@@ -198,9 +177,7 @@ netdiscover
 nload
 nsca
 nstreams
-#if DISTRIBUTION lenny sid
 ntop
-#endif
 saidar
 samhain
 scanssh
@@ -221,9 +198,6 @@ hping3
 icmpush
 macchanger
 medusa
-#if DISTRIBUTION lenny
-ndiff
-#endif
 netdiag
 netpipe-tcp
 nmap
@@ -231,10 +205,6 @@ ndisc6
 ngrep
 p0f
 packit
-#if DISTRIBUTION lenny
-paketto
-sing
-#endif
 python-scapy
 xprobe
 
@@ -261,9 +231,7 @@ sysfsutils
 udftools
 xfsdump
 xfsprogs
-#if DISTRIBUTION sid
 btrfs-tools
-#endif
 cryptsetup
 dmraid
 e2fsprogs
@@ -333,12 +301,7 @@ hostap-utils
 hostapd
 
 # Flab
-#if DISTRIBUTION lenny
-emacs22-nox
-#endif
-#if DISTRIBUTON squeeze wheezy sid
 emacs23-nox
-#endif
 build-essential gdb gfortran gnat
 
 #if ARCHITECTURE i386

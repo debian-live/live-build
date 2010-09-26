@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2011 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
 ##
 ## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -22,4 +22,3 @@ RELEASE_jaunty="9.04"
 RELEASE_karmic="9.10"
 RELEASE_lucid="10.04" # LTS
 RELEASE_maverick="10.10"
-RELEASE_natty="11.04"

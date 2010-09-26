@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2011 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
 ##
 ## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -17,7 +17,7 @@ set -e
 if [ "${1}" != "noauto" ] && [ -x auto/config ]
 then
 	Echo_message "Executing auto/config script."
-	./auto/config "${@}"
+	./auto/config ${@}
 	exit ${?}
 fi
 
@@ -27,20 +27,19 @@ then
 fi
 
 # Setting static variables
-PROGRAM="lb config"
 DESCRIPTION="$(Echo 'create configuration for live-build(7)')"
-USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
+USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--apt-ftp-proxy URL]\n\
 \t    [--apt-http-proxy URL]\n\
 \t    [--apt-pdiffs true|false]\n\
 \t    [--apt-options OPTION|\"OPTIONS\"]\n\
 \t    [--aptitude-options OPTION|\"OPTIONS\"]\n\
-\t    [--apt-pipeline DEPTH]\n\
+\t    [--apt-pipeline FIXME]\n\
 \t    [--apt-recommends true|false]\n\
 \t    [--apt-secure true|false]\n\
 \t    [-a|--architecture ARCHITECTURE]\n\
-\t    [-b|--binary-images iso|iso-hybrid|net|tar|usb-hdd]\n\
-\t    [--binary-filesystem fat16|fat32|ext2]\n\
+\t    [-b|--binary-images iso|net|tar|usb-hdd]\n\
+\t    [--binary-filesystem fat16|fat32]\n\
 \t    [--binary-indices true|false|none]\n\
 \t    [--bootappend-install PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootappend-live PARAMETER|\"PARAMETERS\"]\n\
@@ -49,6 +48,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--bootstrap-config FILE]\n\
 \t    [-f|--bootstrap-flavour minimal|standard]\n\
 \t    [--bootstrap-keyring PACKAGE]\n\
+\t    [--breakpoints]\n\
 \t    [--cache true|false]\n\
 \t    [--cache-indices true|false]\n\
 \t    [--cache-packages true|false]\n\
@@ -56,13 +56,13 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--checksums md5|sha1|sha256|none]\n\
 \t    [--build-with-chroot true|false]\n\
 \t    [--chroot-filesystem ext2|ext3|squashfs|plain|jffs2]\n\
-\t    [--clean]\n\
 \t    [-c|--conffile FILE]\n\
+\t    [--clean\n\
 \t    [--debconf-frontend dialog|editor|noninteractive|readline]\n\
 \t    [--debconf-nowarnings true|false]\n\
 \t    [--debconf-priority low|medium|high|critical]\n\
 \t    [--debian-installer true|cdrom|netinst|netboot|businesscard|live|false]\n\
-\t    [--debian-installer-distribution daily|CODENAME]\n\
+\t    [--debian-installer-distribution CODENAME|daily]\n\
 \t    [--debian-installer-preseedfile FILE|URL]\n\
 \t    [--debian-installer-gui true|false]\n\
 \t    [--debug]\n\
@@ -76,8 +76,8 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--hooks FILE]\n\
 \t    [--hostname NAME]\n\
 \t    [--ignore-system-defaults]\n\
-\t    [--includes PATH|none]\n\
-\t    [--initramfs auto|none|live-boot|live-initramfs|casper]\n\
+\t    [--includes PATH]\n\
+\t    [--initramfs auto|live-initramfs|casper]\n\
 \t    [--interactive shell]\n\
 \t    [--isohybrid-options OPTION|\"OPTIONS\"]\n\
 \t    [--iso-application NAME]\n\
@@ -90,7 +90,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [-k|--linux-flavours FLAVOUR|\"FLAVOURS\"]\n\
 \t    [--linux-packages \"PACKAGES\"]\n\
 \t    [--losetup losetup|losetup.orig]\n\
-\t    [--memtest memtest86+|memtest86|none]\n\
+\t    [--memtest memtest86+|memtest86]\n\
 \t    [-m|--mirror-bootstrap URL]\n\
 \t    [--mirror-chroot URL]\n\
 \t    [--mirror-chroot-security URL]\n\
@@ -101,7 +101,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--mirror-binary-volatile URL]\n\
 \t    [--mirror-binary-backports URL]\n\
 \t    [--mirror-debian-installer URL]\n\
-\t    [--mode debian|emdebian|ubuntu]\n\
+\t    [--mode debian|emdebian]\n\
 \t    [--net-root-filesystem nfs|cfs]\n\
 \t    [--net-root-mountoptions OPTIONS]\n\
 \t    [--net-root-path PATH]\n\
@@ -111,7 +111,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--net-cow-path PATH]\n\
 \t    [--net-cow-server IP|HOSTNAME]\n\
 \t    [--net-tarball bzip2|gzip|tar|none]\n\
-\t    [-p|--packages-lists LIST|\"LISTS\"]\n\
+\t    [-p|--packages-lists FILE]\n\
 \t    [--packages PACKAGE|\"PACKAGES\"]\n\
 \t    [--quiet]\n\
 \t    [-r|--repositories REPOSITORY|\"REPOSITORIES\"]\n\
@@ -127,7 +127,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--syslinux-menu true|false]\n\
 \t    [--sysvinit true|false]\n\
 \t    [--tasksel aptitude|tasksel]\n\
-\t    [--tasks TASK|\"TASKS\"]\n\
+\t    [--tasks TASK]\n\
 \t    [--templates PATH]\n\
 \t    [--virtual-root-size MB]\n\
 \t    [--volatile true|false]\n\
@@ -158,7 +158,7 @@ Local_arguments ()
 		help,ignore-system-defaults,quiet,usage,verbose,version"
 	# Remove spaces added by indentation
 	LONG_OPTIONS="$(echo ${LONG_OPTIONS} | tr -d ' ')"
-	ARGUMENTS="$(getopt --longoptions ${LONG_OPTIONS} --name="${PROGRAM}" --options a:f:d:m:l:k:p:b:e:r:s:c:huv --shell sh -- "${@}")"
+	ARGUMENTS="$(getopt --longoptions ${LONG_OPTIONS} --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:r:s:c:huv --shell sh -- "${@}")"
 
 	if [ "${?}" != "0" ]
 	then
@@ -379,11 +379,6 @@ Local_arguments ()
 				shift 2
 
 				case "${LB_DISTRIBUTION}" in
-					lenny-backports)
-						LB_DISTRIBUTION="lenny"
-						BACKPORTS="true"
-						;;
-
 					squeeze-backports)
 						LB_DISTRIBUTION="squeeze"
 						BACKPORTS="true"
@@ -969,7 +964,7 @@ GZIP_OPTIONS="${GZIP_OPTIONS}"
 ISOHYBRID_OPTIONS="${ISOHYBRID_OPTIONS}"
 EOF
 
-# Creating lb_bootstrap_* configuration
+# Creating lh_bootstrap_* configuration
 cat > config/bootstrap << EOF
 # config/bootstrap - options for live-build(7), bootstrap stage
 
@@ -1046,7 +1041,7 @@ LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER}"
 LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS}"
 EOF
 
-# Creating lb_chroot_* configuration
+# Creating lh_chroot_* configuration
 mkdir -p config/chroot_apt
 mkdir -p config/chroot_local-hooks
 mkdir -p config/chroot_local-includes
@@ -1136,7 +1131,7 @@ LB_SYMLINKS="${LB_SYMLINKS}"
 LB_SYSVINIT="${LB_SYSVINIT}"
 EOF
 
-# Creating lb_binary_* configuration
+# Creating lh_binary_* configuration
 mkdir -p config/binary_debian-installer
 mkdir -p config/binary_debian-installer-includes
 mkdir -p config/binary_grub
@@ -1309,7 +1304,7 @@ LB_SYSLINUX_MENU_MEMTEST_ENTRY="${LB_SYSLINUX_MENU_MEMTEST_ENTRY}"
 LB_USERNAME="${LB_USERNAME}"
 EOF
 
-# Creating lb_source_* configuration
+# Creating lh_source_* configuration
 cat > config/source << EOF
 # config/source - options for live-build(7), source stage
 
@@ -1346,23 +1341,27 @@ then
 
 cat > config/chroot_sources/${LB_DISTRIBUTION}-backports.chroot << EOF
 # Backports Maintainers
-deb http://backports.debian.org/debian-backports/ ${LB_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}
-deb-src http://backports.debian.org/debian-backports/ ${LB_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}
+deb http://backports.debian-maintainers.org/ ${LB_DISTRIBUTION}/backports main contrib non-free
+deb-src http://backports.debian-maintainers.org/ ${LB_DISTRIBUTION}/backports main contrib non-free
 EOF
 
 	cp config/chroot_sources/${LB_DISTRIBUTION}-backports.chroot config/chroot_sources/${LB_DISTRIBUTION}-backports.binary
 
 	# Adding apt preferences
-	if ! grep -qs "^Pin: release o=Debian Backports" config/chroot_apt/preferences
+	if ! grep -qs "^Pin: release o=backports.debian-maintainers.org" config/chroot_apt/preferences
 	then
 
 cat >> config/chroot_apt/preferences << EOF
 Package: *
-Pin: release o=Debian Backports
+Pin: release o=backports.debian-maintainers.org
 Pin-Priority: 999
 EOF
 
 	fi
+
+	# Addding archive signing key
+	wget -q http://backports.debian-maintainers.org/project/openpgp/archive-key.asc -O config/chroot_sources/${LB_DISTRIBUTION}-backports.chroot.gpg
+	cp config/chroot_sources/${LB_DISTRIBUTION}-backports.chroot.gpg config/chroot_sources/${LB_DISTRIBUTION}-backports.binary.gpg
 fi
 
 # Checking defaults again
