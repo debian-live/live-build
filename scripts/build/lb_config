@@ -383,6 +383,11 @@ Local_arguments ()
 						LB_DISTRIBUTION="lenny"
 						BACKPORTS="true"
 						;;
+
+					squeeze-backports)
+						LB_DISTRIBUTION="squeeze"
+						BACKPORTS="true"
+						;;
 				esac
 				;;
 
