@@ -598,11 +598,21 @@ then
 
 	eval _VERSION="$`echo RELEASE_${LB_DISTRIBUTION}`"
 
+	case "${LB_DISTRIBUTION}" in
+		sid)
+			_SUITE="unstable"
+			;;
+
+		*)
+			_SUITE="${LB_DISTRIBUTION}"
+			;;
+	esac
+
 cat > chroot/binary.sh << EOF
 cd /root/binary && apt-ftparchive \
 	-o APT::FTPArchive::Release::Origin="Debian" \
 	-o APT::FTPArchive::Release::Label="Debian" \
-	-o APT::FTPArchive::Release::Suite="${LB_DISTRIBUTION/sid/unstable}" \
+	-o APT::FTPArchive::Release::Suite="${_SUITE}" \
 	-o APT::FTPArchive::Release::Version="${_VERSION}" \
 	-o APT::FTPArchive::Release::Codename="${LB_DISTRIBUTION}" \
 	-o APT::FTPArchive::Release::Date="$(date -R)" \
