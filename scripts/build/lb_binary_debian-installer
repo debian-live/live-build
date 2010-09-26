@@ -615,7 +615,7 @@ EOF
 	mv chroot/root/binary ./
 
 	# Creating dist symlinks
-	for DISTRIBUTION in frozen stable testing unstable
+	for DISTRIBUTION in frozen stable testing unstable ${LB_DISTRIBUTION}
 	do
 		ln -s ${LB_DEBIAN_INSTALLER_DISTRIBUTION} binary/dists/${DISTRIBUTION}
 	done
