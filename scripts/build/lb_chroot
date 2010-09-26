@@ -67,7 +67,6 @@ lb chroot_local-patches ${*}
 lb chroot_sysvinit ${*}
 lb chroot_local-hooks ${*}
 lb chroot_hooks ${*}
-lb chroot_symlinks ${*}
 lb chroot_hacks ${*}
 lb chroot_interactive ${*}
 

@@ -59,4 +59,4 @@ case "${LB_INTERACTIVE}" in
 esac
 
 # Creating stage file
-Create_stagefile .stage/chroot_symlinks
+Create_stagefile .stage/chroot_interactive
