@@ -104,6 +104,10 @@ Set_defaults ()
 				wget -c http://ftp.debian.org/debian/pool/main/l/live-installer/live-installer_${LIVE_INSTALLER}.dsc
 				wget -c http://ftp.debian.org/debian/pool/main/l/live-installer/live-installer_${LIVE_INSTALLER}.tar.gz
 				wget -c http://ftp.debian.org/debian/pool/main/l/live-installer/live-installer_${LIVE_INSTALLER}_${ARCHITECTURE}.udeb
+				wget -c http://ftp.debian.org/debian/pool/main/b/base-installer/base-installer_1.113.dsc
+				wget -c http://ftp.debian.org/debian/pool/main/b/base-installer/base-installer_1.113.tar.gz
+				wget -c http://ftp.debian.org/debian/pool/main/b/base-installer/base-installer_1.113_all.udeb
+				wget -c http://ftp.debian.org/debian/pool/main/b/base-installer/bootstrap-base_1.113_${ARCHITECTURE}.udeb
 			fi
 
 			cd -
@@ -150,6 +154,7 @@ do
 		lb config \
 			--apt-recommends ${APT_RECOMMENDS} \
 			--binary-indices ${BINARY_INDICES} \
+			--bootstrap cdebootstrap \
 			--cache-stages "bootstrap rootfs" \
 			--debian-installer ${DEBIAN_INSTALLER} \
 			--debian-installer-distribution ${DEBIAN_INSTALLER_DISTRIBUTION} \
