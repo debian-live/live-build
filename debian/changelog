@@ -1,3 +1,22 @@
+live-build (2.0.1-1) unstable; urgency=medium
+
+  [ Daniel Baumann ]
+  * Adding squeeze-backports as valid distribution codename in
+    lb_config.
+  * Correcting wrong stage file in lb_chroot_interactive.
+  * Removing d-i hacks, should be fixed with newer live-installer.
+
+  [ Otavio Salvador ]
+  * Fixing debian-installer index generation.
+  * Fixing debian-installer Release file generation.
+
+  [ Daniel Baumann ]
+  * Also correcting version number in debian-installer release file.
+  * Avoid using bashism when handling codename/suite mapping for debian-
+    installer release file.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 27 Sep 2010 07:41:45 +0200
+
 live-build (2.0.0-1) unstable; urgency=medium
 
   [ Daniel Baumann ]
