@@ -213,31 +213,6 @@ then
 	# This is a temporary hack to get rid of fstab;
 	# needs cleanup in live-initramfs first to proper fix.
 	rm -f chroot/etc/fstab
-
-	# There is a timing issue somewhere when using live-installer
-	# and the apt-get update waypoint: At the time when we're installing
-	# bootloader, it tries to fetch them from the net but the e.g.
-	# 'chroot /target apt-get install grub' fails because of missing
-	# packages lists. As a very cheap workaround, we ensure that the
-	# bootloader is already installed in the image. Very ugly, but it's to
-	# late to fix it in d-i because lenny rc2 has been already released.
-	case "${LB_ARCHITECTURE}" in
-		amd64|i386)
-			case "${LB_BOOTLOADER}" in
-				grub)
-					Apt install grub
-					;;
-
-				grub2)
-					Apt install grub2
-					;;
-			esac
-			;;
-
-		powerpc)
-			Apt install yaboot
-			;;
-	esac
 fi
 
 if [ "${LB_EXPOSED_ROOT}" = "true" ]
