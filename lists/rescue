@@ -162,7 +162,9 @@ cutter
 iproute
 iproute-doc
 iputils-tracepath
+#if DISTRIBUTION lenny
 mrt
+#endif
 mtr-tiny
 tcptraceroute
 traceroute
