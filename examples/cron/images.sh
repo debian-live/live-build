@@ -20,8 +20,6 @@ Set_defaults ()
 	APT_RECOMMENDS="true"
 	BINARY_INDICES="true"
 	DEBIAN_INSTALLER="live"
-	DEBIAN_INSTALLER_GUI="true"
-	PACKAGES="--packages live-installer-launcher"
 	TASKSEL="tasksel"
 
 	# Distribution specific options (ugly!)
@@ -30,7 +28,6 @@ Set_defaults ()
 			APT_RECOMMENDS="false"
 			BINARY_INDICES="true"
 			DEBIAN_INSTALLER="false"
-			PACKAGES=""
 			TASKSEL="aptitude"
 
 			case "${ARCHITECTURE}" in
@@ -66,38 +63,61 @@ Set_defaults ()
 
 		squeeze)
 			DEBIAN_INSTALLER_DISTRIBUTION="daily"
-			DEBIAN_INSTALLER_GUI="false"
 
-			LIVE_INSTALLER="20"
-			LIVE_BOOT="2.0~a15-1"
-			LIVE_CONFIG="2.0~a15-1"
+			LIVE_BOOT="2.0.6-1"
+			LIVE_CONFIG="2.0.7-1"
+			LIVE_INSTALLER="26"
+			DI_LAUNCHER="3"
+
+			mkdir -p config/chroot_local-packages
+			cd config/chroot_local-packages
+
+			# live-boot
+			if [ -n "${LIVE_BOOT}" ]
+			then
+				wget -c http://live.debian.net/archive/packages/live-boot/${LIVE_BOOT}/live-boot_${LIVE_BOOT}.dsc
+				wget -c http://live.debian.net/archive/packages/live-boot/${LIVE_BOOT}/live-boot_${LIVE_BOOT}.diff.gz
+				wget -c http://live.debian.net/archive/packages/live-boot/${LIVE_BOOT}/live-boot_$(echo ${LIVE_BOOT} | awk -F- '{ print $1 }').orig.tar.gz
+				wget -c http://live.debian.net/archive/packages/live-boot/${LIVE_BOOT}/live-boot_${LIVE_BOOT}_all.deb
+				wget -c http://live.debian.net/archive/packages/live-boot/${LIVE_BOOT}/live-boot-initramfs-tools_${LIVE_BOOT}_all.deb
+				wget -c http://live.debian.net/archive/packages/live-boot/${LIVE_BOOT}/live-initramfs_${LIVE_BOOT}_all.deb
+			fi
+
+			# live-config
+			if [ -n "${LIVE_CONFIG}" ]
+			then
+				wget -c http://live.debian.net/archive/packages/live-config/${LIVE_CONFIG}/live-config_${LIVE_CONFIG}.dsc
+				wget -c http://live.debian.net/archive/packages/live-config/${LIVE_CONFIG}/live-config_${LIVE_CONFIG}.diff.gz
+				wget -c http://live.debian.net/archive/packages/live-config/${LIVE_CONFIG}/live-config_$(echo ${LIVE_CONFIG} | awk -F- '{ print $1 }').orig.tar.gz
+				wget -c http://live.debian.net/archive/packages/live-config/${LIVE_CONFIG}/live-config_${LIVE_CONFIG}_all.deb
+				wget -c http://live.debian.net/archive/packages/live-config/${LIVE_CONFIG}/live-config-sysvinit_${LIVE_CONFIG}_all.deb
+			fi
+
+			cd ${OLDPWD}
 
 			mkdir -p config/binary_local-udebs
 			cd config/binary_local-udebs
-			wget -c http://live.debian.net/archive/packages/live-installer/${LIVE_INSTALLER}/live-installer_${LIVE_INSTALLER}.dsc
-			wget -c http://live.debian.net/archive/packages/live-installer/${LIVE_INSTALLER}/live-installer_${LIVE_INSTALLER}.tar.gz
-			wget -c http://live.debian.net/archive/packages/live-installer/${LIVE_INSTALLER}/live-installer_${LIVE_INSTALLER}_i386.udeb
+
+			# live-installer
+			if [ -n "${LIVE_INSTALLER}" ]
+			then
+				wget -c http://ftp.debian.org/debian/pool/main/l/live-installer/live-installer_${LIVE_INSTALLER}.dsc
+				wget -c http://ftp.debian.org/debian/pool/main/l/live-installer/live-installer_${LIVE_INSTALLER}.tar.gz
+				wget -c http://ftp.debian.org/debian/pool/main/l/live-installer/live-installer_${LIVE_INSTALLER}_${ARCHITECTURE}.udeb
+			fi
+
 			cd -
 
 			mkdir -p config/chroot_local-packages
 			cd config/chroot_local-packages
 
-			wget -c http://live.debian.net/archive/packages/live-installer/${LIVE_INSTALLER}/live-installer_${LIVE_INSTALLER}.dsc
-			wget -c http://live.debian.net/archive/packages/live-installer/${LIVE_INSTALLER}/live-installer_${LIVE_INSTALLER}.tar.gz
-			wget -c http://live.debian.net/archive/packages/live-installer/${LIVE_INSTALLER}/live-installer-launcher_${LIVE_INSTALLER}_all.deb
-
-			wget -c http://live.debian.net/archive/packages/live-boot/${LIVE_BOOT}/live-boot_${LIVE_BOOT}.dsc
-			wget -c http://live.debian.net/archive/packages/live-boot/${LIVE_BOOT}/live-boot_${LIVE_BOOT}.diff.gz
-			wget -c http://live.debian.net/archive/packages/live-boot/${LIVE_BOOT}/live-boot_$(echo ${LIVE_BOOT} | awk -F- '{ print $1 }').orig.tar.gz
-			wget -c http://live.debian.net/archive/packages/live-boot/${LIVE_BOOT}/live-boot_${LIVE_BOOT}_all.deb
-			wget -c http://live.debian.net/archive/packages/live-boot/${LIVE_BOOT}/live-boot-initramfs-tools_${LIVE_BOOT}_all.deb
-			wget -c http://live.debian.net/archive/packages/live-boot/${LIVE_BOOT}/live-initramfs_${LIVE_BOOT}_all.deb
-
-			wget -c http://live.debian.net/archive/packages/live-config/${LIVE_CONFIG}/live-config_${LIVE_CONFIG}.dsc
-			wget -c http://live.debian.net/archive/packages/live-config/${LIVE_CONFIG}/live-config_${LIVE_CONFIG}.diff.gz
-			wget -c http://live.debian.net/archive/packages/live-config/${LIVE_CONFIG}/live-config_$(echo ${LIVE_CONFIG} | awk -F- '{ print $1 }').orig.tar.gz
-			wget -c http://live.debian.net/archive/packages/live-config/${LIVE_CONFIG}/live-config_${LIVE_CONFIG}_all.deb
-			wget -c http://live.debian.net/archive/packages/live-config/${LIVE_CONFIG}/live-config-sysvinit_${LIVE_CONFIG}_all.deb
+			# debian-installer-launcher
+			if [ -n "${DI_LAUNCHER}" ]
+			then
+				wget http://ftp.debian.org/debian/pool/main/d/debian-installer-launcher/debian-installer-launcher_${DI_LAUNCHER}.dsc
+				wget http://ftp.debian.org/debian/pool/main/d/debian-installer-launcher/debian-installer-launcher_${DI_LAUNCHER}.tar.gz
+				wget http://ftp.debian.org/debian/pool/main/d/debian-installer-launcher/debian-installer-launcher_${DI_LAUNCHER}_all.deb
+			fi
 
 			cd -
 			;;
@@ -133,12 +153,10 @@ do
 			--cache-stages "bootstrap rootfs" \
 			--debian-installer ${DEBIAN_INSTALLER} \
 			--debian-installer-distribution ${DEBIAN_INSTALLER_DISTRIBUTION} \
-			--debian-installer-gui ${DEBIAN_INSTALLER_GUI} \
 			--distribution ${DISTRIBUTION} \
 			--mirror-bootstrap ${MIRROR} \
 			--mirror-chroot ${MIRROR} \
 			--mirror-chroot-security ${MIRROR_SECURITY} \
-			${PACKAGES} \
 			--packages-lists ${FLAVOUR} \
 			--tasksel ${TASKSEL} ${KERNEL}
 
@@ -148,7 +166,7 @@ do
 		mv binary.list debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.list
 		mv binary.packages debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.packages
 
-		if [ "${DISTRIBUTION}" = "lenny" ] && [ "${ARCHITECTURE}" != "powerpc" ]
+		if [ "${ARCHITECTURE}" != "powerpc" ]
 		then
 			lb clean --binary
 			lb config -binary-images usb-hdd
