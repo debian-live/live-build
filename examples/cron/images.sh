@@ -174,7 +174,7 @@ do
 		if [ "${ARCHITECTURE}" != "powerpc" ]
 		then
 			lb clean --binary
-			lb config -binary-images usb-hdd
+			lb config --binary-images usb-hdd
 			lb binary 2>&1 | tee debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.img.log
 
 			mv binary.img debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.img
