@@ -151,6 +151,14 @@ EOF
 		then
 			for REPOSITORY in ${LB_REPOSITORIES}
 			do
+				# ubuntu workaround to allow using live.debian.net
+				if [ "${LB_MODE}" = "ubuntu" ] && [ "${REPOSITORY}" = "live.debian.net" ]
+				then
+					_DISTRIBUTION="sid"
+				else
+					_DISTRIBUTION="${LB_DISTRIBUTION}"
+				fi
+
 				for PLACE in config/repositories "${LB_BASE}/repositories"
 				do
 					# Prefer repositories from the config tree
@@ -163,13 +171,13 @@ EOF
 					# Adding sources.list entries (chroot)
 					if [ -e "${PLACE}/${REPOSITORY}.chroot" ]
 					then
-						sed -e "s|@DISTRIBUTION@|${LB_DISTRIBUTION}|g" \
+						sed -e "s|@DISTRIBUTION@|${_DISTRIBUTION}|g" \
 						    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
 						"${PLACE}/${REPOSITORY}.chroot" > \
 						"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
 					elif [ -e "${PLACE}/${REPOSITORY}" ]
 					then
-						sed -e "s|@DISTRIBUTION@|${LB_DISTRIBUTION}|g" \
+						sed -e "s|@DISTRIBUTION@|${_DISTRIBUTION}|g" \
 						    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
 						"${PLACE}/${REPOSITORY}" > \
 						"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"

@@ -866,15 +866,7 @@ Set_defaults ()
 	# Setting debian-installer-gui
 	case "${LB_MODE}" in
 		debian)
-			case "${LB_DISTRIBUTION}" in
-				squeeze|sid)
-					LB_DEBIAN_INSTALLER_GUI="${LB_DEBIAN_INSTALLER_GUI:-false}"
-					;;
-
-				*)
-					LB_DEBIAN_INSTALLER_GUI="${LB_DEBIAN_INSTALLER_GUI:-true}"
-					;;
-			esac
+			LB_DEBIAN_INSTALLER_GUI="${LB_DEBIAN_INSTALLER_GUI:-true}"
 			;;
 
 		ubuntu)
