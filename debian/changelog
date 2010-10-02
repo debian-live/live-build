@@ -1,3 +1,24 @@
+live-build (3.0~a4-1) experimental; urgency=low
+
+  [ Daniel Baumann ]
+  * Handling live.debian.net repository differently, so that ubuntu
+    people can use it too.
+  * Updating to debhelper version 8.
+  * Updating defaults for squeeze and d-i gui.
+  * Updating images autobuild script for squeeze beta1.
+  * Adding temporary workarounds to deal with latest archive breakages
+    in image autobuild script.
+  * Marking mrt in rescue list as lenny only.
+  * Also using gdm legacy hack on xfce-desktop default images.
+
+  [ intrigeri ]
+  * Fixing squashfs.sort location with --build-with-chroot false.
+
+  [ Daniel Baumann ]
+  * Correcting typo with lb config call for usb-hdd in autobuild script.
+
+ -- Daniel Baumann <daniel@debian.org>  Sat, 02 Oct 2010 10:18:16 +0200
+
 live-build (3.0~a3-1) experimental; urgency=low
 
   [ Otavio Salvador ]
