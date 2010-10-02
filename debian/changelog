@@ -1,3 +1,25 @@
+live-build (2.0.2-1) unstable; urgency=medium
+
+  [ Daniel Baumann ]
+  * Removing superfluous 'releasing' changelog entry in previous
+    version.
+  * Updating defaults for squeeze and d-i gui.
+  * Updating images autobuild script for squeeze beta1.
+  * Adding temporary workarounds to deal with latest archive breakages
+    in image autobuild script.
+  * Handling live.debian.net repository differently, so that ubuntu
+    people can use it too.
+  * Marking mrt in rescue list as lenny only.
+  * Also using gdm legacy hack on xfce-desktop default images.
+
+  [ intrigeri ]
+  * Fixing squashfs.sort location with --build-with-chroot false.
+
+  [ Daniel Baumann ]
+  * Correcting typo with lb config call for usb-hdd in autobuild script.
+
+ -- Daniel Baumann <daniel@debian.org>  Sat, 02 Oct 2010 10:00:45 +0200
+
 live-build (2.0.1-1) unstable; urgency=medium
 
   [ Daniel Baumann ]
