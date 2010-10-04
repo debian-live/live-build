@@ -1,3 +1,9 @@
+live-build (3.0~a5-1) experimental; urgency=low
+
+  * Removing --binary-pool again, not ready yet.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 04 Oct 2010 18:13:53 +0200
+
 live-build (3.0~a4-1) experimental; urgency=low
 
   [ Daniel Baumann ]
