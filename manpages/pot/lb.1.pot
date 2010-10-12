@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2010-10-02 10:01+0300\n"
+"POT-Creation-Date: 2010-10-12 10:53+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,7 +83,7 @@ msgstr ""
 #: en/lb_source_net.1:1 en/lb_source_tar.1:1 en/lb_source_usb.1:1
 #: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "2010-10-02"
+msgid "2010-10-12"
 msgstr ""
 
 #. type: TH
@@ -193,7 +193,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb.1:5
-msgid "B<lh> - wrapper for live-build programs"
+msgid "B<lb> - wrapper for live-build programs"
 msgstr ""
 
 #. type: SH
@@ -233,12 +233,12 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb.1:8
-msgid "B<lh> COMMAND [COMMAND_OPTIONS]"
+msgid "B<lb> COMMAND [COMMAND_OPTIONS]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb.1:10
-msgid "B<lh> [I<live-build\\ options>]"
+msgid "B<lb> [I<live-build\\ options>]"
 msgstr ""
 
 #. type: SH
@@ -279,7 +279,7 @@ msgstr ""
 #. type: Plain text
 #: en/lb.1:13
 msgid ""
-"B<lh> is a high-level command (porcelain) of I<live-build>(7), the Debian "
+"B<lb> is a high-level command (porcelain) of I<live-build>(7), the Debian "
 "Live tool suite."
 msgstr ""
 
@@ -324,7 +324,7 @@ msgstr ""
 #. type: Plain text
 #: en/lb.1:18
 msgid ""
-"B<lh> has no specific options but understands all generic live-build "
+"B<lb> has no specific options but understands all generic live-build "
 "options. See I<live-build>(7) for a complete list of all generic live-build "
 "options."
 msgstr ""
