@@ -1,3 +1,0 @@
-# Unofficial Maintainers
-deb http://unofficial.debian-maintainers.org/ @DISTRIBUTION@ @ARCHIVE_AREAS@ restricted
-deb-src http://unofficial.debian-maintainers.org/ @DISTRIBUTION@ @ARCHIVE_AREAS@ restricted

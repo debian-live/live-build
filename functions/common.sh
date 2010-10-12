@@ -9,7 +9,7 @@
 
 
 PACKAGE="live-build"
-VERSION="2.0.1-1"
+VERSION="2.0.3-1"
 CONFIG_VERSION="$(echo ${VERSION} | awk -F- '{ print $1 }')"
 
 PATH="${PWD}/auto/scripts:${PATH}"
