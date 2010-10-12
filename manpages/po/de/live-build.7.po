@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build 3.0~a5\n"
-"POT-Creation-Date: 2010-10-04 18:16+0300\n"
+"POT-Creation-Date: 2010-10-12 10:57+0300\n"
 "PO-Revision-Date: 2010-09-26 13:56+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -83,7 +83,7 @@ msgstr ""
 #: en/lb_source_net.1:1 en/lb_source_tar.1:1 en/lb_source_usb.1:1
 #: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "2010-10-04"
+msgid "2010-10-12"
 msgstr ""
 
 #. type: TH
@@ -966,7 +966,7 @@ msgstr ""
 #. type: IP
 #: en/live-build.7:71
 #, no-wrap
-msgid "B<lh>(1)"
+msgid "B<lb>(1)"
 msgstr ""
 
 #. type: Plain text
