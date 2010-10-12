@@ -1346,27 +1346,23 @@ then
 
 cat > config/chroot_sources/${LB_DISTRIBUTION}-backports.chroot << EOF
 # Backports Maintainers
-deb http://backports.debian-maintainers.org/ ${LB_DISTRIBUTION}/backports main contrib non-free
-deb-src http://backports.debian-maintainers.org/ ${LB_DISTRIBUTION}/backports main contrib non-free
+deb http://backports.debian.org/debian-backports/ ${LB_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}
+deb-src http://backports.debian.org/debian-backports/ ${LB_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}
 EOF
 
 	cp config/chroot_sources/${LB_DISTRIBUTION}-backports.chroot config/chroot_sources/${LB_DISTRIBUTION}-backports.binary
 
 	# Adding apt preferences
-	if ! grep -qs "^Pin: release o=backports.debian-maintainers.org" config/chroot_apt/preferences
+	if ! grep -qs "^Pin: release o=Debian Backports" config/chroot_apt/preferences
 	then
 
 cat >> config/chroot_apt/preferences << EOF
 Package: *
-Pin: release o=backports.debian-maintainers.org
+Pin: release o=Debian Backports
 Pin-Priority: 999
 EOF
 
 	fi
-
-	# Addding archive signing key
-	wget -q http://backports.debian-maintainers.org/project/openpgp/archive-key.asc -O config/chroot_sources/${LB_DISTRIBUTION}-backports.chroot.gpg
-	cp config/chroot_sources/${LB_DISTRIBUTION}-backports.chroot.gpg config/chroot_sources/${LB_DISTRIBUTION}-backports.binary.gpg
 fi
 
 # Checking defaults again
