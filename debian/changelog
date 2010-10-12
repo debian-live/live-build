@@ -1,3 +1,24 @@
+live-build (2.0.3-1) unstable; urgency=medium
+
+  [ Daniel Baumann ]
+  * Removing cron examples, autobuild is handled by live-autobuild now.
+  * Using old lenny syslinux bootsplash for squeeze, moving new splash
+    to wheezy.
+
+  [ Richard Nelson ]
+  * Make iso-hybrid default on l-b-cgi.
+  * Make squeeze default on l-b-cgi.
+
+  [ Daniel Baumann ]
+  * Updating path in copyright file.
+  * Removing remaining last leftovers from lh in lb and live-build
+    manpages.
+  * Removing debian-maintainers.org and debian-projects.org repository
+    entries, will re-add them after squeeze.
+  * Updating special handling for backports.
+
+ -- Daniel Baumann <daniel@debian.org>  Tue, 12 Oct 2010 11:05:07 +0200
+
 live-build (2.0.2-1) unstable; urgency=medium
 
   [ Daniel Baumann ]
