@@ -536,7 +536,7 @@ Set_defaults ()
 	if [ -z "${LB_LINUX_FLAVOURS}" ]
 	then
 		case "${LB_ARCHITECTURE}" in
-			arm|armel)
+			armel)
 				Echo_error "There is no default kernel flavour defined for your architecture."
 				Echo_error "Please configure it manually with 'lb config -k FLAVOUR'."
 				exit 1
