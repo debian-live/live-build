@@ -567,18 +567,6 @@ Set_defaults ()
 				esac
 				;;
 
-			hppa)
-				case "${LB_MODE}" in
-					ubuntu)
-						LB_LINUX_FLAVOURS="hppa32 hppa64"
-						;;
-
-					*)
-						LB_LINUX_FLAVOURS="parisc"
-						;;
-				esac
-				;;
-
 			i386)
 				case "${LB_MODE}" in
 					ubuntu)
