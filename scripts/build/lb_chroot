@@ -42,7 +42,6 @@ lb chroot_selinuxfs install ${*}
 lb chroot_sysfs install ${*}
 lb chroot_debianchroot install ${*}
 lb chroot_dpkg install ${*}
-lb chroot_dpkg_tmpfs install ${*}
 lb chroot_sysv-rc install ${*}
 lb chroot_upstart install ${*}
 lb chroot_hosts install ${*}
@@ -80,7 +79,6 @@ lb chroot_resolv remove ${*}
 lb chroot_hosts remove ${*}
 lb chroot_sysv-rc remove ${*}
 lb chroot_upstart remove ${*}
-lb chroot_dpkg_tmpfs remove ${*}
 lb chroot_dpkg remove ${*}
 lb chroot_debianchroot remove ${*}
 lb chroot_sysfs remove ${*}
