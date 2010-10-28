@@ -842,6 +842,8 @@ Set_defaults ()
 	# Setting chroot option
 	LB_BUILD_WITH_CHROOT="${LB_BUILD_WITH_CHROOT:-true}"
 
+	LB_BUILD_WITH_TMPFS="${LB_BUILD_WITH_TMPFS:-false}"
+
 	# Setting debian-installer option
 	LB_DEBIAN_INSTALLER="${LB_DEBIAN_INSTALLER:-false}"
 
