@@ -1,3 +1,16 @@
+live-build (2.0.4-1) unstable; urgency=medium
+
+  [ Richard Nelson ]
+  * Addng lenny build option back to forms and removing wheezy on l-b-
+    cgi.
+
+  [ Daniel Baumann ]
+  * Adding fsarchiver to rescue list.
+  * Removing deep link to bug page in the manual, since we don't have
+    stable references yet.
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 28 Oct 2010 09:34:43 +0200
+
 live-build (2.0.3-1) unstable; urgency=medium
 
   [ Daniel Baumann ]
