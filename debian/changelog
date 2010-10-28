@@ -1,3 +1,9 @@
+live-build (2.0.5-1) unstable; urgency=medium
+
+  * Removing dpkg-tmpfs hack, this is too intrusive atm.
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 28 Oct 2010 09:44:14 +0200
+
 live-build (2.0.4-1) unstable; urgency=medium
 
   [ Richard Nelson ]
