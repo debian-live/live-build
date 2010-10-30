@@ -6,7 +6,7 @@
 # http://qa.debian.org/developer.php?login=debian-live@lists.debian.org
 
 # debian-live
-live-build
+live-build live-boot live-config live-manual
 git
 grub-pc grub-legacy
 
