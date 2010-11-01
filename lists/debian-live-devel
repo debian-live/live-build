@@ -13,7 +13,7 @@ grub
 #endif
 
 #if DISTRIBUTION squeeze wheezy sid
-live-build
+live-build live-boot live-config live-manual
 git
 grub-pc grub-legacy
 #endif
