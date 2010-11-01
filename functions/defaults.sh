@@ -57,7 +57,7 @@ Set_defaults ()
 	then
 		LB_APT_HTTP_PROXY="${http_proxy}"
 	else
-		if [ -n "${LB_APT_HTTP_PROXY}" ] && [ "${LB_APT_HTT_PROXY}" != "${http_proxy}" ]
+		if [ -n "${LB_APT_HTTP_PROXY}" ] && [ "${LB_APT_HTTP_PROXY}" != "${http_proxy}" ]
 		then
 			http_proxy="${LB_APT_HTTP_PROXY}"
 		fi
