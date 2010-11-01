@@ -6,45 +6,27 @@
 # http://qa.debian.org/developer.php?login=debian-live@lists.debian.org
 
 # debian-live
-#if DISTRIBUTION lenny
-live-helper
-git-core
-grub
-#endif
+live-build live-manual
 
-#if DISTRIBUTION squeeze wheezy sid
-live-build live-boot live-config live-manual
-git
-grub-pc grub-legacy
-#endif
-
-debootstrap cdebootstrap
-syslinux
-memtest86+ memtest86
-dosfstools genisoimage mtools parted squashfs-tools genext2fs mtd-tools
-fakeroot fakechroot sudo
-
-# kernel
-#if DISTRIBUTION lenny squeeze sid
-aufs-tools
-#endif
-#if DISTRIBUTION lenny
-aufs-source
-#endif
-qemu kqemu-source
-kvm kvm-source
-squashfs-tools
-#if DISTRIBUTION lenny
-squashfs-source
-#endif
-#linux-headers-2.6-all
+aufs-tools dosfstools genisoimage parted squashfs-tools
+syslinux syslinux-common memtest86+
 
 # some other stuff
-vim less screen gnupg dash posh
+#if DISTRIBUTION lenny
+qemu
+#endif
+#if DISTRIBUTION squeeze wheezy sid
+bridge-utils lxc kvm
+#endif
+
+git-core gnupg less rsync screen sudo vim
 
 # build
-build-essential debhelper dh-make lintian fakeroot devscripts wdiff
-autotools-dev dpatch module-assistant quilt
+debootstrap cdebootstrap
+#if DISTRIBUTION squeeze wheezy sid
+multistrap
+#endif
+build-essential debhelper devscripts fakechroot fakeroot lintian wdiff
 
 # bootchart
 acct bootchart
