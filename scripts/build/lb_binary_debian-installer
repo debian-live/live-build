@@ -626,17 +626,22 @@ EOF
 	rm -f chroot/binary.sh
 	mv chroot/root/binary ./
 
-	# Creating dist symlinks
-	for DISTRIBUTION in frozen stable testing unstable ${LB_DISTRIBUTION}
-	do
-		ln -s ${LB_DEBIAN_INSTALLER_DISTRIBUTION} binary/dists/${DISTRIBUTION}
-	done
-
-	case "${LB_BINARY_IMAGES}" in
-		usb*)
+	case "${LB_BINARY_FILESYSTEM}" in
+		vat*)
+			# Creating dist directories
+			for DISTRIBUTION in frozen stable testing unstable ${LB_DISTRIBUTION}
+			do
+				cp -a ${LB_DEBIAN_INSTALLER_DISTRIBUTION} binary/dists/${DISTRIBUTION}
+			done
 			;;
 
 		*)
+			# Creating dist symlinks
+			for DISTRIBUTION in frozen stable testing unstable ${LB_DISTRIBUTION}
+			do
+				ln -s ${LB_DEBIAN_INSTALLER_DISTRIBUTION} binary/dists/${DISTRIBUTION}
+			done
+
 			ln -s . binary/debian
 			;;
 	esac
