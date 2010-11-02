@@ -1060,32 +1060,8 @@ Set_defaults ()
 	# Setting net tarball
 	LB_NET_TARBALL="${LB_NET_TARBALL:-gzip}"
 
-	# Setting syslinux configuration file
-	# LB_SYSLINUX_CFG
-
-	# Setting syslinux splash
-	# LB_SYSLINUX_SPLASH
-
-	LB_SYSLINUX_TIMEOUT="${LB_SYSLINUX_TIMEOUT:-0}"
-
-	# Setting syslinux menu
-	LB_SYSLINUX_MENU="${LB_SYSLINUX_MENU:-true}"
-
-	# Setting syslinux menu live entries
-	case "${LB_MODE}" in
-		debian|debian-release)
-			LB_SYSLINUX_MENU_LIVE_ENTRY="${LB_SYSLINUX_MENU_LIVE_ENTRY:-Live}"
-			LB_SYSLINUX_MENU_LIVE_ENTRY_FAILSAFE="${LB_SYSLINUX_MENU_LIVE_ENTRY_FAILSAFE:-${LB_SYSLINUX_MENU_LIVE_ENTRY} (failsafe)}"
-			;;
-
-		*)
-			LB_SYSLINUX_MENU_LIVE_ENTRY="${LB_SYSLINUX_MENU_LIVE_ENTRY:-Start ${LB_ISO_APPLICATION}}"
-			LB_SYSLINUX_MENU_LIVE_ENTRY_FAILSAFE="${LB_SYSLINUX_MENU_LIVE_ENTRY_FAILSAFE:-${LB_SYSLINUX_MENU_LIVE_ENTRY} (failsafe)}"
-			;;
-	esac
-
-	# Settings memtest menu entry
-	LB_SYSLINUX_MENU_MEMTEST_ENTRY="${LB_SYSLINUX_MENU_MEMTEST_ENTRY:-Memory test}"
+	# Setting syslinux theme package
+	LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-debian-squeeze}"
 
 	# Setting username
 	case "${LB_MODE}" in
