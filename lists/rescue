@@ -107,6 +107,7 @@ openntpd
 #endif
 openssl
 openvpn
+vpnc
 strongswan
 sipcalc
 socat
