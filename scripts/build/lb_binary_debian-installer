@@ -626,18 +626,29 @@ EOF
 	rm -f chroot/binary.sh
 	mv chroot/root/binary ./
 
-	case "${LB_BINARY_FILESYSTEM}" in
-		fat*)
-			# Creating dist directories
-			for DISTRIBUTION in frozen stable testing unstable ${LB_DISTRIBUTION}
-			do
-				cp -a ${LB_DEBIAN_INSTALLER_DISTRIBUTION} binary/dists/${DISTRIBUTION}
-			done
+	DISTRIBUTIONS="frozen stable testing unstable"
+
+	if [ "${LB_DEBIAN_INSTALLER_DISTRIBUTION}" != "${LB_DISTRIBUTION}" ]
+	then
+		DISTRIBUTIONS="${DISTRIBUTIONS} ${LB_DISTRIBUTION}"
+	fi
+
+	case "${LB_BINARY_IMAGES}" in
+		usb-hdd)
+			case "${LB_BINARY_FILESYSTEM}" in
+				fat*)
+					# Creating dist directories
+					for DISTRIBUTION in ${DISTRIBUTIONS}
+					do
+						cp -a binary/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION} binary/dists/${DISTRIBUTION}
+					done
+					;;
+			esac
 			;;
 
 		*)
 			# Creating dist symlinks
-			for DISTRIBUTION in frozen stable testing unstable ${LB_DISTRIBUTION}
+			for DISTRIBUTION in ${DISTRIBUTIONS}
 			do
 				ln -s ${LB_DEBIAN_INSTALLER_DISTRIBUTION} binary/dists/${DISTRIBUTION}
 			done
