@@ -1,3 +1,24 @@
+live-build (2.0.6-1) unstable; urgency=medium
+
+  [ Ben Armstrong ]
+  * Adding reference material to debian-live-devel list: live-boot,
+    live-config and live-manual.
+
+  [ Daniel Baumann ]
+  * Adding vpnc in rescue list.
+  * Updating debian-live-devel packages list (Closes: #602139).
+  * Correcting typo in defaults handling of apt http proxy.
+  * Workarounding symlink on usb-hdd when including debian-installer and
+    using vfat filesystems.
+
+  [ Ben Armstrong ]
+  * Fixing typo in symlink on fat workaround.
+
+  [ Daniel Baumann ]
+  * Making d-i indices copying depending on binary image type.
+
+ -- Daniel Baumann <daniel@debian.org>  Sat, 13 Nov 2010 16:10:43 +0100
+
 live-build (2.0.5-1) unstable; urgency=medium
 
   * Removing dpkg-tmpfs hack, this is too intrusive atm.
