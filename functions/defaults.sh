@@ -348,6 +348,10 @@ Set_defaults ()
 					lenny)
 						LB_MIRROR_CHROOT_VOLATILE="http://volatile.debian.org/debian-volatile/"
 						;;
+
+					squeeze)
+						LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT}"
+						;;
 				esac
 				;;
 
@@ -444,6 +448,9 @@ Set_defaults ()
 					lenny)
 						LB_MIRROR_BINARY_VOLATILE="http://volatile.debian.org/debian-volatile/"
 						;;
+
+					squeeze)
+						LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY}"
 				esac
 				;;
 
