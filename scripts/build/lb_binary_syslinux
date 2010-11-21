@@ -83,7 +83,7 @@ esac
 
 # Copying files
 mkdir -p ${_SUFFIX}
-cp -aL ${_PREFIX}/usr/share/syslinux/themes/${LB_SYSLINUX_THEME}/${_BOOTLOADER}/* ${_SUFFIX}
+cp -aL ${_PREFIX}/usr/share/syslinux/themes/${LB_SYSLINUX_THEME}/${_BOOTLOADER}-live/* ${_SUFFIX}
 
 # Configuring files
 if [ -e ${_SUFFIX}/live.cfg ]
