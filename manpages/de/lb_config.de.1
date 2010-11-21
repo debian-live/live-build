@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2010\-11\-13 3.0~a6 "Debian Live Project"
+.TH LIVE\-BUILD 1 2010\-11\-21 3.0~a6 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -19,6 +19,8 @@
   [\fB\-\-apt\-ftp\-proxy\fP \fIURL\fP]
 .br
   [\fB\-\-apt\-http\-proxy\fP \fIURL\fP]
+.br
+  [\fB\-\-apt\-indices\fP true|false|none]
 .br
   [\fB\-\-apt\-pdiffs\fP true|false]
 .br
@@ -37,8 +39,6 @@
   [\-b|\fB\-\-binary\-images\fP iso|iso\-hybrid|net|tar|usb\-hdd]
 .br
   [\fB\-\-binary\-filesystem\fP fat16|fat32|ext2]
-.br
-  [\fB\-\-binary\-indices\fP true|false|none]
 .br
   [\fB\-\-bootappend\-install\fP \fIPARAMETER\fP|\fI"PARAMETERS"\fP]
 .br
@@ -248,6 +248,9 @@ automatically set to the value of ftp_proxy.
 sets the http proxy to be used by apt. By default, this is empty but if the
 host has the environment variable http_proxy set, apt\-http\-proxy gets
 automatically set to the value of http_proxy.
+.IP "\fB\-\-apt\-indices\fP true|false|none" 4
+defines if the resulting images should have apt indices or not and defaults
+to true. If set to none, no indices are included at all.
 .IP "\fB\-\-apt\-pdiffs\fP true|false" 4
 defines whetever apt should use incremental package indices feature or
 not. This is true by default.
@@ -291,9 +294,6 @@ that it defaults to fat16 on all architectures except sparc where it
 defaults to ext2. Also note that if you choose fat16 and your resulting
 binary image gets bigger than 2GB, the binary filesystem automatically gets
 switched to fat32.
-.IP "\fB\-\-binary\-indices\fP true|false|none" 4
-defines if the resulting images should have binary indices or not and
-defaults to true. If set to none, no indices are included at all.
 .IP "\fB\-\-bootappend\-install\fP \fIPARAMETER\fP|\(dq\fIPARAMETERS\fP\(dq" 4
 sets boot parameters specific to debian\-installer, if included.
 .IP "\fB\-\-bootappend\-live\fP \fIPARAMETER\fP|\(dq\fIPARAMETERS\fP\(dq" 4

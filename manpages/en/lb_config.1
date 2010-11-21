@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2010\-11\-13 3.0~a6 "Debian Live Project"
+.TH LIVE\-BUILD 1 2010\-11\-21 3.0~a6 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -14,6 +14,8 @@
 	[\fB\-\-apt\-ftp\-proxy\fR \fIURL\fR]
 .br
 	[\fB\-\-apt\-http\-proxy\fR \fIURL\fR]
+.br
+	[\fB\-\-apt\-indices\fR true|false|none]
 .br
 	[\fB\-\-apt\-pdiffs\fR true|false]
 .br
@@ -32,8 +34,6 @@
 	[\-b|\fB\-\-binary\-images\fR iso|iso\-hybrid|net|tar|usb\-hdd]
 .br
 	[\fB\-\-binary\-filesystem\fR fat16|fat32|ext2]
-.br
-	[\fB\-\-binary\-indices\fR true|false|none]
 .br
 	[\fB\-\-bootappend\-install\fR \fIPARAMETER\fR|\fI"PARAMETERS"\fR]
 .br
@@ -221,6 +221,8 @@ defines if apt\-get or aptitude is used to install packages when building the im
 sets the ftp proxy to be used by apt. By default, this is empty but if the host has the environment variable ftp_proxy set, apt\-ftp\-proxy gets automatically set to the value of ftp_proxy.
 .IP "\fB\-\-apt\-http\-proxy\fR \fIURL\fR" 4
 sets the http proxy to be used by apt. By default, this is empty but if the host has the environment variable http_proxy set, apt\-http\-proxy gets automatically set to the value of http_proxy.
+.IP "\fB\-\-apt\-indices\fR true|false|none" 4
+defines if the resulting images should have apt indices or not and defaults to true. If set to none, no indices are included at all.
 .IP "\fB\-\-apt\-pdiffs\fR true|false" 4
 defines whetever apt should use incremental package indices feature or not. This is true by default.
 .IP "\fB\-\-apt\-options\fR \fIOPTION\fR|""\fIOPTIONS\fR""" 4
@@ -239,8 +241,6 @@ defines the architecture of the to be build image. By default, this is set to th
 defines the image type to build. By default this is set to iso to build CD/DVD images, for squeeze and newer it defaults to iso\-hybrid.
 .IP "\fB\-\-binary\-filesystem\fR fat16|fat32|ext2" 4
 defines the filesystem to be used in the image type. This only has an effect if the selected binary image type does allow to choose a filesystem. For example, when selection iso the resulting CD/DVD has always the filesystem ISO9660. When building usb\-hdd images for usb sticks, this is active. Note that it defaults to fat16 on all architectures except sparc where it defaults to ext2. Also note that if you choose fat16 and your resulting binary image gets bigger than 2GB, the binary filesystem automatically gets switched to fat32.
-.IP "\fB\-\-binary\-indices\fR true|false|none" 4
-defines if the resulting images should have binary indices or not and defaults to true. If set to none, no indices are included at all.
 .IP "\fB\-\-bootappend\-install\fR \fIPARAMETER\fR|""\fIPARAMETERS\fR""" 4
 sets boot parameters specific to debian\-installer, if included.
 .IP "\fB\-\-bootappend\-live\fR \fIPARAMETER\fR|""\fIPARAMETERS\fR""" 4
