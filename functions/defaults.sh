@@ -820,9 +820,9 @@ Set_defaults ()
 	# Setting apt indices
 	if echo ${LB_PACKAGES_LISTS} | grep -qs -E "(stripped|minimal)\b"
 	then
-		LB_BINARY_INDICES="${LB_BINARY_INDICES:-none}"
+		LB_APT_INDICES="${LB_APT_INDICES:-none}"
 	else
-		LB_BINARY_INDICES="${LB_BINARY_INDICES:-true}"
+		LB_APT_INDICES="${LB_APT_INDICES:-true}"
 	fi
 
 	# Setting bootloader
@@ -1186,9 +1186,9 @@ Check_defaults ()
 
 	if echo ${LB_PACKAGES_LISTS} | grep -qs -E "(stripped|minimal)\b"
 	then
-		if [ "${LB_BINARY_INDICES}" = "true" ]
+		if [ "${LB_APT_INDICES}" = "true" ]
 		then
-			Echo_warning "You have selected hook to minimise image size but you are still including package indices with your value of LB_BINARY_INDICES."
+			Echo_warning "You have selected hook to minimise image size but you are still including package indices with your value of LB_APT_INDICES."
 		fi
 	fi
 

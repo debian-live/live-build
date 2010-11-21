@@ -650,7 +650,7 @@ EOF
 		mkdir -p chroot/var/cache/apt/archives/partial
 
 		# Cleaning apt package lists
-		if [ "${LB_BINARY_INDICES}" = "false" ]
+		if [ "${LB_APT_INDICES}" = "false" ]
 		then
 			rm -rf chroot/var/lib/apt/lists
 			mkdir -p chroot/var/lib/apt/lists/partial

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2010-11-13 16:02+0100\n"
+"POT-Creation-Date: 2010-11-21 17:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,7 +83,7 @@ msgstr ""
 #: en/lb_source_net.1:1 en/lb_source_tar.1:1 en/lb_source_usb.1:1
 #: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "2010-11-13"
+msgid "2010-11-21"
 msgstr ""
 
 #. type: TH
@@ -717,52 +717,52 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:19
-msgid "  [B<--apt-pdiffs> true|false]"
+msgid "  [B<--apt-indices> true|false|none]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:21
-msgid "  [B<--apt-options> I<OPTION>|\"I<OPTIONS>\"]"
+msgid "  [B<--apt-pdiffs> true|false]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:23
-msgid "  [B<--aptitude-options> I<OPTION>|\"I<OPTIONS>\"]"
+msgid "  [B<--apt-options> I<OPTION>|\"I<OPTIONS>\"]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:25
-msgid "  [B<--apt-pipeline> I<DEPTH>]"
+msgid "  [B<--aptitude-options> I<OPTION>|\"I<OPTIONS>\"]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:27
-msgid "  [B<--apt-recommends> true|false]"
+msgid "  [B<--apt-pipeline> I<DEPTH>]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:29
-msgid "  [B<--apt-secure> true|false]"
+msgid "  [B<--apt-recommends> true|false]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:31
-msgid "  [-a|B<--architecture> I<ARCHITECTURE>]"
+msgid "  [B<--apt-secure> true|false]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:33
-msgid "  [-b|B<--binary-images> iso|iso-hybrid|net|tar|usb-hdd]"
+msgid "  [-a|B<--architecture> I<ARCHITECTURE>]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:35
-msgid "  [B<--binary-filesystem> fat16|fat32|ext2]"
+msgid "  [-b|B<--binary-images> iso|iso-hybrid|net|tar|usb-hdd]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:37
-msgid "  [B<--binary-indices> true|false|none]"
+msgid "  [B<--binary-filesystem> fat16|fat32|ext2]"
 msgstr ""
 
 #. type: Plain text
@@ -1269,24 +1269,37 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:224
 #, no-wrap
-msgid "B<--apt-pdiffs> true|false"
+msgid "B<--apt-indices> true|false|none"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:226
+msgid ""
+"defines if the resulting images should have apt indices or not and defaults "
+"to true. If set to none, no indices are included at all."
+msgstr ""
+
+#. type: IP
+#: en/lb_config.1:226
+#, no-wrap
+msgid "B<--apt-pdiffs> true|false"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_config.1:228
 msgid ""
 "defines whetever apt should use incremental package indices feature or not. "
 "This is true by default."
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:226
+#: en/lb_config.1:228
 #, no-wrap
 msgid "B<--apt-options> I<OPTION>|\"I<OPTIONS>\""
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:228
+#: en/lb_config.1:230
 msgid ""
 "defines the default options that will be appended to every apt call that is "
 "made inside chroot during the building of the image. By default, this is set "
@@ -1294,13 +1307,13 @@ msgid ""
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:228
+#: en/lb_config.1:230
 #, no-wrap
 msgid "B<--aptitude-options> I<OPTION>|\"I<OPTIONS>\""
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:230
+#: en/lb_config.1:232
 msgid ""
 "defines the default options that will be appended to every aptitude call "
 "that is made inside chroot during building of the image. By default, this is "
@@ -1308,13 +1321,13 @@ msgid ""
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:230
+#: en/lb_config.1:232
 #, no-wrap
 msgid "B<--apt-pipeline> I<DEPTH>"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:232
+#: en/lb_config.1:234
 msgid ""
 "sets the depth of the apt/aptitude pipeline. In cases where the remote "
 "server is not RFC conforming or buggy (such as Squid 2.0.2) this option can "
@@ -1326,38 +1339,38 @@ msgid ""
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:232
+#: en/lb_config.1:234
 #, no-wrap
 msgid "B<--apt-recommends> true|false"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:234
+#: en/lb_config.1:236
 msgid ""
 "defines if apt should install recommended packages automatically. By "
 "default, this is true except in emdebian mode."
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:234
+#: en/lb_config.1:236
 #, no-wrap
 msgid "B<--apt-secure> true|false"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:236
+#: en/lb_config.1:238
 msgid ""
 "defines if apt should check repository signatures. This is true by default."
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:236
+#: en/lb_config.1:238
 #, no-wrap
 msgid "-a|B<--architecture> I<ARCHITECTURE>"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:238
+#: en/lb_config.1:240
 msgid ""
 "defines the architecture of the to be build image. By default, this is set "
 "to the host architecture. Note that you cannot crossbuild for another "
@@ -1368,26 +1381,26 @@ msgid ""
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:238
+#: en/lb_config.1:240
 #, no-wrap
 msgid "-b|B<--binary-images> iso|iso-hybrid|net|tar|usb-hdd"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:240
+#: en/lb_config.1:242
 msgid ""
 "defines the image type to build. By default this is set to iso to build CD/"
 "DVD images, for squeeze and newer it defaults to iso-hybrid."
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:240
+#: en/lb_config.1:242
 #, no-wrap
 msgid "B<--binary-filesystem> fat16|fat32|ext2"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:242
+#: en/lb_config.1:244
 msgid ""
 "defines the filesystem to be used in the image type. This only has an effect "
 "if the selected binary image type does allow to choose a filesystem. For "
@@ -1397,19 +1410,6 @@ msgid ""
 "defaults to ext2. Also note that if you choose fat16 and your resulting "
 "binary image gets bigger than 2GB, the binary filesystem automatically gets "
 "switched to fat32."
-msgstr ""
-
-#. type: IP
-#: en/lb_config.1:242
-#, no-wrap
-msgid "B<--binary-indices> true|false|none"
-msgstr ""
-
-#. type: Plain text
-#: en/lb_config.1:244
-msgid ""
-"defines if the resulting images should have binary indices or not and "
-"defaults to true. If set to none, no indices are included at all."
 msgstr ""
 
 #. type: IP
