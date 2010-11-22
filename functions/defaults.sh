@@ -348,6 +348,10 @@ Set_defaults ()
 					lenny)
 						LB_MIRROR_CHROOT_VOLATILE="http://volatile.debian.org/debian-volatile/"
 						;;
+
+					squeeze)
+						LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT}"
+						;;
 				esac
 				;;
 
@@ -444,6 +448,9 @@ Set_defaults ()
 					lenny)
 						LB_MIRROR_BINARY_VOLATILE="http://volatile.debian.org/debian-volatile/"
 						;;
+
+					squeeze)
+						LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY}"
 				esac
 				;;
 
@@ -932,16 +939,6 @@ Set_defaults ()
 				;;
 		esac
 	fi
-
-	case "${LB_BINARY_IMAGES}" in
-		iso-hybrid|usb*)
-			# Try USB block devices for install media
-			if ! echo "${LB_BOOTAPPEND_INSTALL}" | grep -q try-usb
-			then
-				LB_BOOTAPPEND_INSTALL="cdrom-detect/try-usb=true ${LB_BOOTAPPEND_INSTALL}"
-			fi
-			;;
-	esac
 
 	if [ -n ${_LB_BOOTAPPEND_PRESEED} ]
 	then

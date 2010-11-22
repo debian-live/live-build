@@ -88,15 +88,25 @@ EOF
 		then
 			case "${LB_MODE}" in
 				debian|debian-release)
-					if [ "${LB_DISTRIBUTION}" != "sid" ] && [ "${LB_DISTRIBUTION}" != "unstable" ]
-					then
-						echo "deb ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}/volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+					case "${LB_DISTRIBUTION}" in
+						lenny)
+							echo "deb ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}/volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
-						if [ "${LB_SOURCE}" = "true" ]
-						then
-							echo "deb-src ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}/volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
-						fi
-					fi
+							if [ "${LB_SOURCE}" = "true" ]
+							then
+								echo "deb-src ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}/volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+							fi
+							;;
+
+						squeeze)
+							echo "deb ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}-volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+
+							if [ "${LB_SOURCE}" = "true" ]
+							then
+								echo "deb-src ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}-volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+							fi
+							;;
+					esac
 					;;
 
 				ubuntu)
@@ -532,15 +542,25 @@ EOF
 		then
 			case "${LB_MODE}" in
 				debian|debian-release)
-					if [ "${LB_DISTRIBUTION}" != "sid" ] && [ "${LB_DISTRIBUTION}" != "unstable" ]
-					then
-						echo "deb ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}/volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+					case "${LB_DISTRIBUTION}" in
+						lenny)
+							echo "deb ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}/volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
-						if [ "${LB_SOURCE}" = "true" ]
-						then
-							echo "deb-src ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}/volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
-						fi
-					fi
+							if [ "${LB_SOURCE}" = "true" ]
+							then
+								echo "deb-src ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}/volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+							fi
+							;;
+
+						squeeze)
+							echo "deb ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}-volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+
+							if [ "${LB_SOURCE}" = "true" ]
+							then
+								echo "deb-src ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}-volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+							fi
+							;;
+					esac
 					;;
 
 				ubuntu)
