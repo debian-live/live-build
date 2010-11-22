@@ -17,7 +17,7 @@ set -e
 if [ "${1}" != "noauto" ] && [ -x auto/clean ]
 then
 	Echo_message "Executing auto/clean script."
-	./auto/clean ${@}
+	./auto/clean "${@}"
 	exit ${?}
 fi
 

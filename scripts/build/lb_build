@@ -24,7 +24,7 @@ fi
 if [ "${1}" != "noauto" ] && [ -x auto/build ]
 then
 	Echo_message "Executing auto/build script."
-	./auto/build ${@}
+	./auto/build "${@}"
 	exit ${?}
 fi
 

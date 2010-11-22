@@ -17,7 +17,7 @@ set -e
 if [ "${1}" != "noauto" ] && [ -x auto/config ]
 then
 	Echo_message "Executing auto/config script."
-	./auto/config ${@}
+	./auto/config "${@}"
 	exit ${?}
 fi
 
