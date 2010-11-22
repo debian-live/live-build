@@ -940,16 +940,6 @@ Set_defaults ()
 		esac
 	fi
 
-	case "${LB_BINARY_IMAGES}" in
-		iso-hybrid|usb*)
-			# Try USB block devices for install media
-			if ! echo "${LB_BOOTAPPEND_INSTALL}" | grep -q try-usb
-			then
-				LB_BOOTAPPEND_INSTALL="cdrom-detect/try-usb=true ${LB_BOOTAPPEND_INSTALL}"
-			fi
-			;;
-	esac
-
 	if [ -n ${_LB_BOOTAPPEND_PRESEED} ]
 	then
 		LB_BOOTAPPEND_INSTALL="${LB_BOOTAPPEND_INSTALL} ${_LB_BOOTAPPEND_PRESEED}"
