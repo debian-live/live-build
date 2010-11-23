@@ -145,7 +145,7 @@ case "${LB_BOOTLOADER}" in
 		;;
 esac
 
-if In_list "stripped minimal" "${LB_PACKAGES_LISTS}"
+if In_list "stripped minimal" "${LB_PACKAGE_LISTS}"
 then
 	if [ "${LB_DEBIAN_INSTALLER}" != "live" ]
 	then

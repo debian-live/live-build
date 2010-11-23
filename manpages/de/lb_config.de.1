@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2010\-11\-22 3.0~a7 "Debian Live Project"
+.TH LIVE\-BUILD 1 2010\-11\-23 3.0~a7 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -164,7 +164,7 @@
 .br
   [\fB\-\-net\-tarball\fP bzip2|gzip|tar|none]
 .br
-  [\-p|\fB\-\-packages\-lists\fP \fILIST\fP|\fI"LISTS"\fP]
+  [\-p|\fB\-\-package\-lists\fP \fILIST\fP|\fI"LISTS"\fP]
 .br
   [\fB\-\-packages\fP \fIPACKAGE\fP|\fI"PACKAGES"\fP]
 .br
@@ -592,11 +592,11 @@ defines the format of the netboot image. Choosing tar results in a not
 compressed tarball, bzip2 and gzip in a bzip2 resp. gzip compressed
 tarball. Choosing none leads to no tarball at all, the plain binary
 directory is considered the output in this case. Default is gzip.
-.IP "\-p|\fB\-\-packages\-lists\fP \fILIST\fP|\(dq\fILISTS\fP\(dq" 4
+.IP "\-p|\fB\-\-package\-lists\fP \fILIST\fP|\(dq\fILISTS\fP\(dq" 4
 defines which lists available in /usr/share/live/build/lists should be
 used. By default, this is set to standard. Note that in case you have local
-packages lists, you don't need to list them here. Putting them into
-config/chroot_local\-packageslists is enough (the filename needs to have the
+package lists, you don't need to list them here. Putting them into
+config/chroot_local\-packagelists is enough (the filename needs to have the
 \&.list suffix though).
 .IP "\fB\-\-packages\fP \fIPACKAGE\fP|\(dq\fIPACKAGES\fP\(dq" 4
 defines one or more packages to be installed in the live system. This is a
@@ -653,7 +653,7 @@ defines one or more package tasks to be installed in the live system. This
 is a quick and convenient way to get a reasonable default selection of
 packages suitable for most users when building an image, but it results in
 quite big images. If you want to have finer grained package selections,
-local packages lists should be used instead.
+local package lists should be used instead.
 .IP "\fB\-\-templates\fP \fIPATH\fP" 4
 sets the path to the templates that live\-build is going to use, e.g. for
 bootloaders. By default, this is set to /usr/share/live/build/templates/.

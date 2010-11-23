@@ -111,7 +111,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--net-cow-path PATH]\n\
 \t    [--net-cow-server IP|HOSTNAME]\n\
 \t    [--net-tarball bzip2|gzip|tar|none]\n\
-\t    [-p|--packages-lists FILE]\n\
+\t    [-p|--package-lists FILE]\n\
 \t    [--packages PACKAGE|\"PACKAGES\"]\n\
 \t    [--quiet]\n\
 \t    [-r|--repositories REPOSITORY|\"REPOSITORIES\"]\n\
@@ -144,7 +144,7 @@ Local_arguments ()
 		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-chroot-backports:,mirror-binary:,
 		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
-		packages:,packages-lists:,tasks:,security:,volatile:,backports:,sysvinit:,binary-filesystem:,binary-images:,
+		packages:,package-lists:,tasks:,security:,volatile:,backports:,sysvinit:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
 		encryption:,grub-splash:,hostname:,isohybrid-options:,iso-application:,iso-preparer:,iso-publisher:,
@@ -181,7 +181,7 @@ Local_arguments ()
 				Print_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 
 				# Dump contents of directories that contain text files
-				for DIRECTORY in config/binary_local-packageslists config/chroot_local-packageslists config/chroot_apt config/chroot_local-patches config/chroot_local-preseed config/binary_rootfs
+				for DIRECTORY in config/binary_local-packagelists config/chroot_local-packagelists config/chroot_apt config/chroot_local-patches config/chroot_local-preseed config/binary_rootfs
 				do
 					if Find_files "${DIRECTORY}"
 					then
@@ -499,8 +499,8 @@ Local_arguments ()
 				shift 2
 				;;
 
-			-p|--packages-lists)
-				LB_PACKAGES_LISTS="${2}"
+			-p|--package-lists)
+				LB_PACKAGE_LISTS="${2}"
 				shift 2
 				;;
 
@@ -1029,7 +1029,7 @@ mkdir -p config/chroot_local-hooks
 mkdir -p config/chroot_local-includes
 mkdir -p config/chroot_local-patches
 mkdir -p config/chroot_local-packages
-mkdir -p config/chroot_local-packageslists
+mkdir -p config/chroot_local-packagelists
 mkdir -p config/chroot_local-preseed
 mkdir -p config/chroot_sources
 
@@ -1084,9 +1084,9 @@ LB_REPOSITORIES="${LB_REPOSITORIES}"
 # (Default: empty)
 LB_PACKAGES="${LB_PACKAGES}"
 
-# \$LB_PACKAGES_LISTS: set package list to install
-# (Default: ${LB_PACKAGES_LISTS})
-LB_PACKAGES_LISTS="${LB_PACKAGES_LISTS}"
+# \$LB_PACKAGE_LISTS: set package list to install
+# (Default: ${LB_PACKAGE_LISTS})
+LB_PACKAGE_LISTS="${LB_PACKAGE_LISTS}"
 
 # \$LB_TASKS: set tasks to install
 # (Default: empty)
@@ -1116,7 +1116,7 @@ mkdir -p config/binary_grub
 mkdir -p config/binary_local-debs
 mkdir -p config/binary_local-hooks
 mkdir -p config/binary_local-includes
-mkdir -p config/binary_local-packageslists
+mkdir -p config/binary_local-packagelists
 mkdir -p config/binary_local-udebs
 mkdir -p config/binary_rootfs
 mkdir -p config/binary_syslinux
@@ -1277,8 +1277,8 @@ mkdir -p auto/scripts
 if [ "${CONFIG}" = "clone" ] # FIXME
 then
 	# Read package selection
-	echo $(dpkg --get-selections | awk '{ print $1 }') > config/chroot_local-packageslists/local-system
-	LB_PACKAGES_LISTS="${LB_PACKAGES_LISTS} local-system"
+	echo $(dpkg --get-selections | awk '{ print $1 }') > config/chroot_local-packagelists/local-system
+	LB_PACKAGE_LISTS="${LB_PACKAGE_LISTS} local-system"
 
 	# Read debconf questions
 	if [ ! -f /usr/bin/debconf-get-selections ]

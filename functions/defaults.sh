@@ -682,7 +682,7 @@ Set_defaults ()
 			;;
 
 		*)
-			LB_PACKAGES_LISTS="${LB_PACKAGES_LISTS:-standard}"
+			LB_PACKAGE_LISTS="${LB_PACKAGE_LISTS:-standard}"
 			;;
 	esac
 
@@ -700,7 +700,7 @@ Set_defaults ()
 	esac
 
 	# Setting tasks string
-	for LIST in ${LB_PACKAGES_LISTS}
+	for LIST in ${LB_PACKAGE_LISTS}
 	do
 		case "${LIST}" in
 			stripped|minimal)
@@ -708,7 +708,7 @@ Set_defaults ()
 				;;
 
 			gnome-desktop)
-				LB_PACKAGES_LISTS="$(echo ${LB_PACKAGES_LISTS} | sed -e 's|gnome-desktop||') standard-x11"
+				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|gnome-desktop||') standard-x11"
 				case "${LB_DISTRIBUTION}" in
 					lenny)
 						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|gnome-desktop||' -e 's|desktop||') standard gnome-desktop desktop"
@@ -721,7 +721,7 @@ Set_defaults ()
 				;;
 
 			kde-desktop)
-				LB_PACKAGES_LISTS="$(echo ${LB_PACKAGES_LISTS} | sed -e 's|kde-desktop||') standard-x11"
+				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|kde-desktop||') standard-x11"
 
 				case "${LB_DISTRIBUTION}" in
 					lenny)
@@ -734,7 +734,7 @@ Set_defaults ()
 				;;
 
 			lxde-desktop)
-				LB_PACKAGES_LISTS="$(echo ${LB_PACKAGES_LISTS} | sed -e 's|lxde-desktop||') standard-x11"
+				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|lxde-desktop||') standard-x11"
 
 				case "${LB_DISTRIBUTION}" in
 					lenny)
@@ -748,7 +748,7 @@ Set_defaults ()
 				;;
 
 			xfce-desktop)
-				LB_PACKAGES_LISTS="$(echo ${LB_PACKAGES_LISTS} | sed -e 's|xfce-desktop||') standard-x11"
+				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|xfce-desktop||') standard-x11"
 
 				case "${LB_DISTRIBUTION}" in
 					lenny)
@@ -763,7 +763,7 @@ Set_defaults ()
 		esac
 	done
 
-	LB_PACKAGES_LISTS="$(echo ${LB_PACKAGES_LISTS} | sed -e 's|  ||g')"
+	LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|  ||g')"
 	LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|  ||g')"
 
 	# Setting security updates option
@@ -818,7 +818,7 @@ Set_defaults ()
 	esac
 
 	# Setting apt indices
-	if echo ${LB_PACKAGES_LISTS} | grep -qs -E "(stripped|minimal)\b"
+	if echo ${LB_PACKAGE_LISTS} | grep -qs -E "(stripped|minimal)\b"
 	then
 		LB_APT_INDICES="${LB_APT_INDICES:-none}"
 	else
@@ -1112,12 +1112,12 @@ Check_defaults ()
 		fi
 	fi
 
-	if echo ${LB_PACKAGES_LISTS} | grep -qs -E "(stripped|minimal)\b"
+	if echo ${LB_PACKAGE_LISTS} | grep -qs -E "(stripped|minimal)\b"
 	then
 		# aptitude + stripped|minimal
 		if [ "${LB_APT}" = "aptitude" ]
 		then
-			Echo_warning "You selected LB_PACKAGES_LISTS='%s' and LB_APT='aptitude'" "${LB_PACKAGES_LIST}. This configuration is potentially unsafe, as aptitude is not used in the stripped/minimal package lists."
+			Echo_warning "You selected LB_PACKAGE_LISTS='%s' and LB_APT='aptitude'" "${LB_PACKAGE_LIST}. This configuration is potentially unsafe, as aptitude is not used in the stripped/minimal package lists."
 		fi
 	fi
 
@@ -1174,7 +1174,7 @@ Check_defaults ()
 		Echo_warning "You have specified a value of LB_ISO_VOLUME that is too long; the maximum length is 32 characters."
 	fi
 
-	if echo ${LB_PACKAGES_LISTS} | grep -qs -E "(stripped|minimal)\b"
+	if echo ${LB_PACKAGE_LISTS} | grep -qs -E "(stripped|minimal)\b"
 	then
 		if [ "${LB_APT_INDICES}" = "true" ]
 		then

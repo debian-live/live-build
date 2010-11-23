@@ -88,7 +88,7 @@ if [ "${LB_USE_FAKEROOT}" != "true" ]
 then
 	if [ -z "${LB_BOOTSTRAP_FLAVOUR}" ]
 	then
-		if In_list "stripped minimal" "${LB_PACKAGES_LISTS}"
+		if In_list "stripped minimal" "${LB_PACKAGE_LISTS}"
 		then
 			DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=minbase"
 		fi
