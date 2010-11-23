@@ -39,7 +39,7 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Processing hooks
-HOOKS="$(echo ${LB_HOOKS} ${LB_PACKAGES_LISTS} ${LB_TASKS} | sed -e 's| |\n|g' | sort -u)"
+HOOKS="$(echo ${LB_HOOKS} ${LB_PACKAGE_LISTS} ${LB_TASKS} | sed -e 's| |\n|g' | sort -u)"
 
 for HOOK in ${HOOKS}
 do

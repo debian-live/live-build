@@ -80,7 +80,7 @@ fi
 
 if [ -z "${LB_BOOTSTRAP_FLAVOUR}" ]
 then
-	case "${LB_PACKAGES_LISTS}" in
+	case "${LB_PACKAGE_LISTS}" in
 		stripped|minimal)
 			CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=minimal"
 			;;
@@ -155,7 +155,7 @@ then
 	fi
 
 	# Remove cdebootstrap-helper-diverts (needed at least for minimal flavours)
-	case "${LB_PACKAGES_LISTS}" in
+	case "${LB_PACKAGE_LISTS}" in
 		stripped|minimal)
 			Chroot chroot "dpkg -P cdebootstrap-helper-diverts"
 			;;

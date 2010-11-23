@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2010\-11\-22 3.0~a7 "Debian Live Project"
+.TH LIVE\-BUILD 1 2010\-11\-23 3.0~a7 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -159,7 +159,7 @@
 .br
 	[\fB\-\-net\-tarball\fR bzip2|gzip|tar|none]
 .br
-	[\-p|\fB\-\-packages\-lists\fR \fILIST\fR|\fI"LISTS"\fR]
+	[\-p|\fB\-\-package\-lists\fR \fILIST\fR|\fI"LISTS"\fR]
 .br
 	[\fB\-\-packages\fR \fIPACKAGE\fR|\fI"PACKAGES"\fR]
 .br
@@ -372,8 +372,8 @@ Example:
 sets the IP or hostname that will be configured in the bootloader configuration for the copy\-on\-write filesystem of your netboot image and is by default empty.
 .IP "\fB\-\-net\-tarball\fR bzip2|gzip|tar|none" 4
 defines the format of the netboot image. Choosing tar results in a not compressed tarball, bzip2 and gzip in a bzip2 resp. gzip compressed tarball. Choosing none leads to no tarball at all, the plain binary directory is considered the output in this case. Default is gzip.
-.IP "\-p|\fB\-\-packages\-lists\fR \fILIST\fR|""\fILISTS\fR""" 4
-defines which lists available in /usr/share/live/build/lists should be used. By default, this is set to standard. Note that in case you have local packages lists, you don't need to list them here. Putting them into config/chroot_local-packageslists is enough (the filename needs to have the .list suffix though).
+.IP "\-p|\fB\-\-package\-lists\fR \fILIST\fR|""\fILISTS\fR""" 4
+defines which lists available in /usr/share/live/build/lists should be used. By default, this is set to standard. Note that in case you have local package lists, you don't need to list them here. Putting them into config/chroot_local-packagelists is enough (the filename needs to have the .list suffix though).
 .IP "\fB\-\-packages\fR \fIPACKAGE\fR|""\fIPACKAGES\fR""" 4
 defines one or more packages to be installed in the live system. This is a quick and convenient place to add a few packages when building an image (limited by the max length of shell). Packages that should be permanently installed should be put into a local packages list.
 .IP "\fB\-r, \-\-repositories\fR \fIREPOSITORY\fR|""\fIREPOSITORIES\fR""" 4
@@ -401,7 +401,7 @@ defines if the sysvinit hack should be true or false. The sysvinit hack disables
 .IP "\fB\-\-tasksel\fR aptitude|tasksel" 4
 selects which program is used to install tasks. By default, this is set to tasksel.
 .IP "\fB\-\-tasks\fR \fITASK\fR|""\fITASKS\fR""" 4
-defines one or more package tasks to be installed in the live system. This is a quick and convenient way to get a reasonable default selection of packages suitable for most users when building an image, but it results in quite big images. If you want to have finer grained package selections,  local packages lists should be used instead.
+defines one or more package tasks to be installed in the live system. This is a quick and convenient way to get a reasonable default selection of packages suitable for most users when building an image, but it results in quite big images. If you want to have finer grained package selections,  local package lists should be used instead.
 .IP "\fB\-\-templates\fR \fIPATH\fR" 4
 sets the path to the templates that live\-build is going to use, e.g. for bootloaders. By default, this is set to /usr/share/live/build/templates/.
 .IP "\fB\-\-virtual\-root\-filesystem\fR ext3" 4
