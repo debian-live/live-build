@@ -122,7 +122,7 @@ case "${1}" in
 		if Find_files config/chroot_local-packages/*.deb
 		then
 			echo >> chroot/etc/apt/preferences
-			echo "# Added by lh_chroot_apt ${@}" >> chroot/etc/apt/preferences
+			echo "# Added by lb_chroot_apt ${@}" >> chroot/etc/apt/preferences
 			echo "Package: *" >> chroot/etc/apt/preferences
 			echo "Pin: release o=chroot_local-packages" >> chroot/etc/apt/preferences
 
@@ -133,7 +133,7 @@ case "${1}" in
 					;;
 
 				install-binary)
-					# Ensure local packages are not re-installed during lh_binary
+					# Ensure local packages are not re-installed during lb_binary
 					echo "Pin-Priority: 99" >> chroot/etc/apt/preferences
 
 					echo >> chroot/etc/apt/preferences
@@ -220,8 +220,8 @@ case "${1}" in
 		then
 			if [ -f chroot/etc/apt/preferences ]
 			then
-				# delete additions from lh_chroot_apt install|install-binary to preferences
-				sed -i '/# Added by lh_chroot_apt/,$d' chroot/etc/apt/preferences
+				# delete additions from lb_chroot_apt install|install-binary to preferences
+				sed -i '/# Added by lb_chroot_apt/,$d' chroot/etc/apt/preferences
 				# delete the last empty line
 				sed -i '${/^[[:blank:]]*$/d;}' chroot/etc/apt/preferences
 				# if the resulting preferences file is empty there was no user additions, remove it
