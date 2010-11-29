@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2010\-11\-22 2.0.7 "Debian Live Project"
+.TH LIVE\-BUILD 1 2010\-11\-29 2.0.7 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -101,7 +101,7 @@
 .br
 	[\fB\-\-includes\fR \fIPATH\fR]
 .br
-	[\fB\-\-initramfs\fR auto|live\-initramfs|casper]
+	[\fB\-\-initramfs\fR auto|none|live\-boot|live\-initramfs|casper]
 .br
 	[\fB\-\-interactive\fR shell]
 .br
@@ -309,8 +309,8 @@ sets the hostname of the live system.
 \fBlb config\fR by default reads system defaults from /etc/live/build.conf and /etc/live/build.d when generating a new live system config directory. This is useful if you want to set global settings, such as mirror locations, and don't want to specify them all of the time.
 .IP "\fB\-\-includes\fR \fIPATH\fR" 4
 sets the path to the includes that live\-build is going to use, e.g. additional minimal documentation that you want to have on all live systems. By default, this is set to /usr/share/live/build/includes/.
-.IP "\fB\-\-initramfs\fR auto|live\-initramfs|casper" 4
-sets the name of package that contains the live system specific initramfs modification. By default, auto is used, which means that at build time of the image rather than on configuration time, the value will be expanded to casper when building etch systems and to live\-initramfs for all other systems.
+.IP "\fB\-\-initramfs\fR auto|none|live\-boot|live\-initramfs|casper" 4
+sets the name of package that contains the live system specific initramfs modification. By default, auto is used, which means that at build time of the image rather than on configuration time, the value will be expanded to casper when building etch systems or ubuntu systems, to live\-initramfs for all other systems up to squeeze, and to live\-boot for wheezy and newer. Using 'none' is usefull if the resulting system image should not be a live image (experimental).
 .IP "\fB\-\-interactive\fR shell" 4
 defines if after the chroot stage and before the beginning of the binary stage, a interactive shell login should be spawned in the chroot in order to allow you to do manual customizations. Once you close the shell with logout or exit, the build will continue as usual. Note that it's strongly discouraged to use this for anything else than testing. Modifications that should be present in all builds of a live system should be properly made through hooks. Everything else destroys the beauty of being able to completely automatise the build process and making it non interactive. By default, this is of course false.
 .IP "\fB\-\-iso\-application\fR \fINAME\fR" 4

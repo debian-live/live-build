@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 22.11.2010 2.0.7 "Debian Live Projekt"
+.TH LIVE\-BUILD 1 29.11.2010 2.0.7 "Debian Live Projekt"
 
 .SH NAME
 \fBlb config\fP \- Erstellen des config Verzeichnisses
@@ -106,7 +106,7 @@
 .br
   [\fB\-\-includes\fP \fIPATH\fP]
 .br
-  [\fB\-\-initramfs\fP auto|live\-initramfs|casper]
+  [\fB\-\-initramfs\fP auto|none|live\-boot|live\-initramfs|casper]
 .br
   [\fB\-\-interactive\fP shell]
 .br
@@ -452,12 +452,14 @@ don't want to specify them all of the time.
 sets the path to the includes that live\-build is going to use,
 e.g. additional minimal documentation that you want to have on all live
 systems. By default, this is set to /usr/share/live/build/includes/.
-.IP "\fB\-\-initramfs\fP auto|live\-initramfs|casper" 4
+.IP "\fB\-\-initramfs\fP auto|none|live\-boot|live\-initramfs|casper" 4
 sets the name of package that contains the live system specific initramfs
 modification. By default, auto is used, which means that at build time of
 the image rather than on configuration time, the value will be expanded to
-casper when building etch systems and to live\-initramfs for all other
-systems.
+casper when building etch systems or ubuntu systems, to live\-initramfs for
+all other systems up to squeeze, and to live\-boot for wheezy and
+newer. Using 'none' is usefull if the resulting system image should not be a
+live image (experimental).
 .IP "\fB\-\-interactive\fP shell" 4
 defines if after the chroot stage and before the beginning of the binary
 stage, a interactive shell login should be spawned in the chroot in order to
