@@ -1,3 +1,20 @@
+live-build (2.0.8-1) unstable; urgency=medium
+
+  [ Daniel Baumann ]
+  * Replacing last occurences of lh with lb.
+  * Adding warning about non-usefullnes of the stripped hook.
+
+  [ Ben Armstrong ]
+  * Adding example auto scripts.
+
+  [ Daniel Baumann ]
+  * Applying slightly modified patch from Michael Hudson
+    <michael.hudson@canonical.com> to make arguments in debootstrap
+    calls more robust.
+  * Updating initramfs switch in lb config manpage (Closes: #605255).
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 29 Nov 2010 23:12:54 +0100
+
 live-build (2.0.7-1) unstable; urgency=medium
 
   [ Daniel Baumann ]
