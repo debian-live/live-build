@@ -1,3 +1,22 @@
+live-build (3.0~a8-1) experimental; urgency=low
+
+  [ Daniel Baumann ]
+  * Replacing last occurences of lh with lb.
+  * Renaming 'packages lists' to 'package lists' all over the place.
+  * Updating grub package name for grub version 1.
+  * Adding warning about non-usefullnes of the stripped hook.
+
+  [ Ben Armstrong ]
+  * Adding example auto scripts.
+
+  [ Daniel Baumann ]
+  * Applying slightly modified patch from Michael Hudson
+    <michael.hudson@canonical.com> to make arguments in debootstrap
+    calls more robust.
+  * Updating initramfs switch in lb config manpage (Closes: #605255).
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 29 Nov 2010 23:19:28 +0100
+
 live-build (3.0~a7-1) experimental; urgency=low
 
   [ Daniel Baumann ]
