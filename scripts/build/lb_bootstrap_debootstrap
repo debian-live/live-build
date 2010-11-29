@@ -55,13 +55,13 @@ mkdir -p chroot
 # Setting debootstrap options
 if [ -n "${LB_ARCHITECTURE}" ]
 then
-	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --arch ${LB_ARCHITECTURE}"
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --arch=${LB_ARCHITECTURE}"
 fi
 
 if [ "${LB_ARCHIVE_AREAS}" != "main" ]
 then
 	# Modify archive areas to remove leading/trailing whitespaces and replace other whitepspace with commas
-	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --components $(echo ${LB_ARCHIVE_AREAS} | sed -e 's| |,|g')"
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --components=$(echo ${LB_ARCHIVE_AREAS} | sed -e 's| |,|g')"
 fi
 
 if [ -n "${LB_BOOTSTRAP_CONFIG}" ]
