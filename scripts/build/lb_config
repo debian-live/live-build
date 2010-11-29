@@ -969,7 +969,7 @@ GZIP_OPTIONS="${GZIP_OPTIONS}"
 ISOHYBRID_OPTIONS="${ISOHYBRID_OPTIONS}"
 EOF
 
-# Creating lh_bootstrap_* configuration
+# Creating lb_bootstrap_* configuration
 cat > config/bootstrap << EOF
 # config/bootstrap - options for live-build(7), bootstrap stage
 
@@ -1046,7 +1046,7 @@ LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER}"
 LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS}"
 EOF
 
-# Creating lh_chroot_* configuration
+# Creating lb_chroot_* configuration
 mkdir -p config/chroot_apt
 mkdir -p config/chroot_local-hooks
 mkdir -p config/chroot_local-includes
@@ -1136,7 +1136,7 @@ LB_SYMLINKS="${LB_SYMLINKS}"
 LB_SYSVINIT="${LB_SYSVINIT}"
 EOF
 
-# Creating lh_binary_* configuration
+# Creating lb_binary_* configuration
 mkdir -p config/binary_debian-installer
 mkdir -p config/binary_debian-installer-includes
 mkdir -p config/binary_grub
@@ -1309,7 +1309,7 @@ LB_SYSLINUX_MENU_MEMTEST_ENTRY="${LB_SYSLINUX_MENU_MEMTEST_ENTRY}"
 LB_USERNAME="${LB_USERNAME}"
 EOF
 
-# Creating lh_source_* configuration
+# Creating lb_source_* configuration
 cat > config/source << EOF
 # config/source - options for live-build(7), source stage
 
