@@ -87,16 +87,7 @@ EOF
 		if [ "${LB_VOLATILE}" = "true" ]
 		then
 			case "${LB_MODE}" in
-				debian|debian-release)
-					echo "deb ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}-volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
-
-					if [ "${LB_SOURCE}" = "true" ]
-					then
-						echo "deb-src ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}-volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
-					fi
-					;;
-
-				ubuntu)
+				debian|debian-release|ubuntu)
 					echo "deb ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
 					if [ "${LB_SOURCE}" = "true" ]
@@ -528,16 +519,7 @@ EOF
 		if [ "${LB_VOLATILE}" = "true" ]
 		then
 			case "${LB_MODE}" in
-				debian|debian-release)
-					echo "deb ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}-volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
-
-					if [ "${LB_SOURCE}" = "true" ]
-					then
-						echo "deb-src ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}/volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
-					fi
-					;;
-
-				ubuntu)
+				debian|debian-release|ubuntu)
 					echo "deb ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
 					if [ "${LB_SOURCE}" = "true" ]
