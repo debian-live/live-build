@@ -411,15 +411,15 @@ EOF
 				Chroot chroot "apt-get ${APT_OPTIONS} install aptitude"
 			fi
 
-			Apt update
-			Apt upgrade
-			Apt dist-upgrade
+			Apt chroot update
+			Apt chroot upgrade
+			Apt chroot dist-upgrade
 
 			# Installing keyring packages
 			if [ -n "${LB_KEYRING_PACKAGES}" ]
 			then
 				Chroot chroot "apt-get --yes --force-yes install ${LB_KEYRING_PACKAGES}"
-				Apt update
+				Apt chroot update
 			fi
 
 			if [ "${LB_CACHE_INDICES}" = "true" ]
@@ -625,7 +625,7 @@ EOF
 		fi
 
 		# Updating indices
-		Apt update
+		Apt chroot update
 
 		# Cleaning apt package cache
 		rm -rf chroot/var/cache/apt
