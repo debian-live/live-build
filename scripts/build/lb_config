@@ -27,19 +27,20 @@ then
 fi
 
 # Setting static variables
+PROGRAM="lb config"
 DESCRIPTION="$(Echo 'create configuration for live-build(7)')"
-USAGE="${PROGRAM} [--apt apt|aptitude]\n\
+USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--apt-ftp-proxy URL]\n\
 \t    [--apt-http-proxy URL]\n\
 \t    [--apt-pdiffs true|false]\n\
 \t    [--apt-options OPTION|\"OPTIONS\"]\n\
 \t    [--aptitude-options OPTION|\"OPTIONS\"]\n\
-\t    [--apt-pipeline FIXME]\n\
+\t    [--apt-pipeline DEPTH]\n\
 \t    [--apt-recommends true|false]\n\
 \t    [--apt-secure true|false]\n\
 \t    [-a|--architecture ARCHITECTURE]\n\
-\t    [-b|--binary-images iso|net|tar|usb-hdd]\n\
-\t    [--binary-filesystem fat16|fat32]\n\
+\t    [-b|--binary-images iso|iso-hybrid|net|tar|usb-hdd]\n\
+\t    [--binary-filesystem fat16|fat32|ext2]\n\
 \t    [--binary-indices true|false|none]\n\
 \t    [--bootappend-install PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootappend-live PARAMETER|\"PARAMETERS\"]\n\
@@ -48,7 +49,6 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--bootstrap-config FILE]\n\
 \t    [-f|--bootstrap-flavour minimal|standard]\n\
 \t    [--bootstrap-keyring PACKAGE]\n\
-\t    [--breakpoints]\n\
 \t    [--cache true|false]\n\
 \t    [--cache-indices true|false]\n\
 \t    [--cache-packages true|false]\n\
@@ -56,13 +56,13 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--checksums md5|sha1|sha256|none]\n\
 \t    [--build-with-chroot true|false]\n\
 \t    [--chroot-filesystem ext2|ext3|squashfs|plain|jffs2]\n\
+\t    [--clean]\n\
 \t    [-c|--conffile FILE]\n\
-\t    [--clean\n\
 \t    [--debconf-frontend dialog|editor|noninteractive|readline]\n\
 \t    [--debconf-nowarnings true|false]\n\
 \t    [--debconf-priority low|medium|high|critical]\n\
 \t    [--debian-installer true|cdrom|netinst|netboot|businesscard|live|false]\n\
-\t    [--debian-installer-distribution CODENAME|daily]\n\
+\t    [--debian-installer-distribution daily|CODENAME]\n\
 \t    [--debian-installer-preseedfile FILE|URL]\n\
 \t    [--debian-installer-gui true|false]\n\
 \t    [--debug]\n\
@@ -77,7 +77,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--hostname NAME]\n\
 \t    [--ignore-system-defaults]\n\
 \t    [--includes PATH]\n\
-\t    [--initramfs auto|live-initramfs|casper]\n\
+\t    [--initramfs auto|none|live-boot|live-initramfs|casper]\n\
 \t    [--interactive shell]\n\
 \t    [--isohybrid-options OPTION|\"OPTIONS\"]\n\
 \t    [--iso-application NAME]\n\
@@ -90,7 +90,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [-k|--linux-flavours FLAVOUR|\"FLAVOURS\"]\n\
 \t    [--linux-packages \"PACKAGES\"]\n\
 \t    [--losetup losetup|losetup.orig]\n\
-\t    [--memtest memtest86+|memtest86]\n\
+\t    [--memtest memtest86+|memtest86|none]\n\
 \t    [-m|--mirror-bootstrap URL]\n\
 \t    [--mirror-chroot URL]\n\
 \t    [--mirror-chroot-security URL]\n\
@@ -101,7 +101,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--mirror-binary-volatile URL]\n\
 \t    [--mirror-binary-backports URL]\n\
 \t    [--mirror-debian-installer URL]\n\
-\t    [--mode debian|emdebian]\n\
+\t    [--mode debian|emdebian|ubuntu]\n\
 \t    [--net-root-filesystem nfs|cfs]\n\
 \t    [--net-root-mountoptions OPTIONS]\n\
 \t    [--net-root-path PATH]\n\
@@ -111,7 +111,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--net-cow-path PATH]\n\
 \t    [--net-cow-server IP|HOSTNAME]\n\
 \t    [--net-tarball bzip2|gzip|tar|none]\n\
-\t    [-p|--packages-lists FILE]\n\
+\t    [-p|--packages-lists LIST|\"LISTS\"]\n\
 \t    [--packages PACKAGE|\"PACKAGES\"]\n\
 \t    [--quiet]\n\
 \t    [-r|--repositories REPOSITORY|\"REPOSITORIES\"]\n\
@@ -127,7 +127,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--syslinux-menu true|false]\n\
 \t    [--sysvinit true|false]\n\
 \t    [--tasksel aptitude|tasksel]\n\
-\t    [--tasks TASK]\n\
+\t    [--tasks TASK|\"TASKS\"]\n\
 \t    [--templates PATH]\n\
 \t    [--virtual-root-size MB]\n\
 \t    [--volatile true|false]\n\
@@ -158,7 +158,7 @@ Local_arguments ()
 		help,ignore-system-defaults,quiet,usage,verbose,version"
 	# Remove spaces added by indentation
 	LONG_OPTIONS="$(echo ${LONG_OPTIONS} | tr -d ' ')"
-	ARGUMENTS="$(getopt --longoptions ${LONG_OPTIONS} --name=${PROGRAM} --options a:f:d:m:l:k:p:b:e:r:s:c:huv --shell sh -- "${@}")"
+	ARGUMENTS="$(getopt --longoptions ${LONG_OPTIONS} --name="${PROGRAM}" --options a:f:d:m:l:k:p:b:e:r:s:c:huv --shell sh -- "${@}")"
 
 	if [ "${?}" != "0" ]
 	then
