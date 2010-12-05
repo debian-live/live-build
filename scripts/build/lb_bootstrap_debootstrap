@@ -32,130 +32,131 @@ fi
 # Check architecture
 Check_crossarchitectures
 
-Echo_message "Begin bootstrapping system..."
+for _ARCHITECTURE in ${LB_ARCHITECTURES}
+do
+	Echo_message "Begin bootstrapping system..."
 
-Check_package /usr/sbin/debootstrap debootstrap
+	Check_package /usr/sbin/debootstrap debootstrap
 
-# Ensure that a system is built as root
-lb testroot
+	# Ensure that a system is built as root
+	lb testroot
 
-# Checking stage file
-Check_stagefile .stage/bootstrap
-Check_stagefile .stage/bootstrap_cache.restore
+	# Checking stage file
+	Check_stagefile .stage/bootstrap.${_ARCHITECTURE}
+	Check_stagefile .stage/bootstrap_cache.${_ARCHITECTURE}-restore
 
-# Checking lock file
-Check_lockfile .lock
+	# Checking lock file
+	Check_lockfile .lock
 
-# Creating lock file
-Create_lockfile .lock
+	# Creating lock file
+	Create_lockfile .lock
 
-# Creating chroot directory
-mkdir -p chroot
+	# Creating chroot directory
+	mkdir -p chroot.${_ARCHITECTURE}
 
-# Setting debootstrap options
-if [ -n "${LB_ARCHITECTURES}" ]
-then
-	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --arch=${LB_ARCHITECTURES}"
-fi
+	# Setting debootstrap options
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --arch=${_ARCHITECTURE}"
 
-if [ "${LB_ARCHIVE_AREAS}" != "main" ]
-then
-	# Modify archive areas to remove leading/trailing whitespaces and replace other whitepspace with commas
-	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --components=$(echo ${LB_ARCHIVE_AREAS} | sed -e 's| |,|g')"
-fi
-
-if [ -n "${LB_BOOTSTRAP_CONFIG}" ]
-then
-	if [ -d "/usr/share/debootstrap/scripts/" ]
+	if [ "${LB_ARCHIVE_AREAS}" != "main" ]
 	then
-		LB_DEBOOTSTRAP_SCRIPT="/usr/share/debootstrap/scripts/${LB_BOOTSTRAP_CONFIG}"
-	else
-		LB_DEBOOTSTRAP_SCRIPT="/usr/lib/debootstrap/scripts/${LB_BOOTSTRAP_CONFIG}"
+		# Modify archive areas to remove leading/trailing whitespaces and replace other whitepspace with commas
+		DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --components=$(echo ${LB_ARCHIVE_AREAS} | sed -e 's| |,|g')"
 	fi
-fi
 
-if [ -n "${LB_BOOTSTRAP_INCLUDE}" ]
-then
-	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --include=$(echo ${LB_BOOTSTRAP_INCLUDE} | sed 's|  *|,|g')"
-fi
-
-if [ -n "${LB_BOOTSTRAP_EXCLUDE}" ]
-then
-	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --exclude=$(echo ${LB_BOOTSTRAP_EXCLUDE} | sed 's|  *|,|g')"
-fi
-
-if [ "${LB_USE_FAKEROOT}" != "true" ]
-then
-	if [ -z "${LB_BOOTSTRAP_FLAVOUR}" ]
+	if [ -n "${LB_BOOTSTRAP_CONFIG}" ]
 	then
-		if In_list "stripped minimal" "${LB_PACKAGE_LISTS}"
+		if [ -d "/usr/share/debootstrap/scripts/" ]
 		then
-			DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=minbase"
+			LB_DEBOOTSTRAP_SCRIPT="/usr/share/debootstrap/scripts/${LB_BOOTSTRAP_CONFIG}"
+		else
+			LB_DEBOOTSTRAP_SCRIPT="/usr/lib/debootstrap/scripts/${LB_BOOTSTRAP_CONFIG}"
 		fi
-	else
-		case "${LB_BOOTSTRAP_FLAVOUR}" in
-			stripped|minimal)
+	fi
+
+	if [ -n "${LB_BOOTSTRAP_INCLUDE}" ]
+	then
+		DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --include=$(echo ${LB_BOOTSTRAP_INCLUDE} | sed 's|  *|,|g')"
+	fi
+
+	if [ -n "${LB_BOOTSTRAP_EXCLUDE}" ]
+	then
+		DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --exclude=$(echo ${LB_BOOTSTRAP_EXCLUDE} | sed 's|  *|,|g')"
+	fi
+
+	if [ "${LB_USE_FAKEROOT}" != "true" ]
+	then
+		if [ -z "${LB_BOOTSTRAP_FLAVOUR}" ]
+		then
+			if In_list "stripped minimal" "${LB_PACKAGE_LISTS}"
+			then
 				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=minbase"
-				;;
-			standard)
-				;;
+			fi
+		else
+			case "${LB_BOOTSTRAP_FLAVOUR}" in
+				stripped|minimal)
+					DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=minbase"
+					;;
 
-			*)
-				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=${LB_BOOTSTRAP_FLAVOUR}"
-		esac
+				standard)
+					;;
+
+				*)
+					DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=${LB_BOOTSTRAP_FLAVOUR}"
+			esac
+		fi
+	else
+		DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=fakechroot"
 	fi
-else
-	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=fakechroot"
-fi
 
-if [ "${_VERBOSE}" = "true" ]
-then
-	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --verbose"
-fi
-
-if [ -x "/usr/sbin/debootstrap" ]
-then
-	if [ "${LB_CACHE_PACKAGES}" = "true" ]
+	if [ "${_VERBOSE}" = "true" ]
 	then
-		if ls cache/packages_bootstrap/*.deb > /dev/null 2>&1
+		DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --verbose"
+	fi
+
+	if [ -x "/usr/sbin/debootstrap" ]
+	then
+		if [ "${LB_CACHE_PACKAGES}" = "true" ]
 		then
-			mkdir -p chroot/var/cache/apt/archives
-			cp cache/packages_bootstrap/*.deb chroot/var/cache/apt/archives
+			if ls cache/packages_bootstrap.${_ARCHITECTURE}/*.deb > /dev/null 2>&1
+			then
+				mkdir -p chroot.${_ARCHITECTURE}/var/cache/apt/archives
+				cp cache/packages_bootstrap.${_ARCHITECTURE}/*.deb chroot.${_ARCHITECTURE}/var/cache/apt/archives
+			fi
+
+			Echo_breakage "Running debootstrap (download-only)... "
+			${LB_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LB_DISTRIBUTION}" chroot.${_ARCHITECTURE} "${LB_MIRROR_BOOTSTRAP}" "${LB_DEBOOTSTRAP_SCRIPT}"
+
+			if [ -n "${LB_ROOT_COMMAND}" ]
+			then
+				${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot.${_ARCHITECTURE}
+			fi
+
+			# Removing old cache
+			rm -f cache/packages_bootstrap.${_ARCHITECTURE}/*.deb
+
+			# Saving new cache
+			mkdir -p cache/packages_bootstrap.${_ARCHITECTURE}
+			cp chroot.${_ARCHITECTURE}/var/cache/apt/archives/*.deb cache/packages_bootstrap.${_ARCHITECTURE}
 		fi
 
-		Echo_breakage "Running debootstrap (download-only)... "
-		${LB_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LB_DISTRIBUTION}" chroot "${LB_MIRROR_BOOTSTRAP}" "${LB_DEBOOTSTRAP_SCRIPT}"
+		Echo_breakage "Running debootstrap... "
+		${LB_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} "${LB_DISTRIBUTION}" chroot.${_ARCHITECTURE} "${LB_MIRROR_BOOTSTRAP}" "${LB_DEBOOTSTRAP_SCRIPT}"
 
 		if [ -n "${LB_ROOT_COMMAND}" ]
 		then
-			${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
+			${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot.${_ARCHITECTURE}
 		fi
 
-		# Removing old cache
-		rm -f cache/packages_bootstrap/*.deb
+		# Deconfiguring debootstrap configurations
+		rm -f chroot.${_ARCHITECTURE}/etc/hosts
 
-		# Saving new cache
-		mkdir -p cache/packages_bootstrap
-		cp chroot/var/cache/apt/archives/*.deb cache/packages_bootstrap
+		# Removing bootstrap cache
+		rm -f chroot.${_ARCHITECTURE}/var/cache/apt/archives/*.deb
+
+		# Creating stage file
+		Create_stagefile .stage/bootstrap.${_ARCHITECTURE}
+	else
+		Echo_error "Can't process file /usr/bin/debootstrap (FIXME)"
+		exit 1
 	fi
-
-	Echo_breakage "Running debootstrap... "
-	${LB_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} "${LB_DISTRIBUTION}" chroot "${LB_MIRROR_BOOTSTRAP}" "${LB_DEBOOTSTRAP_SCRIPT}"
-
-	if [ -n "${LB_ROOT_COMMAND}" ]
-	then
-		${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
-	fi
-
-	# Deconfiguring debootstrap configurations
-	rm -f chroot/etc/hosts
-
-	# Removing bootstrap cache
-	rm -f chroot/var/cache/apt/archives/*.deb
-
-	# Creating stage file
-	Create_stagefile .stage/bootstrap
-else
-	Echo_error "Can't process file /usr/bin/debootstrap (FIXME)"
-	exit 1
-fi
+done

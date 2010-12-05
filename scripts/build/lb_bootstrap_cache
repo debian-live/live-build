@@ -27,68 +27,71 @@ Set_defaults
 # Check architecture
 Check_crossarchitectures
 
-Echo_message "Begin caching bootstrap stage..."
-
-for STAGE in ${LB_CACHE_STAGES}
+for _ARCHITECTURE in ${LB_ARCHITECTURES}
 do
-	if [ "${STAGE}" = "bootstrap" ]
-	then
-		case "${1}" in
-			restore)
-				# Checking stage file
-				Check_stagefile .stage/bootstrap_cache.restore
+	Echo_message "Begin caching bootstrap stage..."
 
-				if [ -d cache/stages_bootstrap ]
-				then
+	for STAGE in ${LB_CACHE_STAGES}
+	do
+		if [ "${STAGE}" = "bootstrap" ]
+		then
+			case "${1}" in
+				restore)
+					# Checking stage file
+					Check_stagefile .stage/bootstrap_cache.${_ARCHITECTURE}-restore
+
+					if [ -d cache/stages_bootstrap.${_ARCHITECTURE} ]
+					then
+						# Checking lock file
+						Check_lockfile .lock
+
+						# Creating lock file
+						Create_lockfile .lock
+
+						# Removing old chroot
+						rm -rf chroot.${_ARCHITECTURE}
+
+						# Restoring old cache
+						${LB_ROOT_COMMAND} cp -a cache/stages_bootstrap.${_ARCHITECTURE} chroot.${_ARCHITECTURE}
+
+						if [ -n "${LB_ROOT_COMMAND}" ]
+						then
+							${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot.${_ARCHITECTURE}
+						fi
+
+						# Creating stage file
+						Create_stagefile .stage/bootstrap_cache.${_ARCHITECTURE}-restore
+						Create_stagefile .stage/bootstrap.${_ARCHITECTURE}
+
+						exit 0
+					fi
+					;;
+
+				save)
+					# Checking stage file
+					Check_stagefile .stage/bootstrap_cache.${_ARCHITECTURE}-save
+
 					# Checking lock file
 					Check_lockfile .lock
 
 					# Creating lock file
 					Create_lockfile .lock
 
-					# Removing old chroot
-					rm -rf chroot
+					rm -rf cache/stages_bootstrap.${_ARCHITECTURE}
 
-					# Restoring old cache
-					${LB_ROOT_COMMAND} cp -a cache/stages_bootstrap chroot
+					mkdir -p cache
+
+					${LB_ROOT_COMMAND} cp -a chroot.${_ARCHITECTURE} cache/stages_bootstrap.${_ARCHITECTURE}
 
 					if [ -n "${LB_ROOT_COMMAND}" ]
 					then
-						${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
+						${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) cache/stages_bootstrap.${_ARCHITECTURE}
 					fi
 
 					# Creating stage file
-					Create_stagefile .stage/bootstrap_cache.restore
-					Create_stagefile .stage/bootstrap
-
-					exit 0
-				fi
-				;;
-
-			save)
-				# Checking stage file
-				Check_stagefile .stage/bootstrap_cache.save
-
-				# Checking lock file
-				Check_lockfile .lock
-
-				# Creating lock file
-				Create_lockfile .lock
-
-				rm -rf cache/stages_bootstrap
-
-				mkdir -p cache
-
-				${LB_ROOT_COMMAND} cp -a chroot cache/stages_bootstrap
-
-				if [ -n "${LB_ROOT_COMMAND}" ]
-				then
-					${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) cache/stages_bootstrap
-				fi
-
-				# Creating stage file
-				Create_stagefile .stage/bootstrap_cache.save
-				;;
-		esac
-	fi
+					Create_stagefile .stage/bootstrap_cache.${_ARCHITECTURE}-save
+					;;
+			esac
+		fi
+	done
 done
