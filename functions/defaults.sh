@@ -270,6 +270,13 @@ Set_defaults ()
 					;;
 			esac
 		fi
+	else
+		if [ "$(echo ${LB_ARCHITECTURES} | wc -w)" -gt "1" ]
+		then
+			_MULTIARCH="true"
+		else
+			_MULTIARCH="false"
+		fi
 	fi
 
 	# Include packages on base
@@ -304,13 +311,21 @@ Set_defaults ()
 				;;
 
 			ubuntu)
-				case "${LB_ARCHITECTURES}" in
-					amd64|i386)
+				case "${_MULTIARCH}"
+					true)
 						LB_MIRROR_BOOTSTRAP="http://archive.ubuntu.com/ubuntu/"
 						;;
 
-					*)
-						LB_MIRROR_BOOTSTRAP="http://ports.ubuntu.com/"
+					false)
+						case "${LB_ARCHITECTURES}" in
+							amd64|i386)
+								LB_MIRROR_BOOTSTRAP="http://archive.ubuntu.com/ubuntu/"
+								;;
+
+							*)
+								LB_MIRROR_BOOTSTRAP="http://ports.ubuntu.com/"
+								;;
+						esac
 						;;
 				esac
 				;;
@@ -332,13 +347,21 @@ Set_defaults ()
 				;;
 
 			ubuntu)
-				case "${LB_ARCHITECTURES}" in
-					amd64|i386)
+				case "${_MULTIARCH}" in
+					true)
 						LB_MIRROR_CHROOT_SECURITY="http://security.ubuntu.com/ubuntu/"
 						;;
 
-					*)
-						LB_MIRROR_CHROOT_SECURITY="http://ports.ubuntu.com/"
+					false)
+						case "${LB_ARCHITECTURES}" in
+							amd64|i386)
+								LB_MIRROR_CHROOT_SECURITY="http://security.ubuntu.com/ubuntu/"
+								;;
+
+							*)
+								LB_MIRROR_CHROOT_SECURITY="http://ports.ubuntu.com/"
+								;;
+						esac
 						;;
 				esac
 				;;
@@ -362,13 +385,21 @@ Set_defaults ()
 				;;
 
 			ubuntu)
-				case "${LB_ARCHITECTURES}" in
-					amd64|i386)
+				case "${_MULTIARCH}" in
+					true)
 						LB_MIRROR_CHROOT_VOLATILE="http://security.ubuntu.com/ubuntu/"
 						;;
 
-					*)
-						LB_MIRROR_CHROOT_VOLATILE="http://ports.ubuntu.com/"
+					false)
+						case "${LB_ARCHITECTURES}" in
+							amd64|i386)
+								LB_MIRROR_CHROOT_VOLATILE="http://security.ubuntu.com/ubuntu/"
+								;;
+
+							*)
+								LB_MIRROR_CHROOT_VOLATILE="http://ports.ubuntu.com/"
+								;;
+						esac
 						;;
 				esac
 				;;
@@ -406,13 +437,21 @@ Set_defaults ()
 				;;
 
 			ubuntu)
-				case "${LB_ARCHITECTURES}" in
-					amd64|i386)
+				case "${_MULTIARCH}" in
+					true)
 						LB_MIRROR_BINARY="http://archive.ubuntu.com/ubuntu/"
 						;;
 
-					*)
-						LB_MIRROR_BINARY="http://ports.ubuntu.com/"
+					false)
+						case "${LB_ARCHITECTURES}" in
+							amd64|i386)
+								LB_MIRROR_BINARY="http://archive.ubuntu.com/ubuntu/"
+								;;
+
+							*)
+								LB_MIRROR_BINARY="http://ports.ubuntu.com/"
+								;;
+						esac
 						;;
 				esac
 				;;
@@ -432,13 +471,21 @@ Set_defaults ()
 				;;
 
 			ubuntu)
-				case "${LB_ARCHITECTURES}" in
-					amd64|i386)
+				case "${_MULTIARCH}" in
+					true)
 						LB_MIRROR_BINARY_SECURITY="http://archive.ubuntu.com/ubuntu/"
 						;;
 
-					*)
-						LB_MIRROR_BINARY_SECURITY="http://ports.ubuntu.com/"
+					false)
+						case "${LB_ARCHITECTURES}" in
+							amd64|i386)
+								LB_MIRROR_BINARY_SECURITY="http://archive.ubuntu.com/ubuntu/"
+								;;
+
+							*)
+								LB_MIRROR_BINARY_SECURITY="http://ports.ubuntu.com/"
+								;;
+						esac
 						;;
 				esac
 				;;
@@ -461,13 +508,21 @@ Set_defaults ()
 				;;
 
 			ubuntu)
-				case "${LB_ARCHITECTURES}" in
-					amd64|i386)
+				case "${_MULTIARCH}" in
+					true)
 						LB_MIRROR_BINARY_VOLATILE="http://security.ubuntu.com/ubuntu/"
 						;;
 
-					*)
-						LB_MIRROR_BINARY_VOLATILE="http://ports.ubuntu.com/"
+					false)
+						case "${LB_ARCHITECTURES}" in
+							amd64|i386)
+								LB_MIRROR_BINARY_VOLATILE="http://security.ubuntu.com/ubuntu/"
+								;;
+
+							*)
+								LB_MIRROR_BINARY_VOLATILE="http://ports.ubuntu.com/"
+								;;
+						esac
 						;;
 				esac
 				;;
@@ -794,15 +849,7 @@ Set_defaults ()
 	## config/binary
 
 	# Setting image filesystem
-	case "${LB_ARCHITECTURES}" in
-		sparc)
-			LB_BINARY_FILESYSTEM="${LB_BINARY_FILESYSTEM:-ext2}"
-			;;
-
-		*)
-			LB_BINARY_FILESYSTEM="${LB_BINARY_FILESYSTEM:-fat16}"
-			;;
-	esac
+	LB_BINARY_FILESYSTEM="${LB_BINARY_FILESYSTEM:-fat16}"
 
 	# Setting image type
 	case "${LB_DISTRIBUTION}" in
