@@ -259,8 +259,14 @@ Set_defaults ()
 					LB_ARCHITECTURES="amd64"
 					;;
 				*)
-					Echo_warning "Can't determine architecture, assuming i386"
-					LB_ARCHITECTURES="i386"
+					if [ -e /lib64 ]
+					then
+						LB_ARCHITECTURES="amd64"
+					else
+						LB_ARCHITECTURES="i386"
+					fi
+
+					Echo_warning "Can't determine architecture, assuming ${LB_ARCHITECTURES}"
 					;;
 			esac
 		fi
