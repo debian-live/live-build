@@ -69,7 +69,7 @@ else
 	LB_PACKAGES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])packages=[-0-9a-zA-Z. _]+' | cut -f 2 -d '=' | head -n1)
 
 	# Advanced bootstrap options
-	LB_ARCHITECTURE=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])architecture=[0-9a-z]+' | cut -f 2 -d '=' | head -n1)
+	LB_ARCHITECTURES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])architectures=[0-9a-z]+' | cut -f 2 -d '=' | head -n1)
 	LB_BOOTSTRAP_FLAVOUR=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])bootstrap_flavour=[a-z]+' | cut -f 2 -d '=' | head -n1)
 	LB_MIRROR_BOOTSTRAP=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])mirror_bootstrap=[-0-9a-zA-Z.~:/_]+' | cut -f 2 -d '=' | head -n1)
 	LB_MIRROR_BINARY=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])mirror_binary=[-0-9a-zA-Z.~:/_]+' | cut -f 2 -d '=' | head -n1)
@@ -135,7 +135,7 @@ else
 	    -e "s/LB_PACKAGE_LISTS/${LB_PACKAGE_LISTS}/" \
 	    -e "s/LB_TASKS/${LB_TASKS}/" \
 	    -e "s/LB_PACKAGES/${LB_PACKAGES}/" \
-	    -e "s/LB_ARCHITECTURE/${LB_ARCHITECTURE}/" \
+	    -e "s/LB_ARCHITECTURES/${LB_ARCHITECTURES}/" \
 	    -e "s/LB_BOOTSTRAP_FLAVOUR/${LB_BOOTSTRAP_FLAVOUR}/" \
 	    -e "s#LB_MIRROR_BOOTSTRAP#${LB_MIRROR_BOOTSTRAP}#" \
 	    -e "s#LB_MIRROR_BINARY_SECURITY#${LB_MIRROR_BINARY_SECURITY}#" \
@@ -186,7 +186,7 @@ LB_TASKS="${LB_TASKS}"
 LB_PACKAGES="${LB_PACKAGES}"
 
 # Advanced bootstrap options
-LB_ARCHITECTURE="${LB_ARCHITECTURE}"
+LB_ARCHITECTURES="${LB_ARCHITECTURES}"
 LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP}"
 LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY}"
 LB_MIRROR_BINARY="${LB_MIRROR_BINARY}"
@@ -226,7 +226,7 @@ LB_REPOSITORIES="${LB_REPOSITORIES}"
 EOF
 
 	echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-build.cgi: add web build (${_BUILD}) from ${REMOTE_ADDR}." >> /var/log/live
-	echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-build.cgi: options ${_BUILD} |email ${_EMAIL}|binary_images ${LB_BINARY_IMAGES}|distribution ${LB_DISTRIBUTION}|package_lists ${LB_PACKAGE_LISTS}|tasks ${LB_TASKS}|packages ${LB_PACKAGES}|architecture ${LB_ARCHITECTURE}|mirror_bootstrap_security ${LB_MIRROR_BOOTSTRAP}|mirror_bootstrap ${LB_MIRROR_BOOTSTRAP}|mirror_binary_security ${LB_MIRROR_BINARY_SECURITY}|mirror_binary ${LB_MIRROR_BINARY}|archive_areas ${LB_ARCHIVE_AREAS}|chroot_filesystem ${LB_CHROOT_FILESYSTEM}|linux_flavours ${LB_LINUX_FLAVOURS}|security ${LB_SECURITY}|sysvinit ${LB_SYSVINIT}|binary_indices ${LB_BINARY_INDICES}|bootappend_install ${LB_BOOTAPPEND_INSTALL}|bootappend_live ${LB_BOOTAPPEND_LIVE}|bootloader ${LB_BOOTLOADER}|debian_installer ${LB_DEBIAN_INSTALLER}|encryption ${LB_ENCRYPTION}|iso_application ${LB_ISO_APPLICATION}|iso_preparer ${LB_ISO_PREPARER}|iso_publisher ${LB_ISO_PUBLISHER}|iso_volume ${LB_ISO_VOLUME}|memtest ${LB_MEMTEST}|net_path ${LB_NET_ROOT_PATH}|net_server ${LB_NET_ROOT_SERVER}|source_images ${LB_SOURCE_IMAGES}|source ${LB_SOURCE}|custom_bootstrap ${_CUSTOM_BOOTSTRAP}|custom_binary ${_CUSTOM_BINARY}\n" >> /var/log/live
+	echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-build.cgi: options ${_BUILD} |email ${_EMAIL}|binary_images ${LB_BINARY_IMAGES}|distribution ${LB_DISTRIBUTION}|package_lists ${LB_PACKAGE_LISTS}|tasks ${LB_TASKS}|packages ${LB_PACKAGES}|architectures ${LB_ARCHITECTURES}|mirror_bootstrap_security ${LB_MIRROR_BOOTSTRAP}|mirror_bootstrap ${LB_MIRROR_BOOTSTRAP}|mirror_binary_security ${LB_MIRROR_BINARY_SECURITY}|mirror_binary ${LB_MIRROR_BINARY}|archive_areas ${LB_ARCHIVE_AREAS}|chroot_filesystem ${LB_CHROOT_FILESYSTEM}|linux_flavours ${LB_LINUX_FLAVOURS}|security ${LB_SECURITY}|sysvinit ${LB_SYSVINIT}|binary_indices ${LB_BINARY_INDICES}|bootappend_install ${LB_BOOTAPPEND_INSTALL}|bootappend_live ${LB_BOOTAPPEND_LIVE}|bootloader ${LB_BOOTLOADER}|debian_installer ${LB_DEBIAN_INSTALLER}|encryption ${LB_ENCRYPTION}|iso_application ${LB_ISO_APPLICATION}|iso_preparer ${LB_ISO_PREPARER}|iso_publisher ${LB_ISO_PUBLISHER}|iso_volume ${LB_ISO_VOLUME}|memtest ${LB_MEMTEST}|net_path ${LB_NET_ROOT_PATH}|net_server ${LB_NET_ROOT_SERVER}|source_images ${LB_SOURCE_IMAGES}|source ${LB_SOURCE}|custom_bootstrap ${_CUSTOM_BOOTSTRAP}|custom_binary ${_CUSTOM_BINARY}\n" >> /var/log/live
 fi
 
 sed -e "s/VERSION/${VERSION}/" "${_TEMPLATES}"/footer.html

@@ -30,7 +30,7 @@ then
 fi
 
 # Check architecture
-Check_crossarchitecture
+Check_crossarchitectures
 
 Echo_message "Begin bootstrapping system..."
 

@@ -11,16 +11,16 @@ scalpel
 
 # Bootloaders
 syslinux-common
-#if ARCHITECTURE amd64 i386
+#if ARCHITECTURES amd64 i386
 grub lilo mbr syslinux
 #endif
-#if ARCHITECTURE hppa
+#if ARCHITECTURES hppa
 palo
 #endif
 
 # System
 gnupg dash discover gawk htop less lsof ltrace psmisc screen strace units
-#if ARCHITECTURE i386
+#if ARCHITECTURES i386
 pstack
 #endif
 tcsh
@@ -42,13 +42,13 @@ fsarchiver
 chiark-utils-bin
 
 # System
-#if ARCHITECTURE amd64 i386
+#if ARCHITECTURES amd64 i386
 dmidecode mcelog cpuburn
 #endif
 lshw pciutils procinfo usbutils
 sysstat stress
 
-#if ARCHITECTURE i386 powerpc
+#if ARCHITECTURES i386 powerpc
 read-edid
 #endif
 
@@ -265,7 +265,7 @@ sleuthkit
 dosfstools mscompress chntpw pptpd pptp-linux
 
 # unsorted
-#if ARCHITECTURE amd64 i386
+#if ARCHITECTURES amd64 i386
 cpuid x86info
 #endif
 hwinfo
@@ -310,6 +310,6 @@ hostapd
 emacs23-nox
 build-essential gdb gfortran gnat
 
-#if ARCHITECTURE i386
+#if ARCHITECTURES i386
 bin86
 #endif

@@ -25,7 +25,7 @@ Read_conffiles config/all config/common config/bootstrap config/chroot config/bi
 Set_defaults
 
 # Check architecture
-Check_crossarchitecture
+Check_crossarchitectures
 
 Echo_message "Begin caching bootstrap stage..."
 

@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2010\-11\-29 3.0~a8 "Debian Live Project"
+.TH LIVE\-BUILD 1 2010\-12\-05 3.0~a8 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -34,7 +34,7 @@
 .br
   [\fB\-\-apt\-secure\fP true|false]
 .br
-  [\-a|\fB\-\-architecture\fP \fIARCHITECTURE\fP]
+  [\-a|\fB\-\-architectures\fP \fIARCHITECTURE\fP]
 .br
   [\-b|\fB\-\-binary\-images\fP iso|iso\-hybrid|net|tar|usb\-hdd]
 .br
@@ -275,7 +275,7 @@ defines if apt should install recommended packages automatically. By
 default, this is true except in emdebian mode.
 .IP "\fB\-\-apt\-secure\fP true|false" 4
 defines if apt should check repository signatures. This is true by default.
-.IP "\-a|\fB\-\-architecture\fP \fIARCHITECTURE\fP" 4
+.IP "\-a|\fB\-\-architectures\fP \fIARCHITECTURE\fP" 4
 defines the architecture of the to be build image. By default, this is set
 to the host architecture. Note that you cannot crossbuild for another
 architecture if your host system is not able to execute binaries for the

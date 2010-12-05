@@ -30,7 +30,7 @@ then
 fi
 
 # Check architecture
-Check_crossarchitecture
+Check_crossarchitectures
 
 Echo_message "Begin bootstrapping system..."
 
@@ -53,9 +53,9 @@ Create_lockfile .lock
 mkdir -p chroot
 
 # Setting debootstrap options
-if [ -n "${LB_ARCHITECTURE}" ]
+if [ -n "${LB_ARCHITECTURES}" ]
 then
-	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --arch=${LB_ARCHITECTURE}"
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --arch=${LB_ARCHITECTURES}"
 fi
 
 if [ "${LB_ARCHIVE_AREAS}" != "main" ]

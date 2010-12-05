@@ -58,7 +58,7 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Check architecture
-Check_architecture sparc
+Check_architectures sparc
 
 # Checking depends
 Check_package chroot/usr/sbin/silo silo
