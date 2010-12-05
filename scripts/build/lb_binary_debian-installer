@@ -81,7 +81,7 @@ Install_package
 # Setting destination directory
 case "${LB_BINARY_IMAGES}" in
 	net)
-		DESTDIR="tftpboot/debian-install/${LB_ARCHITECTURE}"
+		DESTDIR="tftpboot/debian-install/${LB_ARCHITECTURES}"
 		;;
 
 	usb*|tar)
@@ -112,15 +112,15 @@ case "${LB_DEBIAN_INSTALLER}" in
 esac
 
 # Set architecture-specific variables
-case "${LB_ARCHITECTURE}" in
+case "${LB_ARCHITECTURES}" in
 	powerpc)
 		case "${DI_IMAGE_TYPE}" in
 			cdrom)
-				DI_REMOTE_BASE="${LB_ARCHITECTURE}/cdrom"
+				DI_REMOTE_BASE="${LB_ARCHITECTURES}/cdrom"
 			;;
 
 			netboot)
-				DI_REMOTE_BASE="${LB_ARCHITECTURE}/netboot"
+				DI_REMOTE_BASE="${LB_ARCHITECTURES}/netboot"
 				;;
 		esac
 
@@ -138,8 +138,8 @@ case "${LB_ARCHITECTURE}" in
 	*)
 		case "${DI_IMAGE_TYPE}" in
 			netboot)
-				DI_REMOTE_BASE="netboot/debian-installer/${LB_ARCHITECTURE}"
-				DI_REMOTE_BASE_GTK="netboot/gtk/debian-installer/${LB_ARCHITECTURE}"
+				DI_REMOTE_BASE="netboot/debian-installer/${LB_ARCHITECTURES}"
+				DI_REMOTE_BASE_GTK="netboot/gtk/debian-installer/${LB_ARCHITECTURES}"
 				DI_REMOTE_KERNEL="linux"
 				;;
 
@@ -152,7 +152,7 @@ case "${LB_ARCHITECTURE}" in
 		;;
 esac
 
-Check_multiarchitecture
+Check_multiarchitectures
 
 Install_file() {
 	local FILE
@@ -231,9 +231,9 @@ then
 	LB_DEBIAN_INSTALLER_DISTRIBUTION="sid"
 
 	# Debian Installer daily builds
-	case "${LB_ARCHITECTURE}" in
+	case "${LB_ARCHITECTURES}" in
 		alpha|amd64|hppa|ia64|mips|mipsel|powerpc)
-			URL="http://d-i.debian.org/daily-images/${LB_ARCHITECTURE}/daily/"
+			URL="http://d-i.debian.org/daily-images/${LB_ARCHITECTURES}/daily/"
 			;;
 
 		arm|armel)
@@ -262,12 +262,12 @@ then
 			;;
 	esac
 else
-	URL="${LB_MIRROR_DEBIAN_INSTALLER}/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LB_ARCHITECTURE}/current/images/"
+	URL="${LB_MIRROR_DEBIAN_INSTALLER}/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LB_ARCHITECTURES}/current/images/"
 fi
 
 mkdir -p "${DESTDIR_DI}"
 
-if [ "${LB_ARCHITECTURE}" = "sparc" ] && [ "${DI_IMAGE_TYPE}" = "netboot" ]
+if [ "${LB_ARCHITECTURES}" = "sparc" ] && [ "${DI_IMAGE_TYPE}" = "netboot" ]
 then
 	# There are no prepared kernel/initrd pairs for sparc netboot so we
 	# must unpack them from a mini.iso
@@ -290,7 +290,7 @@ else
 	DOWNLOAD_GTK_INSTALLER=0
 	if [ "${LB_DEBIAN_INSTALLER_GUI}" = "true" ]
 	then
-		case "${LB_ARCHITECTURE}" in
+		case "${LB_ARCHITECTURES}" in
 			amd64|i386)
 				DOWNLOAD_GTK_INSTALLER=1
 				;;
@@ -321,7 +321,7 @@ then
 	mv chroot/var/lib/dpkg/status chroot/var/lib/dpkg/status.tmp
 	touch chroot/var/lib/dpkg/status
 
-	case "${LB_ARCHITECTURE}" in
+	case "${LB_ARCHITECTURES}" in
 		amd64)
 			#DI_REQ_PACKAGES="lilo grub grub2"
 			DI_REQ_PACKAGES="lilo grub"
@@ -440,9 +440,9 @@ then
 	fi
 
 	# Including local debs
-	if Find_files config/binary_local-debs/*_"${LB_ARCHITECTURE}".deb
+	if Find_files config/binary_local-debs/*_"${LB_ARCHITECTURES}".deb
 	then
-		for FILE in config/binary_local-debs/*_"${LB_ARCHITECTURE}".deb
+		for FILE in config/binary_local-debs/*_"${LB_ARCHITECTURES}".deb
 		do
 			Install_file "${FILE}" "binary/pool/main"
 		done
@@ -457,24 +457,24 @@ then
 	fi
 
 	# Generating deb indices
-	mkdir -p binary/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURE}
+	mkdir -p binary/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}
 
 	mv binary chroot/root
-	echo "cd /root/binary && apt-ftparchive packages pool/main > dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURE}/Packages" > chroot/binary.sh
+	echo "cd /root/binary && apt-ftparchive packages pool/main > dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Packages" > chroot/binary.sh
 	Chroot chroot "sh binary.sh"
 	rm -f chroot/binary.sh
 	mv chroot/root/binary ./
 
-	gzip -9 -c binary/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURE}/Packages > binary/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURE}/Packages.gz
+	gzip -9 -c binary/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Packages > binary/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Packages.gz
 
 	# Fetching release
-	Download_file binary/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURE}/Release "${LB_MIRROR_CHROOT}"/dists/"${LB_DEBIAN_INSTALLER_DISTRIBUTION}"/main/binary-"${LB_ARCHITECTURE}"/Release
+	Download_file binary/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Release "${LB_MIRROR_CHROOT}"/dists/"${LB_DEBIAN_INSTALLER_DISTRIBUTION}"/main/binary-"${LB_ARCHITECTURES}"/Release
 
 	mkdir binary.udeb
 	cd binary.udeb
 
 	# Downloading udeb indices
-	Download_file Packages.gz "${LB_MIRROR_CHROOT}"/dists/"${LB_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LB_ARCHITECTURE}"/Packages.gz
+	Download_file Packages.gz "${LB_MIRROR_CHROOT}"/dists/"${LB_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LB_ARCHITECTURES}"/Packages.gz
 	gunzip -c Packages.gz > Packages
 
 	# Sorting udebs
@@ -499,9 +499,9 @@ then
 	cp *.udeb ../cache/packages_debian-installer.udeb
 
 	# Including local udebs
-	if Find_files ../config/binary_local-udebs/*_"${LB_ARCHITECTURE}".udeb
+	if Find_files ../config/binary_local-udebs/*_"${LB_ARCHITECTURES}".udeb
 	then
-		for FILE in ../config/binary_local-udebs/*_"${LB_ARCHITECTURE}".udeb
+		for FILE in ../config/binary_local-udebs/*_"${LB_ARCHITECTURES}".udeb
 		do
 			Install_file "${FILE}" "pool/main"
 
@@ -524,7 +524,7 @@ then
 	# Excluding udebs
 	grep -v "^#" "${LB_BASE}"/data/debian-cd/"${LB_DEBIAN_INSTALLER_DISTRIBUTION}"/udeb_exclude > exclude || true
 	grep -v "^#" "${LB_BASE}"/data/debian-cd/"${LB_DEBIAN_INSTALLER_DISTRIBUTION}"/exclude-udebs >> exclude || true
-	grep -v "^#" "${LB_BASE}"/data/debian-cd/"${LB_DEBIAN_INSTALLER_DISTRIBUTION}"/exclude-udebs-${LB_ARCHITECTURE} >> exclude || true
+	grep -v "^#" "${LB_BASE}"/data/debian-cd/"${LB_DEBIAN_INSTALLER_DISTRIBUTION}"/exclude-udebs-${LB_ARCHITECTURES} >> exclude || true
 
 	# Local exclude file
 	if [ -e ../config/binary_debian-installer/udeb_exclude ]
@@ -566,17 +566,17 @@ then
 	done
 
 	# Creating udeb indices
-	mkdir -p dists/"${LB_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LB_ARCHITECTURE}"
+	mkdir -p dists/"${LB_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LB_ARCHITECTURES}"
 	cd "${OLDPWD}"
 
 	mv binary.udeb chroot/root
-	echo "cd /root/binary.udeb && apt-ftparchive packages pool/main > dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LB_ARCHITECTURE}/Packages" > chroot/binary.sh
+	echo "cd /root/binary.udeb && apt-ftparchive packages pool/main > dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LB_ARCHITECTURES}/Packages" > chroot/binary.sh
 	Chroot chroot "sh binary.sh"
 	rm -f chroot/binary.sh
 	mv chroot/root/binary.udeb ./
 
 	cd binary.udeb
-	gzip -9 -c dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LB_ARCHITECTURE}/Packages > dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LB_ARCHITECTURE}/Packages.gz
+	gzip -9 -c dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LB_ARCHITECTURES}/Packages > dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LB_ARCHITECTURES}/Packages.gz
 
 	rm -f Packages* exclude
 	find . | cpio -dmpu "${OLDPWD}"/binary
@@ -608,7 +608,7 @@ cd /root/binary && apt-ftparchive \
 	-o APT::FTPArchive::Release::Version="${_VERSION}" \
 	-o APT::FTPArchive::Release::Codename="${LB_DISTRIBUTION}" \
 	-o APT::FTPArchive::Release::Date="$(date -R)" \
-	-o APT::FTPArchive::Release::Architectures="${LB_ARCHITECTURE}" \
+	-o APT::FTPArchive::Release::Architectures="${LB_ARCHITECTURES}" \
 	-o APT::FTPArchive::Release::Components="main" \
 	-o APT::FTPArchive::Release::Description="Last updated: $(date -R)" \
 	release dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION} > dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/Release

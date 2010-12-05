@@ -57,7 +57,7 @@ case "${LB_INITRAMFS}" in
 		;;
 esac
 
-case "${LB_ARCHITECTURE}" in
+case "${LB_ARCHITECTURES}" in
 	powerpc)
 		LINUX="vmlinux"
 		;;
@@ -67,7 +67,7 @@ case "${LB_ARCHITECTURE}" in
 		;;
 esac
 
-Check_multiarchitecture
+Check_multiarchitectures
 
 # Creating directory
 mkdir -p "${DESTDIR}"

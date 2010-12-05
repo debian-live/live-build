@@ -38,7 +38,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--apt-pipeline FIXME]\n\
 \t    [--apt-recommends true|false]\n\
 \t    [--apt-secure true|false]\n\
-\t    [-a|--architecture ARCHITECTURE]\n\
+\t    [-a|--architectures ARCHITECTURE]\n\
 \t    [-b|--binary-images iso|net|tar|usb-hdd]\n\
 \t    [--binary-filesystem fat16|fat32]\n\
 \t    [--bootappend-install PARAMETER|\"PARAMETERS\"]\n\
@@ -140,7 +140,7 @@ Local_arguments ()
 		apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,
 		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
 		initramfs:,fdisk:,losetup:,mode:,repositories:,root-command:,use-fakeroot:,tasksel:,includes:,
-		templates:,architecture:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,clean,
+		templates:,architectures:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,clean,
 		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-chroot-backports:,mirror-binary:,
 		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
@@ -355,8 +355,8 @@ Local_arguments ()
 				;;
 
 			# config/bootstrap
-			-a|--architecture)
-				LB_ARCHITECTURE="${2}"
+			-a|--architectures)
+				LB_ARCHITECTURES="${2}"
 				shift 2
 				;;
 
@@ -950,9 +950,9 @@ EOF
 cat > config/bootstrap << EOF
 # config/bootstrap - options for live-build(7), bootstrap stage
 
-# \$LB_ARCHITECTURE: select chroot architecture
+# \$LB_ARCHITECTURES: select chroot architectures
 # (Default: autodetected)
-LB_ARCHITECTURE="${LB_ARCHITECTURE}"
+LB_ARCHITECTURES="${LB_ARCHITECTURES}"
 
 # \$LB_BOOTSTRAP_CONFIG: set distribution config directory
 # (Default: empty)

@@ -245,22 +245,22 @@ Set_defaults ()
 	## config/bootstrap
 
 	# Setting architecture value
-	if [ -z "${LB_ARCHITECTURE}" ]
+	if [ -z "${LB_ARCHITECTURES}" ]
 	then
 		if [ -x "/usr/bin/dpkg" ]
 		then
-			LB_ARCHITECTURE="$(dpkg --print-architecture)"
+			LB_ARCHITECTURES="$(dpkg --print-architecture)"
 		else
 			case "$(uname -m)" in
 				sparc|powerpc)
-					LB_ARCHITECTURE="$(uname -m)"
+					LB_ARCHITECTURES="$(uname -m)"
 					;;
 				x86_64)
-					LB_ARCHITECTURE="amd64"
+					LB_ARCHITECTURES="amd64"
 					;;
 				*)
 					Echo_warning "Can't determine architecture, assuming i386"
-					LB_ARCHITECTURE="i386"
+					LB_ARCHITECTURES="i386"
 					;;
 			esac
 		fi
@@ -298,7 +298,7 @@ Set_defaults ()
 				;;
 
 			ubuntu)
-				case "${LB_ARCHITECTURE}" in
+				case "${LB_ARCHITECTURES}" in
 					amd64|i386)
 						LB_MIRROR_BOOTSTRAP="http://archive.ubuntu.com/ubuntu/"
 						;;
@@ -326,7 +326,7 @@ Set_defaults ()
 				;;
 
 			ubuntu)
-				case "${LB_ARCHITECTURE}" in
+				case "${LB_ARCHITECTURES}" in
 					amd64|i386)
 						LB_MIRROR_CHROOT_SECURITY="http://security.ubuntu.com/ubuntu/"
 						;;
@@ -356,7 +356,7 @@ Set_defaults ()
 				;;
 
 			ubuntu)
-				case "${LB_ARCHITECTURE}" in
+				case "${LB_ARCHITECTURES}" in
 					amd64|i386)
 						LB_MIRROR_CHROOT_VOLATILE="http://security.ubuntu.com/ubuntu/"
 						;;
@@ -400,7 +400,7 @@ Set_defaults ()
 				;;
 
 			ubuntu)
-				case "${LB_ARCHITECTURE}" in
+				case "${LB_ARCHITECTURES}" in
 					amd64|i386)
 						LB_MIRROR_BINARY="http://archive.ubuntu.com/ubuntu/"
 						;;
@@ -426,7 +426,7 @@ Set_defaults ()
 				;;
 
 			ubuntu)
-				case "${LB_ARCHITECTURE}" in
+				case "${LB_ARCHITECTURES}" in
 					amd64|i386)
 						LB_MIRROR_BINARY_SECURITY="http://archive.ubuntu.com/ubuntu/"
 						;;
@@ -455,7 +455,7 @@ Set_defaults ()
 				;;
 
 			ubuntu)
-				case "${LB_ARCHITECTURE}" in
+				case "${LB_ARCHITECTURES}" in
 					amd64|i386)
 						LB_MIRROR_BINARY_VOLATILE="http://security.ubuntu.com/ubuntu/"
 						;;
@@ -542,7 +542,7 @@ Set_defaults ()
 	# Setting linux flavour string
 	if [ -z "${LB_LINUX_FLAVOURS}" ]
 	then
-		case "${LB_ARCHITECTURE}" in
+		case "${LB_ARCHITECTURES}" in
 			armel)
 				Echo_error "There is no default kernel flavour defined for your architecture."
 				Echo_error "Please configure it manually with 'lb config -k FLAVOUR'."
@@ -552,7 +552,7 @@ Set_defaults ()
 			alpha)
 				case "${LB_MODE}" in
 					ubuntu)
-						Echo_error "Architecture ${LB_ARCHITECTURE} not supported on Ubuntu."
+						Echo_error "Architecture(s) ${LB_ARCHITECTURES} not supported on Ubuntu."
 						exit 1
 						;;
 
@@ -613,7 +613,7 @@ Set_defaults ()
 			s390)
 				case "${LB_MODE}" in
 					ubuntu)
-						Echo_error "Architecture ${LB_ARCHITECTURE} not supported on Ubuntu."
+						Echo_error "Architecture(s) ${LB_ARCHITECTURES} not supported on Ubuntu."
 						exit 1
 						;;
 
@@ -628,7 +628,7 @@ Set_defaults ()
 				;;
 
 			*)
-				Echo_error "Architecture ${LB_ARCHITECTURE} not yet supported (FIXME)"
+				Echo_error "Architecture(s) ${LB_ARCHITECTURES} not yet supported (FIXME)"
 				exit 1
 				;;
 		esac
@@ -788,7 +788,7 @@ Set_defaults ()
 	## config/binary
 
 	# Setting image filesystem
-	case "${LB_ARCHITECTURE}" in
+	case "${LB_ARCHITECTURES}" in
 		sparc)
 			LB_BINARY_FILESYSTEM="${LB_BINARY_FILESYSTEM:-ext2}"
 			;;
@@ -801,7 +801,7 @@ Set_defaults ()
 	# Setting image type
 	case "${LB_DISTRIBUTION}" in
 		squeeze|sid)
-			case "${LB_ARCHITECTURE}" in
+			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
 					LB_BINARY_IMAGES="${LB_BINARY_IMAGES:-iso-hybrid}"
 					;;
@@ -828,7 +828,7 @@ Set_defaults ()
 	# Setting bootloader
 	if [ -z "${LB_BOOTLOADER}" ]
 	then
-		case "${LB_ARCHITECTURE}" in
+		case "${LB_ARCHITECTURES}" in
 			amd64|i386)
 				LB_BOOTLOADER="syslinux"
 				;;
@@ -992,7 +992,7 @@ Set_defaults ()
 
 			debian-release)
 				eval VERSION="$`echo RELEASE_${LB_DISTRIBUTION}`"
-				LB_ISO_VOLUME="Debian ${VERSION} ${LB_ARCHITECTURE} live"
+				LB_ISO_VOLUME="Debian ${VERSION} ${LB_ARCHITECTURES} live"
 				;;
 
 			emdebian)
@@ -1011,7 +1011,7 @@ Set_defaults ()
 	# Setting win32-loader option
 	if [ "${LB_MODE}" != "ubuntu" ]
 	then
-		case "${LB_ARCHITECTURE}" in
+		case "${LB_ARCHITECTURES}" in
 			amd64|i386)
 				if [ "${LB_DEBIAN_INSTALLER}" != "false" ]
 				then

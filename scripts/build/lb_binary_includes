@@ -62,7 +62,7 @@ then
 fi
 
 # Assemble architecture
-case "${LB_ARCHITECTURE}" in
+case "${LB_ARCHITECTURES}" in
 	amd64)
 		ARCH="amd"
 		;;
@@ -133,7 +133,7 @@ then
 	fi
 
 	# Adjusting install templates
-	ARCHITECTURE="$(echo ${LB_ARCHITECTURE} | sed -e 's| |/|g')"
+	ARCHITECTURE="$(echo ${LB_ARCHITECTURES} | sed -e 's| |/|g')"
 	DISTRIBUTION="$(echo ${LB_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]')"
 	DISTRIBUTION="${DISTRIBUTION}$(echo ${LB_DISTRIBUTION} | cut -b 2-)"
 	eval VERSION="$`echo RELEASE_${LB_DISTRIBUTION}`"
@@ -148,7 +148,7 @@ then
 	DEBIAN_NAME="Debian GNU/Linux ${VERSION} \"${DISTRIBUTION}\" - Official ${ARCHITECTURE} ${TYPE} Binary $(date +%Y%m%d-%H:%M)"
 	DEBIAN_DATE="$(date +%Y%m%d-%H:%M)"
 
-	if [ "${LB_ARCHITECTURE}" = "i386" ]
+	if [ "${LB_ARCHITECTURES}" = "i386" ]
 	then
 		DEBIAN_TOOLS_HTML=" <P>\n <tt>&nbsp;\n <A href="tools/">/tools/</a>\n </tt>\n\n and\n <tt>&nbsp;\n <A href="install/floppy/">/install/floppy/</a>\n </tt>"
 		DEBIAN_TOOLS_TXT="/tools/ and   /install/floppy/"

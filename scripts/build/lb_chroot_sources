@@ -198,15 +198,15 @@ EOF
 			fi
 
 			# Copy packages
-			if Find_files config/chroot_local-packages/*_"${LB_ARCHITECTURE}".deb
+			if Find_files config/chroot_local-packages/*_"${LB_ARCHITECTURES}".deb
 			then
-				for FILE in config/chroot_local-packages/*_"${LB_ARCHITECTURE}".deb
+				for FILE in config/chroot_local-packages/*_"${LB_ARCHITECTURES}".deb
 				do
 					if [ -L "${FILE}" ]
 					then
-						cp -L config/chroot_local-packages/*_"${LB_ARCHITECTURE}".deb chroot/root/local-packages
+						cp -L config/chroot_local-packages/*_"${LB_ARCHITECTURES}".deb chroot/root/local-packages
 					else
-						cp ${CP_OPTIONS} config/chroot_local-packages/*_"${LB_ARCHITECTURE}".deb chroot/root/local-packages
+						cp ${CP_OPTIONS} config/chroot_local-packages/*_"${LB_ARCHITECTURES}".deb chroot/root/local-packages
 					fi
 				done
 			fi

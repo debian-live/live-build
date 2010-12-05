@@ -66,7 +66,7 @@ then
 		_EMAIL=`awk -F\" '/^_EMAIL=/{print $2}' ${_FILE}`
 		# Pull in the remote address, atchitecture, and distribution
 		_REMOTE_ADDR=`awk -F\" '/^REMOTE_ADDR=/{print $2}' ${_FILE}`
-		_LB_ARCHITECTURE=`awk -F\" '/^LB_ARCHITECTURE=/{print $2}' ${_FILE}`
+		_LB_ARCHITECTURES=`awk -F\" '/^LB_ARCHITECTURES=/{print $2}' ${_FILE}`
 		_LB_DISTRIBUTION=`awk -F\" '/^LB_DISTRIBUTION=/{print $2}' ${_FILE}`
 		_LB_PACKAGE_LISTS=`awk -F\" '/^LB_PACKAGE_LISTS=/{print $2}' ${_FILE}`
 		_LB_PACKAGES=`awk -F\" '/^LB_PACKAGES=/{print $2}' ${_FILE}`
@@ -112,10 +112,10 @@ then
 		if [ "${_ERRORCONFIG}" -eq "0" ] && [ "${_ERRORBUILD}" -eq "0" ]
 		then
 			_STATUS="maybe-successful"
-			echo "${_REMOTE_ADDR} - - `date +[%d/%b/%Y:%H:%m:%S\ %z]` \"${_BUILD} ${_LB_ARCHITECTURE}/${_LB_DISTRIBUTION}/${_LB_PACKAGE_LISTS}/${_LB_PACKAGES}\" 200 - \"-\" \"\"">>/var/log/live-cgi.builds 
+			echo "${_REMOTE_ADDR} - - `date +[%d/%b/%Y:%H:%m:%S\ %z]` \"${_BUILD} ${_LB_ARCHITECTURES}/${_LB_DISTRIBUTION}/${_LB_PACKAGE_LISTS}/${_LB_PACKAGES}\" 200 - \"-\" \"\"">>/var/log/live-cgi.builds 
 		else
 			_STATUS="maybe-failed"
-			echo "${_REMOTE_ADDR} - - `date +[%d/%b/%Y:%H:%m:%S\ %z]` \"${_BUILD} ${_LB_ARCHITECTURE}/${_LB_DISTRIBUTION}/${_LB_PACKAGE_LISTS}/${_LB_PACKAGES}\" 404 - \"-\" \"\"">>/var/log/live-cgi.builds 
+			echo "${_REMOTE_ADDR} - - `date +[%d/%b/%Y:%H:%m:%S\ %z]` \"${_BUILD} ${_LB_ARCHITECTURES}/${_LB_DISTRIBUTION}/${_LB_PACKAGE_LISTS}/${_LB_PACKAGES}\" 404 - \"-\" \"\"">>/var/log/live-cgi.builds 
 		fi
 
 		sed -e "s/BUILD/${_BUILD}/g" \
