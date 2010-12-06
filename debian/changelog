@@ -1,3 +1,16 @@
+live-build (2.0.9-1) unstable; urgency=medium
+
+  [ Daniel Baumann ]
+  * Once again updating volatile urls for squeeze.
+
+  [ Ben Armstrong ]
+  * Updating lb config --help and man page.
+
+  [ Daniel Baumann ]
+  * Unfuzzying German manpage translations.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 06 Dec 2010 12:01:43 +0100
+
 live-build (2.0.8-1) unstable; urgency=medium
 
   [ Daniel Baumann ]
