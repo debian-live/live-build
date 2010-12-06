@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build 2.0.7\n"
-"POT-Creation-Date: 2010-12-05 16:39-0400\n"
+"POT-Creation-Date: 2010-12-06 11:39+0100\n"
 "PO-Revision-Date: 2010-05-08 23:50+0300\n"
 "Last-Translator: Daniel Baumann <daniel@debian.org>\n"
 "Language-Team: none\n"
@@ -82,8 +82,8 @@ msgstr ""
 #: en/lb_source_net.1:1 en/lb_source_tar.1:1 en/lb_source_usb.1:1
 #: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "2010-11-29"
-msgstr "29.11.2010"
+msgid "2010-12-06"
+msgstr "06.12.2010"
 
 #. type: TH
 #: en/lb.1:1 en/lb_binary.1:1 en/lb_binary_checksums.1:1
@@ -917,10 +917,8 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:95
-#, fuzzy
-#| msgid "B<--source>"
 msgid "  [B<--force>]"
-msgstr "B<--source>"
+msgstr "  [B<--force>]"
 
 #. type: Plain text
 #: en/lb_config.1:97
@@ -1134,10 +1132,8 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:181
-#, fuzzy
-#| msgid "B<--source>"
 msgid "  [B<--quiet>]"
-msgstr "B<--source>"
+msgstr "  [B<--quiet>]"
 
 #. type: Plain text
 #: en/lb_config.1:183
@@ -1241,10 +1237,8 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:223
-#, fuzzy
-#| msgid "B<--source>"
 msgid "  [B<--verbose>]"
-msgstr "B<--source>"
+msgstr "  [B<--verbose>]"
 
 #.  FIXME
 #. type: Plain text
@@ -1859,10 +1853,9 @@ msgstr ""
 
 #. type: IP
 #: en/lb_config.1:316
-#, fuzzy, no-wrap
-#| msgid "B<--purge>"
+#, no-wrap
 msgid "B<--dump>"
-msgstr "B<--purge>"
+msgstr "B<--dump>"
 
 #. type: Plain text
 #: en/lb_config.1:318
