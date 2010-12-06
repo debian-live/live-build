@@ -6,7 +6,7 @@ LANGUAGES = de
 
 SCRIPTS = cgi/* functions/* examples/*/*.sh examples/auto/* scripts/*.sh scripts/*/*
 
-all: test build
+all: build
 
 test:
 	@echo -n "Checking for syntax errors"
