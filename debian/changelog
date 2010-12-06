@@ -1,3 +1,19 @@
+live-build (3.0~a9-1) experimental; urgency=low
+
+  [ Daniel Baumann ]
+  * Once again updating volatile urls for squeeze.
+  * Passing chroot directory explicitly to Apt() in preparation for
+    multi-arch.
+  * Renaming --architecture to --architectures in preparation for multi-
+    arch.
+  * Making default argument guessing for non-debian systems a bit more
+    robust.
+
+  [ Ben Armstrong ]
+  * Updating lb config --help and man page.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 06 Dec 2010 12:19:09 +0100
+
 live-build (3.0~a8-1) experimental; urgency=low
 
   [ Daniel Baumann ]
