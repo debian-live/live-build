@@ -331,8 +331,8 @@ defines which hooks available in /usr/share/live/build/examples/hooks should be 
 sets the hostname of the live system.
 .IP "\fB\-\-ignore\-system\-defaults\fR" 4
 \fBlb config\fR by default reads system defaults from /etc/live/build.conf and /etc/live/build.d when generating a new live system config directory. This is useful if you want to set global settings, such as mirror locations, and don't want to specify them all of the time.
-.IP "\fB\-\-includes\fR \fIPATH\fR" 4
-sets the path to the includes that live\-build is going to use, e.g. additional minimal documentation that you want to have on all live systems. By default, this is set to /usr/share/live/build/includes/.
+.IP "\fB\-\-includes\fR \fIPATH|none\fR" 4
+sets the path to the includes that live\-build is going to use, e.g. additional minimal documentation that you want to have on all live systems. By default, this is set to /usr/share/live/build/includes/. Choose none to disable inclusion of documentation.
 .IP "\fB\-\-initramfs\fR auto|none|live\-boot|live\-initramfs|casper" 4
 sets the name of package that contains the live system specific initramfs modification. By default, auto is used, which means that at build time of the image rather than on configuration time, the value will be expanded to casper when building ubuntu systems, to live\-initramfs for legacy lenny, and to live\-boot for squeeze and newer. Using 'none' is useful if the resulting system image should not be a live image (experimental).
 .IP "\fB\-\-interactive\fR shell" 4
