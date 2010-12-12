@@ -728,6 +728,7 @@ Set_defaults ()
 
 					*)
 						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|gnome-desktop||' -e 's|desktop||' -e 's|laptop||') standard gnome-desktop desktop laptop"
+						LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
 						;;
 				esac
 				;;
@@ -742,6 +743,7 @@ Set_defaults ()
 
 					*)
 						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|kde-desktop||' -e 's|desktop||' -e 's|laptop||') standard kde-desktop desktop laptop"
+						LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
 				esac
 				;;
 
@@ -755,6 +757,7 @@ Set_defaults ()
 
 					*)
 						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|lxde-desktop||' -e 's|desktop||' -e 's|laptop||') standard lxde-desktop desktop laptop"
+						LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
 						;;
 				esac
 				;;
@@ -769,6 +772,7 @@ Set_defaults ()
 
 					*)
 						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|xfce-desktop||' -e 's|desktop||' -e 's|laptop||') standard xfce-desktop desktop laptop"
+						LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
 						;;
 				esac
 				;;
