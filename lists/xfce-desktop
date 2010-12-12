@@ -1,0 +1,9 @@
+# /usr/share/live/build/lists/xfce-desktop - package list for live-build(7)
+
+## LH: XFCE Desktop
+
+# This is a virtual package list, equivalent to:
+#   lb config --packages-lists standard-x11 --tasks "xfce-desktop desktop standard laptop"
+#
+# No files or directives are listed here because it is processed internally, and any
+# changes to this file will be ignored.

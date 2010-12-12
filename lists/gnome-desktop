@@ -1,0 +1,9 @@
+# /usr/share/live/build/lists/gnome-desktop - package list for live-build(7)
+
+## LH: GNOME Desktop
+
+# This is a virtual package list, equivalent to:
+#   lb config --packages-lists standard-x11 --tasks "gnome-desktop desktop standard laptop"
+#
+# No files or directives are listed here because it is processed internally, and any
+# changes to this file will be ignored.
