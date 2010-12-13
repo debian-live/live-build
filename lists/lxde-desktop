@@ -1,6 +1,6 @@
 # /usr/share/live/build/lists/lxde-desktop - package list for live-build(7)
 
-## LH: LXDE Desktop
+## LB: LXDE Desktop
 
 # This is a virtual package list, equivalent to:
 #   lb config --packages-lists standard-x11 --tasks "lxde-desktop desktop standard laptop"

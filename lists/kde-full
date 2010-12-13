@@ -1,6 +1,6 @@
 # /usr/share/live/build/lists/kde-full - package list for live-build(7)
 
-## LH: KDE Full
+## LB: KDE Full
 #include <kde>
 
 #if DISTRIBUTION lenny
