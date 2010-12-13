@@ -1,6 +1,6 @@
 # /usr/share/live/build/lists/gnome - package list for live-build(7)
 
-## LH: GNOME Desktop
+## LB: GNOME Desktop
 #include <gnome-core>
 
 gnome-desktop-environment gnome-screensaver gnome-themes-extras
