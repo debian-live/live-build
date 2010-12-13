@@ -1,6 +1,5 @@
 # /usr/share/live/build/lists/standard - package list for live-build(7)
 
-## LB: Standard
 #include <minimal>
 
 console-setup console-common kbd

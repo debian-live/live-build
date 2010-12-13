@@ -5,8 +5,6 @@
 # things to make the image smaller. This can lead to breakages at any time,
 # don't use it if you're not willing/capable of fixing any arising issues.
 
-## LB: Minimal
-
 eject file user-setup sudo
 
 #if MODE ubuntu
