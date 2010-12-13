@@ -1,6 +1,5 @@
 # /usr/share/live/build/lists/standard-x11 - package list for live-build(7)
 
-## LB: Standard X11
 #include <standard>
 
 xorg xresprobe menu

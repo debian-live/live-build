@@ -1,7 +1,5 @@
 # /usr/share/live/build/lists/kde-desktop - package list for live-build(7)
 
-## LB: KDE Desktop
-
 # This is a virtual package list, equivalent to:
 #   lb config --packages-lists standard-x11 --tasks "kde-desktop desktop standard laptop"
 #

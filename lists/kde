@@ -1,6 +1,5 @@
 # /usr/share/live/build/lists/kde - package list for live-build(7)
 
-## LB: KDE
 #include <kde-core>
 
 #if DISTRIBUTION lenny
