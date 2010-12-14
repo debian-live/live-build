@@ -44,13 +44,13 @@ case "${1}" in
 
 		if [ -x "${LB_BASE}/scripts/build/${COMMAND}" ]
 		then
-			LH=1 exec "${LB_BASE}/scripts/build/${COMMAND}" "${@}"
+			LB=1 exec "${LB_BASE}/scripts/build/${COMMAND}" "${@}"
 		elif [ -x /usr/share/live/build/scripts/build/${COMMAND} ]
 		then
-			LH=1 exec /usr/share/live/build/scripts/build/"${COMMAND}" "${@}"
+			LB=1 exec /usr/share/live/build/scripts/build/"${COMMAND}" "${@}"
 		elif [ -x "$(which ${COMMAND} 2>/dev/null)" ]
 		then
-			LH=1 exec "${COMMAND}" "${@}"
+			LB=1 exec "${COMMAND}" "${@}"
 		else
 			Echo_error "no such script"
 			exit 1

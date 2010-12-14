@@ -15,7 +15,7 @@ Exit ()
 	if [ "${_DEBUG}" = "true" ]
 	then
 		# Dump variables
-		set | grep -e ^LH
+		set | grep -e ^LB
 	fi
 
 	# Always exit true in case we are not able to unmount

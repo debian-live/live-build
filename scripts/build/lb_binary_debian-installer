@@ -328,7 +328,7 @@ then
 
 			case "${LB_MODE}" in
 				ubuntu)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-generic"
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-generic"
 					;;
 
 				*)
@@ -343,7 +343,7 @@ then
 
 			case "${LB_MODE}" in
 				ubuntu)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-generic"
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-generic"
 					;;
 
 				*)
@@ -354,12 +354,28 @@ then
 
 		sparc)
 			DI_REQ_PACKAGES="silo"
-			DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-sparc64 linux-image-2.6-sparc64-smp"
+			case "${LB_MODE}" in
+				ubuntu)
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-sparc64"
+					;;
+
+				*)
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-sparc64 linux-image-2.6-sparc64-smp"
+					;;
+			esac
 			;;
 
 		powerpc)
 			DI_REQ_PACKAGES="yaboot"
-			DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-powerpc linux-image-2.6-powerpc64 linux-image-2.6-powerpc-smp"
+			case "${LB_MODE}" in
+				ubuntu)
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-powerpc linux-image-powerpc64-smp"
+					;;
+
+				*)
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-powerpc linux-image-2.6-powerpc64 linux-image-2.6-powerpc-smp"
+					;;
+			esac
 			;;
 	esac
 
