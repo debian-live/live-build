@@ -1,3 +1,30 @@
+live-build (3.0~a10-1) experimental; urgency=low
+
+  [ Daniel Baumann ]
+  * Removing header in copyright file.
+  * Don't hard-depend on test target in Makefile.
+
+  [ Ben Armstrong ]
+  * Adding '--includes none' documentation in help and man page.
+
+  [ Daniel Baumann ]
+  * Marking afio in rescue list as sid only.
+  * Adding debian-installer-launcher in prebuilt images.
+  * Adding debian-cd data for ubuntu releases.
+  * Removing old ubuntu release (jaunty).
+  * Applying patch from Cody A.W. Somerville
+    <cody.somerville@canonical.com> to update kernel packages for ubuntu
+    in lb_binary_debian-installer.
+  * Removing last live-helper remains in internal variables.
+  * Removing old and outdated FAQ.
+  * Mentioning Richard in authors file.
+  * Updating credits file.
+  * Removing unused name header in package lists.
+  * Marking ntop as sid only in rescue list.
+  * Marking tob as sid only in rescue list.
+
+ -- Daniel Baumann <daniel@debian.org>  Tue, 14 Dec 2010 13:17:58 +0100
+
 live-build (3.0~a9-1) experimental; urgency=low
 
   [ Daniel Baumann ]
