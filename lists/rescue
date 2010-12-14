@@ -75,9 +75,9 @@ b43-fwcutter
 dar gddrescue dump ddrescue
 mt-st
 #if DISTRIBUTION sid
-afio
+afio tob
 #endif
-dar duplicity tob
+dar duplicity
 
 # File comparison
 rdiff rdiff-backup rsnapshot
