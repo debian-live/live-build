@@ -1,3 +1,35 @@
+live-build (2.0.10-1) unstable; urgency=low
+
+  [ Ben Armstrong ]
+  * Adding '--includes none' documentation in help and man page.
+
+  [ Daniel Baumann ]
+  * Marking afio in rescue list as sid and lenny only.
+  * Adding debian-installer-launcher in prebuilt images.
+
+  [ Ben Armstrong ]
+  * Fixing numerous spelling and other minor details in lb_config man
+    page.
+  * Adding *-desktop virtual package lists files (just comments for doc
+    purposes).
+
+  [ Daniel Baumann ]
+  * Adding debian-cd data for ubuntu releases.
+  * Removing old ubuntu release (jaunty).
+  * Applying patch from Cody A.W. Somerville
+    <cody.somerville@canonical.com> to update kernel packages for ubuntu
+    in lb_binary_debian-installer.
+  * Removing last live-helper remains in internal variables.
+  * Removing old and outdated FAQ.
+  * Mentioning Richard in authors file.
+  * Updating credits file.
+  * Removing unused name header in package lists.
+  * Unfuzzying German manpage translations.
+  * Marking ntop as lenny and sid only in rescue list.
+  * Marking tob as lenny and sid only in rescue list.
+
+ -- Daniel Baumann <daniel@debian.org>  Tue, 14 Dec 2010 13:05:39 +0100
+
 live-build (2.0.9-1) unstable; urgency=medium
 
   [ Daniel Baumann ]
