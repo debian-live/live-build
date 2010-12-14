@@ -873,19 +873,6 @@ Set_defaults ()
 			LB_DEBIAN_INSTALLER_GUI="${LB_DEBIAN_INSTALLER_GUI:-true}"
 			;;
 
-		ubuntu)
-			case "${LB_DEBIAN_INSTALLER_DISTRIBUTION}" in
-				karmic)
-					# Not available for Karmic currently.
-					LB_DEBIAN_INSTALLER_GUI="${LB_DEBIAN_INSTALLER_GUI:-false}"
-					;;
-
-				*)
-					LB_DEBIAN_INSTALLER_GUI="${LB_DEBIAN_INSTALLER_GUI:-true}"
-					;;
-			esac
-			;;
-
 		*)
 			LB_DEBIAN_INSTALLER_GUI="${LB_DEBIAN_INSTALLER_GUI:-false}"
 			;;
