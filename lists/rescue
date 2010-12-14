@@ -198,7 +198,9 @@ netdiscover
 nload
 nsca
 nstreams
+#if DISTRIBUTION lenny sid
 ntop
+#endif
 saidar
 samhain
 scanssh
