@@ -95,27 +95,28 @@ Syslinux_live_entry ()
 
 	case "${LB_BINARY_IMAGES}" in
 		iso*|usb*)
-			NUMBER="$(ls -1 ${KERNEL_PATH} | grep 'vmlinuz-' | wc -l)"
-
-			# Do not add numbering to filenames if first kernel/initrd
-			if [ "${NUMBER}" = "2" ]
+			if [ "${LABEL}" = "live" ]
 			then
-				NUMBER=""
+				# Do not number the default kernel / initrd files.
+				_NUMBER=""
+			else
+				# Use order of flavours in LB_LINUX_FLAVOURS for numbering.
+				_NUMBER="$(echo ${LB_LINUX_FLAVOURS} | awk -v FLAVOUR="${FLAVOUR}" 'BEGIN{RS=" "} {if($1 == FLAVOUR) print NR}')"
 			fi
 
-			# Note: ISOLINUX will not find the kernel if the name ends in ".img".
 			if [ -e ${KERNEL_PATH}/${KERNEL} ]
 			then
-				mv ${KERNEL_PATH}/${KERNEL} ${KERNEL_PATH}/vmlinuz${NUMBER}
+				# Note: ISOLINUX will not find the kernel if the name ends in ".img".
+				mv ${KERNEL_PATH}/${KERNEL} ${KERNEL_PATH}/vmlinuz${_NUMBER}
 			fi
 
 			if [ -e ${KERNEL_PATH}/${INITRD} ]
 			then
-				mv ${KERNEL_PATH}/${INITRD} ${KERNEL_PATH}/initrd${NUMBER}.img
+				mv ${KERNEL_PATH}/${INITRD} ${KERNEL_PATH}/initrd${_NUMBER}.img
 			fi
 
-			KERNEL=vmlinuz${NUMBER}
-			INITRD=initrd${NUMBER}.img
+			KERNEL=vmlinuz${_NUMBER}
+			INITRD=initrd${_NUMBER}.img
 		;;
 	esac
 
