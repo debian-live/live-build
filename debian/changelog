@@ -1,3 +1,19 @@
+live-build (2.0.11-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Disabling inclusion of GUI installer images on ubuntu.
+  * Updating losetup-lukshome example hook to use blkid where available,
+    thanks to Clint Adams <clint@gnu.org> (Closes: #607108).
+
+  [ Cody A.W. Somerville ]
+  * Fixing numbering of live kernels and initrd files when using
+    syslinux.
+
+  [ Daniel Baumann ]
+  * Removing unmaintained package lists (Closes: #598100).
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 24 Dec 2010 18:49:26 +0100
+
 live-build (2.0.10-1) unstable; urgency=low
 
   [ Ben Armstrong ]
