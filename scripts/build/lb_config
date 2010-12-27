@@ -33,7 +33,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--apt-ftp-proxy URL]\n\
 \t    [--apt-http-proxy URL]\n\
 \t    [--apt-indices true|false|none]\n\
-\t    [--apt-pdiffs true|false]\n\
 \t    [--apt-options OPTION|\"OPTIONS\"]\n\
 \t    [--aptitude-options OPTION|\"OPTIONS\"]\n\
 \t    [--apt-pipeline DEPTH]\n\
@@ -136,7 +135,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 
 Local_arguments ()
 {
-	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-options:,aptitute-options:,
+	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-options:,aptitute-options:,
 		apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,
 		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
 		initramfs:,fdisk:,losetup:,mode:,repositories:,root-command:,use-fakeroot:,tasksel:,includes:,
@@ -230,10 +229,6 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--apt-pdiffs)
-				LB_APT_PDIFFS="${2}"
-				shift 2
-				;;
 			--apt-options)
 				APT_OPTIONS="${2}"
 				shift 2
@@ -828,10 +823,6 @@ LB_APT_FTP_PROXY="${LB_APT_FTP_PROXY}"
 # \$LB_APT_HTTP_PROXY: set apt/aptitude http proxy
 # (Default: autodetected or empty)
 LB_APT_HTTP_PROXY="${LB_APT_HTTP_PROXY}"
-
-# \$LB_APT_PDIFFS: set apt/aptitude pdiff indices
-# (Default: ${LB_APT_PDIFFS})
-LB_APT_PDIFFS="${LB_APT_PDIFFS}"
 
 # \$LB_APT_PIPELINE: set apt/aptitude pipeline depth
 # (Default: ${LB_APT_PIPELINE})

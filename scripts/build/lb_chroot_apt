@@ -54,17 +54,6 @@ case "${1}" in
 			echo "Acquire::http::Proxy \"${LB_APT_HTTP_PROXY}\";" > chroot/etc/apt/apt.conf.d/00http-proxy
 		fi
 
-		# Configuring apt pdiffs
-		case "${LB_APT_PDIFFS}" in
-			true)
-				echo "Acquire::PDiffs \"true\";" > chroot/etc/apt/apt.conf.d/00pdiffs
-				;;
-
-			false)
-				echo "Acquire::PDiffs \"false\";" > chroot/etc/apt/apt.conf.d/00pdiffs
-				;;
-		esac
-
 		# Configuring apt pipeline
 		if [ -n "${LB_APT_PIPELINE}" ]
 		then
@@ -162,12 +151,6 @@ case "${1}" in
 
 		# Deconfiguring aptitude http proxy
 		rm -f chroot/etc/apt/apt.conf.d/00http-proxy
-
-		# Deconfiguring aptitude pdiffs
-		if [ "${LB_APT_PDIFFS}" = "true" ]
-		then
-			rm -f chroot/etc/apt/apt.conf.d/00pdiffs
-		fi
 
 		# Deconfiguring aptitude pipeline
 		rm -f chroot/etc/apt/apt.conf.d/00pipeline

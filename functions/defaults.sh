@@ -63,9 +63,6 @@ Set_defaults ()
 		fi
 	fi
 
-	# Setting apt pdiffs
-	LB_APT_PDIFFS="${LB_APT_PDIFFS:-true}"
-
 	# Setting apt pipeline
 	# LB_APT_PIPELINE
 

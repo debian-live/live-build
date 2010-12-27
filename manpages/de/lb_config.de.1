@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2010\-12\-14 3.0~a10 "Debian Live Project"
+.TH LIVE\-BUILD 1 2010\-12\-27 3.0~a10 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -21,8 +21,6 @@
   [\fB\-\-apt\-http\-proxy\fP \fIURL\fP]
 .br
   [\fB\-\-apt\-indices\fP true|false|none]
-.br
-  [\fB\-\-apt\-pdiffs\fP true|false]
 .br
   [\fB\-\-apt\-options\fP \fIOPTION\fP|"\fIOPTIONS\fP"]
 .br
@@ -270,9 +268,6 @@ automatically set to the value of http_proxy.
 .IP "\fB\-\-apt\-indices\fP true|false|none" 4
 defines if the resulting images should have apt indices or not and defaults
 to true. If set to none, no indices are included at all.
-.IP "\fB\-\-apt\-pdiffs\fP true|false" 4
-defines whetever apt should use incremental package indices feature or
-not. This is true by default.
 .IP "\fB\-\-apt\-options\fP \fIOPTION\fP|\(dq\fIOPTIONS\fP\(dq" 4
 defines the default options that will be appended to every apt call that is
 made inside chroot during the building of the image. By default, this is set
