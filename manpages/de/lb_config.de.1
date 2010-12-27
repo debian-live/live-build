@@ -237,7 +237,7 @@ directory where \fBlb config\fP was executed.
 .\" FIXME
 Note: Currently \fBlb config\fP tries to be smart and sets defaults for some
 options depending on the setting of other options (e.g. which linux packages
-to be used depending on if a lenny system gets build or not). This means
+to be used depending on if a squeeze system gets build or not). This means
 that when generating a new configuration, you should call \fBlb config\fP only
 once with all options specified. Calling it several times with only a subset
 of the options each can result in non working configurations. This is also
@@ -299,8 +299,7 @@ right kernel. But building powerpc images on an i386 system is not possible.
 .IP "\-b|\fB\-\-binary\-images\fP iso|iso\-hybrid|net|tar|usb\-hdd" 4
 defines the image type to build. By default, for images using syslinux this
 is set to iso\-hybrid to build CD/DVD images that may also be used like
-usb\-hdd images, for legacy lenny and non\-syslinux images, it defaults to
-iso.
+usb\-hdd images, for non\-syslinux images, it defaults to iso.
 .IP "\fB\-\-binary\-filesystem\fP fat16|fat32|ext2" 4
 defines the filesystem to be used in the image type. This only has an effect
 if the selected binary image type does allow to choose a filesystem. For
@@ -477,9 +476,9 @@ none to disable inclusion of documentation.
 sets the name of package that contains the live system specific initramfs
 modification. By default, auto is used, which means that at build time of
 the image rather than on configuration time, the value will be expanded to
-casper when building ubuntu systems, to live\-initramfs for legacy lenny, and
-to live\-boot for squeeze and newer. Using 'none' is useful if the resulting
-system image should not be a live image (experimental).
+casper when building ubuntu systems, to live\-boot for debian systems. Using
+\&'none' is useful if the resulting system image should not be a live image
+(experimental).
 .IP "\fB\-\-interactive\fP shell" 4
 defines if after the chroot stage and before the beginning of the binary
 stage, a interactive shell login should be spawned in the chroot in order to

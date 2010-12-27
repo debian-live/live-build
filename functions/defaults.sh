@@ -347,15 +347,7 @@ Set_defaults ()
 	then
 		case "${LB_MODE}" in
 			debian|debian-release)
-				case "${LB_DISTRIBUTION}" in
-					lenny)
-						LB_MIRROR_CHROOT_VOLATILE="http://volatile.debian.org/debian-volatile/"
-						;;
-
-					squeeze)
-						LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT}"
-						;;
-				esac
+				LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT}"
 				;;
 
 			ubuntu)
@@ -369,9 +361,11 @@ Set_defaults ()
 						;;
 				esac
 				;;
-		esac
 
-		LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE:-none}"
+			*)
+				LB_MIRROR_CHROOT_VOLATILE="none"
+				;;
+		esac
 	fi
 
 	# Setting backports mirror to fetch packages from
@@ -379,15 +373,13 @@ Set_defaults ()
 	then
 		case "${LB_MODE}" in
 			debian|debian-release)
-				case "${LB_DISTRIBUTION}" in
-					lenny|squeeze)
-						LB_MIRROR_CHROOT_BACKPORTS="http://backports.debian.org/debian-backports/"
-						;;
-				esac
+				LB_MIRROR_CHROOT_BACKPORTS="http://backports.debian.org/debian-backports/"
+				;;
+
+			*)
+				LB_MIRROR_CHROOT_BACKPORTS="none"
 				;;
 		esac
-
-		LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-none}"
 	fi
 
 	# Setting mirror which ends up in the image
@@ -447,14 +439,7 @@ Set_defaults ()
 	then
 		case "${LB_MODE}" in
 			debian|debian-release)
-				case "${LB_DISTRIBUTION}" in
-					lenny)
-						LB_MIRROR_BINARY_VOLATILE="http://volatile.debian.org/debian-volatile/"
-						;;
-
-					squeeze)
-						LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY}"
-				esac
+				LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY}"
 				;;
 
 			ubuntu)
@@ -468,9 +453,11 @@ Set_defaults ()
 						;;
 				esac
 				;;
-		esac
 
-		LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY_VOLATILE:-none}"
+			*)
+				LB_MIRROR_BINARY_VOLATILE="none"
+				;;
+		esac
 	fi
 
 	# Setting backports mirror which ends up in the image
@@ -478,15 +465,13 @@ Set_defaults ()
 	then
 		case "${LB_MODE}" in
 			debian|debian-release)
-				case "${LB_DISTRIBUTION}" in
-					lenny|squeeze)
-						LB_MIRROR_BINARY_BACKPORTS="http://backports.debian.org/debian-backports/"
-						;;
-				esac
+				LB_MIRROR_BINARY_BACKPORTS="http://backports.debian.org/debian-backports/"
+				;;
+
+			*)
+				LB_MIRROR_BINARY_BACKPORTS="none"
 				;;
 		esac
-
-		LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-none}"
 	fi
 
 	LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER:-${LB_MIRROR_BOOTSTRAP}}"
@@ -641,25 +626,12 @@ Set_defaults ()
 	if [ -z "${LB_LINUX_PACKAGES}" ]
 	then
 		case "${LB_MODE}" in
-			debian|debian-release|embedian)
-				case "${LB_DISTRIBUTION}" in
-					lenny)
-						LB_LINUX_PACKAGES="linux-image-2.6 \${LB_UNION_FILESYSTEM}-modules-2.6"
-						;;
+			ubuntu)
+				LB_LINUX_PACKAGES="linux"
+				;;
 
-					*)
-						LB_LINUX_PACKAGES="linux-image-2.6"
-						;;
-				esac
-
-				if [ "${LB_CHROOT_FILESYSTEM}" = "squashfs" ]
-				then
-					case "${LB_DISTRIBUTION}" in
-						lenny)
-							LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES} squashfs-modules-2.6"
-							;;
-					esac
-				fi
+			*)
+				LB_LINUX_PACKAGES="linux-image-2.6"
 
 				case "${LB_ENCRYPTION}" in
 					""|false)
@@ -670,10 +642,6 @@ Set_defaults ()
 						LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES} loop-aes-modules-2.6"
 						;;
 				esac
-				;;
-
-			ubuntu)
-				LB_LINUX_PACKAGES="linux"
 				;;
 		esac
 	fi
@@ -712,60 +680,29 @@ Set_defaults ()
 
 			gnome-desktop)
 				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|gnome-desktop||') standard-x11"
-				case "${LB_DISTRIBUTION}" in
-					lenny)
-						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|gnome-desktop||' -e 's|desktop||') standard gnome-desktop desktop"
-						;;
-
-					*)
-						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|gnome-desktop||' -e 's|desktop||' -e 's|laptop||') standard gnome-desktop desktop laptop"
-						LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
-						;;
-				esac
+				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|gnome-desktop||' -e 's|desktop||' -e 's|laptop||') standard gnome-desktop desktop laptop"
+				LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
 				;;
 
 			kde-desktop)
 				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|kde-desktop||') standard-x11"
 
-				case "${LB_DISTRIBUTION}" in
-					lenny)
-						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|kde-desktop||' -e 's|desktop||') standard kde-desktop desktop"
-						;;
-
-					*)
-						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|kde-desktop||' -e 's|desktop||' -e 's|laptop||') standard kde-desktop desktop laptop"
-						LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
-				esac
+				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|kde-desktop||' -e 's|desktop||' -e 's|laptop||') standard kde-desktop desktop laptop"
+				LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
 				;;
 
 			lxde-desktop)
 				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|lxde-desktop||') standard-x11"
 
-				case "${LB_DISTRIBUTION}" in
-					lenny)
-						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|lxde-desktop||' -e 's|desktop||') standard lxde-desktop desktop"
-						;;
-
-					*)
-						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|lxde-desktop||' -e 's|desktop||' -e 's|laptop||') standard lxde-desktop desktop laptop"
-						LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
-						;;
-				esac
+				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|lxde-desktop||' -e 's|desktop||' -e 's|laptop||') standard lxde-desktop desktop laptop"
+				LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
 				;;
 
 			xfce-desktop)
 				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|xfce-desktop||') standard-x11"
 
-				case "${LB_DISTRIBUTION}" in
-					lenny)
-						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|xfce-desktop||' -e 's|desktop||') standard xfce-desktop desktop"
-						;;
-
-					*)
-						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|xfce-desktop||' -e 's|desktop||' -e 's|laptop||') standard xfce-desktop desktop laptop"
-						LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
-						;;
-				esac
+				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|xfce-desktop||' -e 's|desktop||' -e 's|laptop||') standard xfce-desktop desktop laptop"
+				LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
 				;;
 		esac
 	done
