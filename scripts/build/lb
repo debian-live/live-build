@@ -22,7 +22,7 @@ case "${1}" in
 	-h|--help)
 		if [ -x "$(which man 2>/dev/null)" ]
 		then
-			man lh
+			man lb
 			exit 0
 		else
 			${0} --usage
