@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2010\-12\-27 3.0~a10 "Debian Live Project"
+.TH LIVE\-BUILD 1 2011\-01\-02 3.0~a10 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -61,6 +61,8 @@
   [\fB\-\-cache\-stages\fP \fISTAGE\fP|\fI"STAGES"\fP]
 .br
   [\fB\-\-checksums\fP md5|sha1|sha256|none]
+.br
+  [\fB\-\-compression\fP bzip2|gzip|lzip|none]
 .br
   [\fB\-\-build\-with\-chroot\fP true|false]
 .br
@@ -174,7 +176,7 @@
 .br
   [\fB\-\-net\-cow\-server\fP \fIIP\fP|\fIHOSTNAME\fP]
 .br
-  [\fB\-\-net\-tarball\fP bzip2|gzip|tar|none]
+  [\fB\-\-net\-tarball\fP true|false]
 .br
   [\-p|\fB\-\-package\-lists\fP \fILIST\fP|\fI"LISTS"\fP]
 .br
@@ -372,6 +374,9 @@ built\-in integrity\-check to verify the medium if specified at boot
 prompt. In general, this should not be false and is an important feature of
 live system released to the public. However, during development of very big
 images it can save some time by not calculating the checksums.
+.IP "\fB\-\-compression\fP bzip2|gzip|lzip|none" 4
+defines the compression program to be used to compress tarballs. Defaults to
+gzip.
 .IP "\fB\-\-build\-with\-chroot\fP true|false" 4
 defines whetever live\-build should use the tools from within the chroot to
 build the binary image or not by using and including the host systems
@@ -628,11 +633,10 @@ Example:
 sets the IP or hostname that will be configured in the bootloader
 configuration for the copy\-on\-write filesystem of your netboot image and is
 by default empty.
-.IP "\fB\-\-net\-tarball\fP bzip2|gzip|tar|none" 4
-defines the format of the netboot image. Choosing tar results in a not
-compressed tarball, bzip2 and gzip in a bzip2 resp. gzip compressed
-tarball. Choosing none leads to no tarball at all, the plain binary
-directory is considered the output in this case. Default is gzip.
+.IP "\fB\-\-net\-tarball\fP true|false" 4
+defines if a compressed tarball should be created. Disabling this options
+leads to no tarball at all, the plain binary directory is considered the
+output in this case. Default is true.
 .IP "\-p|\fB\-\-package\-lists\fP \fILIST\fP|\(dq\fILISTS\fP\(dq" 4
 defines which lists available in /usr/share/live/build/lists should be
 used. By default, this is set to standard. Note that in case you have local

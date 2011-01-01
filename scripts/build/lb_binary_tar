@@ -44,10 +44,26 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Remove old binary
-rm -f binary.tar.gz
+rm -f binary.tar.bz2 binary.tar.gz binary.tar.lz binary.tar
 
 tar cf binary-tar.tar binary
-gzip ${GZIP_OPTIONS} binary-tar.tar
+
+case "${_COMPRESSION}" in
+	bzip2)
+		bzip2 ${BZIP2_OPTIONS} binary-tar.tar
+		;;
+
+	gzip)
+		gzip ${GZIP_OPTIONS} binary-tar.tar
+		;;
+
+	lzip)
+		lzip ${LZIP_OPTIONS} binary-tar.tar
+		;;
+
+	none)
+		;;
+esac
 
 # Creating stage file
 Create_stagefile .stage/binary_tar

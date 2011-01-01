@@ -45,12 +45,16 @@ Set_defaults ()
 	APT_OPTIONS="${APT_OPTIONS:---yes}"
 	APTITUDE_OPTIONS="${APTITUDE_OPTIONS:---assume-yes}"
 
+	BZIP2_OPTIONS="${BZIP2_OPTIONS:---best}"
+
 	GZIP_OPTIONS="${GZIP_OPTIONS:---best}"
 
 	if gzip --help | grep -qs "\-\-rsyncable"
 	then
 		GZIP_OPTIONS="$(echo ${GZIP_OPTIONS} | sed -e 's|--rsyncable||') --rsyncable"
 	fi
+
+	LZIP_OPTIONS="${LZIP_OPTIONS:--best}"
 
 	# Setting apt recommends
 	case "${LB_MODE}" in
@@ -704,6 +708,9 @@ Set_defaults ()
 	# Setting checksums
 	LB_CHECKSUMS="${LB_CHECKSUMS:-md5}"
 
+	# Setting compression
+	LB_COMPRESSION="${LB_COMPRESSION:gzip}"
+
 	# Setting chroot option
 	LB_BUILD_WITH_CHROOT="${LB_BUILD_WITH_CHROOT:-true}"
 
@@ -877,7 +884,7 @@ Set_defaults ()
 	LB_NET_COW_FILESYSTEM="${LB_NET_COW_FILESYSTEM:-nfs}"
 
 	# Setting net tarball
-	LB_NET_TARBALL="${LB_NET_TARBALL:-gzip}"
+	LB_NET_TARBALL="${LB_NET_TARBALL:-true}"
 
 	# Setting syslinux theme package
 	LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-debian-squeeze}"

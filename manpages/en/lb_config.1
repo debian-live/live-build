@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2010\-12\-27 3.0~a10 "Debian Live Project"
+.TH LIVE\-BUILD 1 2011\-01\-02 3.0~a10 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -56,6 +56,8 @@
 	[\fB\-\-cache\-stages\fR \fISTAGE\fR|\fI"STAGES"\fR]
 .br
 	[\fB\-\-checksums\fR md5|sha1|sha256|none]
+.br
+	[\fB\-\-compression\fR bzip2|gzip|lzip|none]
 .br
 	[\fB\-\-build\-with\-chroot\fR true|false]
 .br
@@ -169,7 +171,7 @@
 .br
 	[\fB\-\-net\-cow\-server\fR \fIIP\fR|\fIHOSTNAME\fR]
 .br
-	[\fB\-\-net\-tarball\fR bzip2|gzip|tar|none]
+	[\fB\-\-net\-tarball\fR true|false]
 .br
 	[\-p|\fB\-\-package\-lists\fR \fILIST\fR|\fI"LISTS"\fR]
 .br
@@ -281,6 +283,8 @@ defines if downloaded packages files should be cached which is true by default. 
 sets which stages should be cached. By default set to bootstrap. As an exception to the normal stage names, also rootfs can be used here which does only cache the generated root filesystem in filesystem.{dir,ext*,squashfs}. This is useful during development if you want to rebuild the binary stage but not regenerate the root filesystem all the time.
 .IP "\fB\-\-checksums\fR md5|sha1|sha256|none" 4
 defines if the binary image should contain a file called md5sums.txt, sha1sums.txt and/or sha256sums.txt. These lists all files on the image together with their checksums. This in turn can be used by live\-initramfs' built\-in integrity\-check to verify the medium if specified at boot prompt. In general, this should not be false and is an important feature of live system released to the public. However, during development of very big images it can save some time by not calculating the checksums.
+.IP "\fB\-\-compression\fR bzip2|gzip|lzip|none" 4
+defines the compression program to be used to compress tarballs. Defaults to gzip.
 .IP "\fB\-\-build\-with\-chroot\fR true|false" 4
 defines whetever live\-build should use the tools from within the chroot to build the binary image or not by using and including the host systems tools. This is a very dangerous option, using the tools of the host system can lead to tainted and even non-bootable images if the host systems version of the required tools (mainly these are the bootloaders such as syslinux, grub and yaboot, and the auxilliary tools such as dosfstools, genisoimage, squashfs-tools and others) do not \fBexactely\fR match what is present at build-time in the target distribution. Never do disable this option unless you are \fBexactely\fR sure what you are doing and have \fBcompletely\fI understood its consequences.
 .IP "\fB\-\-chroot\-filesystem\fR ext2|ext3|squashfs|plain|jffs2" 4
@@ -400,8 +404,8 @@ Example:
 /export/hosts/00\-16\-D3\-33\-92\-E8
 .IP "\fB\-\-net\-cow\-server\fR \fIIP\fR|\fIHOSTNAME\fR" 4
 sets the IP or hostname that will be configured in the bootloader configuration for the copy\-on\-write filesystem of your netboot image and is by default empty.
-.IP "\fB\-\-net\-tarball\fR bzip2|gzip|tar|none" 4
-defines the format of the netboot image. Choosing tar results in a not compressed tarball, bzip2 and gzip in a bzip2 resp. gzip compressed tarball. Choosing none leads to no tarball at all, the plain binary directory is considered the output in this case. Default is gzip.
+.IP "\fB\-\-net\-tarball\fR true|false" 4
+defines if a compressed tarball should be created. Disabling this options leads to no tarball at all, the plain binary directory is considered the output in this case. Default is true.
 .IP "\-p|\fB\-\-package\-lists\fR \fILIST\fR|""\fILISTS\fR""" 4
 defines which lists available in /usr/share/live/build/lists should be used. By default, this is set to standard. Note that in case you have local package lists, you don't need to list them here. Putting them into config/chroot_local-packagelists is enough (the filename needs to have the .list suffix though).
 .IP "\fB\-\-packages\fR \fIPACKAGE\fR|""\fIPACKAGES\fR""" 4

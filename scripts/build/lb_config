@@ -53,6 +53,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--cache-packages true|false]\n\
 \t    [--cache-stages STAGE|\"STAGES\"]\n\
 \t    [--checksums md5|sha1|sha256|none]\n\
+\t    [--compression bzip2|gzip|lzip|none]\n\
 \t    [--build-with-chroot true|false]\n\
 \t    [--chroot-filesystem ext2|ext3|squashfs|plain|jffs2]\n\
 \t    [--clean\n\
@@ -109,7 +110,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--net-cow-mountoptions OPTIONS]\n\
 \t    [--net-cow-path PATH]\n\
 \t    [--net-cow-server IP|HOSTNAME]\n\
-\t    [--net-tarball bzip2|gzip|tar|none]\n\
+\t    [--net-tarball true|false]\n\
 \t    [-p|--package-lists LIST|\"LISTS\"]\n\
 \t    [--packages PACKAGE|\"PACKAGES\"]\n\
 \t    [--quiet]\n\
@@ -144,7 +145,7 @@ Local_arguments ()
 		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
 		packages:,package-lists:,tasks:,security:,volatile:,backports:,sysvinit:,binary-filesystem:,binary-images:,
-		apt-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,build-with-chroot:,
+		apt-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,compression:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
 		encryption:,grub-splash:,hostname:,isohybrid-options:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
@@ -552,6 +553,11 @@ Local_arguments ()
 
 			--checksums)
 				LB_CHECKSUMS="${2}"
+				shift 2
+				;;
+
+			--compression)
+				LB_COMPRESSION="${2}"
 				shift 2
 				;;
 
@@ -1142,6 +1148,10 @@ LB_BOOTLOADER="${LB_BOOTLOADER}"
 # \$LB_CHECKSUMS: set checksums
 # (Default: ${LB_CHECKSUMS})
 LB_CHECKSUMS="${LB_CHECKSUMS}"
+
+# \$LB_COMPRESSION: set compression
+# (Default: ${LB_COMPRESSION})
+LB_COMPRESSION="${LB_COMPRESSION}"
 
 # \${LB_BUILD_WITH_CHROOT: control if we build binary images chrooted
 # (Default: ${LB_BUILD_WITH_CHROOT})

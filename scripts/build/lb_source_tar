@@ -50,15 +50,31 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Remove old source
-rm -f source.debian.tar.gz
-rm -f source.debian-live.tar.gz
+rm -f source.debian.tar.bz2 source.debian.tar.gz source.debian.tar.lz source.debian.tar
+rm -f source.debian-live.tar.bz2 source.debian-live.tar.gz source.debian-live.tar.lz source.debian-live.tar
 
-# Create tarballs
 tar cf source.debian.tar source/debian
-gzip ${GZIP_OPTIONS} source.debian.tar
-
 tar cf source.debian-live.tar source/debian-live
-gzip ${GZIP_OPTIONS} source.debian-live.tar
+
+case "${_COMPRESSION}" in
+	bzip2)
+		bzip2 ${BZIP2_OPTIONS} source.debian.tar
+		bzip2 ${BZIP2_OPTIONS} source.debian-live.tar
+		;;
+
+	gzip)
+		gzip ${GZIP_OPTIONS} source.debian.tar
+		gzip ${GZIP_OPTIONS} source.debian-live.tar
+		;;
+
+	lzip)
+		lzip ${LZIP_OPTIONS} source.debian.tar
+		lzip ${LZIP_OPTIONS} source.debian-live.tar
+		;;
+
+	none)
+		;;
+esac
 
 # Creating stage file
 Create_stagefile .stage/source_tar

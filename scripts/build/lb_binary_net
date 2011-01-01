@@ -29,7 +29,7 @@ then
 	exit 0
 fi
 
-if [ "${LB_NET_TARBALL}" = "none" ]
+if [ "${LB_NET_TARBALL}" = "false" ]
 then
 	exit 0
 fi
@@ -115,12 +115,11 @@ then
 fi
 
 # Remove old binary
-rm -f binary-net.tar.bz2
-rm -f binary-net.tar.gz
-rm -f binary-net.tar
+rm -f binary-net.tar.bz2 binary-net.tar.gz binary-net.tar.lz binary-net.tar
 
 # Creating image file
 ROOT_DIR=$(basename ${LB_NET_ROOT_PATH})
+
 if [ "${ROOT_DIR}" = "chroot" ]
 then
 	mv chroot chroot.tmp
@@ -135,18 +134,22 @@ mkdir binary.tmp
 mv ${ROOT_DIR} tftpboot binary.tmp
 cd binary.tmp
 
-case "${LB_NET_TARBALL}" in
+tar cf ../binary-net.tar *
+
+case "${_COMPRESSION}" in
 	bzip2)
-		tar cfj ../binary-net-tar.bz2 *
+		bzip2 ${BZIP2_OPTIONS} ../binary-net.tar
 		;;
 
 	gzip)
-		tar cf ../binary-net.tar *
 		gzip ${GZIP_OPTIONS} ../binary-net.tar
 		;;
 
-	tar)
-		tar cf ../binary-net.tar *
+	lzip)
+		lzip ${LZIP_OPTIONS} ../binary-net.tar
+		;;
+
+	none)
 		;;
 esac
 
