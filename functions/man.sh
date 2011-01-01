@@ -12,7 +12,7 @@ Man ()
 {
 	if [ -x "$(which man 2>/dev/null)" ]
 	then
-		man lb_$(basename ${0})
+		man $(basename ${0})
 		exit 0
 	fi
 }
