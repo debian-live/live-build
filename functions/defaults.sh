@@ -19,6 +19,10 @@ Set_defaults ()
 
 	# Setting distribution name
 	case "${LB_MODE}" in
+		progress)
+			LB_DISTRIBUTION="${LB_DISTRIBUTION:-artax}"
+			;;
+
 		ubuntu)
 			LB_DISTRIBUTION="${LB_DISTRIBUTION:-karmic}"
 			;;
@@ -58,7 +62,7 @@ Set_defaults ()
 
 	# Setting apt recommends
 	case "${LB_MODE}" in
-		emdebian)
+		emdebian|progress)
 			LB_APT_RECOMMENDS="${LB_APT_RECOMMENDS:-false}"
 			;;
 
@@ -179,6 +183,10 @@ Set_defaults ()
 			LB_ROOT="${LB_ROOT:-debian-live}"
 			;;
 
+		progress)
+			LB_ROOT="${LB_ROOT:-progress-linux}"
+			;;
+
 		*)
 			LB_ROOT="${LB_ROOT:-${LB_MODE}-live}"
 			;;
@@ -249,7 +257,7 @@ Set_defaults ()
 
 	# Setting mirror to fetch packages from
 	case "${LB_MODE}" in
-		debian|debian-release)
+		debian|debian-release|progress)
 			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://ftp.de.debian.org/debian/}"
 			;;
 
@@ -274,7 +282,7 @@ Set_defaults ()
 
 	# Setting security mirror to fetch packages from
 	case "${LB_MODE}" in
-		debian|debian-release)
+		debian|debian-release|progress)
 			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-http://security.debian.org/}"
 			;;
 
@@ -297,7 +305,7 @@ Set_defaults ()
 
 	# Setting volatile mirror to fetch packages from
 	case "${LB_MODE}" in
-		debian|debian-release)
+		debian|debian-release|progress)
 			LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE:-${LB_MIRROR_CHROOT}}"
 			;;
 
@@ -331,7 +339,7 @@ Set_defaults ()
 
 	# Setting mirror which ends up in the image
 	case "${LB_MODE}" in
-		debian|debian-release)
+		debian|debian-release|progress)
 			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://cdn.debian.net/debian/}"
 			;;
 
@@ -354,7 +362,7 @@ Set_defaults ()
 
 	# Setting security mirror which ends up in the image
 	case "${LB_MODE}" in
-		debian|debian-release)
+		debian|debian-release|progress)
 			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-http://security.debian.org/}"
 			;;
 
@@ -377,7 +385,7 @@ Set_defaults ()
 
 	# Setting volatile mirror which ends up in the image
 	case "${LB_MODE}" in
-		debian|debian-release)
+		debian|debian-release|progress)
 			LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY_VOLATILE:-${LB_MIRROR_BINARY}}"
 			;;
 
@@ -469,8 +477,8 @@ Set_defaults ()
 
 		alpha)
 			case "${LB_MODE}" in
-				ubuntu)
-					Echo_error "Architecture(s) ${LB_ARCHITECTURES} not supported on Ubuntu."
+				progress|ubuntu)
+					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
 					exit 1
 					;;
 
@@ -494,6 +502,10 @@ Set_defaults ()
 
 		i386)
 			case "${LB_MODE}" in
+				progress)
+					LB_LINUX_FLAVOURS="686"
+					;;
+
 				ubuntu)
 					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-generic}"
 					;;
@@ -513,25 +525,43 @@ Set_defaults ()
 			;;
 
 		ia64)
-			LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-itanium}"
+			case "${LB_MODE}" in
+				progress)
+					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
+					exit 1
+					;;
+
+				*)
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-itanium}"
+					;;
+			esac
 			;;
 
 		powerpc)
-			case "${LIST}" in
-				stripped|minimal)
-					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc}"
-				;;
+			case "${LB_MODE}" in
+				progress)
+					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
+					exit 1
+					;;
 
 				*)
-					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc powerpc64}"
+					case "${LIST}" in
+						stripped|minimal)
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc}"
+						;;
+
+						*)
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc powerpc64}"
+							;;
+					esac
 					;;
 			esac
 			;;
 
 		s390)
 			case "${LB_MODE}" in
-				ubuntu)
-					Echo_error "Architecture(s) ${LB_ARCHITECTURES} not supported on Ubuntu."
+				progress|ubuntu)
+					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
 					exit 1
 					;;
 
@@ -542,7 +572,16 @@ Set_defaults ()
 			;;
 
 		sparc)
-			LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-sparc64}"
+			case "${LB_MODE}" in
+				progress)
+					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
+					exit 1
+					;;
+
+				*)
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-sparc64}"
+					;;
+			esac
 			;;
 
 		*)
@@ -709,7 +748,15 @@ Set_defaults ()
 	LB_CHECKSUMS="${LB_CHECKSUMS:-md5}"
 
 	# Setting compression
-	LB_COMPRESSION="${LB_COMPRESSION:gzip}"
+	case "${LB_MODE}" in
+		progress)
+			LB_COMPRESSION="${LB_COMPRESSION:-lzip}"
+			;;
+
+		*)
+			LB_COMPRESSION="${LB_COMPRESSION:gzip}"
+			;;
+	esac
 
 	# Setting chroot option
 	LB_BUILD_WITH_CHROOT="${LB_BUILD_WITH_CHROOT:-true}"
@@ -717,14 +764,22 @@ Set_defaults ()
 	LB_BUILD_WITH_TMPFS="${LB_BUILD_WITH_TMPFS:-false}"
 
 	# Setting debian-installer option
-	LB_DEBIAN_INSTALLER="${LB_DEBIAN_INSTALLER:-false}"
+	case "${LB_MODE}" in
+		debian|debian-release|progress)
+			LB_DEBIAN_INSTALLER="${LB_DEBIAN_INSTALLER:-live}"
+			;;
+
+		*)
+			LB_DEBIAN_INSTALLER="${LB_DEBIAN_INSTALLER:-false}"
+			;;
+	esac
 
 	# Setting debian-installer distribution
 	LB_DEBIAN_INSTALLER_DISTRIBUTION="${LB_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_DISTRIBUTION}}"
 
 	# Setting debian-installer-gui
 	case "${LB_MODE}" in
-		debian|debian-release)
+		debian|debian-release|progress)
 			LB_DEBIAN_INSTALLER_GUI="${LB_DEBIAN_INSTALLER_GUI:-true}"
 			;;
 
@@ -813,6 +868,10 @@ Set_defaults ()
 			LB_ISO_APPLICATION="${LB_ISO_APPLICATION:-Emdebian Live}"
 			;;
 
+		progress)
+			LB_ISO_APPLICATION="${LB_ISO_APPLICATION:-Progress Linux}"
+			;;
+
 		ubuntu)
 			LB_ISO_APPLICATION="${LB_ISO_APPLICATION:-Ubuntu Live}"
 			;;
@@ -822,7 +881,15 @@ Set_defaults ()
 	LB_ISO_PREPARER="${LB_ISO_PREPARER:-live-build \$VERSION; http://packages.qa.debian.org/live-build}"
 
 	# Set iso publisher
-	LB_ISO_PUBLISHER="${LB_ISO_PUBLISHER:-Debian Live project; http://live.debian.net/; debian-live@lists.debian.org}"
+	case "${LB_MODE}" in
+		progress)
+			LB_ISO_PUBLISHER="${LB_ISO_PUBLISHER:-Progress Linux; http://www.progress-linux.org/; progress-project@lists.progress-linux.org}"
+			;;
+
+		*)
+			LB_ISO_PUBLISHER="${LB_ISO_PUBLISHER:-Debian Live project; http://live.debian.net/; debian-live@lists.debian.org}"
+			;;
+	esac
 
 	# Setting iso volume
 	case "${LB_MODE}" in
@@ -839,6 +906,11 @@ Set_defaults ()
 			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Emdebian ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)}"
 			;;
 
+		progress)
+			eval VERSION="$`echo RELEASE_${LB_DISTRIBUTION}`"
+			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Progress Llinux ${VERSION}}"
+			;;
+
 		ubuntu)
 			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Ubuntu ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)}"
 			;;
@@ -849,7 +921,7 @@ Set_defaults ()
 
 	# Setting win32-loader option
 	case "${LB_MODE}" in
-		ubuntu)
+		progress|ubuntu)
 			::
 			;;
 
@@ -875,7 +947,15 @@ Set_defaults ()
 	LB_NET_ROOT_FILESYSTEM="${LB_NET_ROOT_FILESYSTEM:-nfs}"
 
 	# Setting netboot server path
-	LB_NET_ROOT_PATH="${LB_NET_ROOT_PATH:-/srv/${LB_MODE}-live}"
+	case "${LB_MODE}" in
+		progress)
+			LB_NET_ROOT_PATH="${LB_NET_ROOT_PATH:-/srv/progress-linux}"
+			;;
+
+		*)
+			LB_NET_ROOT_PATH="${LB_NET_ROOT_PATH:-/srv/${LB_MODE}-live}"
+			;;
+	esac
 
 	# Setting netboot server address
 	LB_NET_ROOT_SERVER="${LB_NET_ROOT_SERVER:-192.168.1.1}"
@@ -887,7 +967,15 @@ Set_defaults ()
 	LB_NET_TARBALL="${LB_NET_TARBALL:-true}"
 
 	# Setting syslinux theme package
-	LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-debian-squeeze}"
+	case "${LB_MODE}" in
+		progress)
+			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-progress-standard}"
+			;;
+
+		*)
+			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-debian-squeeze}"
+			;;
+	esac
 
 	# Setting username
 	case "${LB_MODE}" in

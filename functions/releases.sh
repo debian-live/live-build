@@ -13,6 +13,10 @@ RELEASE_squeeze="6.0.0"
 RELEASE_wheezy="7"
 RELEASE_sid="unstable"
 
+# Progress releases
+RELEASE_artax="1.0"
+RELEASE_baureo="unstable"
+
 # Ubuntu releases
 RELEASE_dapper="6.06" # LTS
 RELEASE_hardy="8.04" # LTS
