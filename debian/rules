@@ -3,15 +3,8 @@
 %:
 	dh ${@}
 
-override_dh_auto_clean:
-	$(MAKE) -C po clean
-
-override_dh_auto_build:
-	$(MAKE) -C po update-po
-
 override_dh_auto_install:
 	$(MAKE) DESTDIR=$(CURDIR)/debian/live-build install
-	$(MAKE) -C po DESTDIR=$(CURDIR)/debian/live-build install
 
 	mv debian/live-build/usr/share/doc/live-build/ChangeLog.live-package debian/live-build/usr/share/doc/live-build/changelog.live-package
 	mv debian/live-build/usr/share/doc/live-build/ChangeLog.live-webhelper debian/live-build/usr/share/doc/live-build/changelog.live-webhelper
