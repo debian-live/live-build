@@ -68,7 +68,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--debug]\n\
 \t    [-d|--distribution CODENAME]\n\
 \t    [--dump]\n\
-\t    [-e|--encryption false|aes128|aes192|aes256]\n\
 \t    [--fdisk fdisk|fdisk.dist]\n\
 \t    [--force]\n\
 \t    [--grub-splash FILE]\n\
@@ -147,7 +146,7 @@ Local_arguments ()
 		packages:,package-lists:,tasks:,security:,volatile:,backports:,sysvinit:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,compression:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
-		encryption:,grub-splash:,hostname:,isohybrid-options:,iso-application:,iso-preparer:,iso-publisher:,
+		grub-splash:,hostname:,isohybrid-options:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
 		net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,
 		net-cow-server:,net-tarball:,syslinux-theme:,
@@ -583,11 +582,6 @@ Local_arguments ()
 
 			--debian-installer-gui)
 				LB_DEBIAN_INSTALLER_GUI="${2}"
-				shift 2
-				;;
-
-			-e|--encryption)
-				LB_ENCRYPTION="${2}"
 				shift 2
 				;;
 
@@ -1173,10 +1167,6 @@ LB_DEBIAN_INSTALLER_PRESEEDFILE="${LB_DEBIAN_INSTALLER_PRESEEDFILE}"
 # \$LB_DEBIAN_INSTALLER_GUI: toggle use of GUI debian-installer
 # (Default: ${LB_DEBIAN_INSTALLER_GUI})
 LB_DEBIAN_INSTALLER_GUI="${LB_DEBIAN_INSTALLER_GUI}"
-
-# \$LB_ENCRYPTION: set encryption
-# (Default: ${LB_ENCRYPTION})
-LB_ENCRYPTION="${LB_ENCRYPTION}"
 
 # \$LB_GRUB_SPLASH: set custom grub splash
 # (Default: empty)

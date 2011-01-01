@@ -87,8 +87,6 @@
 .br
 	[\fB\-\-dump\fR]
 .br
-	[\-e|\fB\-\-encryption\fR false|aes128|aes192|aes256]
-.br
 	[\fB\-\-fdisk\fR fdisk|fdisk.dist]
 .br
 	[\fB\-\-force\fR]
@@ -313,8 +311,6 @@ turn on debugging informational messages.
 defines the distribution of the resulting live system.
 .IP "\fB\-\-dump\fR" 4
 prepares a report of the currently present live system configuration and the version of live\-build used. This is useful to provide if you submit bug reports, we do get all informations required for us to locate and replicate an error.
-.IP "\-e|\fB\-\-encryption\fR false|aes128|aes192|aes256" 4
-defines if the root filesystem should be encrypted or not. By default, this is false.
 .IP "\fB\-\-fdisk\fR fdisk|fdisk.dist" 4
 sets the filename of the fdisk binary from the host system that should be used. This is autodetected and does generally not need any customization.
 .IP "\fB\-\-force\fR" 4

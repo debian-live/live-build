@@ -156,14 +156,6 @@ Check_multiarchitectures
 mkdir -p "${DESTDIR_LIVE}"
 
 # Setting boot parameters
-
-case "${LB_ENCRYPTION}" in
-	""|false)
-		;;
-	*)
-		LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} encryption=${LB_ENCRYPTION}"
-esac
-
 if [ -n "${LB_USERNAME}" ]
 then
 	case "${LB_INITRAMFS}" in

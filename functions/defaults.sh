@@ -598,16 +598,6 @@ Set_defaults ()
 
 		*)
 			LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES:-linux-image-2.6}"
-
-			case "${LB_ENCRYPTION}" in
-				""|false)
-
-					;;
-
-				*)
-					LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES} loop-aes-modules-2.6"
-					;;
-			esac
 			;;
 	esac
 
@@ -619,19 +609,6 @@ Set_defaults ()
 
 		*)
 			LB_PACKAGE_LISTS="${LB_PACKAGE_LISTS:-standard}"
-			;;
-	esac
-
-	case "${LB_ENCRYPTION}" in
-		""|false)
-
-			;;
-
-		*)
-			if ! In_list loop-aes-utils "${LB_PACKAGES}"
-			then
-				LB_PACKAGES="${LB_PACKAGES} loop-aes-utils"
-			fi
 			;;
 	esac
 
@@ -840,9 +817,6 @@ Set_defaults ()
 	fi
 
 	LB_BOOTAPPEND_INSTALL="$(echo ${LB_BOOTAPPEND_INSTALL} | sed -e 's/[ \t]*$//')"
-
-	# Setting encryption
-	LB_ENCRYPTION="${LB_ENCRYPTION:-false}"
 
 	# Setting grub splash
 	# LB_GRUB_SPLASH
