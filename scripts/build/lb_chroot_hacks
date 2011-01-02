@@ -163,7 +163,7 @@ case "${LB_INITRAMFS}" in
 		UPDATE_INITRAMFS_OPTIONS="CASPER_GENERATE_UUID=1"
 		;;
 
-	live-initramfs|live-boot)
+	live-boot)
 		#UPDATE_INITRAMFS_OPTIONS="LIVE_GENERATE_UUID=1"
 		;;
 esac
@@ -198,7 +198,7 @@ case "${LB_INITRAMFS}" in
 		ID="999"
 		;;
 
-	live-initramfs|live-boot)
+	live-boot)
 		ID="1000"
 		;;
 esac

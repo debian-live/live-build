@@ -113,7 +113,7 @@ case "${LB_INITRAMFS}" in
 		DESTDIR_LIVE="binary/casper"
 		;;
 
-	live-initramfs|live-boot)
+	live-boot)
 		INITFS="live"
 		DESTDIR_LIVE="binary/live"
 		;;
@@ -130,7 +130,7 @@ then
 			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} username=${LB_USERNAME}"
 			;;
 
-		live-initramfs|live-boot)
+		live-boot)
 			if [ "${LB_USERNAME}" != "user" ]
 			then
 				LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} username=${LB_USERNAME}"
@@ -146,7 +146,7 @@ then
 			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} hostname=${LB_HOSTNAME}"
 			;;
 
-		live-initramfs|live-boot)
+		live-boot)
 			if [ "${LB_HOSTNAME}" != "debian" ]
 			then
 				LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} hostname=${LB_HOSTNAME}"

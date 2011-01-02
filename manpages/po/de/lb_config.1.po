@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2011-01-02 01:12+0100\n"
+"POT-Creation-Date: 2011-01-02 10:31+0100\n"
 "PO-Revision-Date: 2011-01-02 01:12+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -434,7 +434,7 @@ msgstr ""
 #: en/lb_source_debian-live.1:25 en/lb_source_debian.1:25
 #: en/lb_source_disk.1:25 en/lb_source_iso.1:25 en/lb_source_net.1:25
 #: en/lb_source_tar.1:25 en/lb_source_usb.1:25 en/lb_source_virtual-hdd.1:25
-#: en/lb_testroot.1:28 en/live-build.7:242
+#: en/lb_testroot.1:28 en/live-build.7:244
 msgid "This program is a part of live-build."
 msgstr ""
 
@@ -470,7 +470,7 @@ msgstr ""
 #: en/lb_source_debian-live.1:26 en/lb_source_debian.1:26
 #: en/lb_source_disk.1:26 en/lb_source_iso.1:26 en/lb_source_net.1:26
 #: en/lb_source_tar.1:26 en/lb_source_usb.1:26 en/lb_source_virtual-hdd.1:26
-#: en/lb_testroot.1:29 en/live-build.7:243
+#: en/lb_testroot.1:29 en/live-build.7:245
 #, no-wrap
 msgid "HOMEPAGE"
 msgstr ""
@@ -507,7 +507,7 @@ msgstr ""
 #: en/lb_source_debian-live.1:28 en/lb_source_debian.1:28
 #: en/lb_source_disk.1:28 en/lb_source_iso.1:28 en/lb_source_net.1:28
 #: en/lb_source_tar.1:28 en/lb_source_usb.1:28 en/lb_source_virtual-hdd.1:28
-#: en/lb_testroot.1:31 en/live-build.7:245
+#: en/lb_testroot.1:31 en/live-build.7:247
 msgid ""
 "More information about live-build and the Debian Live project can be found "
 "on the homepage at E<lt>I<http://live.debian.net/>E<gt> and in the manual at "
@@ -546,7 +546,7 @@ msgstr ""
 #: en/lb_source_debian-live.1:29 en/lb_source_debian.1:29
 #: en/lb_source_disk.1:29 en/lb_source_iso.1:29 en/lb_source_net.1:29
 #: en/lb_source_tar.1:29 en/lb_source_usb.1:29 en/lb_source_virtual-hdd.1:29
-#: en/lb_testroot.1:32 en/live-build.7:246
+#: en/lb_testroot.1:32 en/live-build.7:248
 #, no-wrap
 msgid "BUGS"
 msgstr ""
@@ -583,7 +583,7 @@ msgstr ""
 #: en/lb_source_debian-live.1:31 en/lb_source_debian.1:31
 #: en/lb_source_disk.1:31 en/lb_source_iso.1:31 en/lb_source_net.1:31
 #: en/lb_source_tar.1:31 en/lb_source_usb.1:31 en/lb_source_virtual-hdd.1:31
-#: en/lb_testroot.1:34 en/live-build.7:248
+#: en/lb_testroot.1:34 en/live-build.7:250
 msgid ""
 "Bugs can be reported by submitting a bugreport for the live-build package in "
 "the Debian Bug Tracking System at E<lt>I<http://bugs.debian.org/>E<gt> or by "
@@ -623,7 +623,7 @@ msgstr ""
 #: en/lb_source_debian-live.1:32 en/lb_source_debian.1:32
 #: en/lb_source_disk.1:32 en/lb_source_iso.1:32 en/lb_source_net.1:32
 #: en/lb_source_tar.1:32 en/lb_source_usb.1:32 en/lb_source_virtual-hdd.1:32
-#: en/lb_testroot.1:35 en/live-build.7:249
+#: en/lb_testroot.1:35 en/live-build.7:251
 #, no-wrap
 msgid "AUTHOR"
 msgstr ""
@@ -660,7 +660,7 @@ msgstr ""
 #: en/lb_source_debian-live.1:33 en/lb_source_debian.1:33
 #: en/lb_source_disk.1:33 en/lb_source_iso.1:33 en/lb_source_net.1:33
 #: en/lb_source_tar.1:33 en/lb_source_usb.1:33 en/lb_source_virtual-hdd.1:33
-#: en/lb_testroot.1:36 en/live-build.7:250
+#: en/lb_testroot.1:36 en/live-build.7:252
 msgid ""
 "live-build was written by Daniel Baumann E<lt>I<daniel@debian.org>E<gt> for "
 "the Debian project."
@@ -920,7 +920,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:107
-msgid "  [B<--initramfs> auto|none|live-boot|live-initramfs|casper]"
+msgid "  [B<--initramfs> auto|none|live-boot|casper]"
 msgstr ""
 
 #. type: Plain text
@@ -1443,8 +1443,8 @@ msgstr ""
 msgid ""
 "sets boot parameters specific to debian-live. A complete list of boot "
 "parameters can be found, for etch, in the manpage of casper, for all other "
-"distributions in the manpage of live-initramfs. On the images, a list of all "
-"parameters (without comments) is included in the /parameters.txt."
+"distributions in the manpage of live-boot and live-config. On the images, a "
+"list of all parameters (without comments) is included in the /parameters.txt."
 msgstr ""
 
 #. type: IP
@@ -1595,11 +1595,11 @@ msgstr ""
 msgid ""
 "defines if the binary image should contain a file called md5sums.txt, "
 "sha1sums.txt and/or sha256sums.txt. These lists all files on the image "
-"together with their checksums. This in turn can be used by live-initramfs' "
-"built-in integrity-check to verify the medium if specified at boot prompt. "
-"In general, this should not be false and is an important feature of live "
-"system released to the public. However, during development of very big "
-"images it can save some time by not calculating the checksums."
+"together with their checksums. This in turn can be used by live-boots built-"
+"in integrity-check to verify the medium if specified at boot prompt. In "
+"general, this should not be false and is an important feature of live system "
+"released to the public. However, during development of very big images it "
+"can save some time by not calculating the checksums."
 msgstr ""
 
 #. type: IP
@@ -1932,7 +1932,7 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:328
 #, no-wrap
-msgid "B<--initramfs> auto|none|live-boot|live-initramfs|casper"
+msgid "B<--initramfs> auto|none|live-boot|casper"
 msgstr ""
 
 #. type: Plain text
@@ -1941,9 +1941,9 @@ msgid ""
 "sets the name of package that contains the live system specific initramfs "
 "modification. By default, auto is used, which means that at build time of "
 "the image rather than on configuration time, the value will be expanded to "
-"casper when building ubuntu systems, to live-boot for debian systems. Using "
-"'none' is useful if the resulting system image should not be a live image "
-"(experimental)."
+"casper when building ubuntu systems, to live-boot for all other systems. "
+"Using 'none' is useful if the resulting system image should not be a live "
+"image (experimental)."
 msgstr ""
 
 #. type: IP
@@ -2387,8 +2387,8 @@ msgstr ""
 #: en/lb_config.1:392
 msgid ""
 "defines the path to client writable filesystem. Anywhere that "
-"I<client_mac_address> is specified in the path live-initramfs will "
-"substitute the MAC address of the client delimited with hyphens."
+"I<client_mac_address> is specified in the path live-boot will substitute the "
+"MAC address of the client delimited with hyphens."
 msgstr ""
 
 #. type: Plain text

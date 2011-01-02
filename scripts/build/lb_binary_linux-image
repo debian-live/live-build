@@ -48,7 +48,7 @@ case "${LB_INITRAMFS}" in
 		DESTDIR="binary/casper"
 		;;
 
-	live-initramfs|live-boot)
+	live-boot)
 		DESTDIR="binary/live"
 		;;
 
@@ -77,10 +77,10 @@ cp chroot/boot/"${LINUX}"-* "${DESTDIR}"
 cp chroot/boot/initrd.img-* "${DESTDIR}"
 
 case "${LB_INITRAMFS}" in
-	live-initramfs|live-boot)
-		if [ -e chroot/usr/share/doc/live-initramfs/parameters.txt ]
+	live-boot)
+		if [ -e chroot/usr/share/doc/live-boot/parameters.txt ]
 		then
-			cp chroot/usr/share/doc/live-initramfs/parameters.txt "${DESTDIR}"/parameters.txt
+			cp chroot/usr/share/doc/live-boot/parameters.txt "${DESTDIR}"/parameters
 		fi
 		;;
 esac

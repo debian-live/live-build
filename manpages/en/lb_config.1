@@ -103,7 +103,7 @@
 .br
 	[\fB\-\-includes\fR \fIPATH\fR]
 .br
-	[\fB\-\-initramfs\fR auto|none|live\-boot|live\-initramfs|casper]
+	[\fB\-\-initramfs\fR auto|none|live\-boot|casper]
 .br
 	[\fB\-\-interactive\fR shell]
 .br
@@ -258,7 +258,7 @@ defines the filesystem to be used in the image type. This only has an effect if 
 .IP "\fB\-\-bootappend\-install\fR \fIPARAMETER\fR|""\fIPARAMETERS\fR""" 4
 sets boot parameters specific to debian\-installer, if included.
 .IP "\fB\-\-bootappend\-live\fR \fIPARAMETER\fR|""\fIPARAMETERS\fR""" 4
-sets boot parameters specific to debian\-live. A complete list of boot parameters can be found, for etch, in the manpage of casper, for all other distributions in the manpage of live\-initramfs. On the images, a list of all parameters (without comments) is included in the /parameters.txt.
+sets boot parameters specific to debian\-live. A complete list of boot parameters can be found, for etch, in the manpage of casper, for all other distributions in the manpage of live\-boot and live\-config. On the images, a list of all parameters (without comments) is included in the /parameters.txt.
 .IP "\fB\-\-bootloader\fR grub|syslinux|yaboot" 4
 defines which bootloader is beeing used in the generated image. This has only an effect if the selected binary image type does allow to choose the bootloader. For example, if you build a iso, always syslinux (or more precise, isolinux) is being used. Also note that some combinations of binary images types and bootloaders may be possible but live\-build does not support them yet. \fBlb config\fR will fail to create such a not yet supported configuration and give a explanation about it. For usb\-hdd images on amd64 and i386, the default is syslinux. yaboot is only used on powerpc.
 .IP "\fB\-\-bootstrap\fR cdebootstrap|cdebootstrap-static|debootstrap|copy" 4
@@ -278,7 +278,7 @@ defines if downloaded packages files should be cached which is true by default. 
 .IP "\fB\-\-cache\-stages\fR true|false|\fISTAGE\fR|""\fISTAGES\fR""" 4
 sets which stages should be cached. By default set to bootstrap. As an exception to the normal stage names, also rootfs can be used here which does only cache the generated root filesystem in filesystem.{dir,ext*,squashfs}. This is useful during development if you want to rebuild the binary stage but not regenerate the root filesystem all the time.
 .IP "\fB\-\-checksums\fR md5|sha1|sha256|none" 4
-defines if the binary image should contain a file called md5sums.txt, sha1sums.txt and/or sha256sums.txt. These lists all files on the image together with their checksums. This in turn can be used by live\-initramfs' built\-in integrity\-check to verify the medium if specified at boot prompt. In general, this should not be false and is an important feature of live system released to the public. However, during development of very big images it can save some time by not calculating the checksums.
+defines if the binary image should contain a file called md5sums.txt, sha1sums.txt and/or sha256sums.txt. These lists all files on the image together with their checksums. This in turn can be used by live\-boots built\-in integrity\-check to verify the medium if specified at boot prompt. In general, this should not be false and is an important feature of live system released to the public. However, during development of very big images it can save some time by not calculating the checksums.
 .IP "\fB\-\-compression\fR bzip2|gzip|lzip|none" 4
 defines the compression program to be used to compress tarballs. Defaults to gzip.
 .IP "\fB\-\-build\-with\-chroot\fR true|false" 4
@@ -325,8 +325,8 @@ sets the hostname of the live system.
 \fBlb config\fR by default reads system defaults from /etc/live/build.conf and /etc/live/build.d when generating a new live system config directory. This is useful if you want to set global settings, such as mirror locations, and don't want to specify them all of the time.
 .IP "\fB\-\-includes\fR \fIPATH|none\fR" 4
 sets the path to the includes that live\-build is going to use, e.g. additional minimal documentation that you want to have on all live systems. By default, this is set to /usr/share/live/build/includes/. Choose none to disable inclusion of documentation.
-.IP "\fB\-\-initramfs\fR auto|none|live\-boot|live\-initramfs|casper" 4
-sets the name of package that contains the live system specific initramfs modification. By default, auto is used, which means that at build time of the image rather than on configuration time, the value will be expanded to casper when building ubuntu systems, to live\-boot for debian systems. Using 'none' is useful if the resulting system image should not be a live image (experimental).
+.IP "\fB\-\-initramfs\fR auto|none|live\-boot|casper" 4
+sets the name of package that contains the live system specific initramfs modification. By default, auto is used, which means that at build time of the image rather than on configuration time, the value will be expanded to casper when building ubuntu systems, to live\-boot for all other systems. Using 'none' is useful if the resulting system image should not be a live image (experimental).
 .IP "\fB\-\-interactive\fR shell" 4
 defines if after the chroot stage and before the beginning of the binary stage, a interactive shell login should be spawned in the chroot in order to allow you to do manual customizations. Once you close the shell with logout or exit, the build will continue as usual. Note that it's strongly discouraged to use this for anything else than testing. Modifications that should be present in all builds of a live system should be properly made through hooks. Everything else destroys the beauty of being able to completely automatise the build process and making it non interactive. By default, this is of course false.
 .IP "\fB\-\-isohybrid\-options\fR \fIOPTION\fR|""\fIOPTIONS\fR""" 4
@@ -388,7 +388,7 @@ defines the filesystem type for the copy\-on\-write layer and defaults to nfs.
 .IP "\fB\-\-net\-cow\-mountoptions\fR \fIOPTIONS\fR" 4
 sets additional options for mounting the copy\-on\-write layer in netboot images and is by default empty.
 .IP "\fB\-\-net\-cow\-path\fR \fIPATH\fR" 4
-defines the path to client writable filesystem. Anywhere that \fIclient_mac_address\fR is specified in the path live\-initramfs will substitute the MAC address of the client delimited with hyphens.
+defines the path to client writable filesystem. Anywhere that \fIclient_mac_address\fR is specified in the path live\-boot will substitute the MAC address of the client delimited with hyphens.
 .PP
 .IP "" 4
 Example:

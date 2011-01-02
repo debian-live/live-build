@@ -28,7 +28,7 @@
 #	umounted.
 #
 # /usr/share/initramfs-tools/scripts/live-bottom/13live_luks_home
-#	a live-initramfs hook to execute lukshome.sh script
+#	a live-boot hook to execute lukshome.sh script
 #	in initrd.
 #
 #
@@ -300,7 +300,7 @@ echo "I: creating script /usr/local/sbin/lukshome.sh"
 cat > /usr/local/sbin/lukshome.sh << 'EOF'
 #!/bin/sh
 
-# this script is to be executed by a hook in live-initramfs. It searches
+# this script is to be executed by a hook in live-boot. It searches
 # for a partition with 'lukshome' label, mounts it as /luks-home, then opens an
 # encrypted disk image file called luks-home.img as a loopback device, opens it
 # with cryptsetup and finally mounts the present filesystem as /home.
@@ -419,7 +419,7 @@ esac
 
 . /scripts/live-functions
 
-# live-initramfs hook to use an disk image file with encrypted filesystem as /home.
+# live-boot hook to use an disk image file with encrypted filesystem as /home.
 
 log_begin_msg "Executing losetup-lukshome"
 

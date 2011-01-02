@@ -49,7 +49,7 @@ case "${LB_INITRAMFS}" in
 		SUFFIX="manifest"
 		;;
 
-	live-initramfs|live-boot)
+	live-boot)
 		INITFS="live"
 		SUFFIX="packages"
 		;;
