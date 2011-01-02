@@ -80,7 +80,6 @@ else
 	LB_CHROOT_FILESYSTEM=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])chroot_filesystem=[0-9a-z]+' | cut -f 2 -d '=' | head -n1)
 	LB_LINUX_FLAVOURS=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])linux_flavours=[-0-9a-z]+' | cut -f 2 -d '=' | head -n1)
 	LB_SECURITY=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])security=[a-z]+' | cut -f 2 -d '=' | head -n1)
-	LB_SYSVINIT=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])sysvinit=[a-z]+' | cut -f 2 -d '=' | head -n1)
 
 	# Advanced binary options
 	LB_BINARY_INDICES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])binary_indices=[a-z]+' | cut -f 2 -d '=' | head -n1)
@@ -143,7 +142,6 @@ else
 	    -e "s/LB_CHROOT_FILESYSTEM/${LB_CHROOT_FILESYSTEM}/" \
 	    -e "s/LB_LINUX_FLAVOURS/${LB_LINUX_FLAVOURS}/" \
 	    -e "s/LB_SECURITY/${LB_SECURITY}/" \
-	    -e "s/LB_SYSVINIT/${LB_SYSVINIT}/" \
 	    -e "s/LB_BINARY_INDICES/${LB_BINARY_INDICES}/" \
 	    -e "s#LB_BOOTAPPEND_INSTALL#${LB_BOOTAPPEND_INSTALL}#" \
 	    -e "s#LB_BOOTAPPEND_LIVE#${LB_BOOTAPPEND_LIVE}#" \
@@ -194,7 +192,6 @@ LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS}"
 LB_CHROOT_FILESYSTEM="${LB_CHROOT_FILESYSTEM}"
 LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS}"
 LB_SECURITY="${LB_SECURITY}"
-LB_SYSVINIT="${LB_SYSVINIT}"
 
 # Advanced binary options
 LB_BINARY_INDICES="${LB_BINARY_INDICES}"
@@ -223,7 +220,7 @@ LB_REPOSITORIES="${LB_REPOSITORIES}"
 EOF
 
 	echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-build.cgi: add web build (${_BUILD}) from ${REMOTE_ADDR}." >> /var/log/live
-	echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-build.cgi: options ${_BUILD} |email ${_EMAIL}|binary_images ${LB_BINARY_IMAGES}|distribution ${LB_DISTRIBUTION}|package_lists ${LB_PACKAGE_LISTS}|tasks ${LB_TASKS}|packages ${LB_PACKAGES}|architectures ${LB_ARCHITECTURES}|mirror_bootstrap_security ${LB_MIRROR_BOOTSTRAP}|mirror_bootstrap ${LB_MIRROR_BOOTSTRAP}|mirror_binary_security ${LB_MIRROR_BINARY_SECURITY}|mirror_binary ${LB_MIRROR_BINARY}|archive_areas ${LB_ARCHIVE_AREAS}|chroot_filesystem ${LB_CHROOT_FILESYSTEM}|linux_flavours ${LB_LINUX_FLAVOURS}|security ${LB_SECURITY}|sysvinit ${LB_SYSVINIT}|binary_indices ${LB_BINARY_INDICES}|bootappend_install ${LB_BOOTAPPEND_INSTALL}|bootappend_live ${LB_BOOTAPPEND_LIVE}|bootloader ${LB_BOOTLOADER}|debian_installer ${LB_DEBIAN_INSTALLER}|iso_application ${LB_ISO_APPLICATION}|iso_preparer ${LB_ISO_PREPARER}|iso_publisher ${LB_ISO_PUBLISHER}|iso_volume ${LB_ISO_VOLUME}|memtest ${LB_MEMTEST}|net_path ${LB_NET_ROOT_PATH}|net_server ${LB_NET_ROOT_SERVER}|source_images ${LB_SOURCE_IMAGES}|source ${LB_SOURCE}|custom_bootstrap ${_CUSTOM_BOOTSTRAP}|custom_binary ${_CUSTOM_BINARY}\n" >> /var/log/live
+	echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-build.cgi: options ${_BUILD} |email ${_EMAIL}|binary_images ${LB_BINARY_IMAGES}|distribution ${LB_DISTRIBUTION}|package_lists ${LB_PACKAGE_LISTS}|tasks ${LB_TASKS}|packages ${LB_PACKAGES}|architectures ${LB_ARCHITECTURES}|mirror_bootstrap_security ${LB_MIRROR_BOOTSTRAP}|mirror_bootstrap ${LB_MIRROR_BOOTSTRAP}|mirror_binary_security ${LB_MIRROR_BINARY_SECURITY}|mirror_binary ${LB_MIRROR_BINARY}|archive_areas ${LB_ARCHIVE_AREAS}|chroot_filesystem ${LB_CHROOT_FILESYSTEM}|linux_flavours ${LB_LINUX_FLAVOURS}|security ${LB_SECURITY}|binary_indices ${LB_BINARY_INDICES}|bootappend_install ${LB_BOOTAPPEND_INSTALL}|bootappend_live ${LB_BOOTAPPEND_LIVE}|bootloader ${LB_BOOTLOADER}|debian_installer ${LB_DEBIAN_INSTALLER}|iso_application ${LB_ISO_APPLICATION}|iso_preparer ${LB_ISO_PREPARER}|iso_publisher ${LB_ISO_PUBLISHER}|iso_volume ${LB_ISO_VOLUME}|memtest ${LB_MEMTEST}|net_path ${LB_NET_ROOT_PATH}|net_server ${LB_NET_ROOT_SERVER}|source_images ${LB_SOURCE_IMAGES}|source ${LB_SOURCE}|custom_bootstrap ${_CUSTOM_BOOTSTRAP}|custom_binary ${_CUSTOM_BINARY}\n" >> /var/log/live
 fi
 
 sed -e "s/VERSION/${VERSION}/" "${_TEMPLATES}"/footer.html

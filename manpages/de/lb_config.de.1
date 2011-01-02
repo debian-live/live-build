@@ -202,8 +202,6 @@
 .br
   [\fB\-\-syslinux\-menu\fP true|false]
 .br
-  [\fB\-\-sysvinit\fP true|false]
-.br
   [\fB\-\-tasksel\fP aptitude|tasksel]
 .br
   [\fB\-\-tasks\fP \fITASK\fP|"\fITASKS\fP"]
@@ -682,11 +680,6 @@ user at the bootprompt prior booting the default kernel. This defaults to 0
 which means it will wait forever.
 .IP "\fB\-\-syslinux\-menu\fP true|false" 4
 defines if syslinux should be make use of the vgamenu capabilities or not.
-.IP "\fB\-\-sysvinit\fP true|false" 4
-defines if the sysvinit hack should be true or false. The sysvinit hack
-disables all non\-essential services from starting up at bootup in order to
-reduce overall boottime. By default this is false and in general there you
-don't want to enable it.
 .IP "\fB\-\-tasksel\fP aptitude|tasksel" 4
 selects which program is used to install tasks. By default, this is set to
 tasksel.

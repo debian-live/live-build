@@ -121,7 +121,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--source true|false]\n\
 \t    [-s|--source-images iso|net|tar|usb-hdd]\n\
 \t    [--syslinux-theme THEME_SUFFIX]\n\
-\t    [--sysvinit true|false]\n\
 \t    [--tasksel aptitude|tasksel]\n\
 \t    [--tasks TASK|\"TASKS\"]\n\
 \t    [--templates PATH]\n\
@@ -143,7 +142,7 @@ Local_arguments ()
 		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-chroot-backports:,mirror-binary:,
 		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
-		packages:,package-lists:,tasks:,security:,volatile:,backports:,sysvinit:,binary-filesystem:,binary-images:,
+		packages:,package-lists:,tasks:,security:,volatile:,backports:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,compression:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
 		grub-splash:,hostname:,isohybrid-options:,iso-application:,iso-preparer:,iso-publisher:,
@@ -516,11 +515,6 @@ Local_arguments ()
 
 			--backports)
 				LB_BACKPORTS="${2}"
-				shift 2
-				;;
-
-			--sysvinit)
-				LB_SYSVINIT="${2}"
 				shift 2
 				;;
 
@@ -1094,10 +1088,6 @@ LB_VOLATILE="${LB_VOLATILE}"
 # \$LB_BACKPORTS: enable backports updates
 # (Default: ${LB_BACKPORTS})
 LB_BACKPORTS="${LB_BACKPORTS}"
-
-# \$LB_SYSVINIT: enable sysvinit
-# (Default: ${LB_SYSVINIT})
-LB_SYSVINIT="${LB_SYSVINIT}"
 EOF
 
 # Creating lb_binary_* configuration

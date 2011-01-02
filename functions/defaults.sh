@@ -668,9 +668,6 @@ Set_defaults ()
 
 	LB_VOLATILE="${LB_VOLATILE:-true}"
 
-	# Setting sysvinit option
-	LB_SYSVINIT="${LB_SYSVINIT:-false}"
-
 	## config/binary
 
 	# Setting image filesystem
