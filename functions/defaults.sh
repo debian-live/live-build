@@ -728,7 +728,7 @@ Set_defaults ()
 			;;
 
 		*)
-			LB_COMPRESSION="${LB_COMPRESSION:gzip}"
+			LB_COMPRESSION="${LB_COMPRESSION:-gzip}"
 			;;
 	esac
 
