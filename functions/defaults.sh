@@ -723,12 +723,20 @@ Set_defaults ()
 	esac
 
 	# Setting apt indices
-	if echo ${LB_PACKAGE_LISTS} | grep -qs -E "(stripped|minimal)\b"
-	then
-		LB_APT_INDICES="${LB_APT_INDICES:-none}"
-	else
-		LB_APT_INDICES="${LB_APT_INDICES:-true}"
-	fi
+	case "${LB_MODE}" in
+		progress)
+			LB_APT_INDICES="${LB_APT_INDICES:-none}"
+			;;
+
+		*)
+			if echo ${LB_PACKAGE_LISTS} | grep -qs -E "(stripped|minimal)\b"
+			then
+				LB_APT_INDICES="${LB_APT_INDICES:-none}"
+			else
+				LB_APT_INDICES="${LB_APT_INDICES:-true}"
+			fi
+			;;
+	esac
 
 	# Setting bootloader
 	if [ -z "${LB_BOOTLOADER}" ]
