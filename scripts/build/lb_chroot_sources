@@ -87,7 +87,7 @@ EOF
 		if [ "${LB_VOLATILE}" = "true" ]
 		then
 			case "${LB_MODE}" in
-				debian|debian-release|ubuntu)
+				debian|ubuntu)
 					echo "deb ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
 					if [ "${LB_SOURCE}" = "true" ]
@@ -101,7 +101,7 @@ EOF
 		if [ "${LB_BACKPORTS}" = "true" ]
 		then
 			case "${LB_MODE}" in
-				debian|debian-release)
+				debian)
 					if [ "${LB_DISTRIBUTION}" != "sid" ] && [ "${LB_DISTRIBUTION}" != "unstable" ]
 					then
 						echo "deb ${LB_MIRROR_CHROOT_BACKPORTS} ${LB_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
@@ -519,7 +519,7 @@ EOF
 		if [ "${LB_VOLATILE}" = "true" ]
 		then
 			case "${LB_MODE}" in
-				debian|debian-release|ubuntu)
+				debian|ubuntu)
 					echo "deb ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
 					if [ "${LB_SOURCE}" = "true" ]
@@ -533,7 +533,7 @@ EOF
 		if [ "${LB_BACKPORTS}" = "true" ]
 		then
 			case "${LB_MODE}" in
-				debian|debian-release)
+				debian)
 					if [ "${LB_DISTRIBUTION}" != "sid" ] && [ "${LB_DISTRIBUTION}" != "unstable" ]
 					then
 						echo "deb ${LB_MIRROR_BINARY_BACKPORTS} ${LB_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list

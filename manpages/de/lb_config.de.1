@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2011\-01\-02 3.0~a10 "Debian Live Project"
+.TH LIVE\-BUILD 1 2011\-01\-07 3.0~a10 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -508,10 +508,7 @@ values at latest when you distributing custom and unofficial images.
 sets the VOLUME field in the header of a resulting CD/DVD and defaults to
 \&'(\fIMODE\fP) (\fIDISTRIBUTION\fP) (\fIDATE\fP)' whereas MODE is expanded to the name
 of the mode in use, DISTRIBUTION the distribution name, and DATE with the
-current date and time of the generation. When running in debian\-release mode
-however, it will instead default to 'Debian (\fIVERSION\fP) (\fIARCHITECTURE\fP)
-live' where VERSION becomes the numerical version of the release being built
-and ARCHITECTURE becomes the name of the architecture.
+current date and time of the generation.
 .IP "\fB\-\-jffs2\-eraseblock\fP \fISIZE\fP" 4
 sets the eraseblock size for a JFFS2 (Second Journalling Flash File System)
 filesystem. The default is 64 KiB. If you use an erase block size different

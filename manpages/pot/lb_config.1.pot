@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2011-01-02 10:31+0100\n"
+"POT-Creation-Date: 2011-01-07 21:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,7 +81,7 @@ msgstr ""
 #: en/lb_source_net.1:1 en/lb_source_tar.1:1 en/lb_source_usb.1:1
 #: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "2011-01-02"
+msgid "2011-01-07"
 msgstr ""
 
 #. type: TH
@@ -2033,10 +2033,7 @@ msgid ""
 "sets the VOLUME field in the header of a resulting CD/DVD and defaults to "
 "'(I<MODE>) (I<DISTRIBUTION>) (I<DATE>)' whereas MODE is expanded to the name "
 "of the mode in use, DISTRIBUTION the distribution name, and DATE with the "
-"current date and time of the generation. When running in debian-release mode "
-"however, it will instead default to 'Debian (I<VERSION>) (I<ARCHITECTURE>) "
-"live' where VERSION becomes the numerical version of the release being built "
-"and ARCHITECTURE becomes the name of the architecture."
+"current date and time of the generation."
 msgstr ""
 
 #. type: IP

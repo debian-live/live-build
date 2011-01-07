@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2011\-01\-02 3.0~a10 "Debian Live Project"
+.TH LIVE\-BUILD 1 2011\-01\-07 3.0~a10 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -338,7 +338,7 @@ sets the PREPARER field in the header of a resulting CD/DVD image. By default th
 .IP "\fB\-\-iso\-publisher\fR \fINAME\fR" 4
 sets the PUBLISHED field in the header of a resulting CD/DVD image. By default, this is set to 'Debian Live project; http:/live.debian.net/; debian\-live@lists.debian.org'. Remember to change this to the appropriate values at latest when you distributing custom and unofficial images.
 .IP "\fB\-\-iso\-volume\fR \fINAME\fR" 4
-sets the VOLUME field in the header of a resulting CD/DVD and defaults to '(\fIMODE\fR) (\fIDISTRIBUTION\fR) (\fIDATE\fR)' whereas MODE is expanded to the name of the mode in use, DISTRIBUTION the distribution name, and DATE with the current date and time of the generation. When running in debian\-release mode however, it will instead default to 'Debian (\fIVERSION\fR) (\fIARCHITECTURE\fR) live' where VERSION becomes the numerical version of the release being built and ARCHITECTURE becomes the name of the architecture.
+sets the VOLUME field in the header of a resulting CD/DVD and defaults to '(\fIMODE\fR) (\fIDISTRIBUTION\fR) (\fIDATE\fR)' whereas MODE is expanded to the name of the mode in use, DISTRIBUTION the distribution name, and DATE with the current date and time of the generation.
 .IP "\fB\-\-jffs2\-eraseblock\fR \fISIZE\fR" 4
 sets the eraseblock size for a JFFS2 (Second Journalling Flash File System) filesystem. The default is 64 KiB. If you use an erase block size different than the erase block size of the target MTD device, JFFS2 may not perform optimally. If the SIZE specified is below 4096, the units are assumed to be KiB.
 .IP "\fB\-\-keyring\-packages\fR \fIPACKAGE\fI|""\fIPACKAGES\fR""" 4

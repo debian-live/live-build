@@ -14,7 +14,7 @@ Set_defaults ()
 
 	LB_BASE="${LB_BASE:-/usr/share/live/build}"
 
-	# Setting mode (currently: debian, debian-release, emdebian, or ubuntu)
+	# Setting mode (currently: debian, emdebian, progress, and ubuntu)
 	LB_MODE="${LB_MODE:-debian}"
 
 	# Setting distribution name
@@ -179,7 +179,7 @@ Set_defaults ()
 
 	# Setting root directory
 	case "${LB_MODE}" in
-		debian|debian-release)
+		debian)
 			LB_ROOT="${LB_ROOT:-debian-live}"
 			;;
 
@@ -257,7 +257,7 @@ Set_defaults ()
 
 	# Setting mirror to fetch packages from
 	case "${LB_MODE}" in
-		debian|debian-release|progress)
+		debian|progress)
 			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://ftp.de.debian.org/debian/}"
 			;;
 
@@ -282,7 +282,7 @@ Set_defaults ()
 
 	# Setting security mirror to fetch packages from
 	case "${LB_MODE}" in
-		debian|debian-release|progress)
+		debian|progress)
 			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-http://security.debian.org/}"
 			;;
 
@@ -305,7 +305,7 @@ Set_defaults ()
 
 	# Setting volatile mirror to fetch packages from
 	case "${LB_MODE}" in
-		debian|debian-release|progress)
+		debian|progress)
 			LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE:-${LB_MIRROR_CHROOT}}"
 			;;
 
@@ -328,7 +328,7 @@ Set_defaults ()
 
 	# Setting backports mirror to fetch packages from
 	case "${LB_MODE}" in
-		debian|debian-release)
+		debian)
 			LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-http://backports.debian.org/debian-backports/}"
 			;;
 
@@ -339,7 +339,7 @@ Set_defaults ()
 
 	# Setting mirror which ends up in the image
 	case "${LB_MODE}" in
-		debian|debian-release|progress)
+		debian|progress)
 			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://cdn.debian.net/debian/}"
 			;;
 
@@ -362,7 +362,7 @@ Set_defaults ()
 
 	# Setting security mirror which ends up in the image
 	case "${LB_MODE}" in
-		debian|debian-release|progress)
+		debian|progress)
 			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-http://security.debian.org/}"
 			;;
 
@@ -385,7 +385,7 @@ Set_defaults ()
 
 	# Setting volatile mirror which ends up in the image
 	case "${LB_MODE}" in
-		debian|debian-release|progress)
+		debian|progress)
 			LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY_VOLATILE:-${LB_MIRROR_BINARY}}"
 			;;
 
@@ -408,7 +408,7 @@ Set_defaults ()
 
 	# Setting backports mirror which ends up in the image
 	case "${LB_MODE}" in
-		debian|debian-release)
+		debian)
 			LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-http://backports.debian.org/debian-backports/}"
 			;;
 
@@ -451,7 +451,7 @@ Set_defaults ()
 
 	# Setting keyring packages
 	case "${LB_MODE}" in
-		debian|debian-release)
+		debian)
 			LB_KEYRING_PACKAGES="${LB_KEYRING_PACKAGES:-debian-archive-keyring}"
 			;;
 
@@ -739,7 +739,7 @@ Set_defaults ()
 
 	# Setting debian-installer option
 	case "${LB_MODE}" in
-		debian|debian-release|progress)
+		debian|progress)
 			LB_DEBIAN_INSTALLER="${LB_DEBIAN_INSTALLER:-live}"
 			;;
 
@@ -753,7 +753,7 @@ Set_defaults ()
 
 	# Setting debian-installer-gui
 	case "${LB_MODE}" in
-		debian|debian-release|progress)
+		debian|progress)
 			LB_DEBIAN_INSTALLER_GUI="${LB_DEBIAN_INSTALLER_GUI:-true}"
 			;;
 
@@ -820,7 +820,7 @@ Set_defaults ()
 
 	# Setting hostname
 	case "${LB_MODE}" in
-		debian|debian-release)
+		debian)
 			LB_HOSTNAME="${LB_HOSTNAME:-debian}"
 			;;
 
@@ -831,7 +831,7 @@ Set_defaults ()
 
 	# Setting iso author
 	case "${LB_MODE}" in
-		debian|debian-release)
+		debian)
 			LB_ISO_APPLICATION="${LB_ISO_APPLICATION:-Debian Live}"
 			;;
 
@@ -868,18 +868,12 @@ Set_defaults ()
 			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Debian ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)}"
 			;;
 
-		debian-release)
-			eval VERSION="$`echo RELEASE_${LB_DISTRIBUTION}`"
-			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Debian ${VERSION} ${LB_ARCHITECTURES} live}"
-			;;
-
 		emdebian)
 			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Emdebian ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)}"
 			;;
 
 		progress)
-			eval VERSION="$`echo RELEASE_${LB_DISTRIBUTION}`"
-			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Progress Llinux ${VERSION}}"
+			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Progress ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)}"
 			;;
 
 		ubuntu)

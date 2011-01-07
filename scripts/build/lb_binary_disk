@@ -60,11 +60,6 @@ case "${LB_MODE}" in
 		TRACE="project/trace/ftp-master.debian.org"
 		;;
 
-	debian-release)
-		STRING="Official ${ARCHITECTURE}"
-		TRACE="project/trace/ftp-master.debian.org"
-		;;
-
 	ubuntu)
 		TITLE="Ubuntu"
 		STRING="Build ${ARCHITECTURE}"
