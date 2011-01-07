@@ -67,6 +67,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--debian-installer-gui true|false]\n\
 \t    [--debug]\n\
 \t    [-d|--distribution CODENAME]\n\
+\t    [--parent-distribution CODENAME]\n\
 \t    [--dump]\n\
 \t    [--fdisk fdisk|fdisk.dist]\n\
 \t    [--force]\n\
@@ -139,7 +140,7 @@ Local_arguments ()
 		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
 		initramfs:,fdisk:,losetup:,mode:,repositories:,root-command:,use-fakeroot:,tasksel:,includes:,
 		templates:,architectures:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,clean,
-		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-chroot-backports:,mirror-binary:,
+		distribution:,parent-distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-chroot-backports:,mirror-binary:,
 		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
 		packages:,package-lists:,tasks:,security:,volatile:,backports:,binary-filesystem:,binary-images:,
@@ -380,6 +381,11 @@ Local_arguments ()
 						BACKPORTS="true"
 						;;
 				esac
+				;;
+
+			--parent-distribution)
+				LB_PARENT_DISTRIBUTION="${2}"
+				shift 2
 				;;
 
 			-m|--mirror-bootstrap)
@@ -962,6 +968,10 @@ LB_BOOTSTRAP_KEYRING="${LB_BOOTSTRAP_KEYRING}"
 # \$LB_DISTRIBUTION: select distribution to use
 # (Default: ${LB_DISTRIBUTION})
 LB_DISTRIBUTION="${LB_DISTRIBUTION}"
+
+# \$LB_PARENT_DISTRIBUTION: select parent distribution to use
+# (Default: ${LB_PARENT_DISTRIBUTION})
+LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION}"
 
 # \$LB_MIRROR_BOOTSTRAP: set mirror to bootstrap from
 # (Default: ${LB_MIRROR_BOOTSTRAP})

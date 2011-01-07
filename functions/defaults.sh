@@ -20,15 +20,24 @@ Set_defaults ()
 	# Setting distribution name
 	case "${LB_MODE}" in
 		progress)
+			_DERIVATIVE="true"
+
 			LB_DISTRIBUTION="${LB_DISTRIBUTION:-artax}"
+			LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-squeeze}"
 			;;
 
 		ubuntu)
+			_DERIVATIVE="false"
+
 			LB_DISTRIBUTION="${LB_DISTRIBUTION:-karmic}"
+			LB_PARENT_DISTRIBUTION="${LB_DISTRIBUTION}"
 			;;
 
 		*)
+			_DERIVATIVE="false"
+
 			LB_DISTRIBUTION="${LB_DISTRIBUTION:-squeeze}"
+			LB_PARENT_DISTRIBUTION="${LB_DISTRIBUTION}"
 			;;
 	esac
 
@@ -431,6 +440,15 @@ Set_defaults ()
 
 	LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER:-${LB_MIRROR_BOOTSTRAP}}"
 
+	if [ -z "${LB_REPOSITORIES}" ]
+	then
+		case "${LB_MODE}" in
+			progress)
+				LB_REPOSITORIES="progress-linux_${LB_DISTRIBUTION}"
+				;;
+		esac
+	fi
+
 	# Setting archive areas value
 	case "${LB_MODE}" in
 		ubuntu)
@@ -761,7 +779,7 @@ Set_defaults ()
 	esac
 
 	# Setting debian-installer distribution
-	LB_DEBIAN_INSTALLER_DISTRIBUTION="${LB_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_DISTRIBUTION}}"
+	LB_DEBIAN_INSTALLER_DISTRIBUTION="${LB_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_PARENT_DISTRIBUTION}}"
 
 	# Setting debian-installer-gui
 	case "${LB_MODE}" in
@@ -891,7 +909,7 @@ Set_defaults ()
 	# Setting win32-loader option
 	case "${LB_MODE}" in
 		progress|ubuntu)
-			::
+
 			;;
 
 		*)

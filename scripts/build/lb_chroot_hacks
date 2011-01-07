@@ -38,7 +38,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-case "${LB_DISTRIBUTION}" in
+case "${LB_PARENT_DISTRIBUTION}" in
 	squeeze|sid)
 		if echo "${LB_TASKS}" | grep -qs lxde ||
 		   echo "${LB_TASKS}" | grep -qs xfce

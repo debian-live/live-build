@@ -1,0 +1,7 @@
+# Progress Linux 1.0 (artax)
+
+deb http://archive.progress-linux.org/progress/ artax @ARCHIVE_AREAS@
+deb-src http://archive.progress-linux.org/progress/ artax @ARCHIVE_AREAS@
+
+deb http://archive.progress-linux.org/progress/ artax-staging @ARCHIVE_AREAS@
+deb-src http://archive.progress-linux.org/progress/ artax-staging @ARCHIVE_AREAS@

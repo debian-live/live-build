@@ -108,9 +108,9 @@ then
 	do
 		SECTION="$(basename ${SECTION})"
 
-		mkdir -p dists/${LB_DISTRIBUTION}/${SECTION}/binary-${LB_ARCHITECTURES}
-		apt-ftparchive packages pool/${SECTION} > dists/${LB_DISTRIBUTION}/${SECTION}/binary-${LB_ARCHITECTURES}/Packages
-		gzip -9 -c dists/${LB_DISTRIBUTION}/${SECTION}/binary-${LB_ARCHITECTURES}/Packages > dists/${LB_DISTRIBUTION}/${SECTION}/binary-${LB_ARCHITECTURES}/Packages.gz
+		mkdir -p dists/${LB_PARENT_DISTRIBUTION}/${SECTION}/binary-${LB_ARCHITECTURES}
+		apt-ftparchive packages pool/${SECTION} > dists/${LB_PARENT_DISTRIBUTION}/${SECTION}/binary-${LB_ARCHITECTURES}/Packages
+		gzip -9 -c dists/${LB_PARENT_DISTRIBUTION}/${SECTION}/binary-${LB_ARCHITECTURES}/Packages > dists/${LB_PARENT_DISTRIBUTION}/${SECTION}/binary-${LB_ARCHITECTURES}/Packages.gz
 	done
 
 	cd "${OLDPWD}"
