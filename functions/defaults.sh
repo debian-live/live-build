@@ -903,7 +903,7 @@ Set_defaults ()
 			;;
 
 		progress)
-			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Progress ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)}"
+			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Progress ${LB_DISTRIBUTION}}"
 			;;
 
 		ubuntu)
