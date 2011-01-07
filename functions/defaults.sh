@@ -257,12 +257,16 @@ Set_defaults ()
 
 	# Setting mirror to fetch packages from
 	case "${LB_MODE}" in
-		debian|progress)
+		debian)
 			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://ftp.de.debian.org/debian/}"
 			;;
 
 		emdebian)
 			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://buildd.emdebian.org/grip/}"
+			;;
+
+		progress)
+			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://cdn.debian.net/debian/}"
 			;;
 
 		ubuntu)
@@ -282,12 +286,16 @@ Set_defaults ()
 
 	# Setting security mirror to fetch packages from
 	case "${LB_MODE}" in
-		debian|progress)
+		debian)
 			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-http://security.debian.org/}"
 			;;
 
 		emdebian)
 			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-none}"
+			;;
+
+		progress)
+			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-http://cdn.debian.net/debian-security/}"
 			;;
 
 		ubuntu)
@@ -362,12 +370,16 @@ Set_defaults ()
 
 	# Setting security mirror which ends up in the image
 	case "${LB_MODE}" in
-		debian|progress)
+		debian)
 			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-http://security.debian.org/}"
 			;;
 
 		emdebian)
 			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-none}"
+			;;
+
+		progress)
+			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-http://cdn.debian.net/debian-security/}"
 			;;
 
 		ubuntu)
@@ -819,15 +831,7 @@ Set_defaults ()
 	# LB_GRUB_SPLASH
 
 	# Setting hostname
-	case "${LB_MODE}" in
-		debian)
-			LB_HOSTNAME="${LB_HOSTNAME:-debian}"
-			;;
-
-		*)
-			LB_HOSTNAME="${LB_HOSTNAME:-${LB_MODE}}"
-			;;
-	esac
+	LB_HOSTNAME="${LB_HOSTNAME:-${LB_MODE}}"
 
 	# Setting iso author
 	case "${LB_MODE}" in
