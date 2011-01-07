@@ -48,7 +48,7 @@ rm -f binary.tar.bz2 binary.tar.gz binary.tar.lz binary.tar
 
 tar cf binary-tar.tar binary
 
-case "${_COMPRESSION}" in
+case "${LB_COMPRESSION}" in
 	bzip2)
 		bzip2 ${BZIP2_OPTIONS} binary-tar.tar
 		;;

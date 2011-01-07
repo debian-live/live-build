@@ -136,7 +136,7 @@ cd binary.tmp
 
 tar cf ../binary-net.tar *
 
-case "${_COMPRESSION}" in
+case "${LB_COMPRESSION}" in
 	bzip2)
 		bzip2 ${BZIP2_OPTIONS} ../binary-net.tar
 		;;

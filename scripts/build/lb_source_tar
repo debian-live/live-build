@@ -56,7 +56,7 @@ rm -f source.debian-live.tar.bz2 source.debian-live.tar.gz source.debian-live.ta
 tar cf source.debian.tar source/debian
 tar cf source.debian-live.tar source/debian-live
 
-case "${_COMPRESSION}" in
+case "${LB_COMPRESSION}" in
 	bzip2)
 		bzip2 ${BZIP2_OPTIONS} source.debian.tar
 		bzip2 ${BZIP2_OPTIONS} source.debian-live.tar
