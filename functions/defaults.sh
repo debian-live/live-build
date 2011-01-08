@@ -76,7 +76,7 @@ Set_defaults ()
 		GZIP_OPTIONS="$(echo ${GZIP_OPTIONS} | sed -e 's|--rsyncable||') --rsyncable"
 	fi
 
-	LZIP_OPTIONS="${LZIP_OPTIONS:--best}"
+	LZIP_OPTIONS="${LZIP_OPTIONS:---best}"
 
 	# Setting apt recommends
 	case "${LB_MODE}" in
