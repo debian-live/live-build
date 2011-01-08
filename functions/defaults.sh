@@ -771,7 +771,7 @@ Set_defaults ()
 	# Setting compression
 	case "${LB_MODE}" in
 		progress)
-			LB_COMPRESSION="${LB_COMPRESSION:-lzip}"
+			LB_COMPRESSION="${LB_COMPRESSION:-none}"
 			;;
 
 		*)
