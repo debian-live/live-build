@@ -20,24 +20,33 @@ Set_defaults ()
 	# Setting distribution name
 	case "${LB_MODE}" in
 		progress)
-			_DERIVATIVE="true"
-
 			LB_DISTRIBUTION="${LB_DISTRIBUTION:-artax}"
-			LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-squeeze}"
 			;;
 
 		ubuntu)
-			_DERIVATIVE="false"
-
 			LB_DISTRIBUTION="${LB_DISTRIBUTION:-karmic}"
-			LB_PARENT_DISTRIBUTION="${LB_DISTRIBUTION}"
 			;;
 
 		*)
-			_DERIVATIVE="false"
-
 			LB_DISTRIBUTION="${LB_DISTRIBUTION:-squeeze}"
-			LB_PARENT_DISTRIBUTION="${LB_DISTRIBUTION}"
+			;;
+	esac
+
+	case "${LB_MODE}" in
+		progress)
+			case "${LB_DISTRIBUTION}" in
+				artax|artax-backports)
+					LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-squeeze}"
+					;;
+
+				baureo)
+					LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-sid}"
+					;;
+			esac
+			;;
+
+		*)
+			LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-${LB_DISTRIBUTION}}"
 			;;
 	esac
 
