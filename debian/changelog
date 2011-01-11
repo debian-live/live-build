@@ -1,3 +1,38 @@
+live-build (3.0~a11-1) experimental; urgency=low
+
+  * Disabling inclusion of GUI installer images on ubuntu.
+  * Updating losetup-lukshome example hook to use blkid where available,
+    thanks to Clint Adams <clint@gnu.org> (Closes: #607108).
+  * Removing --apt-pdiff option, this doesn't belong into live-build in
+    the first place.
+  * Removing some more lenny-only stuff.
+  * Simplyfing defaults function a bit.
+  * Correcting outdated program variable.
+  * Updating help function in lb for live-build.
+  * Updating man function for newer live-build versions (Closes:
+    #608477).
+  * Removing xresprobe from standard-x11 list (Closes: #608566).
+  * Generalizing compression handling and adding support for lzip
+    tarballs.
+  * Adding initial defaults for progress.
+  * Removing encryption support until we have something for current
+    kernels again.
+  * Removing lb_chroot_sysvinit in favour of a hook, which is the
+    appropriate way to handle this.
+  * Removing legacy support for live-initramfs.
+  * Correcting typo in compression defaults.
+  * Removing unused debian-release mode.
+  * Updating some defaults for progress.
+  * Adding derivatives handling for progress.
+  * Updating apt indices defaults for progress.
+  * Shortening iso volume default for progress.
+  * Correcting compression handling for tarballs.
+  * Updating parent distribution defaults for progress.
+  * Correcting typo in lzip default options.
+  * Updating compression defaults for progress.
+
+ -- Daniel Baumann <daniel@debian.org>  Tue, 11 Jan 2011 13:42:17 +0100
+
 live-build (3.0~a10-1) experimental; urgency=low
 
   [ Daniel Baumann ]
