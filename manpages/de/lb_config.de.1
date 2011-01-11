@@ -3,13 +3,13 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 24.12.2010 2.0.11 "Debian Live Projekt"
+.TH LIVE\-BUILD 1 2011\-01\-11 2.0.11 "Debian Live Project"
 
 .SH NAME
-\fBlb config\fP \- Erstellen des config Verzeichnisses
+\fBlb config\fP \- Create config directory
 
-.SH ÜBERSICHT
-\fBlb config\fP [\fIlive\-build Opitonen\fP]
+.SH SYNOPSIS
+\fBlb config\fP [\fIlive\-build options\fP]
 .PP
 .\" FIXME
 \fBlb config\fP
@@ -229,9 +229,9 @@
 .\" FIXME
   [\fB\-\-win32\-loader true|false]\fP
 
-.SH BESCHREIBUNG
-\fBlb clean\fP ist ein high\-level Befehl ("porcelain") von \fIlive\-build\fP(7),
-der Debian Live Tool Suite.
+.SH DESCRIPTION
+\fBlb config\fP is a high\-level command (porcelain) of \fIlive\-build\fP(7), the
+Debian Live tool suite.
 .PP
 .\" FIXME
 \fBlb config\fP populates the configuration directory for live\-build. By
@@ -252,10 +252,10 @@ impossible combinations that would lead to non working live systems. If
 unsure, remove config/{binary,bootstrap,chroot,common,source} and call \fBlb
 config\fP again.
 
-.SH OPTIONEN
-\fBlb chroot_apt\fP unterstützt zusätzlich zu spezifischen Optionen auch alle
-allgemeinen live\-build Optionen. Siehe \fIlive\-build\fP(7) für eine
-vollständige Liste aller allgemeinen live\-build Optionen.
+.SH OPTIONS
+In addition to its specific options \fBlb config\fP understands all generic
+live\-build options. See \fIlive\-build\fP(7) for a complete list of all generic
+live\-build options.
 .PP
 .\" FIXME
 .IP "\fB\-\-apt\fP apt|aptitude" 4
@@ -751,7 +751,7 @@ GZIP_OPTIONS, no LB_ prefix is used.
 
 
 .\" FIXME
-.SH DATEIEN
+.SH FILES
 .\" FIXME
 .IP \fBauto/config\fP 4
 .IP "\fB/etc/live/build.conf, /etc/live/build.d\fP" 4
@@ -760,23 +760,22 @@ An optional, global configuration file for \fBlb config\fP variables. It is
 useful to specify a few system wide defaults, like LB_MIRROR_BOOTSTRAP. This
 feature can be false by specifying the \fB\-\-ignore\-system\-defaults\fP option.
 
-.SH "SIEHE AUCH"
+.SH "SEE ALSO"
 \fIlive\-build\fP(7)
 .PP
-Dieses Programm ist Teil von live\-build.
+This program is a part of live\-build.
 
 .SH HOMEPAGE
-Weitere Informationen über live\-build und das Debian Live Projekt können auf
-der Homepage unter <\fIhttp://live.debian.net/\fP> und im Handbuch
-unter <\fIhttp://live.debian.net/manual/\fP> gefunden werden.
+More information about live\-build and the Debian Live project can be found
+on the homepage at <\fIhttp://live.debian.net/\fP> and in the manual at
+<\fIhttp://live.debian.net/manual/\fP>.
 
-.SH FEHLER
-Fehler können durch Einreichen eines Fehlerberichtes für das live\-build
-Paket im Debian Bug Tracking System unter
-<\fIhttp://bugs.debian.org/\fP> oder durch Senden einer E\-Mail an die
-Debian Live Mailing Liste unter <\fIdebian\-live@lists.debian.org\fP>
-(englischsprachig) mitgeteilt werden.
+.SH BUGS
+Bugs can be reported by submitting a bug report for the live\-build package
+in the Debian Bug Tracking System at <\fIhttp://bugs.debian.org/\fP> or
+by writing a mail to the Debian Live mailing list at
+<\fIdebian\-live@lists.debian.org\fP>.
 
-.SH AUTOR
-live\-build wurde von Daniel Baumann <\fIdaniel@debian.org\fP> für das
-Debian Projekt geschrieben.
+.SH AUTHOR
+live\-build was written by Daniel Baumann <\fIdaniel@debian.org\fP> for
+the Debian project.

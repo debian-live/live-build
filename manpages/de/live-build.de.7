@@ -3,19 +3,19 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 7 24.12.2010 2.0.11 "Debian Live Projekt"
+.TH LIVE\-BUILD 7 2011\-01\-11 2.0.11 "Debian Live Project"
 
 .SH NAME
-\fBlive\-build\fP \- die Debian Live Tool Suite
+\fBlive\-build\fP \- the Debian Live tool suite
 
-.SH ÜBERSICHT
+.SH SYNOPSIS
 .\" FIXME
 .\" FIXME
-\fBlb \fP\fIBEFEHL\fP [\fB\-h|\-\-help\fP] [\fB\-u|\-\-usage\fP] [\fB\-v|\-\-version\fP]
+\fBlb \fP\fICOMMAND\fP [\fB\-h|\-\-help\fP] [\fB\-u|\-\-usage\fP] [\fB\-v|\-\-version\fP]
 [\fB\-\-breakpoints\fP] [\fB\-\-conffile\fP] [\fB\-\-debug\fP] [\fB\-\-force\fP] [\fB\-\-quiet\fP]
 [\fB\-\-verbose\fP]
 
-.SH BESCHREIBUNG
+.SH DESCRIPTION
 .\" FIXME
 live\-build is a set of scripts to build Debian Live system images. The idea
 behind live\-build is a tool suite that uses a configuration directory to
@@ -24,11 +24,11 @@ completely automate and customize all aspects of building a Live image.
 The \fICOMMAND\fP is a name of a live\-build command (see below).
 .PP
 .\" FIXME
-Weitere Informationen über live\-build und das Debian Live Projekt können auf
-der Homepage unter <\fIhttp://live.debian.net/\fP> und im Handbuch
-unter <\fIhttp://live.debian.net/manual/\fP> gefunden werden.
+More documentation about how to use live\-build is available in the
+individual manpages for each helper and in the manual at
+<\fIhttp://live.debian.net/manual/\fP>.
 
-.SH OPTIONEN
+.SH OPTIONS
 .\" FIXME
 .SS "Shared live\-build options"
 The following command line options are supported by all live\-build programs.
@@ -283,28 +283,27 @@ All config files are shell scripts which are sourced by a live\-build
 program. That means they have to follow the normal shell syntax. You can
 also put comments in these files; lines beginning with "#" are ignored.
 
-.SH DATEIEN
+.SH FILES
 .\" FIXME
 .IP \fBn/a\fP 4
 
 .\" FIXME
-.SH "SIEHE AUCH"
+.SH "SEE ALSO"
 \fIlive\-initramfs\fP(7)
 .PP
-Dieses Programm ist Teil von live\-build.
+This program is a part of live\-build.
 
 .SH HOMEPAGE
-Weitere Informationen über live\-build und das Debian Live Projekt können auf
-der Homepage unter <\fIhttp://live.debian.net/\fP> und im Handbuch
-unter <\fIhttp://live.debian.net/manual/\fP> gefunden werden.
+More information about live\-build and the Debian Live project can be found
+on the homepage at <\fIhttp://live.debian.net/\fP> and in the manual at
+<\fIhttp://live.debian.net/manual/\fP>.
 
-.SH FEHLER
-Fehler können durch Einreichen eines Fehlerberichtes für das live\-build
-Paket im Debian Bug Tracking System unter
-<\fIhttp://bugs.debian.org/\fP> oder durch Senden einer E\-Mail an die
-Debian Live Mailing Liste unter <\fIdebian\-live@lists.debian.org\fP>
-(englischsprachig) mitgeteilt werden.
+.SH BUGS
+Bugs can be reported by submitting a bugreport for the live\-build package in
+the Debian Bug Tracking System at <\fIhttp://bugs.debian.org/\fP> or by
+writing a mail to the Debian Live mailing list at
+<\fIdebian\-live@lists.debian.org\fP>.
 
-.SH AUTOR
-live\-build wurde von Daniel Baumann <\fIdaniel@debian.org\fP> für das
-Debian Projekt geschrieben.
+.SH AUTHOR
+live\-build was written by Daniel Baumann <\fIdaniel@debian.org\fP> for
+the Debian project.
