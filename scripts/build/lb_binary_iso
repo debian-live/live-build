@@ -157,7 +157,7 @@ if [ "${LB_BOOTLOADER}" = "grub2" ]
 then
 
 	case "${LB_DISTRIBUTION}" in
-		lenny)
+		lenny|lucid)
 			GRUB_MKIMAGE_OPTIONS=""
 			;;
 
