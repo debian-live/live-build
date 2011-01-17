@@ -163,14 +163,7 @@ input_dir=/usr/lib/grub/i386-pc
 
 # build core.img
 core_img=\$(mktemp)
-
-# first version requiring -O is 1.98+20100527, see #584415
-if [ "$(grub-mkimage --help | grep '\-O')" ]
-then
-	grub-mkimage -d \${input_dir} -o \${core_img} -O i386-pc biosdisk iso9660
-else
-	grub-mkimage -d \${input_dir} -o \${core_img} biosdisk iso9660
-fi
+grub-mkimage -d \${input_dir} -o \${core_img} -O i386-pc biosdisk iso9660
 
 # build grub_eltorito image
 cat \${input_dir}/cdboot.img \${core_img} > binary/boot/grub/grub_eltorito
