@@ -2,8 +2,12 @@
 
 #include <standard>
 
-xorg xresprobe menu
+xorg menu
 alsa-base alsa-utils
+
+#if DISTRIBUTION lenny
+xresprobe
+#endif
 
 #if DISTRIBUTION squeeze wheezy sid
 keyboard-configuration

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2011 Daniel Baumann <daniel@debian.org>
 ##
 ## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -13,12 +13,7 @@ Echo ()
 	STRING="${1}"
 	shift
 
-	if [ "${_L10N}" = "false" ]
-	then
-		printf "${STRING}\n" "${@}"
-	else
-		printf "$(eval_gettext "${STRING}")" "${@}"; echo;
-	fi
+	printf "${STRING}\n" "${@}"
 }
 
 Echo_debug ()
@@ -28,12 +23,7 @@ Echo_debug ()
 		STRING="${1}"
 		shift
 
-		if [ "${_L10N}" = "false" ]
-		then
-			printf "D: ${STRING}\n" "${@}"
-		else
-			printf "D: $(eval_gettext "${STRING}")" "${@}"; echo;
-		fi
+		printf "D: ${STRING}\n" "${@}"
 	fi
 }
 
@@ -44,12 +34,7 @@ Echo_debug_running ()
 		STRING="${1}"
 		shift
 
-		if [ "${_L10N}" = "false" ]
-		then
-			printf "D: ${STRING}" "${@}"
-		else
-			printf "D: $(eval_gettext "${STRING}")" "${@}"
-		fi
+		printf "D: ${STRING}" "${@}"
 
 		if [ "${_COLOR}" = "false" ]
 		then
@@ -72,12 +57,7 @@ Echo_error ()
 		printf "${RED}E${NO_COLOR}:"
 	fi
 
-	if [ "${_L10N}" = "false" ]
-	then
-		printf " ${STRING}\n" "${@}" >&2
-	else
-		(printf " $(eval_gettext "${STRING}")" "${@}"; echo;) >&2
-	fi
+	printf " ${STRING}\n" "${@}" >&2
 }
 
 Echo_message ()
@@ -94,12 +74,7 @@ Echo_message ()
 			printf "${WHITE}P${NO_COLOR}:"
 		fi
 
-		if [ "${_L10N}" = "false" ]
-		then
-			printf " ${STRING}\n" "${@}"
-		else
-			printf " $(eval_gettext "${STRING}")" "${@}"; echo;
-		fi
+		printf " ${STRING}\n" "${@}"
 	fi
 }
 
@@ -117,12 +92,7 @@ Echo_message_running ()
 			printf "${WHITE}P${NO_COLOR}:"
 		fi
 
-		if [ "${_L10N}" = "false" ]
-		then
-			printf " ${STRING}" "${@}"
-		else
-			printf " $(eval_gettext "${STRING}")" "${@}";
-		fi
+		printf " ${STRING}" "${@}"
 
 		if [ "${_COLOR}" = "false" ]
 		then
@@ -140,12 +110,7 @@ Echo_verbose ()
 		STRING="${1}"
 		shift
 
-		if [ "${_L10N}" = "false" ]
-		then
-			printf "I: ${STRING}\n" "${@}"
-		else
-			printf "I: $(eval_gettext "${STRING}")" "${@}"; echo;
-		fi
+		printf "I: ${STRING}\n" "${@}"
 	fi
 }
 
@@ -156,12 +121,7 @@ Echo_verbose_running ()
 		STRING="${1}"
 		shift
 
-		if [ "${_L10N}" = "false" ]
-		then
-			printf "I: ${STRING}" "${@}"
-		else
-			printf "I: $(eval_gettext "${STRING}")" "${@}";
-		fi
+		printf "I: ${STRING}" "${@}"
 
 		if [ "${_COLOR}" = "false" ]
 		then
@@ -184,12 +144,7 @@ Echo_warning ()
 		printf "${YELLOW}W${NO_COLOR}:"
 	fi
 
-	if [ "${_L10N}" = "false" ]
-	then
-		printf " ${STRING}\n" "${@}"
-	else
-		printf " $(eval_gettext "${STRING}")" "${@}"; echo;
-	fi
+	printf " ${STRING}\n" "${@}"
 }
 
 Echo_status ()

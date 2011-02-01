@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2011 Daniel Baumann <daniel@debian.org>
 ##
 ## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -156,6 +156,18 @@ fi
 if [ "${LB_BOOTLOADER}" = "grub2" ]
 then
 
+	case "${LB_DISTRIBUTION}" in
+		lenny|lucid)
+			GRUB_MKIMAGE_OPTIONS=""
+			;;
+
+		*)
+			# grub >= 1.98+20100527 requires -O, see #584415
+			GRUB_MKIMAGE_OPTIONS="-O i386-pc"
+			;;
+
+	esac
+
 cat > binary.sh << EOF
 #!/bin/sh
 
@@ -163,7 +175,7 @@ input_dir=/usr/lib/grub/i386-pc
 
 # build core.img
 core_img=\$(mktemp)
-grub-mkimage -d \${input_dir} -o \${core_img} biosdisk iso9660
+grub-mkimage -d \${input_dir} -o \${core_img} ${GRUB_MKIMAGE_OPTIONS} biosdisk iso9660
 
 # build grub_eltorito image
 cat \${input_dir}/cdboot.img \${core_img} > binary/boot/grub/grub_eltorito
