@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2011-01-11 14:52+0100\n"
+"Project-Id-Version: live-build 2.0.12\n"
+"POT-Creation-Date: 2011-02-01 22:33+0100\n"
 "PO-Revision-Date: 2011-01-11 14:52+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -83,7 +83,7 @@ msgstr ""
 #: en/lb_source_net.1:1 en/lb_source_tar.1:1 en/lb_source_usb.1:1
 #: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "2011-01-11"
+msgid "2011-02-01"
 msgstr ""
 
 #. type: TH
@@ -118,7 +118,7 @@ msgstr ""
 #: en/lb_source_net.1:1 en/lb_source_tar.1:1 en/lb_source_usb.1:1
 #: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "2.0.11"
+msgid "2.0.12"
 msgstr ""
 
 #. type: TH
@@ -2009,8 +2009,8 @@ msgstr ""
 #: en/lb_config.1:346
 msgid ""
 "sets the PREPARER field in the header of a resulting CD/DVD image. By "
-"default this is set to \"live-build I<VERSION>; http://packages.qa.debian."
-"org/live-build\", whereas VERSION is expanded to the version of live-build "
+"default this is set to \"live-build I<2.0.12>; http://packages.qa.debian."
+"org/live-build\", whereas 2.0.12 is expanded to the version of live-build "
 "that was used to build the image."
 msgstr ""
 
@@ -2042,8 +2042,8 @@ msgid ""
 "'(I<MODE>) (I<DISTRIBUTION>) (I<DATE>)' whereas MODE is expanded to the name "
 "of the mode in use, DISTRIBUTION the distribution name, and DATE with the "
 "current date and time of the generation. When running in debian-release mode "
-"however, it will instead default to 'Debian (I<VERSION>) (I<ARCHITECTURE>) "
-"live' where VERSION becomes the numerical version of the release being built "
+"however, it will instead default to 'Debian (I<2.0.12>) (I<ARCHITECTURE>) "
+"live' where 2.0.12 becomes the numerical version of the release being built "
 "and ARCHITECTURE becomes the name of the architecture."
 msgstr ""
 

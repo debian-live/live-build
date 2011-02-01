@@ -1,3 +1,46 @@
+live-build (2.0.12-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Removing l10n support for 2.0 branch.
+  * Correcting outdated program variable.
+  * Updating help function in lb for live-build.
+  * Updating man function for newer live-build versions (Closes:
+    #608477).
+  * Marking xresprobe in standard-x11 list as lenny only (Closes:
+    #608566).
+  * Updating year in copyright.
+  * Removing headers in copyright file.
+  * Updating year in manpage, hooks, script and template files.
+
+  [ Luigi Capriotti ]
+  * Support for newer grub-common package.
+
+  [ Daniel Baumann ]
+  * Simplyfing grub-mkimage legacy handling for lenny in lb_binary_iso.
+  * Adding ubuntu lucid for grub-mkimage legacy handling in
+    lb_binary_iso.
+  * Adding missing netinst udeb include files for ubuntu.
+
+  [ Cody A.W. Somerville ]
+  * Adding missing debian-cd data files for Ubuntu releases for some
+    architectures.
+
+  [ Daniel Baumann ]
+  * Adding support for Ubuntu jaunty and natty, thanks to Cody A.W.
+    Somerville <cody.somerville@canonical.com>.
+
+  [ Philip Newborough ]
+  * Update example path in 'all_binary_debian-installer-banner.sh'
+    example hook.
+
+  [ Daniel Baumann ]
+  * Account for the + character in packages for l-b.cgi
+  * Updating includes for squeeze.
+  * Updating syslinux theme for squeeze.
+  * Removing wheezy splash.
+
+ -- Daniel Baumann <daniel@debian.org>  Tue, 01 Feb 2011 22:32:56 +0100
+
 live-build (2.0.11-1) unstable; urgency=low
 
   [ Daniel Baumann ]
