@@ -66,7 +66,7 @@ else
 	LB_DISTRIBUTION=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])distribution=[a-z]+' | cut -f 2 -d '=' | head -n1)
 	LB_PACKAGES_LISTS=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])packages_lists=[-0-9a-z]+' | cut -f 2 -d '=' | head -n1)
 	LB_TASKS=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])tasks=[-0-9a-zA-Z. _]+' | cut -f 2 -d '=' | head -n1)
-	LB_PACKAGES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])packages=[-0-9a-zA-Z. _]+' | cut -f 2 -d '=' | head -n1)
+	LB_PACKAGES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])packages=[-0-9a-zA-Z. _+]+' | cut -f 2 -d '=' | head -n1)
 
 	# Advanced bootstrap options
 	LB_ARCHITECTURE=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])architecture=[0-9a-z]+' | cut -f 2 -d '=' | head -n1)
