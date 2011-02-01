@@ -1,16 +1,15 @@
+     Debian GNU/Linux squeeze-di-rc2 "Squeeze" - Official Snapshot i386
+                       NETINST Binary-1 20110121-20:12
 
-      Debian GNU/Linux 5.0.0 "Lenny" - Official i386 NETINST Binary-1
-                               20090214-14:36
-
-                                            (HTML version in README.html)
+                                             (HTML version in README.html)
 
                       Welcome to the exciting world of
                               Debian GNU/Linux
 
-   This disc contains the installer for the Debian GNU/Linux
-   distribution. Debian is a very extensive collection of software. But
-   it is more. It is a complete Operating System (OS) for your computer.
-   And it is free (as in "freedom").
+   This disc contains the installer for the Debian GNU/Linux distribution.
+   Debian is a very extensive collection of software. But it is more. It
+   is a complete Operating System (OS) for your computer. And it is free
+   (as in "freedom").
 
    CONTENTS:
      * Introduction
@@ -48,16 +47,14 @@ About This Disc
 
    This disc is labeled
 
-      Debian GNU/Linux 5.0.0 "Lenny" - Official i386 NETINST Binary-1
-                               20090214-14:36
+     Debian GNU/Linux squeeze-di-rc2 "Squeeze" - Official Snapshot i386
+                       NETINST Binary-1 20110121-20:12
 
    It contains programs ("binaries") for `i386' computers.
 
    This disc is a netinst image. It contains the installer and a very
    basic system. Any other packages you might want to install will be
    downloaded from the network.
-
-   The Release Notes for "lenny" are available on the Debian web site.
 
 Installing
 ==========
@@ -66,8 +63,10 @@ Installing
    procedure may seem a bit unusual. You can install Debian GNU/Linux
    either alongside your current OS, or as the only OS on your computer.
 
-   An Installation Guide for this disc is available from the Debian web
-   site.
+   As this is not an official squeeze release disc, then the installation
+   guide many not be released yet. It will appear on the Debian web site
+   when ready, but before then you could try the development version of
+   the manual.
 
    For the impatient ones: you can start the installation program easily
    by booting off this disc. Note that not all (esp. older) systems
@@ -80,9 +79,9 @@ Last-Minute Notes
 =================
 
      * You should keep in mind that this is a beta disc of the current
-       development version of the Debian system. This means that all
-       sorts of bugs may be present anywhere in the system. Please report
-       any bugs you find in the Debian Bug Tracking System; details at
+       development version of the Debian system. This means that all sorts
+       of bugs may be present anywhere in the system. Please report any
+       bugs you find in the Debian Bug Tracking System; details at
        bugs.debian.org.
      * If you're reporting bugs against this disc or the installation
        system, please also mention the version of this disc; this can be
@@ -140,5 +139,5 @@ More Information
 
 
 
-      See the Debian contact page (http://www.debian.org/contact) for
-                       information on contacting us.
+       See the Debian contact page (http://www.debian.org/contact) for
+                        information on contacting us.

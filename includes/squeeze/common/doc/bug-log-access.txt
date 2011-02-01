@@ -1,12 +1,10 @@
-Methods of accessing the bug tracking system logs
-
 Accessing active bug reports
 
-   Each message received at or sent by the bug processing system is
-   logged and made available in a number of ways.
+   Each message received at or sent by the bug processing system is logged
+   and made available in a number of ways.
 
-   The primary access method is to use the web pages. See the forms on
-   the main BTS page at http://bugs.debian.org/
+   The primary access method is to use the web pages. See the forms on the
+   main BTS page at http://bugs.debian.org/
 
    There is a mailserver which can send bug reports as plain text on
    request. To use it send the word help as the sole contents of an email
@@ -18,9 +16,8 @@ Accessing archived bug reports
 
    Each closed bug report is archived 28 days after the last message
    relating to it is received and filed. This means that it is no longer
-   possible to access it or change anything about it using the control
-   and service bots. However, the reports are still accessible for
-   viewing.
+   possible to access it or change anything about it using the control and
+   service bots. However, the reports are still accessible for viewing.
 
    You can search the bug report archive using the WWW forms at
    http://bugs.debian.org/, simply select the "archived bugs" option.
@@ -44,12 +41,12 @@ Accessing the raw bug data
    Please do not rely on *.status files in the bug spools, as they are
    obsolete, for compatibility purposes only, and will be removed at some
    point in the future. Use the *.summary files instead.
-     _________________________________________________________________
+     __________________________________________________________________
 
     Debian BTS administrators <owner@bugs.debian.org>
 
    Debian bug tracking system
    Copyright © 1999 Darren O. Benham, 1997, 2003 nCipher Corporation Ltd,
    1994-1997 Ian Jackson.
-     _________________________________________________________________
+     __________________________________________________________________
 

@@ -1,9 +1,8 @@
-How to report a bug in Debian using reportbug
-
    We strongly recommend that you report bugs in Debian using the
    reportbug program. To install and start it, simply run:
 
-     aptitude install reportbug; reportbug
+     # aptitude install reportbug
+     $ reportbug
 
    It will guide you through the bug reporting process step by step.
 
@@ -27,8 +26,8 @@ What package does your bug report belong to?
    asking for advice.
 
    If your problem doesn't relate just to one package but some general
-   Debian service, there are several pseudo-packages or even mailing
-   lists that you can use to relay your message to us instead.
+   Debian service, there are several pseudo-packages or even mailing lists
+   that you can use to relay your message to us instead.
 
 Has your bug report been filed already?
 
@@ -46,24 +45,22 @@ Send multiple reports for multiple bugs
 
 Don't file bugs upstream
 
-   If you file a bug in Debian, don't send a copy to the upstream
-   software maintainers yourself, as it is possible that the bug exists
-   only in Debian. If necessary, the maintainer of the package will
-   forward the bug upstream.
+   If you file a bug in Debian, don't send a copy to the upstream software
+   maintainers yourself, as it is possible that the bug exists only in
+   Debian. If necessary, the maintainer of the package will forward the
+   bug upstream.
 
 Sending the bug report via e-mail
 
    You can report bugs in Debian by sending an e-mail to
-   submit@bugs.debian.org with a special format described below.
-   reportbug (see above) will properly format the e-mails for you; please
-   use it!
+   submit@bugs.debian.org with a special format described below. reportbug
+   (see above) will properly format the e-mails for you; please use it!
 
 Headers
 
-   Like any e-mail you should include a clear, descriptive Subject line
-   in your main mail header. The subject you give will be used as the
-   initial bug title in the tracking system, so please try to make it
-   informative!
+   Like any e-mail you should include a clear, descriptive Subject line in
+   your main mail header. The subject you give will be used as the initial
+   bug title in the tracking system, so please try to make it informative!
 
    If you'd like to send a copy of your bug report to additional
    recipients (such as mailing lists), you shouldn't use the usual e-mail
@@ -87,10 +84,10 @@ Version: <packageversion>
    tracking system relies on this field to work out which releases are
    affected by the bug.
 
-   You need to supply a correct Package line in the pseudo-header in
-   order for the bug tracking system to deliver the message to the
-   package's maintainer. See this example for information on how to find
-   this information.
+   You need to supply a correct Package line in the pseudo-header in order
+   for the bug tracking system to deliver the message to the package's
+   maintainer. See this example for information on how to find this
+   information.
 
    For other valid pseudo-headers, see Additional pseudo-headers
 
@@ -118,16 +115,15 @@ The body of the report
        hardware in your system, as problems are often caused by IRQ and
        I/O address conflicts.
      * If you have reportbug installed the output of reportbug -q
-       --template -T none -s none -S normal -b --list-cc none -q
-       <package> will also be useful, as it contains the output of
-       maintainer specific scripts and version information.
+       --template -T none -s none -S normal -b --list-cc none -q <package>
+       will also be useful, as it contains the output of maintainer
+       specific scripts and version information.
 
-   Include any detail that seems relevant -- you are in very little
-   danger of making your report too long by including too much
-   information. If they are small, please include in your report any
-   files you were using to reproduce the problem. (If they are large,
-   consider making them available on a publicly available website if
-   possible.)
+   Include any detail that seems relevant -- you are in very little danger
+   of making your report too long by including too much information. If
+   they are small, please include in your report any files you were using
+   to reproduce the problem. (If they are large, consider making them
+   available on a publicly available website if possible.)
 
    For more advice on how to help the developers solve your problem,
    please read How to Report Bugs Effectively.
@@ -165,10 +161,10 @@ Sending copies of bug reports to other addresses
 
    You could do this by CC'ing your bug report to the other address(es),
    but then the other copies would not have the bug report number put in
-   the Reply-To field and the Subject line. When the recipients reply
-   they will probably preserve the submit@bugs.debian.org entry in the
-   header and have their message filed as a new bug report. This leads to
-   many duplicated reports.
+   the Reply-To field and the Subject line. When the recipients reply they
+   will probably preserve the submit@bugs.debian.org entry in the header
+   and have their message filed as a new bug report. This leads to many
+   duplicated reports.
 
    The right way to do this is to use the X-Debbugs-CC header. Add a line
    like this to your message's mail header:
@@ -193,9 +189,9 @@ Severity levels
 
    If a report is of a particularly serious bug, or is merely a feature
    request, you can set the severity level of the bug as you report it.
-   This is not required however, and the package maintainer will assign
-   an appropriate severity level to your report even if you do not (or
-   pick the wrong severity).
+   This is not required however, and the package maintainer will assign an
+   appropriate severity level to your report even if you do not (or pick
+   the wrong severity).
 
    To assign a severity level, put a line like this one in the
    pseudo-header:
@@ -215,8 +211,8 @@ Assigning tags
 Tags: <tags>
 
    Replace <tags> with one or more of the available tags, as described in
-   the advanced documentation. Separate multiple tags with commas,
-   spaces, or both.
+   the advanced documentation. Separate multiple tags with commas, spaces,
+   or both.
 User: <username>
 Usertags: <usertags>
 
@@ -240,8 +236,8 @@ Source: foopackage
    foopackage; for most bugs in most packages you don't want to use this
    option.
 
-   Finally, if your MUA doesn't allow you to edit the headers, you can
-   set the various X-Debbugs- headers in the pseudo-headers.
+   Finally, if your MUA doesn't allow you to edit the headers, you can set
+   the various X-Debbugs- headers in the pseudo-headers.
 
 Additional information
 
@@ -249,9 +245,9 @@ Different submission addresses (minor or mass bug reports)
 
    If a bug report is minor, for example, a documentation typo or a
    trivial build problem, please adjust the severity appropriately and
-   send it to maintonly@bugs.debian.org instead of
-   submit@bugs.debian.org. maintonly will forward the report to the
-   package maintainer only, it won't forward it to the BTS mailing lists.
+   send it to maintonly@bugs.debian.org instead of submit@bugs.debian.org.
+   maintonly will forward the report to the package maintainer only, it
+   won't forward it to the BTS mailing lists.
 
    If you're submitting many reports at once, you should definitely use
    maintonly@bugs.debian.org so that you don't cause too much redundant
@@ -259,49 +255,60 @@ Different submission addresses (minor or mass bug reports)
    you may also want to post a summary on debian-bugs-dist.
 
    If wish to report a bug to the bug tracking system that's already been
-   sent to the maintainer, you can use quiet@bugs.debian.org. Bugs sent
-   to quiet@bugs.debian.org will not be forwarded anywhere, only filed.
+   sent to the maintainer, you can use quiet@bugs.debian.org. Bugs sent to
+   quiet@bugs.debian.org will not be forwarded anywhere, only filed.
 
    When you use different submission addresses, the bug tracking system
-   will set the Reply-To of any forwarded message so that the replies
-   will by default be processed in the same way as the original report.
-   That means that, for example, replies to maintonly will go to
-   nnn-maintonly@bugs.debian.org instead of nnn@bugs.debian.org, unless
-   of course one overrides this manually.
+   will set the Reply-To of any forwarded message so that the replies will
+   by default be processed in the same way as the original report. That
+   means that, for example, replies to maintonly will go to
+   nnn-maintonly@bugs.debian.org instead of nnn@bugs.debian.org, unless of
+   course one overrides this manually.
 
 Acknowledgements
 
-   Normally, the bug tracking system will return an acknowledgement to
-   you by e-mail when you report a new bug or submit additional
-   information to an existing bug. If you want to suppress this
-   acknowledgement, include an X-Debbugs-No-Ack header in your e-mail
-   (the contents of this header do not matter; however, it must be in the
-   mail header and not in the pseudo-header with the Package field). If
-   you report a new bug with this header, you will need to check the web
-   interface yourself to find the bug number.
+   Normally, the bug tracking system will return an acknowledgement to you
+   by e-mail when you report a new bug or submit additional information to
+   an existing bug. If you want to suppress this acknowledgement, include
+   an X-Debbugs-No-Ack header or pseudoheader in your e-mail (the contents
+   of this header do not matter). If you report a new bug with this
+   header, you will need to check the web interface yourself to find the
+   bug number.
 
    Note that this header will not suppress acknowledgements from the
    control@bugs.debian.org mailserver, since those acknowledgements may
    contain error messages which should be read and acted upon.
 
+Spamfighting and missing mail
+
+   The bug tracking system implements a rather extensive set of rules
+   designed to make sure that spam does not make it through the BTS. While
+   we try to minimize the number of false positives, they do occur. If you
+   suspect your mail has triggered a false positive, feel free to contact
+   owner@bugs.debian.org for assistance. Another common cause of mail not
+   making it through to the BTS is utilizing addresses which match
+   procmail's FROM_DAEMON, which includes mail from addresses like
+   mail@foobar.com. If you suspect your mail matches FROM_DAEMON, see
+   procmailrc(5) to verify, and then resend the mail using an address
+   which does not match FROM_DAEMON.
+
 Bug reports against unknown packages
 
    If the bug tracking system doesn't know who the maintainer of the
-   relevant package is it will forward the report to debian-bugs-dist
-   even if maintonly was used.
+   relevant package is it will forward the report to debian-bugs-dist even
+   if maintonly was used.
 
    When sending to maintonly@bugs.debian.org or
    nnn-maintonly@bugs.debian.org you should make sure that the bug report
    is assigned to the right package, by putting a correct Package at the
    top of an original submission of a report, or by using the
-   control@bugs.debian.org service to (re)assign the report
-   appropriately.
+   control@bugs.debian.org service to (re)assign the report appropriately.
 
 Using dpkg to find the package and version for the report
 
    When using reportbug to report a bug in a command, say grep, the
-   following will automatically select the right package and let you
-   write the report right away: reportbug --file $(which grep)
+   following will automatically select the right package and let you write
+   the report right away: reportbug --file $(which grep)
 
    You can also find out which package installed it by using dpkg
    --search. You can find out which version of a package you have
@@ -349,14 +356,14 @@ Other useful commands and packages
    provides a convenient text-based interface to the bug tracking system.
 
    Emacs users can also use the debian-bug command provided by the
-   debian-el package. When called with M-x debian-bug, it will ask for
-   all necessary information in a similar way to reportbug.
-     _________________________________________________________________
+   debian-el package. When called with M-x debian-bug, it will ask for all
+   necessary information in a similar way to reportbug.
+     __________________________________________________________________
 
     Debian BTS administrators <owner@bugs.debian.org>
 
    Debian bug tracking system
    Copyright © 1999 Darren O. Benham, 1997, 2003 nCipher Corporation Ltd,
    1994-1997 Ian Jackson.
-     _________________________________________________________________
+     __________________________________________________________________
 

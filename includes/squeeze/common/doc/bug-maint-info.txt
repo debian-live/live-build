@@ -1,15 +1,12 @@
-Developers' information regarding the bug processing system
-
    Initially, a bug report is submitted by a user as an ordinary mail
    message to submit@bugs.debian.org. This will then be given a number,
    acknowledged to the user, and forwarded to debian-bugs-dist. If the
    submitter included a Package line listing a package with a known
    maintainer the maintainer will get a copy too.
 
-   The Subject line will have Bug#nnn: added, and the Reply-To will be
-   set to include both the submitter of the report and
-   nnn@bugs.debian.org.
-     _________________________________________________________________
+   The Subject line will have Bug#nnn: added, and the Reply-To will be set
+   to include both the submitter of the report and nnn@bugs.debian.org.
+     __________________________________________________________________
 
      * Closing bug reports
      * Followup messages
@@ -22,20 +19,20 @@ Developers' information regarding the bug processing system
      * Subscribing to bugs
      * More-or-less obsolete subject-scanning feature
      * Obsolete X-Debian-PR: quiet feature
-     _________________________________________________________________
+     __________________________________________________________________
 
 Closing bug reports
 
-   Debian bug reports should be closed when the problem is fixed.
-   Problems in packages can only be considered fixed once a package that
-   includes the bug fix enters the Debian archive.
+   Debian bug reports should be closed when the problem is fixed. Problems
+   in packages can only be considered fixed once a package that includes
+   the bug fix enters the Debian archive.
 
    Normally, the only people that should close a bug report are the
-   submitter of the bug and the maintainer(s) of the package against
-   which the bug is filed. There are exceptions to this rule, for
-   example, the bugs filed against unknown packages or certain generic
-   pseudo-packages. When in doubt, don't close bugs, first ask for advice
-   on the debian-devel mailing list.
+   submitter of the bug and the maintainer(s) of the package against which
+   the bug is filed. There are exceptions to this rule, for example, the
+   bugs filed against unknown packages or certain generic pseudo-packages.
+   When in doubt, don't close bugs, first ask for advice on the
+   debian-devel mailing list.
 
    Bug reports should be closed by sending email to
    nnn-done@bugs.debian.org. The message body needs to contain an
@@ -52,8 +49,8 @@ Closing bug reports
 
    The person closing the bug, the person who submitted it and the
    debian-bugs-closed mailing list will each get a notification about the
-   change in status of the report. The submitter and the mailing list
-   will also receive the contents of the message sent to nnn-done.
+   change in status of the report. The submitter and the mailing list will
+   also receive the contents of the message sent to nnn-done.
 
 Followup messages
 
@@ -62,9 +59,9 @@ Followup messages
    forwarding the bug report. Please note that these are two distinct
    addresses.
 
-   If a developer wishes to reply to a bug report they should simply
-   reply to the message, respecting the Reply-To header. This will not
-   close the bug.
+   If a developer wishes to reply to a bug report they should simply reply
+   to the message, respecting the Reply-To header. This will not close the
+   bug.
 
    The bug tracking system will receive the message at
    nnn@bugs.debian.org, pass it on to the package maintainer, file the
@@ -97,8 +94,8 @@ Severity levels
    The bug system records a severity level with each bug report. This is
    set to normal by default, but can be overridden either by supplying a
    Severity line in the pseudo-header when the bug is submitted (see the
-   instructions for reporting bugs), or by using the severity command
-   with the control request server.
+   instructions for reporting bugs), or by using the severity command with
+   the control request server.
 
    The severity levels are:
 
@@ -114,9 +111,9 @@ Severity levels
 
    serious
           is a severe violation of Debian policy (roughly, it violates a
-          "must" or "required" directive), or, in the package
-          maintainer's or release manager's opinion, makes the package
-          unsuitable for release.
+          "must" or "required" directive), or, in the package maintainer's
+          or release manager's opinion, makes the package unsuitable for
+          release.
 
    important
           a bug which has a major effect on the usability of a package,
@@ -134,10 +131,10 @@ Severity levels
           difficult to fix due to major design considerations.
 
    Certain severities are considered release-critical, meaning the bug
-   will have an impact on releasing the package with the stable release
-   of Debian. Currently, these are critical, grave and serious. For
-   complete and canonical rules on what issues merit these severities,
-   see the list of Release-Critical Issues for Lenny.
+   will have an impact on releasing the package with the stable release of
+   Debian. Currently, these are critical, grave and serious. For complete
+   and canonical rules on what issues merit these severities, see the list
+   of Release-Critical Issues for Lenny.
 
 Tags for bug reports
 
@@ -146,9 +143,9 @@ Tags for bug reports
    when you look at the full bug log.
 
    Tags can be set by supplying a Tags line in the pseudo-header when the
-   bug is submitted (see the instructions for reporting bugs), or by
-   using the tags command with the control request server. Separate
-   multiple tags with commas, spaces, or both.
+   bug is submitted (see the instructions for reporting bugs), or by using
+   the tags command with the control request server. Separate multiple
+   tags with commas, spaces, or both.
 
    The current bug tags are:
 
@@ -162,15 +159,15 @@ Tags for bug reports
           This bug won't be fixed. Possibly because this is a choice
           between two arbitrary ways of doing things and the maintainer
           and submitter prefer different ways of doing things, possibly
-          because changing the behaviour will cause other, worse,
-          problems for others, or possibly for other reasons.
+          because changing the behaviour will cause other, worse, problems
+          for others, or possibly for other reasons.
 
    moreinfo
           This bug can't be addressed until more information is provided
           by the submitter. The bug will be closed if the submitter
           doesn't provide more information in a reasonable (few months)
-          timeframe. This is for bugs like "It doesn't work". What
-          doesn't work?
+          timeframe. This is for bugs like "It doesn't work". What doesn't
+          work?
 
    unreproducible
           This bug can't be reproduced on the maintainer's system.
@@ -181,8 +178,8 @@ Tags for bug reports
           The maintainer is requesting help with dealing with this bug.
 
    pending
-          A solution to this bug has been found and an upload will be
-          made soon.
+          A solution to this bug has been found and an upload will be made
+          soon.
 
    fixed
           This bug is fixed or worked around (by a non-maintainer upload,
@@ -238,8 +235,8 @@ Tags for bug reports
           This bug particularly applies to the woody distribution.
 
    sarge
-          This is a distribution tag, which has two effects. When set on
-          a bug, the bug can only affect sarge (though it may also affect
+          This is a distribution tag, which has two effects. When set on a
+          bug, the bug can only affect sarge (though it may also affect
           other distributions if other distribution tags are set) but
           otherwise normal buggy/fixed/absent rules apply. The bug also
           should not be archived until it is fixed in sarge.
@@ -251,8 +248,8 @@ Tags for bug reports
           from them.
 
    etch
-          This is a distribution tag, which has two effects. When set on
-          a bug, the bug can only affect etch (though it may also affect
+          This is a distribution tag, which has two effects. When set on a
+          bug, the bug can only affect etch (though it may also affect
           other distributions if other distribution tags are set) but
           otherwise normal buggy/fixed/absent rules apply. The bug also
           should not be archived until it is fixed in etch.
@@ -264,11 +261,11 @@ Tags for bug reports
           from them.
 
    lenny
-          This is a release tag, which has two effects. When set on a
-          bug, the bug can only affect lenny (though it may also affect
-          other releases if other release tags are set) but otherwise
-          normal buggy/fixed/absent rules apply. The bug also should not
-          be archived until it is fixed in lenny.
+          This is a release tag, which has two effects. When set on a bug,
+          the bug can only affect lenny (though it may also affect other
+          releases if other release tags are set) but otherwise normal
+          buggy/fixed/absent rules apply. The bug also should not be
+          archived until it is fixed in lenny.
 
    lenny-ignore
           This release-critical bug is to be ignored for the purposes of
@@ -277,11 +274,11 @@ Tags for bug reports
           authorization from them.
 
    squeeze
-          This is a release tag, which has two effects. When set on a
-          bug, the bug can only affect squeeze (though it may also affect
-          other releases if other release tags are set) but otherwise
-          normal buggy/fixed/absent rules apply. The bug also should not
-          be archived until it is fixed in squeeze.
+          This is a release tag, which has two effects. When set on a bug,
+          the bug can only affect squeeze (though it may also affect other
+          releases if other release tags are set) but otherwise normal
+          buggy/fixed/absent rules apply. The bug also should not be
+          archived until it is fixed in squeeze.
 
    squeeze-ignore
           This release-critical bug is to be ignored for the purposes of
@@ -290,40 +287,48 @@ Tags for bug reports
           authorization from them.
 
    sid
-          This is a release tag, which has two effects. When set on a
-          bug, the bug can only affect sid (though it may also affect
-          other releases if other release tags are set) but otherwise
-          normal buggy/fixed/absent rules apply. The bug also should not
-          be archived until it is fixed in sid.
+          This is a release tag, which has two effects. When set on a bug,
+          the bug can only affect sid (though it may also affect other
+          releases if other release tags are set) but otherwise normal
+          buggy/fixed/absent rules apply. The bug also should not be
+          archived until it is fixed in sid.
 
    experimental
-          This is a release tag, which has two effects. When set on a
-          bug, the bug can only affect experimental (though it may also
-          affect other releases if other release tags are set) but
-          otherwise normal buggy/fixed/absent rules apply. The bug also
-          should not be archived until it is fixed in experimental.
+          This is a release tag, which has two effects. When set on a bug,
+          the bug can only affect experimental (though it may also affect
+          other releases if other release tags are set) but otherwise
+          normal buggy/fixed/absent rules apply. The bug also should not
+          be archived until it is fixed in experimental.
 
-   The meanings of the latter 8 tags have changed recently; the ignore
-   tags ignore the bug for the purpose of a testing propagation. The
-   release tags, which used to only indicate which bugs affected a
-   specific release, now indicate when a bug can be archived and the set
-   of releases for which a bug can be considered to be found or fixed.
+   The meanings of the latter 8 distribution-specific tags have changed
+   recently; the -ignore tags ignore the bug for the purposes of testing
+   propagation. The release tags indicate that the bug in question should
+   not be archived until it is fixed in the set of releases specified. The
+   release tags also indicate that a bug should only be considered buggy
+   in the set of releases specified. [In other words, the bug is absent in
+   any release whose corresponding release tag is not set if any release
+   tags are set; otherwise the normal found/fixed rules apply.]
+
+   Release tags should not be used if proper versioning of the bug would
+   achieve the desired effect, as they require manual addition and
+   removal. If you are unsure if a release tag is required, contact the
+   Debian BTS Administrators (owner@bugs.debian.org) or the release team
+   for advice.
 
 Recording that you have passed on a bug report
 
-   When a developer forwards a bug report to the developer of the
-   upstream source package from which the Debian package is derived, they
-   should note this in the bug tracking system as follows:
+   When a developer forwards a bug report to the developer of the upstream
+   source package from which the Debian package is derived, they should
+   note this in the bug tracking system as follows:
 
    Make sure that the To field of your message to the author has only the
    author(s) address(es) in it; put the person who reported the bug,
    nnn-forwarded@bugs.debian.org and nnn@bugs.debian.org in the CC field.
 
-   Ask the author to preserve the CC to nnn-forwarded@bugs.debian.org
-   when they reply, so that the bug tracking system will file their reply
-   with the original report. These messages are only filed and are not
-   sent on; to send a message as normal, send them to nnn@bugs.debian.org
-   as well.
+   Ask the author to preserve the CC to nnn-forwarded@bugs.debian.org when
+   they reply, so that the bug tracking system will file their reply with
+   the original report. These messages are only filed and are not sent on;
+   to send a message as normal, send them to nnn@bugs.debian.org as well.
 
    When the bug tracking system gets a message at nnn-forwarded it will
    mark the relevant bug as having been forwarded to the address(es) in
@@ -342,8 +347,8 @@ Changing bug ownership
    have an owner.
 
    The owner can be set by supplying an Owner line in the pseudo-header
-   when the bug is submitted (see the instructions for reporting bugs),
-   or by using the owner and noowner commands with the control request
+   when the bug is submitted (see the instructions for reporting bugs), or
+   by using the owner and noowner commands with the control request
    server.
 
 Incorrectly listed package maintainers
@@ -361,24 +366,24 @@ Reopening, reassigning and manipulating bugs
 
    It is possible to reassign bug reports to other packages, to reopen
    erroneously-closed ones, to modify the information saying to where, if
-   anywhere, a bug report has been forwarded, to change the severities
-   and titles of reports, to set the ownership of bugs, to merge and
-   unmerge bug reports, and to record the versions of packages in which
-   bugs were found and in which they were fixed. This is done by sending
-   mail to control@bugs.debian.org.
+   anywhere, a bug report has been forwarded, to change the severities and
+   titles of reports, to set the ownership of bugs, to merge and unmerge
+   bug reports, and to record the versions of packages in which bugs were
+   found and in which they were fixed. This is done by sending mail to
+   control@bugs.debian.org.
 
-   The format of these messages is described in another document
-   available on the World Wide Web or in the file
-   bug-maint-mailcontrol.txt. A plain text version can also be obtained
-   by mailing the word help to the server at the address above.
+   The format of these messages is described in another document available
+   on the World Wide Web or in the file bug-maint-mailcontrol.txt. A plain
+   text version can also be obtained by mailing the word help to the
+   server at the address above.
 
 Subscribing to bugs
 
    The bug tracking system also allows bug submitters, developers and
    other interested third parties to subscribe to individual bugs. This
    feature can be used by those wishing to keep an eye on a bug, without
-   having to subscribe to a package through the PTS. All messages that
-   are received at nnn@bugs.debian.org, are sent to subscribers.
+   having to subscribe to a package through the PTS. All messages that are
+   received at nnn@bugs.debian.org, are sent to subscribers.
 
    Subscribing to a bug can be done by sending an email to
    nnn-subscribe@bugs.debian.org. The subject and body of the email are
@@ -389,17 +394,16 @@ Subscribing to bugs
    It is also possible to unsubscribe from a bug. Unsubscribing can be
    done by sending an email to nnn-unsubscribe@bugs.debian.org. The
    subject and body of the email are again ignored by the BTS. Users will
-   be sent a confirmation message which they must reply to if they wish
-   to be unsubscribed from the bug.
+   be sent a confirmation message which they must reply to if they wish to
+   be unsubscribed from the bug.
 
-   By default, the address subscribed is the one found in the From
-   header. If you wish to subscribe another address to a bug, you will
-   need to encode the address to be subscribed into the subscription
-   message. This takes the form of:
-   nnn-subscribe-localpart=example.com@bugs.debian.org. That example
-   would send localpart@example.com a subscription message for bug nnn.
-   The @ sign must be encoded by changing it to an = sign. Similarly, an
-   unsubscription takes the form
+   By default, the address subscribed is the one found in the From header.
+   If you wish to subscribe another address to a bug, you will need to
+   encode the address to be subscribed into the subscription message. This
+   takes the form of: nnn-subscribe-localpart=example.com@bugs.debian.org.
+   That example would send localpart@example.com a subscription message
+   for bug nnn. The @ sign must be encoded by changing it to an = sign.
+   Similarly, an unsubscription takes the form
    nnn-unsubscribe-localpart=example.com@bugs.debian.org. In both cases,
    the subject and body of the email will be forwarded to the email
    address within the request for confirmation.
@@ -413,13 +417,12 @@ More-or-less obsolete subject-scanning feature
    example, by using reply to all recipients).
 
    A similar scheme operates for maintonly, done, quiet and forwarded,
-   which treat mail arriving with a Subject tag as having been sent to
-   the corresponding nnn-whatever@bugs.debian.org address.
+   which treat mail arriving with a Subject tag as having been sent to the
+   corresponding nnn-whatever@bugs.debian.org address.
 
-   Messages arriving at plain forwarded and done -- ie, with no bug
-   report number in the address -- and without a bug number in the
-   Subject will be filed under "junk" and kept for a few weeks, but
-   otherwise ignored.
+   Messages arriving at plain forwarded and done -- ie, with no bug report
+   number in the address -- and without a bug number in the Subject will
+   be filed under "junk" and kept for a few weeks, but otherwise ignored.
 
 Obsolete X-Debian-PR: quiet feature
 
@@ -427,14 +430,14 @@ Obsolete X-Debian-PR: quiet feature
    forwarding anywhere messages it received at debian-bugs, by putting an
    X-Debian-PR: quiet line in the actual mail header.
 
-   This header line is now ignored. Instead, send your message to quiet
-   or nnn-quiet (or maintonly or nnn-maintonly).
-     _________________________________________________________________
+   This header line is now ignored. Instead, send your message to quiet or
+   nnn-quiet (or maintonly or nnn-maintonly).
+     __________________________________________________________________
 
     Debian BTS administrators <owner@bugs.debian.org>
 
    Debian bug tracking system
    Copyright © 1999 Darren O. Benham, 1997, 2003 nCipher Corporation Ltd,
    1994-1997 Ian Jackson.
-     _________________________________________________________________
+     __________________________________________________________________
 
