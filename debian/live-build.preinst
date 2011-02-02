@@ -1,0 +1,25 @@
+#!/bin/sh
+
+set -e
+
+case "${1}" in
+	upgrade)
+		if [ -h /usr/share/live/build/includes/squeeze ]
+		then
+			rm -f /usr/share/live/build/includes/squeeze
+		fi
+		;;
+
+	install|abort-upgrade)
+
+			;;
+
+	*)
+		echo "preinst called with unknown argument \`${1}'" >&2
+		exit 1
+		;;
+esac
+
+#DEBHELPER#
+
+exit 0
