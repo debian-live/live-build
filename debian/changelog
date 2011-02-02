@@ -1,3 +1,10 @@
+live-build (2.0.12-2) unstable; urgency=low
+
+  * Adding preinst script to remove
+    /usr/share/live/build/includes/squeeze (Closes: #611794).
+
+ -- Daniel Baumann <daniel@debian.org>  Wed, 02 Feb 2011 12:35:41 +0100
+
 live-build (2.0.12-1) unstable; urgency=low
 
   [ Daniel Baumann ]
