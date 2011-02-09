@@ -78,6 +78,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--ignore-system-defaults]\n\
 \t    [--includes PATH|none]\n\
 \t    [--initramfs auto|none|live-boot|casper]\n\
+\t    [--initsystem sysvinit|runit|systemd|upstart|none]\n\
 \t    [--interactive shell]\n\
 \t    [--isohybrid-options OPTION|\"OPTIONS\"]\n\
 \t    [--iso-application NAME]\n\
@@ -138,7 +139,7 @@ Local_arguments ()
 	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-options:,aptitute-options:,
 		apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,
 		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
-		initramfs:,fdisk:,losetup:,mode:,repositories:,root-command:,use-fakeroot:,tasksel:,includes:,
+		initramfs:,initsystem:,fdisk:,losetup:,mode:,repositories:,root-command:,use-fakeroot:,tasksel:,includes:,
 		templates:,architectures:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,clean,
 		distribution:,parent-distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-chroot-backports:,mirror-binary:,
 		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
@@ -296,6 +297,11 @@ Local_arguments ()
 
 			--initramfs)
 				LB_INITRAMFS="${2}"
+				shift 2
+				;;
+
+			--initsystem)
+				LB_INITSYSTEM="${2}"
 				shift 2
 				;;
 
@@ -871,6 +877,10 @@ LB_DEBCONF_PRIORITY="${LB_DEBCONF_PRIORITY}"
 # \$LB_INITRAMFS: set initramfs hook
 # (Default: ${LB_INITRAMFS})
 LB_INITRAMFS="${LB_INITRAMFS}"
+
+# \$LB_INITSYSTEM: set init system
+# (Default: ${LB_INITSYSTEM})
+LB_INITSYSTEM="${LB_INITSYSTEM}"
 
 # \$LB_FDISK: set fdisk program
 # (Default: autodetected)

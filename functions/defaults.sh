@@ -147,6 +147,9 @@ Set_defaults ()
 			;;
 	esac
 
+	# Setting initsystem
+	LB_INITSYSTEM="${LB_INITSYSTEM:-sysvinit}"
+
 	# Setting fdisk
 	if [ -z "${LB_FDISK}" ] || [ ! -x "${LB_FDISK}" ]
 	then

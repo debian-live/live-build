@@ -77,6 +77,31 @@ EOF
 			echo ${LB_INITRAMFS} >> chroot/root/chroot_packages
 		fi
 
+		# Queue installation of live-config
+		if [ "${LB_INITSYSTEM}" != "none" ]
+		then
+			echo "live-config live-config-${LB_INITSYSTEM}" >> chroot/root/chroot_packages
+		fi
+
+		# Do initsystem specific hacks (FIXME)
+		case "${LB_INITSYSTEM}" in
+			sysvinit)
+
+				;;
+
+			runit)
+
+				;;
+
+			systemd)
+
+				;;
+
+			upstart)
+
+				;;
+		esac
+
 		# Creating stage file
 		Create_stagefile .stage/chroot_linux-image
 		;;
