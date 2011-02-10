@@ -150,16 +150,15 @@ Set_defaults ()
 	# Setting initsystem
 	case "${LB_MODE}" in
 		ubuntu)
-			if [ "${LB_INITRAMFS}" = "live-boot" ]
-			then
-				LB_INITSYSTEM="${LB_INITSYSTEM:-upstart}"
-			else
-				LB_INITSYSTEM="${LB_INITSYSTEM:-sysvinit}"
-			fi
-			;;
+			case "${LB_INITRAMFS}" in
+				live-boot)
+					LB_INITSYSTEM="${LB_INITSYSTEM:-upstart}"
+					;;
 
-		*)
-			LB_INITSYSTEM="${LB_INITSYSTEM:-sysvinit}"
+				*)
+					LB_INITSYSTEM="${LB_INITSYSTEM:-sysvinit}"
+					;;
+			esac
 			;;
 	esac
 

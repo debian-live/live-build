@@ -89,9 +89,10 @@ EOF
 			# lets see if we still need the squeeze's "pre init system policy discussion" hack:
 
 			IS_SYSVINIT_ESSENTIAL="$(Chroot chroot dpkg-query --show --showformat='${Essential}\n' sysvinit)"
-			RC=$?
+			RC="$?"
 
-			if [ "${IS_SYSVINIT_ESSENTIAL}" != "no" ] && [ "${RC}" == "0" ]; then
+			if [ "${IS_SYSVINIT_ESSENTIAL}" != "no" ] && [ "${RC}" = "0" ]
+			then
 				# sysvinit is both installed and essential, ugly hack to remove it
 				Chroot chroot dpkg --force-remove-essential --remove sysvinit || true
 			fi
