@@ -148,7 +148,20 @@ Set_defaults ()
 	esac
 
 	# Setting initsystem
-	LB_INITSYSTEM="${LB_INITSYSTEM:-sysvinit}"
+	case "${LB_MODE}" in
+		ubuntu)
+			if [ "${LB_INITRAMFS}" = "live-boot" ]
+			then
+				LB_INITSYSTEM="${LB_INITSYSTEM:-upstart}"
+			else
+				LB_INITSYSTEM="${LB_INITSYSTEM:-sysvinit}"
+			fi
+			;;
+
+		*)
+			LB_INITSYSTEM="${LB_INITSYSTEM:-sysvinit}"
+			;;
+	esac
 
 	# Setting fdisk
 	if [ -z "${LB_FDISK}" ] || [ ! -x "${LB_FDISK}" ]

@@ -83,24 +83,19 @@ EOF
 			echo "live-config live-config-${LB_INITSYSTEM}" >> chroot/root/chroot_packages
 		fi
 
-		# Do initsystem specific hacks (FIXME)
-		case "${LB_INITSYSTEM}" in
-			sysvinit)
+		# Do initsystem specific hacks
+		if [ "${LB_INITSYSTEM}" != "sysvinit" ]
+		then
+			# lets see if we still need the squeeze's "pre init system policy discussion" hack:
 
-				;;
+			IS_SYSVINIT_ESSENTIAL="$(Chroot chroot dpkg-query --show --showformat='${Essential}\n' sysvinit)"
+			RC=$?
 
-			runit)
-
-				;;
-
-			systemd)
-
-				;;
-
-			upstart)
-
-				;;
-		esac
+			if [ "${IS_SYSVINIT_ESSENTIAL}" != "no" ] && [ "${RC}" == "0" ]; then
+				# sysvinit is both installed and essential, ugly hack to remove it
+				Chroot chroot dpkg --force-remove-essential --remove sysvinit || true
+			fi
+		fi
 
 		# Creating stage file
 		Create_stagefile .stage/chroot_linux-image
