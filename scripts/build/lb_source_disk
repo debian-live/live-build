@@ -74,8 +74,20 @@ esac
 
 if [ -n "${TRACE}" ]
 then
-	echo "$(wget -q ${LB_PARENT_MIRROR_BOOTSTRAP}/${TRACE} -O - | head -n 1)" \
-	> source/.disk/archive_trace
+	case "${LB_DERIVATIVE}" in
+		true)
+			echo "$(echo ${LB_PARENT_MIRROR_BOOTSTRAP} | awk -F:// '{ print $2 }'): $(wget -q ${LB_PARENT_MIRROR_BOOTSTRAP}/${TRACE} -O - | head -n 1)" \
+			> source/.disk/archive_trace
+
+			echo "$(echo ${LB_MIRROR_BOOTSTRAP} | awk -F:// '{ print $2 }'): $(wget -q ${LB_MIRROR_BOOTSTRAP}/${TRACE} -O - | head -n 1)" \
+			>> source/.disk/archive_trace
+			;;
+
+		false)
+			echo "$(wget -q ${LB_PARENT_MIRROR_BOOTSTRAP}/${TRACE} -O - | head -n 1)" \
+			> source/.disk/archive_trace
+			;;
+	esac
 fi
 
 case "${LB_DEBIAN_INSTALLER}" in

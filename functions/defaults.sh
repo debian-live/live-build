@@ -21,14 +21,17 @@ Set_defaults ()
 	case "${LB_MODE}" in
 		progress)
 			LB_DISTRIBUTION="${LB_DISTRIBUTION:-artax}"
+			LB_DERIVATIVE="true"
 			;;
 
 		ubuntu)
 			LB_DISTRIBUTION="${LB_DISTRIBUTION:-karmic}"
+			LB_DERIVATIVE="false"
 			;;
 
 		*)
 			LB_DISTRIBUTION="${LB_DISTRIBUTION:-squeeze}"
+			LB_DERIVATIVE="false"
 			;;
 	esac
 
@@ -367,7 +370,7 @@ Set_defaults ()
 
 		progress)
 			LB_PARENT_MIRROR_CHROOT_VOLATILE="${LB_PARENT_MIRROR_CHROOT_VOLATILE:-${LB_PARENT_MIRROR_CHROOT}}"
-			LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE:-${LB_MIRROR_CHROOT}}"
+			LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE:-none}"
 			;;
 
 		ubuntu)
@@ -529,15 +532,6 @@ Set_defaults ()
 			LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER:-${LB_PARENT_MIRROR_DEBIAN_INSTALLER}}"
 			;;
 	esac
-
-	if [ -z "${LB_REPOSITORIES}" ]
-	then
-		case "${LB_MODE}" in
-			progress)
-				LB_REPOSITORIES="progress-linux_${LB_DISTRIBUTION}"
-				;;
-		esac
-	fi
 
 	# Setting archive areas value
 	case "${LB_MODE}" in
