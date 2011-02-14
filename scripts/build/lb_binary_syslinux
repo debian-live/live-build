@@ -58,8 +58,6 @@ case "${LB_BUILD_WITH_CHROOT}" in
 
 		# Installing depends
 		Install_package
-
-		_PREFIX="chroot"
 		;;
 esac
 
@@ -83,7 +81,19 @@ esac
 
 # Copying files
 mkdir -p ${_SUFFIX}
-cp -aL ${_PREFIX}/usr/share/syslinux/themes/${LB_SYSLINUX_THEME}/${_BOOTLOADER}-live/* ${_SUFFIX}
+
+case "${LB_BUILD_WITH_CHROOT}" in
+	true)
+		# Copy in two steps since the theme can have absolute symlinks and would therefore not be dereferenced correctly
+		Chroot chroot "cp -aL /usr/share/syslinux/themes/${LB_SYSLINUX_THEME}/${_BOOTLOADER}-live /root/tmp"
+		mv chroot/root/tmp/* ${_SUFFIX}
+		rmdir chroot/root/tmp
+		;;
+
+	false)
+		cp -aL /usr/share/syslinux/themes/${LB_SYSLINUX_THEME}/${_BOOTLOADER}-live/* ${_SUFFIX}
+		;;
+esac
 
 # Configuring files
 if [ -e ${_SUFFIX}/live.cfg ]
