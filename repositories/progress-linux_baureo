@@ -3,5 +3,7 @@
 deb http://archive.progress-linux.org/progress/ baureo @ARCHIVE_AREAS@
 deb-src http://archive.progress-linux.org/progress/ baureo @ARCHIVE_AREAS@
 
-deb http://archive.progress-linux.org/progress/ baureo-staging @ARCHIVE_AREAS@
-deb-src http://archive.progress-linux.org/progress/ baureo-staging @ARCHIVE_AREAS@
+# Progress Linux 2.0 (baureo) - updates unreleased
+
+deb http://archive.progress-linux.org/progress/ baureo-updates @ARCHIVE_AREAS@
+deb-src http://archive.progress-linux.org/progress/ baureo-updates @ARCHIVE_AREAS@
