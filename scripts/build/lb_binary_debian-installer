@@ -226,9 +226,9 @@ VMLINUZ_GI="gtk/vmlinuz"
 INITRD_GI="gtk/initrd.gz"
 DESTDIR_GI="${DESTDIR}/gtk"
 
-if [ "${LB_DEBIAN_INSTALLER_DISTRIBUTION}" = "daily" ]
+if [ "${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}" = "daily" ]
 then
-	LB_DEBIAN_INSTALLER_DISTRIBUTION="sid"
+	LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="sid"
 
 	# Debian Installer daily builds
 	case "${LB_ARCHITECTURES}" in
@@ -262,7 +262,7 @@ then
 			;;
 	esac
 else
-	URL="${LB_MIRROR_DEBIAN_INSTALLER}/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LB_ARCHITECTURES}/current/images/"
+	URL="${LB_MIRROR_DEBIAN_INSTALLER}/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LB_ARCHITECTURES}/current/images/"
 fi
 
 mkdir -p "${DESTDIR_DI}"
@@ -473,24 +473,24 @@ then
 	fi
 
 	# Generating deb indices
-	mkdir -p binary/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}
+	mkdir -p binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}
 
 	mv binary chroot/root
-	echo "cd /root/binary && apt-ftparchive packages pool/main > dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Packages" > chroot/binary.sh
+	echo "cd /root/binary && apt-ftparchive packages pool/main > dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Packages" > chroot/binary.sh
 	Chroot chroot "sh binary.sh"
 	rm -f chroot/binary.sh
 	mv chroot/root/binary ./
 
-	gzip -9 -c binary/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Packages > binary/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Packages.gz
+	gzip -9 -c binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Packages > binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Packages.gz
 
 	# Fetching release
-	Download_file binary/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Release "${LB_MIRROR_CHROOT}"/dists/"${LB_DEBIAN_INSTALLER_DISTRIBUTION}"/main/binary-"${LB_ARCHITECTURES}"/Release
+	Download_file binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Release "${LB_MIRROR_CHROOT}"/dists/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/main/binary-"${LB_ARCHITECTURES}"/Release
 
 	mkdir binary.udeb
 	cd binary.udeb
 
 	# Downloading udeb indices
-	Download_file Packages.gz "${LB_MIRROR_CHROOT}"/dists/"${LB_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LB_ARCHITECTURES}"/Packages.gz
+	Download_file Packages.gz "${LB_MIRROR_CHROOT}"/dists/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LB_ARCHITECTURES}"/Packages.gz
 	gunzip -c Packages.gz > Packages
 
 	# Sorting udebs
@@ -538,9 +538,9 @@ then
 	fi
 
 	# Excluding udebs
-	grep -v "^#" "${LB_BASE}"/data/debian-cd/"${LB_DEBIAN_INSTALLER_DISTRIBUTION}"/udeb_exclude > exclude || true
-	grep -v "^#" "${LB_BASE}"/data/debian-cd/"${LB_DEBIAN_INSTALLER_DISTRIBUTION}"/exclude-udebs >> exclude || true
-	grep -v "^#" "${LB_BASE}"/data/debian-cd/"${LB_DEBIAN_INSTALLER_DISTRIBUTION}"/exclude-udebs-${LB_ARCHITECTURES} >> exclude || true
+	grep -v "^#" "${LB_BASE}"/data/debian-cd/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/udeb_exclude > exclude || true
+	grep -v "^#" "${LB_BASE}"/data/debian-cd/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/exclude-udebs >> exclude || true
+	grep -v "^#" "${LB_BASE}"/data/debian-cd/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/exclude-udebs-${LB_ARCHITECTURES} >> exclude || true
 
 	# Local exclude file
 	if [ -e ../config/binary_debian-installer/udeb_exclude ]
@@ -582,17 +582,17 @@ then
 	done
 
 	# Creating udeb indices
-	mkdir -p dists/"${LB_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LB_ARCHITECTURES}"
+	mkdir -p dists/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LB_ARCHITECTURES}"
 	cd "${OLDPWD}"
 
 	mv binary.udeb chroot/root
-	echo "cd /root/binary.udeb && apt-ftparchive packages pool/main > dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LB_ARCHITECTURES}/Packages" > chroot/binary.sh
+	echo "cd /root/binary.udeb && apt-ftparchive packages pool/main > dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LB_ARCHITECTURES}/Packages" > chroot/binary.sh
 	Chroot chroot "sh binary.sh"
 	rm -f chroot/binary.sh
 	mv chroot/root/binary.udeb ./
 
 	cd binary.udeb
-	gzip -9 -c dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LB_ARCHITECTURES}/Packages > dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LB_ARCHITECTURES}/Packages.gz
+	gzip -9 -c dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LB_ARCHITECTURES}/Packages > dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LB_ARCHITECTURES}/Packages.gz
 
 	rm -f Packages* exclude
 	find . | cpio -dmpu "${OLDPWD}"/binary
@@ -627,7 +627,7 @@ cd /root/binary && apt-ftparchive \
 	-o APT::FTPArchive::Release::Architectures="${LB_ARCHITECTURES}" \
 	-o APT::FTPArchive::Release::Components="main" \
 	-o APT::FTPArchive::Release::Description="Last updated: $(date -R)" \
-	release dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION} > dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/Release
+	release dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION} > dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/Release
 EOF
 
 	Chroot chroot "sh binary.sh"
@@ -636,7 +636,7 @@ EOF
 
 	DISTRIBUTIONS="frozen stable testing unstable"
 
-	if [ "${LB_DEBIAN_INSTALLER_DISTRIBUTION}" != "${LB_PARENT_DISTRIBUTION}" ]
+	if [ "${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}" != "${LB_PARENT_DISTRIBUTION}" ]
 	then
 		DISTRIBUTIONS="${DISTRIBUTIONS} ${LB_PARENT_DISTRIBUTION}"
 	fi
@@ -648,7 +648,7 @@ EOF
 					# Creating dist directories
 					for DISTRIBUTION in ${DISTRIBUTIONS}
 					do
-						cp -a binary/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION} binary/dists/${DISTRIBUTION}
+						cp -a binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION} binary/dists/${DISTRIBUTION}
 					done
 					;;
 			esac
@@ -658,7 +658,7 @@ EOF
 			# Creating dist symlinks
 			for DISTRIBUTION in ${DISTRIBUTIONS}
 			do
-				ln -s ${LB_DEBIAN_INSTALLER_DISTRIBUTION} binary/dists/${DISTRIBUTION}
+				ln -s ${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION} binary/dists/${DISTRIBUTION}
 			done
 
 			ln -s . binary/debian

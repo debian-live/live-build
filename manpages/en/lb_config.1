@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2011\-02\-09 3.0~a11 "Debian Live Project"
+.TH LIVE\-BUILD 1 2011\-02\-14 3.0~a11 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -86,6 +86,8 @@
 	[\-d|\fB\-\-distribution\fR \fICODENAME\fR]
 .br
 	[\fB\-\-parent\-distribution\fR \fICODENAME\fR]
+.br
+	[\fB\-\-parent\-debian\-installer\-distribution\fR \fICODENAME\fR]
 .br
 	[\fB\-\-dump\fR]
 .br
@@ -313,6 +315,8 @@ turn on debugging informational messages.
 defines the distribution of the resulting live system.
 .IP "\-d|\fB\-\-parent\-distribution\fR \fICODENAME\fR" 4
 defines the parent distribution for derivatives of the resulting live system.
+.IP "\-d|\fB\-\-parent\-debian\-installer\-distribution\fR \fICODENAME\fR" 4
+defines the parent debian\-installer distribution for derivatives of the resulting live system.
 .IP "\fB\-\-dump\fR" 4
 prepares a report of the currently present live system configuration and the version of live\-build used. This is useful to provide if you submit bug reports, we do get all informations required for us to locate and replicate an error.
 .IP "\fB\-\-fdisk\fR fdisk|fdisk.dist" 4

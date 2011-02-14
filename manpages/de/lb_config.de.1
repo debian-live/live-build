@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2011\-02\-09 3.0~a11 "Debian Live Project"
+.TH LIVE\-BUILD 1 2011\-02\-14 3.0~a11 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -91,6 +91,8 @@
   [\-d|\fB\-\-distribution\fP \fICODENAME\fP]
 .br
   [\fB\-\-parent\-distribution\fP \fICODENAME\fP]
+.br
+  [\fB\-\-parent\-debian\-installer\-distribution\fP \fICODENAME\fP]
 .br
   [\fB\-\-dump\fP]
 .br
@@ -442,6 +444,9 @@ defines the distribution of the resulting live system.
 .IP "\-d|\fB\-\-parent\-distribution\fP \fICODENAME\fP" 4
 defines the parent distribution for derivatives of the resulting live
 system.
+.IP "\-d|\fB\-\-parent\-debian\-installer\-distribution\fP \fICODENAME\fP" 4
+defines the parent debian\-installer distribution for derivatives of the
+resulting live system.
 .IP \fB\-\-dump\fP 4
 prepares a report of the currently present live system configuration and the
 version of live\-build used. This is useful to provide if you submit bug
