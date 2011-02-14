@@ -160,11 +160,11 @@ Set_defaults ()
 				live-boot)
 					LB_INITSYSTEM="${LB_INITSYSTEM:-upstart}"
 					;;
-
-				*)
-					LB_INITSYSTEM="${LB_INITSYSTEM:-sysvinit}"
-					;;
 			esac
+			;;
+
+		*)
+			LB_INITSYSTEM="${LB_INITSYSTEM:-sysvinit}"
 			;;
 	esac
 
