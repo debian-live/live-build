@@ -50,34 +50,34 @@ case "${1}" in
 cat > chroot/etc/apt/sources.list << EOF
 # /etc/apt/sources.list
 
-deb ${LB_MIRROR_CHROOT} ${LB_PARENT_DISTRIBUTION} ${LB_ARCHIVE_AREAS}
+deb ${LB_PARENT_MIRROR_CHROOT} ${LB_PARENT_DISTRIBUTION} ${LB_ARCHIVE_AREAS}
 EOF
 
 		if [ "${LB_SOURCE}" = "true" ]
 		then
-			echo "deb-src ${LB_MIRROR_CHROOT} ${LB_PARENT_DISTRIBUTION} ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+			echo "deb-src ${LB_PARENT_MIRROR_CHROOT} ${LB_PARENT_DISTRIBUTION} ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 		fi
 
 		if [ "${LB_SECURITY}" = "true" ]
 		then
 			case "${LB_MODE}" in
 				ubuntu)
-					echo "deb ${LB_MIRROR_CHROOT_SECURITY} ${LB_PARENT_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+					echo "deb ${LB_PARENT_MIRROR_CHROOT_SECURITY} ${LB_PARENT_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
 					if [ "${LB_SOURCE}" = "true" ]
 					then
-						echo "deb-src ${LB_MIRROR_CHROOT_SECURITY} ${LB_PARENT_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						echo "deb-src ${LB_PARENT_MIRROR_CHROOT_SECURITY} ${LB_PARENT_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 					fi
 					;;
 
 				*)
 					if [ "${LB_PARENT_DISTRIBUTION}" != "sid" ] && [ "${LB_PARENT_DISTRIBUTION}" != "unstable" ]
 					then
-						echo "deb ${LB_MIRROR_CHROOT_SECURITY} ${LB_PARENT_DISTRIBUTION}/updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						echo "deb ${LB_PARENT_MIRROR_CHROOT_SECURITY} ${LB_PARENT_DISTRIBUTION}/updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
 						if [ "${LB_SOURCE}" = "true" ]
 						then
-							echo "deb-src ${LB_MIRROR_CHROOT_SECURITY} ${LB_PARENT_DISTRIBUTION}/updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+							echo "deb-src ${LB_PARENT_MIRROR_CHROOT_SECURITY} ${LB_PARENT_DISTRIBUTION}/updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 						fi
 					fi
 					;;
@@ -88,11 +88,11 @@ EOF
 		then
 			case "${LB_MODE}" in
 				debian|ubuntu)
-					echo "deb ${LB_MIRROR_CHROOT_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+					echo "deb ${LB_PARENT_MIRROR_CHROOT_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
 					if [ "${LB_SOURCE}" = "true" ]
 					then
-						echo "deb-src ${LB_MIRROR_CHROOT_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						echo "deb-src ${LB_PARENT_MIRROR_CHROOT_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 					fi
 					;;
 			esac
@@ -104,11 +104,11 @@ EOF
 				debian)
 					if [ "${LB_PARENT_DISTRIBUTION}" != "sid" ] && [ "${LB_PARENT_DISTRIBUTION}" != "unstable" ]
 					then
-						echo "deb ${LB_MIRROR_CHROOT_BACKPORTS} ${LB_PARENT_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						echo "deb ${LB_PARENT_MIRROR_CHROOT_BACKPORTS} ${LB_PARENT_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
 						if [ "${LB_SOURCE}" = "true" ]
 						then
-							echo "deb-src ${LB_MIRROR_CHROOT_BACKPORTS} ${LB_PARENT_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+							echo "deb-src ${LB_PARENT_MIRROR_CHROOT_BACKPORTS} ${LB_PARENT_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 						fi
 					fi
 					;;
@@ -465,8 +465,8 @@ EOF
 
 		# Configure generic indices
 		# Don't do anything if it's not required
-		if [ "${LB_MIRROR_CHROOT}" = "${LB_MIRROR_BINARY}" ] && \
-		[ "${LB_MIRROR_CHROOT_SECURITY}" = "${LB_MIRROR_BINARY_SECURITY}" ] && \
+		if [ "${LB_PARENT_MIRROR_CHROOT}" = "${LB_PARENT_MIRROR_BINARY}" ] && \
+		[ "${LB_PARENT_MIRROR_CHROOT_SECURITY}" = "${LB_PARENT_MIRROR_BINARY_SECURITY}" ] && \
 		[ ! -d chroot/root/local-packages ]
 		then
 			# Removing stage file
@@ -482,34 +482,34 @@ EOF
 cat > chroot/etc/apt/sources.list << EOF
 # /etc/apt/sources.list
 
-deb ${LB_MIRROR_BINARY} ${LB_PARENT_DISTRIBUTION} ${LB_ARCHIVE_AREAS}
+deb ${LB_PARENT_MIRROR_BINARY} ${LB_PARENT_DISTRIBUTION} ${LB_ARCHIVE_AREAS}
 EOF
 
 		if [ "${LB_SOURCE}" = "true" ]
 		then
-			echo "deb-src ${LB_MIRROR_BINARY} ${LB_PARENT_DISTRIBUTION} ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+			echo "deb-src ${LB_PARENT_MIRROR_BINARY} ${LB_PARENT_DISTRIBUTION} ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 		fi
 
 		if [ "${LB_SECURITY}" = "true" ]
 		then
 			case "${LB_MODE}" in
 				ubuntu)
-					echo "deb ${LB_MIRROR_BINARY_SECURITY} ${LB_PARENT_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+					echo "deb ${LB_PARENT_MIRROR_BINARY_SECURITY} ${LB_PARENT_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
 					if [ "${LB_SOURCE}" = "true" ]
 					then
-						echo "deb-src ${LB_MIRROR_BINARY_SECURITY} ${LB_PARENT_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						echo "deb-src ${LB_PARENT_MIRROR_BINARY_SECURITY} ${LB_PARENT_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 					fi
 					;;
 
 				*)
 					if [ "${LB_PARENT_DISTRIBUTION}" != "sid" ] && [ "${LB_PARENT_DISTRIBUTION}" != "unstable" ]
 					then
-						echo "deb ${LB_MIRROR_BINARY_SECURITY} ${LB_PARENT_DISTRIBUTION}/updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						echo "deb ${LB_PARENT_MIRROR_BINARY_SECURITY} ${LB_PARENT_DISTRIBUTION}/updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
 						if [ "${LB_SOURCE}" = "true" ]
 						then
-							echo "deb-src ${LB_MIRROR_BINARY_SECURITY} ${LB_PARENT_DISTRIBUTION}/updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+							echo "deb-src ${LB_PARENT_MIRROR_BINARY_SECURITY} ${LB_PARENT_DISTRIBUTION}/updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 						fi
 					fi
 					;;
@@ -520,11 +520,11 @@ EOF
 		then
 			case "${LB_MODE}" in
 				debian|ubuntu)
-					echo "deb ${LB_MIRROR_BINARY_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+					echo "deb ${LB_PARENT_MIRROR_BINARY_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
 					if [ "${LB_SOURCE}" = "true" ]
 					then
-						echo "deb-src ${LB_MIRROR_BINARY_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						echo "deb-src ${LB_PARENT_MIRROR_BINARY_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 					fi
 					;;
 			esac
@@ -536,11 +536,11 @@ EOF
 				debian)
 					if [ "${LB_PARENT_DISTRIBUTION}" != "sid" ] && [ "${LB_PARENT_DISTRIBUTION}" != "unstable" ]
 					then
-						echo "deb ${LB_MIRROR_BINARY_BACKPORTS} ${LB_PARENT_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+						echo "deb ${LB_PARENT_MIRROR_BINARY_BACKPORTS} ${LB_PARENT_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
 						if [ "${LB_SOURCE}" = "true" ]
 						then
-							echo "deb-src ${LB_MIRROR_BINARY_BACKPORTS} ${LB_PARENT_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+							echo "deb-src ${LB_PARENT_MIRROR_BINARY_BACKPORTS} ${LB_PARENT_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 						fi
 					fi
 					;;

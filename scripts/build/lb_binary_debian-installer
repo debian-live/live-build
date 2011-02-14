@@ -262,7 +262,7 @@ then
 			;;
 	esac
 else
-	URL="${LB_MIRROR_DEBIAN_INSTALLER}/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LB_ARCHITECTURES}/current/images/"
+	URL="${LB_PARENT_MIRROR_DEBIAN_INSTALLER}/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LB_ARCHITECTURES}/current/images/"
 fi
 
 mkdir -p "${DESTDIR_DI}"
@@ -484,13 +484,13 @@ then
 	gzip -9 -c binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Packages > binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Packages.gz
 
 	# Fetching release
-	Download_file binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Release "${LB_MIRROR_CHROOT}"/dists/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/main/binary-"${LB_ARCHITECTURES}"/Release
+	Download_file binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Release "${LB_PARENT_MIRROR_CHROOT}"/dists/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/main/binary-"${LB_ARCHITECTURES}"/Release
 
 	mkdir binary.udeb
 	cd binary.udeb
 
 	# Downloading udeb indices
-	Download_file Packages.gz "${LB_MIRROR_CHROOT}"/dists/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LB_ARCHITECTURES}"/Packages.gz
+	Download_file Packages.gz "${LB_PARENT_MIRROR_CHROOT}"/dists/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LB_ARCHITECTURES}"/Packages.gz
 	gunzip -c Packages.gz > Packages
 
 	# Sorting udebs
@@ -505,7 +505,7 @@ then
 			cp ../cache/packages_debian-installer.udeb/"$(basename ${UDEB})" ./
 		else
 			# Downloading udebs
-			wget ${WGET_OPTIONS} "${LB_MIRROR_CHROOT}"/${UDEB}
+			wget ${WGET_OPTIONS} "${LB_PARENT_MIRROR_CHROOT}"/${UDEB}
 		fi
 	done
 

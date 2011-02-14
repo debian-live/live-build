@@ -142,25 +142,25 @@
 .br
   [\fB\-\-memtest\fP memtest86+|memtest86|none]
 .br
-  [\-m|\fB\-\-mirror\-bootstrap\fP \fIURL\fP]
+  [\-m|\fB\-\-parent\-mirror\-bootstrap\fP \fIURL\fP]
 .br
-  [\fB\-\-mirror\-chroot\fP \fIURL\fP]
+  [\fB\-\-parent\-mirror\-chroot\fP \fIURL\fP]
 .br
-  [\fB\-\-mirror\-chroot\-security\fP \fIURL\fP]
+  [\fB\-\-parent\-mirror\-chroot\-security\fP \fIURL\fP]
 .br
-  [\fB\-\-mirror\-chroot\-volatile\fP \fIURL\fP]
+  [\fB\-\-parent\-mirror\-chroot\-volatile\fP \fIURL\fP]
 .br
-  [\fB\-\-mirror\-chroot\-backports\fP \fIURL\fP]
+  [\fB\-\-parent\-mirror\-chroot\-backports\fP \fIURL\fP]
 .br
-  [\fB\-\-mirror\-binary\fP \fIURL\fP]
+  [\fB\-\-parent\-mirror\-binary\fP \fIURL\fP]
 .br
-  [\fB\-\-mirror\-binary\-security\fP \fIURL\fP]
+  [\fB\-\-parent\-mirror\-binary\-security\fP \fIURL\fP]
 .br
-  [\fB\-\-mirror\-binary\-volatile\fP \fIURL\fP]
+  [\fB\-\-parent\-mirror\-binary\-volatile\fP \fIURL\fP]
 .br
-  [\fB\-\-mirror\-binary\-backports\fP \fIURL\fP]
+  [\fB\-\-parent\-mirror\-binary\-backports\fP \fIURL\fP]
 .br
-  [\fB\-\-mirror\-debian\-installer\fP \fIURL\fP]
+  [\fB\-\-parent\-mirror\-debian\-installer\fP \fIURL\fP]
 .br
   [\fB\-\-mode\fP debian|emdebian|ubuntu]
 .br
@@ -556,48 +556,48 @@ used. This is autodetected and does generally not need any customization.
 defines if memtest, memtest86+ or no memory tester at all should be included
 as secondary bootloader configuration. This is only available on amd64 and
 i386 and defaults to memtest86+.
-.IP "\-m|\fB\-\-mirror\-bootstrap\fP \fIURL\fP" 4
+.IP "\-m|\fB\-\-parent\-mirror\-bootstrap\fP \fIURL\fP" 4
 sets the location of the debian package mirror that should be used to
 bootstrap from. This defaults to http://ftp.de.debian.org/debian/ which may
 not be a good default if you live outside of Europe.
-.IP "\fB\-\-mirror\-chroot\fP \fIURL\fP" 4
+.IP "\fB\-\-parent\-mirror\-chroot\fP \fIURL\fP" 4
 sets the location of the debian package mirror that will be used to fetch
 the packages in order to build the live system. By default, this is set to
-the value of \-\-mirror\-bootstrap.
-.IP "\fB\-\-mirror\-chroot\-security\fP \fIURL\fP" 4
+the value of \-\-parent\-mirror\-bootstrap.
+.IP "\fB\-\-parent\-mirror\-chroot\-security\fP \fIURL\fP" 4
 sets the location of the debian security package mirror that will be used to
 fetch the packages in order to build the live system. By default, this
 points to http://security.debian.org/debian/.
-.IP "\fB\-\-mirror\-chroot\-volatile\fP \fIURL\fP" 4
+.IP "\fB\-\-parent\-mirror\-chroot\-volatile\fP \fIURL\fP" 4
 sets the location of the debian volatile package mirror that will be used to
 fetch packages in order to build the live system. By default, this is set to
-the value of \-\-mirror\-chroot.
-.IP "\fB\-\-mirror\-chroot\-backports\fP \fIURL\fP" 4
+the value of \-\-parent\-mirror\-chroot.
+.IP "\fB\-\-parent\-mirror\-chroot\-backports\fP \fIURL\fP" 4
 sets the location of the debian backports package mirror that will be used
 to fetch packages in order to build the live system. By default, this points
 to http://backports.debian.org/debian\-backports/.
-.IP "\fB\-\-mirror\-binary\fP \fIURL\fP" 4
+.IP "\fB\-\-parent\-mirror\-binary\fP \fIURL\fP" 4
 sets the location of the debian package mirror that should end up configured
 in the final image and which is the one a user would see and use. This has
 not necessarily to be the same that is used to build the image, e.g. if you
 use a local mirror but want to have an official mirror in the image. By
 default, 'http://cdn.debian.net/debian/' is used.
-.IP "\fB\-\-mirror\-binary\-security\fP \fIURL\fP" 4
+.IP "\fB\-\-parent\-mirror\-binary\-security\fP \fIURL\fP" 4
 sets the location of the debian security package mirror that should end up
 configured in the final image. By default,
 \&'http://cdn.debian.net/debian\-security/' is used.
-.IP "\fB\-\-mirror\-binary\-volatile\fP \fIURL\fP" 4
+.IP "\fB\-\-parent\-mirror\-binary\-volatile\fP \fIURL\fP" 4
 sets the location of the debian volatile package mirror that should end up
-configured in the final image. By default, the value of \-\-mirror\-binary is
-used.
-.IP "\fB\-\-mirror\-binary\-backports\fP \fIURL\fP" 4
+configured in the final image. By default, the value of
+\-\-parent\-mirror\-binary is used.
+.IP "\fB\-\-parent\-mirror\-binary\-backports\fP \fIURL\fP" 4
 sets the location of the debian backports package mirror that should end up
 configured in the final image. By default,
 \&'http://backports.debian.org/debian\-backports/' is used.
-.IP "\fB\-\-mirror\-debian\-installer\fP \fIURL\fP" 4
+.IP "\fB\-\-parent\-mirror\-debian\-installer\fP \fIURL\fP" 4
 sets the location of the mirror that will be used to fetch the debian
 installer images. By default, this points to the same mirror used to build
-the live system, i.e. the value of \-\-mirror\-bootstrap.
+the live system, i.e. the value of \-\-parent\-mirror\-bootstrap.
 .IP "\fB\-\-mode\fP debian|emdebian|ubuntu" 4
 defines a global mode to load project specific defaults. By default this is
 set to debian.
@@ -743,8 +743,9 @@ GZIP_OPTIONS, no LB_ prefix is used.
 .IP "\fB/etc/live/build.conf, /etc/live/build.d\fP" 4
 .\" FIXME
 An optional, global configuration file for \fBlb config\fP variables. It is
-useful to specify a few system wide defaults, like LB_MIRROR_BOOTSTRAP. This
-feature can be false by specifying the \fB\-\-ignore\-system\-defaults\fP option.
+useful to specify a few system wide defaults, like
+LB_PARENT_MIRROR_BOOTSTRAP. This feature can be false by specifying the
+\fB\-\-ignore\-system\-defaults\fP option.
 
 .SH "SEE ALSO"
 \fIlive\-build\fP(7)

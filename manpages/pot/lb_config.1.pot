@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2011-02-14 12:33+0100\n"
+"POT-Creation-Date: 2011-02-14 13:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1005,52 +1005,52 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:141
-msgid "  [-m|B<--mirror-bootstrap> I<URL>]"
+msgid "  [-m|B<--parent-mirror-bootstrap> I<URL>]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:143
-msgid "  [B<--mirror-chroot> I<URL>]"
+msgid "  [B<--parent-mirror-chroot> I<URL>]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:145
-msgid "  [B<--mirror-chroot-security> I<URL>]"
+msgid "  [B<--parent-mirror-chroot-security> I<URL>]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:147
-msgid "  [B<--mirror-chroot-volatile> I<URL>]"
+msgid "  [B<--parent-mirror-chroot-volatile> I<URL>]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:149
-msgid "  [B<--mirror-chroot-backports> I<URL>]"
+msgid "  [B<--parent-mirror-chroot-backports> I<URL>]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:151
-msgid "  [B<--mirror-binary> I<URL>]"
+msgid "  [B<--parent-mirror-binary> I<URL>]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:153
-msgid "  [B<--mirror-binary-security> I<URL>]"
+msgid "  [B<--parent-mirror-binary-security> I<URL>]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:155
-msgid "  [B<--mirror-binary-volatile> I<URL>]"
+msgid "  [B<--parent-mirror-binary-volatile> I<URL>]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:157
-msgid "  [B<--mirror-binary-backports> I<URL>]"
+msgid "  [B<--parent-mirror-binary-backports> I<URL>]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:159
-msgid "  [B<--mirror-debian-installer> I<URL>]"
+msgid "  [B<--parent-mirror-debian-installer> I<URL>]"
 msgstr ""
 
 #. type: Plain text
@@ -2182,7 +2182,7 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:366
 #, no-wrap
-msgid "-m|B<--mirror-bootstrap> I<URL>"
+msgid "-m|B<--parent-mirror-bootstrap> I<URL>"
 msgstr ""
 
 #. type: Plain text
@@ -2196,7 +2196,7 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:368
 #, no-wrap
-msgid "B<--mirror-chroot> I<URL>"
+msgid "B<--parent-mirror-chroot> I<URL>"
 msgstr ""
 
 #. type: Plain text
@@ -2204,13 +2204,13 @@ msgstr ""
 msgid ""
 "sets the location of the debian package mirror that will be used to fetch "
 "the packages in order to build the live system. By default, this is set to "
-"the value of --mirror-bootstrap."
+"the value of --parent-mirror-bootstrap."
 msgstr ""
 
 #. type: IP
 #: en/lb_config.1:370
 #, no-wrap
-msgid "B<--mirror-chroot-security> I<URL>"
+msgid "B<--parent-mirror-chroot-security> I<URL>"
 msgstr ""
 
 #. type: Plain text
@@ -2224,7 +2224,7 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:372
 #, no-wrap
-msgid "B<--mirror-chroot-volatile> I<URL>"
+msgid "B<--parent-mirror-chroot-volatile> I<URL>"
 msgstr ""
 
 #. type: Plain text
@@ -2232,13 +2232,13 @@ msgstr ""
 msgid ""
 "sets the location of the debian volatile package mirror that will be used to "
 "fetch packages in order to build the live system. By default, this is set to "
-"the value of --mirror-chroot."
+"the value of --parent-mirror-chroot."
 msgstr ""
 
 #. type: IP
 #: en/lb_config.1:374
 #, no-wrap
-msgid "B<--mirror-chroot-backports> I<URL>"
+msgid "B<--parent-mirror-chroot-backports> I<URL>"
 msgstr ""
 
 #. type: Plain text
@@ -2252,7 +2252,7 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:376
 #, no-wrap
-msgid "B<--mirror-binary> I<URL>"
+msgid "B<--parent-mirror-binary> I<URL>"
 msgstr ""
 
 #. type: Plain text
@@ -2268,7 +2268,7 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:378
 #, no-wrap
-msgid "B<--mirror-binary-security> I<URL>"
+msgid "B<--parent-mirror-binary-security> I<URL>"
 msgstr ""
 
 #. type: Plain text
@@ -2282,21 +2282,21 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:380
 #, no-wrap
-msgid "B<--mirror-binary-volatile> I<URL>"
+msgid "B<--parent-mirror-binary-volatile> I<URL>"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:382
 msgid ""
 "sets the location of the debian volatile package mirror that should end up "
-"configured in the final image. By default, the value of --mirror-binary is "
-"used."
+"configured in the final image. By default, the value of --parent-mirror-"
+"binary is used."
 msgstr ""
 
 #. type: IP
 #: en/lb_config.1:382
 #, no-wrap
-msgid "B<--mirror-binary-backports> I<URL>"
+msgid "B<--parent-mirror-binary-backports> I<URL>"
 msgstr ""
 
 #. type: Plain text
@@ -2310,7 +2310,7 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:384
 #, no-wrap
-msgid "B<--mirror-debian-installer> I<URL>"
+msgid "B<--parent-mirror-debian-installer> I<URL>"
 msgstr ""
 
 #. type: Plain text
@@ -2318,7 +2318,7 @@ msgstr ""
 msgid ""
 "sets the location of the mirror that will be used to fetch the debian "
 "installer images. By default, this points to the same mirror used to build "
-"the live system, i.e. the value of --mirror-bootstrap."
+"the live system, i.e. the value of --parent-mirror-bootstrap."
 msgstr ""
 
 #. type: IP
@@ -2817,6 +2817,7 @@ msgstr ""
 #: en/lb_config.1:472
 msgid ""
 "An optional, global configuration file for B<lb config> variables. It is "
-"useful to specify a few system wide defaults, like LB_MIRROR_BOOTSTRAP. This "
-"feature can be false by specifying the B<--ignore-system-defaults> option."
+"useful to specify a few system wide defaults, like "
+"LB_PARENT_MIRROR_BOOTSTRAP. This feature can be false by specifying the B<--"
+"ignore-system-defaults> option."
 msgstr ""

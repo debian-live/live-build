@@ -74,7 +74,7 @@ esac
 
 if [ -n "${TRACE}" ]
 then
-	echo "$(wget -q ${LB_MIRROR_BOOTSTRAP}/${TRACE} -O - | head -n 1)" \
+	echo "$(wget -q ${LB_PARENT_MIRROR_BOOTSTRAP}/${TRACE} -O - | head -n 1)" \
 	> source/.disk/archive_trace
 fi
 

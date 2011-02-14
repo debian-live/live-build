@@ -124,7 +124,7 @@ then
 		fi
 
 		Echo_breakage "Running debootstrap (download-only)... "
-		${LB_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LB_PARENT_DISTRIBUTION}" chroot "${LB_MIRROR_BOOTSTRAP}" "${LB_DEBOOTSTRAP_SCRIPT}"
+		${LB_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}" "${LB_DEBOOTSTRAP_SCRIPT}"
 
 		if [ -n "${LB_ROOT_COMMAND}" ]
 		then
@@ -140,7 +140,7 @@ then
 	fi
 
 	Echo_breakage "Running debootstrap... "
-	${LB_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} "${LB_PARENT_DISTRIBUTION}" chroot "${LB_MIRROR_BOOTSTRAP}" "${LB_DEBOOTSTRAP_SCRIPT}"
+	${LB_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}" "${LB_DEBOOTSTRAP_SCRIPT}"
 
 	if [ -n "${LB_ROOT_COMMAND}" ]
 	then

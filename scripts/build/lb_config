@@ -93,16 +93,16 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--linux-packages \"PACKAGES\"]\n\
 \t    [--losetup losetup|losetup.orig]\n\
 \t    [--memtest memtest86+|memtest86|none]\n\
-\t    [-m|--mirror-bootstrap URL]\n\
-\t    [--mirror-chroot URL]\n\
-\t    [--mirror-chroot-security URL]\n\
-\t    [--mirror-chroot-volatile URL]\n\
-\t    [--mirror-chroot-backports URL]\n\
-\t    [--mirror-binary URL]\n\
-\t    [--mirror-binary-security URL]\n\
-\t    [--mirror-binary-volatile URL]\n\
-\t    [--mirror-binary-backports URL]\n\
-\t    [--mirror-debian-installer URL]\n\
+\t    [-m|--parent-mirror-bootstrap URL]\n\
+\t    [--parent-mirror-chroot URL]\n\
+\t    [--parent-mirror-chroot-security URL]\n\
+\t    [--parent-mirror-chroot-volatile URL]\n\
+\t    [--parent-mirror-chroot-backports URL]\n\
+\t    [--parent-mirror-binary URL]\n\
+\t    [--parent-mirror-binary-security URL]\n\
+\t    [--parent-mirror-binary-volatile URL]\n\
+\t    [--parent-mirror-binary-backports URL]\n\
+\t    [--parent-mirror-debian-installer URL]\n\
 \t    [--mode debian|emdebian|ubuntu]\n\
 \t    [--net-root-filesystem nfs|cfs]\n\
 \t    [--net-root-mountoptions OPTIONS]\n\
@@ -142,8 +142,8 @@ Local_arguments ()
 		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
 		initramfs:,initsystem:,fdisk:,losetup:,mode:,repositories:,root-command:,use-fakeroot:,tasksel:,includes:,
 		templates:,architectures:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,clean,
-		distribution:,parent-distribution:,parent-debian-installer-distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-chroot-backports:,mirror-binary:,
-		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
+		distribution:,parent-distribution:,parent-debian-installer-distribution:,parent-mirror-bootstrap:,parent-mirror-chroot:,parent-mirror-chroot-security:,parent-mirror-chroot-volatile:,parent-mirror-chroot-backports:,parent-mirror-binary:,
+		parent-mirror-binary-security:,parent-mirror-binary-volatile:,parent-mirror-binary-backports:,parent-mirror-debian-installer:,archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
 		packages:,package-lists:,tasks:,security:,volatile:,backports:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,compression:,build-with-chroot:,
@@ -400,53 +400,53 @@ Local_arguments ()
 				shift 2
 				;;
 
-			-m|--mirror-bootstrap)
-				LB_MIRROR_BOOTSTRAP="${2}"
+			-m|--parent-mirror-bootstrap)
+				LB_PARENT_MIRROR_BOOTSTRAP="${2}"
 				shift 2
 				;;
 
-			--mirror-chroot)
-				LB_MIRROR_CHROOT="${2}"
+			--parent-mirror-chroot)
+				LB_PARENT_MIRROR_CHROOT="${2}"
 				shift 2
 				;;
 
-			--mirror-chroot-security)
-				LB_MIRROR_CHROOT_SECURITY="${2}"
+			--parent-mirror-chroot-security)
+				LB_PARENT_MIRROR_CHROOT_SECURITY="${2}"
 				shift 2
 				;;
 
-			--mirror-chroot-volatile)
-				LB_MIRROR_CHROOT_VOLATILE="${2}"
+			--parent-mirror-chroot-volatile)
+				LB_PARENT_MIRROR_CHROOT_VOLATILE="${2}"
 				shift 2
 				;;
 
-			--mirror-chroot-backports)
-				LB_MIRROR_CHROOT_BACKPORTS="${2}"
+			--parent-mirror-chroot-backports)
+				LB_PARENT_MIRROR_CHROOT_BACKPORTS="${2}"
 				shift 2
 				;;
 
-			--mirror-binary)
-				LB_MIRROR_BINARY="${2}"
+			--parent-mirror-binary)
+				LB_PARENT_MIRROR_BINARY="${2}"
 				shift 2
 				;;
 
-			--mirror-binary-security)
-				LB_MIRROR_BINARY_SECURITY="${2}"
+			--parent-mirror-binary-security)
+				LB_PARENT_MIRROR_BINARY_SECURITY="${2}"
 				shift 2
 				;;
 
-			--mirror-binary-volatile)
-				LB_MIRROR_BINARY_VOLATILE="${2}"
+			--parent-mirror-binary-volatile)
+				LB_PARENT_MIRROR_BINARY_VOLATILE="${2}"
 				shift 2
 				;;
 
-			--mirror-binary-backports)
-				LB_MIRROR_BINARY_BACKPORTS="${2}"
+			--parent-mirror-binary-backports)
+				LB_PARENT_MIRROR_BINARY_BACKPORTS="${2}"
 				shift 2
 				;;
 
-			--mirror-debian-installer)
-				LB_MIRROR_DEBIAN_INSTALLER="${2}"
+			--parent-mirror-debian-installer)
+				LB_PARENT_MIRROR_DEBIAN_INSTALLER="${2}"
 				shift 2
 				;;
 
@@ -993,45 +993,45 @@ LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION}"
 # (Default: ${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION})
 LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"
 
-# \$LB_MIRROR_BOOTSTRAP: set mirror to bootstrap from
-# (Default: ${LB_MIRROR_BOOTSTRAP})
-LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP}"
+# \$LB_PARENT_MIRROR_BOOTSTRAP: set parent mirror to bootstrap from
+# (Default: ${LB_PARENT_MIRROR_BOOTSTRAP})
+LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP}"
 
-# \$LB_MIRROR_CHROOT: set mirror to fetch packages from
-# (Default: ${LB_MIRROR_CHROOT})
-LB_MIRROR_CHROOT="${LB_MIRROR_CHROOT}"
+# \$LB_PARENT_MIRROR_CHROOT: set parent mirror to fetch packages from
+# (Default: ${LB_PARENT_MIRROR_CHROOT})
+LB_PARENT_MIRROR_CHROOT="${LB_PARENT_MIRROR_CHROOT}"
 
-# \$LB_MIRROR_CHROOT_SECURITY: set security mirror to fetch packages from
-# (Default: ${LB_MIRROR_CHROOT_SECURITY})
-LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY}"
+# \$LB_PARENT_MIRROR_CHROOT_SECURITY: set security parent mirror to fetch packages from
+# (Default: ${LB_PARENT_MIRROR_CHROOT_SECURITY})
+LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY}"
 
-# \$LB_MIRROR_CHROOT_VOLATILE: set volatile mirror to fetch packages from
-# (Default: ${LB_MIRROR_CHROOT_VOLATILE})
-LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE}"
+# \$LB_PARENT_MIRROR_CHROOT_VOLATILE: set volatile parent mirror to fetch packages from
+# (Default: ${LB_PARENT_MIRROR_CHROOT_VOLATILE})
+LB_PARENT_MIRROR_CHROOT_VOLATILE="${LB_PARENT_MIRROR_CHROOT_VOLATILE}"
 
-# \$LB_MIRROR_CHROOT_BACKPORTS: set backports mirror to fetch packages from
-# (Default: ${LB_MIRROR_CHROOT_BACKPORTS})
-LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS}"
+# \$LB_PARENT_MIRROR_CHROOT_BACKPORTS: set backports parent mirror to fetch packages from
+# (Default: ${LB_PARENT_MIRROR_CHROOT_BACKPORTS})
+LB_PARENT_MIRROR_CHROOT_BACKPORTS="${LB_PARENT_MIRROR_CHROOT_BACKPORTS}"
 
-# \$LB_MIRROR_BINARY: set mirror which ends up in the image
-# (Default: ${LB_MIRROR_BINARY})
-LB_MIRROR_BINARY="${LB_MIRROR_BINARY}"
+# \$LB_PARENT_MIRROR_BINARY: set parent mirror which ends up in the image
+# (Default: ${LB_PARENT_MIRROR_BINARY})
+LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY}"
 
-# \$LB_MIRROR_BINARY_SECURITY: set security mirror which ends up in the image
-# (Default: ${LB_MIRROR_BINARY_SECURITY})
-LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY}"
+# \$LB_PARENT_MIRROR_BINARY_SECURITY: set security parent mirror which ends up in the image
+# (Default: ${LB_PARENT_MIRROR_BINARY_SECURITY})
+LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY}"
 
-# \$LB_MIRROR_BINARY_VOLATILE: set volatile mirror which ends up in the image
-# (Default: ${LB_MIRROR_BINARY_VOLATILE})
-LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY_VOLATILE}"
+# \$LB_PARENT_MIRROR_BINARY_VOLATILE: set volatile parent mirror which ends up in the image
+# (Default: ${LB_PARENT_MIRROR_BINARY_VOLATILE})
+LB_PARENT_MIRROR_BINARY_VOLATILE="${LB_PARENT_MIRROR_BINARY_VOLATILE}"
 
-# \$LB_MIRROR_BINARY_BACKPORTS: set backports mirror which ends up in the image
-# (Default: ${LB_MIRROR_BINARY_BACKPORTS})
-LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS}"
+# \$LB_PARENT_MIRROR_BINARY_BACKPORTS: set backports parent mirror which ends up in the image
+# (Default: ${LB_PARENT_MIRROR_BINARY_BACKPORTS})
+LB_PARENT_MIRROR_BINARY_BACKPORTS="${LB_PARENT_MIRROR_BINARY_BACKPORTS}"
 
-# \$LB_MIRROR_DEBIAN_INSTALLER: set debian-installer mirror
-# (Default: ${LB_MIRROR_BOOTSTRAP})
-LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER}"
+# \$LB_PARENT_MIRROR_DEBIAN_INSTALLER: set debian-installer parent mirror
+# (Default: ${LB_PARENT_MIRROR_BOOTSTRAP})
+LB_PARENT_MIRROR_DEBIAN_INSTALLER="${LB_PARENT_MIRROR_DEBIAN_INSTALLER}"
 
 # \$LB_ARCHIVE_AREAS: select archive areas to use
 # (Default: ${LB_ARCHIVE_AREAS})
