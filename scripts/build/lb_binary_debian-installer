@@ -262,7 +262,12 @@ then
 			;;
 	esac
 else
-	URL="${LB_PARENT_MIRROR_DEBIAN_INSTALLER}/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LB_ARCHITECTURES}/current/images/"
+	if [ "${LB_DISTRIBUTION}" = "true" ]
+	then
+		URL="${LB_MIRROR_DEBIAN_INSTALLER}/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LB_ARCHITECTURES}/current/images/"
+	else
+		URL="${LB_PARENT_MIRROR_DEBIAN_INSTALLER}/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LB_ARCHITECTURES}/current/images/"
+	fi
 fi
 
 mkdir -p "${DESTDIR_DI}"
@@ -486,6 +491,7 @@ then
 	# Fetching release
 	Download_file binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Release "${LB_PARENT_MIRROR_CHROOT}"/dists/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/main/binary-"${LB_ARCHITECTURES}"/Release
 
+	# Udeb handling
 	mkdir binary.udeb
 	cd binary.udeb
 
@@ -493,8 +499,19 @@ then
 	Download_file Packages.gz "${LB_PARENT_MIRROR_CHROOT}"/dists/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LB_ARCHITECTURES}"/Packages.gz
 	gunzip -c Packages.gz > Packages
 
+	if [ "${LB_DERIVATIVE}" = "true" ]
+	then
+		Download_file Packages.derivative.gz "${LB_MIRROR_CHROOT}"/dists/"${LB_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LB_ARCHITECTURES}"/Packages.gz
+		gunzip -c Packages.derivative.gz > Packages.derivative
+	fi
+
 	# Sorting udebs
 	UDEBS="$(awk '/Filename: / { print $2 }' Packages)"
+
+	if [ "${LB_DERIVATIVE}" = true ]
+	then
+		UDEBS="${UDEBS} $(awk '/Filename: / { print $2 }' Packages.derivative)"
+	fi
 
 	# Downloading udebs
 	for UDEB in ${UDEBS}
@@ -505,7 +522,7 @@ then
 			cp ../cache/packages_debian-installer.udeb/"$(basename ${UDEB})" ./
 		else
 			# Downloading udebs
-			wget ${WGET_OPTIONS} "${LB_PARENT_MIRROR_CHROOT}"/${UDEB}
+			wget ${WGET_OPTIONS} "${LB_MIRROR_CHROOT}"/${UDEB} || wget ${WGET_OPTIONS} "${LB_PARENT_MIRROR_CHROOT}"/${UDEB}
 		fi
 	done
 
