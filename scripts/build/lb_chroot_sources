@@ -474,8 +474,8 @@ EOF
 			fi
 
 			Apt chroot update
-			Apt chroot upgrade ${_APT}
-			Apt chroot dist-upgrade ${_APT}
+			Apt chroot "upgrade ${_APT}"
+			Apt chroot "dist-upgrade ${_APT}"
 
 			# Installing keyring packages
 			if [ -n "${LB_KEYRING_PACKAGES}" ]
