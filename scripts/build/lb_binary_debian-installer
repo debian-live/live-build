@@ -262,7 +262,7 @@ then
 			;;
 	esac
 else
-	if [ "${LB_DISTRIBUTION}" = "true" ]
+	if [ "${LB_DERIVATIVE}" = "true" ]
 	then
 		URL="${LB_MIRROR_DEBIAN_INSTALLER}/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LB_ARCHITECTURES}/current/images/"
 	else
