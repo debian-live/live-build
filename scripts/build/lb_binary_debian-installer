@@ -506,12 +506,12 @@ then
 	fi
 
 	# Sorting udebs
-	UDEBS="$(awk '/Filename: / { print $2 }' Packages)"
-
 	if [ "${LB_DERIVATIVE}" = true ]
 	then
-		UDEBS="${UDEBS} $(awk '/Filename: / { print $2 }' Packages.derivative)"
+		UDEBS="$(awk '/Filename: / { print $2 }' Packages.derivative)"
 	fi
+
+	UDEBS="${UDEBS} $(awk '/Filename: / { print $2 }' Packages)"
 
 	# Downloading udebs
 	for UDEB in ${UDEBS}
@@ -522,7 +522,10 @@ then
 			cp ../cache/packages_debian-installer.udeb/"$(basename ${UDEB})" ./
 		else
 			# Downloading udebs
-			wget ${WGET_OPTIONS} "${LB_MIRROR_CHROOT}"/${UDEB} || wget ${WGET_OPTIONS} "${LB_PARENT_MIRROR_CHROOT}"/${UDEB}
+			if ! ls "$(basename ${UDEB} | awk -F_ '{ print $1 }')"_* > /dev/null 2>&1
+			then
+				wget ${WGET_OPTIONS} "${LB_MIRROR_CHROOT}"/${UDEB} || wget ${WGET_OPTIONS} "${LB_PARENT_MIRROR_CHROOT}"/${UDEB}
+			fi
 		fi
 	done
 
