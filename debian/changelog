@@ -1,3 +1,67 @@
+live-build (3.0~a12-1) experimental; urgency=low
+
+  [ Daniel Baumann ]
+  * Updating year in copyright.
+  * Updating year in hooks and script files.
+
+  [ Luigi Capriotti ]
+  * Support for newer grub-common package.
+
+  [ Daniel Baumann ]
+  * Removing legacy handling for lenny in grub2 handling of
+    lb_binary_iso.
+  * Adding missing netinst udeb include files for ubuntu.
+
+  [ Cody A.W. Somerville ]
+  * Adding missing debian-cd data files for Ubuntu releases for some
+    architectures.
+
+  [ Daniel Baumann ]
+  * Adding support for Ubuntu jaunty and natty, thanks to Cody A.W.
+    Somerville <cody.somerville@canonical.com>.
+
+  [ Philip Newborough ]
+  * Update example path in 'all_binary_debian-installer-banner.sh'
+    example hook.
+
+  [ Marco Amadori ]
+  * Do not exclude console-setup-udeb (Helps: #603974)
+
+  [ Richard Nelson ]
+  * Account for the + character in packages for l-b.cgi
+
+  [ Daniel Baumann ]
+  * Updating includes for squeeze.
+
+  [ Richard Nelson ]
+  * Minor grammatical correction on mail.txt
+
+  [ Daniel Baumann ]
+  * Adding initial support for making initsystem configurable.
+
+  [ Marco Amadori ]
+  * Upstart initsystem support.
+
+  [ Daniel Baumann ]
+  * Updating upstart support addition to current coding style.
+  * Adding initial support for parent distribution for debian-installer.
+  * Updating repositories for progress.
+  * Renaming mirror options to parent mirror for handling derivatives
+    nice in future.
+  * Adding mirror option handling for derivatives.
+  * Adding mirror handling for derivatives.
+  * Adding multi-repository support for debian-installer udebs at build-
+    time.
+  * Correcting quoting of apt-options in derivatives upgrade hack.
+  * Correcting logical error with default settings of initsystem.
+  * Making sure to correctly deference syslinux theme files when
+    building chrooted.
+  * Correcting typo in derivatives check when fetching d-i components.
+  * Correcting udeb download for derivatives to only fall back to
+    debians repository if required to.
+
+ -- Daniel Baumann <daniel@debian.org>  Tue, 15 Feb 2011 19:43:44 +0100
+
 live-build (3.0~a11-1) experimental; urgency=low
 
   * Disabling inclusion of GUI installer images on ubuntu.
