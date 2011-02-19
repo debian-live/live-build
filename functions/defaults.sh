@@ -302,7 +302,7 @@ Set_defaults ()
 			;;
 
 		emdebian)
-			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-http://buildd.emdebian.org/grip/}"
+			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-http://www.emdebian.org/grip/}"
 			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-${LB_PARENT_MIRROR_BOOTSTRAP}}"
 			;;
 
@@ -423,7 +423,7 @@ Set_defaults ()
 			;;
 
 		emdebian)
-			LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-http://buildd.emdebian.org/grip/}"
+			LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-http://www.emdebian.org/grip/}"
 			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-${LB_PARENT_MIRROR_BINARY}}"
 			;;
 
