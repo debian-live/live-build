@@ -25,7 +25,7 @@ Usage ()
 	printf "  %s [-u|--usage]\n" "${PROGRAM}"
 	printf "  %s [-v|--version]\n" "${PROGRAM}"
 	echo
-	Echo "Try \" %s--help\" for more information." "${PROGRAM}"
+	Echo "Try \"%s --help\" for more information." "${PROGRAM}"
 
 	exit 1
 }
