@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2011 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
 ##
 ## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -45,20 +45,10 @@ Create_lockfile .lock
 
 case "${LB_ARCHITECTURE}" in
 	amd64|i386)
-		case "${LB_DISTRIBUTION}" in
-			lenny)
-				WIN32_LOADER="/usr/lib/win32-loader"
-				;;
-
-			*)
-				WIN32_LOADER="/usr/share/win32"
-				;;
-		esac
-
 		if [ "${LB_BUILD_WITH_CHROOT}" = "true" ]
 		then
 			# Checking depends
-			Check_package chroot/${WIN32_LOADER}/win32-loader.exe win32-loader
+			Check_package chroot/usr/share/win32/win32-loader.exe win32-loader
 
 			# Restoring cache
 			Restore_cache cache/packages_binary
@@ -67,9 +57,9 @@ case "${LB_ARCHITECTURE}" in
 			Install_package
 
 			# Copying win32-loader
-			cp -r chroot/${WIN32_LOADER}/* binary
+			cp -r chroot/usr/share/win32/* binary
 		else
-			cp -r ${WIN32_LOADER}/* binary
+			cp -r usr/share/win32/* binary
 		fi
 
 		mv binary/win32-loader.exe binary/setup.exe

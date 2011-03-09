@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2011 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
 ##
 ## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -57,7 +57,7 @@ Set_defaults ()
 	then
 		LB_APT_HTTP_PROXY="${http_proxy}"
 	else
-		if [ -n "${LB_APT_HTTP_PROXY}" ] && [ "${LB_APT_HTTP_PROXY}" != "${http_proxy}" ]
+		if [ -n "${LB_APT_HTTP_PROXY}" ] && [ "${LB_APT_HTT_PROXY}" != "${http_proxy}" ]
 		then
 			http_proxy="${LB_APT_HTTP_PROXY}"
 		fi
@@ -348,10 +348,6 @@ Set_defaults ()
 					lenny)
 						LB_MIRROR_CHROOT_VOLATILE="http://volatile.debian.org/debian-volatile/"
 						;;
-
-					squeeze)
-						LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT}"
-						;;
 				esac
 				;;
 
@@ -448,9 +444,6 @@ Set_defaults ()
 					lenny)
 						LB_MIRROR_BINARY_VOLATILE="http://volatile.debian.org/debian-volatile/"
 						;;
-
-					squeeze)
-						LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY}"
 				esac
 				;;
 
@@ -728,7 +721,6 @@ Set_defaults ()
 
 					*)
 						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|gnome-desktop||' -e 's|desktop||' -e 's|laptop||') standard gnome-desktop desktop laptop"
-						LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
 						;;
 				esac
 				;;
@@ -743,7 +735,6 @@ Set_defaults ()
 
 					*)
 						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|kde-desktop||' -e 's|desktop||' -e 's|laptop||') standard kde-desktop desktop laptop"
-						LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
 				esac
 				;;
 
@@ -757,7 +748,6 @@ Set_defaults ()
 
 					*)
 						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|lxde-desktop||' -e 's|desktop||' -e 's|laptop||') standard lxde-desktop desktop laptop"
-						LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
 						;;
 				esac
 				;;
@@ -772,7 +762,6 @@ Set_defaults ()
 
 					*)
 						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|xfce-desktop||' -e 's|desktop||' -e 's|laptop||') standard xfce-desktop desktop laptop"
-						LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
 						;;
 				esac
 				;;
@@ -877,7 +866,28 @@ Set_defaults ()
 	# Setting debian-installer-gui
 	case "${LB_MODE}" in
 		debian)
-			LB_DEBIAN_INSTALLER_GUI="${LB_DEBIAN_INSTALLER_GUI:-true}"
+			case "${LB_DISTRIBUTION}" in
+				squeeze|sid)
+					LB_DEBIAN_INSTALLER_GUI="${LB_DEBIAN_INSTALLER_GUI:-false}"
+					;;
+
+				*)
+					LB_DEBIAN_INSTALLER_GUI="${LB_DEBIAN_INSTALLER_GUI:-true}"
+					;;
+			esac
+			;;
+
+		ubuntu)
+			case "${LB_DEBIAN_INSTALLER_DISTRIBUTION}" in
+				karmic)
+					# Not available for Karmic currently.
+					LB_DEBIAN_INSTALLER_GUI="${LB_DEBIAN_INSTALLER_GUI:-false}"
+					;;
+
+				*)
+					LB_DEBIAN_INSTALLER_GUI="${LB_DEBIAN_INSTALLER_GUI:-true}"
+					;;
+			esac
 			;;
 
 		*)
@@ -930,6 +940,16 @@ Set_defaults ()
 				;;
 		esac
 	fi
+
+	case "${LB_BINARY_IMAGES}" in
+		iso-hybrid|usb*)
+			# Try USB block devices for install media
+			if ! echo "${LB_BOOTAPPEND_INSTALL}" | grep -q try-usb
+			then
+				LB_BOOTAPPEND_INSTALL="cdrom-detect/try-usb=true ${LB_BOOTAPPEND_INSTALL}"
+			fi
+			;;
+	esac
 
 	if [ -n ${_LB_BOOTAPPEND_PRESEED} ]
 	then

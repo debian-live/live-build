@@ -1,31 +1,34 @@
 # /usr/share/live/build/lists/debian-live - package list for live-build(7)
 
+## LH: Debian Live
 #include <standard>
 
 # http://qa.debian.org/developer.php?login=debian-live@lists.debian.org
 
 # debian-live
-live-build live-manual
+live-build
+git
+grub-pc grub-legacy
 
-aufs-tools dosfstools genisoimage parted squashfs-tools
-syslinux syslinux-common memtest86+
+debootstrap cdebootstrap
+syslinux
+memtest86+ memtest86
+dosfstools genisoimage mtools parted squashfs-tools genext2fs mtd-tools
+fakeroot fakechroot sudo
+
+# kernel
+aufs-tools
+qemu kqemu-source
+kvm kvm-source
+squashfs-tools
+#linux-headers-2.6-all
 
 # some other stuff
-#if DISTRIBUTION lenny
-qemu
-#endif
-#if DISTRIBUTION squeeze wheezy sid
-bridge-utils lxc kvm
-#endif
-
-git-core gnupg less rsync screen sudo vim
+vim less screen gnupg dash posh
 
 # build
-debootstrap cdebootstrap
-#if DISTRIBUTION squeeze wheezy sid
-multistrap
-#endif
-build-essential debhelper devscripts fakechroot fakeroot lintian wdiff
+build-essential debhelper dh-make lintian fakeroot devscripts wdiff
+autotools-dev dpatch module-assistant quilt
 
 # bootchart
 acct bootchart

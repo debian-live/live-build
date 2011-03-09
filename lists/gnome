@@ -1,10 +1,8 @@
 # /usr/share/live/build/lists/gnome - package list for live-build(7)
 
+## LH: GNOME Desktop
 #include <gnome-core>
 
-#if DISTRIBUTION lenny
-gdm-themes
-#endif
 gnome-desktop-environment gnome-screensaver gnome-themes-extras
 #if MODE debian
 system-config-printer

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2011 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
 ##
 ## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -328,7 +328,7 @@ then
 
 			case "${LB_MODE}" in
 				ubuntu)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-generic"
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-generic"
 					;;
 
 				*)
@@ -343,7 +343,7 @@ then
 
 			case "${LB_MODE}" in
 				ubuntu)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-generic"
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-generic"
 					;;
 
 				*)
@@ -354,28 +354,12 @@ then
 
 		sparc)
 			DI_REQ_PACKAGES="silo"
-			case "${LB_MODE}" in
-				ubuntu)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-sparc64"
-					;;
-
-				*)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-sparc64 linux-image-2.6-sparc64-smp"
-					;;
-			esac
+			DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-sparc64 linux-image-2.6-sparc64-smp"
 			;;
 
 		powerpc)
 			DI_REQ_PACKAGES="yaboot"
-			case "${LB_MODE}" in
-				ubuntu)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-powerpc linux-image-powerpc64-smp"
-					;;
-
-				*)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-powerpc linux-image-2.6-powerpc64 linux-image-2.6-powerpc-smp"
-					;;
-			esac
+			DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-powerpc linux-image-2.6-powerpc64 linux-image-2.6-powerpc-smp"
 			;;
 	esac
 
@@ -383,17 +367,8 @@ then
 
 	case "${LB_MODE}" in
 		debian)
-			case "${LB_DISTRIBUTION}" in
-				lenny)
-					DI_REQ_PACKAGES="${DI_REQ_PACKAGES} console-setup kbd"
-					DI_PACKAGES="${DI_PACKAGES} console-setup kbd"
-					;;
-
-				*)
-					DI_REQ_PACKAGES="${DI_REQ_PACKAGES} console-setup keyboard-configuration kbd"
-					DI_PACKAGES="${DI_PACKAGES} console-setup keyboard-configuration kbd"
-					;;
-			esac
+			DI_REQ_PACKAGES="${DI_REQ_PACKAGES} console-setup keyboard-configuration kbd"
+			DI_PACKAGES="${DI_PACKAGES} console-setup keyboard-configuration kbd"
 			;;
 	esac
 
@@ -429,7 +404,6 @@ then
 
 		# Download .debs of the required packages
 		Chroot chroot ${_LB_APT_COMMAND} install ${DI_REQ_PACKAGES}
-		Chroot chroot ${_LB_APT_COMMAND} install ${DI_PACKAGES}
 	else
 		# Download .debs of the required packages
 		Chroot chroot ${_LB_APT_COMMAND} install ${DI_PACKAGES}
@@ -613,25 +587,13 @@ then
 	# Generating release file
 	mv binary chroot/root
 
-	eval _VERSION="$`echo RELEASE_${LB_DISTRIBUTION}`"
-
-	case "${LB_DISTRIBUTION}" in
-		sid)
-			_SUITE="unstable"
-			;;
-
-		*)
-			_SUITE="${LB_DISTRIBUTION}"
-			;;
-	esac
-
 cat > chroot/binary.sh << EOF
 cd /root/binary && apt-ftparchive \
 	-o APT::FTPArchive::Release::Origin="Debian" \
 	-o APT::FTPArchive::Release::Label="Debian" \
-	-o APT::FTPArchive::Release::Suite="${_SUITE}" \
-	-o APT::FTPArchive::Release::Version="${_VERSION}" \
-	-o APT::FTPArchive::Release::Codename="${LB_DISTRIBUTION}" \
+	-o APT::FTPArchive::Release::Suite="${LB_DEBIAN_INSTALLER_DISTRIBUTION}" \
+	-o APT::FTPArchive::Release::Version="4.0" \
+	-o APT::FTPArchive::Release::Codename="${LB_DEBIAN_INSTALLER_DISTRIBUTION}" \
 	-o APT::FTPArchive::Release::Date="$(date -R)" \
 	-o APT::FTPArchive::Release::Architectures="${LB_ARCHITECTURE}" \
 	-o APT::FTPArchive::Release::Components="main" \
@@ -643,33 +605,17 @@ EOF
 	rm -f chroot/binary.sh
 	mv chroot/root/binary ./
 
-	DISTRIBUTIONS="frozen stable testing unstable"
-
-	if [ "${LB_DEBIAN_INSTALLER_DISTRIBUTION}" != "${LB_DISTRIBUTION}" ]
-	then
-		DISTRIBUTIONS="${DISTRIBUTIONS} ${LB_DISTRIBUTION}"
-	fi
+	# Creating dist symlinks
+	for DISTRIBUTION in frozen stable testing unstable
+	do
+		ln -s ${LB_DEBIAN_INSTALLER_DISTRIBUTION} binary/dists/${DISTRIBUTION}
+	done
 
 	case "${LB_BINARY_IMAGES}" in
-		usb-hdd)
-			case "${LB_BINARY_FILESYSTEM}" in
-				fat*)
-					# Creating dist directories
-					for DISTRIBUTION in ${DISTRIBUTIONS}
-					do
-						cp -a binary/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION} binary/dists/${DISTRIBUTION}
-					done
-					;;
-			esac
+		usb*)
 			;;
 
 		*)
-			# Creating dist symlinks
-			for DISTRIBUTION in ${DISTRIBUTIONS}
-			do
-				ln -s ${LB_DEBIAN_INSTALLER_DISTRIBUTION} binary/dists/${DISTRIBUTION}
-			done
-
 			ln -s . binary/debian
 			;;
 	esac

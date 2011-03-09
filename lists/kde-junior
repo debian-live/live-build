@@ -1,0 +1,7 @@
+# /usr/share/live/build/lists/kde-junior - package list for live-build(7)
+
+## LH: KDE Junior
+#include <kde>
+#include <debian-junior>
+
+junior-kde

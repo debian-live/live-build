@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2011 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
 ##
 ## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -307,16 +307,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 		if [ -f config/binary_rootfs/squashfs.sort ]
 		then
 			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -sort squashfs.sort"
-
-			case "${LB_BUILD_WITH_CHROOT}" in
-				true)
-					cp config/binary_rootfs/squashfs.sort chroot
-					;;
-
-				false)
-					cp config/binary_rootfs/squashfs.sort .
-					;;
-			esac
+			cp config/binary_rootfs/squashfs.sort chroot #FIXME
 		fi
 
 		case "${LB_BUILD_WITH_CHROOT}" in

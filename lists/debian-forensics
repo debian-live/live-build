@@ -1,5 +1,6 @@
 # /usr/share/live/build/lists/debian-forensics - package list for live-build(7)
 
+## LH: Debian Forensics
 #include <standard>
 
 # http://qa.debian.org/developer.php?login=forensics-devel@lists.alioth.debian.org
@@ -28,7 +29,6 @@ wipe
 
 ## Packages available as of squeeze
 
-#if DISTRIBUTION squeeze wheezy sid
 aesfix
 aeskeyfind
 afflib-tools
@@ -46,4 +46,3 @@ rifiuti
 rifiuti2
 safecopy
 shed
-#endif

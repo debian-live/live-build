@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2011 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
 ##
 ## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -17,7 +17,7 @@ set -e
 if [ "${1}" != "noauto" ] && [ -x auto/clean ]
 then
 	Echo_message "Executing auto/clean script."
-	./auto/clean "${@}"
+	./auto/clean ${@}
 	exit ${?}
 fi
 
@@ -57,10 +57,10 @@ for ARGUMENT in ${ARGUMENTS}
 do
 	case "${ARGUMENT}" in
 		--all)
-			LB=1 "${0}" noauto --chroot
-			LB=1 "${0}" noauto --binary
-			LB=1 "${0}" noauto --stage
-			LB=1 "${0}" noauto --source
+			LH=1 "${0}" noauto --chroot
+			LH=1 "${0}" noauto --binary
+			LH=1 "${0}" noauto --stage
+			LH=1 "${0}" noauto --source
 
 			rmdir --ignore-fail-on-non-empty auto > /dev/null 2>&1 || true
 			;;
@@ -104,13 +104,13 @@ do
 			;;
 
 		--remove)
-			LB=1 "${0}" --all
+			LH=1 "${0}" --all
 			rm -rf cache/packages_*
 			;;
 
 		--purge)
-			LB=1 "${0}" --all
-			LB=1 "${0}" --cache
+			LH=1 "${0}" --all
+			LH=1 "${0}" --cache
 
 			if [ -e auto/config ]
 			then
