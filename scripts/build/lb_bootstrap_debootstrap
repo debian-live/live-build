@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2011 Daniel Baumann <daniel@debian.org>
 ##
 ## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -124,7 +124,7 @@ then
 		fi
 
 		Echo_breakage "Running debootstrap (download-only)... "
-		${LB_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LB_PARENT_DISTRIBUTION}" chroot "${LB_MIRROR_BOOTSTRAP}" "${LB_DEBOOTSTRAP_SCRIPT}"
+		${LB_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}" "${LB_DEBOOTSTRAP_SCRIPT}"
 
 		if [ -n "${LB_ROOT_COMMAND}" ]
 		then
@@ -140,7 +140,7 @@ then
 	fi
 
 	Echo_breakage "Running debootstrap... "
-	${LB_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} "${LB_PARENT_DISTRIBUTION}" chroot "${LB_MIRROR_BOOTSTRAP}" "${LB_DEBOOTSTRAP_SCRIPT}"
+	${LB_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}" "${LB_DEBOOTSTRAP_SCRIPT}"
 
 	if [ -n "${LB_ROOT_COMMAND}" ]
 	then

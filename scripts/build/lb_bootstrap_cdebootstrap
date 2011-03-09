@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2011 Daniel Baumann <daniel@debian.org>
 ##
 ## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -131,7 +131,7 @@ then
 		fi
 
 		Echo_breakage "Running ${LB_BOOTSTRAP} (download-only)... "
-		${LB_ROOT_COMMAND} ${LB_BOOTSTRAP} ${CDEBOOTSTRAP_OPTIONS} --download-only "${LB_PARENT_DISTRIBUTION}" chroot "${LB_MIRROR_BOOTSTRAP}"
+		${LB_ROOT_COMMAND} ${LB_BOOTSTRAP} ${CDEBOOTSTRAP_OPTIONS} --download-only "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}"
 
 		if [ -n "${LB_ROOT_COMMAND}" ]
 		then
@@ -147,7 +147,7 @@ then
 	fi
 
 	Echo_breakage "Running ${LB_BOOTSTRAP}... "
-	${LB_ROOT_COMMAND} ${LB_BOOTSTRAP} ${CDEBOOTSTRAP_OPTIONS} "${LB_PARENT_DISTRIBUTION}" chroot "${LB_MIRROR_BOOTSTRAP}"
+	${LB_ROOT_COMMAND} ${LB_BOOTSTRAP} ${CDEBOOTSTRAP_OPTIONS} "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}"
 
 	if [ -n "${LB_ROOT_COMMAND}" ]
 	then

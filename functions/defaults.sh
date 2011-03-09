@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2011 Daniel Baumann <daniel@debian.org>
 ##
 ## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -21,14 +21,17 @@ Set_defaults ()
 	case "${LB_MODE}" in
 		progress)
 			LB_DISTRIBUTION="${LB_DISTRIBUTION:-artax}"
+			LB_DERIVATIVE="true"
 			;;
 
 		ubuntu)
 			LB_DISTRIBUTION="${LB_DISTRIBUTION:-karmic}"
+			LB_DERIVATIVE="false"
 			;;
 
 		*)
 			LB_DISTRIBUTION="${LB_DISTRIBUTION:-squeeze}"
+			LB_DERIVATIVE="false"
 			;;
 	esac
 
@@ -37,16 +40,19 @@ Set_defaults ()
 			case "${LB_DISTRIBUTION}" in
 				artax|artax-backports)
 					LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-squeeze}"
+					LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_PARENT_DISTRIBUTION}}"
 					;;
 
 				baureo)
 					LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-sid}"
+					LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_PARENT_DISTRIBUTION}}"
 					;;
 			esac
 			;;
 
 		*)
 			LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-${LB_DISTRIBUTION}}"
+			LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_PARENT_DISTRIBUTION}}"
 			;;
 	esac
 
@@ -144,6 +150,21 @@ Set_defaults ()
 
 		*)
 			LB_INITRAMFS="${LB_INITRAMFS:-auto}"
+			;;
+	esac
+
+	# Setting initsystem
+	case "${LB_MODE}" in
+		ubuntu)
+			case "${LB_INITRAMFS}" in
+				live-boot)
+					LB_INITSYSTEM="${LB_INITSYSTEM:-upstart}"
+					;;
+			esac
+			;;
+
+		*)
+			LB_INITSYSTEM="${LB_INITSYSTEM:-sysvinit}"
 			;;
 	esac
 
@@ -276,78 +297,98 @@ Set_defaults ()
 	# Setting mirror to fetch packages from
 	case "${LB_MODE}" in
 		debian)
-			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://ftp.de.debian.org/debian/}"
+			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-http://ftp.de.debian.org/debian/}"
+			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-${LB_PARENT_MIRROR_BOOTSTRAP}}"
 			;;
 
 		emdebian)
-			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://buildd.emdebian.org/grip/}"
+			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-http://buildd.emdebian.org/grip/}"
+			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-${LB_PARENT_MIRROR_BOOTSTRAP}}"
 			;;
 
 		progress)
-			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://cdn.debian.net/debian/}"
+			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-http://cdn.debian.net/debian/}"
+			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://archive.progress-linux.org/progress/}"
 			;;
 
 		ubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
-					LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://archive.ubuntu.com/ubuntu/}"
+					LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-http://archive.ubuntu.com/ubuntu/}"
 					;;
 
 				*)
-					LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://ports.ubuntu.com/}"
+					LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-http://ports.ubuntu.com/}"
 					;;
 			esac
+
+			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-${LB_PARENT_MIRROR_BOOTSTRAP}}"
 			;;
 	esac
 
+	LB_PARENT_MIRROR_CHROOT="${LB_PARENT_MIRROR_CHROOT:-${LB_PARENT_MIRROR_BOOTSTRAP}}"
 	LB_MIRROR_CHROOT="${LB_MIRROR_CHROOT:-${LB_MIRROR_BOOTSTRAP}}"
 
 	# Setting security mirror to fetch packages from
 	case "${LB_MODE}" in
 		debian)
-			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-http://security.debian.org/}"
+			LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-http://security.debian.org/}"
+			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-${LB_PARENT_MIRROR_CHROOT_SECURITY}}"
 			;;
 
 		emdebian)
-			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-none}"
+			LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-none}"
+			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-${LB_PARENT_MIRROR_CHROOT_SECURITY}}"
 			;;
 
 		progress)
-			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-http://cdn.debian.net/debian-security/}"
+			LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-http://cdn.debian.net/debian-security/}"
+			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-${LB_MIRROR_CHROOT}}"
 			;;
 
 		ubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
-					LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-http://security.ubuntu.com/ubuntu/}"
+					LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-http://security.ubuntu.com/ubuntu/}"
 					;;
 
 				*)
-					LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-http://ports.ubuntu.com/}"
+					LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-http://ports.ubuntu.com/}"
 					;;
 			esac
+
+			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-${LB_PARENT_MIRROR_CHROOT_SECURITY}}"
 			;;
 	esac
 
 	# Setting volatile mirror to fetch packages from
 	case "${LB_MODE}" in
-		debian|progress)
-			LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE:-${LB_MIRROR_CHROOT}}"
+		debian)
+			LB_PARENT_MIRROR_CHROOT_VOLATILE="${LB_PARENT_MIRROR_CHROOT_VOLATILE:-${LB_PARENT_MIRROR_CHROOT}}"
+			LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE:-${LB_PARENT_MIRROR_CHROOT}}"
+			;;
+
+		progress)
+			LB_PARENT_MIRROR_CHROOT_VOLATILE="${LB_PARENT_MIRROR_CHROOT_VOLATILE:-${LB_PARENT_MIRROR_CHROOT}}"
+			LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE:-none}"
 			;;
 
 		ubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
-					LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE:-http://security.ubuntu.com/ubuntu/}"
+					LB_PARENT_MIRROR_CHROOT_VOLATILE="${LB_PARENT_MIRROR_CHROOT_VOLATILE:-http://security.ubuntu.com/ubuntu/}"
 					;;
 
 				*)
-					LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE:-http://ports.ubuntu.com/}"
+					LB_PARENT_MIRROR_CHROOT_VOLATILE="${LB_PARENT_MIRROR_CHROOT_VOLATILE:-http://ports.ubuntu.com/}"
 					;;
 			esac
+
+			LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE:-${LB_PARENT_MIRROR_CHROOT}}"
 			;;
 
 		*)
+			LB_PARENT_MIRROR_CHROOT_VOLATILE="${LB_PARENT_MIRROR_CHROOT_VOLATILE:-none}"
 			LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE:-none}"
 			;;
 	esac
@@ -355,108 +396,142 @@ Set_defaults ()
 	# Setting backports mirror to fetch packages from
 	case "${LB_MODE}" in
 		debian)
-			LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-http://backports.debian.org/debian-backports/}"
+			LB_PARENT_MIRROR_CHROOT_BACKPORTS="${LB_PARENT_MIRROR_CHROOT_BACKPORTS:-http://backports.debian.org/debian-backports/}"
+			LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-${LB_PARENT_MIRROR_CHROOT_BACKPORTS}}"
+			;;
+
+		progress)
+			LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-${LB_MIRROR_CHROOT}}"
 			;;
 
 		*)
+			LB_PARENT_MIRROR_CHROOT_BACKPORTS="${LB_PARENT_MIRROR_CHROOT_BACKPORTS:-none}"
 			LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-none}"
 			;;
 	esac
 
 	# Setting mirror which ends up in the image
 	case "${LB_MODE}" in
-		debian|progress)
-			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://cdn.debian.net/debian/}"
+		debian)
+			LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-http://cdn.debian.net/debian/}"
+			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-${LB_PARENT_MIRROR_BINARY}}"
+			;;
+
+		progress)
+			LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-http://cdn.debian.net/debian/}"
+			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-${LB_MIRROR_CHROOT}}"
 			;;
 
 		emdebian)
-			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://buildd.emdebian.org/grip/}"
+			LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-http://buildd.emdebian.org/grip/}"
+			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-${LB_PARENT_MIRROR_BINARY}}"
 			;;
 
 		ubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
-					LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://archive.ubuntu.com/ubuntu/}"
+					LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-http://archive.ubuntu.com/ubuntu/}"
 				;;
 
 				*)
-					LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://ports.ubuntu.com/}"
+					LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-http://ports.ubuntu.com/}"
 					;;
 			esac
+
+			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-${LB_PARENT_MIRROR_BINARY}}"
 			;;
 	esac
 
 	# Setting security mirror which ends up in the image
 	case "${LB_MODE}" in
 		debian)
-			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-http://security.debian.org/}"
+			LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-http://security.debian.org/}"
+			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-${LB_PARENT_MIRROR_BINARY_SECURITY}}"
 			;;
 
 		emdebian)
-			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-none}"
+			LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-none}"
+			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-${LB_PARENT_MIRROR_BINARY_SECURITY}}"
 			;;
 
 		progress)
-			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-http://cdn.debian.net/debian-security/}"
+			LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-http://cdn.debian.net/debian-security/}"
+			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-${LB_MIRROR_CHROOT}}"
 			;;
 
 		ubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
-					LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-http://archive.ubuntu.com/ubuntu/}"
+					LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-http://archive.ubuntu.com/ubuntu/}"
 					;;
 
 				*)
-					LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-http://ports.ubuntu.com/}"
+					LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-http://ports.ubuntu.com/}"
 					;;
 			esac
+
+			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-${LB_PARENT_MIRROR_BINARY_SECURITY}}"
 			;;
 	esac
 
 	# Setting volatile mirror which ends up in the image
 	case "${LB_MODE}" in
-		debian|progress)
-			LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY_VOLATILE:-${LB_MIRROR_BINARY}}"
+		debian)
+			LB_PARENT_MIRROR_BINARY_VOLATILE="${LB_PARENT_MIRROR_BINARY_VOLATILE:-${LB_PARENT_MIRROR_BINARY}}"
+			LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY_VOLATILE:-${LB_PARENT_MIRROR_BINARY}}"
+			;;
+
+		progress)
+			LB_PARENT_MIRROR_BINARY_VOLATILE="${LB_PARENT_MIRROR_BINARY_VOLATILE:-${LB_PARENT_MIRROR_BINARY}}"
+			LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY_VOLATILE:-none}"
 			;;
 
 		ubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
-					LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY_VOLATILE:-http://security.ubuntu.com/ubuntu/}"
+					LB_PARENT_MIRROR_BINARY_VOLATILE="${LB_PARENT_MIRROR_BINARY_VOLATILE:-http://security.ubuntu.com/ubuntu/}"
 					;;
 
 				*)
-					LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY_VOLATILE:-http://ports.ubuntu.com/}"
+					LB_PARENT_MIRROR_BINARY_VOLATILE="${LB_PARENT_MIRROR_BINARY_VOLATILE:-http://ports.ubuntu.com/}"
 					;;
 			esac
 			;;
 
 		*)
-			LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY_VOLATILE:-none}"
+			LB_PARENT_MIRROR_BINARY_VOLATILE="${LB_PARENT_MIRROR_BINARY_VOLATILE:-none}"
 			;;
 	esac
 
 	# Setting backports mirror which ends up in the image
 	case "${LB_MODE}" in
 		debian)
-			LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-http://backports.debian.org/debian-backports/}"
+			LB_PARENT_MIRROR_BINARY_BACKPORTS="${LB_PARENT_MIRROR_BINARY_BACKPORTS:-http://backports.debian.org/debian-backports/}"
+			LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-${LB_PARENT_MIRROR_BINARY_BACKPORTS}}"
+			;;
+
+		progress)
+			LB_PARENT_MIRROR_BINARY_BACKPORTS="${LB_PARENT_MIRROR_BINARY_BACKPORTS:-none}"
+			LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-${LB_MIRROR_CHROOT}}"
 			;;
 
 		*)
-			LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-none}"
+			LB_PARENT_MIRROR_BINARY_BACKPORTS="${LB_PARENT_MIRROR_BINARY_BACKPORTS:-none}"
+			LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-${LB_PARENT_MIRROR_BINARY_BACKPORTS}}"
 			;;
 	esac
 
-	LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER:-${LB_MIRROR_BOOTSTRAP}}"
+	case "${LB_MODE}" in
+		progress)
+			LB_PARENT_MIRROR_DEBIAN_INSTALLER="${LB_PARENT_MIRROR_DEBIAN_INSTALLER:-${LB_PARENT_MIRROR_BOOTSTRAP}}"
+			LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER:-${LB_MIRROR_CHROOT}}"
+			;;
 
-	if [ -z "${LB_REPOSITORIES}" ]
-	then
-		case "${LB_MODE}" in
-			progress)
-				LB_REPOSITORIES="progress-linux_${LB_DISTRIBUTION}"
-				;;
-		esac
-	fi
+		*)
+			LB_PARENT_MIRROR_DEBIAN_INSTALLER="${LB_PARENT_MIRROR_DEBIAN_INSTALLER:-${LB_PARENT_MIRROR_BOOTSTRAP}}"
+			LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER:-${LB_PARENT_MIRROR_DEBIAN_INSTALLER}}"
+			;;
+	esac
 
 	# Setting archive areas value
 	case "${LB_MODE}" in
@@ -490,16 +565,12 @@ Set_defaults ()
 
 	# Setting keyring packages
 	case "${LB_MODE}" in
-		debian)
-			LB_KEYRING_PACKAGES="${LB_KEYRING_PACKAGES:-debian-archive-keyring}"
-			;;
-
-		emdebian)
-			LB_KEYRING_PACKAGES="${LB_KEYRING_PACKAGES:-debian-archive-keyring}"
-			;;
-
 		ubuntu)
 			LB_KEYRING_PACKAGES="${LB_KEYRING_PACKAGES:-ubuntu-keyring}"
+			;;
+
+		*)
+			LB_KEYRING_PACKAGES="${LB_KEYRING_PACKAGES:-debian-archive-keyring}"
 			;;
 	esac
 
@@ -692,19 +763,9 @@ Set_defaults ()
 	LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|  ||g')"
 
 	# Setting security updates option
-	if [ "${LB_MIRROR_CHROOT_SECURITY}" = "none" ] || [ "${LB_MIRROR_BINARY_SECURITY}" = "none" ]
-	then
-		LB_SECURITY="false"
-	fi
-
 	LB_SECURITY="${LB_SECURITY:-true}"
 
 	# Setting volatile updates option
-	if [ "${LB_MIRROR_CHROOT_VOLATILE}" = "none" ] || [ "${LB_MIRROR_BINARY_VOLATILE}" = "none" ]
-	then
-		LB_VOLATILE="false"
-	fi
-
 	LB_VOLATILE="${LB_VOLATILE:-true}"
 
 	## config/binary
@@ -795,8 +856,7 @@ Set_defaults ()
 			;;
 	esac
 
-	# Setting debian-installer distribution
-	LB_DEBIAN_INSTALLER_DISTRIBUTION="${LB_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_PARENT_DISTRIBUTION}}"
+	LB_DEBIAN_INSTALLER_DISTRIBUTION="${LB_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_DISTRIBUTION}}"
 
 	# Setting debian-installer-gui
 	case "${LB_MODE}" in
