@@ -1,3 +1,20 @@
+live-build (3.0~a13-1) unstable; urgency=low
+
+  [ Steven Shiau ]
+  * Correcting release filename when caching indices (Closes: #613895).
+
+  [ Daniel Baumann ]
+  * Updating default mirrors for emdebian (Closes: #614120).
+  * Adding wpasupplicant in rescue list.
+
+  [ Hector Oron ]
+  * Removing superfluous whitespace in output of the usage function.
+
+  [ Daniel Baumann ]
+  * Updating archive signing key for live.debian.net repository.
+
+ -- Daniel Baumann <daniel@debian.org>  Wed, 09 Mar 2011 19:27:39 +0100
+
 live-build (3.0~a12-1) experimental; urgency=low
 
   [ Daniel Baumann ]
