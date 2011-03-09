@@ -56,8 +56,8 @@ lb chroot_linux-image install ${*}
 lb chroot_preseed ${*}
 lb chroot_local-preseed ${*}
 lb chroot_tasks ${*}
-lb chroot_packageslists ${*}
-lb chroot_local-packageslists ${*}
+lb chroot_packagelists ${*}
+lb chroot_local-packagelists ${*}
 lb chroot_packages ${*}
 lb chroot_local-packages ${*}
 lb chroot_install-packages ${*}

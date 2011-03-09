@@ -59,7 +59,7 @@ lb binary_manifest ${*}
 lb binary_encryption ${*}
 
 # Prepare images
-lb binary_local-packageslists ${*}
+lb binary_local-packagelists ${*}
 lb binary_linux-image ${*}
 lb binary_debian-installer ${*}
 lb binary_memtest ${*}

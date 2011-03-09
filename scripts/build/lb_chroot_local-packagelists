@@ -14,7 +14,7 @@ set -e
 . "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
-DESCRIPTION="$(Echo 'queue install of packages lists into chroot')"
+DESCRIPTION="$(Echo 'queue install of local package lists into chroot')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -24,13 +24,13 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-Echo_message "Begin queueing installation of packages lists..."
+Echo_message "Begin queueing installation of local package lists..."
 
 # Requiring stage file
 Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/chroot_packageslists
+Check_stagefile .stage/chroot_local-packagelists
 
 # Checking lock file
 Check_lockfile .lock
@@ -38,15 +38,15 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ -n "${LB_PACKAGES_LISTS}" ] && [ "${LB_PACKAGES_LISTS}" != "none" ]
+if ls config/chroot_local-packagelists/*.list > /dev/null 2>&1
 then
-
-	for LIST in ${LB_PACKAGES_LISTS}
+	for LIST in config/chroot_local-packagelists/*.list
 	do
-		# Generating package list
-		Expand_packagelist "${LIST}" >> chroot/root/chroot_packages
+		# Generating local package list
+		Expand_packagelist "$(basename ${LIST})" "config/chroot_local-packagelists" \
+			>> chroot/root/chroot_packages
 	done
 
 	# Creating stage file
-	Create_stagefile .stage/chroot_packageslists
+	Create_stagefile .stage/chroot_local-packagelists
 fi

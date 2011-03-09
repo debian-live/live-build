@@ -24,13 +24,13 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-Echo_message "Begin installing local packages lists..."
+Echo_message "Begin installing local package lists..."
 
 # Requiring stage file
 Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/binary_local-packageslists
+Check_stagefile .stage/binary_local-packagelists
 
 # Checking lock file
 Check_lockfile .lock
@@ -38,7 +38,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if Find_files config/binary_local-packageslists/*.list
+if Find_files config/binary_local-packagelists/*.list
 then
 	# Restoring cache
 	Restore_cache cache/packages_chroot
@@ -53,16 +53,16 @@ then
 	mv chroot/var/lib/dpkg/status chroot/var/lib/dpkg/status.tmp
 	touch chroot/var/lib/dpkg/status
 
-	for PACKAGESLIST in config/binary_local-packageslists/*.list
+	for PACKAGELIST in config/binary_local-packagelists/*.list
 	do
 		# Generate package list
-		Expand_packagelist "${PACKAGESLIST}" "config/binary_local-packageslists" "config/chroot_local-packageslists" > chroot/root/"$(basename ${PACKAGESLIST})"
+		Expand_packagelist "${PACKAGELIST}" "config/binary_local-packagelists" "config/chroot_local-packagelists" > chroot/root/"$(basename ${PACKAGELIST})"
 
 		# Downloading additional packages
-		Chroot chroot "xargs --arg-file=/root/$(basename ${PACKAGESLIST}) apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb --download-only install"
+		Chroot chroot "xargs --arg-file=/root/$(basename ${PACKAGELIST}) apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb --download-only install"
 
 		# Remove package list
-		rm chroot/root/"$(basename ${PACKAGESLIST})"
+		rm chroot/root/"$(basename ${PACKAGELIST})"
 	done
 
 	for FILE in chroot/binary.deb/archives/*.deb
@@ -125,5 +125,5 @@ then
 	Save_cache cache/packages_chroot
 
 	# Creating stage file
-	Create_stagefile .stage/binary_local-packageslists
+	Create_stagefile .stage/binary_local-packagelists
 fi

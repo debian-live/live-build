@@ -4,7 +4,7 @@ SHELL := sh -e
 
 LANGUAGES = de
 
-SCRIPTS = cgi/* functions/* examples/*/*.sh scripts/*.sh scripts/*/*
+SCRIPTS = cgi/* functions/* examples/*/*.sh examples/auto/* scripts/*.sh scripts/*/*
 
 all: test build
 

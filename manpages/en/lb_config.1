@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2010\-11\-22 3.0~a7 "Debian Live Project"
+.TH LIVE\-BUILD 1 2010\-11\-29 3.0~a8 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -101,7 +101,7 @@
 .br
 	[\fB\-\-includes\fR \fIPATH\fR]
 .br
-	[\fB\-\-initramfs\fR auto|live\-initramfs|casper]
+	[\fB\-\-initramfs\fR auto|none|live\-boot|live\-initramfs|casper]
 .br
 	[\fB\-\-interactive\fR shell]
 .br
@@ -159,7 +159,7 @@
 .br
 	[\fB\-\-net\-tarball\fR bzip2|gzip|tar|none]
 .br
-	[\-p|\fB\-\-packages\-lists\fR \fILIST\fR|\fI"LISTS"\fR]
+	[\-p|\fB\-\-package\-lists\fR \fILIST\fR|\fI"LISTS"\fR]
 .br
 	[\fB\-\-packages\fR \fIPACKAGE\fR|\fI"PACKAGES"\fR]
 .br
@@ -307,8 +307,8 @@ sets the hostname of the live system.
 \fBlb config\fR by default reads system defaults from /etc/live/build.conf and /etc/live/build.d when generating a new live system config directory. This is useful if you want to set global settings, such as mirror locations, and don't want to specify them all of the time.
 .IP "\fB\-\-includes\fR \fIPATH\fR" 4
 sets the path to the includes that live\-build is going to use, e.g. additional minimal documentation that you want to have on all live systems. By default, this is set to /usr/share/live/build/includes/.
-.IP "\fB\-\-initramfs\fR auto|live\-initramfs|casper" 4
-sets the name of package that contains the live system specific initramfs modification. By default, auto is used, which means that at build time of the image rather than on configuration time, the value will be expanded to casper when building etch systems and to live\-initramfs for all other systems.
+.IP "\fB\-\-initramfs\fR auto|none|live\-boot|live\-initramfs|casper" 4
+sets the name of package that contains the live system specific initramfs modification. By default, auto is used, which means that at build time of the image rather than on configuration time, the value will be expanded to casper when building etch systems or ubuntu systems, to live\-initramfs for all other systems up to squeeze, and to live\-boot for wheezy and newer. Using 'none' is usefull if the resulting system image should not be a live image (experimental).
 .IP "\fB\-\-interactive\fR shell" 4
 defines if after the chroot stage and before the beginning of the binary stage, a interactive shell login should be spawned in the chroot in order to allow you to do manual customizations. Once you close the shell with logout or exit, the build will continue as usual. Note that it's strongly discouraged to use this for anything else than testing. Modifications that should be present in all builds of a live system should be properly made through hooks. Everything else destroys the beauty of being able to completely automatise the build process and making it non interactive. By default, this is of course false.
 .IP "\fB\-\-iso\-application\fR \fINAME\fR" 4
@@ -372,8 +372,8 @@ Example:
 sets the IP or hostname that will be configured in the bootloader configuration for the copy\-on\-write filesystem of your netboot image and is by default empty.
 .IP "\fB\-\-net\-tarball\fR bzip2|gzip|tar|none" 4
 defines the format of the netboot image. Choosing tar results in a not compressed tarball, bzip2 and gzip in a bzip2 resp. gzip compressed tarball. Choosing none leads to no tarball at all, the plain binary directory is considered the output in this case. Default is gzip.
-.IP "\-p|\fB\-\-packages\-lists\fR \fILIST\fR|""\fILISTS\fR""" 4
-defines which lists available in /usr/share/live/build/lists should be used. By default, this is set to standard. Note that in case you have local packages lists, you don't need to list them here. Putting them into config/chroot_local-packageslists is enough (the filename needs to have the .list suffix though).
+.IP "\-p|\fB\-\-package\-lists\fR \fILIST\fR|""\fILISTS\fR""" 4
+defines which lists available in /usr/share/live/build/lists should be used. By default, this is set to standard. Note that in case you have local package lists, you don't need to list them here. Putting them into config/chroot_local-packagelists is enough (the filename needs to have the .list suffix though).
 .IP "\fB\-\-packages\fR \fIPACKAGE\fR|""\fIPACKAGES\fR""" 4
 defines one or more packages to be installed in the live system. This is a quick and convenient place to add a few packages when building an image (limited by the max length of shell). Packages that should be permanently installed should be put into a local packages list.
 .IP "\fB\-r, \-\-repositories\fR \fIREPOSITORY\fR|""\fIREPOSITORIES\fR""" 4
@@ -401,7 +401,7 @@ defines if the sysvinit hack should be true or false. The sysvinit hack disables
 .IP "\fB\-\-tasksel\fR aptitude|tasksel" 4
 selects which program is used to install tasks. By default, this is set to tasksel.
 .IP "\fB\-\-tasks\fR \fITASK\fR|""\fITASKS\fR""" 4
-defines one or more package tasks to be installed in the live system. This is a quick and convenient way to get a reasonable default selection of packages suitable for most users when building an image, but it results in quite big images. If you want to have finer grained package selections,  local packages lists should be used instead.
+defines one or more package tasks to be installed in the live system. This is a quick and convenient way to get a reasonable default selection of packages suitable for most users when building an image, but it results in quite big images. If you want to have finer grained package selections,  local package lists should be used instead.
 .IP "\fB\-\-templates\fR \fIPATH\fR" 4
 sets the path to the templates that live\-build is going to use, e.g. for bootloaders. By default, this is set to /usr/share/live/build/templates/.
 .IP "\fB\-\-virtual\-root\-filesystem\fR ext3" 4
