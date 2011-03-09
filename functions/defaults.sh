@@ -348,6 +348,10 @@ Set_defaults ()
 					lenny)
 						LB_MIRROR_CHROOT_VOLATILE="http://volatile.debian.org/debian-volatile/"
 						;;
+
+					squeeze)
+						LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT}"
+						;;
 				esac
 				;;
 
@@ -444,6 +448,9 @@ Set_defaults ()
 					lenny)
 						LB_MIRROR_BINARY_VOLATILE="http://volatile.debian.org/debian-volatile/"
 						;;
+
+					squeeze)
+						LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY}"
 				esac
 				;;
 
@@ -813,9 +820,9 @@ Set_defaults ()
 	# Setting apt indices
 	if echo ${LB_PACKAGES_LISTS} | grep -qs -E "(stripped|minimal)\b"
 	then
-		LB_BINARY_INDICES="${LB_BINARY_INDICES:-none}"
+		LB_APT_INDICES="${LB_APT_INDICES:-none}"
 	else
-		LB_BINARY_INDICES="${LB_BINARY_INDICES:-true}"
+		LB_APT_INDICES="${LB_APT_INDICES:-true}"
 	fi
 
 	# Setting bootloader
@@ -919,16 +926,6 @@ Set_defaults ()
 				;;
 		esac
 	fi
-
-	case "${LB_BINARY_IMAGES}" in
-		iso-hybrid|usb*)
-			# Try USB block devices for install media
-			if ! echo "${LB_BOOTAPPEND_INSTALL}" | grep -q try-usb
-			then
-				LB_BOOTAPPEND_INSTALL="cdrom-detect/try-usb=true ${LB_BOOTAPPEND_INSTALL}"
-			fi
-			;;
-	esac
 
 	if [ -n ${_LB_BOOTAPPEND_PRESEED} ]
 	then
@@ -1179,9 +1176,9 @@ Check_defaults ()
 
 	if echo ${LB_PACKAGES_LISTS} | grep -qs -E "(stripped|minimal)\b"
 	then
-		if [ "${LB_BINARY_INDICES}" = "true" ]
+		if [ "${LB_APT_INDICES}" = "true" ]
 		then
-			Echo_warning "You have selected hook to minimise image size but you are still including package indices with your value of LB_BINARY_INDICES."
+			Echo_warning "You have selected hook to minimise image size but you are still including package indices with your value of LB_APT_INDICES."
 		fi
 	fi
 

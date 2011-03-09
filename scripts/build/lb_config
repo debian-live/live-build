@@ -17,7 +17,7 @@ set -e
 if [ "${1}" != "noauto" ] && [ -x auto/config ]
 then
 	Echo_message "Executing auto/config script."
-	./auto/config ${@}
+	./auto/config "${@}"
 	exit ${?}
 fi
 
@@ -31,6 +31,7 @@ DESCRIPTION="$(Echo 'create configuration for live-build(7)')"
 USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--apt-ftp-proxy URL]\n\
 \t    [--apt-http-proxy URL]\n\
+\t    [--apt-indices true|false|none]\n\
 \t    [--apt-pdiffs true|false]\n\
 \t    [--apt-options OPTION|\"OPTIONS\"]\n\
 \t    [--aptitude-options OPTION|\"OPTIONS\"]\n\
@@ -40,7 +41,6 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [-a|--architecture ARCHITECTURE]\n\
 \t    [-b|--binary-images iso|net|tar|usb-hdd]\n\
 \t    [--binary-filesystem fat16|fat32]\n\
-\t    [--binary-indices true|false|none]\n\
 \t    [--bootappend-install PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootappend-live PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootloader grub|syslinux|yaboot]\n\
@@ -145,7 +145,7 @@ Local_arguments ()
 		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
 		packages:,packages-lists:,tasks:,security:,volatile:,backports:,sysvinit:,binary-filesystem:,binary-images:,
-		binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,build-with-chroot:,
+		apt-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
 		encryption:,grub-splash:,hostname:,isohybrid-options:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
@@ -222,6 +222,11 @@ Local_arguments ()
 
 			--apt-http-proxy)
 				LB_APT_HTTP_PROXY="${2}"
+				shift 2
+				;;
+
+			--apt-indices)
+				LB_APT_INDICES="${2}"
 				shift 2
 				;;
 
@@ -532,11 +537,6 @@ Local_arguments ()
 
 			-b|--binary-images)
 				LB_BINARY_IMAGES="${2}"
-				shift 2
-				;;
-
-			--binary-indices)
-				LB_BINARY_INDICES="${2}"
 				shift 2
 				;;
 
@@ -1132,9 +1132,9 @@ LB_BINARY_FILESYSTEM="${LB_BINARY_FILESYSTEM}"
 # (Default: ${LB_BINARY_IMAGES})
 LB_BINARY_IMAGES="${LB_BINARY_IMAGES}"
 
-# \$LB_BINARY_INDICES: set apt/aptitude generic indices
-# (Default: ${LB_BINARY_INDICES})
-LB_BINARY_INDICES="${LB_BINARY_INDICES}"
+# \$LB_APT_INDICES: set apt/aptitude generic indices
+# (Default: ${LB_APT_INDICES})
+LB_APT_INDICES="${LB_APT_INDICES}"
 
 # \$LB_BOOTAPPEND_LIVE: set boot parameters
 # (Default: empty)

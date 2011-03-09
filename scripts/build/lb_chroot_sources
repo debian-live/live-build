@@ -88,14 +88,11 @@ EOF
 		then
 			case "${LB_MODE}" in
 				debian|debian-release)
-					if [ "${LB_DISTRIBUTION}" != "sid" ] && [ "${LB_DISTRIBUTION}" != "unstable" ]
-					then
-						echo "deb ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}/volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+					echo "deb ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}-volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
-						if [ "${LB_SOURCE}" = "true" ]
-						then
-							echo "deb-src ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}/volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
-						fi
+					if [ "${LB_SOURCE}" = "true" ]
+					then
+						echo "deb-src ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}-volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 					fi
 					;;
 
@@ -532,14 +529,11 @@ EOF
 		then
 			case "${LB_MODE}" in
 				debian|debian-release)
-					if [ "${LB_DISTRIBUTION}" != "sid" ] && [ "${LB_DISTRIBUTION}" != "unstable" ]
-					then
-						echo "deb ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}/volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+					echo "deb ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}-volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
-						if [ "${LB_SOURCE}" = "true" ]
-						then
-							echo "deb-src ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}/volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
-						fi
+					if [ "${LB_SOURCE}" = "true" ]
+					then
+						echo "deb-src ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}/volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 					fi
 					;;
 
@@ -656,7 +650,7 @@ EOF
 		mkdir -p chroot/var/cache/apt/archives/partial
 
 		# Cleaning apt package lists
-		if [ "${LB_BINARY_INDICES}" = "false" ]
+		if [ "${LB_APT_INDICES}" = "false" ]
 		then
 			rm -rf chroot/var/lib/apt/lists
 			mkdir -p chroot/var/lib/apt/lists/partial
