@@ -587,13 +587,25 @@ then
 	# Generating release file
 	mv binary chroot/root
 
+	eval _VERSION="$`echo RELEASE_${LB_DISTRIBUTION}`"
+
+	case "${LB_DISTRIBUTION}" in
+		sid)
+			_SUITE="unstable"
+			;;
+
+		*)
+			_SUITE="${LB_DISTRIBUTION}"
+			;;
+	esac
+
 cat > chroot/binary.sh << EOF
 cd /root/binary && apt-ftparchive \
 	-o APT::FTPArchive::Release::Origin="Debian" \
 	-o APT::FTPArchive::Release::Label="Debian" \
-	-o APT::FTPArchive::Release::Suite="${LB_DEBIAN_INSTALLER_DISTRIBUTION}" \
-	-o APT::FTPArchive::Release::Version="4.0" \
-	-o APT::FTPArchive::Release::Codename="${LB_DEBIAN_INSTALLER_DISTRIBUTION}" \
+	-o APT::FTPArchive::Release::Suite="${_SUITE}" \
+	-o APT::FTPArchive::Release::Version="${_VERSION}" \
+	-o APT::FTPArchive::Release::Codename="${LB_DISTRIBUTION}" \
 	-o APT::FTPArchive::Release::Date="$(date -R)" \
 	-o APT::FTPArchive::Release::Architectures="${LB_ARCHITECTURE}" \
 	-o APT::FTPArchive::Release::Components="main" \
@@ -606,7 +618,7 @@ EOF
 	mv chroot/root/binary ./
 
 	# Creating dist symlinks
-	for DISTRIBUTION in frozen stable testing unstable
+	for DISTRIBUTION in frozen stable testing unstable ${LB_DISTRIBUTION}
 	do
 		ln -s ${LB_DEBIAN_INSTALLER_DISTRIBUTION} binary/dists/${DISTRIBUTION}
 	done
