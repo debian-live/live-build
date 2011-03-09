@@ -1,6 +1,5 @@
 # /usr/share/live/build/lists/rescue - package list for live-build(7)
 
-## LH: Rescue
 #include <standard>
 
 # Debian Forensics
@@ -75,7 +74,10 @@ b43-fwcutter
 # Backup
 dar gddrescue dump ddrescue
 mt-st
-afio dar duplicity tob
+#if DISTRIBUTION sid
+afio tob
+#endif
+dar duplicity
 
 # File comparison
 rdiff rdiff-backup rsnapshot
@@ -183,7 +185,9 @@ netdiscover
 nload
 nsca
 nstreams
+#if DISTRIBUTION sid
 ntop
+#endif
 saidar
 samhain
 scanssh

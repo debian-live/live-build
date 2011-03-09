@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2010\-12\-06 3.0~a9 "Debian Live Project"
+.TH LIVE\-BUILD 1 2010\-12\-14 3.0~a10 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -473,10 +473,11 @@ sets the hostname of the live system.
 /etc/live/build.d when generating a new live system config directory. This
 is useful if you want to set global settings, such as mirror locations, and
 don't want to specify them all of the time.
-.IP "\fB\-\-includes\fP \fIPATH\fP" 4
+.IP "\fB\-\-includes\fP \fIPATH|none\fP" 4
 sets the path to the includes that live\-build is going to use,
 e.g. additional minimal documentation that you want to have on all live
-systems. By default, this is set to /usr/share/live/build/includes/.
+systems. By default, this is set to /usr/share/live/build/includes/. Choose
+none to disable inclusion of documentation.
 .IP "\fB\-\-initramfs\fP auto|none|live\-boot|live\-initramfs|casper" 4
 sets the name of package that contains the live system specific initramfs
 modification. By default, auto is used, which means that at build time of
