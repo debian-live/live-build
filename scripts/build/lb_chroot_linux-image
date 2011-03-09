@@ -55,7 +55,7 @@ EOF
 
 		# Diverting update-initramfs
 		#case "${LB_INITRAMFS}" in
-		#	live-initramfs|live-boot)
+		#	live-boot)
 		#		mv chroot/usr/sbin/update-initramfs chroot/usr/sbin/update-initramfs.live-build
 		#		;;
 		#esac

@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 7 2010\-12\-14 3.0~a10 "Debian Live Project"
+.TH LIVE\-BUILD 7 2011\-01\-11 3.0~a11 "Debian Live Project"
 
 .SH NAME
 \fBlive\-build\fP \- the Debian Live tool suite
@@ -168,8 +168,6 @@ mount /selinux
 manage /etc/apt/sources.list
 .IP \fBlb_chroot_sysfs\fP(1) 4
 mount /sys
-.IP \fBlb_chroot_sysvinit\fP(1) 4
-configure sysvinit
 .IP \fBlb_chroot_sysv\-rc\fP(1) 4
 manage /usr/sbin/policy\-rc.d
 .IP \fBlb_chroot_tasks\fP(1) 4
@@ -181,8 +179,6 @@ copy chroot into chroot
 install debian\-installer into binary
 .IP \fBlb_binary_disk\fP(1) 4
 install disk information into binary
-.IP \fBlb_binary_encryption\fP(1) 4
-encrypts rootfs
 .IP \fBlb_binary_grub\fP(1) 4
 installs grub into binary
 .IP \fBlb_binary_grub2\fP(1) 4
@@ -287,7 +283,9 @@ also put comments in these files; lines beginning with "#" are ignored.
 
 .\" FIXME
 .SH "SEE ALSO"
-\fIlive\-initramfs\fP(7)
+\fIlive\-boot\fP(7)
+.PP
+\fIlive\-config\fP(7)
 .PP
 This program is a part of live\-build.
 

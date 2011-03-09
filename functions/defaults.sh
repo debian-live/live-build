@@ -14,63 +14,60 @@ Set_defaults ()
 
 	LB_BASE="${LB_BASE:-/usr/share/live/build}"
 
-	# Setting mode
-	if [ -z "${LB_MODE}" ]
-	then
-		LB_MODE="debian"
-	fi
+	# Setting mode (currently: debian, emdebian, progress, and ubuntu)
+	LB_MODE="${LB_MODE:-debian}"
 
 	# Setting distribution name
-	if [ -z "${LB_DISTRIBUTION}" ]
-	then
-		case "${LB_MODE}" in
-			debian|debian-release)
-				LB_DISTRIBUTION="squeeze"
-				;;
+	case "${LB_MODE}" in
+		progress)
+			LB_DISTRIBUTION="${LB_DISTRIBUTION:-artax}"
+			;;
 
-			emdebian)
-				LB_DISTRIBUTION="sid"
-				;;
+		ubuntu)
+			LB_DISTRIBUTION="${LB_DISTRIBUTION:-karmic}"
+			;;
 
-			ubuntu)
-				LB_DISTRIBUTION="karmic"
-				;;
-		esac
-	fi
+		*)
+			LB_DISTRIBUTION="${LB_DISTRIBUTION:-squeeze}"
+			;;
+	esac
+
+	case "${LB_MODE}" in
+		progress)
+			case "${LB_DISTRIBUTION}" in
+				artax|artax-backports)
+					LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-squeeze}"
+					;;
+
+				baureo)
+					LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-sid}"
+					;;
+			esac
+			;;
+
+		*)
+			LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-${LB_DISTRIBUTION}}"
+			;;
+	esac
 
 	# Setting package manager
 	LB_APT="${LB_APT:-apt}"
 
 	# Setting apt ftp proxy
-	if [ -z "${LB_APT_FTP_PROXY}" ] && [ -n "${ftp_proxy}" ]
-	then
-		LB_APT_FTP_PROXY="${ftp_proxy}"
-	else
-		if [ -n "${LB_APT_FTP_PROXY}" ] && [ "${LB_APT_FTP_PROXY}" != "${ftp_proxy}" ]
-		then
-			ftp_proxy="${LB_APT_FTP_PROXY}"
-		fi
-	fi
+	LB_APT_FTP_PROXY="${LB_APT_FTP_PROXY:-${ftp_proxy}}"
+	ftp_proxy="${ftp_proxy:-${LB_APT_FTP_PROXY}}"
 
 	# Setting apt http proxy
-	if [ -z "${LB_APT_HTTP_PROXY}" ] && [ -n "${http_proxy}" ]
-	then
-		LB_APT_HTTP_PROXY="${http_proxy}"
-	else
-		if [ -n "${LB_APT_HTTP_PROXY}" ] && [ "${LB_APT_HTTP_PROXY}" != "${http_proxy}" ]
-		then
-			http_proxy="${LB_APT_HTTP_PROXY}"
-		fi
-	fi
-
-	# Setting apt pdiffs
-	LB_APT_PDIFFS="${LB_APT_PDIFFS:-true}"
+	LB_APT_HTTP_PROXY="${LB_APT_HTTP_PROXY:-${http_proxy}}"
+	http_proxy="${http_proxy:-${LB_APT_HTTP_PROXY}}"
 
 	# Setting apt pipeline
 	# LB_APT_PIPELINE
 
 	APT_OPTIONS="${APT_OPTIONS:---yes}"
 	APTITUDE_OPTIONS="${APTITUDE_OPTIONS:---assume-yes}"
+
+	BZIP2_OPTIONS="${BZIP2_OPTIONS:---best}"
 
 	GZIP_OPTIONS="${GZIP_OPTIONS:---best}"
 
@@ -79,14 +76,16 @@ Set_defaults ()
 		GZIP_OPTIONS="$(echo ${GZIP_OPTIONS} | sed -e 's|--rsyncable||') --rsyncable"
 	fi
 
+	LZIP_OPTIONS="${LZIP_OPTIONS:---best}"
+
 	# Setting apt recommends
 	case "${LB_MODE}" in
-		debian|debian-release|ubuntu)
-			LB_APT_RECOMMENDS="${LB_APT_RECOMMENDS:-true}"
+		emdebian|progress)
+			LB_APT_RECOMMENDS="${LB_APT_RECOMMENDS:-false}"
 			;;
 
-		emdebian)
-			LB_APT_RECOMMENDS="${LB_APT_RECOMMENDS:-false}"
+		*)
+			LB_APT_RECOMMENDS="${LB_APT_RECOMMENDS:-true}"
 			;;
 	esac
 
@@ -130,31 +129,23 @@ Set_defaults ()
 	esac
 
 	# Setting initramfs hook
-	if [ -z "${LB_INITRAMFS}" ]
-	then
-		LB_INITRAMFS="auto"
-	else
-		if [ "${LB_INITRAMFS}" = "auto" ]
-		then
+	case "${LB_INITRAMFS}" in
+		auto)
 			case "${LB_MODE}" in
 				ubuntu)
 					LB_INITRAMFS="casper"
 					;;
 
 				*)
-					case "${LB_DISTRIBUTION}" in
-						wheezy)
-							LB_INITRAMFS="live-boot"
-							;;
-
-						*)
-							LB_INITRAMFS="live-initramfs"
-							;;
-					esac
+					LB_INITRAMFS="live-boot"
 					;;
 			esac
-		fi
-	fi
+			;;
+
+		*)
+			LB_INITRAMFS="${LB_INITRAMFS:-auto}"
+			;;
+	esac
 
 	# Setting fdisk
 	if [ -z "${LB_FDISK}" ] || [ ! -x "${LB_FDISK}" ]
@@ -205,34 +196,25 @@ Set_defaults ()
 	LB_TASKSEL="${LB_TASKSEL:-tasksel}"
 
 	# Setting root directory
-	if [ -z "${LB_ROOT}" ]
-	then
-		case "${LB_MODE}" in
-			debian|debian-release)
-				LB_ROOT="debian-live"
-				;;
+	case "${LB_MODE}" in
+		debian)
+			LB_ROOT="${LB_ROOT:-debian-live}"
+			;;
 
-			emdebian)
-				LB_ROOT="emdebian-live"
-				;;
+		progress)
+			LB_ROOT="${LB_ROOT:-progress-linux}"
+			;;
 
-			ubuntu)
-				LB_ROOT="ubuntu-live"
-				;;
-		esac
-	fi
+		*)
+			LB_ROOT="${LB_ROOT:-${LB_MODE}-live}"
+			;;
+	esac
 
 	# Setting includes
-	if [ -z "${LB_INCLUDES}" ]
-	then
-		LB_INCLUDES="${LB_BASE}/includes"
-	fi
+	LB_INCLUDES="${LB_INCLUDES:-${LB_BASE}/includes}"
 
 	# Setting templates
-	if [ -z "${LB_TEMPLATES}" ]
-	then
-		LB_TEMPLATES="${LB_BASE}/templates"
-	fi
+	LB_TEMPLATES="${LB_TEMPLATES:-${LB_BASE}/templates}"
 
 	# Setting live build options
 	_BREAKPOINTS="${_BREAKPOINTS:-false}"
@@ -292,221 +274,200 @@ Set_defaults ()
 	# LB_BOOTSTRAP_KEYRING
 
 	# Setting mirror to fetch packages from
-	if [ -z "${LB_MIRROR_BOOTSTRAP}" ]
-	then
-		case "${LB_MODE}" in
-			debian|debian-release)
-				LB_MIRROR_BOOTSTRAP="http://ftp.de.debian.org/debian/"
-				;;
+	case "${LB_MODE}" in
+		debian)
+			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://ftp.de.debian.org/debian/}"
+			;;
 
-			emdebian)
-				LB_MIRROR_BOOTSTRAP="http://buildd.emdebian.org/grip/"
-				;;
+		emdebian)
+			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://buildd.emdebian.org/grip/}"
+			;;
 
-			ubuntu)
-				case "${LB_ARCHITECTURES}" in
-					amd64|i386)
-						LB_MIRROR_BOOTSTRAP="http://archive.ubuntu.com/ubuntu/"
-						;;
+		progress)
+			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://cdn.debian.net/debian/}"
+			;;
 
-					*)
-						LB_MIRROR_BOOTSTRAP="http://ports.ubuntu.com/"
-						;;
-				esac
-				;;
-		esac
-	fi
+		ubuntu)
+			case "${LB_ARCHITECTURES}" in
+				amd64|i386)
+					LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://archive.ubuntu.com/ubuntu/}"
+					;;
+
+				*)
+					LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://ports.ubuntu.com/}"
+					;;
+			esac
+			;;
+	esac
 
 	LB_MIRROR_CHROOT="${LB_MIRROR_CHROOT:-${LB_MIRROR_BOOTSTRAP}}"
 
 	# Setting security mirror to fetch packages from
-	if [ -z "${LB_MIRROR_CHROOT_SECURITY}" ]
-	then
-		case "${LB_MODE}" in
-			debian|debian-release)
-				LB_MIRROR_CHROOT_SECURITY="http://security.debian.org/"
-				;;
+	case "${LB_MODE}" in
+		debian)
+			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-http://security.debian.org/}"
+			;;
 
-			emdebian)
-				LB_MIRROR_CHROOT_SECURITY="none"
-				;;
+		emdebian)
+			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-none}"
+			;;
 
-			ubuntu)
-				case "${LB_ARCHITECTURES}" in
-					amd64|i386)
-						LB_MIRROR_CHROOT_SECURITY="http://security.ubuntu.com/ubuntu/"
-						;;
+		progress)
+			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-http://cdn.debian.net/debian-security/}"
+			;;
 
-					*)
-						LB_MIRROR_CHROOT_SECURITY="http://ports.ubuntu.com/"
-						;;
-				esac
-				;;
-		esac
-	fi
+		ubuntu)
+			case "${LB_ARCHITECTURES}" in
+				amd64|i386)
+					LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-http://security.ubuntu.com/ubuntu/}"
+					;;
+
+				*)
+					LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-http://ports.ubuntu.com/}"
+					;;
+			esac
+			;;
+	esac
 
 	# Setting volatile mirror to fetch packages from
-	if [ -z "${LB_MIRROR_CHROOT_VOLATILE}" ]
-	then
-		case "${LB_MODE}" in
-			debian|debian-release)
-				case "${LB_DISTRIBUTION}" in
-					lenny)
-						LB_MIRROR_CHROOT_VOLATILE="http://volatile.debian.org/debian-volatile/"
-						;;
+	case "${LB_MODE}" in
+		debian|progress)
+			LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE:-${LB_MIRROR_CHROOT}}"
+			;;
 
-					squeeze)
-						LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT}"
-						;;
-				esac
-				;;
+		ubuntu)
+			case "${LB_ARCHITECTURES}" in
+				amd64|i386)
+					LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE:-http://security.ubuntu.com/ubuntu/}"
+					;;
 
-			ubuntu)
-				case "${LB_ARCHITECTURES}" in
-					amd64|i386)
-						LB_MIRROR_CHROOT_VOLATILE="http://security.ubuntu.com/ubuntu/"
-						;;
+				*)
+					LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE:-http://ports.ubuntu.com/}"
+					;;
+			esac
+			;;
 
-					*)
-						LB_MIRROR_CHROOT_VOLATILE="http://ports.ubuntu.com/"
-						;;
-				esac
-				;;
-		esac
-
-		LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE:-none}"
-	fi
+		*)
+			LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE:-none}"
+			;;
+	esac
 
 	# Setting backports mirror to fetch packages from
-	if [ -z "${LB_MIRROR_CHROOT_BACKPORTS}" ]
-	then
-		case "${LB_MODE}" in
-			debian|debian-release)
-				case "${LB_DISTRIBUTION}" in
-					lenny|squeeze)
-						LB_MIRROR_CHROOT_BACKPORTS="http://backports.debian.org/debian-backports/"
-						;;
-				esac
-				;;
-		esac
+	case "${LB_MODE}" in
+		debian)
+			LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-http://backports.debian.org/debian-backports/}"
+			;;
 
-		LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-none}"
-	fi
+		*)
+			LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-none}"
+			;;
+	esac
 
 	# Setting mirror which ends up in the image
-	if [ -z "${LB_MIRROR_BINARY}" ]
-	then
-		case "${LB_MODE}" in
-			debian|debian-release)
-				LB_MIRROR_BINARY="http://cdn.debian.net/debian/"
+	case "${LB_MODE}" in
+		debian|progress)
+			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://cdn.debian.net/debian/}"
+			;;
+
+		emdebian)
+			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://buildd.emdebian.org/grip/}"
+			;;
+
+		ubuntu)
+			case "${LB_ARCHITECTURES}" in
+				amd64|i386)
+					LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://archive.ubuntu.com/ubuntu/}"
 				;;
 
-			emdebian)
-				LB_MIRROR_BINARY="http://buildd.emdebian.org/grip/"
-				;;
-
-			ubuntu)
-				case "${LB_ARCHITECTURES}" in
-					amd64|i386)
-						LB_MIRROR_BINARY="http://archive.ubuntu.com/ubuntu/"
-						;;
-
-					*)
-						LB_MIRROR_BINARY="http://ports.ubuntu.com/"
-						;;
-				esac
-				;;
-		esac
-	fi
+				*)
+					LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://ports.ubuntu.com/}"
+					;;
+			esac
+			;;
+	esac
 
 	# Setting security mirror which ends up in the image
-	if [ -z "${LB_MIRROR_BINARY_SECURITY}" ]
-	then
-		case "${LB_MODE}" in
-			debian|debian-release)
-				LB_MIRROR_BINARY_SECURITY="http://security.debian.org/"
-				;;
+	case "${LB_MODE}" in
+		debian)
+			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-http://security.debian.org/}"
+			;;
 
-			emdebian)
-				LB_MIRROR_BINARY_SECURITY="none"
-				;;
+		emdebian)
+			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-none}"
+			;;
 
-			ubuntu)
-				case "${LB_ARCHITECTURES}" in
-					amd64|i386)
-						LB_MIRROR_BINARY_SECURITY="http://archive.ubuntu.com/ubuntu/"
-						;;
+		progress)
+			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-http://cdn.debian.net/debian-security/}"
+			;;
 
-					*)
-						LB_MIRROR_BINARY_SECURITY="http://ports.ubuntu.com/"
-						;;
-				esac
-				;;
-		esac
-	fi
+		ubuntu)
+			case "${LB_ARCHITECTURES}" in
+				amd64|i386)
+					LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-http://archive.ubuntu.com/ubuntu/}"
+					;;
+
+				*)
+					LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-http://ports.ubuntu.com/}"
+					;;
+			esac
+			;;
+	esac
 
 	# Setting volatile mirror which ends up in the image
-	if [ -z "${LB_MIRROR_BINARY_VOLATILE}" ]
-	then
-		case "${LB_MODE}" in
-			debian|debian-release)
-				case "${LB_DISTRIBUTION}" in
-					lenny)
-						LB_MIRROR_BINARY_VOLATILE="http://volatile.debian.org/debian-volatile/"
-						;;
+	case "${LB_MODE}" in
+		debian|progress)
+			LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY_VOLATILE:-${LB_MIRROR_BINARY}}"
+			;;
 
-					squeeze)
-						LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY}"
-				esac
-				;;
+		ubuntu)
+			case "${LB_ARCHITECTURES}" in
+				amd64|i386)
+					LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY_VOLATILE:-http://security.ubuntu.com/ubuntu/}"
+					;;
 
-			ubuntu)
-				case "${LB_ARCHITECTURES}" in
-					amd64|i386)
-						LB_MIRROR_BINARY_VOLATILE="http://security.ubuntu.com/ubuntu/"
-						;;
+				*)
+					LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY_VOLATILE:-http://ports.ubuntu.com/}"
+					;;
+			esac
+			;;
 
-					*)
-						LB_MIRROR_BINARY_VOLATILE="http://ports.ubuntu.com/"
-						;;
-				esac
-				;;
-		esac
-
-		LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY_VOLATILE:-none}"
-	fi
+		*)
+			LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY_VOLATILE:-none}"
+			;;
+	esac
 
 	# Setting backports mirror which ends up in the image
-	if [ -z "${LB_MIRROR_BINARY_BACKPORTS}" ]
-	then
-		case "${LB_MODE}" in
-			debian|debian-release)
-				case "${LB_DISTRIBUTION}" in
-					lenny|squeeze)
-						LB_MIRROR_BINARY_BACKPORTS="http://backports.debian.org/debian-backports/"
-						;;
-				esac
-				;;
-		esac
+	case "${LB_MODE}" in
+		debian)
+			LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-http://backports.debian.org/debian-backports/}"
+			;;
 
-		LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-none}"
-	fi
+		*)
+			LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-none}"
+			;;
+	esac
 
 	LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER:-${LB_MIRROR_BOOTSTRAP}}"
 
-	# Setting archive areas value
-	if [ -z "${LB_ARCHIVE_AREAS}" ]
+	if [ -z "${LB_REPOSITORIES}" ]
 	then
 		case "${LB_MODE}" in
-			ubuntu)
-				LB_ARCHIVE_AREAS="main restricted"
-				;;
-
-			*)
-				LB_ARCHIVE_AREAS="main"
+			progress)
+				LB_REPOSITORIES="progress-linux_${LB_DISTRIBUTION}"
 				;;
 		esac
 	fi
+
+	# Setting archive areas value
+	case "${LB_MODE}" in
+		ubuntu)
+			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main restricted}"
+			;;
+
+		*)
+			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main}"
+			;;
+	esac
 
 	## config/chroot
 
@@ -529,7 +490,7 @@ Set_defaults ()
 
 	# Setting keyring packages
 	case "${LB_MODE}" in
-		debian|debian-release)
+		debian)
 			LB_KEYRING_PACKAGES="${LB_KEYRING_PACKAGES:-debian-archive-keyring}"
 			;;
 
@@ -546,140 +507,138 @@ Set_defaults ()
 	LB_LANGUAGE="${LB_LANGUAGE:-en}"
 
 	# Setting linux flavour string
-	if [ -z "${LB_LINUX_FLAVOURS}" ]
-	then
-		case "${LB_ARCHITECTURES}" in
-			armel)
-				Echo_error "There is no default kernel flavour defined for your architecture."
-				Echo_error "Please configure it manually with 'lb config -k FLAVOUR'."
-				exit 1
-				;;
+	case "${LB_ARCHITECTURES}" in
+		armel)
+			Echo_error "There is no default kernel flavour defined for your architecture."
+			Echo_error "Please configure it manually with 'lb config -k FLAVOUR'."
+			exit 1
+			;;
 
-			alpha)
-				case "${LB_MODE}" in
-					ubuntu)
-						Echo_error "Architecture(s) ${LB_ARCHITECTURES} not supported on Ubuntu."
-						exit 1
-						;;
+		alpha)
+			case "${LB_MODE}" in
+				progress|ubuntu)
+					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
+					exit 1
+					;;
 
-					*)
-						LB_LINUX_FLAVOURS="alpha-generic"
-						;;
-				esac
-				;;
+				*)
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-alpha-generic}"
+					;;
+			esac
+			;;
 
-			amd64)
-				case "${LB_MODE}" in
-					ubuntu)
-						LB_LINUX_FLAVOURS="generic"
-						;;
+		amd64)
+			case "${LB_MODE}" in
+				ubuntu)
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-generic}"
+					;;
 
-					*)
-						LB_LINUX_FLAVOURS="amd64"
-						;;
-				esac
-				;;
+				*)
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-amd64}"
+					;;
+			esac
+			;;
 
-			i386)
-				case "${LB_MODE}" in
-					ubuntu)
-						LB_LINUX_FLAVOURS="generic"
-						;;
+		i386)
+			case "${LB_MODE}" in
+				progress)
+					LB_LINUX_FLAVOURS="686"
+					;;
 
-					*)
-						case "${LIST}" in
-							stripped|minimal)
-								LB_LINUX_FLAVOURS="486"
-								;;
+				ubuntu)
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-generic}"
+					;;
 
-							*)
-								LB_LINUX_FLAVOURS="486 686"
-								;;
-						esac
-						;;
-				esac
-				;;
+				*)
+					case "${LIST}" in
+						stripped|minimal)
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486}"
+							;;
 
-			ia64)
-				LB_LINUX_FLAVOURS="itanium"
-				;;
-
-			powerpc)
-				case "${LIST}" in
-					stripped|minimal)
-						LB_LINUX_FLAVOURS="powerpc"
-						;;
-
-					*)
-						LB_LINUX_FLAVOURS="powerpc powerpc64"
-						;;
-				esac
-				;;
-
-			s390)
-				case "${LB_MODE}" in
-					ubuntu)
-						Echo_error "Architecture(s) ${LB_ARCHITECTURES} not supported on Ubuntu."
-						exit 1
-						;;
-
-					*)
-						LB_LINUX_FLAVOURS="s390"
-						;;
-				esac
-				;;
-
-			sparc)
-				LB_LINUX_FLAVOURS="sparc64"
-				;;
-
-			*)
-				Echo_error "Architecture(s) ${LB_ARCHITECTURES} not yet supported (FIXME)"
-				exit 1
-				;;
-		esac
-	fi
-
-	# Set linux packages
-	if [ -z "${LB_LINUX_PACKAGES}" ]
-	then
-		case "${LB_MODE}" in
-			debian|debian-release|embedian)
-				case "${LB_DISTRIBUTION}" in
-					lenny)
-						LB_LINUX_PACKAGES="linux-image-2.6 \${LB_UNION_FILESYSTEM}-modules-2.6"
-						;;
-
-					*)
-						LB_LINUX_PACKAGES="linux-image-2.6"
-						;;
-				esac
-
-				if [ "${LB_CHROOT_FILESYSTEM}" = "squashfs" ]
-				then
-					case "${LB_DISTRIBUTION}" in
-						lenny)
-							LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES} squashfs-modules-2.6"
+						*)
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486 686}"
 							;;
 					esac
-				fi
+					;;
+			esac
+			;;
 
-				case "${LB_ENCRYPTION}" in
-					""|false)
+		ia64)
+			case "${LB_MODE}" in
+				progress)
+					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
+					exit 1
+					;;
 
+				*)
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-itanium}"
+					;;
+			esac
+			;;
+
+		powerpc)
+			case "${LB_MODE}" in
+				progress)
+					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
+					exit 1
+					;;
+
+				*)
+					case "${LIST}" in
+						stripped|minimal)
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc}"
 						;;
 
-					*)
-						LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES} loop-aes-modules-2.6"
-						;;
-				esac
-				;;
+						*)
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc powerpc64}"
+							;;
+					esac
+					;;
+			esac
+			;;
 
-			ubuntu)
-				LB_LINUX_PACKAGES="linux"
-				;;
-		esac
-	fi
+		s390)
+			case "${LB_MODE}" in
+				progress|ubuntu)
+					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
+					exit 1
+					;;
+
+				*)
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-s390}"
+					;;
+			esac
+			;;
+
+		sparc)
+			case "${LB_MODE}" in
+				progress)
+					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
+					exit 1
+					;;
+
+				*)
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-sparc64}"
+					;;
+			esac
+			;;
+
+		*)
+			Echo_error "Architecture(s) ${LB_ARCHITECTURES} not yet supported (FIXME)"
+			exit 1
+			;;
+	esac
+
+	# Set linux packages
+	case "${LB_MODE}" in
+		ubuntu)
+			LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES:-linux}"
+			;;
+
+		*)
+			LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES:-linux-image-2.6}"
+			;;
+	esac
 
 	# Setting packages string
 	case "${LB_MODE}" in
@@ -689,19 +648,6 @@ Set_defaults ()
 
 		*)
 			LB_PACKAGE_LISTS="${LB_PACKAGE_LISTS:-standard}"
-			;;
-	esac
-
-	case "${LB_ENCRYPTION}" in
-		""|false)
-
-			;;
-
-		*)
-			if ! In_list loop-aes-utils "${LB_PACKAGES}"
-			then
-				LB_PACKAGES="${LB_PACKAGES} loop-aes-utils"
-			fi
 			;;
 	esac
 
@@ -715,60 +661,29 @@ Set_defaults ()
 
 			gnome-desktop)
 				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|gnome-desktop||') standard-x11"
-				case "${LB_DISTRIBUTION}" in
-					lenny)
-						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|gnome-desktop||' -e 's|desktop||') standard gnome-desktop desktop"
-						;;
-
-					*)
-						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|gnome-desktop||' -e 's|desktop||' -e 's|laptop||') standard gnome-desktop desktop laptop"
-						LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
-						;;
-				esac
+				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|gnome-desktop||' -e 's|desktop||' -e 's|laptop||') standard gnome-desktop desktop laptop"
+				LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
 				;;
 
 			kde-desktop)
 				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|kde-desktop||') standard-x11"
 
-				case "${LB_DISTRIBUTION}" in
-					lenny)
-						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|kde-desktop||' -e 's|desktop||') standard kde-desktop desktop"
-						;;
-
-					*)
-						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|kde-desktop||' -e 's|desktop||' -e 's|laptop||') standard kde-desktop desktop laptop"
-						LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
-				esac
+				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|kde-desktop||' -e 's|desktop||' -e 's|laptop||') standard kde-desktop desktop laptop"
+				LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
 				;;
 
 			lxde-desktop)
 				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|lxde-desktop||') standard-x11"
 
-				case "${LB_DISTRIBUTION}" in
-					lenny)
-						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|lxde-desktop||' -e 's|desktop||') standard lxde-desktop desktop"
-						;;
-
-					*)
-						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|lxde-desktop||' -e 's|desktop||' -e 's|laptop||') standard lxde-desktop desktop laptop"
-						LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
-						;;
-				esac
+				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|lxde-desktop||' -e 's|desktop||' -e 's|laptop||') standard lxde-desktop desktop laptop"
+				LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
 				;;
 
 			xfce-desktop)
 				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|xfce-desktop||') standard-x11"
 
-				case "${LB_DISTRIBUTION}" in
-					lenny)
-						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|xfce-desktop||' -e 's|desktop||') standard xfce-desktop desktop"
-						;;
-
-					*)
-						LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|xfce-desktop||' -e 's|desktop||' -e 's|laptop||') standard xfce-desktop desktop laptop"
-						LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
-						;;
-				esac
+				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|xfce-desktop||' -e 's|desktop||' -e 's|laptop||') standard xfce-desktop desktop laptop"
+				LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
 				;;
 		esac
 	done
@@ -792,9 +707,6 @@ Set_defaults ()
 
 	LB_VOLATILE="${LB_VOLATILE:-true}"
 
-	# Setting sysvinit option
-	LB_SYSVINIT="${LB_SYSVINIT:-false}"
-
 	## config/binary
 
 	# Setting image filesystem
@@ -809,17 +721,9 @@ Set_defaults ()
 	esac
 
 	# Setting image type
-	case "${LB_DISTRIBUTION}" in
-		squeeze|sid)
-			case "${LB_ARCHITECTURES}" in
-				amd64|i386)
-					LB_BINARY_IMAGES="${LB_BINARY_IMAGES:-iso-hybrid}"
-					;;
-
-				*)
-					LB_BINARY_IMAGES="${LB_BINARY_IMAGES:-iso}"
-					;;
-			esac
+	case "${LB_ARCHITECTURES}" in
+		amd64|i386)
+			LB_BINARY_IMAGES="${LB_BINARY_IMAGES:-iso-hybrid}"
 			;;
 
 		*)
@@ -828,12 +732,20 @@ Set_defaults ()
 	esac
 
 	# Setting apt indices
-	if echo ${LB_PACKAGE_LISTS} | grep -qs -E "(stripped|minimal)\b"
-	then
-		LB_APT_INDICES="${LB_APT_INDICES:-none}"
-	else
-		LB_APT_INDICES="${LB_APT_INDICES:-true}"
-	fi
+	case "${LB_MODE}" in
+		progress)
+			LB_APT_INDICES="${LB_APT_INDICES:-none}"
+			;;
+
+		*)
+			if echo ${LB_PACKAGE_LISTS} | grep -qs -E "(stripped|minimal)\b"
+			then
+				LB_APT_INDICES="${LB_APT_INDICES:-none}"
+			else
+				LB_APT_INDICES="${LB_APT_INDICES:-true}"
+			fi
+			;;
+	esac
 
 	# Setting bootloader
 	if [ -z "${LB_BOOTLOADER}" ]
@@ -856,34 +768,40 @@ Set_defaults ()
 	# Setting checksums
 	LB_CHECKSUMS="${LB_CHECKSUMS:-md5}"
 
+	# Setting compression
+	case "${LB_MODE}" in
+		progress)
+			LB_COMPRESSION="${LB_COMPRESSION:-none}"
+			;;
+
+		*)
+			LB_COMPRESSION="${LB_COMPRESSION:-gzip}"
+			;;
+	esac
+
 	# Setting chroot option
 	LB_BUILD_WITH_CHROOT="${LB_BUILD_WITH_CHROOT:-true}"
 
 	LB_BUILD_WITH_TMPFS="${LB_BUILD_WITH_TMPFS:-false}"
 
 	# Setting debian-installer option
-	LB_DEBIAN_INSTALLER="${LB_DEBIAN_INSTALLER:-false}"
+	case "${LB_MODE}" in
+		debian|progress)
+			LB_DEBIAN_INSTALLER="${LB_DEBIAN_INSTALLER:-live}"
+			;;
+
+		*)
+			LB_DEBIAN_INSTALLER="${LB_DEBIAN_INSTALLER:-false}"
+			;;
+	esac
 
 	# Setting debian-installer distribution
-	LB_DEBIAN_INSTALLER_DISTRIBUTION="${LB_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_DISTRIBUTION}}"
+	LB_DEBIAN_INSTALLER_DISTRIBUTION="${LB_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_PARENT_DISTRIBUTION}}"
 
 	# Setting debian-installer-gui
 	case "${LB_MODE}" in
-		debian)
+		debian|progress)
 			LB_DEBIAN_INSTALLER_GUI="${LB_DEBIAN_INSTALLER_GUI:-true}"
-			;;
-
-		ubuntu)
-			case "${LB_DEBIAN_INSTALLER_DISTRIBUTION}" in
-				karmic)
-					# Not available for Karmic currently.
-					LB_DEBIAN_INSTALLER_GUI="${LB_DEBIAN_INSTALLER_GUI:-false}"
-					;;
-
-				*)
-					LB_DEBIAN_INSTALLER_GUI="${LB_DEBIAN_INSTALLER_GUI:-true}"
-					;;
-			esac
 			;;
 
 		*)
@@ -944,119 +862,104 @@ Set_defaults ()
 
 	LB_BOOTAPPEND_INSTALL="$(echo ${LB_BOOTAPPEND_INSTALL} | sed -e 's/[ \t]*$//')"
 
-	# Setting encryption
-	LB_ENCRYPTION="${LB_ENCRYPTION:-false}"
-
 	# Setting grub splash
 	# LB_GRUB_SPLASH
 
 	# Setting hostname
-	if [ -z "${LB_HOSTNAME}" ]
-	then
-		case "${LB_MODE}" in
-			embedian)
-				LB_HOSTNAME="embedian"
-				;;
-
-			ubuntu)
-				LB_HOSTNAME="ubuntu"
-				;;
-
-			*)
-				LB_HOSTNAME="debian"
-				;;
-		esac
-	fi
+	LB_HOSTNAME="${LB_HOSTNAME:-${LB_MODE}}"
 
 	# Setting iso author
-	if [ -z "${LB_ISO_APPLICATION}" ]
-	then
-		case "${LB_MODE}" in
-			debian|debian-release)
-				LB_ISO_APPLICATION="Debian Live"
-				;;
+	case "${LB_MODE}" in
+		debian)
+			LB_ISO_APPLICATION="${LB_ISO_APPLICATION:-Debian Live}"
+			;;
 
-			emdebian)
-				LB_ISO_APPLICATION="Emdebian Live"
-				;;
+		emdebian)
+			LB_ISO_APPLICATION="${LB_ISO_APPLICATION:-Emdebian Live}"
+			;;
 
-			ubuntu)
-				LB_ISO_APPLICATION="Ubuntu Live"
-				;;
-		esac
-	fi
+		progress)
+			LB_ISO_APPLICATION="${LB_ISO_APPLICATION:-Progress Linux}"
+			;;
+
+		ubuntu)
+			LB_ISO_APPLICATION="${LB_ISO_APPLICATION:-Ubuntu Live}"
+			;;
+	esac
 
 	# Set iso preparer
 	LB_ISO_PREPARER="${LB_ISO_PREPARER:-live-build \$VERSION; http://packages.qa.debian.org/live-build}"
 
 	# Set iso publisher
-	LB_ISO_PUBLISHER="${LB_ISO_PUBLISHER:-Debian Live project; http://live.debian.net/; debian-live@lists.debian.org}"
+	case "${LB_MODE}" in
+		progress)
+			LB_ISO_PUBLISHER="${LB_ISO_PUBLISHER:-Progress Linux; http://www.progress-linux.org/; progress-project@lists.progress-linux.org}"
+			;;
+
+		*)
+			LB_ISO_PUBLISHER="${LB_ISO_PUBLISHER:-Debian Live project; http://live.debian.net/; debian-live@lists.debian.org}"
+			;;
+	esac
 
 	# Setting iso volume
-	if [ -z "${LB_ISO_VOLUME}" ]
-	then
-		case "${LB_MODE}" in
-			debian)
-				LB_ISO_VOLUME="Debian ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)"
-				;;
+	case "${LB_MODE}" in
+		debian)
+			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Debian ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)}"
+			;;
 
-			debian-release)
-				eval VERSION="$`echo RELEASE_${LB_DISTRIBUTION}`"
-				LB_ISO_VOLUME="Debian ${VERSION} ${LB_ARCHITECTURES} live"
-				;;
+		emdebian)
+			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Emdebian ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)}"
+			;;
 
-			emdebian)
-				LB_ISO_VOLUME="Emdebian ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)"
-				;;
+		progress)
+			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Progress ${LB_DISTRIBUTION}}"
+			;;
 
-			ubuntu)
-				LB_ISO_VOLUME="Ubuntu ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)"
-				;;
-		esac
-	fi
+		ubuntu)
+			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Ubuntu ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)}"
+			;;
+	esac
 
 	# Setting memtest option
 	LB_MEMTEST="${LB_MEMTEST:-memtest86+}"
 
 	# Setting win32-loader option
-	if [ "${LB_MODE}" != "ubuntu" ]
-	then
-		case "${LB_ARCHITECTURES}" in
-			amd64|i386)
-				if [ "${LB_DEBIAN_INSTALLER}" != "false" ]
-				then
-					LB_WIN32_LOADER="${LB_WIN32_LOADER:-true}"
-				else
-					LB_WIN32_LOADER="${LB_WIN32_LOADER:-false}"
-				fi
-				;;
+	case "${LB_MODE}" in
+		progress|ubuntu)
 
-			*)
-				LB_WIN32_LOADER="${LB_WIN32_LOADER:-false}"
-				;;
-		esac
-	fi
+			;;
+
+		*)
+			case "${LB_ARCHITECTURES}" in
+				amd64|i386)
+					if [ "${LB_DEBIAN_INSTALLER}" != "false" ]
+					then
+						LB_WIN32_LOADER="${LB_WIN32_LOADER:-true}"
+					else
+						LB_WIN32_LOADER="${LB_WIN32_LOADER:-false}"
+					fi
+					;;
+
+				*)
+					LB_WIN32_LOADER="${LB_WIN32_LOADER:-false}"
+					;;
+			esac
+			;;
+	esac
 
 	# Setting netboot filesystem
 	LB_NET_ROOT_FILESYSTEM="${LB_NET_ROOT_FILESYSTEM:-nfs}"
 
 	# Setting netboot server path
-	if [ -z "${LB_NET_ROOT_PATH}" ]
-	then
-		case "${LB_MODE}" in
-			debian|debian-release)
-				LB_NET_ROOT_PATH="/srv/debian-live"
-				;;
+	case "${LB_MODE}" in
+		progress)
+			LB_NET_ROOT_PATH="${LB_NET_ROOT_PATH:-/srv/progress-linux}"
+			;;
 
-			emdebian)
-				LB_NET_ROOT_PATH="/srv/emdebian-live"
-				;;
-
-			ubuntu)
-				LB_NET_ROOT_PATH="/srv/ubuntu-live"
-				;;
-		esac
-	fi
+		*)
+			LB_NET_ROOT_PATH="${LB_NET_ROOT_PATH:-/srv/${LB_MODE}-live}"
+			;;
+	esac
 
 	# Setting netboot server address
 	LB_NET_ROOT_SERVER="${LB_NET_ROOT_SERVER:-192.168.1.1}"
@@ -1065,10 +968,18 @@ Set_defaults ()
 	LB_NET_COW_FILESYSTEM="${LB_NET_COW_FILESYSTEM:-nfs}"
 
 	# Setting net tarball
-	LB_NET_TARBALL="${LB_NET_TARBALL:-gzip}"
+	LB_NET_TARBALL="${LB_NET_TARBALL:-true}"
 
 	# Setting syslinux theme package
-	LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-debian-squeeze}"
+	case "${LB_MODE}" in
+		progress)
+			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-progress-standard}"
+			;;
+
+		*)
+			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-debian-squeeze}"
+			;;
+	esac
 
 	# Setting username
 	case "${LB_MODE}" in

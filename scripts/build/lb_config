@@ -33,7 +33,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--apt-ftp-proxy URL]\n\
 \t    [--apt-http-proxy URL]\n\
 \t    [--apt-indices true|false|none]\n\
-\t    [--apt-pdiffs true|false]\n\
 \t    [--apt-options OPTION|\"OPTIONS\"]\n\
 \t    [--aptitude-options OPTION|\"OPTIONS\"]\n\
 \t    [--apt-pipeline DEPTH]\n\
@@ -54,6 +53,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--cache-packages true|false]\n\
 \t    [--cache-stages STAGE|\"STAGES\"]\n\
 \t    [--checksums md5|sha1|sha256|none]\n\
+\t    [--compression bzip2|gzip|lzip|none]\n\
 \t    [--build-with-chroot true|false]\n\
 \t    [--chroot-filesystem ext2|ext3|squashfs|plain|jffs2]\n\
 \t    [--clean\n\
@@ -67,8 +67,8 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--debian-installer-gui true|false]\n\
 \t    [--debug]\n\
 \t    [-d|--distribution CODENAME]\n\
+\t    [--parent-distribution CODENAME]\n\
 \t    [--dump]\n\
-\t    [-e|--encryption false|aes128|aes192|aes256]\n\
 \t    [--fdisk fdisk|fdisk.dist]\n\
 \t    [--force]\n\
 \t    [--grub-splash FILE]\n\
@@ -77,7 +77,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--hostname NAME]\n\
 \t    [--ignore-system-defaults]\n\
 \t    [--includes PATH|none]\n\
-\t    [--initramfs auto|none|live-boot|live-initramfs|casper]\n\
+\t    [--initramfs auto|none|live-boot|casper]\n\
 \t    [--interactive shell]\n\
 \t    [--isohybrid-options OPTION|\"OPTIONS\"]\n\
 \t    [--iso-application NAME]\n\
@@ -110,7 +110,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--net-cow-mountoptions OPTIONS]\n\
 \t    [--net-cow-path PATH]\n\
 \t    [--net-cow-server IP|HOSTNAME]\n\
-\t    [--net-tarball bzip2|gzip|tar|none]\n\
+\t    [--net-tarball true|false]\n\
 \t    [-p|--package-lists LIST|\"LISTS\"]\n\
 \t    [--packages PACKAGE|\"PACKAGES\"]\n\
 \t    [--quiet]\n\
@@ -122,7 +122,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--source true|false]\n\
 \t    [-s|--source-images iso|net|tar|usb-hdd]\n\
 \t    [--syslinux-theme THEME_SUFFIX]\n\
-\t    [--sysvinit true|false]\n\
 \t    [--tasksel aptitude|tasksel]\n\
 \t    [--tasks TASK|\"TASKS\"]\n\
 \t    [--templates PATH]\n\
@@ -136,18 +135,18 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 
 Local_arguments ()
 {
-	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-pdiffs:,apt-options:,aptitute-options:,
+	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-options:,aptitute-options:,
 		apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,
 		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
 		initramfs:,fdisk:,losetup:,mode:,repositories:,root-command:,use-fakeroot:,tasksel:,includes:,
 		templates:,architectures:,bootstrap-config:,bootstrap-flavour:,bootstrap-keyring:,clean,
-		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-chroot-backports:,mirror-binary:,
+		distribution:,parent-distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-chroot-backports:,mirror-binary:,
 		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
-		packages:,package-lists:,tasks:,security:,volatile:,backports:,sysvinit:,binary-filesystem:,binary-images:,
-		apt-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,build-with-chroot:,
+		packages:,package-lists:,tasks:,security:,volatile:,backports:,binary-filesystem:,binary-images:,
+		apt-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,compression:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
-		encryption:,grub-splash:,hostname:,isohybrid-options:,iso-application:,iso-preparer:,iso-publisher:,
+		grub-splash:,hostname:,isohybrid-options:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
 		net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,
 		net-cow-server:,net-tarball:,syslinux-theme:,
@@ -230,10 +229,6 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--apt-pdiffs)
-				LB_APT_PDIFFS="${2}"
-				shift 2
-				;;
 			--apt-options)
 				APT_OPTIONS="${2}"
 				shift 2
@@ -388,6 +383,11 @@ Local_arguments ()
 				esac
 				;;
 
+			--parent-distribution)
+				LB_PARENT_DISTRIBUTION="${2}"
+				shift 2
+				;;
+
 			-m|--mirror-bootstrap)
 				LB_MIRROR_BOOTSTRAP="${2}"
 				shift 2
@@ -524,11 +524,6 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--sysvinit)
-				LB_SYSVINIT="${2}"
-				shift 2
-				;;
-
 			# config/binary
 			--binary-filesystem)
 				LB_BINARY_FILESYSTEM="${2}"
@@ -560,6 +555,11 @@ Local_arguments ()
 				shift 2
 				;;
 
+			--compression)
+				LB_COMPRESSION="${2}"
+				shift 2
+				;;
+
 			--build-with-chroot)
 				LB_BUILD_WITH_CHROOT="${2}"
 				shift 2
@@ -582,11 +582,6 @@ Local_arguments ()
 
 			--debian-installer-gui)
 				LB_DEBIAN_INSTALLER_GUI="${2}"
-				shift 2
-				;;
-
-			-e|--encryption)
-				LB_ENCRYPTION="${2}"
 				shift 2
 				;;
 
@@ -829,10 +824,6 @@ LB_APT_FTP_PROXY="${LB_APT_FTP_PROXY}"
 # (Default: autodetected or empty)
 LB_APT_HTTP_PROXY="${LB_APT_HTTP_PROXY}"
 
-# \$LB_APT_PDIFFS: set apt/aptitude pdiff indices
-# (Default: ${LB_APT_PDIFFS})
-LB_APT_PDIFFS="${LB_APT_PDIFFS}"
-
 # \$LB_APT_PIPELINE: set apt/aptitude pipeline depth
 # (Default: ${LB_APT_PIPELINE})
 LB_APT_PIPELINE="${LB_APT_PIPELINE}"
@@ -978,6 +969,10 @@ LB_BOOTSTRAP_KEYRING="${LB_BOOTSTRAP_KEYRING}"
 # (Default: ${LB_DISTRIBUTION})
 LB_DISTRIBUTION="${LB_DISTRIBUTION}"
 
+# \$LB_PARENT_DISTRIBUTION: select parent distribution to use
+# (Default: ${LB_PARENT_DISTRIBUTION})
+LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION}"
+
 # \$LB_MIRROR_BOOTSTRAP: set mirror to bootstrap from
 # (Default: ${LB_MIRROR_BOOTSTRAP})
 LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP}"
@@ -1103,10 +1098,6 @@ LB_VOLATILE="${LB_VOLATILE}"
 # \$LB_BACKPORTS: enable backports updates
 # (Default: ${LB_BACKPORTS})
 LB_BACKPORTS="${LB_BACKPORTS}"
-
-# \$LB_SYSVINIT: enable sysvinit
-# (Default: ${LB_SYSVINIT})
-LB_SYSVINIT="${LB_SYSVINIT}"
 EOF
 
 # Creating lb_binary_* configuration
@@ -1152,6 +1143,10 @@ LB_BOOTLOADER="${LB_BOOTLOADER}"
 # (Default: ${LB_CHECKSUMS})
 LB_CHECKSUMS="${LB_CHECKSUMS}"
 
+# \$LB_COMPRESSION: set compression
+# (Default: ${LB_COMPRESSION})
+LB_COMPRESSION="${LB_COMPRESSION}"
+
 # \${LB_BUILD_WITH_CHROOT: control if we build binary images chrooted
 # (Default: ${LB_BUILD_WITH_CHROOT})
 # DO NEVER, *NEVER*, *N*E*V*E*R* SET THIS OPTION to false.
@@ -1172,10 +1167,6 @@ LB_DEBIAN_INSTALLER_PRESEEDFILE="${LB_DEBIAN_INSTALLER_PRESEEDFILE}"
 # \$LB_DEBIAN_INSTALLER_GUI: toggle use of GUI debian-installer
 # (Default: ${LB_DEBIAN_INSTALLER_GUI})
 LB_DEBIAN_INSTALLER_GUI="${LB_DEBIAN_INSTALLER_GUI}"
-
-# \$LB_ENCRYPTION: set encryption
-# (Default: ${LB_ENCRYPTION})
-LB_ENCRYPTION="${LB_ENCRYPTION}"
 
 # \$LB_GRUB_SPLASH: set custom grub splash
 # (Default: empty)

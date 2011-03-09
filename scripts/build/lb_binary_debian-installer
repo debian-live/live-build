@@ -604,15 +604,15 @@ then
 	# Generating release file
 	mv binary chroot/root
 
-	eval _VERSION="$`echo RELEASE_${LB_DISTRIBUTION}`"
+	eval _VERSION="$`echo RELEASE_${LB_PARENT_DISTRIBUTION}`"
 
-	case "${LB_DISTRIBUTION}" in
+	case "${LB_PARENT_DISTRIBUTION}" in
 		sid)
 			_SUITE="unstable"
 			;;
 
 		*)
-			_SUITE="${LB_DISTRIBUTION}"
+			_SUITE="${LB_PARENT_DISTRIBUTION}"
 			;;
 	esac
 
@@ -622,7 +622,7 @@ cd /root/binary && apt-ftparchive \
 	-o APT::FTPArchive::Release::Label="Debian" \
 	-o APT::FTPArchive::Release::Suite="${_SUITE}" \
 	-o APT::FTPArchive::Release::Version="${_VERSION}" \
-	-o APT::FTPArchive::Release::Codename="${LB_DISTRIBUTION}" \
+	-o APT::FTPArchive::Release::Codename="${LB_PARENT_DISTRIBUTION}" \
 	-o APT::FTPArchive::Release::Date="$(date -R)" \
 	-o APT::FTPArchive::Release::Architectures="${LB_ARCHITECTURES}" \
 	-o APT::FTPArchive::Release::Components="main" \
@@ -636,9 +636,9 @@ EOF
 
 	DISTRIBUTIONS="frozen stable testing unstable"
 
-	if [ "${LB_DEBIAN_INSTALLER_DISTRIBUTION}" != "${LB_DISTRIBUTION}" ]
+	if [ "${LB_DEBIAN_INSTALLER_DISTRIBUTION}" != "${LB_PARENT_DISTRIBUTION}" ]
 	then
-		DISTRIBUTIONS="${DISTRIBUTIONS} ${LB_DISTRIBUTION}"
+		DISTRIBUTIONS="${DISTRIBUTIONS} ${LB_PARENT_DISTRIBUTION}"
 	fi
 
 	case "${LB_BINARY_IMAGES}" in

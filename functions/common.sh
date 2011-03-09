@@ -8,8 +8,8 @@
 ## under certain conditions; see COPYING for details.
 
 
-PACKAGE="live-build"
-VERSION="3.0~a10-1"
+PROGRAM="live-build"
+VERSION="3.0~a11-1"
 CONFIG_VERSION="$(echo ${VERSION} | awk -F- '{ print $1 }')"
 
 PATH="${PWD}/auto/scripts:${PATH}"

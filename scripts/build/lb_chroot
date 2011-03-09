@@ -64,7 +64,6 @@ lb chroot_install-packages ${*}
 lb chroot_localization ${*}
 lb chroot_local-includes ${*}
 lb chroot_local-patches ${*}
-lb chroot_sysvinit ${*}
 lb chroot_local-hooks ${*}
 lb chroot_hooks ${*}
 lb chroot_hacks ${*}

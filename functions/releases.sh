@@ -9,10 +9,13 @@
 
 
 # Debian releases
-RELEASE_lenny="5.0.6"
 RELEASE_squeeze="6.0.0"
 RELEASE_wheezy="7"
 RELEASE_sid="unstable"
+
+# Progress releases
+RELEASE_artax="1.0"
+RELEASE_baureo="unstable"
 
 # Ubuntu releases
 RELEASE_dapper="6.06" # LTS
