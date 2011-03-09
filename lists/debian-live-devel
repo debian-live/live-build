@@ -6,29 +6,18 @@
 # http://qa.debian.org/developer.php?login=debian-live@lists.debian.org
 
 # debian-live
-live-build
-git
-grub-pc grub-legacy
+live-build live-manual
 
-debootstrap cdebootstrap
-syslinux
-memtest86+ memtest86
-dosfstools genisoimage mtools parted squashfs-tools genext2fs mtd-tools
-fakeroot fakechroot sudo
-
-# kernel
-aufs-tools
-qemu kqemu-source
-kvm kvm-source
-squashfs-tools
-#linux-headers-2.6-all
+aufs-tools dosfstools genisoimage parted squashfs-tools
+syslinux syslinux-common memtest86+
 
 # some other stuff
-vim less screen gnupg dash posh
+bridge-utils lxc kvm
+git gnupg less rsync screen sudo vim
 
 # build
-build-essential debhelper dh-make lintian fakeroot devscripts wdiff
-autotools-dev dpatch module-assistant quilt
+debootstrap cdebootstrap multistrap
+build-essential debhelper devscripts fakechroot fakeroot lintian wdiff
 
 # bootchart
 acct bootchart

@@ -121,9 +121,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--security true|false]\n\
 \t    [--source true|false]\n\
 \t    [-s|--source-images iso|net|tar|usb-hdd]\n\
-\t    [--syslinux-splash FILE]\n\
-\t    [--syslinux-timeout SECONDS]\n\
-\t    [--syslinux-menu true|false]\n\
+\t    [--syslinux-theme THEME_SUFFIX]\n\
 \t    [--sysvinit true|false]\n\
 \t    [--tasksel aptitude|tasksel]\n\
 \t    [--tasks TASK]\n\
@@ -152,7 +150,7 @@ Local_arguments ()
 		encryption:,grub-splash:,hostname:,isohybrid-options:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
 		net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,
-		net-cow-server:,net-tarball:,syslinux-splash:,syslinux-timeout:,syslinux-menu:,
+		net-cow-server:,net-tarball:,syslinux-theme:,
 		username:,win32-loader:,source:,source-images:,breakpoints,conffile:,debug,force,
 		help,ignore-system-defaults,quiet,usage,verbose,version"
 	# Remove spaces added by indentation
@@ -682,18 +680,8 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--syslinux-splash)
-				LB_SYSLINUX_SPLASH="${2}"
-				shift 2
-				;;
-
-			--syslinux-timeout)
-				LB_SYSLINUX_TIMEOUT="${2}"
-				shift 2
-				;;
-
-			--syslinux-menu)
-				LB_SYSLINUX_MENU="${2}"
+			--syslinux-theme)
+				LB_SYSLINUX_THEME="${2}"
 				shift 2
 				;;
 
@@ -1261,33 +1249,9 @@ LB_NET_COW_SERVER="${LB_NET_COW_SERVER}"
 # (Default: ${LB_NET_TARBALL})
 LB_NET_TARBALL="${LB_NET_TARBALL}"
 
-# \$LB_SYSLINUX_SPLASH: set custom syslinux splash
-# (Default: empty)
-LB_SYSLINUX_SPLASH="${LB_SYSLINUX_SPLASH}"
-
-# \$LB_SYSLINUX_TIMEOUT: set custom syslinux timeout in seconds
-# (Default: 0)
-LB_SYSLINUX_TIMEOUT="${LB_SYSLINUX_TIMEOUT}"
-
-# \$LB_SYSLINUX_CFG: set custom syslinux configuration file
-# (Default: empty)
-LB_SYSLINUX_CFG="${LB_SYSLINUX_CFG}"
-
-# \$LB_SYSLINUX_MENU: set syslinux menu
-# (Default: ${LB_SYSLINUX_MENU})
-LB_SYSLINUX_MENU="${LB_SYSLINUX_MENU}"
-
-# \$LB_SYSLINUX_MENU_LIVE_ENTRY: set text to be used on the menu for live entries
-# (Default: ${LB_SYSLINUX_MENU_LIVE_ENTRY})
-LB_SYSLINUX_MENU_LIVE_ENTRY="${LB_SYSLINUX_MENU_LIVE_ENTRY}"
-
-# \$LB_SYSLINUX_MENU_LIVE_FAILSAFE_ENTRY: set text to be used on the menu for live entries (failsafe ones)
-# (Default: ${LB_SYSLINUX_MENU_LIVE_FAILSAFE_ENTRY})
-LB_SYSLINUX_MENU_LIVE_FAILSAFE_ENTRY="${LB_SYSLINUX_MENU_LIVE_FAILSAFE_ENTRY}"
-
-# \$LB_SYSLINUX_MENU_MEMTEST_ENTRY: set text to be used on the menu for memtest entry
-# (Default: ${LB_SYSLINUX_MENU_MEMTEST_ENTRY})
-LB_SYSLINUX_MENU_MEMTEST_ENTRY="${LB_SYSLINUX_MENU_MEMTEST_ENTRY}"
+# \$LB_SYSLINUX_THEME: set syslinux theme package
+# (Default: ${LB_SYSLINUX_THEME})
+LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME}"
 
 # \$LB_USERNAME: set username
 # (Default: ${LB_USERNAME})
@@ -1331,27 +1295,23 @@ then
 
 cat > config/chroot_sources/${LB_DISTRIBUTION}-backports.chroot << EOF
 # Backports Maintainers
-deb http://backports.debian-maintainers.org/ ${LB_DISTRIBUTION}/backports main contrib non-free
-deb-src http://backports.debian-maintainers.org/ ${LB_DISTRIBUTION}/backports main contrib non-free
+deb http://backports.debian.org/debian-backports/ ${LB_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}
+deb-src http://backports.debian.org/debian-backports/ ${LB_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}
 EOF
 
 	cp config/chroot_sources/${LB_DISTRIBUTION}-backports.chroot config/chroot_sources/${LB_DISTRIBUTION}-backports.binary
 
 	# Adding apt preferences
-	if ! grep -qs "^Pin: release o=backports.debian-maintainers.org" config/chroot_apt/preferences
+	if ! grep -qs "^Pin: release o=Debian Backports" config/chroot_apt/preferences
 	then
 
 cat >> config/chroot_apt/preferences << EOF
 Package: *
-Pin: release o=backports.debian-maintainers.org
+Pin: release o=Debian Backports
 Pin-Priority: 999
 EOF
 
 	fi
-
-	# Addding archive signing key
-	wget -q http://backports.debian-maintainers.org/project/openpgp/archive-key.asc -O config/chroot_sources/${LB_DISTRIBUTION}-backports.chroot.gpg
-	cp config/chroot_sources/${LB_DISTRIBUTION}-backports.chroot.gpg config/chroot_sources/${LB_DISTRIBUTION}-backports.binary.gpg
 fi
 
 # Checking defaults again

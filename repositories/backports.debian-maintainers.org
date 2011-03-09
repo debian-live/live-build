@@ -1,3 +1,0 @@
-# Backports Maintainers
-deb http://backports.debian-maintainers.org/ @DISTRIBUTION@-backports @ARCHIVE_AREAS@
-deb-src http://backports.debian-maintainers.org/ @DISTRIBUTION@-backports @ARCHIVE_AREAS@
