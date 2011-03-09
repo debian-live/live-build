@@ -307,7 +307,16 @@ case "${LB_CHROOT_FILESYSTEM}" in
 		if [ -f config/binary_rootfs/squashfs.sort ]
 		then
 			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -sort squashfs.sort"
-			cp config/binary_rootfs/squashfs.sort chroot #FIXME
+
+			case "${LB_BUILD_WITH_CHROOT}" in
+				true)
+					cp config/binary_rootfs/squashfs.sort chroot
+					;;
+
+				false)
+					cp config/binary_rootfs/squashfs.sort .
+					;;
+			esac
 		fi
 
 		case "${LB_BUILD_WITH_CHROOT}" in
