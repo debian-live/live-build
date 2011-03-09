@@ -30,7 +30,7 @@ then
 fi
 
 # Check architecture
-Check_crossarchitecture
+Check_crossarchitectures
 
 Echo_message "Begin bootstrapping system..."
 
@@ -53,9 +53,9 @@ Create_lockfile .lock
 mkdir -p chroot
 
 # Setting cdebootstrap options
-if [ -n "${LB_ARCHITECTURE}" ]
+if [ -n "${LB_ARCHITECTURES}" ]
 then
-	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --arch=${LB_ARCHITECTURE}"
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --arch=${LB_ARCHITECTURES}"
 fi
 
 if [ -n "${LB_BOOTSTRAP_CONFIG}" ]

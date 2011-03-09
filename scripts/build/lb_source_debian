@@ -64,7 +64,7 @@ genext2fs
 mtd-tools
 EOF
 
-case "${LB_ARCHITECTURE}" in
+case "${LB_ARCHITECTURES}" in
 	amd64|i386)
 
 cat >> source-selection.txt << EOF

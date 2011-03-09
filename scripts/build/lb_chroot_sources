@@ -87,16 +87,7 @@ EOF
 		if [ "${LB_VOLATILE}" = "true" ]
 		then
 			case "${LB_MODE}" in
-				debian|debian-release)
-					echo "deb ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}-volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
-
-					if [ "${LB_SOURCE}" = "true" ]
-					then
-						echo "deb-src ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}-volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
-					fi
-					;;
-
-				ubuntu)
+				debian|debian-release|ubuntu)
 					echo "deb ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
 					if [ "${LB_SOURCE}" = "true" ]
@@ -207,15 +198,15 @@ EOF
 			fi
 
 			# Copy packages
-			if Find_files config/chroot_local-packages/*_"${LB_ARCHITECTURE}".deb
+			if Find_files config/chroot_local-packages/*_"${LB_ARCHITECTURES}".deb
 			then
-				for FILE in config/chroot_local-packages/*_"${LB_ARCHITECTURE}".deb
+				for FILE in config/chroot_local-packages/*_"${LB_ARCHITECTURES}".deb
 				do
 					if [ -L "${FILE}" ]
 					then
-						cp -L config/chroot_local-packages/*_"${LB_ARCHITECTURE}".deb chroot/root/local-packages
+						cp -L config/chroot_local-packages/*_"${LB_ARCHITECTURES}".deb chroot/root/local-packages
 					else
-						cp ${CP_OPTIONS} config/chroot_local-packages/*_"${LB_ARCHITECTURE}".deb chroot/root/local-packages
+						cp ${CP_OPTIONS} config/chroot_local-packages/*_"${LB_ARCHITECTURES}".deb chroot/root/local-packages
 					fi
 				done
 			fi
@@ -420,15 +411,15 @@ EOF
 				Chroot chroot "apt-get ${APT_OPTIONS} install aptitude"
 			fi
 
-			Apt update
-			Apt upgrade
-			Apt dist-upgrade
+			Apt chroot update
+			Apt chroot upgrade
+			Apt chroot dist-upgrade
 
 			# Installing keyring packages
 			if [ -n "${LB_KEYRING_PACKAGES}" ]
 			then
 				Chroot chroot "apt-get --yes --force-yes install ${LB_KEYRING_PACKAGES}"
-				Apt update
+				Apt chroot update
 			fi
 
 			if [ "${LB_CACHE_INDICES}" = "true" ]
@@ -528,16 +519,7 @@ EOF
 		if [ "${LB_VOLATILE}" = "true" ]
 		then
 			case "${LB_MODE}" in
-				debian|debian-release)
-					echo "deb ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}-volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
-
-					if [ "${LB_SOURCE}" = "true" ]
-					then
-						echo "deb-src ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}/volatile ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
-					fi
-					;;
-
-				ubuntu)
+				debian|debian-release|ubuntu)
 					echo "deb ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
 					if [ "${LB_SOURCE}" = "true" ]
@@ -643,7 +625,7 @@ EOF
 		fi
 
 		# Updating indices
-		Apt update
+		Apt chroot update
 
 		# Cleaning apt package cache
 		rm -rf chroot/var/cache/apt

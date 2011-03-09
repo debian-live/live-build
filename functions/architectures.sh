@@ -8,14 +8,14 @@
 ## under certain conditions; see COPYING for details.
 
 
-Check_architecture ()
+Check_architectures ()
 {
 	ARCHITECTURES="${@}"
 	VALID="false"
 
 	for ARCHITECTURE in ${ARCHITECTURES}
 	do
-		if [ "$(echo ${LB_ARCHITECTURE} | grep ${ARCHITECTURE})" ]
+		if [ "$(echo ${LB_ARCHITECTURES} | grep ${ARCHITECTURE})" ]
 		then
 			VALID="true"
 			break
@@ -24,12 +24,12 @@ Check_architecture ()
 
 	if [ "${VALID}" = "false" ]
 	then
-		Echo_warning "skipping %s, foreign architecture." "${0}"
+		Echo_warning "skipping %s, foreign architecture(s)." "${0}"
 		exit 0
 	fi
 }
 
-Check_crossarchitecture ()
+Check_crossarchitectures ()
 {
 	if [ -x /usr/bin/dpkg ]
 	then
@@ -52,12 +52,12 @@ Check_crossarchitecture ()
 			;;
 	esac
 
-	Check_architecture "${CROSS}"
+	Check_architectures "${CROSS}"
 }
 
-Check_multiarchitecture ()
+Check_multiarchitectures ()
 {
-	if [ "$(echo ${LB_ARCHITECTURE} | wc -w)" -gt "1" ]
+	if [ "$(echo ${LB_ARCHITECTURES} | wc -w)" -gt "1" ]
 	then
 		# First, only support multiarch on iso
 		case "${LB_BINARY_IMAGES}" in

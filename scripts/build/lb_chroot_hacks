@@ -138,7 +138,7 @@ case "${LB_BINARY_IMAGES}" in
 	net)
 		if [ ! -f chroot/usr/bin/smbmount ]
 		then
-			Apt install smbfs
+			Apt chroot install smbfs
 		fi
 
 		if [ ! -d chroot/etc/initramfs-tools ]
