@@ -215,6 +215,16 @@ then
 	rm -f chroot/etc/fstab
 fi
 
+if [ "${LB_BINARY_POOL}" = "true" ]
+then
+	echo "deb file:/live/image/debian ${LB_DISTRIBUTION} ${LB_ARCHIVE_AREAS}" > chroot/etc/apt/sources.list.d/live-media.list
+
+	if [ "${LB_SOURCE}" = "true" ]
+	then
+		echo "deb-src file:/live/image/debian ${LB_DISTRIBUTION} ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/live-media.list
+	fi
+fi
+
 if [ "${LB_EXPOSED_ROOT}" = "true" ]
 then
 	# Make sure RW dirs exist so that the initramfs script has

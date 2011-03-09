@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2010\-09\-26 3.0~a1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2010\-09\-26 3.0~a2 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -176,8 +176,6 @@
 	[\fB\-\-source\fR true|false]
 .br
 	[\-s|\fB\-\-source\-images\fR iso|net|tar|usb\-hdd]
-.br
-	[\fB\-\-symlinks\fR true|false]
 .br
 	[\fB\-\-syslinux\-splash\fR \fIFILE\fR]
 .br
@@ -392,8 +390,6 @@ defines if the security repositories specified in the security mirror options sh
 defines if a corresponding source image to the binary image should be build. By default this is false because most people do not require this and would require to download quite a few source packages. However, once you start distributing your live image, you should make sure you build it with a source image alongside.
 .IP "\-s|\fB\-\-source\-images\fR iso|net|tar|usb\-hdd" 4
 defines the image type for the source image. Default is tar.
-.IP "\fB\-\-symlinks\fR true|false" 4
-defines if the symlink hack should be true or false. The symlink hack converts all absolute symlinks to relative ones. By default this is false and in general there is no need or gain to enable it. If you are in a special situation that requires this, you will know.
 .IP "\fB\-\-syslinux\-splash\fR \fIFILE\fR" 4
 defines the file of the syslinux splash graphic that should be used instead of the default one.
 .IP "\fB\-\-syslinux\-timeout\fR \fISECONDS\fR" 4

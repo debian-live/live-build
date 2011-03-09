@@ -787,9 +787,6 @@ Set_defaults ()
 
 	LB_VOLATILE="${LB_VOLATILE:-true}"
 
-	# Setting symlink convertion option
-	LB_SYMLINKS="${LB_SYMLINKS:-false}"
-
 	# Setting sysvinit option
 	LB_SYSVINIT="${LB_SYSVINIT:-false}"
 
@@ -832,6 +829,8 @@ Set_defaults ()
 	else
 		LB_BINARY_INDICES="${LB_BINARY_INDICES:-true}"
 	fi
+
+	LB_BINARY_POOL="${LB_BINARY_POOL:-false}"
 
 	# Setting bootloader
 	if [ -z "${LB_BOOTLOADER}" ]
@@ -1142,13 +1141,13 @@ Check_defaults ()
 		# except when bootstrapping the functions/defaults etc.).
 		CURRENT_CONFIG_VERSION="$(echo ${LB_CONFIG_VERSION} | awk -F. '{ print $1 }')"
 
-		if [ ${CURRENT_CONFIG_VERSION} -ge 3 ]
+		if [ ${CURRENT_CONFIG_VERSION} -ge 4 ]
 		then
 			Echo_error "This config tree is too new for this version of live-build (${VERSION})."
 			Echo_error "Aborting build, please get a new version of live-build."
 
 			exit 1
-		elif [ ${CURRENT_CONFIG_VERSION} -eq 1 ]
+		elif [ ${CURRENT_CONFIG_VERSION} -eq 2 ]
 		then
 			Echo_error "This config tree is too old for this version of live-build (${VERSION})."
 			Echo_error "Aborting build, please repopulate the config tree."

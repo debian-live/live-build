@@ -41,6 +41,7 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [-b|--binary-images iso|net|tar|usb-hdd]\n\
 \t    [--binary-filesystem fat16|fat32]\n\
 \t    [--binary-indices true|false|none]\n\
+\t    [--binary-pool true|false]\n\
 \t    [--bootappend-install PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootappend-live PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootloader grub|syslinux|yaboot]\n\
@@ -121,7 +122,6 @@ USAGE="${PROGRAM} [--apt apt|aptitude]\n\
 \t    [--security true|false]\n\
 \t    [--source true|false]\n\
 \t    [-s|--source-images iso|net|tar|usb-hdd]\n\
-\t    [--symlinks true|false]\n\
 \t    [--syslinux-splash FILE]\n\
 \t    [--syslinux-timeout SECONDS]\n\
 \t    [--syslinux-menu true|false]\n\
@@ -147,8 +147,8 @@ Local_arguments ()
 		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-chroot-backports:,mirror-binary:,
 		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
-		packages:,packages-lists:,tasks:,security:,volatile:,backports:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,
-		binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,build-with-chroot:,
+		packages:,packages-lists:,tasks:,security:,volatile:,backports:,sysvinit:,binary-filesystem:,binary-images:,
+		binary-indices:,binary-pool:,bootappend-install:,bootappend-live:,bootloader:,checksums:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
 		encryption:,grub-splash:,hostname:,isohybrid-options:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
@@ -522,11 +522,6 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--symlinks)
-				LB_SYMLINKS="${2}"
-				shift 2
-				;;
-
 			--sysvinit)
 				LB_SYSVINIT="${2}"
 				shift 2
@@ -545,6 +540,11 @@ Local_arguments ()
 
 			--binary-indices)
 				LB_BINARY_INDICES="${2}"
+				shift 2
+				;;
+
+			--binary-pool)
+				LB_BINARY_POOL="${2}"
 				shift 2
 				;;
 
@@ -1122,10 +1122,6 @@ LB_VOLATILE="${LB_VOLATILE}"
 # (Default: ${LB_BACKPORTS})
 LB_BACKPORTS="${LB_BACKPORTS}"
 
-# \$LB_SYMLINKS: enable symlink convertion
-# (Default: ${LB_SYMLINKS})
-LB_SYMLINKS="${LB_SYMLINKS}"
-
 # \$LB_SYSVINIT: enable sysvinit
 # (Default: ${LB_SYSVINIT})
 LB_SYSVINIT="${LB_SYSVINIT}"
@@ -1157,6 +1153,10 @@ LB_BINARY_IMAGES="${LB_BINARY_IMAGES}"
 # \$LB_BINARY_INDICES: set apt/aptitude generic indices
 # (Default: ${LB_BINARY_INDICES})
 LB_BINARY_INDICES="${LB_BINARY_INDICES}"
+
+# \$LB_BINARY_POOL: enable live-media repository in live system
+# (Default: ${LB_BINARY_POOL})
+LB_BINARY_POOL="${LB_BINARY_POOL}"
 
 # \$LB_BOOTAPPEND_LIVE: set boot parameters
 # (Default: empty)
