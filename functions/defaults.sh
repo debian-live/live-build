@@ -719,6 +719,11 @@ Set_defaults ()
 				LB_APT="apt-get"
 				;;
 
+			standard)
+				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|standard||') standard"
+				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||') standard"
+				;;
+
 			gnome-desktop)
 				LB_PACKAGES_LISTS="$(echo ${LB_PACKAGES_LISTS} | sed -e 's|gnome-desktop||') standard-x11"
 				case "${LB_DISTRIBUTION}" in
