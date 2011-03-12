@@ -720,12 +720,12 @@ Set_defaults ()
 				;;
 
 			standard)
-				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|standard||') standard"
+				LB_PACKAGES_LISTS="$(echo ${LB_PACKAGES_LISTS} | sed -e 's|standard||') standard"
 				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||') standard"
 				;;
 
 			rescue)
-				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|standard||' -e 's|rescue||') standard rescue"
+				LB_PACKAGES_LISTS="$(echo ${LB_PACKAGES_LISTS} | sed -e 's|standard||' -e 's|rescue||') standard rescue"
 				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|rescue||') standard rescue"
 				;;
 
