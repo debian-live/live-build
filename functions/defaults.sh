@@ -661,6 +661,11 @@ Set_defaults ()
 				LH_APT="apt-get"
 				;;
 
+			standard)
+				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|standard||') standard"
+				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||') standard"
+				;;
+
 			gnome-desktop)
 				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|gnome-desktop||') standard-x11"
 				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|gnome-desktop||' -e 's|desktop||') standard gnome-desktop desktop"
