@@ -666,6 +666,11 @@ Set_defaults ()
 				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||') standard"
 				;;
 
+			rescue)
+				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|standard||' -e 's|rescue||') standard rescue"
+				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|rescue||') standard rescue"
+				;;
+
 			gnome-desktop)
 				LH_PACKAGES_LISTS="$(echo ${LH_PACKAGES_LISTS} | sed -e 's|gnome-desktop||') standard-x11"
 				LH_TASKS="$(echo ${LH_TASKS} | sed -e 's|standard||' -e 's|gnome-desktop||' -e 's|desktop||') standard gnome-desktop desktop"
