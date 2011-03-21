@@ -857,7 +857,7 @@ Set_defaults ()
 
 	# Setting debian-installer option
 	case "${LB_MODE}" in
-		debian|progress)
+		progress)
 			LB_DEBIAN_INSTALLER="${LB_DEBIAN_INSTALLER:-live}"
 			;;
 
