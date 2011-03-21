@@ -773,10 +773,26 @@ Set_defaults ()
 	LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|  ||g')"
 
 	# Setting security updates option
-	LB_SECURITY="${LB_SECURITY:-true}"
+	case "${LB_DISTRIBUTION}" in
+		wheezy|sid|baureo)
+			LB_SECURITY="${LB_SECURITY:-false}"
+			;;
+
+		*)
+			LB_SECURITY="${LB_SECURITY:-true}"
+			;;
+	esac
 
 	# Setting volatile updates option
-	LB_VOLATILE="${LB_VOLATILE:-true}"
+	case "${LB_DISTRIBUTION}" in
+		wheezy|sid|baureo)
+			LB_VOLATILE="${LB_VOLATILE:-false}"
+			;;
+
+		*)
+			LB_VOLATILE="${LB_VOLATILE:-true}"
+			;;
+	esac
 
 	## config/binary
 
