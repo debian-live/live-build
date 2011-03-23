@@ -55,6 +55,19 @@ case "${LB_DISTRIBUTION}" in
 esac
 
 # Handling default desktop configuration
+case "${LB_MODE}" in
+	debian*)
+		# disable kexec-tools
+		if [ -e chroot/sbin/kexec ]
+		then
+			echo "kexec-tools kexec-tools/load_kexec boolean false" > chroot/root/preseed
+			Chroot chroot "debconf-set-selections /root/preseed"
+			rm -f chroot/root/preseed
+			Chroot chroot "dpkg-reconfigure kexec-tools"
+		fi
+		;;
+esac
+
 for TASK in ${LB_TASKS}
 do
 	case "${TASK}" in
