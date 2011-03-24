@@ -216,13 +216,13 @@ EOF
 					if [ -e "${PLACE}/${REPOSITORY}.chroot" ]
 					then
 						sed -e "s|@DISTRIBUTION@|${_DISTRIBUTION}|g" \
-						    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
+						    -e "s|@ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
 						"${PLACE}/${REPOSITORY}.chroot" > \
 						"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
 					elif [ -e "${PLACE}/${REPOSITORY}" ]
 					then
 						sed -e "s|@DISTRIBUTION@|${_DISTRIBUTION}|g" \
-						    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
+						    -e "s|@ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
 						"${PLACE}/${REPOSITORY}" > \
 						"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
 					fi
@@ -688,13 +688,13 @@ EOF
 					if [ -e "${PLACE}/${REPOSITORY}.binary" ]
 					then
 						sed -e "s|@DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
-						    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
+						    -e "s|@ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
 						"${PLACE}/${REPOSITORY}.binary" > \
 						"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
 					elif [ -e "${PLACE}/${REPOSITORY}" ]
 					then
 						sed -e "s|@DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
-						    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
+						    -e "s|@ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
 						"${PLACE}/${REPOSITORY}" > \
 						"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
 					fi
