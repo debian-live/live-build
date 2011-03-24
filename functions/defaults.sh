@@ -535,12 +535,19 @@ Set_defaults ()
 
 	# Setting archive areas value
 	case "${LB_MODE}" in
+		progress)
+			LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS:-main}"
+			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main}"
+			;;
+
 		ubuntu)
-			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main restricted}"
+			LB_PARENT_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main restricted}"
+			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-${LB_PARENT_ARCHIVE_AREAS}}"
 			;;
 
 		*)
-			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main}"
+			LB_PARENT_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main}"
+			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-${LB_PARENT_ARCHIVE_AREAS}}"
 			;;
 	esac
 
