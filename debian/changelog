@@ -1,3 +1,30 @@
+live-build (3.0~a14-1) unstable; urgency=low
+
+  [ Cody A.W. Somerville ]
+  * Fixing lb_chroot_upstart to use correct path to initctl.
+
+  [ Daniel Baumann ]
+  * Adding old 2.x changelog entries in debian changelog.
+  * Building standard image flavour with included --tasks standard.
+  * Also including the standard task when building the rescue default
+    flavour.
+  * Marking rpncalc in rescue list as squeeze only.
+  * Updating nilfs packagename in rescue list for squeeze and newer.
+  * Setting default for debian-installer on debian to false.
+  * Disabling security and volatile repositories for unreleased
+    distributions.
+  * Setting partition flags after creating the filesystem, workaround
+    for bug in parted where we result in having the partition type set
+    to linux otherways, thanks to Cody A.W. Somerville
+    <cody.somerville@canonical.com> for the idea.
+  * Disabling kexec-tools by default in debian mode.
+  * Adding parent-archive-areas.
+  * Removing obsolete debian-backports auto-configuration.
+  * Updating security archive entries for progress.
+  * Correcting repository handling for live.debian.net wrt/ derivatives.
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 25 Mar 2011 09:13:52 +0100
+
 live-build (3.0~a13-1) unstable; urgency=low
 
   [ Steven Shiau ]

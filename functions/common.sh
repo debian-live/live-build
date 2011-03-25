@@ -9,7 +9,7 @@
 
 
 PROGRAM="live-build"
-VERSION="3.0~a13-1"
+VERSION="3.0~a14-1"
 CONFIG_VERSION="$(echo ${VERSION} | awk -F- '{ print $1 }')"
 
 PATH="${PWD}/auto/scripts:${PATH}"
