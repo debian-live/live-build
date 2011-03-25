@@ -535,12 +535,19 @@ Set_defaults ()
 
 	# Setting archive areas value
 	case "${LB_MODE}" in
+		progress)
+			LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS:-main}"
+			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main}"
+			;;
+
 		ubuntu)
-			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main restricted}"
+			LB_PARENT_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main restricted}"
+			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-${LB_PARENT_ARCHIVE_AREAS}}"
 			;;
 
 		*)
-			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main}"
+			LB_PARENT_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main}"
+			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-${LB_PARENT_ARCHIVE_AREAS}}"
 			;;
 	esac
 
@@ -730,6 +737,16 @@ Set_defaults ()
 				LB_APT="apt-get"
 				;;
 
+			standard)
+				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|standard||') standard"
+				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||') standard"
+				;;
+
+			rescue)
+				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|standard||' -e 's|rescue||') standard rescue"
+				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|rescue||') standard rescue"
+				;;
+
 			gnome-desktop)
 				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|gnome-desktop||') standard-x11"
 				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|gnome-desktop||' -e 's|desktop||' -e 's|laptop||') standard gnome-desktop desktop laptop"
@@ -763,10 +780,26 @@ Set_defaults ()
 	LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|  ||g')"
 
 	# Setting security updates option
-	LB_SECURITY="${LB_SECURITY:-true}"
+	case "${LB_DISTRIBUTION}" in
+		wheezy|sid|baureo)
+			LB_SECURITY="${LB_SECURITY:-false}"
+			;;
+
+		*)
+			LB_SECURITY="${LB_SECURITY:-true}"
+			;;
+	esac
 
 	# Setting volatile updates option
-	LB_VOLATILE="${LB_VOLATILE:-true}"
+	case "${LB_DISTRIBUTION}" in
+		wheezy|sid|baureo)
+			LB_VOLATILE="${LB_VOLATILE:-false}"
+			;;
+
+		*)
+			LB_VOLATILE="${LB_VOLATILE:-true}"
+			;;
+	esac
 
 	## config/binary
 
@@ -847,7 +880,7 @@ Set_defaults ()
 
 	# Setting debian-installer option
 	case "${LB_MODE}" in
-		debian|progress)
+		progress)
 			LB_DEBIAN_INSTALLER="${LB_DEBIAN_INSTALLER:-live}"
 			;;
 

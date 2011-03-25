@@ -254,7 +254,7 @@ lsscsi
 lvm2
 mdadm
 mtools
-nilfs2-tools
+nilfs-tools
 ntfs-3g
 ntfsprogs
 reiser4progs
@@ -273,7 +273,10 @@ dosfstools mscompress chntpw pptpd pptp-linux
 cpuid x86info
 #endif
 hwinfo
-tofrodos rpncalc
+tofrodos
+#if DISTRIBUTION squeeze
+rpncalc
+#endif
 hal
 dc
 bc

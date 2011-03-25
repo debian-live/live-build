@@ -14,7 +14,7 @@ set -e
 . "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
-DESCRIPTION="$(Echo 'manage /usr/sbin/initctl')"
+DESCRIPTION="$(Echo 'manage /sbin/initctl')"
 HELP=""
 USAGE="${PROGRAM} {install|remove} [--force]"
 
@@ -29,7 +29,7 @@ Require_stagefile .stage/config .stage/bootstrap
 
 case "${1}" in
 	install)
-		Echo_message "Configuring file /usr/sbin/initctl"
+		Echo_message "Configuring file /sbin/initctl"
 
 		# Checking stage file
 		Check_stagefile .stage/chroot_upstart
@@ -40,27 +40,27 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ -f chroot/usr/sbin/initctl ]
+		if [ -f chroot/sbin/initctl ]
 		then
 			# Save initctl file
-			mv chroot/usr/sbin/initctl chroot/usr/sbin/initctl.orig
+			mv chroot/sbin/initctl chroot/sbin/initctl.orig
 		fi
 
 		# Create initctl file
-cat > chroot/usr/sbin/initctl << EOF
+cat > chroot/sbin/initctl << EOF
 #!/bin/sh
 echo "All runlevel operations denied by policy" >&2
 exit 101
 EOF
 
-		chmod 0755 chroot/usr/sbin/initctl
+		chmod 0755 chroot/sbin/initctl
 
 		# Creating stage file
 		Create_stagefile .stage/chroot_upstart
 		;;
 
 	remove)
-		Echo_message "Deconfiguring file /usr/sbin/initctl"
+		Echo_message "Deconfiguring file /sbin/initctl"
 
 		# Checking lock file
 		Check_lockfile .lock
@@ -68,13 +68,13 @@ EOF
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ -f chroot/usr/sbin/initctl.orig ]
+		if [ -f chroot/sbin/initctl.orig ]
 		then
 			# Restore initctl file
-			mv chroot/usr/sbin/initctl.orig chroot/usr/sbin/initctl
+			mv chroot/sbin/initctl.orig chroot/sbin/initctl
 		else
 			# Remove initctl file
-			rm -f chroot/usr/sbin/initctl
+			rm -f chroot/sbin/initctl
 		fi
 
 		# Removing stage file

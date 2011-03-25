@@ -130,6 +130,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--root-command sudo]\n\
 \t    [--use-fakeroot true|false]\n\
 \t    [--archive-areas ARCHIVE_AREA|\"ARCHIVE_AREAS\"]\n\
+\t    [--parent-archive-areas ARCHIVE_AREA|\"ARCHIVE_AREAS\"]\n\
 \t    [--security true|false]\n\
 \t    [--source true|false]\n\
 \t    [-s|--source-images iso|net|tar|usb-hdd]\n\
@@ -156,7 +157,7 @@ Local_arguments ()
 		parent-mirror-binary-security:,parent-mirror-binary-volatile:,parent-mirror-binary-backports:,parent-mirror-debian-installer:,
 		mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-chroot-backports:,mirror-binary:,
 		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,
-		archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
+		archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
 		packages:,package-lists:,tasks:,security:,volatile:,backports:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,compression:,build-with-chroot:,
@@ -392,15 +393,7 @@ Local_arguments ()
 
 			-d|--distribution)
 				LB_DISTRIBUTION="${2}"
-				BACKPORTS="false"
 				shift 2
-
-				case "${LB_DISTRIBUTION}" in
-					squeeze-backports)
-						LB_DISTRIBUTION="squeeze"
-						BACKPORTS="true"
-						;;
-				esac
 				;;
 
 			--parent-distribution)
@@ -510,6 +503,11 @@ Local_arguments ()
 
 			--archive-areas)
 				LB_ARCHIVE_AREAS="${2}"
+				shift 2
+				;;
+
+			--parent-archive-areas)
+				LB_PARENT_ARCHIVE_AREAS="${2}"
 				shift 2
 				;;
 
@@ -1139,6 +1137,10 @@ LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER}"
 # \$LB_ARCHIVE_AREAS: select archive areas to use
 # (Default: ${LB_ARCHIVE_AREAS})
 LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS}"
+
+# \$LB_PARENT_ARCHIVE_AREAS: select archive areas to use
+# (Default: ${LB_PARENT_ARCHIVE_AREAS})
+LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS}"
 EOF
 
 # Creating lb_chroot_* configuration
@@ -1400,31 +1402,6 @@ then
 		Echo_warning "Please install 'debconf-utils' in order to use this feature."
 	else
 		debconf-get-selections | grep -v deinstall | cut -f1 > config/chroot_local-preseed/local-system
-	fi
-fi
-
-if [ "${BACKPORTS}" = "true" ]
-then
-	# Adding sources.list entry
-
-cat > config/chroot_sources/${LB_DISTRIBUTION}-backports.chroot << EOF
-# Backports Maintainers
-deb http://backports.debian.org/debian-backports/ ${LB_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}
-deb-src http://backports.debian.org/debian-backports/ ${LB_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}
-EOF
-
-	cp config/chroot_sources/${LB_DISTRIBUTION}-backports.chroot config/chroot_sources/${LB_DISTRIBUTION}-backports.binary
-
-	# Adding apt preferences
-	if ! grep -qs "^Pin: release o=Debian Backports" config/chroot_apt/preferences
-	then
-
-cat >> config/chroot_apt/preferences << EOF
-Package: *
-Pin: release o=Debian Backports
-Pin-Priority: 999
-EOF
-
 	fi
 fi
 
