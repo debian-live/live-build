@@ -299,6 +299,19 @@ case "${LB_CHROOT_FILESYSTEM}" in
 
 		MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -no-progress"
 
+		case "${LB_DISTRIBUTION}" in
+			artax|squeeze)
+				if [ "${LB_BACKPORTS}" = "true" ]
+				then
+					MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -comp xz"
+				fi
+				;;
+
+			*)
+				MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -comp xz"
+				;;
+		esac
+
 		if [ "${_VERBOSE}" = "true" ]
 		then
 			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -info"
