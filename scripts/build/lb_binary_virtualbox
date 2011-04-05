@@ -1,0 +1,125 @@
+#!/bin/sh
+
+## live-build(7) - System Build Scripts
+## Copyright (C) 2006-2011 Daniel Baumann <daniel@debian.org>
+##
+## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+## This is free software, and you are welcome to redistribute it
+## under certain conditions; see COPYING for details.
+
+
+## FIXME:
+## - make it work with chrooted builds
+## - tune the different .vbox settings
+
+set -e
+
+# Including common functions
+. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'build binary image')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+if ! In_list virtualbox "${LB_BINARY_IMAGES}"
+then
+	exit 0
+fi
+
+Echo_message "Begin building binary virtualbox image..."
+
+# Requiring stage file
+Require_stagefile .stage/config .stage/bootstrap .stage/chroot_proc
+
+# Checking stage file
+Check_stagefile .stage/binary_virtualbox
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+# Checking depends
+Check_package chroot/usr/bin/VBoxManage virtualbox-ose
+
+case "${LB_BOOTLOADER}" in
+	grub)
+		Check_package chroot/usr/sbin/grub grub
+		;;
+
+	syslinux)
+		Check_package chroot/usr/bin/syslinux syslinux
+		;;
+esac
+
+# Restoring cache
+Restore_cache cache/packages_binary
+
+# Installing depends
+Install_package
+
+# Remove old binary
+rm -f binary-vbox.tar.bz2 binary-vbox.tar.gz binary-vbox.tar.lz binary-vbox.tar binary-vbox
+
+# Create initial virtual machine
+VBoxManage createvm --name "${LB_VIRTUALBOX_NAME}" --ostype "${LB_VIRTUALBOX_OSTYPE}" --basefolder "${PWD}/binary-vbox"
+
+# Add storage
+VBoxManage storageattach "${LB_VIRTUALBOX_NAME}" --storagectl "$(echo ${LB_VIRTUALBOX_NAME} | sed -e 's| |-|g' | tr [A-Z] [a-z])"
+
+# Set some sane defaults
+VBoxManage modifyvm "${LB_VIRTUALBOX_NAME}" \
+	--bioslogofadeout off \
+	--bioslogofadein off \
+	--bioslogodisplaytime 0 \
+	--boot1 disk \
+	--rtcuseutc on
+
+
+
+DU_DIM="$(du -ms binary | cut -f1)"
+REAL_DIM="$(Calculate_partition_size ${DU_DIM} ${LB_BINARY_FILESYSTEM})"
+
+
+
+
+cd binary-vbox
+tar cfz ../binary-vbox.tar *
+cd "${OLDPWD}"
+
+case "${LB_COMPRESSION}" in
+	bzip2)
+		bzip2 ${BZIP2_OPTIONS} binary-vbox.tar
+		rm -rf binary-vbox
+		;;
+
+	gzip)
+		gzip ${GZIP_OPTIONS} binary-vbox.tar
+		rm -rf binary-vbox
+		;;
+
+	lzip)
+		lzip ${LZIP_OPTIONS} binary-vbox.tar
+		rm -rf binary-vbox
+		;;
+
+	none)
+		;;
+esac
+
+# Saving cache
+Save_cache cache/packages_binary
+
+# Removing depends
+Remove_package
+
+# Creating stage file
+Create_stagefile .stage/binary_virtualbox

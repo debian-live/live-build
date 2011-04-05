@@ -556,9 +556,6 @@ Set_defaults ()
 	# Setting chroot filesystem
 	LB_CHROOT_FILESYSTEM="${LB_CHROOT_FILESYSTEM:-squashfs}"
 
-	# Setting virtual root size
-	LB_VIRTUAL_ROOT_SIZE="${LB_VIRTUAL_ROOT_SIZE:-10000}"
-
 	# Setting whether to expose root filesystem as read only
 	LB_EXPOSED_ROOT="${LB_EXPOSED_ROOT:-false}"
 
@@ -1012,6 +1009,49 @@ Set_defaults ()
 			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Ubuntu ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)}"
 			;;
 	esac
+
+	LB_VIRTUALBOX_NAME="${LB_VIRTUALBOX_NAME:-${LB_ISO_APPLICATION}}"
+
+	case "${LB_MODE}" in
+		debian|emdebian|progress)
+			case "${LB_ARCHITECTURE}" in
+				amd64)
+					LB_VIRTUALBOX_OSTYPE="${LB_VIRTUALBOX_OSTYPE:-Debian_64}"
+					;;
+
+				*)
+					LB_VIRTUALBOX_OSTYPE="${LB_VIRTUALBOX_OSTYPE:-Debian}"
+					;;
+			esac
+			;;
+
+		ubuntu)
+			case "${LB_ARCHITECTURE}" in
+				amd64)
+					LB_VIRTUALBOX_OSTYPE="${LB_VIRTUALBOX_OSTYPE:-Ubuntu_64}"
+					;;
+
+				*)
+					LB_VIRTUALBOX_OSTYPE="${LB_VIRTUALBOX_OSTYPE:-Ubuntu}"
+					;;
+			esac
+			;;
+
+		*)
+			case "${LB_ARCHITECTURE}" in
+				amd64)
+					LB_VIRTUALBOX_OSTYPE="${LB_VIRTUALBOX_OSTYPE:-Linux26_64}"
+					;;
+
+				*)
+					LB_VIRTUALBOX_OSTYPE="${LB_VIRTUALBOX_OSTYPE:-Linux26}"
+					;;
+			esac
+			;;
+	esac
+
+	# Setting virtual root size
+	LB_VIRTUAL_ROOT_SIZE="${LB_VIRTUAL_ROOT_SIZE:-10000}"
 
 	# Setting memtest option
 	LB_MEMTEST="${LB_MEMTEST:-memtest86+}"
