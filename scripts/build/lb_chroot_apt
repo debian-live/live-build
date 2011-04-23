@@ -133,14 +133,6 @@ case "${1}" in
 			esac
 		fi
 
-		# Rebuild apt indices from scratch.
-		# Due to the fact that apt doesn't understand pinning on the
-		# fly, we need to manuall remove the cached indices and fetch
-		# them again.
-		rm -f chroot/var/cache/apt/* > /dev/null 2>&1 || true
-		rm -f chroot/var/lib/apt/lists/* > /dev/null 2>&1 || true
-		Apt chroot update
-
 		# Creating stage file
 		Create_stagefile .stage/chroot_apt
 		;;

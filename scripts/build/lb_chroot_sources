@@ -461,29 +461,38 @@ EOF
 				done
 			fi
 
-			# Installing aptitude
+			# Installing aptitude (FIXME)
 			if [ "${LB_APT}" = "aptitude" ] && [ ! -x /usr/bin/aptitude ]
 			then
 				Chroot chroot "apt-get ${APT_OPTIONS} update"
 				Chroot chroot "apt-get ${APT_OPTIONS} install aptitude"
 			fi
 
-			# Temporary hack (FIXME)
-			if [ "${LB_DERIVATIVE}" = "true" ]
-			then
-				_APT="--force-yes"
-			fi
+			# Rebuild apt indices from scratch.
+			# Due to the fact that apt doesn't understand
+			# pinning on the fly, we need to manually remove
+			# the cached indices and rebuild them again.
+			rm -rf chroot/var/cache/apt/*.bin
 
 			Apt chroot update
-			Apt chroot "upgrade ${_APT}"
-			Apt chroot "dist-upgrade ${_APT}"
 
 			# Installing keyring packages
 			if [ -n "${LB_KEYRING_PACKAGES}" ]
 			then
+				# Temporary hack (FIXME)
+				if [ "${LB_DERIVATIVE}" = "true" ]
+				then
+					_APT="--force-yes"
+				fi
+
 				Apt chroot "--force-yes install ${LB_KEYRING_PACKAGES}"
-				Apt chroot update
 			fi
+
+			rm -rf chroot/var/cache/apt/*.bin
+
+			Apt chroot update
+			Apt chroot "upgrade"
+			Apt chroot "dist-upgrade"
 
 			if [ "${LB_CACHE_INDICES}" = "true" ]
 			then
