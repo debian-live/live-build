@@ -139,7 +139,7 @@ case "${1}" in
 		# them again.
 		rm -f chroot/var/cache/apt/* > /dev/null 2>&1 || true
 		rm -f chroot/var/lib/apt/lists/* > /dev/null 2>&1 || true
-		Chroot chroot "apt-get ${APT_OPTIONS} update"
+		Apt chroot update
 
 		# Creating stage file
 		Create_stagefile .stage/chroot_apt

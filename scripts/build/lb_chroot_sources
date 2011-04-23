@@ -287,7 +287,7 @@ EOF
 				# completed all the indices.
 				case "${LB_PACKAGE_LISTS}" in
 					stripped|minimal)
-						Chroot chroot "apt-get update"
+						Apt chroot update
 						;;
 				esac
 
@@ -435,6 +435,7 @@ EOF
 
 			if [ "${LB_APT}" = "aptitude" ] && [ ! -x /usr/bin/aptitude ]
 			then
+				Chroot chroot "apt-get ${APT_OPTIONS} update"
 				Chroot chroot "apt-get ${APT_OPTIONS} install aptitude"
 			fi
 		else # Get fresh indices
@@ -480,7 +481,7 @@ EOF
 			# Installing keyring packages
 			if [ -n "${LB_KEYRING_PACKAGES}" ]
 			then
-				Chroot chroot "apt-get --yes --force-yes install ${LB_KEYRING_PACKAGES}"
+				Apt chroot "--force-yes install ${LB_KEYRING_PACKAGES}"
 				Apt chroot update
 			fi
 
