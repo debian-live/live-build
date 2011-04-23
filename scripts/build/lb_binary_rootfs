@@ -123,7 +123,6 @@ case "${LB_CHROOT_FILESYSTEM}" in
 					rm -f .lock
 					mv chroot/chroot chroot.tmp
 
-					lb chroot_linux-image remove ${*}
 					lb chroot_sources remove ${*}
 					lb chroot_apt remove ${*}
 					lb chroot_hostname remove ${*}
@@ -154,7 +153,6 @@ case "${LB_CHROOT_FILESYSTEM}" in
 					lb chroot_hostname install ${*}
 					lb chroot_apt install ${*}
 					lb chroot_sources install ${*}
-					lb chroot_linux-image install ${*}
 
 					touch .lock
 				else
@@ -207,7 +205,6 @@ case "${LB_CHROOT_FILESYSTEM}" in
 					rm -f .lock
 					mv chroot/chroot chroot.tmp
 
-					lb chroot_linux-image remove ${*}
 					lb chroot_sources remove ${*}
 					lb chroot_apt remove ${*}
 					lb chroot_hostname remove ${*}
@@ -238,7 +235,6 @@ case "${LB_CHROOT_FILESYSTEM}" in
 					lb chroot_hostname install ${*}
 					lb chroot_apt install ${*}
 					lb chroot_sources install ${*}
-					lb chroot_linux-image install ${*}
 
 					touch .lock
 				else
@@ -339,7 +335,6 @@ case "${LB_CHROOT_FILESYSTEM}" in
 					rm -f .lock
 					mv chroot/chroot chroot.tmp
 
-					lb chroot_linux-image remove ${*}
 					lb chroot_sources remove ${*}
 					lb chroot_apt remove ${*}
 					lb chroot_hostname remove ${*}
@@ -370,7 +365,6 @@ case "${LB_CHROOT_FILESYSTEM}" in
 					lb chroot_hostname install ${*}
 					lb chroot_apt install ${*}
 					lb chroot_sources install ${*}
-					lb chroot_linux-image install ${*}
 
 					touch .lock
 				else
