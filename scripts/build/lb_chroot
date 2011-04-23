@@ -50,17 +50,17 @@ lb chroot_resolv install ${*}
 lb chroot_hostname install ${*}
 lb chroot_apt install ${*}
 lb chroot_sources install ${*}
-lb chroot_linux-image install ${*}
 
 # Customizing chroot
+lb chroot_linux-image ${*}
 lb chroot_preseed ${*}
 lb chroot_local-preseed ${*}
-lb chroot_tasks ${*}
 lb chroot_packagelists ${*}
 lb chroot_local-packagelists ${*}
 lb chroot_packages ${*}
 lb chroot_local-packages ${*}
 lb chroot_install-packages ${*}
+lb chroot_tasks ${*}
 lb chroot_localization ${*}
 lb chroot_local-includes ${*}
 lb chroot_local-patches ${*}
@@ -70,7 +70,6 @@ lb chroot_hacks ${*}
 lb chroot_interactive ${*}
 
 # Deconfiguring chroot
-lb chroot_linux-image remove ${*}
 lb chroot_sources remove ${*}
 lb chroot_apt remove ${*}
 lb chroot_hostname remove ${*}

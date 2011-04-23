@@ -14,9 +14,9 @@ set -e
 . "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
-DESCRIPTION="$(Echo 'manage /etc/kernel-img.conf')"
+DESCRIPTION="$(Echo 'schedule kernel packages for installation')"
 HELP=""
-USAGE="${PROGRAM} {install|remove} [--force]"
+USAGE="${PROGRAM} [--force]"
 
 Arguments "${@}"
 
@@ -27,104 +27,59 @@ Set_defaults
 # Requiring stage file
 Require_stagefile .stage/config .stage/bootstrap
 
-case "${1}" in
-	install)
-		Echo_message "Configuring file /etc/kernel-img.conf"
+# Checking stage file
+Check_stagefile .stage/chroot_linux-image
 
-		# Checking stage file
-		Check_stagefile .stage/chroot_linux-image
+# Checking lock file
+Check_lockfile .lock
 
-		# Checking lock file
-		Check_lockfile .lock
+# Creating lock file
+Create_lockfile .lock
 
-		# Creating lock file
-		Create_lockfile .lock
+# Diverting update-initramfs
+#case "${LB_INITRAMFS}" in
+#	live-boot)
+#		mv chroot/usr/sbin/update-initramfs chroot/usr/sbin/update-initramfs.live-build
+#		;;
+#esac
 
-		if [ -f chroot/etc/kernel-img.conf ]
-		then
-			# Saving kernel-img.conf
-			cp chroot/etc/kernel-img.conf chroot/etc/kernel-img.conf.old
-		fi
+if [ "${LB_LINUX_PACKAGES}" != "none" ]
+then
+	for FLAVOUR in ${LB_LINUX_FLAVOURS}
+	do
+		for PACKAGE in ${LB_LINUX_PACKAGES}
+		do
+			echo ${PACKAGE}-${FLAVOUR} >> chroot/root/chroot_packages
+		done
+	done
+fi
 
-		# Configuring kernel-img.conf
-cat >> chroot/etc/kernel-img.conf << EOF
-do_bootloader = No
-do_initrd = Yes
-warn_initrd = No
-EOF
+# Queue installation of linux-image and ${LB_INITRAMFS}
+if [ "${LB_INITRAMFS}" != "none" ]
+then
+	echo ${LB_INITRAMFS} >> chroot/root/chroot_packages
+fi
 
-		# Diverting update-initramfs
-		#case "${LB_INITRAMFS}" in
-		#	live-boot)
-		#		mv chroot/usr/sbin/update-initramfs chroot/usr/sbin/update-initramfs.live-build
-		#		;;
-		#esac
+# Queue installation of live-config
+if [ "${LB_INITSYSTEM}" != "none" ]
+then
+	echo "live-config live-config-${LB_INITSYSTEM}" >> chroot/root/chroot_packages
+fi
 
-		if [ "${LB_LINUX_PACKAGES}" != "none" ]
-		then
-			for FLAVOUR in ${LB_LINUX_FLAVOURS}
-			do
-				for PACKAGE in ${LB_LINUX_PACKAGES}
-				do
-					echo ${PACKAGE}-${FLAVOUR} >> chroot/root/chroot_packages
-				done
-			done
-		fi
+# Do initsystem specific hacks
+if [ "${LB_INITSYSTEM}" != "sysvinit" ]
+then
+	# lets see if we still need the squeeze's "pre init system policy discussion" hack:
 
-		# Queue installation of linux-image and ${LB_INITRAMFS}
-		if [ "${LB_INITRAMFS}" != "none" ]
-		then
-			echo ${LB_INITRAMFS} >> chroot/root/chroot_packages
-		fi
+	IS_SYSVINIT_ESSENTIAL="$(Chroot chroot dpkg-query --show --showformat='${Essential}\n' sysvinit)"
+	RC="$?"
 
-		# Queue installation of live-config
-		if [ "${LB_INITSYSTEM}" != "none" ]
-		then
-			echo "live-config live-config-${LB_INITSYSTEM}" >> chroot/root/chroot_packages
-		fi
+	if [ "${IS_SYSVINIT_ESSENTIAL}" != "no" ] && [ "${RC}" = "0" ]
+	then
+		# sysvinit is both installed and essential, ugly hack to remove it
+		Chroot chroot dpkg --force-remove-essential --remove sysvinit || true
+	fi
+fi
 
-		# Do initsystem specific hacks
-		if [ "${LB_INITSYSTEM}" != "sysvinit" ]
-		then
-			# lets see if we still need the squeeze's "pre init system policy discussion" hack:
-
-			IS_SYSVINIT_ESSENTIAL="$(Chroot chroot dpkg-query --show --showformat='${Essential}\n' sysvinit)"
-			RC="$?"
-
-			if [ "${IS_SYSVINIT_ESSENTIAL}" != "no" ] && [ "${RC}" = "0" ]
-			then
-				# sysvinit is both installed and essential, ugly hack to remove it
-				Chroot chroot dpkg --force-remove-essential --remove sysvinit || true
-			fi
-		fi
-
-		# Creating stage file
-		Create_stagefile .stage/chroot_linux-image
-		;;
-
-	remove)
-		Echo_message "Deconfiguring file /etc/kernel-img.conf"
-
-		# Checking lock file
-		Check_lockfile .lock
-
-		# Creating lock file
-		Create_lockfile .lock
-
-		if [ -f chroot/etc/kernel-img.conf.old ]
-		then
-			# Restoring kernel-img.conf file
-			mv chroot/etc/kernel-img.conf.old chroot/etc/kernel-img.conf
-		else
-			# Removing kernel-img.conf file
-			Truncate chroot/etc/kernel-img.conf
-		fi
-
-		# Removing stage file
-		rm -f .stage/chroot_linux-image
-		;;
-
-	*)
-		Usage
-		;;
-esac
+# Creating stage file
+Create_stagefile .stage/chroot_linux-image
