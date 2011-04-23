@@ -1,3 +1,15 @@
+live-build (3.0~a16-1) unstable; urgency=low
+
+  * Adding workaround for apt not respecting pinning on the fly.
+  * Removing kernel-img.conf handling for lenny and older.
+  * Making apt calls a bit more consistent over the different scripts.
+  * Moving apt pinning workaround to the correct place.
+  * Moving installation of tasks behind package and package lists
+    installation; the tasks should only 'fill-up' with what has not
+    already been provided by packages or package lists.
+
+ -- Daniel Baumann <daniel@debian.org>  Sat, 23 Apr 2011 19:27:16 +0200
+
 live-build (3.0~a15-1) unstable; urgency=low
 
   * Adding temporary hack for progress until multistrap can be used for
