@@ -315,6 +315,12 @@ case "${LB_CHROOT_FILESYSTEM}" in
 			esac
 		fi
 
+		case "${LB_DISTRIBUTION}" in
+			artax-backports)
+				MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -comp xz"
+				;;
+		esac
+
 		case "${LB_BUILD_WITH_CHROOT}" in
 			true)
 				# Create image
