@@ -39,7 +39,7 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 case "${LB_PARENT_DISTRIBUTION}" in
-	squeeze|sid)
+	squeeze|wheezy|sid)
 		if echo "${LB_TASKS}" | grep -qs lxde ||
 		   echo "${LB_TASKS}" | grep -qs xfce
 		then
