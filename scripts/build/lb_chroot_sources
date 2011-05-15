@@ -95,12 +95,20 @@ EOF
 
 					if [ "${LB_MODE}" = progress ]
 					then
-						echo "deb ${LB_MIRROR_CHROOT_SECURITY} ${LB_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+						case "${LB_DISTRIBUTION}" in
+							*-backports)
 
-						if [ "${LB_SOURCE}" = "true" ]
-						then
-							echo "deb-src ${LB_MIRROR_CHROOT_SECURITY} ${LB_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
-						fi
+								;;
+
+							*)
+								echo "deb ${LB_MIRROR_CHROOT_SECURITY} ${LB_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+
+								if [ "${LB_SOURCE}" = "true" ]
+								then
+									echo "deb-src ${LB_MIRROR_CHROOT_SECURITY} ${LB_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+								fi
+								;;
+						esac
 					else
 						if [ "${LB_DERIVATIVE}" = "true" ]
 						then
@@ -606,12 +614,20 @@ EOF
 
 					if [ "${LB_MODE}" = progress ]
 					then
-						echo "deb ${LB_MIRROR_BINARY_SECURITY} ${LB_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+						case "${LB_DISTRIBUTION}" in
+							*-backports)
 
-						if [ "${LB_SOURCE}" = "true" ]
-						then
-							echo "deb-src ${LB_MIRROR_BINARY_SECURITY} ${LB_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
-						fi
+								;;
+
+							*)
+								echo "deb ${LB_MIRROR_BINARY_SECURITY} ${LB_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+
+								if [ "${LB_SOURCE}" = "true" ]
+								then
+									echo "deb-src ${LB_MIRROR_BINARY_SECURITY} ${LB_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+								fi
+								;;
+						esac
 					else
 						if [ "${LB_DERIVATIVE}" = "true" ]
 						then
