@@ -78,15 +78,20 @@ EOF
 		then
 			case "${LB_MODE}" in
 				debian|progress)
-					if [ "${LB_PARENT_DISTRIBUTION}" != "sid" ]
-					then
-						echo "deb ${LB_PARENT_MIRROR_CHROOT_SECURITY} ${LB_PARENT_DISTRIBUTION}/updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+					case "${LB_PARENT_DISTRIBUTION}" in
+						sid|wheezy)
 
-						if [ "${LB_SOURCE}" = "true" ]
-						then
-							echo "deb-src ${LB_PARENT_MIRROR_CHROOT_SECURITY} ${LB_PARENT_DISTRIBUTION}/updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
-						fi
-					fi
+							;;
+
+						*)
+							echo "deb ${LB_PARENT_MIRROR_CHROOT_SECURITY} ${LB_PARENT_DISTRIBUTION}/updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+
+							if [ "${LB_SOURCE}" = "true" ]
+							then
+								echo "deb-src ${LB_PARENT_MIRROR_CHROOT_SECURITY} ${LB_PARENT_DISTRIBUTION}/updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+							fi
+							;;
+					esac
 
 					if [ "${LB_MODE}" = progress ]
 					then
@@ -584,15 +589,20 @@ EOF
 		then
 			case "${LB_MODE}" in
 				debian|progress)
-					if [ "${LB_PARENT_DISTRIBUTION}" != "sid" ]
-					then
-						echo "deb ${LB_PARENT_MIRROR_BINARY_SECURITY} ${LB_PARENT_DISTRIBUTION}/updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+					case "${LB_PARENT_DISTRIBUTION}" in
+						sid|wheezy)
 
-						if [ "${LB_SOURCE}" = "true" ]
-						then
-							echo "deb-src ${LB_PARENT_MIRROR_BINARY_SECURITY} ${LB_PARENT_DISTRIBUTION}/updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
-						fi
-					fi
+							;;
+
+						*)
+							echo "deb ${LB_PARENT_MIRROR_BINARY_SECURITY} ${LB_PARENT_DISTRIBUTION}/updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+
+							if [ "${LB_SOURCE}" = "true" ]
+							then
+								echo "deb-src ${LB_PARENT_MIRROR_BINARY_SECURITY} ${LB_PARENT_DISTRIBUTION}/updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+							fi
+							;;
+					esac
 
 					if [ "${LB_MODE}" = progress ]
 					then
