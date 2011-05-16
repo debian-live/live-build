@@ -592,19 +592,6 @@ Set_defaults ()
 			exit 1
 			;;
 
-		alpha)
-			case "${LB_MODE}" in
-				progress|ubuntu)
-					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
-					exit 1
-					;;
-
-				*)
-					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-alpha-generic}"
-					;;
-			esac
-			;;
-
 		amd64)
 			case "${LB_MODE}" in
 				ubuntu)
