@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2011-04-23 19:26+0300\n"
+"POT-Creation-Date: 2011-05-16 12:10+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,7 +81,7 @@ msgstr ""
 #: en/lb_source_net.1:1 en/lb_source_tar.1:1 en/lb_source_usb.1:1
 #: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "2011-04-23"
+msgid "2011-05-16"
 msgstr ""
 
 #. type: TH
@@ -2374,7 +2374,7 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:406
 #, no-wrap
-msgid "-m|B<--mirror-bootstrap> I<URL>"
+msgid "B<--mirror-bootstrap> I<URL>"
 msgstr ""
 
 #. type: Plain text

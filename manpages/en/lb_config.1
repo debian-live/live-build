@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2011\-04\-23 3.0~a16 "Debian Live Project"
+.TH LIVE\-BUILD 1 2011\-05\-16 3.0~a16 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -403,7 +403,7 @@ sets the location of the debian volatile package mirror that should end up confi
 sets the location of the debian backports package mirror that should end up configured in the final image. By default, 'http://backports.debian.org/debian-backports/' is used.
 .IP "\fB\-\-parent\-mirror\-debian\-installer\fR \fIURL\fR" 4
 sets the location of the mirror that will be used to fetch the debian installer images. By default, this points to the same mirror used to build the live system, i.e. the value of \-\-parent\-mirror\-bootstrap.
-.IP "\-m|\fB\-\-mirror\-bootstrap\fR \fIURL\fR" 4
+.IP "\fB\-\-mirror\-bootstrap\fR \fIURL\fR" 4
 sets the location of the debian package mirror that should be used to bootstrap the derivative from. This defaults to http://ftp.de.debian.org/debian/ which may not be a good default if you live outside of Europe.
 .IP "\fB\-\-mirror\-chroot\fR \fIURL\fR" 4
 sets the location of the debian package mirror that will be used to fetch the packages of the derivative in order to build the live system. By default, this is set to the value of \-\-mirror\-bootstrap.
