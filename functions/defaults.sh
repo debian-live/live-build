@@ -214,7 +214,15 @@ Set_defaults ()
 	fi
 
 	# Setting tasksel
-	LB_TASKSEL="${LB_TASKSEL:-tasksel}"
+	case "${LB_MODE}" in
+		ubuntu)
+			LB_TASKSEL="${LB_TASKSEL:-apt}"
+			;;
+
+		*)
+			LB_TASKSEL="${LB_TASKSEL:-tasksel}"
+			;;
+	esac
 
 	# Setting root directory
 	case "${LB_MODE}" in
