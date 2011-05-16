@@ -214,13 +214,13 @@ Set_defaults ()
 	fi
 
 	# Setting tasksel
-	case "${LB_MODE}" in
-		ubuntu)
-			LB_TASKSEL="${LB_TASKSEL:-apt}"
+	case "${LB_DISTRIBUTION}" in
+		squeeze)
+			LB_TASKSEL="${LB_TASKSEL:-tasksel}"
 			;;
 
 		*)
-			LB_TASKSEL="${LB_TASKSEL:-tasksel}"
+			LB_TASKSEL="${LB_TASKSEL:-apt}"
 			;;
 	esac
 
