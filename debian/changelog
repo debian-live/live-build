@@ -1,3 +1,42 @@
+live-build (3.0~a17-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Updating squeeze point release number.
+  * Updating ubuntu releases.
+  * Enabling xz compression by default for artax-backports.
+  * Updating url for debian-installer daily-images.
+
+  [ Ben Armstrong ]
+  * Using gdm3 for wheezy instead of gdm.
+
+  [ Daniel Baumann ]
+  * Don't add security repository for wheezy.
+  * Avoid wrong security mirrors when building for artax-backports.
+  * Correct derivative main sources.list entries.
+  * Correcting wrongly attributed -m switch to --mirror-bootstrap,
+    thanks to Colin Watson <cjwatson@ubuntu.com> (Closes: #626905).
+  * Correcting comments about which ubuntu release is LTS and which not
+    in releases list.
+  * Removing defaults for the alpha architecture, not supported by
+    debian anymore.
+
+  [ Colin Watson ]
+  * Allow installing tasks using apt-get, and do so by default for
+    Ubuntu (Closes: #626940).
+
+  [ Daniel Baumann ]
+  * Switching to apt as tasksel for all distributions, except Debian
+    squeeze.
+  * Updating to standards version 3.9.2.
+  * Completing files section in live-build manpage (Closes: #626367).
+  * Correcting top-level makefile to automatically get all the supported
+    languages, rather than defining a static list.
+
+  [ liandro sg ]
+  * Be more careful with subshells (Closes: #623356).
+
+ -- Daniel Baumann <daniel@debian.org>  Wed, 18 May 2011 19:49:53 +0200
+
 live-build (3.0~a16-1) unstable; urgency=low
 
   * Adding workaround for apt not respecting pinning on the fly.
