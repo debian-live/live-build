@@ -133,6 +133,43 @@ case "${1}" in
 			esac
 		fi
 
+		case "${LB_MODE}" in
+			progress)
+				echo "# /etc/apt/preferences.d/progress.pref" > chroot/etc/apt/preferences.d/progress.pref
+
+				case "${LB_DISTRIBUTION}" in
+					*-backports)
+						_DISTRIBUTIONS="$(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||') ${LB_DISTRIBUTION}"
+						;;
+
+					*)
+						_DISTRIBUTIONS="${LB_DISTRIBUTION}"
+						;;
+				esac
+
+				if [ "${LB_SECURITY}" = "true" ]
+				then
+					case "${LB_DISTRIBUTION}" in
+						artax)
+							_DISTRIBUTION="${_DISTRIBUTION} ${LB_DISTRIBUTION}-security"
+							;;
+					esac
+				fi
+
+				for _DISTRIBUTION in ${_DISTRIBUTIONS}
+				do
+
+cat >> chroot/etc/apt/preferences.d/progress.pref << EOF
+
+Package: *
+Pin: release n=${_DISTRIBUTION}
+Pin-Priority: 999
+EOF
+
+				done
+				;;
+		esac
+
 		# Creating stage file
 		Create_stagefile .stage/chroot_apt
 		;;
@@ -215,6 +252,8 @@ case "${1}" in
 			fi
 
 		fi
+
+		rm -f "chroot/etc/apt/preferences.d/${LB_MODE}.pref"
 
 		# Removing stage file
 		rm -f .stage/chroot_apt

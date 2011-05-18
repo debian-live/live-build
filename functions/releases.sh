@@ -9,7 +9,7 @@
 
 
 # Debian releases
-RELEASE_squeeze="6.0.0"
+RELEASE_squeeze="6.0.1"
 RELEASE_wheezy="7"
 RELEASE_sid="unstable"
 
@@ -18,11 +18,9 @@ RELEASE_artax="1.0"
 RELEASE_baureo="unstable"
 
 # Ubuntu releases
-RELEASE_dapper="6.06" # LTS
-RELEASE_hardy="8.04" # LTS
-RELEASE_intrepid="8.10"
-RELEASE_jaunty="9.04"
-RELEASE_karmic="9.10"
-RELEASE_lucid="10.04" # LTS
-RELEASE_maverick="10.10"
-RELEASE_natty="11.04"
+RELEASE_dapper="6.06"		# LTS: 2011-06-01
+RELEASE_hardy="8.04"		# LTS: 2013-04-01
+RELEASE_lucid="10.04"		# LTS: 2015-04-01
+RELEASE_maverick="10.10"	# 2012-04-01
+RELEASE_natty="11.04"		# 2012-10-01
+RELEASE_oneiric="11.10"

@@ -135,7 +135,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--source true|false]\n\
 \t    [-s|--source-images iso|net|tar|usb-hdd]\n\
 \t    [--syslinux-theme THEME_SUFFIX]\n\
-\t    [--tasksel aptitude|tasksel]\n\
+\t    [--tasksel apt|aptitude|tasksel]\n\
 \t    [--tasks TASK|\"TASKS\"]\n\
 \t    [--templates PATH]\n\
 \t    [--virtual-root-size MB]\n\

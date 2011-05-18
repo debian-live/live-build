@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2011\-04\-23 3.0~a16 "Debian Live Project"
+.TH LIVE\-BUILD 1 2011\-05\-18 3.0~a17 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -223,7 +223,7 @@
 .br
 	[\fB\-\-syslinux\-menu\fR true|false]
 .br
-	[\fB\-\-tasksel\fR aptitude|tasksel]
+	[\fB\-\-tasksel\fR apt|aptitude|tasksel]
 .br
 	[\fB\-\-tasks\fR \fITASK\fR|"\fITASKS\fR"]
 .br
@@ -403,7 +403,7 @@ sets the location of the debian volatile package mirror that should end up confi
 sets the location of the debian backports package mirror that should end up configured in the final image. By default, 'http://backports.debian.org/debian-backports/' is used.
 .IP "\fB\-\-parent\-mirror\-debian\-installer\fR \fIURL\fR" 4
 sets the location of the mirror that will be used to fetch the debian installer images. By default, this points to the same mirror used to build the live system, i.e. the value of \-\-parent\-mirror\-bootstrap.
-.IP "\-m|\fB\-\-mirror\-bootstrap\fR \fIURL\fR" 4
+.IP "\fB\-\-mirror\-bootstrap\fR \fIURL\fR" 4
 sets the location of the debian package mirror that should be used to bootstrap the derivative from. This defaults to http://ftp.de.debian.org/debian/ which may not be a good default if you live outside of Europe.
 .IP "\fB\-\-mirror\-chroot\fR \fIURL\fR" 4
 sets the location of the debian package mirror that will be used to fetch the packages of the derivative in order to build the live system. By default, this is set to the value of \-\-mirror\-bootstrap.
@@ -476,7 +476,7 @@ defines the file of the syslinux splash graphic that should be used instead of t
 defines the timeout the syslinux bootloader should wait for input from the user at the bootprompt prior booting the default kernel. This defaults to 0 which means it will wait forever.
 .IP "\fB\-\-syslinux\-menu\fR true|false" 4
 defines if syslinux should be make use of the vgamenu capabilities or not.
-.IP "\fB\-\-tasksel\fR aptitude|tasksel" 4
+.IP "\fB\-\-tasksel\fR apt|aptitude|tasksel" 4
 selects which program is used to install tasks. By default, this is set to tasksel.
 .IP "\fB\-\-tasks\fR \fITASK\fR|""\fITASKS\fR""" 4
 defines one or more package tasks to be installed in the live system. This is a quick and convenient way to get a reasonable default selection of packages suitable for most users when building an image, but it results in quite big images. If you want to have finer grained package selections,  local package lists should be used instead.

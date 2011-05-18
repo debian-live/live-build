@@ -214,7 +214,15 @@ Set_defaults ()
 	fi
 
 	# Setting tasksel
-	LB_TASKSEL="${LB_TASKSEL:-tasksel}"
+	case "${LB_DISTRIBUTION}" in
+		squeeze)
+			LB_TASKSEL="${LB_TASKSEL:-tasksel}"
+			;;
+
+		*)
+			LB_TASKSEL="${LB_TASKSEL:-apt}"
+			;;
+	esac
 
 	# Setting root directory
 	case "${LB_MODE}" in
@@ -590,19 +598,6 @@ Set_defaults ()
 			Echo_error "There is no default kernel flavour defined for your architecture."
 			Echo_error "Please configure it manually with 'lb config -k FLAVOUR'."
 			exit 1
-			;;
-
-		alpha)
-			case "${LB_MODE}" in
-				progress|ubuntu)
-					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
-					exit 1
-					;;
-
-				*)
-					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-alpha-generic}"
-					;;
-			esac
 			;;
 
 		amd64)

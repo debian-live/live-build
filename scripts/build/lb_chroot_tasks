@@ -45,6 +45,10 @@ then
 
 	# Checking depends
 	case "${LB_TASKSEL}" in
+		apt)
+			Check_package chroot/usr/bin/apt-get apt
+			;;
+
 		aptitude)
 			Check_package chroot/usr/bin/aptitude aptitude
 			;;
@@ -59,6 +63,15 @@ then
 
 	# Installing tasks
 	case "${LB_TASKSEL}" in
+		apt)
+			APT_TASKS=
+			for TASK in ${LB_TASKS}
+			do
+				APT_TASKS="${APT_TASKS:+$APT_TASKS }$TASK^"
+			done
+			Chroot chroot "apt-get ${APT_OPTIONS} install ${APT_TASKS}"
+			;;
+
 		aptitude)
 			Chroot chroot "aptitude ${APTITUDE_OPTIONS} install ${LB_TASKS}"
 			;;

@@ -50,7 +50,7 @@ then
 		fi
 
 		# Executing hook
-		./"${HOOK}" || ( Echo_error "${HOOK} failed (exit non-zero). You should check for errors."; exit 1 )
+		./"${HOOK}" || { Echo_error "${HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
 	done
 
 	# Creating stage file

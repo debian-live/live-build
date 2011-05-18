@@ -231,36 +231,7 @@ then
 	LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="sid"
 
 	# Debian Installer daily builds
-	case "${LB_ARCHITECTURES}" in
-		alpha|amd64|hppa|ia64|mips|mipsel|powerpc)
-			URL="http://d-i.debian.org/daily-images/${LB_ARCHITECTURES}/daily/"
-			;;
-
-		arm|armel)
-			URL="http://people.debian.org/~kmuto/d-i/images/daily/"
-			;;
-
-		i386)
-			URL="http://people.debian.org/~joeyh/d-i/images/daily/"
-			;;
-
-		m68k)
-			URL="http://people.debian.org/~smarenka/d-i/images-m68k/daily/"
-			;;
-
-		s390)
-			URL="http://lophos.multibuild.org/d-i/images/daily/"
-			;;
-
-		sparc)
-			URL="http://people.debian.org/~stappers/d-i/images/daily/"
-			;;
-
-		*)
-			Echo_error "No daily-builds found for your architecture."
-			exit 1
-			;;
-	esac
+	URL="http://d-i.debian.org/daily-images/${LB_ARCHITECTURES}/daily/"
 else
 	if [ "${LB_DERIVATIVE}" = "true" ]
 	then
