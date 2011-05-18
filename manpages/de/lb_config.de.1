@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2011\-05\-16 3.0~a16 "Debian Live Project"
+.TH LIVE\-BUILD 1 2011\-05\-18 3.0~a16 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -228,7 +228,7 @@
 .br
   [\fB\-\-syslinux\-menu\fP true|false]
 .br
-  [\fB\-\-tasksel\fP aptitude|tasksel]
+  [\fB\-\-tasksel\fP apt|aptitude|tasksel]
 .br
   [\fB\-\-tasks\fP \fITASK\fP|"\fITASKS\fP"]
 .br
@@ -750,7 +750,7 @@ user at the bootprompt prior booting the default kernel. This defaults to 0
 which means it will wait forever.
 .IP "\fB\-\-syslinux\-menu\fP true|false" 4
 defines if syslinux should be make use of the vgamenu capabilities or not.
-.IP "\fB\-\-tasksel\fP aptitude|tasksel" 4
+.IP "\fB\-\-tasksel\fP apt|aptitude|tasksel" 4
 selects which program is used to install tasks. By default, this is set to
 tasksel.
 .IP "\fB\-\-tasks\fP \fITASK\fP|\(dq\fITASKS\fP\(dq" 4
