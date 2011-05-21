@@ -93,15 +93,15 @@ if [ "${LB_BUILD_WITH_CHROOT}" = "true" ]
 then
 	# Deconfiguring chroot
 	rm -f .stage/chroot_sources
+	lb chroot_apt remove ${*}
+	lb chroot_upstart remove ${*}
+	lb chroot_sysv-rc remove ${*}
 	lb chroot_hostname remove ${*}
 	lb chroot_resolv remove ${*}
 	lb chroot_hosts remove ${*}
 fi
 
-lb chroot_apt remove ${*}
-lb chroot_sysv-rc remove ${*}
 lb chroot_sysfs remove ${*}
-lb chroot_upstart remove ${*}
 lb chroot_selinuxfs remove ${*}
 lb chroot_proc remove ${*}
 lb chroot_devpts remove ${*}
