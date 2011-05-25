@@ -100,7 +100,16 @@ case "${LB_CHROOT_FILESYSTEM}" in
 			rm -f binary/${INITFS}/filesystem.${LB_CHROOT_FILESYSTEM}
 		fi
 
-		DU_DIM="$(du -ks chroot/chroot | cut -f1)"
+		case "${LB_BUILD_WITH_CHROOT}" in
+			true)
+				DU_DIM="$(du -ks chroot/chroot | cut -f1)"
+				;;
+
+			false)
+				DU_DIM="$(du -ks chroot | cut -f1)"
+				;;
+		esac
+
 		REAL_DIM="$(Calculate_partition_size ${DU_DIM} ${LB_CHROOT_FILESYSTEM})"
 
 		RESERVED_PERCENTAGE="--reserved-percentage"
