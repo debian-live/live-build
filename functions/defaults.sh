@@ -615,7 +615,7 @@ Set_defaults ()
 		i386)
 			case "${LB_MODE}" in
 				progress)
-					LB_LINUX_FLAVOURS="686"
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-686}"
 					;;
 
 				ubuntu)
