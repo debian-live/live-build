@@ -97,7 +97,7 @@ fi
 ${LB_ROOT_COMMAND} mv chroot.tmp chroot/chroot
 
 # Handling chroot excludes
-if [ -f config/binary_rootfs/excludes ]
+if [ -f config/binary_rootfs/excludes ] && [ "${LB_CHROOT_FILESYSTEM}" != "squashfs" ]
 then
 	case "${LB_BUILD_WITH_CHROOT}" in
 		true)

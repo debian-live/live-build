@@ -323,8 +323,17 @@ case "${LB_CHROOT_FILESYSTEM}" in
 
 		case "${LB_BUILD_WITH_CHROOT}" in
 			true)
+				if [ -e config/binary_rootfs/excludes ]
+				then
+					cp config/binary_rootfs/excludes chroot/excludes
+
+					MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -ef /excludes"
+				fi
+
 				# Create image
 				Chroot chroot "mksquashfs chroot filesystem.squashfs ${MKSQUASHFS_OPTIONS}"
+
+				rm -f chroot/chroot/excludes
 
 				case "${LB_MODE}" in
 					ubuntu)
@@ -384,6 +393,11 @@ case "${LB_CHROOT_FILESYSTEM}" in
 				;;
 
 			false)
+				if [ -e config/binary_rootfs/excludes ]
+				then
+					MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -ef config/binary_rootfs/excludes"
+				fi
+
 				mksquashfs chroot binary/${INITFS}/filesystem.squashfs ${MKSQUASHFS_OPTIONS}
 
 				case "${LB_MODE}" in
