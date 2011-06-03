@@ -289,9 +289,6 @@ Set_defaults ()
 	# Exclude packages on base
 	# LB_BOOTSTRAP_EXCLUDE
 
-	# Setting distribution configuration value
-	# LB_BOOTSTRAP_CONFIG
-
 	# Setting flavour value
 	case "${LB_BOOTSTRAP}" in
 		cdebootstrap)

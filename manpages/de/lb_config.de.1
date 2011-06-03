@@ -46,8 +46,6 @@
 .br
   [\fB\-\-bootstrap\fP cdebootstrap|cdebootstrap\-static|debootstrap|copy]
 .br
-  [\fB\-\-bootstrap\-config\fP \fIFILE\fP]
-.br
   [\-f|\fB\-\-bootstrap\-flavour\fP minimal|standard]
 .br
   [\fB\-\-bootstrap\-keyring\fP \fIPACKAGE\fP]
@@ -356,11 +354,6 @@ debootstrap. Note that if you set the bootstrap program to copy, then your
 host system is copied. This can be useful if you want to convert/clone your
 existing host system into a live system, however, make sure you do have
 enough free space as this can, depending on your host system, get quite big.
-.IP "\fB\-\-bootstrap\-config\fP \fIFILE\fP" 4
-sets a custom configuration file for the boostrap programm of choice and is
-empty by default. Refere to the documentation of debootstrap or cdebootstrap
-for more information about that. When the bootstrap program is set to copy,
-this has no effect.
 .IP "\-f|\fB\-\-bootstrap\-flavour\fP minimal|standard" 4
 defines if the bootstrap program should bootstrap the standard system (all
 packages of priority required and important, which is the default) or a

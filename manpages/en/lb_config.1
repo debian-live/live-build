@@ -41,8 +41,6 @@
 .br
 	[\fB\-\-bootstrap\fR cdebootstrap|cdebootstrap-static|debootstrap|copy]
 .br
-	[\fB\-\-bootstrap\-config\fR \fIFILE\fR]
-.br
 	[\-f|\fB\-\-bootstrap\-flavour\fR minimal|standard]
 .br
 	[\fB\-\-bootstrap\-keyring\fR \fIPACKAGE\fR]
@@ -289,8 +287,6 @@ sets boot parameters specific to debian\-live. A complete list of boot parameter
 defines which bootloader is beeing used in the generated image. This has only an effect if the selected binary image type does allow to choose the bootloader. For example, if you build a iso, always syslinux (or more precise, isolinux) is being used. Also note that some combinations of binary images types and bootloaders may be possible but live\-build does not support them yet. \fBlb config\fR will fail to create such a not yet supported configuration and give a explanation about it. For usb\-hdd images on amd64 and i386, the default is syslinux. yaboot is only used on powerpc.
 .IP "\fB\-\-bootstrap\fR cdebootstrap|cdebootstrap-static|debootstrap|copy" 4
 defines which program is used to bootstrap the debian chroot, default is debootstrap. Note that if you set the bootstrap program to copy, then your host system is copied. This can be useful if you want to convert/clone your existing host system into a live system, however, make sure you do have enough free space as this can, depending on your host system, get quite big.
-.IP "\fB\-\-bootstrap\-config\fR \fIFILE\fR" 4
-sets a custom configuration file for the boostrap programm of choice and is empty by default. Refere to the documentation of debootstrap or cdebootstrap for more information about that. When the bootstrap program is set to copy, this has no effect.
 .IP "\-f|\fB\-\-bootstrap\-flavour\fR minimal|standard" 4
 defines if the bootstrap program should bootstrap the standard system (all packages of priority required and important, which is the default) or a minimal system (only packages of priority required, plus apt).
 .IP "\fB\-\-bootstrap\-keyring\fR \fIPACKAGE\fR" 4
