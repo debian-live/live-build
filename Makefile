@@ -2,7 +2,7 @@
 
 SHELL := sh -e
 
-LANGUAGES = en $(shell cd manpages/po && ls)
+LANGUAGES = $(shell cd manpages/po && ls)
 
 SCRIPTS = cgi/* functions/* examples/*/*.sh examples/auto/* scripts/*.sh scripts/*/*
 
