@@ -289,9 +289,6 @@ Set_defaults ()
 	# Exclude packages on base
 	# LB_BOOTSTRAP_EXCLUDE
 
-	# Setting distribution configuration value
-	# LB_BOOTSTRAP_CONFIG
-
 	# Setting flavour value
 	case "${LB_BOOTSTRAP}" in
 		cdebootstrap)
@@ -615,7 +612,7 @@ Set_defaults ()
 		i386)
 			case "${LB_MODE}" in
 				progress)
-					LB_LINUX_FLAVOURS="686"
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-686}"
 					;;
 
 				ubuntu)
@@ -725,54 +722,57 @@ Set_defaults ()
 	esac
 
 	# Setting tasks string
-	for LIST in ${LB_PACKAGE_LISTS}
-	do
-		case "${LIST}" in
-			stripped|minimal)
-				LB_APT="apt-get"
-				;;
+	if [ -z "${LB_TASKS}" ] || [ "${LB_TASKS}" != "none" ]
+	then
+		for LIST in ${LB_PACKAGE_LISTS}
+		do
+			case "${LIST}" in
+				stripped|minimal)
+					LB_APT="apt-get"
+					;;
 
-			standard)
-				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|standard||') standard"
-				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||') standard"
-				;;
+				standard)
+					LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|standard||') standard"
+					LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||') standard"
+					;;
 
-			rescue)
-				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|standard||' -e 's|rescue||') standard rescue"
-				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|rescue||') standard rescue"
-				;;
+				rescue)
+					LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|standard||' -e 's|rescue||') standard rescue"
+					LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|rescue||') standard rescue"
+					;;
 
-			gnome-desktop)
-				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|gnome-desktop||') standard-x11"
-				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|gnome-desktop||' -e 's|desktop||' -e 's|laptop||') standard gnome-desktop desktop laptop"
-				LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
-				;;
+				gnome-desktop)
+					LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|gnome-desktop||') standard-x11"
+					LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|gnome-desktop||' -e 's|desktop||' -e 's|laptop||') standard gnome-desktop desktop laptop"
+					LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
+					;;
 
-			kde-desktop)
-				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|kde-desktop||') standard-x11"
+				kde-desktop)
+					LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|kde-desktop||') standard-x11"
 
-				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|kde-desktop||' -e 's|desktop||' -e 's|laptop||') standard kde-desktop desktop laptop"
-				LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
-				;;
+					LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|kde-desktop||' -e 's|desktop||' -e 's|laptop||') standard kde-desktop desktop laptop"
+					LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
+					;;
 
-			lxde-desktop)
-				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|lxde-desktop||') standard-x11"
+				lxde-desktop)
+					LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|lxde-desktop||') standard-x11"
 
-				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|lxde-desktop||' -e 's|desktop||' -e 's|laptop||') standard lxde-desktop desktop laptop"
-				LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
-				;;
+					LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|lxde-desktop||' -e 's|desktop||' -e 's|laptop||') standard lxde-desktop desktop laptop"
+					LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
+					;;
 
-			xfce-desktop)
-				LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|xfce-desktop||') standard-x11"
+				xfce-desktop)
+					LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|xfce-desktop||') standard-x11"
 
-				LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|xfce-desktop||' -e 's|desktop||' -e 's|laptop||') standard xfce-desktop desktop laptop"
-				LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
-				;;
-		esac
-	done
+					LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|xfce-desktop||' -e 's|desktop||' -e 's|laptop||') standard xfce-desktop desktop laptop"
+					LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
+					;;
+			esac
+		done
 
-	LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|  ||g')"
-	LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|  ||g')"
+		LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|  ||g')"
+		LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|  ||g')"
+	fi
 
 	# Setting security updates option
 	case "${LB_DISTRIBUTION}" in

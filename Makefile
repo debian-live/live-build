@@ -2,7 +2,7 @@
 
 SHELL := sh -e
 
-LANGUAGES = en $(shell cd manpages/po && ls)
+LANGUAGES = $(shell cd manpages/po && ls)
 
 SCRIPTS = cgi/* functions/* examples/*/*.sh examples/auto/* scripts/*.sh scripts/*/*
 
@@ -41,7 +41,7 @@ build:
 install:
 	# Installing shared data
 	mkdir -p $(DESTDIR)/usr/share/live/build
-	cp -r cgi data examples functions scripts hooks includes lists repositories templates $(DESTDIR)/usr/share/live/build
+	cp -r cgi data examples functions scripts includes lists repositories templates $(DESTDIR)/usr/share/live/build
 
 	# Installing executables
 	mkdir -p $(DESTDIR)/usr/bin

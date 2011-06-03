@@ -64,16 +64,6 @@ then
 	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --components=$(echo ${LB_ARCHIVE_AREAS} | sed -e 's| |,|g')"
 fi
 
-if [ -n "${LB_BOOTSTRAP_CONFIG}" ]
-then
-	if [ -d "/usr/share/debootstrap/scripts/" ]
-	then
-		LB_DEBOOTSTRAP_SCRIPT="/usr/share/debootstrap/scripts/${LB_BOOTSTRAP_CONFIG}"
-	else
-		LB_DEBOOTSTRAP_SCRIPT="/usr/lib/debootstrap/scripts/${LB_BOOTSTRAP_CONFIG}"
-	fi
-fi
-
 if [ -n "${LB_BOOTSTRAP_INCLUDE}" ]
 then
 	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --include=$(echo ${LB_BOOTSTRAP_INCLUDE} | sed 's|  *|,|g')"
@@ -124,7 +114,7 @@ then
 		fi
 
 		Echo_breakage "Running debootstrap (download-only)... "
-		${LB_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}" "${LB_DEBOOTSTRAP_SCRIPT}"
+		${LB_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}"
 
 		if [ -n "${LB_ROOT_COMMAND}" ]
 		then
@@ -140,7 +130,7 @@ then
 	fi
 
 	Echo_breakage "Running debootstrap... "
-	${LB_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}" "${LB_DEBOOTSTRAP_SCRIPT}"
+	${LB_ROOT_COMMAND} debootstrap ${DEBOOTSTRAP_OPTIONS} "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}"
 
 	if [ -n "${LB_ROOT_COMMAND}" ]
 	then
