@@ -243,12 +243,12 @@ then
 	INITRD_GI="install/gtk/initrd.gz"
 	APPEND_GI="video=vesa:ywrap,mtrr vga=788"
 
-	if [ -f "binary/boot/${VMLINUZ_DI}" ] && [ -f "binary/boot/${INITRD_DI}" ]
+	if [ -f "binary/${VMLINUZ_DI}" ] && [ -f "binary/${INITRD_DI}" ]
 	then
 		Grub_install_entry "Text" "${VMLINUZ_DI}" "${INITRD_DI}" "${APPEND_DI}"
 	fi
 
-	if [ -f "binary/boot/${VMLINUZ_GI}" ] && [ -f "binary/boot/${INITRD_GI}" ]
+	if [ -f "binary/${VMLINUZ_GI}" ] && [ -f "binary/${INITRD_GI}" ]
 	then
 		Grub_install_entry "GUI" "${VMLINUZ_GI}" "${INITRD_GI}" "${APPEND_GI}"
 	fi
