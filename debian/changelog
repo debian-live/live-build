@@ -1,3 +1,31 @@
+live-build (3.0~a18-1) unstable; urgency=low
+
+  [ Colin Watson ]
+  * Fix duplicate deconfiguration of apt, upstart, and sysv-rc if build-
+    with-chroot is false (Closes: #627406).
+
+  [ Daniel Baumann ]
+  * Correcting accidentally unconditional default for linux-flavours in
+    progress mode.
+  * Restoring excludes functionality for mksquashfs. This was present
+    some time ago but then got removed.
+  * Moving 'default' hooks for minimal and stripped to example hooks,
+    they will have to be enabled manually now (Closes: #627183).
+
+  [ Colin Watson ]
+  * Fixing ext2/ext3 case in lb_binary_rootfs to work with --build-with-
+    chroot false (Closes: #627902).
+
+  [ Daniel Baumann ]
+  * Removing accidentally twice included English files when installing
+    manpages (Closes: #628897).
+  * Removing unused and not really usefull bootstrap-script option
+    (Closes: #603114).
+  * Correcting wrong task defaults.
+  * Updating grub paths for d-i files (Closes: #627695).
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 03 Jun 2011 11:59:30 +0200
+
 live-build (3.0~a17-1) unstable; urgency=low
 
   [ Daniel Baumann ]
