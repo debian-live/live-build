@@ -612,7 +612,15 @@ Set_defaults ()
 		i386)
 			case "${LB_MODE}" in
 				progress)
-					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-686}"
+					case "${LB_DISTRIBUTION}" in
+						artax)
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-686}"
+							;;
+
+						*)
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-686-pae}"
+							;;
+					esac
 					;;
 
 				ubuntu)
