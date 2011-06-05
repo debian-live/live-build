@@ -634,7 +634,15 @@ Set_defaults ()
 							;;
 
 						*)
-							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486 686}"
+							case "${LB_DISTRIBUTION}" in
+								sid)
+									LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486 686-pae}"
+									;;
+
+								*)
+									LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486 686}"
+									;;
+							esac
 							;;
 					esac
 					;;
