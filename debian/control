@@ -16,7 +16,7 @@ Depends: ${misc:Depends}, debootstrap | cdebootstrap | cdebootstrap-static
 Recommends: cpio, gettext-base, gnu-fdisk
 Suggests:
  dosfstools, genisoimage, memtest86+ | memtest86, mtools, parted,
- squashfs-tools | genext2fs | mtd-tools, sudo | fakeroot, syslinux | grub,
+ squashfs-tools | mtd-tools, sudo | fakeroot, syslinux | grub,
  uuid-runtime, win32-loader
 Description: Debian Live - System Build Scripts
  live-build contains the scripts that build a Debian Live system image from a

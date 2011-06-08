@@ -86,7 +86,7 @@ done
 case "${LB_CHROOT_FILESYSTEM}" in
 	ext2|ext3)
 		# Checking depends
-		Check_package chroot/usr/bin/genext2fs genext2fs
+		Check_package chroot/sbin/mkfs.ext2 e2fsprogs
 
 		# Restoring cache
 		Restore_cache cache/packages_binary
@@ -102,21 +102,30 @@ case "${LB_CHROOT_FILESYSTEM}" in
 
 		case "${LB_BUILD_WITH_CHROOT}" in
 			true)
-				DU_DIM="$(du -ks chroot/chroot | cut -f1)"
+				DU_DIM="$(du -ms chroot/chroot | cut -f1)"
+				INODES="$(find chroot/chroot | wc -l)"
 				;;
 
 			false)
-				DU_DIM="$(du -ks chroot | cut -f1)"
+				DU_DIM="$(du -ms chroot | cut -f1)"
+				INODES="$(find chroot | wc -l)"
 				;;
 		esac
 
 		REAL_DIM="$(Calculate_partition_size ${DU_DIM} ${LB_CHROOT_FILESYSTEM})"
-
-		RESERVED_PERCENTAGE="--reserved-percentage"
+		REAL_INODES="$(Calculate_partition_size ${INODES} ${LB_CHROOT_FILESYSTEM})"
 
 		case "${LB_BUILD_WITH_CHROOT}" in
 			true)
-				Chroot chroot "genext2fs --size-in-blocks=${REAL_DIM} ${RESERVED_PERCENTAGE}=0 --root=chroot filesystem.${LB_CHROOT_FILESYSTEM}"
+				dd if=/dev/zero of=chroot/filesystem.${LB_CHROOT_FILESYSTEM} bs=1024k count=0 seek=${REAL_DIM}
+				Chroot chroot "mkfs.${LB_CHROOT_FILESYSTEM} -F -b 1024 -N ${REAL_INODES} -m 0 filesystem.${LB_CHROOT_FILESYSTEM}"
+
+				mkdir -p filesystem.tmp
+				${LB_ROOT_COMMAND} mount -o loop chroot/filesystem.${LB_CHROOT_FILESYSTEM} filesystem.tmp
+				cp -a chroot/chroot/* filesystem.tmp
+
+				${LB_ROOT_COMMAND} umount filesystem.tmp
+				rmdir filesystem.tmp
 
 				# Move image
 				mv chroot/filesystem.${LB_CHROOT_FILESYSTEM} binary/${INITFS}
@@ -173,7 +182,15 @@ case "${LB_CHROOT_FILESYSTEM}" in
 				;;
 
 			false)
-				genext2fs --size-in-blocks=${REAL_DIM} ${RESERVED_PERCENTAGE}=0 --root=chroot binary/${INITFS}/filesystem.${LB_CHROOT_FILESYSTEM}
+				dd if=/dev/zero of=binary/${INITFS}/filesystem.${LB_CHROOT_FILESYSTEM} bs=1024k count=0 seek=${REAL_DIM}
+				mkfs.${LB_CHROOT_FILESYSTEM} -F -b 1024 -N ${REAL_INODES} -m 0 binary/${INITFS}/filesystem.${LB_CHROOT_FILESYSTEM}
+
+				mkdir -p filesystem.tmp
+				${LB_ROOT_COMMAND} mount -o loop binary/${INITFS}/filesystem.${LB_CHROOT_FILESYSTEM} filesystem.tmp
+				cp -a chroot/* filesystem.tmp
+
+				${LB_ROOT_COMMAND} umount filesystem.tmp
+				rmdir filesystem.tmp
 				;;
 		esac
 
