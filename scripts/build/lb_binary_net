@@ -69,6 +69,10 @@ then
 		live-boot)
 			ORIGDIR="binary/live"
 			;;
+
+		*)
+			ORIGDIR="binary/boot"
+			;;
 	esac
 
 	# Find defaults

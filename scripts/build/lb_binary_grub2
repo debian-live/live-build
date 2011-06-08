@@ -68,7 +68,7 @@ Grub_live_entry ()
 	APPEND="${4}"
 
 	LINUX_LIVE="${LINUX_LIVE}\nmenuentry \"Debian GNU/Linux - ${LABEL}\" {"
-	LINUX_LIVE="${LINUX_LIVE}\nlinux\t\t/${KERNEL} boot=${INITFS} config LB_BOOTAPPEND_LIVE ${APPEND}"
+	LINUX_LIVE="${LINUX_LIVE}\nlinux\t\t/${KERNEL} ${INITFS:+boot=${INITFS} }config LB_BOOTAPPEND_LIVE ${APPEND}"
 	LINUX_LIVE="${LINUX_LIVE}\ninitrd\t\t/${INITRD}"
 	LINUX_LIVE="${LINUX_LIVE}\n}"
 }
@@ -99,6 +99,10 @@ case "${LB_INITRAMFS}" in
 	live-boot)
 		INITFS="live"
 		;;
+
+	*)
+		INITFS=""
+		;;
 esac
 
 # Setting destination directory
@@ -110,6 +114,10 @@ case "${LB_BINARY_IMAGES}" in
 				;;
 
 			live-boot)
+				DESTDIR_LIVE="binary/live"
+				;;
+
+			*)
 				DESTDIR_LIVE="binary/live"
 				;;
 		esac

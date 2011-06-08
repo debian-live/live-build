@@ -82,7 +82,7 @@ Silo_live_entry ()
 	LINUX_LIVE="${LINUX_LIVE}\nimage=${DIRECTORY}/${KERNEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\t  label=${LABEL}\n"
 	LINUX_LIVE="${LINUX_LIVE}\t  initrd=${DIRECTORY}/${INITRD}\n"
-	LINUX_LIVE="${LINUX_LIVE}\t  append=\"boot=${INITFS} config LB_BOOTAPPEND_LIVE ${APPEND}\"\n"
+	LINUX_LIVE="${LINUX_LIVE}\t  append=\"${INITFS:+boot=${INITFS} }config LB_BOOTAPPEND_LIVE ${APPEND}\"\n"
 }
 
 Silo_install_entry ()
@@ -116,6 +116,11 @@ case "${LB_INITRAMFS}" in
 	live-boot)
 		INITFS="live"
 		DESTDIR_LIVE="binary/live"
+		;;
+
+	*)
+		INITFS=""
+		DESTDIR_LIVE="binary/boot"
 		;;
 esac
 

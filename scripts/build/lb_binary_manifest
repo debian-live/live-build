@@ -53,6 +53,11 @@ case "${LB_INITRAMFS}" in
 		INITFS="live"
 		SUFFIX="packages"
 		;;
+
+	*)
+		INITFS="boot"
+		SUFFIX="packages"
+		;;
 esac
 
 # Add filesystem.packages
