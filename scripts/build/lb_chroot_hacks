@@ -273,6 +273,11 @@ then
 	ln -s /proc/mounts chroot/etc/mtab
 fi
 
+if [ "${LB_SWAP_FILE_PATH}" ]; then
+	dd if=/dev/zero of="chroot/${LB_SWAP_FILE_PATH}" bs=1024k count="${LB_SWAP_FILE_SIZE}"
+	mkswap "chroot/${LB_SWAP_FILE_PATH}"
+fi
+
 # Show popular warnings
 if [ -e chroot/etc/init.d/resolvconf ]
 then

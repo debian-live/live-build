@@ -131,6 +131,8 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--security true|false]\n\
 \t    [--source true|false]\n\
 \t    [-s|--source-images iso|net|tar|usb-hdd]\n\
+\t    [--swap-file-path PATH]\n\
+\t    [--swap-file-size MB]\n\
 \t    [--syslinux-theme THEME_SUFFIX]\n\
 \t    [--tasksel apt|aptitude|tasksel]\n\
 \t    [--tasks TASK|\"TASKS\"]\n\
@@ -162,7 +164,7 @@ Local_arguments ()
 		grub-splash:,hostname:,isohybrid-options:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
 		net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,
-		net-cow-server:,net-tarball:,syslinux-theme:,
+		net-cow-server:,net-tarball:,swap-file-path:,swap-file-size:,syslinux-theme:,
 		username:,win32-loader:,source:,source-images:,breakpoints,conffile:,debug,force,
 		help,ignore-system-defaults,quiet,usage,verbose,version"
 	# Remove spaces added by indentation
@@ -727,6 +729,16 @@ Local_arguments ()
 
 			--net-tarball)
 				LB_NET_TARBALL="${2}"
+				shift 2
+				;;
+
+			--swap-file-path)
+				LB_SWAP_FILE_PATH="${2}"
+				shift 2
+				;;
+
+			--swap-file-size)
+				LB_SWAP_FILE_SIZE="${2}"
 				shift 2
 				;;
 
@@ -1335,6 +1347,14 @@ LB_NET_COW_SERVER="${LB_NET_COW_SERVER}"
 # \$LB_NET_TARBALL: set net tarball
 # (Default: ${LB_NET_TARBALL})
 LB_NET_TARBALL="${LB_NET_TARBALL}"
+
+# \$LB_SWAP_FILE_PATH: set swap file path
+# (Default: ${LB_SWAP_FILE_PATH})
+LB_SWAP_FILE_PATH="${LB_SWAP_FILE_PATH}"
+
+# \$LB_SWAP_FILE_SIZE: set swap file size
+# (Default: ${LB_SWAP_FILE_SIZE})
+LB_SWAP_FILE_SIZE="${LB_SWAP_FILE_SIZE}"
 
 # \$LB_SYSLINUX_THEME: set syslinux theme package
 # (Default: ${LB_SYSLINUX_THEME})

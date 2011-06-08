@@ -1044,6 +1044,9 @@ Set_defaults ()
 			;;
 	esac
 
+	# Setting swap file
+	LB_SWAP_FILE_SIZE="${LB_SWAP_FILE_SIZE:-512}"
+
 	## config/source
 
 	# Setting source option

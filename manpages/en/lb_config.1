@@ -460,6 +460,10 @@ defines if the security repositories specified in the security mirror options sh
 defines if a corresponding source image to the binary image should be build. By default this is false because most people do not require this and would require to download quite a few source packages. However, once you start distributing your live image, you should make sure you build it with a source image alongside.
 .IP "\-s|\fB\-\-source\-images\fR iso|net|tar|usb\-hdd" 4
 defines the image type for the source image. Default is tar.
+.IP "\fB\-\-swap\-file\-path\fR \fIPATH\fR" 4
+defines the path to a swap file to create in the binary image. Default is not to create a swap file.
+.IP "\fB\-\-swap\-file\-size\fR \fIMB\fR" 4
+defines what size in megabytes the swap file should be, if one is to be created. Default is 512MB.
 .IP "\fB\-\-syslinux\-splash\fR \fIFILE\fR" 4
 defines the file of the syslinux splash graphic that should be used instead of the default one.
 .IP "\fB\-\-syslinux\-timeout\fR \fISECONDS\fR" 4
