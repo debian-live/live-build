@@ -231,7 +231,7 @@ then
 	LB_DEBIAN_INSTALLER_DISTRIBUTION="sid"
 
 	# Debian Installer daily builds
-+	URL="http://d-i.debian.org/daily-images/${LB_ARCHITECTURES}/daily/"
+	URL="http://d-i.debian.org/daily-images/${LB_ARCHITECTURE}/daily/"
 else
 	URL="${LB_MIRROR_DEBIAN_INSTALLER}/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LB_ARCHITECTURE}/current/images/"
 fi
