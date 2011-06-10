@@ -381,7 +381,7 @@ Set_defaults ()
 		ubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
-					LB_PARENT_MIRROR_CHROOT_VOLATILE="${LB_PARENT_MIRROR_CHROOT_VOLATILE:-http://security.ubuntu.com/ubuntu/}"
+					LB_PARENT_MIRROR_CHROOT_VOLATILE="${LB_PARENT_MIRROR_CHROOT_VOLATILE:-http://archive.ubuntu.com/ubuntu/}"
 					;;
 
 				*)
@@ -467,7 +467,7 @@ Set_defaults ()
 		ubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
-					LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-http://archive.ubuntu.com/ubuntu/}"
+					LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-http://security.ubuntu.com/ubuntu/}"
 					;;
 
 				*)
@@ -494,7 +494,7 @@ Set_defaults ()
 		ubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
-					LB_PARENT_MIRROR_BINARY_VOLATILE="${LB_PARENT_MIRROR_BINARY_VOLATILE:-http://security.ubuntu.com/ubuntu/}"
+					LB_PARENT_MIRROR_BINARY_VOLATILE="${LB_PARENT_MIRROR_BINARY_VOLATILE:-http://archive.ubuntu.com/ubuntu/}"
 					;;
 
 				*)
