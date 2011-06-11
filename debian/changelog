@@ -1,3 +1,41 @@
+live-build (3.0~a20-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Dropping handling of --packages in order to simply things handle
+    packages scheduled for installation through package lists only.
+  * Removing unmaintained chroot_localization script.
+
+  [ Colin Watson ]
+  * Use powerpc and powerpc64-smp kernel flavours by default for Ubuntu,
+    as there is no powerpc64 flavour (Closes: #630032).
+
+  [ Daniel Baumann ]
+  * Correct indenting in powerpc kernel defaults.
+
+  [ Colin Watson ]
+  * Use dpkg --force-unsafe-io if available (Closes: #630043).
+
+  [ Daniel Baumann ]
+  * Correcting indenting for dpkg sync configuration file.
+  * Always disable dpkg sync, we only support squeeze and newer anyway.
+
+  [ Colin Watson ]
+  * Fix incorrect Ubuntu defaults for security and volatile mirrors
+    (Closes: #630080).
+
+  [ Daniel Baumann ]
+  * Reworking chroot_tasks into chroot_local-tasklists, now packages and
+    tasks are (almost) handled identical and through local lists only.
+  * Creating chroot_local-tasklists directory in config.
+  * Using locales-all instead of locales in standard list for progress.
+  * Adding support for 'nif' in package lists.
+  * Updating and simplyfing conditionals in package lists.
+  * Allow to optionally run package installation in two passes.
+    Eventually, this allows to have media containing a 'bigger' live
+    system that what they end up installing (Closes: #627439).
+
+ -- Daniel Baumann <daniel@debian.org>  Sat, 11 Jun 2011 17:46:24 +0200
+
 live-build (3.0~a19-1) unstable; urgency=low
 
   [ Richard Nelson ]
