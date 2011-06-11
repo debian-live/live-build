@@ -56,9 +56,11 @@ EOF
 		# Disable dpkg syncing
 		if echo 'dpkg --compare-versions "$(dpkg-query -W --showformat="\${Version}" dpkg)" ge 1.15.8.6' | Chroot chroot sh
 		then
-			cat > chroot/etc/dpkg/dpkg.cfg.d/live-build << EOF
+
+cat > chroot/etc/dpkg/dpkg.cfg.d/live-build << EOF
 force-unsafe-io
 EOF
+
 		fi
 
 		# Manual hacks for special packages
