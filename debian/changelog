@@ -1,3 +1,25 @@
+live-build (3.0~a19-1) unstable; urgency=low
+
+  [ Richard Nelson ]
+  * Update VERSION in common.sh to match last release.
+
+  [ Daniel Baumann ]
+  * Updating packages in sun-java6 example hook.
+  * Updating default kernel flavour for progress on i386.
+  * Updating default kernel flavour for debian on i386.
+
+  [ Colin Watson ]
+  * Use mkfs.ext2/mkfs.ext2 instead of genext2fs (Closes: #629533).
+  * Make --initramfs none work more consistently (Closes: #627887).
+
+  [ Richard Nelson ]
+  * Add progress as an option for --mode in lb_config manpage.
+
+  [ Daniel Baumann ]
+  * Don't try to install standard task on anything but ubuntu.
+
+ -- Daniel Baumann <daniel@debian.org>  Sat, 11 Jun 2011 11:04:08 +0200
+
 live-build (3.0~a18-1) unstable; urgency=low
 
   [ Colin Watson ]
