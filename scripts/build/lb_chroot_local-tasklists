@@ -14,7 +14,7 @@ set -e
 . "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
-DESCRIPTION="$(Echo 'install tasks into chroot')"
+DESCRIPTION="$(Echo 'install local task lists into chroot')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -24,13 +24,13 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-Echo_message "Begin installing tasks..."
+Echo_message "Begin installation of local task lists..."
 
 # Requiring stage file
 Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/chroot_tasks
+Check_stagefile .stage/chroot_local-tasklists
 
 # Checking lock file
 Check_lockfile .lock
@@ -38,8 +38,15 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ -n "${LB_TASKS}" ] && [ "${LB_TASKS}" != "none" ]
+if ls config/chroot_local-tasklists/*.list > /dev/null 2>&1
 then
+	for LIST in config/chroot_local-tasklists/*.list
+	do
+		# Generating local task list
+		Expand_packagelist "$(basename ${LIST})" "config/chroot_local-tasklists" \
+			>> chroot/root/chroot_tasks
+	done
+
 	# Restoring cache
 	Restore_cache cache/packages_chroot
 
@@ -69,12 +76,12 @@ then
 
 			case "${LB_MODE}" in
 				ubuntu)
-					TASKS="${LB_TASKS}"
+					TASKS="$(cat chroot/root/chroot_tasks)"
 					;;
 
 				*)
 					# Avoid standard tasks which appears to not exist
-					TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||')"
+					TASKS="$(cat chroot/root/chroot_tasks | sed -e 's|standard||')"
 					;;
 			esac
 
@@ -87,11 +94,11 @@ then
 			;;
 
 		aptitude)
-			Chroot chroot "aptitude ${APTITUDE_OPTIONS} install ${LB_TASKS}"
+			Chroot chroot "aptitude ${APTITUDE_OPTIONS} install $(cat chroot/root/chroot_tasks)"
 			;;
 
 		tasksel)
-			for TASK in ${LB_TASKS}
+			for TASK in $(cat chroot/root/chroot_tasks)
 			do
 				case "${TASK}" in
 					gnome*)
@@ -123,9 +130,12 @@ then
 	# Removing depends
 	Remove_package
 
+	# Removing task list
+	rm -f chroot/root/chroot_tasks
+
 	# Saving cache
 	Save_cache cache/packages_chroot
 
 	# Creating stage file
-	Create_stagefile .stage/chroot_tasks
+	Create_stagefile .stage/chroot_local-tasklists
 fi

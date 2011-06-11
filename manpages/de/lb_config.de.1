@@ -226,8 +226,6 @@
 .br
   [\fB\-\-tasksel\fP apt|aptitude|tasksel]
 .br
-  [\fB\-\-tasks\fP \fITASK\fP|"\fITASKS\fP"]
-.br
   [\fB\-\-templates\fP \fIPATH\fP]
 .br
   [\fB\-\-virtual\-root\-size \fP\fIMB\fP]
@@ -739,12 +737,6 @@ defines if syslinux should be make use of the vgamenu capabilities or not.
 .IP "\fB\-\-tasksel\fP apt|aptitude|tasksel" 4
 selects which program is used to install tasks. By default, this is set to
 tasksel.
-.IP "\fB\-\-tasks\fP \fITASK\fP|\(dq\fITASKS\fP\(dq" 4
-defines one or more package tasks to be installed in the live system. This
-is a quick and convenient way to get a reasonable default selection of
-packages suitable for most users when building an image, but it results in
-quite big images. If you want to have finer grained package selections,
-local package lists should be used instead.
 .IP "\fB\-\-templates\fP \fIPATH\fP" 4
 sets the path to the templates that live\-build is going to use, e.g. for
 bootloaders. By default, this is set to /usr/share/live/build/templates/.

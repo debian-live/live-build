@@ -59,7 +59,7 @@ lb chroot_packagelists ${*}
 lb chroot_local-packagelists ${*}
 lb chroot_local-packages ${*}
 lb chroot_install-packages ${*}
-lb chroot_tasks ${*}
+lb chroot_local-tasklists ${*}
 lb chroot_local-includes ${*}
 lb chroot_local-patches ${*}
 lb chroot_local-hooks ${*}
