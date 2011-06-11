@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2011\-06\-03 3.0~a18 "Debian Live Project"
+.TH LIVE\-BUILD 1 2011\-06\-11 3.0~a19 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -175,7 +175,7 @@
 .br
 	[\fB\-\-mirror\-debian\-installer\fR \fIURL\fR]
 .br
-	[\fB\-\-mode\fR debian|emdebian|ubuntu]
+	[\fB\-\-mode\fR debian|emdebian|progress|ubuntu]
 .br
 	[\fB\-\-net\-root\-filesystem\fR nfs|cfs]
 .br
@@ -419,7 +419,7 @@ sets the location of the derivatives volatile package mirror that should end up 
 sets the location of the derivatives backports package mirror that should end up configured in the final image.
 .IP "\fB\-\-mirror\-debian\-installer\fR \fIURL\fR" 4
 sets the location of the mirror that will be used to fetch the debian installer images of the derivative. By default, this points to the same mirror used to build the live system, i.e. the value of \-\-mirror\-bootstrap.
-.IP "\fB\-\-mode\fR debian|emdebian|ubuntu" 4
+.IP "\fB\-\-mode\fR debian|emdebian|progress|ubuntu" 4
 defines a global mode to load project specific defaults. By default this is set to debian.
 .IP "\fB\-\-net\-root\-filesystem\fR nfs|cfs" 4
 defines the filesystem that will be configured in the bootloader configuration for your netboot image. This defaults to nfs.

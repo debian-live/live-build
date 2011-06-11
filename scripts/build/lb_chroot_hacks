@@ -214,9 +214,13 @@ case "${LB_INITRAMFS}" in
 	live-boot)
 		ID="1000"
 		;;
+
+	*)
+		ID=""
+		;;
 esac
 
-if [ -d chroot/home/${LB_USERNAME} ]
+if [ -d chroot/home/${LB_USERNAME} ] && [ "${ID}" ]
 then
 	chown -R --quiet ${ID}:${ID} chroot/home/${LB_USERNAME}
 fi

@@ -87,6 +87,10 @@ case "${LB_INITRAMFS}" in
 	live-boot)
 		DESTDIR="binary/live"
 		;;
+
+	*)
+		DESTDIR="binary/boot"
+		;;
 esac
 
 Check_multiarchitectures
