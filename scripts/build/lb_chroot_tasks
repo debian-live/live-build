@@ -64,11 +64,25 @@ then
 	# Installing tasks
 	case "${LB_TASKSEL}" in
 		apt)
+			# This needs to be cleaned up at some point
 			APT_TASKS=
-			for TASK in ${LB_TASKS}
+
+			case "${LB_MODE}" in
+				ubuntu)
+					TASKS="${LB_TASKS}"
+					;;
+
+				*)
+					# Avoid standard tasks which appears to not exist
+					TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||')"
+					;;
+			esac
+
+			for TASK in ${TASKS}
 			do
 				APT_TASKS="${APT_TASKS:+$APT_TASKS }$TASK^"
 			done
+
 			Chroot chroot "apt-get ${APT_OPTIONS} install ${APT_TASKS}"
 			;;
 
