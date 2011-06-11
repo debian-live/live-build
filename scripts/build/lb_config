@@ -193,7 +193,7 @@ Local_arguments ()
 				Print_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 
 				# Dump contents of directories that contain text files
-				for DIRECTORY in config/binary_local-packagelists config/chroot_local-packagelists config/chroot_apt config/chroot_local-patches config/chroot_local-preseed config/binary_rootfs
+				for DIRECTORY in config/binary_local-packagelists config/chroot_local-packagelists config/chroot_local-tasklists config/chroot_apt config/chroot_local-patches config/chroot_local-preseed config/binary_rootfs
 				do
 					if Find_files "${DIRECTORY}"
 					then
@@ -1129,6 +1129,7 @@ mkdir -p config/chroot_local-patches
 mkdir -p config/chroot_local-packages
 mkdir -p config/chroot_local-packagelists
 mkdir -p config/chroot_local-preseed
+mkdir -p config/chroot_local-tasklists
 mkdir -p config/chroot_sources
 
 cat > config/chroot << EOF
