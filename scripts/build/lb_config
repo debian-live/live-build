@@ -87,7 +87,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--iso-volume NAME]\n\
 \t    [--jffs2-eraseblock SIZE]\n\
 \t    [--keyring-packages PACKAGE|\"PACKAGES\"]\n\
-\t    [-l|--language LANGUAGE]\n\
 \t    [-k|--linux-flavours FLAVOUR|\"FLAVOURS\"]\n\
 \t    [--linux-packages \"PACKAGES\"]\n\
 \t    [--losetup losetup|losetup.orig]\n\
@@ -156,7 +155,7 @@ Local_arguments ()
 		mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-chroot-backports:,mirror-binary:,
 		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,
 		archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
-		gzip-options:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
+		gzip-options:,hooks:,interactive:,keyring-packages:,linux-flavours:,linux-packages:,
 		package-lists:,tasks:,security:,volatile:,backports:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,compression:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
@@ -537,11 +536,6 @@ Local_arguments ()
 
 			--keyring-packages)
 				LB_KEYRING_PACKAGES="${2}"
-				shift 2
-				;;
-
-			-l|--language)
-				LB_LANGUAGE="${2}"
 				shift 2
 				;;
 
@@ -1167,10 +1161,6 @@ LB_INTERACTIVE="${LB_INTERACTIVE}"
 # \$LB_KEYRING_PACKAGES: set keyring packages
 # (Default: empty)
 LB_KEYRING_PACKAGES="${LB_KEYRING_PACKAGES}"
-
-# \$LB_LANGUAGE: set language to use
-# (Default: empty)
-LB_LANGUAGE="${LB_LANGUAGE}"
 
 # \$LB_LINUX_FLAVOURS: set kernel flavour to use
 # (Default: autodetected)

@@ -586,9 +586,6 @@ Set_defaults ()
 			;;
 	esac
 
-	# Setting language string
-	LB_LANGUAGE="${LB_LANGUAGE:-en}"
-
 	# Setting linux flavour string
 	case "${LB_ARCHITECTURES}" in
 		armel)
