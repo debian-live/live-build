@@ -16,7 +16,10 @@ set -e
 # Setting static variables
 DESCRIPTION="$(Echo 'queue install of package lists into chroot')"
 HELP=""
-USAGE="${PROGRAM} [--force]"
+USAGE="${PROGRAM} {install|live} [--force]"
+
+_PASS="${1}"
+shift
 
 Arguments "${@}"
 
@@ -24,13 +27,13 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-Echo_message "Begin queueing installation of package lists..."
+Echo_message "Begin queueing installation of package lists (${_PASS} pass)..."
 
 # Requiring stage file
 Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/chroot_packagelists
+Check_stagefile .stage/chroot_packagelists.${_PASS}
 
 # Checking lock file
 Check_lockfile .lock
@@ -40,7 +43,6 @@ Create_lockfile .lock
 
 if [ -n "${LB_PACKAGE_LISTS}" ] && [ "${LB_PACKAGE_LISTS}" != "none" ]
 then
-
 	for LIST in ${LB_PACKAGE_LISTS}
 	do
 		# Generating package list
@@ -48,5 +50,5 @@ then
 	done
 
 	# Creating stage file
-	Create_stagefile .stage/chroot_packagelists
+	Create_stagefile .stage/chroot_packagelists.${_PASS}
 fi

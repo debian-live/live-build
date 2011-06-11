@@ -17,6 +17,10 @@ set -e
 DESCRIPTION="$(Echo 'install queued packages into chroot')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
+USAGE="${PROGRAM} {install|live} [--force]"
+
+_PASS="${1}"
+shift
 
 Arguments "${@}"
 
@@ -24,13 +28,13 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-Echo_message "Begin installing packages..."
+Echo_message "Begin installing packages (${_PASS} pass)..."
 
 # Requiring stage file
 Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/chroot_install-packages
+Check_stagefile .stage/chroot_install-packages.${PASS}
 
 # Checking lock file
 Check_lockfile .lock
@@ -63,4 +67,4 @@ then
 fi
 
 # Creating stage file
-Create_stagefile .stage/chroot_install-packages
+Create_stagefile .stage/chroot_install-packages.${_PASS}

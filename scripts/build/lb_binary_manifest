@@ -61,10 +61,9 @@ case "${LB_INITRAMFS}" in
 esac
 
 # Add filesystem.packages
-Chroot chroot "dpkg-query -W" > binary/"${INITFS}"/filesystem.${SUFFIX}
-
-# Copy manifest as build output.
-cp binary/"${INITFS}"/filesystem.${SUFFIX} binary.${SUFFIX}
+cp binary.packages.live "binary/${INITFS}/filesystem.${SUFFIX}"
+echo "$(diff binary.packages.live binary.packages.install | awk '/^< / { print $2 }')" \
+	> "binary/${INITFS}/filesystem.${SUFFIX}-remove"
 
 # Creating stage file
 Create_stagefile .stage/binary_manifest

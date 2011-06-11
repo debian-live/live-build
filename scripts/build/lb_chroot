@@ -55,11 +55,18 @@ lb chroot_sources install ${*}
 lb chroot_linux-image ${*}
 lb chroot_preseed ${*}
 lb chroot_local-preseed ${*}
-lb chroot_packagelists ${*}
-lb chroot_local-packagelists ${*}
-lb chroot_local-packages ${*}
-lb chroot_install-packages ${*}
-lb chroot_local-tasklists ${*}
+
+for _PASS in install live
+do
+	lb chroot_packagelists ${_PASS} ${*}
+	lb chroot_local-packagelists ${_PASS} ${*}
+	lb chroot_local-packages ${_PASS} ${*}
+	lb chroot_install-packages ${_PASS} ${*}
+	lb chroot_local-tasklists ${_PASS} ${*}
+
+	Chroot chroot "dpkg-query -W" > binary.packages.${_PASS}
+done
+
 lb chroot_local-includes ${*}
 lb chroot_local-patches ${*}
 lb chroot_local-hooks ${*}
