@@ -3,7 +3,7 @@
 #include <gnome-core>
 
 gnome-desktop-environment gnome-screensaver gnome-themes-extras
-#if MODE debian
+#nif MODE ubuntu
 system-config-printer
 #endif
 #if MODE ubuntu

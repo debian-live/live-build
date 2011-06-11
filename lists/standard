@@ -4,11 +4,9 @@
 
 console-setup console-common kbd
 
-
-#if MODE emdebian debian ubuntu
+#nif MODE progress
 locales
 #endif
-
 #if MODE progress
 locales-all
 #endif
