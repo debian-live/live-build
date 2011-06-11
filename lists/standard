@@ -4,7 +4,14 @@
 
 console-setup console-common kbd
 
+
+#if MODE emdebian debian ubuntu
 locales
+#endif
+
+#if MODE progress
+locales-all
+#endif
 
 #if MODE ubuntu
 ubuntu-minimal
