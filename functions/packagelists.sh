@@ -64,6 +64,30 @@ Expand_packagelist ()
 					done
 					;;
 
+				\#nif\ *)
+					if [ ${_LB_NESTED} -eq 1 ]
+					then
+						echo "E: Nesting conditionals is not supported" >&2
+						exit 1
+					fi
+					_LB_NESTED=1
+
+					_LB_NEEDLE="$(echo "${_LB_LINE}" | cut -d' ' -f3-)"
+					_LB_HAYSTACK="$(eval "echo \$LB_$(echo "${_LB_LINE}" | cut -d' ' -f2)")"
+
+					_LB_ENABLED=0
+					for _LB_NEEDLE_PART in ${_LB_NEEDLE}
+					do
+						for _LB_HAYSTACK_PART in ${_LB_HAYSTACK}
+						do
+							if [ "${_LB_NEEDLE_PART}" != "${_LB_HAYSTACK_PART}" ]
+							then
+								_LB_ENABLED=1
+							fi
+						done
+					done
+					;;
+
 				\#endif*)
 					_LB_NESTED=0
 					_LB_ENABLED=1
