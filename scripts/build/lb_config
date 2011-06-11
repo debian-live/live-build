@@ -87,7 +87,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--iso-volume NAME]\n\
 \t    [--jffs2-eraseblock SIZE]\n\
 \t    [--keyring-packages PACKAGE|\"PACKAGES\"]\n\
-\t    [-l|--language LANGUAGE]\n\
 \t    [-k|--linux-flavours FLAVOUR|\"FLAVOURS\"]\n\
 \t    [--linux-packages \"PACKAGES\"]\n\
 \t    [--losetup losetup|losetup.orig]\n\
@@ -123,7 +122,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--net-cow-server IP|HOSTNAME]\n\
 \t    [--net-tarball true|false]\n\
 \t    [-p|--package-lists LIST|\"LISTS\"]\n\
-\t    [--packages PACKAGE|\"PACKAGES\"]\n\
 \t    [--quiet]\n\
 \t    [-r|--repositories REPOSITORY|\"REPOSITORIES\"]\n\
 \t    [--root-command sudo]\n\
@@ -157,8 +155,8 @@ Local_arguments ()
 		mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-chroot-backports:,mirror-binary:,
 		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,
 		archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
-		gzip-options:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
-		packages:,package-lists:,tasks:,security:,volatile:,backports:,binary-filesystem:,binary-images:,
+		gzip-options:,hooks:,interactive:,keyring-packages:,linux-flavours:,linux-packages:,
+		package-lists:,tasks:,security:,volatile:,backports:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,compression:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
 		grub-splash:,hostname:,isohybrid-options:,iso-application:,iso-preparer:,iso-publisher:,
@@ -195,7 +193,7 @@ Local_arguments ()
 				Print_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 
 				# Dump contents of directories that contain text files
-				for DIRECTORY in config/binary_local-packagelists config/chroot_local-packagelists config/chroot_apt config/chroot_local-patches config/chroot_local-preseed config/binary_rootfs
+				for DIRECTORY in config/binary_local-packagelists config/chroot_local-packagelists config/chroot_local-tasklists config/chroot_apt config/chroot_local-patches config/chroot_local-preseed config/binary_rootfs
 				do
 					if Find_files "${DIRECTORY}"
 					then
@@ -541,11 +539,6 @@ Local_arguments ()
 				shift 2
 				;;
 
-			-l|--language)
-				LB_LANGUAGE="${2}"
-				shift 2
-				;;
-
 			-k|--linux-flavours)
 				LB_LINUX_FLAVOURS="${2}"
 				shift 2
@@ -553,11 +546,6 @@ Local_arguments ()
 
 			--linux-packages)
 				LB_LINUX_PACKAGES="${2}"
-				shift 2
-				;;
-
-			--packages)
-				LB_PACKAGES="${2}"
 				shift 2
 				;;
 
@@ -1141,6 +1129,7 @@ mkdir -p config/chroot_local-patches
 mkdir -p config/chroot_local-packages
 mkdir -p config/chroot_local-packagelists
 mkdir -p config/chroot_local-preseed
+mkdir -p config/chroot_local-tasklists
 mkdir -p config/chroot_sources
 
 cat > config/chroot << EOF
@@ -1174,10 +1163,6 @@ LB_INTERACTIVE="${LB_INTERACTIVE}"
 # (Default: empty)
 LB_KEYRING_PACKAGES="${LB_KEYRING_PACKAGES}"
 
-# \$LB_LANGUAGE: set language to use
-# (Default: empty)
-LB_LANGUAGE="${LB_LANGUAGE}"
-
 # \$LB_LINUX_FLAVOURS: set kernel flavour to use
 # (Default: autodetected)
 LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS}"
@@ -1189,10 +1174,6 @@ LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES}"
 # \$LB_REPOSITORIES: enable available third-party repositories
 # (Default: empty)
 LB_REPOSITORIES="${LB_REPOSITORIES}"
-
-# \$LB_PACKAGES: set packages to install
-# (Default: empty)
-LB_PACKAGES="${LB_PACKAGES}"
 
 # \$LB_PACKAGE_LISTS: set package list to install
 # (Default: ${LB_PACKAGE_LISTS})

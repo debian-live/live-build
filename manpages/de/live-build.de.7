@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 7 2011\-06\-11 3.0~a19 "Debian Live Project"
+.TH LIVE\-BUILD 7 2011\-06\-11 3.0~a20 "Debian Live Project"
 
 .SH NAME
 \fBlive\-build\fP \- the Debian Live tool suite
@@ -142,16 +142,12 @@ manage /etc/kernel\-img.conf
 execute local hooks in chroot
 .IP \fBlb_chroot_local\-includes\fP(1) 4
 copy local files into chroot
-.IP \fBlb_chroot_localization\fP(1) 4
-install localization packages into chroot
 .IP \fBlb_chroot_local\-packages\fP(1) 4
 queue install of local packages into chroot
 .IP \fBlb_chroot_local\-patches\fP(1) 4
 apply local patches against chroot
 .IP \fBlb_chroot_local\-preseed\fP(1) 4
 use debconf local preseeding file
-.IP \fBlb_chroot_packages\fP(1) 4
-queue install of packages into chroot
 .IP \fBlb_chroot_packagelists\fP(1) 4
 queue install of package lists into chroot
 .IP \fBlb_chroot_preseed\fP(1) 4
@@ -168,8 +164,8 @@ manage /etc/apt/sources.list
 mount /sys
 .IP \fBlb_chroot_sysv\-rc\fP(1) 4
 manage /usr/sbin/policy\-rc.d
-.IP \fBlb_chroot_tasks\fP(1) 4
-install tasks into chroot
+.IP \fBlb_chroot_local\-tasklists\fP(1) 4
+install local task lists into chroot
 .SS "Binary commands"
 .IP \fBlb_binary_chroot\fP(1) 4
 copy chroot into chroot

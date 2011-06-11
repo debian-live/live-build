@@ -33,9 +33,7 @@ aview mc nano-tiny mg vim wdiff hexedit nvi tweak
 # Harddisk
 dvd+rw-tools genisoimage sdparm hdparm blktool parted partimage secure-delete scsitools smartmontools testdisk wodim wipe hddtemp bonnie++
 par2 dvd+rw-tools
-#if DISTRIBUTION squeeze wheezy sid
 fsarchiver
-#endif
 
 # for /usr/bin/summer:
 chiark-utils-bin
@@ -155,9 +153,6 @@ cutter
 iproute
 iproute-doc
 iputils-tracepath
-#if DISTRIBUTION lenny
-mrt
-#endif
 mtr-tiny
 tcptraceroute
 traceroute

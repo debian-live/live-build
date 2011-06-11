@@ -381,7 +381,7 @@ Set_defaults ()
 		ubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
-					LB_PARENT_MIRROR_CHROOT_VOLATILE="${LB_PARENT_MIRROR_CHROOT_VOLATILE:-http://security.ubuntu.com/ubuntu/}"
+					LB_PARENT_MIRROR_CHROOT_VOLATILE="${LB_PARENT_MIRROR_CHROOT_VOLATILE:-http://archive.ubuntu.com/ubuntu/}"
 					;;
 
 				*)
@@ -467,7 +467,7 @@ Set_defaults ()
 		ubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
-					LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-http://archive.ubuntu.com/ubuntu/}"
+					LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-http://security.ubuntu.com/ubuntu/}"
 					;;
 
 				*)
@@ -494,7 +494,7 @@ Set_defaults ()
 		ubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
-					LB_PARENT_MIRROR_BINARY_VOLATILE="${LB_PARENT_MIRROR_BINARY_VOLATILE:-http://security.ubuntu.com/ubuntu/}"
+					LB_PARENT_MIRROR_BINARY_VOLATILE="${LB_PARENT_MIRROR_BINARY_VOLATILE:-http://archive.ubuntu.com/ubuntu/}"
 					;;
 
 				*)
@@ -586,9 +586,6 @@ Set_defaults ()
 			;;
 	esac
 
-	# Setting language string
-	LB_LANGUAGE="${LB_LANGUAGE:-en}"
-
 	# Setting linux flavour string
 	case "${LB_ARCHITECTURES}" in
 		armel)
@@ -669,11 +666,23 @@ Set_defaults ()
 					exit 1
 					;;
 
+				ubuntu)
+					case "${LIST}" in
+						stripped|minimal)
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc}"
+							;;
+
+						*)
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc powerpc64-smp}"
+							;;
+					esac
+					;;
+
 				*)
 					case "${LIST}" in
 						stripped|minimal)
 							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc}"
-						;;
+							;;
 
 						*)
 							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc powerpc64}"
@@ -726,69 +735,8 @@ Set_defaults ()
 			;;
 	esac
 
-	# Setting packages string
-	case "${LB_MODE}" in
-		ubuntu)
-			LB_PACKAGES="${LB_PACKAGES:-ubuntu-minimal}"
-			;;
-
-		*)
-			LB_PACKAGE_LISTS="${LB_PACKAGE_LISTS:-standard}"
-			;;
-	esac
-
-	# Setting tasks string
-	if [ -z "${LB_TASKS}" ] || [ "${LB_TASKS}" != "none" ]
-	then
-		for LIST in ${LB_PACKAGE_LISTS}
-		do
-			case "${LIST}" in
-				stripped|minimal)
-					LB_APT="apt-get"
-					;;
-
-				standard)
-					LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|standard||') standard"
-					LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||') standard"
-					;;
-
-				rescue)
-					LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|standard||' -e 's|rescue||') standard rescue"
-					LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|rescue||') standard rescue"
-					;;
-
-				gnome-desktop)
-					LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|gnome-desktop||') standard-x11"
-					LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|gnome-desktop||' -e 's|desktop||' -e 's|laptop||') standard gnome-desktop desktop laptop"
-					LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
-					;;
-
-				kde-desktop)
-					LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|kde-desktop||') standard-x11"
-
-					LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|kde-desktop||' -e 's|desktop||' -e 's|laptop||') standard kde-desktop desktop laptop"
-					LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
-					;;
-
-				lxde-desktop)
-					LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|lxde-desktop||') standard-x11"
-
-					LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|lxde-desktop||' -e 's|desktop||' -e 's|laptop||') standard lxde-desktop desktop laptop"
-					LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
-					;;
-
-				xfce-desktop)
-					LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|xfce-desktop||') standard-x11"
-
-					LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|xfce-desktop||' -e 's|desktop||' -e 's|laptop||') standard xfce-desktop desktop laptop"
-					LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
-					;;
-			esac
-		done
-
-		LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|  ||g')"
-		LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|  ||g')"
-	fi
+	# Setting package list
+	LB_PACKAGE_LISTS="${LB_PACKAGE_LISTS:-standard}"
 
 	# Setting security updates option
 	case "${LB_DISTRIBUTION}" in

@@ -95,7 +95,7 @@ do
 			rm -f binary*.img
 			rm -f binary*.tar.gz
 			rm -f binary.sh
-			rm -f binary.list binary.packages md5sum.txt
+			rm -f binary.list binary.packages binary.packages.install binary.packages.live md5sum.txt
 
 			rm -rf binary
 			rm -rf tftpboot

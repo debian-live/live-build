@@ -16,7 +16,10 @@ set -e
 # Setting static variables
 DESCRIPTION="$(Echo 'queue install of local package lists into chroot')"
 HELP=""
-USAGE="${PROGRAM} [--force]"
+USAGE="${PROGRAM} {install|live} [--force]"
+
+_PASS="${1}"
+shift
 
 Arguments "${@}"
 
@@ -24,13 +27,13 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-Echo_message "Begin queueing installation of local package lists..."
+Echo_message "Begin queueing installation of local package lists (${_PASS} pass)..."
 
 # Requiring stage file
 Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/chroot_local-packagelists
+Check_stagefile .stage/chroot_local-packagelists.${PASS}
 
 # Checking lock file
 Check_lockfile .lock
@@ -38,15 +41,19 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if ls config/chroot_local-packagelists/*.list > /dev/null 2>&1
+if ls config/chroot_local-packagelists/*.list > /dev/null 2>&1 || \
+   ls config/chroot_local-packagelists/*.list.${_PASS} > /dev/null 2>&1
 then
-	for LIST in config/chroot_local-packagelists/*.list
+	for LIST in config/chroot_local-packagelists/*.list config/chroot_local-packagelists/*.list.${_PASS}
 	do
-		# Generating local package list
-		Expand_packagelist "$(basename ${LIST})" "config/chroot_local-packagelists" \
-			>> chroot/root/chroot_packages
+		if [ -e "${LIST}" ]
+		then
+			# Generating local package list
+			Expand_packagelist "$(basename ${LIST})" "config/chroot_local-packagelists" \
+				>> chroot/root/chroot_packages
+		fi
 	done
 
 	# Creating stage file
-	Create_stagefile .stage/chroot_local-packagelists
+	Create_stagefile .stage/chroot_local-packagelists.${_PASS}
 fi

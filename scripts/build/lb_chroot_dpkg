@@ -53,6 +53,12 @@ EOF
 
 		chmod 755 chroot/sbin/start-stop-daemon
 
+		# Disable dpkg syncing
+
+cat > chroot/etc/dpkg/dpkg.cfg.d/live-build << EOF
+force-unsafe-io
+EOF
+
 		# Manual hacks for special packages
 
 		# samhain
@@ -94,6 +100,9 @@ EOF
 		then
 			mv chroot/sbin/start-stop-daemon.orig chroot/sbin/start-stop-daemon
 		fi
+
+		# Remove dpkg sync configuration
+		rm -f chroot/etc/dpkg/dpkg.cfg.d/live-build
 
 		# Removing stage file
 		rm -f .stage/chroot_dpkg
