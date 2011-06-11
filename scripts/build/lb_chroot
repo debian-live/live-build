@@ -57,7 +57,6 @@ lb chroot_preseed ${*}
 lb chroot_local-preseed ${*}
 lb chroot_packagelists ${*}
 lb chroot_local-packagelists ${*}
-lb chroot_packages ${*}
 lb chroot_local-packages ${*}
 lb chroot_install-packages ${*}
 lb chroot_tasks ${*}

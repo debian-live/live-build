@@ -123,7 +123,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--net-cow-server IP|HOSTNAME]\n\
 \t    [--net-tarball true|false]\n\
 \t    [-p|--package-lists LIST|\"LISTS\"]\n\
-\t    [--packages PACKAGE|\"PACKAGES\"]\n\
 \t    [--quiet]\n\
 \t    [-r|--repositories REPOSITORY|\"REPOSITORIES\"]\n\
 \t    [--root-command sudo]\n\
@@ -158,7 +157,7 @@ Local_arguments ()
 		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,
 		archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
-		packages:,package-lists:,tasks:,security:,volatile:,backports:,binary-filesystem:,binary-images:,
+		package-lists:,tasks:,security:,volatile:,backports:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,compression:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
 		grub-splash:,hostname:,isohybrid-options:,iso-application:,iso-preparer:,iso-publisher:,
@@ -553,11 +552,6 @@ Local_arguments ()
 
 			--linux-packages)
 				LB_LINUX_PACKAGES="${2}"
-				shift 2
-				;;
-
-			--packages)
-				LB_PACKAGES="${2}"
 				shift 2
 				;;
 
@@ -1189,10 +1183,6 @@ LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES}"
 # \$LB_REPOSITORIES: enable available third-party repositories
 # (Default: empty)
 LB_REPOSITORIES="${LB_REPOSITORIES}"
-
-# \$LB_PACKAGES: set packages to install
-# (Default: empty)
-LB_PACKAGES="${LB_PACKAGES}"
 
 # \$LB_PACKAGE_LISTS: set package list to install
 # (Default: ${LB_PACKAGE_LISTS})

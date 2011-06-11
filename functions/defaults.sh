@@ -726,16 +726,8 @@ Set_defaults ()
 			;;
 	esac
 
-	# Setting packages string
-	case "${LB_MODE}" in
-		ubuntu)
-			LB_PACKAGES="${LB_PACKAGES:-ubuntu-minimal}"
-			;;
-
-		*)
-			LB_PACKAGE_LISTS="${LB_PACKAGE_LISTS:-standard}"
-			;;
-	esac
+	# Setting package list
+	LB_PACKAGE_LISTS="${LB_PACKAGE_LISTS:-standard}"
 
 	# Setting tasks string
 	if [ -z "${LB_TASKS}" ] || [ "${LB_TASKS}" != "none" ]
@@ -760,28 +752,24 @@ Set_defaults ()
 				gnome-desktop)
 					LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|gnome-desktop||') standard-x11"
 					LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|gnome-desktop||' -e 's|desktop||' -e 's|laptop||') standard gnome-desktop desktop laptop"
-					LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
 					;;
 
 				kde-desktop)
 					LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|kde-desktop||') standard-x11"
 
 					LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|kde-desktop||' -e 's|desktop||' -e 's|laptop||') standard kde-desktop desktop laptop"
-					LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
 					;;
 
 				lxde-desktop)
 					LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|lxde-desktop||') standard-x11"
 
 					LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|lxde-desktop||' -e 's|desktop||' -e 's|laptop||') standard lxde-desktop desktop laptop"
-					LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
 					;;
 
 				xfce-desktop)
 					LB_PACKAGE_LISTS="$(echo ${LB_PACKAGE_LISTS} | sed -e 's|xfce-desktop||') standard-x11"
 
 					LB_TASKS="$(echo ${LB_TASKS} | sed -e 's|standard||' -e 's|xfce-desktop||' -e 's|desktop||' -e 's|laptop||') standard xfce-desktop desktop laptop"
-					LB_PACKAGES="$(echo ${LB_PACKAGES} | sed -e 's|debian-installer-launcher||') debian-installer-launcher"
 					;;
 			esac
 		done

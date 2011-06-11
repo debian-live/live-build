@@ -5,3 +5,7 @@
 console-setup console-common kbd
 
 locales
+
+#if MODE ubuntu
+ubuntu-minimal
+#endif

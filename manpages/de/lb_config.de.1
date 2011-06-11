@@ -202,8 +202,6 @@
 .br
   [\-p|\fB\-\-package\-lists\fP \fILIST\fP|\fI"LISTS"\fP]
 .br
-  [\fB\-\-packages\fP \fIPACKAGE\fP|\fI"PACKAGES"\fP]
-.br
   [\fB\-\-quiet\fP]
 .br
   [\-r|\fB\-\-repositories \fP\fIREPOSITORY\fP|\fI"REPOSITORIES"\fP]
@@ -699,11 +697,6 @@ used. By default, this is set to standard. Note that in case you have local
 package lists, you don't need to list them here. Putting them into
 config/chroot_local\-packagelists is enough (the filename needs to have the
 \&.list suffix though).
-.IP "\fB\-\-packages\fP \fIPACKAGE\fP|\(dq\fIPACKAGES\fP\(dq" 4
-defines one or more packages to be installed in the live system. This is a
-quick and convenient place to add a few packages when building an image
-(limited by the max length of shell). Packages that should be permanently
-installed should be put into a local packages list.
 .IP \fB\-\-quiet\fP 4
 reduces the verbosity of messages output by \fBlb build\fP.
 .IP "\-r|\fB\-\-repositories\fP \fIREPOSITORY\fP|\(dq\fIREPOSITORIES\fP\(dq" 4
