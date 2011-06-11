@@ -64,7 +64,10 @@ do
 	lb chroot_install-packages ${_PASS} ${*}
 	lb chroot_local-tasklists ${_PASS} ${*}
 
-	Chroot chroot "dpkg-query -W" > binary.packages.${_PASS}
+	if [ "${_PASS}" = install ]
+	then
+		Chroot chroot "dpkg-query -W" > binary.packages.install
+	fi
 done
 
 lb chroot_local-includes ${*}
@@ -72,6 +75,8 @@ lb chroot_local-patches ${*}
 lb chroot_local-hooks ${*}
 lb chroot_hacks ${*}
 lb chroot_interactive ${*}
+
+Chroot chroot "dpkg-query -W" > binary.packages.live
 
 # Deconfiguring chroot
 lb chroot_sources remove ${*}
