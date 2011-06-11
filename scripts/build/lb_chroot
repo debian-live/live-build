@@ -70,6 +70,7 @@ do
 	fi
 done
 
+lb chroot_live-packages ${*}
 lb chroot_local-includes ${*}
 lb chroot_local-patches ${*}
 lb chroot_local-hooks ${*}
