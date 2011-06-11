@@ -670,7 +670,7 @@ Set_defaults ()
 					case "${LIST}" in
 						stripped|minimal)
 							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc}"
-						;;
+							;;
 
 						*)
 							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc powerpc64-smp}"
@@ -682,7 +682,7 @@ Set_defaults ()
 					case "${LIST}" in
 						stripped|minimal)
 							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc}"
-						;;
+							;;
 
 						*)
 							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc powerpc64}"
