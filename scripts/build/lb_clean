@@ -127,7 +127,7 @@ do
 			rm -f source*.img
 			rm -f source*.tar
 			rm -f source*.tar.gz
-			rm -f source.list
+			rm -f source*.list
 			rm -f source-selection.txt
 
 			rm -rf source
