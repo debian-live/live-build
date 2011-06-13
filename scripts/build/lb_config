@@ -78,6 +78,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--ignore-system-defaults]\n\
 \t    [--includes PATH|none]\n\
 \t    [--initramfs auto|none|live-boot|casper]\n\
+\t    [--initramfs-compression bzip2|gzip|lzma]\n\
 \t    [--initsystem sysvinit|runit|systemd|upstart|none]\n\
 \t    [--interactive shell]\n\
 \t    [--isohybrid-options OPTION|\"OPTIONS\"]\n\
@@ -131,6 +132,8 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--security true|false]\n\
 \t    [--source true|false]\n\
 \t    [-s|--source-images iso|net|tar|usb-hdd]\n\
+\t    [--swap-file-path PATH]\n\
+\t    [--swap-file-size MB]\n\
 \t    [--syslinux-theme THEME_SUFFIX]\n\
 \t    [--tasksel apt|aptitude|tasksel]\n\
 \t    [--tasks TASK|\"TASKS\"]\n\
@@ -148,7 +151,7 @@ Local_arguments ()
 	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-options:,aptitute-options:,
 		apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,
 		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
-		initramfs:,initsystem:,fdisk:,losetup:,mode:,repositories:,root-command:,use-fakeroot:,tasksel:,includes:,
+		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,repositories:,root-command:,use-fakeroot:,tasksel:,includes:,
 		templates:,architectures:,bootstrap-flavour:,bootstrap-keyring:,clean,
 		distribution:,parent-distribution:,parent-debian-installer-distribution:,parent-mirror-bootstrap:,parent-mirror-chroot:,parent-mirror-chroot-security:,parent-mirror-chroot-volatile:,parent-mirror-chroot-backports:,parent-mirror-binary:,
 		parent-mirror-binary-security:,parent-mirror-binary-volatile:,parent-mirror-binary-backports:,parent-mirror-debian-installer:,
@@ -162,7 +165,7 @@ Local_arguments ()
 		grub-splash:,hostname:,isohybrid-options:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
 		net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,
-		net-cow-server:,net-tarball:,syslinux-theme:,
+		net-cow-server:,net-tarball:,swap-file-path:,swap-file-size:,syslinux-theme:,
 		username:,win32-loader:,source:,source-images:,breakpoints,conffile:,debug,force,
 		help,ignore-system-defaults,quiet,usage,verbose,version"
 	# Remove spaces added by indentation
@@ -309,6 +312,11 @@ Local_arguments ()
 
 			--initramfs)
 				LB_INITRAMFS="${2}"
+				shift 2
+				;;
+
+			--initramfs-compression)
+				LB_INITRAMFS_COMPRESSION="${2}"
 				shift 2
 				;;
 
@@ -730,6 +738,16 @@ Local_arguments ()
 				shift 2
 				;;
 
+			--swap-file-path)
+				LB_SWAP_FILE_PATH="${2}"
+				shift 2
+				;;
+
+			--swap-file-size)
+				LB_SWAP_FILE_SIZE="${2}"
+				shift 2
+				;;
+
 			--syslinux-theme)
 				LB_SYSLINUX_THEME="${2}"
 				shift 2
@@ -926,6 +944,10 @@ LB_DEBCONF_PRIORITY="${LB_DEBCONF_PRIORITY}"
 # \$LB_INITRAMFS: set initramfs hook
 # (Default: ${LB_INITRAMFS})
 LB_INITRAMFS="${LB_INITRAMFS}"
+
+# \$LB_INITRAMFS_COMPRESSION: set initramfs compression
+# (Default: ${LB_INITRAMFS_COMPRESSION})
+LB_INITRAMFS_COMPRESSION="${LB_INITRAMFS_COMPRESSION}"
 
 # \$LB_INITSYSTEM: set init system
 # (Default: ${LB_INITSYSTEM})
@@ -1335,6 +1357,14 @@ LB_NET_COW_SERVER="${LB_NET_COW_SERVER}"
 # \$LB_NET_TARBALL: set net tarball
 # (Default: ${LB_NET_TARBALL})
 LB_NET_TARBALL="${LB_NET_TARBALL}"
+
+# \$LB_SWAP_FILE_PATH: set swap file path
+# (Default: ${LB_SWAP_FILE_PATH})
+LB_SWAP_FILE_PATH="${LB_SWAP_FILE_PATH}"
+
+# \$LB_SWAP_FILE_SIZE: set swap file size
+# (Default: ${LB_SWAP_FILE_SIZE})
+LB_SWAP_FILE_SIZE="${LB_SWAP_FILE_SIZE}"
 
 # \$LB_SYSLINUX_THEME: set syslinux theme package
 # (Default: ${LB_SYSLINUX_THEME})

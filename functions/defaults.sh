@@ -84,6 +84,8 @@ Set_defaults ()
 
 	LZIP_OPTIONS="${LZIP_OPTIONS:---best}"
 
+	LZMA_OPTIONS="${LZMA_OPTIONS:---best}"
+
 	# Setting apt recommends
 	case "${LB_MODE}" in
 		emdebian|progress)
@@ -152,6 +154,8 @@ Set_defaults ()
 			LB_INITRAMFS="${LB_INITRAMFS:-auto}"
 			;;
 	esac
+
+	LB_INITRAMFS_COMPRESSION="${LB_INITRAMFS_COMPRESSION:-gzip}"
 
 	# Setting initsystem
 	case "${LB_MODE}" in
@@ -1043,6 +1047,9 @@ Set_defaults ()
 			LB_USERNAME="${LB_USERNAME:-user}"
 			;;
 	esac
+
+	# Setting swap file
+	LB_SWAP_FILE_SIZE="${LB_SWAP_FILE_SIZE:-512}"
 
 	## config/source
 

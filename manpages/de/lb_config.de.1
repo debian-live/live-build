@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2011\-06\-11 3.0~a20 "Debian Live Project"
+.TH LIVE\-BUILD 1 2011\-06\-13 3.0~a21 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -111,6 +111,8 @@
   [\fB\-\-includes\fP \fIPATH\fP]
 .br
   [\fB\-\-initramfs\fP auto|none|live\-boot|casper]
+.br
+  [\fB\-\-initramfs\-compression\fP bzip2|gzip|lzma]
 .br
   [\fB\-\-initsystem\fP sysvinit|runit|systemd|upstart|none]
 .br
@@ -499,6 +501,9 @@ the image rather than on configuration time, the value will be expanded to
 casper when building ubuntu systems, to live\-boot for all other
 systems. Using 'none' is useful if the resulting system image should not be
 a live image (experimental).
+.IP "\fB\-\-initramfs\-compression\fP bzip2|gzip|lzma]"
+defines the compression program to be used to compress the
+initramfs. Defaults to gzip.
 .IP "\fB\-\-interactive\fP shell" 4
 defines if after the chroot stage and before the beginning of the binary
 stage, a interactive shell login should be spawned in the chroot in order to
@@ -725,6 +730,12 @@ start distributing your live image, you should make sure you build it with a
 source image alongside.
 .IP "\-s|\fB\-\-source\-images\fP iso|net|tar|usb\-hdd" 4
 defines the image type for the source image. Default is tar.
+.IP "\fB\-\-swap\-file\-path\fP \fIPATH\fP" 4
+defines the path to a swap file to create in the binary image. Default is
+not to create a swap file.
+.IP "\fB\-\-swap\-file\-size\fP \fIMB\fP" 4
+defines what size in megabytes the swap file should be, if one is to be
+created. Default is 512MB.
 .IP "\fB\-\-syslinux\-splash\fP \fIFILE\fP" 4
 defines the file of the syslinux splash graphic that should be used instead
 of the default one.

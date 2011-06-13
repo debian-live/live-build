@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2011\-06\-11 3.0~a20 "Debian Live Project"
+.TH LIVE\-BUILD 1 2011\-06\-13 3.0~a21 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -106,6 +106,8 @@
 	[\fB\-\-includes\fR \fIPATH\fR]
 .br
 	[\fB\-\-initramfs\fR auto|none|live\-boot|casper]
+.br
+	[\fB\-\-initramfs\-compression\fR bzip2|gzip|lzma]
 .br
 	[\fB\-\-initsystem\fR sysvinit|runit|systemd|upstart|none]
 .br
@@ -349,6 +351,8 @@ sets the hostname of the live system.
 sets the path to the includes that live\-build is going to use, e.g. additional minimal documentation that you want to have on all live systems. By default, this is set to /usr/share/live/build/includes/. Choose none to disable inclusion of documentation.
 .IP "\fB\-\-initramfs\fR auto|none|live\-boot|casper" 4
 sets the name of package that contains the live system specific initramfs modification. By default, auto is used, which means that at build time of the image rather than on configuration time, the value will be expanded to casper when building ubuntu systems, to live\-boot for all other systems. Using 'none' is useful if the resulting system image should not be a live image (experimental).
+.IP "\fB\-\-initramfs\-compression\fR bzip2|gzip|lzma]
+defines the compression program to be used to compress the initramfs. Defaults to gzip.
 .IP "\fB\-\-interactive\fR shell" 4
 defines if after the chroot stage and before the beginning of the binary stage, a interactive shell login should be spawned in the chroot in order to allow you to do manual customizations. Once you close the shell with logout or exit, the build will continue as usual. Note that it's strongly discouraged to use this for anything else than testing. Modifications that should be present in all builds of a live system should be properly made through hooks. Everything else destroys the beauty of being able to completely automatise the build process and making it non interactive. By default, this is of course false.
 .IP "\fB\-\-isohybrid\-options\fR \fIOPTION\fR|""\fIOPTIONS\fR""" 4
@@ -460,6 +464,10 @@ defines if the security repositories specified in the security mirror options sh
 defines if a corresponding source image to the binary image should be build. By default this is false because most people do not require this and would require to download quite a few source packages. However, once you start distributing your live image, you should make sure you build it with a source image alongside.
 .IP "\-s|\fB\-\-source\-images\fR iso|net|tar|usb\-hdd" 4
 defines the image type for the source image. Default is tar.
+.IP "\fB\-\-swap\-file\-path\fR \fIPATH\fR" 4
+defines the path to a swap file to create in the binary image. Default is not to create a swap file.
+.IP "\fB\-\-swap\-file\-size\fR \fIMB\fR" 4
+defines what size in megabytes the swap file should be, if one is to be created. Default is 512MB.
 .IP "\fB\-\-syslinux\-splash\fR \fIFILE\fR" 4
 defines the file of the syslinux splash graphic that should be used instead of the default one.
 .IP "\fB\-\-syslinux\-timeout\fR \fISECONDS\fR" 4

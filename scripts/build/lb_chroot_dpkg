@@ -70,6 +70,10 @@ EOF
 			touch /var/state/samhain/samhain_file
 		fi
 
+		# flash-kernel
+		Chroot chroot dpkg-divert --rename --add /usr/sbin/flash-kernel
+		ln -s /bin/true chroot/usr/sbin/flash-kernel
+
 		# Creating stage file
 		Create_stagefile .stage/chroot_dpkg
 		;;
@@ -84,6 +88,10 @@ EOF
 		Create_lockfile .lock
 
 		# Manual hacks for special packages
+
+		# flash-kernel
+		rm -f chroot/usr/sbin/flash-kernel
+		Chroot chroot dpkg-divert --rename --remove /usr/sbin/flash-kernel
 
 		# samhain
 		if [ -e /var/state/samhain/samhain_file.orig ]

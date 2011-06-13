@@ -31,7 +31,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-Require_stagefile .stage/chroot_install-packages
+#Require_stagefile
 
 # Setup cleanup function
 Setup_cleanup
