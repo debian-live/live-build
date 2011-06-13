@@ -1,3 +1,21 @@
+live-build (3.0~a21-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Obtaining the live passes package selection information at the
+    latest point to catch all other modifications in the package
+    selection.
+  * Moving installation of live packages to second pass.
+  * Removing now unecessary stagefile check in lb_source.
+  * Correct lb cleans source removals.
+
+  [ Colin Watson ]
+  * Add --swap-file-path and --swap-file-size options (Closes: #629637).
+  * Divert flash-kernel aside while building the chroot (Closes:
+    #630350).
+  * Add --initramfs-compression option (Closes: #627677).
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 13 Jun 2011 20:42:13 +0200
+
 live-build (3.0~a20-1) unstable; urgency=low
 
   [ Daniel Baumann ]
