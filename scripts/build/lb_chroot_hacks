@@ -183,6 +183,31 @@ esac
 
 Chroot chroot "${UPDATE_INITRAMFS_OPTIONS} update-initramfs -k all -t -u"
 
+# We probably ought to use COMPRESS= in a temporary file in
+# /etc/initramfs-tools/conf.d/ instead, but it's hard to pass options that
+# way.
+case "${LB_INITRAMFS_COMPRESSION}" in
+	gzip)
+		;;
+
+	bzip2)
+		for INITRAMFS in $(find chroot/boot -name 'initrd*'); do
+			zcat "${INITRAMFS}" | bzip2 -c ${BZIP2_OPTIONS} > "${INITRAMFS}.new"
+			mv "${INITRAMFS}.new" "${INITRAMFS}"
+		done
+		;;
+
+	lzma)
+		# We probably ought to use COMPRESS= in a temporary file in
+		# /etc/initramfs-tools/conf.d/ instead, but it's hard to
+		# pass options that way.
+		for INITRAMFS in $(find chroot/boot -name 'initrd*'); do
+			zcat "${INITRAMFS}" | lzma -c ${LZMA_OPTIONS} > "${INITRAMFS}.new"
+			mv "${INITRAMFS}.new" "${INITRAMFS}"
+		done
+		;;
+esac
+
 # Ensure readable permissions on initramfs. loop-aes-utils sets umask to
 # protect GPG keys, which live-build does not support.
 # Note: Use find rather than chmod on the wildcard, one never knows what

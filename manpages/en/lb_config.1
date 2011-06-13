@@ -107,6 +107,8 @@
 .br
 	[\fB\-\-initramfs\fR auto|none|live\-boot|casper]
 .br
+	[\fB\-\-initramfs\-compression\fR bzip2|gzip|lzma]
+.br
 	[\fB\-\-initsystem\fR sysvinit|runit|systemd|upstart|none]
 .br
 	[\fB\-\-interactive\fR shell]
@@ -349,6 +351,8 @@ sets the hostname of the live system.
 sets the path to the includes that live\-build is going to use, e.g. additional minimal documentation that you want to have on all live systems. By default, this is set to /usr/share/live/build/includes/. Choose none to disable inclusion of documentation.
 .IP "\fB\-\-initramfs\fR auto|none|live\-boot|casper" 4
 sets the name of package that contains the live system specific initramfs modification. By default, auto is used, which means that at build time of the image rather than on configuration time, the value will be expanded to casper when building ubuntu systems, to live\-boot for all other systems. Using 'none' is useful if the resulting system image should not be a live image (experimental).
+.IP "\fB\-\-initramfs\-compression\fR bzip2|gzip|lzma]
+defines the compression program to be used to compress the initramfs. Defaults to gzip.
 .IP "\fB\-\-interactive\fR shell" 4
 defines if after the chroot stage and before the beginning of the binary stage, a interactive shell login should be spawned in the chroot in order to allow you to do manual customizations. Once you close the shell with logout or exit, the build will continue as usual. Note that it's strongly discouraged to use this for anything else than testing. Modifications that should be present in all builds of a live system should be properly made through hooks. Everything else destroys the beauty of being able to completely automatise the build process and making it non interactive. By default, this is of course false.
 .IP "\fB\-\-isohybrid\-options\fR \fIOPTION\fR|""\fIOPTIONS\fR""" 4
