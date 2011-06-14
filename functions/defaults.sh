@@ -593,9 +593,12 @@ Set_defaults ()
 	# Setting linux flavour string
 	case "${LB_ARCHITECTURES}" in
 		armel)
-			Echo_error "There is no default kernel flavour defined for your architecture."
-			Echo_error "Please configure it manually with 'lb config -k FLAVOUR'."
-			exit 1
+			if [ -z "${LB_LINUX_FLAVOURS}" ]
+			then
+				Echo_error "There is no default kernel flavour defined for your architecture."
+				Echo_error "Please configure it manually with 'lb config -k FLAVOUR'."
+				exit 1
+			fi
 			;;
 
 		amd64)
