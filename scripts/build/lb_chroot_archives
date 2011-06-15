@@ -261,44 +261,44 @@ EOF
 		fi
 
 		# Configure local package repository
-		if Find_files config/chroot_local-packages/*.deb
+		if Find_files config/chroot_packages/*.deb
 		then
-			rm -rf chroot/root/local-packages
-			mkdir -p chroot/root/local-packages
+			rm -rf chroot/root/packages
+			mkdir -p chroot/root/packages
 
-			if [ "$(stat --printf %d config/chroot_local-packages)" = "$(stat --printf %d chroot/root/local-packages)" ]
+			if [ "$(stat --printf %d config/chroot_packages)" = "$(stat --printf %d chroot/root/packages)" ]
 			then
 				CP_OPTIONS="-l"
 			fi
 
 			# Copy packages
-			if Find_files config/chroot_local-packages/*_"${LB_ARCHITECTURES}".deb
+			if Find_files config/chroot_packages/*_"${LB_ARCHITECTURES}".deb
 			then
-				for FILE in config/chroot_local-packages/*_"${LB_ARCHITECTURES}".deb
+				for FILE in config/chroot_packages/*_"${LB_ARCHITECTURES}".deb
 				do
 					if [ -L "${FILE}" ]
 					then
-						cp -L config/chroot_local-packages/*_"${LB_ARCHITECTURES}".deb chroot/root/local-packages
+						cp -L config/chroot_packages/*_"${LB_ARCHITECTURES}".deb chroot/root/packages
 					else
-						cp ${CP_OPTIONS} config/chroot_local-packages/*_"${LB_ARCHITECTURES}".deb chroot/root/local-packages
+						cp ${CP_OPTIONS} config/chroot_packages/*_"${LB_ARCHITECTURES}".deb chroot/root/packages
 					fi
 				done
 			fi
 
-			if Find_files config/chroot_local-packages/*_all.deb
+			if Find_files config/chroot_packages/*_all.deb
 			then
-				for FILE in config/chroot_local-packages/*_all.deb
+				for FILE in config/chroot_packages/*_all.deb
 				do
 					if [ -L "${FILE}" ]
 					then
-						cp -L config/chroot_local-packages/*_all.deb chroot/root/local-packages
+						cp -L config/chroot_packages/*_all.deb chroot/root/packages
 					else
-						cp ${CP_OPTIONS} config/chroot_local-packages/*_all.deb chroot/root/local-packages
+						cp ${CP_OPTIONS} config/chroot_packages/*_all.deb chroot/root/packages
 					fi
 				done
 			fi
 
-			if Find_files chroot/root/local-packages/*.deb
+			if Find_files chroot/root/packages/*.deb
 			then
 				# If we bootstrapped a minimal chroot, we need
 				# to install apt-utils before we have have
@@ -316,12 +316,12 @@ EOF
 				Install_package
 
 				# Generate Packages and Packages.gz 
-				echo "cd /root/local-packages && apt-ftparchive packages . > Packages" | Chroot chroot sh
-				gzip -9 -c chroot/root/local-packages/Packages > chroot/root/local-packages/Packages.gz
+				echo "cd /root/packages && apt-ftparchive packages . > Packages" | Chroot chroot sh
+				gzip -9 -c chroot/root/packages/Packages > chroot/root/packages/Packages.gz
 
 				# Generate Release
-				echo "cd /root/local-packages && apt-ftparchive \
-					-o APT::FTPArchive::Release::Origin=chroot_local-packages \
+				echo "cd /root/packages && apt-ftparchive \
+					-o APT::FTPArchive::Release::Origin=chroot_packages \
 					release . > Release" | Chroot chroot sh
 
 				if [ "${LB_APT_SECURE}" = "true" ]
@@ -379,7 +379,7 @@ EOF
 					# Sign release
 					Chroot chroot "gpg --no-default-keyring --secret-keyring /root/local-package-keyring.sec \
 						--keyring /root/local-package-keyring.pub -abs -o \
-						/root/local-packages/Release.gpg /root/local-packages/Release"
+						/root/packages/Release.gpg /root/packages/Release"
 
 					# Import key
 					Chroot chroot "gpg --no-default-keyring --secret-keyring /root/local-package-keyring.sec \
@@ -404,7 +404,7 @@ EOF
 				fi
 
 				# Add to sources.list.d
-				echo "deb file:/root/local-packages ./" > chroot/etc/apt/sources.list.d/local-packages.list
+				echo "deb file:/root/packages ./" > chroot/etc/apt/sources.list.d/packages.list
 
 				# Removing depends
 				Remove_package
@@ -557,7 +557,7 @@ EOF
 		# Don't do anything if it's not required
 		if [ "${LB_PARENT_MIRROR_CHROOT}" = "${LB_PARENT_MIRROR_BINARY}" ] && \
 		[ "${LB_PARENT_MIRROR_CHROOT_SECURITY}" = "${LB_PARENT_MIRROR_BINARY_SECURITY}" ] && \
-		[ ! -d chroot/root/local-packages ]
+		[ ! -d chroot/root/packages ]
 		then
 			# Removing stage file
 			rm -f .stage/chroot_archives
@@ -805,8 +805,8 @@ EOF
 		fi
 
 		# Remove local package repository
-		rm -f chroot/etc/apt/sources.list.d/local-packages.list
-		rm -rf chroot/root/local-packages
+		rm -f chroot/etc/apt/sources.list.d/packages.list
+		rm -rf chroot/root/packages
 
 		# Remove local packages key if it exists
 		if apt-key list | grep -q ${_LB_LOCAL_KEY_EMAIL}

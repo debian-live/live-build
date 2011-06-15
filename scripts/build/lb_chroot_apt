@@ -108,12 +108,12 @@ case "${1}" in
 			cp config/chroot_apt/preferences chroot/etc/apt/preferences
 		fi
 
-		if Find_files config/chroot_local-packages/*.deb
+		if Find_files config/chroot_packages/*.deb
 		then
 			echo >> chroot/etc/apt/preferences
 			echo "# Added by lb_chroot_apt ${@}" >> chroot/etc/apt/preferences
 			echo "Package: *" >> chroot/etc/apt/preferences
-			echo "Pin: release o=chroot_local-packages" >> chroot/etc/apt/preferences
+			echo "Pin: release o=chroot_packages" >> chroot/etc/apt/preferences
 
 			case "${1}" in
 				install)
@@ -236,7 +236,7 @@ EOF
 			fi
 		fi
 
-		if Find_files config/chroot_local-packages/*.deb
+		if Find_files config/chroot_packages/*.deb
 		then
 			if [ -f chroot/etc/apt/preferences ]
 			then
