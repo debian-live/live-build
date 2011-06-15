@@ -14,7 +14,7 @@ set -e
 . "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
-DESCRIPTION="$(Echo 'install local task lists into chroot')"
+DESCRIPTION="$(Echo 'install task lists into chroot')"
 HELP=""
 USAGE="${PROGRAM} {install|live} [--force]"
 
@@ -27,13 +27,13 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-Echo_message "Begin installation of local task lists (${_PASS} pass)..."
+Echo_message "Begin installation of task lists (${_PASS} pass)..."
 
 # Requiring stage file
 Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/chroot_local-tasklists.${_PASS}
+Check_stagefile .stage/chroot_task-lists.${_PASS}
 
 # Checking lock file
 Check_lockfile .lock
@@ -48,7 +48,7 @@ then
 	do
 		if [ -e "${LIST}" ]
 		then
-			# Generating local task list
+			# Generating task list
 			Expand_packagelist "$(basename ${LIST})" "config/task-lists" \
 				>> chroot/root/chroot_tasks
 		fi
@@ -144,5 +144,5 @@ then
 	Save_cache cache/packages_chroot
 
 	# Creating stage file
-	Create_stagefile .stage/chroot_local-tasklists.${_PASS}
+	Create_stagefile .stage/chroot_task-lists.${_PASS}
 fi

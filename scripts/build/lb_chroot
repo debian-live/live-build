@@ -62,7 +62,7 @@ do
 	lb chroot_local-packagelists ${_PASS} ${*}
 	lb chroot_local-packages ${_PASS} ${*}
 	lb chroot_install-packages ${_PASS} ${*}
-	lb chroot_local-tasklists ${_PASS} ${*}
+	lb chroot_task-lists ${_PASS} ${*}
 
 	if [ "${_PASS}" = install ]
 	then
