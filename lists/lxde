@@ -1,8 +1,0 @@
-# /usr/share/live/build/lists/lxde - package list for live-build(7)
-
-#include <standard-x11>
-
-lxde
-gdm
-network-manager-gnome
-desktop-base

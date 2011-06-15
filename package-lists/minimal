@@ -1,4 +1,4 @@
-# /usr/share/live/build/lists/minimal - package list for live-build(7)
+# /usr/share/live/build/package-lists/minimal - package list for live-build(7)
 
 # Warning: if you only use this list directly, not inherited through e.g.
 # standard, then live-build also triggers the minimal hook and some other

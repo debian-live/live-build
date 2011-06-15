@@ -1,0 +1,7 @@
+# /usr/share/live/build/package-lists/xfce - package list for live-build(7)
+
+#include <standard-x11>
+
+xfce4
+gdm3
+desktop-base

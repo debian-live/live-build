@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2011-06-15 20:46+0300\n"
+"POT-Creation-Date: 2011-06-15 21:45+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2634,11 +2634,11 @@ msgstr ""
 #. type: Plain text
 #: en/lb_config.1:451
 msgid ""
-"defines which lists available in /usr/share/live/build/lists should be used. "
-"By default, this is set to standard. Note that in case you have local "
-"package lists, you don't need to list them here. Putting them into config/"
-"chroot_local-packagelists is enough (the filename needs to have the .list "
-"suffix though)."
+"defines which lists available in /usr/share/live/build/package-lists should "
+"be used. By default, this is set to standard. Note that in case you have "
+"local package lists, you don't need to list them here. Putting them into "
+"config/package-lists is enough (the filename needs to have the .list suffix "
+"though)."
 msgstr ""
 
 #. type: IP

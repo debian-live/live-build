@@ -1,0 +1,4 @@
+# /usr/share/live/build/package-lists/studio-gnome - package list for live-build(7)
+
+#include <gnome>
+#include <studio>

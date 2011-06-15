@@ -695,11 +695,11 @@ defines if a compressed tarball should be created. Disabling this options
 leads to no tarball at all, the plain binary directory is considered the
 output in this case. Default is true.
 .IP "\-p|\fB\-\-package\-lists\fP \fILIST\fP|\(dq\fILISTS\fP\(dq" 4
-defines which lists available in /usr/share/live/build/lists should be
-used. By default, this is set to standard. Note that in case you have local
-package lists, you don't need to list them here. Putting them into
-config/chroot_local\-packagelists is enough (the filename needs to have the
-\&.list suffix though).
+defines which lists available in /usr/share/live/build/package\-lists should
+be used. By default, this is set to standard. Note that in case you have
+local package lists, you don't need to list them here. Putting them into
+config/package\-lists is enough (the filename needs to have the .list suffix
+though).
 .IP \fB\-\-quiet\fP 4
 reduces the verbosity of messages output by \fBlb build\fP.
 .IP "\fB\-\-archives\fP \fIARCHIVE\fP|\(dq\fIARCHIVES\fP\(dq" 4
