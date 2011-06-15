@@ -41,15 +41,15 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if ls config/chroot_local-tasklists/*.list > /dev/null 2>&1 || \
-   ls config/chroot_local-tasklists/*.list.${_PASS} > /dev/null 2>&1
+if ls config/task-lists/*.chroot.list > /dev/null 2>&1 || \
+   ls config/task-lists/*.chroot_${_PASS}.list > /dev/null 2>&1
 then
-	for LIST in config/chroot_local-tasklists/*.list config/chroot_local-tasklists/*.list.${_PASS}
+	for LIST in config/task-lists/*.chroot.list config/task-lists/*.chroot_${_PASS}.list
 	do
 		if [ -e "${LIST}" ]
 		then
 			# Generating local task list
-			Expand_packagelist "$(basename ${LIST})" "config/chroot_local-tasklists" \
+			Expand_packagelist "$(basename ${LIST})" "config/task-lists" \
 				>> chroot/root/chroot_tasks
 		fi
 	done
