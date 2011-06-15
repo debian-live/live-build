@@ -81,7 +81,7 @@ then
 		# Creating build directory which also creates the config/chroot_sources folder
 		mkdir -p "${_TEMPDIR}"/"${_BUILD}"/config/chroot_sources
 
-		# The next two tests are for unofficial third party repositories
+		# The next two tests are for unofficial third party archives
 		if [ -n "${_CUSTOM_BOOTSTRAP}" ]
 		then
 			echo "${_CUSTOM_BOOTSTRAP}" > "${_TEMPDIR}"/"${_BUILD}"/config/chroot_sources/custom.bootstrap

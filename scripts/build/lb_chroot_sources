@@ -217,10 +217,10 @@ EOF
 			done
 		fi
 
-		# Configure third-party repositories
-		if [ -n "${LB_REPOSITORIES}" ]
+		# Configure third-party archives
+		if [ -n "${LB_ARCHIVES}" ]
 		then
-			for REPOSITORY in ${LB_REPOSITORIES}
+			for REPOSITORY in ${LB_ARCHIVES}
 			do
 				# ubuntu workaround to allow using live.debian.net
 				if [ "${LB_MODE}" = "ubuntu" ] && [ "${REPOSITORY}" = "live.debian.net" ]
@@ -230,9 +230,9 @@ EOF
 					_DISTRIBUTION="${LB_PARENT_DISTRIBUTION}"
 				fi
 
-				for PLACE in config/repositories "${LB_BASE}/repositories"
+				for PLACE in config/archives "${LB_BASE}/archives"
 				do
-					# Prefer repositories from the config tree
+					# Prefer archives from the config tree
 					# over the global ones.
 					if ! ls "${PLACE}/${REPOSITORY}"* > /dev/null 2>&1
 					then
@@ -731,17 +731,17 @@ EOF
 			fi
 		fi
 
-		# Configure third-party repositories
-		if [ -n "${LB_REPOSITORIES}" ]
+		# Configure third-party archives
+		if [ -n "${LB_ARCHIVES}" ]
 		then
-			for REPOSITORY in ${LB_REPOSITORIES}
+			for REPOSITORY in ${LB_ARCHIVES}
 			do
 				# Removing sources.list entries (chroot)
 				rm -f "chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
 
-				for PLACE in config/repositories "${LB_BASE}/repositories"
+				for PLACE in config/archives "${LB_BASE}/archives"
 				do
-					# Prefer repositories from the config tree
+					# Prefer archives from the config tree
 					# over the global ones.
 					if ! ls "${PLACE}/${REPOSITORY}"* > /dev/null 2>&1
 					then

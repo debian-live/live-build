@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2011\-06\-13 3.0~a21 "Debian Live Project"
+.TH LIVE\-BUILD 1 2011\-06\-15 3.0~a21 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -206,11 +206,11 @@
 .br
   [\fB\-\-quiet\fP]
 .br
-  [\-r|\fB\-\-repositories \fP\fIREPOSITORY\fP|\fI"REPOSITORIES"\fP]
-.br
   [\fB\-\-root\-command\fP sudo]
 .br
   [\fB\-\-use\-fakeroot\fP true|false]
+.br
+  [\fB\-\-archives\fP \fIARCHIVE\fP|\fI"ARCHIVES"\fP]
 .br
   [\fB\-\-archive\-areas\fP \fIARCHIVE_AREA\fP|\fI"ARCHIVE_AREAS"\fP]
 .br
@@ -702,9 +702,9 @@ config/chroot_local\-packagelists is enough (the filename needs to have the
 \&.list suffix though).
 .IP \fB\-\-quiet\fP 4
 reduces the verbosity of messages output by \fBlb build\fP.
-.IP "\-r|\fB\-\-repositories\fP \fIREPOSITORY\fP|\(dq\fIREPOSITORIES\fP\(dq" 4
-enables one of available third\-party repository configurations in
-/usr/share/live/build/repositories.
+.IP "\fB\-\-archives\fP \fIARCHIVE\fP|\(dq\fIARCHIVES\fP\(dq" 4
+enables one of available third\-party archive configurations in
+/usr/share/live/build/archives.
 .IP "\fB\-\-root\-command\fP sudo" 4
 controls if live\-build should use sudo internally to build the live
 image. Note that this is not well tested and that you should, when relying

@@ -124,9 +124,9 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--net-tarball true|false]\n\
 \t    [-p|--package-lists LIST|\"LISTS\"]\n\
 \t    [--quiet]\n\
-\t    [-r|--repositories REPOSITORY|\"REPOSITORIES\"]\n\
 \t    [--root-command sudo]\n\
 \t    [--use-fakeroot true|false]\n\
+\t    [--archives ARCHIVE|\"ARCHIVES\"]\n\
 \t    [--archive-areas ARCHIVE_AREA|\"ARCHIVE_AREAS\"]\n\
 \t    [--parent-archive-areas ARCHIVE_AREA|\"ARCHIVE_AREAS\"]\n\
 \t    [--security true|false]\n\
@@ -151,13 +151,13 @@ Local_arguments ()
 	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-options:,aptitute-options:,
 		apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,
 		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
-		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,repositories:,root-command:,use-fakeroot:,tasksel:,includes:,
+		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,
 		templates:,architectures:,bootstrap-flavour:,bootstrap-keyring:,clean,
 		distribution:,parent-distribution:,parent-debian-installer-distribution:,parent-mirror-bootstrap:,parent-mirror-chroot:,parent-mirror-chroot-security:,parent-mirror-chroot-volatile:,parent-mirror-chroot-backports:,parent-mirror-binary:,
 		parent-mirror-binary-security:,parent-mirror-binary-volatile:,parent-mirror-binary-backports:,parent-mirror-debian-installer:,
 		mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-chroot-backports:,mirror-binary:,
 		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,
-		archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
+		archives:,archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,linux-flavours:,linux-packages:,
 		package-lists:,tasks:,security:,volatile:,backports:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,compression:,build-with-chroot:,
@@ -340,11 +340,6 @@ Local_arguments ()
 				shift 2
 				;;
 
-			-r|--repositories)
-				LB_REPOSITORIES="${2}"
-				shift 2
-				;;
-
 			--root-command)
 				LB_ROOT_COMMAND="${2}"
 				shift 2
@@ -498,6 +493,11 @@ Local_arguments ()
 
 			--mirror-debian-installer)
 				LB_MIRROR_DEBIAN_INSTALLER="${2}"
+				shift 2
+				;;
+
+			--archives)
+				LB_ARCHIVES="${2}"
 				shift 2
 				;;
 
@@ -1134,6 +1134,10 @@ LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS}"
 # (Default: ${LB_MIRROR_BOOTSTRAP})
 LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER}"
 
+# \$LB_ARCHIVES: enable available third-party archives
+# (Default: empty)
+LB_ARCHIVES="${LB_ARCHIVES}"
+
 # \$LB_ARCHIVE_AREAS: select archive areas to use
 # (Default: ${LB_ARCHIVE_AREAS})
 LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS}"
@@ -1192,10 +1196,6 @@ LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS}"
 # \$LB_LINUX_PACKAGES: set kernel packages to use
 # (Default: autodetected)
 LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES}"
-
-# \$LB_REPOSITORIES: enable available third-party repositories
-# (Default: empty)
-LB_REPOSITORIES="${LB_REPOSITORIES}"
 
 # \$LB_PACKAGE_LISTS: set package list to install
 # (Default: ${LB_PACKAGE_LISTS})

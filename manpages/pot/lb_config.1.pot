@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2011-06-13 20:41+0300\n"
+"POT-Creation-Date: 2011-06-15 20:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -79,7 +79,7 @@ msgstr ""
 #: en/lb_source_net.1:1 en/lb_source_tar.1:1 en/lb_source_usb.1:1
 #: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "2011-06-13"
+msgid "2011-06-15"
 msgstr ""
 
 #. type: TH
@@ -1135,17 +1135,17 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:205
-msgid "  [-r|B<--repositories >I<REPOSITORY>|I<\"REPOSITORIES\">]"
-msgstr ""
-
-#. type: Plain text
-#: en/lb_config.1:207
 msgid "  [B<--root-command> sudo]"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:209
+#: en/lb_config.1:207
 msgid "  [B<--use-fakeroot> true|false]"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_config.1:209
+msgid "  [B<--archives> I<ARCHIVE>|I<\"ARCHIVES\">]"
 msgstr ""
 
 #. type: Plain text
@@ -2648,14 +2648,14 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:453
 #, no-wrap
-msgid "-r|B<--repositories> I<REPOSITORY>|\"I<REPOSITORIES>\""
+msgid "B<--archives> I<ARCHIVE>|\"I<ARCHIVES>\""
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:455
 msgid ""
-"enables one of available third-party repository configurations in /usr/share/"
-"live/build/repositories."
+"enables one of available third-party archive configurations in /usr/share/"
+"live/build/archives."
 msgstr ""
 
 #. type: IP
