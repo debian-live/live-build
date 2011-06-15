@@ -196,7 +196,7 @@ Local_arguments ()
 				Print_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 
 				# Dump contents of directories that contain text files
-				for DIRECTORY in config/binary_local-packagelists config/chroot_local-packagelists config/chroot_local-tasklists config/chroot_apt config/chroot_local-patches config/chroot_local-preseed config/binary_rootfs
+				for DIRECTORY in config/package-lists config/chroot_local-tasklists config/chroot_apt config/chroot_local-patches config/chroot_local-preseed config/binary_rootfs
 				do
 					if Find_files "${DIRECTORY}"
 					then
@@ -1154,7 +1154,7 @@ mkdir -p config/chroot_local-hooks
 mkdir -p config/chroot_local-includes
 mkdir -p config/chroot_local-patches
 mkdir -p config/chroot_local-packages
-mkdir -p config/chroot_local-packagelists
+mkdir -p config/package-lists
 mkdir -p config/chroot_local-preseed
 mkdir -p config/chroot_local-tasklists
 
@@ -1225,7 +1225,7 @@ mkdir -p config/binary_grub
 mkdir -p config/binary_local-debs
 mkdir -p config/binary_local-hooks
 mkdir -p config/binary_local-includes
-mkdir -p config/binary_local-packagelists
+mkdir -p config/package-lists
 mkdir -p config/binary_local-udebs
 mkdir -p config/binary_rootfs
 mkdir -p config/binary_syslinux
@@ -1394,7 +1394,7 @@ mkdir -p auto/scripts
 if [ "${CONFIG}" = "clone" ] # FIXME
 then
 	# Read package selection
-	echo $(dpkg --get-selections | awk '{ print $1 }') > config/chroot_local-packagelists/local-system
+	echo $(dpkg --get-selections | awk '{ print $1 }') > config/package-lists/local-system.chroot.list
 	LB_PACKAGE_LISTS="${LB_PACKAGE_LISTS} local-system"
 
 	# Read debconf questions
