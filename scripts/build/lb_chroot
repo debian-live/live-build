@@ -49,7 +49,7 @@ lb chroot_hosts install ${*}
 lb chroot_resolv install ${*}
 lb chroot_hostname install ${*}
 lb chroot_apt install ${*}
-lb chroot_sources install ${*}
+lb chroot_archives install ${*}
 
 # Customizing chroot
 lb chroot_linux-image ${*}
@@ -80,7 +80,7 @@ lb chroot_interactive ${*}
 Chroot chroot "dpkg-query -W" > binary.packages.live
 
 # Deconfiguring chroot
-lb chroot_sources remove ${*}
+lb chroot_archives remove ${*}
 lb chroot_apt remove ${*}
 lb chroot_hostname remove ${*}
 lb chroot_resolv remove ${*}

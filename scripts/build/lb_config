@@ -1149,6 +1149,7 @@ EOF
 
 # Creating lb_chroot_* configuration
 mkdir -p config/chroot_apt
+mkdir -p config/chroot_archives
 mkdir -p config/chroot_local-hooks
 mkdir -p config/chroot_local-includes
 mkdir -p config/chroot_local-patches
@@ -1156,7 +1157,6 @@ mkdir -p config/chroot_local-packages
 mkdir -p config/chroot_local-packagelists
 mkdir -p config/chroot_local-preseed
 mkdir -p config/chroot_local-tasklists
-mkdir -p config/chroot_sources
 
 cat > config/chroot << EOF
 # config/chroot - options for live-build(7), chroot stage
