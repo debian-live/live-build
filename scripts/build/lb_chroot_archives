@@ -236,12 +236,12 @@ EOF
 				if [ "${LB_APT_SECURE}" != false ]
 				then
 					# Adding archive signing keys (chroot)
-					if [ -e "${LB_BASE}/archives/${REPOSITORY}.chroot.gpg" ]
+					if [ -e "${LB_BASE}/archives/${REPOSITORY}.chroot.key" ]
 					then
-						cat "${LB_BASE}/archives/${REPOSITORY}.chroot.gpg" | Chroot chroot "apt-key add -"
-					elif [ -e "${LB_BASE}/archives/${REPOSITORY}.gpg" ]
+						cat "${LB_BASE}/archives/${REPOSITORY}.chroot.key" | Chroot chroot "apt-key add -"
+					elif [ -e "${LB_BASE}/archives/${REPOSITORY}.key" ]
 					then
-						cat "${LB_BASE}/archives/${REPOSITORY}.gpg" | Chroot chroot "apt-key add -"
+						cat "${LB_BASE}/archives/${REPOSITORY}.key" | Chroot chroot "apt-key add -"
 					fi
 				fi
 			done
@@ -457,10 +457,10 @@ EOF
 				Chroot chroot "apt-get ${APT_OPTIONS} install aptitude"
 			fi
 		else # Get fresh indices
-			# Check local gpg keys
-			if Find_files config/archives/*.chroot.gpg
+			# Check local archive keys
+			if Find_files config/archives/*.chroot.key
 			then
-				for FILE in config/archives/*.chroot.gpg
+				for FILE in config/archives/*.chroot.key
 				do
 					cp ${FILE} chroot/root
 					Chroot chroot "apt-key add /root/$(basename ${FILE})"
@@ -755,12 +755,12 @@ EOF
 				if [ "${LB_APT_SECURE}" != false ]
 				then
 					# Adding archive signing keys (binary)
-					if [ -e "${LB_BASE}/archives/${REPOSITORY}.binary.gpg" ]
+					if [ -e "${LB_BASE}/archives/${REPOSITORY}.binary.key" ]
 					then
-						cat "${LB_BASE}/archives/${REPOSITORY}.binary.gpg" | Chroot chroot "apt-key add -"
-					elif [ -e "${LB_BASE}/archives/${REPOSITORY}.gpg" ]
+						cat "${LB_BASE}/archives/${REPOSITORY}.binary.key" | Chroot chroot "apt-key add -"
+					elif [ -e "${LB_BASE}/archives/${REPOSITORY}.key" ]
 					then
-						cat "${LB_BASE}/archives/${REPOSITORY}.gpg" | Chroot chroot "apt-key add -"
+						cat "${LB_BASE}/archives/${REPOSITORY}.key" | Chroot chroot "apt-key add -"
 					fi
 				fi
 			done
@@ -779,10 +779,10 @@ EOF
 			done
 		fi
 
-		# Check local gpg keys
-		if Find_files config/archives/*.binary.gpg
+		# Check local archive keys
+		if Find_files config/archives/*.binary.key
 		then
-			for FILE in config/archives/*.binary.gpg
+			for FILE in config/archives/*.binary.key
 			do
 				cp ${FILE} chroot/root
 				Chroot chroot "apt-key add /root/$(basename ${FILE})"
