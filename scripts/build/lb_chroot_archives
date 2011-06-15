@@ -198,25 +198,6 @@ EOF
 			fi
 		fi
 
-		# Check local sources.list
-		if Find_files config/chroot_archives/*.chroot
-		then
-			# Deconfigure (possibly) old sources.list snipplets
-			if Find_files config/chroot_archives/*.binary
-			then
-				for FILE in config/chroot_archives/*.binary
-				do
-					rm -f "chroot/etc/apt/sources.list.d/$(basename ${FILE} .binary).list"
-				done
-			fi
-
-			# Configure new sources.list snipplets
-			for FILE in config/chroot_archives/*.chroot
-			do
-				cp "${FILE}" "chroot/etc/apt/sources.list.d/$(basename ${FILE} .chroot).list"
-			done
-		fi
-
 		# Configure third-party archives
 		if [ -n "${LB_ARCHIVES}" ]
 		then
@@ -230,42 +211,52 @@ EOF
 					_DISTRIBUTION="${LB_PARENT_DISTRIBUTION}"
 				fi
 
-				for PLACE in config/archives "${LB_BASE}/archives"
-				do
-					# Prefer archives from the config tree
-					# over the global ones.
-					if ! ls "${PLACE}/${REPOSITORY}"* > /dev/null 2>&1
-					then
-						continue
-					fi
+				# Prefer archives from the config tree
+				# over the global ones.
+				if ! ls "${LB_BASE}/archives/${REPOSITORY}"* > /dev/null 2>&1
+				then
+					continue
+				fi
 
-					# Adding sources.list entries (chroot)
-					if [ -e "${PLACE}/${REPOSITORY}.chroot" ]
-					then
-						sed -e "s|@DISTRIBUTION@|${_DISTRIBUTION}|g" \
-						    -e "s|@ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
-						"${PLACE}/${REPOSITORY}.chroot" > \
-						"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
-					elif [ -e "${PLACE}/${REPOSITORY}" ]
-					then
-						sed -e "s|@DISTRIBUTION@|${_DISTRIBUTION}|g" \
-						    -e "s|@ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
-						"${PLACE}/${REPOSITORY}" > \
-						"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
-					fi
+				# Adding sources.list entries (chroot)
+				if [ -e "${LB_BASE}/archives/${REPOSITORY}.chroot" ]
+				then
+					sed -e "s|@DISTRIBUTION@|${_DISTRIBUTION}|g" \
+					    -e "s|@ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
+					"${LB_BASE}/archives/${REPOSITORY}.chroot" > \
+					"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
+				elif [ -e "${LB_BASE}/archives/${REPOSITORY}" ]
+				then
+					sed -e "s|@DISTRIBUTION@|${_DISTRIBUTION}|g" \
+					    -e "s|@ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
+					"${LB_BASE}/archives/${REPOSITORY}" > \
+					"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
+				fi
 
-					if [ "${LB_APT_SECURE}" != false ]
+				if [ "${LB_APT_SECURE}" != false ]
+				then
+					# Adding archive signing keys (chroot)
+					if [ -e "${LB_BASE}/archives/${REPOSITORY}.chroot.gpg" ]
 					then
-						# Adding archive signing keys (chroot)
-						if [ -e "${PLACE}/${REPOSITORY}.chroot.gpg" ]
-						then
-							cat "${PLACE}/${REPOSITORY}.chroot.gpg" | Chroot chroot "apt-key add -"
-						elif [ -e "${PLACE}/${REPOSITORY}.gpg" ]
-						then
-							cat "${PLACE}/${REPOSITORY}.gpg" | Chroot chroot "apt-key add -"
-						fi
+						cat "${LB_BASE}/archives/${REPOSITORY}.chroot.gpg" | Chroot chroot "apt-key add -"
+					elif [ -e "${LB_BASE}/archives/${REPOSITORY}.gpg" ]
+					then
+						cat "${LB_BASE}/archives/${REPOSITORY}.gpg" | Chroot chroot "apt-key add -"
 					fi
-				done
+				fi
+			done
+		fi
+
+		# Check local sources.list
+		if Find_files config/archives/*.chroot
+		then
+			for FILE in config/archives/*.chroot
+			do
+				sed -e "s|@DISTRIBUTION@|${LB_DISTRIBUTION}|g" \
+				    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
+				    -e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
+				    -e "s|@PARENT_ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
+				"${FILE}" > "chroot/etc/apt/sources.list.d/$(basename ${FILE} .chroot).list"
 			done
 		fi
 
@@ -467,9 +458,9 @@ EOF
 			fi
 		else # Get fresh indices
 			# Check local gpg keys
-			if Find_files config/chroot_archives/*.chroot.gpg
+			if Find_files config/archives/*.chroot.gpg
 			then
-				for FILE in config/chroot_archives/*.chroot.gpg
+				for FILE in config/archives/*.chroot.gpg
 				do
 					cp ${FILE} chroot/root
 					Chroot chroot "apt-key add /root/$(basename ${FILE})"
@@ -478,9 +469,9 @@ EOF
 			fi
 
 			# Check local keyring packages
-			if Find_files config/chroot_archives/*.deb
+			if Find_files config/archives/*.deb
 			then
-				for PACKAGE in config/chroot_archives/*.deb
+				for PACKAGE in config/archives/*.deb
 				do
 					cp ${PACKAGE} chroot/root
 					Chroot chroot "dpkg -i /root/$(basename ${PACKAGE})"
@@ -739,68 +730,59 @@ EOF
 				# Removing sources.list entries (chroot)
 				rm -f "chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
 
-				for PLACE in config/archives "${LB_BASE}/archives"
-				do
-					# Prefer archives from the config tree
-					# over the global ones.
-					if ! ls "${PLACE}/${REPOSITORY}"* > /dev/null 2>&1
-					then
-						continue
-					fi
+				# Prefer archives from the config tree
+				# over the global ones.
+				if ! ls "${LB_BASE}/archives/${REPOSITORY}"* > /dev/null 2>&1
+				then
+					continue
+				fi
 
-					# Adding sources.list entries (binary)
-					if [ -e "${PLACE}/${REPOSITORY}.binary" ]
-					then
-						sed -e "s|@DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
-						    -e "s|@ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
-						"${PLACE}/${REPOSITORY}.binary" > \
-						"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
-					elif [ -e "${PLACE}/${REPOSITORY}" ]
-					then
-						sed -e "s|@DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
-						    -e "s|@ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
-						"${PLACE}/${REPOSITORY}" > \
-						"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
-					fi
+				# Adding sources.list entries (binary)
+				if [ -e "${LB_BASE}/archives/${REPOSITORY}.binary" ]
+				then
+					sed -e "s|@DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
+					    -e "s|@ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
+					"${LB_BASE}/archives/${REPOSITORY}.binary" > \
+					"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
+				elif [ -e "${LB_BASE}/archives/${REPOSITORY}" ]
+				then
+					sed -e "s|@DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
+					    -e "s|@ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
+					"${LB_BASE}/archives/${REPOSITORY}" > \
+					"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
+				fi
 
-					if [ "${LB_APT_SECURE}" != false ]
+				if [ "${LB_APT_SECURE}" != false ]
+				then
+					# Adding archive signing keys (binary)
+					if [ -e "${LB_BASE}/archives/${REPOSITORY}.binary.gpg" ]
 					then
-						# Adding archive signing keys (binary)
-						if [ -e "${PLACE}/${REPOSITORY}.binary.gpg" ]
-						then
-							cat "${PLACE}/${REPOSITORY}.binary.gpg" | Chroot chroot "apt-key add -"
-						elif [ -e "${PLACE}/${REPOSITORY}.gpg" ]
-						then
-							cat "${PLACE}/${REPOSITORY}.gpg" | Chroot chroot "apt-key add -"
-						fi
+						cat "${LB_BASE}/archives/${REPOSITORY}.binary.gpg" | Chroot chroot "apt-key add -"
+					elif [ -e "${LB_BASE}/archives/${REPOSITORY}.gpg" ]
+					then
+						cat "${LB_BASE}/archives/${REPOSITORY}.gpg" | Chroot chroot "apt-key add -"
 					fi
-				done
+				fi
 			done
 		fi
 
 		# Check local sources.list
-		if Find_files config/chroot_archives/*.binary
+		if Find_files config/archives/*.binary
 		then
-			# Deconfigure (possibly) old sources.list snipplets
-			if Find_files config/chroot_archives/*.chroot
-			then
-			for FILE in config/chroot_archives/*.chroot
-				do
-					rm -f "chroot/etc/apt/sources.list.d/$(basename ${FILE} .chroot).list"
-				done
-			fi
-
-			# Configure new sources.list snipplets
-			for FILE in config/chroot_archives/*.binary
+			for FILE in config/archives/*.binary
 			do
-				cp "${FILE}" "chroot/etc/apt/sources.list.d/$(basename ${FILE} .binary).list"
+				sed -e "s|@DISTRIBUTION@|${LB_DISTRIBUTION}|g" \
+				    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
+				    -e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
+				    -e "s|@PARENT_ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
+				"${FILE}" > "chroot/etc/apt/sources.list.d/$(basename ${FILE} .binary).list"
 			done
 		fi
 
 		# Check local gpg keys
-		if Find_files config/chroot_archives/*.binary.gpg
+		if Find_files config/archives/*.binary.gpg
 		then
-			for FILE in config/chroot_archives/*.binary.gpg
+			for FILE in config/archives/*.binary.gpg
 			do
 				cp ${FILE} chroot/root
 				Chroot chroot "apt-key add /root/$(basename ${FILE})"
