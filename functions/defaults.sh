@@ -30,7 +30,7 @@ Set_defaults ()
 			;;
 
 		*)
-			LB_DISTRIBUTION="${LB_DISTRIBUTION:-squeeze}"
+			LB_DISTRIBUTION="${LB_DISTRIBUTION:-wheezy}"
 			LB_DERIVATIVE="false"
 			;;
 	esac
