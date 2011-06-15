@@ -248,15 +248,15 @@ EOF
 		fi
 
 		# Check local sources.list
-		if Find_files config/archives/*.chroot
+		if Find_files config/archives/*.chroot.list
 		then
-			for FILE in config/archives/*.chroot
+			for FILE in config/archives/*.chroot.list
 			do
 				sed -e "s|@DISTRIBUTION@|${LB_DISTRIBUTION}|g" \
 				    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
 				    -e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
 				    -e "s|@PARENT_ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
-				"${FILE}" > "chroot/etc/apt/sources.list.d/$(basename ${FILE} .chroot).list"
+				"${FILE}" > "chroot/etc/apt/sources.list.d/$(basename ${FILE} .chroot.list).list"
 			done
 		fi
 
@@ -767,15 +767,15 @@ EOF
 		fi
 
 		# Check local sources.list
-		if Find_files config/archives/*.binary
+		if Find_files config/archives/*.binary.list
 		then
-			for FILE in config/archives/*.binary
+			for FILE in config/archives/*.binary.list
 			do
 				sed -e "s|@DISTRIBUTION@|${LB_DISTRIBUTION}|g" \
 				    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
 				    -e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
 				    -e "s|@PARENT_ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
-				"${FILE}" > "chroot/etc/apt/sources.list.d/$(basename ${FILE} .binary).list"
+				"${FILE}" > "chroot/etc/apt/sources.list.d/$(basename ${FILE} .binary.list).list"
 			done
 		fi
 
