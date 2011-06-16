@@ -73,7 +73,7 @@ install:
 uninstall:
 	# Uninstalling shared data
 	rm -rf $(DESTDIR)/usr/share/live/build
-	rmdir --ignore-fail-on-non-empty $(DESTDIR)/usr/share/live
+	rmdir --ignore-fail-on-non-empty $(DESTDIR)/usr/share/live || true
 
 	# Uninstalling executables
 	rm -f $(DESTDIR)/usr/bin/lb $(DESTDIR)/usr/bin/live-build
