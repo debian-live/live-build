@@ -1148,8 +1148,8 @@ LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS}"
 EOF
 
 # Creating lb_chroot_* configuration
+mkdir -p config/archives
 mkdir -p config/chroot_apt
-mkdir -p config/chroot_archives
 mkdir -p config/chroot_local-hooks
 mkdir -p config/chroot_local-includes
 mkdir -p config/chroot_local-patches
