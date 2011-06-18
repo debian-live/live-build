@@ -497,13 +497,13 @@ EOF
 			# Installing keyring packages
 			if [ -n "${LB_KEYRING_PACKAGES}" ]
 			then
-				# Temporary hack (FIXME)
 				if [ "${LB_DERIVATIVE}" = "true" ]
 				then
-					_APT="--force-yes"
+					# Temporary hack (FIXME)
+					Chroot "apt-get ${APT_OPTIONS} --force-yes install ${LB_KEYRING_PACKAGES}"
+				else
+					Apt chroot "install ${LB_KEYRING_PACKAGES}"
 				fi
-
-				Apt chroot "--force-yes install ${LB_KEYRING_PACKAGES}"
 			fi
 
 			rm -rf chroot/var/cache/apt/*.bin
