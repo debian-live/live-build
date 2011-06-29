@@ -1,3 +1,10 @@
+live-build (3.0~a23-1) experimental; urgency=low
+
+  * Correcting wrong chroot call in chroot_archives, only affecting
+    derivatives.
+
+ -- Daniel Baumann <daniel@debian.org>  Wed, 29 Jun 2011 07:58:09 +0200
+
 live-build (3.0~a22-1) experimental; urgency=low
 
   [ Daniel Baumann ]
