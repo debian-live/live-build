@@ -38,7 +38,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if Find_files config/binary_local-packagelists/*.list
+if Find_files config/package-lists/*.binary.list
 then
 	# Restoring cache
 	Restore_cache cache/packages_chroot
@@ -53,10 +53,10 @@ then
 	mv chroot/var/lib/dpkg/status chroot/var/lib/dpkg/status.tmp
 	touch chroot/var/lib/dpkg/status
 
-	for PACKAGELIST in config/binary_local-packagelists/*.list
+	for PACKAGELIST in config/package-lists/*.binary.list
 	do
 		# Generate package list
-		Expand_packagelist "${PACKAGELIST}" "config/binary_local-packagelists" "config/chroot_local-packagelists" > chroot/root/"$(basename ${PACKAGELIST})"
+		Expand_packagelist "${PACKAGELIST}" "config/package-lists" > chroot/root/"$(basename ${PACKAGELIST})"
 
 		# Downloading additional packages
 		Chroot chroot "xargs --arg-file=/root/$(basename ${PACKAGELIST}) apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb --download-only install"

@@ -41,7 +41,7 @@ build:
 install:
 	# Installing shared data
 	mkdir -p $(DESTDIR)/usr/share/live/build
-	cp -r cgi data examples functions scripts includes lists repositories templates $(DESTDIR)/usr/share/live/build
+	cp -r archives cgi data examples functions scripts includes package-lists templates $(DESTDIR)/usr/share/live/build
 
 	# Installing executables
 	mkdir -p $(DESTDIR)/usr/bin
@@ -73,7 +73,7 @@ install:
 uninstall:
 	# Uninstalling shared data
 	rm -rf $(DESTDIR)/usr/share/live/build
-	rmdir --ignore-fail-on-non-empty $(DESTDIR)/usr/share/live
+	rmdir --ignore-fail-on-non-empty $(DESTDIR)/usr/share/live || true
 
 	# Uninstalling executables
 	rm -f $(DESTDIR)/usr/bin/lb $(DESTDIR)/usr/bin/live-build

@@ -50,7 +50,7 @@ then
 	lb chroot_sysv-rc install ${*}
 	lb chroot_upstart install ${*}
 	lb chroot_apt install-binary ${*}
-	lb chroot_sources install ${*}
+	lb chroot_archives install ${*}
 fi
 
 # Building root filesystem
@@ -92,7 +92,7 @@ lb binary_virtual-hdd ${*}
 if [ "${LB_BUILD_WITH_CHROOT}" = "true" ]
 then
 	# Deconfiguring chroot
-	rm -f .stage/chroot_sources
+	rm -f .stage/chroot_archives
 	lb chroot_apt remove ${*}
 	lb chroot_upstart remove ${*}
 	lb chroot_sysv-rc remove ${*}

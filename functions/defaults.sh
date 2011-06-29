@@ -30,7 +30,7 @@ Set_defaults ()
 			;;
 
 		*)
-			LB_DISTRIBUTION="${LB_DISTRIBUTION:-squeeze}"
+			LB_DISTRIBUTION="${LB_DISTRIBUTION:-wheezy}"
 			LB_DERIVATIVE="false"
 			;;
 	esac
@@ -550,12 +550,12 @@ Set_defaults ()
 			;;
 
 		ubuntu)
-			LB_PARENT_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main restricted}"
+			LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS:-main restricted}"
 			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-${LB_PARENT_ARCHIVE_AREAS}}"
 			;;
 
 		*)
-			LB_PARENT_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main}"
+			LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS:-main}"
 			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-${LB_PARENT_ARCHIVE_AREAS}}"
 			;;
 	esac
@@ -593,9 +593,12 @@ Set_defaults ()
 	# Setting linux flavour string
 	case "${LB_ARCHITECTURES}" in
 		armel)
-			Echo_error "There is no default kernel flavour defined for your architecture."
-			Echo_error "Please configure it manually with 'lb config -k FLAVOUR'."
-			exit 1
+			if [ -z "${LB_LINUX_FLAVOURS}" ]
+			then
+				Echo_error "There is no default kernel flavour defined for your architecture."
+				Echo_error "Please configure it manually with 'lb config -k FLAVOUR'."
+				exit 1
+			fi
 			;;
 
 		amd64)

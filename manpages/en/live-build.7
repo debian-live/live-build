@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 7 2011\-06\-13 3.0~a21 "Debian Live Project"
+.TH LIVE\-BUILD 7 2011\-06\-29 3.0~a22 "Debian Live Project"
 
 .SH NAME
 \fBlive\-build\fR \- the Debian Live tool suite
@@ -119,8 +119,8 @@ manage /etc/kernel\-img.conf
 execute local hooks in chroot
 .IP "\fBlb_chroot_local\-includes\fR(1)" 4
 copy local files into chroot
-.IP "\fBlb_chroot_local\-packages\fR(1)" 4
-queue install of local packages into chroot
+.IP "\fBlb_chroot_packages\fR(1)" 4
+queue install of packages into chroot
 .IP "\fBlb_chroot_local\-patches\fR(1)" 4
 apply local patches against chroot
 .IP "\fBlb_chroot_local\-preseed\fR(1)" 4
@@ -135,14 +135,14 @@ mount /proc
 manage /etc/resolv.conf
 .IP "\fBlb_chroot_selinuxfs\fR(1)" 4
 mount /selinux
-.IP "\fBlb_chroot_sources\fR(1)" 4
+.IP "\fBlb_chroot_archives\fR(1)" 4
 manage /etc/apt/sources.list
 .IP "\fBlb_chroot_sysfs\fR(1)" 4
 mount /sys
 .IP "\fBlb_chroot_sysv\-rc\fR(1)" 4
 manage /usr/sbin/policy\-rc.d
-.IP "\fBlb_chroot_local\-tasklists\fR(1)" 4
-install local task lists into chroot
+.IP "\fBlb_chroot_task\-lists\fR(1)" 4
+install task lists into chroot
 .SS Binary commands
 .IP "\fBlb_binary_chroot\fR(1)" 4
 copy chroot into chroot

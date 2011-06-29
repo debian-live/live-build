@@ -216,7 +216,7 @@ _CUSTOM_BOOTSTRAP="${_CUSTOM_BOOTSTRAP}"
 _CUSTOM_BINARY="${_CUSTOM_BINARY}"
 
 # Other
-LB_REPOSITORIES="${LB_REPOSITORIES}"
+LB_ARCHIVES="${LB_ARCHIVES}"
 EOF
 
 	echo "$(date +%b\ %d\ %H:%M:%S) ${HOSTNAME} live-build.cgi: add web build (${_BUILD}) from ${REMOTE_ADDR}." >> /var/log/live

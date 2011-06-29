@@ -40,7 +40,7 @@ Setup_cleanup
 lb chroot_hosts install ${*}
 lb chroot_resolv install ${*}
 lb chroot_hostname install ${*}
-lb chroot_sources install ${*}
+lb chroot_archives install ${*}
 
 # Preparing images
 lb source_debian-live ${*}
@@ -56,7 +56,7 @@ lb source_usb ${*}
 lb source_virtual-hdd ${*}
 
 # Deconfiguring chroot
-rm -f .stage/chroot_sources
+rm -f .stage/chroot_archives
 lb chroot_hostname remove ${*}
 lb chroot_resolv remove ${*}
 lb chroot_hosts remove ${*}

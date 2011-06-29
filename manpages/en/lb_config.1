@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2011\-06\-13 3.0~a21 "Debian Live Project"
+.TH LIVE\-BUILD 1 2011\-06\-29 3.0~a22 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -201,11 +201,11 @@
 .br
 	[\fB\-\-quiet\fR]
 .br
-	[\-r|\fB\-\-repositories \fIREPOSITORY\fR|\fI"REPOSITORIES"\fR]
-.br
 	[\fB\-\-root-command\fR sudo]
 .br
 	[\fB\-\-use-fakeroot\fR true|false]
+.br
+	[\fB\-\-archives\fR \fIARCHIVE\fR|\fI"ARCHIVES"\fR]
 .br
 	[\fB\-\-archive\-areas\fR \fIARCHIVE_AREA\fR|\fI"ARCHIVE_AREAS"\fR]
 .br
@@ -447,11 +447,11 @@ sets the IP or hostname that will be configured in the bootloader configuration 
 .IP "\fB\-\-net\-tarball\fR true|false" 4
 defines if a compressed tarball should be created. Disabling this options leads to no tarball at all, the plain binary directory is considered the output in this case. Default is true.
 .IP "\-p|\fB\-\-package\-lists\fR \fILIST\fR|""\fILISTS\fR""" 4
-defines which lists available in /usr/share/live/build/lists should be used. By default, this is set to standard. Note that in case you have local package lists, you don't need to list them here. Putting them into config/chroot_local-packagelists is enough (the filename needs to have the .list suffix though).
+defines which lists available in /usr/share/live/build/package-lists should be used. By default, this is set to standard. Note that in case you have local package lists, you don't need to list them here. Putting them into config/package-lists is enough (the filename needs to have the .list suffix though).
 .IP "\fB\-\-quiet\fR" 4
 reduces the verbosity of messages output by \fBlb build\fR.
-.IP "-r|\fB\-\-repositories\fR \fIREPOSITORY\fR|""\fIREPOSITORIES\fR""" 4
-enables one of available third-party repository configurations in /usr/share/live/build/repositories.
+.IP "\fB\-\-archives\fR \fIARCHIVE\fR|""\fIARCHIVES\fR""" 4
+enables one of available third-party archive configurations in /usr/share/live/build/archives.
 .IP "\fB\-\-root-command\fR sudo" 4
 controls if live\-build should use sudo internally to build the live image. Note that this is not well tested and that you should, when relying on sudo, call the individual live\-build command with sudo itself.
 .IP "\fB\-\-use-fakeroot\fR true|false" 4

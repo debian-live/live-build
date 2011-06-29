@@ -28,7 +28,7 @@ Version ()
 	Echo "You should have received a copy of the GNU General Public License"
 	Echo "along with this program. If not, see <http://www.gnu.org/licenses/>."
 	echo
-	Echo "On Debian systems, the complete text of the GNU General Public License"
+	Echo "The complete text of the GNU General Public License"
 	Echo "can be found in /usr/share/common-licenses/GPL-3 file."
 	echo
 	Echo "Homepage: <http://live.debian.net/>"

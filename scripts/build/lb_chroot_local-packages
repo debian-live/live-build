@@ -30,7 +30,7 @@ Echo_message "Begin queueing installation of local packages..."
 Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/chroot_local-packages
+Check_stagefile .stage/chroot_packages
 
 # Checking lock file
 Check_lockfile .lock
@@ -38,11 +38,11 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if Find_files chroot/root/local-packages/*.deb
+if Find_files chroot/root/packages/*.deb
 then
-	gunzip < chroot/root/local-packages/Packages.gz | awk '/^Package: / { print $2 }' \
+	gunzip < chroot/root/packages/Packages.gz | awk '/^Package: / { print $2 }' \
 		>> chroot/root/chroot_packages
 
 	# Creating stage file
-	Create_stagefile .stage/chroot_local-packages
+	Create_stagefile .stage/chroot_packages
 fi

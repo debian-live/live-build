@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2011-06-13 20:41+0300\n"
+"POT-Creation-Date: 2011-06-29 06:18+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,19 +29,20 @@ msgstr ""
 #: en/lb_binary_win32-loader.1:1 en/lb_binary_yaboot.1:1 en/lb_bootstrap.1:1
 #: en/lb_bootstrap_cache.1:1 en/lb_bootstrap_cdebootstrap.1:1
 #: en/lb_bootstrap_copy.1:1 en/lb_bootstrap_debootstrap.1:1 en/lb_build.1:1
-#: en/lb_chroot.1:1 en/lb_chroot_apt.1:1 en/lb_chroot_cache.1:1
-#: en/lb_chroot_debianchroot.1:1 en/lb_chroot_devpts.1:1 en/lb_chroot_dpkg.1:1
-#: en/lb_chroot_hacks.1:1 en/lb_chroot_hostname.1:1 en/lb_chroot_hosts.1:1
+#: en/lb_chroot.1:1 en/lb_chroot_apt.1:1 en/lb_chroot_archives.1:1
+#: en/lb_chroot_cache.1:1 en/lb_chroot_debianchroot.1:1
+#: en/lb_chroot_devpts.1:1 en/lb_chroot_dpkg.1:1 en/lb_chroot_hacks.1:1
+#: en/lb_chroot_hostname.1:1 en/lb_chroot_hosts.1:1
 #: en/lb_chroot_install-packages.1:1 en/lb_chroot_interactive.1:1
 #: en/lb_chroot_linux-image.1:1 en/lb_chroot_local-hooks.1:1
 #: en/lb_chroot_local-includes.1:1 en/lb_chroot_local-packagelists.1:1
-#: en/lb_chroot_local-packages.1:1 en/lb_chroot_local-patches.1:1
-#: en/lb_chroot_local-preseed.1:1 en/lb_chroot_local-tasklists.1:1
-#: en/lb_chroot_packagelists.1:1 en/lb_chroot_preseed.1:1
-#: en/lb_chroot_proc.1:1 en/lb_chroot_resolv.1:1 en/lb_chroot_selinuxfs.1:1
-#: en/lb_chroot_sources.1:1 en/lb_chroot_sysfs.1:1 en/lb_chroot_sysv-rc.1:1
-#: en/lb_chroot_upstart.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_local.1:1
-#: en/lb_source.1:1 en/lb_source_checksums.1:1 en/lb_source_debian-live.1:1
+#: en/lb_chroot_local-patches.1:1 en/lb_chroot_local-preseed.1:1
+#: en/lb_chroot_packagelists.1:1 en/lb_chroot_packages.1:1
+#: en/lb_chroot_preseed.1:1 en/lb_chroot_proc.1:1 en/lb_chroot_resolv.1:1
+#: en/lb_chroot_selinuxfs.1:1 en/lb_chroot_sysfs.1:1 en/lb_chroot_sysv-rc.1:1
+#: en/lb_chroot_task-lists.1:1 en/lb_chroot_upstart.1:1 en/lb_clean.1:1
+#: en/lb_config.1:1 en/lb_local.1:1 en/lb_source.1:1
+#: en/lb_source_checksums.1:1 en/lb_source_debian-live.1:1
 #: en/lb_source_debian.1:1 en/lb_source_disk.1:1 en/lb_source_iso.1:1
 #: en/lb_source_net.1:1 en/lb_source_tar.1:1 en/lb_source_usb.1:1
 #: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
@@ -62,24 +63,25 @@ msgstr ""
 #: en/lb_binary_win32-loader.1:1 en/lb_binary_yaboot.1:1 en/lb_bootstrap.1:1
 #: en/lb_bootstrap_cache.1:1 en/lb_bootstrap_cdebootstrap.1:1
 #: en/lb_bootstrap_copy.1:1 en/lb_bootstrap_debootstrap.1:1 en/lb_build.1:1
-#: en/lb_chroot.1:1 en/lb_chroot_apt.1:1 en/lb_chroot_cache.1:1
-#: en/lb_chroot_debianchroot.1:1 en/lb_chroot_devpts.1:1 en/lb_chroot_dpkg.1:1
-#: en/lb_chroot_hacks.1:1 en/lb_chroot_hostname.1:1 en/lb_chroot_hosts.1:1
+#: en/lb_chroot.1:1 en/lb_chroot_apt.1:1 en/lb_chroot_archives.1:1
+#: en/lb_chroot_cache.1:1 en/lb_chroot_debianchroot.1:1
+#: en/lb_chroot_devpts.1:1 en/lb_chroot_dpkg.1:1 en/lb_chroot_hacks.1:1
+#: en/lb_chroot_hostname.1:1 en/lb_chroot_hosts.1:1
 #: en/lb_chroot_install-packages.1:1 en/lb_chroot_interactive.1:1
 #: en/lb_chroot_linux-image.1:1 en/lb_chroot_local-hooks.1:1
 #: en/lb_chroot_local-includes.1:1 en/lb_chroot_local-packagelists.1:1
-#: en/lb_chroot_local-packages.1:1 en/lb_chroot_local-patches.1:1
-#: en/lb_chroot_local-preseed.1:1 en/lb_chroot_local-tasklists.1:1
-#: en/lb_chroot_packagelists.1:1 en/lb_chroot_preseed.1:1
-#: en/lb_chroot_proc.1:1 en/lb_chroot_resolv.1:1 en/lb_chroot_selinuxfs.1:1
-#: en/lb_chroot_sources.1:1 en/lb_chroot_sysfs.1:1 en/lb_chroot_sysv-rc.1:1
-#: en/lb_chroot_upstart.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_local.1:1
-#: en/lb_source.1:1 en/lb_source_checksums.1:1 en/lb_source_debian-live.1:1
+#: en/lb_chroot_local-patches.1:1 en/lb_chroot_local-preseed.1:1
+#: en/lb_chroot_packagelists.1:1 en/lb_chroot_packages.1:1
+#: en/lb_chroot_preseed.1:1 en/lb_chroot_proc.1:1 en/lb_chroot_resolv.1:1
+#: en/lb_chroot_selinuxfs.1:1 en/lb_chroot_sysfs.1:1 en/lb_chroot_sysv-rc.1:1
+#: en/lb_chroot_task-lists.1:1 en/lb_chroot_upstart.1:1 en/lb_clean.1:1
+#: en/lb_config.1:1 en/lb_local.1:1 en/lb_source.1:1
+#: en/lb_source_checksums.1:1 en/lb_source_debian-live.1:1
 #: en/lb_source_debian.1:1 en/lb_source_disk.1:1 en/lb_source_iso.1:1
 #: en/lb_source_net.1:1 en/lb_source_tar.1:1 en/lb_source_usb.1:1
 #: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "2011-06-13"
+msgid "2011-06-29"
 msgstr ""
 
 #. type: TH
@@ -95,24 +97,25 @@ msgstr ""
 #: en/lb_binary_win32-loader.1:1 en/lb_binary_yaboot.1:1 en/lb_bootstrap.1:1
 #: en/lb_bootstrap_cache.1:1 en/lb_bootstrap_cdebootstrap.1:1
 #: en/lb_bootstrap_copy.1:1 en/lb_bootstrap_debootstrap.1:1 en/lb_build.1:1
-#: en/lb_chroot.1:1 en/lb_chroot_apt.1:1 en/lb_chroot_cache.1:1
-#: en/lb_chroot_debianchroot.1:1 en/lb_chroot_devpts.1:1 en/lb_chroot_dpkg.1:1
-#: en/lb_chroot_hacks.1:1 en/lb_chroot_hostname.1:1 en/lb_chroot_hosts.1:1
+#: en/lb_chroot.1:1 en/lb_chroot_apt.1:1 en/lb_chroot_archives.1:1
+#: en/lb_chroot_cache.1:1 en/lb_chroot_debianchroot.1:1
+#: en/lb_chroot_devpts.1:1 en/lb_chroot_dpkg.1:1 en/lb_chroot_hacks.1:1
+#: en/lb_chroot_hostname.1:1 en/lb_chroot_hosts.1:1
 #: en/lb_chroot_install-packages.1:1 en/lb_chroot_interactive.1:1
 #: en/lb_chroot_linux-image.1:1 en/lb_chroot_local-hooks.1:1
 #: en/lb_chroot_local-includes.1:1 en/lb_chroot_local-packagelists.1:1
-#: en/lb_chroot_local-packages.1:1 en/lb_chroot_local-patches.1:1
-#: en/lb_chroot_local-preseed.1:1 en/lb_chroot_local-tasklists.1:1
-#: en/lb_chroot_packagelists.1:1 en/lb_chroot_preseed.1:1
-#: en/lb_chroot_proc.1:1 en/lb_chroot_resolv.1:1 en/lb_chroot_selinuxfs.1:1
-#: en/lb_chroot_sources.1:1 en/lb_chroot_sysfs.1:1 en/lb_chroot_sysv-rc.1:1
-#: en/lb_chroot_upstart.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_local.1:1
-#: en/lb_source.1:1 en/lb_source_checksums.1:1 en/lb_source_debian-live.1:1
+#: en/lb_chroot_local-patches.1:1 en/lb_chroot_local-preseed.1:1
+#: en/lb_chroot_packagelists.1:1 en/lb_chroot_packages.1:1
+#: en/lb_chroot_preseed.1:1 en/lb_chroot_proc.1:1 en/lb_chroot_resolv.1:1
+#: en/lb_chroot_selinuxfs.1:1 en/lb_chroot_sysfs.1:1 en/lb_chroot_sysv-rc.1:1
+#: en/lb_chroot_task-lists.1:1 en/lb_chroot_upstart.1:1 en/lb_clean.1:1
+#: en/lb_config.1:1 en/lb_local.1:1 en/lb_source.1:1
+#: en/lb_source_checksums.1:1 en/lb_source_debian-live.1:1
 #: en/lb_source_debian.1:1 en/lb_source_disk.1:1 en/lb_source_iso.1:1
 #: en/lb_source_net.1:1 en/lb_source_tar.1:1 en/lb_source_usb.1:1
 #: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "3.0~a21"
+msgid "3.0~a22"
 msgstr ""
 
 #. type: TH
@@ -128,19 +131,20 @@ msgstr ""
 #: en/lb_binary_win32-loader.1:1 en/lb_binary_yaboot.1:1 en/lb_bootstrap.1:1
 #: en/lb_bootstrap_cache.1:1 en/lb_bootstrap_cdebootstrap.1:1
 #: en/lb_bootstrap_copy.1:1 en/lb_bootstrap_debootstrap.1:1 en/lb_build.1:1
-#: en/lb_chroot.1:1 en/lb_chroot_apt.1:1 en/lb_chroot_cache.1:1
-#: en/lb_chroot_debianchroot.1:1 en/lb_chroot_devpts.1:1 en/lb_chroot_dpkg.1:1
-#: en/lb_chroot_hacks.1:1 en/lb_chroot_hostname.1:1 en/lb_chroot_hosts.1:1
+#: en/lb_chroot.1:1 en/lb_chroot_apt.1:1 en/lb_chroot_archives.1:1
+#: en/lb_chroot_cache.1:1 en/lb_chroot_debianchroot.1:1
+#: en/lb_chroot_devpts.1:1 en/lb_chroot_dpkg.1:1 en/lb_chroot_hacks.1:1
+#: en/lb_chroot_hostname.1:1 en/lb_chroot_hosts.1:1
 #: en/lb_chroot_install-packages.1:1 en/lb_chroot_interactive.1:1
 #: en/lb_chroot_linux-image.1:1 en/lb_chroot_local-hooks.1:1
 #: en/lb_chroot_local-includes.1:1 en/lb_chroot_local-packagelists.1:1
-#: en/lb_chroot_local-packages.1:1 en/lb_chroot_local-patches.1:1
-#: en/lb_chroot_local-preseed.1:1 en/lb_chroot_local-tasklists.1:1
-#: en/lb_chroot_packagelists.1:1 en/lb_chroot_preseed.1:1
-#: en/lb_chroot_proc.1:1 en/lb_chroot_resolv.1:1 en/lb_chroot_selinuxfs.1:1
-#: en/lb_chroot_sources.1:1 en/lb_chroot_sysfs.1:1 en/lb_chroot_sysv-rc.1:1
-#: en/lb_chroot_upstart.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_local.1:1
-#: en/lb_source.1:1 en/lb_source_checksums.1:1 en/lb_source_debian-live.1:1
+#: en/lb_chroot_local-patches.1:1 en/lb_chroot_local-preseed.1:1
+#: en/lb_chroot_packagelists.1:1 en/lb_chroot_packages.1:1
+#: en/lb_chroot_preseed.1:1 en/lb_chroot_proc.1:1 en/lb_chroot_resolv.1:1
+#: en/lb_chroot_selinuxfs.1:1 en/lb_chroot_sysfs.1:1 en/lb_chroot_sysv-rc.1:1
+#: en/lb_chroot_task-lists.1:1 en/lb_chroot_upstart.1:1 en/lb_clean.1:1
+#: en/lb_config.1:1 en/lb_local.1:1 en/lb_source.1:1
+#: en/lb_source_checksums.1:1 en/lb_source_debian-live.1:1
 #: en/lb_source_debian.1:1 en/lb_source_disk.1:1 en/lb_source_iso.1:1
 #: en/lb_source_net.1:1 en/lb_source_tar.1:1 en/lb_source_usb.1:1
 #: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
@@ -161,19 +165,20 @@ msgstr ""
 #: en/lb_binary_win32-loader.1:3 en/lb_binary_yaboot.1:3 en/lb_bootstrap.1:3
 #: en/lb_bootstrap_cache.1:3 en/lb_bootstrap_cdebootstrap.1:3
 #: en/lb_bootstrap_copy.1:3 en/lb_bootstrap_debootstrap.1:3 en/lb_build.1:3
-#: en/lb_chroot.1:3 en/lb_chroot_apt.1:3 en/lb_chroot_cache.1:3
-#: en/lb_chroot_debianchroot.1:3 en/lb_chroot_devpts.1:3 en/lb_chroot_dpkg.1:3
-#: en/lb_chroot_hacks.1:3 en/lb_chroot_hostname.1:3 en/lb_chroot_hosts.1:3
+#: en/lb_chroot.1:3 en/lb_chroot_apt.1:3 en/lb_chroot_archives.1:3
+#: en/lb_chroot_cache.1:3 en/lb_chroot_debianchroot.1:3
+#: en/lb_chroot_devpts.1:3 en/lb_chroot_dpkg.1:3 en/lb_chroot_hacks.1:3
+#: en/lb_chroot_hostname.1:3 en/lb_chroot_hosts.1:3
 #: en/lb_chroot_install-packages.1:3 en/lb_chroot_interactive.1:3
 #: en/lb_chroot_linux-image.1:3 en/lb_chroot_local-hooks.1:3
 #: en/lb_chroot_local-includes.1:3 en/lb_chroot_local-packagelists.1:3
-#: en/lb_chroot_local-packages.1:3 en/lb_chroot_local-patches.1:3
-#: en/lb_chroot_local-preseed.1:3 en/lb_chroot_local-tasklists.1:3
-#: en/lb_chroot_packagelists.1:3 en/lb_chroot_preseed.1:3
-#: en/lb_chroot_proc.1:3 en/lb_chroot_resolv.1:3 en/lb_chroot_selinuxfs.1:3
-#: en/lb_chroot_sources.1:3 en/lb_chroot_sysfs.1:3 en/lb_chroot_sysv-rc.1:3
-#: en/lb_chroot_upstart.1:3 en/lb_clean.1:3 en/lb_config.1:3 en/lb_local.1:3
-#: en/lb_source.1:3 en/lb_source_checksums.1:3 en/lb_source_debian-live.1:3
+#: en/lb_chroot_local-patches.1:3 en/lb_chroot_local-preseed.1:3
+#: en/lb_chroot_packagelists.1:3 en/lb_chroot_packages.1:3
+#: en/lb_chroot_preseed.1:3 en/lb_chroot_proc.1:3 en/lb_chroot_resolv.1:3
+#: en/lb_chroot_selinuxfs.1:3 en/lb_chroot_sysfs.1:3 en/lb_chroot_sysv-rc.1:3
+#: en/lb_chroot_task-lists.1:3 en/lb_chroot_upstart.1:3 en/lb_clean.1:3
+#: en/lb_config.1:3 en/lb_local.1:3 en/lb_source.1:3
+#: en/lb_source_checksums.1:3 en/lb_source_debian-live.1:3
 #: en/lb_source_debian.1:3 en/lb_source_disk.1:3 en/lb_source_iso.1:3
 #: en/lb_source_net.1:3 en/lb_source_tar.1:3 en/lb_source_usb.1:3
 #: en/lb_source_virtual-hdd.1:3 en/lb_testroot.1:3 en/live-build.7:3
@@ -194,19 +199,20 @@ msgstr ""
 #: en/lb_binary_win32-loader.1:6 en/lb_binary_yaboot.1:6 en/lb_bootstrap.1:6
 #: en/lb_bootstrap_cache.1:6 en/lb_bootstrap_cdebootstrap.1:6
 #: en/lb_bootstrap_copy.1:6 en/lb_bootstrap_debootstrap.1:6 en/lb_build.1:6
-#: en/lb_chroot.1:6 en/lb_chroot_apt.1:6 en/lb_chroot_cache.1:6
-#: en/lb_chroot_debianchroot.1:6 en/lb_chroot_devpts.1:6 en/lb_chroot_dpkg.1:6
-#: en/lb_chroot_hacks.1:6 en/lb_chroot_hostname.1:6 en/lb_chroot_hosts.1:6
+#: en/lb_chroot.1:6 en/lb_chroot_apt.1:6 en/lb_chroot_archives.1:6
+#: en/lb_chroot_cache.1:6 en/lb_chroot_debianchroot.1:6
+#: en/lb_chroot_devpts.1:6 en/lb_chroot_dpkg.1:6 en/lb_chroot_hacks.1:6
+#: en/lb_chroot_hostname.1:6 en/lb_chroot_hosts.1:6
 #: en/lb_chroot_install-packages.1:6 en/lb_chroot_interactive.1:6
 #: en/lb_chroot_linux-image.1:6 en/lb_chroot_local-hooks.1:6
 #: en/lb_chroot_local-includes.1:6 en/lb_chroot_local-packagelists.1:6
-#: en/lb_chroot_local-packages.1:6 en/lb_chroot_local-patches.1:6
-#: en/lb_chroot_local-preseed.1:6 en/lb_chroot_local-tasklists.1:6
-#: en/lb_chroot_packagelists.1:6 en/lb_chroot_preseed.1:6
-#: en/lb_chroot_proc.1:6 en/lb_chroot_resolv.1:6 en/lb_chroot_selinuxfs.1:6
-#: en/lb_chroot_sources.1:6 en/lb_chroot_sysfs.1:6 en/lb_chroot_sysv-rc.1:6
-#: en/lb_chroot_upstart.1:6 en/lb_clean.1:6 en/lb_config.1:6 en/lb_local.1:6
-#: en/lb_source.1:6 en/lb_source_checksums.1:6 en/lb_source_debian-live.1:6
+#: en/lb_chroot_local-patches.1:6 en/lb_chroot_local-preseed.1:6
+#: en/lb_chroot_packagelists.1:6 en/lb_chroot_packages.1:6
+#: en/lb_chroot_preseed.1:6 en/lb_chroot_proc.1:6 en/lb_chroot_resolv.1:6
+#: en/lb_chroot_selinuxfs.1:6 en/lb_chroot_sysfs.1:6 en/lb_chroot_sysv-rc.1:6
+#: en/lb_chroot_task-lists.1:6 en/lb_chroot_upstart.1:6 en/lb_clean.1:6
+#: en/lb_config.1:6 en/lb_local.1:6 en/lb_source.1:6
+#: en/lb_source_checksums.1:6 en/lb_source_debian-live.1:6
 #: en/lb_source_debian.1:6 en/lb_source_disk.1:6 en/lb_source_iso.1:6
 #: en/lb_source_net.1:6 en/lb_source_tar.1:6 en/lb_source_usb.1:6
 #: en/lb_source_virtual-hdd.1:6 en/lb_testroot.1:6 en/live-build.7:6
@@ -227,19 +233,20 @@ msgstr ""
 #: en/lb_binary_win32-loader.1:9 en/lb_binary_yaboot.1:9 en/lb_bootstrap.1:9
 #: en/lb_bootstrap_cache.1:9 en/lb_bootstrap_cdebootstrap.1:9
 #: en/lb_bootstrap_copy.1:9 en/lb_bootstrap_debootstrap.1:9 en/lb_build.1:9
-#: en/lb_chroot.1:9 en/lb_chroot_apt.1:9 en/lb_chroot_cache.1:9
-#: en/lb_chroot_debianchroot.1:9 en/lb_chroot_devpts.1:9 en/lb_chroot_dpkg.1:9
-#: en/lb_chroot_hacks.1:9 en/lb_chroot_hostname.1:9 en/lb_chroot_hosts.1:9
+#: en/lb_chroot.1:9 en/lb_chroot_apt.1:9 en/lb_chroot_archives.1:9
+#: en/lb_chroot_cache.1:9 en/lb_chroot_debianchroot.1:9
+#: en/lb_chroot_devpts.1:9 en/lb_chroot_dpkg.1:9 en/lb_chroot_hacks.1:9
+#: en/lb_chroot_hostname.1:9 en/lb_chroot_hosts.1:9
 #: en/lb_chroot_install-packages.1:9 en/lb_chroot_interactive.1:9
 #: en/lb_chroot_linux-image.1:9 en/lb_chroot_local-hooks.1:9
 #: en/lb_chroot_local-includes.1:9 en/lb_chroot_local-packagelists.1:9
-#: en/lb_chroot_local-packages.1:9 en/lb_chroot_local-patches.1:9
-#: en/lb_chroot_local-preseed.1:9 en/lb_chroot_local-tasklists.1:9
-#: en/lb_chroot_packagelists.1:9 en/lb_chroot_preseed.1:9
-#: en/lb_chroot_proc.1:9 en/lb_chroot_resolv.1:9 en/lb_chroot_selinuxfs.1:9
-#: en/lb_chroot_sources.1:9 en/lb_chroot_sysfs.1:9 en/lb_chroot_sysv-rc.1:9
-#: en/lb_chroot_upstart.1:9 en/lb_clean.1:9 en/lb_config.1:243 en/lb_local.1:9
-#: en/lb_source.1:9 en/lb_source_checksums.1:9 en/lb_source_debian-live.1:9
+#: en/lb_chroot_local-patches.1:9 en/lb_chroot_local-preseed.1:9
+#: en/lb_chroot_packagelists.1:9 en/lb_chroot_packages.1:9
+#: en/lb_chroot_preseed.1:9 en/lb_chroot_proc.1:9 en/lb_chroot_resolv.1:9
+#: en/lb_chroot_selinuxfs.1:9 en/lb_chroot_sysfs.1:9 en/lb_chroot_sysv-rc.1:9
+#: en/lb_chroot_task-lists.1:9 en/lb_chroot_upstart.1:9 en/lb_clean.1:9
+#: en/lb_config.1:243 en/lb_local.1:9 en/lb_source.1:9
+#: en/lb_source_checksums.1:9 en/lb_source_debian-live.1:9
 #: en/lb_source_debian.1:9 en/lb_source_disk.1:9 en/lb_source_iso.1:9
 #: en/lb_source_net.1:9 en/lb_source_tar.1:9 en/lb_source_usb.1:9
 #: en/lb_source_virtual-hdd.1:9 en/lb_testroot.1:9 en/live-build.7:11
@@ -261,19 +268,19 @@ msgstr ""
 #: en/lb_bootstrap.1:14 en/lb_bootstrap_cache.1:14
 #: en/lb_bootstrap_cdebootstrap.1:14 en/lb_bootstrap_copy.1:14
 #: en/lb_bootstrap_debootstrap.1:14 en/lb_build.1:14 en/lb_chroot.1:14
-#: en/lb_chroot_apt.1:14 en/lb_chroot_cache.1:14
+#: en/lb_chroot_apt.1:14 en/lb_chroot_archives.1:14 en/lb_chroot_cache.1:14
 #: en/lb_chroot_debianchroot.1:14 en/lb_chroot_devpts.1:14
 #: en/lb_chroot_dpkg.1:14 en/lb_chroot_hacks.1:14 en/lb_chroot_hostname.1:14
 #: en/lb_chroot_hosts.1:14 en/lb_chroot_install-packages.1:14
 #: en/lb_chroot_interactive.1:14 en/lb_chroot_linux-image.1:14
 #: en/lb_chroot_local-hooks.1:14 en/lb_chroot_local-includes.1:14
-#: en/lb_chroot_local-packagelists.1:14 en/lb_chroot_local-packages.1:14
-#: en/lb_chroot_local-patches.1:14 en/lb_chroot_local-preseed.1:14
-#: en/lb_chroot_local-tasklists.1:14 en/lb_chroot_packagelists.1:14
-#: en/lb_chroot_preseed.1:14 en/lb_chroot_proc.1:14 en/lb_chroot_resolv.1:14
-#: en/lb_chroot_selinuxfs.1:14 en/lb_chroot_sources.1:14
-#: en/lb_chroot_sysfs.1:14 en/lb_chroot_sysv-rc.1:14 en/lb_chroot_upstart.1:14
-#: en/lb_clean.1:16 en/lb_config.1:252 en/lb_local.1:14 en/lb_source.1:14
+#: en/lb_chroot_local-packagelists.1:14 en/lb_chroot_local-patches.1:14
+#: en/lb_chroot_local-preseed.1:14 en/lb_chroot_packagelists.1:14
+#: en/lb_chroot_packages.1:14 en/lb_chroot_preseed.1:14 en/lb_chroot_proc.1:14
+#: en/lb_chroot_resolv.1:14 en/lb_chroot_selinuxfs.1:14
+#: en/lb_chroot_sysfs.1:14 en/lb_chroot_sysv-rc.1:14
+#: en/lb_chroot_task-lists.1:14 en/lb_chroot_upstart.1:14 en/lb_clean.1:16
+#: en/lb_config.1:252 en/lb_local.1:14 en/lb_source.1:14
 #: en/lb_source_checksums.1:14 en/lb_source_debian-live.1:14
 #: en/lb_source_debian.1:14 en/lb_source_disk.1:14 en/lb_source_iso.1:14
 #: en/lb_source_net.1:14 en/lb_source_tar.1:14 en/lb_source_usb.1:14
@@ -296,19 +303,19 @@ msgstr ""
 #: en/lb_bootstrap.1:17 en/lb_bootstrap_cache.1:17
 #: en/lb_bootstrap_cdebootstrap.1:17 en/lb_bootstrap_copy.1:17
 #: en/lb_bootstrap_debootstrap.1:17 en/lb_build.1:17 en/lb_chroot.1:17
-#: en/lb_chroot_apt.1:17 en/lb_chroot_cache.1:17
+#: en/lb_chroot_apt.1:17 en/lb_chroot_archives.1:17 en/lb_chroot_cache.1:17
 #: en/lb_chroot_debianchroot.1:17 en/lb_chroot_devpts.1:17
 #: en/lb_chroot_dpkg.1:17 en/lb_chroot_hacks.1:17 en/lb_chroot_hostname.1:17
 #: en/lb_chroot_hosts.1:17 en/lb_chroot_install-packages.1:17
 #: en/lb_chroot_interactive.1:17 en/lb_chroot_linux-image.1:17
 #: en/lb_chroot_local-hooks.1:17 en/lb_chroot_local-includes.1:17
-#: en/lb_chroot_local-packagelists.1:17 en/lb_chroot_local-packages.1:17
-#: en/lb_chroot_local-patches.1:17 en/lb_chroot_local-preseed.1:17
-#: en/lb_chroot_local-tasklists.1:17 en/lb_chroot_packagelists.1:17
-#: en/lb_chroot_preseed.1:17 en/lb_chroot_proc.1:17 en/lb_chroot_resolv.1:17
-#: en/lb_chroot_selinuxfs.1:17 en/lb_chroot_sources.1:17
-#: en/lb_chroot_sysfs.1:17 en/lb_chroot_sysv-rc.1:17 en/lb_chroot_upstart.1:17
-#: en/lb_clean.1:38 en/lb_config.1:502 en/lb_local.1:17 en/lb_source.1:17
+#: en/lb_chroot_local-packagelists.1:17 en/lb_chroot_local-patches.1:17
+#: en/lb_chroot_local-preseed.1:17 en/lb_chroot_packagelists.1:17
+#: en/lb_chroot_packages.1:17 en/lb_chroot_preseed.1:17 en/lb_chroot_proc.1:17
+#: en/lb_chroot_resolv.1:17 en/lb_chroot_selinuxfs.1:17
+#: en/lb_chroot_sysfs.1:17 en/lb_chroot_sysv-rc.1:17
+#: en/lb_chroot_task-lists.1:17 en/lb_chroot_upstart.1:17 en/lb_clean.1:38
+#: en/lb_config.1:502 en/lb_local.1:17 en/lb_source.1:17
 #: en/lb_source_checksums.1:17 en/lb_source_debian-live.1:17
 #: en/lb_source_debian.1:17 en/lb_source_disk.1:17 en/lb_source_iso.1:17
 #: en/lb_source_net.1:17 en/lb_source_tar.1:17 en/lb_source_usb.1:17
@@ -331,19 +338,19 @@ msgstr ""
 #: en/lb_bootstrap.1:20 en/lb_bootstrap_cache.1:21
 #: en/lb_bootstrap_cdebootstrap.1:21 en/lb_bootstrap_copy.1:21
 #: en/lb_bootstrap_debootstrap.1:21 en/lb_build.1:22 en/lb_chroot.1:20
-#: en/lb_chroot_apt.1:21 en/lb_chroot_cache.1:21
+#: en/lb_chroot_apt.1:21 en/lb_chroot_archives.1:21 en/lb_chroot_cache.1:21
 #: en/lb_chroot_debianchroot.1:21 en/lb_chroot_devpts.1:21
 #: en/lb_chroot_dpkg.1:21 en/lb_chroot_hacks.1:21 en/lb_chroot_hostname.1:21
 #: en/lb_chroot_hosts.1:21 en/lb_chroot_install-packages.1:21
 #: en/lb_chroot_interactive.1:21 en/lb_chroot_linux-image.1:21
 #: en/lb_chroot_local-hooks.1:21 en/lb_chroot_local-includes.1:21
-#: en/lb_chroot_local-packagelists.1:21 en/lb_chroot_local-packages.1:21
-#: en/lb_chroot_local-patches.1:21 en/lb_chroot_local-preseed.1:21
-#: en/lb_chroot_local-tasklists.1:21 en/lb_chroot_packagelists.1:21
-#: en/lb_chroot_preseed.1:21 en/lb_chroot_proc.1:21 en/lb_chroot_resolv.1:21
-#: en/lb_chroot_selinuxfs.1:21 en/lb_chroot_sources.1:21
-#: en/lb_chroot_sysfs.1:21 en/lb_chroot_sysv-rc.1:21 en/lb_chroot_upstart.1:21
-#: en/lb_clean.1:43 en/lb_config.1:509 en/lb_local.1:20 en/lb_source.1:20
+#: en/lb_chroot_local-packagelists.1:21 en/lb_chroot_local-patches.1:21
+#: en/lb_chroot_local-preseed.1:21 en/lb_chroot_packagelists.1:21
+#: en/lb_chroot_packages.1:21 en/lb_chroot_preseed.1:21 en/lb_chroot_proc.1:21
+#: en/lb_chroot_resolv.1:21 en/lb_chroot_selinuxfs.1:21
+#: en/lb_chroot_sysfs.1:21 en/lb_chroot_sysv-rc.1:21
+#: en/lb_chroot_task-lists.1:21 en/lb_chroot_upstart.1:21 en/lb_clean.1:43
+#: en/lb_config.1:509 en/lb_local.1:20 en/lb_source.1:20
 #: en/lb_source_checksums.1:21 en/lb_source_debian-live.1:21
 #: en/lb_source_debian.1:21 en/lb_source_disk.1:21 en/lb_source_iso.1:21
 #: en/lb_source_net.1:21 en/lb_source_tar.1:21 en/lb_source_usb.1:21
@@ -366,19 +373,19 @@ msgstr ""
 #: en/lb_bootstrap.1:22 en/lb_bootstrap_cache.1:23
 #: en/lb_bootstrap_cdebootstrap.1:23 en/lb_bootstrap_copy.1:23
 #: en/lb_bootstrap_debootstrap.1:23 en/lb_build.1:24 en/lb_chroot.1:22
-#: en/lb_chroot_apt.1:23 en/lb_chroot_cache.1:23
+#: en/lb_chroot_apt.1:23 en/lb_chroot_archives.1:23 en/lb_chroot_cache.1:23
 #: en/lb_chroot_debianchroot.1:23 en/lb_chroot_devpts.1:23
 #: en/lb_chroot_dpkg.1:23 en/lb_chroot_hacks.1:23 en/lb_chroot_hostname.1:23
 #: en/lb_chroot_hosts.1:23 en/lb_chroot_install-packages.1:23
 #: en/lb_chroot_interactive.1:23 en/lb_chroot_linux-image.1:23
 #: en/lb_chroot_local-hooks.1:23 en/lb_chroot_local-includes.1:23
-#: en/lb_chroot_local-packagelists.1:23 en/lb_chroot_local-packages.1:23
-#: en/lb_chroot_local-patches.1:23 en/lb_chroot_local-preseed.1:23
-#: en/lb_chroot_local-tasklists.1:23 en/lb_chroot_packagelists.1:23
-#: en/lb_chroot_preseed.1:23 en/lb_chroot_proc.1:23 en/lb_chroot_resolv.1:23
-#: en/lb_chroot_selinuxfs.1:23 en/lb_chroot_sources.1:23
-#: en/lb_chroot_sysfs.1:23 en/lb_chroot_sysv-rc.1:23 en/lb_chroot_upstart.1:23
-#: en/lb_clean.1:45 en/lb_config.1:511 en/lb_local.1:22 en/lb_source.1:22
+#: en/lb_chroot_local-packagelists.1:23 en/lb_chroot_local-patches.1:23
+#: en/lb_chroot_local-preseed.1:23 en/lb_chroot_packagelists.1:23
+#: en/lb_chroot_packages.1:23 en/lb_chroot_preseed.1:23 en/lb_chroot_proc.1:23
+#: en/lb_chroot_resolv.1:23 en/lb_chroot_selinuxfs.1:23
+#: en/lb_chroot_sysfs.1:23 en/lb_chroot_sysv-rc.1:23
+#: en/lb_chroot_task-lists.1:23 en/lb_chroot_upstart.1:23 en/lb_clean.1:45
+#: en/lb_config.1:511 en/lb_local.1:22 en/lb_source.1:22
 #: en/lb_source_checksums.1:23 en/lb_source_debian-live.1:23
 #: en/lb_source_debian.1:23 en/lb_source_disk.1:23 en/lb_source_iso.1:23
 #: en/lb_source_net.1:23 en/lb_source_tar.1:23 en/lb_source_usb.1:23
@@ -400,19 +407,19 @@ msgstr ""
 #: en/lb_bootstrap.1:24 en/lb_bootstrap_cache.1:25
 #: en/lb_bootstrap_cdebootstrap.1:25 en/lb_bootstrap_copy.1:25
 #: en/lb_bootstrap_debootstrap.1:25 en/lb_build.1:26 en/lb_chroot.1:24
-#: en/lb_chroot_apt.1:25 en/lb_chroot_cache.1:25
+#: en/lb_chroot_apt.1:25 en/lb_chroot_archives.1:25 en/lb_chroot_cache.1:25
 #: en/lb_chroot_debianchroot.1:25 en/lb_chroot_devpts.1:25
 #: en/lb_chroot_dpkg.1:25 en/lb_chroot_hacks.1:25 en/lb_chroot_hostname.1:25
 #: en/lb_chroot_hosts.1:25 en/lb_chroot_install-packages.1:25
 #: en/lb_chroot_interactive.1:25 en/lb_chroot_linux-image.1:25
 #: en/lb_chroot_local-hooks.1:25 en/lb_chroot_local-includes.1:25
-#: en/lb_chroot_local-packagelists.1:25 en/lb_chroot_local-packages.1:25
-#: en/lb_chroot_local-patches.1:25 en/lb_chroot_local-preseed.1:25
-#: en/lb_chroot_local-tasklists.1:25 en/lb_chroot_packagelists.1:25
-#: en/lb_chroot_preseed.1:25 en/lb_chroot_proc.1:25 en/lb_chroot_resolv.1:25
-#: en/lb_chroot_selinuxfs.1:25 en/lb_chroot_sources.1:25
-#: en/lb_chroot_sysfs.1:25 en/lb_chroot_sysv-rc.1:25 en/lb_chroot_upstart.1:25
-#: en/lb_clean.1:47 en/lb_config.1:513 en/lb_local.1:24 en/lb_source.1:24
+#: en/lb_chroot_local-packagelists.1:25 en/lb_chroot_local-patches.1:25
+#: en/lb_chroot_local-preseed.1:25 en/lb_chroot_packagelists.1:25
+#: en/lb_chroot_packages.1:25 en/lb_chroot_preseed.1:25 en/lb_chroot_proc.1:25
+#: en/lb_chroot_resolv.1:25 en/lb_chroot_selinuxfs.1:25
+#: en/lb_chroot_sysfs.1:25 en/lb_chroot_sysv-rc.1:25
+#: en/lb_chroot_task-lists.1:25 en/lb_chroot_upstart.1:25 en/lb_clean.1:47
+#: en/lb_config.1:513 en/lb_local.1:24 en/lb_source.1:24
 #: en/lb_source_checksums.1:25 en/lb_source_debian-live.1:25
 #: en/lb_source_debian.1:25 en/lb_source_disk.1:25 en/lb_source_iso.1:25
 #: en/lb_source_net.1:25 en/lb_source_tar.1:25 en/lb_source_usb.1:25
@@ -434,19 +441,19 @@ msgstr ""
 #: en/lb_bootstrap.1:25 en/lb_bootstrap_cache.1:26
 #: en/lb_bootstrap_cdebootstrap.1:26 en/lb_bootstrap_copy.1:26
 #: en/lb_bootstrap_debootstrap.1:26 en/lb_build.1:27 en/lb_chroot.1:25
-#: en/lb_chroot_apt.1:26 en/lb_chroot_cache.1:26
+#: en/lb_chroot_apt.1:26 en/lb_chroot_archives.1:26 en/lb_chroot_cache.1:26
 #: en/lb_chroot_debianchroot.1:26 en/lb_chroot_devpts.1:26
 #: en/lb_chroot_dpkg.1:26 en/lb_chroot_hacks.1:26 en/lb_chroot_hostname.1:26
 #: en/lb_chroot_hosts.1:26 en/lb_chroot_install-packages.1:26
 #: en/lb_chroot_interactive.1:26 en/lb_chroot_linux-image.1:26
 #: en/lb_chroot_local-hooks.1:26 en/lb_chroot_local-includes.1:26
-#: en/lb_chroot_local-packagelists.1:26 en/lb_chroot_local-packages.1:26
-#: en/lb_chroot_local-patches.1:26 en/lb_chroot_local-preseed.1:26
-#: en/lb_chroot_local-tasklists.1:26 en/lb_chroot_packagelists.1:26
-#: en/lb_chroot_preseed.1:26 en/lb_chroot_proc.1:26 en/lb_chroot_resolv.1:26
-#: en/lb_chroot_selinuxfs.1:26 en/lb_chroot_sources.1:26
-#: en/lb_chroot_sysfs.1:26 en/lb_chroot_sysv-rc.1:26 en/lb_chroot_upstart.1:26
-#: en/lb_clean.1:48 en/lb_config.1:514 en/lb_local.1:25 en/lb_source.1:25
+#: en/lb_chroot_local-packagelists.1:26 en/lb_chroot_local-patches.1:26
+#: en/lb_chroot_local-preseed.1:26 en/lb_chroot_packagelists.1:26
+#: en/lb_chroot_packages.1:26 en/lb_chroot_preseed.1:26 en/lb_chroot_proc.1:26
+#: en/lb_chroot_resolv.1:26 en/lb_chroot_selinuxfs.1:26
+#: en/lb_chroot_sysfs.1:26 en/lb_chroot_sysv-rc.1:26
+#: en/lb_chroot_task-lists.1:26 en/lb_chroot_upstart.1:26 en/lb_clean.1:48
+#: en/lb_config.1:514 en/lb_local.1:25 en/lb_source.1:25
 #: en/lb_source_checksums.1:26 en/lb_source_debian-live.1:26
 #: en/lb_source_debian.1:26 en/lb_source_disk.1:26 en/lb_source_iso.1:26
 #: en/lb_source_net.1:26 en/lb_source_tar.1:26 en/lb_source_usb.1:26
@@ -469,19 +476,19 @@ msgstr ""
 #: en/lb_bootstrap.1:27 en/lb_bootstrap_cache.1:28
 #: en/lb_bootstrap_cdebootstrap.1:28 en/lb_bootstrap_copy.1:28
 #: en/lb_bootstrap_debootstrap.1:28 en/lb_build.1:29 en/lb_chroot.1:27
-#: en/lb_chroot_apt.1:28 en/lb_chroot_cache.1:28
+#: en/lb_chroot_apt.1:28 en/lb_chroot_archives.1:28 en/lb_chroot_cache.1:28
 #: en/lb_chroot_debianchroot.1:28 en/lb_chroot_devpts.1:28
 #: en/lb_chroot_dpkg.1:28 en/lb_chroot_hacks.1:28 en/lb_chroot_hostname.1:28
 #: en/lb_chroot_hosts.1:28 en/lb_chroot_install-packages.1:28
 #: en/lb_chroot_interactive.1:28 en/lb_chroot_linux-image.1:28
 #: en/lb_chroot_local-hooks.1:28 en/lb_chroot_local-includes.1:28
-#: en/lb_chroot_local-packagelists.1:28 en/lb_chroot_local-packages.1:28
-#: en/lb_chroot_local-patches.1:28 en/lb_chroot_local-preseed.1:28
-#: en/lb_chroot_local-tasklists.1:28 en/lb_chroot_packagelists.1:28
-#: en/lb_chroot_preseed.1:28 en/lb_chroot_proc.1:28 en/lb_chroot_resolv.1:28
-#: en/lb_chroot_selinuxfs.1:28 en/lb_chroot_sources.1:28
-#: en/lb_chroot_sysfs.1:28 en/lb_chroot_sysv-rc.1:28 en/lb_chroot_upstart.1:28
-#: en/lb_clean.1:50 en/lb_config.1:516 en/lb_local.1:27 en/lb_source.1:27
+#: en/lb_chroot_local-packagelists.1:28 en/lb_chroot_local-patches.1:28
+#: en/lb_chroot_local-preseed.1:28 en/lb_chroot_packagelists.1:28
+#: en/lb_chroot_packages.1:28 en/lb_chroot_preseed.1:28 en/lb_chroot_proc.1:28
+#: en/lb_chroot_resolv.1:28 en/lb_chroot_selinuxfs.1:28
+#: en/lb_chroot_sysfs.1:28 en/lb_chroot_sysv-rc.1:28
+#: en/lb_chroot_task-lists.1:28 en/lb_chroot_upstart.1:28 en/lb_clean.1:50
+#: en/lb_config.1:516 en/lb_local.1:27 en/lb_source.1:27
 #: en/lb_source_checksums.1:28 en/lb_source_debian-live.1:28
 #: en/lb_source_debian.1:28 en/lb_source_disk.1:28 en/lb_source_iso.1:28
 #: en/lb_source_net.1:28 en/lb_source_tar.1:28 en/lb_source_usb.1:28
@@ -506,19 +513,19 @@ msgstr ""
 #: en/lb_bootstrap.1:28 en/lb_bootstrap_cache.1:29
 #: en/lb_bootstrap_cdebootstrap.1:29 en/lb_bootstrap_copy.1:29
 #: en/lb_bootstrap_debootstrap.1:29 en/lb_build.1:30 en/lb_chroot.1:28
-#: en/lb_chroot_apt.1:29 en/lb_chroot_cache.1:29
+#: en/lb_chroot_apt.1:29 en/lb_chroot_archives.1:29 en/lb_chroot_cache.1:29
 #: en/lb_chroot_debianchroot.1:29 en/lb_chroot_devpts.1:29
 #: en/lb_chroot_dpkg.1:29 en/lb_chroot_hacks.1:29 en/lb_chroot_hostname.1:29
 #: en/lb_chroot_hosts.1:29 en/lb_chroot_install-packages.1:29
 #: en/lb_chroot_interactive.1:29 en/lb_chroot_linux-image.1:29
 #: en/lb_chroot_local-hooks.1:29 en/lb_chroot_local-includes.1:29
-#: en/lb_chroot_local-packagelists.1:29 en/lb_chroot_local-packages.1:29
-#: en/lb_chroot_local-patches.1:29 en/lb_chroot_local-preseed.1:29
-#: en/lb_chroot_local-tasklists.1:29 en/lb_chroot_packagelists.1:29
-#: en/lb_chroot_preseed.1:29 en/lb_chroot_proc.1:29 en/lb_chroot_resolv.1:29
-#: en/lb_chroot_selinuxfs.1:29 en/lb_chroot_sources.1:29
-#: en/lb_chroot_sysfs.1:29 en/lb_chroot_sysv-rc.1:29 en/lb_chroot_upstart.1:29
-#: en/lb_clean.1:51 en/lb_config.1:517 en/lb_local.1:28 en/lb_source.1:28
+#: en/lb_chroot_local-packagelists.1:29 en/lb_chroot_local-patches.1:29
+#: en/lb_chroot_local-preseed.1:29 en/lb_chroot_packagelists.1:29
+#: en/lb_chroot_packages.1:29 en/lb_chroot_preseed.1:29 en/lb_chroot_proc.1:29
+#: en/lb_chroot_resolv.1:29 en/lb_chroot_selinuxfs.1:29
+#: en/lb_chroot_sysfs.1:29 en/lb_chroot_sysv-rc.1:29
+#: en/lb_chroot_task-lists.1:29 en/lb_chroot_upstart.1:29 en/lb_clean.1:51
+#: en/lb_config.1:517 en/lb_local.1:28 en/lb_source.1:28
 #: en/lb_source_checksums.1:29 en/lb_source_debian-live.1:29
 #: en/lb_source_debian.1:29 en/lb_source_disk.1:29 en/lb_source_iso.1:29
 #: en/lb_source_net.1:29 en/lb_source_tar.1:29 en/lb_source_usb.1:29
@@ -541,19 +548,19 @@ msgstr ""
 #: en/lb_bootstrap.1:30 en/lb_bootstrap_cache.1:31
 #: en/lb_bootstrap_cdebootstrap.1:31 en/lb_bootstrap_copy.1:31
 #: en/lb_bootstrap_debootstrap.1:31 en/lb_build.1:32 en/lb_chroot.1:30
-#: en/lb_chroot_apt.1:31 en/lb_chroot_cache.1:31
+#: en/lb_chroot_apt.1:31 en/lb_chroot_archives.1:31 en/lb_chroot_cache.1:31
 #: en/lb_chroot_debianchroot.1:31 en/lb_chroot_devpts.1:31
 #: en/lb_chroot_dpkg.1:31 en/lb_chroot_hacks.1:31 en/lb_chroot_hostname.1:31
 #: en/lb_chroot_hosts.1:31 en/lb_chroot_install-packages.1:31
 #: en/lb_chroot_interactive.1:31 en/lb_chroot_linux-image.1:31
 #: en/lb_chroot_local-hooks.1:31 en/lb_chroot_local-includes.1:31
-#: en/lb_chroot_local-packagelists.1:31 en/lb_chroot_local-packages.1:31
-#: en/lb_chroot_local-patches.1:31 en/lb_chroot_local-preseed.1:31
-#: en/lb_chroot_local-tasklists.1:31 en/lb_chroot_packagelists.1:31
-#: en/lb_chroot_preseed.1:31 en/lb_chroot_proc.1:31 en/lb_chroot_resolv.1:31
-#: en/lb_chroot_selinuxfs.1:31 en/lb_chroot_sources.1:31
-#: en/lb_chroot_sysfs.1:31 en/lb_chroot_sysv-rc.1:31 en/lb_chroot_upstart.1:31
-#: en/lb_clean.1:53 en/lb_config.1:519 en/lb_local.1:30 en/lb_source.1:30
+#: en/lb_chroot_local-packagelists.1:31 en/lb_chroot_local-patches.1:31
+#: en/lb_chroot_local-preseed.1:31 en/lb_chroot_packagelists.1:31
+#: en/lb_chroot_packages.1:31 en/lb_chroot_preseed.1:31 en/lb_chroot_proc.1:31
+#: en/lb_chroot_resolv.1:31 en/lb_chroot_selinuxfs.1:31
+#: en/lb_chroot_sysfs.1:31 en/lb_chroot_sysv-rc.1:31
+#: en/lb_chroot_task-lists.1:31 en/lb_chroot_upstart.1:31 en/lb_clean.1:53
+#: en/lb_config.1:519 en/lb_local.1:30 en/lb_source.1:30
 #: en/lb_source_checksums.1:31 en/lb_source_debian-live.1:31
 #: en/lb_source_debian.1:31 en/lb_source_disk.1:31 en/lb_source_iso.1:31
 #: en/lb_source_net.1:31 en/lb_source_tar.1:31 en/lb_source_usb.1:31
@@ -579,19 +586,19 @@ msgstr ""
 #: en/lb_bootstrap.1:31 en/lb_bootstrap_cache.1:32
 #: en/lb_bootstrap_cdebootstrap.1:32 en/lb_bootstrap_copy.1:32
 #: en/lb_bootstrap_debootstrap.1:32 en/lb_build.1:33 en/lb_chroot.1:31
-#: en/lb_chroot_apt.1:32 en/lb_chroot_cache.1:32
+#: en/lb_chroot_apt.1:32 en/lb_chroot_archives.1:32 en/lb_chroot_cache.1:32
 #: en/lb_chroot_debianchroot.1:32 en/lb_chroot_devpts.1:32
 #: en/lb_chroot_dpkg.1:32 en/lb_chroot_hacks.1:32 en/lb_chroot_hostname.1:32
 #: en/lb_chroot_hosts.1:32 en/lb_chroot_install-packages.1:32
 #: en/lb_chroot_interactive.1:32 en/lb_chroot_linux-image.1:32
 #: en/lb_chroot_local-hooks.1:32 en/lb_chroot_local-includes.1:32
-#: en/lb_chroot_local-packagelists.1:32 en/lb_chroot_local-packages.1:32
-#: en/lb_chroot_local-patches.1:32 en/lb_chroot_local-preseed.1:32
-#: en/lb_chroot_local-tasklists.1:32 en/lb_chroot_packagelists.1:32
-#: en/lb_chroot_preseed.1:32 en/lb_chroot_proc.1:32 en/lb_chroot_resolv.1:32
-#: en/lb_chroot_selinuxfs.1:32 en/lb_chroot_sources.1:32
-#: en/lb_chroot_sysfs.1:32 en/lb_chroot_sysv-rc.1:32 en/lb_chroot_upstart.1:32
-#: en/lb_clean.1:54 en/lb_config.1:520 en/lb_local.1:31 en/lb_source.1:31
+#: en/lb_chroot_local-packagelists.1:32 en/lb_chroot_local-patches.1:32
+#: en/lb_chroot_local-preseed.1:32 en/lb_chroot_packagelists.1:32
+#: en/lb_chroot_packages.1:32 en/lb_chroot_preseed.1:32 en/lb_chroot_proc.1:32
+#: en/lb_chroot_resolv.1:32 en/lb_chroot_selinuxfs.1:32
+#: en/lb_chroot_sysfs.1:32 en/lb_chroot_sysv-rc.1:32
+#: en/lb_chroot_task-lists.1:32 en/lb_chroot_upstart.1:32 en/lb_clean.1:54
+#: en/lb_config.1:520 en/lb_local.1:31 en/lb_source.1:31
 #: en/lb_source_checksums.1:32 en/lb_source_debian-live.1:32
 #: en/lb_source_debian.1:32 en/lb_source_disk.1:32 en/lb_source_iso.1:32
 #: en/lb_source_net.1:32 en/lb_source_tar.1:32 en/lb_source_usb.1:32
@@ -614,19 +621,19 @@ msgstr ""
 #: en/lb_bootstrap.1:32 en/lb_bootstrap_cache.1:33
 #: en/lb_bootstrap_cdebootstrap.1:33 en/lb_bootstrap_copy.1:33
 #: en/lb_bootstrap_debootstrap.1:33 en/lb_build.1:34 en/lb_chroot.1:32
-#: en/lb_chroot_apt.1:33 en/lb_chroot_cache.1:33
+#: en/lb_chroot_apt.1:33 en/lb_chroot_archives.1:33 en/lb_chroot_cache.1:33
 #: en/lb_chroot_debianchroot.1:33 en/lb_chroot_devpts.1:33
 #: en/lb_chroot_dpkg.1:33 en/lb_chroot_hacks.1:33 en/lb_chroot_hostname.1:33
 #: en/lb_chroot_hosts.1:33 en/lb_chroot_install-packages.1:33
 #: en/lb_chroot_interactive.1:33 en/lb_chroot_linux-image.1:33
 #: en/lb_chroot_local-hooks.1:33 en/lb_chroot_local-includes.1:33
-#: en/lb_chroot_local-packagelists.1:33 en/lb_chroot_local-packages.1:33
-#: en/lb_chroot_local-patches.1:33 en/lb_chroot_local-preseed.1:33
-#: en/lb_chroot_local-tasklists.1:33 en/lb_chroot_packagelists.1:33
-#: en/lb_chroot_preseed.1:33 en/lb_chroot_proc.1:33 en/lb_chroot_resolv.1:33
-#: en/lb_chroot_selinuxfs.1:33 en/lb_chroot_sources.1:33
-#: en/lb_chroot_sysfs.1:33 en/lb_chroot_sysv-rc.1:33 en/lb_chroot_upstart.1:33
-#: en/lb_clean.1:55 en/lb_config.1:521 en/lb_local.1:32 en/lb_source.1:32
+#: en/lb_chroot_local-packagelists.1:33 en/lb_chroot_local-patches.1:33
+#: en/lb_chroot_local-preseed.1:33 en/lb_chroot_packagelists.1:33
+#: en/lb_chroot_packages.1:33 en/lb_chroot_preseed.1:33 en/lb_chroot_proc.1:33
+#: en/lb_chroot_resolv.1:33 en/lb_chroot_selinuxfs.1:33
+#: en/lb_chroot_sysfs.1:33 en/lb_chroot_sysv-rc.1:33
+#: en/lb_chroot_task-lists.1:33 en/lb_chroot_upstart.1:33 en/lb_clean.1:55
+#: en/lb_config.1:521 en/lb_local.1:32 en/lb_source.1:32
 #: en/lb_source_checksums.1:33 en/lb_source_debian-live.1:33
 #: en/lb_source_debian.1:33 en/lb_source_disk.1:33 en/lb_source_iso.1:33
 #: en/lb_source_net.1:33 en/lb_source_tar.1:33 en/lb_source_usb.1:33
@@ -1135,17 +1142,17 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:205
-msgid "  [-r|B<--repositories >I<REPOSITORY>|I<\"REPOSITORIES\">]"
-msgstr ""
-
-#. type: Plain text
-#: en/lb_config.1:207
 msgid "  [B<--root-command> sudo]"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:209
+#: en/lb_config.1:207
 msgid "  [B<--use-fakeroot> true|false]"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_config.1:209
+msgid "  [B<--archives> I<ARCHIVE>|I<\"ARCHIVES\">]"
 msgstr ""
 
 #. type: Plain text
@@ -2627,11 +2634,11 @@ msgstr ""
 #. type: Plain text
 #: en/lb_config.1:451
 msgid ""
-"defines which lists available in /usr/share/live/build/lists should be used. "
-"By default, this is set to standard. Note that in case you have local "
-"package lists, you don't need to list them here. Putting them into config/"
-"chroot_local-packagelists is enough (the filename needs to have the .list "
-"suffix though)."
+"defines which lists available in /usr/share/live/build/package-lists should "
+"be used. By default, this is set to standard. Note that in case you have "
+"local package lists, you don't need to list them here. Putting them into "
+"config/package-lists is enough (the filename needs to have the .list suffix "
+"though)."
 msgstr ""
 
 #. type: IP
@@ -2648,14 +2655,14 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:453
 #, no-wrap
-msgid "-r|B<--repositories> I<REPOSITORY>|\"I<REPOSITORIES>\""
+msgid "B<--archives> I<ARCHIVE>|\"I<ARCHIVES>\""
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:455
 msgid ""
-"enables one of available third-party repository configurations in /usr/share/"
-"live/build/repositories."
+"enables one of available third-party archive configurations in /usr/share/"
+"live/build/archives."
 msgstr ""
 
 #. type: IP

@@ -41,15 +41,15 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if ls config/chroot_local-packagelists/*.list > /dev/null 2>&1 || \
-   ls config/chroot_local-packagelists/*.list.${_PASS} > /dev/null 2>&1
+if ls config/package-lists/*.chroot.list > /dev/null 2>&1 || \
+   ls config/package-lists/*.chroot_${_PASS}.list > /dev/null 2>&1
 then
-	for LIST in config/chroot_local-packagelists/*.list config/chroot_local-packagelists/*.list.${_PASS}
+	for LIST in config/package-lists/*.chroot.list config/package-lists/*.chroot_${_PASS}.list
 	do
 		if [ -e "${LIST}" ]
 		then
 			# Generating local package list
-			Expand_packagelist "$(basename ${LIST})" "config/chroot_local-packagelists" \
+			Expand_packagelist "$(basename ${LIST})" "config/package-lists" \
 				>> chroot/root/chroot_packages
 		fi
 	done
