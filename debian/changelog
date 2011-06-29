@@ -1,3 +1,53 @@
+live-build (3.0~a22-1) experimental; urgency=low
+
+  [ Daniel Baumann ]
+  * Using -wildcards option when calling mksquashfs with an excludes
+    file.
+
+  [ Colin Watson ]
+  * Make --architectures armel only fail if --linux-flavours was not
+    passed (Closes: #630464).
+
+  [ Daniel Baumann ]
+  * Renaming repositories option to archives for consistency with
+    debian-policy terminology.
+  * Renaming chroot_sources script to chroot_archives for consistency
+    with debian-policy terminology.
+  * Unifying config/chroot_archives and config/archives, now only using
+    config/archives.
+  * Setting default distribution to wheezy (at least until #622838 is
+    handled).
+  * Changing archives key suffix from .gpg to .key.
+  * Using .list suffix in config/archives.
+  * Unifying config/chroot_local-packagelists and config/binary_local-
+    packagelists.
+  * Moving internal global package lists from 'lists' to 'package-
+    lists'. This is not a user visible change.
+  * Moving config/chroot_local-tasklists/*.list to config/task-
+    lists/*.chroot.list, analogue to config/package-lists.
+  * Since we don't have global tasks anymore, renaming lb_chroot_local-
+    tasklists to lb_chroot_task-lists.
+  * Since we don't have global packages anymore, renaming
+    lb_chroot_local-packages to lb_chroot_packages and
+    config/chroot_local-packages to config/chroot_packages.
+
+  [ Colin Watson ]
+  * Fix default for LB_PARENT_ARCHIVE_AREAS (Closes: #630604).
+
+  [ Daniel Baumann ]
+  * Correct rmdir call in top-level Makefiles uninstall target to not
+    fail if there was no prior live-build installation.
+  * Adjust name of archives directory in config tree.
+  * Removing forgotten reference to chroot_packages in lb_chroot.
+  * Correct keyring packages temporary workaround to not fail when
+    aptitude is selected (Closes: #630919).
+  * Making copyright file distribution neutral.
+  * Making copyright headers distribution neutral.
+  * Making help message about missing po4a in manpages makefile
+    distribution neutral.
+
+ -- Daniel Baumann <daniel@debian.org>  Wed, 29 Jun 2011 06:18:11 +0200
+
 live-build (3.0~a21-1) unstable; urgency=low
 
   [ Daniel Baumann ]
