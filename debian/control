@@ -13,7 +13,7 @@ Vcs-Git: git://live.debian.net/git/live-build.git
 Package: live-build
 Architecture: all
 Depends: ${misc:Depends}, debootstrap | cdebootstrap | cdebootstrap-static
-Recommends: live-boot-doc, cpio, gettext-base, gnu-fdisk
+Recommends: live-boot-doc, live-config-doc, cpio, gettext-base, gnu-fdisk
 Suggests:
  dosfstools, genisoimage, memtest86+ | memtest86, mtools, parted,
  squashfs-tools | mtd-tools, sudo | fakeroot, syslinux | grub,
