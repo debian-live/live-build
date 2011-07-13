@@ -11,7 +11,7 @@ scalpel
 # Bootloaders
 syslinux-common
 #if ARCHITECTURES amd64 i386
-grub lilo mbr syslinux
+grub lilo mbr syslinux extlinux
 #endif
 #if ARCHITECTURES hppa
 palo

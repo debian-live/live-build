@@ -39,9 +39,9 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 case "${LB_PARENT_DISTRIBUTION}" in
-	squeeze|wheezy|sid)
+	squeeze)
 		if echo "${LB_TASKS}" | grep -qs lxde ||
-		   echo "${LB_TASKS}" | grep -qs xfce
+			echo "${LB_TASKS}" | grep -qs xfce
 		then
 			GDM="gdm"
 		else
@@ -50,7 +50,7 @@ case "${LB_PARENT_DISTRIBUTION}" in
 		;;
 
 	*)
-		GDM="gdm"
+		GDM="gdm3"
 		;;
 esac
 
