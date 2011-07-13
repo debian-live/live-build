@@ -1,3 +1,18 @@
+live-build (3.0~a24-1) experimental; urgency=low
+
+  [ Richard Nelson ]
+  * Move lxde package-lists to use gdm3 instead of gdm.
+  * Remove lxde test on LB_TASKS for gdm so we now get gdm3.
+
+  [ Daniel Baumann ]
+  * Correct gdm/gdm3 handling, prefere gdm for squeeze as before and use
+    gdm3 for everything else.
+  * Adding extlinux to rescue package list.
+  * Adding live-boot-doc to recommends.
+  * Adding live-config-doc to recommends.
+
+ -- Daniel Baumann <daniel@debian.org>  Wed, 13 Jul 2011 10:42:29 +0200
+
 live-build (3.0~a23-1) experimental; urgency=low
 
   * Correcting wrong chroot call in chroot_archives, only affecting
