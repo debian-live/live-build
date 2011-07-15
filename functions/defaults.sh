@@ -639,7 +639,7 @@ Set_defaults ()
 
 						*)
 							case "${LB_DISTRIBUTION}" in
-								sid)
+								wheezy|sid)
 									LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486 686-pae}"
 									;;
 

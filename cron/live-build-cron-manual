@@ -1,0 +1,107 @@
+#!/bin/sh
+
+## live-build-cron-manual(7) - FIXME
+## Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
+##
+## This program is free software: you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation, either version 3 of the License, or
+## (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+## GNU General Public License for more details.
+##
+## You should have received a copy of the GNU General Public License
+## along with this program. If not, see <http://www.gnu.org/licenses/>.
+##
+## The complete text of the GNU General Public License
+## can be found in /usr/share/common-licenses/GPL-3 file.
+
+
+#set -e
+
+Init ()
+{
+	if [ -e /etc/live/build-cron.conf ]
+	then
+		. /etc/live/build-cron.conf
+	fi
+
+	if ls /etc/live/build-cron.d/* > /dev/null 2>&1
+	then
+		for _FILE in /etc/live/build-cron.d/*
+		do
+			. "${_FILE}"
+		done
+	fi
+
+	if [ "${LIVE_BUILD_CRON_MANUAL}" != "true" ]
+	then
+		echo "live-build-cron-manual disabled."
+		exit 0
+	fi
+
+	if [ -z "${LIVE_BUILD_CRON_MANUAL_DIRECTORY}" ]
+	then
+		echo "live-build-cron-manual directory not set."
+		exit 1
+	fi
+}
+
+Setup ()
+{
+	TMPDIR="$(mktemp -d -t live-build-cron-manual.XXXXXXXX)"
+
+	cd "${TMPDIR}"
+	git clone git://live.debian.net/git/live-manual.git
+	cd live-manual && git checkout debian-next
+}
+
+Build ()
+{
+	cd "${TMPDIR}/live-manual"
+
+	echo "Using the following sisu package versions: " | tee build.log
+
+	for _PACKAGE in $(dpkg --get-selections | awk '/^sisu/ { print $1 }')
+	do
+		echo ${_PACKAGE} $(apt-cache policy $package | awk '/Installed: / { print $2 }') | tee -a build.log
+	done
+
+	make DEBUG=1 autobuild 2>&1 | tee -a build.log
+}
+
+Install ()
+{
+	cd "${LIVE_BUILD_CRON_MANUAL_DIRECTORY}"
+	rm -rf *
+
+	mv "${TMPDIR}/live-manual/build/"* ./
+	mv "${TMPDIR}/live-manual/build.log" ./
+}
+
+Clean ()
+{
+	rm -rf "${TMPDIR}"
+}
+
+Trace ()
+{
+	echo "$(LC_ALL=C date -R)" > "${LIVE_BUILD_CRON_MANUAL_DIRECTORY}/manual-trace"
+}
+
+Main ()
+{
+	Init
+	Setup
+
+	Build
+	Install
+	Clean
+
+	Trace
+}
+
+Main
