@@ -1,0 +1,29 @@
+Template: live-autobuild-manual/title
+Type: title
+Description: Debian Live - System Build Scripts
+
+Template: live-autobuild-manual/enable
+Type: boolean
+Default: false
+Description: Enable live-autobuild-manual?
+ Do you want to enable live-autobuild-manual?
+ .
+ If unsure, use 'no' (default).
+
+Template: live-autobuild-manual/username
+Type: string
+Default: live-autobuild-manual
+Description: What useraccount to use to build the manual?
+ Enter the name of the username.
+
+Template: live-autobuild-manual/directory
+Type: string
+Default: /srv/debian.net/live-manual
+Description: What directory to put builds to?
+ Enter the directory where the manual should be stored in.
+
+Template: live-autobuild-manual/cron
+Type: string
+Default: 0-59/10 * * * *
+Description: What directory to put builds to?
+ Enter the cron times where the manual should be build.

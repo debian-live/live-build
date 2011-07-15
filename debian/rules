@@ -19,9 +19,13 @@ override_dh_auto_install:
 	rm -f debian/live-build/usr/share/doc/live-build/COPYING
 	rm -f debian/live-build/usr/share/doc/live-build/ChangeLog
 
-	# live-buld-cgi
+	# live-build-cgi
 	mkdir -p debian/live-build-cgi/usr/share/live/build
 	mv debian/live-build/usr/share/live/build/cgi debian/live-build-cgi/usr/share/live/build
+
+	# live-build-cron
+	mkdir -p debian/live-build-cron/usr/bin
+	mv debian/live-build/usr/bin/live-build-cron* debian/live-build-cron/usr/bin
 
 override_dh_installchangelogs:
 	dh_installchangelogs docs/ChangeLog

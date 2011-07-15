@@ -4,7 +4,7 @@ SHELL := sh -e
 
 LANGUAGES = $(shell cd manpages/po && ls)
 
-SCRIPTS = cgi/* functions/* examples/*/*.sh examples/auto/* scripts/*.sh scripts/*/*
+SCRIPTS = cgi/* cron/* functions/* examples/*/*.sh examples/auto/* scripts/*.sh scripts/*/*
 
 all: build
 
@@ -46,6 +46,7 @@ install:
 	# Installing executables
 	mkdir -p $(DESTDIR)/usr/bin
 	mv $(DESTDIR)/usr/share/live/build/scripts/build/lb $(DESTDIR)/usr/share/live/build/scripts/build/live-build $(DESTDIR)/usr/bin
+	cp cron/live-* $(DESTDIR)/usr/bin
 
 	# Installing documentation
 	mkdir -p $(DESTDIR)/usr/share/doc/live-build

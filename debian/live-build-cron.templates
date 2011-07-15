@@ -1,0 +1,82 @@
+Template: live-build-cron-images/title
+Type: title
+_Description: Debian Live - System Build Scripts
+
+Template: live-build-cron-images/enable
+Type: boolean
+Default: false
+_Description: Enable live-build-cron-images?
+ Do you want to enable live-build-cron-images?
+ .
+ If unsure, use 'no' (default).
+
+Template: live-build-cron-images/directory
+Type: string
+_Default: /srv/debian.net/live-cdimage
+_Description: What directory to put builds to?
+ Enter the directory where the images should be stored in.
+
+Template: live-build-cron-images/build
+Type: select
+_Choices: git, host, release
+Default: host
+_Description: Which version of live-build to use?
+ Select the version of live-build to use.
+ .
+ If you choose git, the current version of live-build from git will be
+ used. host will use the live-build from the host system, and release will
+ use the last released version.
+
+Template: live-build-cron-images/daily-distributions
+Type: multiselect
+_Choices: squeeze, wheezy, sid
+Default: sid
+_Description: What distributions to build for daily images?
+ Select the distributions you would like to build for daily-images.
+
+Template: live-build-cron-images/daily-flavours
+Type: multiselect
+_Choices: standard, rescue, gnome-desktop, kde-desktop, lxde-desktop, xfce-desktop
+Default: standard
+_Description: What flavours to build for daily images?
+ Select the flavours you would like to build for daily-images.
+
+Template: live-build-cron-images/weekly-distributions
+Type: multiselect
+_Choices: squeeze, wheezy, sid
+Default: wheezy
+_Description: What distributions to build for weekly images?
+ Select the distributions you would like to build for weekly-images.
+
+Template: live-build-cron-images/weekly-flavours
+Type: multiselect
+_Choices: standard, rescue, gnome-desktop, kde-desktop, lxde-desktop, xfce-desktop
+Default: standard
+_Description: What flavours to build for weekly images?
+ Select the flavours you would like to build for weekly-images.
+
+Template: live-build-cron-images/monthly-distributions
+Type: multiselect
+_Choices: squeeze, wheezy, sid
+Default: squeeze
+_Description: What distributions to build for monthly images?
+ Select the distributions you would like to build for monthly-images.
+
+Template: live-build-cron-images/monthly-flavours
+Type: multiselect
+_Choices: standard, rescue, gnome-desktop, kde-desktop, lxde-desktop, xfce-desktop
+Default: standard
+_Description: What flavours to build for monthly images?
+ Select the flavours you would like to build for monthly-images.
+
+Template: live-build-cron-images/source
+Type: boolean
+Default: false
+_Description: Enable source for live-build-cron-images?
+ Do you sources for live-build-cron-images?
+
+Template: live-build-cron-images/cron
+Type: string
+_Default: 0 0 * * *
+_Description: What directory to put builds to?
+ Enter the cron times where the images should be build.

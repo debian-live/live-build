@@ -1,0 +1,5 @@
+* add headers to log with build date and versions.
+* send summary mails to debian-live@l.d.o.
+* do not hardcode git urls.
+* add support for git branches.
+* add support for git snapshot packages.
