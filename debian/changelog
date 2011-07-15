@@ -1,3 +1,11 @@
+live-build (3.0~a25-1) experimental; urgency=low
+
+  * Using updated kernel default flavours for sid also for wheezy.
+  * Adding live-manual to recommends.
+  * Adding initial live-build-cron package.
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 15 Jul 2011 20:33:24 +0200
+
 live-build (3.0~a24-1) experimental; urgency=low
 
   [ Richard Nelson ]
