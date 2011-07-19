@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Remove Python *.py files.
+#
+# This removes byte-compiled Python modules to save some space.
+
+find /usr -name "*.pyc" -print0 | xargs -0r rm -f

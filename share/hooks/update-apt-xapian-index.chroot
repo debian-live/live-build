@@ -10,5 +10,5 @@ set -e
 
 if [ -x /usr/sbin/update-apt-xapian-index ]
 then
-	/usr/sbin/update-apt-xapian-index --force --quiet
+	PYTHONDONTWRITEBYTECODE=1 /usr/sbin/update-apt-xapian-index --force --quiet
 fi
