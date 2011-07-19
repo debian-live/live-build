@@ -39,12 +39,12 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Processing local-hooks
-if Find_files config/chroot_local-hooks/*
+if Find_files config/hooks/*.chroot
 then
 	# Restoring cache
 	Restore_cache cache/packages_chroot
 
-	for HOOK in config/chroot_local-hooks/*
+	for HOOK in config/hooks/*.chroot
 	do
 		# Copying hook
 		cp "${HOOK}" chroot/root

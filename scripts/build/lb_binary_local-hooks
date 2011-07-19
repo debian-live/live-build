@@ -39,9 +39,9 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Processing local-hooks
-if Find_files config/binary_local-hooks/*
+if Find_files config/hooks/*.binary
 then
-	for HOOK in config/binary_local-hooks/*
+	for HOOK in config/hooks/*.binary
 	do
 		# Making hook executable
 		if [ ! -x "${HOOK}" ]
