@@ -35,6 +35,19 @@ Exit ()
 		done
 	fi
 
+	Echo_message "Saving chaches..."
+
+	# We can't really know at which part we're failing,
+	# but let's assume that if there's any binary stage file arround
+	# we are in binary stage.
+
+	if ls .stage/binary* > /dev/null 2>&1
+	then
+		Save_cache cache/packages_binary
+	else
+		Save_cache cache/packages_chroot
+	fi
+
 	return ${VALUE}
 }
 
