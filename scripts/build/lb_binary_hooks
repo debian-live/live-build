@@ -14,7 +14,7 @@ set -e
 . "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
-DESCRIPTION="$(Echo 'execute local hooks in binary')"
+DESCRIPTION="$(Echo 'execute hooks in binary')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -24,13 +24,13 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-Echo_message "Begin executing local hooks..."
+Echo_message "Begin executing hooks..."
 
 # Requiring stage file
 Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/binary_local-hooks
+Check_stagefile .stage/binary_hooks
 
 # Checking lock file
 Check_lockfile .lock
@@ -38,7 +38,21 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-# Processing local-hooks
+## Processing distribution hooks
+
+# Running hooks
+for _HOOK in ${LB_BINARY_HOOKS}
+do
+	if [ -e "${LB_BASE}/hooks/???-${_HOOK}.binary" ]
+	then
+		cd binary
+		./"${LB_BASE}/hooks/???-${_HOOK}.binary" || { Echo_error "${_HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
+		cd "${OLDPWD}"
+	fi
+done
+
+## Processing local hooks
+
 if Find_files config/hooks/*.binary
 then
 	for HOOK in config/hooks/*.binary
@@ -54,5 +68,5 @@ then
 	done
 
 	# Creating stage file
-	Create_stagefile .stage/binary_local-hooks
+	Create_stagefile .stage/binary_hooks
 fi

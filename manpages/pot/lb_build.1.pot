@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2011-07-19 11:55+0300\n"
+"POT-Creation-Date: 2011-07-19 16:46+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,8 +20,8 @@ msgstr ""
 #: en/lb.1:1 en/lb_binary.1:1 en/lb_binary_checksums.1:1
 #: en/lb_binary_chroot.1:1 en/lb_binary_debian-installer.1:1
 #: en/lb_binary_disk.1:1 en/lb_binary_grub.1:1 en/lb_binary_grub2.1:1
-#: en/lb_binary_includes.1:1 en/lb_binary_iso.1:1 en/lb_binary_linux-image.1:1
-#: en/lb_binary_local-hooks.1:1 en/lb_binary_local-includes.1:1
+#: en/lb_binary_hooks.1:1 en/lb_binary_includes.1:1 en/lb_binary_iso.1:1
+#: en/lb_binary_linux-image.1:1 en/lb_binary_local-includes.1:1
 #: en/lb_binary_local-packagelists.1:1 en/lb_binary_manifest.1:1
 #: en/lb_binary_memtest.1:1 en/lb_binary_net.1:1 en/lb_binary_rootfs.1:1
 #: en/lb_binary_silo.1:1 en/lb_binary_syslinux.1:1 en/lb_binary_tar.1:1
@@ -53,8 +53,8 @@ msgstr ""
 #: en/lb.1:1 en/lb_binary.1:1 en/lb_binary_checksums.1:1
 #: en/lb_binary_chroot.1:1 en/lb_binary_debian-installer.1:1
 #: en/lb_binary_disk.1:1 en/lb_binary_grub.1:1 en/lb_binary_grub2.1:1
-#: en/lb_binary_includes.1:1 en/lb_binary_iso.1:1 en/lb_binary_linux-image.1:1
-#: en/lb_binary_local-hooks.1:1 en/lb_binary_local-includes.1:1
+#: en/lb_binary_hooks.1:1 en/lb_binary_includes.1:1 en/lb_binary_iso.1:1
+#: en/lb_binary_linux-image.1:1 en/lb_binary_local-includes.1:1
 #: en/lb_binary_local-packagelists.1:1 en/lb_binary_manifest.1:1
 #: en/lb_binary_memtest.1:1 en/lb_binary_net.1:1 en/lb_binary_rootfs.1:1
 #: en/lb_binary_silo.1:1 en/lb_binary_syslinux.1:1 en/lb_binary_tar.1:1
@@ -86,8 +86,8 @@ msgstr ""
 #: en/lb.1:1 en/lb_binary.1:1 en/lb_binary_checksums.1:1
 #: en/lb_binary_chroot.1:1 en/lb_binary_debian-installer.1:1
 #: en/lb_binary_disk.1:1 en/lb_binary_grub.1:1 en/lb_binary_grub2.1:1
-#: en/lb_binary_includes.1:1 en/lb_binary_iso.1:1 en/lb_binary_linux-image.1:1
-#: en/lb_binary_local-hooks.1:1 en/lb_binary_local-includes.1:1
+#: en/lb_binary_hooks.1:1 en/lb_binary_includes.1:1 en/lb_binary_iso.1:1
+#: en/lb_binary_linux-image.1:1 en/lb_binary_local-includes.1:1
 #: en/lb_binary_local-packagelists.1:1 en/lb_binary_manifest.1:1
 #: en/lb_binary_memtest.1:1 en/lb_binary_net.1:1 en/lb_binary_rootfs.1:1
 #: en/lb_binary_silo.1:1 en/lb_binary_syslinux.1:1 en/lb_binary_tar.1:1
@@ -119,8 +119,8 @@ msgstr ""
 #: en/lb.1:1 en/lb_binary.1:1 en/lb_binary_checksums.1:1
 #: en/lb_binary_chroot.1:1 en/lb_binary_debian-installer.1:1
 #: en/lb_binary_disk.1:1 en/lb_binary_grub.1:1 en/lb_binary_grub2.1:1
-#: en/lb_binary_includes.1:1 en/lb_binary_iso.1:1 en/lb_binary_linux-image.1:1
-#: en/lb_binary_local-hooks.1:1 en/lb_binary_local-includes.1:1
+#: en/lb_binary_hooks.1:1 en/lb_binary_includes.1:1 en/lb_binary_iso.1:1
+#: en/lb_binary_linux-image.1:1 en/lb_binary_local-includes.1:1
 #: en/lb_binary_local-packagelists.1:1 en/lb_binary_manifest.1:1
 #: en/lb_binary_memtest.1:1 en/lb_binary_net.1:1 en/lb_binary_rootfs.1:1
 #: en/lb_binary_silo.1:1 en/lb_binary_syslinux.1:1 en/lb_binary_tar.1:1
@@ -152,8 +152,8 @@ msgstr ""
 #: en/lb.1:3 en/lb_binary.1:3 en/lb_binary_checksums.1:3
 #: en/lb_binary_chroot.1:3 en/lb_binary_debian-installer.1:3
 #: en/lb_binary_disk.1:3 en/lb_binary_grub.1:3 en/lb_binary_grub2.1:3
-#: en/lb_binary_includes.1:3 en/lb_binary_iso.1:3 en/lb_binary_linux-image.1:3
-#: en/lb_binary_local-hooks.1:3 en/lb_binary_local-includes.1:3
+#: en/lb_binary_hooks.1:3 en/lb_binary_includes.1:3 en/lb_binary_iso.1:3
+#: en/lb_binary_linux-image.1:3 en/lb_binary_local-includes.1:3
 #: en/lb_binary_local-packagelists.1:3 en/lb_binary_manifest.1:3
 #: en/lb_binary_memtest.1:3 en/lb_binary_net.1:3 en/lb_binary_rootfs.1:3
 #: en/lb_binary_silo.1:3 en/lb_binary_syslinux.1:3 en/lb_binary_tar.1:3
@@ -185,8 +185,8 @@ msgstr ""
 #: en/lb.1:6 en/lb_binary.1:6 en/lb_binary_checksums.1:6
 #: en/lb_binary_chroot.1:6 en/lb_binary_debian-installer.1:6
 #: en/lb_binary_disk.1:6 en/lb_binary_grub.1:6 en/lb_binary_grub2.1:6
-#: en/lb_binary_includes.1:6 en/lb_binary_iso.1:6 en/lb_binary_linux-image.1:6
-#: en/lb_binary_local-hooks.1:6 en/lb_binary_local-includes.1:6
+#: en/lb_binary_hooks.1:6 en/lb_binary_includes.1:6 en/lb_binary_iso.1:6
+#: en/lb_binary_linux-image.1:6 en/lb_binary_local-includes.1:6
 #: en/lb_binary_local-packagelists.1:6 en/lb_binary_manifest.1:6
 #: en/lb_binary_memtest.1:6 en/lb_binary_net.1:6 en/lb_binary_rootfs.1:6
 #: en/lb_binary_silo.1:6 en/lb_binary_syslinux.1:6 en/lb_binary_tar.1:6
@@ -218,8 +218,8 @@ msgstr ""
 #: en/lb.1:11 en/lb_binary.1:9 en/lb_binary_checksums.1:9
 #: en/lb_binary_chroot.1:9 en/lb_binary_debian-installer.1:9
 #: en/lb_binary_disk.1:9 en/lb_binary_grub.1:9 en/lb_binary_grub2.1:9
-#: en/lb_binary_includes.1:9 en/lb_binary_iso.1:9 en/lb_binary_linux-image.1:9
-#: en/lb_binary_local-hooks.1:9 en/lb_binary_local-includes.1:9
+#: en/lb_binary_hooks.1:9 en/lb_binary_includes.1:9 en/lb_binary_iso.1:9
+#: en/lb_binary_linux-image.1:9 en/lb_binary_local-includes.1:9
 #: en/lb_binary_local-packagelists.1:9 en/lb_binary_manifest.1:9
 #: en/lb_binary_memtest.1:9 en/lb_binary_net.1:9 en/lb_binary_rootfs.1:9
 #: en/lb_binary_silo.1:9 en/lb_binary_syslinux.1:9 en/lb_binary_tar.1:9
@@ -251,12 +251,12 @@ msgstr ""
 #: en/lb.1:16 en/lb_binary.1:14 en/lb_binary_checksums.1:14
 #: en/lb_binary_chroot.1:14 en/lb_binary_debian-installer.1:14
 #: en/lb_binary_disk.1:14 en/lb_binary_grub.1:14 en/lb_binary_grub2.1:14
-#: en/lb_binary_includes.1:14 en/lb_binary_iso.1:14
-#: en/lb_binary_linux-image.1:14 en/lb_binary_local-hooks.1:14
-#: en/lb_binary_local-includes.1:14 en/lb_binary_local-packagelists.1:14
-#: en/lb_binary_manifest.1:14 en/lb_binary_memtest.1:14 en/lb_binary_net.1:14
-#: en/lb_binary_rootfs.1:14 en/lb_binary_silo.1:14 en/lb_binary_syslinux.1:14
-#: en/lb_binary_tar.1:14 en/lb_binary_usb.1:14 en/lb_binary_virtual-hdd.1:14
+#: en/lb_binary_hooks.1:14 en/lb_binary_includes.1:14 en/lb_binary_iso.1:14
+#: en/lb_binary_linux-image.1:14 en/lb_binary_local-includes.1:14
+#: en/lb_binary_local-packagelists.1:14 en/lb_binary_manifest.1:14
+#: en/lb_binary_memtest.1:14 en/lb_binary_net.1:14 en/lb_binary_rootfs.1:14
+#: en/lb_binary_silo.1:14 en/lb_binary_syslinux.1:14 en/lb_binary_tar.1:14
+#: en/lb_binary_usb.1:14 en/lb_binary_virtual-hdd.1:14
 #: en/lb_binary_win32-loader.1:14 en/lb_binary_yaboot.1:14
 #: en/lb_bootstrap.1:14 en/lb_bootstrap_cache.1:14
 #: en/lb_bootstrap_cdebootstrap.1:14 en/lb_bootstrap_copy.1:14
@@ -286,12 +286,12 @@ msgstr ""
 #: en/lb.1:19 en/lb_binary.1:17 en/lb_binary_checksums.1:17
 #: en/lb_binary_chroot.1:17 en/lb_binary_debian-installer.1:17
 #: en/lb_binary_disk.1:17 en/lb_binary_grub.1:17 en/lb_binary_grub2.1:17
-#: en/lb_binary_includes.1:17 en/lb_binary_iso.1:17
-#: en/lb_binary_linux-image.1:17 en/lb_binary_local-hooks.1:17
-#: en/lb_binary_local-includes.1:17 en/lb_binary_local-packagelists.1:17
-#: en/lb_binary_manifest.1:17 en/lb_binary_memtest.1:17 en/lb_binary_net.1:17
-#: en/lb_binary_rootfs.1:17 en/lb_binary_silo.1:17 en/lb_binary_syslinux.1:17
-#: en/lb_binary_tar.1:17 en/lb_binary_usb.1:17 en/lb_binary_virtual-hdd.1:17
+#: en/lb_binary_hooks.1:17 en/lb_binary_includes.1:17 en/lb_binary_iso.1:17
+#: en/lb_binary_linux-image.1:17 en/lb_binary_local-includes.1:17
+#: en/lb_binary_local-packagelists.1:17 en/lb_binary_manifest.1:17
+#: en/lb_binary_memtest.1:17 en/lb_binary_net.1:17 en/lb_binary_rootfs.1:17
+#: en/lb_binary_silo.1:17 en/lb_binary_syslinux.1:17 en/lb_binary_tar.1:17
+#: en/lb_binary_usb.1:17 en/lb_binary_virtual-hdd.1:17
 #: en/lb_binary_win32-loader.1:17 en/lb_binary_yaboot.1:17
 #: en/lb_bootstrap.1:17 en/lb_bootstrap_cache.1:17
 #: en/lb_bootstrap_cdebootstrap.1:17 en/lb_bootstrap_copy.1:17
@@ -321,12 +321,12 @@ msgstr ""
 #: en/lb.1:22 en/lb_binary.1:20 en/lb_binary_checksums.1:21
 #: en/lb_binary_chroot.1:21 en/lb_binary_debian-installer.1:21
 #: en/lb_binary_disk.1:21 en/lb_binary_grub.1:21 en/lb_binary_grub2.1:21
-#: en/lb_binary_includes.1:21 en/lb_binary_iso.1:21
-#: en/lb_binary_linux-image.1:21 en/lb_binary_local-hooks.1:21
-#: en/lb_binary_local-includes.1:21 en/lb_binary_local-packagelists.1:21
-#: en/lb_binary_manifest.1:21 en/lb_binary_memtest.1:21 en/lb_binary_net.1:21
-#: en/lb_binary_rootfs.1:21 en/lb_binary_silo.1:21 en/lb_binary_syslinux.1:21
-#: en/lb_binary_tar.1:21 en/lb_binary_usb.1:21 en/lb_binary_virtual-hdd.1:21
+#: en/lb_binary_hooks.1:21 en/lb_binary_includes.1:21 en/lb_binary_iso.1:21
+#: en/lb_binary_linux-image.1:21 en/lb_binary_local-includes.1:21
+#: en/lb_binary_local-packagelists.1:21 en/lb_binary_manifest.1:21
+#: en/lb_binary_memtest.1:21 en/lb_binary_net.1:21 en/lb_binary_rootfs.1:21
+#: en/lb_binary_silo.1:21 en/lb_binary_syslinux.1:21 en/lb_binary_tar.1:21
+#: en/lb_binary_usb.1:21 en/lb_binary_virtual-hdd.1:21
 #: en/lb_binary_win32-loader.1:21 en/lb_binary_yaboot.1:21
 #: en/lb_bootstrap.1:20 en/lb_bootstrap_cache.1:21
 #: en/lb_bootstrap_cdebootstrap.1:21 en/lb_bootstrap_copy.1:21
@@ -356,12 +356,12 @@ msgstr ""
 #: en/lb.1:24 en/lb_binary.1:22 en/lb_binary_checksums.1:23
 #: en/lb_binary_chroot.1:23 en/lb_binary_debian-installer.1:23
 #: en/lb_binary_disk.1:23 en/lb_binary_grub.1:23 en/lb_binary_grub2.1:23
-#: en/lb_binary_includes.1:23 en/lb_binary_iso.1:23
-#: en/lb_binary_linux-image.1:23 en/lb_binary_local-hooks.1:23
-#: en/lb_binary_local-includes.1:23 en/lb_binary_local-packagelists.1:23
-#: en/lb_binary_manifest.1:23 en/lb_binary_memtest.1:23 en/lb_binary_net.1:23
-#: en/lb_binary_rootfs.1:23 en/lb_binary_silo.1:23 en/lb_binary_syslinux.1:23
-#: en/lb_binary_tar.1:23 en/lb_binary_usb.1:23 en/lb_binary_virtual-hdd.1:23
+#: en/lb_binary_hooks.1:23 en/lb_binary_includes.1:23 en/lb_binary_iso.1:23
+#: en/lb_binary_linux-image.1:23 en/lb_binary_local-includes.1:23
+#: en/lb_binary_local-packagelists.1:23 en/lb_binary_manifest.1:23
+#: en/lb_binary_memtest.1:23 en/lb_binary_net.1:23 en/lb_binary_rootfs.1:23
+#: en/lb_binary_silo.1:23 en/lb_binary_syslinux.1:23 en/lb_binary_tar.1:23
+#: en/lb_binary_usb.1:23 en/lb_binary_virtual-hdd.1:23
 #: en/lb_binary_win32-loader.1:23 en/lb_binary_yaboot.1:23
 #: en/lb_bootstrap.1:22 en/lb_bootstrap_cache.1:23
 #: en/lb_bootstrap_cdebootstrap.1:23 en/lb_bootstrap_copy.1:23
@@ -390,12 +390,12 @@ msgstr ""
 #: en/lb.1:26 en/lb_binary.1:24 en/lb_binary_checksums.1:25
 #: en/lb_binary_chroot.1:25 en/lb_binary_debian-installer.1:25
 #: en/lb_binary_disk.1:25 en/lb_binary_grub.1:25 en/lb_binary_grub2.1:25
-#: en/lb_binary_includes.1:25 en/lb_binary_iso.1:25
-#: en/lb_binary_linux-image.1:25 en/lb_binary_local-hooks.1:25
-#: en/lb_binary_local-includes.1:25 en/lb_binary_local-packagelists.1:25
-#: en/lb_binary_manifest.1:25 en/lb_binary_memtest.1:25 en/lb_binary_net.1:25
-#: en/lb_binary_rootfs.1:25 en/lb_binary_silo.1:25 en/lb_binary_syslinux.1:25
-#: en/lb_binary_tar.1:25 en/lb_binary_usb.1:25 en/lb_binary_virtual-hdd.1:25
+#: en/lb_binary_hooks.1:25 en/lb_binary_includes.1:25 en/lb_binary_iso.1:25
+#: en/lb_binary_linux-image.1:25 en/lb_binary_local-includes.1:25
+#: en/lb_binary_local-packagelists.1:25 en/lb_binary_manifest.1:25
+#: en/lb_binary_memtest.1:25 en/lb_binary_net.1:25 en/lb_binary_rootfs.1:25
+#: en/lb_binary_silo.1:25 en/lb_binary_syslinux.1:25 en/lb_binary_tar.1:25
+#: en/lb_binary_usb.1:25 en/lb_binary_virtual-hdd.1:25
 #: en/lb_binary_win32-loader.1:25 en/lb_binary_yaboot.1:25
 #: en/lb_bootstrap.1:24 en/lb_bootstrap_cache.1:25
 #: en/lb_bootstrap_cdebootstrap.1:25 en/lb_bootstrap_copy.1:25
@@ -424,12 +424,12 @@ msgstr ""
 #: en/lb.1:27 en/lb_binary.1:25 en/lb_binary_checksums.1:26
 #: en/lb_binary_chroot.1:26 en/lb_binary_debian-installer.1:26
 #: en/lb_binary_disk.1:26 en/lb_binary_grub.1:26 en/lb_binary_grub2.1:26
-#: en/lb_binary_includes.1:26 en/lb_binary_iso.1:26
-#: en/lb_binary_linux-image.1:26 en/lb_binary_local-hooks.1:26
-#: en/lb_binary_local-includes.1:26 en/lb_binary_local-packagelists.1:26
-#: en/lb_binary_manifest.1:26 en/lb_binary_memtest.1:26 en/lb_binary_net.1:26
-#: en/lb_binary_rootfs.1:26 en/lb_binary_silo.1:26 en/lb_binary_syslinux.1:26
-#: en/lb_binary_tar.1:26 en/lb_binary_usb.1:26 en/lb_binary_virtual-hdd.1:26
+#: en/lb_binary_hooks.1:26 en/lb_binary_includes.1:26 en/lb_binary_iso.1:26
+#: en/lb_binary_linux-image.1:26 en/lb_binary_local-includes.1:26
+#: en/lb_binary_local-packagelists.1:26 en/lb_binary_manifest.1:26
+#: en/lb_binary_memtest.1:26 en/lb_binary_net.1:26 en/lb_binary_rootfs.1:26
+#: en/lb_binary_silo.1:26 en/lb_binary_syslinux.1:26 en/lb_binary_tar.1:26
+#: en/lb_binary_usb.1:26 en/lb_binary_virtual-hdd.1:26
 #: en/lb_binary_win32-loader.1:26 en/lb_binary_yaboot.1:26
 #: en/lb_bootstrap.1:25 en/lb_bootstrap_cache.1:26
 #: en/lb_bootstrap_cdebootstrap.1:26 en/lb_bootstrap_copy.1:26
@@ -459,12 +459,12 @@ msgstr ""
 #: en/lb.1:29 en/lb_binary.1:27 en/lb_binary_checksums.1:28
 #: en/lb_binary_chroot.1:28 en/lb_binary_debian-installer.1:28
 #: en/lb_binary_disk.1:28 en/lb_binary_grub.1:28 en/lb_binary_grub2.1:28
-#: en/lb_binary_includes.1:28 en/lb_binary_iso.1:28
-#: en/lb_binary_linux-image.1:28 en/lb_binary_local-hooks.1:28
-#: en/lb_binary_local-includes.1:28 en/lb_binary_local-packagelists.1:28
-#: en/lb_binary_manifest.1:28 en/lb_binary_memtest.1:28 en/lb_binary_net.1:28
-#: en/lb_binary_rootfs.1:28 en/lb_binary_silo.1:28 en/lb_binary_syslinux.1:28
-#: en/lb_binary_tar.1:28 en/lb_binary_usb.1:28 en/lb_binary_virtual-hdd.1:28
+#: en/lb_binary_hooks.1:28 en/lb_binary_includes.1:28 en/lb_binary_iso.1:28
+#: en/lb_binary_linux-image.1:28 en/lb_binary_local-includes.1:28
+#: en/lb_binary_local-packagelists.1:28 en/lb_binary_manifest.1:28
+#: en/lb_binary_memtest.1:28 en/lb_binary_net.1:28 en/lb_binary_rootfs.1:28
+#: en/lb_binary_silo.1:28 en/lb_binary_syslinux.1:28 en/lb_binary_tar.1:28
+#: en/lb_binary_usb.1:28 en/lb_binary_virtual-hdd.1:28
 #: en/lb_binary_win32-loader.1:28 en/lb_binary_yaboot.1:28
 #: en/lb_bootstrap.1:27 en/lb_bootstrap_cache.1:28
 #: en/lb_bootstrap_cdebootstrap.1:28 en/lb_bootstrap_copy.1:28
@@ -496,12 +496,12 @@ msgstr ""
 #: en/lb.1:30 en/lb_binary.1:28 en/lb_binary_checksums.1:29
 #: en/lb_binary_chroot.1:29 en/lb_binary_debian-installer.1:29
 #: en/lb_binary_disk.1:29 en/lb_binary_grub.1:29 en/lb_binary_grub2.1:29
-#: en/lb_binary_includes.1:29 en/lb_binary_iso.1:29
-#: en/lb_binary_linux-image.1:29 en/lb_binary_local-hooks.1:29
-#: en/lb_binary_local-includes.1:29 en/lb_binary_local-packagelists.1:29
-#: en/lb_binary_manifest.1:29 en/lb_binary_memtest.1:29 en/lb_binary_net.1:29
-#: en/lb_binary_rootfs.1:29 en/lb_binary_silo.1:29 en/lb_binary_syslinux.1:29
-#: en/lb_binary_tar.1:29 en/lb_binary_usb.1:29 en/lb_binary_virtual-hdd.1:29
+#: en/lb_binary_hooks.1:29 en/lb_binary_includes.1:29 en/lb_binary_iso.1:29
+#: en/lb_binary_linux-image.1:29 en/lb_binary_local-includes.1:29
+#: en/lb_binary_local-packagelists.1:29 en/lb_binary_manifest.1:29
+#: en/lb_binary_memtest.1:29 en/lb_binary_net.1:29 en/lb_binary_rootfs.1:29
+#: en/lb_binary_silo.1:29 en/lb_binary_syslinux.1:29 en/lb_binary_tar.1:29
+#: en/lb_binary_usb.1:29 en/lb_binary_virtual-hdd.1:29
 #: en/lb_binary_win32-loader.1:29 en/lb_binary_yaboot.1:29
 #: en/lb_bootstrap.1:28 en/lb_bootstrap_cache.1:29
 #: en/lb_bootstrap_cdebootstrap.1:29 en/lb_bootstrap_copy.1:29
@@ -531,12 +531,12 @@ msgstr ""
 #: en/lb.1:32 en/lb_binary.1:30 en/lb_binary_checksums.1:31
 #: en/lb_binary_chroot.1:31 en/lb_binary_debian-installer.1:31
 #: en/lb_binary_disk.1:31 en/lb_binary_grub.1:31 en/lb_binary_grub2.1:31
-#: en/lb_binary_includes.1:31 en/lb_binary_iso.1:31
-#: en/lb_binary_linux-image.1:31 en/lb_binary_local-hooks.1:31
-#: en/lb_binary_local-includes.1:31 en/lb_binary_local-packagelists.1:31
-#: en/lb_binary_manifest.1:31 en/lb_binary_memtest.1:31 en/lb_binary_net.1:31
-#: en/lb_binary_rootfs.1:31 en/lb_binary_silo.1:31 en/lb_binary_syslinux.1:31
-#: en/lb_binary_tar.1:31 en/lb_binary_usb.1:31 en/lb_binary_virtual-hdd.1:31
+#: en/lb_binary_hooks.1:31 en/lb_binary_includes.1:31 en/lb_binary_iso.1:31
+#: en/lb_binary_linux-image.1:31 en/lb_binary_local-includes.1:31
+#: en/lb_binary_local-packagelists.1:31 en/lb_binary_manifest.1:31
+#: en/lb_binary_memtest.1:31 en/lb_binary_net.1:31 en/lb_binary_rootfs.1:31
+#: en/lb_binary_silo.1:31 en/lb_binary_syslinux.1:31 en/lb_binary_tar.1:31
+#: en/lb_binary_usb.1:31 en/lb_binary_virtual-hdd.1:31
 #: en/lb_binary_win32-loader.1:31 en/lb_binary_yaboot.1:31
 #: en/lb_bootstrap.1:30 en/lb_bootstrap_cache.1:31
 #: en/lb_bootstrap_cdebootstrap.1:31 en/lb_bootstrap_copy.1:31
@@ -569,12 +569,12 @@ msgstr ""
 #: en/lb.1:33 en/lb_binary.1:31 en/lb_binary_checksums.1:32
 #: en/lb_binary_chroot.1:32 en/lb_binary_debian-installer.1:32
 #: en/lb_binary_disk.1:32 en/lb_binary_grub.1:32 en/lb_binary_grub2.1:32
-#: en/lb_binary_includes.1:32 en/lb_binary_iso.1:32
-#: en/lb_binary_linux-image.1:32 en/lb_binary_local-hooks.1:32
-#: en/lb_binary_local-includes.1:32 en/lb_binary_local-packagelists.1:32
-#: en/lb_binary_manifest.1:32 en/lb_binary_memtest.1:32 en/lb_binary_net.1:32
-#: en/lb_binary_rootfs.1:32 en/lb_binary_silo.1:32 en/lb_binary_syslinux.1:32
-#: en/lb_binary_tar.1:32 en/lb_binary_usb.1:32 en/lb_binary_virtual-hdd.1:32
+#: en/lb_binary_hooks.1:32 en/lb_binary_includes.1:32 en/lb_binary_iso.1:32
+#: en/lb_binary_linux-image.1:32 en/lb_binary_local-includes.1:32
+#: en/lb_binary_local-packagelists.1:32 en/lb_binary_manifest.1:32
+#: en/lb_binary_memtest.1:32 en/lb_binary_net.1:32 en/lb_binary_rootfs.1:32
+#: en/lb_binary_silo.1:32 en/lb_binary_syslinux.1:32 en/lb_binary_tar.1:32
+#: en/lb_binary_usb.1:32 en/lb_binary_virtual-hdd.1:32
 #: en/lb_binary_win32-loader.1:32 en/lb_binary_yaboot.1:32
 #: en/lb_bootstrap.1:31 en/lb_bootstrap_cache.1:32
 #: en/lb_bootstrap_cdebootstrap.1:32 en/lb_bootstrap_copy.1:32
@@ -604,12 +604,12 @@ msgstr ""
 #: en/lb.1:34 en/lb_binary.1:32 en/lb_binary_checksums.1:33
 #: en/lb_binary_chroot.1:33 en/lb_binary_debian-installer.1:33
 #: en/lb_binary_disk.1:33 en/lb_binary_grub.1:33 en/lb_binary_grub2.1:33
-#: en/lb_binary_includes.1:33 en/lb_binary_iso.1:33
-#: en/lb_binary_linux-image.1:33 en/lb_binary_local-hooks.1:33
-#: en/lb_binary_local-includes.1:33 en/lb_binary_local-packagelists.1:33
-#: en/lb_binary_manifest.1:33 en/lb_binary_memtest.1:33 en/lb_binary_net.1:33
-#: en/lb_binary_rootfs.1:33 en/lb_binary_silo.1:33 en/lb_binary_syslinux.1:33
-#: en/lb_binary_tar.1:33 en/lb_binary_usb.1:33 en/lb_binary_virtual-hdd.1:33
+#: en/lb_binary_hooks.1:33 en/lb_binary_includes.1:33 en/lb_binary_iso.1:33
+#: en/lb_binary_linux-image.1:33 en/lb_binary_local-includes.1:33
+#: en/lb_binary_local-packagelists.1:33 en/lb_binary_manifest.1:33
+#: en/lb_binary_memtest.1:33 en/lb_binary_net.1:33 en/lb_binary_rootfs.1:33
+#: en/lb_binary_silo.1:33 en/lb_binary_syslinux.1:33 en/lb_binary_tar.1:33
+#: en/lb_binary_usb.1:33 en/lb_binary_virtual-hdd.1:33
 #: en/lb_binary_win32-loader.1:33 en/lb_binary_yaboot.1:33
 #: en/lb_bootstrap.1:32 en/lb_bootstrap_cache.1:33
 #: en/lb_bootstrap_cdebootstrap.1:33 en/lb_bootstrap_copy.1:33
