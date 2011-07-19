@@ -14,7 +14,7 @@ Set_defaults ()
 
 	LB_BASE="${LB_BASE:-/usr/share/live/build}"
 
-	# Setting mode (currently: debian, emdebian, progress, and ubuntu)
+	# Setting mode (currently: debian, emdebian, progress, ubuntu and kubuntu)
 	LB_MODE="${LB_MODE:-debian}"
 
 	# Setting distribution name
@@ -24,7 +24,7 @@ Set_defaults ()
 			LB_DERIVATIVE="true"
 			;;
 
-		ubuntu)
+		ubuntu|kubuntu)
 			LB_DISTRIBUTION="${LB_DISTRIBUTION:-karmic}"
 			LB_DERIVATIVE="false"
 			;;
@@ -140,7 +140,7 @@ Set_defaults ()
 	case "${LB_INITRAMFS}" in
 		auto)
 			case "${LB_MODE}" in
-				ubuntu)
+				ubuntu|kubuntu)
 					LB_INITRAMFS="casper"
 					;;
 
@@ -159,7 +159,7 @@ Set_defaults ()
 
 	# Setting initsystem
 	case "${LB_MODE}" in
-		ubuntu)
+		ubuntu|kubuntu)
 			case "${LB_INITRAMFS}" in
 				live-boot)
 					LB_INITSYSTEM="${LB_INITSYSTEM:-upstart}"
@@ -320,7 +320,7 @@ Set_defaults ()
 			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://archive.progress-linux.org/progress/}"
 			;;
 
-		ubuntu)
+		ubuntu|kubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
 					LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-http://archive.ubuntu.com/ubuntu/}"
@@ -355,7 +355,7 @@ Set_defaults ()
 			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-${LB_MIRROR_CHROOT}}"
 			;;
 
-		ubuntu)
+		ubuntu|kubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
 					LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-http://security.ubuntu.com/ubuntu/}"
@@ -382,7 +382,7 @@ Set_defaults ()
 			LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE:-none}"
 			;;
 
-		ubuntu)
+		ubuntu|kubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
 					LB_PARENT_MIRROR_CHROOT_VOLATILE="${LB_PARENT_MIRROR_CHROOT_VOLATILE:-http://archive.ubuntu.com/ubuntu/}"
@@ -436,7 +436,7 @@ Set_defaults ()
 			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-${LB_PARENT_MIRROR_BINARY}}"
 			;;
 
-		ubuntu)
+		ubuntu|kubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
 					LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-http://archive.ubuntu.com/ubuntu/}"
@@ -468,7 +468,7 @@ Set_defaults ()
 			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-${LB_MIRROR_CHROOT}}"
 			;;
 
-		ubuntu)
+		ubuntu|kubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
 					LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-http://security.ubuntu.com/ubuntu/}"
@@ -495,7 +495,7 @@ Set_defaults ()
 			LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY_VOLATILE:-none}"
 			;;
 
-		ubuntu)
+		ubuntu|kubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
 					LB_PARENT_MIRROR_BINARY_VOLATILE="${LB_PARENT_MIRROR_BINARY_VOLATILE:-http://archive.ubuntu.com/ubuntu/}"
@@ -549,7 +549,7 @@ Set_defaults ()
 			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main}"
 			;;
 
-		ubuntu)
+		ubuntu|kubuntu)
 			LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS:-main restricted}"
 			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-${LB_PARENT_ARCHIVE_AREAS}}"
 			;;
@@ -581,7 +581,7 @@ Set_defaults ()
 
 	# Setting keyring packages
 	case "${LB_MODE}" in
-		ubuntu)
+		ubuntu|kubuntu)
 			LB_KEYRING_PACKAGES="${LB_KEYRING_PACKAGES:-ubuntu-keyring}"
 			;;
 
@@ -603,7 +603,7 @@ Set_defaults ()
 
 		amd64)
 			case "${LB_MODE}" in
-				ubuntu)
+				ubuntu|kubuntu)
 					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-generic}"
 					;;
 
@@ -627,7 +627,7 @@ Set_defaults ()
 					esac
 					;;
 
-				ubuntu)
+				ubuntu|kubuntu)
 					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-generic}"
 					;;
 
@@ -673,7 +673,7 @@ Set_defaults ()
 					exit 1
 					;;
 
-				ubuntu)
+				ubuntu|kubuntu)
 					case "${LIST}" in
 						stripped|minimal)
 							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc}"
@@ -701,7 +701,7 @@ Set_defaults ()
 
 		s390)
 			case "${LB_MODE}" in
-				progress|ubuntu)
+				progress|ubuntu|kubuntu)
 					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
 					exit 1
 					;;
@@ -733,7 +733,7 @@ Set_defaults ()
 
 	# Set linux packages
 	case "${LB_MODE}" in
-		ubuntu)
+		ubuntu|kubuntu)
 			LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES:-linux}"
 			;;
 
@@ -892,12 +892,20 @@ Set_defaults ()
 				;;
 
 			usb*)
-				if [ "${LB_MODE}" = "ubuntu" ] || [ "${LB_DEBIAN_INSTALLER}" = "live" ]
-				then
-					_LB_BOOTAPPEND_PRESEED="file=/cdrom/install/${LB_DEBIAN_INSTALLER_PRESEEDFILE}"
-				else
-					_LB_BOOTAPPEND_PRESEED="file=/hd-media/install/${LB_DEBIAN_INSTALLER_PRESEEDFILE}"
-				fi
+				case "${LB_MODE}" in
+					ubuntu|kubuntu)
+						if [ "${LB_DEBIAN_INSTALLER}" = "live" ]
+						then
+							_LB_BOOTAPPEND_PRESEED="file=/cdrom/install/${LB_DEBIAN_INSTALLER_PRESEEDFILE}"
+						else
+							_LB_BOOTAPPEND_PRESEED="file=/hd-media/install/${LB_DEBIAN_INSTALLER_PRESEEDFILE}"
+						fi
+						;;
+
+					*)
+						_LB_BOOTAPPEND_PRESEED="file=/hd-media/install/${LB_DEBIAN_INSTALLER_PRESEEDFILE}"
+						;;
+				esac
 				;;
 
 			net)
@@ -944,6 +952,10 @@ Set_defaults ()
 		ubuntu)
 			LB_ISO_APPLICATION="${LB_ISO_APPLICATION:-Ubuntu Live}"
 			;;
+
+		kubuntu)
+			LB_ISO_APPLICATION="${LB_ISO_APPLICATION:-Kubuntu Live}"
+			;;
 	esac
 
 	# Set iso preparer
@@ -977,6 +989,10 @@ Set_defaults ()
 		ubuntu)
 			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Ubuntu ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)}"
 			;;
+
+		kubuntu)
+			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Ubuntu ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)}"
+			;;
 	esac
 
 	# Setting memtest option
@@ -984,7 +1000,7 @@ Set_defaults ()
 
 	# Setting win32-loader option
 	case "${LB_MODE}" in
-		progress|ubuntu)
+		progress|ubuntu|kubuntu)
 
 			;;
 
@@ -1043,6 +1059,10 @@ Set_defaults ()
 	# Setting username
 	case "${LB_MODE}" in
 		ubuntu)
+			LB_USERNAME="${LB_USERNAME:-ubuntu}"
+			;;
+
+		kubuntu)
 			LB_USERNAME="${LB_USERNAME:-ubuntu}"
 			;;
 

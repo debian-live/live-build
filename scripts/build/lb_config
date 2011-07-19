@@ -112,7 +112,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--mirror-binary-volatile URL]\n\
 \t    [--mirror-binary-backports URL]\n\
 \t    [--mirror-debian-installer URL]\n\
-\t    [--mode debian|emdebian|ubuntu]\n\
+\t    [--mode debian|emdebian|ubuntu|kubuntu]\n\
 \t    [--net-root-filesystem nfs|cfs]\n\
 \t    [--net-root-mountoptions OPTIONS]\n\
 \t    [--net-root-path PATH]\n\

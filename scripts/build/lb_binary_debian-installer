@@ -303,7 +303,7 @@ then
 			DI_REQ_PACKAGES="lilo grub"
 
 			case "${LB_MODE}" in
-				ubuntu)
+				ubuntu|kubuntu)
 					DI_PACKAGES="${DI_REQ_PACKAGES} linux-generic"
 					;;
 
@@ -318,7 +318,7 @@ then
 			DI_REQ_PACKAGES="elilo lilo grub"
 
 			case "${LB_MODE}" in
-				ubuntu)
+				ubuntu|kubuntu)
 					DI_PACKAGES="${DI_REQ_PACKAGES} linux-generic"
 					;;
 
@@ -331,7 +331,7 @@ then
 		sparc)
 			DI_REQ_PACKAGES="silo"
 			case "${LB_MODE}" in
-				ubuntu)
+				ubuntu|kubuntu)
 					DI_PACKAGES="${DI_REQ_PACKAGES} linux-sparc64"
 					;;
 
@@ -344,7 +344,7 @@ then
 		powerpc)
 			DI_REQ_PACKAGES="yaboot"
 			case "${LB_MODE}" in
-				ubuntu)
+				ubuntu|kubuntu)
 					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-powerpc linux-image-powerpc64-smp"
 					;;
 

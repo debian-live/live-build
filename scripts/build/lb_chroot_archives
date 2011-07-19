@@ -136,7 +136,7 @@ EOF
 					fi
 					;;
 
-				ubuntu)
+				ubuntu|kubuntu)
 					echo "deb ${LB_PARENT_MIRROR_CHROOT_SECURITY} ${LB_PARENT_DISTRIBUTION}-security ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
 					if [ "${LB_SOURCE}" = "true" ]
@@ -150,7 +150,7 @@ EOF
 		if [ "${LB_VOLATILE}" = "true" ]
 		then
 			case "${LB_MODE}" in
-				debian|ubuntu)
+				debian|ubuntu|kubuntu)
 					echo "deb ${LB_PARENT_MIRROR_CHROOT_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
 					if [ "${LB_SOURCE}" = "true" ]
@@ -204,12 +204,20 @@ EOF
 			for REPOSITORY in ${LB_ARCHIVES}
 			do
 				# ubuntu workaround to allow using live.debian.net
-				if [ "${LB_MODE}" = "ubuntu" ] && [ "${REPOSITORY}" = "live.debian.net" ]
-				then
-					_DISTRIBUTION="sid"
-				else
-					_DISTRIBUTION="${LB_PARENT_DISTRIBUTION}"
-				fi
+				case "${LB_MODE}" in
+					ubuntu|kubuntu)
+						if [ "${REPOSITORY}" = "live.debian.net" ]
+						then
+							_DISTRIBUTION="sid"
+						else
+							_DISTRIBUTION="${LB_PARENT_DISTRIBUTION}"
+						fi
+						;;
+
+					*)
+						_DISTRIBUTION="${LB_PARENT_DISTRIBUTION}"
+						;;
+				esac
 
 				# Prefer archives from the config tree
 				# over the global ones.
@@ -660,7 +668,7 @@ EOF
 					fi
 					;;
 
-				ubuntu)
+				ubuntu|kubuntu)
 					echo "deb ${LB_PARENT_MIRROR_BINARY_SECURITY} ${LB_PARENT_DISTRIBUTION}-security ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
 					if [ "${LB_SOURCE}" = "true" ]
@@ -674,7 +682,7 @@ EOF
 		if [ "${LB_VOLATILE}" = "true" ]
 		then
 			case "${LB_MODE}" in
-				debian|ubuntu)
+				debian|ubuntu|kubuntu)
 					echo "deb ${LB_PARENT_MIRROR_BINARY_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
 					if [ "${LB_SOURCE}" = "true" ]

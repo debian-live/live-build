@@ -66,6 +66,12 @@ case "${LB_MODE}" in
 		TRACE=""
 		;;
 
+	kubuntu)
+		TITLE="Kubuntu"
+		STRING="Build ${ARCHITECTURE}"
+		TRACE=""
+		;;
+
 	*)
 		STRING="Snapshot ${ARCHITECTURE}"
 		TRACE=""

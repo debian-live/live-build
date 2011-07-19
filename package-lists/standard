@@ -11,6 +11,6 @@ locales
 locales-all
 #endif
 
-#if MODE ubuntu
+#if MODE ubuntu kubuntu
 ubuntu-minimal
 #endif

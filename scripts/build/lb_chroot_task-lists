@@ -82,7 +82,7 @@ then
 			APT_TASKS=
 
 			case "${LB_MODE}" in
-				ubuntu)
+				ubuntu|kubuntu)
 					TASKS="$(cat chroot/root/chroot_tasks)"
 					;;
 
