@@ -103,6 +103,13 @@ then
 	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --verbose"
 fi
 
+# If LB_APT_SECURE is false, do not check signatures of the Release file
+# (requires debootstrap >= 1.0.30)
+if [ "${LB_APT_SECURE}" = "false" ] && /usr/sbin/debootstrap --help  | grep -qs '\-\-no-check-gpg'
+then
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --no-check-gpg"
+fi
+
 if [ -x "/usr/sbin/debootstrap" ]
 then
 	if [ "${LB_CACHE_PACKAGES}" = "true" ]
