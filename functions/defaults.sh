@@ -574,7 +574,21 @@ Set_defaults ()
 	# Setting union filesystem
 	LB_UNION_FILESYSTEM="${LB_UNION_FILESYSTEM:-aufs}"
 
-	# LB_HOOKS
+	# Setting distribution hooks
+	case "${LB_MODE}" in
+		*)
+			LB_CHROOT_HOOKS="update-apt-xapian-index \
+					 update-mlocate-database \
+					 remove-python-py"
+			;;
+
+		kubuntu)
+			LB_CHROOT_HOOKS="update-apt-xapian-index \
+					 update-mlocate-database \
+					 remove-gnome-icon-cache \
+					 remove-python-py"
+			;;
+	esac
 
 	# Setting interactive shell/X11/Xnest
 	LB_INTERACTIVE="${LB_INTERACTIVE:-false}"

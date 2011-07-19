@@ -30,7 +30,7 @@ Echo_message "Begin executing local hooks..."
 Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/chroot_local-hooks
+Check_stagefile .stage/chroot_hooks
 
 # Checking lock file
 Check_lockfile .lock
@@ -38,33 +38,58 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-# Processing local-hooks
+## Processing distribution hooks
+
+# Copying hooks
+for _HOOK in ${LB_CHROOT_HOOKS}
+do
+	if [ -e "${LB_BASE}/hooks/???-${_HOOK}.chroot" ]
+	then
+		mkdir -p chroot/root/lb_chroot_hooks
+		cp "${LB_BASE}/hooks/???-${_HOOK}.chroot" chroot/root/lb_chroot_hooks
+	fi
+done
+
+# Running hooks
+if ls chroot/root/lb_chroot_hooks/* > /dev/null 2>&1
+then
+	for _HOOK in chroot/root/lb_chroot_hooks/*
+	do
+		Chroot chroot "/root/$(basename ${_HOOK})" || { Echo_error "${_HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
+		rm -f chroot/root/"$(basename ${_HOOK})"
+	done
+
+	rmdir chroot/root/lb_chroot_hooks
+fi
+
+## Processing local hooks
+
 if Find_files config/hooks/*.chroot
 then
 	# Restoring cache
 	Restore_cache cache/packages_chroot
 
-	for HOOK in config/hooks/*.chroot
+	for _HOOK in config/hooks/*.chroot
 	do
 		# Copying hook
-		cp "${HOOK}" chroot/root
+		cp "${_HOOK}" chroot/root
 
 		# Making hook executable
-		if [ ! -x chroot/root/"$(basename ${HOOK})" ]
+		if [ ! -x chroot/root/"$(basename ${_HOOK})" ]
 		then
-			chmod +x chroot/root/"$(basename ${HOOK})"
+			chmod +x chroot/root/"$(basename ${_HOOK})"
 		fi
 
 		# Executing hook
-		Chroot chroot "/root/$(basename ${HOOK})" || { Echo_error "${HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
+		Chroot chroot "/root/$(basename ${_HOOK})" || { Echo_error "${_HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
 
 		# Removing hook
-		rm -f chroot/root/"$(basename ${HOOK})"
+		rm -f chroot/root/"$(basename ${_HOOK})"
 	done
 
 	# Saving cache
 	Save_cache cache/packages_chroot
 
 	# Creating stage file
-	Create_stagefile .stage/chroot_local-hooks
+	Create_stagefile .stage/chroot_hooks
 fi
