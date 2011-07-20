@@ -93,7 +93,6 @@ Echo_warning "!!! The following error/warning messages can be ignored !!!"
 Losetup $FREELO source.img 0
 Chroot chroot "parted -s ${FREELO} mklabel msdos" || true
 Chroot chroot "parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100%" || true
-Chroot chroot "parted -s ${FREELO} set 1 lba off" || true
 sleep 1
 ${LB_LOSETUP} -d ${FREELO}
 
@@ -126,6 +125,12 @@ rmdir source.tmp
 sleep 1
 ${LB_LOSETUP} -d ${FREELO}
 Echo_warning "!!! The above error/warning messages can be ignored !!!"
+
+FREELO="$(${LB_LOSETUP} -f)"
+Losetup "$FREELO" source.img 0
+Chroot chroot "parted -s ${FREELO} set 1 lba off" || true
+sleep 1
+${LB_LOSETUP} -d ${FREELO}
 
 if [ -n "${MAKEDEV}" ]
 then
