@@ -73,8 +73,11 @@ Check_multiarchitectures
 mkdir -p "${DESTDIR}"
 
 # Installing linux-image
-cp chroot/boot/"${LINUX}"-* "${DESTDIR}"
-cp chroot/boot/initrd.img-* "${DESTDIR}"
+if [ "${LB_LINUX_PACKAGES}" != "none" ]
+then
+	cp chroot/boot/"${LINUX}"-* "${DESTDIR}"
+	cp chroot/boot/initrd.img-* "${DESTDIR}"
+fi
 
 case "${LB_INITRAMFS}" in
 	live-boot)
