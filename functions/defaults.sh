@@ -217,6 +217,11 @@ Set_defaults ()
 		fi
 	fi
 
+	if [ "${LB_ARCHITECTURE}" = "i386" ] && [ "$(uname -m)" = "x86_64" ]
+	then
+		LB_ROOT_COMMAND="${LB_ROOT_COMMAND} linux32"
+	fi
+
 	# Setting tasksel
 	case "${LB_DISTRIBUTION}" in
 		squeeze)
