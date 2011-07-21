@@ -164,8 +164,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 		;;
 esac
 
-sleep 1
-${LB_LOSETUP} -d ${FREELO}
+Lodetach ${FREELO}
 
 FREELO="$(${LB_LOSETUP} -f)"
 Losetup $FREELO chroot/binary.img 1
@@ -254,8 +253,7 @@ then
 	esac
 fi
 
-sleep 1
-${LB_LOSETUP} -d ${FREELO}
+Lodetach ${FREELO}
 
 echo "!!! The above error/warning messages can be ignored !!!"
 
@@ -274,8 +272,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 		;;
 esac
 
-sleep 1
-${LB_LOSETUP} -d ${FREELO}
+Lodetach ${FREELO}
 
 if [ -n "${MAKEDEV}" ]
 then
