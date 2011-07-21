@@ -113,6 +113,22 @@ esac
 
 # Set architecture-specific variables
 case "${LB_ARCHITECTURES}" in
+	armel)
+		DEFAULT_FLAVOUR="$(echo ${LH_LINUX_FLAVOURS} | awk '{ print $1 }')"
+		case "${DI_IMAGE_TYPE}" in
+			cdrom)
+				DI_REMOTE_BASE="${DEFAULT_FLAVOUR}/cdrom"
+				;;
+
+			netboot)
+				DI_REMOTE_BASE="${DEFAULT_FLAVOUR}/netboot"
+				;;
+		esac
+
+		DI_REMOTE_KERNEL="vmlinuz"
+		DI_REMOTE_BASE_GTK="${DI_REMOTE_BASE}/gtk"
+		;;
+
 	powerpc)
 		case "${DI_IMAGE_TYPE}" in
 			cdrom)
