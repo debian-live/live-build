@@ -371,7 +371,7 @@ then
 			;;
 	esac
 
-	DI_PACKAGES="${DI_PACKAGES} busybox cryptsetup lvm2"
+	DI_PACKAGES="${DI_PACKAGES} busybox cryptsetup mdadm lvm2"
 
 	case "${LB_MODE}" in
 		debian)
