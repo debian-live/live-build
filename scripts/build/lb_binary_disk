@@ -124,14 +124,13 @@ case "${LB_DEBIAN_INSTALLER}" in
 
 		touch binary/.disk/base_installable
 
-		echo "not_complete" > binary/.disk/cd_type
-
 		if [ "${LB_DEBIAN_INSTALLER}" = "live" ]
 		then
+			echo "live" > binary/.disk/cd_type
 			echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/INSTALL Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
 		else
+			echo "not_complete" > binary/.disk/cd_type
 			echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/NETINST Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
-
 		fi
 
 		cp "${LB_BASE}"/data/debian-cd/${LB_PARENT_DISTRIBUTION}/${LB_ARCHITECTURES}_netinst_udeb_include binary/.disk/udeb_include
