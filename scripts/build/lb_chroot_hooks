@@ -71,8 +71,7 @@ then
 
 	# Make build config available to chroot hooks.
 	mkdir -p chroot/root/config
-	mount --bind config/ chroot/root/config
-	mount -o remount,ro chroot/root/config
+	mount -o bind,ro config chroot/root/config
 
 	for _HOOK in config/hooks/*.chroot
 	do
@@ -93,8 +92,8 @@ then
 	done
 
 	# Remove bind mount of build config inside chroot.
-	umount chroot/root/config/
-	rmdir chroot/root/config/
+	umount chroot/root/config
+	rmdir chroot/root/config
 
 	# Saving cache
 	Save_cache cache/packages_chroot
