@@ -27,7 +27,7 @@ then
 fi
 
 # Setting static variables
-PROGREAM="lb config"
+PROGRAM="lb config"
 DESCRIPTION="$(Echo 'create configuration for live-build(7)')"
 USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--apt-ftp-proxy URL]\n\
