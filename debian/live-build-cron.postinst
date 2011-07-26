@@ -8,37 +8,37 @@ _FILE="/etc/live/build-cron.d/images.conf"
 
 case "${1}" in
 	configure)
-		db_get live-build-cron-images/enable
+		db_get live-build-cron/images-enable
 		LIVE_BUILD_CRON_IMAGES="${RET}" # boolean
 
-		db_get live-build-cron-images/directory
+		db_get live-build-cron/images-directory
 		LIVE_BUILD_CRON_IMAGES_DIRECTORY="${RET:-/srv/debian.net/live/cdimage}" # string (w/o empty)
 
-		db_get live-build-cron-images/build
+		db_get live-build-cron/images-build
 		LIVE_BUILD_CRON_IMAGES_BUILD="${RET}" # select
 
-		db_get live-build-cron-images/daily-distributions
+		db_get live-build-cron/images-daily-distributions
 		LIVE_BUILD_CRON_IMAGES_DAILY_DISTRIBUTIONS="$(echo ${RET} | sed -e 's|,||g')" # multiselect
 
-		db_get live-build-cron-images/daily-flavours
+		db_get live-build-cron/images-daily-flavours
 		LIVE_BUILD_CRON_IMAGES_DAILY_FLAVOURS="$(echo ${RET} | sed -e 's|,||g')" # multiselect
 
-		db_get live-build-cron-images/weekly-distributions
+		db_get live-build-cron/images-weekly-distributions
 		LIVE_BUILD_CRON_IMAGES_WEEKLY_DISTRIBUTIONS="$(echo ${RET} | sed -e 's|,||g')" # multiselect
 
-		db_get live-build-cron-images/weekly-flavours
+		db_get live-build-cron/images-weekly-flavours
 		LIVE_BUILD_CRON_IMAGES_WEEKLY_FLAVOURS="$(echo ${RET} | sed -e 's|,||g')" # multiselect
 
-		db_get live-build-cron-images/monthly-distributions
+		db_get live-build-cron/images-monthly-distributions
 		LIVE_BUILD_CRON_IMAGES_MONTHLY_DISTRIBUTIONS="$(echo ${RET} | sed -e 's|,||g')" # multiselect
 
-		db_get live-build-cron-images/monthly-flavours
+		db_get live-build-cron/images-monthly-flavours
 		LIVE_BUILD_CRON_IMAGES_MONTHLY_FLAVOURS="$(echo ${RET} | sed -e 's|,||g')" # multiselect
 
-		db_get live-build-cron-images/source
+		db_get live-build-cron/images-source
 		LIVE_BUILD_CRON_IMAGES_SOURCE="${RET}" # boolean
 
-		db_get live-build-cron-images/cron
+		db_get live-build-cron/images-cron
 		_CRON="${RET}" # string (w empty)
 
 		db_stop
