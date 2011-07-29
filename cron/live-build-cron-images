@@ -167,6 +167,18 @@ Build ()
 			rm -rf cache/stages_rootfs
 			rm -f config/* || true
 
+			LB_VERSION="$(lb --version | awk '/^live-build, version / { print $3 }')"
+
+			case "${LB_VERSION}" in
+				2.0*)
+					_PACKAGE_LISTS="--packages-lists ${FLAVOUR}"
+					;;
+
+				3.0*)
+					_PACKAGE_LISTS="--package-lists ${FLAVOUR}"
+					;;
+			esac
+
 			# FIXME: cdebootstrap
 			lb config --clean \
 				--bootstrap cdebootstrap \
@@ -177,7 +189,7 @@ Build ()
 				--mirror-bootstrap ${MIRROR_BOOTSTRAP} \
 				--mirror-chroot ${MIRROR_CHROOT} \
 				--mirror-chroot-security ${MIRROR_CHROOT_SECURITY} \
-				--packages-lists ${FLAVOUR}
+				${_PACKAGE_LISTS}
 
 			lb build 2>&1 | tee debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.log
 
