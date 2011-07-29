@@ -614,12 +614,9 @@ Set_defaults ()
 	# Setting linux flavour string
 	case "${LB_ARCHITECTURES}" in
 		armel)
-			if [ -z "${LB_LINUX_FLAVOURS}" ]
-			then
-				Echo_error "There is no default kernel flavour defined for your architecture."
-				Echo_error "Please configure it manually with 'lb config -k FLAVOUR'."
-				exit 1
-			fi
+			# armel will have special images: one rootfs image and many additional kernel images.
+			# therefore we default to all available armel flavours
+			LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-iop32x ixp4xx kirkwood orion5x versatile}"
 			;;
 
 		amd64)
