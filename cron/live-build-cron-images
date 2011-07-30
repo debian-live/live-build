@@ -184,7 +184,6 @@ Build ()
 				--bootstrap cdebootstrap \
 				--cache-stages "bootstrap rootfs" \
 				--debian-installer ${DEBIAN_INSTALLER} \
-				--debian-installer-distribution ${DEBIAN_INSTALLER_DISTRIBUTION} \
 				--distribution ${DISTRIBUTION} \
 				--mirror-bootstrap ${MIRROR_BOOTSTRAP} \
 				--mirror-chroot ${MIRROR_CHROOT} \
