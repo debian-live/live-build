@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2011\-07\-28 3.0~a25 "Debian Live Project"
+.TH LIVE\-BUILD 1 2011\-08\-04 3.0~a25 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -280,7 +280,7 @@ defines the filesystem to be used in the image type. This only has an effect if 
 .IP "\fB\-\-bootappend\-install\fR \fIPARAMETER\fR|""\fIPARAMETERS\fR""" 4
 sets boot parameters specific to debian\-installer, if included.
 .IP "\fB\-\-bootappend\-live\fR \fIPARAMETER\fR|""\fIPARAMETERS\fR""" 4
-sets boot parameters specific to debian\-live. A complete list of boot parameters can be found in the live\-boot(7) and live\-config(7) man pages.
+sets boot parameters specific to debian\-live. A complete list of boot parameters can be found in the \fIlive\-boot\fR(7) and \fIlive\-config\fR(7) manual pages.
 .IP "\fB\-\-bootloader\fR grub|syslinux|yaboot" 4
 defines which bootloader is beeing used in the generated image. This has only an effect if the selected binary image type does allow to choose the bootloader. For example, if you build a iso, always syslinux (or more precise, isolinux) is being used. Also note that some combinations of binary images types and bootloaders may be possible but live\-build does not support them yet. \fBlb config\fR will fail to create such a not yet supported configuration and give a explanation about it. For usb\-hdd images on amd64 and i386, the default is syslinux. yaboot is only used on powerpc.
 .IP "\fB\-\-bootstrap\fR cdebootstrap|cdebootstrap-static|debootstrap|copy" 4
@@ -507,9 +507,11 @@ An optional, global configuration file for \fBlb config\fR variables. It is usef
 .\" FIXME
 
 .SH SEE ALSO
-.BR \fIlive\-build\fR(7),
-.BR \fIlive\-boot\fR(7),
-.BR \fIlive\-config\fR(7)
+\fIlive\-build\fR(7)
+.PP
+\fIlive\-boot\fR(7)
+.PP
+\fIlive\-config\fR(7)
 .PP
 This program is a part of live\-build.
 

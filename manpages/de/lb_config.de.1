@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2011\-07\-28 3.0~a25 "Debian Live Project"
+.TH LIVE\-BUILD 1 2011\-08\-04 3.0~a25 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -333,10 +333,8 @@ switched to fat32.
 sets boot parameters specific to debian\-installer, if included.
 .IP "\fB\-\-bootappend\-live\fP \fIPARAMETER\fP|\(dq\fIPARAMETERS\fP\(dq" 4
 sets boot parameters specific to debian\-live. A complete list of boot
-parameters can be found, for etch, in the manpage of casper, for all other
-distributions in the manpage of live\-boot and live\-config. On the images, a
-list of all parameters (without comments) is included in the
-/parameters.txt.
+parameters can be found in the \fIlive\-boot\fP(7) and \fIlive\-config\fP(7) manual
+pages.
 .IP "\fB\-\-bootloader\fP grub|syslinux|yaboot" 4
 defines which bootloader is beeing used in the generated image. This has
 only an effect if the selected binary image type does allow to choose the
@@ -798,6 +796,10 @@ LB_PARENT_MIRROR_BOOTSTRAP. This feature can be false by specifying the
 
 .SH "SEE ALSO"
 \fIlive\-build\fP(7)
+.PP
+\fIlive\-boot\fP(7)
+.PP
+\fIlive\-config\fP(7)
 .PP
 This program is a part of live\-build.
 
