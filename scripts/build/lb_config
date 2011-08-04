@@ -170,7 +170,7 @@ Local_arguments ()
 		help,ignore-system-defaults,quiet,usage,verbose,version"
 	# Remove spaces added by indentation
 	LONG_OPTIONS="$(echo ${LONG_OPTIONS} | tr -d ' ')"
-	ARGUMENTS="$(getopt --longoptions ${LONG_OPTIONS} --name="${PROGRAM}" --options a:f:d:m:l:k:p:b:e:r:s:c:huv --shell sh -- "${@}")"
+	ARGUMENTS="$(getopt --longoptions ${LONG_OPTIONS} --name="${PROGRAM}" --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
 
 	if [ "${?}" != "0" ]
 	then
