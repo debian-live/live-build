@@ -102,12 +102,14 @@ then
 	case "${LB_BUILD_WITH_CHROOT}" in
 		true)
 			cp config/binary_rootfs/excludes chroot/chroot/excludes
+			# Not using Chroot() here because we want explicitly /bin/bash (for the time being)
 			chroot chroot/chroot /usr/bin/env -i xargs --arg-file=/excludes -I FILE bash -c 'rm -rf FILE'
 			rm -f chroot/chroot/excludes
 			;;
 
 		false)
 			cp config/binary_rootfs/excludes chroot/excludes
+			# Not using Chroot() here because we want explicitly /bin/bash (for the time being)
 			chroot chroot /usr/bin/env -i xargs --arg-file=/excludes -I FILE bash -c 'rm -rf FILE'
 			rm -f chroot/excludes
 			;;

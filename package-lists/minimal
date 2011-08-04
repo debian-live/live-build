@@ -7,6 +7,6 @@
 
 eject file user-setup sudo
 
-#if MODE ubuntu
+#if MODE ubuntu kubuntu
 gnupg
 #endif

@@ -27,7 +27,7 @@ then
 fi
 
 # Setting static variables
-PROGREAM="lb config"
+PROGRAM="lb config"
 DESCRIPTION="$(Echo 'create configuration for live-build(7)')"
 USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--apt-ftp-proxy URL]\n\
@@ -112,7 +112,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--mirror-binary-volatile URL]\n\
 \t    [--mirror-binary-backports URL]\n\
 \t    [--mirror-debian-installer URL]\n\
-\t    [--mode debian|emdebian|ubuntu]\n\
+\t    [--mode debian|emdebian|ubuntu|kubuntu]\n\
 \t    [--net-root-filesystem nfs|cfs]\n\
 \t    [--net-root-mountoptions OPTIONS]\n\
 \t    [--net-root-path PATH]\n\
@@ -170,7 +170,7 @@ Local_arguments ()
 		help,ignore-system-defaults,quiet,usage,verbose,version"
 	# Remove spaces added by indentation
 	LONG_OPTIONS="$(echo ${LONG_OPTIONS} | tr -d ' ')"
-	ARGUMENTS="$(getopt --longoptions ${LONG_OPTIONS} --name="${PROGRAM}" --options a:f:d:m:l:k:p:b:e:r:s:c:huv --shell sh -- "${@}")"
+	ARGUMENTS="$(getopt --longoptions ${LONG_OPTIONS} --name="${PROGRAM}" --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
 
 	if [ "${?}" != "0" ]
 	then
@@ -1150,7 +1150,7 @@ EOF
 # Creating lb_chroot_* configuration
 mkdir -p config/archives
 mkdir -p config/chroot_apt
-mkdir -p config/chroot_local-hooks
+mkdir -p config/hooks
 mkdir -p config/chroot_local-includes
 mkdir -p config/chroot_local-patches
 mkdir -p config/chroot_packages
@@ -1223,7 +1223,6 @@ mkdir -p config/binary_debian-installer
 mkdir -p config/binary_debian-installer-includes
 mkdir -p config/binary_grub
 mkdir -p config/binary_local-debs
-mkdir -p config/binary_local-hooks
 mkdir -p config/binary_local-includes
 mkdir -p config/package-lists
 mkdir -p config/binary_local-udebs

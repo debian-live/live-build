@@ -113,6 +113,22 @@ esac
 
 # Set architecture-specific variables
 case "${LB_ARCHITECTURES}" in
+	armel)
+		DEFAULT_FLAVOUR="$(echo ${LH_LINUX_FLAVOURS} | awk '{ print $1 }')"
+		case "${DI_IMAGE_TYPE}" in
+			cdrom)
+				DI_REMOTE_BASE="${DEFAULT_FLAVOUR}/cdrom"
+				;;
+
+			netboot)
+				DI_REMOTE_BASE="${DEFAULT_FLAVOUR}/netboot"
+				;;
+		esac
+
+		DI_REMOTE_KERNEL="vmlinuz"
+		DI_REMOTE_BASE_GTK="${DI_REMOTE_BASE}/gtk"
+		;;
+
 	powerpc)
 		case "${DI_IMAGE_TYPE}" in
 			cdrom)
@@ -299,11 +315,10 @@ then
 
 	case "${LB_ARCHITECTURES}" in
 		amd64)
-			#DI_REQ_PACKAGES="lilo grub grub2"
-			DI_REQ_PACKAGES="lilo grub"
+			DI_REQ_PACKAGES="lilo grub grub-pc"
 
 			case "${LB_MODE}" in
-				ubuntu)
+				ubuntu|kubuntu)
 					DI_PACKAGES="${DI_REQ_PACKAGES} linux-generic"
 					;;
 
@@ -314,11 +329,10 @@ then
 			;;
 
 		i386)
-			#DI_REQ_PACKAGES="elilo lilo grub grub2"
-			DI_REQ_PACKAGES="elilo lilo grub"
+			DI_REQ_PACKAGES="elilo lilo grub grub-pc"
 
 			case "${LB_MODE}" in
-				ubuntu)
+				ubuntu|kubuntu)
 					DI_PACKAGES="${DI_REQ_PACKAGES} linux-generic"
 					;;
 
@@ -331,7 +345,7 @@ then
 		sparc)
 			DI_REQ_PACKAGES="silo"
 			case "${LB_MODE}" in
-				ubuntu)
+				ubuntu|kubuntu)
 					DI_PACKAGES="${DI_REQ_PACKAGES} linux-sparc64"
 					;;
 
@@ -344,7 +358,7 @@ then
 		powerpc)
 			DI_REQ_PACKAGES="yaboot"
 			case "${LB_MODE}" in
-				ubuntu)
+				ubuntu|kubuntu)
 					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-powerpc linux-image-powerpc64-smp"
 					;;
 
@@ -355,7 +369,7 @@ then
 			;;
 	esac
 
-	DI_PACKAGES="${DI_PACKAGES} busybox cryptsetup lvm2"
+	DI_PACKAGES="${DI_PACKAGES} busybox cryptsetup mdadm lvm2"
 
 	case "${LB_MODE}" in
 		debian)

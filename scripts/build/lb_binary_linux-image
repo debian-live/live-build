@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LB_BINARY_IMAGES}" = "virtual-hdd" ]
+if [ "${LB_BINARY_IMAGES}" = "virtual-hdd" ] || [ "${LB_LINUX_PACKAGES}" = "none" ]
 then
 	exit 0
 fi
@@ -73,8 +73,11 @@ Check_multiarchitectures
 mkdir -p "${DESTDIR}"
 
 # Installing linux-image
-cp chroot/boot/"${LINUX}"-* "${DESTDIR}"
-cp chroot/boot/initrd.img-* "${DESTDIR}"
+if [ "${LB_LINUX_PACKAGES}" != "none" ]
+then
+	cp chroot/boot/"${LINUX}"-* "${DESTDIR}"
+	cp chroot/boot/initrd.img-* "${DESTDIR}"
+fi
 
 case "${LB_INITRAMFS}" in
 	live-boot)

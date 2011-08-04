@@ -36,7 +36,9 @@ Save_cache ()
 	if [ "${LB_CACHE}" = "true" ] && [ "${LB_CACHE_PACKAGES}" = "true" ]
 	then
 		# Cleaning current cache
-		Chroot chroot "apt-get autoclean"
+		# In case of interrupted or incomplete builds, this may return an error,
+		# but we still do want to save the cache.
+		Chroot chroot "apt-get autoclean" || true
 
 		if ls chroot/var/cache/apt/archives/*.deb > /dev/null 2>&1
 		then

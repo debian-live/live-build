@@ -3,10 +3,10 @@
 #include <gnome-core>
 
 gnome-desktop-environment gnome-screensaver gnome-themes-extras
-#nif MODE ubuntu
+#nif MODE ubuntu kubuntu
 system-config-printer
 #endif
-#if MODE ubuntu
+#if MODE ubuntu kubuntu
 system-config-printer-gnome
 #endif
 

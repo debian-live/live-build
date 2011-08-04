@@ -135,7 +135,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 				mv chroot/filesystem.${LB_CHROOT_FILESYSTEM} binary/${INITFS}
 
 				case "${LB_MODE}" in
-					ubuntu)
+					ubuntu|kubuntu)
 						du -B 1 -s chroot/chroot | cut -f1 > binary/${INITFS}/filesystem.size
 						;;
 				esac
@@ -366,7 +366,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 				rm -f chroot/chroot/excludes
 
 				case "${LB_MODE}" in
-					ubuntu)
+					ubuntu|kubuntu)
 						du -B 1 -s chroot/chroot | cut -f1 > binary/${INITFS}/filesystem.size
 						;;
 				esac
@@ -431,7 +431,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 				mksquashfs chroot binary/${INITFS}/filesystem.squashfs ${MKSQUASHFS_OPTIONS}
 
 				case "${LB_MODE}" in
-					ubuntu)
+					ubuntu|kubuntu)
 						du -B 1 -s chroot | cut -f1 > binary/${INITFS}/filesystem.size
 						;;
 				esac

@@ -164,8 +164,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 		;;
 esac
 
-sleep 1
-${LB_LOSETUP} -d ${FREELO}
+Lodetach ${FREELO}
 
 FREELO="$(${LB_LOSETUP} -f)"
 Losetup $FREELO chroot/binary.img 1
@@ -190,16 +189,10 @@ esac
 case "${LB_BUILD_WITH_CHROOT}" in
 	true)
 		Chroot chroot "mkfs.${MKFS} ${MKFS_OPTIONS} ${FREELO}"
-
-		Chroot chroot "parted -s ${FREELO} set 1 boot on" || true
-		Chroot chroot "parted -s ${FREELO} set 1 lba off" || true
 		;;
 
 	false)
 		mkfs.${MKFS} ${MKFS_OPTIONS} ${FREELO}
-
-		parted -s ${FREELO} set 1 boot on || true
-		parted -s ${FREELO} set 1 lba off || true
 		;;
 esac
 
@@ -260,10 +253,26 @@ then
 	esac
 fi
 
-sleep 1
-${LB_LOSETUP} -d ${FREELO}
+Lodetach ${FREELO}
 
 echo "!!! The above error/warning messages can be ignored !!!"
+
+FREELO="$(${LB_LOSETUP} -f)"
+Losetup "${FREELO}" chroot/binary.img 0
+
+case "${LB_BUILD_WITH_CHROOT}" in
+	true)
+		Chroot chroot "parted -s ${FREELO} set 1 boot on" || true
+		Chroot chroot "parted -s ${FREELO} set 1 lba off" || true
+		;;
+
+	false)
+		parted -s "${FREELO}" set 1 boot on || true
+		parted -s "${FREELO}" set 1 lba off || true
+		;;
+esac
+
+Lodetach ${FREELO}
 
 if [ -n "${MAKEDEV}" ]
 then

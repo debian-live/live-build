@@ -71,6 +71,7 @@ do
 
 		--chroot)
 			Echo_message "Cleaning chroot"
+			${LB_ROOT_COMMAND} umount -f chroot/run > /dev/null 2>&1 || true
 			${LB_ROOT_COMMAND} umount -f chroot/sys > /dev/null 2>&1 || true
 			${LB_ROOT_COMMAND} umount -f chroot/proc/sys/fs/binfmt_misc > /dev/null 2>&1 || true
 			${LB_ROOT_COMMAND} umount -f chroot/proc > /dev/null 2>&1 || true

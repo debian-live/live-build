@@ -226,6 +226,14 @@ rm -f chroot/var/cache/debconf/*-old
 rm -f chroot/var/lib/dpkg/*-old
 rm -f chroot/var/log/apt/term.log
 
+# Delete and re-create temporary directories
+TEMP_DIRS="/tmp /var/tmp"
+for DIR in ${TEMP_DIRS}
+do
+	rm -rf "chroot/${DIR}"
+	install -d -m 1777 "chroot/${DIR}"
+done
+
 if [ -n "${LB_ROOT_COMMAND}" ]
 then
 	${LB_ROOT_COMMAND} chown -R --quiet $(whoami):$(whoami) chroot

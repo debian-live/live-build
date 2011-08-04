@@ -1,23 +1,11 @@
 #!/bin/sh
 
-## live-build-cron-images(7) - FIXME
-## Copyright (C) 2006-2010 Daniel Baumann <daniel@debian.org>
+## live-build(7) - System Build Scripts
+## Copyright (C) 2006-2011 Daniel Baumann <daniel@debian.org>
 ##
-## This program is free software: you can redistribute it and/or modify
-## it under the terms of the GNU General Public License as published by
-## the Free Software Foundation, either version 3 of the License, or
-## (at your option) any later version.
-##
-## This program is distributed in the hope that it will be useful,
-## but WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-## GNU General Public License for more details.
-##
-## You should have received a copy of the GNU General Public License
-## along with this program. If not, see <http://www.gnu.org/licenses/>.
-##
-## The complete text of the GNU General Public License
-## can be found in /usr/share/common-licenses/GPL-3 file.
+## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+## This is free software, and you are welcome to redistribute it
+## under certain conditions; see COPYING for details.
 
 
 #set -e
@@ -42,8 +30,11 @@ Init ()
 		exit 0
 	fi
 
-	if [ -z "${LIVE_BUILD_CRON_IMAGES_DIRECTORY}" ]
+	mkdir -p "${LIVE_BUILD_CRON_IMAGES_DIRECTORY}"
+
+	if [ ! -d "${LIVE_BUILD_CRON_IMAGES_DIRECTORY}" ]
 	then
+		echo "E: live-build-cron-images directory not set."
 		exit 1
 	fi
 
@@ -58,18 +49,18 @@ Init ()
 
 Setup ()
 {
-	TMPDIR="$(mktemp -d -t live-build-cron-images.XXXXXXXX)"
+	_TMPDIR="$(mktemp -d -t live-build-cron-images.XXXXXXXX)"
 
 	case "${LIVE_BUILD_CRON_IMAGES_BUILD}" in
 		git)
-			cd "${TMPDIR}"
+			cd "${_TMPDIR}"
 			git clone git://live.debian.net/git/live-build.git
 			git checkout debian-old-2.0
 
-			LB_BASE="${TMPDIR}/live-build"
+			LB_BASE="${_TMPDIR}/live-build"
 			export LB_BASE
 
-			PATH="${PATH}:${TMPDIR}/live-build/scripts/build"
+			PATH="${PATH}:${_TMPDIR}/live-build/scripts/build"
 			export PATH
 			;;
 
@@ -82,10 +73,10 @@ Setup ()
 					dget "http://live.debian.net/archive/packages/live-build/${LIVE_BUILD}/live-build_${LIVE_BUILD}.dsc"
 					dpkg-source -x live-build_${LIVE_BUILD}.dsc
 
-					LB_BASE="${TMPDIR}/live-build-$(echo ${LIVE_BUILD} | awk -F- '{ print $1 }')"
+					LB_BASE="${_TMPDIR}/live-build-$(echo ${LIVE_BUILD} | awk -F- '{ print $1 }')"
 					export LB_BASE
 
-					PATH="${PATH}:${TMPDIR}/live-build-$(echo ${LIVE_BUILD} | awk -F- '{ print $1 }')/scripts/build"
+					PATH="${PATH}:${_TMPDIR}/live-build-$(echo ${LIVE_BUILD} | awk -F- '{ print $1 }')/scripts/build"
 					export PATH
 				else
 					echo "E: dget - command not found"
@@ -100,8 +91,8 @@ Setup ()
 			;;
 	esac
 
-	mkdir -p "${TMPDIR}/build"
-	cd "${TMPDIR}/build"
+	mkdir -p "${_TMPDIR}/build"
+	cd "${_TMPDIR}/build"
 
 	# live-boot
 	if [ -n "${LIVE_BOOT}" ]
@@ -163,7 +154,7 @@ Setup ()
 
 Build ()
 {
-	cd "${TMPDIR}/build"
+	cd "${_TMPDIR}/build"
 
 	for DISTRIBUTION in ${DISTRIBUTIONS}
 	do
@@ -179,17 +170,28 @@ Build ()
 			rm -rf cache/stages_rootfs
 			rm -f config/* || true
 
+			LB_VERSION="$(lb --version | awk '/^live-build, version / { print $3 }')"
+
+			case "${LB_VERSION}" in
+				2.0*)
+					_PACKAGE_LISTS="--packages-lists ${FLAVOUR}"
+					;;
+
+				3.0*)
+					_PACKAGE_LISTS="--package-lists ${FLAVOUR}"
+					;;
+			esac
+
 			# FIXME: cdebootstrap
 			lb config --clean \
 				--bootstrap cdebootstrap \
 				--cache-stages "bootstrap rootfs" \
 				--debian-installer ${DEBIAN_INSTALLER} \
-				--debian-installer-distribution ${DEBIAN_INSTALLER_DISTRIBUTION} \
 				--distribution ${DISTRIBUTION} \
 				--mirror-bootstrap ${MIRROR_BOOTSTRAP} \
 				--mirror-chroot ${MIRROR_CHROOT} \
 				--mirror-chroot-security ${MIRROR_CHROOT_SECURITY} \
-				--packages-lists ${FLAVOUR}
+				${_PACKAGE_LISTS}
 
 			lb build 2>&1 | tee debian-live-${DISTRIBUTION}-${ARCHITECTURE}-${FLAVOUR}.iso.log
 
@@ -251,7 +253,7 @@ Install ()
 		BUILD="$((${BUILD} + 1))"
 	done
 
-	cd "${TMPDIR}/build"
+	cd "${_TMPDIR}/build"
 
 	# Move iso images
 	if ls debian-live-${DISTRIBUTION}-${ARCHITECTURE}-*.iso* > /dev/null 2>&1
@@ -309,11 +311,11 @@ Install ()
 
 Clean ()
 {
-	cd "${TMPDIR}/build"
+	cd "${_TMPDIR}/build"
 	lb clean --purge
 
 	cd "${CURDIR}"
-	rm -rf "${TMPDIR}"
+	rm -rf "${_TMPDIR}"
 }
 
 Trace ()
