@@ -1,3 +1,122 @@
+live-build (3.0~a26-1) experimental; urgency=low
+
+  [ Richard Nelson ]
+  * Update VERSION in common.sh to match last release.
+
+  [ Daniel Baumann ]
+  * Skipping binary_linux-image if no kernel was choosen to be installed
+    deliberately, thanks to Adam Conrad <adconrad@ubuntu.com>.
+  * Moving archives meta data arround in source tree.
+  * Correcting filename of live.debian.net archive file.
+  * Adding hook for calling update.mlocate, thanks to Colin Watson
+    <cjwatson@ubuntu.com> (Closes: #627332).
+  * Adding hook for calling update-apt-xapian-index, thanks to Colin
+    Watson <cjwatson@ubuntu.com> (Closes: #627716).
+  * Adding hook for removing gnome icon cache, thanks to Colin Watson
+    <cjwatson@ubuntu.com> (Closes: #630088).
+  * Adding hook to remove python py files, thanks to Colin Watson
+    <cjwatson@ubuntu.com> (Closes: #631281).
+  * Using --no-check-gpg option when using debootstrap >= 1.0.30 and apt
+    secure is disabled, thanks to Eugenio Paolantonio <me@medesimo.eu>
+    (Closes: #633356).
+  * Also unmounting /run in lb_clean eventhough it's not really needed
+    anyway but let's be on the caucious side (Closes: #633052).
+  * Adding kubuntu mode in order to have different defadefault hooks
+    enabled for ubuntu and kubuntu (needed for #630088).
+  * Consolidating local hooks for chroot and binary into
+    config/hooks/*.{chroot,binary}.
+  * Numbering embedded hooks.
+  * Saving packages in cache even when failing or interrupting a build
+    (Closes: #586929).
+  * Enabling hooks based on the mode we're building for.
+  * Calling dpkg-divert with --quiet in chroot_dpkg.
+  * Correcting comments in chroot_hooks to match usage.
+  * Reworking binary hooks helper.
+
+  [ Cody A.W. Somerville ]
+  * Fixing corruption of usb binary images caused by trying to modify
+    flags in partition table when image is mounted with offset.
+  * Updating lb_binary_linux-image to only copy over kernel and initrd
+    if LB_LINUX_PACKAGES doesn't equal 'none'.
+  * Appending 'linux32' to LB_ROOT_COMMAND if 'uname -m' is x86_64 and
+    LB_ARCHITECTURE is i386.
+
+  [ Daniel Baumann ]
+  * Updating cron scripts.
+  * Compacting copyright file.
+  * Reworking debconf stuff of merging former live-autobuild-manual and
+    live-autobuild-images into a single live-build-cron.
+  * Avoid to hijack root-command with linux32, rather set use it in the
+    chroot function only.
+  * Adding a comment to the chroot calls in excludes handling of
+    binary_chroot whey the chroot function is not used.
+
+  [ Cody A.W. Somerville ]
+  * Setting partition flags in source_usb after creating the filesystem
+    in order to avoid bug in parted that makes them forget the flags.
+  * Adding function for more resilient detachment of loopback devices.
+
+  [ Daniel Baumann ]
+  * Calling mkdir with -p to avoid build failures with multiple kernels
+    on disk info in ubuntu mode, thanks to Cody A.W. Somerville
+    <cody.somerville@canonical.com>.
+  * Correcting uuid extraction from initrds in ubuntu mode to work from
+    within binary so that it is cleaned up by lb_clean on failed builds.
+  * Setting default compression levels to -6 for gzip, bzip, lzip and
+    lzma tarballs.
+
+  [ Cody A.W. Somerville ]
+  * Adding paths for remote debian-installer images on armel.
+  * Making config tree available to chroot hooks.
+
+  [ Daniel Baumann ]
+  * Updating derivatives handling for d-i mirror defaults to better
+    match the reality that by default, most derivatives are not going to
+    actually rebuild d-i.
+  * Adding mdadm manually to extra packages for binary pool for being
+    used by debian-installer (Closes: #607225).
+  * Add forgotten handling of already set chroot_hooks in defaults.
+  * Updating grub packages list in binary_debian-installer.
+  * Using 'live' rather than 'incomplete' for cd_type in .disk on images
+    that include debian-installer with live-installer udeb.
+  * Simplify bind mounting of the config tree during local hooks are run
+    by using read-only bind mounts.
+  * Removing unmaintained studio package lists.
+  * Correcting debconf variables.
+  * Updating TODO for live-build-cron.
+  * Correcting typo in lb_config for program variable, thanks to
+    intrigeri <intrigeri@boum.org>.
+  * Adding virtual-hdd in lb_config manpage as binary image type.
+  * Handle package-lists parameter for lb_config in live-build-cron-
+    images script for both lb version 2.x and 3.x.
+  * Setting default kernel flavours for armel to all available flavour
+    due to the nature of armel images (single rootfs image, multiple
+    kernel images).
+  * Removing debian-instaler-distribution selection from live-build-
+    cron-images for the time being.
+
+  [ Ben Armstrong ]
+  * Fixing/adding cross-references for live-boot and live-config.
+
+  [ Daniel Baumann ]
+  * Correcting cross-references to live-boot and live-config in
+    lb_config manpage.
+  * Adjusting check for target directory in live-build-cron scripts to
+    fail if non-directories are used, thanks to Ben Armstrong
+    <synrg@debian.org>.
+
+  [ intrigeri ]
+  * Cleaning up temporary directories at the same time as other cruft.
+
+  [ Daniel Baumann ]
+  * Removing -r from short options in lb_config (Closes: #636208).
+  * Adding hook to update apt-file cache (Closes: #636440).
+  * Renumbering hook files.
+  * Adding missing 'set -e' in remove-python-py.chroot hook.
+  * Correcting indentiation in hook defaults assignment.
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 04 Aug 2011 21:51:37 +0200
+
 live-build (3.0~a25-1) experimental; urgency=low
 
   * Using updated kernel default flavours for sid also for wheezy.
