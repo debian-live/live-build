@@ -30,8 +30,11 @@ Init ()
 		exit 0
 	fi
 
-	if [ -z "${LIVE_BUILD_CRON_IMAGES_DIRECTORY}" ]
+	mkdir -p "${LIVE_BUILD_CRON_IMAGES_DIRECTORY}"
+
+	if [ ! -d "${LIVE_BUILD_CRON_IMAGES_DIRECTORY}" ]
 	then
+		echo "E: live-build-cron-images directory not set."
 		exit 1
 	fi
 
