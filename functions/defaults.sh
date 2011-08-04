@@ -585,17 +585,17 @@ Set_defaults ()
 	case "${LB_MODE}" in
 		*)
 			LB_CHROOT_HOOKS="${LB_CHROOT_HOOKS:-update-apt-file-cache \
-					 update-apt-xapian-index \
-					 update-mlocate-database \
-					 remove-python-py}"
+				update-apt-xapian-index \
+				update-mlocate-database \
+				remove-python-py}"
 			;;
 
 		kubuntu)
 			LB_CHROOT_HOOKS="${LB_CHROOT_HOOKS:-update-apt-file-cache \
-					 update-apt-xapian-index \
-					 update-mlocate-database \
-					 remove-gnome-icon-cache \
-					 remove-python-py}"
+				update-apt-xapian-index \
+				update-mlocate-database \
+				remove-gnome-icon-cache \
+				remove-python-py}"
 			;;
 	esac
 
