@@ -41,10 +41,10 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if ls config/package-lists/*.chroot.list > /dev/null 2>&1 || \
-   ls config/package-lists/*.chroot_${_PASS}.list > /dev/null 2>&1
+if ls config/package-lists/*.list.chroot > /dev/null 2>&1 || \
+   ls config/package-lists/*.list.chroot_${_PASS} > /dev/null 2>&1
 then
-	for LIST in config/package-lists/*.chroot.list config/package-lists/*.chroot_${_PASS}.list
+	for LIST in config/package-lists/*.list.chroot config/package-lists/*.list.chroot_${_PASS}
 	do
 		if [ -e "${LIST}" ]
 		then

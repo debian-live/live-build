@@ -1393,7 +1393,7 @@ mkdir -p auto/scripts
 if [ "${CONFIG}" = "clone" ] # FIXME
 then
 	# Read package selection
-	echo $(dpkg --get-selections | awk '{ print $1 }') > config/package-lists/local-system.chroot.list
+	echo $(dpkg --get-selections | awk '{ print $1 }') > config/package-lists/local.list.chroot
 	LB_PACKAGE_LISTS="${LB_PACKAGE_LISTS} local-system"
 
 	# Read debconf questions
