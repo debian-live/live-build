@@ -256,9 +256,11 @@ EOF
 		fi
 
 		# Check local sources.list
-		if Find_files config/archives/*.list.chroot
+		if Find_files config/archives/*.list || \
+		   Find_files config/archives/*.list.chroot
 		then
-			for FILE in config/archives/*.list.chroot
+			for FILE in config/archives/*.list \
+				    config/archives/*.list.chroot
 			do
 				sed -e "s|@DISTRIBUTION@|${LB_DISTRIBUTION}|g" \
 				    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
@@ -466,9 +468,11 @@ EOF
 			fi
 		else # Get fresh indices
 			# Check local archive keys
-			if Find_files config/archives/*.key.chroot
+			if Find_files config/archives/*.key || \
+			   Find_files config/archives/*.key.chroot
 			then
-				for FILE in config/archives/*.key.chroot
+				for FILE in config/archives/*.key \
+					    config/archives/*.key.chroot
 				do
 					cp ${FILE} chroot/root
 					Chroot chroot "apt-key add /root/$(basename ${FILE})"
@@ -775,9 +779,11 @@ EOF
 		fi
 
 		# Check local sources.list
-		if Find_files config/archives/*.list.binary
+		if Find_files config/archives/*.list || \
+		   Find_files config/archives/*.list.binary
 		then
-			for FILE in config/archives/*.list.binary
+			for FILE in config/archives/*.list \
+				    config/archives/*.list.binary
 			do
 				sed -e "s|@DISTRIBUTION@|${LB_DISTRIBUTION}|g" \
 				    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
@@ -788,9 +794,11 @@ EOF
 		fi
 
 		# Check local archive keys
-		if Find_files config/archives/*.key.binary
+		if Find_files config/archives/*.key || \
+		   Find_files config/archives/*.key.binary
 		then
-			for FILE in config/archives/*.key.binary
+			for FILE in config/archives/*.key \
+				    config/archives/*.key.binary
 			do
 				cp ${FILE} chroot/root
 				Chroot chroot "apt-key add /root/$(basename ${FILE})"
