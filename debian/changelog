@@ -1,3 +1,16 @@
+live-build (3.0~a27-1) experimental; urgency=low
+
+  * Reverse keywords in suffix of the archive definition files for
+    consistency.
+  * Reverse keywords in suffix of the package list files for
+    consistency.
+  * Also using definition files without suffix (so that e.g. foo.list is
+    used for both chroot and binary stage).
+  * Removing left-over mentioning of lb_binary_local-hooks instead of
+    lb_binary_hooks in lb_binary.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 08 Aug 2011 08:04:08 +0200
+
 live-build (3.0~a26-1) experimental; urgency=low
 
   [ Richard Nelson ]
