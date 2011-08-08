@@ -1,3 +1,18 @@
+live-build (3.0~a28-1) experimental; urgency=low
+
+  * Guarding archives handling with an additional check to prevent ugly
+    message about files not existing.
+  * Adding share/hooks to toplevel makefile so that it's included in the
+    test suite.
+  * Renaming cgi files within the sources to consistently use the name
+    live-build-cgi.
+  * Removing some false-positive bashisms from live-build-cgi.
+  * Limiting test target to actual scripts in cron subdirectory.
+  * Since all (false positives for) bashisms are gone, making the test
+    target fail on bashisms.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 08 Aug 2011 21:12:17 +0200
+
 live-build (3.0~a27-1) experimental; urgency=low
 
   * Reverse keywords in suffix of the archive definition files for
