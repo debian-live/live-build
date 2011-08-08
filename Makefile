@@ -4,7 +4,7 @@ SHELL := sh -e
 
 LANGUAGES = $(shell cd manpages/po && ls)
 
-SCRIPTS = cgi/* cron/* functions/* examples/*/*.sh examples/auto/* scripts/*.sh scripts/*/*
+SCRIPTS = cgi/live-build-cgi cgi/live-build-cgi.cron cron/live-build-cron* functions/* examples/*/*.sh examples/auto/* scripts/*.sh scripts/*/* share/hooks/*
 
 all: build
 
@@ -19,14 +19,13 @@ test:
 
 	@echo " done."
 
-	@# We can't just fail yet on bashisms (FIXME)
 	@echo -n "Checking for bashisms"
 
 	@if [ -x /usr/bin/checkbashisms ]; \
 	then \
 		for SCRIPT in $(SCRIPTS); \
 		do \
-			checkbashisms -f -x $${SCRIPT} || true; \
+			checkbashisms -f -x $${SCRIPT}; \
 			echo -n "."; \
 		done; \
 	else \

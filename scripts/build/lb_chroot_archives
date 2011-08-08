@@ -262,11 +262,14 @@ EOF
 			for FILE in config/archives/*.list \
 				    config/archives/*.list.chroot
 			do
-				sed -e "s|@DISTRIBUTION@|${LB_DISTRIBUTION}|g" \
-				    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
-				    -e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
-				    -e "s|@PARENT_ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
-				"${FILE}" > "chroot/etc/apt/sources.list.d/$(basename ${FILE} .chroot)"
+				if [ -e "${FILE}" ]
+				then
+					sed -e "s|@DISTRIBUTION@|${LB_DISTRIBUTION}|g" \
+					    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
+					    -e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
+					    -e "s|@PARENT_ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
+					"${FILE}" > "chroot/etc/apt/sources.list.d/$(basename ${FILE} .chroot)"
+				fi
 			done
 		fi
 
@@ -785,11 +788,14 @@ EOF
 			for FILE in config/archives/*.list \
 				    config/archives/*.list.binary
 			do
-				sed -e "s|@DISTRIBUTION@|${LB_DISTRIBUTION}|g" \
-				    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
-				    -e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
-				    -e "s|@PARENT_ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
-				"${FILE}" > "chroot/etc/apt/sources.list.d/$(basename ${FILE} .binary)"
+				if [ -e "${FILE}" ]
+				then
+					sed -e "s|@DISTRIBUTION@|${LB_DISTRIBUTION}|g" \
+					    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
+					    -e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
+					    -e "s|@PARENT_ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
+					"${FILE}" > "chroot/etc/apt/sources.list.d/$(basename ${FILE} .binary)"
+				fi
 			done
 		fi
 
