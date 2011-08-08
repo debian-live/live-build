@@ -41,10 +41,13 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if ls config/task-lists/*.chroot.list > /dev/null 2>&1 || \
-   ls config/task-lists/*.chroot_${_PASS}.list > /dev/null 2>&1
+if ls config/task-lists/*.list > /dev/null 2>&1 || \
+   ls config/task-lists/*.list.chroot > /dev/null 2>&1 || \
+   ls config/task-lists/*.list.chroot_${_PASS} > /dev/null 2>&1
 then
-	for LIST in config/task-lists/*.chroot.list config/task-lists/*.chroot_${_PASS}.list
+	for LIST in config/task-lists/*.list \
+		    config/task-lists/*.list.chroot \
+		    config/task-lists/*.list.chroot_${_PASS}
 	do
 		if [ -e "${LIST}" ]
 		then
