@@ -26,6 +26,8 @@ then
 	exit 0
 fi
 
+_HOSTNAME="$(hostname -f)"
+
 # Turn on debug if enabled
 if [ "${_DEBUG}" = "enabled" ]
 then
@@ -50,7 +52,7 @@ if ls "${_DESTDIR}"/`date -d yesterday +%Y%m%d.%H`* > /dev/null 2>&1
 then
 	rm -rf "${_DESTDIR}"/`date -d yesterday +%Y%m%d.%H`*
 
-	echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-build.cgi: remove web build (`date -d yesterday +%Y%m%d.%H`*)." >> /var/log/live
+	echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build.cgi: remove web build (`date -d yesterday +%Y%m%d.%H`*)." >> /var/log/live
 fi
 
 # Ok from here spin through the live-build.cgi files we have waiting to build
@@ -76,7 +78,7 @@ then
 		_CUSTOM_BINARY=`awk -F\" '/^_CUSTOM_BINARY=/{print $2}' ${_FILE}`
 
 		# Drop out some build data for information if something goes wrong.
-		echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-build.cgi: begin web build (${_BUILD})." >> /var/log/live
+		echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build.cgi: begin web build (${_BUILD})." >> /var/log/live
 
 		# Creating build directory which also creates the config/chroot_sources folder
 		mkdir -p "${_TEMPDIR}"/"${_BUILD}"/config/chroot_sources
@@ -187,6 +189,6 @@ EOF
 		# Removing build directory
 		rm -rf "${_TEMPDIR}"/"${_BUILD}"
 
-		echo "`date +%b\ %d\ %H:%M:%S` ${HOSTNAME} live-build.cgi: end web build (${_BUILD}: ${_STATUS})." >> /var/log/live
+		echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build.cgi: end web build (${_BUILD}: ${_STATUS})." >> /var/log/live
 	done
 fi
