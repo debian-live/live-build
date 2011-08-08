@@ -4,7 +4,7 @@ SHELL := sh -e
 
 LANGUAGES = $(shell cd manpages/po && ls)
 
-SCRIPTS = cgi/live-build-cgi cgi/live-build-cgi.cron cron/* functions/* examples/*/*.sh examples/auto/* scripts/*.sh scripts/*/* share/hooks/*
+SCRIPTS = cgi/live-build-cgi cgi/live-build-cgi.cron cron/live-build-cron* functions/* examples/*/*.sh examples/auto/* scripts/*.sh scripts/*/* share/hooks/*
 
 all: build
 
