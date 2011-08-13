@@ -477,9 +477,12 @@ EOF
 				for FILE in config/archives/*.key \
 					    config/archives/*.key.chroot
 				do
-					cp ${FILE} chroot/root
-					Chroot chroot "apt-key add /root/$(basename ${FILE})"
-					rm -f chroot/root/$(basename ${FILE})
+					if [ -e "${FILE}" ]
+					then
+						cp ${FILE} chroot/root
+						Chroot chroot "apt-key add /root/$(basename ${FILE})"
+						rm -f chroot/root/$(basename ${FILE})
+					fi
 				done
 			fi
 
@@ -806,9 +809,12 @@ EOF
 			for FILE in config/archives/*.key \
 				    config/archives/*.key.binary
 			do
-				cp ${FILE} chroot/root
-				Chroot chroot "apt-key add /root/$(basename ${FILE})"
-				rm -f chroot/root/$(basename ${FILE})
+				if [ -e "${FILE}" ]
+				then
+					cp ${FILE} chroot/root
+					Chroot chroot "apt-key add /root/$(basename ${FILE})"
+					rm -f chroot/root/$(basename ${FILE})
+				fi
 			done
 		fi
 
