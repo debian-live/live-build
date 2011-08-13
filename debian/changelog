@@ -1,3 +1,19 @@
+live-build (3.0~a29-1) experimental; urgency=low
+
+  [ Daniel Baumann ]
+  * Using global version file rather than using copied information in
+    functions/common.sh.
+
+  [ Richard Nelson ]
+  * Correcting path to VERSION file.
+  * Rename references of live-build.cgi to live-build-cgi
+
+  [ Daniel Baumann ]
+  * Also guarding key additions for local configured archives to not
+    fail if no key is supplied.
+
+ -- Daniel Baumann <daniel@debian.org>  Sat, 13 Aug 2011 08:07:10 +0200
+
 live-build (3.0~a28-1) experimental; urgency=low
 
   * Guarding archives handling with an additional check to prevent ugly
