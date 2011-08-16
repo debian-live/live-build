@@ -426,6 +426,12 @@ EOF
 			fi
 		fi
 
+		if Find_files chroot/root/packages/*.deb
+		then
+			gunzip < chroot/root/packages/Packages.gz | awk '/^Package: / { print $2 }' \
+			>> chroot/root/chroot_packages
+		fi
+
 		# Update indices from cache
 		if [ "${LB_CACHE_INDICES}" = "true" ] && [ -d cache/indices_bootstrap ]
 		then
