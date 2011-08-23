@@ -588,7 +588,8 @@ Set_defaults ()
 				update-apt-xapian-index \
 				update-mlocate-database \
 				remove-openssh-server-host-keys \
-				remove-python-py}"
+				remove-python-py \
+				remove-udev-persistent-rules}"
 			;;
 
 		kubuntu)
@@ -597,7 +598,8 @@ Set_defaults ()
 				update-mlocate-database \
 				remove-gnome-icon-cache \
 				remove-openssh-server-host-keys \
-				remove-python-py}"
+				remove-python-py \
+				remove-udev-persistent-rules}"
 			;;
 	esac
 
