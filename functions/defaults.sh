@@ -587,6 +587,7 @@ Set_defaults ()
 			LB_CHROOT_HOOKS="${LB_CHROOT_HOOKS:-update-apt-file-cache \
 				update-apt-xapian-index \
 				update-mlocate-database \
+				remove-openssh-server-host-keys \
 				remove-python-py}"
 			;;
 
@@ -595,6 +596,7 @@ Set_defaults ()
 				update-apt-xapian-index \
 				update-mlocate-database \
 				remove-gnome-icon-cache \
+				remove-openssh-server-host-keys \
 				remove-python-py}"
 			;;
 	esac
