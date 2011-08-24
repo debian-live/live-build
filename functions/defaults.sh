@@ -103,11 +103,11 @@ Set_defaults ()
 	# Setting apt source
 	case "${LB_MODE}" in
 		progress)
-			LB_APT_SOURCE="${LB_APT_SOURCE:-false}"
+			LB_APT_SOURCE_ARCHIVES="${LB_APT_SOURCE_ARCHIVES:-false}"
 			;;
 
 		*)
-			LB_APT_SOURCE="${LB_APT_SOURCE:-true}"
+			LB_APT_SOURCE_ARCHIVES="${LB_APT_SOURCE_ARCHIVES:-true}"
 			;;
 	esac
 

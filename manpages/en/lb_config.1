@@ -27,7 +27,7 @@
 .br
 	[\fB\-\-apt\-secure\fR true|false]
 .br
-	[\fB\-\-apt\-source\fR true|false]
+	[\fB\-\-apt\-source\-archives\fR true|false]
 .br
 	[\-a|\fB\-\-architectures\fR \fIARCHITECTURE\fR]
 .br
@@ -269,7 +269,7 @@ sets the depth of the apt/aptitude pipeline. In cases where the remote server is
 defines if apt should install recommended packages automatically. By default, this is true except in emdebian mode.
 .IP "\fB\-\-apt\-secure\fR true|false" 4
 defines if apt should check repository signatures. This is true by default.
-.IP "\fB\-\-apt\-source\fR true|false" 4
+.IP "\fB\-\-apt\-source\-archives\fR true|false" 4
 defines if deb-src entries should be included in the resulting live image or not, defaults to on.
 .IP "\-a|\fB\-\-architectures\fR \fIARCHITECTURE\fR" 4
 defines the architecture of the to be build image. By default, this is set to the host architecture. Note that you cannot crossbuild for another architecture if your host system is not able to execute binaries for the target architecture natively. For example, building amd64 images on i386 and vice versa is possile if you have a 64bit capable i386 processor and the right kernel. But building powerpc images on an i386 system is not possible.
