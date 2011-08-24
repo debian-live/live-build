@@ -101,7 +101,15 @@ Set_defaults ()
 	LB_APT_SECURE="${LB_APT_SECURE:-true}"
 
 	# Setting apt source
-	LB_APT_SOURCE="${LB_APT_SOURCE:-true}"
+	case "${LB_MODE}" in
+		progress)
+			LB_APT_SOURCE="${LB_APT_SOURCE:-false}"
+			;;
+
+		*)
+			LB_APT_SOURCE="${LB_APT_SOURCE:-true}"
+			;;
+	esac
 
 	# Setting bootstrap program
 	if [ -z "${LB_BOOTSTRAP}" ] || ( [ ! -x "$(which ${LB_BOOTSTRAP} 2>/dev/null)" ] && [ "${LB_BOOTSTRAP}" != "copy" ] )
