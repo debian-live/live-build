@@ -386,7 +386,7 @@ Set_defaults ()
 
 		progress)
 			LB_PARENT_MIRROR_CHROOT_VOLATILE="${LB_PARENT_MIRROR_CHROOT_VOLATILE:-${LB_PARENT_MIRROR_CHROOT}}"
-			LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE:-none}"
+			LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE:-${LB_MIRROR_CHROOT}}"
 			;;
 
 		ubuntu|kubuntu)
@@ -499,7 +499,7 @@ Set_defaults ()
 
 		progress)
 			LB_PARENT_MIRROR_BINARY_VOLATILE="${LB_PARENT_MIRROR_BINARY_VOLATILE:-${LB_PARENT_MIRROR_BINARY}}"
-			LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY_VOLATILE:-none}"
+			LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY_VOLATILE:-${LB_MIRROR_BINARY}}"
 			;;
 
 		ubuntu|kubuntu)
@@ -587,7 +587,9 @@ Set_defaults ()
 			LB_CHROOT_HOOKS="${LB_CHROOT_HOOKS:-update-apt-file-cache \
 				update-apt-xapian-index \
 				update-mlocate-database \
-				remove-python-py}"
+				remove-openssh-server-host-keys \
+				remove-python-py \
+				remove-udev-persistent-rules}"
 			;;
 
 		kubuntu)
@@ -595,7 +597,9 @@ Set_defaults ()
 				update-apt-xapian-index \
 				update-mlocate-database \
 				remove-gnome-icon-cache \
-				remove-python-py}"
+				remove-openssh-server-host-keys \
+				remove-python-py \
+				remove-udev-persistent-rules}"
 			;;
 	esac
 

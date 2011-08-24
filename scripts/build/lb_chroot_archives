@@ -162,11 +162,11 @@ EOF
 
 			if [ "${LB_DERIVATIVE}" = "true" ] && [ "${LB_MIRROR_CHROOT_VOLATILE}" != "none" ]
 			then
-				echo "deb ${LB_MIRROR_CHROOT_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+				echo "deb ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
 
 				if [ "${LB_SOURCE}" = "true" ]
 				then
-					echo "deb-src ${LB_PARENT_MIRROR_CHROOT_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+					echo "deb-src ${LB_MIRROR_CHROOT_VOLATILE} ${LB_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
 				fi
 			fi
 		fi
@@ -424,6 +424,12 @@ EOF
 			else
 				Echo_warning "Local packages must be named with suffix '_all.deb' or '_\$architecture.deb'."
 			fi
+		fi
+
+		if Find_files chroot/root/packages/*.deb
+		then
+			gunzip < chroot/root/packages/Packages.gz | awk '/^Package: / { print $2 }' \
+			>> chroot/root/chroot_packages
 		fi
 
 		# Update indices from cache
@@ -704,11 +710,11 @@ EOF
 
 			if [ "${LB_DERIVATIVE}" = "true" ] && [ "${LB_MIRROR_BINARY_VOLATILE}" != "none" ]
 			then
-				echo "deb ${LB_MIRROR_BINARY_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+				echo "deb ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
 
 				if [ "${LB_SOURCE}" = "true" ]
 				then
-					echo "deb-src ${LB_PARENT_MIRROR_BINARY_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+					echo "deb-src ${LB_MIRROR_BINARY_VOLATILE} ${LB_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
 				fi
 			fi
 		fi

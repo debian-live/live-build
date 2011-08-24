@@ -59,7 +59,6 @@ lb chroot_local-preseed ${*}
 for _PASS in install live
 do
 	lb chroot_packagelists ${_PASS} ${*}
-	lb chroot_local-packagelists ${_PASS} ${*}
 	lb chroot_install-packages ${_PASS} ${*}
 	lb chroot_task-lists ${_PASS} ${*}
 
