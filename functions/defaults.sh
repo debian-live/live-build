@@ -833,12 +833,7 @@ Set_defaults ()
 			;;
 
 		*)
-			if echo ${LB_PACKAGE_LISTS} | grep -qs -E "(stripped|minimal)\b"
-			then
-				LB_APT_INDICES="${LB_APT_INDICES:-none}"
-			else
-				LB_APT_INDICES="${LB_APT_INDICES:-true}"
-			fi
+			LB_APT_INDICES="${LB_APT_INDICES:-true}"
 			;;
 	esac
 
