@@ -38,6 +38,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--apt-pipeline DEPTH]\n\
 \t    [--apt-recommends true|false]\n\
 \t    [--apt-secure true|false]\n\
+\t    [--apt-source true|false]\n\
 \t    [-a|--architectures ARCHITECTURE]\n\
 \t    [-b|--binary-images iso|iso-hybrid|net|tar|usb-hdd]\n\
 \t    [--binary-filesystem fat16|fat32|ext2]\n\
@@ -149,7 +150,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 Local_arguments ()
 {
 	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-options:,aptitute-options:,
-		apt-pipeline:,apt-recommends:,apt-secure:,bootstrap:,cache:,cache-indices:,cache-packages:,
+		apt-pipeline:,apt-recommends:,apt-secure:,apt-source:,bootstrap:,cache:,cache-indices:,cache-packages:,
 		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
 		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,
 		templates:,architectures:,bootstrap-flavour:,bootstrap-keyring:,clean,
@@ -267,6 +268,11 @@ Local_arguments ()
 
 			--apt-secure)
 				LB_APT_SECURE="${2}"
+				shift 2
+				;;
+
+			--apt-source)
+				LB_APT_SOURCE="${2}"
 				shift 2
 				;;
 
@@ -908,6 +914,10 @@ LB_APT_RECOMMENDS="${LB_APT_RECOMMENDS}"
 # \$LB_APT_SECURE: set apt/aptitude security
 # (Default: ${LB_APT_SECURE})
 LB_APT_SECURE="${LB_APT_SECURE}"
+
+# \$LB_APT_SOURCE: set apt/aptitude source entries in sources.list
+# (Default: ${LB_APT_SOURCE})
+LB_APT_SOURCE="${LB_APT_SOURCE}"
 
 # \$LB_BOOTSTRAP: set bootstrap program
 # (Default: ${LB_BOOTSTRAP})

@@ -100,6 +100,9 @@ Set_defaults ()
 	# Setting apt secure
 	LB_APT_SECURE="${LB_APT_SECURE:-true}"
 
+	# Setting apt source
+	LB_APT_SOURCE="${LB_APT_SOURCE:-true}"
+
 	# Setting bootstrap program
 	if [ -z "${LB_BOOTSTRAP}" ] || ( [ ! -x "$(which ${LB_BOOTSTRAP} 2>/dev/null)" ] && [ "${LB_BOOTSTRAP}" != "copy" ] )
 	then

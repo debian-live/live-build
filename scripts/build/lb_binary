@@ -50,7 +50,7 @@ then
 	lb chroot_sysv-rc install ${*}
 	lb chroot_upstart install ${*}
 	lb chroot_apt install-binary ${*}
-	lb chroot_archives install ${*}
+	lb chroot_archives chroot install ${*}
 fi
 
 # Building root filesystem

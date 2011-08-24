@@ -32,6 +32,8 @@
 .br
   [\fB\-\-apt\-secure\fP true|false]
 .br
+  [\fB\-\-apt\-source\fP true|false]
+.br
   [\-a|\fB\-\-architectures\fP \fIARCHITECTURE\fP]
 .br
   [\-b|\fB\-\-binary\-images\fP iso|iso\-hybrid|net|tar|usb\-hdd|virtual\-hdd]
@@ -305,6 +307,9 @@ defines if apt should install recommended packages automatically. By
 default, this is true except in emdebian mode.
 .IP "\fB\-\-apt\-secure\fP true|false" 4
 defines if apt should check repository signatures. This is true by default.
+.IP "\fB\-\-apt\-source\fP true|false" 4
+defines if deb\-src entries should be included in the resulting live image or
+not, defaults to on.
 .IP "\-a|\fB\-\-architectures\fP \fIARCHITECTURE\fP" 4
 defines the architecture of the to be build image. By default, this is set
 to the host architecture. Note that you cannot crossbuild for another
