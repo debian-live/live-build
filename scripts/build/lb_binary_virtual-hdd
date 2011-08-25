@@ -47,7 +47,7 @@ if [ "${LB_BUILD_WITH_CHROOT}" = "true" ]
 then
 	case "${LB_BINARY_FILESYSTEM}" in
 		ext2|ext3|ext4)
-			Check_package chroot/sbin/mkfs.${LB_BINARTY_FILESYSTEM}  e2fsprogs
+			Check_package chroot/sbin/mkfs.${LB_BINARY_FILESYSTEM}  e2fsprogs
 			;;
 	esac
 fi
@@ -88,7 +88,7 @@ then
 else
 	case "${LB_BINARY_FILESYSTEM}" in
 		ext2|ext3|ext4)
-			mkfs.${LB_BINARTY_FILESYSTEM} . -F binary-virtual.img
+			mkfs.${LB_BINARY_FILESYSTEM} . -F binary-virtual.img
 			;;
 	esac
 fi
