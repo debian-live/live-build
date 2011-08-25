@@ -51,8 +51,8 @@ Create_lockfile .lock
 if [ "${LB_BUILD_WITH_CHROOT}" = "true" ]
 then
 	case "${LB_BINARY_FILESYSTEM}" in
-		ext2|ext3)
-			Check_package chroot/sbin/mkfs.ext2 e2fsprogs
+		ext2|ext3|ext4)
+			Check_package chroot/sbin/mkfs.${LB_BINARY_FILESYSTEM} e2fsprogs
 			;;
 	esac
 fi
@@ -76,24 +76,15 @@ then
 	mv source-virtual.img chroot
 
 	case "${LB_BINARY_FILESYSTEM}" in
-		ext2)
-			Chroot chroot "mkfs.ext2 -F -m 0 source-virtual.img"
-			;;
-
-		ext3)
-			Chroot chroot "mkfs.ext3 -F source-virtual.img"
-			;;
+		ext2|ext3|ext4)
+			Chroot chroot "mkfs.${LB_BINARY_FILESYSTEM} -F -m 0 source-virtual.img"
 	esac
 
 	mv chroot/source-virtual.img ./
 else
 	case "${LB_BINARY_FILESYSTEM}" in
-		ext2)
-			mkfs.ext2 -F -m 0 source-virtual.img
-			;;
-
-		ext3)
-			mkfs.ext3 -F -m 0 source-virtual.img
+		ext2|ext3|ext4)
+			mkfs.${LB_BINARY_FILESYSTEM} -F -m 0 source-virtual.img
 			;;
 	esac
 fi

@@ -88,9 +88,9 @@ do
 done
 
 case "${LB_CHROOT_FILESYSTEM}" in
-	ext2|ext3)
+	ext2|ext3|ext4)
 		# Checking depends
-		Check_package chroot/sbin/mkfs.ext2 e2fsprogs
+		Check_package chroot/sbin/mkfs.${LB_BINARY_FILESYSTEM} e2fsprogs
 
 		# Restoring cache
 		Restore_cache cache/packages_binary

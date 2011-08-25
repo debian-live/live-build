@@ -807,7 +807,7 @@ Set_defaults ()
 	# Setting image filesystem
 	case "${LB_ARCHITECTURES}" in
 		sparc)
-			LB_BINARY_FILESYSTEM="${LB_BINARY_FILESYSTEM:-ext2}"
+			LB_BINARY_FILESYSTEM="${LB_BINARY_FILESYSTEM:-ext4}"
 			;;
 
 		*)

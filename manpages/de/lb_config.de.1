@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2011\-08\-24 3.0~a30\-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2011\-08\-25 3.0~a30\-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -38,7 +38,7 @@
 .br
   [\-b|\fB\-\-binary\-images\fP iso|iso\-hybrid|net|tar|usb\-hdd|virtual\-hdd]
 .br
-  [\fB\-\-binary\-filesystem\fP fat16|fat32|ext2]
+  [\fB\-\-binary\-filesystem\fP fat16|fat32|ext2|ext3|ext4]
 .br
   [\fB\-\-bootappend\-install\fP \fIPARAMETER\fP|\fI"PARAMETERS"\fP]
 .br
@@ -66,7 +66,7 @@
 .br
   [\fB\-\-build\-with\-chroot\fP true|false]
 .br
-  [\fB\-\-chroot\-filesystem\fP ext2|ext3|squashfs|plain|jffs2]
+  [\fB\-\-chroot\-filesystem\fP ext2|ext3|ext4|squashfs|plain|jffs2]
 .br
   [\fB\-\-clean\fP]
 .br
@@ -321,13 +321,13 @@ right kernel. But building powerpc images on an i386 system is not possible.
 defines the image type to build. By default, for images using syslinux this
 is set to iso\-hybrid to build CD/DVD images that may also be used like
 usb\-hdd images, for non\-syslinux images, it defaults to iso.
-.IP "\fB\-\-binary\-filesystem\fP fat16|fat32|ext2" 4
+.IP "\fB\-\-binary\-filesystem\fP fat16|fat32|ext2|ext3|ext4" 4
 defines the filesystem to be used in the image type. This only has an effect
 if the selected binary image type does allow to choose a filesystem. For
 example, when selection iso the resulting CD/DVD has always the filesystem
 ISO9660. When building usb\-hdd images for usb sticks, this is active. Note
 that it defaults to fat16 on all architectures except sparc where it
-defaults to ext2. Also note that if you choose fat16 and your resulting
+defaults to ext4. Also note that if you choose fat16 and your resulting
 binary image gets bigger than 2GB, the binary filesystem automatically gets
 switched to fat32.
 .IP "\fB\-\-bootappend\-install\fP \fIPARAMETER\fP|\(dq\fIPARAMETERS\fP\(dq" 4
@@ -401,7 +401,7 @@ squashfs\-tools and others) do not \fBexactely\fP match what is present at
 build\-time in the target distribution. Never do disable this option unless
 you are \fBexactely\fP sure what you are doing and have \fBcompletely\fP\fI
 understood its consequences.\fP
-.IP "\fB\-\-chroot\-filesystem\fP ext2|ext3|squashfs|plain|jffs2" 4
+.IP "\fB\-\-chroot\-filesystem\fP ext2|ext3|ext4|squashfs|plain|jffs2" 4
 defines which filesystem type should be used for the root filesystem
 image. If you use plain, then no filesystem image is created and the root
 filesystem content is copied on the binary image filesystem as flat

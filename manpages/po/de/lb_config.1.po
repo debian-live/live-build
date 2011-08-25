@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2011-08-24 23:29+0300\n"
+"POT-Creation-Date: 2011-08-25 23:45+0300\n"
 "PO-Revision-Date: 2011-08-16 20:48+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -77,7 +77,7 @@ msgstr ""
 #: en/lb_source_net.1:1 en/lb_source_tar.1:1 en/lb_source_usb.1:1
 #: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "2011-08-24"
+msgid "2011-08-25"
 msgstr ""
 
 #. type: TH
@@ -696,7 +696,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:37
-msgid "  [B<--binary-filesystem> fat16|fat32|ext2]"
+msgid "  [B<--binary-filesystem> fat16|fat32|ext2|ext3|ext4]"
 msgstr ""
 
 #. type: Plain text
@@ -766,7 +766,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:65
-msgid "  [B<--chroot-filesystem> ext2|ext3|squashfs|plain|jffs2]"
+msgid "  [B<--chroot-filesystem> ext2|ext3|ext4|squashfs|plain|jffs2]"
 msgstr ""
 
 #. type: Plain text
@@ -1420,7 +1420,7 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:278
 #, no-wrap
-msgid "B<--binary-filesystem> fat16|fat32|ext2"
+msgid "B<--binary-filesystem> fat16|fat32|ext2|ext3|ext4"
 msgstr ""
 
 #. type: Plain text
@@ -1431,7 +1431,7 @@ msgid ""
 "example, when selection iso the resulting CD/DVD has always the filesystem "
 "ISO9660. When building usb-hdd images for usb sticks, this is active. Note "
 "that it defaults to fat16 on all architectures except sparc where it "
-"defaults to ext2. Also note that if you choose fat16 and your resulting "
+"defaults to ext4. Also note that if you choose fat16 and your resulting "
 "binary image gets bigger than 2GB, the binary filesystem automatically gets "
 "switched to fat32."
 msgstr ""
@@ -1638,7 +1638,7 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:306
 #, no-wrap
-msgid "B<--chroot-filesystem> ext2|ext3|squashfs|plain|jffs2"
+msgid "B<--chroot-filesystem> ext2|ext3|ext4|squashfs|plain|jffs2"
 msgstr ""
 
 #. type: Plain text
