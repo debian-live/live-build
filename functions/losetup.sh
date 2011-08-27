@@ -16,6 +16,8 @@ Losetup ()
 
 	${LB_ROOT_COMMAND} ${LB_LOSETUP} "${DEVICE}" "${FILE}"
 	FDISK_OUT="$(${LB_FDISK} -l -u ${DEVICE} 2>&1)"
+
+	sleep 1
 	${LB_ROOT_COMMAND} ${LB_LOSETUP} -d "${DEVICE}"
 
 	LOOPDEVICE="$(echo ${DEVICE}p${PARTITION})"
