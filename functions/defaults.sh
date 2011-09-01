@@ -12,7 +12,15 @@ Set_defaults ()
 {
 	## config/common
 
-	LB_BASE="${LB_BASE:-/usr/share/live/build}"
+	if [ -e local/live-build ]
+	then
+		LB_BASE="${LB_BASE:-${PWD}/local/live-build}"
+		PATH="${PWD}/local/live-build/scripts/build:${PATH}"
+		export LB_BASE PATH
+	else
+		LB_BASE="${LB_BASE:-/usr/share/live/build}"
+		export LB_BASE
+	fi
 
 	# Setting mode (currently: debian, emdebian, progress, ubuntu and kubuntu)
 	LB_MODE="${LB_MODE:-debian}"
