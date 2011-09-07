@@ -297,6 +297,7 @@ EOF
 					then
 						cp -L "${FILE}" chroot/root/packages
 					elif [ -e "${FILE}" ]
+					then
 						cp ${CP_OPTIONS} "${FILE}" chroot/root/packages
 					fi
 				done
@@ -310,6 +311,7 @@ EOF
 					then
 						cp -L "${FILE}" chroot/root/packages
 					elif [ -e "${FILE}" ]
+					then
 						cp ${CP_OPTIONS} "${FILE}" chroot/root/packages
 					fi
 				done
