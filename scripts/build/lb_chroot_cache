@@ -24,14 +24,14 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-Echo_message "Begin caching chroot stage..."
-
 for STAGE in ${LB_CACHE_STAGES}
 do
 	if [ "${STAGE}" = "chroot" ]
 	then
 		case "${1}" in
 			restore)
+				Echo_message "Restoring chroot stage from cache..."
+
 				# Checking stage file
 				Check_stagefile .stage/chroot_cache.restore
 
@@ -62,6 +62,8 @@ do
 				;;
 
 			save)
+				Echo_message "Saving chroot stage to cache..."
+
 				# Checking stage file
 				Check_stagefile .stage/chroot_cache.save
 
