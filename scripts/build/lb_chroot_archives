@@ -277,39 +277,39 @@ EOF
 		fi
 
 		# Configure local package repository
-		if Find_files config/chroot_packages/*.deb
+		if Find_files config/packages.chroot/*.deb
 		then
 			rm -rf chroot/root/packages
 			mkdir -p chroot/root/packages
 
-			if [ "$(stat --printf %d config/chroot_packages)" = "$(stat --printf %d chroot/root/packages)" ]
+			if [ "$(stat --printf %d config/packages.chroot)" = "$(stat --printf %d chroot/root/packages)" ]
 			then
 				CP_OPTIONS="-l"
 			fi
 
 			# Copy packages
-			if Find_files config/chroot_packages/*_"${LB_ARCHITECTURES}".deb
+			if Find_files config/packages.chroot/*_"${LB_ARCHITECTURES}".deb
 			then
-				for FILE in config/chroot_packages/*_"${LB_ARCHITECTURES}".deb
+				for FILE in config/packages.chroot/*_"${LB_ARCHITECTURES}".deb
 				do
 					if [ -L "${FILE}" ]
 					then
-						cp -L config/chroot_packages/*_"${LB_ARCHITECTURES}".deb chroot/root/packages
+						cp -L config/packages.chroot/*_"${LB_ARCHITECTURES}".deb chroot/root/packages
 					else
-						cp ${CP_OPTIONS} config/chroot_packages/*_"${LB_ARCHITECTURES}".deb chroot/root/packages
+						cp ${CP_OPTIONS} config/packages.chroot/*_"${LB_ARCHITECTURES}".deb chroot/root/packages
 					fi
 				done
 			fi
 
-			if Find_files config/chroot_packages/*_all.deb
+			if Find_files config/packages.chroot/*_all.deb
 			then
-				for FILE in config/chroot_packages/*_all.deb
+				for FILE in config/packages.chroot/*_all.deb
 				do
 					if [ -L "${FILE}" ]
 					then
-						cp -L config/chroot_packages/*_all.deb chroot/root/packages
+						cp -L config/packages.chroot/*_all.deb chroot/root/packages
 					else
-						cp ${CP_OPTIONS} config/chroot_packages/*_all.deb chroot/root/packages
+						cp ${CP_OPTIONS} config/packages.chroot/*_all.deb chroot/root/packages
 					fi
 				done
 			fi
@@ -432,7 +432,7 @@ EOF
 		if Find_files chroot/root/packages/*.deb
 		then
 			gunzip < chroot/root/packages/Packages.gz | awk '/^Package: / { print $2 }' \
-			>> chroot/root/chroot_packages
+			>> chroot/root/packages.chroot
 		fi
 
 		# Update indices from cache

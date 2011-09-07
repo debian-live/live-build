@@ -108,7 +108,7 @@ case "${1}" in
 			cp config/chroot_apt/preferences chroot/etc/apt/preferences
 		fi
 
-		if Find_files config/chroot_packages/*.deb
+		if Find_files config/packages.chroot/*.deb
 		then
 			echo >> chroot/etc/apt/preferences
 			echo "# Added by lb_chroot_apt ${@}" >> chroot/etc/apt/preferences
@@ -236,7 +236,7 @@ EOF
 			fi
 		fi
 
-		if Find_files config/chroot_packages/*.deb
+		if Find_files config/packages.chroot/*.deb
 		then
 			if [ -f chroot/etc/apt/preferences ]
 			then

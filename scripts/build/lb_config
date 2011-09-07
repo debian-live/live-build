@@ -1163,7 +1163,7 @@ mkdir -p config/chroot_apt
 mkdir -p config/hooks
 mkdir -p config/local.chroot
 mkdir -p config/chroot_local-patches
-mkdir -p config/chroot_packages
+mkdir -p config/packages.chroot
 mkdir -p config/package-lists
 mkdir -p config/chroot_local-preseed
 mkdir -p config/task-lists

@@ -42,7 +42,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ -e chroot/root/chroot_packages ] && [ -s chroot/root/chroot_packages ]
+if [ -e chroot/root/packages.chroot ] && [ -s chroot/root/packages.chroot ]
 then
 	# Restoring cache
 	Restore_cache cache/packages_chroot
@@ -50,16 +50,16 @@ then
 	# Installing packages
 	case "${LB_APT}" in
 		apt|apt-get)
-			Chroot chroot "xargs --arg-file=/root/chroot_packages apt-get ${APT_OPTIONS} install"
+			Chroot chroot "xargs --arg-file=/root/packages.chroot apt-get ${APT_OPTIONS} install"
 			;;
 
 		aptitude)
-			Chroot chroot "xargs --arg-file=/root/chroot_packages aptitude ${APTITUDE_OPTIONS} install"
+			Chroot chroot "xargs --arg-file=/root/packages.chroot aptitude ${APTITUDE_OPTIONS} install"
 			;;
 	esac
 
 	# Tidying up
-	rm -f chroot/root/chroot_packages
+	rm -f chroot/root/packages.chroot
 
 	# Saving cache
 	Save_cache cache/packages_chroot

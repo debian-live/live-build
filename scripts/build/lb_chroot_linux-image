@@ -49,7 +49,7 @@ then
 	do
 		for PACKAGE in ${LB_LINUX_PACKAGES}
 		do
-			echo ${PACKAGE}-${FLAVOUR} >> chroot/root/chroot_packages
+			echo ${PACKAGE}-${FLAVOUR} >> chroot/root/packages.chroot
 		done
 	done
 

@@ -47,7 +47,7 @@ then
 	for LIST in ${LB_PACKAGE_LISTS}
 	do
 		# Generating package list
-		Expand_packagelist "${LIST}" >> chroot/root/chroot_packages
+		Expand_packagelist "${LIST}" >> chroot/root/packages.chroot
 	done
 
 	# Creating stage file
@@ -67,7 +67,7 @@ then
 		then
 			# Generating package list
 			Expand_packagelist "$(basename ${LIST})" "config/package-lists" \
-				>> chroot/root/chroot_packages
+				>> chroot/root/packages.chroot
 		fi
 	done
 
