@@ -75,7 +75,7 @@ then
 fi
 
 case "${LB_BINARY_FILESYSTEM}" in
-	ext2|ext3)
+	ext2|ext3|ext4)
 		PARTITION_TYPE="ext2"
 		;;
 
@@ -98,7 +98,7 @@ Lodetach ${FREELO}
 Losetup $FREELO source.img 1
 
 case "${LB_BINARY_FILESYSTEM}" in
-	ext2|ext3)
+	ext2|ext3|ext4)
 		MKFS="${LB_BINARY_FILESYSTEM}"
 		MKFS_OPTIONS="-L DEBIAN_LIVE -m 0"
 		;;

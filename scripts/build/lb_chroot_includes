@@ -14,7 +14,7 @@ set -e
 . "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
-DESCRIPTION="$(Echo 'copy local files into chroot')"
+DESCRIPTION="$(Echo 'copy files into chroot')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -24,13 +24,13 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-Echo_message "Begin copying chroot local includes..."
+Echo_message "Begin copying chroot includes..."
 
 # Requiring stage file
 Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/chroot_local-includes
+Check_stagefile .stage/includes.chroot
 
 # Checking lock file
 Check_lockfile .lock
@@ -38,13 +38,13 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if Find_files config/chroot_local-includes/
+if Find_files config/includes.chroot/
 then
 	# Copying includes
-	cd config/chroot_local-includes
+	cd config/includes.chroot
 	find . | cpio -dmpu --no-preserve-owner "${OLDPWD}"/chroot
 	cd "${OLDPWD}"
 
 	# Creating stage file
-	Create_stagefile .stage/chroot_local-includes
+	Create_stagefile .stage/chroot_includes
 fi

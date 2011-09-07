@@ -27,14 +27,14 @@ Set_defaults
 # Check architecture
 Check_crossarchitectures
 
-Echo_message "Begin caching bootstrap stage..."
-
 for STAGE in ${LB_CACHE_STAGES}
 do
 	if [ "${STAGE}" = "bootstrap" ]
 	then
 		case "${1}" in
 			restore)
+				Echo_message "Restoring bootstrap stage from cache..."
+
 				# Checking stage file
 				Check_stagefile .stage/bootstrap_cache.restore
 
@@ -66,6 +66,8 @@ do
 				;;
 
 			save)
+				Echo_message "Saving bootstrap stage to cache..."
+
 				# Checking stage file
 				Check_stagefile .stage/bootstrap_cache.save
 

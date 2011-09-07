@@ -61,9 +61,11 @@ case "${LB_INITRAMFS}" in
 esac
 
 # Add filesystem.packages
-cp binary.packages.live "binary/${INITFS}/filesystem.${SUFFIX}"
-echo "$(diff binary.packages.live binary.packages.install | awk '/^< / { print $2 }')" \
+cp chroot.packages.live "binary/${INITFS}/filesystem.${SUFFIX}"
+echo "$(diff chroot.packages.live chroot.packages.install | awk '/^< / { print $2 }')" \
 	> "binary/${INITFS}/filesystem.${SUFFIX}-remove"
+
+cp chroot.packages.live binary.packages
 
 # Creating stage file
 Create_stagefile .stage/binary_manifest

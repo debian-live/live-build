@@ -12,7 +12,15 @@ Set_defaults ()
 {
 	## config/common
 
-	LB_BASE="${LB_BASE:-/usr/share/live/build}"
+	if [ -e local/live-build ]
+	then
+		LB_BASE="${LB_BASE:-${PWD}/local/live-build}"
+		PATH="${PWD}/local/live-build/scripts/build:${PATH}"
+		export LB_BASE PATH
+	else
+		LB_BASE="${LB_BASE:-/usr/share/live/build}"
+		export LB_BASE
+	fi
 
 	# Setting mode (currently: debian, emdebian, progress, ubuntu and kubuntu)
 	LB_MODE="${LB_MODE:-debian}"
@@ -99,6 +107,17 @@ Set_defaults ()
 
 	# Setting apt secure
 	LB_APT_SECURE="${LB_APT_SECURE:-true}"
+
+	# Setting apt source
+	case "${LB_MODE}" in
+		progress)
+			LB_APT_SOURCE_ARCHIVES="${LB_APT_SOURCE_ARCHIVES:-false}"
+			;;
+
+		*)
+			LB_APT_SOURCE_ARCHIVES="${LB_APT_SOURCE_ARCHIVES:-true}"
+			;;
+	esac
 
 	# Setting bootstrap program
 	if [ -z "${LB_BOOTSTRAP}" ] || ( [ ! -x "$(which ${LB_BOOTSTRAP} 2>/dev/null)" ] && [ "${LB_BOOTSTRAP}" != "copy" ] )
@@ -796,7 +815,7 @@ Set_defaults ()
 	# Setting image filesystem
 	case "${LB_ARCHITECTURES}" in
 		sparc)
-			LB_BINARY_FILESYSTEM="${LB_BINARY_FILESYSTEM:-ext2}"
+			LB_BINARY_FILESYSTEM="${LB_BINARY_FILESYSTEM:-ext4}"
 			;;
 
 		*)
@@ -822,12 +841,7 @@ Set_defaults ()
 			;;
 
 		*)
-			if echo ${LB_PACKAGE_LISTS} | grep -qs -E "(stripped|minimal)\b"
-			then
-				LB_APT_INDICES="${LB_APT_INDICES:-none}"
-			else
-				LB_APT_INDICES="${LB_APT_INDICES:-true}"
-			fi
+			LB_APT_INDICES="${LB_APT_INDICES:-true}"
 			;;
 	esac
 

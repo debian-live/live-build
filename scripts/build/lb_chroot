@@ -49,7 +49,7 @@ lb chroot_hosts install ${*}
 lb chroot_resolv install ${*}
 lb chroot_hostname install ${*}
 lb chroot_apt install ${*}
-lb chroot_archives install ${*}
+lb chroot_archives chroot install ${*}
 
 # Customizing chroot
 lb chroot_linux-image ${*}
@@ -58,27 +58,27 @@ lb chroot_local-preseed ${*}
 
 for _PASS in install live
 do
-	lb chroot_packagelists ${_PASS} ${*}
+	lb chroot_package-lists ${_PASS} ${*}
 	lb chroot_install-packages ${_PASS} ${*}
 	lb chroot_task-lists ${_PASS} ${*}
 
 	if [ "${_PASS}" = install ]
 	then
-		Chroot chroot "dpkg-query -W" > binary.packages.install
+		Chroot chroot "dpkg-query -W" > chroot.packages.install
 	fi
 done
 
 lb chroot_live-packages ${*}
-lb chroot_local-includes ${*}
+lb chroot_includes ${*}
 lb chroot_local-patches ${*}
 lb chroot_hooks ${*}
 lb chroot_hacks ${*}
 lb chroot_interactive ${*}
 
-Chroot chroot "dpkg-query -W" > binary.packages.live
+Chroot chroot "dpkg-query -W" > chroot.packages.live
 
 # Deconfiguring chroot
-lb chroot_archives remove ${*}
+lb chroot_archives chroot remove ${*}
 lb chroot_apt remove ${*}
 lb chroot_hostname remove ${*}
 lb chroot_resolv remove ${*}

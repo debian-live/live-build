@@ -21,7 +21,10 @@ Lodetach ()
 	# Changes to block devices result in uevents which trigger rules which in
 	# turn access the loop device (ex. udisks-part-id, blkid) which can cause
 	# a race condition. We call 'udevadm settle' to help avoid this.
-	${LB_ROOT_COMMAND} udevadm settle
+	if [ -x "$(which udevadm 2>/dev/null)" ]
+	then
+		${LB_ROOT_COMMAND} udevadm settle
+	fi
 
 	# Loop back devices aren't the most reliable when it comes to writes.
 	# We sleep and sync for good measure - better than build failure.

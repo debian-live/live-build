@@ -72,10 +72,10 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ -e config/chroot_local-includes/etc/resolv.conf ]
+		if [ -e config/includes.chroot/etc/resolv.conf ]
 		then
 			# Copying local resolv.conf
-			cp -a config/chroot_local-includes/etc/resolv.conf chroot/etc/resolv.conf
+			cp -a config/includes.chroot/etc/resolv.conf chroot/etc/resolv.conf
 			rm -f chroot/etc/resolv.conf.orig
 		elif [ -e chroot/etc/resolv.conf.orig ]
 		then

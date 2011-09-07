@@ -91,7 +91,19 @@ case "${LB_INITRAMFS}" in
 			mkdir -p binary/uuid
 			cd binary/uuid
 
-			zcat "../../${INITRD}" | cpio --quiet -id conf/uuid.conf
+			case "${LB_INITRAMFS_COMPRESSION}" in
+				gzip)
+					zcat "../../${INITRD}" | cpio --quiet -id conf/uuid.conf
+					;;
+
+				bzip2)
+					bzcat "../../${INITRD}" | cpio --quiet -id conf/uuid.conf
+					;;
+
+				lzma)
+					lzcat "../../${INITRD}" | cpio --quiet -id conf/uuid.conf
+					;;
+			esac
 
 			if [ -e conf/uuid.conf ]
 			then

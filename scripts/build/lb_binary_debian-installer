@@ -446,19 +446,25 @@ then
 	fi
 
 	# Including local debs
-	if Find_files config/binary_local-debs/*_"${LB_ARCHITECTURES}".deb
+	if Find_files config/packages.binary/*_"${LB_ARCHITECTURES}".deb || config/packages/*_"${LB_ARCHITECTURES}".deb
 	then
-		for FILE in config/binary_local-debs/*_"${LB_ARCHITECTURES}".deb
+		for FILE in config/packages.binary/*_"${LB_ARCHITECTURES}".deb config/packages/*_"${LB_ARCHITECTURES}".deb
 		do
-			Install_file "${FILE}" "binary/pool/main"
+			if [ -e "${FILE}" ]
+			then
+				Install_file "${FILE}" "binary/pool/main"
+			fi
 		done
 	fi
 
-	if Find_files config/binary_local-debs/*_all.deb
+	if Find_files config/packages.binary/*_all.deb || config/packages/*_all.deb
 	then
-		for FILE in config/binary_local-debs/*_all.deb
+		for FILE in config/packages.binary/*_all.deb config/packages/*_all.deb
 		do
-			Install_file "${FILE}" "binary/pool/main"
+			if [ -e "${FILE}" ]
+			then
+				Install_file "${FILE}" "binary/pool/main"
+			fi
 		done
 	fi
 
@@ -520,25 +526,31 @@ then
 	cp *.udeb ../cache/packages_debian-installer.udeb
 
 	# Including local udebs
-	if Find_files ../config/binary_local-udebs/*_"${LB_ARCHITECTURES}".udeb
+	if Find_files ../config/packages.binary/*_"${LB_ARCHITECTURES}".udeb || Find_files ../config/packages/*_"${LB_ARCHITECTURES}".udeb
 	then
-		for FILE in ../config/binary_local-udebs/*_"${LB_ARCHITECTURES}".udeb
+		for FILE in ../config/packages.binary/*_"${LB_ARCHITECTURES}".udeb ../config/packages/*_"${LB_ARCHITECTURES}".udeb
 		do
-			Install_file "${FILE}" "pool/main"
+			if [ -e "${FILE}" ]
+			then
+				Install_file "${FILE}" "pool/main"
 
-			# Prefer local udebs over downloaded udebs
-			rm -f "$(basename ${FILE} | awk -F_ '{ print $1 }')"_*.udeb
+				# Prefer local udebs over downloaded udebs
+				rm -f "$(basename ${FILE} | awk -F_ '{ print $1 }')"_*.udeb
+			fi
 		done
 	fi
 
-	if Find_files ../config/binary_local-udebs/*_all.udeb
+	if Find_files ../config/packages.binary/*_all.udeb || Find_files ../config/packages/*_all.udeb
 	then
-		for FILE in ../config/binary_local-udebs/*_all.udeb
+		for FILE in ../config/packages.binary/*_all.udeb ../config/packages/*_all.udeb
 		do
-			Install_file "${FILE}" "pool/main"
+			if [ -e "${FILE}" ]
+			then
+				Install_file "${FILE}" "pool/main"
 
-			# Prefer local udebs over downloaded udebs
-			rm -f "$(basename ${FILE} | awk -F_ '{ print $1 }')"_*.udeb
+				# Prefer local udebs over downloaded udebs
+				rm -f "$(basename ${FILE} | awk -F_ '{ print $1 }')"_*.udeb
+			fi
 		done
 	fi
 

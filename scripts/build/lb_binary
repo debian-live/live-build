@@ -50,7 +50,7 @@ then
 	lb chroot_sysv-rc install ${*}
 	lb chroot_upstart install ${*}
 	lb chroot_apt install-binary ${*}
-	lb chroot_archives install ${*}
+	lb chroot_archives chroot install ${*}
 fi
 
 # Building root filesystem
@@ -58,7 +58,7 @@ lb binary_rootfs ${*}
 lb binary_manifest ${*}
 
 # Prepare images
-lb binary_local-packagelists ${*}
+lb binary_packagelists ${*}
 lb binary_linux-image ${*}
 lb binary_debian-installer ${*}
 lb binary_memtest ${*}
@@ -94,11 +94,13 @@ then
 	# Deconfiguring chroot
 	rm -f .stage/chroot_archives
 	lb chroot_apt remove ${*}
-	lb chroot_upstart remove ${*}
-	lb chroot_sysv-rc remove ${*}
 	lb chroot_hostname remove ${*}
 	lb chroot_resolv remove ${*}
 	lb chroot_hosts remove ${*}
+	lb chroot_upstart remove ${*}
+	lb chroot_sysv-rc remove ${*}
+	lb chroot_dpkg remove ${*}
+	lb chroot_debianchroot remove ${*}
 fi
 
 lb chroot_sysfs remove ${*}
