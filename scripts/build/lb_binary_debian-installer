@@ -520,9 +520,9 @@ then
 	cp *.udeb ../cache/packages_debian-installer.udeb
 
 	# Including local udebs
-	if Find_files ../config/binary_local-udebs/*_"${LB_ARCHITECTURES}".udeb
+	if Find_files ../config/packages.binary/*_"${LB_ARCHITECTURES}".udeb
 	then
-		for FILE in ../config/binary_local-udebs/*_"${LB_ARCHITECTURES}".udeb
+		for FILE in ../config/packages.binary/*_"${LB_ARCHITECTURES}".udeb
 		do
 			Install_file "${FILE}" "pool/main"
 
@@ -531,9 +531,9 @@ then
 		done
 	fi
 
-	if Find_files ../config/binary_local-udebs/*_all.udeb
+	if Find_files ../config/packages.binary/*_all.udeb
 	then
-		for FILE in ../config/binary_local-udebs/*_all.udeb
+		for FILE in ../config/packages.binary/*_all.udeb
 		do
 			Install_file "${FILE}" "pool/main"
 
