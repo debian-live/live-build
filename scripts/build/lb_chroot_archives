@@ -277,39 +277,40 @@ EOF
 		fi
 
 		# Configure local package repository
-		if Find_files config/packages.chroot/*.deb
+		if Find_files config/packages.chroot/*.deb || Find_files config/packages/*.deb
 		then
 			rm -rf chroot/root/packages
 			mkdir -p chroot/root/packages
 
-			if [ "$(stat --printf %d config/packages.chroot)" = "$(stat --printf %d chroot/root/packages)" ]
+			if [ "$(stat --printf %d config/packages.chroot)" = "$(stat --printf %d chroot/root/packages)" ] ||
+			   [ "$(stat --printf %d config/packages)" = "$(stat --printf %d chroot/root/packages)" ]
 			then
 				CP_OPTIONS="-l"
 			fi
 
 			# Copy packages
-			if Find_files config/packages.chroot/*_"${LB_ARCHITECTURES}".deb
+			if Find_files config/packages.chroot/*_"${LB_ARCHITECTURES}".deb || Find_files config/packages/*_"${LB_ARCHITECTURES}".deb
 			then
-				for FILE in config/packages.chroot/*_"${LB_ARCHITECTURES}".deb
+				for FILE in config/packages.chroot/*_"${LB_ARCHITECTURES}".deb config/packages/*_"${LB_ARCHITECTURES}".deb
 				do
 					if [ -L "${FILE}" ]
 					then
-						cp -L config/packages.chroot/*_"${LB_ARCHITECTURES}".deb chroot/root/packages
-					else
-						cp ${CP_OPTIONS} config/packages.chroot/*_"${LB_ARCHITECTURES}".deb chroot/root/packages
+						cp -L "${FILE}" chroot/root/packages
+					elif [ -e "${FILE}" ]
+						cp ${CP_OPTIONS} "${FILE}" chroot/root/packages
 					fi
 				done
 			fi
 
-			if Find_files config/packages.chroot/*_all.deb
+			if Find_files config/packages.chroot/*_all.deb || Find_files config/packages/*_all.deb
 			then
-				for FILE in config/packages.chroot/*_all.deb
+				for FILE in config/packages.chroot/*_all.deb config/packages/*_all.deb
 				do
 					if [ -L "${FILE}" ]
 					then
-						cp -L config/packages.chroot/*_all.deb chroot/root/packages
-					else
-						cp ${CP_OPTIONS} config/packages.chroot/*_all.deb chroot/root/packages
+						cp -L "${FILE}" chroot/root/packages
+					elif [ -e "${FILE}" ]
+						cp ${CP_OPTIONS} "${FILE}" chroot/root/packages
 					fi
 				done
 			fi
@@ -331,7 +332,7 @@ EOF
 				# Installing depends
 				Install_package
 
-				# Generate Packages and Packages.gz 
+				# Generate Packages and Packages.gz
 				echo "cd /root/packages && apt-ftparchive packages . > Packages" | Chroot chroot sh
 				gzip -9 -c chroot/root/packages/Packages > chroot/root/packages/Packages.gz
 
