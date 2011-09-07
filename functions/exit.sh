@@ -35,7 +35,7 @@ Exit ()
 		done
 	fi
 
-	Echo_message "Saving chaches..."
+	Echo_message "Saving caches..."
 
 	# We can't really know at which part we're failing,
 	# but let's assume that if there's any binary stage file arround
