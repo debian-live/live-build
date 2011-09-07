@@ -19,7 +19,7 @@ Check_stagefile ()
 		if [ "${_FORCE}" != "true" ]
 		then
 			# Skipping execution
-			Echo_warning "skipping %s" "${NAME}"
+			Echo_warning "skipping %s, already done" "${NAME}"
 			exit 0
 		else
 			# Forcing execution
