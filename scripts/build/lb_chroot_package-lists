@@ -33,7 +33,7 @@ Echo_message "Begin queueing installation of package lists (${_PASS} pass)..."
 Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/chroot_packagelists.${_PASS}
+Check_stagefile .stage/chroot_package-lists.${_PASS}
 
 # Checking lock file
 Check_lockfile .lock
@@ -51,7 +51,7 @@ then
 	done
 
 	# Creating stage file
-	Create_stagefile .stage/chroot_packagelists.${_PASS}
+	Create_stagefile .stage/chroot_package-lists.${_PASS}
 fi
 
 # Handling local package lists
@@ -72,5 +72,5 @@ then
 	done
 
 	# Creating stage file
-	Create_stagefile .stage/chroot_packagelists.${_PASS}
+	Create_stagefile .stage/chroot_package-lists.${_PASS}
 fi
