@@ -86,6 +86,8 @@ do
 
 			${LB_ROOT_COMMAND} rm -rf chroot chroot.tmp
 
+			rm -f chroot.packages.live chroot.packages.install
+
 			rm -f .stage/chroot*
 			;;
 
@@ -96,7 +98,7 @@ do
 			rm -f binary*.img
 			rm -f binary*.tar.gz
 			rm -f binary.sh
-			rm -f binary.list binary.packages binary.packages.install binary.packages.live md5sum.txt
+			rm -f binary.list md5sum.txt
 
 			rm -rf binary
 			rm -rf tftpboot

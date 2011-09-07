@@ -64,7 +64,7 @@ do
 
 	if [ "${_PASS}" = install ]
 	then
-		Chroot chroot "dpkg-query -W" > binary.packages.install
+		Chroot chroot "dpkg-query -W" > chroot.packages.install
 	fi
 done
 
@@ -75,7 +75,7 @@ lb chroot_hooks ${*}
 lb chroot_hacks ${*}
 lb chroot_interactive ${*}
 
-Chroot chroot "dpkg-query -W" > binary.packages.live
+Chroot chroot "dpkg-query -W" > chroot.packages.live
 
 # Deconfiguring chroot
 lb chroot_archives chroot remove ${*}
