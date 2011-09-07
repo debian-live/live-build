@@ -73,10 +73,10 @@ EOF
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ -e config/chroot_local-includes/etc/hosts ]
+		if [ -e config/includes.chroot/etc/hosts ]
 		then
 			# Copying local hosts
-			cp -a config/chroot_local-includes/etc/hosts chroot/etc/hosts
+			cp -a config/includes.chroot/etc/hosts chroot/etc/hosts
 			rm -f chroot/etc/hosts.orig
 		elif [ -f chroot/etc/hosts.orig ]
 		then

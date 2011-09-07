@@ -1161,7 +1161,7 @@ EOF
 mkdir -p config/archives
 mkdir -p config/chroot_apt
 mkdir -p config/hooks
-mkdir -p config/chroot_local-includes
+mkdir -p config/local.chroot
 mkdir -p config/chroot_local-patches
 mkdir -p config/chroot_packages
 mkdir -p config/package-lists
