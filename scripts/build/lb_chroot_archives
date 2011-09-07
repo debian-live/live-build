@@ -337,7 +337,7 @@ EOF
 
 				# Generate Release
 				echo "cd /root/packages && apt-ftparchive \
-					-o APT::FTPArchive::Release::Origin=chroot_packages \
+					-o APT::FTPArchive::Release::Origin=config/packages.chroot \
 					release . > Release" | Chroot chroot sh
 
 				if [ "${LB_APT_SECURE}" = "true" ]

@@ -113,7 +113,7 @@ case "${1}" in
 			echo >> chroot/etc/apt/preferences
 			echo "# Added by lb_chroot_apt ${@}" >> chroot/etc/apt/preferences
 			echo "Package: *" >> chroot/etc/apt/preferences
-			echo "Pin: release o=chroot_packages" >> chroot/etc/apt/preferences
+			echo "Pin: release o=config/packages.chroot" >> chroot/etc/apt/preferences
 
 			case "${1}" in
 				install)
