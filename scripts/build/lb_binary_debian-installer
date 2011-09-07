@@ -446,17 +446,17 @@ then
 	fi
 
 	# Including local debs
-	if Find_files config/binary_local-debs/*_"${LB_ARCHITECTURES}".deb
+	if Find_files config/packages.binary/*_"${LB_ARCHITECTURES}".deb
 	then
-		for FILE in config/binary_local-debs/*_"${LB_ARCHITECTURES}".deb
+		for FILE in config/packages.binary/*_"${LB_ARCHITECTURES}".deb
 		do
 			Install_file "${FILE}" "binary/pool/main"
 		done
 	fi
 
-	if Find_files config/binary_local-debs/*_all.deb
+	if Find_files config/packages.binary/*_all.deb
 	then
-		for FILE in config/binary_local-debs/*_all.deb
+		for FILE in config/packages.binary/*_all.deb
 		do
 			Install_file "${FILE}" "binary/pool/main"
 		done
