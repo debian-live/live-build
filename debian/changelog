@@ -1,3 +1,62 @@
+live-build (3.0~a31-1) experimental; urgency=low
+
+  [ Daniel Baumann ]
+  * Renumbering hooks.
+  * Introducing --apt-sources option to control if the live system
+    should have deb-src entries in sources.list.
+  * Setting apt-source to false in progress mode.
+  * Avoiding magic defaults for --apt-indices option when using minimal
+    or stripped packagelist.
+  * Renaming --apt-source to --apt-source-archives.
+  * Including live-tools in standard package list.
+  * Adding support for ext4 for binary and chroot filesystem, including
+    partial patch from Ben Howard <ben.howard@canonical.com> (Closes:
+    #639298).
+
+  [ intrigeri ]
+  * Fixing typos brought in by ext4 support patch.
+
+  [ Daniel Baumann ]
+  * Only calling udevadm in losetup function when udev is installed on
+    the host system.
+  * Silencing rmdir calls in makefile.
+  * Automatically using an embedded live-build copy from within the
+    config tree at local/live-build, if existing.
+  * Doing uuid.conf extraction from initrd with the correct
+    decompression utility (Closes: #637979).
+  * Completing the restoring of the outer chroot when building in
+    chrooted to not taint subsequent rebuilds of the binary stage with
+    leftovers from the initial lb_binary_rootfs (Closes: #620953).
+  * Renaming binary.packages list files (that contain what package is
+    installed in the chroot) to chroot as they are build during chroot
+    stage, this fixes some rebuild issues.
+  * Renaming forgotten lb_binary_local-packagelists to
+    lb_binary_packagelists.
+  * Renaming lb_chroot_local-includes into lb_chroot_includes and check
+    for includes in config/includes.chroot.
+  * Copying chroot.packages.live to binary.packages.
+  * Improving messages when saving and restoring stage caches (Closes:
+    #589728).
+  * Improve message when skipping a helper because it is already run.
+  * Renaming config/chroot_packages to config/packages.chroot.
+  * Renaming lb_chroot_packagelists to lb_chroot_package-lists so that
+    helper matches directory.
+  * Setting origin in apt release files for local packages to
+    config/packages.chroot.
+  * Removing spurious version information in cgi form template.
+  * Adding link to live-build homepage and version information in cgi
+    footer template.
+  * Using config/includes.binary rather than config/binary_local-
+    includes.
+  * Using config/packages.binary instead of config/binary_local-debs.
+  * Using config/packages.binary instead of config/binary_local-udebs.
+  * Updating lb_config for config/packages.binary.
+  * Also respect config/packages for packages to be installed in both
+    chroot and binary.
+  * Correcting syntax error in local package handling.
+
+ -- Daniel Baumann <daniel@debian.org>  Wed, 07 Sep 2011 17:41:19 +0200
+
 live-build (3.0~a30-1) experimental; urgency=low
 
   [ Daniel Baumann ]
