@@ -1010,6 +1010,29 @@ Set_defaults ()
 			;;
 	esac
 
+	# Setting hdd options
+	case "${LB_MODE}" in
+		debian)
+			LB_HDD_LABEL="${LB_HDD_LABEL:-DEBIAN_LIVE}"
+			;;
+
+		emdebian)
+			LB_HDD_LABEL="${LB_HDD_LABEL:-EMDEBIAN_LIVE}"
+			;;
+
+		progress)
+			LB_HDD_LABEL="${LB_HDD_LABEL:-PROGRESS_$(echo ${LB_DISTRIBUTION} | tr [a-z][A-Z])}"
+			;;
+
+		ubuntu)
+			LB_HDD_LABEL="${LB_HDD_LABEL:-UBUNTU}"
+			;;
+
+		kubuntu)
+			LB_HDD_LABEL="${LB_HDD_LABEL:-KUBUNTU}"
+			;;
+	esac
+
 	# Setting iso volume
 	case "${LB_MODE}" in
 		debian)

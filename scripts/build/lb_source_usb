@@ -100,17 +100,17 @@ Losetup $FREELO source.img 1
 case "${LB_BINARY_FILESYSTEM}" in
 	ext2|ext3|ext4)
 		MKFS="${LB_BINARY_FILESYSTEM}"
-		MKFS_OPTIONS="-L DEBIAN_LIVE -m 0"
+		MKFS_OPTIONS="-L ${LB_HDD_LABEL} -m 0"
 		;;
 
 	fat16)
 		MKFS="vfat"
-		MKFS_OPTIONS="-F 16 -n DEBIAN_LIVE"
+		MKFS_OPTIONS="-F 16 -n ${LB_HDD_LABEL}"
 		;;
 
 	fat32)
 		MKFS="vfat"
-		MKFS_OPTIONS="-F 32 -n DEBIAN_LIVE"
+		MKFS_OPTIONS="-F 32 -n ${LB_HDD_LABEL}"
 		;;
 esac
 
