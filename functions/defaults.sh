@@ -1021,7 +1021,7 @@ Set_defaults ()
 			;;
 
 		progress)
-			LB_HDD_LABEL="${LB_HDD_LABEL:-PROGRESS_$(echo ${LB_DISTRIBUTION} | tr [a-z][A-Z])}"
+			LB_HDD_LABEL="${LB_HDD_LABEL:-PROGRESS_$(echo ${LB_DISTRIBUTION} | tr [a-z] [A-Z])}"
 			;;
 
 		ubuntu)
