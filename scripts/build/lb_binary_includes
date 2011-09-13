@@ -82,7 +82,7 @@ esac
 
 # Working arround vfat limitations
 case "${LB_BINARY_IMAGES}" in
-	usb*)
+	hdd*)
 		case "${LB_BINARY_FILESYSTEM}" in
 			fat*)
 				CP_OPTIONS="-L"

@@ -84,7 +84,7 @@ case "${LB_BINARY_IMAGES}" in
 		DESTDIR="tftpboot/debian-install/${LB_ARCHITECTURES}"
 		;;
 
-	usb*|tar)
+	hdd*|tar)
 		DESTDIR="binary/install"
 		;;
 
@@ -659,7 +659,7 @@ EOF
 	fi
 
 	case "${LB_BINARY_IMAGES}" in
-		usb-hdd)
+		hdd)
 			case "${LB_BINARY_FILESYSTEM}" in
 				fat*)
 					# Creating dist directories

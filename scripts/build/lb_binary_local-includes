@@ -47,7 +47,7 @@ then
 
 	# Removing symlinks
 	case "${LB_BINARY_IMAGES}" in
-		usb*)
+		hdd*)
 			find binary -type l | xargs rm -f
 			;;
 	esac

@@ -24,18 +24,18 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if ! In_list usb-hdd "${LB_BINARY_IMAGES}"
+if ! In_list hdd-hdd "${LB_BINARY_IMAGES}"
 then
 	exit 0
 fi
 
-Echo_message "Begin building binary usb image..."
+Echo_message "Begin building binary hdd image..."
 
 # Requiring stage file
 Require_stagefile .stage/config .stage/bootstrap .stage/chroot_proc
 
 # Checking stage file
-Check_stagefile .stage/binary_usb
+Check_stagefile .stage/binary_hdd
 
 # Checking lock file
 Check_lockfile .lock
@@ -219,15 +219,15 @@ EOM
 EOF
 
 	rootpartition="$(Chroot chroot 'sh grub.sh' 2>/dev/null | grep -A 1 'find /live/vmlinuz' | grep -v 'find /live/vmlinuz')"
-	usbdev="$(echo $rootpartition | sed -e 's|,[[:digit:]]||')"
-	echo "Root partition is $rootpartition, device is: $usbdev"
+	hdddev="$(echo $rootpartition | sed -e 's|,[[:digit:]]||')"
+	echo "Root partition is $rootpartition, device is: $hdddev"
 
 	echo "WAITING..." && read WAIT
 
 #cat > chroot/grub.sh << EOF
 #grub --batch << EOM
 #root $rootpartition
-#setup $usbdev
+#setup $hdddev
 #EOM
 #EOF
 
@@ -289,4 +289,4 @@ Save_cache cache/packages_binary
 Remove_package
 
 # Creating stage file
-Create_stagefile .stage/binary_usb
+Create_stagefile .stage/binary_hdd

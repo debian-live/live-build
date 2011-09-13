@@ -929,7 +929,7 @@ Set_defaults ()
 				_LB_BOOTAPPEND_PRESEED="file=/cdrom/install/${LB_DEBIAN_INSTALLER_PRESEEDFILE}"
 				;;
 
-			usb*)
+			hdd*)
 				case "${LB_MODE}" in
 					ubuntu|kubuntu)
 						if [ "${LB_DEBIAN_INSTALLER}" = "live" ]
@@ -1207,8 +1207,8 @@ Check_defaults ()
 	fi
 
 	case "${LB_BINARY_IMAGES}" in
-		usb*)
-			# grub or yaboot + usb
+		hdd*)
+			# grub or yaboot + hdd
 			case "${LB_BOOTLOADER}" in
 				grub|yaboot)
 					Echo_error "You have selected a combination of bootloader and image type that is currently not supported by live-build. Please use either another bootloader or a different image type."
