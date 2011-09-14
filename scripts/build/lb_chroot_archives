@@ -152,16 +152,12 @@ EOF
 
 		if [ "${LB_VOLATILE}" = "true" ]
 		then
-			case "${LB_MODE}" in
-				debian|ubuntu|kubuntu)
-					echo "deb ${LB_PARENT_MIRROR_CHROOT_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+			echo "deb ${LB_PARENT_MIRROR_CHROOT_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
-					if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
-					then
-						echo "deb-src ${LB_PARENT_MIRROR_CHROOT_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
-					fi
-					;;
-			esac
+			if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
+			then
+				echo "deb-src ${LB_PARENT_MIRROR_CHROOT_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+			fi
 
 			if [ "${LB_DERIVATIVE}" = "true" ] && [ "${LB_MIRROR_CHROOT_VOLATILE}" != "none" ]
 			then
@@ -713,16 +709,12 @@ EOF
 
 		if [ "${LB_VOLATILE}" = "true" ]
 		then
-			case "${LB_MODE}" in
-				debian|ubuntu|kubuntu)
-					echo "deb ${LB_PARENT_MIRROR_BINARY_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+			echo "deb ${LB_PARENT_MIRROR_BINARY_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
 
-					if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
-					then
-						echo "deb-src ${LB_PARENT_MIRROR_BINARY_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
-					fi
-					;;
-			esac
+			if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
+			then
+				echo "deb-src ${LB_PARENT_MIRROR_BINARY_VOLATILE} ${LB_PARENT_DISTRIBUTION}-updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+			fi
 
 			if [ "${LB_DERIVATIVE}" = "true" ] && [ "${LB_MIRROR_BINARY_VOLATILE}" != "none" ]
 			then
