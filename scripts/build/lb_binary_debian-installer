@@ -446,7 +446,7 @@ then
 	fi
 
 	# Including local debs
-	if Find_files config/packages.binary/*_"${LB_ARCHITECTURES}".deb || config/packages/*_"${LB_ARCHITECTURES}".deb
+	if Find_files config/packages.binary/*_"${LB_ARCHITECTURES}".deb || Find_files config/packages/*_"${LB_ARCHITECTURES}".deb
 	then
 		for FILE in config/packages.binary/*_"${LB_ARCHITECTURES}".deb config/packages/*_"${LB_ARCHITECTURES}".deb
 		do
@@ -457,7 +457,7 @@ then
 		done
 	fi
 
-	if Find_files config/packages.binary/*_all.deb || config/packages/*_all.deb
+	if Find_files config/packages.binary/*_all.deb || Find_files config/packages/*_all.deb
 	then
 		for FILE in config/packages.binary/*_all.deb config/packages/*_all.deb
 		do
