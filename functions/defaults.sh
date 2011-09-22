@@ -1218,22 +1218,22 @@ Check_defaults ()
 			;;
 	esac
 
-	if [ "$(echo ${LB_ISO_APPLICATION} | wc -c)" -gt 128 ]
+	if [ "$(echo \"${LB_ISO_APPLICATION}\" | wc -c)" -gt 128 ]
 	then
 		Echo_warning "You have specified a value of LB_ISO_APPLICATION that is too long; the maximum length is 128 characters."
 	fi
 
-	if [ "$(echo ${LB_ISO_PREPARER} | wc -c)" -gt  128 ]
+	if [ "$(echo \"${LB_ISO_PREPARER}\" | wc -c)" -gt  128 ]
 	then
 		Echo_warning "You have specified a value of LB_ISO_PREPARER that is too long; the maximum length is 128 characters."
 	fi
 
-	if [ "$(echo ${LB_ISO_PUBLISHER} | wc -c)" -gt 128 ]
+	if [ "$(echo \"${LB_ISO_PUBLISHER}\" | wc -c)" -gt 128 ]
 	then
 		Echo_warning "You have specified a value of LB_ISO_PUBLISHER that is too long; the maximum length is 128 characters."
 	fi
 
-	if [ "$(eval "echo ${LB_ISO_VOLUME}" | wc -c)" -gt 32 ]
+	if [ "$(eval "echo \"${LB_ISO_VOLUME}\"" | wc -c)" -gt 32 ]
 	then
 		Echo_warning "You have specified a value of LB_ISO_VOLUME that is too long; the maximum length is 32 characters."
 	fi
