@@ -342,7 +342,7 @@ Set_defaults ()
 			;;
 
 		progress)
-			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-http://cdn.debian.net/debian/}"
+			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-http://ftp.debian.org/debian/}"
 			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://archive.progress-linux.org/progress/}"
 			;;
 
@@ -377,7 +377,7 @@ Set_defaults ()
 			;;
 
 		progress)
-			LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-http://cdn.debian.net/debian-security/}"
+			LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-http://security.debian.org/}"
 			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-${LB_MIRROR_CHROOT}}"
 			;;
 
@@ -453,7 +453,7 @@ Set_defaults ()
 			;;
 
 		progress)
-			LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-http://cdn.debian.net/debian/}"
+			LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-http://ftp.debian.org/debian/}"
 			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-${LB_MIRROR_CHROOT}}"
 			;;
 
@@ -490,7 +490,7 @@ Set_defaults ()
 			;;
 
 		progress)
-			LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-http://cdn.debian.net/debian-security/}"
+			LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-http://security.debian.org/}"
 			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-${LB_MIRROR_CHROOT}}"
 			;;
 
@@ -929,7 +929,7 @@ Set_defaults ()
 				_LB_BOOTAPPEND_PRESEED="file=/cdrom/install/${LB_DEBIAN_INSTALLER_PRESEEDFILE}"
 				;;
 
-			usb*)
+			hdd*)
 				case "${LB_MODE}" in
 					ubuntu|kubuntu)
 						if [ "${LB_DEBIAN_INSTALLER}" = "live" ]
@@ -1007,6 +1007,29 @@ Set_defaults ()
 
 		*)
 			LB_ISO_PUBLISHER="${LB_ISO_PUBLISHER:-Debian Live project; http://live.debian.net/; debian-live@lists.debian.org}"
+			;;
+	esac
+
+	# Setting hdd options
+	case "${LB_MODE}" in
+		debian)
+			LB_HDD_LABEL="${LB_HDD_LABEL:-DEBIAN_LIVE}"
+			;;
+
+		emdebian)
+			LB_HDD_LABEL="${LB_HDD_LABEL:-EMDEBIAN_LIVE}"
+			;;
+
+		progress)
+			LB_HDD_LABEL="${LB_HDD_LABEL:-PROGRESS_$(echo ${LB_DISTRIBUTION} | tr [a-z] [A-Z])}"
+			;;
+
+		ubuntu)
+			LB_HDD_LABEL="${LB_HDD_LABEL:-UBUNTU}"
+			;;
+
+		kubuntu)
+			LB_HDD_LABEL="${LB_HDD_LABEL:-KUBUNTU}"
 			;;
 	esac
 
@@ -1184,8 +1207,8 @@ Check_defaults ()
 	fi
 
 	case "${LB_BINARY_IMAGES}" in
-		usb*)
-			# grub or yaboot + usb
+		hdd*)
+			# grub or yaboot + hdd
 			case "${LB_BOOTLOADER}" in
 				grub|yaboot)
 					Echo_error "You have selected a combination of bootloader and image type that is currently not supported by live-build. Please use either another bootloader or a different image type."
@@ -1195,22 +1218,22 @@ Check_defaults ()
 			;;
 	esac
 
-	if [ "$(echo ${LB_ISO_APPLICATION} | wc -c)" -gt 128 ]
+	if [ "$(echo \"${LB_ISO_APPLICATION}\" | wc -c)" -gt 128 ]
 	then
 		Echo_warning "You have specified a value of LB_ISO_APPLICATION that is too long; the maximum length is 128 characters."
 	fi
 
-	if [ "$(echo ${LB_ISO_PREPARER} | wc -c)" -gt  128 ]
+	if [ "$(echo \"${LB_ISO_PREPARER}\" | wc -c)" -gt  128 ]
 	then
 		Echo_warning "You have specified a value of LB_ISO_PREPARER that is too long; the maximum length is 128 characters."
 	fi
 
-	if [ "$(echo ${LB_ISO_PUBLISHER} | wc -c)" -gt 128 ]
+	if [ "$(echo \"${LB_ISO_PUBLISHER}\" | wc -c)" -gt 128 ]
 	then
 		Echo_warning "You have specified a value of LB_ISO_PUBLISHER that is too long; the maximum length is 128 characters."
 	fi
 
-	if [ "$(eval "echo ${LB_ISO_VOLUME}" | wc -c)" -gt 32 ]
+	if [ "$(eval "echo \"${LB_ISO_VOLUME}\"" | wc -c)" -gt 32 ]
 	then
 		Echo_warning "You have specified a value of LB_ISO_VOLUME that is too long; the maximum length is 32 characters."
 	fi

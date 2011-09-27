@@ -25,7 +25,7 @@ Read_conffiles config/all config/common config/bootstrap config/chroot config/bi
 Set_defaults
 
 case "${LB_SOURCE_IMAGES}" in
-	iso*|usb*)
+	iso*|hdd*)
 		;;
 
 	*)

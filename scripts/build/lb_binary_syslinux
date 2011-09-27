@@ -73,7 +73,7 @@ case "${LB_BINARY_IMAGES}" in
 		_SUFFIX="tftpboot"
 		;;
 
-	usb*)
+	hdd*)
 		_BOOTLOADER="syslinux"
 		_SUFFIX="binary/syslinux"
 		;;

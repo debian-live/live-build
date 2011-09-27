@@ -86,7 +86,7 @@ fi
 lb binary_iso ${*}
 lb binary_net ${*}
 lb binary_tar ${*}
-lb binary_usb ${*}
+lb binary_hdd ${*}
 lb binary_virtual-hdd ${*}
 
 if [ "${LB_BUILD_WITH_CHROOT}" = "true" ]

@@ -158,7 +158,7 @@ case "${LB_BINARY_IMAGES}" in
 		DESTDIR_INSTALL="binary/install"
 		;;
 
-	usb*|net|tar)
+	hdd*|net|tar)
 		Echo_error "not yet supported, aborting (FIXME)."
 		exit 1
 	;;
@@ -273,7 +273,7 @@ fi
 LINUX_INSTALL="$(/bin/echo ${LINUX_INSTALL} | sed -e 's|binary||g' -e 's|//|/|g')"
 
 case "${LB_BINARY_IMAGES}" in
-	iso*|usb*)
+	iso*|hdd*)
 		# Copying yaboot
 		mkdir -p binary/yaboot
 
@@ -290,7 +290,7 @@ case "${LB_BINARY_IMAGES}" in
 		cp -r "${TEMPLATES}"/* binary/yaboot
 
 		case "${LB_BINARY_IMAGES}" in
-			usb*)
+			hdd*)
 				mv binary/yaboot/yaboot.conf binary/yaboot/yaboot.conf.tmp
 				echo "root=/dev/ram" > binary/yaboot/yaboot.conf
 				cat binary/yaboot/yaboot.conf.tmp >> binary/yaboot/yaboot.conf

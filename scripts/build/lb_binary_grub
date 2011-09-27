@@ -151,7 +151,7 @@ case "${LB_BINARY_IMAGES}" in
 		DESTDIR_INSTALL="binary/install"
 		;;
 
-	usb*|net)
+	hdd*|net)
 		Echo_warning "Bootloader in this image type not yet supported by live-build."
 		Echo_warning "This would produce a not bootable image, aborting (FIXME)."
 		exit 1
@@ -281,7 +281,7 @@ case ${LB_BINARY_IMAGES} in
 		FILES="chroot/usr/lib/grub/*/stage2_eltorito"
 		;;
 
-	usb*|tar)
+	hdd*|tar)
 		FILES="chroot/usr/lib/grub/*/stage1 chroot/usr/lib/grub/*/e2fs_stage1_5 chroot/usr/lib/grub/*/stage2"
 		;;
 esac

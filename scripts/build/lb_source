@@ -52,7 +52,7 @@ lb source_checksums ${*}
 lb source_iso ${*}
 lb source_net ${*}
 lb source_tar ${*}
-lb source_usb ${*}
+lb source_hdd ${*}
 lb source_virtual-hdd ${*}
 
 # Deconfiguring chroot

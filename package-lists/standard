@@ -4,10 +4,6 @@
 
 console-setup console-common kbd
 
-#nif DISTRIBUTION squeeze
-live-tools
-#endif
-
 #nif MODE progress
 locales
 #endif

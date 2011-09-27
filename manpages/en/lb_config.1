@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2011\-09\-07 3.0~a31-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2011\-09\-27 3.0~a32-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -31,7 +31,7 @@
 .br
 	[\-a|\fB\-\-architectures\fR \fIARCHITECTURE\fR]
 .br
-	[\-b|\fB\-\-binary\-images\fR iso|iso\-hybrid|net|tar|usb\-hdd|virtual\-hdd]
+	[\-b|\fB\-\-binary\-images\fR iso|iso\-hybrid|net|tar|hdd|virtual\-hdd]
 .br
 	[\fB\-\-binary\-filesystem\fR fat16|fat32|ext2|ext3|ext4]
 .br
@@ -215,7 +215,7 @@
 .br
 	[\fB\-\-source\fR true|false]
 .br
-	[\-s|\fB\-\-source\-images\fR iso|net|tar|usb\-hdd]
+	[\-s|\fB\-\-source\-images\fR iso|net|tar|hdd]
 .br
 	[\fB\-\-syslinux\-theme\fR \fITHEME_SUFFIX\fR]
 .br
@@ -273,16 +273,16 @@ defines if apt should check repository signatures. This is true by default.
 defines if deb-src entries should be included in the resulting live image or not, defaults to on.
 .IP "\-a|\fB\-\-architectures\fR \fIARCHITECTURE\fR" 4
 defines the architecture of the to be build image. By default, this is set to the host architecture. Note that you cannot crossbuild for another architecture if your host system is not able to execute binaries for the target architecture natively. For example, building amd64 images on i386 and vice versa is possile if you have a 64bit capable i386 processor and the right kernel. But building powerpc images on an i386 system is not possible.
-.IP "\-b|\fB\-\-binary\-images\fR iso|iso\-hybrid|net|tar|usb\-hdd" 4
-defines the image type to build. By default, for images using syslinux this is set to iso\-hybrid to build CD/DVD images that may also be used like usb\-hdd images, for non\-syslinux images, it defaults to iso.
+.IP "\-b|\fB\-\-binary\-images\fR iso|iso\-hybrid|net|tar|hdd" 4
+defines the image type to build. By default, for images using syslinux this is set to iso\-hybrid to build CD/DVD images that may also be used like hdd images, for non\-syslinux images, it defaults to iso.
 .IP "\fB\-\-binary\-filesystem\fR fat16|fat32|ext2|ext3|ext4" 4
-defines the filesystem to be used in the image type. This only has an effect if the selected binary image type does allow to choose a filesystem. For example, when selection iso the resulting CD/DVD has always the filesystem ISO9660. When building usb\-hdd images for usb sticks, this is active. Note that it defaults to fat16 on all architectures except sparc where it defaults to ext4. Also note that if you choose fat16 and your resulting binary image gets bigger than 2GB, the binary filesystem automatically gets switched to fat32.
+defines the filesystem to be used in the image type. This only has an effect if the selected binary image type does allow to choose a filesystem. For example, when selection iso the resulting CD/DVD has always the filesystem ISO9660. When building hdd images for usb sticks, this is active. Note that it defaults to fat16 on all architectures except sparc where it defaults to ext4. Also note that if you choose fat16 and your resulting binary image gets bigger than 2GB, the binary filesystem automatically gets switched to fat32.
 .IP "\fB\-\-bootappend\-install\fR \fIPARAMETER\fR|""\fIPARAMETERS\fR""" 4
 sets boot parameters specific to debian\-installer, if included.
 .IP "\fB\-\-bootappend\-live\fR \fIPARAMETER\fR|""\fIPARAMETERS\fR""" 4
 sets boot parameters specific to debian\-live. A complete list of boot parameters can be found in the \fIlive\-boot\fR(7) and \fIlive\-config\fR(7) manual pages.
 .IP "\fB\-\-bootloader\fR grub|syslinux|yaboot" 4
-defines which bootloader is beeing used in the generated image. This has only an effect if the selected binary image type does allow to choose the bootloader. For example, if you build a iso, always syslinux (or more precise, isolinux) is being used. Also note that some combinations of binary images types and bootloaders may be possible but live\-build does not support them yet. \fBlb config\fR will fail to create such a not yet supported configuration and give a explanation about it. For usb\-hdd images on amd64 and i386, the default is syslinux. yaboot is only used on powerpc.
+defines which bootloader is beeing used in the generated image. This has only an effect if the selected binary image type does allow to choose the bootloader. For example, if you build a iso, always syslinux (or more precise, isolinux) is being used. Also note that some combinations of binary images types and bootloaders may be possible but live\-build does not support them yet. \fBlb config\fR will fail to create such a not yet supported configuration and give a explanation about it. For hdd images on amd64 and i386, the default is syslinux. yaboot is only used on powerpc.
 .IP "\fB\-\-bootstrap\fR cdebootstrap|cdebootstrap-static|debootstrap|copy" 4
 defines which program is used to bootstrap the debian chroot, default is debootstrap. Note that if you set the bootstrap program to copy, then your host system is copied. This can be useful if you want to convert/clone your existing host system into a live system, however, make sure you do have enough free space as this can, depending on your host system, get quite big.
 .IP "\-f|\fB\-\-bootstrap\-flavour\fR minimal|standard" 4
@@ -462,7 +462,7 @@ defines which package archive areas of a debian packages archive should be used 
 defines if the security repositories specified in the security mirror options should be used or not.
 .IP "\fB\-\-source\fR true|false" 4
 defines if a corresponding source image to the binary image should be build. By default this is false because most people do not require this and would require to download quite a few source packages. However, once you start distributing your live image, you should make sure you build it with a source image alongside.
-.IP "\-s|\fB\-\-source\-images\fR iso|net|tar|usb\-hdd" 4
+.IP "\-s|\fB\-\-source\-images\fR iso|net|tar|hdd" 4
 defines the image type for the source image. Default is tar.
 .IP "\fB\-\-swap\-file\-path\fR \fIPATH\fR" 4
 defines the path to a swap file to create in the binary image. Default is not to create a swap file.

@@ -40,7 +40,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--apt-secure true|false]\n\
 \t    [--apt-source-archives true|false]\n\
 \t    [-a|--architectures ARCHITECTURE]\n\
-\t    [-b|--binary-images iso|iso-hybrid|net|tar|usb-hdd]\n\
+\t    [-b|--binary-images iso|iso-hybrid|net|tar|hdd]\n\
 \t    [--binary-filesystem fat16|fat32|ext2|ext3|ext4]\n\
 \t    [--bootappend-install PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootappend-live PARAMETER|\"PARAMETERS\"]\n\
@@ -83,6 +83,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--initsystem sysvinit|runit|systemd|upstart|none]\n\
 \t    [--interactive shell]\n\
 \t    [--isohybrid-options OPTION|\"OPTIONS\"]\n\
+\t    [--hdd-label LABEL]\n\
 \t    [--iso-application NAME]\n\
 \t    [--iso-preparer NAME]\n\
 \t    [--iso-publisher NAME]\n\
@@ -132,7 +133,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--parent-archive-areas ARCHIVE_AREA|\"ARCHIVE_AREAS\"]\n\
 \t    [--security true|false]\n\
 \t    [--source true|false]\n\
-\t    [-s|--source-images iso|net|tar|usb-hdd]\n\
+\t    [-s|--source-images iso|net|tar|hdd]\n\
 \t    [--swap-file-path PATH]\n\
 \t    [--swap-file-size MB]\n\
 \t    [--syslinux-theme THEME_SUFFIX]\n\
@@ -163,7 +164,7 @@ Local_arguments ()
 		package-lists:,tasks:,security:,volatile:,backports:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,compression:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
-		grub-splash:,hostname:,isohybrid-options:,iso-application:,iso-preparer:,iso-publisher:,
+		grub-splash:,hostname:,isohybrid-options:,hdd-label:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
 		net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,
 		net-cow-server:,net-tarball:,swap-file-path:,swap-file-size:,syslinux-theme:,
@@ -669,6 +670,11 @@ Local_arguments ()
 				shift 2
 				;;
 
+			--hdd-label)
+				LB_HDD_LABEL="${2}"
+				shift 2
+				;;
+
 			--iso-application)
 				LB_ISO_APPLICATION="${2}"
 				shift 2
@@ -1161,7 +1167,7 @@ EOF
 mkdir -p config/archives
 mkdir -p config/chroot_apt
 mkdir -p config/hooks
-mkdir -p config/local.chroot
+mkdir -p config/includes.chroot
 mkdir -p config/chroot_local-patches
 mkdir -p config/packages
 mkdir -p config/packages.chroot
@@ -1302,6 +1308,11 @@ LB_GRUB_SPLASH="${LB_GRUB_SPLASH}"
 # \$LB_HOSTNAME: set hostname
 # (Default: ${LB_HOSTNAME})
 LB_HOSTNAME="${LB_HOSTNAME}"
+
+# \$LB_HDD_LABEL: set hdd label
+# (Default: ${LB_HDD_LABEL})
+LB_HDD_LABEL="${LB_HDD_LABEL}"
+
 
 # \$LB_ISO_APPLICATION: set iso author
 # (Default: ${LB_ISO_APPLICATION})
