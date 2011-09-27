@@ -1,3 +1,44 @@
+live-build (3.0~a32-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Correcting wrong spelling of cache in exit function, thanks to David
+    Endler for spotting it.
+  * Adding option for setting filesystem label on usb-hdd images.
+  * Correcting syntax error in tr command used in default for hdd-label
+    in progress mode.
+  * Renaming usb-hdd binary image type to simply hdd.
+  * Updating volatile handling in chroot_archives for derivatives when
+    using foo-backports distribution scheme.
+  * Temporarily removing live-tools from standard package list, doesn't
+    work for derivatives yet.
+  * Making sure that volatile for the parent distribution is still
+    included in derivatives mode.
+  * Switching away from cdn.debian.net as default mirrors for progress,
+    too unreliable outside of Europe.
+  * Renaming forgotten lb_binary_usb and lb_source_usb to lb_binary_hdd
+    resp. lb_source_hdd.
+  * Correcting incomplete checks for local packages in lb_binary_debian-
+    installer.
+  * Removing leftovers from usb-hdd to hdd removal in lb_binary_hdd and
+    lb_source_hdd.
+
+  [ Yaroslav Halchenko ]
+  * Enclosing shell variables for iso-* defaults in escaped double-
+    quotes while evaluating for the length to allow using parentheses
+    (Closes: #642463).
+
+  [ Daniel Baumann ]
+  * Correcting typo in config/includes.chroot creating in lb_config,
+    thanks to Stanislav Bogatyrev <realloc@realloc.spb.ru> for reporting
+    it.
+
+  [ Yaroslav Halchenko ]
+  * Fixing left-over uses of --binary-indices in templates/cgi.
+  * Fixing left-over uses of --packages-lists in cron scripts and
+    examples.
+
+ -- Daniel Baumann <daniel@debian.org>  Tue, 27 Sep 2011 22:54:36 +0200
+
 live-build (3.0~a31-1) experimental; urgency=low
 
   [ Daniel Baumann ]
