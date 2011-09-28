@@ -42,7 +42,7 @@ Create_lockfile .lock
 if [ -f chroot/proc/version ]
 then
 	if [ "${LB_USE_FAKEROOT}" != "true" ]
-then
+	then
 		${LB_ROOT_COMMAND} umount chroot/proc
 	else
 		rm -rf chroot/proc
