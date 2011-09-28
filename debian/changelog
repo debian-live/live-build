@@ -1,3 +1,10 @@
+live-build (3.0~a33-1) unstable; urgency=low
+
+  * Correcting check for debian-installer-distribution when using daily
+    images in non-derivatives mode.
+
+ -- Daniel Baumann <daniel@debian.org>  Wed, 28 Sep 2011 07:33:59 +0200
+
 live-build (3.0~a32-1) unstable; urgency=low
 
   [ Daniel Baumann ]
