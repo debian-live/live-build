@@ -30,7 +30,7 @@ Echo_message "Begin executing local preseeds..."
 Require_stagefile .stage/config .stage/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/chroot_local-preseed
+Check_stagefile .stage/chroot_preseed
 
 # Checking lock file
 Check_lockfile .lock
@@ -38,7 +38,8 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if Find_files config/chroot_local-preseed/*
+if ls config/preseed/*.preseed > /dev/null 2>&1 || \
+   ls config/preseed/*.preseed.chroot > /dev/null 2>&1
 then
 	# Check dependency
 	Check_package chroot/usr/bin/debconf-set-selections debconf
@@ -46,7 +47,7 @@ then
 	# Install dependency
 	Install_package
 
-	for PRESEED in config/chroot_local-preseed/*
+	for PRESEED in config/chroot_preseed/*.preseed config/chroot_preseed/*.preseed.chroot
 	do
 		# Copying local preseed
 		cp "${PRESEED}" chroot/root/preseed
@@ -61,5 +62,5 @@ then
 	Remove_package
 
 	# Creating stage file
-	Create_stagefile .stage/chroot_local-preseed
+	Create_stagefile .stage/chroot_preseed
 fi

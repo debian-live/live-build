@@ -198,7 +198,7 @@ Local_arguments ()
 				Print_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 
 				# Dump contents of directories that contain text files
-				for DIRECTORY in config/package-lists config/task-lists config/chroot_apt config/chroot_local-patches config/chroot_local-preseed config/binary_rootfs
+				for DIRECTORY in config/package-lists config/task-lists config/chroot_apt config/chroot_local-patches config/preseed config/binary_rootfs
 				do
 					if Find_files "${DIRECTORY}"
 					then
@@ -1172,7 +1172,7 @@ mkdir -p config/chroot_local-patches
 mkdir -p config/packages
 mkdir -p config/packages.chroot
 mkdir -p config/package-lists
-mkdir -p config/chroot_local-preseed
+mkdir -p config/preseed
 mkdir -p config/task-lists
 
 cat > config/chroot << EOF
@@ -1422,7 +1422,7 @@ then
 	then
 		Echo_warning "Please install 'debconf-utils' in order to use this feature."
 	else
-		debconf-get-selections | grep -v deinstall | cut -f1 > config/chroot_local-preseed/local-system
+		debconf-get-selections | grep -v deinstall | cut -f1 > config/preseed/local.preseed.chroot
 	fi
 fi
 
