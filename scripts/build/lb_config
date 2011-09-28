@@ -84,6 +84,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--interactive shell]\n\
 \t    [--isohybrid-options OPTION|\"OPTIONS\"]\n\
 \t    [--hdd-label LABEL]\n\
+\t    [--hdd-size MB]\n\
 \t    [--iso-application NAME]\n\
 \t    [--iso-preparer NAME]\n\
 \t    [--iso-publisher NAME]\n\
@@ -140,7 +141,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--tasksel apt|aptitude|tasksel]\n\
 \t    [--tasks TASK|\"TASKS\"]\n\
 \t    [--templates PATH]\n\
-\t    [--virtual-root-size MB]\n\
 \t    [--volatile true|false]\n\
 \t    [--backports true|false]\n\
 \t    [--exposed-root true|false]\n\
@@ -159,12 +159,12 @@ Local_arguments ()
 		parent-mirror-binary-security:,parent-mirror-binary-volatile:,parent-mirror-binary-backports:,parent-mirror-debian-installer:,
 		mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-chroot-backports:,mirror-binary:,
 		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,
-		archives:,archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
+		archives:,archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,linux-flavours:,linux-packages:,
 		package-lists:,tasks:,security:,volatile:,backports:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,compression:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
-		grub-splash:,hostname:,isohybrid-options:,hdd-label:,iso-application:,iso-preparer:,iso-publisher:,
+		grub-splash:,hostname:,isohybrid-options:,hdd-label:,hdd-size:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
 		net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,
 		net-cow-server:,net-tarball:,swap-file-path:,swap-file-size:,syslinux-theme:,
@@ -524,11 +524,6 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--virtual-root-size)
-				LB_VIRTUAL_ROOT_SIZE="${2}"
-				shift 2
-				;;
-
 			--exposed-root)
 				LB_EXPOSED_ROOT="${2}"
 				shift 2
@@ -672,6 +667,11 @@ Local_arguments ()
 
 			--hdd-label)
 				LB_HDD_LABEL="${2}"
+				shift 2
+				;;
+
+			--hdd-size)
+				LB_HDD_SIZE="${2}"
 				shift 2
 				;;
 
@@ -1186,10 +1186,6 @@ LB_CHROOT_FILESYSTEM="${LB_CHROOT_FILESYSTEM}"
 # (Default: ${LB_UNION_FILESYSTEM})
 LB_UNION_FILESYSTEM="${LB_UNION_FILESYSTEM}"
 
-# \$LB_VIRTUAL_ROOT_SIZE: set virtual-hdd filesystem size
-# (Default: ${LB_VIRTUAL_ROOT_SIZE})
-LB_VIRTUAL_ROOT_SIZE="${LB_VIRTUAL_ROOT_SIZE}"
-
 # \$LB_EXPOSED_ROOT: expose root as read only
 # (Default: ${LB_EXPOSED_ROOT})
 LB_EXPOSED_ROOT="${LB_EXPOSED_ROOT}"
@@ -1313,6 +1309,9 @@ LB_HOSTNAME="${LB_HOSTNAME}"
 # (Default: ${LB_HDD_LABEL})
 LB_HDD_LABEL="${LB_HDD_LABEL}"
 
+# \$LB_HDD_SIZE: set hdd filesystem size
+# (Default: ${LB_HDD_SIZE})
+LB_HDD_SIZE="${LB_HDD_SIZE}"
 
 # \$LB_ISO_APPLICATION: set iso author
 # (Default: ${LB_ISO_APPLICATION})

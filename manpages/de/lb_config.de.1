@@ -228,7 +228,7 @@
 .br
   [\fB\-\-templates\fP \fIPATH\fP]
 .br
-  [\fB\-\-virtual\-root\-size \fP\fIMB\fP]
+  [\fB\-\-hdd\-size \fP\fIMB\fP]
 .br
   [\fB\-\-volatile\fP true|false]
 .br
@@ -746,10 +746,10 @@ tasksel.
 .IP "\fB\-\-templates\fP \fIPATH\fP" 4
 sets the path to the templates that live\-build is going to use, e.g. for
 bootloaders. By default, this is set to /usr/share/live/build/templates/.
-.IP "\fB\-\-virtual\-root\-size\fP MB" 4
-defines what size the virtual\-hdd image should be. Note that although the
-default is set to 10000 (= 10GB), it will not need 10GB space on your
-harddisk as the files are created as sparse files.
+.IP "\fB\-\-hdd\-size\fP MB" 4
+defines what size the hdd image should be. Note that although the default is
+set to 10000 (= 10GB), it will not need 10GB space on your harddisk as the
+files are created as sparse files.
 .IP "\fB\-\-volatile\fP true|false" 4
 defines if debian volatile package archives should be included in the image
 or not.

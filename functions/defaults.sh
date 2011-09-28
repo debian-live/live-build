@@ -591,9 +591,6 @@ Set_defaults ()
 	# Setting chroot filesystem
 	LB_CHROOT_FILESYSTEM="${LB_CHROOT_FILESYSTEM:-squashfs}"
 
-	# Setting virtual root size
-	LB_VIRTUAL_ROOT_SIZE="${LB_VIRTUAL_ROOT_SIZE:-10000}"
-
 	# Setting whether to expose root filesystem as read only
 	LB_EXPOSED_ROOT="${LB_EXPOSED_ROOT:-false}"
 
@@ -1032,6 +1029,9 @@ Set_defaults ()
 			LB_HDD_LABEL="${LB_HDD_LABEL:-KUBUNTU}"
 			;;
 	esac
+
+	# Setting hdd size
+	LB_HDD_SIZE="${LB_HDD_SIZE:-10000}"
 
 	# Setting iso volume
 	case "${LB_MODE}" in

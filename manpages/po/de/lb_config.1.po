@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2011-09-28 11:15+0300\n"
-"PO-Revision-Date: 2011-09-28 09:43+0300\n"
+"POT-Creation-Date: 2011-09-28 11:39+0300\n"
+"PO-Revision-Date: 2011-09-28 11:39+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: de\n"
@@ -1161,7 +1161,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:227
-msgid "  [B<--virtual-root-size >I<MB>]"
+msgid "  [B<--hdd-size >I<MB>]"
 msgstr ""
 
 #. type: Plain text
@@ -2790,15 +2790,15 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:477
 #, no-wrap
-msgid "B<--virtual-root-size> MB"
+msgid "B<--hdd-size> MB"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:479
 msgid ""
-"defines what size the virtual-hdd image should be. Note that although the "
-"default is set to 10000 (= 10GB), it will not need 10GB space on your "
-"harddisk as the files are created as sparse files."
+"defines what size the hdd image should be. Note that although the default is "
+"set to 10000 (= 10GB), it will not need 10GB space on your harddisk as the "
+"files are created as sparse files."
 msgstr ""
 
 #. type: IP

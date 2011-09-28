@@ -223,7 +223,7 @@
 .br
 	[\fB\-\-templates\fR \fIPATH\fR]
 .br
-	[\fB\-\-virtual\-root\-size \fIMB\fR]
+	[\fB\-\-hdd\-size \fIMB\fR]
 .br
 	[\fB\-\-volatile\fR true|false]
 .br
@@ -474,8 +474,8 @@ defines the syslinux theme to use. The theme suffix is the name of a directory i
 selects which program is used to install tasks. By default, this is set to tasksel.
 .IP "\fB\-\-templates\fR \fIPATH\fR" 4
 sets the path to the templates that live\-build is going to use, e.g. for bootloaders. By default, this is set to /usr/share/live/build/templates/.
-.IP "\fB\-\-virtual\-root\-size\fR MB" 4
-defines what size the virtual\-hdd image should be. Note that although the default is set to 10000 (= 10GB), it will not need 10GB space on your harddisk as the files are created as sparse files.
+.IP "\fB\-\-hdd\-size\fR MB" 4
+defines what size the hdd image should be. Note that although the default is set to 10000 (= 10GB), it will not need 10GB space on your harddisk as the files are created as sparse files.
 .IP "\fB\-\-volatile\fR true|false" 4
 defines if debian volatile package archives should be included in the image or not.
 .IP "\fB\-\-backports\fR true|false" 4
