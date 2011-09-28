@@ -61,7 +61,7 @@
 .br
 	[\fB\-\-build\-with\-chroot\fR true|false]
 .br
-	[\fB\-\-chroot\-filesystem\fR ext2|ext3|ext4|squashfs|plain|jffs2]
+	[\fB\-\-chroot\-filesystem\fR ext2|ext3|ext4|squashfs|jffs2|none]
 .br
 	[\fB\-\-clean\fR]
 .br
@@ -303,8 +303,8 @@ defines if the binary image should contain a file called md5sums.txt, sha1sums.t
 defines the compression program to be used to compress tarballs. Defaults to gzip.
 .IP "\fB\-\-build\-with\-chroot\fR true|false" 4
 defines whetever live\-build should use the tools from within the chroot to build the binary image or not by using and including the host systems tools. This is a very dangerous option, using the tools of the host system can lead to tainted and even non-bootable images if the host systems version of the required tools (mainly these are the bootloaders such as syslinux, grub and yaboot, and the auxilliary tools such as dosfstools, genisoimage, squashfs-tools and others) do not \fBexactely\fR match what is present at build-time in the target distribution. Never do disable this option unless you are \fBexactely\fR sure what you are doing and have \fBcompletely\fI understood its consequences.
-.IP "\fB\-\-chroot\-filesystem\fR ext2|ext3|ext4|squashfs|plain|jffs2" 4
-defines which filesystem type should be used for the root filesystem image. If you use plain, then no filesystem image is created and the root filesystem content is copied on the binary image filesystem as flat files. Depending on what binary filesystem you have choosen, it may not be possible to build with a plain root filesystem, e.g. fat16/fat32 and plain don't work as linux does not support to run on them.
+.IP "\fB\-\-chroot\-filesystem\fR ext2|ext3|ext4|squashfs|jffs2|none" 4
+defines which filesystem type should be used for the root filesystem image. If you use none, then no filesystem image is created and the root filesystem content is copied on the binary image filesystem as flat files. Depending on what binary filesystem you have choosen, it may not be possible to build with such a plain root filesystem, e.g. fat16/fat32 will not work as linux does not support to run directly on them.
 .IP "\fB\-\-clean\fR" 4
 minimizes config directory by automatically removing unused and thus empty subdirectories.
 .IP "\-c|\fB\-\-conffile\fR \fIFILE\fR" 4

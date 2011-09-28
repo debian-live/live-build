@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2011-09-28 09:43+0300\n"
+"POT-Creation-Date: 2011-09-28 11:15+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -755,7 +755,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:65
-msgid "  [B<--chroot-filesystem> ext2|ext3|ext4|squashfs|plain|jffs2]"
+msgid "  [B<--chroot-filesystem> ext2|ext3|ext4|squashfs|jffs2|none]"
 msgstr ""
 
 #. type: Plain text
@@ -1627,18 +1627,18 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:306
 #, no-wrap
-msgid "B<--chroot-filesystem> ext2|ext3|ext4|squashfs|plain|jffs2"
+msgid "B<--chroot-filesystem> ext2|ext3|ext4|squashfs|jffs2|none"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:308
 msgid ""
 "defines which filesystem type should be used for the root filesystem image. "
-"If you use plain, then no filesystem image is created and the root "
-"filesystem content is copied on the binary image filesystem as flat files. "
-"Depending on what binary filesystem you have choosen, it may not be possible "
-"to build with a plain root filesystem, e.g. fat16/fat32 and plain don't work "
-"as linux does not support to run on them."
+"If you use none, then no filesystem image is created and the root filesystem "
+"content is copied on the binary image filesystem as flat files. Depending on "
+"what binary filesystem you have choosen, it may not be possible to build "
+"with such a plain root filesystem, e.g. fat16/fat32 will not work as linux "
+"does not support to run directly on them."
 msgstr ""
 
 #. type: IP
