@@ -636,9 +636,16 @@ Set_defaults ()
 	# Setting linux flavour string
 	case "${LB_ARCHITECTURES}" in
 		armel)
-			# armel will have special images: one rootfs image and many additional kernel images.
-			# therefore we default to all available armel flavours
-			LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-iop32x ixp4xx kirkwood orion5x versatile}"
+			case "${LB_MODE}" in
+                                ubuntu|kubuntu)
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-omap}"
+					;;
+				*)
+					# armel will have special images: one rootfs image and many additional kernel images.
+					# therefore we default to all available armel flavours
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-iop32x ixp4xx kirkwood orion5x versatile}"
+					;;
+			esac
 			;;
 
 		amd64)
