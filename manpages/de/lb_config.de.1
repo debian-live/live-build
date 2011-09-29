@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2011\-09\-28 3.0~a33\-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2011\-09\-30 3.0~a33\-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -185,6 +185,8 @@
   [\fB\-\-mirror\-debian\-installer\fP \fIURL\fP]
 .br
   [\fB\-\-mode\fP debian|emdebian|progress|ubuntu|kubuntu]
+.br
+  [\fB\-\-system\fP live|normal]
 .br
   [\fB\-\-net\-root\-filesystem\fP nfs|cfs]
 .br
@@ -654,6 +656,9 @@ mirror used to build the live system, i.e. the value of \-\-mirror\-bootstrap.
 .IP "\fB\-\-mode\fP debian|emdebian|progress|ubuntu" 4
 defines a global mode to load project specific defaults. By default this is
 set to debian.
+.IP "\fB\-\-system\fP live|normal" 4
+defines if the resulting system image should a live system or a normal,
+non\-live system.
 .IP "\fB\-\-net\-root\-filesystem\fP nfs|cfs" 4
 defines the filesystem that will be configured in the bootloader
 configuration for your netboot image. This defaults to nfs.

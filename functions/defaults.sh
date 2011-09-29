@@ -22,6 +22,9 @@ Set_defaults ()
 		export LB_BASE
 	fi
 
+	# Setting system type
+	LB_SYSTEM="${LB_MODE:-live}"
+
 	# Setting mode (currently: debian, emdebian, progress, ubuntu and kubuntu)
 	LB_MODE="${LB_MODE:-debian}"
 
@@ -170,7 +173,15 @@ Set_defaults ()
 			;;
 
 		*)
-			LB_INITRAMFS="${LB_INITRAMFS:-auto}"
+			case "${LB_SYSTEM}" in
+				live)
+					LB_INITRAMFS="${LB_INITRAMFS:-auto}"
+					;;
+
+				normal)
+					LB_INITRAMFS="${LB_INITRAMFS:-none}"
+					;;
+			esac
 			;;
 	esac
 
@@ -187,7 +198,15 @@ Set_defaults ()
 			;;
 
 		*)
-			LB_INITSYSTEM="${LB_INITSYSTEM:-sysvinit}"
+			case "${LB_SYSTEM}" in
+				live)
+					LB_INITSYSTEM="${LB_INITSYSTEM:-sysvinit}"
+					;;
+
+				normal)
+					LB_INITSYSTEM="${LB_INITSYSTEM:-none}"
+					;;
+			esac
 			;;
 	esac
 

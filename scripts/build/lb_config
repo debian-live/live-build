@@ -116,6 +116,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--mirror-binary-backports URL]\n\
 \t    [--mirror-debian-installer URL]\n\
 \t    [--mode debian|emdebian|ubuntu|kubuntu]\n\
+\t    [--system live|normal]\n\
 \t    [--net-root-filesystem nfs|cfs]\n\
 \t    [--net-root-mountoptions OPTIONS]\n\
 \t    [--net-root-path PATH]\n\
@@ -153,7 +154,7 @@ Local_arguments ()
 	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-options:,aptitute-options:,
 		apt-pipeline:,apt-recommends:,apt-secure:,apt-source-archives:,bootstrap:,cache:,cache-indices:,cache-packages:,
 		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
-		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,
+		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,system:,root-command:,use-fakeroot:,tasksel:,includes:,
 		templates:,architectures:,bootstrap-flavour:,bootstrap-keyring:,clean,
 		distribution:,parent-distribution:,parent-debian-installer-distribution:,parent-mirror-bootstrap:,parent-mirror-chroot:,parent-mirror-chroot-security:,parent-mirror-chroot-volatile:,parent-mirror-chroot-backports:,parent-mirror-binary:,
 		parent-mirror-binary-security:,parent-mirror-binary-volatile:,parent-mirror-binary-backports:,parent-mirror-debian-installer:,
@@ -344,6 +345,11 @@ Local_arguments ()
 
 			--mode)
 				LB_MODE="${2}"
+				shift 2
+				;;
+
+			--system)
+				LB_SYSTEM="${2}"
 				shift 2
 				;;
 
@@ -980,6 +986,10 @@ LB_LOSETUP="${LB_LOSETUP}"
 # \$LB_MODE: set distribution mode
 # (Default: ${LB_MODE})
 LB_MODE="${LB_MODE}"
+
+# \$LB_SYSTEM: set system type
+# (Default: ${LB_SYSTEM})
+LB_SYSTEM="${LB_SYSTEM}"
 
 # \$LB_ROOT_COMMAND: use sudo or equivalent
 # (Default: empty)
