@@ -18,7 +18,6 @@ RELEASE_artax="1.0"
 RELEASE_baureo="unstable"
 
 # Ubuntu releases
-RELEASE_dapper="6.06"		# LTS: 2011-06-01
 RELEASE_hardy="8.04"		# LTS: 2013-04-01
 RELEASE_lucid="10.04"		# LTS: 2015-04-01
 RELEASE_maverick="10.10"	# 2012-04-01
