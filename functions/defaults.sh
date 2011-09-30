@@ -1138,6 +1138,10 @@ Set_defaults ()
 			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-progress-standard}"
 			;;
 
+		ubuntu)
+			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-ubuntu-oneiric}"
+			;;
+
 		*)
 			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-debian-squeeze}"
 			;;
