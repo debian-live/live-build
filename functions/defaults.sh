@@ -36,7 +36,7 @@ Set_defaults ()
 			;;
 
 		ubuntu|kubuntu)
-			LB_DISTRIBUTION="${LB_DISTRIBUTION:-karmic}"
+			LB_DISTRIBUTION="${LB_DISTRIBUTION:-oneric}"
 			LB_DERIVATIVE="false"
 			;;
 
