@@ -1276,4 +1276,13 @@ Check_defaults ()
 		fi
 	fi
 
+	# Architectures to use foreign bootstrap for
+	LB_BOOTSTRAP_QEMU_ARCHITECTURES="${LB_BOOTSTRAP_QEMU_ARCHITECTURES:-}"
+
+	# Packages to exclude for the foreign/ports bootstrapping
+	LB_BOOTSTRAP_QEMU_EXCLUDE="${LB_PORTS_BOOTSTRAP_EXCLUDE:-}"
+
+	# Ports using foreign bootstrap need a working qemu-*-system. This is the location it
+	LB_BOOTSTRAP_QEMU_STATIC="${LB_BOOTSTRAP_QEMU_STATIC:-}"
+
 }

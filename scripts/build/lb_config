@@ -147,7 +147,11 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--exposed-root true|false]\n\
 \t    [--username NAME]\n\
 \t    [--verbose]\n\
-\t    [--win32-loader true|false]"
+\t    [--win32-loader true|false]\n\
+\t    [--bootstrap-qemu-exclude PACKAGES]\n\
+\t    [--bootstrap-qemu-static PATH]\n\
+\t    [--bootstrap-qemu-arch ARCH]"
+
 
 Local_arguments ()
 {
@@ -170,7 +174,8 @@ Local_arguments ()
 		net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,
 		net-cow-server:,net-tarball:,swap-file-path:,swap-file-size:,syslinux-theme:,
 		username:,win32-loader:,source:,source-images:,breakpoints,conffile:,debug,force,
-		help,ignore-system-defaults,quiet,usage,verbose,version"
+		help,ignore-system-defaults,quiet,usage,verbose,version,bootstrap-qemu-static:,bootstrap-qemu-arch:,
+		bootstrap-qemu-exclude:"
 	# Remove spaces added by indentation
 	LONG_OPTIONS="$(echo ${LONG_OPTIONS} | tr -d ' ')"
 	ARGUMENTS="$(getopt --longoptions ${LONG_OPTIONS} --name="${PROGRAM}" --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
@@ -781,6 +786,21 @@ Local_arguments ()
 				shift 2
 				;;
 
+			--bootstrap-qemu-arch)
+				LB_BOOTSTRAP_QEMU_ARCHITECTURES="${2}"
+				shift 2
+				;;
+
+			--bootstrap-qemu-exclude)
+				LB_BOOTSTRAP_QEMU_EXCLUDE="${2}"
+				shift 2
+				;;
+
+			--bootstrap-qemu-static)
+				LB_BOOTSTRAP_QEMU_STATIC="${2}"
+				shift 2
+				;;
+
 			# config/source
 			--source)
 				LB_SOURCE="${2}"
@@ -1171,6 +1191,18 @@ LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS}"
 # \$LB_PARENT_ARCHIVE_AREAS: select archive areas to use
 # (Default: ${LB_PARENT_ARCHIVE_AREAS})
 LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS}"
+
+# \$LB_BOOTSTRAP_QEMU_ARCHITECTURES: architectures to use foreign bootstrap
+# (Default: ${LB_BOOTSTRAP_QEMU_ARCHITECTURES})
+LB_BOOTSTRAP_QEMU_ARCHITECTURES="${LB_BOOTSTRAP_QEMU_ARCHITECTURES}"
+
+# \$LB_BOOTSTRAP_QEMU_EXCLUDE: packages to exclude during foreign bootstrap
+# (Default: ${LB_BOOTSTRAP_QEMU_EXCLUDE})
+LB_BOOTSTRAP_QEMU_EXCLUDE="${LB_BOOTSTRAP_QEMU_EXCLUDE}"
+
+# \$LB_BOOTSTRAP_QEMU_STATIC: static qemu binary for foreign bootstrap
+# (Default: ${LB_BOOTSTRAP_QEMU_STATIC})
+LB_BOOTSTRAP_QEMU_STATIC="${LB_BOOTSTRAP_QEMU_STATIC}"
 EOF
 
 # Creating lb_chroot_* configuration
