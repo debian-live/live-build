@@ -372,7 +372,7 @@ Set_defaults ()
 					;;
 
 				*)
-					LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-http://ports.ubuntu.com/}"
+					LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-http://ports.ubuntu.com/ubuntu-ports/}"
 					;;
 			esac
 
@@ -407,7 +407,7 @@ Set_defaults ()
 					;;
 
 				*)
-					LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-http://ports.ubuntu.com/}"
+					LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-http://ports.ubuntu.com/ubuntu-ports/}"
 					;;
 			esac
 
@@ -434,7 +434,7 @@ Set_defaults ()
 					;;
 
 				*)
-					LB_PARENT_MIRROR_CHROOT_VOLATILE="${LB_PARENT_MIRROR_CHROOT_VOLATILE:-http://ports.ubuntu.com/}"
+					LB_PARENT_MIRROR_CHROOT_VOLATILE="${LB_PARENT_MIRROR_CHROOT_VOLATILE:-http://ports.ubuntu.com/ubuntu-ports/}"
 					;;
 			esac
 
@@ -488,7 +488,7 @@ Set_defaults ()
 				;;
 
 				*)
-					LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-http://ports.ubuntu.com/}"
+					LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-http://ports.ubuntu.com/ubuntu-ports/}"
 					;;
 			esac
 
@@ -520,7 +520,7 @@ Set_defaults ()
 					;;
 
 				*)
-					LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-http://ports.ubuntu.com/}"
+					LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-http://ports.ubuntu.com/ubuntu-ports/}"
 					;;
 			esac
 
@@ -547,7 +547,7 @@ Set_defaults ()
 					;;
 
 				*)
-					LB_PARENT_MIRROR_BINARY_VOLATILE="${LB_PARENT_MIRROR_BINARY_VOLATILE:-http://ports.ubuntu.com/}"
+					LB_PARENT_MIRROR_BINARY_VOLATILE="${LB_PARENT_MIRROR_BINARY_VOLATILE:-http://ports.ubuntu.com/ubuntu-ports/}"
 					;;
 			esac
 			;;
