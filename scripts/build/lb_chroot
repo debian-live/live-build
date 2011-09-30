@@ -54,7 +54,6 @@ lb chroot_archives chroot install ${*}
 # Customizing chroot
 lb chroot_linux-image ${*}
 lb chroot_preseed ${*}
-lb chroot_local-preseed ${*}
 
 for _PASS in install live
 do

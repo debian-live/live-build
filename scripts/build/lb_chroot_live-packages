@@ -36,25 +36,22 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-_PACKAGES=""
-
-# Queue installation of linux-image and ${LB_INITRAMFS}
-if [ "${LB_INITRAMFS}" != "none" ]
+# Queue installation of live-boot
+if [ -n "${LB_INITRAMFS}" ] && [ "${LB_INITRAMFS}" != "none" ]
 then
 	_PACKAGES="${LB_INITRAMFS}"
 fi
 
 # Queue installation of live-config
-if [ "${LB_INITSYSTEM}" != "none" ]
+if [ -n "${LB_INITSYSTEM}" ] && [ "${LB_INITSYSTEM}" != "none" ]
 then
 	_PACKAGES="${_PACKAGES} live-config live-config-${LB_INITSYSTEM}"
 fi
 
 # Do initsystem specific hacks
-if [ "${LB_INITSYSTEM}" != "sysvinit" ]
+if [ -n "${LB_INITSYSTEM}" ] && [ "${LB_INITSYSTEM}" != "sysvinit" ]
 then
 	# lets see if we still need the squeeze's "pre init system policy discussion" hack:
-
 	IS_SYSVINIT_ESSENTIAL="$(Chroot chroot dpkg-query --show --showformat='${Essential}\n' sysvinit)"
 	RC="$?"
 

@@ -55,7 +55,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--checksums md5|sha1|sha256|none]\n\
 \t    [--compression bzip2|gzip|lzip|none]\n\
 \t    [--build-with-chroot true|false]\n\
-\t    [--chroot-filesystem ext2|ext3|ext4|squashfs|plain|jffs2]\n\
+\t    [--chroot-filesystem ext2|ext3|ext4|squashfs|jffs2|none]\n\
 \t    [--clean\n\
 \t    [-c|--conffile FILE]\n\
 \t    [--debconf-frontend dialog|editor|noninteractive|readline]\n\
@@ -84,6 +84,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--interactive shell]\n\
 \t    [--isohybrid-options OPTION|\"OPTIONS\"]\n\
 \t    [--hdd-label LABEL]\n\
+\t    [--hdd-size MB]\n\
 \t    [--iso-application NAME]\n\
 \t    [--iso-preparer NAME]\n\
 \t    [--iso-publisher NAME]\n\
@@ -115,6 +116,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--mirror-binary-backports URL]\n\
 \t    [--mirror-debian-installer URL]\n\
 \t    [--mode debian|emdebian|ubuntu|kubuntu]\n\
+\t    [--system live|normal]\n\
 \t    [--net-root-filesystem nfs|cfs]\n\
 \t    [--net-root-mountoptions OPTIONS]\n\
 \t    [--net-root-path PATH]\n\
@@ -140,7 +142,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--tasksel apt|aptitude|tasksel]\n\
 \t    [--tasks TASK|\"TASKS\"]\n\
 \t    [--templates PATH]\n\
-\t    [--virtual-root-size MB]\n\
 \t    [--volatile true|false]\n\
 \t    [--backports true|false]\n\
 \t    [--exposed-root true|false]\n\
@@ -153,18 +154,18 @@ Local_arguments ()
 	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-options:,aptitute-options:,
 		apt-pipeline:,apt-recommends:,apt-secure:,apt-source-archives:,bootstrap:,cache:,cache-indices:,cache-packages:,
 		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
-		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,root-command:,use-fakeroot:,tasksel:,includes:,
+		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,system:,root-command:,use-fakeroot:,tasksel:,includes:,
 		templates:,architectures:,bootstrap-flavour:,bootstrap-keyring:,clean,
 		distribution:,parent-distribution:,parent-debian-installer-distribution:,parent-mirror-bootstrap:,parent-mirror-chroot:,parent-mirror-chroot-security:,parent-mirror-chroot-volatile:,parent-mirror-chroot-backports:,parent-mirror-binary:,
 		parent-mirror-binary-security:,parent-mirror-binary-volatile:,parent-mirror-binary-backports:,parent-mirror-debian-installer:,
 		mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-chroot-backports:,mirror-binary:,
 		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,
-		archives:,archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
+		archives:,archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,linux-flavours:,linux-packages:,
 		package-lists:,tasks:,security:,volatile:,backports:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,compression:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
-		grub-splash:,hostname:,isohybrid-options:,hdd-label:,iso-application:,iso-preparer:,iso-publisher:,
+		grub-splash:,hostname:,isohybrid-options:,hdd-label:,hdd-size:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
 		net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,
 		net-cow-server:,net-tarball:,swap-file-path:,swap-file-size:,syslinux-theme:,
@@ -198,7 +199,7 @@ Local_arguments ()
 				Print_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 
 				# Dump contents of directories that contain text files
-				for DIRECTORY in config/package-lists config/task-lists config/chroot_apt config/chroot_local-patches config/chroot_local-preseed config/binary_rootfs
+				for DIRECTORY in config/package-lists config/task-lists config/chroot_apt config/chroot_local-patches config/preseed config/binary_rootfs
 				do
 					if Find_files "${DIRECTORY}"
 					then
@@ -344,6 +345,11 @@ Local_arguments ()
 
 			--mode)
 				LB_MODE="${2}"
+				shift 2
+				;;
+
+			--system)
+				LB_SYSTEM="${2}"
 				shift 2
 				;;
 
@@ -524,11 +530,6 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--virtual-root-size)
-				LB_VIRTUAL_ROOT_SIZE="${2}"
-				shift 2
-				;;
-
 			--exposed-root)
 				LB_EXPOSED_ROOT="${2}"
 				shift 2
@@ -672,6 +673,11 @@ Local_arguments ()
 
 			--hdd-label)
 				LB_HDD_LABEL="${2}"
+				shift 2
+				;;
+
+			--hdd-size)
+				LB_HDD_SIZE="${2}"
 				shift 2
 				;;
 
@@ -981,6 +987,10 @@ LB_LOSETUP="${LB_LOSETUP}"
 # (Default: ${LB_MODE})
 LB_MODE="${LB_MODE}"
 
+# \$LB_SYSTEM: set system type
+# (Default: ${LB_SYSTEM})
+LB_SYSTEM="${LB_SYSTEM}"
+
 # \$LB_ROOT_COMMAND: use sudo or equivalent
 # (Default: empty)
 #LB_ROOT_COMMAND="sudo"
@@ -1172,7 +1182,7 @@ mkdir -p config/chroot_local-patches
 mkdir -p config/packages
 mkdir -p config/packages.chroot
 mkdir -p config/package-lists
-mkdir -p config/chroot_local-preseed
+mkdir -p config/preseed
 mkdir -p config/task-lists
 
 cat > config/chroot << EOF
@@ -1185,10 +1195,6 @@ LB_CHROOT_FILESYSTEM="${LB_CHROOT_FILESYSTEM}"
 # \$LB_UNION_FILESYSTEM: set union filesystem
 # (Default: ${LB_UNION_FILESYSTEM})
 LB_UNION_FILESYSTEM="${LB_UNION_FILESYSTEM}"
-
-# \$LB_VIRTUAL_ROOT_SIZE: set virtual-hdd filesystem size
-# (Default: ${LB_VIRTUAL_ROOT_SIZE})
-LB_VIRTUAL_ROOT_SIZE="${LB_VIRTUAL_ROOT_SIZE}"
 
 # \$LB_EXPOSED_ROOT: expose root as read only
 # (Default: ${LB_EXPOSED_ROOT})
@@ -1313,6 +1319,9 @@ LB_HOSTNAME="${LB_HOSTNAME}"
 # (Default: ${LB_HDD_LABEL})
 LB_HDD_LABEL="${LB_HDD_LABEL}"
 
+# \$LB_HDD_SIZE: set hdd filesystem size
+# (Default: ${LB_HDD_SIZE})
+LB_HDD_SIZE="${LB_HDD_SIZE}"
 
 # \$LB_ISO_APPLICATION: set iso author
 # (Default: ${LB_ISO_APPLICATION})
@@ -1422,7 +1431,7 @@ then
 	then
 		Echo_warning "Please install 'debconf-utils' in order to use this feature."
 	else
-		debconf-get-selections | grep -v deinstall | cut -f1 > config/chroot_local-preseed/local-system
+		debconf-get-selections | grep -v deinstall | cut -f1 > config/preseed/local.preseed.chroot
 	fi
 fi
 

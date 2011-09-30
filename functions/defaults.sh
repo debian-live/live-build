@@ -22,6 +22,9 @@ Set_defaults ()
 		export LB_BASE
 	fi
 
+	# Setting system type
+	LB_SYSTEM="${LB_MODE:-live}"
+
 	# Setting mode (currently: debian, emdebian, progress, ubuntu and kubuntu)
 	LB_MODE="${LB_MODE:-debian}"
 
@@ -33,7 +36,7 @@ Set_defaults ()
 			;;
 
 		ubuntu|kubuntu)
-			LB_DISTRIBUTION="${LB_DISTRIBUTION:-karmic}"
+			LB_DISTRIBUTION="${LB_DISTRIBUTION:-oneric}"
 			LB_DERIVATIVE="false"
 			;;
 
@@ -170,7 +173,15 @@ Set_defaults ()
 			;;
 
 		*)
-			LB_INITRAMFS="${LB_INITRAMFS:-auto}"
+			case "${LB_SYSTEM}" in
+				live)
+					LB_INITRAMFS="${LB_INITRAMFS:-auto}"
+					;;
+
+				normal)
+					LB_INITRAMFS="${LB_INITRAMFS:-none}"
+					;;
+			esac
 			;;
 	esac
 
@@ -187,7 +198,15 @@ Set_defaults ()
 			;;
 
 		*)
-			LB_INITSYSTEM="${LB_INITSYSTEM:-sysvinit}"
+			case "${LB_SYSTEM}" in
+				live)
+					LB_INITSYSTEM="${LB_INITSYSTEM:-sysvinit}"
+					;;
+
+				normal)
+					LB_INITSYSTEM="${LB_INITSYSTEM:-none}"
+					;;
+			esac
 			;;
 	esac
 
@@ -353,7 +372,7 @@ Set_defaults ()
 					;;
 
 				*)
-					LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-http://ports.ubuntu.com/}"
+					LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-http://ports.ubuntu.com/ubuntu-ports/}"
 					;;
 			esac
 
@@ -388,7 +407,7 @@ Set_defaults ()
 					;;
 
 				*)
-					LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-http://ports.ubuntu.com/}"
+					LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-http://ports.ubuntu.com/ubuntu-ports/}"
 					;;
 			esac
 
@@ -415,7 +434,7 @@ Set_defaults ()
 					;;
 
 				*)
-					LB_PARENT_MIRROR_CHROOT_VOLATILE="${LB_PARENT_MIRROR_CHROOT_VOLATILE:-http://ports.ubuntu.com/}"
+					LB_PARENT_MIRROR_CHROOT_VOLATILE="${LB_PARENT_MIRROR_CHROOT_VOLATILE:-http://ports.ubuntu.com/ubuntu-ports/}"
 					;;
 			esac
 
@@ -469,7 +488,7 @@ Set_defaults ()
 				;;
 
 				*)
-					LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-http://ports.ubuntu.com/}"
+					LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-http://ports.ubuntu.com/ubuntu-ports/}"
 					;;
 			esac
 
@@ -501,7 +520,7 @@ Set_defaults ()
 					;;
 
 				*)
-					LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-http://ports.ubuntu.com/}"
+					LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-http://ports.ubuntu.com/ubuntu-ports/}"
 					;;
 			esac
 
@@ -528,7 +547,7 @@ Set_defaults ()
 					;;
 
 				*)
-					LB_PARENT_MIRROR_BINARY_VOLATILE="${LB_PARENT_MIRROR_BINARY_VOLATILE:-http://ports.ubuntu.com/}"
+					LB_PARENT_MIRROR_BINARY_VOLATILE="${LB_PARENT_MIRROR_BINARY_VOLATILE:-http://ports.ubuntu.com/ubuntu-ports/}"
 					;;
 			esac
 			;;
@@ -591,9 +610,6 @@ Set_defaults ()
 	# Setting chroot filesystem
 	LB_CHROOT_FILESYSTEM="${LB_CHROOT_FILESYSTEM:-squashfs}"
 
-	# Setting virtual root size
-	LB_VIRTUAL_ROOT_SIZE="${LB_VIRTUAL_ROOT_SIZE:-10000}"
-
 	# Setting whether to expose root filesystem as read only
 	LB_EXPOSED_ROOT="${LB_EXPOSED_ROOT:-false}"
 
@@ -639,9 +655,16 @@ Set_defaults ()
 	# Setting linux flavour string
 	case "${LB_ARCHITECTURES}" in
 		armel)
-			# armel will have special images: one rootfs image and many additional kernel images.
-			# therefore we default to all available armel flavours
-			LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-iop32x ixp4xx kirkwood orion5x versatile}"
+			case "${LB_MODE}" in
+                                ubuntu|kubuntu)
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-omap}"
+					;;
+				*)
+					# armel will have special images: one rootfs image and many additional kernel images.
+					# therefore we default to all available armel flavours
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-iop32x ixp4xx kirkwood orion5x versatile}"
+					;;
+			esac
 			;;
 
 		amd64)
@@ -1033,6 +1056,9 @@ Set_defaults ()
 			;;
 	esac
 
+	# Setting hdd size
+	LB_HDD_SIZE="${LB_HDD_SIZE:-10000}"
+
 	# Setting iso volume
 	case "${LB_MODE}" in
 		debian)
@@ -1110,6 +1136,10 @@ Set_defaults ()
 	case "${LB_MODE}" in
 		progress)
 			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-progress-standard}"
+			;;
+
+		ubuntu)
+			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-ubuntu-oneiric}"
 			;;
 
 		*)

@@ -14,7 +14,7 @@ set -e
 . "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
-DESCRIPTION="$(Echo 'execute preseed in chroot')"
+DESCRIPTION="$(Echo 'execute local preseed in chroot')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-Echo_message "Begin executing preseed..."
+Echo_message "Begin executing local preseeds..."
 
 # Requiring stage file
 Require_stagefile .stage/config .stage/bootstrap
@@ -38,29 +38,29 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-# Processing preseeds
-for PRESEED in ${LB_PACKAGE_LISTS} ${LB_TASKS}
-do
-	if [ -f ${LB_BASE:-/usr/share/live/build}/preseed/"${PRESEED}" ]
-	then
-		# Check dependency
-		Check_package chroot/usr/bin/debconf-set-selections debconf
+if ls config/preseed/*.preseed > /dev/null 2>&1 || \
+   ls config/preseed/*.preseed.chroot > /dev/null 2>&1
+then
+	# Check dependency
+	Check_package chroot/usr/bin/debconf-set-selections debconf
 
-		# Install dependency
-		Install_package
+	# Install dependency
+	Install_package
 
-		# Copying preseed
+	for PRESEED in config/chroot_preseed/*.preseed config/chroot_preseed/*.preseed.chroot
+	do
+		# Copying local preseed
 		cp "${PRESEED}" chroot/root/preseed
 
 		Chroot chroot "debconf-set-selections /root/preseed"
 
-		# Removing preseed file
+		# Removing local preseed file
 		rm -f chroot/root/preseed
+	done
 
-		# Remove dependency
-		Remove_package
+	# Remove dependency
+	Remove_package
 
-		# Creating stage file
-		Create_stagefile .stage/chroot_preseed
-	fi
-done
+	# Creating stage file
+	Create_stagefile .stage/chroot_preseed
+fi

@@ -65,7 +65,7 @@ then
 fi
 
 Echo_message "Creating virtual disk image..."
-dd if=/dev/zero of=binary-virtual.img bs=1024k count=0 seek=${LB_VIRTUAL_ROOT_SIZE}
+dd if=/dev/zero of=binary-virtual.img bs=1024k count=0 seek=${LB_HDD_SIZE}
 
 if [ "${LB_BUILD_WITH_CHROOT}" = "true" ]
 then

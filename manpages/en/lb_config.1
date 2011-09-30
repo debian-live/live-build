@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2011\-09\-28 3.0~a33-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2011\-09\-30 3.0~a34-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -61,7 +61,7 @@
 .br
 	[\fB\-\-build\-with\-chroot\fR true|false]
 .br
-	[\fB\-\-chroot\-filesystem\fR ext2|ext3|ext4|squashfs|plain|jffs2]
+	[\fB\-\-chroot\-filesystem\fR ext2|ext3|ext4|squashfs|jffs2|none]
 .br
 	[\fB\-\-clean\fR]
 .br
@@ -181,6 +181,8 @@
 .br
 	[\fB\-\-mode\fR debian|emdebian|progress|ubuntu|kubuntu]
 .br
+	[\fB\-\-system\fR live|normal]
+.br
 	[\fB\-\-net\-root\-filesystem\fR nfs|cfs]
 .br
 	[\fB\-\-net\-root\-mountoptions\fR \fIOPTIONS\fR]
@@ -223,7 +225,7 @@
 .br
 	[\fB\-\-templates\fR \fIPATH\fR]
 .br
-	[\fB\-\-virtual\-root\-size \fIMB\fR]
+	[\fB\-\-hdd\-size \fIMB\fR]
 .br
 	[\fB\-\-volatile\fR true|false]
 .br
@@ -303,8 +305,8 @@ defines if the binary image should contain a file called md5sums.txt, sha1sums.t
 defines the compression program to be used to compress tarballs. Defaults to gzip.
 .IP "\fB\-\-build\-with\-chroot\fR true|false" 4
 defines whetever live\-build should use the tools from within the chroot to build the binary image or not by using and including the host systems tools. This is a very dangerous option, using the tools of the host system can lead to tainted and even non-bootable images if the host systems version of the required tools (mainly these are the bootloaders such as syslinux, grub and yaboot, and the auxilliary tools such as dosfstools, genisoimage, squashfs-tools and others) do not \fBexactely\fR match what is present at build-time in the target distribution. Never do disable this option unless you are \fBexactely\fR sure what you are doing and have \fBcompletely\fI understood its consequences.
-.IP "\fB\-\-chroot\-filesystem\fR ext2|ext3|ext4|squashfs|plain|jffs2" 4
-defines which filesystem type should be used for the root filesystem image. If you use plain, then no filesystem image is created and the root filesystem content is copied on the binary image filesystem as flat files. Depending on what binary filesystem you have choosen, it may not be possible to build with a plain root filesystem, e.g. fat16/fat32 and plain don't work as linux does not support to run on them.
+.IP "\fB\-\-chroot\-filesystem\fR ext2|ext3|ext4|squashfs|jffs2|none" 4
+defines which filesystem type should be used for the root filesystem image. If you use none, then no filesystem image is created and the root filesystem content is copied on the binary image filesystem as flat files. Depending on what binary filesystem you have choosen, it may not be possible to build with such a plain root filesystem, e.g. fat16/fat32 will not work as linux does not support to run directly on them.
 .IP "\fB\-\-clean\fR" 4
 minimizes config directory by automatically removing unused and thus empty subdirectories.
 .IP "\-c|\fB\-\-conffile\fR \fIFILE\fR" 4
@@ -421,6 +423,8 @@ sets the location of the derivatives backports package mirror that should end up
 sets the location of the mirror that will be used to fetch the debian installer images of the derivative. By default, this points to the same mirror used to build the live system, i.e. the value of \-\-mirror\-bootstrap.
 .IP "\fB\-\-mode\fR debian|emdebian|progress|ubuntu" 4
 defines a global mode to load project specific defaults. By default this is set to debian.
+.IP "\fB\-\-system\fR live|normal" 4
+defines if the resulting system image should a live system or a normal, non-live system.
 .IP "\fB\-\-net\-root\-filesystem\fR nfs|cfs" 4
 defines the filesystem that will be configured in the bootloader configuration for your netboot image. This defaults to nfs.
 .IP "\fB\-\-net\-root\-mountoptions\fR \fIOPTIONS\fR" 4
@@ -474,8 +478,8 @@ defines the syslinux theme to use. The theme suffix is the name of a directory i
 selects which program is used to install tasks. By default, this is set to tasksel.
 .IP "\fB\-\-templates\fR \fIPATH\fR" 4
 sets the path to the templates that live\-build is going to use, e.g. for bootloaders. By default, this is set to /usr/share/live/build/templates/.
-.IP "\fB\-\-virtual\-root\-size\fR MB" 4
-defines what size the virtual\-hdd image should be. Note that although the default is set to 10000 (= 10GB), it will not need 10GB space on your harddisk as the files are created as sparse files.
+.IP "\fB\-\-hdd\-size\fR MB" 4
+defines what size the hdd image should be. Note that although the default is set to 10000 (= 10GB), it will not need 10GB space on your harddisk as the files are created as sparse files.
 .IP "\fB\-\-volatile\fR true|false" 4
 defines if debian volatile package archives should be included in the image or not.
 .IP "\fB\-\-backports\fR true|false" 4

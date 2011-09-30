@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2011\-09\-28 3.0~a33\-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2011\-09\-30 3.0~a34\-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -66,7 +66,7 @@
 .br
   [\fB\-\-build\-with\-chroot\fP true|false]
 .br
-  [\fB\-\-chroot\-filesystem\fP ext2|ext3|ext4|squashfs|plain|jffs2]
+  [\fB\-\-chroot\-filesystem\fP ext2|ext3|ext4|squashfs|jffs2|none]
 .br
   [\fB\-\-clean\fP]
 .br
@@ -186,6 +186,8 @@
 .br
   [\fB\-\-mode\fP debian|emdebian|progress|ubuntu|kubuntu]
 .br
+  [\fB\-\-system\fP live|normal]
+.br
   [\fB\-\-net\-root\-filesystem\fP nfs|cfs]
 .br
   [\fB\-\-net\-root\-mountoptions\fP \fIOPTIONS\fP]
@@ -228,7 +230,7 @@
 .br
   [\fB\-\-templates\fP \fIPATH\fP]
 .br
-  [\fB\-\-virtual\-root\-size \fP\fIMB\fP]
+  [\fB\-\-hdd\-size \fP\fIMB\fP]
 .br
   [\fB\-\-volatile\fP true|false]
 .br
@@ -401,13 +403,13 @@ squashfs\-tools and others) do not \fBexactely\fP match what is present at
 build\-time in the target distribution. Never do disable this option unless
 you are \fBexactely\fP sure what you are doing and have \fBcompletely\fP\fI
 understood its consequences.\fP
-.IP "\fB\-\-chroot\-filesystem\fP ext2|ext3|ext4|squashfs|plain|jffs2" 4
+.IP "\fB\-\-chroot\-filesystem\fP ext2|ext3|ext4|squashfs|jffs2|none" 4
 defines which filesystem type should be used for the root filesystem
-image. If you use plain, then no filesystem image is created and the root
+image. If you use none, then no filesystem image is created and the root
 filesystem content is copied on the binary image filesystem as flat
 files. Depending on what binary filesystem you have choosen, it may not be
-possible to build with a plain root filesystem, e.g. fat16/fat32 and plain
-don't work as linux does not support to run on them.
+possible to build with such a plain root filesystem, e.g. fat16/fat32 will
+not work as linux does not support to run directly on them.
 .IP \fB\-\-clean\fP 4
 minimizes config directory by automatically removing unused and thus empty
 subdirectories.
@@ -654,6 +656,9 @@ mirror used to build the live system, i.e. the value of \-\-mirror\-bootstrap.
 .IP "\fB\-\-mode\fP debian|emdebian|progress|ubuntu" 4
 defines a global mode to load project specific defaults. By default this is
 set to debian.
+.IP "\fB\-\-system\fP live|normal" 4
+defines if the resulting system image should a live system or a normal,
+non\-live system.
 .IP "\fB\-\-net\-root\-filesystem\fP nfs|cfs" 4
 defines the filesystem that will be configured in the bootloader
 configuration for your netboot image. This defaults to nfs.
@@ -746,10 +751,10 @@ tasksel.
 .IP "\fB\-\-templates\fP \fIPATH\fP" 4
 sets the path to the templates that live\-build is going to use, e.g. for
 bootloaders. By default, this is set to /usr/share/live/build/templates/.
-.IP "\fB\-\-virtual\-root\-size\fP MB" 4
-defines what size the virtual\-hdd image should be. Note that although the
-default is set to 10000 (= 10GB), it will not need 10GB space on your
-harddisk as the files are created as sparse files.
+.IP "\fB\-\-hdd\-size\fP MB" 4
+defines what size the hdd image should be. Note that although the default is
+set to 10000 (= 10GB), it will not need 10GB space on your harddisk as the
+files are created as sparse files.
 .IP "\fB\-\-volatile\fP true|false" 4
 defines if debian volatile package archives should be included in the image
 or not.
