@@ -1,3 +1,38 @@
+live-build (3.0~a34-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Removing unused global chroot_preseed.
+  * Renaming and reworking previous chroot_local-preseed into
+    chroot_preseed, now looking for config/preseed/*.preseed{,.chroot}
+    files.
+  * Correcting indenting glitch in lb_binary_chroot.
+  * Using 'none' instead of 'plain' when specifying that no chroot
+    filesystem should be used.
+  * Renaming virtual-hdd-root-size to hdd-size in preparation of merging
+    virtual-hdd into hdd.
+
+  [ Ben Howard ]
+  * Setting default armel linux flavour for Ubuntu.
+
+  [ Daniel Baumann ]
+  * Adding --system option to define the resulting image type to be a
+    live system or a normal, non-live system.
+
+  [ Colin Watson ]
+  * Copying gfxboot theme when building for Ubuntu.
+
+  [ Adam Conrad ]
+  * Using the correct mirror locations for Ubuntu ports.
+
+  [ Colin Watson ]
+  * Defaulting to ubuntu-oneiric syslinux theme on Ubuntu.
+
+  [ Daniel Baumann ]
+  * Setting default ubuntu release to oneric.
+  * Removing EOL Ubuntu dapper from release information.
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 30 Sep 2011 14:50:40 +0200
+
 live-build (3.0~a33-1) unstable; urgency=low
 
   * Correcting check for debian-installer-distribution when using daily
