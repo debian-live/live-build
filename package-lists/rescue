@@ -256,7 +256,9 @@ mdadm
 mtools
 nilfs-tools
 ntfs-3g
+#if DISTRIBUTION squeeze
 ntfsprogs
+#endif
 reiser4progs
 dmsetup
 
