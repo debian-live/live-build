@@ -431,7 +431,7 @@ EOF
 				# Add to sources.list.d
 				echo "deb file:/root/packages ./" > chroot/etc/apt/sources.list.d/packages.list
 
-				# Move top-level sources away, otherwise apt always preferes it, even for local packages
+				# Move top-level sources away, otherwise apt always preferes it (#644148)
 				if [ -e chroot/etc/apt/sources.list ]
 				then
 					mv chroot/etc/apt/sources.list chroot/etc/apt/sources.list.d/zz-sources.list
