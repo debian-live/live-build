@@ -1,3 +1,30 @@
+live-build (3.0~a35-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Treating sources.list top-level file specially to workaround bug in
+    apt that makes sources.list.d sources to be never prefered over main
+    sources.list when using pinning (Closes: #573054).
+  * Making top sources.list conditional, not everyone necessarily always
+    uses that.
+  * Marking tct in debian-forensics package list as squeeze only, thanks
+    to Michael Milligan <mmilligan@astro.umn.edu> (Closes: #643926).
+
+  [ Ben Howard ]
+  * Adding check for missing mtab during chrooted binary rootfs stage.
+
+  [ Daniel Baumann ]
+  * Updating ettercap entries in rescue list for wheezy, thanks to
+    Michael Milligan <mmilligan@astro.umn.edu>.
+  * Marking ntfsprogs as squeeze only in rescue list, thanks to Michael
+    Milligan <mmilligan@astro.umn.edu>.
+  * Adding bug number to comments when moving top-level sources.list.
+
+  [ Ben Howard ]
+  * Adding Ubuntu Cloud images packages lists.
+  * Adding foreign bootstrap via qemu for cross arch building.
+
+ -- Daniel Baumann <daniel@debian.org>  Sat, 08 Oct 2011 10:57:04 +0200
+
 live-build (3.0~a34-1) unstable; urgency=low
 
   [ Daniel Baumann ]
