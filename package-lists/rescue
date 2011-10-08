@@ -164,7 +164,12 @@ arpwatch
 atsar
 bmon
 ethstatus
+#if DISTRIBUTION squeeze
 ettercap
+#endif
+#nif DISTRIBUTION squeeze
+ettercap-text-only
+#endif
 geoip-bin
 hp-search-mac
 icmpinfo
@@ -251,7 +256,9 @@ mdadm
 mtools
 nilfs-tools
 ntfs-3g
+#if DISTRIBUTION squeeze
 ntfsprogs
+#endif
 reiser4progs
 dmsetup
 

@@ -431,6 +431,12 @@ EOF
 				# Add to sources.list.d
 				echo "deb file:/root/packages ./" > chroot/etc/apt/sources.list.d/packages.list
 
+				# Move top-level sources away, otherwise apt always preferes it (#644148)
+				if [ -e chroot/etc/apt/sources.list ]
+				then
+					mv chroot/etc/apt/sources.list chroot/etc/apt/sources.list.d/zz-sources.list
+				fi
+
 				# Removing depends
 				Remove_package
 			else
@@ -588,6 +594,12 @@ EOF
 
 		# Creating lock file
 		Create_lockfile .lock
+
+		# Restore top-level sources
+		if [ -e chroot/etc/apt/sources.list.d/zz-sources.list ]
+		then
+			mv chroot/etc/apt/sources.list.d/zz-sources.list chroot/etc/apt/sources.list
+		fi
 
 		# Configure generic indices
 		# Don't do anything if it's not required

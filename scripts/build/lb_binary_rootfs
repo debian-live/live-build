@@ -122,11 +122,23 @@ case "${LB_CHROOT_FILESYSTEM}" in
 		case "${LB_BUILD_WITH_CHROOT}" in
 			true)
 				dd if=/dev/zero of=chroot/filesystem.${LB_CHROOT_FILESYSTEM} bs=1024k count=0 seek=${REAL_DIM}
+
+				if ! Chroot chroot "test -s /etc/mtab"
+				then
+					Chroot chroot "ln -s /proc/mounts/mtab /etc/mtab"
+					FAKE_MTAB="true"
+				fi
+
 				Chroot chroot "mkfs.${LB_CHROOT_FILESYSTEM} -F -b 1024 -N ${REAL_INODES} -m 0 filesystem.${LB_CHROOT_FILESYSTEM}"
 
 				mkdir -p filesystem.tmp
 				${LB_ROOT_COMMAND} mount -o loop chroot/filesystem.${LB_CHROOT_FILESYSTEM} filesystem.tmp
 				cp -a chroot/chroot/* filesystem.tmp
+
+				if [ "${FAKE_MTAB}" = "true" ]
+				then
+					Chroot chroot "rm -f /etc/mtab"
+				fi
 
 				${LB_ROOT_COMMAND} umount filesystem.tmp
 				rmdir filesystem.tmp

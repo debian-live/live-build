@@ -12,6 +12,10 @@ galleta
 gpart
 #endif
 
+#if DISTRIBUTION squeeze
+tct
+#endif
+
 grokevt
 memdump
 missidentify
@@ -22,7 +26,6 @@ scrounge-ntfs
 sleuthkit
 ssdeep
 tableau-parm
-tct
 unhide
 wipe
 
