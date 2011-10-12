@@ -47,7 +47,7 @@ then
 	# Install dependency
 	Install_package
 
-	for PRESEED in config/chroot_preseed/*.preseed config/chroot_preseed/*.preseed.chroot
+	for PRESEED in config/preseed/*.preseed config/preseed/*.preseed.chroot
 	do
 		# Copying local preseed
 		cp "${PRESEED}" chroot/root/preseed
