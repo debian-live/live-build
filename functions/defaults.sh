@@ -23,7 +23,7 @@ Set_defaults ()
 	fi
 
 	# Setting system type
-	LB_SYSTEM="${LB_MODE:-live}"
+	LB_SYSTEM="${LB_SYSTEM:-live}"
 
 	# Setting mode (currently: debian, emdebian, progress, ubuntu and kubuntu)
 	LB_MODE="${LB_MODE:-debian}"
