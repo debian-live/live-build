@@ -278,6 +278,12 @@ EOF
 					    -e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
 					    -e "s|@PARENT_ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
 					"${FILE}" > "chroot/etc/apt/sources.list.d/$(basename ${FILE} .chroot)"
+
+					if [ "${_PASS}" != "source" ] && [ "${LB_APT_SOURCE_ARCHIVES}" = "false" ]
+					then
+						# Strip out source archives
+						sed "/^deb-src /d" "chroot/etc/apt/sources.list.d/$(basename ${FILE} .chroot)"
+					fi
 				fi
 			done
 		fi
@@ -834,6 +840,12 @@ EOF
 					    -e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
 					    -e "s|@PARENT_ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
 					"${FILE}" > "chroot/etc/apt/sources.list.d/$(basename ${FILE} .binary)"
+
+					if [ "${_PASS}" != "source" ] && [ "${LB_APT_SOURCE_ARCHIVES}" = "false" ]
+					then
+						# Strip out source archives
+						sed "/^deb-src /d" "chroot/etc/apt/sources.list.d/$(basename ${FILE} .binary)"
+					fi
 				fi
 			done
 		fi
