@@ -47,15 +47,18 @@ then
 	# Install dependency
 	Install_package
 
-	for PRESEED in config/chroot_preseed/*.preseed config/chroot_preseed/*.preseed.chroot
+	for PRESEED in config/preseed/*.preseed config/preseed/*.preseed.chroot
 	do
-		# Copying local preseed
-		cp "${PRESEED}" chroot/root/preseed
+		if [ -e "${PRESEED}" ]
+		then
+			# Copying local preseed
+			cp "${PRESEED}" chroot/root/preseed
 
-		Chroot chroot "debconf-set-selections /root/preseed"
+			Chroot chroot "debconf-set-selections /root/preseed"
 
-		# Removing local preseed file
-		rm -f chroot/root/preseed
+			# Removing local preseed file
+			rm -f chroot/root/preseed
+		fi
 	done
 
 	# Remove dependency
