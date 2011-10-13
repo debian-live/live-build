@@ -1,3 +1,11 @@
+live-build (3.0~a37-1) unstable; urgency=low
+
+  * Also strip out source archives from local archive definitions when
+    using --apt-source-archives false.
+  * Correcting typo in defaults for system variable.
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 13 Oct 2011 20:03:00 +0200
+
 live-build (3.0~a36-1) unstable; urgency=low
 
   * Using compression level 9 also for binary packages.
