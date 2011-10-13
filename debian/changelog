@@ -1,3 +1,14 @@
+live-build (3.0~a36-1) unstable; urgency=low
+
+  * Using compression level 9 also for binary packages.
+  * Updating squeeze point release number.
+  * Correcting wrong location when looking for local preseed files in
+    config tree, thanks to Eugenio Paolantonio <me@medesimo.eu> (Closes:
+    #645116).
+  * Deal with non-existing preseed files in config tree.
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 13 Oct 2011 15:55:53 +0200
+
 live-build (3.0~a35-1) unstable; urgency=low
 
   [ Daniel Baumann ]
