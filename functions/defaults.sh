@@ -49,9 +49,16 @@ Set_defaults ()
 	case "${LB_MODE}" in
 		progress)
 			case "${LB_DISTRIBUTION}" in
-				artax|artax-backports)
+				artax)
 					LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-squeeze}"
 					LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_PARENT_DISTRIBUTION}}"
+					;;
+
+
+				artax-backports)
+					LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-squeeze}"
+					LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_PARENT_DISTRIBUTION}}"
+					LB_BACKPORTS="false"
 					;;
 
 				baureo)
