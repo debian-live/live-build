@@ -629,6 +629,7 @@ Set_defaults ()
 			LB_CHROOT_HOOKS="${LB_CHROOT_HOOKS:-update-apt-file-cache \
 				update-apt-xapian-index \
 				update-mlocate-database \
+				remove-dbus-machine-id \
 				remove-openssh-server-host-keys \
 				remove-python-py \
 				remove-udev-persistent-rules}"
@@ -638,6 +639,7 @@ Set_defaults ()
 			LB_CHROOT_HOOKS="${LB_CHROOT_HOOKS:-update-apt-file-cache \
 				update-apt-xapian-index \
 				update-mlocate-database \
+				remove-dbus-machine-id \
 				remove-gnome-icon-cache \
 				remove-openssh-server-host-keys \
 				remove-python-py \
