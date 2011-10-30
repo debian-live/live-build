@@ -266,6 +266,13 @@ case "${LB_DERIVATIVE}" in
 		else
 			URL="${LB_PARENT_MIRROR_DEBIAN_INSTALLER}/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LB_ARCHITECTURES}/current/images/"
 		fi
+
+		if [ "${LB_MODE}" = "progress" ]
+		then
+			# FIXME: normal derivatives probably don't rebuild d-i,
+			# but progress does.
+			URL="${LB_MIRROR_DEBIAN_INSTALLER}/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LB_ARCHITECTURES}/current/images/"
+		fi
 		;;
 esac
 
