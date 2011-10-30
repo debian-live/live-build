@@ -1,3 +1,17 @@
+live-build (3.0~a38-1) unstable; urgency=low
+
+  * Disable backports forcefully when building artax-backports images
+    direcly.
+  * Updating symlinks for Ubuntu releases in debian-cd includes.
+  * Adding hook to remove dbus machine id.
+  * Renumbering hooks.
+  * Bail out early in lb_source if source is disabled (Closes: #646807).
+  * Adding expire date for oneiric in releases list.
+  * Adding precise in releases list.
+  * Correcting defaults d-i mirror for progress.
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 30 Oct 2011 08:46:54 +0100
+
 live-build (3.0~a37-1) unstable; urgency=low
 
   * Also strip out source archives from local archive definitions when
