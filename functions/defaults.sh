@@ -49,9 +49,16 @@ Set_defaults ()
 	case "${LB_MODE}" in
 		progress)
 			case "${LB_DISTRIBUTION}" in
-				artax|artax-backports)
+				artax)
 					LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-squeeze}"
 					LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_PARENT_DISTRIBUTION}}"
+					;;
+
+
+				artax-backports)
+					LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-squeeze}"
+					LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_PARENT_DISTRIBUTION}}"
+					LB_BACKPORTS="false"
 					;;
 
 				baureo)
@@ -577,7 +584,7 @@ Set_defaults ()
 
 	case "${LB_MODE}" in
 		progress)
-			LB_PARENT_MIRROR_DEBIAN_INSTALLER="${LB_PARENT_MIRROR_DEBIAN_INSTALLER:-${LB_PARENT_MIRROR_CHROOT}}"
+			LB_PARENT_MIRROR_DEBIAN_INSTALLER="${LB_PARENT_MIRROR_DEBIAN_INSTALLER:-${LB_MIRROR_CHROOT}}"
 			LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER:-${LB_MIRROR_CHROOT}}"
 			;;
 
@@ -622,6 +629,7 @@ Set_defaults ()
 			LB_CHROOT_HOOKS="${LB_CHROOT_HOOKS:-update-apt-file-cache \
 				update-apt-xapian-index \
 				update-mlocate-database \
+				remove-dbus-machine-id \
 				remove-openssh-server-host-keys \
 				remove-python-py \
 				remove-udev-persistent-rules}"
@@ -631,6 +639,7 @@ Set_defaults ()
 			LB_CHROOT_HOOKS="${LB_CHROOT_HOOKS:-update-apt-file-cache \
 				update-apt-xapian-index \
 				update-mlocate-database \
+				remove-dbus-machine-id \
 				remove-gnome-icon-cache \
 				remove-openssh-server-host-keys \
 				remove-python-py \
