@@ -67,7 +67,7 @@ Calculate_partition_size ()
 	FILESYSTEM="${2}"
 
 	case "${FILESYSTEM}" in
-		ext2|ext3)
+		ext2|ext3|ext4)
 			PERCENT="5"
 			;;
 		*)
