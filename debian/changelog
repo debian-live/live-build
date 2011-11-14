@@ -1,3 +1,37 @@
+live-build (3.0~a39-1) unstable; urgency=low
+
+  * Adding temporary manual setting of d-i urls for progress.
+  * Removing --tasks leftovers in lb_config.
+  * Sorting overrides in rules alphabetically.
+  * Also setting 5% margin for ext4 images, thanks to Neil Wilson
+    <neil@aldur.co.uk> for spotting it (Closes: #647601).
+  * Applying some of the suggestions from the reviewed control file from
+    debian-l10n-english (Closes: #643957).
+  * Applying some of the suggestions from the reviewed template file
+    from debian-l10n-english.
+  * Adding initial Czech debconf translations from Michal Simunek
+    <michal.simunek@gmail.com> (Closes: #648457).
+  * Adding initial Danish debconf translations from Joe Dalton
+    <joedalton2@yahoo.dk> (Closes: #648346).
+  * Adding initial Spanish debconf translations from Gildardo Adrián
+    Maravilla Jácome <gilmjc@gmail.com> and Francisco Javier Cuadrado
+    <fcocuadrado@gmail.com> (Closes: #648463).
+  * Adding initial French debconf translations from Julien Patriarca
+    <patriarcaj@gmail.com> (Closes: #647820).
+  * Adding initial Portuguese debconf translations from Miguel
+    Figueiredo <elmig@debianpt.org> (Closes: #648484).
+  * Adding initial Russian debconf translations from Yuri Kozlov
+    <yuray@komyakino.ru> (Closes: #647993).
+  * Adding initial Swedish debconf translations from Martin Bagge
+    <brother@bsnet.se> (Closes: #648377).
+  * Adding initial Telugu debconf translations from Praveen Illa
+    <mail2ipn@gmail.com> (Closes: #648693).
+  * Adding initial German debconf translations from Holger Wansing
+    <linux@wansing-online.de> (Closes: #648381).
+  * Updating and completing German debconf translations.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 14 Nov 2011 12:46:20 +0100
+
 live-build (3.0~a38-1) unstable; urgency=low
 
   * Disable backports forcefully when building artax-backports images
