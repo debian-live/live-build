@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: live-build@packages.debian.org\n"
-"POT-Creation-Date: 2011-07-20 11:04+0200\n"
+"POT-Creation-Date: 2011-11-14 12:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,115 +26,146 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../live-build-cron.templates:2001
-msgid "Enable images autobuild?"
+msgid "Enable live image autobuilds?"
 msgstr ""
 
 #. Type: boolean
 #. Description
 #: ../live-build-cron.templates:2001
-msgid "Do you want to enable autobuild for images?"
-msgstr ""
-
-#. Type: boolean
-#. Description
-#. Type: boolean
-#. Description
-#: ../live-build-cron.templates:2001 ../live-build-cron.templates:13001
-msgid "If unsure, use 'no' (default)."
+msgid "Please choose whether live images should be built automatically."
 msgstr ""
 
 #. Type: string
-#. Default
+#. Description
 #: ../live-build-cron.templates:3001
-msgid "/srv/debian.net/live-cdimage"
+msgid "Image destination directory:"
 msgstr ""
 
 #. Type: string
 #. Description
-#. Type: string
-#. Description
-#. Type: string
-#. Description
-#: ../live-build-cron.templates:3002 ../live-build-cron.templates:4002
-#: ../live-build-cron.templates:14002
-msgid "What directory to put builds to?"
+#: ../live-build-cron.templates:3001
+msgid "Please specify the directory where live images should be stored."
 msgstr ""
 
 #. Type: string
 #. Description
-#: ../live-build-cron.templates:3002
-msgid "Enter the directory where the images should be stored in."
-msgstr ""
-
-#. Type: string
-#. Default
 #: ../live-build-cron.templates:4001
-msgid "0 0 * * *"
+msgid "Cron expression for image builds:"
 msgstr ""
 
 #. Type: string
 #. Description
-#: ../live-build-cron.templates:4002
-msgid "Enter the cron times where the images should be build."
-msgstr ""
-
-#. Type: select
-#. Choices
-#: ../live-build-cron.templates:5001
-msgid "git, host, release"
-msgstr ""
-
-#. Type: select
-#. Description
-#: ../live-build-cron.templates:5002
-msgid "Which version of live-build to use?"
-msgstr ""
-
-#. Type: select
-#. Description
-#: ../live-build-cron.templates:5002
-msgid "Select the version of live-build to use."
-msgstr ""
-
-#. Type: select
-#. Description
-#: ../live-build-cron.templates:5002
+#: ../live-build-cron.templates:4001
 msgid ""
-"If you choose git, the current version of live-build from git will be used. "
-"host will use the live-build from the host system, and release will use the "
-"last released version."
+"Please specify the scheduling for the cron job defining when live images "
+"should be built."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../live-build-cron.templates:4001
+msgid "This defaults to: 0 0 * * *"
+msgstr ""
+
+#. Type: select
+#. Description
+#: ../live-build-cron.templates:5001
+msgid "Live-build version to use:"
+msgstr ""
+
+#. Type: select
+#. Description
+#: ../live-build-cron.templates:5001
+msgid "Please select the version of live-build to use."
+msgstr ""
+
+#. Type: select
+#. Description
+#: ../live-build-cron.templates:5001
+msgid ""
+"If you choose \"git\", the current version of live-build from git will be "
+"used. If you choose \"host\", the live-build from the host system will be "
+"used. Finally, \"release\" will use the last released version."
+msgstr ""
+
+#. Type: multiselect
+#. Description
+#: ../live-build-cron.templates:6001
+msgid "Daily image distribution(s):"
+msgstr ""
+
+#. Type: multiselect
+#. Description
+#: ../live-build-cron.templates:6001
+msgid ""
+"Please select the distributions you would like to include for live images "
+"daily-builds."
+msgstr ""
+
+#. Type: multiselect
+#. Description
+#: ../live-build-cron.templates:7001
+msgid "Daily image flavor(s):"
+msgstr ""
+
+#. Type: multiselect
+#. Description
+#: ../live-build-cron.templates:7001
+msgid ""
+"Please select the flavors you would like to include for live images daily-"
+"builds."
+msgstr ""
+
+#. Type: multiselect
+#. Description
+#: ../live-build-cron.templates:8001
+msgid "Weekly image distribution(s):"
+msgstr ""
+
+#. Type: multiselect
+#. Description
+#: ../live-build-cron.templates:8001
+msgid ""
+"Please select the distributions you would like to include for live images "
+"weekly-builds."
+msgstr ""
+
+#. Type: multiselect
+#. Description
+#: ../live-build-cron.templates:9001
+msgid "Weekly image flavor(s):"
+msgstr ""
+
+#. Type: multiselect
+#. Description
+#: ../live-build-cron.templates:9001
+msgid ""
+"Please select the flavors you would like to include for live images weekly-"
+"builds."
 msgstr ""
 
 #. Type: multiselect
 #. Choices
-#. Type: multiselect
-#. Choices
-#. Type: multiselect
-#. Choices
-#: ../live-build-cron.templates:6001 ../live-build-cron.templates:8001
 #: ../live-build-cron.templates:10001
 msgid "squeeze, wheezy, sid"
 msgstr ""
 
 #. Type: multiselect
 #. Description
-#: ../live-build-cron.templates:6002
-msgid "What distributions to build for daily images?"
+#: ../live-build-cron.templates:10002
+msgid "Monthly image distribution(s):"
 msgstr ""
 
 #. Type: multiselect
 #. Description
-#: ../live-build-cron.templates:6002
-msgid "Select the distributions you would like to build for daily-images."
+#: ../live-build-cron.templates:10002
+msgid ""
+"Please select the distributions you would like to include for live images "
+"monthly-builds."
 msgstr ""
 
 #. Type: multiselect
 #. Choices
-#. Type: multiselect
-#. Choices
-#. Type: multiselect
-#. Choices
-#: ../live-build-cron.templates:7001 ../live-build-cron.templates:9001
 #: ../live-build-cron.templates:11001
 msgid ""
 "standard, rescue, gnome-desktop, kde-desktop, lxde-desktop, xfce-desktop"
@@ -142,62 +173,16 @@ msgstr ""
 
 #. Type: multiselect
 #. Description
-#: ../live-build-cron.templates:7002
-msgid "What flavours to build for daily images?"
-msgstr ""
-
-#. Type: multiselect
-#. Description
-#: ../live-build-cron.templates:7002
-msgid "Select the flavours you would like to build for daily-images."
-msgstr ""
-
-#. Type: multiselect
-#. Description
-#: ../live-build-cron.templates:8002
-msgid "What distributions to build for weekly images?"
-msgstr ""
-
-#. Type: multiselect
-#. Description
-#: ../live-build-cron.templates:8002
-msgid "Select the distributions you would like to build for weekly-images."
-msgstr ""
-
-#. Type: multiselect
-#. Description
-#: ../live-build-cron.templates:9002
-msgid "What flavours to build for weekly images?"
-msgstr ""
-
-#. Type: multiselect
-#. Description
-#: ../live-build-cron.templates:9002
-msgid "Select the flavours you would like to build for weekly-images."
-msgstr ""
-
-#. Type: multiselect
-#. Description
-#: ../live-build-cron.templates:10002
-msgid "What distributions to build for monthly images?"
-msgstr ""
-
-#. Type: multiselect
-#. Description
-#: ../live-build-cron.templates:10002
-msgid "Select the distributions you would like to build for monthly-images."
+#: ../live-build-cron.templates:11002
+msgid "Monthly image flavor(s):"
 msgstr ""
 
 #. Type: multiselect
 #. Description
 #: ../live-build-cron.templates:11002
-msgid "What flavours to build for monthly images?"
-msgstr ""
-
-#. Type: multiselect
-#. Description
-#: ../live-build-cron.templates:11002
-msgid "Select the flavours you would like to build for monthly-images."
+msgid ""
+"Please select the flavors you would like to include for live images monthly-"
+"builds."
 msgstr ""
 
 #. Type: boolean
@@ -208,20 +193,14 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../live-build-cron.templates:12001
-msgid "Do you sources for live-build-cron-images?"
+#: ../live-build-cron.templates:13001
+msgid "Enable live-manual autobuilds?"
 msgstr ""
 
 #. Type: boolean
 #. Description
 #: ../live-build-cron.templates:13001
-msgid "Enable live-build-cron-manual?"
-msgstr ""
-
-#. Type: boolean
-#. Description
-#: ../live-build-cron.templates:13001
-msgid "Do you want to enable live-build-cron-manual?"
+msgid "Please choose whether the live-manual should be built automatically."
 msgstr ""
 
 #. Type: string
@@ -233,25 +212,13 @@ msgstr ""
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:14002
-msgid "Enter the directory where the manual should be stored in."
-msgstr ""
-
-#. Type: string
-#. Default
-#: ../live-build-cron.templates:15001
-msgid "0-59/10 * * * *"
+msgid "live-manual destination directory:"
 msgstr ""
 
 #. Type: string
 #. Description
-#: ../live-build-cron.templates:15002
-msgid "What interval to use for the cron job?"
-msgstr ""
-
-#. Type: string
-#. Description
-#: ../live-build-cron.templates:15002
-msgid "Enter the cron times where the manual should be build."
+#: ../live-build-cron.templates:14002
+msgid "Please specify the directory where live-manual should be stored."
 msgstr ""
 
 #. Type: string
@@ -263,11 +230,12 @@ msgstr ""
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:16002
-msgid "What useraccount to use to build the manual?"
+msgid "User account for builds of live-manual:"
 msgstr ""
 
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:16002
-msgid "Enter the name of the username."
+msgid ""
+"Please enter the username that should be used for builds of live-manual."
 msgstr ""

@@ -5,104 +5,111 @@ _Description: Debian Live - System Build Scripts (cron autobuilder)
 Template: live-build-cron/images-enable
 Type: boolean
 Default: false
-_Description: Enable images autobuild?
- Do you want to enable autobuild for images?
- .
- If unsure, use 'no' (default).
+_Description: Enable live image autobuilds?
+ Please choose whether live images should be built automatically.
 
 Template: live-build-cron/images-directory
 Type: string
-_Default: /srv/debian.net/live-cdimage
-_Description: What directory to put builds to?
- Enter the directory where the images should be stored in.
+Default: /srv/debian.net/live-cdimage
+_Description: Image destination directory:
+ Please specify the directory where live images should be stored.
 
 Template: live-build-cron/images-cron
 Type: string
-_Default: 0 0 * * *
-_Description: What directory to put builds to?
- Enter the cron times where the images should be build.
+Default: 0 0 * * *
+_Description: Cron expression for image builds:
+ Please specify the scheduling for the cron job defining when live images
+ should be built.
+ .
+ This defaults to: 0 0 * * *
 
 Template: live-build-cron/images-build
 Type: select
-_Choices: git, host, release
+Choices: git, host, release
 Default: host
-_Description: Which version of live-build to use?
- Select the version of live-build to use.
+_Description: Live-build version to use:
+ Please select the version of live-build to use.
  .
- If you choose git, the current version of live-build from git will be
- used. host will use the live-build from the host system, and release will
- use the last released version.
+ If you choose "git", the current version of live-build from git will be
+ used. If you choose "host", the live-build from the host system will be
+ used. Finally, "release" will use the last released version.
 
 Template: live-build-cron/images-daily-distributions
 Type: multiselect
-_Choices: squeeze, wheezy, sid
+Choices: squeeze, wheezy, sid
 Default: sid
-_Description: What distributions to build for daily images?
- Select the distributions you would like to build for daily-images.
+_Description: Daily image distribution(s):
+ Please select the distributions you would like to include for live images
+ daily-builds.
 
 Template: live-build-cron/images-daily-flavours
 Type: multiselect
-_Choices: standard, rescue, gnome-desktop, kde-desktop, lxde-desktop, xfce-desktop
+Choices: standard, rescue, gnome-desktop, kde-desktop, lxde-desktop, xfce-desktop
 Default: standard
-_Description: What flavours to build for daily images?
- Select the flavours you would like to build for daily-images.
+_Description: Daily image flavor(s):
+ Please select the flavors you would like to include for live images
+ daily-builds.
 
 Template: live-build-cron/images-weekly-distributions
 Type: multiselect
-_Choices: squeeze, wheezy, sid
+Choices: squeeze, wheezy, sid
 Default: wheezy
-_Description: What distributions to build for weekly images?
- Select the distributions you would like to build for weekly-images.
+_Description: Weekly image distribution(s):
+ Please select the distributions you would like to include for live images
+ weekly-builds.
 
 Template: live-build-cron/images-weekly-flavours
 Type: multiselect
-_Choices: standard, rescue, gnome-desktop, kde-desktop, lxde-desktop, xfce-desktop
+Choices: standard, rescue, gnome-desktop, kde-desktop, lxde-desktop, xfce-desktop
 Default: standard
-_Description: What flavours to build for weekly images?
- Select the flavours you would like to build for weekly-images.
+_Description: Weekly image flavor(s):
+ Please select the flavors you would like to include for live images
+ weekly-builds.
 
 Template: live-build-cron/images-monthly-distributions
 Type: multiselect
 _Choices: squeeze, wheezy, sid
 Default: squeeze
-_Description: What distributions to build for monthly images?
- Select the distributions you would like to build for monthly-images.
+_Description: Monthly image distribution(s):
+ Please select the distributions you would like to include for live images
+ monthly-builds.
 
 Template: live-build-cron/images-monthly-flavours
 Type: multiselect
 _Choices: standard, rescue, gnome-desktop, kde-desktop, lxde-desktop, xfce-desktop
 Default: standard
-_Description: What flavours to build for monthly images?
- Select the flavours you would like to build for monthly-images.
+_Description: Monthly image flavor(s):
+ Please select the flavors you would like to include for live images
+ monthly-builds.
 
 Template: live-build-cron/images-source
 Type: boolean
 Default: false
 _Description: Enable source for live-build-cron-images?
- Do you sources for live-build-cron-images?
 
 Template: live-build-cron/manual-enable
 Type: boolean
 Default: false
-_Description: Enable live-build-cron-manual?
- Do you want to enable live-build-cron-manual?
- .
- If unsure, use 'no' (default).
+_Description: Enable live-manual autobuilds?
+ Please choose whether the live-manual should be built automatically.
 
 Template: live-build-cron/manual-directory
 Type: string
 _Default: /srv/debian.net/live-manual
-_Description: What directory to put builds to?
- Enter the directory where the manual should be stored in.
+_Description: live-manual destination directory:
+ Please specify the directory where live-manual should be stored.
 
 Template: live-build-cron/manual-cron
 Type: string
-_Default: 0-59/10 * * * *
-_Description: What interval to use for the cron job?
- Enter the cron times where the manual should be build.
+Default: 0-59/10 * * * *
+ _Description: Cron expression for builds of live-manual:
+ Please specify the scheduling for the cron job defining when live-manual
+ should be built.
+ .
+ This defaults to: 0-59/10 * * * *
 
 Template: live-build-cron/manual-username
 Type: string
 _Default: live-build-cron-manual
-_Description: What useraccount to use to build the manual?
- Enter the name of the username.
+_Description: User account for builds of live-manual:
+ Please enter the username that should be used for builds of live-manual.
