@@ -140,7 +140,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--swap-file-size MB]\n\
 \t    [--syslinux-theme THEME_SUFFIX]\n\
 \t    [--tasksel apt|aptitude|tasksel]\n\
-\t    [--tasks TASK|\"TASKS\"]\n\
 \t    [--templates PATH]\n\
 \t    [--volatile true|false]\n\
 \t    [--backports true|false]\n\
@@ -166,7 +165,7 @@ Local_arguments ()
 		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,
 		archives:,archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,linux-flavours:,linux-packages:,
-		package-lists:,tasks:,security:,volatile:,backports:,binary-filesystem:,binary-images:,
+		package-lists:,security:,volatile:,backports:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,compression:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
 		grub-splash:,hostname:,isohybrid-options:,hdd-label:,hdd-size:,iso-application:,iso-preparer:,iso-publisher:,
@@ -572,11 +571,6 @@ Local_arguments ()
 
 			-p|--package-lists)
 				LB_PACKAGE_LISTS="${2}"
-				shift 2
-				;;
-
-			--tasks)
-				LB_TASKS="${2}"
 				shift 2
 				;;
 
@@ -1255,10 +1249,6 @@ LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES}"
 # \$LB_PACKAGE_LISTS: set package list to install
 # (Default: ${LB_PACKAGE_LISTS})
 LB_PACKAGE_LISTS="${LB_PACKAGE_LISTS}"
-
-# \$LB_TASKS: set tasks to install
-# (Default: empty)
-LB_TASKS="${LB_TASKS}"
 
 # \$LB_SECURITY: enable security updates
 # (Default: ${LB_SECURITY})
