@@ -49,13 +49,13 @@ Create_lockfile .lock
 
 mkdir -p source/.disk
 
-TITLE="Debian GNU/Linux"
 DISTRIBUTION="$(echo ${LB_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]')"
 DISTRIBUTION="${DISTRIBUTION}$(echo ${LB_DISTRIBUTION} | cut -b 2-)"
 eval VERSION="$`echo RELEASE_${LB_DISTRIBUTION}`"
 
 case "${LB_MODE}" in
 	debian)
+		TITLE="Debian GNU/Linux"
 		STRING="Official Snapshot ${ARCHITECTURE}"
 		TRACE="project/trace/ftp-master.debian.org"
 		;;
@@ -72,7 +72,14 @@ case "${LB_MODE}" in
 		TRACE=""
 		;;
 
+	progress)
+		TITLE="Progress Linux"
+		STRING="${VERSION} (${DISTRIBUTION}) - ${ARCHITECTURE}"
+		TRACE="project/trace/archive-master.progress-linux.org"
+		;;
+
 	*)
+		TITLE="Debian GNU/Linux"
 		STRING="Snapshot ${ARCHITECTURE}"
 		TRACE=""
 		;;
