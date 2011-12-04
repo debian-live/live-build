@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: live-build 3.0~a34-4\n"
+"Project-Id-Version: live-build 3.0~a39-1\n"
 "Report-Msgid-Bugs-To: live-build@packages.debian.org\n"
 "POT-Creation-Date: 2011-11-14 12:06+0100\n"
-"PO-Revision-Date: 2011-10-29 18:31+0200\n"
+"PO-Revision-Date: 2011-11-17 18:31+0100\n"
 "Last-Translator: Michal Simunek <michal.simunek@gmail.com>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
 "Language: cs\n"
@@ -24,32 +24,24 @@ msgstr "Debian Live - Skripty pro sestavení systému (cron autobuilder)"
 #. Type: boolean
 #. Description
 #: ../live-build-cron.templates:2001
-#, fuzzy
-#| msgid "Enable image autobuilds?"
 msgid "Enable live image autobuilds?"
-msgstr "Povolit automatické sestavování obrazů?"
+msgstr "Povolit automatická sestavování živých obrazů?"
 
 #. Type: boolean
 #. Description
 #: ../live-build-cron.templates:2001
-#, fuzzy
-#| msgid "Please choose whether live-images should be built automatically."
 msgid "Please choose whether live images should be built automatically."
 msgstr "Zvolte si prosím, zda se mají automaticky sestavovat živé obrazy."
 
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:3001
-#, fuzzy
-#| msgid "Image build directory:"
 msgid "Image destination directory:"
-msgstr "Adresář pro sestavování obrazů:"
+msgstr "Cílový adresář pro obrazy:"
 
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:3001
-#, fuzzy
-#| msgid "Please specify the directory where live-images should be stored."
 msgid "Please specify the directory where live images should be stored."
 msgstr "Zadejte prosím adresář, kam se mají živé obrazy ukládat."
 
@@ -62,10 +54,6 @@ msgstr "Úloha cronu pro sestavování obrazů:"
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:4001
-#, fuzzy
-#| msgid ""
-#| "Please specify the scheduling for the cron job defining when live-images "
-#| "should be built."
 msgid ""
 "Please specify the scheduling for the cron job defining when live images "
 "should be built."
@@ -77,7 +65,7 @@ msgstr ""
 #. Description
 #: ../live-build-cron.templates:4001
 msgid "This defaults to: 0 0 * * *"
-msgstr ""
+msgstr "Výchozí je: 0 0 * * *"
 
 #. Type: select
 #. Description
@@ -112,10 +100,6 @@ msgstr "Denní obraz distribucí:"
 #. Type: multiselect
 #. Description
 #: ../live-build-cron.templates:6001
-#, fuzzy
-#| msgid ""
-#| "Please select the distributions you would like to include for live-images "
-#| "built daily."
 msgid ""
 "Please select the distributions you would like to include for live images "
 "daily-builds."
@@ -132,10 +116,6 @@ msgstr "Denní obraz větví:"
 #. Type: multiselect
 #. Description
 #: ../live-build-cron.templates:7001
-#, fuzzy
-#| msgid ""
-#| "Please select the flavors you would like to include for live-images built "
-#| "daily."
 msgid ""
 "Please select the flavors you would like to include for live images daily-"
 "builds."
@@ -152,10 +132,6 @@ msgstr "Týdenní obraz distribucí:"
 #. Type: multiselect
 #. Description
 #: ../live-build-cron.templates:8001
-#, fuzzy
-#| msgid ""
-#| "Please select the distributions you would like to include for live-images "
-#| "built weekly."
 msgid ""
 "Please select the distributions you would like to include for live images "
 "weekly-builds."
@@ -172,10 +148,6 @@ msgstr "Týdenní obraz větví:"
 #. Type: multiselect
 #. Description
 #: ../live-build-cron.templates:9001
-#, fuzzy
-#| msgid ""
-#| "Please select the flavors you would like to include for live-images built "
-#| "weekly."
 msgid ""
 "Please select the flavors you would like to include for live images weekly-"
 "builds."
@@ -198,10 +170,6 @@ msgstr "Měsíční obraz distribucí:"
 #. Type: multiselect
 #. Description
 #: ../live-build-cron.templates:10002
-#, fuzzy
-#| msgid ""
-#| "Please select the distributions you would like to include for live-images "
-#| "built monthly."
 msgid ""
 "Please select the distributions you would like to include for live images "
 "monthly-builds."
@@ -226,10 +194,6 @@ msgstr "Měsíční obraz větví:"
 #. Type: multiselect
 #. Description
 #: ../live-build-cron.templates:11002
-#, fuzzy
-#| msgid ""
-#| "Please select the flavors you would like to include for live-images built "
-#| "monthly."
 msgid ""
 "Please select the flavors you would like to include for live images monthly-"
 "builds."
@@ -246,18 +210,14 @@ msgstr "Povolit zdrojové kódy pro live-build-cron-images?"
 #. Type: boolean
 #. Description
 #: ../live-build-cron.templates:13001
-#, fuzzy
-#| msgid "Enable image autobuilds?"
 msgid "Enable live-manual autobuilds?"
-msgstr "Povolit automatické sestavování obrazů?"
+msgstr "Povolit automatická sestavování příručky k živému obrazu?"
 
 #. Type: boolean
 #. Description
 #: ../live-build-cron.templates:13001
-#, fuzzy
-#| msgid "Please choose whether the manual should be built automatically."
 msgid "Please choose whether the live-manual should be built automatically."
-msgstr "Zvolte si prosím, zda se má automaticky sestavovat příručka."
+msgstr "Zvolte si prosím, zda se má automaticky sestavovat příručka k živému obrazu."
 
 #. Type: string
 #. Default
@@ -268,18 +228,14 @@ msgstr "/srv/debian.net/live-manual"
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:14002
-#, fuzzy
-#| msgid "Manual build directory:"
 msgid "live-manual destination directory:"
-msgstr "Adresář pro sestavování příručky:"
+msgstr "Cílový adresář pro příručku k živému obrazu:"
 
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:14002
-#, fuzzy
-#| msgid "Please specify the directory where the manual should be stored."
 msgid "Please specify the directory where live-manual should be stored."
-msgstr "Zadejte prosím adresář, kam se má příručka ukládat."
+msgstr "Zadejte prosím adresář, kam se má příručka k živému obrazu ukládat."
 
 #. Type: string
 #. Default
@@ -290,18 +246,13 @@ msgstr "live-build-cron-manual"
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:16002
-#, fuzzy
-#| msgid "User account for manual builds:"
 msgid "User account for builds of live-manual:"
-msgstr "Uživatel pro sestavování příručky:"
+msgstr "Uživatel pro sestavování příručky k živému obrazu:"
 
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:16002
-#, fuzzy
-#| msgid ""
-#| "Please enter the username that should be used for builds of the manual."
 msgid ""
 "Please enter the username that should be used for builds of live-manual."
 msgstr ""
-"Zadejte prosím uživatele, který se má používat pro sestavování příručky."
+"Zadejte prosím uživatele, který se má používat pro sestavování příručky k živému obrazu."
