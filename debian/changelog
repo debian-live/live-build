@@ -1,3 +1,19 @@
+live-build (3.0~a40-1) unstable; urgency=low
+
+  * Adding libasound2-plugins to standard-x11 package list, thanks to
+    Nik Lutz <nik.lutz@gmail.com>.
+  * Inverting logic for defaults or archive-areas wrt/ parent and
+    derivatives.
+  * Creating progress specific disk info files in progress mode.
+  * Adding updated Czech debconf translations from Michal Simunek
+    <michal.simunek@gmail.com> (Closes: #649110).
+  * Adding updated Russian debconf translations from Yuri Kozlov
+    <yuray@komyakino.ru> (Closes: #650870).
+  * Adding updated French debconf translations from Julien Patriarca
+    <patriarcaj@gmail.com> (Closes: #650655).
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 04 Dec 2011 10:14:06 +0100
+
 live-build (3.0~a39-1) unstable; urgency=low
 
   * Adding temporary manual setting of d-i urls for progress.
