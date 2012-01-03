@@ -186,7 +186,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 					lb chroot_resolv install ${*}
 					lb chroot_hostname install ${*}
 					lb chroot_apt install ${*}
-					lb chroot_archives binary remove ${*}
+					lb chroot_archives binary install ${*}
 
 					touch .lock
 				else
@@ -276,7 +276,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 					lb chroot_resolv install ${*}
 					lb chroot_hostname install ${*}
 					lb chroot_apt install ${*}
-					lb chroot_archives binary remove ${*}
+					lb chroot_archives binary install ${*}
 
 					touch .lock
 				else
@@ -421,7 +421,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 					lb chroot_resolv install ${*}
 					lb chroot_hostname install ${*}
 					lb chroot_apt install ${*}
-					lb chroot_archives binary remove ${*}
+					lb chroot_archives binary install ${*}
 
 					touch .lock
 				else
