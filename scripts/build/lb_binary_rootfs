@@ -358,7 +358,8 @@ case "${LB_CHROOT_FILESYSTEM}" in
 		fi
 
 		case "${LB_DISTRIBUTION}" in
-			artax-backports)
+			wheezy|sid)
+				# FIXME: artax-backports once d-i has catched up
 				MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -comp xz"
 				;;
 		esac
