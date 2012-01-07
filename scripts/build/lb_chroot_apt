@@ -152,23 +152,21 @@ case "${1}" in
 				then
 					echo "# /etc/apt/preferences.d/progress.pref" > chroot/etc/apt/preferences.d/progress.pref
 
-					case "${LB_DISTRIBUTION}" in
-						*-backports)
-							_DISTRIBUTIONS="$(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||') ${LB_DISTRIBUTION}"
-							;;
-
-						*)
-							_DISTRIBUTIONS="${LB_DISTRIBUTION}"
-							;;
-					esac
+					_DISTRIBUTIONS="$(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')"
 
 					if [ "${LB_SECURITY}" = "true" ]
 					then
-						case "${LB_DISTRIBUTION}" in
-							artax)
-								_DISTRIBUTION="${_DISTRIBUTION} ${LB_DISTRIBUTION}-security"
-								;;
-						esac
+						_DISTRIBUTION="${_DISTRIBUTION} $(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')-security"
+					fi
+
+					if [ "${LB_VOLATILE}" = "true" ]
+					then
+						_DISTRIBUTION="${_DISTRIBUTION} $(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')-updates"
+					fi
+
+					if [ "${LB_BACKPORTS}" = "true" ]
+					then
+						_DISTRIBUTION="${_DISTRIBUTION} $(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')-backports"
 					fi
 
 					for _DISTRIBUTION in ${_DISTRIBUTIONS}
