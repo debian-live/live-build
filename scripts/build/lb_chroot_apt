@@ -181,6 +181,19 @@ EOF
 
 					done
 				fi
+
+				case "${LB_DISTRIBUTION}" in
+					artax-backports)
+						# Temporary hack to avoid squashfs version mismatch
+
+cat >> chroot/etc/apt/preferences.d/tmp.pref << EOF
+Package: squashfs-tools
+Pin: release n=squeeze
+Pin-Priority: 1001
+EOF
+
+						;;
+				esac
 				;;
 		esac
 
