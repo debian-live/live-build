@@ -108,6 +108,19 @@ case "${1}" in
 			cp config/chroot_apt/preferences chroot/etc/apt/preferences
 		fi
 
+		if Find_files config/chroot_apt/*.pref
+		then
+			for _FILE in config/chroot_apt/*.pref
+			do
+				if [ -f chroot/etc/apt/preferences.d/$(basename ${_FILE}) ]
+				then
+					mv chroot/etc/apt/preferences.d/$(basename ${_FILE}) chroot/etc/apt/preferences.d/$(basename ${_FILE}).orig
+				fi
+
+				cp ${_FILE} chroot/etc/apt/preferences.d
+			done
+		fi
+
 		if Find_files config/packages.chroot/*.deb || Find_files config/packages/*.deb
 		then
 			echo >> chroot/etc/apt/preferences
@@ -234,6 +247,24 @@ EOF
 			then
 				mv chroot/etc/apt/preferences.orig chroot/etc/apt/preferences
 			fi
+		fi
+
+		if Find_files config/chroot_apt/*.pref
+		then
+			for _FILE in config/chroot_apt/*.pref
+			do
+				if [ -f chroot/etc/apt/preferences.d/$(basename ${_FILE}) ]
+				then
+					mv chroot/etc/apt/preferences.d/$(basename ${_FILE}) chroot/etc/apt/preferences.d/$(basename ${_FILE}).orig
+				fi
+
+				cp ${_FILE} chroot/etc/apt/preferences.d
+
+				if [ -f chroot/etc/apt/preferences.d/$(basename ${_FILE}) ]
+				then
+					mv chroot/etc/apt/preferences.d/$(basename ${_FILE}).orig chroot/etc/apt/preferences.d/$(basename ${_FILE})
+				fi
+			done
 		fi
 
 		if Find_files config/packages.chroot/*.deb || Find_files config/packages/*.deb
