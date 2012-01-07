@@ -148,29 +148,31 @@ case "${1}" in
 
 		case "${LB_MODE}" in
 			progress)
-				echo "# /etc/apt/preferences.d/progress.pref" > chroot/etc/apt/preferences.d/progress.pref
-
-				case "${LB_DISTRIBUTION}" in
-					*-backports)
-						_DISTRIBUTIONS="$(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||') ${LB_DISTRIBUTION}"
-						;;
-
-					*)
-						_DISTRIBUTIONS="${LB_DISTRIBUTION}"
-						;;
-				esac
-
-				if [ "${LB_SECURITY}" = "true" ]
+				if [ ! -e chroot/etc/apt/preferences.d/progress.pref ]
 				then
+					echo "# /etc/apt/preferences.d/progress.pref" > chroot/etc/apt/preferences.d/progress.pref
+
 					case "${LB_DISTRIBUTION}" in
-						artax)
-							_DISTRIBUTION="${_DISTRIBUTION} ${LB_DISTRIBUTION}-security"
+						*-backports)
+							_DISTRIBUTIONS="$(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||') ${LB_DISTRIBUTION}"
+							;;
+
+						*)
+							_DISTRIBUTIONS="${LB_DISTRIBUTION}"
 							;;
 					esac
-				fi
 
-				for _DISTRIBUTION in ${_DISTRIBUTIONS}
-				do
+					if [ "${LB_SECURITY}" = "true" ]
+					then
+						case "${LB_DISTRIBUTION}" in
+							artax)
+								_DISTRIBUTION="${_DISTRIBUTION} ${LB_DISTRIBUTION}-security"
+								;;
+						esac
+					fi
+
+					for _DISTRIBUTION in ${_DISTRIBUTIONS}
+					do
 
 cat >> chroot/etc/apt/preferences.d/progress.pref << EOF
 
@@ -179,7 +181,8 @@ Pin: release n=${_DISTRIBUTION}
 Pin-Priority: 999
 EOF
 
-				done
+					done
+				fi
 				;;
 		esac
 
