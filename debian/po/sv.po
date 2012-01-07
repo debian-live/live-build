@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: live-build\n"
 "Report-Msgid-Bugs-To: live-build@packages.debian.org\n"
 "POT-Creation-Date: 2011-11-14 12:06+0100\n"
-"PO-Revision-Date: 2011-11-10 21:52+0100\n"
+"PO-Revision-Date: 2011-12-06 21:36+0100\n"
 "Last-Translator: Martin Bagge / brother <brother@bsnet.se>\n"
 "Language-Team: Swedish <debian-l10n-swedish@lists.debian.org>\n"
 "Language: \n"
@@ -24,32 +24,24 @@ msgstr "Debian Live - Byggskript för systemet (cron autobuilder)"
 #. Type: boolean
 #. Description
 #: ../live-build-cron.templates:2001
-#, fuzzy
-#| msgid "Enable image autobuilds?"
 msgid "Enable live image autobuilds?"
 msgstr "Ska avbildningar byggas automatiskt?"
 
 #. Type: boolean
 #. Description
 #: ../live-build-cron.templates:2001
-#, fuzzy
-#| msgid "Please choose whether live-images should be built automatically."
 msgid "Please choose whether live images should be built automatically."
 msgstr "Ange om du vill att live-avbildningar ska byggas automatiskt."
 
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:3001
-#, fuzzy
-#| msgid "Image build directory:"
 msgid "Image destination directory:"
-msgstr "Katalog för bygge av avbildningar:"
+msgstr "Destinationskatalog för byggda avbildningar:"
 
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:3001
-#, fuzzy
-#| msgid "Please specify the directory where live-images should be stored."
 msgid "Please specify the directory where live images should be stored."
 msgstr "Ange katalogen där live-avbildningar ska lagras."
 
@@ -62,21 +54,18 @@ msgstr "Cron-uttryck för bygge av avbildningar:"
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:4001
-#, fuzzy
-#| msgid ""
-#| "Please specify the scheduling for the cron job defining when live-images "
-#| "should be built."
 msgid ""
 "Please specify the scheduling for the cron job defining when live images "
 "should be built."
 msgstr ""
-"Ange instruktioner för cron-jobbet som utför bygget av live-avbildningar."
+"Ange schemaläggning för cron-jobbet som anger när bygget av live-"
+"avbildningar sker."
 
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:4001
 msgid "This defaults to: 0 0 * * *"
-msgstr ""
+msgstr "Standardvärdet är: 0 0 * * *"
 
 #. Type: select
 #. Description
@@ -111,16 +100,12 @@ msgstr "Distribution(er) för dagliga avbildningar:"
 #. Type: multiselect
 #. Description
 #: ../live-build-cron.templates:6001
-#, fuzzy
-#| msgid ""
-#| "Please select the distributions you would like to include for live-images "
-#| "built daily."
 msgid ""
 "Please select the distributions you would like to include for live images "
 "daily-builds."
 msgstr ""
 "Ange vilka distributioner som du vill inkludera i live-avbildningar som "
-"byggs aagligen."
+"byggs dagligen."
 
 #. Type: multiselect
 #. Description
@@ -131,10 +116,6 @@ msgstr "Typ(er) för dagliga avbildningar:"
 #. Type: multiselect
 #. Description
 #: ../live-build-cron.templates:7001
-#, fuzzy
-#| msgid ""
-#| "Please select the flavors you would like to include for live-images built "
-#| "daily."
 msgid ""
 "Please select the flavors you would like to include for live images daily-"
 "builds."
@@ -150,10 +131,6 @@ msgstr "Distribution(er) för veckovisa avbildningar:"
 #. Type: multiselect
 #. Description
 #: ../live-build-cron.templates:8001
-#, fuzzy
-#| msgid ""
-#| "Please select the distributions you would like to include for live-images "
-#| "built weekly."
 msgid ""
 "Please select the distributions you would like to include for live images "
 "weekly-builds."
@@ -170,10 +147,6 @@ msgstr "Typ(er) för veckovisa avbildningar:"
 #. Type: multiselect
 #. Description
 #: ../live-build-cron.templates:9001
-#, fuzzy
-#| msgid ""
-#| "Please select the flavors you would like to include for live-images built "
-#| "weekly."
 msgid ""
 "Please select the flavors you would like to include for live images weekly-"
 "builds."
@@ -195,10 +168,6 @@ msgstr "Distribution(er) för månadsvisa avbildningar:"
 #. Type: multiselect
 #. Description
 #: ../live-build-cron.templates:10002
-#, fuzzy
-#| msgid ""
-#| "Please select the distributions you would like to include for live-images "
-#| "built monthly."
 msgid ""
 "Please select the distributions you would like to include for live images "
 "monthly-builds."
@@ -223,10 +192,6 @@ msgstr "Typ(er) för månadsvisa avbildningar:"
 #. Type: multiselect
 #. Description
 #: ../live-build-cron.templates:11002
-#, fuzzy
-#| msgid ""
-#| "Please select the flavors you would like to include for live-images built "
-#| "monthly."
 msgid ""
 "Please select the flavors you would like to include for live images monthly-"
 "builds."
@@ -242,18 +207,14 @@ msgstr "Aktivera källkod för live-build-cron-images?"
 #. Type: boolean
 #. Description
 #: ../live-build-cron.templates:13001
-#, fuzzy
-#| msgid "Enable image autobuilds?"
 msgid "Enable live-manual autobuilds?"
-msgstr "Ska avbildningar byggas automatiskt?"
+msgstr "Ska manualen (live-manual) byggas automatiskt?"
 
 #. Type: boolean
 #. Description
 #: ../live-build-cron.templates:13001
-#, fuzzy
-#| msgid "Please choose whether the manual should be built automatically."
 msgid "Please choose whether the live-manual should be built automatically."
-msgstr "Ange om manualen ska byggas automatiskt."
+msgstr "Ange om manualen (live-manual) ska byggas automatiskt."
 
 #. Type: string
 #. Default
@@ -264,16 +225,12 @@ msgstr "/srv/debian.net/live-manual"
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:14002
-#, fuzzy
-#| msgid "Manual build directory:"
 msgid "live-manual destination directory:"
-msgstr "Katalog för bygge av manualen:"
+msgstr "Destinationskatalog för bygge av manualen:"
 
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:14002
-#, fuzzy
-#| msgid "Please specify the directory where the manual should be stored."
 msgid "Please specify the directory where live-manual should be stored."
 msgstr "Ange vilken katalog som manualen ska lagras i."
 
@@ -286,17 +243,12 @@ msgstr "live-build-cron-manual"
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:16002
-#, fuzzy
-#| msgid "User account for manual builds:"
 msgid "User account for builds of live-manual:"
 msgstr "Användarkonto för manualbygge:"
 
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:16002
-#, fuzzy
-#| msgid ""
-#| "Please enter the username that should be used for builds of the manual."
 msgid ""
 "Please enter the username that should be used for builds of live-manual."
 msgstr "Ange användarnamnet som ska användas för att bygga manualen."
