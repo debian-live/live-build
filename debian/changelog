@@ -1,3 +1,42 @@
+live-build (3.0~a41-1) unstable; urgency=low
+
+  [ Richard Nelson ]
+  * l-b.cgi correct naming of --architectures
+  * l-b.cgi add option for amd64 to --architectures.
+  * l-b.cgi cleanup cron.d operations.
+  * l-b.cgi cleanup build.html to use LB_BINARY_INTICES.
+  * l-b.cgi cleanup trailing whitespace in l-b.cgi.cron
+  * l-b.cgi update to form.html to current --package-lists
+  * l-b.cgi update form.html to current --binary-images
+  * l-b.cgi correct virtual-hdd option form.html
+  * l-b.cgi modify old --packages param to become
+    cgipackages.list.chroot
+  * l-b.cgi rename 686-bigmem to 686-pae on forms.
+  * l-b.cgi remove mirror operations which should be handled in
+    /etc/live/build.conf
+
+  [ Daniel Baumann ]
+  * Enabling contrib and non-free by default for progress.
+
+  [ Matthijs Kooijman ]
+  * Fixing lb_binary_rootfs leaving the chroot without archives files.
+
+  [ Daniel Baumann ]
+  * Adding support for apt preference.d in config/chroot_apt.
+  * Fix unconditional overwriting of
+    /etc/apt/preferences.d/progress.pref in progress mode.
+  * Correcting assembling of automatic pinning in progress mode.
+  * Adding temporary hack with pinning to avoid squashfs-tools mismatch
+    for artax-backports.
+  * Using xz compression for squashfs only on wheezy and sid for the
+    moment, not artax-backports.
+  * Adding updated Portuguese debconf translations from Miguel
+    Figueiredo <elmig@debianpt.org> (Closes: #654966).
+  * Adding updated Swedish debconf translations from Martin Bagge
+    <brother@bsnet.se> (Closes: #651345).
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 08 Jan 2012 02:23:00 +0100
+
 live-build (3.0~a40-1) unstable; urgency=low
 
   * Adding libasound2-plugins to standard-x11 package list, thanks to
