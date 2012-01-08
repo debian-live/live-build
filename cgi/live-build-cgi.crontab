@@ -4,4 +4,4 @@ SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # m  h dom mon dow user command
-*/1  * *   *   *   root /etc/cron.hourly/live-webhelper > /dev/null 2>&1
+*/1  * *   *   *   root /etc/cron.hourly/live-build-cgi > /dev/null 2>&1

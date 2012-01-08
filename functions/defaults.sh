@@ -597,7 +597,7 @@ Set_defaults ()
 	# Setting archive areas value
 	case "${LB_MODE}" in
 		progress)
-			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main}"
+			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main contrib non-free}"
 			LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS:-${LB_ARCHIVE_AREAS}}"
 			;;
 

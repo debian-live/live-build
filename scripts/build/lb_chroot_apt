@@ -108,6 +108,19 @@ case "${1}" in
 			cp config/chroot_apt/preferences chroot/etc/apt/preferences
 		fi
 
+		if Find_files config/chroot_apt/*.pref
+		then
+			for _FILE in config/chroot_apt/*.pref
+			do
+				if [ -f chroot/etc/apt/preferences.d/$(basename ${_FILE}) ]
+				then
+					mv chroot/etc/apt/preferences.d/$(basename ${_FILE}) chroot/etc/apt/preferences.d/$(basename ${_FILE}).orig
+				fi
+
+				cp ${_FILE} chroot/etc/apt/preferences.d
+			done
+		fi
+
 		if Find_files config/packages.chroot/*.deb || Find_files config/packages/*.deb
 		then
 			echo >> chroot/etc/apt/preferences
@@ -135,29 +148,29 @@ case "${1}" in
 
 		case "${LB_MODE}" in
 			progress)
-				echo "# /etc/apt/preferences.d/progress.pref" > chroot/etc/apt/preferences.d/progress.pref
-
-				case "${LB_DISTRIBUTION}" in
-					*-backports)
-						_DISTRIBUTIONS="$(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||') ${LB_DISTRIBUTION}"
-						;;
-
-					*)
-						_DISTRIBUTIONS="${LB_DISTRIBUTION}"
-						;;
-				esac
-
-				if [ "${LB_SECURITY}" = "true" ]
+				if [ ! -e chroot/etc/apt/preferences.d/progress.pref ]
 				then
-					case "${LB_DISTRIBUTION}" in
-						artax)
-							_DISTRIBUTION="${_DISTRIBUTION} ${LB_DISTRIBUTION}-security"
-							;;
-					esac
-				fi
+					echo "# /etc/apt/preferences.d/progress.pref" > chroot/etc/apt/preferences.d/progress.pref
 
-				for _DISTRIBUTION in ${_DISTRIBUTIONS}
-				do
+					_DISTRIBUTIONS="$(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')"
+
+					if [ "${LB_SECURITY}" = "true" ]
+					then
+						_DISTRIBUTION="${_DISTRIBUTION} $(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')-security"
+					fi
+
+					if [ "${LB_VOLATILE}" = "true" ]
+					then
+						_DISTRIBUTION="${_DISTRIBUTION} $(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')-updates"
+					fi
+
+					if [ "${LB_BACKPORTS}" = "true" ]
+					then
+						_DISTRIBUTION="${_DISTRIBUTION} $(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')-backports"
+					fi
+
+					for _DISTRIBUTION in ${_DISTRIBUTIONS}
+					do
 
 cat >> chroot/etc/apt/preferences.d/progress.pref << EOF
 
@@ -166,7 +179,21 @@ Pin: release n=${_DISTRIBUTION}
 Pin-Priority: 999
 EOF
 
-				done
+					done
+				fi
+
+				case "${LB_DISTRIBUTION}" in
+					artax-backports)
+						# Temporary hack to avoid squashfs version mismatch
+
+cat >> chroot/etc/apt/preferences.d/tmp.pref << EOF
+Package: squashfs-tools
+Pin: release n=squeeze
+Pin-Priority: 1001
+EOF
+
+						;;
+				esac
 				;;
 		esac
 
@@ -234,6 +261,24 @@ EOF
 			then
 				mv chroot/etc/apt/preferences.orig chroot/etc/apt/preferences
 			fi
+		fi
+
+		if Find_files config/chroot_apt/*.pref
+		then
+			for _FILE in config/chroot_apt/*.pref
+			do
+				if [ -f chroot/etc/apt/preferences.d/$(basename ${_FILE}) ]
+				then
+					mv chroot/etc/apt/preferences.d/$(basename ${_FILE}) chroot/etc/apt/preferences.d/$(basename ${_FILE}).orig
+				fi
+
+				cp ${_FILE} chroot/etc/apt/preferences.d
+
+				if [ -f chroot/etc/apt/preferences.d/$(basename ${_FILE}) ]
+				then
+					mv chroot/etc/apt/preferences.d/$(basename ${_FILE}).orig chroot/etc/apt/preferences.d/$(basename ${_FILE})
+				fi
+			done
 		fi
 
 		if Find_files config/packages.chroot/*.deb || Find_files config/packages/*.deb

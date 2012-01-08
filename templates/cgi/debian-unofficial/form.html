@@ -24,10 +24,12 @@
 			<td><label for="Binary_Images">--binary-images:</label> </td>
 			<td>
 				<select id="Binary_Images" name="binary_images" size="1">
+					<option value="iso">iso</option>
 					<option selected value="iso-hybrid">iso-hybrid</option>
 					<option value="net">net</option>
 					<option value="tar">tar</option>
 					<option value="hdd">hdd</option>
+					<option value="virtual-hdd">virtual-hdd</option>
 				</select>
 			</td>
 		</tr>
@@ -47,7 +49,8 @@
 				<select id="Package_Lists" name="package_lists" size="1" >
 					<option value="debian-forensics">debian-forensics</option>
 					<option value="debian-junior">debian-junior</option>
-					<option value="debian-live">debian-live</option>
+					<option value="debian-live-devel">debian-live-devel</option>
+					<option value="debian-live-pxe-server">debian-live-pxe-server</option>
 					<option value="debian-science">debian-science</option>
 					<option value="gnome">gnome</option>
 					<option value="gnome-core">gnome-core</option>
@@ -64,10 +67,8 @@
 					<option value="rescue">rescue</option>
 					<option selected value="standard">standard</option>
 					<option value="standard-x11">standard-x11</option>
-					<option value="studio">studio</option>
-					<option value="studio-gnome">studio-gnome</option>
-					<option value="studio-kde">studio-kde</option>
-					<option value="studio-xfce">studio-xfce</option>
+					<option value="ubuntu-cloud">ubuntu-cloud</option>
+					<option value="ubuntu-cloud-desktop">ubuntu-cloud-desktop</option>
 					<option value="xfce">xfce</option>
 					<option value="xfce-junior">xfce-junior</option>
 				</select>
@@ -78,8 +79,8 @@
 			<td><input id="Tasks" name="tasks" maxlength="256" size="50" type="text" /></td>
 		</tr>
 		<tr>
-			<td><label for="Packages">--packages:</label> </td>
-			<td><input id="Packages" name="packages" maxlength="256" size="50" type="text" /></td>
+			<td><label for="Packages">cgipackages.list.chroot:</label> </td>
+			<td><input id="Packages" name="cgipackages" maxlength="256" size="50" type="text" /></td>
 		</tr>
 	</table>
 </div>
@@ -92,9 +93,10 @@
 <div id="text_2" style='margin-left:0;display:none'>
 	<table>
 		<tr>
-			<td><label for="Architecture">--architecture:</label> </td>
+			<td><label for="Architectures">--architectures:</label> </td>
 			<td>
-				<select id="Architecture" name="architecture" size="1">
+				<select id="Architectures" name="architectures" size="1">
+					<option value="amd64">amd64</option>
 					<option selected value="i386">i386</option>
 				</select>
 			</td>
@@ -109,18 +111,6 @@
 					<option selected value="standard">standard</option>
 				</select>
 			</td>
-		</tr>
-		<tr>
-			<td><label for="Mirror_Bootstrap">--mirror-bootstrap:</label> </td>
-			<td><input id="Mirror_Bootstrap" name="mirror_bootstrap" maxlength="256" size="50" type="text" value="LB_MIRROR_BOOTSTRAP" readonly /></td>
-		</tr>
-		<tr>
-			<td><label for="Mirror_Binary">--mirror-binary:</label> </td>
-			<td><input id="Mirror_Binary" name="mirror_binary" maxlength="256" size="50" type="text" value="LB_MIRROR_BINARY" /></td>
-		</tr>
-		<tr>
-			<td><label for="Mirror_Binary_Security">--mirror-binary-security:</label> </td>
-			<td><input id="Mirror_Binary_Security" name="mirror_binary_security" maxlength="256" size="50" type="text" value="LB_MIRROR_BINARY_SECURITY" readonly /></td>
 		</tr>
 		<tr>
 			<td><label for="Archive_Areas">--archive-areas:</label> </td>
@@ -156,7 +146,7 @@
 				<select id="Linux_Flavours" name="linux_flavours" size="1">
 					<option selected value="486">486</option>
 					<option value="686">686</option>
-					<option value="686-bigmem">686-bigmem</option>
+					<option value="686-pae">686-pae</option>
 					<option value="amd64">amd64</option>
 					<option value="k7">k7</option>
 					<option value="vserver-686">vserver-686</option>
