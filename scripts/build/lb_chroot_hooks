@@ -40,6 +40,10 @@ Create_lockfile .lock
 
 ## Processing distribution hooks
 
+# Make build config available to chroot hooks.
+mkdir -p chroot/root/config
+mount -o bind,ro config chroot/root/config
+
 # Copying hooks
 for _HOOK in ${LB_CHROOT_HOOKS}
 do
@@ -69,10 +73,6 @@ then
 	# Restoring cache
 	Restore_cache cache/packages_chroot
 
-	# Make build config available to chroot hooks.
-	mkdir -p chroot/root/config
-	mount -o bind,ro config chroot/root/config
-
 	for _HOOK in config/hooks/*.chroot
 	do
 		# Copying hook
@@ -91,13 +91,14 @@ then
 		rm -f chroot/root/"$(basename ${_HOOK})"
 	done
 
-	# Remove bind mount of build config inside chroot.
-	umount chroot/root/config
-	rmdir chroot/root/config
-
 	# Saving cache
 	Save_cache cache/packages_chroot
 
 	# Creating stage file
 	Create_stagefile .stage/chroot_hooks
 fi
+
+# Remove bind mount of build config inside chroot.
+umount chroot/root/config
+rmdir chroot/root/config
+
