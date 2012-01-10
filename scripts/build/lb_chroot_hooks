@@ -43,10 +43,10 @@ Create_lockfile .lock
 # Copying hooks
 for _HOOK in ${LB_CHROOT_HOOKS}
 do
-	if [ -e "${LB_BASE}/hooks/???-${_HOOK}.chroot" ]
+	if [ -e "${LB_BASE}"/hooks/???-"${_HOOK}".chroot ]
 	then
 		mkdir -p chroot/root/lb_chroot_hooks
-		cp "${LB_BASE}/hooks/???-${_HOOK}.chroot" chroot/root/lb_chroot_hooks
+		cp "${LB_BASE}"/hooks/???-"${_HOOK}".chroot chroot/root/lb_chroot_hooks
 	fi
 done
 
