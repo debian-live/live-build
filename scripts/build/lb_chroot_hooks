@@ -40,9 +40,14 @@ Create_lockfile .lock
 
 ## Processing distribution hooks
 
-# Make build config available to chroot hooks.
+# Make build config available to chroot hooks. First, make the bind
+# mount and then make it read-only. This can't happen in one mount
+# command, then the resulting mount will be rw (see mount(8)). Making it
+# ro prevents modifications and prevents accidentally removing the
+# contents of the config directory when removing the chroot.
 mkdir -p chroot/root/config
-mount -o bind,ro config chroot/root/config
+mount -o bind config chroot/root/config
+mount -o remount,ro,bind config chroot/root/config
 
 # Copying hooks
 for _HOOK in ${LB_CHROOT_HOOKS}
