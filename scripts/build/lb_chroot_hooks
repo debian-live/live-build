@@ -55,8 +55,8 @@ if ls chroot/root/lb_chroot_hooks/* > /dev/null 2>&1
 then
 	for _HOOK in chroot/root/lb_chroot_hooks/*
 	do
-		Chroot chroot "/root/$(basename ${_HOOK})" || { Echo_error "${_HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
-		rm -f chroot/root/"$(basename ${_HOOK})"
+		Chroot chroot "/root/lb_chroot_hooks/$(basename ${_HOOK})" || { Echo_error "${_HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
+		rm -f chroot/root/lb_chroot_hooks/"$(basename ${_HOOK})"
 	done
 
 	rmdir chroot/root/lb_chroot_hooks
