@@ -676,6 +676,12 @@ Set_defaults ()
 			esac
 			;;
 
+		armhf)
+			# armhf will have special images: one rootfs image and many additional kernel images.
+			# therefore we default to all available armel flavours
+			LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-mx5 omap}"
+			;;
+
 		amd64)
 			case "${LB_MODE}" in
 				ubuntu|kubuntu)
