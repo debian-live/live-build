@@ -1,3 +1,36 @@
+live-build (3.0~a42-1) unstable; urgency=low
+
+  [ Matthijs Kooijman ]
+  * Make lb_chroot_hooks work with dash.
+  * Fix pathname for running hooks in lb_chroot_hooks.
+  * Make the config available to all hooks.
+  * Fix path in 001-update-apt-file-cache.chroot.
+  * Use a two-stage mount again for mounting config inside chroot in
+    lb_chroot_hooks.
+  * Unmount /root/config in case of error.
+  * Unmount chroot/root/config when running lb_clean.
+
+  [ Daniel Baumann ]
+  * Adding armhf kernel defaults, thanks for Ying-Chun Liu
+    <paulliu@debian.org> for bringing it up (Closes: #655557).
+  * Correcting wrong and incompatible loop for casper initrds in
+    binary_disk.
+  * Using syslinux payload as fallback in lb_binary_syslinux if no
+    destinct image type could be deduced (Closes: #655562).
+  * Switching priorities of mirror defaults (which mirror default is
+    used from which previously set mirror default etc.) to the way it
+    was intendet to be.
+
+  [ Colin Watson ]
+  * Print the current time before starting a command with the lb wrapper
+    script (Closes: #630089).
+
+  [ Daniel Baumann ]
+  * Adding reference to --parent-archive-areas in lb_config manpage
+    (Closes: #646797).
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 15 Jan 2012 19:25:42 +0100
+
 live-build (3.0~a41-1) unstable; urgency=low
 
   [ Richard Nelson ]
