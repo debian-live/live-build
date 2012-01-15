@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2012\-01\-08 3.0~a41\-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2012\-01\-15 3.0~a42\-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -217,6 +217,9 @@
   [\fB\-\-archives\fP \fIARCHIVE\fP|\fI"ARCHIVES"\fP]
 .br
   [\fB\-\-archive\-areas\fP \fIARCHIVE_AREA\fP|\fI"ARCHIVE_AREAS"\fP]
+.br
+  [\fB\-\-parent\-archive\-areas\fP
+\fIPARENT_ARCHIVE_AREA\fP|\fI"PARENT_ARCHIVE_AREAS"\fP]
 .br
   [\fB\-\-security\fP true|false]
 .br
@@ -723,6 +726,8 @@ used for configured debian package mirrors. By default, this is set to
 main. Remember to check the licenses of each packages with respect to their
 redistributability in your juristiction when enabling contrib or non\-free
 with this mechanism.
+.IP "\fB\-\-parent\-archive\-areas\fP \fIPARENT_ARCHIVE_AREA\fP|\(dq\fIPARENT_ARCHIVE_AREAS\fP\(dq" 4
+defines the archive areas for derivatives of the resulting live system.
 .IP "\fB\-\-security\fP true|false" 4
 defines if the security repositories specified in the security mirror
 options should be used or not.

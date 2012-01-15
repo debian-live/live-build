@@ -93,7 +93,7 @@ fi
 
 case "${LB_INITRAMFS}" in
 	casper)
-		for INITRD in $(ls binary/casper/initrd.img* > /dev/null 2>&1)
+		for INITRD in binary/casper/initrd.img*
 		do
 			mkdir -p binary/uuid
 			cd binary/uuid

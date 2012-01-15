@@ -80,6 +80,7 @@ do
 			${LB_ROOT_COMMAND} umount -f chroot/dev/pts > /dev/null 2>&1 || true
 			${LB_ROOT_COMMAND} umount -f chroot/dev > /dev/null 2>&1 || true
 			${LB_ROOT_COMMAND} umount -f chroot/var/lib/dpkg > /dev/null 2>&1 || true
+			${LB_ROOT_COMMAND} umount -f chroot/root/config > /dev/null 2>&1 || true
 
 			${LB_ROOT_COMMAND} umount -f chroot/binary.tmp > /dev/null 2>&1 || true
 			${LB_ROOT_COMMAND} umount -f chroot/dev.tmp/pts > /dev/null 2>&1 || true

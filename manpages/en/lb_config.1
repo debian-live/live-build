@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2012\-01\-08 3.0~a41-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2012\-01\-15 3.0~a42-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -212,6 +212,8 @@
 	[\fB\-\-archives\fR \fIARCHIVE\fR|\fI"ARCHIVES"\fR]
 .br
 	[\fB\-\-archive\-areas\fR \fIARCHIVE_AREA\fR|\fI"ARCHIVE_AREAS"\fR]
+.br
+	[\fB\-\-parent\-archive\-areas\fR \fIPARENT_ARCHIVE_AREA\fR|\fI"PARENT_ARCHIVE_AREAS"\fR]
 .br
 	[\fB\-\-security\fR true|false]
 .br
@@ -462,6 +464,8 @@ controls if live\-build should use sudo internally to build the live image. Note
 controls if live\-build should utilize fakeroot and fakechroot to try and avoid requiring root privillages where possible. By default, this option is false.
 .IP "\fB\-\-archive\-areas\fR \fIARCHIVE_AREA\fR|""\fIARCHIVE_AREAS\fR""" 4
 defines which package archive areas of a debian packages archive should be used for configured debian package mirrors. By default, this is set to main. Remember to check the licenses of each packages with respect to their redistributability in your juristiction when enabling contrib or non\-free with this mechanism.
+.IP "\fB\-\-parent\-archive\-areas\fR \fIPARENT_ARCHIVE_AREA\fR|""\fIPARENT_ARCHIVE_AREAS\fR""" 4
+defines the archive areas for derivatives of the resulting live system.
 .IP "\fB\-\-security\fR true|false" 4
 defines if the security repositories specified in the security mirror options should be used or not.
 .IP "\fB\-\-source\fR true|false" 4

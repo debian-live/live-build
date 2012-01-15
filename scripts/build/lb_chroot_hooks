@@ -40,13 +40,22 @@ Create_lockfile .lock
 
 ## Processing distribution hooks
 
+# Make build config available to chroot hooks. First, make the bind
+# mount and then make it read-only. This can't happen in one mount
+# command, then the resulting mount will be rw (see mount(8)). Making it
+# ro prevents modifications and prevents accidentally removing the
+# contents of the config directory when removing the chroot.
+mkdir -p chroot/root/config
+mount -o bind config chroot/root/config
+mount -o remount,ro,bind config chroot/root/config
+
 # Copying hooks
 for _HOOK in ${LB_CHROOT_HOOKS}
 do
-	if [ -e "${LB_BASE}/hooks/???-${_HOOK}.chroot" ]
+	if [ -e "${LB_BASE}"/hooks/???-"${_HOOK}".chroot ]
 	then
 		mkdir -p chroot/root/lb_chroot_hooks
-		cp "${LB_BASE}/hooks/???-${_HOOK}.chroot" chroot/root/lb_chroot_hooks
+		cp "${LB_BASE}"/hooks/???-"${_HOOK}".chroot chroot/root/lb_chroot_hooks
 	fi
 done
 
@@ -55,8 +64,8 @@ if ls chroot/root/lb_chroot_hooks/* > /dev/null 2>&1
 then
 	for _HOOK in chroot/root/lb_chroot_hooks/*
 	do
-		Chroot chroot "/root/$(basename ${_HOOK})" || { Echo_error "${_HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
-		rm -f chroot/root/"$(basename ${_HOOK})"
+		Chroot chroot "/root/lb_chroot_hooks/$(basename ${_HOOK})" || { Echo_error "${_HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
+		rm -f chroot/root/lb_chroot_hooks/"$(basename ${_HOOK})"
 	done
 
 	rmdir chroot/root/lb_chroot_hooks
@@ -68,10 +77,6 @@ if Find_files config/hooks/*.chroot
 then
 	# Restoring cache
 	Restore_cache cache/packages_chroot
-
-	# Make build config available to chroot hooks.
-	mkdir -p chroot/root/config
-	mount -o bind,ro config chroot/root/config
 
 	for _HOOK in config/hooks/*.chroot
 	do
@@ -91,13 +96,14 @@ then
 		rm -f chroot/root/"$(basename ${_HOOK})"
 	done
 
-	# Remove bind mount of build config inside chroot.
-	umount chroot/root/config
-	rmdir chroot/root/config
-
 	# Saving cache
 	Save_cache cache/packages_chroot
 
 	# Creating stage file
 	Create_stagefile .stage/chroot_hooks
 fi
+
+# Remove bind mount of build config inside chroot.
+umount chroot/root/config
+rmdir chroot/root/config
+
