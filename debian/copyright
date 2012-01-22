@@ -9,6 +9,11 @@ License: GPL-3+
 Files: contrib/grub-splash/lenny
 License: other
 
+Files:
+ contrib/syslinux-splash/*
+ share/bootloaders/*/splash.png
+License: other
+
 License: GPL-3+
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -43,6 +48,22 @@ License: other
  2. bmptoppm < klowner.bmp | ppmtolss16 #FBFDFA=7 > klowner.rle
     (FBFDFA is the color used for the inside of the "n" in Debian.)
  ---------------
+ .
+ Debian Open Use Logo License
+ .
+ Copyright (c) 1999 Software in the Public Interest
+ This logo or a modified version may be used by anyone to refer to the Debian
+ project, but does not indicate endorsement by the project.
+ .
+ Note: we would appreciate that you make the image a link to
+ http://www.debian.org/ if you use it on a web page.
+
+License: other
+ The splash for Debian Live was made by Daniel Baumann <daniel@debian.org> based
+ on the Debian Open Use Logo.
+ .
+ The contribution of Daniel is hereby placed in the public domain (no rights
+ reserved).
  .
  Debian Open Use Logo License
  .

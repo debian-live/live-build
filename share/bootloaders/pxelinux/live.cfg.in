@@ -1,5 +1,3 @@
-default live
-
 label live-@FLAVOUR@
 	menu label ^Live (@FLAVOUR@)
 	menu default
