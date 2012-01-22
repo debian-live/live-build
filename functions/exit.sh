@@ -35,6 +35,11 @@ Exit ()
 		done
 	fi
 
+	rm -f .stage/chroot_devpts
+	rm -f .stage/chroot_proc
+	rm -f .stage/chroot_selinuxfs
+	rm -f .stage/chroot_sysfs
+
 	Echo_message "Saving caches..."
 
 	# We can't really know at which part we're failing,
