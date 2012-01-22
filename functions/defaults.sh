@@ -1154,7 +1154,7 @@ Set_defaults ()
 			;;
 
 		*)
-			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-debian-squeeze}"
+			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-live-build}"
 			;;
 	esac
 
