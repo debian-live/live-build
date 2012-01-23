@@ -26,7 +26,28 @@ Set_defaults ()
 	LB_SYSTEM="${LB_SYSTEM:-live}"
 
 	# Setting mode (currently: debian, emdebian, progress, ubuntu and kubuntu)
-	LB_MODE="${LB_MODE:-debian}"
+	if [ -x /usr/bin/lsb_release ]
+	then
+		_DISTRIBUTOR="$(lsb_release -is | tr [A-Z] [a-z])"
+
+		case "${_DISTRIBUTOR}" in
+			debian|progress|ubuntu)
+				LB_MODE="${LB_MODE:-${_DISTRIBUTOR}}"
+				;;
+
+			*)
+				LB_MODE="${LB_MODE:-debian}"
+				;;
+		esac
+	else
+		if [ -e /etc/progress_version ]
+		then
+			LB_MODE="${LB_MODE:-progress}"
+		elif [ -e /etc/ubuntu_version ]
+		then
+			LB_MODE="${LB_MODE:-ubuntu}"
+		fi
+	fi
 
 	# Setting distribution name
 	case "${LB_MODE}" in
