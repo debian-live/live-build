@@ -57,14 +57,17 @@ then
 	for LIST in config/package-lists/*.list \
 		    config/package-lists/*.list.binary
 	do
-		# Generate package list
-		Expand_packagelist "${LIST}" "config/package-lists" > chroot/root/"$(basename ${LIST})"
+		if [ -e "${LIST}" ]
+		then
+			# Generate package list
+			Expand_packagelist "${LIST}" "config/package-lists" > chroot/root/"$(basename ${LIST})"
 
-		# Downloading additional packages
-		Chroot chroot "xargs --arg-file=/root/$(basename ${LIST}) apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb --download-only install"
+			# Downloading additional packages
+			Chroot chroot "xargs --arg-file=/root/$(basename ${LIST}) apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb --download-only install"
 
-		# Remove package list
-		rm chroot/root/"$(basename ${LIST})"
+			# Remove package list
+			rm chroot/root/"$(basename ${LIST})"
+		fi
 	done
 
 	for FILE in chroot/binary.deb/archives/*.deb
