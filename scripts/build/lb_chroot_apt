@@ -150,22 +150,28 @@ case "${1}" in
 			progress)
 				if [ ! -e chroot/etc/apt/preferences.d/progress.pref ]
 				then
-					_DISTRIBUTIONS="$(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')"
+					_DISTRIBUTION="$(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')"
+
+					_DISTRIBUTIONS="${_DISTRIBUTION}"
 
 					if [ "${LB_SECURITY}" = "true" ]
 					then
-						_DISTRIBUTION="${_DISTRIBUTION} $(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')-security"
+						_DISTRIBUTIONS="${_DISTRIBUTIONS} ${_DISTRIBUTION}-security"
 					fi
 
 					if [ "${LB_VOLATILE}" = "true" ]
 					then
-						_DISTRIBUTION="${_DISTRIBUTION} $(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')-updates"
+						_DISTRIBUTIONS="${_DISTRIBUTIONS} ${_DISTRIBUTION}-updates"
 					fi
 
-					if [ "${LB_BACKPORTS}" = "true" ]
-					then
-						_DISTRIBUTION="${_DISTRIBUTION} $(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')-backports"
-					fi
+					case "${LB_DISTRIBUTION}" in
+						*-backports)
+							if [ "${LB_BACKPORTS}" = "true" ] 
+							then
+								_DISTRIBUTIONS="${_DISTRIBUTIONS} ${_DISTRIBUTION}-backports"
+							fi
+							;;
+					esac
 
 					for _DISTRIBUTION in ${_DISTRIBUTIONS}
 					do
