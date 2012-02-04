@@ -152,28 +152,36 @@ case "${1}" in
 				then
 					_DISTRIBUTION="$(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')"
 
-					_DISTRIBUTIONS="${_DISTRIBUTION}"
+					_ENABLE_DISTRIBUTIONS="${_DISTRIBUTION}"
+					_DISABLE_DISTRIBUTIONS=""
 
 					if [ "${LB_SECURITY}" = "true" ]
 					then
-						_DISTRIBUTIONS="${_DISTRIBUTIONS} ${_DISTRIBUTION}-security"
+						_ENABLE_DISTRIBUTIONS="${_ENABLE_DISTRIBUTIONS} ${_DISTRIBUTION}-security"
 					fi
 
 					if [ "${LB_VOLATILE}" = "true" ]
 					then
-						_DISTRIBUTIONS="${_DISTRIBUTIONS} ${_DISTRIBUTION}-updates"
+						_ENABLE_DISTRIBUTIONS="${_ENABLE_DISTRIBUTIONS} ${_DISTRIBUTION}-updates"
 					fi
 
 					case "${LB_DISTRIBUTION}" in
 						*-backports)
-							if [ "${LB_BACKPORTS}" = "true" ] 
+							if [ "${LB_BACKPORTS}" = "true" ]
 							then
-								_DISTRIBUTIONS="${_DISTRIBUTIONS} ${_DISTRIBUTION}-backports"
+								_ENABLE_DISTRIBUTIONS="${_ENABLE_DISTRIBUTIONS} ${_DISTRIBUTION}-backports"
+							fi
+							;;
+
+						*)
+							if [ "${LB_BACKPORTS}" = "true" ]
+							then
+								_DISABLE_DISTRIBUTIONS="${_DISABLE_DISTRIBUTIONS} ${_DISTRIBUTION}-backports"
 							fi
 							;;
 					esac
 
-					for _DISTRIBUTION in ${_DISTRIBUTIONS}
+					for _DISTRIBUTION in ${_ENABLE_DISTRIBUTIONS}
 					do
 
 cat >> chroot/etc/apt/preferences.d/progress.pref << EOF
@@ -184,20 +192,32 @@ Pin-Priority: 999
 EOF
 
 					done
-				fi
 
-				case "${LB_DISTRIBUTION}" in
-					artax-backports)
-						# Temporary hack to avoid squashfs version mismatch
+					for _DISTRIBUTION in ${_DISABLE_DISTRIBUTIONS}
+					do
 
-cat >> chroot/etc/apt/preferences.d/tmp.pref << EOF
+cat >> chroot/etc/apt/preferences.d/progress.pref << EOF
+
+#Package: *
+#Pin: release n=${_DISTRIBUTION}
+#Pin-Priority: 999
+EOF
+
+					done
+
+					# Add temporary hack to avoid squashfs version mismatch
+					case "${LB_DISTRIBUTION}" in
+						artax-backports)
+
+cat >> chroot/etc/apt/preferences.d/progress.tmp.pref << EOF
 Package: squashfs-tools
 Pin: release n=squeeze
 Pin-Priority: 1001
 EOF
 
 						;;
-				esac
+					esac
+				fi
 				;;
 		esac
 
@@ -301,6 +321,9 @@ EOF
 			fi
 
 		fi
+
+		# Remove temporary hack to avoid squashfs version mismatch for artax-backports
+		rm -f chroot/etc/apt/preferences.d/progress.tmp.pref
 
 		# Removing stage file
 		rm -f .stage/chroot_apt
