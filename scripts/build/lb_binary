@@ -58,7 +58,7 @@ lb binary_rootfs ${*}
 lb binary_manifest ${*}
 
 # Prepare images
-lb binary_packagelists ${*}
+lb binary_package-lists ${*}
 lb binary_linux-image ${*}
 lb binary_debian-installer ${*}
 lb binary_memtest ${*}
