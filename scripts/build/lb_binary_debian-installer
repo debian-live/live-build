@@ -604,16 +604,6 @@ then
 		rm -f ${EXCLUDE}_*.udeb
 	done < exclude
 
-	# Enable live-installer
-	if [ "${LB_DEBIAN_INSTALLER}" = "live" ]
-	then
-		# Remove local udebs
-		rm -f pool/main/b/base-installer/bootstrap-base_*.udeb
-
-		# Remove d-i udebs
-		rm -f bootstrap-base_*.udeb
-	fi
-
 	# Moving udebs
 	for UDEB in ${UDEBS}
 	do
