@@ -150,8 +150,6 @@ case "${1}" in
 			progress)
 				if [ ! -e chroot/etc/apt/preferences.d/progress.pref ]
 				then
-					echo "# /etc/apt/preferences.d/progress.pref" > chroot/etc/apt/preferences.d/progress.pref
-
 					_DISTRIBUTIONS="$(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')"
 
 					if [ "${LB_SECURITY}" = "true" ]
