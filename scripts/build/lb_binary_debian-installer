@@ -523,7 +523,14 @@ then
 
 	UDEBS="${UDEBS} $(awk '/Filename: / { print $2 }' Packages)"
 
-	# Downloading udebs
+	# Downloading udebs packages
+	Echo_message "Downloading udebs..."
+
+	if [ "${LB_DERIVATIVE}" = "true" ]
+	then
+		Echo_message "Building in derivative mode in debian+ layout.. a lot of 404 errors are ok here."
+	fi
+
 	for UDEB in ${UDEBS}
 	do
 		if [ -f ../cache/packages_debian-installer.udeb/"$(basename ${UDEB})" ]
