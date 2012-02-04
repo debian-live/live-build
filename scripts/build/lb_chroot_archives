@@ -73,26 +73,14 @@ EOF
 		then
 			rm -f chroot/etc/apt/sources.list.d/${LB_MODE}.list
 
-			case "${LB_DISTRIBUTION}" in
-				*-backports)
-					_DISTRIBUTIONS="$(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||') ${LB_DISTRIBUTION}"
-					;;
+			_DISTRIBUTION="$(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')"
 
-				*)
-					_DISTRIBUTIONS="${LB_DISTRIBUTION}"
-					;;
-			esac
+			echo "deb ${LB_MIRROR_CHROOT} ${_DISTRIBUTION} ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
 
-			for _DISTRIBUTION in ${_DISTRIBUTIONS}
-			do
-
-				echo "deb ${LB_MIRROR_CHROOT} ${_DISTRIBUTION} ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
-
-				if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
-				then
-					echo "deb-src ${LB_MIRROR_CHROOT} ${_DISTRIBUTION} ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
-				fi
-			done
+			if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
+			then
+				echo "deb-src ${LB_MIRROR_CHROOT} ${_DISTRIBUTION} ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+			fi
 		fi
 
 		if [ "${LB_SECURITY}" = "true" ]
@@ -116,28 +104,20 @@ EOF
 
 					if [ "${LB_MODE}" = progress ]
 					then
-						case "${LB_DISTRIBUTION}" in
-							*-backports)
+						echo "deb ${LB_MIRROR_CHROOT_SECURITY} ${_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
 
-								;;
-
-							*)
-								echo "deb ${LB_MIRROR_CHROOT_SECURITY} ${LB_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
-
-								if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
-								then
-									echo "deb-src ${LB_MIRROR_CHROOT_SECURITY} ${LB_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
-								fi
-								;;
-						esac
+						if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
+						then
+							echo "deb-src ${LB_MIRROR_CHROOT_SECURITY} ${_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+						fi
 					else
 						if [ "${LB_DERIVATIVE}" = "true" ]
 						then
-							echo "deb ${LB_MIRROR_CHROOT_SECURITY} ${LB_DISTRIBUTION}/updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+							echo "deb ${LB_MIRROR_CHROOT_SECURITY} ${_DISTRIBUTION}/updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
 
 							if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
 							then
-								echo "deb-src ${LB_MIRROR_CHROOT_SECURITY} ${LB_DISTRIBUTION}/updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+								echo "deb-src ${LB_MIRROR_CHROOT_SECURITY} ${_DISTRIBUTION}/updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
 							fi
 						fi
 					fi
@@ -165,16 +145,6 @@ EOF
 
 			if [ "${LB_DERIVATIVE}" = "true" ] && [ "${LB_MIRROR_CHROOT_VOLATILE}" != "none" ]
 			then
-				case "${LB_MODE}" in
-					progress)
-						_DISTRIBUTION="$(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')"
-						;;
-
-					*)
-						_DISTRIBUTION="${LB_DISTRIBUTION}"
-						;;
-				esac
-
 				echo "deb ${LB_MIRROR_CHROOT_VOLATILE} ${_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
 
 				if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
@@ -202,11 +172,11 @@ EOF
 
 			if [ "${LB_DERIVATIVE}" = "true" ] && [ "${LB_MIRROR_CHROOT_BACKPORTS}" != "none" ]
 			then
-				echo "deb ${LB_MIRROR_CHROOT_BACKPORTS} ${LB_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+				echo "deb ${LB_MIRROR_CHROOT_BACKPORTS} ${_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
 
 				if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
 				then
-					echo "deb-src ${LB_MIRROR_CHROOT_BACKPORTS} ${LB_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+					echo "deb-src ${LB_MIRROR_CHROOT_BACKPORTS} ${_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
 				fi
 			fi
 		fi
@@ -642,26 +612,14 @@ EOF
 		then
 			rm -f chroot/etc/apt/sources.list.d/${LB_MODE}.list
 
-			case "${LB_DISTRIBUTION}" in
-				*-backports)
-					_DISTRIBUTIONS="$(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||') ${LB_DISTRIBUTION}"
-					;;
+			_DISTRIBUTION="$(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')"
 
-				*)
-					_DISTRIBUTIONS="${LB_DISTRIBUTION}"
-					;;
-			esac
+			echo "deb ${LB_MIRROR_BINARY} ${_DISTRIBUTION} ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
 
-			for _DISTRIBUTION in ${_DISTRIBUTIONS}
-			do
-
-				echo "deb ${LB_MIRROR_BINARY} ${_DISTRIBUTION} ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
-
-				if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
-				then
-					echo "deb-src ${LB_MIRROR_BINARY} ${_DISTRIBUTION} ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
-				fi
-			done
+			if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
+			then
+				echo "deb-src ${LB_MIRROR_BINARY} ${_DISTRIBUTION} ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+			fi
 		fi
 
 		if [ "${LB_SECURITY}" = "true" ]
@@ -685,28 +643,20 @@ EOF
 
 					if [ "${LB_MODE}" = progress ]
 					then
-						case "${LB_DISTRIBUTION}" in
-							*-backports)
+						echo "deb ${LB_MIRROR_BINARY_SECURITY} ${_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
 
-								;;
-
-							*)
-								echo "deb ${LB_MIRROR_BINARY_SECURITY} ${LB_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
-
-								if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
-								then
-									echo "deb-src ${LB_MIRROR_BINARY_SECURITY} ${LB_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
-								fi
-								;;
-						esac
+						if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
+						then
+							echo "deb-src ${LB_MIRROR_BINARY_SECURITY} ${_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+						fi
 					else
 						if [ "${LB_DERIVATIVE}" = "true" ]
 						then
-							echo "deb ${LB_MIRROR_BINARY_SECURITY} ${LB_DISTRIBUTION}/updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+							echo "deb ${LB_MIRROR_BINARY_SECURITY} ${_DISTRIBUTION}/updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
 
 							if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
 							then
-								echo "deb-src ${LB_MIRROR_BINARY_SECURITY} ${LB_DISTRIBUTION}/updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+								echo "deb-src ${LB_MIRROR_BINARY_SECURITY} ${_DISTRIBUTION}/updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
 							fi
 						fi
 					fi
@@ -734,16 +684,6 @@ EOF
 
 			if [ "${LB_DERIVATIVE}" = "true" ] && [ "${LB_MIRROR_BINARY_VOLATILE}" != "none" ]
 			then
-				case "${LB_MODE}" in
-					progress)
-						_DISTRIBUTION="$(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')"
-						;;
-
-					*)
-						_DISTRIBUTION="${LB_DISTRIBUTION}"
-						;;
-				esac
-
 				echo "deb ${LB_MIRROR_BINARY_VOLATILE} ${_DISTRIBUTION}-updates ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
 
 				if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
@@ -771,11 +711,11 @@ EOF
 
 			if [ "${LB_DERIVATIVE}" = "true" ] && [ "${LB_MIRROR_BINARY_BACKPORTS}" != "none" ]
 			then
-				echo "deb ${LB_MIRROR_BINARY_BACKPORTS} ${LB_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+				echo "deb ${LB_MIRROR_BINARY_BACKPORTS} ${_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
 
 				if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
 				then
-					echo "deb-src ${LB_MIRROR_BINARY_BACKPORTS} ${LB_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
+					echo "deb-src ${LB_MIRROR_BINARY_BACKPORTS} ${_DISTRIBUTION}-backports ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
 				fi
 			fi
 		fi
