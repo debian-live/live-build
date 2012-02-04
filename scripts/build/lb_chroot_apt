@@ -117,7 +117,7 @@ case "${1}" in
 					mv chroot/etc/apt/preferences.d/$(basename ${_FILE}) chroot/etc/apt/preferences.d/$(basename ${_FILE}).orig
 				fi
 
-				cp ${_FILE} chroot/etc/apt/preferences.d
+				cp -aL ${_FILE} chroot/etc/apt/preferences.d
 			done
 		fi
 
@@ -270,7 +270,7 @@ EOF
 					mv chroot/etc/apt/preferences.d/$(basename ${_FILE}) chroot/etc/apt/preferences.d/$(basename ${_FILE}).orig
 				fi
 
-				cp ${_FILE} chroot/etc/apt/preferences.d
+				cp -aL ${_FILE} chroot/etc/apt/preferences.d
 
 				if [ -f chroot/etc/apt/preferences.d/$(basename ${_FILE}) ]
 				then
