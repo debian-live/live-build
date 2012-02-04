@@ -296,8 +296,6 @@ EOF
 
 		fi
 
-		rm -f "chroot/etc/apt/preferences.d/${LB_MODE}.pref"
-
 		# Removing stage file
 		rm -f .stage/chroot_apt
 		;;
