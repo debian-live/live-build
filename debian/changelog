@@ -1,3 +1,51 @@
+live-build (3.0~a43-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Updating to debhelper version 9.
+
+  [ Richard Nelson ]
+  * l-b.cgi - Add pending build(s) to be processed ahead of your
+    request.
+
+  [ Daniel Baumann ]
+  * Setting default mirror for progress to cdn.archive.progress-
+    linux.org.
+  * Updating lb_binary_syslinux for embedded syslinux themes.
+  * Adding embedded copies for syslinux bootloaders (Closes: #622838,
+    #635933, #636217, #645406, #646387, #646799, #651520, #652437).
+  * Applying patch from Ivailo Monev to remove stage files for pseudo-
+    filesystems helpers in exit function.
+  * Correcting typo in security chroot mirror variable assembling.
+  * Autodetecting mode depending on which distribution we're building.
+  * Giving a note about what mode we are configuring, now that mode is
+    determined automatically based on the host system.
+  * Updating squeeze point release number.
+  * Adding note about 404 errors that are on purpose when fetching udebs
+    in derivative mode.
+  * Avoid warning messages in binary_packagelists for not existing local
+    lists.
+  * Renaming forgotten binary_packagelists to binary_package-lists to
+    match the rest of lb.
+  * Removing removal of bootstrap-base udeb in binary_debian-installer.
+  * Using /etc/apt/sources.list.d/debian.list instead of
+    /etc/apt/sources.list in derivative mode.
+  * Updating year in copyright notices for 2012.
+  * Removing useless top-comment for
+    /etc/apt/preferences.d/progress.pref.
+  * Improve backports handling in derivatives mode.
+  * Adding opt-in hook to remove all sources.list files, as it's
+    desirable in some setups.
+  * Avoid removing populated apt preferences file in derivative mode.
+  * Dereferencing potential symlinked apt preference files in
+    chroot_apt/*.pref.
+  * Simplyfing automatic pinning in derivative modes.
+  * Cleaning up handling of apt preferences when building in progress
+    mode.
+  * Shortening kernel and initrd filenames in /live again similar to
+    what we did with in lenny.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 06 Feb 2012 23:23:32 +0100
+
 live-build (3.0~a42-1) unstable; urgency=low
 
   [ Matthijs Kooijman ]
