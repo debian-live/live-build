@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2011 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
 ##
 ## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -47,51 +47,105 @@ Create_lockfile .lock
 Check_architectures amd64 i386
 Check_crossarchitectures
 
-case "${LB_BUILD_WITH_CHROOT}" in
-	true)
-		# Checking depends
-		Check_package chroot/usr/bin/syslinux syslinux
-		Check_package chroot/usr/share/syslinux/themes/${LB_SYSLINUX_THEME} syslinux-themes-${LB_SYSLINUX_THEME}
-
-		case "${LB_MODE}" in
-			ubuntu)
-				Check_package chroot/usr/share/gfxboot-theme-ubuntu/bootlogo.tar.gz gfxboot-theme-ubuntu
-				;;
-		esac
-
-		# Restoring cache
-		Restore_cache cache/packages_binary
-
-		# Installing depends
-		Install_package
-		;;
-esac
-
 # Assembling image specifics
 case "${LB_BINARY_IMAGES}" in
 	iso*)
 		_BOOTLOADER="isolinux"
-		_SUFFIX="binary/isolinux"
+		_TARGET="binary/isolinux"
 		;;
 
 	net*)
 		_BOOTLOADER="pxelinux"
-		_SUFFIX="tftpboot"
+		_TARGET="tftpboot"
 		;;
 
 	hdd*|*)
 		_BOOTLOADER="syslinux"
-		_SUFFIX="binary/syslinux"
+		_TARGET="binary/syslinux"
 		;;
 esac
 
+# Checking depends
+case "${LB_BUILD_WITH_CHROOT}" in
+	true)
+		Check_package chroot/usr/bin/syslinux syslinux
+		Check_package chroot/usr/lib/syslinux syslinux-common
+
+		if [ "${LB_SYSLINUX_THEME}" != "live-build" ]
+		then
+			Check_package chroot/usr/share/syslinux/themes/${LB_SYSLINUX_THEME} syslinux-themes-${LB_SYSLINUX_THEME}
+
+			case "${LB_MODE}" in
+				ubuntu)
+					Check_package chroot/usr/share/gfxboot-theme-ubuntu/bootlogo.tar.gz gfxboot-theme-ubuntu
+					;;
+			esac
+		fi
+		;;
+
+	false)
+		if [ ! -e /usr/bin/syslinux ]
+		then
+			# syslinux
+			Echo_error "/usr/bin/syslinux - no such file."
+			exit 1
+		fi
+
+		if [ ! -e /usr/lib/syslinux ]
+		then
+			# syslinux-common
+			Echo_error "/usr/lib/syslinux - no such directory"
+			exit 1
+		fi
+
+		if [ "${LB_SYSLINUX_THEME}" != "live-build" ]
+		then
+			if [ ! -e /usr/lib/syslinux/themes/${LB_SYSLINUX_THEME} ]
+			then
+				# syslinux-theme
+				Echo_error "/usr/lib/syslinux/themes/${LB_SYSLINUX_THEME} - no such directory."
+				exit 1
+			fi
+		fi
+		;;
+esac
+
+# Restoring cache
+Restore_cache cache/packages_binary
+
+# Installing depends
+Install_package
+
+# FIXME: cleanup, unify, and extend themes for ${_BOOTLOADER}-live and ${_BOOTLOADER}-installer
+if [ "${LB_SYSLINUX_THEME}" = "live-build" ]
+then
+	if [ -e "config/bootloaders/${_BOOTLOADER}" ]
+	then
+		# Internal local copy
+		_SOURCE="config/bootloaders/${_BOOTLOADER}"
+	else
+		# Internal system copy
+		_SOURCE="${LB_BASE:-/usr/share/live/build}/bootloaders/${_BOOTLOADER}"
+	fi
+else
+	# External copy from chroot or system
+	_SOURCE="/usr/share/syslinux/themes/${LB_SYSLINUX_THEME}/${_BOOTLOADER}-live"
+fi
+
 # Copying files
-mkdir -p ${_SUFFIX}
+mkdir -p $(dirname ${_TARGET})
 
 case "${LB_BUILD_WITH_CHROOT}" in
 	true)
 		# Copy in two steps since the theme can have absolute symlinks and would therefore not be dereferenced correctly
-		Chroot chroot "cp -aL /usr/share/syslinux/themes/${LB_SYSLINUX_THEME}/${_BOOTLOADER}-live /root/tmp"
+		if [ "${LB_SYSLINUX_THEME}" = "live-build" ]
+		then
+			cp -a ${_SOURCE} chroot/root
+			Chroot chroot cp -aL /root/$(basename ${_SOURCE}) /root/$(basename ${_SOURCE}).tmp
+			rm -rf chroot/$(basename ${_SOURCE})
+		else
+			Chroot chroot cp -aL ${_SOURCE} /root/$(basename ${_SOURCE}).tmp
+		fi
 
 		case "${LB_MODE}" in
 			ubuntu)
@@ -99,32 +153,70 @@ case "${LB_BUILD_WITH_CHROOT}" in
 				;;
 		esac
 
-		mv chroot/root/tmp/* ${_SUFFIX}
-		rmdir chroot/root/tmp
+		mv chroot/root/$(basename ${_SOURCE}).tmp ${_TARGET}
 		;;
 
 	false)
-		cp -aL /usr/share/syslinux/themes/${LB_SYSLINUX_THEME}/${_BOOTLOADER}-live/* ${_SUFFIX}
+		cp -aL ${_SOURCE}/* ${_TARGET}
 
 		case "${LB_MODE}" in
 			ubuntu)
-				tar xfz /usr/share/gfxboot-theme-ubuntu/bootlogo.tar.gz -C ${_SUFFIX}
+				tar xfz /usr/share/gfxboot-theme-ubuntu/bootlogo.tar.gz -C ${_TARGET}
 				;;
 		esac
 		;;
 esac
 
 # Configuring files
-if [ -e ${_SUFFIX}/live.cfg ]
+if [ -e "${_TARGET}/live.cfg.in" ]
+then
+	# This is all rather suboptimal.. needs prettifying at some point
+	_FLAVOURS="$(echo ${LB_LINUX_FLAVOURS} | wc -w)"
+
+	case "${_FLAVOURS}" in
+		1)
+			mv binary/live/vmlinuz-* binary/live/vmlinuz
+			mv binary/live/initrd.img-* binary/live/initrd.img
+
+			sed -e "s|@FLAVOUR@|${LB_LINUX_FLAVOUR}|g" \
+			    -e "s|@KERNEL@|/live/vmlinuz|g" \
+			    -e "s|@INITRD@|/live/initrd.img|g" \
+			    -e "s|@LB_BOOTAPPEND_LIVE@|${LB_BOOTAPPEND_LIVE}|g" \
+			"${_TARGET}/live.cfg.in" >> "${_TARGET}/live.cfg"
+
+			rm -f "${_TARGET}/live.cfg.in"
+			;;
+
+		*)
+			_NUMBER="0"
+
+			for _FLAVOUR in ${LB_LINUX_FLAVOURS}
+			do
+				_NUMBER="$((${_NUMBER} + 1))"
+
+				mv binary/live/vmlinuz-*-${_FLAVOUR} binary/live/vmlinuz${_NUMBER}
+				mv binary/live/initrd.img-*-${_FLAVOUR} binary/live/initrd${_NUMBER}.img
+
+				sed -e "s|@FLAVOUR@|${_FLAVOUR}|g" \
+				    -e "s|@KERNEL@|/live/vmlinuz${_NUMBER}|g" \
+				    -e "s|@INITRD@|/live/initrd${_NUMBER}.img|g" \
+				    -e "s|@LB_BOOTAPPEND_LIVE@|${LB_BOOTAPPEND_LIVE}|g" \
+				"${_TARGET}/live.cfg.in" >> "${_TARGET}/live.cfg"
+			done
+
+			rm -f "${_TARGET}/live.cfg.in"
+			;;
+	esac
+elif [ -e "${_TARGET}/live.cfg" ]
 then
 	sed -i -e "s|@LB_BOOTAPPEND_LIVE@|${LB_BOOTAPPEND_LIVE}|g" \
-	${_SUFFIX}/live.cfg
+	${_TARGET}/live.cfg
 fi
 
-if [ -e ${_SUFFIX}/install.cfg ]
+if [ -e ${_TARGET}/install.cfg ]
 then
 	sed -i -e "s|@LB_BOOTAPPEND_INSTALL@|${LB_BOOTAPPEND_INSTALL}|g" \
-	${_SUFFIX}/install.cfg
+	${_TARGET}/install.cfg
 fi
 
 case "${LB_BUILD_WITH_CHROOT}" in

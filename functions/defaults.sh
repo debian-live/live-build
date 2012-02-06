@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2011 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
 ##
 ## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -26,7 +26,28 @@ Set_defaults ()
 	LB_SYSTEM="${LB_SYSTEM:-live}"
 
 	# Setting mode (currently: debian, emdebian, progress, ubuntu and kubuntu)
-	LB_MODE="${LB_MODE:-debian}"
+	if [ -x /usr/bin/lsb_release ]
+	then
+		_DISTRIBUTOR="$(lsb_release -is | tr [A-Z] [a-z])"
+
+		case "${_DISTRIBUTOR}" in
+			debian|progress|ubuntu)
+				LB_MODE="${LB_MODE:-${_DISTRIBUTOR}}"
+				;;
+
+			*)
+				LB_MODE="${LB_MODE:-debian}"
+				;;
+		esac
+	else
+		if [ -e /etc/progress_version ]
+		then
+			LB_MODE="${LB_MODE:-progress}"
+		elif [ -e /etc/ubuntu_version ]
+		then
+			LB_MODE="${LB_MODE:-ubuntu}"
+		fi
+	fi
 
 	# Setting distribution name
 	case "${LB_MODE}" in
@@ -58,7 +79,6 @@ Set_defaults ()
 				artax-backports)
 					LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-squeeze}"
 					LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_PARENT_DISTRIBUTION}}"
-					LB_BACKPORTS="false"
 					;;
 
 				baureo)
@@ -66,11 +86,15 @@ Set_defaults ()
 					LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_PARENT_DISTRIBUTION}}"
 					;;
 			esac
+
+			LB_BACKPORTS="${LB_BACKPORTS:-true}"
 			;;
 
 		*)
 			LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-${LB_DISTRIBUTION}}"
 			LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_PARENT_DISTRIBUTION}}"
+
+			LB_BACKPORTS="${LB_BACKPORTS:-false}"
 			;;
 	esac
 
@@ -369,7 +393,7 @@ Set_defaults ()
 
 		progress)
 			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-http://ftp.debian.org/debian/}"
-			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://archive.progress-linux.org/progress/}"
+			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://cdn.archive.progress-linux.org/progress/}"
 			;;
 
 		ubuntu|kubuntu)
@@ -394,12 +418,12 @@ Set_defaults ()
 	case "${LB_MODE}" in
 		debian)
 			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-http://security.debian.org/}"
-			LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-${LB_MIRROR_SECURITY}}"
+			LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-${LB_MIRROR_CHROOT_SECURITY}}"
 			;;
 
 		emdebian)
 			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-none}"
-			LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-${LB_MIRROR_SECURITY}}"
+			LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-${LB_MIRROR_CHROOT_SECURITY}}"
 			;;
 
 		progress)
@@ -1154,7 +1178,7 @@ Set_defaults ()
 			;;
 
 		*)
-			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-debian-squeeze}"
+			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-live-build}"
 			;;
 	esac
 

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2011 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
 ##
 ## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -117,7 +117,7 @@ case "${1}" in
 					mv chroot/etc/apt/preferences.d/$(basename ${_FILE}) chroot/etc/apt/preferences.d/$(basename ${_FILE}).orig
 				fi
 
-				cp ${_FILE} chroot/etc/apt/preferences.d
+				cp -aL ${_FILE} chroot/etc/apt/preferences.d
 			done
 		fi
 
@@ -150,26 +150,38 @@ case "${1}" in
 			progress)
 				if [ ! -e chroot/etc/apt/preferences.d/progress.pref ]
 				then
-					echo "# /etc/apt/preferences.d/progress.pref" > chroot/etc/apt/preferences.d/progress.pref
+					_DISTRIBUTION="$(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')"
 
-					_DISTRIBUTIONS="$(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')"
+					_ENABLE_DISTRIBUTIONS="${_DISTRIBUTION}"
+					_DISABLE_DISTRIBUTIONS=""
 
 					if [ "${LB_SECURITY}" = "true" ]
 					then
-						_DISTRIBUTION="${_DISTRIBUTION} $(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')-security"
+						_ENABLE_DISTRIBUTIONS="${_ENABLE_DISTRIBUTIONS} ${_DISTRIBUTION}-security"
 					fi
 
 					if [ "${LB_VOLATILE}" = "true" ]
 					then
-						_DISTRIBUTION="${_DISTRIBUTION} $(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')-updates"
+						_ENABLE_DISTRIBUTIONS="${_ENABLE_DISTRIBUTIONS} ${_DISTRIBUTION}-updates"
 					fi
 
-					if [ "${LB_BACKPORTS}" = "true" ]
-					then
-						_DISTRIBUTION="${_DISTRIBUTION} $(echo ${LB_DISTRIBUTION} | sed -e 's|-backports||')-backports"
-					fi
+					case "${LB_DISTRIBUTION}" in
+						*-backports)
+							if [ "${LB_BACKPORTS}" = "true" ]
+							then
+								_ENABLE_DISTRIBUTIONS="${_ENABLE_DISTRIBUTIONS} ${_DISTRIBUTION}-backports"
+							fi
+							;;
 
-					for _DISTRIBUTION in ${_DISTRIBUTIONS}
+						*)
+							if [ "${LB_BACKPORTS}" = "true" ]
+							then
+								_DISABLE_DISTRIBUTIONS="${_DISABLE_DISTRIBUTIONS} ${_DISTRIBUTION}-backports"
+							fi
+							;;
+					esac
+
+					for _DISTRIBUTION in ${_ENABLE_DISTRIBUTIONS}
 					do
 
 cat >> chroot/etc/apt/preferences.d/progress.pref << EOF
@@ -180,20 +192,32 @@ Pin-Priority: 999
 EOF
 
 					done
-				fi
 
-				case "${LB_DISTRIBUTION}" in
-					artax-backports)
-						# Temporary hack to avoid squashfs version mismatch
+					for _DISTRIBUTION in ${_DISABLE_DISTRIBUTIONS}
+					do
 
-cat >> chroot/etc/apt/preferences.d/tmp.pref << EOF
+cat >> chroot/etc/apt/preferences.d/progress.pref << EOF
+
+#Package: *
+#Pin: release n=${_DISTRIBUTION}
+#Pin-Priority: 999
+EOF
+
+					done
+
+					# Add temporary hack to avoid squashfs version mismatch
+					case "${LB_DISTRIBUTION}" in
+						artax-backports)
+
+cat >> chroot/etc/apt/preferences.d/progress.tmp.pref << EOF
 Package: squashfs-tools
 Pin: release n=squeeze
 Pin-Priority: 1001
 EOF
 
 						;;
-				esac
+					esac
+				fi
 				;;
 		esac
 
@@ -272,7 +296,7 @@ EOF
 					mv chroot/etc/apt/preferences.d/$(basename ${_FILE}) chroot/etc/apt/preferences.d/$(basename ${_FILE}).orig
 				fi
 
-				cp ${_FILE} chroot/etc/apt/preferences.d
+				cp -aL ${_FILE} chroot/etc/apt/preferences.d
 
 				if [ -f chroot/etc/apt/preferences.d/$(basename ${_FILE}) ]
 				then
@@ -298,7 +322,8 @@ EOF
 
 		fi
 
-		rm -f "chroot/etc/apt/preferences.d/${LB_MODE}.pref"
+		# Remove temporary hack to avoid squashfs version mismatch for artax-backports
+		rm -f chroot/etc/apt/preferences.d/progress.tmp.pref
 
 		# Removing stage file
 		rm -f .stage/chroot_apt

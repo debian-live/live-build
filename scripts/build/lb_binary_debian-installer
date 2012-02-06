@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2011 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
 ##
 ## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -523,7 +523,14 @@ then
 
 	UDEBS="${UDEBS} $(awk '/Filename: / { print $2 }' Packages)"
 
-	# Downloading udebs
+	# Downloading udebs packages
+	Echo_message "Downloading udebs..."
+
+	if [ "${LB_DERIVATIVE}" = "true" ]
+	then
+		Echo_message "Building in derivative mode in debian+ layout.. a lot of 404 errors are ok here."
+	fi
+
 	for UDEB in ${UDEBS}
 	do
 		if [ -f ../cache/packages_debian-installer.udeb/"$(basename ${UDEB})" ]
@@ -596,16 +603,6 @@ then
 
 		rm -f ${EXCLUDE}_*.udeb
 	done < exclude
-
-	# Enable live-installer
-	if [ "${LB_DEBIAN_INSTALLER}" = "live" ]
-	then
-		# Remove local udebs
-		rm -f pool/main/b/base-installer/bootstrap-base_*.udeb
-
-		# Remove d-i udebs
-		rm -f bootstrap-base_*.udeb
-	fi
 
 	# Moving udebs
 	for UDEB in ${UDEBS}
