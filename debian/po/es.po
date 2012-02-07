@@ -1,6 +1,7 @@
 # Spanish translation of live-build debconf templates.
 # Copyright (C) 2011 Gildardo Adrián Maravilla Jácome <gilmjc@gmail.com>
 # Copyright (C) 2011 Francisco Javier Cuadrado <fcocuadrado@gmail.com>
+# Copyright (C) 2012 Francisco Javier Fernández-Sanguino <jfs@debian.org>
 # This file is distributed under the same license as the live-build package.
 #
 msgid ""
@@ -8,8 +9,8 @@ msgstr ""
 "Project-Id-Version: live-build 3.0~a34-4\n"
 "Report-Msgid-Bugs-To: live-build@packages.debian.org\n"
 "POT-Creation-Date: 2011-11-14 12:06+0100\n"
-"PO-Revision-Date: 2011-11-05 20:16+0100\n"
-"Last-Translator: Francisco Javier Cuadrado <fcocuadrado@gmail.com>\n"
+"PO-Revision-Date: 2012-01-21 14:47+0100\n"
+"Last-Translator: Javier Fernández-Sanguino <jfs@debian.org>\n"
 "Language-Team: Debian l10n Spanish <debian-l10n-spanish@lists.debian.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -27,32 +28,24 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../live-build-cron.templates:2001
-#, fuzzy
-#| msgid "Enable image autobuilds?"
 msgid "Enable live image autobuilds?"
 msgstr "¿Desea habilitar la creación automática de imágenes?"
 
 #. Type: boolean
 #. Description
 #: ../live-build-cron.templates:2001
-#, fuzzy
-#| msgid "Please choose whether live-images should be built automatically."
 msgid "Please choose whether live images should be built automatically."
 msgstr "Escoja si las imágenes «live» se deberían crear automáticamente."
 
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:3001
-#, fuzzy
-#| msgid "Image build directory:"
 msgid "Image destination directory:"
-msgstr "Directorio de las imágenes a crear:"
+msgstr "Directorio destino de las imágenes:"
 
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:3001
-#, fuzzy
-#| msgid "Please specify the directory where live-images should be stored."
 msgid "Please specify the directory where live images should be stored."
 msgstr "Indique el directorio en el que se almacenarán las imágenes «live»."
 
@@ -65,22 +58,16 @@ msgstr "Expresión de cron para la creación de las imágenes:"
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:4001
-#, fuzzy
-#| msgid ""
-#| "Please specify the scheduling for the cron job defining when live-images "
-#| "should be built."
 msgid ""
 "Please specify the scheduling for the cron job defining when live images "
 "should be built."
-msgstr ""
-"Indique la planificación de la tarea de cron que define cuando se crearán "
-"las imágenes «live»."
+msgstr "Indique la planificación de la tarea de cron que define en qué momento se deberían crear las imágenes «live»."
 
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:4001
 msgid "This defaults to: 0 0 * * *"
-msgstr ""
+msgstr "El valor por omisión es: 0 0 * * *"
 
 #. Type: select
 #. Description
@@ -115,10 +102,6 @@ msgstr "Distribución/es de las imágenes diarias:"
 #. Type: multiselect
 #. Description
 #: ../live-build-cron.templates:6001
-#, fuzzy
-#| msgid ""
-#| "Please select the distributions you would like to include for live-images "
-#| "built daily."
 msgid ""
 "Please select the distributions you would like to include for live images "
 "daily-builds."
@@ -130,21 +113,15 @@ msgstr ""
 #. Description
 #: ../live-build-cron.templates:7001
 msgid "Daily image flavor(s):"
-msgstr "Tipo/s de las imágenes diarias:"
+msgstr "Variante/s de las imágenes diarias:"
 
 #. Type: multiselect
 #. Description
 #: ../live-build-cron.templates:7001
-#, fuzzy
-#| msgid ""
-#| "Please select the flavors you would like to include for live-images built "
-#| "daily."
 msgid ""
 "Please select the flavors you would like to include for live images daily-"
 "builds."
-msgstr ""
-"Escoja los tipos que le gustaría incluir en las imágenes «live» creadas "
-"diariamente."
+msgstr "Escoja las variantes que le gustaría incluir en las imágenes «live» creadas diariamente."
 
 #. Type: multiselect
 #. Description
@@ -155,10 +132,6 @@ msgstr "Distribución/es de las imágenes semanales:"
 #. Type: multiselect
 #. Description
 #: ../live-build-cron.templates:8001
-#, fuzzy
-#| msgid ""
-#| "Please select the distributions you would like to include for live-images "
-#| "built weekly."
 msgid ""
 "Please select the distributions you would like to include for live images "
 "weekly-builds."
@@ -170,21 +143,15 @@ msgstr ""
 #. Description
 #: ../live-build-cron.templates:9001
 msgid "Weekly image flavor(s):"
-msgstr "Tipo/s de las imágenes semanales:"
+msgstr "Variante/s de las imágenes semanales:"
 
 #. Type: multiselect
 #. Description
 #: ../live-build-cron.templates:9001
-#, fuzzy
-#| msgid ""
-#| "Please select the flavors you would like to include for live-images built "
-#| "weekly."
 msgid ""
 "Please select the flavors you would like to include for live images weekly-"
 "builds."
-msgstr ""
-"Escoja los tipos que le gustaría incluir en las imágenes «live» creadas "
-"semanalmente."
+msgstr "Escoja las variantes que le gustaría incluir en las imágenes «live» creadas semanalmente."
 
 #. Type: multiselect
 #. Choices
@@ -201,16 +168,10 @@ msgstr "Distribución/es de las imágenes mensuales:"
 #. Type: multiselect
 #. Description
 #: ../live-build-cron.templates:10002
-#, fuzzy
-#| msgid ""
-#| "Please select the distributions you would like to include for live-images "
-#| "built monthly."
 msgid ""
 "Please select the distributions you would like to include for live images "
 "monthly-builds."
-msgstr ""
-"Escoja las distribuciones que le gustaría incluir en las imágenes «live» "
-"creadas mensualmente."
+msgstr "Escoja las distribuciones que le gustaría incluir en las imágenes «live» creadas mensualmente."
 
 #. Type: multiselect
 #. Choices
@@ -225,20 +186,16 @@ msgstr ""
 #. Description
 #: ../live-build-cron.templates:11002
 msgid "Monthly image flavor(s):"
-msgstr "Tipo/s de las imágenes mensuales:"
+msgstr "Variante/s de las imágenes mensuales:"
 
 #. Type: multiselect
 #. Description
 #: ../live-build-cron.templates:11002
-#, fuzzy
-#| msgid ""
-#| "Please select the flavors you would like to include for live-images built "
-#| "monthly."
 msgid ""
 "Please select the flavors you would like to include for live images monthly-"
 "builds."
 msgstr ""
-"Escoja los tipos que le gustaría incluir en las imágenes «live» creadas "
+"Escoja las variantes que le gustaría incluir en las imágenes «live» creadas "
 "mensualmente."
 
 #. Type: boolean
@@ -250,18 +207,14 @@ msgstr "¿Desea habilitar las fuentes para «live-build-cron-images»?"
 #. Type: boolean
 #. Description
 #: ../live-build-cron.templates:13001
-#, fuzzy
-#| msgid "Enable image autobuilds?"
 msgid "Enable live-manual autobuilds?"
 msgstr "¿Desea habilitar la creación automática de imágenes?"
 
 #. Type: boolean
 #. Description
 #: ../live-build-cron.templates:13001
-#, fuzzy
-#| msgid "Please choose whether the manual should be built automatically."
 msgid "Please choose whether the live-manual should be built automatically."
-msgstr "Escoja si el manual se debería crear automáticamente."
+msgstr "Escoja si debería crearse el paquete «live-manual» automáticamente."
 
 #. Type: string
 #. Default
@@ -272,18 +225,14 @@ msgstr "/srv/debian.net/live-manual"
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:14002
-#, fuzzy
-#| msgid "Manual build directory:"
 msgid "live-manual destination directory:"
-msgstr "Directorio del manual a crear:"
+msgstr "Directorio destino de «live-manual»:"
 
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:14002
-#, fuzzy
-#| msgid "Please specify the directory where the manual should be stored."
 msgid "Please specify the directory where live-manual should be stored."
-msgstr "Indique el directorio en el que se debería almacenar el manual."
+msgstr "Indique el directorio en el que se debería almacenar los contenidos de «live-manual»."
 
 #. Type: string
 #. Default
@@ -294,19 +243,12 @@ msgstr "live-build-cron-manual"
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:16002
-#, fuzzy
-#| msgid "User account for manual builds:"
 msgid "User account for builds of live-manual:"
-msgstr "Cuenta del usuario para los manuales creados:"
+msgstr "Cuenta del usuario para crear «live-manual»:"
 
 #. Type: string
 #. Description
 #: ../live-build-cron.templates:16002
-#, fuzzy
-#| msgid ""
-#| "Please enter the username that should be used for builds of the manual."
 msgid ""
 "Please enter the username that should be used for builds of live-manual."
-msgstr ""
-"Introduzca el nombre de usuario que se debería usar para los manuales "
-"creados."
+msgstr "Introduzca el nombre del usuario que se debería usar para los contenidos de «live-manual»."
