@@ -1,3 +1,27 @@
+live-build (3.0~a44-1) unstable; urgency=low
+
+  * Handling /etc/resolv.conf even if it's a dangling symlink like with
+    resolv.conf, thanks to Stephane Graber <stgraber@ubuntu.com>
+    (Closes: #657640).
+  * Adding updated Spanish debconf translations from Javier Fernández-
+    Sanguino Peña <jfs@computer.org> (Closes: #656404).
+  * Adding Dutch debconf translations from Jeroen Schot <schot@a-
+    eskwadraat.nl> (Closes: #657470).
+  * Correcting lzcat call in binary_disk to not bail out due to non-
+    standard file extension (unknown suffix -- unchanged), thanks to
+    Luigi Capriotti <l.capriotti@xbmc.org> (Closes: #658995).
+  * Correcting destination path for uuid.conf when using casper in
+    binary_disk, thanks to Luigi Capriotti <l.capriotti@xbmc.org>
+    (Closes: #658995).
+  * Removing warning about resolvconf package, not be needed anymore.
+  * Adding a workaround in rules to stop dh_link converting absolute
+    symlinks to relative symlinks for bootloader configs.
+  * Adding lintian overrides for symlink-should-be-relative (bootloader
+    configs need to use absolute symlinks on purpose to allow chrooted
+    builds).
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 12 Feb 2012 22:08:49 +0100
+
 live-build (3.0~a43-1) unstable; urgency=low
 
   [ Daniel Baumann ]
