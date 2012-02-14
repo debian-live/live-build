@@ -57,7 +57,7 @@ Set_defaults ()
 			;;
 
 		ubuntu|kubuntu)
-			LB_DISTRIBUTION="${LB_DISTRIBUTION:-oneric}"
+			LB_DISTRIBUTION="${LB_DISTRIBUTION:-oneiric}"
 			LB_DERIVATIVE="false"
 			;;
 
