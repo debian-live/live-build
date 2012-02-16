@@ -46,6 +46,8 @@ Set_defaults ()
 		elif [ -e /etc/ubuntu_version ]
 		then
 			LB_MODE="${LB_MODE:-ubuntu}"
+		else
+			LB_MODE="${LB_MODE:-debian}"
 		fi
 	fi
 
@@ -57,7 +59,7 @@ Set_defaults ()
 			;;
 
 		ubuntu|kubuntu)
-			LB_DISTRIBUTION="${LB_DISTRIBUTION:-oneric}"
+			LB_DISTRIBUTION="${LB_DISTRIBUTION:-oneiric}"
 			LB_DERIVATIVE="false"
 			;;
 
@@ -476,7 +478,7 @@ Set_defaults ()
 	# Setting backports mirror to fetch packages from
 	case "${LB_MODE}" in
 		debian)
-			LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-http://backports.debian.org/debian-backports/}}"
+			LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-http://backports.debian.org/debian-backports/}"
 			LB_PARENT_MIRROR_CHROOT_BACKPORTS="${LB_PARENT_MIRROR_CHROOT_BACKPORTS:-${LB_MIRROR_CHROOT_BACKPORTS}}"
 			;;
 
@@ -588,7 +590,7 @@ Set_defaults ()
 	# Setting backports mirror which ends up in the image
 	case "${LB_MODE}" in
 		debian)
-			LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-http://backports.debian.org/debian-backports/}}"
+			LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-http://backports.debian.org/debian-backports/}"
 			LB_PARENT_MIRROR_BINARY_BACKPORTS="${LB_PARENT_MIRROR_BINARY_BACKPORTS:-${LB_MIRROR_BINARY_BACKPORTS}}"
 			;;
 

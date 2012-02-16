@@ -3,8 +3,5 @@
 #include <standard>
 
 xorg
-#nif MODE progress
-menu
-#endif
 alsa-base alsa-utils libasound2-plugins
 keyboard-configuration
