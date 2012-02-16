@@ -46,6 +46,8 @@ Set_defaults ()
 		elif [ -e /etc/ubuntu_version ]
 		then
 			LB_MODE="${LB_MODE:-ubuntu}"
+		else
+			LB_MODE="${LB_MODE:-debian}"
 		fi
 	fi
 
