@@ -1,3 +1,22 @@
+live-build (3.0~a45-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Correcting typo in defaults for backports mirror.
+  * Correcting typo in ubuntu default distribution name, thanks to Marco
+    Lechner <marco.lechner@fossgis.de> (Closes: #659823).
+
+  [ Ben Armstrong ]
+  * Removing menu as it adds an unwanted menu to some DEs/WMs which
+    prefer to do without.
+
+  [ Daniel Baumann ]
+  * Add forgotten fallback for mode setting if lsb_release is not
+    installed.
+  * Adding Polish debconf translations from Michal Kulach
+    <michalkulach@gmail.com> (Closes: #660003).
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 16 Feb 2012 21:47:11 +0100
+
 live-build (3.0~a44-1) unstable; urgency=low
 
   * Handling /etc/resolv.conf even if it's a dangling symlink like with
