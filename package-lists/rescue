@@ -313,7 +313,9 @@ expect
 gpm
 
 # Network servers:
+#if DISTRIBUTION squeeze
 thttpd
+#endif
 dhcp3-server
 hostap-utils
 hostapd
