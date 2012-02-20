@@ -203,7 +203,9 @@ crashme
 dbench
 doscan
 dsniff
+#nif DISTRIBUTION wheezy
 honeyd
+#endif
 hping3
 icmpush
 macchanger
