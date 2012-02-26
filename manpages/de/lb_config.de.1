@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2012\-02\-16 3.0~a45\-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2012\-02\-26 3.0~a45\-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -105,8 +105,6 @@
   [\fB\-\-gzip\-options\fP \fIOPTION\fP|"\fIOPTIONS\fP"]
 .br
   [\fB\-\-hooks\fP \fIFILE\fP]
-.br
-  [\fB\-\-hostname\fP \fINAME\fP]
 .br
   [\fB\-\-ignore\-system\-defaults\fP]
 .br
@@ -486,8 +484,6 @@ supports it, also \-\-rsyncable is added.
 defines which hooks available in /usr/share/live/build/examples/hooks should
 be activated. Normally, there are no hooks executed. Make sure you know and
 understood the hook before you enable it.
-.IP "\fB\-\-hostname\fP \fINAME\fP" 4
-sets the hostname of the live system.
 .IP \fB\-\-ignore\-system\-defaults\fP 4
 \fBlb config\fP by default reads system defaults from /etc/live/build.conf and
 /etc/live/build.d when generating a new live system config directory. This

@@ -1030,9 +1030,6 @@ Set_defaults ()
 	# Setting grub splash
 	# LB_GRUB_SPLASH
 
-	# Setting hostname
-	LB_HOSTNAME="${LB_HOSTNAME:-${LB_MODE}}"
-
 	# Setting iso author
 	case "${LB_MODE}" in
 		debian)
