@@ -233,8 +233,6 @@
 .br
 	[\fB\-\-exposed\-root\fR true|false]
 .br
-	[\fB\-\-username\fR \fINAME\fR]
-.br
 	[\fB\-\-verbose\fR]
 .br
 	[\fB\-\-win32\-loader true|false]
@@ -486,8 +484,6 @@ defines if debian volatile package archives should be included in the image or n
 defines if debian backports package archives should be included in the image or not.
 .IP "\fB\-\-exposed\-root\fR true|false" 4
 defines whether to expose the root filesystem as read only and not covered by the union filesystem. This has useful implications for certain speciality setups such as LTSP. By default, this option is false.
-.IP "\fB\-\-username\fR \fINAME\fR" 4
-sets the name of the account of the default user in the live system.
 .IP "\fB\-\-verbose\fR" 4
 increases the verbosity of messages output by \fBlb build\fR.
 .IP "\fB\-\-win32\-loader true|false" 4

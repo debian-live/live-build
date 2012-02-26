@@ -1181,21 +1181,6 @@ Set_defaults ()
 			;;
 	esac
 
-	# Setting username
-	case "${LB_MODE}" in
-		ubuntu)
-			LB_USERNAME="${LB_USERNAME:-ubuntu}"
-			;;
-
-		kubuntu)
-			LB_USERNAME="${LB_USERNAME:-ubuntu}"
-			;;
-
-		*)
-			LB_USERNAME="${LB_USERNAME:-user}"
-			;;
-	esac
-
 	# Setting swap file
 	LB_SWAP_FILE_SIZE="${LB_SWAP_FILE_SIZE:-512}"
 

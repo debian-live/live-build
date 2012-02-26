@@ -143,7 +143,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--volatile true|false]\n\
 \t    [--backports true|false]\n\
 \t    [--exposed-root true|false]\n\
-\t    [--username NAME]\n\
 \t    [--verbose]\n\
 \t    [--win32-loader true|false]\n\
 \t    [--bootstrap-qemu-exclude PACKAGES]\n\
@@ -171,7 +170,7 @@ Local_arguments ()
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
 		net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,
 		net-cow-server:,net-tarball:,swap-file-path:,swap-file-size:,syslinux-theme:,
-		username:,win32-loader:,source:,source-images:,breakpoints,conffile:,debug,force,
+		win32-loader:,source:,source-images:,breakpoints,conffile:,debug,force,
 		help,ignore-system-defaults,quiet,usage,verbose,version,bootstrap-qemu-static:,bootstrap-qemu-arch:,
 		bootstrap-qemu-exclude:"
 	# Remove spaces added by indentation
@@ -761,11 +760,6 @@ Local_arguments ()
 
 			--syslinux-theme)
 				LB_SYSLINUX_THEME="${2}"
-				shift 2
-				;;
-
-			--username)
-				LB_USERNAME="${2}"
 				shift 2
 				;;
 
@@ -1410,10 +1404,6 @@ LB_SWAP_FILE_SIZE="${LB_SWAP_FILE_SIZE}"
 # \$LB_SYSLINUX_THEME: set syslinux theme package
 # (Default: ${LB_SYSLINUX_THEME})
 LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME}"
-
-# \$LB_USERNAME: set username
-# (Default: ${LB_USERNAME})
-LB_USERNAME="${LB_USERNAME}"
 EOF
 
 # Creating lb_source_* configuration

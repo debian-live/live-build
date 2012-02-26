@@ -246,11 +246,6 @@ case "${LB_INITRAMFS}" in
 		;;
 esac
 
-if [ -d chroot/home/${LB_USERNAME} ] && [ "${ID}" ]
-then
-	chown -R --quiet ${ID}:${ID} chroot/home/${LB_USERNAME}
-fi
-
 if [ "${LB_DEBIAN_INSTALLER}" = "live" ]
 then
 	# This is a temporary hack to get rid of fstab;
