@@ -1,17 +1,20 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: live-build
+Upstream-Contact: Debian Live Project <debian-live@lists.debian.org>
+Source: http://live.debian.net/archive/packages/live-build/
+
 Files: *
-Copyright: (C) 2006-2012 Daniel Baumann <daniel@debian.org>
+Copyright: 2006-2012 Daniel Baumann <daniel@debian.org>
 License: GPL-3+
 
 Files: contrib/graph-helpers
-Copyright: (C) 2007 Chris Lamb <chris@chris-lamb.co.uk>
+Copyright: 2007 Chris Lamb <lamby@debian.org>
 License: GPL-3+
 
 Files: contrib/grub-splash/lenny
 License: other
 
-Files:
- contrib/syslinux-splash/*
- share/bootloaders/*/splash.png
+Files: contrib/syslinux-splash/* share/bootloaders/*/splash.png
 License: other
 
 License: GPL-3+
