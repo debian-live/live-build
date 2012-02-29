@@ -251,7 +251,9 @@ fuse-utils
 hfsplus
 hfsutils
 jfsutils
+#if DISTRIBUTION squeeze
 lde
+#enif
 lsscsi
 lvm2
 mdadm
