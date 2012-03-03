@@ -850,7 +850,7 @@ Set_defaults ()
 
 	# Setting security updates option
 	case "${LB_DISTRIBUTION}" in
-		wheezy|sid|baureo)
+		wheezy|sid|precise)
 			LB_SECURITY="${LB_SECURITY:-false}"
 			;;
 
@@ -861,7 +861,7 @@ Set_defaults ()
 
 	# Setting volatile updates option
 	case "${LB_DISTRIBUTION}" in
-		wheezy|sid|baureo)
+		wheezy|sid|precise)
 			LB_VOLATILE="${LB_VOLATILE:-false}"
 			;;
 
