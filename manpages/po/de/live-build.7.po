@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2012-02-26 19:49+0100\n"
+"POT-Creation-Date: 2012-03-03 21:01+0100\n"
 "PO-Revision-Date: 2012-02-04 21:39+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -77,7 +77,7 @@ msgstr ""
 #: en/lb_source_iso.1:1 en/lb_source_net.1:1 en/lb_source_tar.1:1
 #: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "2012-02-26"
+msgid "2012-03-03"
 msgstr ""
 
 #. type: TH
@@ -231,7 +231,7 @@ msgstr ""
 #: en/lb_chroot_packages.1:9 en/lb_chroot_proc.1:9 en/lb_chroot_resolv.1:9
 #: en/lb_chroot_selinuxfs.1:9 en/lb_chroot_sysfs.1:9 en/lb_chroot_sysv-rc.1:9
 #: en/lb_chroot_task-lists.1:9 en/lb_chroot_upstart.1:9 en/lb_clean.1:9
-#: en/lb_config.1:243 en/lb_local.1:9 en/lb_source.1:9
+#: en/lb_config.1:239 en/lb_local.1:9 en/lb_source.1:9
 #: en/lb_source_checksums.1:9 en/lb_source_debian-live.1:9
 #: en/lb_source_debian.1:9 en/lb_source_disk.1:9 en/lb_source_hdd.1:9
 #: en/lb_source_iso.1:9 en/lb_source_net.1:9 en/lb_source_tar.1:9
@@ -264,7 +264,7 @@ msgstr ""
 #: en/lb_chroot_proc.1:14 en/lb_chroot_resolv.1:14 en/lb_chroot_selinuxfs.1:14
 #: en/lb_chroot_sysfs.1:14 en/lb_chroot_sysv-rc.1:14
 #: en/lb_chroot_task-lists.1:14 en/lb_chroot_upstart.1:14 en/lb_clean.1:16
-#: en/lb_config.1:252 en/lb_local.1:14 en/lb_source.1:14
+#: en/lb_config.1:248 en/lb_local.1:14 en/lb_source.1:14
 #: en/lb_source_checksums.1:14 en/lb_source_debian-live.1:14
 #: en/lb_source_debian.1:14 en/lb_source_disk.1:14 en/lb_source_hdd.1:14
 #: en/lb_source_iso.1:14 en/lb_source_net.1:14 en/lb_source_tar.1:14
@@ -297,7 +297,7 @@ msgstr ""
 #: en/lb_chroot_proc.1:17 en/lb_chroot_resolv.1:17 en/lb_chroot_selinuxfs.1:17
 #: en/lb_chroot_sysfs.1:17 en/lb_chroot_sysv-rc.1:17
 #: en/lb_chroot_task-lists.1:17 en/lb_chroot_upstart.1:17 en/lb_clean.1:38
-#: en/lb_config.1:502 en/lb_local.1:17 en/lb_source.1:17
+#: en/lb_config.1:494 en/lb_local.1:17 en/lb_source.1:17
 #: en/lb_source_checksums.1:17 en/lb_source_debian-live.1:17
 #: en/lb_source_debian.1:17 en/lb_source_disk.1:17 en/lb_source_hdd.1:17
 #: en/lb_source_iso.1:17 en/lb_source_net.1:17 en/lb_source_tar.1:17
@@ -330,7 +330,7 @@ msgstr ""
 #: en/lb_chroot_proc.1:21 en/lb_chroot_resolv.1:21 en/lb_chroot_selinuxfs.1:21
 #: en/lb_chroot_sysfs.1:21 en/lb_chroot_sysv-rc.1:21
 #: en/lb_chroot_task-lists.1:21 en/lb_chroot_upstart.1:21 en/lb_clean.1:43
-#: en/lb_config.1:509 en/lb_local.1:20 en/lb_source.1:20
+#: en/lb_config.1:501 en/lb_local.1:20 en/lb_source.1:20
 #: en/lb_source_checksums.1:21 en/lb_source_debian-live.1:21
 #: en/lb_source_debian.1:21 en/lb_source_disk.1:21 en/lb_source_hdd.1:21
 #: en/lb_source_iso.1:21 en/lb_source_net.1:21 en/lb_source_tar.1:21
@@ -363,7 +363,7 @@ msgstr ""
 #: en/lb_chroot_proc.1:25 en/lb_chroot_resolv.1:25 en/lb_chroot_selinuxfs.1:25
 #: en/lb_chroot_sysfs.1:25 en/lb_chroot_sysv-rc.1:25
 #: en/lb_chroot_task-lists.1:25 en/lb_chroot_upstart.1:25 en/lb_clean.1:47
-#: en/lb_config.1:517 en/lb_local.1:24 en/lb_source.1:24
+#: en/lb_config.1:509 en/lb_local.1:24 en/lb_source.1:24
 #: en/lb_source_checksums.1:25 en/lb_source_debian-live.1:25
 #: en/lb_source_debian.1:25 en/lb_source_disk.1:25 en/lb_source_hdd.1:25
 #: en/lb_source_iso.1:25 en/lb_source_net.1:25 en/lb_source_tar.1:25
@@ -395,7 +395,7 @@ msgstr ""
 #: en/lb_chroot_proc.1:26 en/lb_chroot_resolv.1:26 en/lb_chroot_selinuxfs.1:26
 #: en/lb_chroot_sysfs.1:26 en/lb_chroot_sysv-rc.1:26
 #: en/lb_chroot_task-lists.1:26 en/lb_chroot_upstart.1:26 en/lb_clean.1:48
-#: en/lb_config.1:518 en/lb_local.1:25 en/lb_source.1:25
+#: en/lb_config.1:510 en/lb_local.1:25 en/lb_source.1:25
 #: en/lb_source_checksums.1:26 en/lb_source_debian-live.1:26
 #: en/lb_source_debian.1:26 en/lb_source_disk.1:26 en/lb_source_hdd.1:26
 #: en/lb_source_iso.1:26 en/lb_source_net.1:26 en/lb_source_tar.1:26
@@ -428,7 +428,7 @@ msgstr ""
 #: en/lb_chroot_proc.1:28 en/lb_chroot_resolv.1:28 en/lb_chroot_selinuxfs.1:28
 #: en/lb_chroot_sysfs.1:28 en/lb_chroot_sysv-rc.1:28
 #: en/lb_chroot_task-lists.1:28 en/lb_chroot_upstart.1:28 en/lb_clean.1:50
-#: en/lb_config.1:520 en/lb_local.1:27 en/lb_source.1:27
+#: en/lb_config.1:512 en/lb_local.1:27 en/lb_source.1:27
 #: en/lb_source_checksums.1:28 en/lb_source_debian-live.1:28
 #: en/lb_source_debian.1:28 en/lb_source_disk.1:28 en/lb_source_hdd.1:28
 #: en/lb_source_iso.1:28 en/lb_source_net.1:28 en/lb_source_tar.1:28
@@ -463,7 +463,7 @@ msgstr ""
 #: en/lb_chroot_proc.1:29 en/lb_chroot_resolv.1:29 en/lb_chroot_selinuxfs.1:29
 #: en/lb_chroot_sysfs.1:29 en/lb_chroot_sysv-rc.1:29
 #: en/lb_chroot_task-lists.1:29 en/lb_chroot_upstart.1:29 en/lb_clean.1:51
-#: en/lb_config.1:521 en/lb_local.1:28 en/lb_source.1:28
+#: en/lb_config.1:513 en/lb_local.1:28 en/lb_source.1:28
 #: en/lb_source_checksums.1:29 en/lb_source_debian-live.1:29
 #: en/lb_source_debian.1:29 en/lb_source_disk.1:29 en/lb_source_hdd.1:29
 #: en/lb_source_iso.1:29 en/lb_source_net.1:29 en/lb_source_tar.1:29
@@ -496,7 +496,7 @@ msgstr ""
 #: en/lb_chroot_proc.1:31 en/lb_chroot_resolv.1:31 en/lb_chroot_selinuxfs.1:31
 #: en/lb_chroot_sysfs.1:31 en/lb_chroot_sysv-rc.1:31
 #: en/lb_chroot_task-lists.1:31 en/lb_chroot_upstart.1:31 en/lb_clean.1:53
-#: en/lb_config.1:523 en/lb_local.1:30 en/lb_source.1:30
+#: en/lb_config.1:515 en/lb_local.1:30 en/lb_source.1:30
 #: en/lb_source_checksums.1:31 en/lb_source_debian-live.1:31
 #: en/lb_source_debian.1:31 en/lb_source_disk.1:31 en/lb_source_hdd.1:31
 #: en/lb_source_iso.1:31 en/lb_source_net.1:31 en/lb_source_tar.1:31
@@ -532,7 +532,7 @@ msgstr ""
 #: en/lb_chroot_proc.1:32 en/lb_chroot_resolv.1:32 en/lb_chroot_selinuxfs.1:32
 #: en/lb_chroot_sysfs.1:32 en/lb_chroot_sysv-rc.1:32
 #: en/lb_chroot_task-lists.1:32 en/lb_chroot_upstart.1:32 en/lb_clean.1:54
-#: en/lb_config.1:524 en/lb_local.1:31 en/lb_source.1:31
+#: en/lb_config.1:516 en/lb_local.1:31 en/lb_source.1:31
 #: en/lb_source_checksums.1:32 en/lb_source_debian-live.1:32
 #: en/lb_source_debian.1:32 en/lb_source_disk.1:32 en/lb_source_hdd.1:32
 #: en/lb_source_iso.1:32 en/lb_source_net.1:32 en/lb_source_tar.1:32
@@ -565,7 +565,7 @@ msgstr ""
 #: en/lb_chroot_proc.1:33 en/lb_chroot_resolv.1:33 en/lb_chroot_selinuxfs.1:33
 #: en/lb_chroot_sysfs.1:33 en/lb_chroot_sysv-rc.1:33
 #: en/lb_chroot_task-lists.1:33 en/lb_chroot_upstart.1:33 en/lb_clean.1:55
-#: en/lb_config.1:525 en/lb_local.1:32 en/lb_source.1:32
+#: en/lb_config.1:517 en/lb_local.1:32 en/lb_source.1:32
 #: en/lb_source_checksums.1:33 en/lb_source_debian-live.1:33
 #: en/lb_source_debian.1:33 en/lb_source_disk.1:33 en/lb_source_hdd.1:33
 #: en/lb_source_iso.1:33 en/lb_source_net.1:33 en/lb_source_tar.1:33
@@ -576,36 +576,36 @@ msgid ""
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:328 en/live-build.7:36
+#: en/lb_config.1:324 en/live-build.7:36
 #, no-wrap
 msgid "B<--debug>"
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:340 en/live-build.7:38
+#: en/lb_config.1:336 en/live-build.7:38
 #, no-wrap
 msgid "B<--force>"
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:453 en/live-build.7:40
+#: en/lb_config.1:447 en/live-build.7:40
 #, no-wrap
 msgid "B<--quiet>"
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:491 en/live-build.7:42
+#: en/lb_config.1:483 en/live-build.7:42
 #, no-wrap
 msgid "B<--verbose>"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:513 en/live-build.7:231
+#: en/lb_config.1:505 en/live-build.7:231
 msgid "I<live-boot>(7)"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:515 en/live-build.7:233
+#: en/lb_config.1:507 en/live-build.7:233
 msgid "I<live-config>(7)"
 msgstr ""
 

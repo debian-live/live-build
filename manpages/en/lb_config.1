@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2012\-02\-26 3.0~a45-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2012\-03\-03 3.0~a45-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -126,8 +126,6 @@
 	[\fB\-\-jffs2\-eraseblock\fR \fISIZE\fR]
 .br
 	[\fB\-\-keyring\-packages\fR \fIPACKAGE\fI|\fI"PACKAGES"\fR]
-.br
-	[\-l|\fB\-\-language\fR \fILANGUAGE\fR]
 .br
 	[\-k|\fB\-\-linux\-flavours\fR \fIFLAVOUR\fR|\fI"FLAVOURS"\fR]
 .br
@@ -367,8 +365,6 @@ sets the VOLUME field in the header of a resulting CD/DVD and defaults to '(\fIM
 sets the eraseblock size for a JFFS2 (Second Journalling Flash File System) filesystem. The default is 64 KiB. If you use an erase block size different than the erase block size of the target MTD device, JFFS2 may not perform optimally. If the SIZE specified is below 4096, the units are assumed to be KiB.
 .IP "\fB\-\-keyring\-packages\fR \fIPACKAGE\fI|""\fIPACKAGES\fR""" 4
 sets the keyring package or additional keyring packages. By default this is set to debian\-archive\-keyring.
-.IP "\-l|\fB\-\-language\fR \fILANGUAGE\fR" 4
-sets the language of a live system by installing l10n related packages. It doesn't enable generation of the correct locales through setting the right boot parameters, those need to be done through the bootappend\-live parameter.
 .IP "\-k|\fB\-\-linux\-flavours\fR \fIFLAVOUR\fR|""\fIFLAVOURS\fR""" 4
 sets the kernel flavours to be installed. Note that in case you specify more than that the first will be configured the default kernel that gets booted.
 .IP "\fB\-\-linux\-packages\fR ""\fIPACKAGES\fR""" 4

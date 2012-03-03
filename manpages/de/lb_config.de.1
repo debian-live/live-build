@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2012\-02\-26 3.0~a45\-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2012\-03\-03 3.0~a45\-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -131,8 +131,6 @@
   [\fB\-\-jffs2\-eraseblock\fP \fISIZE\fP]
 .br
   [\fB\-\-keyring\-packages\fP \fIPACKAGE|"PACKAGES"\fP]
-.br
-  [\-l|\fB\-\-language\fP \fILANGUAGE\fP]
 .br
   [\-k|\fB\-\-linux\-flavours\fP \fIFLAVOUR\fP|\fI"FLAVOURS"\fP]
 .br
@@ -542,11 +540,6 @@ KiB.
 .IP "\fB\-\-keyring\-packages\fP \fIPACKAGE|\(dqPACKAGES\fP\(dq" 4
 sets the keyring package or additional keyring packages. By default this is
 set to debian\-archive\-keyring.
-.IP "\-l|\fB\-\-language\fP \fILANGUAGE\fP" 4
-sets the language of a live system by installing l10n related packages. It
-doesn't enable generation of the correct locales through setting the right
-boot parameters, those need to be done through the bootappend\-live
-parameter.
 .IP "\-k|\fB\-\-linux\-flavours\fP \fIFLAVOUR\fP|\(dq\fIFLAVOURS\fP\(dq" 4
 sets the kernel flavours to be installed. Note that in case you specify more
 than that the first will be configured the default kernel that gets booted.
