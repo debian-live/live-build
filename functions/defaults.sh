@@ -384,7 +384,7 @@ Set_defaults ()
 	# Setting mirror to fetch packages from
 	case "${LB_MODE}" in
 		debian)
-			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://ftp.de.debian.org/debian/}"
+			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://ftp.debian.org/debian/}"
 			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-${LB_MIRROR_BOOTSTRAP}}"
 			;;
 
