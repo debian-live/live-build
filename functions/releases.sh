@@ -15,7 +15,8 @@ RELEASE_sid="unstable"
 
 # Progress releases
 RELEASE_artax="1.0"
-RELEASE_baureo="unstable"
+RELEASE_baureo="2.0"
+RELEASE_charon="unstable"
 
 # Ubuntu releases
 RELEASE_hardy="8.04"		# LTS: 2013-04-01
