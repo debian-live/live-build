@@ -1,3 +1,49 @@
+live-build (3.0~a46-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Excluding honeyd for wheezy in rescue package list (Closes:
+    #660601).
+  * Including thttpd for squeeze only in rescue package list.
+  * Excluding guymager for wheezy in rescue package list.
+  * Removing full path from chroot calls in chroot function.
+
+  [ Richard Nelson ]
+  * Set parent distribution, parent debian installer, and mode, also
+    disable backports on l-b.cgi
+
+  [ Daniel Baumann ]
+  * Removing --hostname cruft, live-config bootparameters should be used
+    via --bootappend-live.
+  * Removing --username cruft, live-config bootparameters should be used
+    via --bootappend-live.
+  * Updating copyright file machine-readable format version 1.0.
+  * Updating to standards version 3.9.3.
+  * Marking lde in rescue list as squeeze only, thanks to Michal
+    Suchanek <hramrach@centrum.cz>.
+  * Adding architecture to the output message when running lb_config.
+  * Excluding security and volatile archives for ubuntu precise for the
+    the time being.
+  * Removing references to not existing --language option in lb_config
+    manpage.
+  * Switching default bootstrap mirror from ftp.de.debian.org to
+    ftp.debian.org, now that ftp.debian.org has upgraded hardware and
+    bandwith.
+  * Avoid calling update-initrd in lb_chroot_hacks if the target system
+    has no initrd, thanks to Hector Oron <zumbi@debian.org>.
+  * Excluding console-common in standard list for ubuntu as console-
+    common is in universe.
+  * Adding Italian debconf translations from Beatrice Torracca
+    <beatricet@libero.it> (Closes: #663428).
+  * Updating release list for progress.
+  * Updating release list for ubuntu.
+  * Moving pxelinux.cfg to pxelinux.cfg/default in pxelinux bootloader
+    configs.
+  * Moving kernel and initrd into tftpboot directory for netboot images.
+  * Prefering default modules in initrd even on netboot images (Closes:
+    #667594).
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 05 Apr 2012 10:32:51 +0200
+
 live-build (3.0~a45-1) unstable; urgency=low
 
   [ Daniel Baumann ]
