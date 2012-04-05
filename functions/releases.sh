@@ -15,12 +15,12 @@ RELEASE_sid="unstable"
 
 # Progress releases
 RELEASE_artax="1.0"
-RELEASE_baureo="unstable"
+RELEASE_baureo="2.0"
+RELEASE_charon="unstable"
 
 # Ubuntu releases
 RELEASE_hardy="8.04"		# LTS: 2013-04-01
 RELEASE_lucid="10.04"		# LTS: 2015-04-01
-RELEASE_maverick="10.10"	# 2012-04-01
 RELEASE_natty="11.04"		# 2012-10-01
 RELEASE_oneiric="11.10"		# 2013-04-01
 RELEASE_precise="12.04"		# LTS: 2017-04-01

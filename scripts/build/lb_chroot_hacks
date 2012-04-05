@@ -151,14 +151,16 @@ case "${LB_BINARY_IMAGES}" in
 		then
 			mkdir chroot/etc/initramfs-tools
 		fi
-		if [ ! "$(grep 'MODULES=netboot' chroot/etc/initramfs-tools/initramfs.conf)" ]
+
+		# Configuring initramfs for NFS
+		if ! grep -qs "BOOT=nfs" chroot/etc/initramfs-tools/initramfs.conf
 		then
-			# Configuring initramfs for NFS
-cat >> chroot/etc/initramfs-tools/initramfs.conf << EOF
-MODULES=netboot
-BOOT=nfs
-NFSROOT=auto
-EOF
+			echo "BOOT=nfs" >> chroot/etc/initramfs-tools/initramfs.conf
+		fi
+
+		if ! grep -qs "NFSROOT=auto" chroot/etc/initramfs-tools/initramfs.conf
+		then
+			echo "NFSROOT=auto" >> chroot/etc/initramfs-tools/initramfs.conf
 		fi
 		;;
 esac
@@ -174,7 +176,10 @@ case "${LB_INITRAMFS}" in
 		;;
 esac
 
-Chroot chroot "${UPDATE_INITRAMFS_OPTIONS} update-initramfs -k all -t -u"
+if [ "${LB_INITRAMFS}" != "none" ]
+then
+	Chroot chroot "${UPDATE_INITRAMFS_OPTIONS} update-initramfs -k all -t -u"
+fi
 
 # We probably ought to use COMPRESS= in a temporary file in
 # /etc/initramfs-tools/conf.d/ instead, but it's hard to pass options that
@@ -245,11 +250,6 @@ case "${LB_INITRAMFS}" in
 		ID=""
 		;;
 esac
-
-if [ -d chroot/home/${LB_USERNAME} ] && [ "${ID}" ]
-then
-	chown -R --quiet ${ID}:${ID} chroot/home/${LB_USERNAME}
-fi
 
 if [ "${LB_DEBIAN_INSTALLER}" = "live" ]
 then

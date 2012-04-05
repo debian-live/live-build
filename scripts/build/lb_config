@@ -75,7 +75,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--grub-splash FILE]\n\
 \t    [--gzip-options OPTION|\"OPTIONS\"]\n\
 \t    [--hooks FILE]\n\
-\t    [--hostname NAME]\n\
 \t    [--ignore-system-defaults]\n\
 \t    [--includes PATH|none]\n\
 \t    [--initramfs auto|none|live-boot|casper]\n\
@@ -144,7 +143,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--volatile true|false]\n\
 \t    [--backports true|false]\n\
 \t    [--exposed-root true|false]\n\
-\t    [--username NAME]\n\
 \t    [--verbose]\n\
 \t    [--win32-loader true|false]\n\
 \t    [--bootstrap-qemu-exclude PACKAGES]\n\
@@ -168,11 +166,11 @@ Local_arguments ()
 		package-lists:,security:,volatile:,backports:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,compression:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
-		grub-splash:,hostname:,isohybrid-options:,hdd-label:,hdd-size:,iso-application:,iso-preparer:,iso-publisher:,
+		grub-splash:,isohybrid-options:,hdd-label:,hdd-size:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
 		net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,
 		net-cow-server:,net-tarball:,swap-file-path:,swap-file-size:,syslinux-theme:,
-		username:,win32-loader:,source:,source-images:,breakpoints,conffile:,debug,force,
+		win32-loader:,source:,source-images:,breakpoints,conffile:,debug,force,
 		help,ignore-system-defaults,quiet,usage,verbose,version,bootstrap-qemu-static:,bootstrap-qemu-arch:,
 		bootstrap-qemu-exclude:"
 	# Remove spaces added by indentation
@@ -660,11 +658,6 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--hostname)
-				LB_HOSTNAME="${2}"
-				shift 2
-				;;
-
 			--isohybrid-options)
 				LB_ISOHYBRID_OPTIONS="${2}"
 				shift 2
@@ -767,11 +760,6 @@ Local_arguments ()
 
 			--syslinux-theme)
 				LB_SYSLINUX_THEME="${2}"
-				shift 2
-				;;
-
-			--username)
-				LB_USERNAME="${2}"
 				shift 2
 				;;
 
@@ -900,9 +888,9 @@ Check_defaults
 
 if [ ! -e config ]
 then
-	Echo_message "Creating config tree for a ${LB_MODE} system"
+	Echo_message "Creating config tree for a ${LB_MODE}/${LB_ARCHITECTURES} system"
 else
-	Echo_message "Updating config tree for a ${LB_MODE} system"
+	Echo_message "Updating config tree for a ${LB_MODE}/${LB_ARCHITECTURES} system"
 fi
 
 # Creating bootstrap configuration
@@ -1333,10 +1321,6 @@ LB_DEBIAN_INSTALLER_GUI="${LB_DEBIAN_INSTALLER_GUI}"
 # (Default: empty)
 LB_GRUB_SPLASH="${LB_GRUB_SPLASH}"
 
-# \$LB_HOSTNAME: set hostname
-# (Default: ${LB_HOSTNAME})
-LB_HOSTNAME="${LB_HOSTNAME}"
-
 # \$LB_HDD_LABEL: set hdd label
 # (Default: ${LB_HDD_LABEL})
 LB_HDD_LABEL="${LB_HDD_LABEL}"
@@ -1420,10 +1404,6 @@ LB_SWAP_FILE_SIZE="${LB_SWAP_FILE_SIZE}"
 # \$LB_SYSLINUX_THEME: set syslinux theme package
 # (Default: ${LB_SYSLINUX_THEME})
 LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME}"
-
-# \$LB_USERNAME: set username
-# (Default: ${LB_USERNAME})
-LB_USERNAME="${LB_USERNAME}"
 EOF
 
 # Creating lb_source_* configuration

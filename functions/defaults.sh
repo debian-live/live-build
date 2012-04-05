@@ -384,7 +384,7 @@ Set_defaults ()
 	# Setting mirror to fetch packages from
 	case "${LB_MODE}" in
 		debian)
-			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://ftp.de.debian.org/debian/}"
+			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://ftp.debian.org/debian/}"
 			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-${LB_MIRROR_BOOTSTRAP}}"
 			;;
 
@@ -850,7 +850,7 @@ Set_defaults ()
 
 	# Setting security updates option
 	case "${LB_DISTRIBUTION}" in
-		wheezy|sid|baureo)
+		wheezy|sid|precise)
 			LB_SECURITY="${LB_SECURITY:-false}"
 			;;
 
@@ -861,7 +861,7 @@ Set_defaults ()
 
 	# Setting volatile updates option
 	case "${LB_DISTRIBUTION}" in
-		wheezy|sid|baureo)
+		wheezy|sid|precise)
 			LB_VOLATILE="${LB_VOLATILE:-false}"
 			;;
 
@@ -1030,9 +1030,6 @@ Set_defaults ()
 	# Setting grub splash
 	# LB_GRUB_SPLASH
 
-	# Setting hostname
-	LB_HOSTNAME="${LB_HOSTNAME:-${LB_MODE}}"
-
 	# Setting iso author
 	case "${LB_MODE}" in
 		debian)
@@ -1181,21 +1178,6 @@ Set_defaults ()
 
 		*)
 			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-live-build}"
-			;;
-	esac
-
-	# Setting username
-	case "${LB_MODE}" in
-		ubuntu)
-			LB_USERNAME="${LB_USERNAME:-ubuntu}"
-			;;
-
-		kubuntu)
-			LB_USERNAME="${LB_USERNAME:-ubuntu}"
-			;;
-
-		*)
-			LB_USERNAME="${LB_USERNAME:-user}"
 			;;
 	esac
 

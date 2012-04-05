@@ -138,6 +138,10 @@ mkdir binary.tmp
 mv ${ROOT_DIR} tftpboot binary.tmp
 cd binary.tmp
 
+# Moving kernel and initrd image arround
+mkdir tftpboot/live
+mv */live/vmlinuz* */live/initrd* tftpboot/live
+
 tar cf ../binary-net.tar *
 
 case "${LB_COMPRESSION}" in

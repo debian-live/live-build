@@ -164,38 +164,6 @@ Check_multiarchitectures
 mkdir -p "${DESTDIR_LIVE}"
 
 # Setting boot parameters
-if [ -n "${LB_USERNAME}" ]
-then
-	case "${LB_INITRAMFS}" in
-		casper)
-			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} username=${LB_USERNAME}"
-			;;
-
-		live-boot)
-			if [ "${LB_USERNAME}" != "user" ]
-			then
-				LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} username=${LB_USERNAME}"
-			fi
-			;;
-	esac
-fi
-
-if [ -n "${LB_HOSTNAME}" ]
-then
-	case "${LB_INITRAMFS}" in
-		casper)
-			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} hostname=${LB_HOSTNAME}"
-			;;
-
-		live-boot)
-			if [ "${LB_HOSTNAME}" != "debian" ]
-			then
-				LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} hostname=${LB_HOSTNAME}"
-			fi
-			;;
-	esac
-fi
-
 if [ "${LB_UNION_FILESYSTEM}" != "aufs" ]
 then
 	LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} union=${LB_UNION_FILESYSTEM}"

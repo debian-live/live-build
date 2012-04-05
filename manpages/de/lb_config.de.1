@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2012\-02\-16 3.0~a45\-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2012\-04\-05 3.0~a46\-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -106,8 +106,6 @@
 .br
   [\fB\-\-hooks\fP \fIFILE\fP]
 .br
-  [\fB\-\-hostname\fP \fINAME\fP]
-.br
   [\fB\-\-ignore\-system\-defaults\fP]
 .br
   [\fB\-\-includes\fP \fIPATH\fP]
@@ -133,8 +131,6 @@
   [\fB\-\-jffs2\-eraseblock\fP \fISIZE\fP]
 .br
   [\fB\-\-keyring\-packages\fP \fIPACKAGE|"PACKAGES"\fP]
-.br
-  [\-l|\fB\-\-language\fP \fILANGUAGE\fP]
 .br
   [\-k|\fB\-\-linux\-flavours\fP \fIFLAVOUR\fP|\fI"FLAVOURS"\fP]
 .br
@@ -240,8 +236,6 @@
   [\fB\-\-backports\fP true|false]
 .br
   [\fB\-\-exposed\-root\fP true|false]
-.br
-  [\fB\-\-username\fP \fINAME\fP]
 .br
   [\fB\-\-verbose\fP]
 .br
@@ -486,8 +480,6 @@ supports it, also \-\-rsyncable is added.
 defines which hooks available in /usr/share/live/build/examples/hooks should
 be activated. Normally, there are no hooks executed. Make sure you know and
 understood the hook before you enable it.
-.IP "\fB\-\-hostname\fP \fINAME\fP" 4
-sets the hostname of the live system.
 .IP \fB\-\-ignore\-system\-defaults\fP 4
 \fBlb config\fP by default reads system defaults from /etc/live/build.conf and
 /etc/live/build.d when generating a new live system config directory. This
@@ -548,11 +540,6 @@ KiB.
 .IP "\fB\-\-keyring\-packages\fP \fIPACKAGE|\(dqPACKAGES\fP\(dq" 4
 sets the keyring package or additional keyring packages. By default this is
 set to debian\-archive\-keyring.
-.IP "\-l|\fB\-\-language\fP \fILANGUAGE\fP" 4
-sets the language of a live system by installing l10n related packages. It
-doesn't enable generation of the correct locales through setting the right
-boot parameters, those need to be done through the bootappend\-live
-parameter.
 .IP "\-k|\fB\-\-linux\-flavours\fP \fIFLAVOUR\fP|\(dq\fIFLAVOURS\fP\(dq" 4
 sets the kernel flavours to be installed. Note that in case you specify more
 than that the first will be configured the default kernel that gets booted.
@@ -770,8 +757,6 @@ or not.
 defines whether to expose the root filesystem as read only and not covered
 by the union filesystem. This has useful implications for certain speciality
 setups such as LTSP. By default, this option is false.
-.IP "\fB\-\-username\fP \fINAME\fP" 4
-sets the name of the account of the default user in the live system.
 .IP \fB\-\-verbose\fP 4
 increases the verbosity of messages output by \fBlb build\fP.
 .IP "\fB\-\-win32\-loader true|false\fP" 4

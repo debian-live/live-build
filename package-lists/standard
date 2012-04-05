@@ -2,7 +2,11 @@
 
 #include <minimal>
 
-console-setup console-common kbd
+console-setup
+#nif MODE ubuntu
+console-common
+#endif
+kbd
 
 #nif MODE progress
 locales

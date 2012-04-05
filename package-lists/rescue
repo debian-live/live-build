@@ -203,7 +203,9 @@ crashme
 dbench
 doscan
 dsniff
+#nif DISTRIBUTION wheezy
 honeyd
+#endif
 hping3
 icmpush
 macchanger
@@ -249,7 +251,9 @@ fuse-utils
 hfsplus
 hfsutils
 jfsutils
+#if DISTRIBUTION squeeze
 lde
+#enif
 lsscsi
 lvm2
 mdadm
@@ -311,7 +315,9 @@ expect
 gpm
 
 # Network servers:
+#if DISTRIBUTION squeeze
 thttpd
+#endif
 dhcp3-server
 hostap-utils
 hostapd
