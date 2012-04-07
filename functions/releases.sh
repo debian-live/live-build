@@ -9,7 +9,7 @@
 
 # Debian releases
 RELEASE_etch="4.0 r9"
-RELEASE_lenny="5.0.9"
+RELEASE_lenny="5.0.10"
 RELEASE_squeeze="6"
 RELEASE_sid="unstable"
 
