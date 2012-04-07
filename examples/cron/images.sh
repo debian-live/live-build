@@ -5,8 +5,8 @@ DISTRIBUTIONS="${DISTRIBUTIONS:-etch lenny sid}"
 FLAVOURS="${FLAVOURS:-standard rescue gnome-desktop kde-desktop lxde-desktop xfce-desktop}"
 SOURCE="${SOURCE:-enabled}"
 
-MIRROR="${MIRROR:-http://cdn.debian.net/debian/}"
-MIRROR_SECURITY="${MIRROR_SECURITY:-http://security.debian.org/}"
+MIRROR="${MIRROR:-http://archive.debian.org/debian/}"
+MIRROR_SECURITY="${MIRROR_SECURITY:-http://archive.debian.org/debian-security/}"
 
 # Dynamic variables
 ARCHITECTURE="$(dpkg --print-architecture)"
@@ -63,9 +63,9 @@ do
 
 		if [ "${SOURCE}" = "enabled" ]
 		then
-			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --binary-indices ${INDICES} --tasksel aptitude ${KERNEL} --source enabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
+			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --binary-indices ${INDICES} --tasksel aptitude ${KERNEL} --source enabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY} --mirror-binary ${MIRROR} --mirror-binary-security ${MIRROR_SECURITY}
 		else
-			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --binary-indices ${INDICES} --tasksel aptitude ${KERNEL} --source disabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY}
+			lh config -d ${DISTRIBUTION} -p ${FLAVOUR} --cache-stages "bootstrap rootfs" --apt-recommends disabled --binary-indices ${INDICES} --tasksel aptitude ${KERNEL} --source disabled --mirror-bootstrap ${MIRROR} --mirror-chroot ${MIRROR} --mirror-chroot-security ${MIRROR_SECURITY} --mirror-binary ${MIRROR} --mirror-binary-security ${MIRROR_SECURITY}
 		fi
 
 		if [ "${DISTRIBUTION}" = "sid" ]
