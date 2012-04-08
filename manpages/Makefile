@@ -12,7 +12,7 @@ po4a.cfg:
 
 	for MANPAGE in en/*; \
 	do \
-		SECTION="$$(basename $${MANPAGE} | awk -F. '{ print $$2 }')"; \
+		SECTION="$$(basename $${MANPAGE} | sed -e 's|\.|\n|g' | tail -n1)"; \
 		echo "[type: man] $${MANPAGE} \$$lang:\$$lang/$$(basename $${MANPAGE} .$${SECTION}).\$$lang.$${SECTION}" >> po4a.cfg; \
 	done
 
