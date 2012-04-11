@@ -52,6 +52,9 @@ Create_lockfile .lock
 # Creating chroot directory
 mkdir -p chroot
 
+# Temporarily including bzip2 manually until #657560 has been fixed in unstable
+CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --include=bzip2"
+
 # Setting cdebootstrap options
 if [ -n "${LB_ARCHITECTURES}" ]
 then
