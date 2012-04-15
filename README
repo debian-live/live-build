@@ -1,0 +1,35 @@
+Debian Live Git Repositories
+----------------------------
+
+This Git repository contains the following branches:
+
+  * master
+    This branch contains this README file and is otherwise not used.
+
+  * debian
+    This branch tracks the Debian unstable distribution and contains
+    the current state of last released version of the component.
+
+  * debian-next
+    This branch tracks the daily development and contains the work in
+    progress for the next to be released version of the component. The
+    branch is not necessarily always fast-forward, use it with caution.
+
+  * debian-old-*
+    These branches track a specific Debian stable distribution and contain
+    the past state of the Debian packging for the respective Debian release
+    and are otherwise not used anymore.
+
+  * pristine-tar
+    This branch contains the pristine-tar metadata. See pristine-tar(1)
+    or http://kitenet.net/~joey/code/pristine-tar/ for more information.
+
+  * upstream
+    This branch contains the upstream releases.
+
+  * tmp-*
+    These branches are temporary branches of the maintainers and
+    contributors to the Debian packaging. These branches are not
+    necessarily always fast-forward, use them with caution.
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 27 Jul 2012 16:55:31 +0200
