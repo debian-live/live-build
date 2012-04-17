@@ -149,7 +149,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 
 		case "${LB_MODE}" in
 			ubuntu)
-				Chroot chroot "tar xfz /usr/share/gfxboot-theme-ubuntu/bootlogo.tar.gz -C /root/tmp"
+				Chroot chroot "tar xfz /usr/share/gfxboot-theme-ubuntu/bootlogo.tar.gz -C /root/$(basename ${_SOURCE}).tmp"
 				;;
 		esac
 
