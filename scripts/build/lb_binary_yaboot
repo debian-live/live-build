@@ -189,7 +189,7 @@ fi
 LB_BOOTAPPEND_LIVE="$(echo ${LB_BOOTAPPEND_LIVE} | sed -e 's|  ||')"
 
 # Parameters are listed at: linux/Documentation/kernel-parameters.txt
-FAILSAFE="noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=ofonly"
+FAILSAFE="memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=ofonly"
 
 # Assembling kernel configuration
 
