@@ -841,7 +841,15 @@ Set_defaults ()
 			;;
 
 		*)
-			LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES:-linux-image-2.6}"
+			case "${LB_DISTRIBUTION}" in
+				squeeze|artax)
+					LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES:-linux-image-2.6}"
+					;;
+
+				*)
+					LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES:-linux-image}"
+					;;
+			esac
 			;;
 	esac
 
