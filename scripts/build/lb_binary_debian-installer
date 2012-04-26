@@ -339,11 +339,6 @@ then
 	# Downloading additional packages
 	mkdir -p chroot/binary.deb/archives/partial
 
-	for _ARCHIVE_AREA in $(echo ${LB_PARENT_ARCHIVE_AREAS} ${LB_ARCHIVE_AREAS})
-	do
-		mkdir -p binary/pool/${_ARCHIVE_AREA}
-	done
-
 	mv chroot/var/lib/dpkg/status chroot/var/lib/dpkg/status.tmp
 	touch chroot/var/lib/dpkg/status
 
@@ -489,8 +484,7 @@ then
 		mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
 
 		# Download .debs of the required packages
-		Chroot chroot ${_LB_APT_COMMAND} install ${DI_REQ_PACKAGES}
-		Chroot chroot ${_LB_APT_COMMAND} install ${DI_PACKAGES} ${DI_FIRMWARE_PACKAGES}
+		Chroot chroot ${_LB_APT_COMMAND} install ${DI_PACKAGES} ${DI_FIRMWARE_PACKAGES} ${DI_REQ_PACKAGES}
 	else
 		# Download .debs of the required packages
 		Chroot chroot ${_LB_APT_COMMAND} install ${DI_PACKAGES} ${DI_FIRMWARE_PACKAGES}
@@ -500,6 +494,11 @@ then
 	fi
 
 	mv chroot/binary.deb ./
+
+	for _ARCHIVE_AREA in $(echo ${LB_PARENT_ARCHIVE_AREAS} ${LB_ARCHIVE_AREAS})
+	do
+		mkdir -p binary/pool/${_ARCHIVE_AREA}
+	done
 
 	if Find_files binary.deb/archives/*.deb
 	then
