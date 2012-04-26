@@ -174,8 +174,18 @@ Install_file() {
 	local FILE
 	FILE="${1}"
 
+	local ARCHIVE_AREA
+	ARCHIVE_AREA="$(dpkg -I ${FILE} | awk '/^.*Section: / { print $2 }')"
+
+	if echo "${ARCHIVE_AREA}" | grep -qs '/'
+	then
+		ARCHIVE_AREA="$(echo ${ARCHIVE_AREA} | awk -F/ '{ print $1 }')"
+	else
+		ARCHIVE_AREA="main"
+	fi
+
 	local TARGET
-	TARGET="${2}"
+	TARGET="${2}/${ARCHIVE_AREA}"
 
 	SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
 
@@ -328,7 +338,12 @@ if [ "${DI_IMAGE_TYPE}" != "netboot" ]
 then
 	# Downloading additional packages
 	mkdir -p chroot/binary.deb/archives/partial
-	mkdir -p binary/pool/main
+
+	for _ARCHIVE_AREA in $(echo ${LB_PARENT_ARCHIVE_AREAS} ${LB_ARCHIVE_AREAS})
+	do
+		mkdir -p binary/pool/${_ARCHIVE_AREA}
+	done
+
 	mv chroot/var/lib/dpkg/status chroot/var/lib/dpkg/status.tmp
 	touch chroot/var/lib/dpkg/status
 
@@ -447,7 +462,7 @@ then
 		# We don't want to duplicate .debs of packages in binary/pool that are already
 		# installed to target/ via live-installer.
 		#
-		# However, we need to force various packages' inclusion in binary/pool/main as
+		# However, we need to force various packages' inclusion in binary/pool as
 		# d-i does not support (for example) re-installing grub from target/ - the grub
 		# .debs must actually exist.
 
@@ -486,7 +501,7 @@ then
 	then
 		for FILE in binary.deb/archives/*.deb
 		do
-			Install_file "${FILE}" "binary/pool/main"
+			Install_file "${FILE}" "binary/pool"
 		done
 	fi
 
@@ -497,7 +512,7 @@ then
 		then
 			for FILE in cache/packages_bootstrap/*.deb
 			do
-				Install_file "${FILE}" "binary/pool/main"
+				Install_file "${FILE}" "binary/pool"
 			done
 		else
 			Echo_error "Could not find packages in cache/packages_bootstrap."
@@ -513,7 +528,7 @@ then
 		do
 			if [ -e "${FILE}" ]
 			then
-				Install_file "${FILE}" "binary/pool/main"
+				Install_file "${FILE}" "binary/pool"
 			fi
 		done
 	fi
@@ -524,7 +539,7 @@ then
 		do
 			if [ -e "${FILE}" ]
 			then
-				Install_file "${FILE}" "binary/pool/main"
+				Install_file "${FILE}" "binary/pool"
 			fi
 		done
 	fi
@@ -600,7 +615,7 @@ then
 		do
 			if [ -e "${FILE}" ]
 			then
-				Install_file "${FILE}" "pool/main"
+				Install_file "${FILE}" "pool"
 
 				# Prefer local udebs over downloaded udebs
 				rm -f "$(basename ${FILE} | awk -F_ '{ print $1 }')"_*.udeb
@@ -614,7 +629,7 @@ then
 		do
 			if [ -e "${FILE}" ]
 			then
-				Install_file "${FILE}" "pool/main"
+				Install_file "${FILE}" "pool"
 
 				# Prefer local udebs over downloaded udebs
 				rm -f "$(basename ${FILE} | awk -F_ '{ print $1 }')"_*.udeb
