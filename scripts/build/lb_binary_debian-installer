@@ -397,6 +397,48 @@ then
 			;;
 	esac
 
+	# Include firmware packages
+	if [ "${LB_FIRMWARE_BINARY}" = "true" ]
+	then
+		# Assumption: firmware packages install files into /lib/firmware
+
+		# Get all firmware packages names
+		FIRMWARE_PACKAGES="$(wget ${WGET_OPTIONS} ${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz -O - | gunzip -c | awk '/^lib\/firmware/ { print $2 }' | sort -u)"
+
+		if [ "${LB_DERIVATIVE}" = "true" ]
+		then
+			FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} $(wget ${WGET_OPTIONS} ${LB_MIRROR_CHROOT}/dists/${LB_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz -O - | gunzip -c | awk '/^lib\/firmware/ { print $2 }' | sort -u)"
+		fi
+
+		# Filter out contrib packages if contrib is not enabled
+		if ! echo ${LB_ARCHIVE_AREAS} | grep -qs contrib
+		then
+			for _PACKAGE in ${FIRMWARE_PACKAGES}
+			do
+				_FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES} $(echo ${_PACKAGE} | grep -v '^contrib/')"
+			done
+
+			FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES}"
+		fi
+
+		# Filter out non-free packages if non-free is not enabled
+		if ! echo ${LB_ARCHIVE_AREAS} | grep -qs non-free
+		then
+			for _PACKAGE in ${FIRMWARE_PACKAGES}
+			do
+				_FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES} $(echo ${_PACKAGE} | grep -v '^non-free/')"
+			done
+
+			FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES}"
+		fi
+
+		# Drop section and keep package names only
+		for _PACKAGE in ${FIRMWARE_PACKAGES}
+		do
+			DI_FIRMWARE_PACKAGES="${DI_FIRMWARE_PACKAGES} $(echo ${_PACKAGE} | awk -F/ '{ print $NF }')"
+		done
+	fi
+
 	# Set apt command prefix
 	_LB_APT_COMMAND="apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb -o APT::Install-Recommends=false --download-only"
 
@@ -429,10 +471,10 @@ then
 
 		# Download .debs of the required packages
 		Chroot chroot ${_LB_APT_COMMAND} install ${DI_REQ_PACKAGES}
-		Chroot chroot ${_LB_APT_COMMAND} install ${DI_PACKAGES}
+		Chroot chroot ${_LB_APT_COMMAND} install ${DI_PACKAGES} ${DI_FIRMWARE_PACKAGES}
 	else
 		# Download .debs of the required packages
-		Chroot chroot ${_LB_APT_COMMAND} install ${DI_PACKAGES}
+		Chroot chroot ${_LB_APT_COMMAND} install ${DI_PACKAGES} ${DI_FIRMWARE_PACKAGES}
 
 		# Revert dpkg status file
 		mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
