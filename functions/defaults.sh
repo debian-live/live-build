@@ -1192,10 +1192,12 @@ Set_defaults ()
 	# Setting firmware option
 	case "${LB_MODE}" in
 		progress)
+			LB_FIRMWARE_CHROOT="${LB_FIRMWARE_CHROOT:-true}"
 			LB_FIRMWARE_BINARY="${LB_FIRMWARE_BINARY:-true}"
 			;;
 
 		*)
+			LB_FIRMWARE_CHROOT="${LB_FIRMWARE_CHROOT:-false}"
 			LB_FIRMWARE_BINARY="${LB_FIRMWARE_BINARY:-false}"
 			;;
 	esac

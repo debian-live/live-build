@@ -53,6 +53,47 @@ then
 		done
 	done
 
+	if [ "${LB_FIRMWARE_CHROOT}" = "true" ]
+	then
+		# Assumption: firmware packages install files into /lib/firmware
+
+		# Get all firmware packages names
+		FIRMWARE_PACKAGES="$(wget ${WGET_OPTIONS} ${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz -O - | gunzip -c | awk '/^lib\/firmware/ { print $2 }' | sort -u)"
+
+		if [ "${LB_DERIVATIVE}" = "true" ]
+		then
+			FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} $(wget ${WGET_OPTIONS} ${LB_MIRROR_CHROOT}/dists/${LB_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz -O - | gunzip -c | awk '/^lib\/firmware/ { print $2 }' | sort -u)"
+		fi
+
+		# Filter out contrib packages if contrib is not enabled
+		if ! echo ${LB_ARCHIVE_AREAS} | grep -qs contrib
+		then
+			for _PACKAGE in ${FIRMWARE_PACKAGES}
+			do
+				_FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES} $(echo ${_PACKAGE} | grep -v '^contrib/')"
+			done
+
+			FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES}"
+		fi
+
+		# Filter out non-free packages if non-free is not enabled
+		if ! echo ${LB_ARCHIVE_AREAS} | grep -qs non-free
+		then
+			for _PACKAGE in ${FIRMWARE_PACKAGES}
+			do
+				_FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES} $(echo ${_PACKAGE} | grep -v '^non-free/')"
+			done
+
+			FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES}"
+		fi
+
+		# Drop section and keep package names only
+		for _PACKAGE in ${FIRMWARE_PACKAGES}
+		do
+			echo $(echo ${_PACKAGE} | awk -F/ '{ print $NF }') >> chroot/root/packages.chroot
+		done
+	fi
+
 	# Creating stage file
 	Create_stagefile .stage/chroot_linux-image
 fi
