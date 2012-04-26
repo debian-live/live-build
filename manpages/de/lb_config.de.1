@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2012\-04\-05 3.0~a46\-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2012\-04\-26 3.0~a46\-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -97,6 +97,10 @@
   [\fB\-\-dump\fP]
 .br
   [\fB\-\-fdisk\fP fdisk|fdisk.dist]
+.br
+  [\fB\-\-firmware\-binary true|false\fP]
+.br
+  [\fB\-\-firmware\-chroot true|false\fP]
 .br
   [\fB\-\-force\fP]
 .br
@@ -726,6 +730,19 @@ start distributing your live image, you should make sure you build it with a
 source image alongside.
 .IP "\-s|\fB\-\-source\-images\fP iso|net|tar|hdd" 4
 defines the image type for the source image. Default is tar.
+.IP "\fB\-\-firmware\-binary\fP true|false" 4
+defines if firmware packages should be automatically included into the
+binary pool for debian\-installer. Note that only firmware packages available
+within the configured archive areas are included, e.g. an image with
+packages from main only will not automatically include firmware from
+non\-free. This option does not interfere with explicitly listed packages in
+binary package lists.
+.IP "\fB\-\-firmware\-chroot\fP true|false" 4
+defines if firmware packages should be automatically included into the live
+image. Note that only firmware packages available within the configured
+archive areas are included, e.g. an image with packages from main only will
+not automatically include firmware from non\-free. This option does not
+interfere with explicitly listed packages in chroot package lists.
 .IP "\fB\-\-swap\-file\-path\fP \fIPATH\fP" 4
 defines the path to a swap file to create in the binary image. Default is
 not to create a swap file.
