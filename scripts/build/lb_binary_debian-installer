@@ -509,6 +509,23 @@ then
 		done
 	fi
 
+	# Symlink firmware packages to /firmware
+	if [ -n "${DI_FIRMWARE_PACKAGES}" ]
+	then
+		mkdir -p binary/firmware
+		cd binary/firmware
+
+		for _PACKAGE in ${DI_FIRMWARE_PACKAGES}
+		do
+			for _FILE in $(find ../pool -name "${_PACKAGE}_*.deb")
+			do
+				ln -s ${_FILE} ./
+			done
+		done
+
+		cd "${OLDPWD}"
+	fi
+
 	if [ "${LB_DEBIAN_INSTALLER}" != "live" ]
 	then
 		# Including base debian packages
