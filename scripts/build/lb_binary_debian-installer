@@ -727,7 +727,7 @@ EOF
 	rm -f chroot/binary.sh
 	mv chroot/root/binary ./
 
-	DISTRIBUTIONS="frozen stable testing unstable"
+	DISTRIBUTIONS="stable testing unstable"
 
 	if [ "${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}" != "${LB_PARENT_DISTRIBUTION}" ]
 	then
