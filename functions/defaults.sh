@@ -1190,17 +1190,8 @@ Set_defaults ()
 	esac
 
 	# Setting firmware option
-	case "${LB_MODE}" in
-		progress)
-			LB_FIRMWARE_CHROOT="${LB_FIRMWARE_CHROOT:-true}"
-			LB_FIRMWARE_BINARY="${LB_FIRMWARE_BINARY:-true}"
-			;;
-
-		*)
-			LB_FIRMWARE_CHROOT="${LB_FIRMWARE_CHROOT:-false}"
-			LB_FIRMWARE_BINARY="${LB_FIRMWARE_BINARY:-false}"
-			;;
-	esac
+	LB_FIRMWARE_CHROOT="${LB_FIRMWARE_CHROOT:-true}"
+	LB_FIRMWARE_BINARY="${LB_FIRMWARE_BINARY:-true}"
 
 	# Setting swap file
 	LB_SWAP_FILE_SIZE="${LB_SWAP_FILE_SIZE:-512}"
