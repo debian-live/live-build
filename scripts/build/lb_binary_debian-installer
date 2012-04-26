@@ -445,6 +445,10 @@ then
 			done
 
 			FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES}"
+
+		else
+			# Manually add firmware-linux/non-free meta package
+			FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} firmware-linux"
 		fi
 
 		# Drop section and keep package names only
