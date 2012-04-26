@@ -92,6 +92,13 @@ then
 		do
 			echo $(echo ${_PACKAGE} | awk -F/ '{ print $NF }') >> chroot/root/packages.chroot
 		done
+
+# Some known licenses required to be accepted
+cat >> chroot/root/packages.chroot.cfg << EOF
+firmware-ivtv firmware-ivtv/license/accepted boolean true
+firmware-ipw2x00 firmware-ipw2x00/license/accepted boolean true
+EOF
+
 	fi
 
 	# Creating stage file
