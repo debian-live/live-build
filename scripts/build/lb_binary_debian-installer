@@ -545,18 +545,21 @@ then
 	fi
 
 	# Generating deb indices
-	mkdir -p binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}
+	for _ARCHIVE_AREA in $(cd binary/pool && ls)
+	do
+		mkdir -p binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/${_ARCHIVE_AREA}/binary-${LB_ARCHITECTURES}
 
-	mv binary chroot/root
-	echo "cd /root/binary && apt-ftparchive packages pool/main > dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Packages" > chroot/binary.sh
-	Chroot chroot "sh binary.sh"
-	rm -f chroot/binary.sh
-	mv chroot/root/binary ./
+		mv binary chroot/root
+		echo "cd /root/binary && apt-ftparchive packages pool/${_ARCHIVE_AREA} > dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/${_ARCHIVE_AREA}/binary-${LB_ARCHITECTURES}/Packages" > chroot/binary.sh
+		Chroot chroot "sh binary.sh"
+		rm -f chroot/binary.sh
+		mv chroot/root/binary ./
 
-	gzip -9 -c binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Packages > binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Packages.gz
+		gzip -9 -c binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/${_ARCHIVE_AREA}/binary-${LB_ARCHITECTURES}/Packages > binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/${_ARCHIVE_AREA}/binary-${LB_ARCHITECTURES}/Packages.gz
 
-	# Fetching release
-	Download_file binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Release "${LB_PARENT_MIRROR_CHROOT}"/dists/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/main/binary-"${LB_ARCHITECTURES}"/Release
+		# Fetching release
+		Download_file binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/${_ARCHIVE_AREA}/binary-${LB_ARCHITECTURES}/Release "${LB_PARENT_MIRROR_CHROOT}"/dists/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/${_ARCHIVE_AREA}/binary-"${LB_ARCHITECTURES}"/Release
+	done
 
 	# Udeb handling
 	mkdir binary.udeb
@@ -715,7 +718,7 @@ cd /root/binary && apt-ftparchive \
 	-o APT::FTPArchive::Release::Codename="${LB_PARENT_DISTRIBUTION}" \
 	-o APT::FTPArchive::Release::Date="$(date -R)" \
 	-o APT::FTPArchive::Release::Architectures="${LB_ARCHITECTURES}" \
-	-o APT::FTPArchive::Release::Components="main" \
+	-o APT::FTPArchive::Release::Components="${LB_PARENT_ARCHIVE_AREAS}" \
 	-o APT::FTPArchive::Release::Description="Last updated: $(date -R)" \
 	release dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION} > dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/Release
 EOF
