@@ -1,3 +1,46 @@
+live-build (3.0~a47-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * When removing fstab for live-installer also touch an empty file for
+    it to avoid other packages failing on non-existing fstab.
+  * Making extraction of the manpage section in manpages/Makefile work
+    with multiple dots in the filename.
+  * Correcting regression in the form of a wrong path in binary_syslinux
+    for syslinux theme packages.
+  * Temporarily including bzip2 manually when bootstrapping until
+    #657560 has been fixed in unstable.
+  * Correcting destination directory for extraction of the gfxboot-theme
+    in ubuntu mode.
+
+  [ intrigeri ]
+  * Adding nosplash to the list of options appended in fail-safe mode.
+
+  [ Daniel Baumann ]
+  * Adding memtest to the list of options appended in fail-safe mode.
+  * Updating defaults for linux-latest metapackages in wheezy.
+  * Adding support for including firmware packages automatically within
+    debian-installer.
+  * Installing packages into their detected sections within binary pool,
+    needed for proper firmware package placement.
+  * Generating package indices for the detected sections within binary
+    pool, needed for proper firmware package placement.
+  * Removing 'frozen' symlink in d-i dists, the other suitnames can
+    probably go to.
+  * Adding support for including firmware packages automatically within
+    the live system.
+  * Adding entries about the firmware options in lb_config manpage.
+  * Automatically preseed some known firmware packages.
+  * Also include firmware-linux meta package if non-free is enabled.
+  * Updating static list of live specific packages that get
+    unconditionally added and included in the source images.
+  * Unconditionally including firmware in all images by default. This is
+    safe since only firmware available within the configured archive
+    area is included automatically, see manpage.
+  * Adding symlinks in /firmware for debian-installer on live media.
+  * Slight reordering in lb_binary_debian-installer.
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 27 Apr 2012 11:37:00 +0200
+
 live-build (3.0~a46-1) unstable; urgency=low
 
   [ Daniel Baumann ]
