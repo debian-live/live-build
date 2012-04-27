@@ -54,9 +54,7 @@ Chroot chroot "dpkg --get-selections" | awk '{ print $1 }' > source-selection.tx
 
 cat >> source-selection.txt << EOF
 ${LB_BOOTLOADER}
-live-helper
-${LB_INITRAMFS}
-live-config-${LB_INITSYSTEM}
+live-build
 dosfstools
 genisoimage
 parted

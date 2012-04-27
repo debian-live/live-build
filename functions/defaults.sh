@@ -841,7 +841,15 @@ Set_defaults ()
 			;;
 
 		*)
-			LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES:-linux-image-2.6}"
+			case "${LB_DISTRIBUTION}" in
+				squeeze|artax)
+					LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES:-linux-image-2.6}"
+					;;
+
+				*)
+					LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES:-linux-image}"
+					;;
+			esac
 			;;
 	esac
 
@@ -1180,6 +1188,10 @@ Set_defaults ()
 			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-live-build}"
 			;;
 	esac
+
+	# Setting firmware option
+	LB_FIRMWARE_CHROOT="${LB_FIRMWARE_CHROOT:-true}"
+	LB_FIRMWARE_BINARY="${LB_FIRMWARE_BINARY:-true}"
 
 	# Setting swap file
 	LB_SWAP_FILE_SIZE="${LB_SWAP_FILE_SIZE:-512}"

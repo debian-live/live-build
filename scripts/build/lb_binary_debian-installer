@@ -174,8 +174,18 @@ Install_file() {
 	local FILE
 	FILE="${1}"
 
+	local ARCHIVE_AREA
+	ARCHIVE_AREA="$(dpkg -I ${FILE} | awk '/^.*Section: / { print $2 }')"
+
+	if echo "${ARCHIVE_AREA}" | grep -qs '/'
+	then
+		ARCHIVE_AREA="$(echo ${ARCHIVE_AREA} | awk -F/ '{ print $1 }')"
+	else
+		ARCHIVE_AREA="main"
+	fi
+
 	local TARGET
-	TARGET="${2}"
+	TARGET="${2}/${ARCHIVE_AREA}"
 
 	SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
 
@@ -328,7 +338,7 @@ if [ "${DI_IMAGE_TYPE}" != "netboot" ]
 then
 	# Downloading additional packages
 	mkdir -p chroot/binary.deb/archives/partial
-	mkdir -p binary/pool/main
+
 	mv chroot/var/lib/dpkg/status chroot/var/lib/dpkg/status.tmp
 	touch chroot/var/lib/dpkg/status
 
@@ -397,6 +407,52 @@ then
 			;;
 	esac
 
+	# Include firmware packages
+	if [ "${LB_FIRMWARE_BINARY}" = "true" ]
+	then
+		# Assumption: firmware packages install files into /lib/firmware
+
+		# Get all firmware packages names
+		FIRMWARE_PACKAGES="$(wget ${WGET_OPTIONS} ${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz -O - | gunzip -c | awk '/^lib\/firmware/ { print $2 }' | sort -u)"
+
+		if [ "${LB_DERIVATIVE}" = "true" ]
+		then
+			FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} $(wget ${WGET_OPTIONS} ${LB_MIRROR_CHROOT}/dists/${LB_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz -O - | gunzip -c | awk '/^lib\/firmware/ { print $2 }' | sort -u)"
+		fi
+
+		# Filter out contrib packages if contrib is not enabled
+		if ! echo ${LB_ARCHIVE_AREAS} | grep -qs contrib
+		then
+			for _PACKAGE in ${FIRMWARE_PACKAGES}
+			do
+				_FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES} $(echo ${_PACKAGE} | grep -v '^contrib/')"
+			done
+
+			FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES}"
+		fi
+
+		# Filter out non-free packages if non-free is not enabled
+		if ! echo ${LB_ARCHIVE_AREAS} | grep -qs non-free
+		then
+			for _PACKAGE in ${FIRMWARE_PACKAGES}
+			do
+				_FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES} $(echo ${_PACKAGE} | grep -v '^non-free/')"
+			done
+
+			FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES}"
+
+		else
+			# Manually add firmware-linux/non-free meta package
+			FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} firmware-linux"
+		fi
+
+		# Drop section and keep package names only
+		for _PACKAGE in ${FIRMWARE_PACKAGES}
+		do
+			DI_FIRMWARE_PACKAGES="${DI_FIRMWARE_PACKAGES} $(echo ${_PACKAGE} | awk -F/ '{ print $NF }')"
+		done
+	fi
+
 	# Set apt command prefix
 	_LB_APT_COMMAND="apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb -o APT::Install-Recommends=false --download-only"
 
@@ -405,7 +461,7 @@ then
 		# We don't want to duplicate .debs of packages in binary/pool that are already
 		# installed to target/ via live-installer.
 		#
-		# However, we need to force various packages' inclusion in binary/pool/main as
+		# However, we need to force various packages' inclusion in binary/pool as
 		# d-i does not support (for example) re-installing grub from target/ - the grub
 		# .debs must actually exist.
 
@@ -428,11 +484,10 @@ then
 		mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
 
 		# Download .debs of the required packages
-		Chroot chroot ${_LB_APT_COMMAND} install ${DI_REQ_PACKAGES}
-		Chroot chroot ${_LB_APT_COMMAND} install ${DI_PACKAGES}
+		Chroot chroot ${_LB_APT_COMMAND} install ${DI_PACKAGES} ${DI_FIRMWARE_PACKAGES} ${DI_REQ_PACKAGES}
 	else
 		# Download .debs of the required packages
-		Chroot chroot ${_LB_APT_COMMAND} install ${DI_PACKAGES}
+		Chroot chroot ${_LB_APT_COMMAND} install ${DI_PACKAGES} ${DI_FIRMWARE_PACKAGES}
 
 		# Revert dpkg status file
 		mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
@@ -440,12 +495,34 @@ then
 
 	mv chroot/binary.deb ./
 
+	for _ARCHIVE_AREA in $(echo ${LB_PARENT_ARCHIVE_AREAS} ${LB_ARCHIVE_AREAS})
+	do
+		mkdir -p binary/pool/${_ARCHIVE_AREA}
+	done
+
 	if Find_files binary.deb/archives/*.deb
 	then
 		for FILE in binary.deb/archives/*.deb
 		do
-			Install_file "${FILE}" "binary/pool/main"
+			Install_file "${FILE}" "binary/pool"
 		done
+	fi
+
+	# Symlink firmware packages to /firmware
+	if [ -n "${DI_FIRMWARE_PACKAGES}" ]
+	then
+		mkdir -p binary/firmware
+		cd binary/firmware
+
+		for _PACKAGE in ${DI_FIRMWARE_PACKAGES}
+		do
+			for _FILE in $(find ../pool -name "${_PACKAGE}_*.deb")
+			do
+				ln -s ${_FILE} ./
+			done
+		done
+
+		cd "${OLDPWD}"
 	fi
 
 	if [ "${LB_DEBIAN_INSTALLER}" != "live" ]
@@ -455,7 +532,7 @@ then
 		then
 			for FILE in cache/packages_bootstrap/*.deb
 			do
-				Install_file "${FILE}" "binary/pool/main"
+				Install_file "${FILE}" "binary/pool"
 			done
 		else
 			Echo_error "Could not find packages in cache/packages_bootstrap."
@@ -471,7 +548,7 @@ then
 		do
 			if [ -e "${FILE}" ]
 			then
-				Install_file "${FILE}" "binary/pool/main"
+				Install_file "${FILE}" "binary/pool"
 			fi
 		done
 	fi
@@ -482,24 +559,27 @@ then
 		do
 			if [ -e "${FILE}" ]
 			then
-				Install_file "${FILE}" "binary/pool/main"
+				Install_file "${FILE}" "binary/pool"
 			fi
 		done
 	fi
 
 	# Generating deb indices
-	mkdir -p binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}
+	for _ARCHIVE_AREA in $(cd binary/pool && ls)
+	do
+		mkdir -p binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/${_ARCHIVE_AREA}/binary-${LB_ARCHITECTURES}
 
-	mv binary chroot/root
-	echo "cd /root/binary && apt-ftparchive packages pool/main > dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Packages" > chroot/binary.sh
-	Chroot chroot "sh binary.sh"
-	rm -f chroot/binary.sh
-	mv chroot/root/binary ./
+		mv binary chroot/root
+		echo "cd /root/binary && apt-ftparchive packages pool/${_ARCHIVE_AREA} > dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/${_ARCHIVE_AREA}/binary-${LB_ARCHITECTURES}/Packages" > chroot/binary.sh
+		Chroot chroot "sh binary.sh"
+		rm -f chroot/binary.sh
+		mv chroot/root/binary ./
 
-	gzip -9 -c binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Packages > binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Packages.gz
+		gzip -9 -c binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/${_ARCHIVE_AREA}/binary-${LB_ARCHITECTURES}/Packages > binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/${_ARCHIVE_AREA}/binary-${LB_ARCHITECTURES}/Packages.gz
 
-	# Fetching release
-	Download_file binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/binary-${LB_ARCHITECTURES}/Release "${LB_PARENT_MIRROR_CHROOT}"/dists/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/main/binary-"${LB_ARCHITECTURES}"/Release
+		# Fetching release
+		Download_file binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/${_ARCHIVE_AREA}/binary-${LB_ARCHITECTURES}/Release "${LB_PARENT_MIRROR_CHROOT}"/dists/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/${_ARCHIVE_AREA}/binary-"${LB_ARCHITECTURES}"/Release
+	done
 
 	# Udeb handling
 	mkdir binary.udeb
@@ -558,7 +638,7 @@ then
 		do
 			if [ -e "${FILE}" ]
 			then
-				Install_file "${FILE}" "pool/main"
+				Install_file "${FILE}" "pool"
 
 				# Prefer local udebs over downloaded udebs
 				rm -f "$(basename ${FILE} | awk -F_ '{ print $1 }')"_*.udeb
@@ -572,7 +652,7 @@ then
 		do
 			if [ -e "${FILE}" ]
 			then
-				Install_file "${FILE}" "pool/main"
+				Install_file "${FILE}" "pool"
 
 				# Prefer local udebs over downloaded udebs
 				rm -f "$(basename ${FILE} | awk -F_ '{ print $1 }')"_*.udeb
@@ -658,7 +738,7 @@ cd /root/binary && apt-ftparchive \
 	-o APT::FTPArchive::Release::Codename="${LB_PARENT_DISTRIBUTION}" \
 	-o APT::FTPArchive::Release::Date="$(date -R)" \
 	-o APT::FTPArchive::Release::Architectures="${LB_ARCHITECTURES}" \
-	-o APT::FTPArchive::Release::Components="main" \
+	-o APT::FTPArchive::Release::Components="${LB_PARENT_ARCHIVE_AREAS}" \
 	-o APT::FTPArchive::Release::Description="Last updated: $(date -R)" \
 	release dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION} > dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/Release
 EOF
@@ -667,7 +747,7 @@ EOF
 	rm -f chroot/binary.sh
 	mv chroot/root/binary ./
 
-	DISTRIBUTIONS="frozen stable testing unstable"
+	DISTRIBUTIONS="stable testing unstable"
 
 	if [ "${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}" != "${LB_PARENT_DISTRIBUTION}" ]
 	then

@@ -135,6 +135,8 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--security true|false]\n\
 \t    [--source true|false]\n\
 \t    [-s|--source-images iso|net|tar|hdd]\n\
+\t    [--firmware-binary true|false]\n\
+\t    [--firmware-chroot true|false]\n\
 \t    [--swap-file-path PATH]\n\
 \t    [--swap-file-size MB]\n\
 \t    [--syslinux-theme THEME_SUFFIX]\n\
@@ -169,7 +171,7 @@ Local_arguments ()
 		grub-splash:,isohybrid-options:,hdd-label:,hdd-size:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
 		net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,
-		net-cow-server:,net-tarball:,swap-file-path:,swap-file-size:,syslinux-theme:,
+		net-cow-server:,net-tarball:,firmware-binary:,firmware-chroot:,swap-file-path:,swap-file-size:,syslinux-theme:,
 		win32-loader:,source:,source-images:,breakpoints,conffile:,debug,force,
 		help,ignore-system-defaults,quiet,usage,verbose,version,bootstrap-qemu-static:,bootstrap-qemu-arch:,
 		bootstrap-qemu-exclude:"
@@ -745,6 +747,16 @@ Local_arguments ()
 
 			--net-tarball)
 				LB_NET_TARBALL="${2}"
+				shift 2
+				;;
+
+			--firmware-binary)
+				LB_FIRMWARE_BINARY="${2}"
+				shift 2
+				;;
+
+			--firmware-chroot)
+				LB_FIRMWARE_CHROOT="${2}"
 				shift 2
 				;;
 
@@ -1392,6 +1404,14 @@ LB_NET_COW_SERVER="${LB_NET_COW_SERVER}"
 # \$LB_NET_TARBALL: set net tarball
 # (Default: ${LB_NET_TARBALL})
 LB_NET_TARBALL="${LB_NET_TARBALL}"
+
+# \$LB_FIRMWARE_BINARY: include firmware packages in debian-installer
+# (Default: ${LB_FIRMWARE_BINARY})
+LB_FIRMWARE_BINARY="${LB_FIRMWARE_BINARY}"
+
+# \$LB_FIRMWARE_CHROOT: include firmware packages in debian-installer
+# (Default: ${LB_FIRMWARE_CHROOT})
+LB_FIRMWARE_CHROOT="${LB_FIRMWARE_CHROOT}"
 
 # \$LB_SWAP_FILE_PATH: set swap file path
 # (Default: ${LB_SWAP_FILE_PATH})

@@ -100,10 +100,10 @@ case "${LB_BUILD_WITH_CHROOT}" in
 
 		if [ "${LB_SYSLINUX_THEME}" != "live-build" ]
 		then
-			if [ ! -e /usr/lib/syslinux/themes/${LB_SYSLINUX_THEME} ]
+			if [ ! -e /usr/share/syslinux/themes/${LB_SYSLINUX_THEME} ]
 			then
 				# syslinux-theme
-				Echo_error "/usr/lib/syslinux/themes/${LB_SYSLINUX_THEME} - no such directory."
+				Echo_error "/usr/share/syslinux/themes/${LB_SYSLINUX_THEME} - no such directory."
 				exit 1
 			fi
 		fi
@@ -149,7 +149,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 
 		case "${LB_MODE}" in
 			ubuntu)
-				Chroot chroot "tar xfz /usr/share/gfxboot-theme-ubuntu/bootlogo.tar.gz -C /root/tmp"
+				Chroot chroot "tar xfz /usr/share/gfxboot-theme-ubuntu/bootlogo.tar.gz -C /root/$(basename ${_SOURCE}).tmp"
 				;;
 		esac
 
