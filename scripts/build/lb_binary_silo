@@ -146,9 +146,6 @@ fi
 
 LB_BOOTAPPEND_LIVE="$(echo ${LB_BOOTAPPEND_LIVE} | sed -e 's|  ||')"
 
-# Parameters are listed at: linux/Documentation/kernel-parameters.txt
-FAILSAFE="memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=ofonly"
-
 # Assembling kernel configuration
 
 # Default entries
@@ -157,7 +154,11 @@ DEFAULT_KERNEL="$(basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR})"
 DEFAULT_INITRD="initrd.img-$(echo ${DEFAULT_KERNEL} | sed -e 's|vmlinuz-||')"
 
 Silo_live_entry "live" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}"
-Silo_live_entry "live-failsafe" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}" "${FAILSAFE}"
+
+if [ "${LB_BOOTAPPEND_FAILSAFE}" != "none" ]
+then
+	Silo_live_entry "live-failsafe" "${DEFAULT_KERNEL}" "${DEFAULT_INITRD}" "${LB_BOOTAPPEND_FAILSAFE}"
+fi
 
 if [ "$(echo ${LB_LINUX_FLAVOURS} | wc -w)" -gt "1" ]
 then
@@ -168,7 +169,7 @@ then
 		INITRD="initrd.img-${KERNEL_VERSION}"
 
 		Silo_live_entry "live-${KERNEL_VERSION}" "${KERNEL_IMAGE}" "${INITRD}"
-		Silo_live_entry "live-${KERNEL_VERSION}-failsafe" "${KERNEL_IMAGE}" "${INITRD}" "${FAILSAFE}"
+		Silo_live_entry "live-${KERNEL_VERSION}-failsafe" "${KERNEL_IMAGE}" "${INITRD}" "${LB_BOOTAPPEND_FAILSAFE}"
 	done
 fi
 

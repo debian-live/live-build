@@ -989,6 +989,8 @@ Set_defaults ()
 	fi
 
 	# Setting boot parameters
+	LB_BOOTAPPEND_FAILSAFE="${LB_BOOTAPPEND_FAILSAFE:-memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal}"
+
 	# LB_BOOTAPPEND_LIVE
 	if [ -n "${LB_DEBIAN_INSTALLER_PRESEEDFILE}" ]
 	then
