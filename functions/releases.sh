@@ -24,3 +24,4 @@ RELEASE_lucid="10.04"		# LTS: 2015-04-01
 RELEASE_natty="11.04"		# 2012-10-01
 RELEASE_oneiric="11.10"		# 2013-04-01
 RELEASE_precise="12.04"		# LTS: 2017-04-01
+RELEASE_quanal="12.10"		# 2014-04-01
