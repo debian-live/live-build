@@ -182,6 +182,7 @@ then
 			    -e "s|@KERNEL@|/live/vmlinuz|g" \
 			    -e "s|@INITRD@|/live/initrd.img|g" \
 			    -e "s|@LB_BOOTAPPEND_LIVE@|${LB_BOOTAPPEND_LIVE}|g" \
+			    -e "s|@LB_BOOTAPPEND_FAILSAFE@|${LB_BOOTAPPEND_FAILSAFE}|g" \
 			"${_TARGET}/live.cfg.in" >> "${_TARGET}/live.cfg"
 
 			rm -f "${_TARGET}/live.cfg.in"
@@ -201,6 +202,7 @@ then
 				    -e "s|@KERNEL@|/live/vmlinuz${_NUMBER}|g" \
 				    -e "s|@INITRD@|/live/initrd${_NUMBER}.img|g" \
 				    -e "s|@LB_BOOTAPPEND_LIVE@|${LB_BOOTAPPEND_LIVE}|g" \
+				    -e "s|@LB_BOOTAPPEND_FAILSAFE@|${LB_BOOTAPPEND_FAILSAFE}|g" \
 				"${_TARGET}/live.cfg.in" >> "${_TARGET}/live.cfg"
 			done
 
@@ -209,7 +211,8 @@ then
 	esac
 elif [ -e "${_TARGET}/live.cfg" ]
 then
-	sed -i -e "s|@LB_BOOTAPPEND_LIVE@|${LB_BOOTAPPEND_LIVE}|g" \
+	sed -i  -e "s|@LB_BOOTAPPEND_LIVE@|${LB_BOOTAPPEND_LIVE}|g" \
+		-e "s|@LB_BOOTAPPEND_FAILSAFE@|${LB_BOOTAPPEND_FAILSAFE}|g" \
 	${_TARGET}/live.cfg
 fi
 
