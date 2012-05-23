@@ -296,7 +296,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 		Save_cache cache/packages_binary
 		;;
 
-	none)
+	plain)
 		if [ -d binary/${INITFS}/filesystem.dir ]
 		then
 			rm -rf binary/${INITFS}/filesystem.dir
