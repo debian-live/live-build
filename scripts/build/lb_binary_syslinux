@@ -51,7 +51,16 @@ Check_crossarchitectures
 case "${LB_BINARY_IMAGES}" in
 	iso*)
 		_BOOTLOADER="isolinux"
-		_TARGET="binary/isolinux"
+
+		case "${LB_MODE}" in
+			progress)
+				_TARGET="binary/boot"
+				;;
+
+			*)
+				_TARGET="binary/isolinux"
+				;;
+		esac
 		;;
 
 	net*)
@@ -61,7 +70,16 @@ case "${LB_BINARY_IMAGES}" in
 
 	hdd*|*)
 		_BOOTLOADER="syslinux"
-		_TARGET="binary/syslinux"
+
+		case "${LB_MODE}" in
+			progress)
+				_TARGET="binary/boot"
+				;;
+
+			*)
+				_TARGET="binary/syslinux"
+				;;
+		esac
 		;;
 esac
 
@@ -221,6 +239,18 @@ then
 	sed -i -e "s|@LB_BOOTAPPEND_INSTALL@|${LB_BOOTAPPEND_INSTALL}|g" \
 	${_TARGET}/install.cfg
 fi
+
+case "${LB_MODE}" in
+	progress)
+		for _FILE in "${_TARGET}/isolinux.bin" "${_TARGET}/isolinux.cfg" "${_TARGET}/syslinux.cfg"
+		do
+			if [ -e "${_FILE}" ]
+			then
+				mv "${_FILE}" $(echo ${_FILE} | sed -e 's|.*linux|boot|')
+			fi
+		done
+		;;
+esac
 
 case "${LB_BUILD_WITH_CHROOT}" in
 	true)
