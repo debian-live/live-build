@@ -1,3 +1,24 @@
+live-build (3.0~a48-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Transforming failsafe boot parameter into an own option.
+  * Updating release list for ubuntu.
+  * Adding failsafe entries for syslinux bootloaders in embedded
+    configs.
+
+  [ Tails developers ]
+  * Fixing typo in rescue package list.
+
+  [ Daniel Baumann ]
+  * Correcting typo in binary_rootfs to restore 'plain' live filesystem
+    support.
+  * Using /boot on live media instead of /isolinux or /syslinux in
+    progress mode.
+  * Allowing to inject variables through config/environment.chroot into
+    the chroots environment.
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 25 May 2012 08:22:27 +0200
+
 live-build (3.0~a47-1) unstable; urgency=low
 
   [ Daniel Baumann ]
