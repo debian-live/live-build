@@ -246,7 +246,7 @@ case "${LB_MODE}" in
 		do
 			if [ -e "${_FILE}" ]
 			then
-				mv "${_FILE}" $(echo ${_FILE} | sed -e 's|.*linux|boot|')
+				mv "${_FILE}" "${_TARGET}/$(echo ${_FILE} | sed -e 's|.*linux|boot|')"
 			fi
 		done
 		;;
