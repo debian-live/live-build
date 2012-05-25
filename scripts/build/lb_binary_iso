@@ -30,7 +30,7 @@ case "${LB_BINARY_IMAGES}" in
 		;;
 
 	iso-hybrid)
-		IMAGE="binary-hybrid.iso"
+		IMAGE="binary.hybrid.iso"
 		;;
 
 	*)
