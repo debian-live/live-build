@@ -253,7 +253,7 @@ hfsutils
 jfsutils
 #if DISTRIBUTION squeeze
 lde
-#enif
+#endif
 lsscsi
 lvm2
 mdadm

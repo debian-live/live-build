@@ -51,7 +51,16 @@ Check_crossarchitectures
 case "${LB_BINARY_IMAGES}" in
 	iso*)
 		_BOOTLOADER="isolinux"
-		_TARGET="binary/isolinux"
+
+		case "${LB_MODE}" in
+			progress)
+				_TARGET="binary/boot"
+				;;
+
+			*)
+				_TARGET="binary/isolinux"
+				;;
+		esac
 		;;
 
 	net*)
@@ -61,7 +70,16 @@ case "${LB_BINARY_IMAGES}" in
 
 	hdd*|*)
 		_BOOTLOADER="syslinux"
-		_TARGET="binary/syslinux"
+
+		case "${LB_MODE}" in
+			progress)
+				_TARGET="binary/boot"
+				;;
+
+			*)
+				_TARGET="binary/syslinux"
+				;;
+		esac
 		;;
 esac
 
@@ -182,6 +200,7 @@ then
 			    -e "s|@KERNEL@|/live/vmlinuz|g" \
 			    -e "s|@INITRD@|/live/initrd.img|g" \
 			    -e "s|@LB_BOOTAPPEND_LIVE@|${LB_BOOTAPPEND_LIVE}|g" \
+			    -e "s|@LB_BOOTAPPEND_FAILSAFE@|${LB_BOOTAPPEND_FAILSAFE}|g" \
 			"${_TARGET}/live.cfg.in" >> "${_TARGET}/live.cfg"
 
 			rm -f "${_TARGET}/live.cfg.in"
@@ -201,6 +220,7 @@ then
 				    -e "s|@KERNEL@|/live/vmlinuz${_NUMBER}|g" \
 				    -e "s|@INITRD@|/live/initrd${_NUMBER}.img|g" \
 				    -e "s|@LB_BOOTAPPEND_LIVE@|${LB_BOOTAPPEND_LIVE}|g" \
+				    -e "s|@LB_BOOTAPPEND_FAILSAFE@|${LB_BOOTAPPEND_FAILSAFE}|g" \
 				"${_TARGET}/live.cfg.in" >> "${_TARGET}/live.cfg"
 			done
 
@@ -209,7 +229,8 @@ then
 	esac
 elif [ -e "${_TARGET}/live.cfg" ]
 then
-	sed -i -e "s|@LB_BOOTAPPEND_LIVE@|${LB_BOOTAPPEND_LIVE}|g" \
+	sed -i  -e "s|@LB_BOOTAPPEND_LIVE@|${LB_BOOTAPPEND_LIVE}|g" \
+		-e "s|@LB_BOOTAPPEND_FAILSAFE@|${LB_BOOTAPPEND_FAILSAFE}|g" \
 	${_TARGET}/live.cfg
 fi
 
@@ -218,6 +239,18 @@ then
 	sed -i -e "s|@LB_BOOTAPPEND_INSTALL@|${LB_BOOTAPPEND_INSTALL}|g" \
 	${_TARGET}/install.cfg
 fi
+
+case "${LB_MODE}" in
+	progress)
+		for _FILE in "${_TARGET}/isolinux.bin" "${_TARGET}/isolinux.cfg" "${_TARGET}/syslinux.cfg"
+		do
+			if [ -e "${_FILE}" ]
+			then
+				mv "${_FILE}" $(echo ${_FILE} | sed -e 's|.*linux|boot|')
+			fi
+		done
+		;;
+esac
 
 case "${LB_BUILD_WITH_CHROOT}" in
 	true)
