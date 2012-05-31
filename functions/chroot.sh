@@ -18,7 +18,7 @@ Chroot ()
 
 	if [ -e config/environment.chroot ]
 	then
-		ENV="$(cat config/environment.chroot)"
+		ENV="$(grep -v '^#' config/environment.chroot)"
 	else
 		ENV=""
 	fi
