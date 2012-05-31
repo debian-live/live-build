@@ -104,12 +104,10 @@ Set_defaults ()
 	LB_APT="${LB_APT:-apt}"
 
 	# Setting apt ftp proxy
-	LB_APT_FTP_PROXY="${LB_APT_FTP_PROXY:-${ftp_proxy}}"
-	ftp_proxy="${ftp_proxy:-${LB_APT_FTP_PROXY}}"
+	LB_APT_FTP_PROXY="${LB_APT_FTP_PROXY}"
 
 	# Setting apt http proxy
-	LB_APT_HTTP_PROXY="${LB_APT_HTTP_PROXY:-${http_proxy}}"
-	http_proxy="${http_proxy:-${LB_APT_HTTP_PROXY}}"
+	LB_APT_HTTP_PROXY="${LB_APT_HTTP_PROXY}"
 
 	# Setting apt pipeline
 	# LB_APT_PIPELINE

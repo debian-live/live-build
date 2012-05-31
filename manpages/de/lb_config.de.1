@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2012\-05\-25 3.0~a48\-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2012\-05\-31 3.0~a48\-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -279,13 +279,13 @@ live\-build options.
 defines if apt\-get or aptitude is used to install packages when building the
 image. The default is apt.
 .IP "\fB\-\-apt\-ftp\-proxy\fP \fIURL\fP" 4
-sets the ftp proxy to be used by apt. By default, this is empty but if the
-host has the environment variable ftp_proxy set, apt\-ftp\-proxy gets
-automatically set to the value of ftp_proxy.
+sets the ftp proxy to be used by apt. By default, this is empty. Note that
+this variable is only for the proxy that gets used by apt internally within
+the chroot, it is not used for anything else.
 .IP "\fB\-\-apt\-http\-proxy\fP \fIURL\fP" 4
-sets the http proxy to be used by apt. By default, this is empty but if the
-host has the environment variable http_proxy set, apt\-http\-proxy gets
-automatically set to the value of http_proxy.
+sets the http proxy to be used by apt. By default, this is empty. Note that
+this variable is only for the proxy that gets used by apt internally within
+the chroot, it is not used for anything else.
 .IP "\fB\-\-apt\-indices\fP true|false|none" 4
 defines if the resulting images should have apt indices or not and defaults
 to true. If set to none, no indices are included at all.
