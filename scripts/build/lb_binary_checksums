@@ -30,10 +30,10 @@ then
 fi
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/binary_checksums
+Check_stagefile .build/binary_checksums
 
 # Checking lock file
 Check_lockfile .lock
@@ -83,4 +83,4 @@ find . | sed -e 's|^.||g' | grep "^/" | sort > ../binary.list
 cd "${OLDPWD}"
 
 # Creating stage file
-Create_stagefile .stage/binary_checksums
+Create_stagefile .build/binary_checksums

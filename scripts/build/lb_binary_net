@@ -37,10 +37,10 @@ fi
 Echo_message "Begin building binary netboot image..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/binary_net
+Check_stagefile .build/binary_net
 
 # Checking lock file
 Check_lockfile .lock
@@ -176,4 +176,4 @@ then
 fi
 
 # Creating stage file
-Create_stagefile .stage/binary_net
+Create_stagefile .build/binary_net

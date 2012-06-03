@@ -27,10 +27,10 @@ Set_defaults
 Echo_message "Begin building root filesystem image..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap .stage/binary_chroot
+Require_stagefile .build/config .build/bootstrap .build/binary_chroot
 
 # Checking stage file
-Check_stagefile .stage/binary_rootfs
+Check_stagefile .build/binary_rootfs
 
 # Checking lock file
 Check_lockfile .lock
@@ -82,7 +82,7 @@ do
 		fi
 
 		# Creating stage file
-		Create_stagefile .stage/binary_rootfs
+		Create_stagefile .build/binary_rootfs
 		exit 0
 	fi
 done
@@ -501,4 +501,4 @@ do
 done
 
 # Creating stage file
-Create_stagefile .stage/binary_rootfs
+Create_stagefile .build/binary_rootfs

@@ -32,10 +32,10 @@ fi
 Echo_message "Begin installing grub2..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/binary_grub
+Check_stagefile .build/binary_grub
 
 # Checking grub2 templates
 Check_templates grub2
@@ -276,4 +276,4 @@ Save_cache cache/packages_binary
 Remove_package
 
 # Creating stage file
-Create_stagefile .stage/binary_grub
+Create_stagefile .build/binary_grub

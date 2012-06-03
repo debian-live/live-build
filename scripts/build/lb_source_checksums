@@ -30,10 +30,10 @@ then
 fi
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/source_debian
+Require_stagefile .build/config .build/source_debian
 
 # Checking stage file
-Check_stagefile .stage/source_checksums
+Check_stagefile .build/source_checksums
 
 # Checking lock file
 Check_lockfile .lock
@@ -88,4 +88,4 @@ EOF
 done
 
 # Creating stage file
-Create_stagefile .stage/source_checksums
+Create_stagefile .build/source_checksums

@@ -162,7 +162,7 @@ Build ()
 
 		for FLAVOUR in ${FLAVOURS}
 		do
-			if [ -e .stage ]
+			if [ -e .build ]
 			then
 				lb clean
 			fi

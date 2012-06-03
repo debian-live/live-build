@@ -38,7 +38,7 @@ Echo_message "Begin bootstrapping system..."
 lb testroot
 
 # Checking stage file
-Check_stagefile .stage/bootstrap
+Check_stagefile .build/bootstrap
 
 # Checking lock file
 Check_lockfile .lock
@@ -53,4 +53,4 @@ tar c / --exclude /proc --exclude /sys --exclude "$(dirname ${PWD})" | tar xv
 cd ..
 
 # Creating stage file
-Create_stagefile .stage/bootstrap
+Create_stagefile .build/bootstrap

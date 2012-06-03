@@ -36,7 +36,7 @@ do
 				Echo_message "Restoring bootstrap stage from cache..."
 
 				# Checking stage file
-				Check_stagefile .stage/bootstrap_cache.restore
+				Check_stagefile .build/bootstrap_cache.restore
 
 				if [ -d cache/stages_bootstrap ]
 				then
@@ -58,8 +58,8 @@ do
 					fi
 
 					# Creating stage file
-					Create_stagefile .stage/bootstrap_cache.restore
-					Create_stagefile .stage/bootstrap
+					Create_stagefile .build/bootstrap_cache.restore
+					Create_stagefile .build/bootstrap
 
 					exit 0
 				fi
@@ -69,7 +69,7 @@ do
 				Echo_message "Saving bootstrap stage to cache..."
 
 				# Checking stage file
-				Check_stagefile .stage/bootstrap_cache.save
+				Check_stagefile .build/bootstrap_cache.save
 
 				# Checking lock file
 				Check_lockfile .lock
@@ -89,7 +89,7 @@ do
 				fi
 
 				# Creating stage file
-				Create_stagefile .stage/bootstrap_cache.save
+				Create_stagefile .build/bootstrap_cache.save
 				;;
 		esac
 	fi

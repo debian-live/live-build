@@ -32,10 +32,10 @@ fi
 Echo_message "Begin installing syslinux..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/binary_syslinux
+Check_stagefile .build/binary_syslinux
 
 # Checking lock file
 Check_lockfile .lock
@@ -263,4 +263,4 @@ case "${LB_BUILD_WITH_CHROOT}" in
 esac
 
 # Creating stage file
-Create_stagefile .stage/binary_syslinux
+Create_stagefile .build/binary_syslinux

@@ -32,10 +32,10 @@ fi
 Echo_message "Begin copying win32-loader..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/binary_win32-loader
+Check_stagefile .build/binary_win32-loader
 
 # Checking lock file
 Check_lockfile .lock
@@ -100,4 +100,4 @@ EOF
 esac
 
 # Creating stage file
-Create_stagefile .stage/binary_win32-loader
+Create_stagefile .build/binary_win32-loader

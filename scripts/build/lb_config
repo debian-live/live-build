@@ -1481,4 +1481,4 @@ then
 fi
 
 # Creating stage file
-Create_stagefile .stage/config
+Create_stagefile .build/config

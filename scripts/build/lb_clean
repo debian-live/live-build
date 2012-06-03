@@ -89,7 +89,7 @@ do
 
 			rm -f chroot.packages.live chroot.packages.install
 
-			rm -f .stage/chroot*
+			rm -f .build/chroot*
 			;;
 
 		--binary)
@@ -104,7 +104,7 @@ do
 			rm -rf binary
 			rm -rf tftpboot
 
-			rm -f .stage/binary*
+			rm -f .build/binary*
 			;;
 
 		--remove)
@@ -118,12 +118,12 @@ do
 
 			if [ -e auto/config ]
 			then
-				rm -f .stage/config
+				rm -f .build/config
 			fi
 			;;
 
 		--stage)
-			rm -rf .stage
+			rm -rf .build
 			;;
 
 		--source)
@@ -136,7 +136,7 @@ do
 
 			rm -rf source
 
-			rm -f .stage/source*
+			rm -f .build/source*
 			;;
 
 		-h|--help)

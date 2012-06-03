@@ -35,10 +35,10 @@ Exit ()
 		done
 	fi
 
-	rm -f .stage/chroot_devpts
-	rm -f .stage/chroot_proc
-	rm -f .stage/chroot_selinuxfs
-	rm -f .stage/chroot_sysfs
+	rm -f .build/chroot_devpts
+	rm -f .build/chroot_proc
+	rm -f .build/chroot_selinuxfs
+	rm -f .build/chroot_sysfs
 
 	Echo_message "Saving caches..."
 
@@ -46,7 +46,7 @@ Exit ()
 	# but let's assume that if there's any binary stage file arround
 	# we are in binary stage.
 
-	if ls .stage/binary* > /dev/null 2>&1
+	if ls .build/binary* > /dev/null 2>&1
 	then
 		Save_cache cache/packages_binary
 	else

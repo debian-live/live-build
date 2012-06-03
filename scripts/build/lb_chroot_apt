@@ -25,14 +25,14 @@ Read_conffiles config/all config/common config/bootstrap config/chroot config/bi
 Set_defaults
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 case "${1}" in
 	install|install-binary)
 		Echo_message "Configuring file /etc/apt/apt.conf"
 
 		# Checking stage file
-		Check_stagefile .stage/chroot_apt
+		Check_stagefile .build/chroot_apt
 
 		# Checking lock file
 		Check_lockfile .lock
@@ -222,7 +222,7 @@ EOF
 		esac
 
 		# Creating stage file
-		Create_stagefile .stage/chroot_apt
+		Create_stagefile .build/chroot_apt
 		;;
 
 	remove)
@@ -326,7 +326,7 @@ EOF
 		rm -f chroot/etc/apt/preferences.d/progress.tmp.pref
 
 		# Removing stage file
-		rm -f .stage/chroot_apt
+		rm -f .build/chroot_apt
 		;;
 
 	*)

@@ -28,7 +28,7 @@ Read_conffiles config/all config/common config/bootstrap config/chroot config/bi
 Set_defaults
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 case "${1}" in
 	install)
@@ -37,7 +37,7 @@ case "${1}" in
 			Echo_message "Begin mounting /selinux..."
 
 			# Checking stage file
-			Check_stagefile .stage/chroot_selinuxfs
+			Check_stagefile .build/chroot_selinuxfs
 
 			# Checking lock file
 			Check_lockfile .lock
@@ -58,7 +58,7 @@ case "${1}" in
 			fi
 
 			# Creating stage file
-			Create_stagefile .stage/chroot_selinuxfs
+			Create_stagefile .build/chroot_selinuxfs
 		fi
 		;;
 
@@ -88,7 +88,7 @@ case "${1}" in
 		fi
 
 		# Removing stage file
-		rm -f .stage/chroot_selinux
+		rm -f .build/chroot_selinux
 		;;
 
 	*)

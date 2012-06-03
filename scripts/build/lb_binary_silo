@@ -43,10 +43,10 @@ esac
 Echo_message "Begin installing silo..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/binary_silo
+Check_stagefile .build/binary_silo
 
 # Checking silo templates
 Check_templates silo
@@ -236,4 +236,4 @@ Save_cache cache/packages_binary
 Remove_package
 
 # Creating stage file
-Create_stagefile .stage/binary_silo
+Create_stagefile .build/binary_silo

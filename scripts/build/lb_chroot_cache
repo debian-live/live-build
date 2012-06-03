@@ -33,7 +33,7 @@ do
 				Echo_message "Restoring chroot stage from cache..."
 
 				# Checking stage file
-				Check_stagefile .stage/chroot_cache.restore
+				Check_stagefile .build/chroot_cache.restore
 
 				if [ -d cache/stages_chroot ]
 				then
@@ -55,7 +55,7 @@ do
 					fi
 
 					# Creating stage file
-					Create_stagefile .stage/chroot_cache.restore
+					Create_stagefile .build/chroot_cache.restore
 
 					exit 0
 				fi
@@ -65,7 +65,7 @@ do
 				Echo_message "Saving chroot stage to cache..."
 
 				# Checking stage file
-				Check_stagefile .stage/chroot_cache.save
+				Check_stagefile .build/chroot_cache.save
 
 				# Checking lock file
 				Check_lockfile .lock
@@ -85,7 +85,7 @@ do
 				fi
 
 				# Creating stage file
-				Create_stagefile .stage/chroot_cache.save
+				Create_stagefile .build/chroot_cache.save
 				;;
 		esac
 	fi

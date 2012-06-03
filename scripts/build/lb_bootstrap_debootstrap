@@ -40,8 +40,8 @@ Check_package /usr/sbin/debootstrap debootstrap
 lb testroot
 
 # Checking stage file
-Check_stagefile .stage/bootstrap
-Check_stagefile .stage/bootstrap_cache.restore
+Check_stagefile .build/bootstrap
+Check_stagefile .build/bootstrap_cache.restore
 
 # Checking lock file
 Check_lockfile .lock
@@ -171,7 +171,7 @@ then
 	rm -f chroot/var/cache/apt/archives/*.deb
 
 	# Creating stage file
-	Create_stagefile .stage/bootstrap
+	Create_stagefile .build/bootstrap
 else
 	Echo_error "Can't process file /usr/bin/debootstrap (FIXME)"
 	exit 1

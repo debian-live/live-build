@@ -25,14 +25,14 @@ Read_conffiles config/all config/common config/bootstrap config/chroot config/bi
 Set_defaults
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 case "${1}" in
 	install)
 		Echo_message "Configuring file /etc/hosts"
 
 		# Checking stage file
-		Check_stagefile .stage/chroot_hosts
+		Check_stagefile .build/chroot_hosts
 
 		# Checking lock file
 		Check_lockfile .lock
@@ -61,7 +61,7 @@ EOF
 		fi
 
 		# Creating stage file
-		Create_stagefile .stage/chroot_hosts
+		Create_stagefile .build/chroot_hosts
 		;;
 
 	remove)
@@ -89,7 +89,7 @@ EOF
 		fi
 
 		# Removing stage file
-		rm -f .stage/chroot_hosts
+		rm -f .build/chroot_hosts
 		;;
 
 	*)

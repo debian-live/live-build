@@ -32,10 +32,10 @@ fi
 Echo_message "Begin downloading sources..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/source_debian
+Check_stagefile .build/source_debian
 
 # Checking lock file
 Check_lockfile .lock
@@ -149,4 +149,4 @@ do
 done
 
 # Creating stage file
-Create_stagefile .stage/source_debian
+Create_stagefile .build/source_debian

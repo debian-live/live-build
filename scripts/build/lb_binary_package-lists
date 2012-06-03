@@ -27,10 +27,10 @@ Set_defaults
 Echo_message "Begin installing local package lists..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/binary_package-lists
+Check_stagefile .build/binary_package-lists
 
 # Checking lock file
 Check_lockfile .lock
@@ -130,5 +130,5 @@ then
 	Save_cache cache/packages_chroot
 
 	# Creating stage file
-	Create_stagefile .stage/binary_package-lists
+	Create_stagefile .build/binary_package-lists
 fi

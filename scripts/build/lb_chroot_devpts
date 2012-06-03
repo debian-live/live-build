@@ -28,14 +28,14 @@ Read_conffiles config/all config/common config/bootstrap config/chroot config/bi
 Set_defaults
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 case "${1}" in
 	install)
 		Echo_message "Begin mounting /dev/pts..."
 
 		# Checking stage file
-		Check_stagefile .stage/chroot_devpts
+		Check_stagefile .build/chroot_devpts
 
 		# Checking lock file
 		Check_lockfile .lock
@@ -53,7 +53,7 @@ case "${1}" in
 		fi
 
 		# Creating stage file
-		Create_stagefile .stage/chroot_devpts
+		Create_stagefile .build/chroot_devpts
 		;;
 
 	remove)
@@ -77,7 +77,7 @@ case "${1}" in
 		fi
 
 		# Removing stage file
-		rm -f .stage/chroot_devpts
+		rm -f .build/chroot_devpts
 		;;
 
 	*)

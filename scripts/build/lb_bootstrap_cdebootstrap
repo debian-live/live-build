@@ -40,8 +40,8 @@ Check_package /usr/bin/${LB_BOOTSTRAP} cdebootstrap
 lb testroot
 
 # Checking stage file
-Check_stagefile .stage/bootstrap
-Check_stagefile .stage/bootstrap_cache.restore
+Check_stagefile .build/bootstrap
+Check_stagefile .build/bootstrap_cache.restore
 
 # Checking lock file
 Check_lockfile .lock
@@ -168,7 +168,7 @@ then
 	rm -rf chroot/var/cache/bootstrap
 
 	# Creating stage file
-	Create_stagefile .stage/bootstrap
+	Create_stagefile .build/bootstrap
 else
 	Echo_error "Can't process file /usr/bin/${LB_BOOTSTRAP} (FIXME)"
 	exit 1
