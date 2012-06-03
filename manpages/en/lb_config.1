@@ -314,7 +314,7 @@ using a user specified alternative configuration file in addition to the normall
 .IP "\fB\-\-debconf\-frontend\fR dialog|editor|noninteractive|readline" 4
 defines what value the debconf frontend should be set to inside the chroot. Note that setting it to anything by noninteractive, which is the default, makes your build asking questions during the build.
 .IP "\fB\-\-debconf\-nowarnings\fR true|false" 4
-defines if warnings of debconf should be displayed or not. Warnings from debconf are generally very rare and by default, we skipp them, if any, in order to keep the build process entirely non interactive.
+defines if warnings of debconf should be displayed or not. Warnings from debconf are generally very rare and by default, we skip them, if any, in order to keep the build process entirely non interactive.
 .IP "\fB\-\-debconf\-priority\fR low|medium|high|critical" 4
 defines what value the debconf priority shoul dbe set to inside the chroot. By default, it is set to critical, which means that almost no questions are displayed. Note that this only has an effect if you use any debconf frontend different from noninteractive.
 .IP "\fB\-\-debian\-installer\fR true|cdrom|netinst|netboot|businesscard|live|false" 4
@@ -322,7 +322,7 @@ defines which type, if any, of the debian\-installer should be included in the r
 .IP "\fB\-\-debian\-installer\-distribution\fR daily|\fICODENAME\fR" 4
 defines the distribution where the debian\-installer files should be taken out from. Normally, this should be set to the same distribution as the live system. However, some times, one wants to use a newer or even daily built installer.
 .IP "\fB\-\-debian\-installer\-preseedfile\fR \fIFILE\fR|\fIURL\fR" 4
-sets the filename or URL for an optionally used and included preseeding file for debian\-installer.
+sets the filename or URL for an optionally used and included preseeding file for debian\-installer. If config/binary_debian\-installer/preseed.cfg exists, it will be used by default. 
 .IP "\fB\-\-debian\-installer\-gui\fR true|false" 4
 defines if the debian\-installer graphical GTK interface should be true or not. In Debian mode and for most versions of Ubuntu, this option is true, whereas otherwise false, by default.
 .IP "\fB\-\-debug\fR" 4
