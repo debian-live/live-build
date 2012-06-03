@@ -344,7 +344,7 @@ then
 
 	case "${LB_ARCHITECTURES}" in
 		amd64)
-			DI_REQ_PACKAGES="lilo grub grub-pc"
+			DI_REQ_PACKAGES="lilo grub grub-efi grub-pc"
 
 			case "${LB_MODE}" in
 				ubuntu|kubuntu)
