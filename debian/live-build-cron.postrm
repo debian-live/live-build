@@ -2,21 +2,26 @@
 
 set -e
 
-_DIRECTORY="/srv/debian.net/live-manual"
-
 case "${1}" in
-	remove)
-		if [ -d "${_DIRECTORY}" ]
-		then
-			rmdir --ignore-fail-on-non-empty "${_DIRECTORY}" || true
-		fi
-		;;
-
 	purge)
-		#rm -rf "${_DIRECTORY}"
+		# images
+		rm -f /etc/live/build-cron.d/images.conf
+		rmdir --ignore-fail-on-non-empty /etc/live/build-cron.d 2>&1 || true
+		rmdir --ignore-fail-on-non-empty /etc/live 2>&1 || true
+
+		rm -f /etc/cron.d/live-build-cron-manual
+		rmdir --ignore-fail-on-non-empty /etc/cron.d/live-build-cron-manual 2>&1 || true
+
+		# manual
+		rm -f /etc/live/build-cron.d/manual.conf
+		rmdir --ignore-fail-on-non-empty /etc/live/build-cron.d 2>&1 || true
+		rmdir --ignore-fail-on-non-empty /etc/live 2>&1 || true
+
+		rm -f /etc/cron.d/live-build-cron-images
+		rmdir --ignore-fail-on-non-empty /etc/cron.d/live-build-cron-images 2>&1 || true
 		;;
 
-	upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+	remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
 
 		;;
 
