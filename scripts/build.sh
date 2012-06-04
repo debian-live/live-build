@@ -17,9 +17,9 @@ do
 done
 
 # Source local functions
-if ls auto/functions/* > /dev/null 2>&1
+if ls local/functions/* > /dev/null 2>&1
 then
-	for FUNCTION in auto/functions/*
+	for FUNCTION in local/functions/*
 	do
 		. "${FUNCTION}"
 	done

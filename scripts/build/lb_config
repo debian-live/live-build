@@ -1449,8 +1449,9 @@ LB_SOURCE="${LB_SOURCE}"
 LB_SOURCE_IMAGES="${LB_SOURCE_IMAGES}"
 EOF
 
-mkdir -p auto/functions
-mkdir -p auto/scripts
+mkdir -p auto
+mkdir -p local/functions
+mkdir -p local/scripts
 
 if [ "${CONFIG}" = "clone" ] # FIXME
 then
@@ -1475,9 +1476,10 @@ then
 	# Remove empty directories in config tree
 	rmdir --ignore-fail-on-non-empty config/*/ > /dev/null 2>&1 || true
 	rmdir --ignore-fail-on-non-empty config > /dev/null 2>&1 || true
-	rmdir --ignore-fail-on-non-empty auto/functions > /dev/null 2>&1 || true
-	rmdir --ignore-fail-on-non-empty auto/scripts > /dev/null 2>&1 || true
 	rmdir --ignore-fail-on-non-empty auto > /dev/null 2>&1 || true
+	rmdir --ignore-fail-on-non-empty local/functions > /dev/null 2>&1 || true
+	rmdir --ignore-fail-on-non-empty local/scripts > /dev/null 2>&1 || true
+	rmdir --ignore-fail-on-non-empty local > /dev/null 2>&1 || true
 fi
 
 # Creating stage file
