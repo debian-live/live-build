@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2012-05-31 13:08+0300\n"
+"POT-Creation-Date: 2012-06-04 12:09+0300\n"
 "PO-Revision-Date: 2012-02-04 21:39+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -77,7 +77,7 @@ msgstr ""
 #: en/lb_source_iso.1:1 en/lb_source_net.1:1 en/lb_source_tar.1:1
 #: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "2012-05-31"
+msgid "2012-06-04"
 msgstr ""
 
 #. type: TH
@@ -109,7 +109,7 @@ msgstr ""
 #: en/lb_source_iso.1:1 en/lb_source_net.1:1 en/lb_source_tar.1:1
 #: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "3.0~a48-1"
+msgid "3.0~a49-1"
 msgstr ""
 
 #. type: TH
@@ -1698,7 +1698,7 @@ msgstr ""
 #: en/lb_config.1:318
 msgid ""
 "defines if warnings of debconf should be displayed or not. Warnings from "
-"debconf are generally very rare and by default, we skipp them, if any, in "
+"debconf are generally very rare and by default, we skip them, if any, in "
 "order to keep the build process entirely non interactive."
 msgstr ""
 
@@ -1760,7 +1760,8 @@ msgstr ""
 #: en/lb_config.1:326
 msgid ""
 "sets the filename or URL for an optionally used and included preseeding file "
-"for debian-installer."
+"for debian-installer. If config/binary_debian-installer/preseed.cfg exists, "
+"it will be used by default."
 msgstr ""
 
 #. type: IP

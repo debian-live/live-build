@@ -1,3 +1,45 @@
+live-build (3.0~a49-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Correcting renaming of syslinux files in progress mode to actually
+    work.
+  * Naming resulting binary isohybrid image binary.hybrid.iso from now
+    on for consistency with the different hdd images later on.
+  * Moving firmware symlink creation to the end of binary_debian-
+    installer in order to ensure to take only the latest packages into
+    account that get into the image, regardless if they come from the
+    archive or are localy included.
+  * Cleaning http_proxy and ftp_proxy settings in chroot, people using
+    apt proxies set them throught the apt pseudo-proxy options, and
+    people using real proxies use config/environment.{chroot,binary} to
+    set them.
+  * Allowing to inject variables through config/environment.binary into
+    the binary environment.
+  * Allowing to use comments in config/environment.{binary,chroot}.
+  * Removing pre-squeeze XORG_CONFIG variable from the chroot
+    environment.
+  * Don't bother supporting firmware on ubuntu, they seem to have a
+    different archive structure.
+  * Renaming config/binary_debian-installer-includes to
+    config/includes.binary_debian-installer for consistency with the
+    other include directories.
+
+  [ Ben Armstrong ]
+  * Adding default for --debian-installer-preseedfile.
+
+  [ Daniel Baumann ]
+  * Removing some more configuration files on purge (Closes: #672379).
+  * Renaming internal .stage to .build for consistency within the
+    configuration tree.
+  * Adding grub-efi to static list of packages for the d-i pool for
+    amd64.
+  * Making firmware package assembling a bit more robust.
+  * Updating cache directory names to consistent naming scheme.
+  * Moving local includes from auto/{functions,scripts} to
+    local/{functions,scripts} where they belong.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 04 Jun 2012 12:15:37 +0200
+
 live-build (3.0~a48-1) unstable; urgency=low
 
   [ Daniel Baumann ]
