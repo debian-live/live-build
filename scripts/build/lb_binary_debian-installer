@@ -413,19 +413,27 @@ then
 		# Assumption: firmware packages install files into /lib/firmware
 
 		# Get all firmware packages names
-		FIRMWARE_PACKAGES="$(wget ${WGET_OPTIONS} ${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz -O - | gunzip -c | awk '/^lib\/firmware/ { print $2 }' | sort -u)"
+		mkdir -p cache/contents.binary
+		wget ${WGET_OPTIONS} ${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz -O - | gunzip -c > cache/contents.binary/contents.${LB_PARENT_DISTRIBUTION}.${LB_ARCHITECTURES}
+
+		FIRMWARE_PACKAGES=""
+		FIRMWARE_PACKAGES="$(awk '/^lib\/firmware/ { print $2 }' cache/contents.binary/contents.${LB_PARENT_DISTRIBUTION}.${LB_ARCHITECTURES} | sort -u)"
 
 		if [ "${LB_DERIVATIVE}" = "true" ]
 		then
-			FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} $(wget ${WGET_OPTIONS} ${LB_MIRROR_CHROOT}/dists/${LB_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz -O - | gunzip -c | awk '/^lib\/firmware/ { print $2 }' | sort -u)"
+			wget {WGET_OPTIONS} ${LB_MIRROR_CHROOT}/dists/${LB_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz -O - | gunzip -c > cache/contents.binary/contents.${LB_DISTRIBUTION}.${LB_ARCHITECTURES}
+
+			FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} $(awk '/^lib\/firmware/ { print $2 }' cache/contents.binary/contents.${LB_DISTRIBUTION}.${LB_ARCHITECTURES} | sort -u)"
 		fi
 
 		# Filter out contrib packages if contrib is not enabled
 		if ! echo ${LB_ARCHIVE_AREAS} | grep -qs contrib
 		then
+			_FIRMWARE_PACKAGES=""
+
 			for _PACKAGE in ${FIRMWARE_PACKAGES}
 			do
-				_FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES} $(echo ${_PACKAGE} | grep -v '^contrib/')"
+				_FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES} $(echo ${_PACKAGE} | sed -e 's|^contrib/.*$||')"
 			done
 
 			FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES}"
@@ -434,9 +442,11 @@ then
 		# Filter out non-free packages if non-free is not enabled
 		if ! echo ${LB_ARCHIVE_AREAS} | grep -qs non-free
 		then
+			_FIRMWARE_PACKAGES=""
+
 			for _PACKAGE in ${FIRMWARE_PACKAGES}
 			do
-				_FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES} $(echo ${_PACKAGE} | grep -v '^non-free/')"
+				_FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES} $(echo ${_PACKAGE} | sed -e 's|^non-free/.*$||')"
 			done
 
 			FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES}"
