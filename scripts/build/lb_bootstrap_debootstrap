@@ -40,8 +40,8 @@ Check_package /usr/sbin/debootstrap debootstrap
 lb testroot
 
 # Checking stage file
-Check_stagefile .stage/bootstrap
-Check_stagefile .stage/bootstrap_cache.restore
+Check_stagefile .build/bootstrap
+Check_stagefile .build/bootstrap_cache.restore
 
 # Checking lock file
 Check_lockfile .lock
@@ -117,10 +117,10 @@ if [ -x "/usr/sbin/debootstrap" ]
 then
 	if [ "${LB_CACHE_PACKAGES}" = "true" ]
 	then
-		if ls cache/packages_bootstrap/*.deb > /dev/null 2>&1
+		if ls cache/packages.bootstrap/*.deb > /dev/null 2>&1
 		then
 			mkdir -p chroot/var/cache/apt/archives
-			cp cache/packages_bootstrap/*.deb chroot/var/cache/apt/archives
+			cp cache/packages.bootstrap/*.deb chroot/var/cache/apt/archives
 		fi
 
 		Echo_breakage "Running debootstrap (download-only)... "
@@ -132,11 +132,11 @@ then
 		fi
 
 		# Removing old cache
-		rm -f cache/packages_bootstrap/*.deb
+		rm -f cache/packages.bootstrap/*.deb
 
 		# Saving new cache
-		mkdir -p cache/packages_bootstrap
-		cp chroot/var/cache/apt/archives/*.deb cache/packages_bootstrap
+		mkdir -p cache/packages.bootstrap
+		cp chroot/var/cache/apt/archives/*.deb cache/packages.bootstrap
 	fi
 
 	Echo_breakage "Running debootstrap... "
@@ -171,7 +171,7 @@ then
 	rm -f chroot/var/cache/apt/archives/*.deb
 
 	# Creating stage file
-	Create_stagefile .stage/bootstrap
+	Create_stagefile .build/bootstrap
 else
 	Echo_error "Can't process file /usr/bin/debootstrap (FIXME)"
 	exit 1

@@ -30,10 +30,10 @@ Set_defaults
 Echo_message "Begin installation of task lists (${_PASS} pass)..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/chroot_task-lists.${_PASS}
+Check_stagefile .build/chroot_task-lists.${_PASS}
 
 # Checking lock file
 Check_lockfile .lock
@@ -58,7 +58,7 @@ then
 	done
 
 	# Restoring cache
-	Restore_cache cache/packages_chroot
+	Restore_cache cache/packages.chroot
 
 	# Checking depends
 	case "${LB_TASKSEL}" in
@@ -144,8 +144,8 @@ then
 	rm -f chroot/root/chroot_tasks
 
 	# Saving cache
-	Save_cache cache/packages_chroot
+	Save_cache cache/packages.chroot
 
 	# Creating stage file
-	Create_stagefile .stage/chroot_task-lists.${_PASS}
+	Create_stagefile .build/chroot_task-lists.${_PASS}
 fi

@@ -43,10 +43,10 @@ esac
 Echo_message "Begin installing silo..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/binary_silo
+Check_stagefile .build/binary_silo
 
 # Checking silo templates
 Check_templates silo
@@ -64,7 +64,7 @@ Check_architectures sparc
 Check_package chroot/usr/sbin/silo silo
 
 # Restoring cache
-Restore_cache cache/packages_binary
+Restore_cache cache/packages.binary
 
 # Installing depends
 Install_package
@@ -230,10 +230,10 @@ case "${LB_BINARY_IMAGES}" in
 esac
 
 # Saving cache
-Save_cache cache/packages_binary
+Save_cache cache/packages.binary
 
 # Removing depends
 Remove_package
 
 # Creating stage file
-Create_stagefile .stage/binary_silo
+Create_stagefile .build/binary_silo

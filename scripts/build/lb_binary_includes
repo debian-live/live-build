@@ -32,10 +32,10 @@ fi
 Echo_message "Begin copying binary includes..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/binary_includes
+Check_stagefile .build/binary_includes
 
 # Checking lock file
 Check_lockfile .lock
@@ -165,4 +165,4 @@ then
 fi
 
 # Creating stage file
-Create_stagefile .stage/binary_includes
+Create_stagefile .build/binary_includes

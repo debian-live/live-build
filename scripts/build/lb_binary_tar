@@ -32,10 +32,10 @@ fi
 Echo_message "Begin building binary harddisk image..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/binary_tar
+Check_stagefile .build/binary_tar
 
 # Checking lock file
 Check_lockfile .lock
@@ -66,4 +66,4 @@ case "${LB_COMPRESSION}" in
 esac
 
 # Creating stage file
-Create_stagefile .stage/binary_tar
+Create_stagefile .build/binary_tar

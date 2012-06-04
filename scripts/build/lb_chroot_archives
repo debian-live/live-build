@@ -28,7 +28,7 @@ Read_conffiles config/all config/common config/bootstrap config/chroot config/bi
 Set_defaults
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 _LB_LOCAL_KEY_EMAIL="live-build-local-key@invalid"
 
@@ -47,7 +47,7 @@ case "${1}" in
 		Echo_message "Configuring file /etc/apt/sources.list"
 
 		# Checking stage file
-		Check_stagefile .stage/chroot_archives
+		Check_stagefile .build/chroot_archives
 
 		# Checking lock file
 		Check_lockfile .lock
@@ -56,7 +56,7 @@ case "${1}" in
 		Create_lockfile .lock
 
 		# Restoring cache
-		Restore_cache cache/packages_chroot
+		Restore_cache cache/packages.chroot
 
 		# Configure custom sources.list
 
@@ -431,41 +431,41 @@ EOF
 		fi
 
 		# Update indices from cache
-		if [ "${LB_CACHE_INDICES}" = "true" ] && [ -d cache/indices_bootstrap ]
+		if [ "${LB_CACHE_INDICES}" = "true" ] && [ -d cache/indices.bootstrap ]
 		then
-			if Find_files cache/indices_bootstrap/secring.gpg*
+			if Find_files cache/indices.bootstrap/secring.gpg*
 			then
-				cp -f cache/indices_bootstrap/secring.gpg* chroot/etc/apt
+				cp -f cache/indices.bootstrap/secring.gpg* chroot/etc/apt
 			fi
 
-			if Find_files cache/indices_bootstrap/trusted.gpg*
+			if Find_files cache/indices.bootstrap/trusted.gpg*
 			then
-				cp -rf cache/indices_bootstrap/trusted.gpg* chroot/etc/apt
+				cp -rf cache/indices.bootstrap/trusted.gpg* chroot/etc/apt
 			fi
 
-			if [ -f cache/indices_bootstrap/pkgcache.bin ]
+			if [ -f cache/indices.bootstrap/pkgcache.bin ]
 			then
-				cp -f cache/indices_bootstrap/pkgcache.bin chroot/var/cache/apt
+				cp -f cache/indices.bootstrap/pkgcache.bin chroot/var/cache/apt
 			fi
 
-			if [ -f cache/indices_bootstrap/srcpkgcache.bin ]
+			if [ -f cache/indices.bootstrap/srcpkgcache.bin ]
 			then
-				cp -f cache/indices_bootstrap/srcpkgcache.bin chroot/var/cache/apt
+				cp -f cache/indices.bootstrap/srcpkgcache.bin chroot/var/cache/apt
 			fi
 
-			if Find_files cache/indices_bootstrap/*_Packages
+			if Find_files cache/indices.bootstrap/*_Packages
 			then
-				cp -f cache/indices_bootstrap/*_Packages chroot/var/lib/apt/lists
+				cp -f cache/indices.bootstrap/*_Packages chroot/var/lib/apt/lists
 			fi
 
-			if Find_files cache/indices_bootstrap/*_Sources
+			if Find_files cache/indices.bootstrap/*_Sources
 			then
-				cp -f cache/indices_bootstrap/*_Sources chroot/var/lib/apt/lists
+				cp -f cache/indices.bootstrap/*_Sources chroot/var/lib/apt/lists
 			fi
 
-			if Find_files cache/indices_bootstrap/*Release*
+			if Find_files cache/indices.bootstrap/*Release*
 			then
-				cp -f cache/indices_bootstrap/*Release* chroot/var/lib/apt/lists
+				cp -f cache/indices.bootstrap/*Release* chroot/var/lib/apt/lists
 			fi
 
 			if [ "${LB_APT}" = "aptitude" ] && [ ! -x /usr/bin/aptitude ]
@@ -536,34 +536,34 @@ EOF
 
 			if [ "${LB_CACHE_INDICES}" = "true" ]
 			then
-				mkdir -p cache/indices_bootstrap
+				mkdir -p cache/indices.bootstrap
 
-				cp -f chroot/etc/apt/secring.gpg* cache/indices_bootstrap
-				cp -rf chroot/etc/apt/trusted.gpg* cache/indices_bootstrap
+				cp -f chroot/etc/apt/secring.gpg* cache/indices.bootstrap
+				cp -rf chroot/etc/apt/trusted.gpg* cache/indices.bootstrap
 
-				cp -f chroot/var/cache/apt/pkgcache.bin cache/indices_bootstrap
+				cp -f chroot/var/cache/apt/pkgcache.bin cache/indices.bootstrap
 
 				if Find_files chroot/var/cache/apt/srcpkgcache.bin
 				then
-					cp -f chroot/var/cache/apt/srcpkgcache.bin cache/indices_bootstrap
+					cp -f chroot/var/cache/apt/srcpkgcache.bin cache/indices.bootstrap
 				fi
 
-				cp -f chroot/var/lib/apt/lists/*_Packages cache/indices_bootstrap
+				cp -f chroot/var/lib/apt/lists/*_Packages cache/indices.bootstrap
 
 				if Find_files chroot/var/lib/apt/lists/*_Sources
 				then
-					cp -f chroot/var/lib/apt/lists/*_Sources cache/indices_bootstrap
+					cp -f chroot/var/lib/apt/lists/*_Sources cache/indices.bootstrap
 				fi
 
-				cp -f chroot/var/lib/apt/lists/*Release* cache/indices_bootstrap
+				cp -f chroot/var/lib/apt/lists/*Release* cache/indices.bootstrap
 			fi
 		fi
 
 		# Saving cache
-		Save_cache cache/packages_chroot
+		Save_cache cache/packages.chroot
 
 		# Creating stage file
-		Create_stagefile .stage/chroot_archives
+		Create_stagefile .build/chroot_archives
 		;;
 
 	remove)
@@ -588,7 +588,7 @@ EOF
 		[ ! -d chroot/root/packages ]
 		then
 			# Removing stage file
-			rm -f .stage/chroot_archives
+			rm -f .build/chroot_archives
 
 			exit 0
 		fi
@@ -829,7 +829,7 @@ EOF
 		fi
 
 		# Removing stage file
-		rm -f .stage/chroot_archives
+		rm -f .build/chroot_archives
 		;;
 
 	*)

@@ -104,12 +104,10 @@ Set_defaults ()
 	LB_APT="${LB_APT:-apt}"
 
 	# Setting apt ftp proxy
-	LB_APT_FTP_PROXY="${LB_APT_FTP_PROXY:-${ftp_proxy}}"
-	ftp_proxy="${ftp_proxy:-${LB_APT_FTP_PROXY}}"
+	LB_APT_FTP_PROXY="${LB_APT_FTP_PROXY}"
 
 	# Setting apt http proxy
-	LB_APT_HTTP_PROXY="${LB_APT_HTTP_PROXY:-${http_proxy}}"
-	http_proxy="${http_proxy:-${LB_APT_HTTP_PROXY}}"
+	LB_APT_HTTP_PROXY="${LB_APT_HTTP_PROXY}"
 
 	# Setting apt pipeline
 	# LB_APT_PIPELINE
@@ -1192,8 +1190,17 @@ Set_defaults ()
 	esac
 
 	# Setting firmware option
-	LB_FIRMWARE_CHROOT="${LB_FIRMWARE_CHROOT:-true}"
-	LB_FIRMWARE_BINARY="${LB_FIRMWARE_BINARY:-true}"
+	case "${LB_MODE}" in
+		ubuntu)
+			LB_FIRMWARE_CHROOT="${LB_FIRMWARE_CHROOT:-false}"
+			LB_FIRMWARE_BINARY="${LB_FIRMWARE_BINARY:-false}"
+			;;
+
+		*)
+			LB_FIRMWARE_CHROOT="${LB_FIRMWARE_CHROOT:-true}"
+			LB_FIRMWARE_BINARY="${LB_FIRMWARE_BINARY:-true}"
+			;;
+	esac
 
 	# Setting swap file
 	LB_SWAP_FILE_SIZE="${LB_SWAP_FILE_SIZE:-512}"

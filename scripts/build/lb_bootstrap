@@ -14,7 +14,7 @@ set -e
 . "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Automatically populating config tree
-if [ -x auto/config ] && [ ! -e .stage/config ]
+if [ -x auto/config ] && [ ! -e .build/config ]
 then
 	Echo_message "Automatically populating config tree."
 	lb config

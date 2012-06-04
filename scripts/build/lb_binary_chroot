@@ -27,10 +27,10 @@ Set_defaults
 Echo_message "Begin copying chroot..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/binary_chroot
+Check_stagefile .build/binary_chroot
 
 # Checking lock file
 Check_lockfile .lock
@@ -73,7 +73,7 @@ then
 	exit 0
 fi
 
-if [ "${LB_CACHE}" = "true" ] && Find_files cache/stages_rootfs/filesystem*
+if [ "${LB_CACHE}" = "true" ] && Find_files cache/binary_rootfs/filesystem*
 then
 	exit 0
 fi
@@ -85,10 +85,10 @@ ${LB_ROOT_COMMAND} rm -rf chroot/chroot
 ${LB_ROOT_COMMAND} rm -rf chroot.tmp
 
 # Copying new chroot
-if [ -d cache/stages_bootstrap ] && [ "${LB_CHROOT_FILESYSTEM}" != "none" ]
+if [ -d cache/bootstrap ] && [ "${LB_CHROOT_FILESYSTEM}" != "none" ]
 then
 	${LB_ROOT_COMMAND} mv chroot chroot.tmp
-	${LB_ROOT_COMMAND} cp -a cache/stages_bootstrap chroot
+	${LB_ROOT_COMMAND} cp -a cache/bootstrap chroot
 	${LB_ROOT_COMMAND} touch chroot/chroot.cache
 else
 	${LB_ROOT_COMMAND} cp -a chroot chroot.tmp
@@ -122,4 +122,4 @@ then
 fi
 
 # Creating stage file
-Create_stagefile .stage/binary_chroot
+Create_stagefile .build/binary_chroot

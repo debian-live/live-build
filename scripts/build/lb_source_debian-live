@@ -32,10 +32,10 @@ fi
 Echo_message "Begin copying live-build configuration..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/source_debian-live
+Check_stagefile .build/source_debian-live
 
 # Checking lock file
 Check_lockfile .lock
@@ -59,4 +59,4 @@ then
 fi
 
 # Creating stage file
-Create_stagefile .stage/source_debian-live
+Create_stagefile .build/source_debian-live

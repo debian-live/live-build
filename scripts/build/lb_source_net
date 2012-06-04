@@ -37,10 +37,10 @@ fi
 Echo_message "Begin building source netboot image..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/source_debian
+Require_stagefile .build/config .build/source_debian
 
 # Checking stage file
-Check_stagefile .stage/source_net
+Check_stagefile .build/source_net
 
 # Checking lock file
 Check_lockfile .lock
@@ -71,4 +71,4 @@ case "${_COMPRESSION}" in
 esac
 
 # Creating stage file
-Create_stagefile .stage/source_net
+Create_stagefile .build/source_net

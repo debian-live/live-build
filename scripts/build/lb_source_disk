@@ -36,10 +36,10 @@ esac
 Echo_message "Begin installing disk information..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/source_disk
+Check_stagefile .build/source_disk
 
 # Checking lock file
 Check_lockfile .lock
@@ -126,4 +126,4 @@ case "${LB_DEBIAN_INSTALLER}" in
 esac
 
 # Creating stage file
-Create_stagefile .stage/source_disk
+Create_stagefile .build/source_disk

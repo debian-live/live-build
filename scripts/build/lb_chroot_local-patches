@@ -27,10 +27,10 @@ Set_defaults
 Echo_message "Begin applying chroot local patches..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/chroot_local-patches
+Check_stagefile .build/chroot_local-patches
 
 # Checking lock file
 Check_lockfile .lock
@@ -41,7 +41,7 @@ Create_lockfile .lock
 if Find_files config/chroot_local-patches/
 then
 	# Restoring cache
-	Restore_cache cache/packages_chroot
+	Restore_cache cache/packages.chroot
 
 	# Checking depends
 	Check_package chroot/usr/bin/patch patch
@@ -59,8 +59,8 @@ then
 	Remove_package
 
 	# Saving cache
-	Save_cache cache/packages_chroot
+	Save_cache cache/packages.chroot
 
 	# Creating stage file
-	Create_stagefile .stage/chroot_local-patches
+	Create_stagefile .build/chroot_local-patches
 fi

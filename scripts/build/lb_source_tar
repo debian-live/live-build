@@ -38,10 +38,10 @@ Echo_message "Begin building source tarball..."
 Echo_message "This may take a while."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/source_debian
+Require_stagefile .build/config .build/source_debian
 
 # Checking stage file
-Check_stagefile .stage/source_tar
+Check_stagefile .build/source_tar
 
 # Checking lock file
 Check_lockfile .lock
@@ -77,4 +77,4 @@ case "${LB_COMPRESSION}" in
 esac
 
 # Creating stage file
-Create_stagefile .stage/source_tar
+Create_stagefile .build/source_tar

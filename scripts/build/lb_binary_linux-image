@@ -32,10 +32,10 @@ fi
 Echo_message "Begin install linux-image..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/binary_linux-image
+Check_stagefile .build/binary_linux-image
 
 # Checking lock file
 Check_lockfile .lock
@@ -89,4 +89,4 @@ case "${LB_INITRAMFS}" in
 esac
 
 # Creating stage file
-Create_stagefile .stage/binary_linux-image
+Create_stagefile .build/binary_linux-image

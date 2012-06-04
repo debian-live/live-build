@@ -30,14 +30,14 @@ then
 fi
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 case "${1}" in
 	install)
 		Echo_message "Configuring tmpfs for /var/lib/dpkg"
 
 		# Checking stage file
-		Check_stagefile .stage/chroot_tmpfs
+		Check_stagefile .build/chroot_tmpfs
 
 		# Checking lock file
 		Check_lockfile .lock
@@ -52,7 +52,7 @@ case "${1}" in
 		rm -rf chroot/var/lib/dpkg.tmp
 
 		# Creating stage file
-		Create_stagefile .stage/chroot_tmpfs
+		Create_stagefile .build/chroot_tmpfs
 		;;
 
 	remove)
@@ -71,7 +71,7 @@ case "${1}" in
 		mv chroot/var/lib/dpkg.tmp chroot/var/lib/dpkg
 
 		# Removing stage file
-		rm -f .stage/chroot_tmpfs
+		rm -f .build/chroot_tmpfs
 		;;
 
 	*)

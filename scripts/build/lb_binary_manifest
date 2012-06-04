@@ -32,10 +32,10 @@ fi
 Echo_message "Begin creating manifest..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/binary_manifest
+Check_stagefile .build/binary_manifest
 
 # Checking lock file
 Check_lockfile .lock
@@ -68,4 +68,4 @@ echo "$(diff chroot.packages.live chroot.packages.install | awk '/^< / { print $
 cp chroot.packages.live binary.packages
 
 # Creating stage file
-Create_stagefile .stage/binary_manifest
+Create_stagefile .build/binary_manifest

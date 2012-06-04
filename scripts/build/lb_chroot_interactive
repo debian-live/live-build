@@ -32,10 +32,10 @@ fi
 Echo_message "Begin interactive build..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/chroot_interactive
+Check_stagefile .build/chroot_interactive
 
 # Checking lock file
 Check_lockfile .lock
@@ -59,4 +59,4 @@ case "${LB_INTERACTIVE}" in
 esac
 
 # Creating stage file
-Create_stagefile .stage/chroot_interactive
+Create_stagefile .build/chroot_interactive

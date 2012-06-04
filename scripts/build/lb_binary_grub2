@@ -32,10 +32,10 @@ fi
 Echo_message "Begin installing grub2..."
 
 # Requiring stage file
-Require_stagefile .stage/config .stage/bootstrap
+Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .stage/binary_grub
+Check_stagefile .build/binary_grub
 
 # Checking grub2 templates
 Check_templates grub2
@@ -54,7 +54,7 @@ Check_crossarchitectures
 Check_package chroot/usr/bin/grub-mkimage grub-pc
 
 # Restoring cache
-Restore_cache cache/packages_binary
+Restore_cache cache/packages.binary
 
 # Installing depends
 Install_package
@@ -270,10 +270,10 @@ sed -i -e "s|LB_BOOTAPPEND_INSTALL|${LB_BOOTAPPEND_INSTALL}|" -e "s|LB_BOOTAPPEN
 sed -i -e 's|\ $||g' binary/boot/grub/grub.cfg
 
 # Saving cache
-Save_cache cache/packages_binary
+Save_cache cache/packages.binary
 
 # Removing depends
 Remove_package
 
 # Creating stage file
-Create_stagefile .stage/binary_grub
+Create_stagefile .build/binary_grub
