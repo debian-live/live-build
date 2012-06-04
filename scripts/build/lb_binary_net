@@ -54,7 +54,7 @@ then
 	Check_package chroot/usr/bin/elftoaout sparc-utils
 
 	# Restoring cache
-	Restore_cache cache/packages_binary
+	Restore_cache cache/packages.binary
 
 	# Installing depends
 	Install_package
@@ -112,7 +112,7 @@ then
 	rm -f kernel.tmp
 
 	# Saving cache
-	Save_cache cache/packages_binary
+	Save_cache cache/packages.binary
 
 	# Removing depends
 	Remove_package

@@ -109,7 +109,7 @@ do
 
 		--remove)
 			LB=1 "${0}" --all
-			rm -rf cache/packages_*
+			rm -rf cache/packages.*
 			;;
 
 		--purge)

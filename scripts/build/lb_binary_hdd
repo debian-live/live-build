@@ -73,7 +73,7 @@ case "${LB_BOOTLOADER}" in
 esac
 
 # Restoring cache
-Restore_cache cache/packages_binary
+Restore_cache cache/packages.binary
 
 # Installing depends
 Install_package
@@ -283,7 +283,7 @@ fi
 mv chroot/binary.img ./
 
 # Saving cache
-Save_cache cache/packages_binary
+Save_cache cache/packages.binary
 
 # Removing depends
 Remove_package

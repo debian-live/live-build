@@ -97,7 +97,7 @@ ${LB_ROOT_COMMAND} umount source.tmp
 rmdir source.tmp
 
 # Saving cache
-Save_cache cache/packages_binary
+Save_cache cache/packages.binary
 
 # Removing depends
 Remove_package

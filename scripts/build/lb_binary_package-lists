@@ -42,7 +42,7 @@ if ls config/package-lists/*.list > /dev/null 2>&1 || \
    ls config/package-lists/*.list.binary > /dev/null 2>&1
 then
 	# Restoring cache
-	Restore_cache cache/packages_chroot
+	Restore_cache cache/packages.chroot
 
 	# Check depends
 	Check_package chroot/usr/bin/apt-ftparchive apt-utils
@@ -127,7 +127,7 @@ then
 	Remove_package
 
 	# Saving cache
-	Save_cache cache/packages_chroot
+	Save_cache cache/packages.chroot
 
 	# Creating stage file
 	Create_stagefile .build/binary_package-lists

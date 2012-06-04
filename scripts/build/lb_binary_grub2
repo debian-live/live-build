@@ -54,7 +54,7 @@ Check_crossarchitectures
 Check_package chroot/usr/bin/grub-mkimage grub-pc
 
 # Restoring cache
-Restore_cache cache/packages_binary
+Restore_cache cache/packages.binary
 
 # Installing depends
 Install_package
@@ -270,7 +270,7 @@ sed -i -e "s|LB_BOOTAPPEND_INSTALL|${LB_BOOTAPPEND_INSTALL}|" -e "s|LB_BOOTAPPEN
 sed -i -e 's|\ $||g' binary/boot/grub/grub.cfg
 
 # Saving cache
-Save_cache cache/packages_binary
+Save_cache cache/packages.binary
 
 # Removing depends
 Remove_package

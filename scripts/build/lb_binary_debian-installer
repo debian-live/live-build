@@ -73,7 +73,7 @@ Check_package chroot/usr/bin/wget wget
 Check_package chroot/usr/bin/apt-ftparchive apt-utils
 
 # Restoring cache
-Restore_cache cache/packages_binary
+Restore_cache cache/packages.binary
 
 # Installing depends
 Install_package
@@ -521,14 +521,14 @@ then
 	if [ "${LB_DEBIAN_INSTALLER}" != "live" ]
 	then
 		# Including base debian packages
-		if ls cache/packages_bootstrap/*.deb > /dev/null 2>&1
+		if ls cache/packages.bootstrap/*.deb > /dev/null 2>&1
 		then
-			for FILE in cache/packages_bootstrap/*.deb
+			for FILE in cache/packages.bootstrap/*.deb
 			do
 				Install_file "${FILE}" "binary/pool"
 			done
 		else
-			Echo_error "Could not find packages in cache/packages_bootstrap."
+			Echo_error "Could not find packages in cache/packages.bootstrap."
 			Echo_error "You selected values of LB_CACHE, LB_CACHE_PACKAGES, LB_CACHE_STAGES and LB_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being cached - these are required when integrating the Debian Installer."
 			exit 1
 		fi
@@ -623,10 +623,10 @@ then
 
 	for UDEB in ${UDEBS}
 	do
-		if [ -f ../cache/packages_debian-installer.udeb/"$(basename ${UDEB})" ]
+		if [ -f ../cache/packages.binary_debian-installer.udeb/"$(basename ${UDEB})" ]
 		then
 			# Copying cached udebs
-			cp ../cache/packages_debian-installer.udeb/"$(basename ${UDEB})" ./
+			cp ../cache/packages.binary_debian-installer.udeb/"$(basename ${UDEB})" ./
 		else
 			# Downloading udebs
 			if ! ls "$(basename ${UDEB} | awk -F_ '{ print $1 }')"_* > /dev/null 2>&1
@@ -637,9 +637,9 @@ then
 	done
 
 	# Caching udebs
-	rm -rf ../cache/packages_debian-installer.udeb
-	mkdir -p ../cache/packages_debian-installer.udeb
-	cp *.udeb ../cache/packages_debian-installer.udeb
+	rm -rf ../cache/packages.binary_debian-installer.udeb
+	mkdir -p ../cache/packages.binary_debian-installer.udeb
+	cp *.udeb ../cache/packages.binary_debian-installer.udeb
 
 	# Including local udebs
 	if Find_files ../config/packages.binary/*_"${LB_ARCHITECTURES}".udeb || Find_files ../config/packages/*_"${LB_ARCHITECTURES}".udeb
@@ -853,7 +853,7 @@ then
 fi
 
 # Saving cache
-Save_cache cache/packages_binary
+Save_cache cache/packages.binary
 
 # Removing depends
 Remove_package

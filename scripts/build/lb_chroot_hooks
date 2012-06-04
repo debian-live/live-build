@@ -76,7 +76,7 @@ fi
 if Find_files config/hooks/*.chroot
 then
 	# Restoring cache
-	Restore_cache cache/packages_chroot
+	Restore_cache cache/packages.chroot
 
 	for _HOOK in config/hooks/*.chroot
 	do
@@ -97,7 +97,7 @@ then
 	done
 
 	# Saving cache
-	Save_cache cache/packages_chroot
+	Save_cache cache/packages.chroot
 
 	# Creating stage file
 	Create_stagefile .build/chroot_hooks

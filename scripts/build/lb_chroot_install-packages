@@ -45,7 +45,7 @@ Create_lockfile .lock
 if [ -e chroot/root/packages.chroot ] && [ -s chroot/root/packages.chroot ]
 then
 	# Restoring cache
-	Restore_cache cache/packages_chroot
+	Restore_cache cache/packages.chroot
 
 	# Installing packages
 	case "${LB_APT}" in
@@ -62,7 +62,7 @@ then
 	rm -f chroot/root/packages.chroot
 
 	# Saving cache
-	Save_cache cache/packages_chroot
+	Save_cache cache/packages.chroot
 
 fi
 

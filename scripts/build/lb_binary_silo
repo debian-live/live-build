@@ -64,7 +64,7 @@ Check_architectures sparc
 Check_package chroot/usr/sbin/silo silo
 
 # Restoring cache
-Restore_cache cache/packages_binary
+Restore_cache cache/packages.binary
 
 # Installing depends
 Install_package
@@ -230,7 +230,7 @@ case "${LB_BINARY_IMAGES}" in
 esac
 
 # Saving cache
-Save_cache cache/packages_binary
+Save_cache cache/packages.binary
 
 # Removing depends
 Remove_package

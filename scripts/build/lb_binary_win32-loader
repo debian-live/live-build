@@ -51,7 +51,7 @@ case "${LB_ARCHITECTURES}" in
 			Check_package chroot/usr/share/win32/win32-loader.exe win32-loader
 
 			# Restoring cache
-			Restore_cache cache/packages_binary
+			Restore_cache cache/packages.binary
 
 			# Installing depends
 			Install_package
@@ -88,7 +88,7 @@ EOF
 		fi
 
 		# Saving cache
-		Save_cache cache/packages_binary
+		Save_cache cache/packages.binary
 
 		# Removing depends
 		Remove_package

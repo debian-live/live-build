@@ -67,14 +67,14 @@ mkdir -p binary/${INITFS}
 
 for STAGE in ${LB_CACHE_STAGES}
 do
-	if [ "${STAGE}" = "rootfs" ] && [ -d cache/stages_rootfs ]
+	if [ "${STAGE}" = "rootfs" ] && [ -d cache/binary_rootfs ]
 	then
 		# Removing old chroot
 		rm -rf binary/"${INITFS}"/filesystem.*
 
 		# Restoring old cache
 		mkdir -p binary/"${INITFS}"
-		${LB_ROOT_COMMAND} cp -a cache/stages_rootfs/filesystem.* binary/"${INITFS}"
+		${LB_ROOT_COMMAND} cp -a cache/binary_rootfs/filesystem.* binary/"${INITFS}"
 
 		if [ -n "${LB_ROOT_COMMAND}" ]
 		then
@@ -93,7 +93,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 		Check_package chroot/sbin/mkfs.${LB_BINARY_FILESYSTEM} e2fsprogs
 
 		# Restoring cache
-		Restore_cache cache/packages_binary
+		Restore_cache cache/packages.binary
 
 		# Installing depends
 		Install_package
@@ -211,7 +211,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 		esac
 
 		# Saving cache
-		Save_cache cache/packages_binary
+		Save_cache cache/packages.binary
 		;;
 
 	jffs2)
@@ -219,7 +219,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 		Check_package chroot/usr/sbin/mkfs.jffs2 mtd-tools
 
 		# Restoring cache
-		Restore_cache cache/packages_binary
+		Restore_cache cache/packages.binary
 
 		# Installing depends
 		Install_package
@@ -293,7 +293,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 		esac
 
 		# Saving cache
-		Save_cache cache/packages_binary
+		Save_cache cache/packages.binary
 		;;
 
 	plain)
@@ -318,7 +318,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 		Check_package chroot/usr/share/doc/squashfs-tools squashfs-tools
 
 		# Restoring cache
-		Restore_cache cache/packages_binary
+		Restore_cache cache/packages.binary
 
 		# Installing depends
 		Install_package
@@ -457,7 +457,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 		fi
 
 		# Saving cache
-		Save_cache cache/packages_binary
+		Save_cache cache/packages.binary
 		;;
 
 	none)
@@ -484,18 +484,18 @@ for STAGE in ${LB_CACHE_STAGES}
 do
 	if [ "${STAGE}" = "rootfs" ]
 	then
-		rm -rf cache/stages_rootfs
+		rm -rf cache/binary_rootfs
 
-		mkdir -p cache/stages_rootfs
+		mkdir -p cache/binary_rootfs
 
 		if [ "${LB_CHROOT_FILESYSTEM}" != "none" ]
 		then
-			${LB_ROOT_COMMAND} cp -a binary/"${INITFS}"/filesystem.* cache/stages_rootfs
+			${LB_ROOT_COMMAND} cp -a binary/"${INITFS}"/filesystem.* cache/binary_rootfs
 		fi
 
 		if [ -n "${LB_ROOT_COMMAND}" ]
 		then
-			${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) cache/stages_rootfs
+			${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) cache/binary_rootfs
 		fi
 	fi
 done

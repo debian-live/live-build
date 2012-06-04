@@ -73,7 +73,7 @@ then
 	exit 0
 fi
 
-if [ "${LB_CACHE}" = "true" ] && Find_files cache/stages_rootfs/filesystem*
+if [ "${LB_CACHE}" = "true" ] && Find_files cache/binary_rootfs/filesystem*
 then
 	exit 0
 fi
@@ -85,10 +85,10 @@ ${LB_ROOT_COMMAND} rm -rf chroot/chroot
 ${LB_ROOT_COMMAND} rm -rf chroot.tmp
 
 # Copying new chroot
-if [ -d cache/stages_bootstrap ] && [ "${LB_CHROOT_FILESYSTEM}" != "none" ]
+if [ -d cache/bootstrap ] && [ "${LB_CHROOT_FILESYSTEM}" != "none" ]
 then
 	${LB_ROOT_COMMAND} mv chroot chroot.tmp
-	${LB_ROOT_COMMAND} cp -a cache/stages_bootstrap chroot
+	${LB_ROOT_COMMAND} cp -a cache/bootstrap chroot
 	${LB_ROOT_COMMAND} touch chroot/chroot.cache
 else
 	${LB_ROOT_COMMAND} cp -a chroot chroot.tmp

@@ -38,7 +38,7 @@ do
 				# Checking stage file
 				Check_stagefile .build/bootstrap_cache.restore
 
-				if [ -d cache/stages_bootstrap ]
+				if [ -d cache/bootstrap ]
 				then
 					# Checking lock file
 					Check_lockfile .lock
@@ -50,7 +50,7 @@ do
 					rm -rf chroot
 
 					# Restoring old cache
-					${LB_ROOT_COMMAND} cp -a cache/stages_bootstrap chroot
+					${LB_ROOT_COMMAND} cp -a cache/bootstrap chroot
 
 					if [ -n "${LB_ROOT_COMMAND}" ]
 					then
@@ -77,15 +77,15 @@ do
 				# Creating lock file
 				Create_lockfile .lock
 
-				rm -rf cache/stages_bootstrap
+				rm -rf cache/bootstrap
 
 				mkdir -p cache
 
-				${LB_ROOT_COMMAND} cp -a chroot cache/stages_bootstrap
+				${LB_ROOT_COMMAND} cp -a chroot cache/bootstrap
 
 				if [ -n "${LB_ROOT_COMMAND}" ]
 				then
-					${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) cache/stages_bootstrap
+					${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) cache/bootstrap
 				fi
 
 				# Creating stage file

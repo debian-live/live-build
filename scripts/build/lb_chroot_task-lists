@@ -58,7 +58,7 @@ then
 	done
 
 	# Restoring cache
-	Restore_cache cache/packages_chroot
+	Restore_cache cache/packages.chroot
 
 	# Checking depends
 	case "${LB_TASKSEL}" in
@@ -144,7 +144,7 @@ then
 	rm -f chroot/root/chroot_tasks
 
 	# Saving cache
-	Save_cache cache/packages_chroot
+	Save_cache cache/packages.chroot
 
 	# Creating stage file
 	Create_stagefile .build/chroot_task-lists.${_PASS}
