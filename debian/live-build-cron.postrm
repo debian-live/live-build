@@ -10,7 +10,7 @@ case "${1}" in
 		rmdir --ignore-fail-on-non-empty /etc/live 2>&1 || true
 
 		rm -f /etc/cron.d/live-build-cron-manual
-		rmdir --ignore-fail-on-non-empty /etc/cron.d/live-build-cron-manual 2>&1 || true
+		rmdir --ignore-fail-on-non-empty /etc/cron.d 2>&1 || true
 
 		# manual
 		rm -f /etc/live/build-cron.d/manual.conf
@@ -18,7 +18,7 @@ case "${1}" in
 		rmdir --ignore-fail-on-non-empty /etc/live 2>&1 || true
 
 		rm -f /etc/cron.d/live-build-cron-images
-		rmdir --ignore-fail-on-non-empty /etc/cron.d/live-build-cron-images 2>&1 || true
+		rmdir --ignore-fail-on-non-empty /etc/cron.d 2>&1 || true
 		;;
 
 	remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
