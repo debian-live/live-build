@@ -1,7 +1,7 @@
 # Makefile to manage gettext files
 
-DOMAIN=live-helper
-ECHO_FUNCTIONS="Echo_message Echo_verbose Echo_warning Echo_debug Echo_error Echo_breakage Echo"
+DOMAIN=live-build
+ECHO_FUNCTIONS="Echo Echo_debug Echo_debug_running Echo_error Echo_message Echo_message_running Echo_verbose Echo_verbose_running Echo_warning Echo_status Echo_done Echo_file Echo_breakage"
 
 POFILES=$(wildcard *.po)
 MOFILES=$(patsubst %.po,%.mo,$(POFILES))
@@ -20,7 +20,7 @@ XGETTEXT_KEYWORDS=$(shell echo $(ECHO_FUNCTIONS) |sed -e 's,\S\+,-k&,g')
 $(DOMAIN).pot: $(GETTEXTFILES)
 	$(shell xgettext $(XGETTEXT_KEYWORDS) -L Shell -o $(DOMAIN).pot $(GETTEXTFILES))
 
-update-po: live-helper.pot
+update-po: live-build.pot
 	-for lang in $(LINGUAS); do\
 	    msgmerge -U $$lang.po $(DOMAIN).pot; \
 	done
@@ -34,6 +34,6 @@ install: $(MOFILES)
 all: update-po $(MOFILES)
 
 clean:
-	- rm *.mo *~
+	rm -f *.mo *~
 
 .PHONY: update-po

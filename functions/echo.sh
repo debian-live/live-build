@@ -13,11 +13,11 @@ Echo ()
 	STRING="${1}"
 	shift
 
-	if [ "${_L10N}" = "false" ]
+	if [ "${_L10N}" = "true" ]
 	then
-		printf "${STRING}\n" "${@}"
-	else
 		printf "$(eval_gettext "${STRING}")" "${@}"; echo;
+	else
+		printf "${STRING}\n" "${@}"
 	fi
 }
 
@@ -28,11 +28,11 @@ Echo_debug ()
 		STRING="${1}"
 		shift
 
-		if [ "${_L10N}" = "false" ]
+		if [ "${_L10N}" = "true" ]
 		then
-			printf "D: ${STRING}\n" "${@}"
-		else
 			printf "D: $(eval_gettext "${STRING}")" "${@}"; echo;
+		else
+			printf "D: ${STRING}\n" "${@}"
 		fi
 	fi
 }
@@ -44,11 +44,11 @@ Echo_debug_running ()
 		STRING="${1}"
 		shift
 
-		if [ "${_L10N}" = "false" ]
+		if [ "${_L10N}" = "true" ]
 		then
-			printf "D: ${STRING}" "${@}"
-		else
 			printf "D: $(eval_gettext "${STRING}")" "${@}"
+		else
+			printf "D: ${STRING}" "${@}"
 		fi
 
 		if [ "${_COLOR}" = "false" ]
@@ -72,11 +72,11 @@ Echo_error ()
 		printf "${RED}E${NO_COLOR}:"
 	fi
 
-	if [ "${_L10N}" = "false" ]
+	if [ "${_L10N}" = "true" ]
 	then
-		printf " ${STRING}\n" "${@}" >&2
-	else
 		(printf " $(eval_gettext "${STRING}")" "${@}"; echo;) >&2
+	else
+		printf " ${STRING}\n" "${@}" >&2
 	fi
 }
 
@@ -94,11 +94,11 @@ Echo_message ()
 			printf "${WHITE}P${NO_COLOR}:"
 		fi
 
-		if [ "${_L10N}" = "false" ]
+		if [ "${_L10N}" = "true" ]
 		then
-			printf " ${STRING}\n" "${@}"
-		else
 			printf " $(eval_gettext "${STRING}")" "${@}"; echo;
+		else
+			printf " ${STRING}\n" "${@}"
 		fi
 	fi
 }
@@ -117,18 +117,18 @@ Echo_message_running ()
 			printf "${WHITE}P${NO_COLOR}:"
 		fi
 
-		if [ "${_L10N}" = "false" ]
+		if [ "${_L10N}" = "true" ]
 		then
-			printf " ${STRING}" "${@}"
-		else
 			printf " $(eval_gettext "${STRING}")" "${@}";
+		else
+			printf " ${STRING}" "${@}"
 		fi
 
-		if [ "${_COLOR}" = "false" ]
+		if [ "${_COLOR}" = "true" ]
 		then
-			printf "..."
-		else
 			printf "... ${YELLOW}${BLINK}running${NO_COLOR}"
+		else
+			printf "..."
 		fi
 	fi
 }
@@ -140,11 +140,11 @@ Echo_verbose ()
 		STRING="${1}"
 		shift
 
-		if [ "${_L10N}" = "false" ]
+		if [ "${_L10N}" = "true" ]
 		then
-			printf "I: ${STRING}\n" "${@}"
-		else
 			printf "I: $(eval_gettext "${STRING}")" "${@}"; echo;
+		else
+			printf "I: ${STRING}\n" "${@}"
 		fi
 	fi
 }
@@ -156,18 +156,18 @@ Echo_verbose_running ()
 		STRING="${1}"
 		shift
 
-		if [ "${_L10N}" = "false" ]
+		if [ "${_L10N}" = "true" ]
 		then
-			printf "I: ${STRING}" "${@}"
-		else
 			printf "I: $(eval_gettext "${STRING}")" "${@}";
+		else
+			printf "I: ${STRING}" "${@}"
 		fi
 
-		if [ "${_COLOR}" = "false" ]
+		if [ "${_COLOR}" = "true" ]
 		then
-			printf "..."
-		else
 			printf "... ${YELLOW}${BLINK}running${NO_COLOR}"
+		else
+			printf "..."
 		fi
 	fi
 }
@@ -184,11 +184,11 @@ Echo_warning ()
 		printf "${YELLOW}W${NO_COLOR}:"
 	fi
 
-	if [ "${_L10N}" = "false" ]
+	if [ "${_L10N}" = "true" ]
 	then
-		printf " ${STRING}\n" "${@}"
-	else
 		printf " $(eval_gettext "${STRING}")" "${@}"; echo;
+	else
+		printf " ${STRING}\n" "${@}"
 	fi
 }
 
