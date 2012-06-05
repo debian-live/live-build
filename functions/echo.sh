@@ -13,12 +13,7 @@ Echo ()
 	STRING="${1}"
 	shift
 
-	if [ "${_L10N}" = "true" ]
-	then
-		printf "$(eval_gettext "${STRING}")" "${@}"; echo;
-	else
-		printf "${STRING}\n" "${@}"
-	fi
+	printf "${STRING}\n" "${@}"
 }
 
 Echo_debug ()
@@ -28,12 +23,7 @@ Echo_debug ()
 		STRING="${1}"
 		shift
 
-		if [ "${_L10N}" = "true" ]
-		then
-			printf "D: $(eval_gettext "${STRING}")" "${@}"; echo;
-		else
-			printf "D: ${STRING}\n" "${@}"
-		fi
+		printf "D: ${STRING}\n" "${@}"
 	fi
 }
 
@@ -44,12 +34,7 @@ Echo_debug_running ()
 		STRING="${1}"
 		shift
 
-		if [ "${_L10N}" = "true" ]
-		then
-			printf "D: $(eval_gettext "${STRING}")" "${@}"
-		else
-			printf "D: ${STRING}" "${@}"
-		fi
+		printf "D: ${STRING}" "${@}"
 
 		if [ "${_COLOR}" = "false" ]
 		then
@@ -72,12 +57,7 @@ Echo_error ()
 		printf "${RED}E${NO_COLOR}:"
 	fi
 
-	if [ "${_L10N}" = "true" ]
-	then
-		(printf " $(eval_gettext "${STRING}")" "${@}"; echo;) >&2
-	else
-		printf " ${STRING}\n" "${@}" >&2
-	fi
+	printf " ${STRING}\n" "${@}" >&2
 }
 
 Echo_message ()
@@ -94,12 +74,7 @@ Echo_message ()
 			printf "${WHITE}P${NO_COLOR}:"
 		fi
 
-		if [ "${_L10N}" = "true" ]
-		then
-			printf " $(eval_gettext "${STRING}")" "${@}"; echo;
-		else
-			printf " ${STRING}\n" "${@}"
-		fi
+		printf " ${STRING}\n" "${@}"
 	fi
 }
 
@@ -117,12 +92,7 @@ Echo_message_running ()
 			printf "${WHITE}P${NO_COLOR}:"
 		fi
 
-		if [ "${_L10N}" = "true" ]
-		then
-			printf " $(eval_gettext "${STRING}")" "${@}";
-		else
-			printf " ${STRING}" "${@}"
-		fi
+		printf " ${STRING}" "${@}"
 
 		if [ "${_COLOR}" = "true" ]
 		then
@@ -140,12 +110,7 @@ Echo_verbose ()
 		STRING="${1}"
 		shift
 
-		if [ "${_L10N}" = "true" ]
-		then
-			printf "I: $(eval_gettext "${STRING}")" "${@}"; echo;
-		else
-			printf "I: ${STRING}\n" "${@}"
-		fi
+		printf "I: ${STRING}\n" "${@}"
 	fi
 }
 
@@ -156,12 +121,7 @@ Echo_verbose_running ()
 		STRING="${1}"
 		shift
 
-		if [ "${_L10N}" = "true" ]
-		then
-			printf "I: $(eval_gettext "${STRING}")" "${@}";
-		else
-			printf "I: ${STRING}" "${@}"
-		fi
+		printf "I: ${STRING}" "${@}"
 
 		if [ "${_COLOR}" = "true" ]
 		then
@@ -184,12 +144,7 @@ Echo_warning ()
 		printf "${YELLOW}W${NO_COLOR}:"
 	fi
 
-	if [ "${_L10N}" = "true" ]
-	then
-		printf " $(eval_gettext "${STRING}")" "${@}"; echo;
-	else
-		printf " ${STRING}\n" "${@}"
-	fi
+	printf " ${STRING}\n" "${@}"
 }
 
 Echo_status ()

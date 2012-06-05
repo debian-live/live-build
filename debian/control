@@ -4,7 +4,6 @@ Priority: optional
 Maintainer: Debian Live Project <debian-live@lists.debian.org>
 Uploaders: Daniel Baumann <daniel@debian.org>
 Build-Depends: debhelper (>= 9)
-Build-Depends-Indep: gettext
 Standards-Version: 3.9.3
 Homepage: http://live.debian.net/devel/live-build/
 Vcs-Browser: http://live.debian.net/gitweb/?p=live-build.git
@@ -15,7 +14,7 @@ Architecture: all
 Depends: ${misc:Depends}, debootstrap | cdebootstrap | cdebootstrap-static
 Recommends:
  live-boot-doc, live-config-doc, live-manual-html | live-manual, cpio,
- gettext-base, gnu-fdisk
+ gnu-fdisk
 Suggests:
  dosfstools, genisoimage, memtest86+ | memtest86, mtools, parted,
  squashfs-tools | mtd-tools, sudo | fakeroot, syslinux | grub,
