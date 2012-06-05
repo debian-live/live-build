@@ -50,33 +50,33 @@ do
 
 	for CHECKSUM in ${LB_CHECKSUMS}
 	do
-		Echo_message "Begin creating source ${CHECKSUM}sum.txt..."
+		CHECKSUMS="$(echo ${CHECKSUM} | tr [a-z] [A-Z])SUMS"
+
+		Echo_message "Begin creating source ${CHECKSUMS}..."
 
 		# Remove old checksums
-		if [ -f ${DIRECTORY}/${CHECKSUM}sum.txt ]
+		if [ -f ${DIRECTORY}/${CHECKSUMS} ]
 		then
-			rm -f ${DIRECTORY}/${CHECKSUM}sum.txt
+			rm -f ${DIRECTORY}/${CHECKSUMS}
 		fi
 
 		# Calculating checksums
 		cd ${DIRECTORY}
 		find . -type f \
-			\! -path './md5sum.txt' \
-			\! -path './sha1sum.txt' \
-			\! -path './sha256sum.txt' \
-		-print0 | sort -z | xargs -0 ${CHECKSUM}sum > ../${CHECKSUM}sum.txt
+			\! -path './*SUMS' \
+		-print0 | sort -z | xargs -0 ${CHECKSUM}sum > ../${CHECKSUMS}
 
-cat > ${CHECKSUM}sum.txt << EOF
+cat > ${CHECKSUMS} << EOF
 This file contains the list of ${CHECKSUM} checksums of all files on this medium.
 
 You can verify them automatically with the 'integrity-check' boot parameter,
-or, manually with: '${CHECKSUM}sum -c ${CHECKSUM}sum.txt'.
+or, manually with: '${CHECKSUM}sum -c ${CHECKSUMS}'.
 
 
 EOF
 
-		cat ../${CHECKSUM}sum.txt >> ${CHECKSUM}sum.txt
-		rm -f ../${CHECKSUM}sum.txt
+		cat ../${CHECKSUMS} >> ${CHECKSUMS}
+		rm -f ../${CHECKSUMS}
 
 		cd "${OLDPWD}"
 	done

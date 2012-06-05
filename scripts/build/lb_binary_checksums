@@ -43,12 +43,14 @@ Create_lockfile .lock
 
 for CHECKSUM in ${LB_CHECKSUMS}
 do
-	Echo_message "Begin creating binary ${CHECKSUM}sum.txt..."
+	CHECKSUMS="$(echo ${CHECKSUM} | tr [a-z] [A-Z])SUMS"
+
+	Echo_message "Begin creating binary ${CHECKSUMS}..."
 
 	# Remove old checksums
-	if [ -f binary/${CHECKSUM}sum.txt ]
+	if [ -f binary/${CHECKSUMS} ]
 	then
-		rm -f binary/${CHECKSUM}sum.txt
+		rm -f binary/${CHECKSUMS}
 	fi
 
 	# Calculating checksums
@@ -57,22 +59,20 @@ do
 		\! -path './isolinux/isolinux.bin' \
 		\! -path './boot/boot.bin' \
 		\! -path './boot/grub/stage2_eltorito' \
-		\! -path './md5sum.txt' \
-		\! -path './sha1sum.txt' \
-		\! -path './sha256sum.txt' \
-	-print0 | sort -z | xargs -0 ${CHECKSUM}sum > ../${CHECKSUM}sum.txt
+		\! -path './*SUMS' \
+	-print0 | sort -z | xargs -0 ${CHECKSUM}sum > ../${CHECKSUMS}
 
-cat > ${CHECKSUM}sum.txt << EOF
+cat > ${CHECKSUMS} << EOF
 This file contains the list of ${CHECKSUM} checksums of all files on this medium.
 
 You can verify them automatically with the 'integrity-check' boot parameter,
-or, manually with: '${CHECKSUM}sum -c ${CHECKSUM}sum.txt'.
+or, manually with: '${CHECKSUM}sum -c ${CHECKSUMS}'.
 
 
 EOF
 
-	cat ../${CHECKSUM}sum.txt >> ${CHECKSUM}sum.txt
-	rm -f ../${CHECKSUM}sum.txt
+	cat ../${CHECKSUMS} >> ${CHECKSUMS}
+	rm -f ../${CHECKSUMS}
 
 	cd "${OLDPWD}"
 done
