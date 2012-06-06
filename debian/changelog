@@ -1,3 +1,25 @@
+live-build (3.0~a50-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Updating auto example scripts.
+  * Correcting cron.d directory removal in postrm.
+  * Removing grub-efi from d-i packages for the time being, it doesn't
+    work correctly yet.
+  * Automatically translate date formats in po files.
+  * Updating live-media checksum names for newer live-boot.
+  * Defaulting to SHA256 live-media checksums.
+  * Re-arranging frontends in source tree.
+  * Updating l10n stuff before removing it.
+  * Removing unmaintained l10n handling.
+  * Dropping different debian cgi templates and use only the one used on
+    live-build.debian.net.
+  * Removing old/non-working graph-helper.
+
+  [ Hector Oron ]
+  * Dont assume bash when configuring chroot with QEMU.
+
+ -- Daniel Baumann <daniel@debian.org>  Wed, 06 Jun 2012 20:00:02 +0200
+
 live-build (3.0~a49-1) unstable; urgency=low
 
   [ Daniel Baumann ]
