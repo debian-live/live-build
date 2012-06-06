@@ -16,12 +16,15 @@ Chroot ()
 	# Executing commands in chroot
 	Echo_debug "Executing: %s" "${COMMANDS}"
 
-	if [ -e config/environment.chroot ]
-	then
-		ENV="$(grep -v '^#' config/environment.chroot)"
-	else
-		ENV=""
-	fi
+	ENV=""
+
+	for _FILE in config/environment config/environment.chroot
+	do
+		if [ -e "${_FILE}" ]
+		then
+			ENV="${ENV} $(grep -v '^#' ${_FILE})"
+		fi
+	done
 
 	if [ "${LB_USE_FAKEROOT}" != "true" ]
 	then
