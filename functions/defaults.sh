@@ -930,7 +930,7 @@ Set_defaults ()
 	fi
 
 	# Setting checksums
-	LB_CHECKSUMS="${LB_CHECKSUMS:-md5}"
+	LB_CHECKSUMS="${LB_CHECKSUMS:-sha256}"
 
 	# Setting compression
 	case "${LB_MODE}" in
