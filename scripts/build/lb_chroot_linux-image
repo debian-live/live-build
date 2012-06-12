@@ -99,6 +99,9 @@ then
 		else
 			# Manually add firmware-linux/non-free meta package
 			FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} firmware-linux"
+
+			# Manually add intel-microcode
+			FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} intel-microcode"
 		fi
 
 		# Drop section and keep package names only
