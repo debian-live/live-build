@@ -1,3 +1,22 @@
+live-build (3.0~a51-1) unstable; urgency=low
+
+  * For consistency, respecting config/environment too for both chroot
+    and binary environments (but the content of sepcific environments
+    for either chroot or binary still has precedence over the generic
+    one).
+  * Changing default binary.list filename to binary.contents to make it
+    more explicit and not to be confused with package lists.
+  * Automatically include intel-microcode when building with firmware
+    and non-free enabled.
+  * Redirecting rmdir output in postrm for live-build-cron properly
+    (Closes: #676102).
+  * Removing alpha and hppa stub support, both architectures have been
+    dropped for wheezy in debian.
+  * Switching from smbfs to cifs-utils (Closes: #679240).
+  * Switching to xz compression in source and binary packages.
+
+ -- Daniel Baumann <daniel@debian.org>  Wed, 27 Jun 2012 14:38:21 +0200
+
 live-build (3.0~a50-1) unstable; urgency=low
 
   [ Daniel Baumann ]
