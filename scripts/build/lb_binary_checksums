@@ -79,7 +79,7 @@ done
 
 # File list
 cd binary
-find . | sed -e 's|^.||g' | grep "^/" | sort > ../binary.list
+find . | sed -e 's|^.||g' | grep "^/" | sort > ../binary.contents
 cd "${OLDPWD}"
 
 # Creating stage file

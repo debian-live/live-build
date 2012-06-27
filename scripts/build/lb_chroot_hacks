@@ -142,9 +142,9 @@ done
 
 case "${LB_BINARY_IMAGES}" in
 	net)
-		if [ ! -f chroot/usr/bin/smbmount ]
+		if [ ! -f chroot/sbin/mount.cifs ]
 		then
-			Apt chroot install smbfs
+			Apt chroot install cifs-utils
 		fi
 
 		if [ ! -d chroot/etc/initramfs-tools ]

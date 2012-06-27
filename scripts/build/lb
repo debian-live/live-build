@@ -42,12 +42,15 @@ case "${1}" in
 		COMMAND="lb_${1}"
 		shift
 
-		if [ -e config/environment.binary ]
-		then
-			ENV="$(grep -v '^#' config/environment.binary)"
-		else
-			ENV=""
-		fi
+		ENV=""
+
+		for _FILE in config/environment config/environment.binary
+		do
+			if [ -e "${_FILE}" ]
+			then
+				ENV="${ENV} $(grep -v '^#' ${_FILE})"
+			fi
+		done
 
 		if [ -x "${LB_BASE}/scripts/build/${COMMAND}" ]
 		then
