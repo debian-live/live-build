@@ -62,7 +62,7 @@ case "${1}" in
 		then
 			SCRIPT="${COMMAND}"
 		else
-			Echo_error "no such script"
+			Echo_error "no such script: ${COMMAND}"
 			exit 1
 		fi
 
