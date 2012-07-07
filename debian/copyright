@@ -10,7 +10,7 @@ License: GPL-3+
 Files: contrib/grub-splash/lenny
 License: other
 
-Files: contrib/syslinux-splash/* share/bootloaders/*/splash.png
+Files: share/bootloaders/*/splash.svg
 License: other
 
 License: GPL-3+
