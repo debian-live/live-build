@@ -32,12 +32,3 @@ Description: Debian Live - System build scripts (CGI frontend)
  configuration directory.
  .
  This package contains the CGI frontend.
-
-Package: live-build-cron
-Architecture: all
-Depends: ${misc:Depends}, live-build (= ${source:Version}), cron
-Description: Debian Live - System build scripts (cron autobuilder)
- live-build contains the scripts that build a Debian Live system image from a
- configuration directory.
- .
- This package contains the cron autobuilder.
