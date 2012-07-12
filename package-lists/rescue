@@ -132,7 +132,7 @@ vlan
 netbase
 rdate
 ntpdate
-dhcp3-client
+isc-dhcp-client
 ppp
 pppconfig
 pppoe
@@ -318,7 +318,7 @@ gpm
 #if DISTRIBUTION squeeze
 thttpd
 #endif
-dhcp3-server
+isc-dhcp-server
 hostap-utils
 hostapd
 
