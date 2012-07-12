@@ -70,7 +70,10 @@ b43-fwcutter
 #endif
 
 # Backup
-dar gddrescue dump ddrescue
+dar gddrescue dump
+#if DISTRIBUTION squeeze
+ddrescue
+#endif
 mt-st
 #if DISTRIBUTION sid
 afio tob
