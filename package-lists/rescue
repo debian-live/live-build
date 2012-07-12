@@ -294,7 +294,12 @@ chkrootkit
 
 rkhunter
 clamav
+#if DISTRIBUTION squeeze
 clamav-data
+#endif
+#if DISTRIBUTION wheezy sid
+clamav-freshclam
+#endif
 smbclient
 nfs-common
 wireless-tools
