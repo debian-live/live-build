@@ -40,7 +40,9 @@ ed2k-hash
 guymager
 #endif
 ewf-tools
+#if DISTRIBUTION squeeze
 libguytools1
+#endif
 libphash0
 md5deep
 nasty
