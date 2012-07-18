@@ -55,6 +55,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--cache-stages STAGE|\"STAGES\"]\n\
 \t    [--checksums md5|sha1|sha256|none]\n\
 \t    [--compression bzip2|gzip|lzip|none]\n\
+\t    [--zsync true|false]\n\
 \t    [--build-with-chroot true|false]\n\
 \t    [--chroot-filesystem ext2|ext3|ext4|squashfs|jffs2|none]\n\
 \t    [--clean\n\
@@ -167,7 +168,7 @@ Local_arguments ()
 		archives:,archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,linux-flavours:,linux-packages:,
 		package-lists:,security:,volatile:,backports:,binary-filesystem:,binary-images:,
-		apt-indices:,bootappend-install:,bootappend-live:,bootappend-failsafe:,bootloader:,checksums:,compression:,build-with-chroot:,
+		apt-indices:,bootappend-install:,bootappend-live:,bootappend-failsafe:,bootloader:,checksums:,compression:,zsync:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
 		grub-splash:,isohybrid-options:,hdd-label:,hdd-size:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
@@ -628,6 +629,11 @@ Local_arguments ()
 
 			--compression)
 				LB_COMPRESSION="${2}"
+				shift 2
+				;;
+
+			--zsync)
+				LB_ZSYNC="${2}"
 				shift 2
 				;;
 
@@ -1317,6 +1323,10 @@ LB_CHECKSUMS="${LB_CHECKSUMS}"
 # \$LB_COMPRESSION: set compression
 # (Default: ${LB_COMPRESSION})
 LB_COMPRESSION="${LB_COMPRESSION}"
+
+# \$LB_ZSYNC: set zsync
+# (Default: ${LB_ZSYNC})
+LB_ZSYNC="${LB_ZSYNC}"
 
 # \${LB_BUILD_WITH_CHROOT: control if we build binary images chrooted
 # (Default: ${LB_BUILD_WITH_CHROOT})

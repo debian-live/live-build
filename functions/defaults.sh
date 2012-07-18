@@ -943,6 +943,9 @@ Set_defaults ()
 			;;
 	esac
 
+	# Setting zsync
+	LB_ZSYNC="${LB_ZSYNC:-true}"
+
 	# Setting chroot option
 	LB_BUILD_WITH_CHROOT="${LB_BUILD_WITH_CHROOT:-true}"
 
