@@ -384,11 +384,6 @@ Local_arguments ()
 				shift 2
 				;;
 
-			-v|--version)
-				Version
-				shift
-				;;
-
 			# config/bootstrap
 			-a|--architectures)
 				LB_ARCHITECTURES="${2}"
@@ -869,8 +864,8 @@ Local_arguments ()
 				;;
 
 			-v|--version)
-				Version
-				shift
+				echo "${VERSION}"
+				exit 0
 				;;
 
 			--)

@@ -35,7 +35,8 @@ case "${1}" in
 		;;
 
 	-v|--version)
-		Version
+		echo "${VERSION}"
+		exit 0
 		;;
 
 	*)

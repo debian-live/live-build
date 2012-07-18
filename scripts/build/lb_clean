@@ -148,7 +148,8 @@ do
 			;;
 
 		-v|--version)
-			Version
+			echo "${VERSION}"
+			exit 0
 			;;
 
 		*)
