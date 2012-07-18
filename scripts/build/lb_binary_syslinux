@@ -277,7 +277,7 @@ then
 	_HOUR="$(date +%H)"
 	_MINUTE="$(date +%M)"
 	_SECOND="$(date +%S)"
-	_LINUX_VERSIONS="$(for _LINUX in chroot/boot/vmlinuz-* ; do chroot chroot apt-cache policy $(basename ${_LINUX} | sed -e 's|vmlinuz-|linux-image-|') | awk '/Installed: / { print $2 }' ; done)"
+	_LINUX_VERSIONS="$(for _LINUX in chroot/boot/vmlinuz-* ; do chroot chroot apt-cache policy $(basename ${_LINUX} | sed -e 's|vmlinuz-|linux-image-|') | awk '/Installed: / { print $2 }' ; done | sort -u)"
 	_LIVE_BUILD_VERSIONS="$(chroot chroot apt-cache policy live-build | awk '/Installed: / { print $2 }')"
 	_LIVE_BOOT_VERSIONS="$(chroot chroot apt-cache policy live-boot | awk '/Installed: / { print $2 }')"
 	_LIVE_CONFIG_VERSION="$(chroot chroot apt-cache policy live-config | awk '/Installed: / { print $2 }')"
