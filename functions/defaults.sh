@@ -941,7 +941,15 @@ Set_defaults ()
 			;;
 
 		*)
-			LB_COMPRESSION="${LB_COMPRESSION:-gzip}"
+			case "${LB_DISTRIBUTION}" in
+				squeeze)
+					LB_COMPRESSION="${LB_COMPRESSION:-gzip}"
+					;;
+
+				*)
+					LB_COMPRESSION="${LB_COMPRESSION:-xz}"
+					;;
+			esac
 			;;
 	esac
 
