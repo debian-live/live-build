@@ -89,16 +89,21 @@ case "${LB_BUILD_WITH_CHROOT}" in
 		Check_package chroot/usr/bin/syslinux syslinux
 		Check_package chroot/usr/lib/syslinux syslinux-common
 
-		if [ "${LB_SYSLINUX_THEME}" != "live-build" ]
-		then
-			Check_package chroot/usr/share/syslinux/themes/${LB_SYSLINUX_THEME} syslinux-themes-${LB_SYSLINUX_THEME}
+		case "${LB_SYSLINUX_THEME}" in
+			live-build)
+				Check_package chroot/usr/bin/rsvg librsvg2-bin
+				;;
 
-			case "${LB_MODE}" in
-				ubuntu)
-					Check_package chroot/usr/share/gfxboot-theme-ubuntu/bootlogo.tar.gz gfxboot-theme-ubuntu
-					;;
-			esac
-		fi
+			*)
+				Check_package chroot/usr/share/syslinux/themes/${LB_SYSLINUX_THEME} syslinux-themes-${LB_SYSLINUX_THEME}
+
+				case "${LB_MODE}" in
+					ubuntu)
+						Check_package chroot/usr/share/gfxboot-theme-ubuntu/bootlogo.tar.gz gfxboot-theme-ubuntu
+						;;
+				esac
+				;;
+		esac
 		;;
 
 	false)
@@ -116,15 +121,25 @@ case "${LB_BUILD_WITH_CHROOT}" in
 			exit 1
 		fi
 
-		if [ "${LB_SYSLINUX_THEME}" != "live-build" ]
-		then
-			if [ ! -e /usr/share/syslinux/themes/${LB_SYSLINUX_THEME} ]
-			then
-				# syslinux-theme
-				Echo_error "/usr/share/syslinux/themes/${LB_SYSLINUX_THEME} - no such directory."
-				exit 1
-			fi
-		fi
+		case "${LB_SYSLINUX_THEME}" in
+			live-build)
+				if [ -e /usr/bin/rsvg ]
+				then
+					# librsvg2-bin
+					Echo_error "/usr/bin/rsvg - no such file"
+					exit 1
+				fi
+				;;
+
+			*)
+				if [ ! -e /usr/share/syslinux/themes/${LB_SYSLINUX_THEME} ]
+				then
+					# syslinux-theme
+					Echo_error "/usr/share/syslinux/themes/${LB_SYSLINUX_THEME} - no such directory."
+					exit 1
+				fi
+				;;
+		esac
 		;;
 esac
 
@@ -302,9 +317,20 @@ then
 		-e "s|@LIVE_TOOLS_VERSION@|${_LIVE_TOOLS_VERSION}|g" \
 	"${_TARGET}/splash.svg.in" > "${_TARGET}/splash.svg"
 
-	convert "${_TARGET}/splash.svg" "${_TARGET}/splash.png"
+	case "${LB_BUILD_WITH_CHROOT}" in
+		true)
+			cp "${_TARGET}/splash.svg" chroot
+			Chroot chroot "rsvg --format png --height 480 --width 640 splash.svg splash.png"
+			mv chroot/splash.png "${_TARGET}"
+			rm -f chroot/splash.svg
+			;;
 
-	#rm -f "${_TARGET}/splash.svg.in" "{_TARGET}/splash.svg"
+		false)
+			rsvg --format png --height 480 --width 640 "${_TARGET}/splash.svg" "${_TARGET}/splash.png"
+			;;
+	esac
+
+	rm -f "${_TARGET}/splash.svg.in" "${_TARGET}/splash.svg"
 fi
 
 case "${LB_MODE}" in
