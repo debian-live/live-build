@@ -55,7 +55,6 @@ lb source_checksums ${*}
 
 # Building images
 lb source_iso ${*}
-lb source_netboot ${*}
 lb source_tar ${*}
 lb source_hdd ${*}
 lb source_virtual-hdd ${*}
