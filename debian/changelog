@@ -1,3 +1,53 @@
+live-build (3.0~a52-1) unstable; urgency=low
+
+  * Improving error message in lb wrapper to show the command in case of
+    a missing command.
+  * Adding svg splash for syslinux bootloaders.
+  * Adding dynamic informations into the splash and creating the png
+    export at build time.
+  * Truncating udev persistent net rules in remove-udev-persistent-
+    rules.chroot hook rather than to remove them (Closes: #680763).
+  * Removing discontinued live-build-cron autobuilder (Closes: #672379).
+  * Updating dhcp packages in rescue package list to avoid transitional
+    packages for squeeze and up.
+  * Marking libguytools1 as squeeze only in rescue package list.
+  * Marking ddrescue as squeeze-only in rescue list.
+  * Using clamav-data for squeeze and clamav-freshclam for wheezy/sid in
+    rescue list.
+  * Applying patch from Steven Shiau <steven@nchc.org.tw> to
+    conditionally copy /etc/apt/secring.gpg* files.
+  * Renaming net flavour to netboot for consistency.
+  * Adding support for zsync control files generation, thanks to Hector
+    Oron <hector.oron@gmail.com> for the idea and prototype.
+  * Adding xz as valid compression format.
+  * Using xz to compress images on anything except squeeze, keeping gzip
+    as default for squeeze.
+  * Removing spurious lb_source_netboot, there's not such thing as a
+    netboot specific source tarball anyway.
+  * Handle multiple version numbers when having more than one linux
+    flavours for splash.svg post-processing.
+  * Adding support for pinning preferences files in
+    config/archives/*.pref{.chroot,.binary}.
+  * Updating splash.svg handling for unchrooted and chrooted builds.
+  * Decrufting version flag.
+  * Correcting live-build and live-boot versions for splash.svg post-
+    processing.
+  * Also removing zsync files in lb clean.
+  * Slightly updating strings in splash.svg for better organization of
+    the information presented.
+  * Adding extlinux bootloader configuration files.
+  * Correcting freudian typo in package check for chroot filesystems
+    dependencies in binary_rootfs.
+  * Adding support for ntfs as binary filesystem when using syslinux.
+  * Updating squeeze point-release number.
+  * Setting initial release number for wheezy.
+  * Correcting spelling typo of ubuntus 12.10 codename.
+  * Correcting some distribution specific checks to make them
+    derivatives compliant.
+  * Enabling security archives on wheezy.
+
+ -- Daniel Baumann <daniel@debian.org>  Wed, 18 Jul 2012 22:46:55 +0200
+
 live-build (3.0~a51-1) unstable; urgency=low
 
   * For consistency, respecting config/environment too for both chroot
