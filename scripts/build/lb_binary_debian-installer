@@ -767,7 +767,7 @@ EOF
 	case "${LB_BINARY_IMAGES}" in
 		hdd)
 			case "${LB_BINARY_FILESYSTEM}" in
-				fat*)
+				fat*|ntfs)
 					# Creating dist directories
 					for DISTRIBUTION in ${DISTRIBUTIONS}
 					do

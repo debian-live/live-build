@@ -44,7 +44,24 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Checking depends
-Check_package chroot/sbin/mkdosfs dosfstools
+case "${LB_BINARY_FILESYSTEM}" in
+	fat*)
+		Check_package chroot/sbin/mkdosfs dosfstools
+		;;
+
+	ntfs)
+		case "${LB_DISTRIBUTION}" in
+			squeeze)
+				Check_package chroot/sbin/mkfs.ntfs ntfsprogs
+				;;
+
+			*)
+				Check_package chroot/sbin/mkfs.nfts ntfs-3g
+				;;
+		esac
+		;;
+esac
+
 Check_package chroot/usr/share/doc/mtools mtools
 Check_package chroot/sbin/parted parted
 
@@ -102,6 +119,15 @@ then
 	export LB_BINARY_FILESYSTEM
 fi
 
+# Enforce ntfs if we find individual files bigger than 4GB
+if [ "${LB_BINARY_FILESYSTEM}" = "fat32" ] && [ -n "$(find binary -size +3999M)" ]
+then
+	Echo_warning "FAT32 doesn't support files larger than 4GB, automatically enforcing NTFS."
+
+	LB_BINARY_FILESYSTEM="ntfs"
+	export LB_BINARY_FILESYSTEM
+fi
+
 # Everything which comes here needs to be cleaned up,
 DU_DIM="$(du -ms binary | cut -f1)"
 REAL_DIM="$(Calculate_partition_size ${DU_DIM} ${LB_BINARY_FILESYSTEM})"
@@ -134,6 +160,10 @@ case "${LB_BINARY_FILESYSTEM}" in
 
 	fat16|fat32)
 		PARTITION_TYPE="${LB_BINARY_FILESYSTEM}"
+		;;
+
+	ntfs)
+		PARTITION_TYPE="NTFS"
 		;;
 
 	*)
@@ -183,6 +213,11 @@ case "${LB_BINARY_FILESYSTEM}" in
 	fat32)
 		MKFS="vfat"
 		MKFS_OPTIONS="-F 32 -n ${LB_HDD_LABEL}"
+		;;
+
+	ntfs)
+		MKFS="ntfs"
+		MKFS_OPTIONS="-L ${LB_HDD_LABEL}"
 		;;
 esac
 

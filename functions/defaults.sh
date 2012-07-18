@@ -1281,10 +1281,10 @@ Check_defaults ()
 	then
 		# syslinux + fat
 		case "${LB_BINARY_FILESYSTEM}" in
-			fat*)
+			fat*|ntfs)
 				;;
 			*)
-				Echo_warning "You have selected values of LB_BOOTLOADER and LB_BINARY_FILESYSTEM which are incompatible - syslinux only supports FAT filesystems."
+				Echo_warning "You have selected values of LB_BOOTLOADER and LB_BINARY_FILESYSTEM which are incompatible - syslinux only supports FAT and NTFS filesystems."
 				;;
 		esac
 	fi
