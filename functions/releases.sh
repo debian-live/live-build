@@ -9,7 +9,7 @@
 
 
 # Debian releases
-RELEASE_squeeze="6.0.4"
+RELEASE_squeeze="6.0.5"
 RELEASE_wheezy="7"
 RELEASE_sid="unstable"
 
