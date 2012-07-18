@@ -40,8 +40,8 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--apt-secure true|false]\n\
 \t    [--apt-source-archives true|false]\n\
 \t    [-a|--architectures ARCHITECTURE]\n\
-\t    [-b|--binary-images iso|iso-hybrid|net|tar|hdd]\n\
-\t    [--binary-filesystem fat16|fat32|ext2|ext3|ext4]\n\
+\t    [-b|--binary-images iso|iso-hybrid|netboot|tar|hdd]\n\
+\t    [--binary-filesystem fat16|fat32|ext2|ext3|ext4|ntfs]\n\
 \t    [--bootappend-install PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootappend-live PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootappend-failsafe PARAMETER|\"PARAMETERS\"]\n\
@@ -54,7 +54,8 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--cache-packages true|false]\n\
 \t    [--cache-stages STAGE|\"STAGES\"]\n\
 \t    [--checksums md5|sha1|sha256|none]\n\
-\t    [--compression bzip2|gzip|lzip|none]\n\
+\t    [--compression bzip2|gzip|lzip|xz|none]\n\
+\t    [--zsync true|false]\n\
 \t    [--build-with-chroot true|false]\n\
 \t    [--chroot-filesystem ext2|ext3|ext4|squashfs|jffs2|none]\n\
 \t    [--clean\n\
@@ -135,7 +136,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--parent-archive-areas ARCHIVE_AREA|\"ARCHIVE_AREAS\"]\n\
 \t    [--security true|false]\n\
 \t    [--source true|false]\n\
-\t    [-s|--source-images iso|net|tar|hdd]\n\
+\t    [-s|--source-images iso|netboot|tar|hdd]\n\
 \t    [--firmware-binary true|false]\n\
 \t    [--firmware-chroot true|false]\n\
 \t    [--swap-file-path PATH]\n\
@@ -167,7 +168,7 @@ Local_arguments ()
 		archives:,archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,linux-flavours:,linux-packages:,
 		package-lists:,security:,volatile:,backports:,binary-filesystem:,binary-images:,
-		apt-indices:,bootappend-install:,bootappend-live:,bootappend-failsafe:,bootloader:,checksums:,compression:,build-with-chroot:,
+		apt-indices:,bootappend-install:,bootappend-live:,bootappend-failsafe:,bootloader:,checksums:,compression:,zsync:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
 		grub-splash:,isohybrid-options:,hdd-label:,hdd-size:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
@@ -381,11 +382,6 @@ Local_arguments ()
 			--templates)
 				LB_TEMPLATES="${2}"
 				shift 2
-				;;
-
-			-v|--version)
-				Version
-				shift
 				;;
 
 			# config/bootstrap
@@ -631,6 +627,11 @@ Local_arguments ()
 				shift 2
 				;;
 
+			--zsync)
+				LB_ZSYNC="${2}"
+				shift 2
+				;;
+
 			--build-with-chroot)
 				LB_BUILD_WITH_CHROOT="${2}"
 				shift 2
@@ -863,8 +864,8 @@ Local_arguments ()
 				;;
 
 			-v|--version)
-				Version
-				shift
+				echo "${VERSION}"
+				exit 0
 				;;
 
 			--)
@@ -1317,6 +1318,10 @@ LB_CHECKSUMS="${LB_CHECKSUMS}"
 # \$LB_COMPRESSION: set compression
 # (Default: ${LB_COMPRESSION})
 LB_COMPRESSION="${LB_COMPRESSION}"
+
+# \$LB_ZSYNC: set zsync
+# (Default: ${LB_ZSYNC})
+LB_ZSYNC="${LB_ZSYNC}"
 
 # \${LB_BUILD_WITH_CHROOT: control if we build binary images chrooted
 # (Default: ${LB_BUILD_WITH_CHROOT})

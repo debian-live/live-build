@@ -80,7 +80,7 @@ Install_package
 
 # Setting destination directory
 case "${LB_BINARY_IMAGES}" in
-	net)
+	netboot)
 		DESTDIR="tftpboot/debian-install/${LB_ARCHITECTURES}"
 		;;
 
@@ -100,7 +100,7 @@ case "${LB_DEBIAN_INSTALLER}" in
 		;;
 	*)
 		case "${LB_BINARY_IMAGES}" in
-			net)
+			netboot)
 				DI_IMAGE_TYPE="netboot"
 				;;
 
@@ -767,7 +767,7 @@ EOF
 	case "${LB_BINARY_IMAGES}" in
 		hdd)
 			case "${LB_BINARY_FILESYSTEM}" in
-				fat*)
+				fat*|ntfs)
 					# Creating dist directories
 					for DISTRIBUTION in ${DISTRIBUTIONS}
 					do

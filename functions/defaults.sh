@@ -128,6 +128,8 @@ Set_defaults ()
 
 	LZMA_OPTIONS="${LZMA_OPTIONS:--6}"
 
+	XZ_OPTIONS="${XZ_OPTIONS:--6}"
+
 	# Setting apt recommends
 	case "${LB_MODE}" in
 		emdebian|progress)
@@ -939,9 +941,20 @@ Set_defaults ()
 			;;
 
 		*)
-			LB_COMPRESSION="${LB_COMPRESSION:-gzip}"
+			case "${LB_DISTRIBUTION}" in
+				squeeze)
+					LB_COMPRESSION="${LB_COMPRESSION:-gzip}"
+					;;
+
+				*)
+					LB_COMPRESSION="${LB_COMPRESSION:-xz}"
+					;;
+			esac
 			;;
 	esac
+
+	# Setting zsync
+	LB_ZSYNC="${LB_ZSYNC:-true}"
 
 	# Setting chroot option
 	LB_BUILD_WITH_CHROOT="${LB_BUILD_WITH_CHROOT:-true}"
@@ -1014,7 +1027,7 @@ Set_defaults ()
 				esac
 				;;
 
-			net)
+			netboot)
 				case "${LB_DEBIAN_INSTALLER_PRESEEDFILE}" in
 					*://*)
 						_LB_BOOTAPPEND_PRESEED="file=${LB_DEBIAN_INSTALLER_PRESEEDFILE}"
@@ -1268,10 +1281,10 @@ Check_defaults ()
 	then
 		# syslinux + fat
 		case "${LB_BINARY_FILESYSTEM}" in
-			fat*)
+			fat*|ntfs)
 				;;
 			*)
-				Echo_warning "You have selected values of LB_BOOTLOADER and LB_BINARY_FILESYSTEM which are incompatible - syslinux only supports FAT filesystems."
+				Echo_warning "You have selected values of LB_BOOTLOADER and LB_BINARY_FILESYSTEM which are incompatible - syslinux only supports FAT and NTFS filesystems."
 				;;
 		esac
 	fi

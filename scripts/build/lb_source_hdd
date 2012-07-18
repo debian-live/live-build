@@ -83,6 +83,10 @@ case "${LB_BINARY_FILESYSTEM}" in
 		PARTITION_TYPE="${LB_BINARY_FILESYSTEM}"
 		;;
 
+	ntfs)
+		PARTITION_TYPE="NTFS"
+		;;
+
 	*)
 		Echo_error "Unsupported binary filesystem %s" "${LB_BINARY_FILESYSTEM}"
 		exit 1
@@ -111,6 +115,11 @@ case "${LB_BINARY_FILESYSTEM}" in
 	fat32)
 		MKFS="vfat"
 		MKFS_OPTIONS="-F 32 -n ${LB_HDD_LABEL}"
+		;;
+
+	ntfs)
+		MKFS="ntfs"
+		MKFS_OPTIONS="-L ${LB_HDD_LABEL}"
 		;;
 esac
 

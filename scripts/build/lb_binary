@@ -84,10 +84,12 @@ fi
 
 # Building images
 lb binary_iso ${*}
-lb binary_net ${*}
+lb binary_netboot ${*}
 lb binary_tar ${*}
 lb binary_hdd ${*}
 lb binary_virtual-hdd ${*}
+
+lb binary_zsync ${*}
 
 if [ "${LB_BUILD_WITH_CHROOT}" = "true" ]
 then

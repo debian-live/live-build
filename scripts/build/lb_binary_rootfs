@@ -90,7 +90,7 @@ done
 case "${LB_CHROOT_FILESYSTEM}" in
 	ext2|ext3|ext4)
 		# Checking depends
-		Check_package chroot/sbin/mkfs.${LB_BINARY_FILESYSTEM} e2fsprogs
+		Check_package chroot/sbin/mkfs.${LB_CHROOT_FILESYSTEM} e2fsprogs
 
 		# Restoring cache
 		Restore_cache cache/packages.binary
@@ -357,9 +357,13 @@ case "${LB_CHROOT_FILESYSTEM}" in
 			esac
 		fi
 
-		case "${LB_DISTRIBUTION}" in
-			wheezy|sid)
-				# FIXME: artax-backports once d-i has catched up
+		case "${LB_PARENT_DISTRIBUTION}" in
+			squeeze)
+
+				;;
+
+			*)
+				# FIXME: artax-backports too, once d-i has catched up
 				MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -comp xz"
 				;;
 		esac

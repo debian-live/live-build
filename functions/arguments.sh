@@ -64,8 +64,8 @@ Arguments ()
 				;;
 
 			-v|--version)
-				Version
-				shift
+				echo "${VERSION}"
+				exit 0
 				;;
 
 			--)

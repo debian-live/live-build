@@ -141,7 +141,7 @@ do
 done
 
 case "${LB_BINARY_IMAGES}" in
-	net)
+	netboot)
 		if [ ! -f chroot/sbin/mount.cifs ]
 		then
 			Apt chroot install cifs-utils

@@ -34,7 +34,7 @@ case "${LB_BINARY_IMAGES}" in
 	iso*|hdd*|tar)
 		;;
 
-	net)
+	netboot)
 		# silo not required for sparc netbooting
 		exit 0
 		;;
