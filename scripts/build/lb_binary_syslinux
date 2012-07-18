@@ -293,8 +293,8 @@ then
 	_MINUTE="$(date +%M)"
 	_SECOND="$(date +%S)"
 	_LINUX_VERSIONS="$(for _LINUX in chroot/boot/vmlinuz-* ; do chroot chroot apt-cache policy $(basename ${_LINUX} | sed -e 's|vmlinuz-|linux-image-|') | awk '/Installed: / { print $2 }' ; done | sort -u)"
-	_LIVE_BUILD_VERSIONS="$(chroot chroot apt-cache policy live-build | awk '/Installed: / { print $2 }')"
-	_LIVE_BOOT_VERSIONS="$(chroot chroot apt-cache policy live-boot | awk '/Installed: / { print $2 }')"
+	_LIVE_BUILD_VERSION="$(lb --version)"
+	_LIVE_BOOT_VERSION="$(chroot chroot apt-cache policy live-boot | awk '/Installed: / { print $2 }')"
 	_LIVE_CONFIG_VERSION="$(chroot chroot apt-cache policy live-config | awk '/Installed: / { print $2 }')"
 	_LIVE_TOOLS_VERSION="$(chroot chroot apt-cache policy live-tools | awk '/Installed: / { print $2 }')"
 
@@ -311,7 +311,7 @@ then
 		-e "s|@MINUTE@|${_MINUTE}|g" \
 		-e "s|@SECOND@|${_SECOND}|g" \
 		-e "s|@LINUX_VERSIONS@|${_LINUX_VERSIONS}|g" \
-		-e "s|@LIVE_BUILD_VERSION@|${_LIVE_BUILD_VERSIONS}|g" \
+		-e "s|@LIVE_BUILD_VERSION@|${_LIVE_BUILD_VERSION}|g" \
 		-e "s|@LIVE_BOOT_VERSION@|${_LIVE_BOOT_VERSION}|g" \
 		-e "s|@LIVE_CONFIG_VERSION@|${_LIVE_CONFIG_VERSION}|g" \
 		-e "s|@LIVE_TOOLS_VERSION@|${_LIVE_TOOLS_VERSION}|g" \
