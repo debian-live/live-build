@@ -50,7 +50,7 @@ case "${LB_BINARY_FILESYSTEM}" in
 		;;
 
 	ntfs)
-		case "${LB_DISTRIBUTION}" in
+		case "${LB_PARENT_DISTRIBUTION}" in
 			squeeze)
 				Check_package chroot/sbin/mkfs.ntfs ntfsprogs
 				;;
