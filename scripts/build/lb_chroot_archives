@@ -538,7 +538,11 @@ EOF
 			then
 				mkdir -p cache/indices.bootstrap
 
-				cp -f chroot/etc/apt/secring.gpg* cache/indices.bootstrap
+				if Find_files chroot/etc/apt/secring.gpg*
+				then
+					cp -f chroot/etc/apt/secring.gpg* cache/indices.bootstrap
+				fi
+
 				cp -rf chroot/etc/apt/trusted.gpg* cache/indices.bootstrap
 
 				cp -f chroot/var/cache/apt/pkgcache.bin cache/indices.bootstrap
