@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2012\-06\-27 3.0~a51\-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2012\-07\-18 3.0~a51\-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -36,7 +36,7 @@
 .br
   [\-a|\fB\-\-architectures\fP \fIARCHITECTURE\fP]
 .br
-  [\-b|\fB\-\-binary\-images\fP iso|iso\-hybrid|net|tar|hdd|virtual\-hdd]
+  [\-b|\fB\-\-binary\-images\fP iso|iso\-hybrid|netboot|tar|hdd|virtual\-hdd]
 .br
   [\fB\-\-binary\-filesystem\fP fat16|fat32|ext2|ext3|ext4]
 .br
@@ -225,7 +225,7 @@
 .br
   [\fB\-\-source\fP true|false]
 .br
-  [\-s|\fB\-\-source\-images\fP iso|net|tar|hdd]
+  [\-s|\fB\-\-source\-images\fP iso|netboot|tar|hdd]
 .br
   [\fB\-\-syslinux\-theme\fP \fITHEME_SUFFIX\fP]
 .br
@@ -320,7 +320,7 @@ architecture if your host system is not able to execute binaries for the
 target architecture natively. For example, building amd64 images on i386 and
 vice versa is possile if you have a 64bit capable i386 processor and the
 right kernel. But building powerpc images on an i386 system is not possible.
-.IP "\-b|\fB\-\-binary\-images\fP iso|iso\-hybrid|net|tar|hdd" 4
+.IP "\-b|\fB\-\-binary\-images\fP iso|iso\-hybrid|netboot|tar|hdd" 4
 defines the image type to build. By default, for images using syslinux this
 is set to iso\-hybrid to build CD/DVD images that may also be used like hdd
 images, for non\-syslinux images, it defaults to iso.
@@ -729,7 +729,7 @@ build. By default this is false because most people do not require this and
 would require to download quite a few source packages. However, once you
 start distributing your live image, you should make sure you build it with a
 source image alongside.
-.IP "\-s|\fB\-\-source\-images\fP iso|net|tar|hdd" 4
+.IP "\-s|\fB\-\-source\-images\fP iso|netboot|tar|hdd" 4
 defines the image type for the source image. Default is tar.
 .IP "\fB\-\-firmware\-binary\fP true|false" 4
 defines if firmware packages should be automatically included into the

@@ -125,7 +125,7 @@ case "${LB_BINARY_IMAGES}" in
 		DESTDIR_INSTALL="binary/install"
 		;;
 
-	hdd*|net)
+	hdd*|netboot)
 		Echo_warning "Bootloader in this image type not yet supported by live-build."
 		Echo_warning "This would produce a not bootable image, aborting (FIXME)."
 		exit 1

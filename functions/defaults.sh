@@ -1014,7 +1014,7 @@ Set_defaults ()
 				esac
 				;;
 
-			net)
+			netboot)
 				case "${LB_DEBIAN_INSTALLER_PRESEEDFILE}" in
 					*://*)
 						_LB_BOOTAPPEND_PRESEED="file=${LB_DEBIAN_INSTALLER_PRESEEDFILE}"

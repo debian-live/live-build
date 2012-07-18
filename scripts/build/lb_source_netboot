@@ -14,7 +14,7 @@ set -e
 . "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
 
 # Setting static variables
-DESCRIPTION="$(Echo 'build source net image')"
+DESCRIPTION="$(Echo 'build source netboot image')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -29,7 +29,7 @@ then
 	exit 0
 fi
 
-if ! In_list net "${LB_SOURCE_IMAGES}"
+if ! In_list netboot "${LB_SOURCE_IMAGES}"
 then
 	exit 0
 fi
@@ -40,7 +40,7 @@ Echo_message "Begin building source netboot image..."
 Require_stagefile .build/config .build/source_debian
 
 # Checking stage file
-Check_stagefile .build/source_net
+Check_stagefile .build/source_netboot
 
 # Checking lock file
 Check_lockfile .lock
@@ -49,21 +49,21 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Remove old source
-rm -f source-net.tar.bz2 source-net.tar.gz source-net.tar.lz source-net.tar
+rm -f source.netboot.tar.bz2 source.netboot.tar.gz source.netboot.tar.lz source.netboot.tar
 
-tar cf source-net.tar source
+tar cf source.netboot.tar source
 
 case "${_COMPRESSION}" in
 	bzip2)
-		bzip2 ${BZIP2_OPTIONS} source-net.tar
+		bzip2 ${BZIP2_OPTIONS} source.netboot.tar
 		;;
 
 	gzip)
-		gzip ${GZIP_OPTIONS} source-net.tar
+		gzip ${GZIP_OPTIONS} source.netboot.tar
 		;;
 
 	lzip)
-		lzip ${LZIP_OPTIONS} source-net.tar
+		lzip ${LZIP_OPTIONS} source.netboot.tar
 		;;
 
 	none)
@@ -71,4 +71,4 @@ case "${_COMPRESSION}" in
 esac
 
 # Creating stage file
-Create_stagefile .build/source_net
+Create_stagefile .build/source_netboot

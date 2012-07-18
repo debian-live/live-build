@@ -40,7 +40,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--apt-secure true|false]\n\
 \t    [--apt-source-archives true|false]\n\
 \t    [-a|--architectures ARCHITECTURE]\n\
-\t    [-b|--binary-images iso|iso-hybrid|net|tar|hdd]\n\
+\t    [-b|--binary-images iso|iso-hybrid|netboot|tar|hdd]\n\
 \t    [--binary-filesystem fat16|fat32|ext2|ext3|ext4]\n\
 \t    [--bootappend-install PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootappend-live PARAMETER|\"PARAMETERS\"]\n\
@@ -135,7 +135,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--parent-archive-areas ARCHIVE_AREA|\"ARCHIVE_AREAS\"]\n\
 \t    [--security true|false]\n\
 \t    [--source true|false]\n\
-\t    [-s|--source-images iso|net|tar|hdd]\n\
+\t    [-s|--source-images iso|netboot|tar|hdd]\n\
 \t    [--firmware-binary true|false]\n\
 \t    [--firmware-chroot true|false]\n\
 \t    [--swap-file-path PATH]\n\

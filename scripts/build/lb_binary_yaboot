@@ -158,7 +158,7 @@ case "${LB_BINARY_IMAGES}" in
 		DESTDIR_INSTALL="binary/install"
 		;;
 
-	hdd*|net|tar)
+	hdd*|netboot|tar)
 		Echo_error "not yet supported, aborting (FIXME)."
 		exit 1
 	;;

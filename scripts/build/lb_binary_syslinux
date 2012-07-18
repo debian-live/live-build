@@ -63,7 +63,7 @@ case "${LB_BINARY_IMAGES}" in
 		esac
 		;;
 
-	net*)
+	netboot)
 		_BOOTLOADER="pxelinux"
 		_TARGET="tftpboot"
 		;;
