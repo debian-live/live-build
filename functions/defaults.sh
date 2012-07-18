@@ -128,6 +128,8 @@ Set_defaults ()
 
 	LZMA_OPTIONS="${LZMA_OPTIONS:--6}"
 
+	XZ_OPTIONS="${XZ_OPTIONS:--6}"
+
 	# Setting apt recommends
 	case "${LB_MODE}" in
 		emdebian|progress)

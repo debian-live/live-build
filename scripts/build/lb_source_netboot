@@ -66,6 +66,10 @@ case "${_COMPRESSION}" in
 		lzip ${LZIP_OPTIONS} source.netboot.tar
 		;;
 
+	xz)
+		xz ${XZ_OPTIONS} source.netboot.tar
+		;;
+
 	none)
 		;;
 esac

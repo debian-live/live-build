@@ -157,6 +157,10 @@ case "${LB_COMPRESSION}" in
 		lzip ${LZIP_OPTIONS} ../binary.netboot.tar
 		;;
 
+	xz)
+		xz ${XZ_OPTIONS} ../binary.netboot.tar
+		;;
+
 	none)
 		;;
 esac

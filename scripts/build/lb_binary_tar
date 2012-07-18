@@ -61,6 +61,10 @@ case "${LB_COMPRESSION}" in
 		lzip ${LZIP_OPTIONS} binary-tar.tar
 		;;
 
+	xz)
+		xz ${XZ_OPTIONS} binary-tar.tar
+		;;
+
 	none)
 		;;
 esac

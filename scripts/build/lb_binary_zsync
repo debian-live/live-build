@@ -103,6 +103,10 @@ do
 				lzip ${LZIP_OPTIONS} ${_IMAGE}.zsync
 				;;
 
+			xz)
+				xz ${XZ_OPTIONS} ${_IMAGE}.zsync
+				;;
+
 			none)
 				;;
 		esac

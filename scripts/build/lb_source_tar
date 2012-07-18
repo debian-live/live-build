@@ -72,6 +72,11 @@ case "${LB_COMPRESSION}" in
 		lzip ${LZIP_OPTIONS} source.debian-live.tar
 		;;
 
+	xz)
+		xz ${XZ_OPTIONS} source.debian.tar
+		xz ${XZ_OPTIONS} source.debian-live.tar
+		;;
+
 	none)
 		;;
 esac
