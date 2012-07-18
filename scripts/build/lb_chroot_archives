@@ -181,6 +181,9 @@ EOF
 			fi
 		fi
 
+		# probably too bold, needs refinment (FIXME)
+		rm -f chroot/etc/apt/preferences.d/*
+
 		# Configure third-party archives
 		if [ -n "${LB_ARCHIVES}" ]
 		then
@@ -224,6 +227,15 @@ EOF
 					"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
 				fi
 
+				# Adding pinning preferences (chroot)
+				if [ -e "${LB_BASE}/archives/${REPOSITORY}.pref" ]
+				then
+					cp "${LB_BASE}/archives/${REPOSITORY}.pref" chroot/etc/apt/sources.list.d
+				elif [ -e "${LB_BASE}/archives/${REPOSITORY}.pref.chroot" ]
+				then
+					cp "${LB_BASE}/archives/${REPOSITORY}.pref.chroot" "chroot/etc/apt/sources.list.d/${REPOSITORY}.pref"
+				fi
+
 				if [ "${LB_APT_SECURE}" != false ]
 				then
 					# Adding archive signing keys (chroot)
@@ -258,6 +270,20 @@ EOF
 						# Strip out source archives
 						sed "/^deb-src /d" "chroot/etc/apt/sources.list.d/$(basename ${FILE} .chroot)"
 					fi
+				fi
+			done
+		fi
+
+		# Check local pinning preferences
+		if Find_files config/archives/*.pref || \
+		   Find_files config/archives/*.pref.chroot
+		then
+			for FILE in config/archives/*.pref \
+				    config/archives/*.pref.chroot
+			do
+				if [ -e "${FILE}" ]
+				then
+					cp config/archives/$(basename ${_FILE} .chroot) chroot/etc/apt/preferences.d
 				fi
 			done
 		fi
@@ -724,6 +750,9 @@ EOF
 			fi
 		fi
 
+		# probably too bold, needs refinment (FIXME)
+		rm -f chroot/etc/apt/preferences.d/*
+
 		# Configure third-party archives
 		if [ -n "${LB_ARCHIVES}" ]
 		then
@@ -752,6 +781,15 @@ EOF
 					    -e "s|@ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
 					"${LB_BASE}/archives/${REPOSITORY}" > \
 					"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
+				fi
+
+				# Adding pinning preferences (binary)
+				if [ -e "${LB_BASE}/archives/${REPOSITORY}.pref" ]
+				then
+					cp "${LB_BASE}/archives/${REPOSITORY}.pref" chroot/etc/apt/sources.list.d
+				elif [ -e "${LB_BASE}/archives/${REPOSITORY}.pref.binary" ]
+				then
+					cp "${LB_BASE}/archives/${REPOSITORY}.pref.binary" "chroot/etc/apt/sources.list.d/${REPOSITORY}.pref"
 				fi
 
 				if [ "${LB_APT_SECURE}" != false ]
@@ -788,6 +826,20 @@ EOF
 						# Strip out source archives
 						sed "/^deb-src /d" "chroot/etc/apt/sources.list.d/$(basename ${FILE} .binary)"
 					fi
+				fi
+			done
+		fi
+
+		# Check local pinning preferences
+		if Find_files config/archives/*.pref || \
+		   Find_files config/archives/*.pref.binary
+		then
+			for FILE in config/archives/*.pref \
+				    config/archives/*.pref.binary
+			do
+				if [ -e "${FILE}" ]
+				then
+					cp config/archives/$(basename ${_FILE} .binary) chroot/etc/apt/preferences.d
 				fi
 			done
 		fi
