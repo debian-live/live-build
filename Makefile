@@ -67,9 +67,6 @@ install:
 		done; \
 	done
 
-	# Installing logfile
-	mkdir -p $(DESTDIR)/var/log
-
 uninstall:
 	# Uninstalling shared data
 	rm -rf $(DESTDIR)/usr/share/live/build
