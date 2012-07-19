@@ -3,7 +3,7 @@ live-build (3.0~a52-1) unstable; urgency=low
   * Improving error message in lb wrapper to show the command in case of
     a missing command.
   * Adding svg splash for syslinux bootloaders.
-  * Adding dynamic informations into the splash and creating the png
+  * Adding dynamic information into the splash and creating the png
     export at build time.
   * Truncating udev persistent net rules in remove-udev-persistent-
     rules.chroot hook rather than to remove them (Closes: #680763).
