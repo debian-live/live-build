@@ -8,9 +8,11 @@ Copyright: 2006-2012 Daniel Baumann <daniel@debian.org>
 License: GPL-3+
 
 Files: contrib/grub-splash/lenny
+Copyright: n/a
 License: other
 
-Files: share/bootloaders/*/splash.svg
+Files: share/bootloaders/*/splash.svg.in
+Copyright: 2006-2012 Daniel Baumann <daniel@debian.org>
 License: other
 
 License: GPL-3+
