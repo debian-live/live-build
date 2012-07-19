@@ -166,10 +166,10 @@ else
 fi
 
 # Copying files
-mkdir -p $(dirname ${_TARGET})
-
 case "${LB_BUILD_WITH_CHROOT}" in
 	true)
+		mkdir -p $(dirname ${_TARGET})
+
 		# Copy in two steps since the theme can have absolute symlinks and would therefore not be dereferenced correctly
 		if [ "${LB_SYSLINUX_THEME}" = "live-build" ]
 		then
@@ -190,6 +190,8 @@ case "${LB_BUILD_WITH_CHROOT}" in
 		;;
 
 	false)
+		mkdir -p ${_TARGET}
+
 		cp -aL ${_SOURCE}/* ${_TARGET}
 
 		case "${LB_MODE}" in
