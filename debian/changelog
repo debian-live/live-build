@@ -1,3 +1,51 @@
+live-build (3.0~a53-1) unstable; urgency=low
+
+  * Removing leftover creation of /var/log in toplevel makefile from the
+    cron removals.
+  * Moving main executables away from scripts subdirectory.
+  * Moving scripts from /usr/share/live to /usr/lib/live for consistency
+    with all debian-live packages.
+  * Renaming example hooks to the newer filename patter that is required
+    by live-build since a while.
+  * Removing debian-installer-banner.binary example hook, this can be
+    done through config/includes.binary_debian-installer directly.
+  * Removing hal-automount.chroot example hook, not needed anymore.
+  * Removing linux-modules.chroot example hook, this can be done by
+    kmods conf.d directories directly.
+  * Removing live-build-inclusion.binary example hook, too broken way to
+    do it.
+  * Removing okular-nodrm.chroot example hook, would need update for
+    recent kde4 versions and I don't care about that.
+  * Removing rt2570-modules.chroot example hook, obsoleted out-of-tree
+    module.
+  * Removing sun-java6.chroot example hook, obsoleted by openjdk.
+  * Removing udev-generators.chroot example hook, obsoleted by live-
+    builds own hacks.
+  * Removing update-initramfs.chroot example hook, obsoleted by live-
+    builds own hacks.
+  * Removing virtualbox.chroot example hook, not required anymore with
+    current virtualbox versions.
+  * Removing sysvinit.chroot example hook, not useful on modern systems
+    anymore.
+  * Removing losetup-lukshome.chroot example hook, obsoleted by live-
+    boots new persistence implementation.
+  * Removing kernel-purge.chroot example hook, not usefull anymore.
+  * Removing localepurge.chroot example hook, should be done solely
+    through preseeding.
+  * Removing debian-live-pxe-server.chroot example hook, not usefull in
+    this way.
+  * Installing examples into the correct location in /usr/share/doc.
+  * Removing debian-science package list, there's science-tasks and
+    #513296 to do this in proper.
+  * Removing warning from minimal package list about minimal hook, which
+    isn't the case anymore.
+  * Removing ubuntu-cloud and ubuntu-cloud-desktop package lists.
+  * Adding missing copyright fields in copyright file.
+  * Correcting spelling typo in 3.0~a52-1 changelog entry.
+  * Removing leftover maintainer scripts from cron removals.
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 19 Jul 2012 04:14:38 +0200
+
 live-build (3.0~a52-1) unstable; urgency=low
 
   * Improving error message in lb wrapper to show the command in case of
