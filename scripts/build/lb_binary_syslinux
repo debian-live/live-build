@@ -123,7 +123,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 
 		case "${LB_SYSLINUX_THEME}" in
 			live-build)
-				if [ -e /usr/bin/rsvg ]
+				if [ ! -e /usr/bin/rsvg ]
 				then
 					# librsvg2-bin
 					Echo_error "/usr/bin/rsvg - no such file"
