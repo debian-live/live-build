@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
+( . "${LIVE_BUILD}/scripts/build.sh" > /dev/null 2>&1 || true ) || . /usr/lib/live/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'install disk information into binary')"
@@ -135,7 +135,15 @@ case "${LB_DEBIAN_INSTALLER}" in
 
 		echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/CD Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
 
-		cp "${LB_BASE}"/data/debian-cd/${LB_PARENT_DISTRIBUTION}/${LB_ARCHITECTURES}_udeb_include binary/.disk/udeb_include
+		for LOCATION in "${LIVE_BUILD}/data/debian-cd" /usr/share/live/build/data/debian-cd
+		do
+			if [ -e "${LOCATION}" ]
+			then
+				cp "${LOCATION}/${LB_PARENT_DISTRIBUTION}/${LB_ARCHITECTURES}_udeb_include" binary/.disk/udeb_include
+
+				continue
+			fi
+		done
 		;;
 
 	true|netinst|live)
@@ -152,7 +160,15 @@ case "${LB_DEBIAN_INSTALLER}" in
 			echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/NETINST Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
 		fi
 
-		cp "${LB_BASE}"/data/debian-cd/${LB_PARENT_DISTRIBUTION}/${LB_ARCHITECTURES}_netinst_udeb_include binary/.disk/udeb_include
+		for LOCATION in "${LIVE_BUILD}/data/debian-cd" /usr/share/live/build/data/debian-cd
+		do
+			if [ -e "${LOCATION}" ]
+			then
+				cp "${LOCATION}/${LB_PARENT_DISTRIBUTION}/${LB_ARCHITECTURES}_netinst_udeb_include" binary/.disk/udeb_include
+
+				continue
+			fi
+		done
 
 		if [ "${LB_DEBIAN_INSTALLER}" = "live" ]
 		then
@@ -167,7 +183,15 @@ case "${LB_DEBIAN_INSTALLER}" in
 
 		echo "${TITLE} ${VERSION} \"${DISTRIBUTION}\" - ${STRING} LIVE/BC Binary $(date +%Y%m%d-%H:%M)" > binary/.disk/info
 
-		cp "${LB_BASE}"/data/debian-cd/${LB_PARENT_DISTRIBUTION}/${LB_ARCHITECTURES}_businesscard_udeb_include binary/.disk/udeb_include
+		for LOCATION in "${LIVE_BUILD}/data/debian-cd" /usr/share/live/build/data/debian-cd
+		do
+			if [ -e "${LOCATION}" ]
+			then
+				cp "${LOCATION}/${LB_PARENT_DISTRIBUTION}/${LB_ARCHITECTURES}_businesscard_udeb_include" binary/.disk/udeb_include
+
+				continue
+			fi
+		done
 		;;
 
 	false)

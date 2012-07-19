@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
+( . "${LIVE_BUILD}/scripts/build.sh" > /dev/null 2>&1 || true ) || . /usr/lib/live/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'create manifest')"

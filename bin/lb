@@ -11,12 +11,7 @@
 set -e
 
 # Including common functions
-if [ -e "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh ]
-then
-	. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
-else
-	. /usr/lib/live/build.sh
-fi
+( . "${LIVE_BUILD}/scripts/build.sh" > /dev/null 2>&1 || true ) || . /usr/lib/live/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'utility to build Debian Live systems')"
@@ -58,9 +53,9 @@ case "${1}" in
 			fi
 		done
 
-		if [ -x "${LB_BASE}/scripts/build/${COMMAND}" ]
+		if [ -x "${LIVE_BUILD}/scripts/build/${COMMAND}" ]
 		then
-			SCRIPT="${LB_BASE}/scripts/build/${COMMAND}"
+			SCRIPT="${LIVE_BUILD}/scripts/build/${COMMAND}"
 		elif [ -x /usr/lib/live/build/${COMMAND} ]
 		then
 			SCRIPT=/usr/lib/live/build/"${COMMAND}"

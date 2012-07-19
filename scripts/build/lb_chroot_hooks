@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
+( . "${LIVE_BUILD}/scripts/build.sh" > /dev/null 2>&1 || true ) || . /usr/lib/live/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'execute hooks in chroot')"
@@ -52,11 +52,15 @@ mount -o remount,ro,bind config chroot/root/config
 # Copying hooks
 for _HOOK in ${LB_CHROOT_HOOKS}
 do
-	if [ -e "${LB_BASE}"/hooks/???-"${_HOOK}".chroot ]
-	then
-		mkdir -p chroot/root/lb_chroot_hooks
-		cp "${LB_BASE}"/hooks/???-"${_HOOK}".chroot chroot/root/lb_chroot_hooks
-	fi
+	for LOCATION in "${LIVE_BUILD}/hooks" /usr/share/live/build/hooks
+	do
+		if [ -e "${LOCATION}/hooks/???-${_HOOK}.binary" ]
+		then
+			mkdir -p chroot/root/lb_chroot_hooks
+			cp "${LOCATION}"/hooks/???-"${_HOOK}".chroot chroot/root/lb_chroot_hooks
+			continue
+		fi
+	done
 done
 
 # Running hooks

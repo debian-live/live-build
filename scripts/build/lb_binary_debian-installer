@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
+( . "${LIVE_BUILD}/scripts/build.sh" > /dev/null 2>&1 || true ) || . /usr/lib/live/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'install debian-installer into binary')"
@@ -671,9 +671,17 @@ then
 	fi
 
 	# Excluding udebs
-	grep -v "^#" "${LB_BASE}"/data/debian-cd/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/udeb_exclude > exclude || true
-	grep -v "^#" "${LB_BASE}"/data/debian-cd/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/exclude-udebs >> exclude || true
-	grep -v "^#" "${LB_BASE}"/data/debian-cd/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/exclude-udebs-${LB_ARCHITECTURES} >> exclude || true
+	for LOCATION in "${LIVE_BUILD}/data/debian-cd" /usr/share/live/build/data/debian-cd
+	do
+		if [ -e "${LOCATION}" ]
+		then
+			grep -v "^#" "${LOCATION}/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/udeb_exclude" > exclude || true
+	grep -v "^#" "${LOCATION}/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/exclude-udebs" >> exclude || true
+	grep -v "^#" "${LOCATION}/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/exclude-udebs-${LB_ARCHITECTURES}" >> exclude || true
+
+			continue
+		fi
+	done
 
 	# Local exclude file
 	if [ -e ../config/binary_debian-installer/udeb_exclude ]

@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
+( . "${LIVE_BUILD}/scripts/build.sh" > /dev/null 2>&1 || true ) || . /usr/lib/live/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'installs syslinux into binary')"
@@ -158,7 +158,12 @@ then
 		_SOURCE="config/bootloaders/${_BOOTLOADER}"
 	else
 		# Internal system copy
-		_SOURCE="${LB_BASE:-/usr/share/live/build}/bootloaders/${_BOOTLOADER}"
+		if [ -n "${LIVE_BUILD}" ]
+		then
+			_SOURCE="${LIVE_BUILD}/bootloaders/${_BOOTLOADER}"
+		else
+			_SOURCE="/usr/share/live/build/bootloaders/${_BOOTLOADER}"
+		fi
 	fi
 else
 	# External copy from chroot or system

@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
+( . "${LIVE_BUILD}/scripts/build.sh" > /dev/null 2>&1 || true ) || . /usr/lib/live/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'manage /etc/apt/sources.list')"
@@ -31,6 +31,14 @@ Set_defaults
 Require_stagefile .build/config .build/bootstrap
 
 _LB_LOCAL_KEY_EMAIL="live-build-local-key@invalid"
+
+# FIXME: this is ugly
+if [ -n "${LIVE_BUILD}" ]
+then
+	_BASE="${LIVE_BUILD}"
+else
+	_BASE="/usr/share/live/build"
+fi
 
 case "${LB_DERIVATIVE}" in
 	true)
@@ -207,44 +215,44 @@ EOF
 
 				# Prefer archives from the config tree
 				# over the global ones.
-				if ! ls "${LB_BASE}/archives/${REPOSITORY}"* > /dev/null 2>&1
+				if ! ls "${_BASE}/archives/${REPOSITORY}"* > /dev/null 2>&1
 				then
 					continue
 				fi
 
 				# Adding sources.list entries (chroot)
-				if [ -e "${LB_BASE}/archives/${REPOSITORY}.chroot" ]
+				if [ -e "${_BASE}/archives/${REPOSITORY}.chroot" ]
 				then
 					sed -e "s|@DISTRIBUTION@|${_DISTRIBUTION}|g" \
 					    -e "s|@ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
-					"${LB_BASE}/archives/${REPOSITORY}.chroot" > \
+					"${_BASE}/archives/${REPOSITORY}.chroot" > \
 					"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
-				elif [ -e "${LB_BASE}/archives/${REPOSITORY}" ]
+				elif [ -e "${_BASE}/archives/${REPOSITORY}" ]
 				then
 					sed -e "s|@DISTRIBUTION@|${_DISTRIBUTION}|g" \
 					    -e "s|@ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
-					"${LB_BASE}/archives/${REPOSITORY}" > \
+					"${_BASE}/archives/${REPOSITORY}" > \
 					"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
 				fi
 
 				# Adding pinning preferences (chroot)
-				if [ -e "${LB_BASE}/archives/${REPOSITORY}.pref" ]
+				if [ -e "${_BASE}/archives/${REPOSITORY}.pref" ]
 				then
-					cp "${LB_BASE}/archives/${REPOSITORY}.pref" chroot/etc/apt/sources.list.d
-				elif [ -e "${LB_BASE}/archives/${REPOSITORY}.pref.chroot" ]
+					cp "${_BASE}/archives/${REPOSITORY}.pref" chroot/etc/apt/sources.list.d
+				elif [ -e "${_BASE}/archives/${REPOSITORY}.pref.chroot" ]
 				then
-					cp "${LB_BASE}/archives/${REPOSITORY}.pref.chroot" "chroot/etc/apt/sources.list.d/${REPOSITORY}.pref"
+					cp "${_BASE}/archives/${REPOSITORY}.pref.chroot" "chroot/etc/apt/sources.list.d/${REPOSITORY}.pref"
 				fi
 
 				if [ "${LB_APT_SECURE}" != false ]
 				then
 					# Adding archive signing keys (chroot)
-					if [ -e "${LB_BASE}/archives/${REPOSITORY}.key.chroot" ]
+					if [ -e "${_BASE}/archives/${REPOSITORY}.key.chroot" ]
 					then
-						cat "${LB_BASE}/archives/${REPOSITORY}.key.chroot" | Chroot chroot "apt-key add -"
-					elif [ -e "${LB_BASE}/archives/${REPOSITORY}.key" ]
+						cat "${_BASE}/archives/${REPOSITORY}.key.chroot" | Chroot chroot "apt-key add -"
+					elif [ -e "${_BASE}/archives/${REPOSITORY}.key" ]
 					then
-						cat "${LB_BASE}/archives/${REPOSITORY}.key" | Chroot chroot "apt-key add -"
+						cat "${_BASE}/archives/${REPOSITORY}.key" | Chroot chroot "apt-key add -"
 					fi
 				fi
 			done
@@ -763,44 +771,44 @@ EOF
 
 				# Prefer archives from the config tree
 				# over the global ones.
-				if ! ls "${LB_BASE}/archives/${REPOSITORY}"* > /dev/null 2>&1
+				if ! ls "${_BASE}/archives/${REPOSITORY}"* > /dev/null 2>&1
 				then
 					continue
 				fi
 
 				# Adding sources.list entries (binary)
-				if [ -e "${LB_BASE}/archives/${REPOSITORY}.binary" ]
+				if [ -e "${_BASE}/archives/${REPOSITORY}.binary" ]
 				then
 					sed -e "s|@DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
 					    -e "s|@ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
-					"${LB_BASE}/archives/${REPOSITORY}.binary" > \
+					"${_BASE}/archives/${REPOSITORY}.binary" > \
 					"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
-				elif [ -e "${LB_BASE}/archives/${REPOSITORY}" ]
+				elif [ -e "${_BASE}/archives/${REPOSITORY}" ]
 				then
 					sed -e "s|@DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
 					    -e "s|@ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
-					"${LB_BASE}/archives/${REPOSITORY}" > \
+					"${_BASE}/archives/${REPOSITORY}" > \
 					"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
 				fi
 
 				# Adding pinning preferences (binary)
-				if [ -e "${LB_BASE}/archives/${REPOSITORY}.pref" ]
+				if [ -e "${_BASE}/archives/${REPOSITORY}.pref" ]
 				then
-					cp "${LB_BASE}/archives/${REPOSITORY}.pref" chroot/etc/apt/sources.list.d
-				elif [ -e "${LB_BASE}/archives/${REPOSITORY}.pref.binary" ]
+					cp "${_BASE}/archives/${REPOSITORY}.pref" chroot/etc/apt/sources.list.d
+				elif [ -e "${_BASE}/archives/${REPOSITORY}.pref.binary" ]
 				then
-					cp "${LB_BASE}/archives/${REPOSITORY}.pref.binary" "chroot/etc/apt/sources.list.d/${REPOSITORY}.pref"
+					cp "${_BASE}/archives/${REPOSITORY}.pref.binary" "chroot/etc/apt/sources.list.d/${REPOSITORY}.pref"
 				fi
 
 				if [ "${LB_APT_SECURE}" != false ]
 				then
 					# Adding archive signing keys (binary)
-					if [ -e "${LB_BASE}/archives/${REPOSITORY}.key.binary" ]
+					if [ -e "${_BASE}/archives/${REPOSITORY}.key.binary" ]
 					then
-						cat "${LB_BASE}/archives/${REPOSITORY}.key.binary" | Chroot chroot "apt-key add -"
-					elif [ -e "${LB_BASE}/archives/${REPOSITORY}.key" ]
+						cat "${_BASE}/archives/${REPOSITORY}.key.binary" | Chroot chroot "apt-key add -"
+					elif [ -e "${_BASE}/archives/${REPOSITORY}.key" ]
 					then
-						cat "${LB_BASE}/archives/${REPOSITORY}.key" | Chroot chroot "apt-key add -"
+						cat "${_BASE}/archives/${REPOSITORY}.key" | Chroot chroot "apt-key add -"
 					fi
 				fi
 			done

@@ -2,18 +2,18 @@
 
 if [ -e local/live-build ]
 then
-	LB_BASE="${LB_BASE:-${PWD}/local/live-build}"
+	LIVE_BUILD="${LIVE_BUILD:-${PWD}/local/live-build}"
 	PATH="${PWD}/local/live-build/scripts/build:${PATH}"
-	export LB_BASE PATH
-else
-	LB_BASE="${LB_BASE:-/usr/share/live/build}"
-	export LB_BASE
+	export LIVE_BUILD PATH
 fi
 
 # Source global functions
-for FUNCTION in "${LB_BASE}"/functions/*.sh
+for FUNCTION in "${LIVE_BUILD}"/functions/*.sh /usr/share/live/build/functions/*.sh
 do
-	. "${FUNCTION}"
+	if [ -e "${FUNCTION}" ]
+	then
+		. "${FUNCTION}"
+	fi
 done
 
 # Source local functions
