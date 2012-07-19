@@ -4,7 +4,7 @@ SHELL := sh -e
 
 LANGUAGES = $(shell cd manpages/po && ls)
 
-SCRIPTS = bin/* frontends/cgi/live-build-cgi frontends/cgi/live-build-cgi.cron functions/* examples/*/*.sh examples/auto/* scripts/*.sh scripts/*/* share/hooks/*
+SCRIPTS = bin/* frontends/cgi/live-build-cgi frontends/cgi/live-build-cgi.cron functions/* examples/auto/* examples/hooks/* scripts/*.sh scripts/*/* share/hooks/*
 
 all: build
 
@@ -40,7 +40,7 @@ build:
 install:
 	# Installing shared data
 	mkdir -p $(DESTDIR)/usr/share/live/build
-	cp -r frontends/cgi data examples functions includes package-lists templates VERSION $(DESTDIR)/usr/share/live/build
+	cp -r frontends/cgi data functions includes package-lists templates VERSION $(DESTDIR)/usr/share/live/build
 	cp -r share/* $(DESTDIR)/usr/share/live/build
 
 	# Installing executables
@@ -52,7 +52,7 @@ install:
 
 	# Installing documentation
 	mkdir -p $(DESTDIR)/usr/share/doc/live-build
-	cp -r COPYING docs/* $(DESTDIR)/usr/share/doc/live-build
+	cp -r COPYING docs/* examples $(DESTDIR)/usr/share/doc/live-build
 
 	# Installing manpages
 	for MANPAGE in manpages/en/*; \
