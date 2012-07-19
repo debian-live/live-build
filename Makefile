@@ -4,7 +4,7 @@ SHELL := sh -e
 
 LANGUAGES = $(shell cd manpages/po && ls)
 
-SCRIPTS = frontends/cgi/live-build-cgi frontends/cgi/live-build-cgi.cron functions/* examples/*/*.sh examples/auto/* scripts/*.sh scripts/*/* share/hooks/*
+SCRIPTS = bin/* frontends/cgi/live-build-cgi frontends/cgi/live-build-cgi.cron functions/* examples/auto/* examples/hooks/* scripts/*.sh scripts/*/* share/hooks/*
 
 all: build
 
@@ -40,16 +40,19 @@ build:
 install:
 	# Installing shared data
 	mkdir -p $(DESTDIR)/usr/share/live/build
-	cp -r frontends/cgi data examples functions scripts includes package-lists templates VERSION $(DESTDIR)/usr/share/live/build
+	cp -r frontends/cgi data functions includes package-lists templates VERSION $(DESTDIR)/usr/share/live/build
 	cp -r share/* $(DESTDIR)/usr/share/live/build
 
 	# Installing executables
 	mkdir -p $(DESTDIR)/usr/bin
-	mv $(DESTDIR)/usr/share/live/build/scripts/build/lb $(DESTDIR)/usr/share/live/build/scripts/build/live-build $(DESTDIR)/usr/bin
+	cp -a bin/* $(DESTDIR)/usr/bin
+
+	mkdir -p $(DESTDIR)/usr/lib/live
+	cp -a scripts/* $(DESTDIR)/usr/lib/live
 
 	# Installing documentation
 	mkdir -p $(DESTDIR)/usr/share/doc/live-build
-	cp -r COPYING docs/* $(DESTDIR)/usr/share/doc/live-build
+	cp -r COPYING docs/* examples $(DESTDIR)/usr/share/doc/live-build
 
 	# Installing manpages
 	for MANPAGE in manpages/en/*; \
@@ -66,9 +69,6 @@ install:
 			install -D -m 0644 $${MANPAGE} $(DESTDIR)/usr/share/man/$${LANGUAGE}/man$${SECTION}/$$(basename $${MANPAGE} .$${LANGUAGE}.$${SECTION}).$${SECTION}; \
 		done; \
 	done
-
-	# Installing logfile
-	mkdir -p $(DESTDIR)/var/log
 
 uninstall:
 	# Uninstalling shared data
