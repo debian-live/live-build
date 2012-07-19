@@ -4,7 +4,7 @@ SHELL := sh -e
 
 LANGUAGES = $(shell cd manpages/po && ls)
 
-SCRIPTS = frontends/cgi/live-build-cgi frontends/cgi/live-build-cgi.cron functions/* examples/*/*.sh examples/auto/* scripts/*.sh scripts/*/* share/hooks/*
+SCRIPTS = bin/* frontends/cgi/live-build-cgi frontends/cgi/live-build-cgi.cron functions/* examples/*/*.sh examples/auto/* scripts/*.sh scripts/*/* share/hooks/*
 
 all: build
 
@@ -45,7 +45,7 @@ install:
 
 	# Installing executables
 	mkdir -p $(DESTDIR)/usr/bin
-	mv $(DESTDIR)/usr/share/live/build/scripts/build/lb $(DESTDIR)/usr/share/live/build/scripts/build/live-build $(DESTDIR)/usr/bin
+	cp -a bin/* $(DESTDIR)/usr/bin
 
 	# Installing documentation
 	mkdir -p $(DESTDIR)/usr/share/doc/live-build
