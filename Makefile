@@ -40,12 +40,15 @@ build:
 install:
 	# Installing shared data
 	mkdir -p $(DESTDIR)/usr/share/live/build
-	cp -r frontends/cgi data examples functions scripts includes package-lists templates VERSION $(DESTDIR)/usr/share/live/build
+	cp -r frontends/cgi data examples functions includes package-lists templates VERSION $(DESTDIR)/usr/share/live/build
 	cp -r share/* $(DESTDIR)/usr/share/live/build
 
 	# Installing executables
 	mkdir -p $(DESTDIR)/usr/bin
 	cp -a bin/* $(DESTDIR)/usr/bin
+
+	mkdir -p $(DESTDIR)/usr/lib/live
+	cp -a scripts/* $(DESTDIR)/usr/lib/live
 
 	# Installing documentation
 	mkdir -p $(DESTDIR)/usr/share/doc/live-build
