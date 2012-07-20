@@ -1,3 +1,14 @@
+live-build (3.0~a54-1) unstable; urgency=low
+
+  * Making sure target directory for syslinux theme files exists when
+    building non-chrooted.
+  * Fixing up inclusion of functions while allowing local usage of live-
+    build with different file layouts.
+  * Correcting accidentally reverted check for rsvg in binary_syslinux
+    when building non-chrooted.
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 20 Jul 2012 04:36:21 +0200
+
 live-build (3.0~a53-1) unstable; urgency=low
 
   * Removing leftover creation of /var/log in toplevel makefile from the
