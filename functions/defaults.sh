@@ -14,12 +14,9 @@ Set_defaults ()
 
 	if [ -e local/live-build ]
 	then
-		LB_BASE="${LB_BASE:-${PWD}/local/live-build}"
+		LIVE_BUILD="${LIVE_BUILD:-${PWD}/local/live-build}"
 		PATH="${PWD}/local/live-build/scripts/build:${PATH}"
-		export LB_BASE PATH
-	else
-		LB_BASE="${LB_BASE:-/usr/share/live/build}"
-		export LB_BASE
+		export LIVE_BUILD PATH
 	fi
 
 	# Setting system type
@@ -322,10 +319,20 @@ Set_defaults ()
 	esac
 
 	# Setting includes
-	LB_INCLUDES="${LB_INCLUDES:-${LB_BASE}/includes}"
+	if [ -n "${LIVE_BUID}" ]
+	then
+		LB_INCLUDES="${LB_INCLUDES:-${LIVE_BUILD}/includes}"
+	else
+		LB_INCLUDES="${LB_INCLUDES:-/usr/share/live/build/includes}"
+	fi
 
 	# Setting templates
-	LB_TEMPLATES="${LB_TEMPLATES:-${LB_BASE}/templates}"
+	if [ -n "${LIVE_BUID}" ]
+	then
+		LB_TEMPLATES="${LB_TEMPLATES:-${LIVE_BUILD}/templates}"
+	else
+		LB_TEMPLATES="${LB_TEMPLATES:-/usr/share/live/build/templates}"
+	fi
 
 	# Setting live build options
 	_BREAKPOINTS="${_BREAKPOINTS:-false}"

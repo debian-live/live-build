@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
+( . "${LIVE_BUILD}/scripts/build.sh" > /dev/null 2>&1 || true ) || . /usr/lib/live/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'installs syslinux into binary')"
@@ -123,7 +123,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 
 		case "${LB_SYSLINUX_THEME}" in
 			live-build)
-				if [ -e /usr/bin/rsvg ]
+				if [ ! -e /usr/bin/rsvg ]
 				then
 					# librsvg2-bin
 					Echo_error "/usr/bin/rsvg - no such file"
@@ -158,7 +158,12 @@ then
 		_SOURCE="config/bootloaders/${_BOOTLOADER}"
 	else
 		# Internal system copy
-		_SOURCE="${LB_BASE:-/usr/share/live/build}/bootloaders/${_BOOTLOADER}"
+		if [ -n "${LIVE_BUILD}" ]
+		then
+			_SOURCE="${LIVE_BUILD}/bootloaders/${_BOOTLOADER}"
+		else
+			_SOURCE="/usr/share/live/build/bootloaders/${_BOOTLOADER}"
+		fi
 	fi
 else
 	# External copy from chroot or system
@@ -166,10 +171,10 @@ else
 fi
 
 # Copying files
-mkdir -p $(dirname ${_TARGET})
-
 case "${LB_BUILD_WITH_CHROOT}" in
 	true)
+		mkdir -p $(dirname ${_TARGET})
+
 		# Copy in two steps since the theme can have absolute symlinks and would therefore not be dereferenced correctly
 		if [ "${LB_SYSLINUX_THEME}" = "live-build" ]
 		then
@@ -190,6 +195,8 @@ case "${LB_BUILD_WITH_CHROOT}" in
 		;;
 
 	false)
+		mkdir -p ${_TARGET}
+
 		cp -aL ${_SOURCE}/* ${_TARGET}
 
 		case "${LB_MODE}" in

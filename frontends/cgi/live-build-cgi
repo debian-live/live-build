@@ -9,7 +9,7 @@
 
 
 # Including common functions
-. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
+( . "${LIVE_BUILD}/scripts/build.sh" > /dev/null 2>&1 || true ) || . /usr/lib/live/build.sh
 
 # Reading defaults
 if [ -r /etc/default/live-build-cgi ]

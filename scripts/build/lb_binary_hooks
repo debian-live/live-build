@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-. "${LB_BASE:-/usr/share/live/build}"/scripts/build.sh
+( . "${LIVE_BUILD}/scripts/build.sh" > /dev/null 2>&1 || true ) || . /usr/lib/live/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'execute hooks in binary')"
@@ -43,12 +43,17 @@ Create_lockfile .lock
 # Running hooks
 for _HOOK in ${LB_BINARY_HOOKS}
 do
-	if [ -e "${LB_BASE}/hooks/???-${_HOOK}.binary" ]
-	then
-		cd binary
-		./"${LB_BASE}/hooks/???-${_HOOK}.binary" || { Echo_error "${_HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
-		cd "${OLDPWD}"
-	fi
+		for LOCATION in "${LIVE_BUILD}/hooks" /usr/share/live/build/hooks
+		do
+			if [ -e "${LOCATION}/hooks/???-${_HOOK}.binary" ]
+			then
+				cd binary
+				./"${LOCATION}/hooks/???-${_HOOK}.binary" || { Echo_error "${_HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
+				cd "${OLDPWD}"
+
+				continue
+			fi
+		done
 done
 
 ## Processing local hooks
