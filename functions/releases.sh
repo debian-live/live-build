@@ -11,6 +11,7 @@
 # Debian releases
 RELEASE_squeeze="6.0.5"
 RELEASE_wheezy="7.0.0"
+RELEASE_jessie="8"
 RELEASE_sid="unstable"
 
 # Progress releases
