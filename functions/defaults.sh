@@ -56,7 +56,7 @@ Set_defaults ()
 			;;
 
 		ubuntu|kubuntu)
-			LB_DISTRIBUTION="${LB_DISTRIBUTION:-oneiric}"
+			LB_DISTRIBUTION="${LB_DISTRIBUTION:-precise}"
 			LB_DERIVATIVE="false"
 			;;
 
@@ -81,6 +81,11 @@ Set_defaults ()
 					;;
 
 				baureo)
+					LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-wheezy}"
+					LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_PARENT_DISTRIBUTION}}"
+					;;
+
+				charon)
 					LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-sid}"
 					LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_PARENT_DISTRIBUTION}}"
 					;;
@@ -293,7 +298,7 @@ Set_defaults ()
 	fi
 
 	# Setting tasksel
-	case "${LB_DISTRIBUTION}" in
+	case "${LB_PARENT_DISTRIBUTION}" in
 		squeeze)
 			LB_TASKSEL="${LB_TASKSEL:-tasksel}"
 			;;
@@ -748,13 +753,13 @@ Set_defaults ()
 							;;
 
 						*)
-							case "${LB_DISTRIBUTION}" in
-								wheezy|sid)
-									LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486 686-pae}"
+							case "${LB_PARENT_DISTRIBUTION}" in
+								squeeze)
+									LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486 686}"
 									;;
 
 								*)
-									LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486 686}"
+									LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486 686-pae}"
 									;;
 							esac
 							;;
@@ -848,8 +853,8 @@ Set_defaults ()
 			;;
 
 		*)
-			case "${LB_DISTRIBUTION}" in
-				squeeze|artax)
+			case "${LB_PARENT_DISTRIBUTION}" in
+				squeeze)
 					LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES:-linux-image-2.6}"
 					;;
 
@@ -864,8 +869,8 @@ Set_defaults ()
 	LB_PACKAGE_LISTS="${LB_PACKAGE_LISTS:-standard}"
 
 	# Setting security updates option
-	case "${LB_DISTRIBUTION}" in
-		wheezy|sid|precise)
+	case "${LB_PARENT_DISTRIBUTION}" in
+		jessie|sid)
 			LB_SECURITY="${LB_SECURITY:-false}"
 			;;
 
@@ -875,8 +880,8 @@ Set_defaults ()
 	esac
 
 	# Setting volatile updates option
-	case "${LB_DISTRIBUTION}" in
-		wheezy|sid|precise)
+	case "${LB_PARENT_DISTRIBUTION}" in
+		jessie|sid)
 			LB_VOLATILE="${LB_VOLATILE:-false}"
 			;;
 
@@ -948,7 +953,7 @@ Set_defaults ()
 			;;
 
 		*)
-			case "${LB_DISTRIBUTION}" in
+			case "${LB_PARENT_DISTRIBUTION}" in
 				squeeze)
 					LB_COMPRESSION="${LB_COMPRESSION:-gzip}"
 					;;
