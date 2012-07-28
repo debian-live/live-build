@@ -1,7 +1,5 @@
 # /usr/share/live/build/package-lists/standard - package list for live-build(7)
 
-#include <minimal>
-
 console-setup
 #nif MODE ubuntu
 console-common
