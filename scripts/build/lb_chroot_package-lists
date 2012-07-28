@@ -41,20 +41,20 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-# Checking depends
-Check_package chroot/usr/bin/grep-aptavail dctrl-tools
-
-# Restoring cache
-Restore_cache cache/packages.chroot
-
-# Installing depends
-Install_package
-
 # Handling local package lists
 if ls config/package-lists/*.list > /dev/null 2>&1 || \
    ls config/package-lists/*.list.chroot > /dev/null 2>&1 || \
    ls config/package-lists/*.list.chroot_${_PASS} > /dev/null 2>&1
 then
+	# Checking depends
+	Check_package chroot/usr/bin/grep-aptavail dctrl-tools
+
+	# Restoring cache
+	Restore_cache cache/packages.chroot
+
+	# Installing depends
+	Install_package
+
 	for LIST in config/package-lists/*.list \
 		    config/package-lists/*.list.chroot \
 		    config/package-lists/*.list.chroot_${_PASS}
@@ -67,16 +67,16 @@ then
 		fi
 	done
 
+	# Removing dctrl-tools again if the user has not installed it
+	if ! grep -qs dctrl-tools chroot/root/packages.chroot
+	then
+		# Removing depends
+		Remove_package
+	fi
+
+	# Saving cache
+	Save_cache cache/packages.binary
+
 	# Creating stage file
 	Create_stagefile .build/chroot_package-lists.${_PASS}
-fi
-
-# Saving cache
-Save_cache cache/packages.binary
-
-# Removing dctrl-tools again if the user has not installed it
-if ! grep -qs dctrl-tools chroot/root/packages.chroot
-then
-	# Removing depends
-	Remove_package
 fi
