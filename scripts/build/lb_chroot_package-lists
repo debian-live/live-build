@@ -41,6 +41,15 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
+# Checking depends
+Check_package chroot/usr/bin/grep-aptavail dctrl-tools
+
+# Restoring cache
+Restore_cache cache/packages.chroot
+
+# Installing depends
+Install_package
+
 # Handling global package lists
 if [ -n "${LB_PACKAGE_LISTS}" ] && [ "${LB_PACKAGE_LISTS}" != "none" ]
 then
@@ -73,4 +82,14 @@ then
 
 	# Creating stage file
 	Create_stagefile .build/chroot_package-lists.${_PASS}
+fi
+
+# Saving cache
+Save_cache cache/packages.binary
+
+# Removing dctrl-tools again if the user has not installed it
+if ! grep -qs dctrl-tools chroot/root/packages.chroot
+then
+	# Removing depends
+	Remove_package
 fi
