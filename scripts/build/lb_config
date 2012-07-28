@@ -13,19 +13,6 @@ set -e
 # Including common functions
 ( . "${LIVE_BUILD}/scripts/build.sh" > /dev/null 2>&1 || true ) || . /usr/lib/live/build.sh
 
-# Read meta config
-if [ "${1}" != "noauto" ] && [ -x auto/config ]
-then
-	Echo_message "Executing auto/config script."
-	./auto/config "${@}"
-	exit ${?}
-fi
-
-if [ "${1}" = "noauto" ]
-then
-	shift
-fi
-
 # Setting static variables
 PROGRAM="lb config"
 DESCRIPTION="$(Echo 'create configuration for live-build(7)')"
@@ -881,6 +868,31 @@ Local_arguments ()
 	done
 }
 
+Local_arguments "${@}"
+
+if [ -e .git ]
+then
+	_CONFIG=""
+fi
+
+if [ -n "${_CONFIG}" ]
+then
+	git clone ${_CONFIG} ./
+fi
+
+# Read meta config
+if [ "${1}" != "noauto" ] && [ -x auto/config ]
+then
+	Echo_message "Executing auto/config script."
+	./auto/config "${@}"
+	exit ${?}
+fi
+
+if [ "${1}" = "noauto" ]
+then
+	shift
+fi
+
 # Reading system configuration
 if ! In_list "--ignore-system-defaults" "${@}"
 then
@@ -897,23 +909,6 @@ Local_arguments "${@}"
 if [ -n "${_CONFFILE}" ]
 then
 	Read_conffiles "${_CONFFILE}"
-fi
-
-if [ -n "${_CONFIG}" ]
-then
-	# quick hack with lots of duplication, needs to be unified later on
-	git clone ${_CONFIG}
-	cd $(basename ${_CONFIG} .git)
-
-	# Reading existing configuration
-	Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
-
-	Local_arguments "${@}"
-
-	if [ -n "${_CONFFILE}" ]
-	then
-		Read_conffiles "${_CONFFILE}"
-	fi
 fi
 
 # Setting defaults
