@@ -40,6 +40,12 @@ Expand_packagelist ()
 		while read _LB_LINE
 		do
 			case "${_LB_LINE}" in
+				\!*)
+					_EXEC="$(echo ${_LB_LINE} | sed -e 's|^!||')"
+
+					chroot chroot ${_EXEC}
+					;;
+
 				\#if\ *)
 					if [ ${_LB_NESTED} -eq 1 ]
 					then
