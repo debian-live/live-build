@@ -59,7 +59,6 @@ for _PASS in install live
 do
 	lb chroot_package-lists ${_PASS} ${*}
 	lb chroot_install-packages ${_PASS} ${*}
-	lb chroot_task-lists ${_PASS} ${*}
 
 	if [ "${_PASS}" = install ]
 	then
