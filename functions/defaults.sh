@@ -378,7 +378,12 @@ Set_defaults ()
 	fi
 
 	# Include packages on base
-	# LB_BOOTSTRAP_INCLUDE
+	case "${LB_MODE}" in
+		ubuntu|kubuntu)
+			LB_BOOTSTRAP_INCLUDE="${LB_BOOTSTRAP_INCLUDE:-gnupg}"
+			;;
+
+	esac
 
 	# Exclude packages on base
 	# LB_BOOTSTRAP_EXCLUDE
