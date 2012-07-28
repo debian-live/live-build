@@ -71,7 +71,6 @@ lb binary_silo ${*}
 lb binary_disk ${*}
 lb binary_win32-loader ${*}
 lb binary_includes ${*}
-lb binary_local-includes ${*}
 lb binary_hooks ${*}
 lb binary_checksums ${*}
 

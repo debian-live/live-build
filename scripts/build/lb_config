@@ -78,7 +78,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--gzip-options OPTION|\"OPTIONS\"]\n\
 \t    [--hooks FILE]\n\
 \t    [--ignore-system-defaults]\n\
-\t    [--includes PATH|none]\n\
 \t    [--initramfs auto|none|live-boot|casper]\n\
 \t    [--initramfs-compression bzip2|gzip|lzma]\n\
 \t    [--initsystem sysvinit|runit|systemd|upstart|none]\n\
@@ -159,7 +158,7 @@ Local_arguments ()
 	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-options:,aptitute-options:,
 		apt-pipeline:,apt-recommends:,apt-secure:,apt-source-archives:,bootstrap:,cache:,cache-indices:,cache-packages:,
 		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
-		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,system:,root-command:,use-fakeroot:,tasksel:,includes:,
+		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,system:,root-command:,use-fakeroot:,tasksel:,
 		templates:,architectures:,bootstrap-flavour:,bootstrap-keyring:,clean,
 		distribution:,parent-distribution:,parent-debian-installer-distribution:,parent-mirror-bootstrap:,parent-mirror-chroot:,parent-mirror-chroot-security:,parent-mirror-chroot-volatile:,parent-mirror-chroot-backports:,parent-mirror-binary:,
 		parent-mirror-binary-security:,parent-mirror-binary-volatile:,parent-mirror-binary-backports:,parent-mirror-debian-installer:,
@@ -371,11 +370,6 @@ Local_arguments ()
 
 			--tasksel)
 				LB_TASKSEL="${2}"
-				shift 2
-				;;
-
-			--includes)
-				LB_INCLUDES="${2}"
 				shift 2
 				;;
 
@@ -1023,10 +1017,6 @@ LB_USE_FAKEROOT="${LB_USE_FAKEROOT}"
 # \$LB_TASKSEL: set tasksel program
 # (Default: ${LB_TASKSEL})
 LB_TASKSEL="${LB_TASKSEL}"
-
-# \$LB_INCLUDES: set includes
-# (Default: ${LB_INCLUDES})
-LB_INCLUDES="${LB_INCLUDES}"
 
 # \$LB_TEMPLATES: set templates
 # (Default: ${LB_TEMPLATES})
