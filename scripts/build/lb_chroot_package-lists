@@ -50,19 +50,6 @@ Restore_cache cache/packages.chroot
 # Installing depends
 Install_package
 
-# Handling global package lists
-if [ -n "${LB_PACKAGE_LISTS}" ] && [ "${LB_PACKAGE_LISTS}" != "none" ]
-then
-	for LIST in ${LB_PACKAGE_LISTS}
-	do
-		# Generating package list
-		Expand_packagelist "${LIST}" >> chroot/root/packages.chroot
-	done
-
-	# Creating stage file
-	Create_stagefile .build/chroot_package-lists.${_PASS}
-fi
-
 # Handling local package lists
 if ls config/package-lists/*.list > /dev/null 2>&1 || \
    ls config/package-lists/*.list.chroot > /dev/null 2>&1 || \

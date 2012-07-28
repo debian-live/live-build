@@ -1,5 +1,4 @@
 #!/bin/sh
 
 lb config noauto \
-	--package-lists "standard" \
 	"${@}"

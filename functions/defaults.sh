@@ -870,9 +870,6 @@ Set_defaults ()
 			;;
 	esac
 
-	# Setting package list
-	LB_PACKAGE_LISTS="${LB_PACKAGE_LISTS:-standard}"
-
 	# Setting security updates option
 	case "${LB_PARENT_DISTRIBUTION}" in
 		jessie|sid)
@@ -1276,15 +1273,6 @@ Check_defaults ()
 		fi
 	fi
 
-	if echo ${LB_PACKAGE_LISTS} | grep -qs -E "(stripped|minimal)\b"
-	then
-		# aptitude + stripped|minimal
-		if [ "${LB_APT}" = "aptitude" ]
-		then
-			Echo_warning "You selected LB_PACKAGE_LISTS='%s' and LB_APT='aptitude'" "${LB_PACKAGE_LIST}. This configuration is potentially unsafe, as aptitude is not used in the stripped/minimal package lists."
-		fi
-	fi
-
 	if [ "${LB_DEBIAN_INSTALLER}" != "false" ]
 	then
 		# d-i true, no caching
@@ -1336,14 +1324,6 @@ Check_defaults ()
 	if [ "$(eval "echo \"${LB_ISO_VOLUME}\"" | wc -c)" -gt 32 ]
 	then
 		Echo_warning "You have specified a value of LB_ISO_VOLUME that is too long; the maximum length is 32 characters."
-	fi
-
-	if echo ${LB_PACKAGE_LISTS} | grep -qs -E "(stripped|minimal)\b"
-	then
-		if [ "${LB_APT_INDICES}" = "true" ]
-		then
-			Echo_warning "You have selected hook to minimise image size but you are still including package indices with your value of LB_APT_INDICES."
-		fi
 	fi
 
 	# Architectures to use foreign bootstrap for

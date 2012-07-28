@@ -114,7 +114,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--net-cow-path PATH]\n\
 \t    [--net-cow-server IP|HOSTNAME]\n\
 \t    [--net-tarball true|false]\n\
-\t    [-p|--package-lists LIST|\"LISTS\"]\n\
 \t    [--quiet]\n\
 \t    [--root-command sudo]\n\
 \t    [--use-fakeroot true|false]\n\
@@ -154,7 +153,7 @@ Local_arguments ()
 		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,
 		archives:,archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,linux-flavours:,linux-packages:,
-		package-lists:,security:,volatile:,backports:,binary-filesystem:,binary-images:,
+		security:,volatile:,backports:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootappend-failsafe:,bootloader:,checksums:,compression:,config:,zsync:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
 		grub-splash:,isohybrid-options:,hdd-label:,hdd-size:,iso-application:,iso-preparer:,iso-publisher:,
@@ -192,7 +191,7 @@ Local_arguments ()
 				Print_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 
 				# Dump contents of directories that contain text files
-				for DIRECTORY in config/package-lists config/task-lists config/chroot_apt config/chroot_local-patches config/preseed config/binary_rootfs
+				for DIRECTORY in config/package-lists config/chroot_apt config/chroot_local-patches config/preseed config/binary_rootfs
 				do
 					if Find_files "${DIRECTORY}"
 					then
@@ -545,11 +544,6 @@ Local_arguments ()
 
 			--linux-packages)
 				LB_LINUX_PACKAGES="${2}"
-				shift 2
-				;;
-
-			-p|--package-lists)
-				LB_PACKAGE_LISTS="${2}"
 				shift 2
 				;;
 
@@ -1225,7 +1219,6 @@ mkdir -p config/packages
 mkdir -p config/packages.chroot
 mkdir -p config/package-lists
 mkdir -p config/preseed
-mkdir -p config/task-lists
 
 cat > config/chroot << EOF
 # config/chroot - options for live-build(7), chroot stage
@@ -1261,10 +1254,6 @@ LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS}"
 # \$LB_LINUX_PACKAGES: set kernel packages to use
 # (Default: autodetected)
 LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES}"
-
-# \$LB_PACKAGE_LISTS: set package list to install
-# (Default: ${LB_PACKAGE_LISTS})
-LB_PACKAGE_LISTS="${LB_PACKAGE_LISTS}"
 
 # \$LB_SECURITY: enable security updates
 # (Default: ${LB_SECURITY})
@@ -1471,7 +1460,6 @@ if [ "${CONFIG}" = "clone" ] # FIXME
 then
 	# Read package selection
 	echo $(dpkg --get-selections | awk '{ print $1 }') > config/package-lists/local.list.chroot
-	LB_PACKAGE_LISTS="${LB_PACKAGE_LISTS} local-system"
 
 	# Read debconf questions
 	if [ ! -f /usr/bin/debconf-get-selections ]

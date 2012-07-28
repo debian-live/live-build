@@ -76,26 +76,9 @@ then
 	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --keyring=${LB_BOOTSTRAP_KEYRING}"
 fi
 
-if [ -z "${LB_BOOTSTRAP_FLAVOUR}" ]
+if [ -n "${LB_BOOTSTRAP_FLAVOUR}" ]
 then
-	case "${LB_PACKAGE_LISTS}" in
-		stripped|minimal)
-			CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=minimal"
-			;;
-		*)
-			CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=standard"
-			;;
-	esac
-else
-	case "${LB_BOOTSTRAP_FLAVOUR}" in
-		stripped|minimal)
-			CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=minimal"
-			;;
-
-		*)
-			CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=${LB_BOOTSTRAP_FLAVOUR}"
-			;;
-	esac
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --flavour=${LB_BOOTSTRAP_FLAVOUR}"
 fi
 
 if [ "${_DEBUG}" = "true" ]
@@ -151,13 +134,6 @@ then
 	then
 		${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
 	fi
-
-	# Remove cdebootstrap-helper-diverts (needed at least for minimal flavours)
-	case "${LB_PACKAGE_LISTS}" in
-		stripped|minimal)
-			Chroot chroot "dpkg -P cdebootstrap-helper-diverts"
-			;;
-	esac
 
 	# Deconfiguring cdebootstrap configurations
 	rm -f chroot/etc/apt/sources.list

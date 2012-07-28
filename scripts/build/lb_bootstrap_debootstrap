@@ -77,29 +77,17 @@ then
 	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --exclude=$(echo ${LB_BOOTSTRAP_EXCLUDE} | sed 's|  *|,|g')"
 fi
 
-if [ "${LB_USE_FAKEROOT}" != "true" ]
-then
-	if [ -z "${LB_BOOTSTRAP_FLAVOUR}" ]
-	then
-		if In_list "stripped minimal" "${LB_PACKAGE_LISTS}"
+case "${LB_USE_FAKEROOT}" in
+	true)
+		DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=fakechroot"
+		;;
+	false)
+		if [ -n "${LB_BOOTSTRAP_FLAVOUR}" ]
 		then
-			DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=minbase"
+			DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=${LB_BOOTSTRAP_FLAVOUR}"
 		fi
-	else
-		case "${LB_BOOTSTRAP_FLAVOUR}" in
-			stripped|minimal)
-				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=minbase"
-				;;
-			standard)
-				;;
-
-			*)
-				DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=${LB_BOOTSTRAP_FLAVOUR}"
-		esac
-	fi
-else
-	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=fakechroot"
-fi
+		;;
+esac
 
 if [ "${_VERBOSE}" = "true" ]
 then
