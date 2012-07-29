@@ -42,7 +42,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--cache-stages STAGE|\"STAGES\"]\n\
 \t    [--checksums md5|sha1|sha256|none]\n\
 \t    [--compression bzip2|gzip|lzip|xz|none]\n\
-\t    [--config GIT_URL]\n\
+\t    [--config GIT_URL::GIT_BRANCH]\n\
 \t    [--zsync true|false]\n\
 \t    [--build-with-chroot true|false]\n\
 \t    [--chroot-filesystem ext2|ext3|ext4|squashfs|jffs2|none]\n\
@@ -872,7 +872,16 @@ fi
 
 if [ -n "${_CONFIG}" ]
 then
-	git clone ${_CONFIG} ./
+	_GIT_REPOSITORY="$(echo ${_CONFIG} | sed -e 's|::.*$||')"
+
+	git clone ${_GIT_REPOSITORY} ./
+
+	if [ "${_GIT_REPOSITORY}" != "${_CONFIG}" ]
+	then
+		_GIT_BRANCH="$(echo ${_CONFIG} | awk -F\:\: '{ print $NF }')"
+
+		git checkout ${_GIT_BRANCH}
+	fi
 fi
 
 # Read meta config

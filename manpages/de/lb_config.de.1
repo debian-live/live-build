@@ -64,7 +64,7 @@
 .br
   [\fB\-\-compression\fP bzip2|gzip|lzip|none]
 .br
-  [\fB\-\-config\fP \fIGIT_URL\fP]
+  [\fB\-\-config\fP \fIGIT_URL::GIT_BRANCH\fP]
 .br
   [\fB\-\-build\-with\-chroot\fP true|false]
 .br
@@ -393,8 +393,9 @@ images it can save some time by not calculating the checksums.
 .IP "\fB\-\-compression\fP bzip2|gzip|lzip|none" 4
 defines the compression program to be used to compress tarballs. Defaults to
 gzip.
-.IP "\fB\-\-config\fP \fIGIT_URL\fP" 4
-allows to bootstrap a config tree from a git repositories.
+.IP "\fB\-\-config\fP \fIGIT_URL\fP::\fIGIT_BRANCH\fP" 4
+allows to bootstrap a config tree from a git repositories, optionally
+appended by a branch.
 .IP "\fB\-\-build\-with\-chroot\fP true|false" 4
 defines whetever live\-build should use the tools from within the chroot to
 build the binary image or not by using and including the host systems

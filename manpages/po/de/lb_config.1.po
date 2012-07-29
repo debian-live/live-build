@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2012-07-29 02:00+0300\n"
+"POT-Creation-Date: 2012-07-29 23:23+0300\n"
 "PO-Revision-Date: 2012-02-04 21:39+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -707,7 +707,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:63
-msgid "  [B<--config> I<GIT_URL>]"
+msgid "  [B<--config> I<GIT_URL::GIT_BRANCH>]"
 msgstr ""
 
 #. type: Plain text
@@ -1570,12 +1570,14 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:306
 #, no-wrap
-msgid "B<--config> I<GIT_URL>"
+msgid "B<--config> I<GIT_URL>::I<GIT_BRANCH>"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:308
-msgid "allows to bootstrap a config tree from a git repositories."
+msgid ""
+"allows to bootstrap a config tree from a git repositories, optionally "
+"appended by a branch."
 msgstr ""
 
 #. type: IP
