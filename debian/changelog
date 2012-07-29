@@ -1,3 +1,40 @@
+live-build (3.0~a55-1) unstable; urgency=low
+
+  * Adding release information for jessie.
+  * Updating all distribution specific selectors in defaults to be as
+    future proof as possible.
+  * Dropping global binary includes and moving binary local-includes to
+    includes, just as with chroot includes and local-includes.
+  * Dropping globale package lists for the desktop environments.
+  * Moving off rescue package list to its own git repository for the
+    config tree.
+  * Allowing to specify a git repository to lb_config in order to
+    bootstrap a config tree.
+  * Reordering auto/config in lb_config to work with bootstrapping
+    config tree from a git repository.
+  * Showing a message about ignoring --config when the current directory
+    already is a git repository.
+  * Removing unmaintained gnustep package list.
+  * Adding git to suggests.
+  * Including gnupg on ubuntu by default through corresponding default
+    for bootstrap includes.
+  * Removing minimal package list, not needed anymore.
+  * Removing unused debian-live package lists.
+  * Removing debian-junior list, same as with debian-science, see
+    9ad58f0d.
+  * Adding support for executable statements as '! $command' in package
+    lists.
+  * Handling dctrl-tools temporary installation in chroot during
+    package-lists expansion.
+  * Removing chroot_task-lists, obsoleted by package lists.
+  * Dropping global package-lists entirely, only local package lists
+    within the config tree are support.
+  * Also checking for dctrl-tools when assembling binary package lists.
+  * Optimizing chroot package-lists handling for the cases where it's
+    not used.
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 29 Jul 2012 01:59:42 +0200
+
 live-build (3.0~a54-1) unstable; urgency=low
 
   * Making sure target directory for syslinux theme files exists when
