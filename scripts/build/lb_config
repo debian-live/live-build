@@ -866,7 +866,11 @@ Local_arguments "${@}"
 
 if [ -e .git ] && [ -n "${_CONFIG}" ]
 then
-	Echo_message "Ignoring --config ${_CONFIG}: ${PWD} is already a git repository"
+	if [ "${1}" != "noauto" ]
+	then
+		Echo_message "Ignoring --config ${_CONFIG}: ${PWD} is already a git repository"
+	fi
+
 	_CONFIG=""
 fi
 
