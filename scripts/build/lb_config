@@ -884,6 +884,14 @@ then
 		Echo_message "Checking out ${_GIT_BRANCH}"
 		git checkout ${_GIT_BRANCH}
 	fi
+
+	if [ -e auto/config ]
+	then
+		_EXTRA_OPTIONS="$(echo ${@} | sed -e "s|--config ${_GIT_REPOSITORY}::${_GIT_BRANCH}||g" -e "s|--config ${_GIT_REPOSITORY}||g")"
+
+		Echo_message "The following extra options specified to lb config are going to be added to auto/config: ${_EXTRA_OPTIONS}"
+		sed -i -e "s|\"\${@}\"|${_EXTRA_OPTIONS} \"\${@}\"|" auto/config
+	fi
 fi
 
 # Read meta config
