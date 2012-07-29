@@ -51,6 +51,13 @@ then
 	# Installing depends
 	Install_package
 
+	if [ -e "${LIVE_BUILD}/share/bin/Packages" ]
+	then
+		cp "${LIVE_BUILD}/share/bin/Packages" chroot/bin
+	else
+		cp /usr/share/live/build/bin/Packages chroot/bin
+	fi
+
 	mkdir -p chroot/binary.deb/archives/partial
 	mv chroot/var/lib/dpkg/status chroot/var/lib/dpkg/status.tmp
 	touch chroot/var/lib/dpkg/status
@@ -120,6 +127,8 @@ then
 	done
 
 	cd "${OLDPWD}"
+
+	rm -f chroot/bin/Packages
 
 	rm -rf chroot/binary.deb
 	mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status

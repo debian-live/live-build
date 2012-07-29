@@ -1,0 +1,30 @@
+#!/bin/sh
+
+## live-build(7) - System Build Scripts
+## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
+##
+## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+## This is free software, and you are welcome to redistribute it
+## under certain conditions; see COPYING for details.
+
+
+set -e
+
+if [ ! -e /usr/bin/grep-aptavail ]
+then
+	echo "E: /usr/bin/grep-aptavail: No such file."
+
+	exit 1
+fi
+
+if [ -z "${@}" ]
+then
+	echo "Usage: $(basename ${0}) FIELD VALUE"
+
+	exit 1
+fi
+
+_FIELD="${1}"
+_VALUE="${2}"
+
+grep-aptavail -n -sPackage -F${_FIELD} ${_VALUE} | sort
