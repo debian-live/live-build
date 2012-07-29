@@ -40,7 +40,7 @@ build:
 install:
 	# Installing shared data
 	mkdir -p $(DESTDIR)/usr/share/live/build
-	cp -r frontends/cgi data functions includes package-lists templates VERSION $(DESTDIR)/usr/share/live/build
+	cp -r frontends/cgi data functions templates VERSION $(DESTDIR)/usr/share/live/build
 	cp -r share/* $(DESTDIR)/usr/share/live/build
 
 	# Installing executables

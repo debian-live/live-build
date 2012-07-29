@@ -22,7 +22,7 @@ Expand_packagelist ()
 		_LB_NESTED=0
 		_LB_ENABLED=1
 
-		for _LB_SEARCH_PATH in ${@} "${LIVE_BUILD}/package-lists" /usr/share/live/build/package-lists
+		for _LB_SEARCH_PATH in ${@}
 		do
 			if [ -e "${_LB_SEARCH_PATH}/${_LB_LIST_NAME}" ]
 			then
@@ -40,6 +40,12 @@ Expand_packagelist ()
 		while read _LB_LINE
 		do
 			case "${_LB_LINE}" in
+				\!*)
+					_EXEC="$(echo ${_LB_LINE} | sed -e 's|^!||')"
+
+					chroot chroot ${_EXEC}
+					;;
+
 				\#if\ *)
 					if [ ${_LB_NESTED} -eq 1 ]
 					then

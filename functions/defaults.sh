@@ -56,7 +56,7 @@ Set_defaults ()
 			;;
 
 		ubuntu|kubuntu)
-			LB_DISTRIBUTION="${LB_DISTRIBUTION:-oneiric}"
+			LB_DISTRIBUTION="${LB_DISTRIBUTION:-precise}"
 			LB_DERIVATIVE="false"
 			;;
 
@@ -81,6 +81,11 @@ Set_defaults ()
 					;;
 
 				baureo)
+					LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-wheezy}"
+					LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_PARENT_DISTRIBUTION}}"
+					;;
+
+				charon)
 					LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-sid}"
 					LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_PARENT_DISTRIBUTION}}"
 					;;
@@ -293,7 +298,7 @@ Set_defaults ()
 	fi
 
 	# Setting tasksel
-	case "${LB_DISTRIBUTION}" in
+	case "${LB_PARENT_DISTRIBUTION}" in
 		squeeze)
 			LB_TASKSEL="${LB_TASKSEL:-tasksel}"
 			;;
@@ -373,7 +378,12 @@ Set_defaults ()
 	fi
 
 	# Include packages on base
-	# LB_BOOTSTRAP_INCLUDE
+	case "${LB_MODE}" in
+		ubuntu|kubuntu)
+			LB_BOOTSTRAP_INCLUDE="${LB_BOOTSTRAP_INCLUDE:-gnupg}"
+			;;
+
+	esac
 
 	# Exclude packages on base
 	# LB_BOOTSTRAP_EXCLUDE
@@ -748,13 +758,13 @@ Set_defaults ()
 							;;
 
 						*)
-							case "${LB_DISTRIBUTION}" in
-								wheezy|sid)
-									LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486 686-pae}"
+							case "${LB_PARENT_DISTRIBUTION}" in
+								squeeze)
+									LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486 686}"
 									;;
 
 								*)
-									LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486 686}"
+									LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486 686-pae}"
 									;;
 							esac
 							;;
@@ -848,8 +858,8 @@ Set_defaults ()
 			;;
 
 		*)
-			case "${LB_DISTRIBUTION}" in
-				squeeze|artax)
+			case "${LB_PARENT_DISTRIBUTION}" in
+				squeeze)
 					LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES:-linux-image-2.6}"
 					;;
 
@@ -860,12 +870,9 @@ Set_defaults ()
 			;;
 	esac
 
-	# Setting package list
-	LB_PACKAGE_LISTS="${LB_PACKAGE_LISTS:-standard}"
-
 	# Setting security updates option
-	case "${LB_DISTRIBUTION}" in
-		wheezy|sid|precise)
+	case "${LB_PARENT_DISTRIBUTION}" in
+		jessie|sid)
 			LB_SECURITY="${LB_SECURITY:-false}"
 			;;
 
@@ -875,8 +882,8 @@ Set_defaults ()
 	esac
 
 	# Setting volatile updates option
-	case "${LB_DISTRIBUTION}" in
-		wheezy|sid|precise)
+	case "${LB_PARENT_DISTRIBUTION}" in
+		jessie|sid)
 			LB_VOLATILE="${LB_VOLATILE:-false}"
 			;;
 
@@ -948,7 +955,7 @@ Set_defaults ()
 			;;
 
 		*)
-			case "${LB_DISTRIBUTION}" in
+			case "${LB_PARENT_DISTRIBUTION}" in
 				squeeze)
 					LB_COMPRESSION="${LB_COMPRESSION:-gzip}"
 					;;
@@ -1266,15 +1273,6 @@ Check_defaults ()
 		fi
 	fi
 
-	if echo ${LB_PACKAGE_LISTS} | grep -qs -E "(stripped|minimal)\b"
-	then
-		# aptitude + stripped|minimal
-		if [ "${LB_APT}" = "aptitude" ]
-		then
-			Echo_warning "You selected LB_PACKAGE_LISTS='%s' and LB_APT='aptitude'" "${LB_PACKAGE_LIST}. This configuration is potentially unsafe, as aptitude is not used in the stripped/minimal package lists."
-		fi
-	fi
-
 	if [ "${LB_DEBIAN_INSTALLER}" != "false" ]
 	then
 		# d-i true, no caching
@@ -1326,14 +1324,6 @@ Check_defaults ()
 	if [ "$(eval "echo \"${LB_ISO_VOLUME}\"" | wc -c)" -gt 32 ]
 	then
 		Echo_warning "You have specified a value of LB_ISO_VOLUME that is too long; the maximum length is 32 characters."
-	fi
-
-	if echo ${LB_PACKAGE_LISTS} | grep -qs -E "(stripped|minimal)\b"
-	then
-		if [ "${LB_APT_INDICES}" = "true" ]
-		then
-			Echo_warning "You have selected hook to minimise image size but you are still including package indices with your value of LB_APT_INDICES."
-		fi
 	fi
 
 	# Architectures to use foreign bootstrap for

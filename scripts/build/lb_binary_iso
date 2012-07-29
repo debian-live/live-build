@@ -154,13 +154,10 @@ case "${LB_BOOTLOADER}" in
 		;;
 esac
 
-if In_list "stripped minimal" "${LB_PACKAGE_LISTS}"
-then
-	if [ "${LB_DEBIAN_INSTALLER}" != "live" ]
-	then
-		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m ${GENISOIMAGE_EXCLUDE}"
-	fi
-fi
+#if [ "${LB_DEBIAN_INSTALLER}" != "live" ]
+#then
+#	GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -m ${GENISOIMAGE_EXCLUDE}"
+#fi
 
 if [ "${LB_BOOTLOADER}" = "grub2" ]
 then

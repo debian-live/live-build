@@ -13,19 +13,6 @@ set -e
 # Including common functions
 ( . "${LIVE_BUILD}/scripts/build.sh" > /dev/null 2>&1 || true ) || . /usr/lib/live/build.sh
 
-# Read meta config
-if [ "${1}" != "noauto" ] && [ -x auto/config ]
-then
-	Echo_message "Executing auto/config script."
-	./auto/config "${@}"
-	exit ${?}
-fi
-
-if [ "${1}" = "noauto" ]
-then
-	shift
-fi
-
 # Setting static variables
 PROGRAM="lb config"
 DESCRIPTION="$(Echo 'create configuration for live-build(7)')"
@@ -55,6 +42,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--cache-stages STAGE|\"STAGES\"]\n\
 \t    [--checksums md5|sha1|sha256|none]\n\
 \t    [--compression bzip2|gzip|lzip|xz|none]\n\
+\t    [--config GIT_URL]\n\
 \t    [--zsync true|false]\n\
 \t    [--build-with-chroot true|false]\n\
 \t    [--chroot-filesystem ext2|ext3|ext4|squashfs|jffs2|none]\n\
@@ -78,7 +66,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--gzip-options OPTION|\"OPTIONS\"]\n\
 \t    [--hooks FILE]\n\
 \t    [--ignore-system-defaults]\n\
-\t    [--includes PATH|none]\n\
 \t    [--initramfs auto|none|live-boot|casper]\n\
 \t    [--initramfs-compression bzip2|gzip|lzma]\n\
 \t    [--initsystem sysvinit|runit|systemd|upstart|none]\n\
@@ -127,7 +114,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--net-cow-path PATH]\n\
 \t    [--net-cow-server IP|HOSTNAME]\n\
 \t    [--net-tarball true|false]\n\
-\t    [-p|--package-lists LIST|\"LISTS\"]\n\
 \t    [--quiet]\n\
 \t    [--root-command sudo]\n\
 \t    [--use-fakeroot true|false]\n\
@@ -159,7 +145,7 @@ Local_arguments ()
 	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-options:,aptitute-options:,
 		apt-pipeline:,apt-recommends:,apt-secure:,apt-source-archives:,bootstrap:,cache:,cache-indices:,cache-packages:,
 		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
-		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,system:,root-command:,use-fakeroot:,tasksel:,includes:,
+		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,system:,root-command:,use-fakeroot:,tasksel:,
 		templates:,architectures:,bootstrap-flavour:,bootstrap-keyring:,clean,
 		distribution:,parent-distribution:,parent-debian-installer-distribution:,parent-mirror-bootstrap:,parent-mirror-chroot:,parent-mirror-chroot-security:,parent-mirror-chroot-volatile:,parent-mirror-chroot-backports:,parent-mirror-binary:,
 		parent-mirror-binary-security:,parent-mirror-binary-volatile:,parent-mirror-binary-backports:,parent-mirror-debian-installer:,
@@ -167,8 +153,8 @@ Local_arguments ()
 		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,
 		archives:,archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,linux-flavours:,linux-packages:,
-		package-lists:,security:,volatile:,backports:,binary-filesystem:,binary-images:,
-		apt-indices:,bootappend-install:,bootappend-live:,bootappend-failsafe:,bootloader:,checksums:,compression:,zsync:,build-with-chroot:,
+		security:,volatile:,backports:,binary-filesystem:,binary-images:,
+		apt-indices:,bootappend-install:,bootappend-live:,bootappend-failsafe:,bootloader:,checksums:,compression:,config:,zsync:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
 		grub-splash:,isohybrid-options:,hdd-label:,hdd-size:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
@@ -205,7 +191,7 @@ Local_arguments ()
 				Print_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 
 				# Dump contents of directories that contain text files
-				for DIRECTORY in config/package-lists config/task-lists config/chroot_apt config/chroot_local-patches config/preseed config/binary_rootfs
+				for DIRECTORY in config/package-lists config/chroot_apt config/chroot_local-patches config/preseed config/binary_rootfs
 				do
 					if Find_files "${DIRECTORY}"
 					then
@@ -371,11 +357,6 @@ Local_arguments ()
 
 			--tasksel)
 				LB_TASKSEL="${2}"
-				shift 2
-				;;
-
-			--includes)
-				LB_INCLUDES="${2}"
 				shift 2
 				;;
 
@@ -566,11 +547,6 @@ Local_arguments ()
 				shift 2
 				;;
 
-			-p|--package-lists)
-				LB_PACKAGE_LISTS="${2}"
-				shift 2
-				;;
-
 			--security)
 				LB_SECURITY="${2}"
 				shift 2
@@ -624,6 +600,11 @@ Local_arguments ()
 
 			--compression)
 				LB_COMPRESSION="${2}"
+				shift 2
+				;;
+
+			--config)
+				_CONFIG="${2}"
 				shift 2
 				;;
 
@@ -881,6 +862,32 @@ Local_arguments ()
 	done
 }
 
+Local_arguments "${@}"
+
+if [ -e .git ] && [ -n "${_CONFIG}" ]
+then
+	Echo_message "Ignoring --config ${_CONFIG}: ${PWD} is already a git repository"
+	_CONFIG=""
+fi
+
+if [ -n "${_CONFIG}" ]
+then
+	git clone ${_CONFIG} ./
+fi
+
+# Read meta config
+if [ "${1}" != "noauto" ] && [ -x auto/config ]
+then
+	Echo_message "Executing auto/config script."
+	./auto/config "${@}"
+	exit ${?}
+fi
+
+if [ "${1}" = "noauto" ]
+then
+	shift
+fi
+
 # Reading system configuration
 if ! In_list "--ignore-system-defaults" "${@}"
 then
@@ -1023,10 +1030,6 @@ LB_USE_FAKEROOT="${LB_USE_FAKEROOT}"
 # \$LB_TASKSEL: set tasksel program
 # (Default: ${LB_TASKSEL})
 LB_TASKSEL="${LB_TASKSEL}"
-
-# \$LB_INCLUDES: set includes
-# (Default: ${LB_INCLUDES})
-LB_INCLUDES="${LB_INCLUDES}"
 
 # \$LB_TEMPLATES: set templates
 # (Default: ${LB_TEMPLATES})
@@ -1216,7 +1219,6 @@ mkdir -p config/packages
 mkdir -p config/packages.chroot
 mkdir -p config/package-lists
 mkdir -p config/preseed
-mkdir -p config/task-lists
 
 cat > config/chroot << EOF
 # config/chroot - options for live-build(7), chroot stage
@@ -1252,10 +1254,6 @@ LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS}"
 # \$LB_LINUX_PACKAGES: set kernel packages to use
 # (Default: autodetected)
 LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES}"
-
-# \$LB_PACKAGE_LISTS: set package list to install
-# (Default: ${LB_PACKAGE_LISTS})
-LB_PACKAGE_LISTS="${LB_PACKAGE_LISTS}"
 
 # \$LB_SECURITY: enable security updates
 # (Default: ${LB_SECURITY})
@@ -1462,7 +1460,6 @@ if [ "${CONFIG}" = "clone" ] # FIXME
 then
 	# Read package selection
 	echo $(dpkg --get-selections | awk '{ print $1 }') > config/package-lists/local.list.chroot
-	LB_PACKAGE_LISTS="${LB_PACKAGE_LISTS} local-system"
 
 	# Read debconf questions
 	if [ ! -f /usr/bin/debconf-get-selections ]

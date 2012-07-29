@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2012-07-20 04:37+0300\n"
+"POT-Creation-Date: 2012-07-29 02:00+0300\n"
 "PO-Revision-Date: 2012-02-04 21:39+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -21,8 +21,7 @@ msgstr ""
 #: en/lb_binary_chroot.1:1 en/lb_binary_debian-installer.1:1
 #: en/lb_binary_disk.1:1 en/lb_binary_grub.1:1 en/lb_binary_grub2.1:1
 #: en/lb_binary_hdd.1:1 en/lb_binary_hooks.1:1 en/lb_binary_includes.1:1
-#: en/lb_binary_iso.1:1 en/lb_binary_linux-image.1:1
-#: en/lb_binary_local-includes.1:1 en/lb_binary_manifest.1:1
+#: en/lb_binary_iso.1:1 en/lb_binary_linux-image.1:1 en/lb_binary_manifest.1:1
 #: en/lb_binary_memtest.1:1 en/lb_binary_netboot.1:1 en/lb_binary_rootfs.1:1
 #: en/lb_binary_silo.1:1 en/lb_binary_syslinux.1:1 en/lb_binary_tar.1:1
 #: en/lb_binary_virtual-hdd.1:1 en/lb_binary_win32-loader.1:1
@@ -34,15 +33,14 @@ msgstr ""
 #: en/lb_chroot_hacks.1:1 en/lb_chroot_hooks.1:1 en/lb_chroot_hostname.1:1
 #: en/lb_chroot_hosts.1:1 en/lb_chroot_install-packages.1:1
 #: en/lb_chroot_interactive.1:1 en/lb_chroot_linux-image.1:1
-#: en/lb_chroot_local-includes.1:1 en/lb_chroot_local-patches.1:1
-#: en/lb_chroot_local-preseed.1:1 en/lb_chroot_packagelists.1:1
+#: en/lb_chroot_local-patches.1:1 en/lb_chroot_local-preseed.1:1
 #: en/lb_chroot_packages.1:1 en/lb_chroot_proc.1:1 en/lb_chroot_resolv.1:1
 #: en/lb_chroot_selinuxfs.1:1 en/lb_chroot_sysfs.1:1 en/lb_chroot_sysv-rc.1:1
-#: en/lb_chroot_task-lists.1:1 en/lb_chroot_upstart.1:1 en/lb_clean.1:1
-#: en/lb_config.1:1 en/lb_source.1:1 en/lb_source_checksums.1:1
-#: en/lb_source_debian-live.1:1 en/lb_source_debian.1:1 en/lb_source_disk.1:1
-#: en/lb_source_hdd.1:1 en/lb_source_iso.1:1 en/lb_source_tar.1:1
-#: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
+#: en/lb_chroot_upstart.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
+#: en/lb_source_checksums.1:1 en/lb_source_debian-live.1:1
+#: en/lb_source_debian.1:1 en/lb_source_disk.1:1 en/lb_source_hdd.1:1
+#: en/lb_source_iso.1:1 en/lb_source_tar.1:1 en/lb_source_virtual-hdd.1:1
+#: en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
 msgid "LIVE-BUILD"
 msgstr ""
@@ -52,8 +50,7 @@ msgstr ""
 #: en/lb_binary_chroot.1:1 en/lb_binary_debian-installer.1:1
 #: en/lb_binary_disk.1:1 en/lb_binary_grub.1:1 en/lb_binary_grub2.1:1
 #: en/lb_binary_hdd.1:1 en/lb_binary_hooks.1:1 en/lb_binary_includes.1:1
-#: en/lb_binary_iso.1:1 en/lb_binary_linux-image.1:1
-#: en/lb_binary_local-includes.1:1 en/lb_binary_manifest.1:1
+#: en/lb_binary_iso.1:1 en/lb_binary_linux-image.1:1 en/lb_binary_manifest.1:1
 #: en/lb_binary_memtest.1:1 en/lb_binary_netboot.1:1 en/lb_binary_rootfs.1:1
 #: en/lb_binary_silo.1:1 en/lb_binary_syslinux.1:1 en/lb_binary_tar.1:1
 #: en/lb_binary_virtual-hdd.1:1 en/lb_binary_win32-loader.1:1
@@ -65,17 +62,16 @@ msgstr ""
 #: en/lb_chroot_hacks.1:1 en/lb_chroot_hooks.1:1 en/lb_chroot_hostname.1:1
 #: en/lb_chroot_hosts.1:1 en/lb_chroot_install-packages.1:1
 #: en/lb_chroot_interactive.1:1 en/lb_chroot_linux-image.1:1
-#: en/lb_chroot_local-includes.1:1 en/lb_chroot_local-patches.1:1
-#: en/lb_chroot_local-preseed.1:1 en/lb_chroot_packagelists.1:1
+#: en/lb_chroot_local-patches.1:1 en/lb_chroot_local-preseed.1:1
 #: en/lb_chroot_packages.1:1 en/lb_chroot_proc.1:1 en/lb_chroot_resolv.1:1
 #: en/lb_chroot_selinuxfs.1:1 en/lb_chroot_sysfs.1:1 en/lb_chroot_sysv-rc.1:1
-#: en/lb_chroot_task-lists.1:1 en/lb_chroot_upstart.1:1 en/lb_clean.1:1
-#: en/lb_config.1:1 en/lb_source.1:1 en/lb_source_checksums.1:1
-#: en/lb_source_debian-live.1:1 en/lb_source_debian.1:1 en/lb_source_disk.1:1
-#: en/lb_source_hdd.1:1 en/lb_source_iso.1:1 en/lb_source_tar.1:1
-#: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
+#: en/lb_chroot_upstart.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
+#: en/lb_source_checksums.1:1 en/lb_source_debian-live.1:1
+#: en/lb_source_debian.1:1 en/lb_source_disk.1:1 en/lb_source_hdd.1:1
+#: en/lb_source_iso.1:1 en/lb_source_tar.1:1 en/lb_source_virtual-hdd.1:1
+#: en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "2012-07-20"
+msgid "2012-07-29"
 msgstr ""
 
 #. type: TH
@@ -83,8 +79,7 @@ msgstr ""
 #: en/lb_binary_chroot.1:1 en/lb_binary_debian-installer.1:1
 #: en/lb_binary_disk.1:1 en/lb_binary_grub.1:1 en/lb_binary_grub2.1:1
 #: en/lb_binary_hdd.1:1 en/lb_binary_hooks.1:1 en/lb_binary_includes.1:1
-#: en/lb_binary_iso.1:1 en/lb_binary_linux-image.1:1
-#: en/lb_binary_local-includes.1:1 en/lb_binary_manifest.1:1
+#: en/lb_binary_iso.1:1 en/lb_binary_linux-image.1:1 en/lb_binary_manifest.1:1
 #: en/lb_binary_memtest.1:1 en/lb_binary_netboot.1:1 en/lb_binary_rootfs.1:1
 #: en/lb_binary_silo.1:1 en/lb_binary_syslinux.1:1 en/lb_binary_tar.1:1
 #: en/lb_binary_virtual-hdd.1:1 en/lb_binary_win32-loader.1:1
@@ -96,17 +91,16 @@ msgstr ""
 #: en/lb_chroot_hacks.1:1 en/lb_chroot_hooks.1:1 en/lb_chroot_hostname.1:1
 #: en/lb_chroot_hosts.1:1 en/lb_chroot_install-packages.1:1
 #: en/lb_chroot_interactive.1:1 en/lb_chroot_linux-image.1:1
-#: en/lb_chroot_local-includes.1:1 en/lb_chroot_local-patches.1:1
-#: en/lb_chroot_local-preseed.1:1 en/lb_chroot_packagelists.1:1
+#: en/lb_chroot_local-patches.1:1 en/lb_chroot_local-preseed.1:1
 #: en/lb_chroot_packages.1:1 en/lb_chroot_proc.1:1 en/lb_chroot_resolv.1:1
 #: en/lb_chroot_selinuxfs.1:1 en/lb_chroot_sysfs.1:1 en/lb_chroot_sysv-rc.1:1
-#: en/lb_chroot_task-lists.1:1 en/lb_chroot_upstart.1:1 en/lb_clean.1:1
-#: en/lb_config.1:1 en/lb_source.1:1 en/lb_source_checksums.1:1
-#: en/lb_source_debian-live.1:1 en/lb_source_debian.1:1 en/lb_source_disk.1:1
-#: en/lb_source_hdd.1:1 en/lb_source_iso.1:1 en/lb_source_tar.1:1
-#: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
+#: en/lb_chroot_upstart.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
+#: en/lb_source_checksums.1:1 en/lb_source_debian-live.1:1
+#: en/lb_source_debian.1:1 en/lb_source_disk.1:1 en/lb_source_hdd.1:1
+#: en/lb_source_iso.1:1 en/lb_source_tar.1:1 en/lb_source_virtual-hdd.1:1
+#: en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "3.0~a54-1"
+msgid "3.0~a55-1"
 msgstr ""
 
 #. type: TH
@@ -114,8 +108,7 @@ msgstr ""
 #: en/lb_binary_chroot.1:1 en/lb_binary_debian-installer.1:1
 #: en/lb_binary_disk.1:1 en/lb_binary_grub.1:1 en/lb_binary_grub2.1:1
 #: en/lb_binary_hdd.1:1 en/lb_binary_hooks.1:1 en/lb_binary_includes.1:1
-#: en/lb_binary_iso.1:1 en/lb_binary_linux-image.1:1
-#: en/lb_binary_local-includes.1:1 en/lb_binary_manifest.1:1
+#: en/lb_binary_iso.1:1 en/lb_binary_linux-image.1:1 en/lb_binary_manifest.1:1
 #: en/lb_binary_memtest.1:1 en/lb_binary_netboot.1:1 en/lb_binary_rootfs.1:1
 #: en/lb_binary_silo.1:1 en/lb_binary_syslinux.1:1 en/lb_binary_tar.1:1
 #: en/lb_binary_virtual-hdd.1:1 en/lb_binary_win32-loader.1:1
@@ -127,15 +120,14 @@ msgstr ""
 #: en/lb_chroot_hacks.1:1 en/lb_chroot_hooks.1:1 en/lb_chroot_hostname.1:1
 #: en/lb_chroot_hosts.1:1 en/lb_chroot_install-packages.1:1
 #: en/lb_chroot_interactive.1:1 en/lb_chroot_linux-image.1:1
-#: en/lb_chroot_local-includes.1:1 en/lb_chroot_local-patches.1:1
-#: en/lb_chroot_local-preseed.1:1 en/lb_chroot_packagelists.1:1
+#: en/lb_chroot_local-patches.1:1 en/lb_chroot_local-preseed.1:1
 #: en/lb_chroot_packages.1:1 en/lb_chroot_proc.1:1 en/lb_chroot_resolv.1:1
 #: en/lb_chroot_selinuxfs.1:1 en/lb_chroot_sysfs.1:1 en/lb_chroot_sysv-rc.1:1
-#: en/lb_chroot_task-lists.1:1 en/lb_chroot_upstart.1:1 en/lb_clean.1:1
-#: en/lb_config.1:1 en/lb_source.1:1 en/lb_source_checksums.1:1
-#: en/lb_source_debian-live.1:1 en/lb_source_debian.1:1 en/lb_source_disk.1:1
-#: en/lb_source_hdd.1:1 en/lb_source_iso.1:1 en/lb_source_tar.1:1
-#: en/lb_source_virtual-hdd.1:1 en/lb_testroot.1:1 en/live-build.7:1
+#: en/lb_chroot_upstart.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
+#: en/lb_source_checksums.1:1 en/lb_source_debian-live.1:1
+#: en/lb_source_debian.1:1 en/lb_source_disk.1:1 en/lb_source_hdd.1:1
+#: en/lb_source_iso.1:1 en/lb_source_tar.1:1 en/lb_source_virtual-hdd.1:1
+#: en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
 msgid "Debian Live Project"
 msgstr ""
@@ -145,8 +137,7 @@ msgstr ""
 #: en/lb_binary_chroot.1:3 en/lb_binary_debian-installer.1:3
 #: en/lb_binary_disk.1:3 en/lb_binary_grub.1:3 en/lb_binary_grub2.1:3
 #: en/lb_binary_hdd.1:3 en/lb_binary_hooks.1:3 en/lb_binary_includes.1:3
-#: en/lb_binary_iso.1:3 en/lb_binary_linux-image.1:3
-#: en/lb_binary_local-includes.1:3 en/lb_binary_manifest.1:3
+#: en/lb_binary_iso.1:3 en/lb_binary_linux-image.1:3 en/lb_binary_manifest.1:3
 #: en/lb_binary_memtest.1:3 en/lb_binary_netboot.1:3 en/lb_binary_rootfs.1:3
 #: en/lb_binary_silo.1:3 en/lb_binary_syslinux.1:3 en/lb_binary_tar.1:3
 #: en/lb_binary_virtual-hdd.1:3 en/lb_binary_win32-loader.1:3
@@ -158,15 +149,14 @@ msgstr ""
 #: en/lb_chroot_hacks.1:3 en/lb_chroot_hooks.1:3 en/lb_chroot_hostname.1:3
 #: en/lb_chroot_hosts.1:3 en/lb_chroot_install-packages.1:3
 #: en/lb_chroot_interactive.1:3 en/lb_chroot_linux-image.1:3
-#: en/lb_chroot_local-includes.1:3 en/lb_chroot_local-patches.1:3
-#: en/lb_chroot_local-preseed.1:3 en/lb_chroot_packagelists.1:3
+#: en/lb_chroot_local-patches.1:3 en/lb_chroot_local-preseed.1:3
 #: en/lb_chroot_packages.1:3 en/lb_chroot_proc.1:3 en/lb_chroot_resolv.1:3
 #: en/lb_chroot_selinuxfs.1:3 en/lb_chroot_sysfs.1:3 en/lb_chroot_sysv-rc.1:3
-#: en/lb_chroot_task-lists.1:3 en/lb_chroot_upstart.1:3 en/lb_clean.1:3
-#: en/lb_config.1:3 en/lb_source.1:3 en/lb_source_checksums.1:3
-#: en/lb_source_debian-live.1:3 en/lb_source_debian.1:3 en/lb_source_disk.1:3
-#: en/lb_source_hdd.1:3 en/lb_source_iso.1:3 en/lb_source_tar.1:3
-#: en/lb_source_virtual-hdd.1:3 en/lb_testroot.1:3 en/live-build.7:3
+#: en/lb_chroot_upstart.1:3 en/lb_clean.1:3 en/lb_config.1:3 en/lb_source.1:3
+#: en/lb_source_checksums.1:3 en/lb_source_debian-live.1:3
+#: en/lb_source_debian.1:3 en/lb_source_disk.1:3 en/lb_source_hdd.1:3
+#: en/lb_source_iso.1:3 en/lb_source_tar.1:3 en/lb_source_virtual-hdd.1:3
+#: en/lb_testroot.1:3 en/live-build.7:3
 #, no-wrap
 msgid "NAME"
 msgstr ""
@@ -176,8 +166,7 @@ msgstr ""
 #: en/lb_binary_chroot.1:6 en/lb_binary_debian-installer.1:6
 #: en/lb_binary_disk.1:6 en/lb_binary_grub.1:6 en/lb_binary_grub2.1:6
 #: en/lb_binary_hdd.1:6 en/lb_binary_hooks.1:6 en/lb_binary_includes.1:6
-#: en/lb_binary_iso.1:6 en/lb_binary_linux-image.1:6
-#: en/lb_binary_local-includes.1:6 en/lb_binary_manifest.1:6
+#: en/lb_binary_iso.1:6 en/lb_binary_linux-image.1:6 en/lb_binary_manifest.1:6
 #: en/lb_binary_memtest.1:6 en/lb_binary_netboot.1:6 en/lb_binary_rootfs.1:6
 #: en/lb_binary_silo.1:6 en/lb_binary_syslinux.1:6 en/lb_binary_tar.1:6
 #: en/lb_binary_virtual-hdd.1:6 en/lb_binary_win32-loader.1:6
@@ -189,15 +178,14 @@ msgstr ""
 #: en/lb_chroot_hacks.1:6 en/lb_chroot_hooks.1:6 en/lb_chroot_hostname.1:6
 #: en/lb_chroot_hosts.1:6 en/lb_chroot_install-packages.1:6
 #: en/lb_chroot_interactive.1:6 en/lb_chroot_linux-image.1:6
-#: en/lb_chroot_local-includes.1:6 en/lb_chroot_local-patches.1:6
-#: en/lb_chroot_local-preseed.1:6 en/lb_chroot_packagelists.1:6
+#: en/lb_chroot_local-patches.1:6 en/lb_chroot_local-preseed.1:6
 #: en/lb_chroot_packages.1:6 en/lb_chroot_proc.1:6 en/lb_chroot_resolv.1:6
 #: en/lb_chroot_selinuxfs.1:6 en/lb_chroot_sysfs.1:6 en/lb_chroot_sysv-rc.1:6
-#: en/lb_chroot_task-lists.1:6 en/lb_chroot_upstart.1:6 en/lb_clean.1:6
-#: en/lb_config.1:6 en/lb_source.1:6 en/lb_source_checksums.1:6
-#: en/lb_source_debian-live.1:6 en/lb_source_debian.1:6 en/lb_source_disk.1:6
-#: en/lb_source_hdd.1:6 en/lb_source_iso.1:6 en/lb_source_tar.1:6
-#: en/lb_source_virtual-hdd.1:6 en/lb_testroot.1:6 en/live-build.7:6
+#: en/lb_chroot_upstart.1:6 en/lb_clean.1:6 en/lb_config.1:6 en/lb_source.1:6
+#: en/lb_source_checksums.1:6 en/lb_source_debian-live.1:6
+#: en/lb_source_debian.1:6 en/lb_source_disk.1:6 en/lb_source_hdd.1:6
+#: en/lb_source_iso.1:6 en/lb_source_tar.1:6 en/lb_source_virtual-hdd.1:6
+#: en/lb_testroot.1:6 en/live-build.7:6
 #, no-wrap
 msgid "SYNOPSIS"
 msgstr ""
@@ -207,8 +195,7 @@ msgstr ""
 #: en/lb_binary_chroot.1:9 en/lb_binary_debian-installer.1:9
 #: en/lb_binary_disk.1:9 en/lb_binary_grub.1:9 en/lb_binary_grub2.1:9
 #: en/lb_binary_hdd.1:9 en/lb_binary_hooks.1:9 en/lb_binary_includes.1:9
-#: en/lb_binary_iso.1:9 en/lb_binary_linux-image.1:9
-#: en/lb_binary_local-includes.1:9 en/lb_binary_manifest.1:9
+#: en/lb_binary_iso.1:9 en/lb_binary_linux-image.1:9 en/lb_binary_manifest.1:9
 #: en/lb_binary_memtest.1:9 en/lb_binary_netboot.1:9 en/lb_binary_rootfs.1:9
 #: en/lb_binary_silo.1:9 en/lb_binary_syslinux.1:9 en/lb_binary_tar.1:9
 #: en/lb_binary_virtual-hdd.1:9 en/lb_binary_win32-loader.1:9
@@ -220,15 +207,14 @@ msgstr ""
 #: en/lb_chroot_hacks.1:9 en/lb_chroot_hooks.1:9 en/lb_chroot_hostname.1:9
 #: en/lb_chroot_hosts.1:9 en/lb_chroot_install-packages.1:9
 #: en/lb_chroot_interactive.1:9 en/lb_chroot_linux-image.1:9
-#: en/lb_chroot_local-includes.1:9 en/lb_chroot_local-patches.1:9
-#: en/lb_chroot_local-preseed.1:9 en/lb_chroot_packagelists.1:9
+#: en/lb_chroot_local-patches.1:9 en/lb_chroot_local-preseed.1:9
 #: en/lb_chroot_packages.1:9 en/lb_chroot_proc.1:9 en/lb_chroot_resolv.1:9
 #: en/lb_chroot_selinuxfs.1:9 en/lb_chroot_sysfs.1:9 en/lb_chroot_sysv-rc.1:9
-#: en/lb_chroot_task-lists.1:9 en/lb_chroot_upstart.1:9 en/lb_clean.1:9
-#: en/lb_config.1:243 en/lb_source.1:9 en/lb_source_checksums.1:9
-#: en/lb_source_debian-live.1:9 en/lb_source_debian.1:9 en/lb_source_disk.1:9
-#: en/lb_source_hdd.1:9 en/lb_source_iso.1:9 en/lb_source_tar.1:9
-#: en/lb_source_virtual-hdd.1:9 en/lb_testroot.1:9 en/live-build.7:11
+#: en/lb_chroot_upstart.1:9 en/lb_clean.1:9 en/lb_config.1:243
+#: en/lb_source.1:9 en/lb_source_checksums.1:9 en/lb_source_debian-live.1:9
+#: en/lb_source_debian.1:9 en/lb_source_disk.1:9 en/lb_source_hdd.1:9
+#: en/lb_source_iso.1:9 en/lb_source_tar.1:9 en/lb_source_virtual-hdd.1:9
+#: en/lb_testroot.1:9 en/live-build.7:11
 #, no-wrap
 msgid "DESCRIPTION"
 msgstr ""
@@ -239,12 +225,11 @@ msgstr ""
 #: en/lb_binary_disk.1:14 en/lb_binary_grub.1:14 en/lb_binary_grub2.1:14
 #: en/lb_binary_hdd.1:14 en/lb_binary_hooks.1:14 en/lb_binary_includes.1:14
 #: en/lb_binary_iso.1:14 en/lb_binary_linux-image.1:14
-#: en/lb_binary_local-includes.1:14 en/lb_binary_manifest.1:14
-#: en/lb_binary_memtest.1:14 en/lb_binary_netboot.1:14
-#: en/lb_binary_rootfs.1:14 en/lb_binary_silo.1:14 en/lb_binary_syslinux.1:14
-#: en/lb_binary_tar.1:14 en/lb_binary_virtual-hdd.1:14
-#: en/lb_binary_win32-loader.1:14 en/lb_binary_yaboot.1:14
-#: en/lb_bootstrap.1:14 en/lb_bootstrap_cache.1:14
+#: en/lb_binary_manifest.1:14 en/lb_binary_memtest.1:14
+#: en/lb_binary_netboot.1:14 en/lb_binary_rootfs.1:14 en/lb_binary_silo.1:14
+#: en/lb_binary_syslinux.1:14 en/lb_binary_tar.1:14
+#: en/lb_binary_virtual-hdd.1:14 en/lb_binary_win32-loader.1:14
+#: en/lb_binary_yaboot.1:14 en/lb_bootstrap.1:14 en/lb_bootstrap_cache.1:14
 #: en/lb_bootstrap_cdebootstrap.1:14 en/lb_bootstrap_copy.1:14
 #: en/lb_bootstrap_debootstrap.1:14 en/lb_build.1:14 en/lb_chroot.1:14
 #: en/lb_chroot_apt.1:14 en/lb_chroot_archives.1:14 en/lb_chroot_cache.1:14
@@ -252,17 +237,15 @@ msgstr ""
 #: en/lb_chroot_dpkg.1:14 en/lb_chroot_hacks.1:14 en/lb_chroot_hooks.1:14
 #: en/lb_chroot_hostname.1:14 en/lb_chroot_hosts.1:14
 #: en/lb_chroot_install-packages.1:14 en/lb_chroot_interactive.1:14
-#: en/lb_chroot_linux-image.1:14 en/lb_chroot_local-includes.1:14
-#: en/lb_chroot_local-patches.1:14 en/lb_chroot_local-preseed.1:14
-#: en/lb_chroot_packagelists.1:14 en/lb_chroot_packages.1:14
+#: en/lb_chroot_linux-image.1:14 en/lb_chroot_local-patches.1:14
+#: en/lb_chroot_local-preseed.1:14 en/lb_chroot_packages.1:14
 #: en/lb_chroot_proc.1:14 en/lb_chroot_resolv.1:14 en/lb_chroot_selinuxfs.1:14
-#: en/lb_chroot_sysfs.1:14 en/lb_chroot_sysv-rc.1:14
-#: en/lb_chroot_task-lists.1:14 en/lb_chroot_upstart.1:14 en/lb_clean.1:16
-#: en/lb_config.1:252 en/lb_source.1:14 en/lb_source_checksums.1:14
-#: en/lb_source_debian-live.1:14 en/lb_source_debian.1:14
-#: en/lb_source_disk.1:14 en/lb_source_hdd.1:14 en/lb_source_iso.1:14
-#: en/lb_source_tar.1:14 en/lb_source_virtual-hdd.1:14 en/lb_testroot.1:18
-#: en/live-build.7:20
+#: en/lb_chroot_sysfs.1:14 en/lb_chroot_sysv-rc.1:14 en/lb_chroot_upstart.1:14
+#: en/lb_clean.1:16 en/lb_config.1:252 en/lb_source.1:14
+#: en/lb_source_checksums.1:14 en/lb_source_debian-live.1:14
+#: en/lb_source_debian.1:14 en/lb_source_disk.1:14 en/lb_source_hdd.1:14
+#: en/lb_source_iso.1:14 en/lb_source_tar.1:14 en/lb_source_virtual-hdd.1:14
+#: en/lb_testroot.1:18 en/live-build.7:20
 #, no-wrap
 msgid "OPTIONS"
 msgstr ""
@@ -273,12 +256,11 @@ msgstr ""
 #: en/lb_binary_disk.1:17 en/lb_binary_grub.1:17 en/lb_binary_grub2.1:17
 #: en/lb_binary_hdd.1:17 en/lb_binary_hooks.1:17 en/lb_binary_includes.1:17
 #: en/lb_binary_iso.1:17 en/lb_binary_linux-image.1:17
-#: en/lb_binary_local-includes.1:17 en/lb_binary_manifest.1:17
-#: en/lb_binary_memtest.1:17 en/lb_binary_netboot.1:17
-#: en/lb_binary_rootfs.1:17 en/lb_binary_silo.1:17 en/lb_binary_syslinux.1:17
-#: en/lb_binary_tar.1:17 en/lb_binary_virtual-hdd.1:17
-#: en/lb_binary_win32-loader.1:17 en/lb_binary_yaboot.1:17
-#: en/lb_bootstrap.1:17 en/lb_bootstrap_cache.1:17
+#: en/lb_binary_manifest.1:17 en/lb_binary_memtest.1:17
+#: en/lb_binary_netboot.1:17 en/lb_binary_rootfs.1:17 en/lb_binary_silo.1:17
+#: en/lb_binary_syslinux.1:17 en/lb_binary_tar.1:17
+#: en/lb_binary_virtual-hdd.1:17 en/lb_binary_win32-loader.1:17
+#: en/lb_binary_yaboot.1:17 en/lb_bootstrap.1:17 en/lb_bootstrap_cache.1:17
 #: en/lb_bootstrap_cdebootstrap.1:17 en/lb_bootstrap_copy.1:17
 #: en/lb_bootstrap_debootstrap.1:17 en/lb_build.1:17 en/lb_chroot.1:17
 #: en/lb_chroot_apt.1:17 en/lb_chroot_archives.1:17 en/lb_chroot_cache.1:17
@@ -286,17 +268,15 @@ msgstr ""
 #: en/lb_chroot_dpkg.1:17 en/lb_chroot_hacks.1:17 en/lb_chroot_hooks.1:17
 #: en/lb_chroot_hostname.1:17 en/lb_chroot_hosts.1:17
 #: en/lb_chroot_install-packages.1:17 en/lb_chroot_interactive.1:17
-#: en/lb_chroot_linux-image.1:17 en/lb_chroot_local-includes.1:17
-#: en/lb_chroot_local-patches.1:17 en/lb_chroot_local-preseed.1:17
-#: en/lb_chroot_packagelists.1:17 en/lb_chroot_packages.1:17
+#: en/lb_chroot_linux-image.1:17 en/lb_chroot_local-patches.1:17
+#: en/lb_chroot_local-preseed.1:17 en/lb_chroot_packages.1:17
 #: en/lb_chroot_proc.1:17 en/lb_chroot_resolv.1:17 en/lb_chroot_selinuxfs.1:17
-#: en/lb_chroot_sysfs.1:17 en/lb_chroot_sysv-rc.1:17
-#: en/lb_chroot_task-lists.1:17 en/lb_chroot_upstart.1:17 en/lb_clean.1:38
-#: en/lb_config.1:502 en/lb_source.1:17 en/lb_source_checksums.1:17
-#: en/lb_source_debian-live.1:17 en/lb_source_debian.1:17
-#: en/lb_source_disk.1:17 en/lb_source_hdd.1:17 en/lb_source_iso.1:17
-#: en/lb_source_tar.1:17 en/lb_source_virtual-hdd.1:17 en/lb_testroot.1:21
-#: en/live-build.7:225
+#: en/lb_chroot_sysfs.1:17 en/lb_chroot_sysv-rc.1:17 en/lb_chroot_upstart.1:17
+#: en/lb_clean.1:38 en/lb_config.1:502 en/lb_source.1:17
+#: en/lb_source_checksums.1:17 en/lb_source_debian-live.1:17
+#: en/lb_source_debian.1:17 en/lb_source_disk.1:17 en/lb_source_hdd.1:17
+#: en/lb_source_iso.1:17 en/lb_source_tar.1:17 en/lb_source_virtual-hdd.1:17
+#: en/lb_testroot.1:21 en/live-build.7:225
 #, no-wrap
 msgid "FILES"
 msgstr ""
@@ -307,12 +287,11 @@ msgstr ""
 #: en/lb_binary_disk.1:21 en/lb_binary_grub.1:21 en/lb_binary_grub2.1:21
 #: en/lb_binary_hdd.1:21 en/lb_binary_hooks.1:21 en/lb_binary_includes.1:21
 #: en/lb_binary_iso.1:21 en/lb_binary_linux-image.1:21
-#: en/lb_binary_local-includes.1:21 en/lb_binary_manifest.1:21
-#: en/lb_binary_memtest.1:21 en/lb_binary_netboot.1:21
-#: en/lb_binary_rootfs.1:21 en/lb_binary_silo.1:21 en/lb_binary_syslinux.1:21
-#: en/lb_binary_tar.1:21 en/lb_binary_virtual-hdd.1:21
-#: en/lb_binary_win32-loader.1:21 en/lb_binary_yaboot.1:21
-#: en/lb_bootstrap.1:20 en/lb_bootstrap_cache.1:21
+#: en/lb_binary_manifest.1:21 en/lb_binary_memtest.1:21
+#: en/lb_binary_netboot.1:21 en/lb_binary_rootfs.1:21 en/lb_binary_silo.1:21
+#: en/lb_binary_syslinux.1:21 en/lb_binary_tar.1:21
+#: en/lb_binary_virtual-hdd.1:21 en/lb_binary_win32-loader.1:21
+#: en/lb_binary_yaboot.1:21 en/lb_bootstrap.1:20 en/lb_bootstrap_cache.1:21
 #: en/lb_bootstrap_cdebootstrap.1:21 en/lb_bootstrap_copy.1:21
 #: en/lb_bootstrap_debootstrap.1:21 en/lb_build.1:22 en/lb_chroot.1:20
 #: en/lb_chroot_apt.1:21 en/lb_chroot_archives.1:21 en/lb_chroot_cache.1:21
@@ -320,17 +299,15 @@ msgstr ""
 #: en/lb_chroot_dpkg.1:21 en/lb_chroot_hacks.1:21 en/lb_chroot_hooks.1:21
 #: en/lb_chroot_hostname.1:21 en/lb_chroot_hosts.1:21
 #: en/lb_chroot_install-packages.1:21 en/lb_chroot_interactive.1:21
-#: en/lb_chroot_linux-image.1:21 en/lb_chroot_local-includes.1:21
-#: en/lb_chroot_local-patches.1:21 en/lb_chroot_local-preseed.1:21
-#: en/lb_chroot_packagelists.1:21 en/lb_chroot_packages.1:21
+#: en/lb_chroot_linux-image.1:21 en/lb_chroot_local-patches.1:21
+#: en/lb_chroot_local-preseed.1:21 en/lb_chroot_packages.1:21
 #: en/lb_chroot_proc.1:21 en/lb_chroot_resolv.1:21 en/lb_chroot_selinuxfs.1:21
-#: en/lb_chroot_sysfs.1:21 en/lb_chroot_sysv-rc.1:21
-#: en/lb_chroot_task-lists.1:21 en/lb_chroot_upstart.1:21 en/lb_clean.1:43
-#: en/lb_config.1:509 en/lb_source.1:20 en/lb_source_checksums.1:21
-#: en/lb_source_debian-live.1:21 en/lb_source_debian.1:21
-#: en/lb_source_disk.1:21 en/lb_source_hdd.1:21 en/lb_source_iso.1:21
-#: en/lb_source_tar.1:21 en/lb_source_virtual-hdd.1:21 en/lb_testroot.1:24
-#: en/live-build.7:229
+#: en/lb_chroot_sysfs.1:21 en/lb_chroot_sysv-rc.1:21 en/lb_chroot_upstart.1:21
+#: en/lb_clean.1:43 en/lb_config.1:509 en/lb_source.1:20
+#: en/lb_source_checksums.1:21 en/lb_source_debian-live.1:21
+#: en/lb_source_debian.1:21 en/lb_source_disk.1:21 en/lb_source_hdd.1:21
+#: en/lb_source_iso.1:21 en/lb_source_tar.1:21 en/lb_source_virtual-hdd.1:21
+#: en/lb_testroot.1:24 en/live-build.7:229
 #, no-wrap
 msgid "SEE ALSO"
 msgstr ""
@@ -341,12 +318,11 @@ msgstr ""
 #: en/lb_binary_disk.1:23 en/lb_binary_grub.1:23 en/lb_binary_grub2.1:23
 #: en/lb_binary_hdd.1:23 en/lb_binary_hooks.1:23 en/lb_binary_includes.1:23
 #: en/lb_binary_iso.1:23 en/lb_binary_linux-image.1:23
-#: en/lb_binary_local-includes.1:23 en/lb_binary_manifest.1:23
-#: en/lb_binary_memtest.1:23 en/lb_binary_netboot.1:23
-#: en/lb_binary_rootfs.1:23 en/lb_binary_silo.1:23 en/lb_binary_syslinux.1:23
-#: en/lb_binary_tar.1:23 en/lb_binary_virtual-hdd.1:23
-#: en/lb_binary_win32-loader.1:23 en/lb_binary_yaboot.1:23
-#: en/lb_bootstrap.1:22 en/lb_bootstrap_cache.1:23
+#: en/lb_binary_manifest.1:23 en/lb_binary_memtest.1:23
+#: en/lb_binary_netboot.1:23 en/lb_binary_rootfs.1:23 en/lb_binary_silo.1:23
+#: en/lb_binary_syslinux.1:23 en/lb_binary_tar.1:23
+#: en/lb_binary_virtual-hdd.1:23 en/lb_binary_win32-loader.1:23
+#: en/lb_binary_yaboot.1:23 en/lb_bootstrap.1:22 en/lb_bootstrap_cache.1:23
 #: en/lb_bootstrap_cdebootstrap.1:23 en/lb_bootstrap_copy.1:23
 #: en/lb_bootstrap_debootstrap.1:23 en/lb_build.1:24 en/lb_chroot.1:22
 #: en/lb_chroot_apt.1:23 en/lb_chroot_archives.1:23 en/lb_chroot_cache.1:23
@@ -354,16 +330,15 @@ msgstr ""
 #: en/lb_chroot_dpkg.1:23 en/lb_chroot_hacks.1:23 en/lb_chroot_hooks.1:23
 #: en/lb_chroot_hostname.1:23 en/lb_chroot_hosts.1:23
 #: en/lb_chroot_install-packages.1:23 en/lb_chroot_interactive.1:23
-#: en/lb_chroot_linux-image.1:23 en/lb_chroot_local-includes.1:23
-#: en/lb_chroot_local-patches.1:23 en/lb_chroot_local-preseed.1:23
-#: en/lb_chroot_packagelists.1:23 en/lb_chroot_packages.1:23
+#: en/lb_chroot_linux-image.1:23 en/lb_chroot_local-patches.1:23
+#: en/lb_chroot_local-preseed.1:23 en/lb_chroot_packages.1:23
 #: en/lb_chroot_proc.1:23 en/lb_chroot_resolv.1:23 en/lb_chroot_selinuxfs.1:23
-#: en/lb_chroot_sysfs.1:23 en/lb_chroot_sysv-rc.1:23
-#: en/lb_chroot_task-lists.1:23 en/lb_chroot_upstart.1:23 en/lb_clean.1:45
-#: en/lb_config.1:511 en/lb_source.1:22 en/lb_source_checksums.1:23
-#: en/lb_source_debian-live.1:23 en/lb_source_debian.1:23
-#: en/lb_source_disk.1:23 en/lb_source_hdd.1:23 en/lb_source_iso.1:23
-#: en/lb_source_tar.1:23 en/lb_source_virtual-hdd.1:23 en/lb_testroot.1:26
+#: en/lb_chroot_sysfs.1:23 en/lb_chroot_sysv-rc.1:23 en/lb_chroot_upstart.1:23
+#: en/lb_clean.1:45 en/lb_config.1:511 en/lb_source.1:22
+#: en/lb_source_checksums.1:23 en/lb_source_debian-live.1:23
+#: en/lb_source_debian.1:23 en/lb_source_disk.1:23 en/lb_source_hdd.1:23
+#: en/lb_source_iso.1:23 en/lb_source_tar.1:23 en/lb_source_virtual-hdd.1:23
+#: en/lb_testroot.1:26
 msgid "I<live-build>(7)"
 msgstr ""
 
@@ -373,12 +348,11 @@ msgstr ""
 #: en/lb_binary_disk.1:25 en/lb_binary_grub.1:25 en/lb_binary_grub2.1:25
 #: en/lb_binary_hdd.1:25 en/lb_binary_hooks.1:25 en/lb_binary_includes.1:25
 #: en/lb_binary_iso.1:25 en/lb_binary_linux-image.1:25
-#: en/lb_binary_local-includes.1:25 en/lb_binary_manifest.1:25
-#: en/lb_binary_memtest.1:25 en/lb_binary_netboot.1:25
-#: en/lb_binary_rootfs.1:25 en/lb_binary_silo.1:25 en/lb_binary_syslinux.1:25
-#: en/lb_binary_tar.1:25 en/lb_binary_virtual-hdd.1:25
-#: en/lb_binary_win32-loader.1:25 en/lb_binary_yaboot.1:25
-#: en/lb_bootstrap.1:24 en/lb_bootstrap_cache.1:25
+#: en/lb_binary_manifest.1:25 en/lb_binary_memtest.1:25
+#: en/lb_binary_netboot.1:25 en/lb_binary_rootfs.1:25 en/lb_binary_silo.1:25
+#: en/lb_binary_syslinux.1:25 en/lb_binary_tar.1:25
+#: en/lb_binary_virtual-hdd.1:25 en/lb_binary_win32-loader.1:25
+#: en/lb_binary_yaboot.1:25 en/lb_bootstrap.1:24 en/lb_bootstrap_cache.1:25
 #: en/lb_bootstrap_cdebootstrap.1:25 en/lb_bootstrap_copy.1:25
 #: en/lb_bootstrap_debootstrap.1:25 en/lb_build.1:26 en/lb_chroot.1:24
 #: en/lb_chroot_apt.1:25 en/lb_chroot_archives.1:25 en/lb_chroot_cache.1:25
@@ -386,17 +360,15 @@ msgstr ""
 #: en/lb_chroot_dpkg.1:25 en/lb_chroot_hacks.1:25 en/lb_chroot_hooks.1:25
 #: en/lb_chroot_hostname.1:25 en/lb_chroot_hosts.1:25
 #: en/lb_chroot_install-packages.1:25 en/lb_chroot_interactive.1:25
-#: en/lb_chroot_linux-image.1:25 en/lb_chroot_local-includes.1:25
-#: en/lb_chroot_local-patches.1:25 en/lb_chroot_local-preseed.1:25
-#: en/lb_chroot_packagelists.1:25 en/lb_chroot_packages.1:25
+#: en/lb_chroot_linux-image.1:25 en/lb_chroot_local-patches.1:25
+#: en/lb_chroot_local-preseed.1:25 en/lb_chroot_packages.1:25
 #: en/lb_chroot_proc.1:25 en/lb_chroot_resolv.1:25 en/lb_chroot_selinuxfs.1:25
-#: en/lb_chroot_sysfs.1:25 en/lb_chroot_sysv-rc.1:25
-#: en/lb_chroot_task-lists.1:25 en/lb_chroot_upstart.1:25 en/lb_clean.1:47
-#: en/lb_config.1:517 en/lb_source.1:24 en/lb_source_checksums.1:25
-#: en/lb_source_debian-live.1:25 en/lb_source_debian.1:25
-#: en/lb_source_disk.1:25 en/lb_source_hdd.1:25 en/lb_source_iso.1:25
-#: en/lb_source_tar.1:25 en/lb_source_virtual-hdd.1:25 en/lb_testroot.1:28
-#: en/live-build.7:235
+#: en/lb_chroot_sysfs.1:25 en/lb_chroot_sysv-rc.1:25 en/lb_chroot_upstart.1:25
+#: en/lb_clean.1:47 en/lb_config.1:517 en/lb_source.1:24
+#: en/lb_source_checksums.1:25 en/lb_source_debian-live.1:25
+#: en/lb_source_debian.1:25 en/lb_source_disk.1:25 en/lb_source_hdd.1:25
+#: en/lb_source_iso.1:25 en/lb_source_tar.1:25 en/lb_source_virtual-hdd.1:25
+#: en/lb_testroot.1:28 en/live-build.7:235
 msgid "This program is a part of live-build."
 msgstr ""
 
@@ -406,12 +378,11 @@ msgstr ""
 #: en/lb_binary_disk.1:26 en/lb_binary_grub.1:26 en/lb_binary_grub2.1:26
 #: en/lb_binary_hdd.1:26 en/lb_binary_hooks.1:26 en/lb_binary_includes.1:26
 #: en/lb_binary_iso.1:26 en/lb_binary_linux-image.1:26
-#: en/lb_binary_local-includes.1:26 en/lb_binary_manifest.1:26
-#: en/lb_binary_memtest.1:26 en/lb_binary_netboot.1:26
-#: en/lb_binary_rootfs.1:26 en/lb_binary_silo.1:26 en/lb_binary_syslinux.1:26
-#: en/lb_binary_tar.1:26 en/lb_binary_virtual-hdd.1:26
-#: en/lb_binary_win32-loader.1:26 en/lb_binary_yaboot.1:26
-#: en/lb_bootstrap.1:25 en/lb_bootstrap_cache.1:26
+#: en/lb_binary_manifest.1:26 en/lb_binary_memtest.1:26
+#: en/lb_binary_netboot.1:26 en/lb_binary_rootfs.1:26 en/lb_binary_silo.1:26
+#: en/lb_binary_syslinux.1:26 en/lb_binary_tar.1:26
+#: en/lb_binary_virtual-hdd.1:26 en/lb_binary_win32-loader.1:26
+#: en/lb_binary_yaboot.1:26 en/lb_bootstrap.1:25 en/lb_bootstrap_cache.1:26
 #: en/lb_bootstrap_cdebootstrap.1:26 en/lb_bootstrap_copy.1:26
 #: en/lb_bootstrap_debootstrap.1:26 en/lb_build.1:27 en/lb_chroot.1:25
 #: en/lb_chroot_apt.1:26 en/lb_chroot_archives.1:26 en/lb_chroot_cache.1:26
@@ -419,17 +390,15 @@ msgstr ""
 #: en/lb_chroot_dpkg.1:26 en/lb_chroot_hacks.1:26 en/lb_chroot_hooks.1:26
 #: en/lb_chroot_hostname.1:26 en/lb_chroot_hosts.1:26
 #: en/lb_chroot_install-packages.1:26 en/lb_chroot_interactive.1:26
-#: en/lb_chroot_linux-image.1:26 en/lb_chroot_local-includes.1:26
-#: en/lb_chroot_local-patches.1:26 en/lb_chroot_local-preseed.1:26
-#: en/lb_chroot_packagelists.1:26 en/lb_chroot_packages.1:26
+#: en/lb_chroot_linux-image.1:26 en/lb_chroot_local-patches.1:26
+#: en/lb_chroot_local-preseed.1:26 en/lb_chroot_packages.1:26
 #: en/lb_chroot_proc.1:26 en/lb_chroot_resolv.1:26 en/lb_chroot_selinuxfs.1:26
-#: en/lb_chroot_sysfs.1:26 en/lb_chroot_sysv-rc.1:26
-#: en/lb_chroot_task-lists.1:26 en/lb_chroot_upstart.1:26 en/lb_clean.1:48
-#: en/lb_config.1:518 en/lb_source.1:25 en/lb_source_checksums.1:26
-#: en/lb_source_debian-live.1:26 en/lb_source_debian.1:26
-#: en/lb_source_disk.1:26 en/lb_source_hdd.1:26 en/lb_source_iso.1:26
-#: en/lb_source_tar.1:26 en/lb_source_virtual-hdd.1:26 en/lb_testroot.1:29
-#: en/live-build.7:236
+#: en/lb_chroot_sysfs.1:26 en/lb_chroot_sysv-rc.1:26 en/lb_chroot_upstart.1:26
+#: en/lb_clean.1:48 en/lb_config.1:518 en/lb_source.1:25
+#: en/lb_source_checksums.1:26 en/lb_source_debian-live.1:26
+#: en/lb_source_debian.1:26 en/lb_source_disk.1:26 en/lb_source_hdd.1:26
+#: en/lb_source_iso.1:26 en/lb_source_tar.1:26 en/lb_source_virtual-hdd.1:26
+#: en/lb_testroot.1:29 en/live-build.7:236
 #, no-wrap
 msgid "HOMEPAGE"
 msgstr ""
@@ -440,12 +409,11 @@ msgstr ""
 #: en/lb_binary_disk.1:28 en/lb_binary_grub.1:28 en/lb_binary_grub2.1:28
 #: en/lb_binary_hdd.1:28 en/lb_binary_hooks.1:28 en/lb_binary_includes.1:28
 #: en/lb_binary_iso.1:28 en/lb_binary_linux-image.1:28
-#: en/lb_binary_local-includes.1:28 en/lb_binary_manifest.1:28
-#: en/lb_binary_memtest.1:28 en/lb_binary_netboot.1:28
-#: en/lb_binary_rootfs.1:28 en/lb_binary_silo.1:28 en/lb_binary_syslinux.1:28
-#: en/lb_binary_tar.1:28 en/lb_binary_virtual-hdd.1:28
-#: en/lb_binary_win32-loader.1:28 en/lb_binary_yaboot.1:28
-#: en/lb_bootstrap.1:27 en/lb_bootstrap_cache.1:28
+#: en/lb_binary_manifest.1:28 en/lb_binary_memtest.1:28
+#: en/lb_binary_netboot.1:28 en/lb_binary_rootfs.1:28 en/lb_binary_silo.1:28
+#: en/lb_binary_syslinux.1:28 en/lb_binary_tar.1:28
+#: en/lb_binary_virtual-hdd.1:28 en/lb_binary_win32-loader.1:28
+#: en/lb_binary_yaboot.1:28 en/lb_bootstrap.1:27 en/lb_bootstrap_cache.1:28
 #: en/lb_bootstrap_cdebootstrap.1:28 en/lb_bootstrap_copy.1:28
 #: en/lb_bootstrap_debootstrap.1:28 en/lb_build.1:29 en/lb_chroot.1:27
 #: en/lb_chroot_apt.1:28 en/lb_chroot_archives.1:28 en/lb_chroot_cache.1:28
@@ -453,17 +421,15 @@ msgstr ""
 #: en/lb_chroot_dpkg.1:28 en/lb_chroot_hacks.1:28 en/lb_chroot_hooks.1:28
 #: en/lb_chroot_hostname.1:28 en/lb_chroot_hosts.1:28
 #: en/lb_chroot_install-packages.1:28 en/lb_chroot_interactive.1:28
-#: en/lb_chroot_linux-image.1:28 en/lb_chroot_local-includes.1:28
-#: en/lb_chroot_local-patches.1:28 en/lb_chroot_local-preseed.1:28
-#: en/lb_chroot_packagelists.1:28 en/lb_chroot_packages.1:28
+#: en/lb_chroot_linux-image.1:28 en/lb_chroot_local-patches.1:28
+#: en/lb_chroot_local-preseed.1:28 en/lb_chroot_packages.1:28
 #: en/lb_chroot_proc.1:28 en/lb_chroot_resolv.1:28 en/lb_chroot_selinuxfs.1:28
-#: en/lb_chroot_sysfs.1:28 en/lb_chroot_sysv-rc.1:28
-#: en/lb_chroot_task-lists.1:28 en/lb_chroot_upstart.1:28 en/lb_clean.1:50
-#: en/lb_config.1:520 en/lb_source.1:27 en/lb_source_checksums.1:28
-#: en/lb_source_debian-live.1:28 en/lb_source_debian.1:28
-#: en/lb_source_disk.1:28 en/lb_source_hdd.1:28 en/lb_source_iso.1:28
-#: en/lb_source_tar.1:28 en/lb_source_virtual-hdd.1:28 en/lb_testroot.1:31
-#: en/live-build.7:238
+#: en/lb_chroot_sysfs.1:28 en/lb_chroot_sysv-rc.1:28 en/lb_chroot_upstart.1:28
+#: en/lb_clean.1:50 en/lb_config.1:520 en/lb_source.1:27
+#: en/lb_source_checksums.1:28 en/lb_source_debian-live.1:28
+#: en/lb_source_debian.1:28 en/lb_source_disk.1:28 en/lb_source_hdd.1:28
+#: en/lb_source_iso.1:28 en/lb_source_tar.1:28 en/lb_source_virtual-hdd.1:28
+#: en/lb_testroot.1:31 en/live-build.7:238
 msgid ""
 "More information about live-build and the Debian Live project can be found "
 "on the homepage at E<lt>I<http://live.debian.net/>E<gt> and in the manual at "
@@ -476,12 +442,11 @@ msgstr ""
 #: en/lb_binary_disk.1:29 en/lb_binary_grub.1:29 en/lb_binary_grub2.1:29
 #: en/lb_binary_hdd.1:29 en/lb_binary_hooks.1:29 en/lb_binary_includes.1:29
 #: en/lb_binary_iso.1:29 en/lb_binary_linux-image.1:29
-#: en/lb_binary_local-includes.1:29 en/lb_binary_manifest.1:29
-#: en/lb_binary_memtest.1:29 en/lb_binary_netboot.1:29
-#: en/lb_binary_rootfs.1:29 en/lb_binary_silo.1:29 en/lb_binary_syslinux.1:29
-#: en/lb_binary_tar.1:29 en/lb_binary_virtual-hdd.1:29
-#: en/lb_binary_win32-loader.1:29 en/lb_binary_yaboot.1:29
-#: en/lb_bootstrap.1:28 en/lb_bootstrap_cache.1:29
+#: en/lb_binary_manifest.1:29 en/lb_binary_memtest.1:29
+#: en/lb_binary_netboot.1:29 en/lb_binary_rootfs.1:29 en/lb_binary_silo.1:29
+#: en/lb_binary_syslinux.1:29 en/lb_binary_tar.1:29
+#: en/lb_binary_virtual-hdd.1:29 en/lb_binary_win32-loader.1:29
+#: en/lb_binary_yaboot.1:29 en/lb_bootstrap.1:28 en/lb_bootstrap_cache.1:29
 #: en/lb_bootstrap_cdebootstrap.1:29 en/lb_bootstrap_copy.1:29
 #: en/lb_bootstrap_debootstrap.1:29 en/lb_build.1:30 en/lb_chroot.1:28
 #: en/lb_chroot_apt.1:29 en/lb_chroot_archives.1:29 en/lb_chroot_cache.1:29
@@ -489,17 +454,15 @@ msgstr ""
 #: en/lb_chroot_dpkg.1:29 en/lb_chroot_hacks.1:29 en/lb_chroot_hooks.1:29
 #: en/lb_chroot_hostname.1:29 en/lb_chroot_hosts.1:29
 #: en/lb_chroot_install-packages.1:29 en/lb_chroot_interactive.1:29
-#: en/lb_chroot_linux-image.1:29 en/lb_chroot_local-includes.1:29
-#: en/lb_chroot_local-patches.1:29 en/lb_chroot_local-preseed.1:29
-#: en/lb_chroot_packagelists.1:29 en/lb_chroot_packages.1:29
+#: en/lb_chroot_linux-image.1:29 en/lb_chroot_local-patches.1:29
+#: en/lb_chroot_local-preseed.1:29 en/lb_chroot_packages.1:29
 #: en/lb_chroot_proc.1:29 en/lb_chroot_resolv.1:29 en/lb_chroot_selinuxfs.1:29
-#: en/lb_chroot_sysfs.1:29 en/lb_chroot_sysv-rc.1:29
-#: en/lb_chroot_task-lists.1:29 en/lb_chroot_upstart.1:29 en/lb_clean.1:51
-#: en/lb_config.1:521 en/lb_source.1:28 en/lb_source_checksums.1:29
-#: en/lb_source_debian-live.1:29 en/lb_source_debian.1:29
-#: en/lb_source_disk.1:29 en/lb_source_hdd.1:29 en/lb_source_iso.1:29
-#: en/lb_source_tar.1:29 en/lb_source_virtual-hdd.1:29 en/lb_testroot.1:32
-#: en/live-build.7:239
+#: en/lb_chroot_sysfs.1:29 en/lb_chroot_sysv-rc.1:29 en/lb_chroot_upstart.1:29
+#: en/lb_clean.1:51 en/lb_config.1:521 en/lb_source.1:28
+#: en/lb_source_checksums.1:29 en/lb_source_debian-live.1:29
+#: en/lb_source_debian.1:29 en/lb_source_disk.1:29 en/lb_source_hdd.1:29
+#: en/lb_source_iso.1:29 en/lb_source_tar.1:29 en/lb_source_virtual-hdd.1:29
+#: en/lb_testroot.1:32 en/live-build.7:239
 #, no-wrap
 msgid "BUGS"
 msgstr ""
@@ -510,12 +473,11 @@ msgstr ""
 #: en/lb_binary_disk.1:31 en/lb_binary_grub.1:31 en/lb_binary_grub2.1:31
 #: en/lb_binary_hdd.1:31 en/lb_binary_hooks.1:31 en/lb_binary_includes.1:31
 #: en/lb_binary_iso.1:31 en/lb_binary_linux-image.1:31
-#: en/lb_binary_local-includes.1:31 en/lb_binary_manifest.1:31
-#: en/lb_binary_memtest.1:31 en/lb_binary_netboot.1:31
-#: en/lb_binary_rootfs.1:31 en/lb_binary_silo.1:31 en/lb_binary_syslinux.1:31
-#: en/lb_binary_tar.1:31 en/lb_binary_virtual-hdd.1:31
-#: en/lb_binary_win32-loader.1:31 en/lb_binary_yaboot.1:31
-#: en/lb_bootstrap.1:30 en/lb_bootstrap_cache.1:31
+#: en/lb_binary_manifest.1:31 en/lb_binary_memtest.1:31
+#: en/lb_binary_netboot.1:31 en/lb_binary_rootfs.1:31 en/lb_binary_silo.1:31
+#: en/lb_binary_syslinux.1:31 en/lb_binary_tar.1:31
+#: en/lb_binary_virtual-hdd.1:31 en/lb_binary_win32-loader.1:31
+#: en/lb_binary_yaboot.1:31 en/lb_bootstrap.1:30 en/lb_bootstrap_cache.1:31
 #: en/lb_bootstrap_cdebootstrap.1:31 en/lb_bootstrap_copy.1:31
 #: en/lb_bootstrap_debootstrap.1:31 en/lb_build.1:32 en/lb_chroot.1:30
 #: en/lb_chroot_apt.1:31 en/lb_chroot_archives.1:31 en/lb_chroot_cache.1:31
@@ -523,17 +485,15 @@ msgstr ""
 #: en/lb_chroot_dpkg.1:31 en/lb_chroot_hacks.1:31 en/lb_chroot_hooks.1:31
 #: en/lb_chroot_hostname.1:31 en/lb_chroot_hosts.1:31
 #: en/lb_chroot_install-packages.1:31 en/lb_chroot_interactive.1:31
-#: en/lb_chroot_linux-image.1:31 en/lb_chroot_local-includes.1:31
-#: en/lb_chroot_local-patches.1:31 en/lb_chroot_local-preseed.1:31
-#: en/lb_chroot_packagelists.1:31 en/lb_chroot_packages.1:31
+#: en/lb_chroot_linux-image.1:31 en/lb_chroot_local-patches.1:31
+#: en/lb_chroot_local-preseed.1:31 en/lb_chroot_packages.1:31
 #: en/lb_chroot_proc.1:31 en/lb_chroot_resolv.1:31 en/lb_chroot_selinuxfs.1:31
-#: en/lb_chroot_sysfs.1:31 en/lb_chroot_sysv-rc.1:31
-#: en/lb_chroot_task-lists.1:31 en/lb_chroot_upstart.1:31 en/lb_clean.1:53
-#: en/lb_config.1:523 en/lb_source.1:30 en/lb_source_checksums.1:31
-#: en/lb_source_debian-live.1:31 en/lb_source_debian.1:31
-#: en/lb_source_disk.1:31 en/lb_source_hdd.1:31 en/lb_source_iso.1:31
-#: en/lb_source_tar.1:31 en/lb_source_virtual-hdd.1:31 en/lb_testroot.1:34
-#: en/live-build.7:241
+#: en/lb_chroot_sysfs.1:31 en/lb_chroot_sysv-rc.1:31 en/lb_chroot_upstart.1:31
+#: en/lb_clean.1:53 en/lb_config.1:523 en/lb_source.1:30
+#: en/lb_source_checksums.1:31 en/lb_source_debian-live.1:31
+#: en/lb_source_debian.1:31 en/lb_source_disk.1:31 en/lb_source_hdd.1:31
+#: en/lb_source_iso.1:31 en/lb_source_tar.1:31 en/lb_source_virtual-hdd.1:31
+#: en/lb_testroot.1:34 en/live-build.7:241
 msgid ""
 "Bugs can be reported by submitting a bugreport for the live-build package in "
 "the Debian Bug Tracking System at E<lt>I<http://bugs.debian.org/>E<gt> or by "
@@ -547,12 +507,11 @@ msgstr ""
 #: en/lb_binary_disk.1:32 en/lb_binary_grub.1:32 en/lb_binary_grub2.1:32
 #: en/lb_binary_hdd.1:32 en/lb_binary_hooks.1:32 en/lb_binary_includes.1:32
 #: en/lb_binary_iso.1:32 en/lb_binary_linux-image.1:32
-#: en/lb_binary_local-includes.1:32 en/lb_binary_manifest.1:32
-#: en/lb_binary_memtest.1:32 en/lb_binary_netboot.1:32
-#: en/lb_binary_rootfs.1:32 en/lb_binary_silo.1:32 en/lb_binary_syslinux.1:32
-#: en/lb_binary_tar.1:32 en/lb_binary_virtual-hdd.1:32
-#: en/lb_binary_win32-loader.1:32 en/lb_binary_yaboot.1:32
-#: en/lb_bootstrap.1:31 en/lb_bootstrap_cache.1:32
+#: en/lb_binary_manifest.1:32 en/lb_binary_memtest.1:32
+#: en/lb_binary_netboot.1:32 en/lb_binary_rootfs.1:32 en/lb_binary_silo.1:32
+#: en/lb_binary_syslinux.1:32 en/lb_binary_tar.1:32
+#: en/lb_binary_virtual-hdd.1:32 en/lb_binary_win32-loader.1:32
+#: en/lb_binary_yaboot.1:32 en/lb_bootstrap.1:31 en/lb_bootstrap_cache.1:32
 #: en/lb_bootstrap_cdebootstrap.1:32 en/lb_bootstrap_copy.1:32
 #: en/lb_bootstrap_debootstrap.1:32 en/lb_build.1:33 en/lb_chroot.1:31
 #: en/lb_chroot_apt.1:32 en/lb_chroot_archives.1:32 en/lb_chroot_cache.1:32
@@ -560,17 +519,15 @@ msgstr ""
 #: en/lb_chroot_dpkg.1:32 en/lb_chroot_hacks.1:32 en/lb_chroot_hooks.1:32
 #: en/lb_chroot_hostname.1:32 en/lb_chroot_hosts.1:32
 #: en/lb_chroot_install-packages.1:32 en/lb_chroot_interactive.1:32
-#: en/lb_chroot_linux-image.1:32 en/lb_chroot_local-includes.1:32
-#: en/lb_chroot_local-patches.1:32 en/lb_chroot_local-preseed.1:32
-#: en/lb_chroot_packagelists.1:32 en/lb_chroot_packages.1:32
+#: en/lb_chroot_linux-image.1:32 en/lb_chroot_local-patches.1:32
+#: en/lb_chroot_local-preseed.1:32 en/lb_chroot_packages.1:32
 #: en/lb_chroot_proc.1:32 en/lb_chroot_resolv.1:32 en/lb_chroot_selinuxfs.1:32
-#: en/lb_chroot_sysfs.1:32 en/lb_chroot_sysv-rc.1:32
-#: en/lb_chroot_task-lists.1:32 en/lb_chroot_upstart.1:32 en/lb_clean.1:54
-#: en/lb_config.1:524 en/lb_source.1:31 en/lb_source_checksums.1:32
-#: en/lb_source_debian-live.1:32 en/lb_source_debian.1:32
-#: en/lb_source_disk.1:32 en/lb_source_hdd.1:32 en/lb_source_iso.1:32
-#: en/lb_source_tar.1:32 en/lb_source_virtual-hdd.1:32 en/lb_testroot.1:35
-#: en/live-build.7:242
+#: en/lb_chroot_sysfs.1:32 en/lb_chroot_sysv-rc.1:32 en/lb_chroot_upstart.1:32
+#: en/lb_clean.1:54 en/lb_config.1:524 en/lb_source.1:31
+#: en/lb_source_checksums.1:32 en/lb_source_debian-live.1:32
+#: en/lb_source_debian.1:32 en/lb_source_disk.1:32 en/lb_source_hdd.1:32
+#: en/lb_source_iso.1:32 en/lb_source_tar.1:32 en/lb_source_virtual-hdd.1:32
+#: en/lb_testroot.1:35 en/live-build.7:242
 #, no-wrap
 msgid "AUTHOR"
 msgstr ""
@@ -581,12 +538,11 @@ msgstr ""
 #: en/lb_binary_disk.1:33 en/lb_binary_grub.1:33 en/lb_binary_grub2.1:33
 #: en/lb_binary_hdd.1:33 en/lb_binary_hooks.1:33 en/lb_binary_includes.1:33
 #: en/lb_binary_iso.1:33 en/lb_binary_linux-image.1:33
-#: en/lb_binary_local-includes.1:33 en/lb_binary_manifest.1:33
-#: en/lb_binary_memtest.1:33 en/lb_binary_netboot.1:33
-#: en/lb_binary_rootfs.1:33 en/lb_binary_silo.1:33 en/lb_binary_syslinux.1:33
-#: en/lb_binary_tar.1:33 en/lb_binary_virtual-hdd.1:33
-#: en/lb_binary_win32-loader.1:33 en/lb_binary_yaboot.1:33
-#: en/lb_bootstrap.1:32 en/lb_bootstrap_cache.1:33
+#: en/lb_binary_manifest.1:33 en/lb_binary_memtest.1:33
+#: en/lb_binary_netboot.1:33 en/lb_binary_rootfs.1:33 en/lb_binary_silo.1:33
+#: en/lb_binary_syslinux.1:33 en/lb_binary_tar.1:33
+#: en/lb_binary_virtual-hdd.1:33 en/lb_binary_win32-loader.1:33
+#: en/lb_binary_yaboot.1:33 en/lb_bootstrap.1:32 en/lb_bootstrap_cache.1:33
 #: en/lb_bootstrap_cdebootstrap.1:33 en/lb_bootstrap_copy.1:33
 #: en/lb_bootstrap_debootstrap.1:33 en/lb_build.1:34 en/lb_chroot.1:32
 #: en/lb_chroot_apt.1:33 en/lb_chroot_archives.1:33 en/lb_chroot_cache.1:33
@@ -594,17 +550,15 @@ msgstr ""
 #: en/lb_chroot_dpkg.1:33 en/lb_chroot_hacks.1:33 en/lb_chroot_hooks.1:33
 #: en/lb_chroot_hostname.1:33 en/lb_chroot_hosts.1:33
 #: en/lb_chroot_install-packages.1:33 en/lb_chroot_interactive.1:33
-#: en/lb_chroot_linux-image.1:33 en/lb_chroot_local-includes.1:33
-#: en/lb_chroot_local-patches.1:33 en/lb_chroot_local-preseed.1:33
-#: en/lb_chroot_packagelists.1:33 en/lb_chroot_packages.1:33
+#: en/lb_chroot_linux-image.1:33 en/lb_chroot_local-patches.1:33
+#: en/lb_chroot_local-preseed.1:33 en/lb_chroot_packages.1:33
 #: en/lb_chroot_proc.1:33 en/lb_chroot_resolv.1:33 en/lb_chroot_selinuxfs.1:33
-#: en/lb_chroot_sysfs.1:33 en/lb_chroot_sysv-rc.1:33
-#: en/lb_chroot_task-lists.1:33 en/lb_chroot_upstart.1:33 en/lb_clean.1:55
-#: en/lb_config.1:525 en/lb_source.1:32 en/lb_source_checksums.1:33
-#: en/lb_source_debian-live.1:33 en/lb_source_debian.1:33
-#: en/lb_source_disk.1:33 en/lb_source_hdd.1:33 en/lb_source_iso.1:33
-#: en/lb_source_tar.1:33 en/lb_source_virtual-hdd.1:33 en/lb_testroot.1:36
-#: en/live-build.7:243
+#: en/lb_chroot_sysfs.1:33 en/lb_chroot_sysv-rc.1:33 en/lb_chroot_upstart.1:33
+#: en/lb_clean.1:55 en/lb_config.1:525 en/lb_source.1:32
+#: en/lb_source_checksums.1:33 en/lb_source_debian-live.1:33
+#: en/lb_source_debian.1:33 en/lb_source_disk.1:33 en/lb_source_hdd.1:33
+#: en/lb_source_iso.1:33 en/lb_source_tar.1:33 en/lb_source_virtual-hdd.1:33
+#: en/lb_testroot.1:36 en/live-build.7:243
 msgid ""
 "live-build was written by Daniel Baumann E<lt>I<daniel@debian.org>E<gt> for "
 "the Debian project."
@@ -753,128 +707,128 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:63
-msgid "  [B<--build-with-chroot> true|false]"
+msgid "  [B<--config> I<GIT_URL>]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:65
-msgid "  [B<--chroot-filesystem> ext2|ext3|ext4|squashfs|jffs2|none]"
+msgid "  [B<--build-with-chroot> true|false]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:67
-msgid "  [B<--clean>]"
+msgid "  [B<--chroot-filesystem> ext2|ext3|ext4|squashfs|jffs2|none]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:69
-msgid "  [-c|B<--conffile> I<FILE>]"
+msgid "  [B<--clean>]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:71
-msgid "  [B<--debconf-frontend> dialog|editor|noninteractive|readline]"
+msgid "  [-c|B<--conffile> I<FILE>]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:73
-msgid "  [B<--debconf-nowarnings> true|false]"
+msgid "  [B<--debconf-frontend> dialog|editor|noninteractive|readline]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:75
-msgid "  [B<--debconf-priority> low|medium|high|critical]"
+msgid "  [B<--debconf-nowarnings> true|false]"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:77
+msgid "  [B<--debconf-priority> low|medium|high|critical]"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_config.1:79
 msgid ""
 "  [B<--debian-installer> true|cdrom|netinst|netboot|businesscard|live|false]"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:79
+#: en/lb_config.1:81
 msgid "  [B<--debian-installer-distribution> daily|I<CODENAME>]"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:81
+#: en/lb_config.1:83
 msgid "  [B<--debian-installer-preseedfile> I<FILE>|I<URL>]"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:83
+#: en/lb_config.1:85
 msgid "  [B<--debian-installer-gui> true|false]"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:85
+#: en/lb_config.1:87
 msgid "  [B<--debug>]"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:87
+#: en/lb_config.1:89
 msgid "  [-d|B<--distribution> I<CODENAME>]"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:89
+#: en/lb_config.1:91
 msgid "  [B<--parent-distribution> I<CODENAME>]"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:91
+#: en/lb_config.1:93
 msgid "  [B<--parent-debian-installer-distribution> I<CODENAME>]"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:93
+#: en/lb_config.1:95
 msgid "  [B<--dump>]"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:95
+#: en/lb_config.1:97
 msgid "  [B<--fdisk> fdisk|fdisk.dist]"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:97
+#: en/lb_config.1:99
 msgid "  [B<--firmware-binary true|false>]"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:99
+#: en/lb_config.1:101
 msgid "  [B<--firmware-chroot true|false>]"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:101
+#: en/lb_config.1:103
 msgid "  [B<--force>]"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:103
+#: en/lb_config.1:105
 msgid "  [B<--grub-splash> I<FILE>]"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:105
+#: en/lb_config.1:107
 msgid "  [B<--gzip-options> I<OPTION>|\"I<OPTIONS>\"]"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:107
+#: en/lb_config.1:109
 msgid "  [B<--hooks> I<FILE>]"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:109
-msgid "  [B<--ignore-system-defaults>]"
-msgstr ""
-
-#. type: Plain text
 #: en/lb_config.1:111
-msgid "  [B<--includes> I<PATH>]"
+msgid "  [B<--ignore-system-defaults>]"
 msgstr ""
 
 #. type: Plain text
@@ -1616,11 +1570,22 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:306
 #, no-wrap
-msgid "B<--build-with-chroot> true|false"
+msgid "B<--config> I<GIT_URL>"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:308
+msgid "allows to bootstrap a config tree from a git repositories."
+msgstr ""
+
+#. type: IP
+#: en/lb_config.1:308
+#, no-wrap
+msgid "B<--build-with-chroot> true|false"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_config.1:310
 msgid ""
 "defines whetever live-build should use the tools from within the chroot to "
 "build the binary image or not by using and including the host systems tools. "
@@ -1635,13 +1600,13 @@ msgid ""
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:308
+#: en/lb_config.1:310
 #, no-wrap
 msgid "B<--chroot-filesystem> ext2|ext3|ext4|squashfs|jffs2|none"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:310
+#: en/lb_config.1:312
 msgid ""
 "defines which filesystem type should be used for the root filesystem image. "
 "If you use none, then no filesystem image is created and the root filesystem "
@@ -1652,39 +1617,39 @@ msgid ""
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:310
+#: en/lb_config.1:312
 #, no-wrap
 msgid "B<--clean>"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:312
+#: en/lb_config.1:314
 msgid ""
 "minimizes config directory by automatically removing unused and thus empty "
 "subdirectories."
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:312
+#: en/lb_config.1:314
 #, no-wrap
 msgid "-c|B<--conffile> I<FILE>"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:314
+#: en/lb_config.1:316
 msgid ""
 "using a user specified alternative configuration file in addition to the "
 "normally used one in the config directory."
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:314
+#: en/lb_config.1:316
 #, no-wrap
 msgid "B<--debconf-frontend> dialog|editor|noninteractive|readline"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:316
+#: en/lb_config.1:318
 msgid ""
 "defines what value the debconf frontend should be set to inside the chroot. "
 "Note that setting it to anything by noninteractive, which is the default, "
@@ -1692,13 +1657,13 @@ msgid ""
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:316
+#: en/lb_config.1:318
 #, no-wrap
 msgid "B<--debconf-nowarnings> true|false"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:318
+#: en/lb_config.1:320
 msgid ""
 "defines if warnings of debconf should be displayed or not. Warnings from "
 "debconf are generally very rare and by default, we skip them, if any, in "
@@ -1706,13 +1671,13 @@ msgid ""
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:318
+#: en/lb_config.1:320
 #, no-wrap
 msgid "B<--debconf-priority> low|medium|high|critical"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:320
+#: en/lb_config.1:322
 msgid ""
 "defines what value the debconf priority shoul dbe set to inside the chroot. "
 "By default, it is set to critical, which means that almost no questions are "
@@ -1721,13 +1686,13 @@ msgid ""
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:320
+#: en/lb_config.1:322
 #, no-wrap
 msgid "B<--debian-installer> true|cdrom|netinst|netboot|businesscard|live|false"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:322
+#: en/lb_config.1:324
 msgid ""
 "defines which type, if any, of the debian-installer should be included in "
 "the resulting binary image. By default, no installer is included. All "
@@ -1739,13 +1704,13 @@ msgid ""
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:322
+#: en/lb_config.1:324
 #, no-wrap
 msgid "B<--debian-installer-distribution> daily|I<CODENAME>"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:324
+#: en/lb_config.1:326
 msgid ""
 "defines the distribution where the debian-installer files should be taken "
 "out from. Normally, this should be set to the same distribution as the live "
@@ -1754,13 +1719,13 @@ msgid ""
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:324
+#: en/lb_config.1:326
 #, no-wrap
 msgid "B<--debian-installer-preseedfile> I<FILE>|I<URL>"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:326
+#: en/lb_config.1:328
 msgid ""
 "sets the filename or URL for an optionally used and included preseeding file "
 "for debian-installer. If config/binary_debian-installer/preseed.cfg exists, "
@@ -1768,13 +1733,13 @@ msgid ""
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:326
+#: en/lb_config.1:328
 #, no-wrap
 msgid "B<--debian-installer-gui> true|false"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:328
+#: en/lb_config.1:330
 msgid ""
 "defines if the debian-installer graphical GTK interface should be true or "
 "not. In Debian mode and for most versions of Ubuntu, this option is true, "
@@ -1782,60 +1747,60 @@ msgid ""
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:328 en/live-build.7:36
+#: en/lb_config.1:330 en/live-build.7:36
 #, no-wrap
 msgid "B<--debug>"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:330
+#: en/lb_config.1:332
 msgid "turn on debugging informational messages."
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:330
+#: en/lb_config.1:332
 #, no-wrap
 msgid "-d|B<--distribution> I<CODENAME>"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:332
+#: en/lb_config.1:334
 msgid "defines the distribution of the resulting live system."
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:332
+#: en/lb_config.1:334
 #, no-wrap
 msgid "-d|B<--parent-distribution> I<CODENAME>"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:334
+#: en/lb_config.1:336
 msgid ""
 "defines the parent distribution for derivatives of the resulting live system."
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:334
+#: en/lb_config.1:336
 #, no-wrap
 msgid "-d|B<--parent-debian-installer-distribution> I<CODENAME>"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:336
+#: en/lb_config.1:338
 msgid ""
 "defines the parent debian-installer distribution for derivatives of the "
 "resulting live system."
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:336
+#: en/lb_config.1:338
 #, no-wrap
 msgid "B<--dump>"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:338
+#: en/lb_config.1:340
 msgid ""
 "prepares a report of the currently present live system configuration and the "
 "version of live-build used. This is useful to provide if you submit bug "
@@ -1844,26 +1809,26 @@ msgid ""
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:338
+#: en/lb_config.1:340
 #, no-wrap
 msgid "B<--fdisk> fdisk|fdisk.dist"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:340
+#: en/lb_config.1:342
 msgid ""
 "sets the filename of the fdisk binary from the host system that should be "
 "used. This is autodetected and does generally not need any customization."
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:340 en/live-build.7:38
+#: en/lb_config.1:342 en/live-build.7:38
 #, no-wrap
 msgid "B<--force>"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:342
+#: en/lb_config.1:344
 msgid ""
 "forces re-execution of already run stages. Use only if you know what you are "
 "doing. It is generally safer to use B<lb clean> to clean up before re-"
@@ -1871,26 +1836,26 @@ msgid ""
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:342
+#: en/lb_config.1:344
 #, no-wrap
 msgid "B<--grub-splash> I<FILE>"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:344
+#: en/lb_config.1:346
 msgid ""
 "defines the name of an optional to be included splash screen graphic for the "
 "grub bootloader."
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:344
+#: en/lb_config.1:346
 #, no-wrap
 msgid "B<--gzip-options> I<OPTION>|\"I<OPTIONS>\""
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:346
+#: en/lb_config.1:348
 msgid ""
 "defines the default options that will be appended to (almost) every gzip "
 "call during the building of the image. By default, this is set to --best to "
@@ -1899,13 +1864,13 @@ msgid ""
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:346
+#: en/lb_config.1:348
 #, no-wrap
 msgid "B<--hooks> I<FILE>"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:348
+#: en/lb_config.1:350
 msgid ""
 "defines which hooks available in /usr/share/live/build/examples/hooks should "
 "be activated. Normally, there are no hooks executed. Make sure you know and "
@@ -1913,33 +1878,18 @@ msgid ""
 msgstr ""
 
 #. type: IP
-#: en/lb_config.1:348
+#: en/lb_config.1:350
 #, no-wrap
 msgid "B<--ignore-system-defaults>"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:350
+#: en/lb_config.1:352
 msgid ""
 "B<lb config> by default reads system defaults from /etc/live/build.conf and /"
 "etc/live/build.d when generating a new live system config directory. This is "
 "useful if you want to set global settings, such as mirror locations, and "
 "don't want to specify them all of the time."
-msgstr ""
-
-#. type: IP
-#: en/lb_config.1:350
-#, no-wrap
-msgid "B<--includes> I<PATH|none>"
-msgstr ""
-
-#. type: Plain text
-#: en/lb_config.1:352
-msgid ""
-"sets the path to the includes that live-build is going to use, e.g. "
-"additional minimal documentation that you want to have on all live systems. "
-"By default, this is set to /usr/share/live/build/includes/. Choose none to "
-"disable inclusion of documentation."
 msgstr ""
 
 #. type: IP
