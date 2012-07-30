@@ -1,3 +1,21 @@
+live-build (3.0~a56-1) unstable; urgency=low
+
+  * Adding possibility to specify a git branch when using lb config --
+    config.
+  * Adding messages about performing git operations when using --config.
+  * Automatically update auto/config when using --config with extra
+    options.
+  * Avoid showing message in lb config running the second time through
+    auto on git repository based config trees.
+  * Adding shortcut helper for dctrl-tools.
+  * Updating GPL standard header in all files.
+  * Removing chroot_local-patches, too much overhead for just applying
+    patches (notably, with -p1 enforced), hooks are more flexible
+    anyway.
+  * Disabling volatile for wheezy for the time being.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 30 Jul 2012 21:55:32 +0200
+
 live-build (3.0~a55-1) unstable; urgency=low
 
   * Adding release information for jessie.
