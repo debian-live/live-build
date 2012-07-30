@@ -883,7 +883,7 @@ Set_defaults ()
 
 	# Setting volatile updates option
 	case "${LB_PARENT_DISTRIBUTION}" in
-		jessie|sid)
+		wheezy|jessie|sid)
 			LB_VOLATILE="${LB_VOLATILE:-false}"
 			;;
 
