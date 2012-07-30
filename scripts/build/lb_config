@@ -3,7 +3,7 @@
 ## live-build(7) - System Build Scripts
 ## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
 ##
-## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
 ## under certain conditions; see COPYING for details.
 
@@ -42,7 +42,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--cache-stages STAGE|\"STAGES\"]\n\
 \t    [--checksums md5|sha1|sha256|none]\n\
 \t    [--compression bzip2|gzip|lzip|xz|none]\n\
-\t    [--config GIT_URL]\n\
+\t    [--config GIT_URL::GIT_BRANCH]\n\
 \t    [--zsync true|false]\n\
 \t    [--build-with-chroot true|false]\n\
 \t    [--chroot-filesystem ext2|ext3|ext4|squashfs|jffs2|none]\n\
@@ -191,7 +191,7 @@ Local_arguments ()
 				Print_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 
 				# Dump contents of directories that contain text files
-				for DIRECTORY in config/package-lists config/chroot_apt config/chroot_local-patches config/preseed config/binary_rootfs
+				for DIRECTORY in config/package-lists config/chroot_apt config/preseed config/binary_rootfs
 				do
 					if Find_files "${DIRECTORY}"
 					then
@@ -866,13 +866,36 @@ Local_arguments "${@}"
 
 if [ -e .git ] && [ -n "${_CONFIG}" ]
 then
-	Echo_message "Ignoring --config ${_CONFIG}: ${PWD} is already a git repository"
+	if [ "${1}" != "noauto" ]
+	then
+		Echo_message "Ignoring --config ${_CONFIG}: ${PWD} is already a git repository"
+	fi
+
 	_CONFIG=""
 fi
 
 if [ -n "${_CONFIG}" ]
 then
-	git clone ${_CONFIG} ./
+	_GIT_REPOSITORY="$(echo ${_CONFIG} | sed -e 's|::.*$||')"
+
+	Echo_message "Cloning ${_GIT_REPOSITORY}"
+	git clone ${_GIT_REPOSITORY} ./
+
+	if [ "${_GIT_REPOSITORY}" != "${_CONFIG}" ]
+	then
+		_GIT_BRANCH="$(echo ${_CONFIG} | awk -F\:\: '{ print $NF }')"
+
+		Echo_message "Checking out ${_GIT_BRANCH}"
+		git checkout ${_GIT_BRANCH}
+	fi
+
+	if [ -e auto/config ]
+	then
+		_EXTRA_OPTIONS="$(echo ${@} | sed -e "s|--config ${_GIT_REPOSITORY}::${_GIT_BRANCH}||g" -e "s|--config ${_GIT_REPOSITORY}||g")"
+
+		Echo_message "The following extra options specified to lb config are going to be added to auto/config: ${_EXTRA_OPTIONS}"
+		sed -i -e "s|\"\${@}\"|${_EXTRA_OPTIONS} \"\${@}\"|" auto/config
+	fi
 fi
 
 # Read meta config
@@ -1214,7 +1237,6 @@ mkdir -p config/archives
 mkdir -p config/chroot_apt
 mkdir -p config/hooks
 mkdir -p config/includes.chroot
-mkdir -p config/chroot_local-patches
 mkdir -p config/packages
 mkdir -p config/packages.chroot
 mkdir -p config/package-lists

@@ -3,7 +3,7 @@
 ## live-build(7) - System Build Scripts
 ## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
 ##
-## live-build comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
 ## under certain conditions; see COPYING for details.
 
@@ -55,6 +55,13 @@ then
 	# Installing depends
 	Install_package
 
+	if [ -e "${LIVE_BUILD}/share/bin/Packages" ]
+	then
+		cp "${LIVE_BUILD}/share/bin/Packages" chroot/bin
+	else
+		cp /usr/share/live/build/bin/Packages chroot/bin
+	fi
+
 	for LIST in config/package-lists/*.list \
 		    config/package-lists/*.list.chroot \
 		    config/package-lists/*.list.chroot_${_PASS}
@@ -66,6 +73,8 @@ then
 				>> chroot/root/packages.chroot
 		fi
 	done
+
+	rm -f chroot/bin/Packages
 
 	# Removing dctrl-tools again if the user has not installed it
 	if ! grep -qs dctrl-tools chroot/root/packages.chroot

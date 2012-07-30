@@ -8,11 +8,23 @@
 ## under certain conditions; see COPYING for details.
 
 
-Man ()
-{
-	if [ -x "$(which man 2>/dev/null)" ]
-	then
-		man $(basename ${0})
-		exit 0
-	fi
-}
+set -e
+
+if [ ! -e /usr/bin/grep-aptavail ]
+then
+	echo "E: /usr/bin/grep-aptavail: No such file."
+
+	exit 1
+fi
+
+if [ -z "${@}" ]
+then
+	echo "Usage: $(basename ${0}) FIELD VALUE"
+
+	exit 1
+fi
+
+_FIELD="${1}"
+_VALUE="${2}"
+
+grep-aptavail -n -sPackage -F${_FIELD} ${_VALUE} | sort
