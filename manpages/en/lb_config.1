@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2012\-07\-30 3.0~a56-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2012\-08\-01 3.0~a56-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -59,7 +59,7 @@
 .br
 	[\fB\-\-compression\fR bzip2|gzip|lzip|none]
 .br
-	[\fB\-\-config\fR \fIGIT_URL::GIT_BRANCH\fR]
+	[\fB\-\-config\fR \fIGIT_URL::GIT_ID\fR]
 .br
 	[\fB\-\-build\-with\-chroot\fR true|false]
 .br
@@ -303,8 +303,8 @@ sets which stages should be cached. By default set to bootstrap. As an exception
 defines if the binary image should contain a file called md5sums.txt, sha1sums.txt and/or sha256sums.txt. These lists all files on the image together with their checksums. This in turn can be used by live\-boots built\-in integrity\-check to verify the medium if specified at boot prompt. In general, this should not be false and is an important feature of live system released to the public. However, during development of very big images it can save some time by not calculating the checksums.
 .IP "\fB\-\-compression\fR bzip2|gzip|lzip|none" 4
 defines the compression program to be used to compress tarballs. Defaults to gzip.
-.IP "\fB\-\-config\fR \fIGIT_URL\fR::\fIGIT_BRANCH\fR" 4
-allows to bootstrap a config tree from a git repositories, optionally appended by a branch.
+.IP "\fB\-\-config\fR \fIGIT_URL\fR::\fIGIT_ID\fR" 4
+allows to bootstrap a config tree from a git repositories, optionally appended by a Git Id (branch, commit, tag, etc.).
 .IP "\fB\-\-build\-with\-chroot\fR true|false" 4
 defines whetever live\-build should use the tools from within the chroot to build the binary image or not by using and including the host systems tools. This is a very dangerous option, using the tools of the host system can lead to tainted and even non-bootable images if the host systems version of the required tools (mainly these are the bootloaders such as syslinux, grub and yaboot, and the auxilliary tools such as dosfstools, genisoimage, squashfs-tools and others) do not \fBexactely\fR match what is present at build-time in the target distribution. Never do disable this option unless you are \fBexactely\fR sure what you are doing and have \fBcompletely\fI understood its consequences.
 .IP "\fB\-\-chroot\-filesystem\fR ext2|ext3|ext4|squashfs|jffs2|none" 4
