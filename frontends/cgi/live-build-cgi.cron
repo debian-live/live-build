@@ -68,6 +68,8 @@ then
 		_EMAIL=`awk -F\" '/^_EMAIL=/{print $2}' ${_FILE}`
 		# Pull in cgipackages for config/package-lists/cgipackages.list.chroot
 		_LB_CGIPACKAGES=`awk -F\" '/^_LB_CGIPACKAGES=/{print $2}' ${_FILE}`
+		# Pull in config for git clone
+		_LB_CONFIG=`awk -F\" '/^_LB_CONFIG=/{print $2}' ${_FILE}`
 		# Pull in the remote address, atchitecture, distribution, and package-lists.
 		_REMOTE_ADDR=`awk -F\" '/^REMOTE_ADDR=/{print $2}' ${_FILE}`
 		_LB_ARCHITECTURES=`awk -F\" '/^LB_ARCHITECTURES=/{print $2}' ${_FILE}`
@@ -79,6 +81,10 @@ then
 
 		# Drop out some build data for information if something goes wrong.
 		echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build-cgi: begin web build (${_BUILD})." >> /var/log/live
+
+		# Clone the git config to target build directory
+		git clone ${_LB_CONFIG} "${_TEMPDIR}"/"${_BUILD}" >> /var/log/live
+		_ERRORGIT="${?}"
 
 		# Creating build directory and the config/package-lists
 		mkdir -p "${_TEMPDIR}"/"${_BUILD}"/config/package-lists
@@ -106,10 +112,12 @@ then
 		_DATE_START="`date -R`"
 		echo "Begin: ${_DATE_START}" > "${_TEMPDIR}"/"${_BUILD}"/log
 
-		# Generating image
+		# Generating image here
 		cd "${_TEMPDIR}"/"${_BUILD}"
+		# Stack on config file params to build dir
 		lb config -c ${_FILE} >> "${_TEMPDIR}"/"${_BUILD}"/log 2>&1
 		_ERRORCONFIG="${?}"
+		# Run build
 		lb build >> "${_TEMPDIR}"/"${_BUILD}"/log 2>&1
 		_ERRORBUILD="${?}"
 
@@ -120,7 +128,7 @@ then
 		mkdir -p "${_DESTDIR}"/"${_BUILD}"
 
 		# Creating mail and logging.
-		if [ "${_ERRORCONFIG}" -eq "0" ] && [ "${_ERRORBUILD}" -eq "0" ]
+		if [ "${_ERRORGIT}" -eq "0" ] && [ "${_ERRORCONFIG}" -eq "0" ] && [ "${_ERRORBUILD}" -eq "0" ]
 		then
 			_STATUS="maybe-successful"
 			echo "${_REMOTE_ADDR} - - `date +[%d/%b/%Y:%H:%m:%S\ %z]` \"${_BUILD} ${_LB_ARCHITECTURES}/${_LB_DISTRIBUTION}/${_LB_CGIPACKAGES}\" 200 - \"-\" \"\"">>/var/log/live-cgi.builds
