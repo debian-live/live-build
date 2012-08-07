@@ -119,7 +119,7 @@ then
 fi
 
 # Remove old binary
-rm -f binary.netboot.tar.bz2 binary.netboot.tar.gz binary.netboot.tar.lz binary.netboot.tar
+rm -f binary.netboot.tar binary.netboot.tar.gz binary.netboot.tar.bz2 binary.netboot.tar.xz binary.netboot.tar.xz
 
 # Creating image file
 ROOT_DIR=$(basename ${LB_NET_ROOT_PATH})
