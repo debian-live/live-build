@@ -26,7 +26,7 @@ Description: Debian Live - System build scripts
 Package: live-build-cgi
 Architecture: all
 Depends: ${misc:Depends}, live-build (= ${source:Version})
-Recommends: apache2 | httpd
+Recommends: apache2 | httpd, cron
 Description: Debian Live - System build scripts (CGI frontend)
  live-build contains the scripts that build a Debian Live system image from a
  configuration directory.
