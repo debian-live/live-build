@@ -1,3 +1,24 @@
+live-build (3.0~a57-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Concentrating all parted calls within lb_binary_hdd into one place
+    in order to make things simpler.
+  * Updating lb config --config manpage option to reflect that any Git
+    Id can be specified, not just branches.
+  * Removing manpage stubs for second-level commands.
+
+  [ Richard Nelson ]
+  * Initial work to support --config git option.
+  * Remove settings that should be handled by --config git option.
+
+  [ Daniel Baumann ]
+  * Also removing binary.netboot.tar.xz before re-creating it in
+    binary_netboot.
+  * Adding live-build to depends for live-build-cgi.
+  * Adding cron to recommends for live-build-cgi.
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 10 Aug 2012 22:42:17 +0200
+
 live-build (3.0~a56-1) unstable; urgency=low
 
   * Adding possibility to specify a git branch when using lb config --
