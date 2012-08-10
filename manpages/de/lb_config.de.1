@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2012\-07\-30 3.0~a56\-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2012\-08\-10 3.0~a57\-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -64,7 +64,7 @@
 .br
   [\fB\-\-compression\fP bzip2|gzip|lzip|none]
 .br
-  [\fB\-\-config\fP \fIGIT_URL::GIT_BRANCH\fP]
+  [\fB\-\-config\fP \fIGIT_URL::GIT_ID\fP]
 .br
   [\fB\-\-build\-with\-chroot\fP true|false]
 .br
@@ -393,9 +393,9 @@ images it can save some time by not calculating the checksums.
 .IP "\fB\-\-compression\fP bzip2|gzip|lzip|none" 4
 defines the compression program to be used to compress tarballs. Defaults to
 gzip.
-.IP "\fB\-\-config\fP \fIGIT_URL\fP::\fIGIT_BRANCH\fP" 4
+.IP "\fB\-\-config\fP \fIGIT_URL\fP::\fIGIT_ID\fP" 4
 allows to bootstrap a config tree from a git repositories, optionally
-appended by a branch.
+appended by a Git Id (branch, commit, tag, etc.).
 .IP "\fB\-\-build\-with\-chroot\fP true|false" 4
 defines whetever live\-build should use the tools from within the chroot to
 build the binary image or not by using and including the host systems
