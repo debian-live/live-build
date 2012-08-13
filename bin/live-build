@@ -23,7 +23,7 @@
 set -e
 
 # Including common functions
-( . "${LIVE_BUILD}/scripts/build.sh" > /dev/null 2>&1 || true ) || . /usr/lib/live/build.sh
+. "${LIVE_BUILD}/scripts/build.sh" > /dev/null 2>&1 || . /usr/lib/live/build.sh
 
 if [ -x "$(which man 2>/dev/null)" ]
 then
