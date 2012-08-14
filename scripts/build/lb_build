@@ -65,13 +65,13 @@ Set_defaults
 Check_defaults
 
 # Bootstrapping system
-lb bootstrap ${*}
+lb bootstrap ${@}
 
 # Customizing chroot
-lb chroot ${*}
+lb chroot ${@}
 
 # Building binary images
-lb binary ${*}
+lb binary ${@}
 
 # Building source images
-lb source ${*}
+lb source ${@}

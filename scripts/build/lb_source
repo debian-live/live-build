@@ -42,25 +42,25 @@ fi
 Setup_cleanup
 
 # Enabling network in chroot
-lb chroot_hosts install ${*}
-lb chroot_resolv install ${*}
-lb chroot_hostname install ${*}
-lb chroot_archives source install ${*}
+lb chroot_hosts install ${@}
+lb chroot_resolv install ${@}
+lb chroot_hostname install ${@}
+lb chroot_archives source install ${@}
 
 # Preparing images
-lb source_debian-live ${*}
-lb source_debian ${*}
-lb source_disk ${*}
-lb source_checksums ${*}
+lb source_debian-live ${@}
+lb source_debian ${@}
+lb source_disk ${@}
+lb source_checksums ${@}
 
 # Building images
-lb source_iso ${*}
-lb source_tar ${*}
-lb source_hdd ${*}
-lb source_virtual-hdd ${*}
+lb source_iso ${@}
+lb source_tar ${@}
+lb source_hdd ${@}
+lb source_virtual-hdd ${@}
 
 # Deconfiguring chroot
-lb chroot_archives chroot remove ${*}
-lb chroot_hostname remove ${*}
-lb chroot_resolv remove ${*}
-lb chroot_hosts remove ${*}
+lb chroot_archives chroot remove ${@}
+lb chroot_hostname remove ${@}
+lb chroot_resolv remove ${@}
+lb chroot_hosts remove ${@}
