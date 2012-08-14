@@ -98,17 +98,6 @@ then
 		# Creating the config/chroot_sources folder
 		mkdir -p "${_TEMPDIR}"/"${_BUILD}"/config/chroot_sources
 
-		# The next two tests are for unofficial third party archives
-		if [ -n "${_CUSTOM_BOOTSTRAP}" ]
-		then
-			echo "${_CUSTOM_BOOTSTRAP}" > "${_TEMPDIR}"/"${_BUILD}"/config/chroot_sources/custom.bootstrap
-		fi
-
-		if [ -n "${_CUSTOM_BINARY}" ]
-		then
-			echo "${_CUSTOM_BINARY}" > "${_TEMPDIR}"/"${_BUILD}"/config/chroot_sources/custom.binary
-		fi
-
 		_DATE_START="`date -R`"
 		echo "Begin: ${_DATE_START}" > "${_TEMPDIR}"/"${_BUILD}"/log
 
