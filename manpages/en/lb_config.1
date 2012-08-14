@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2012\-08\-10 3.0~a57-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2012\-08\-14 3.0~a57-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -348,7 +348,7 @@ defines the default options that will be appended to (almost) every gzip call du
 .IP "\fB\-\-hooks\fR \fIFILE\fR" 4
 defines which hooks available in /usr/share/live/build/examples/hooks should be activated. Normally, there are no hooks executed. Make sure you know and understood the hook before you enable it.
 .IP "\fB\-\-ignore\-system\-defaults\fR" 4
-\fBlb config\fR by default reads system defaults from /etc/live/build.conf and /etc/live/build.d when generating a new live system config directory. This is useful if you want to set global settings, such as mirror locations, and don't want to specify them all of the time.
+\fBlb config\fR by default reads system defaults from \fI/etc/live/build.conf\fR and \fI/etc/live/build/*\fR when generating a new live system config directory. This is useful if you want to set global settings, such as mirror locations, and don't want to specify them all of the time.
 .IP "\fB\-\-initramfs\fR auto|none|live\-boot|casper" 4
 sets the name of package that contains the live system specific initramfs modification. By default, auto is used, which means that at build time of the image rather than on configuration time, the value will be expanded to casper when building ubuntu systems, to live\-boot for all other systems. Using 'none' is useful if the resulting system image should not be a live image (experimental).
 .IP "\fB\-\-initramfs\-compression\fR bzip2|gzip|lzma]
@@ -502,7 +502,7 @@ Currently, command line switches can also be specified through the corresponding
 .SH FILES
 .\" FIXME
 .IP "\fBauto/config\fR" 4
-.IP "\fB/etc/live/build.conf, /etc/live/build.d\fR" 4
+.IP "\fB/etc/live/build.conf, /etc/live/build/*\fR" 4
 An optional, global configuration file for \fBlb config\fR variables. It is useful to specify a few system wide defaults, like LB_PARENT_MIRROR_BOOTSTRAP. This feature can be false by specifying the \fB\-\-ignore\-system\-defaults\fR option.
 .\" FIXME
 

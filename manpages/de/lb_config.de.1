@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2012\-08\-10 3.0~a57\-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2012\-08\-14 3.0~a57\-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -489,10 +489,10 @@ defines which hooks available in /usr/share/live/build/examples/hooks should
 be activated. Normally, there are no hooks executed. Make sure you know and
 understood the hook before you enable it.
 .IP \fB\-\-ignore\-system\-defaults\fP 4
-\fBlb config\fP by default reads system defaults from /etc/live/build.conf and
-/etc/live/build.d when generating a new live system config directory. This
-is useful if you want to set global settings, such as mirror locations, and
-don't want to specify them all of the time.
+\fBlb config\fP by default reads system defaults from \fI/etc/live/build.conf\fP
+and \fI/etc/live/build/*\fP when generating a new live system config
+directory. This is useful if you want to set global settings, such as mirror
+locations, and don't want to specify them all of the time.
 .IP "\fB\-\-initramfs\fP auto|none|live\-boot|casper" 4
 sets the name of package that contains the live system specific initramfs
 modification. By default, auto is used, which means that at build time of
@@ -795,7 +795,7 @@ GZIP_OPTIONS, no LB_ prefix is used.
 .SH FILES
 .\" FIXME
 .IP \fBauto/config\fP 4
-.IP "\fB/etc/live/build.conf, /etc/live/build.d\fP" 4
+.IP "\fB/etc/live/build.conf, /etc/live/build/*\fP" 4
 .\" FIXME
 An optional, global configuration file for \fBlb config\fP variables. It is
 useful to specify a few system wide defaults, like
