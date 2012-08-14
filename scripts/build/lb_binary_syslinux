@@ -218,7 +218,7 @@ then
 			mv binary/live/vmlinuz-* binary/live/vmlinuz
 			mv binary/live/initrd.img-* binary/live/initrd.img
 
-			sed -e "s|@FLAVOUR@|${LB_LINUX_FLAVOUR}|g" \
+			sed -e "s|@FLAVOUR@|${LB_LINUX_FLAVOURS}|g" \
 			    -e "s|@KERNEL@|/live/vmlinuz|g" \
 			    -e "s|@INITRD@|/live/initrd.img|g" \
 			    -e "s|@LB_BOOTAPPEND_LIVE@|${LB_BOOTAPPEND_LIVE}|g" \
