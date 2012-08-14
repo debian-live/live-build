@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2012-08-14 21:05+0300\n"
+"POT-Creation-Date: 2012-08-14 23:13+0300\n"
 "PO-Revision-Date: 2012-08-02 18:55+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -1786,7 +1786,7 @@ msgid ""
 "in the final image and which is the one a user would see and use. This has "
 "not necessarily to be the same that is used to build the image, e.g. if you "
 "use a local mirror but want to have an official mirror in the image. By "
-"default, 'http://cdn.debian.net/debian/' is used."
+"default, 'http://http.debian.net/debian/' is used."
 msgstr ""
 
 #. type: IP
@@ -1799,8 +1799,8 @@ msgstr ""
 #: en/lb_config.1:394
 msgid ""
 "sets the location of the debian security package mirror that should end up "
-"configured in the final image. By default, 'http://cdn.debian.net/debian-"
-"security/' is used."
+"configured in the final image. By default, 'http://security.debian.org/' is "
+"used."
 msgstr ""
 
 #. type: IP
