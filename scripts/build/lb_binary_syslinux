@@ -160,7 +160,7 @@ then
 		# Internal system copy
 		if [ -n "${LIVE_BUILD}" ]
 		then
-			_SOURCE="${LIVE_BUILD}/bootloaders/${_BOOTLOADER}"
+			_SOURCE="${LIVE_BUILD}/share/bootloaders/${_BOOTLOADER}"
 		else
 			_SOURCE="/usr/share/live/build/bootloaders/${_BOOTLOADER}"
 		fi
