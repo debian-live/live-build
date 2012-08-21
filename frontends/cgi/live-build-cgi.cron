@@ -7,8 +7,8 @@
 ## This is free software, and you are welcome to redistribute it
 ## under certain conditions; see COPYING for details.
 
-
 # Including common functions
+#( . "${LIVE_BUILD}/scripts/build.sh" > /dev/null 2>&1 || true ) || . /usr/lib/live/build.sh
 . /usr/lib/live/build.sh
 
 # Reading defaults
@@ -61,54 +61,47 @@ if Find_files ${_TEMPDIR}/*.build
 then
 	for _FILE in "${_TEMPDIR}"/*.build
 	do
-		# Pull in the variables we want from the config file.
-		# Pul in the build number
-		_BUILD=`awk -F\" '/^_BUILD=/{print $2}' ${_FILE}`
-		# Pull in the email address
-		_EMAIL=`awk -F\" '/^_EMAIL=/{print $2}' ${_FILE}`
-		# Pull in cgipackages for config/package-lists/cgipackages.list.chroot
-		_LB_CGIPACKAGES=`awk -F\" '/^_LB_CGIPACKAGES=/{print $2}' ${_FILE}`
-		# Pull in config for git clone
-		_LB_CONFIG=`awk -F\" '/^_LB_CONFIG=/{print $2}' ${_FILE}`
-		# Pull in the remote address, atchitecture, distribution, and package-lists.
-		_REMOTE_ADDR=`awk -F\" '/^REMOTE_ADDR=/{print $2}' ${_FILE}`
-		_LB_ARCHITECTURES=`awk -F\" '/^LB_ARCHITECTURES=/{print $2}' ${_FILE}`
-		_LB_DISTRIBUTION=`awk -F\" '/^LB_DISTRIBUTION=/{print $2}' ${_FILE}`
-		# Pull in the custom bootstrap
-		_CUSTOM_BOOTSTRAP=`awk -F\" '/^_CUSTOM_BOOTSTRAP=/{print $2}' ${_FILE}`
-		# Pull in the custom binary
-		_CUSTOM_BINARY=`awk -F\" '/^_CUSTOM_BINARY=/{print $2}' ${_FILE}`
-
-		# Drop out some build data for information if something goes wrong.
-		echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build-cgi: begin web build (${_BUILD})." >> /var/log/live
+		# Pull in variables from the build file.
+		. "${_FILE}"
 
 		# Clone the git config to target build directory
 		git clone ${_LB_CONFIG} "${_TEMPDIR}"/"${_BUILD}" >> /var/log/live
 		_ERRORGIT="${?}"
 
-		# Creating build directory and the config/package-lists
+		# Drop out some build data for information if something goes wrong.
+		echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build-cgi: begin web build (${_BUILD})." >> /var/log/live
+
+		# Creating directory for the config/package-lists
 		mkdir -p "${_TEMPDIR}"/"${_BUILD}"/config/package-lists
 
-		# The next two tests are for unofficial third party archives
+		# Add cgipackages.list.chroot
 		if [ -n "${_LB_CGIPACKAGES}" ]
 		then
 			echo "${_LB_CGIPACKAGES}" > "${_TEMPDIR}"/"${_BUILD}"/config/package-lists/cgipackages.list.chroot
 		fi
 
-		# Creating the config/chroot_sources folder
-		mkdir -p "${_TEMPDIR}"/"${_BUILD}"/config/chroot_sources
-
 		_DATE_START="`date -R`"
 		echo "Begin: ${_DATE_START}" > "${_TEMPDIR}"/"${_BUILD}"/log
 
-		# Generating image here
-		cd "${_TEMPDIR}"/"${_BUILD}"
-		# Stack on config file params to build dir
-		lb config -c ${_FILE} >> "${_TEMPDIR}"/"${_BUILD}"/log 2>&1
-		_ERRORCONFIG="${?}"
-		# Run build
-		lb build >> "${_TEMPDIR}"/"${_BUILD}"/log 2>&1
-		_ERRORBUILD="${?}"
+		# Generating config here
+		if [ "${_ERRORGIT}" -eq "0" ]
+		then
+			cd "${_TEMPDIR}"/"${_BUILD}"
+			# Do config with git and stack on config file params to build
+			lb config --distribution "${LB_DISTRIBUTION}" --architectures "${LB_ARCHITECTURES}" --archive-areas "${LB_ARCHIVE_AREAS}" --chroot-filesystem "${LB_CHROOT_FILESYSTEM}" --linux-flavours "${LB_LINUX_FLAVOURS}" --security "${LB_SECURITY}" --apt-indices "${LB_APT_INDICES}" --bootappend-install "${LB_BOOTAPPEND_INSTALL}" --bootappend-live "${LB_BOOTAPPEND_LIVE}" --bootloader "${LB_BOOTLOADER}" --debian-installer "${LB_DEBIAN_INSTALLER}" --iso-application "${LB_ISO_APPLICATION}" --iso-preparer "${LB_ISO_PREPARER}" --iso-publisher "${LB_ISO_PUBLISHER}" --iso-volume "${LB_ISO_VOLUME}" --memtest "${LB_MEMTEST}" --net-root-path "${LB_NET_ROOT_PATH}" --net-root-server "${LB_NET_ROOT_SERVER}" --source-images "${LB_SOURCE_IMAGES}" --source "${LB_SOURCE}"
+			_ERRORCONFIG="${?}"
+		else
+			echo "Config stage skipped. The git clone produced an error: ${_ERRORGIT}" > "${_TEMPDIR}"/"${_BUILD}"/log
+		fi
+
+		# Run build if config went ok
+		if [ "${_ERRORCONFIG}" -eq "0" ]
+		then
+			lb build >> "${_TEMPDIR}"/"${_BUILD}"/log 2>&1
+			_ERRORBUILD="${?}"
+		else
+			echo "Build stage skipped. Config produced an error: ${_ERRORCONFIG}" > "${_TEMPDIR}"/"${_BUILD}"/log
+		fi
 
 		_DATE_END="`date -R`"
 		echo "End: ${_DATE_END}" >> "${_TEMPDIR}"/"${_BUILD}"/log
@@ -120,10 +113,10 @@ then
 		if [ "${_ERRORGIT}" -eq "0" ] && [ "${_ERRORCONFIG}" -eq "0" ] && [ "${_ERRORBUILD}" -eq "0" ]
 		then
 			_STATUS="maybe-successful"
-			echo "${_REMOTE_ADDR} - - `date +[%d/%b/%Y:%H:%m:%S\ %z]` \"${_BUILD} ${_LB_ARCHITECTURES}/${_LB_DISTRIBUTION}/${_LB_CGIPACKAGES}\" 200 - \"-\" \"\"">>/var/log/live-cgi.builds
+			echo "${REMOTE_ADDR} - - `date +[%d/%b/%Y:%H:%m:%S\ %z]` \"${_BUILD} ${LB_ARCHITECTURES}/${LB_DISTRIBUTION}/${_LB_CGIPACKAGES}\" 200 - \"-\" \"\"">>/var/log/live-cgi.builds
 		else
 			_STATUS="maybe-failed"
-			echo "${_REMOTE_ADDR} - - `date +[%d/%b/%Y:%H:%m:%S\ %z]` \"${_BUILD} ${_LB_ARCHITECTURES}/${_LB_DISTRIBUTION}/${_LB_CGIPACKAGES}\" 404 - \"-\" \"\"">>/var/log/live-cgi.builds
+			echo "${REMOTE_ADDR} - - `date +[%d/%b/%Y:%H:%m:%S\ %z]` \"${_BUILD} ${LB_ARCHITECTURES}/${LB_DISTRIBUTION}/${_LB_CGIPACKAGES}\" 404 - \"-\" \"\"">>/var/log/live-cgi.builds
 		fi
 
 		sed -e "s/BUILD/${_BUILD}/g" \
