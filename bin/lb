@@ -74,7 +74,7 @@ case "${1}" in
 			exit 1
 		fi
 
-		Echo "[%s] %s" "$(date +'%F %T')" "${COMMAND} ${@}"
+		Echo "[%s] %s" "$(date +'%F %T')" "${COMMAND} $(echo ${@})"
 		${ENV} exec "${SCRIPT}" "${@}"
 		;;
 esac
