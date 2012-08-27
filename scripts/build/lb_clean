@@ -57,10 +57,10 @@ for ARGUMENT in ${ARGUMENTS}
 do
 	case "${ARGUMENT}" in
 		--all)
-			LB=1 "${0}" noauto --chroot
-			LB=1 "${0}" noauto --binary
-			LB=1 "${0}" noauto --stage
-			LB=1 "${0}" noauto --source
+			"${0}" noauto --chroot
+			"${0}" noauto --binary
+			"${0}" noauto --stage
+			"${0}" noauto --source
 
 			rmdir --ignore-fail-on-non-empty auto > /dev/null 2>&1 || true
 			;;
@@ -109,13 +109,13 @@ do
 			;;
 
 		--remove)
-			LB=1 "${0}" --all
+			"${0}" --all
 			rm -rf cache/packages.*
 			;;
 
 		--purge)
-			LB=1 "${0}" --all
-			LB=1 "${0}" --cache
+			"${0}" --all
+			"${0}" --cache
 
 			if [ -e auto/config ]
 			then

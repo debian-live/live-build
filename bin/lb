@@ -75,6 +75,6 @@ case "${1}" in
 		fi
 
 		Echo "[%s] %s" "$(date +'%F %T')" "${COMMAND} ${@}"
-		LB=1 ${ENV} exec "${SCRIPT}" "${@}"
+		${ENV} exec "${SCRIPT}" "${@}"
 		;;
 esac
