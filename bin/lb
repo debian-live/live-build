@@ -57,6 +57,10 @@ case "${1}" in
 		then
 			# User has live-build copied locally in the system
 			SCRIPT="${LIVE_BUILD}/scripts/build/${COMMAND}"
+		elif [ -x "local/live-build/scripts/build/${COMMAND}" ]
+		then
+			# User has live-build embedded in the config
+			SCRIPT="local/live-build/scripts/build/${COMMAND}"
 		elif [ -x /usr/lib/live/build/${COMMAND} ]
 		then
 			# User has live-build installed in the system

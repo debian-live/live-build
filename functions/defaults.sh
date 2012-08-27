@@ -15,8 +15,7 @@ Set_defaults ()
 	if [ -e local/live-build ]
 	then
 		LIVE_BUILD="${LIVE_BUILD:-${PWD}/local/live-build}"
-		PATH="${PWD}/local/live-build/scripts/build:${PATH}"
-		export LIVE_BUILD PATH
+		export LIVE_BUILD
 	fi
 
 	# Setting system type
