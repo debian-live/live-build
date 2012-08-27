@@ -43,17 +43,18 @@ Create_lockfile .lock
 # Running hooks
 for _HOOK in ${LB_BINARY_HOOKS}
 do
-		for LOCATION in "${LIVE_BUILD}/hooks" /usr/share/live/build/hooks
+	for LOCATION in "${LIVE_BUILD}/hooks" /usr/share/live/build/hooks
+	do
+		for FILE in "${LOCATION}"/???-"${_HOOK}".binary
 		do
-			if [ -e "${LOCATION}/hooks/???-${_HOOK}.binary" ]
+			if [ -e "${FILE}" ]
 			then
 				cd binary
-				./"${LOCATION}/hooks/???-${_HOOK}.binary" || { Echo_error "${_HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
+				./"${FILE}" || { Echo_error "${_HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
 				cd "${OLDPWD}"
-
-				continue
 			fi
 		done
+	done
 done
 
 ## Processing local hooks

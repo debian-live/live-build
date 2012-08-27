@@ -54,12 +54,14 @@ for _HOOK in ${LB_CHROOT_HOOKS}
 do
 	for LOCATION in "${LIVE_BUILD}/hooks" /usr/share/live/build/hooks
 	do
-		if [ -e "${LOCATION}/hooks/???-${_HOOK}.binary" ]
-		then
-			mkdir -p chroot/root/lb_chroot_hooks
-			cp "${LOCATION}"/hooks/???-"${_HOOK}".chroot chroot/root/lb_chroot_hooks
-			continue
-		fi
+		for FILE in "${LOCATION}"/???-"${_HOOK}".chroot
+		do
+			if [ -e "${FILE}" ]
+			then
+				mkdir -p chroot/root/lb_chroot_hooks
+				cp "${FILE}" chroot/root/lb_chroot_hooks
+			fi
+		done
 	done
 done
 
