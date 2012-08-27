@@ -73,7 +73,6 @@ else
 
 	# Advanced bootstrap options
 	LB_ARCHITECTURES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])architectures=[0-9a-z]+' | cut -f 2 -d '=' | head -n1)
-	LB_BOOTSTRAP_FLAVOUR=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])bootstrap_flavour=[a-z]+' | cut -f 2 -d '=' | head -n1)
 	LB_ARCHIVE_AREAS=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])archive_areas=[a-z]+' | cut -f 2 -d '=' | head -n1)
 
 	# Advanced chroot options
@@ -130,7 +129,6 @@ else
 	    -e "s#_LB_CONFIG#${_LB_CONFIG}#" \
 	    -e "s/_LB_CGIPACKAGES/${_LB_CGIPACKAGES}/" \
 	    -e "s/LB_ARCHITECTURES/${LB_ARCHITECTURES}/" \
-	    -e "s/LB_BOOTSTRAP_FLAVOUR/${LB_BOOTSTRAP_FLAVOUR}/" \
 	    -e "s/LB_ARCHIVE_AREAS/${LB_ARCHIVE_AREAS}/" \
 	    -e "s/LB_CHROOT_FILESYSTEM/${LB_CHROOT_FILESYSTEM}/" \
 	    -e "s/LB_LINUX_FLAVOURS/${LB_LINUX_FLAVOURS}/" \

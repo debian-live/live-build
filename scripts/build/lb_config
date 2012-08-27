@@ -34,7 +34,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--bootappend-failsafe PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootloader grub|syslinux|yaboot]\n\
 \t    [--bootstrap cdebootstrap|cdebootstrap-static|debootstrap|copy]\n\
-\t    [-f|--bootstrap-flavour minimal|standard]\n\
 \t    [--bootstrap-keyring PACKAGE]\n\
 \t    [--cache true|false]\n\
 \t    [--cache-indices true|false]\n\
@@ -146,7 +145,7 @@ Local_arguments ()
 		apt-pipeline:,apt-recommends:,apt-secure:,apt-source-archives:,bootstrap:,cache:,cache-indices:,cache-packages:,
 		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
 		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,system:,root-command:,use-fakeroot:,tasksel:,
-		templates:,architectures:,bootstrap-flavour:,bootstrap-keyring:,clean,
+		templates:,architectures:,bootstrap-keyring:,clean,
 		distribution:,parent-distribution:,parent-debian-installer-distribution:,parent-mirror-bootstrap:,parent-mirror-chroot:,parent-mirror-chroot-security:,parent-mirror-chroot-volatile:,parent-mirror-chroot-backports:,parent-mirror-binary:,
 		parent-mirror-binary-security:,parent-mirror-binary-volatile:,parent-mirror-binary-backports:,parent-mirror-debian-installer:,
 		mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-chroot-backports:,mirror-binary:,
@@ -368,11 +367,6 @@ Local_arguments ()
 			# config/bootstrap
 			-a|--architectures)
 				LB_ARCHITECTURES="${2}"
-				shift 2
-				;;
-
-			-f|--bootstrap-flavour)
-				LB_BOOTSTRAP_FLAVOUR="${2}"
 				shift 2
 				;;
 
@@ -1106,10 +1100,6 @@ LB_BOOTSTRAP_INCLUDE="${LB_BOOTSTRAP_INCLUDE}"
 # \$LB_BOOTSTRAP_EXCLUDE: exclude packages on base
 # (Default: empty)
 LB_BOOTSTRAP_EXCLUDE="${LB_BOOTSTRAP_EXCLUDE}"
-
-# \$LB_BOOTSTRAP_FLAVOUR: select flavour to use
-# (Default: empty)
-LB_BOOTSTRAP_FLAVOUR="${LB_BOOTSTRAP_FLAVOUR}"
 
 # \$LB_BOOTSTRAP_KEYRING: set distribution keyring
 # (Default: empty)

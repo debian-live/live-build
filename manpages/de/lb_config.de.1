@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2012\-08\-14 3.0~a57\-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2012\-08\-27 3.0~a57\-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -47,8 +47,6 @@
   [\fB\-\-bootloader\fP grub|syslinux|yaboot]
 .br
   [\fB\-\-bootstrap\fP cdebootstrap|cdebootstrap\-static|debootstrap|copy]
-.br
-  [\-f|\fB\-\-bootstrap\-flavour\fP minimal|standard]
 .br
   [\fB\-\-bootstrap\-keyring\fP \fIPACKAGE\fP]
 .br
@@ -354,10 +352,6 @@ debootstrap. Note that if you set the bootstrap program to copy, then your
 host system is copied. This can be useful if you want to convert/clone your
 existing host system into a live system, however, make sure you do have
 enough free space as this can, depending on your host system, get quite big.
-.IP "\-f|\fB\-\-bootstrap\-flavour\fP minimal|standard" 4
-defines if the bootstrap program should bootstrap the standard system (all
-packages of priority required and important, which is the default) or a
-minimal system (only packages of priority required, plus apt).
 .IP "\fB\-\-bootstrap\-keyring\fP \fIPACKAGE\fP" 4
 sets the archive keyring package to be used. Default is
 debian\-archive\-keyring.

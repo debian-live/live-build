@@ -388,13 +388,6 @@ Set_defaults ()
 	# Exclude packages on base
 	# LB_BOOTSTRAP_EXCLUDE
 
-	# Setting flavour value
-	case "${LB_BOOTSTRAP}" in
-		cdebootstrap)
-			LB_BOOTSTRAP_FLAVOUR="${LB_BOOTSTRAP_FLAVOUR:-standard}"
-			;;
-	esac
-
 	# Setting bootstrap keyring
 	# LB_BOOTSTRAP_KEYRING
 

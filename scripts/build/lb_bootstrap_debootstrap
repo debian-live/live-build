@@ -81,12 +81,6 @@ case "${LB_USE_FAKEROOT}" in
 	true)
 		DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=fakechroot"
 		;;
-	false)
-		if [ -n "${LB_BOOTSTRAP_FLAVOUR}" ]
-		then
-			DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=${LB_BOOTSTRAP_FLAVOUR}"
-		fi
-		;;
 esac
 
 if [ "${_VERBOSE}" = "true" ]
