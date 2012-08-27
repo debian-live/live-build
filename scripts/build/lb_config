@@ -140,7 +140,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 
 Local_arguments ()
 {
-	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-options:,aptitute-options:,
+	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-options:,aptitute-options:debootstrap-options:,cdebootstrap-ptions,
 		apt-pipeline:,apt-recommends:,apt-secure:,apt-source-archives:,bootstrap:,cache:,cache-indices:,cache-packages:,
 		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
 		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,system:,root-command:,use-fakeroot:,tasksel:,
@@ -270,6 +270,16 @@ Local_arguments ()
 
 			--bootstrap)
 				LB_BOOTSTRAP="${2}"
+				shift 2
+				;;
+
+			--debootstrap-options)
+				DEBOOTSTRAP_OPTIONS="${2}"
+				shift 2
+				;;
+
+			--cdebootstrap-options)
+				CDEBOOTSTRAP_OPTIONS="${2}"
 				shift 2
 				;;
 
@@ -1075,6 +1085,8 @@ _QUIET="${_QUIET}"
 # Internal stuff (FIXME)
 APT_OPTIONS="${APT_OPTIONS}"
 APTITUDE_OPTIONS="${APTITUDE_OPTIONS}"
+DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS}"
+CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS}"
 GZIP_OPTIONS="${GZIP_OPTIONS}"
 ISOHYBRID_OPTIONS="${ISOHYBRID_OPTIONS}"
 EOF
