@@ -50,7 +50,7 @@ Set_defaults ()
 	# Setting distribution name
 	case "${LB_MODE}" in
 		progress)
-			LB_DISTRIBUTION="${LB_DISTRIBUTION:-artax}"
+			LB_DISTRIBUTION="${LB_DISTRIBUTION:-baureo}"
 			LB_DERIVATIVE="true"
 			;;
 
