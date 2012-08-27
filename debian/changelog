@@ -1,3 +1,62 @@
+live-build (3.0~a58-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Simplyfing sourcing of build.sh and getting away with the broken
+    subshell construct.
+
+  [ Richard Nelson ]
+  * Remove frontend/cgi unofficial custom binary and custom bootstrap
+    options.
+
+  [ Daniel Baumann ]
+  * Correcting typo in binary_syslinux when writing the flavour name to
+    the config files (Closes: #684865).
+  * Correcting fallback for default binary volatile mirror on ubuntu,
+    thanks to Luigi Capriotti <l.capriotti@xbmc.org>.
+  * Correcting wrong path to syslinux configuration files when using
+    live-build from a local git clone, thanks to Raphael Hertzog
+    <hertzog@debian.org> (Closes: #684893).
+  * Switching back to use the more common ${@} instead of ${*}, it's not
+    required in current lb_clean anymore.
+  * Using /etc/live/build/*.conf instead of /etc/live/build.d/*.conf for
+    consistency reasons.
+  * Moving from cdn.debian.net to http.debian.net as binary mirror.
+
+  [ Richard Nelson ]
+  * frontend/cgi rename BINARY_INDICES to APT_INDICES
+  * frontend/cgi only source /usr/lib/live/build.sh
+  * frontend/cgi cleanup and support for clone, config, and build on
+    cron job.
+  * frontend/cgi cleanup remarked line of common function source from
+    last commit on l-b-c.cron.
+
+  [ Daniel Baumann ]
+  * Improving check for missing apt-ftparchive to check for the actual
+    file, rather than to check for a possible missleading bootstrap
+    flavour.
+  * Removing bootstrap-flavour option (Closes: #685675).
+  * Removing bootstrap-include and bootstrap-exclude options.
+  * Removing bootstrap-keyring option.
+  * Correcting wrong bootstrap-qemu-exclude variable in defaults.
+  * Applying patch from Colin Watson <cjwatson@ubuntu.com> to correct
+    chroot hooks execution (Closes: #685534).
+  * Exposing --debootstrap-options and --cdebootstrap-options publicly.
+  * Adding some comments about the different locations of live-build in
+    the central lb wrapper.
+  * Calling local live-build embedded in config directly rather than to
+    adjust path.
+  * Removing old LB= hack when wrapper was not mandatory.
+  * Moving aborting when no bootstrap tool is installed from defaults to
+    the respective bootstrap script.
+  * Correcting printf call cosmetically in central wrapper when
+    prepending date and time for each command to not choke upon multiple
+    arguments.
+  * Making build.sh sourcing more robust (Closes: #684896).
+  * Dropping lb prefix from live-build scripts, not needed anymore.
+  * Setting default progress distribution from artax to baureo.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 27 Aug 2012 16:33:10 +0200
+
 live-build (3.0~a57-1) unstable; urgency=low
 
   [ Daniel Baumann ]
