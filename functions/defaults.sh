@@ -377,17 +377,6 @@ Set_defaults ()
 		fi
 	fi
 
-	# Include packages on base
-	case "${LB_MODE}" in
-		ubuntu|kubuntu)
-			LB_BOOTSTRAP_INCLUDE="${LB_BOOTSTRAP_INCLUDE:-gnupg}"
-			;;
-
-	esac
-
-	# Exclude packages on base
-	# LB_BOOTSTRAP_EXCLUDE
-
 	# Setting bootstrap keyring
 	# LB_BOOTSTRAP_KEYRING
 

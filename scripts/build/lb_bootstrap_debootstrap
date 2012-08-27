@@ -67,16 +67,6 @@ then
 	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --components=$(echo ${LB_ARCHIVE_AREAS} | sed -e 's| |,|g')"
 fi
 
-if [ -n "${LB_BOOTSTRAP_INCLUDE}" ]
-then
-	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --include=$(echo ${LB_BOOTSTRAP_INCLUDE} | sed 's|  *|,|g')"
-fi
-
-if [ -n "${LB_BOOTSTRAP_EXCLUDE}" ]
-then
-	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --exclude=$(echo ${LB_BOOTSTRAP_EXCLUDE} | sed 's|  *|,|g')"
-fi
-
 case "${LB_USE_FAKEROOT}" in
 	true)
 		DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=fakechroot"

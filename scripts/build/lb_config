@@ -1093,14 +1093,6 @@ cat > config/bootstrap << EOF
 # (Default: autodetected)
 LB_ARCHITECTURES="${LB_ARCHITECTURES}"
 
-# \$LB_BOOTSTRAP_INCLUDE: include packages on base
-# (Default: empty)
-LB_BOOTSTRAP_INCLUDE="${LB_BOOTSTRAP_INCLUDE}"
-
-# \$LB_BOOTSTRAP_EXCLUDE: exclude packages on base
-# (Default: empty)
-LB_BOOTSTRAP_EXCLUDE="${LB_BOOTSTRAP_EXCLUDE}"
-
 # \$LB_BOOTSTRAP_KEYRING: set distribution keyring
 # (Default: empty)
 LB_BOOTSTRAP_KEYRING="${LB_BOOTSTRAP_KEYRING}"
