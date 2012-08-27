@@ -43,8 +43,6 @@
 .br
 	[\fB\-\-bootstrap\fR cdebootstrap|cdebootstrap-static|debootstrap|copy]
 .br
-	[\fB\-\-bootstrap\-keyring\fR \fIPACKAGE\fR]
-.br
 	[\fB\-\-cache\fR true|false]
 .br
 	[\fB\-\-cache\-indices\fR true|false]
@@ -285,8 +283,6 @@ sets boot parameters specific to debian\-live. A complete list of boot parameter
 defines which bootloader is beeing used in the generated image. This has only an effect if the selected binary image type does allow to choose the bootloader. For example, if you build a iso, always syslinux (or more precise, isolinux) is being used. Also note that some combinations of binary images types and bootloaders may be possible but live\-build does not support them yet. \fBlb config\fR will fail to create such a not yet supported configuration and give a explanation about it. For hdd images on amd64 and i386, the default is syslinux. yaboot is only used on powerpc.
 .IP "\fB\-\-bootstrap\fR cdebootstrap|cdebootstrap-static|debootstrap|copy" 4
 defines which program is used to bootstrap the debian chroot, default is debootstrap. Note that if you set the bootstrap program to copy, then your host system is copied. This can be useful if you want to convert/clone your existing host system into a live system, however, make sure you do have enough free space as this can, depending on your host system, get quite big.
-.IP "\fB\-\-bootstrap\-keyring\fR \fIPACKAGE\fR" 4
-sets the archive keyring package to be used. Default is debian\-archive\-keyring.
 .IP "\fB\-\-cache\fR true|false" 4
 defines globally if any cache should be used at all. Different caches can be controled through the their own options.
 .IP "\fB\-\-cache\-indices\fR true|false" 4

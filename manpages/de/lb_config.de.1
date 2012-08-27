@@ -48,8 +48,6 @@
 .br
   [\fB\-\-bootstrap\fP cdebootstrap|cdebootstrap\-static|debootstrap|copy]
 .br
-  [\fB\-\-bootstrap\-keyring\fP \fIPACKAGE\fP]
-.br
   [\fB\-\-cache\fP true|false]
 .br
   [\fB\-\-cache\-indices\fP true|false]
@@ -352,9 +350,6 @@ debootstrap. Note that if you set the bootstrap program to copy, then your
 host system is copied. This can be useful if you want to convert/clone your
 existing host system into a live system, however, make sure you do have
 enough free space as this can, depending on your host system, get quite big.
-.IP "\fB\-\-bootstrap\-keyring\fP \fIPACKAGE\fP" 4
-sets the archive keyring package to be used. Default is
-debian\-archive\-keyring.
 .IP "\fB\-\-cache\fP true|false" 4
 defines globally if any cache should be used at all. Different caches can be
 controled through the their own options.

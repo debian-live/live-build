@@ -377,9 +377,6 @@ Set_defaults ()
 		fi
 	fi
 
-	# Setting bootstrap keyring
-	# LB_BOOTSTRAP_KEYRING
-
 	# Setting mirror to fetch packages from
 	case "${LB_MODE}" in
 		debian)
