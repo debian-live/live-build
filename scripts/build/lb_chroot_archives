@@ -340,9 +340,9 @@ EOF
 			if Find_files chroot/root/packages/*.deb
 			then
 				# If we bootstrapped a minimal chroot, we need
-				# to install apt-utils before we have have
+				# to install apt-utils before we have
 				# completed all the indices.
-				if [ "${LB_BOOTSTRAP_FLAVOUR}" != "standard" ]
+				if [ ! -e chroot/usr/bin/apt-ftparchive ]
 				then
 					Apt chroot update
 				fi
