@@ -165,9 +165,6 @@ Set_defaults ()
 		elif [ -x "/usr/bin/cdebootstrap" ]
 		then
 			LB_BOOTSTRAP="cdebootstrap"
-		else
-			Echo_error "Cannot find /usr/sbin/debootstrap or /usr/bin/cdebootstrap. Please install debootstrap or cdebootstrap, or specify an alternative bootstrapping utility."
-			exit 1
 		fi
 	fi
 
