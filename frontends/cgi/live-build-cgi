@@ -9,7 +9,7 @@
 
 
 # Including common functions
-( . "${LIVE_BUILD}/scripts/build.sh" > /dev/null 2>&1 || true ) || . /usr/lib/live/build.sh
+. /usr/lib/live/build.sh
 
 # Reading defaults
 if [ -r /etc/default/live-build-cgi ]
@@ -73,7 +73,6 @@ else
 
 	# Advanced bootstrap options
 	LB_ARCHITECTURES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])architectures=[0-9a-z]+' | cut -f 2 -d '=' | head -n1)
-	LB_BOOTSTRAP_FLAVOUR=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])bootstrap_flavour=[a-z]+' | cut -f 2 -d '=' | head -n1)
 	LB_ARCHIVE_AREAS=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])archive_areas=[a-z]+' | cut -f 2 -d '=' | head -n1)
 
 	# Advanced chroot options
@@ -82,7 +81,7 @@ else
 	LB_SECURITY=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])security=[a-z]+' | cut -f 2 -d '=' | head -n1)
 
 	# Advanced binary options
-	LB_BINARY_INDICES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])binary_indices=[a-z]+' | cut -f 2 -d '=' | head -n1)
+	LB_APT_INDICES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])apt_indices=[a-z]+' | cut -f 2 -d '=' | head -n1)
 	LB_BOOTAPPEND_INSTALL=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])bootappend_install=[-0-9a-zA-Z. _+=:/]+' | cut -f2- -d '=' | head -n1)
 	LB_BOOTAPPEND_LIVE=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])bootappend_live=[-0-9a-zA-Z. _+=:/]+' | cut -f2- -d '=' | head -n1)
 	LB_BOOTLOADER=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])bootloader=[a-z]+' | cut -f 2 -d '=' | head -n1)
@@ -98,10 +97,6 @@ else
 	# Advanced source options
 	LB_SOURCE=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])source=[a-z]+' | cut -f 2 -d '=' | head -n1)
 	LB_SOURCE_IMAGES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])source_images=[a-z]+' | cut -f 2 -d '=' | head -n1)
-
-	# Unofficial options
-	_CUSTOM_BOOTSTRAP=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])custom_bootstrap=[-0-9a-zA-Z.~:/_]+' | cut -f 2 -d '=' | head -n1)
-	_CUSTOM_BINARY=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])custom_binary=[-0-9a-zA-Z.~:/_]+' | cut -f 2 -d '=' | head -n1)
 
 	# FIXME: filter invalid options
 	unset QUERY_STRING
@@ -134,12 +129,11 @@ else
 	    -e "s#_LB_CONFIG#${_LB_CONFIG}#" \
 	    -e "s/_LB_CGIPACKAGES/${_LB_CGIPACKAGES}/" \
 	    -e "s/LB_ARCHITECTURES/${LB_ARCHITECTURES}/" \
-	    -e "s/LB_BOOTSTRAP_FLAVOUR/${LB_BOOTSTRAP_FLAVOUR}/" \
 	    -e "s/LB_ARCHIVE_AREAS/${LB_ARCHIVE_AREAS}/" \
 	    -e "s/LB_CHROOT_FILESYSTEM/${LB_CHROOT_FILESYSTEM}/" \
 	    -e "s/LB_LINUX_FLAVOURS/${LB_LINUX_FLAVOURS}/" \
 	    -e "s/LB_SECURITY/${LB_SECURITY}/" \
-	    -e "s/LB_BINARY_INDICES/${LB_BINARY_INDICES}/" \
+	    -e "s/LB_APT_INDICES/${LB_APT_INDICES}/" \
 	    -e "s#LB_BOOTAPPEND_INSTALL#${LB_BOOTAPPEND_INSTALL}#" \
 	    -e "s#LB_BOOTAPPEND_LIVE#${LB_BOOTAPPEND_LIVE}#" \
 	    -e "s/LB_BOOTLOADER/${LB_BOOTLOADER}/" \
@@ -154,8 +148,6 @@ else
 	    -e "s#SERVER#${_SERVER}#g" \
 	    -e "s/LB_SOURCE_IMAGES/${LB_SOURCE_IMAGES}/" \
 	    -e "s/LB_SOURCE/${LB_SOURCE}/" \
-	    -e "s#CUSTOM_BOOTSTRAP#${_CUSTOM_BOOTSTRAP}#" \
-	    -e "s#CUSTOM_BINARY#${_CUSTOM_BINARY}#" \
 	"${_TEMPLATES}"/build.html
 
 	# Creating temporary directory
@@ -191,7 +183,7 @@ LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS}"
 LB_SECURITY="${LB_SECURITY}"
 
 # Advanced binary options
-LB_BINARY_INDICES="${LB_BINARY_INDICES}"
+LB_APT_INDICES="${LB_APT_INDICES}"
 LB_BOOTAPPEND_INSTALL="${LB_BOOTAPPEND_INSTALL}"
 LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE}"
 LB_BOOTLOADER="${LB_BOOTLOADER}"
@@ -208,14 +200,10 @@ LB_NET_ROOT_SERVER="${LB_NET_ROOT_SERVER}"
 LB_SOURCE_IMAGES="${LB_SOURCE_IMAGES}"
 LB_SOURCE="${LB_SOURCE}"
 
-# Unofficial options
-_CUSTOM_BOOTSTRAP="${_CUSTOM_BOOTSTRAP}"
-_CUSTOM_BINARY="${_CUSTOM_BINARY}"
-
 EOF
 
 	echo "$(date +%b\ %d\ %H:%M:%S) ${_HOSTNAME} live-build-cgi: add web build (${_BUILD}) from ${REMOTE_ADDR}." >> /var/log/live
-	echo "$(date +%b\ %d\ %H:%M:%S) ${_HOSTNAME} live-build-cgi: options ${_BUILD} |email ${_EMAIL}|binary_images ${LB_BINARY_IMAGES}|distribution ${LB_DISTRIBUTION}|config ${_LB_CONFIG}|cgipackages ${_LB_CGIPACKAGES}|architectures ${LB_ARCHITECTURES}|archive_areas ${LB_ARCHIVE_AREAS}|chroot_filesystem ${LB_CHROOT_FILESYSTEM}|linux_flavours ${LB_LINUX_FLAVOURS}|security ${LB_SECURITY}|binary_indices ${LB_BINARY_INDICES}|bootappend_install ${LB_BOOTAPPEND_INSTALL}|bootappend_live ${LB_BOOTAPPEND_LIVE}|bootloader ${LB_BOOTLOADER}|debian_installer ${LB_DEBIAN_INSTALLER}|iso_application ${LB_ISO_APPLICATION}|iso_preparer ${LB_ISO_PREPARER}|iso_publisher ${LB_ISO_PUBLISHER}|iso_volume ${LB_ISO_VOLUME}|memtest ${LB_MEMTEST}|net_path ${LB_NET_ROOT_PATH}|net_server ${LB_NET_ROOT_SERVER}|source_images ${LB_SOURCE_IMAGES}|sources ${LB_SOURCE}|custom_bootstrap ${_CUSTOM_BOOTSTRAP}|custom_binary ${_CUSTOM_BINARY}" >> /var/log/live
+	echo "$(date +%b\ %d\ %H:%M:%S) ${_HOSTNAME} live-build-cgi: options ${_BUILD} |email ${_EMAIL}|binary_images ${LB_BINARY_IMAGES}|distribution ${LB_DISTRIBUTION}|config ${_LB_CONFIG}|cgipackages ${_LB_CGIPACKAGES}|architectures ${LB_ARCHITECTURES}|archive_areas ${LB_ARCHIVE_AREAS}|chroot_filesystem ${LB_CHROOT_FILESYSTEM}|linux_flavours ${LB_LINUX_FLAVOURS}|security ${LB_SECURITY}|apt_indices ${LB_APT_INDICES}|bootappend_install ${LB_BOOTAPPEND_INSTALL}|bootappend_live ${LB_BOOTAPPEND_LIVE}|bootloader ${LB_BOOTLOADER}|debian_installer ${LB_DEBIAN_INSTALLER}|iso_application ${LB_ISO_APPLICATION}|iso_preparer ${LB_ISO_PREPARER}|iso_publisher ${LB_ISO_PUBLISHER}|iso_volume ${LB_ISO_VOLUME}|memtest ${LB_MEMTEST}|net_path ${LB_NET_ROOT_PATH}|net_server ${LB_NET_ROOT_SERVER}|source_images ${LB_SOURCE_IMAGES}|sources ${LB_SOURCE}" >> /var/log/live
 fi
 
 sed -e "s/VERSION/${VERSION}/" "${_TEMPLATES}"/footer.html

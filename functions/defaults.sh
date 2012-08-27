@@ -15,8 +15,7 @@ Set_defaults ()
 	if [ -e local/live-build ]
 	then
 		LIVE_BUILD="${LIVE_BUILD:-${PWD}/local/live-build}"
-		PATH="${PWD}/local/live-build/scripts/build:${PATH}"
-		export LIVE_BUILD PATH
+		export LIVE_BUILD
 	fi
 
 	# Setting system type
@@ -51,7 +50,7 @@ Set_defaults ()
 	# Setting distribution name
 	case "${LB_MODE}" in
 		progress)
-			LB_DISTRIBUTION="${LB_DISTRIBUTION:-artax}"
+			LB_DISTRIBUTION="${LB_DISTRIBUTION:-baureo}"
 			LB_DERIVATIVE="true"
 			;;
 
@@ -166,9 +165,6 @@ Set_defaults ()
 		elif [ -x "/usr/bin/cdebootstrap" ]
 		then
 			LB_BOOTSTRAP="cdebootstrap"
-		else
-			Echo_error "Cannot find /usr/sbin/debootstrap or /usr/bin/cdebootstrap. Please install debootstrap or cdebootstrap, or specify an alternative bootstrapping utility."
-			exit 1
 		fi
 	fi
 
@@ -377,27 +373,6 @@ Set_defaults ()
 		fi
 	fi
 
-	# Include packages on base
-	case "${LB_MODE}" in
-		ubuntu|kubuntu)
-			LB_BOOTSTRAP_INCLUDE="${LB_BOOTSTRAP_INCLUDE:-gnupg}"
-			;;
-
-	esac
-
-	# Exclude packages on base
-	# LB_BOOTSTRAP_EXCLUDE
-
-	# Setting flavour value
-	case "${LB_BOOTSTRAP}" in
-		cdebootstrap)
-			LB_BOOTSTRAP_FLAVOUR="${LB_BOOTSTRAP_FLAVOUR:-standard}"
-			;;
-	esac
-
-	# Setting bootstrap keyring
-	# LB_BOOTSTRAP_KEYRING
-
 	# Setting mirror to fetch packages from
 	case "${LB_MODE}" in
 		debian)
@@ -512,7 +487,7 @@ Set_defaults ()
 	# Setting mirror which ends up in the image
 	case "${LB_MODE}" in
 		debian)
-			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://cdn.debian.net/debian/}"
+			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://http.debian.net/debian/}"
 			LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-${LB_MIRROR_BINARY}}"
 			;;
 
@@ -596,7 +571,7 @@ Set_defaults ()
 					;;
 			esac
 
-			LB_PARENT_MIRROR_BINARY_VOLATILE="${LB_PARENT_MIRROR_BINARY_VOLATILE:-${LB_PARENT_MIRROR}}"
+			LB_PARENT_MIRROR_BINARY_VOLATILE="${LB_PARENT_MIRROR_BINARY_VOLATILE:-${LB_PARENT_MIRROR_BINARY}}"
 			;;
 
 		*)
@@ -607,7 +582,7 @@ Set_defaults ()
 	# Setting backports mirror which ends up in the image
 	case "${LB_MODE}" in
 		debian)
-			LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-http://backports.debian.org/debian-backports/}"
+			LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-http://http.debian.net/debian-backports/}"
 			LB_PARENT_MIRROR_BINARY_BACKPORTS="${LB_PARENT_MIRROR_BINARY_BACKPORTS:-${LB_MIRROR_BINARY_BACKPORTS}}"
 			;;
 
@@ -1330,7 +1305,7 @@ Check_defaults ()
 	LB_BOOTSTRAP_QEMU_ARCHITECTURES="${LB_BOOTSTRAP_QEMU_ARCHITECTURES:-}"
 
 	# Packages to exclude for the foreign/ports bootstrapping
-	LB_BOOTSTRAP_QEMU_EXCLUDE="${LB_PORTS_BOOTSTRAP_EXCLUDE:-}"
+	LB_BOOTSTRAP_QEMU_EXCLUDE="${LB_BOOTSTRAP_QEMU_EXCLUDE:-}"
 
 	# Ports using foreign bootstrap need a working qemu-*-system. This is the location it
 	LB_BOOTSTRAP_QEMU_STATIC="${LB_BOOTSTRAP_QEMU_STATIC:-}"

@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2012\-08\-10 3.0~a57-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2012\-08\-27 3.0~a58-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -42,10 +42,6 @@
 	[\fB\-\-bootloader\fR grub|syslinux|yaboot]
 .br
 	[\fB\-\-bootstrap\fR cdebootstrap|cdebootstrap-static|debootstrap|copy]
-.br
-	[\-f|\fB\-\-bootstrap\-flavour\fR minimal|standard]
-.br
-	[\fB\-\-bootstrap\-keyring\fR \fIPACKAGE\fR]
 .br
 	[\fB\-\-cache\fR true|false]
 .br
@@ -287,10 +283,6 @@ sets boot parameters specific to debian\-live. A complete list of boot parameter
 defines which bootloader is beeing used in the generated image. This has only an effect if the selected binary image type does allow to choose the bootloader. For example, if you build a iso, always syslinux (or more precise, isolinux) is being used. Also note that some combinations of binary images types and bootloaders may be possible but live\-build does not support them yet. \fBlb config\fR will fail to create such a not yet supported configuration and give a explanation about it. For hdd images on amd64 and i386, the default is syslinux. yaboot is only used on powerpc.
 .IP "\fB\-\-bootstrap\fR cdebootstrap|cdebootstrap-static|debootstrap|copy" 4
 defines which program is used to bootstrap the debian chroot, default is debootstrap. Note that if you set the bootstrap program to copy, then your host system is copied. This can be useful if you want to convert/clone your existing host system into a live system, however, make sure you do have enough free space as this can, depending on your host system, get quite big.
-.IP "\-f|\fB\-\-bootstrap\-flavour\fR minimal|standard" 4
-defines if the bootstrap program should bootstrap the standard system (all packages of priority required and important, which is the default) or a minimal system (only packages of priority required, plus apt).
-.IP "\fB\-\-bootstrap\-keyring\fR \fIPACKAGE\fR" 4
-sets the archive keyring package to be used. Default is debian\-archive\-keyring.
 .IP "\fB\-\-cache\fR true|false" 4
 defines globally if any cache should be used at all. Different caches can be controled through the their own options.
 .IP "\fB\-\-cache\-indices\fR true|false" 4
@@ -348,7 +340,7 @@ defines the default options that will be appended to (almost) every gzip call du
 .IP "\fB\-\-hooks\fR \fIFILE\fR" 4
 defines which hooks available in /usr/share/live/build/examples/hooks should be activated. Normally, there are no hooks executed. Make sure you know and understood the hook before you enable it.
 .IP "\fB\-\-ignore\-system\-defaults\fR" 4
-\fBlb config\fR by default reads system defaults from /etc/live/build.conf and /etc/live/build.d when generating a new live system config directory. This is useful if you want to set global settings, such as mirror locations, and don't want to specify them all of the time.
+\fBlb config\fR by default reads system defaults from \fI/etc/live/build.conf\fR and \fI/etc/live/build/*\fR when generating a new live system config directory. This is useful if you want to set global settings, such as mirror locations, and don't want to specify them all of the time.
 .IP "\fB\-\-initramfs\fR auto|none|live\-boot|casper" 4
 sets the name of package that contains the live system specific initramfs modification. By default, auto is used, which means that at build time of the image rather than on configuration time, the value will be expanded to casper when building ubuntu systems, to live\-boot for all other systems. Using 'none' is useful if the resulting system image should not be a live image (experimental).
 .IP "\fB\-\-initramfs\-compression\fR bzip2|gzip|lzma]
@@ -388,9 +380,9 @@ sets the location of the debian volatile package mirror that will be used to fet
 .IP "\fB\-\-parent\-mirror\-chroot\-backports\fR \fIURL\fR" 4
 sets the location of the debian backports package mirror that will be used to fetch packages in order to build the live system. By default, this points to http://backports.debian.org/debian-backports/.
 .IP "\fB\-\-parent\-mirror\-binary\fR \fIURL\fR" 4
-sets the location of the debian package mirror that should end up configured in the final image and which is the one a user would see and use. This has not necessarily to be the same that is used to build the image, e.g. if you use a local mirror but want to have an official mirror in the image. By default, 'http://cdn.debian.net/debian/' is used.
+sets the location of the debian package mirror that should end up configured in the final image and which is the one a user would see and use. This has not necessarily to be the same that is used to build the image, e.g. if you use a local mirror but want to have an official mirror in the image. By default, 'http://http.debian.net/debian/' is used.
 .IP "\fB\-\-parent\-mirror\-binary\-security\fR \fIURL\fR" 4
-sets the location of the debian security package mirror that should end up configured in the final image. By default, 'http://cdn.debian.net/debian-security/' is used.
+sets the location of the debian security package mirror that should end up configured in the final image. By default, 'http://security.debian.org/' is used.
 .IP "\fB\-\-parent\-mirror\-binary\-volatile\fR \fIURL\fR" 4
 sets the location of the debian volatile package mirror that should end up configured in the final image. By default, the value of \-\-parent\-mirror\-binary is used.
 .IP "\fB\-\-parent\-mirror\-binary\-backports\fR \fIURL\fR" 4
@@ -502,7 +494,7 @@ Currently, command line switches can also be specified through the corresponding
 .SH FILES
 .\" FIXME
 .IP "\fBauto/config\fR" 4
-.IP "\fB/etc/live/build.conf, /etc/live/build.d\fR" 4
+.IP "\fB/etc/live/build.conf, /etc/live/build/*\fR" 4
 An optional, global configuration file for \fBlb config\fR variables. It is useful to specify a few system wide defaults, like LB_PARENT_MIRROR_BOOTSTRAP. This feature can be false by specifying the \fB\-\-ignore\-system\-defaults\fR option.
 .\" FIXME
 

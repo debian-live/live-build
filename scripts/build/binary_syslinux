@@ -1,0 +1,366 @@
+#!/bin/sh
+
+## live-build(7) - System Build Scripts
+## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
+##
+## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+## This is free software, and you are welcome to redistribute it
+## under certain conditions; see COPYING for details.
+
+
+set -e
+
+# Including common functions
+[ -e "${LIVE_BUILD}/scripts/build.sh" ] && . "${LIVE_BUILD}/scripts/build.sh" || . /usr/lib/live/build.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'installs syslinux into binary')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+if [ "${LB_BOOTLOADER}" != "syslinux" ]
+then
+	exit 0
+fi
+
+Echo_message "Begin installing syslinux..."
+
+# Requiring stage file
+Require_stagefile .build/config .build/bootstrap
+
+# Checking stage file
+Check_stagefile .build/binary_syslinux
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+# Check architecture
+Check_architectures amd64 i386
+Check_crossarchitectures
+
+# Assembling image specifics
+case "${LB_BINARY_IMAGES}" in
+	iso*)
+		_BOOTLOADER="isolinux"
+
+		case "${LB_MODE}" in
+			progress)
+				_TARGET="binary/boot"
+				;;
+
+			*)
+				_TARGET="binary/isolinux"
+				;;
+		esac
+		;;
+
+	netboot)
+		_BOOTLOADER="pxelinux"
+		_TARGET="tftpboot"
+		;;
+
+	hdd*|*)
+		_BOOTLOADER="syslinux"
+
+		case "${LB_MODE}" in
+			progress)
+				_TARGET="binary/boot"
+				;;
+
+			*)
+				_TARGET="binary/syslinux"
+				;;
+		esac
+		;;
+esac
+
+# Checking depends
+case "${LB_BUILD_WITH_CHROOT}" in
+	true)
+		Check_package chroot/usr/bin/syslinux syslinux
+		Check_package chroot/usr/lib/syslinux syslinux-common
+
+		case "${LB_SYSLINUX_THEME}" in
+			live-build)
+				Check_package chroot/usr/bin/rsvg librsvg2-bin
+				;;
+
+			*)
+				Check_package chroot/usr/share/syslinux/themes/${LB_SYSLINUX_THEME} syslinux-themes-${LB_SYSLINUX_THEME}
+
+				case "${LB_MODE}" in
+					ubuntu)
+						Check_package chroot/usr/share/gfxboot-theme-ubuntu/bootlogo.tar.gz gfxboot-theme-ubuntu
+						;;
+				esac
+				;;
+		esac
+		;;
+
+	false)
+		if [ ! -e /usr/bin/syslinux ]
+		then
+			# syslinux
+			Echo_error "/usr/bin/syslinux - no such file."
+			exit 1
+		fi
+
+		if [ ! -e /usr/lib/syslinux ]
+		then
+			# syslinux-common
+			Echo_error "/usr/lib/syslinux - no such directory"
+			exit 1
+		fi
+
+		case "${LB_SYSLINUX_THEME}" in
+			live-build)
+				if [ ! -e /usr/bin/rsvg ]
+				then
+					# librsvg2-bin
+					Echo_error "/usr/bin/rsvg - no such file"
+					exit 1
+				fi
+				;;
+
+			*)
+				if [ ! -e /usr/share/syslinux/themes/${LB_SYSLINUX_THEME} ]
+				then
+					# syslinux-theme
+					Echo_error "/usr/share/syslinux/themes/${LB_SYSLINUX_THEME} - no such directory."
+					exit 1
+				fi
+				;;
+		esac
+		;;
+esac
+
+# Restoring cache
+Restore_cache cache/packages.binary
+
+# Installing depends
+Install_package
+
+# FIXME: cleanup, unify, and extend themes for ${_BOOTLOADER}-live and ${_BOOTLOADER}-installer
+if [ "${LB_SYSLINUX_THEME}" = "live-build" ]
+then
+	if [ -e "config/bootloaders/${_BOOTLOADER}" ]
+	then
+		# Internal local copy
+		_SOURCE="config/bootloaders/${_BOOTLOADER}"
+	else
+		# Internal system copy
+		if [ -n "${LIVE_BUILD}" ]
+		then
+			_SOURCE="${LIVE_BUILD}/share/bootloaders/${_BOOTLOADER}"
+		else
+			_SOURCE="/usr/share/live/build/bootloaders/${_BOOTLOADER}"
+		fi
+	fi
+else
+	# External copy from chroot or system
+	_SOURCE="/usr/share/syslinux/themes/${LB_SYSLINUX_THEME}/${_BOOTLOADER}-live"
+fi
+
+# Copying files
+case "${LB_BUILD_WITH_CHROOT}" in
+	true)
+		mkdir -p $(dirname ${_TARGET})
+
+		# Copy in two steps since the theme can have absolute symlinks and would therefore not be dereferenced correctly
+		if [ "${LB_SYSLINUX_THEME}" = "live-build" ]
+		then
+			cp -a ${_SOURCE} chroot/root
+			Chroot chroot cp -aL /root/$(basename ${_SOURCE}) /root/$(basename ${_SOURCE}).tmp
+			rm -rf chroot/$(basename ${_SOURCE})
+		else
+			Chroot chroot cp -aL ${_SOURCE} /root/$(basename ${_SOURCE}).tmp
+		fi
+
+		case "${LB_MODE}" in
+			ubuntu)
+				Chroot chroot "tar xfz /usr/share/gfxboot-theme-ubuntu/bootlogo.tar.gz -C /root/$(basename ${_SOURCE}).tmp"
+				;;
+		esac
+
+		mv chroot/root/$(basename ${_SOURCE}).tmp ${_TARGET}
+		;;
+
+	false)
+		mkdir -p ${_TARGET}
+
+		cp -aL ${_SOURCE}/* ${_TARGET}
+
+		case "${LB_MODE}" in
+			ubuntu)
+				tar xfz /usr/share/gfxboot-theme-ubuntu/bootlogo.tar.gz -C ${_TARGET}
+				;;
+		esac
+		;;
+esac
+
+# Configuring files
+if [ -e "${_TARGET}/live.cfg.in" ]
+then
+	# This is all rather suboptimal.. needs prettifying at some point
+	_FLAVOURS="$(echo ${LB_LINUX_FLAVOURS} | wc -w)"
+
+	case "${_FLAVOURS}" in
+		1)
+			mv binary/live/vmlinuz-* binary/live/vmlinuz
+			mv binary/live/initrd.img-* binary/live/initrd.img
+
+			sed -e "s|@FLAVOUR@|${LB_LINUX_FLAVOURS}|g" \
+			    -e "s|@KERNEL@|/live/vmlinuz|g" \
+			    -e "s|@INITRD@|/live/initrd.img|g" \
+			    -e "s|@LB_BOOTAPPEND_LIVE@|${LB_BOOTAPPEND_LIVE}|g" \
+			    -e "s|@LB_BOOTAPPEND_FAILSAFE@|${LB_BOOTAPPEND_FAILSAFE}|g" \
+			"${_TARGET}/live.cfg.in" >> "${_TARGET}/live.cfg"
+
+			rm -f "${_TARGET}/live.cfg.in"
+			;;
+
+		*)
+			_NUMBER="0"
+
+			for _FLAVOUR in ${LB_LINUX_FLAVOURS}
+			do
+				_NUMBER="$((${_NUMBER} + 1))"
+
+				mv binary/live/vmlinuz-*-${_FLAVOUR} binary/live/vmlinuz${_NUMBER}
+				mv binary/live/initrd.img-*-${_FLAVOUR} binary/live/initrd${_NUMBER}.img
+
+				sed -e "s|@FLAVOUR@|${_FLAVOUR}|g" \
+				    -e "s|@KERNEL@|/live/vmlinuz${_NUMBER}|g" \
+				    -e "s|@INITRD@|/live/initrd${_NUMBER}.img|g" \
+				    -e "s|@LB_BOOTAPPEND_LIVE@|${LB_BOOTAPPEND_LIVE}|g" \
+				    -e "s|@LB_BOOTAPPEND_FAILSAFE@|${LB_BOOTAPPEND_FAILSAFE}|g" \
+				"${_TARGET}/live.cfg.in" >> "${_TARGET}/live.cfg"
+			done
+
+			rm -f "${_TARGET}/live.cfg.in"
+			;;
+	esac
+elif [ -e "${_TARGET}/live.cfg" ]
+then
+	sed -i  -e "s|@LB_BOOTAPPEND_LIVE@|${LB_BOOTAPPEND_LIVE}|g" \
+		-e "s|@LB_BOOTAPPEND_FAILSAFE@|${LB_BOOTAPPEND_FAILSAFE}|g" \
+	${_TARGET}/live.cfg
+fi
+
+if [ -e ${_TARGET}/install.cfg ]
+then
+	sed -i -e "s|@LB_BOOTAPPEND_INSTALL@|${LB_BOOTAPPEND_INSTALL}|g" \
+	${_TARGET}/install.cfg
+fi
+
+if [ -e "${_TARGET}/splash.svg.in" ]
+then
+	case "${LB_MODE}" in
+		progress)
+			_PROJECT="Progress Linux"
+
+			if ls config/package-lists/client-gnome.list*
+			then
+				_DESCRIPTION="Client GNOME"
+			elif ls config/package-lists/client-lxde.list* > /dev/null 2>&1
+			then
+				_DESCRIPTION="Client LXDE"
+			elif ls config/package-lists/server-lxc.list* > /dev/null 2>&1
+			then
+				_DESCRIPTION="Server LXC"
+			else
+				_DESCRIPTION="Standard"
+			fi
+			;;
+
+		*)
+			_PROJECT="Debian GNU/Linux"
+			_DESCRIPTION=""
+			;;
+
+	esac
+
+	eval _VERSION="$`echo RELEASE_${LB_DISTRIBUTION}`"
+	_DISTRIBUTION="${LB_DISTRIBUTION}"
+	_ARCHITECTURE="${LB_ARCHITECTURES}"
+	_DATE=$(date -R)
+	_YEAR="$(date +%Y)"
+	_MONTH="$(date +%m)"
+	_DAY="$(date +%d)"
+	_HOUR="$(date +%H)"
+	_MINUTE="$(date +%M)"
+	_SECOND="$(date +%S)"
+	_LINUX_VERSIONS="$(for _LINUX in chroot/boot/vmlinuz-* ; do chroot chroot apt-cache policy $(basename ${_LINUX} | sed -e 's|vmlinuz-|linux-image-|') | awk '/Installed: / { print $2 }' ; done | sort -u)"
+	_LIVE_BUILD_VERSION="$(lb --version)"
+	_LIVE_BOOT_VERSION="$(chroot chroot apt-cache policy live-boot | awk '/Installed: / { print $2 }')"
+	_LIVE_CONFIG_VERSION="$(chroot chroot apt-cache policy live-config | awk '/Installed: / { print $2 }')"
+	_LIVE_TOOLS_VERSION="$(chroot chroot apt-cache policy live-tools | awk '/Installed: / { print $2 }')"
+
+	sed	-e "s|@PROJECT@|${_PROJECT}|g" \
+		-e "s|@DISTRIBUTION@|${_DISTRIBUTION}|g" \
+		-e "s|@VERSION@|${_VERSION}|g" \
+		-e "s|@ARCHITECTURE@|${_ARCHITECTURE}|g" \
+		-e "s|@DESCRIPTION@|${_DESCRIPTION}|g" \
+		-e "s|@DATE@|${_DATE}|g" \
+		-e "s|@YEAR@|${_YEAR}|g" \
+		-e "s|@MONTH@|${_MONTH}|g" \
+		-e "s|@DAY@|${_DAY}|g" \
+		-e "s|@HOUR@|${_HOUR}|g" \
+		-e "s|@MINUTE@|${_MINUTE}|g" \
+		-e "s|@SECOND@|${_SECOND}|g" \
+		-e "s|@LINUX_VERSIONS@|${_LINUX_VERSIONS}|g" \
+		-e "s|@LIVE_BUILD_VERSION@|${_LIVE_BUILD_VERSION}|g" \
+		-e "s|@LIVE_BOOT_VERSION@|${_LIVE_BOOT_VERSION}|g" \
+		-e "s|@LIVE_CONFIG_VERSION@|${_LIVE_CONFIG_VERSION}|g" \
+		-e "s|@LIVE_TOOLS_VERSION@|${_LIVE_TOOLS_VERSION}|g" \
+	"${_TARGET}/splash.svg.in" > "${_TARGET}/splash.svg"
+
+	case "${LB_BUILD_WITH_CHROOT}" in
+		true)
+			cp "${_TARGET}/splash.svg" chroot
+			Chroot chroot "rsvg --format png --height 480 --width 640 splash.svg splash.png"
+			mv chroot/splash.png "${_TARGET}"
+			rm -f chroot/splash.svg
+			;;
+
+		false)
+			rsvg --format png --height 480 --width 640 "${_TARGET}/splash.svg" "${_TARGET}/splash.png"
+			;;
+	esac
+
+	rm -f "${_TARGET}/splash.svg.in" "${_TARGET}/splash.svg"
+fi
+
+case "${LB_MODE}" in
+	progress)
+		for _FILE in "${_TARGET}/isolinux.bin" "${_TARGET}/isolinux.cfg" "${_TARGET}/syslinux.cfg"
+		do
+			if [ -e "${_FILE}" ]
+			then
+				mv "${_FILE}" "${_TARGET}/$(echo ${_FILE} | sed -e 's|.*linux|boot|')"
+			fi
+		done
+		;;
+esac
+
+case "${LB_BUILD_WITH_CHROOT}" in
+	true)
+		# Saving cache
+		Save_cache cache/packages.binary
+
+		# Removing depends
+		Remove_package
+		;;
+esac
+
+# Creating stage file
+Create_stagefile .build/binary_syslinux

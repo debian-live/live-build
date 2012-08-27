@@ -1,0 +1,115 @@
+#!/bin/sh
+
+## live-build(7) - System Build Scripts
+## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
+##
+## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+## This is free software, and you are welcome to redistribute it
+## under certain conditions; see COPYING for details.
+
+
+set -e
+
+# Including common functions
+[ -e "${LIVE_BUILD}/scripts/build.sh" ] && . "${LIVE_BUILD}/scripts/build.sh" || . /usr/lib/live/build.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'execute hooks in chroot')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+Echo_message "Begin executing hooks..."
+
+# Requiring stage file
+Require_stagefile .build/config .build/bootstrap
+
+# Checking stage file
+Check_stagefile .build/chroot_hooks
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+## Processing distribution hooks
+
+# Make build config available to chroot hooks. First, make the bind
+# mount and then make it read-only. This can't happen in one mount
+# command, then the resulting mount will be rw (see mount(8)). Making it
+# ro prevents modifications and prevents accidentally removing the
+# contents of the config directory when removing the chroot.
+mkdir -p chroot/root/config
+mount -o bind config chroot/root/config
+mount -o remount,ro,bind config chroot/root/config
+
+# Copying hooks
+for _HOOK in ${LB_CHROOT_HOOKS}
+do
+	for LOCATION in "${LIVE_BUILD}/hooks" /usr/share/live/build/hooks
+	do
+		for FILE in "${LOCATION}"/???-"${_HOOK}".chroot
+		do
+			if [ -e "${FILE}" ]
+			then
+				mkdir -p chroot/root/lb_chroot_hooks
+				cp "${FILE}" chroot/root/lb_chroot_hooks
+			fi
+		done
+	done
+done
+
+# Running hooks
+if ls chroot/root/lb_chroot_hooks/* > /dev/null 2>&1
+then
+	for _HOOK in chroot/root/lb_chroot_hooks/*
+	do
+		Chroot chroot "/root/lb_chroot_hooks/$(basename ${_HOOK})" || { Echo_error "${_HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
+		rm -f chroot/root/lb_chroot_hooks/"$(basename ${_HOOK})"
+	done
+
+	rmdir chroot/root/lb_chroot_hooks
+fi
+
+## Processing local hooks
+
+if Find_files config/hooks/*.chroot
+then
+	# Restoring cache
+	Restore_cache cache/packages.chroot
+
+	for _HOOK in config/hooks/*.chroot
+	do
+		# Copying hook
+		cp "${_HOOK}" chroot/root
+
+		# Making hook executable
+		if [ ! -x chroot/root/"$(basename ${_HOOK})" ]
+		then
+			chmod +x chroot/root/"$(basename ${_HOOK})"
+		fi
+
+		# Executing hook
+		Chroot chroot "/root/$(basename ${_HOOK})" || { Echo_error "${_HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
+
+		# Removing hook
+		rm -f chroot/root/"$(basename ${_HOOK})"
+	done
+
+	# Saving cache
+	Save_cache cache/packages.chroot
+
+	# Creating stage file
+	Create_stagefile .build/chroot_hooks
+fi
+
+# Remove bind mount of build config inside chroot.
+umount chroot/root/config
+rmdir chroot/root/config
+

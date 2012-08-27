@@ -1,0 +1,86 @@
+#!/bin/sh
+
+## live-build(7) - System Build Scripts
+## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
+##
+## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+## This is free software, and you are welcome to redistribute it
+## under certain conditions; see COPYING for details.
+
+
+set -e
+
+# Including common functions
+[ -e "${LIVE_BUILD}/scripts/build.sh" ] && . "${LIVE_BUILD}/scripts/build.sh" || . /usr/lib/live/build.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'create binary checksums')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+if [ "${LB_CHECKSUMS}" = "none" ] || [ "${LB_BINARY_IMAGES}" = "virtual-hdd" ]
+then
+	exit 0
+fi
+
+# Requiring stage file
+Require_stagefile .build/config .build/bootstrap
+
+# Checking stage file
+Check_stagefile .build/binary_checksums
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+for CHECKSUM in ${LB_CHECKSUMS}
+do
+	CHECKSUMS="$(echo ${CHECKSUM} | tr [a-z] [A-Z])SUMS"
+
+	Echo_message "Begin creating binary ${CHECKSUMS}..."
+
+	# Remove old checksums
+	if [ -f binary/${CHECKSUMS} ]
+	then
+		rm -f binary/${CHECKSUMS}
+	fi
+
+	# Calculating checksums
+	cd binary
+	find . -type f \
+		\! -path './isolinux/isolinux.bin' \
+		\! -path './boot/boot.bin' \
+		\! -path './boot/grub/stage2_eltorito' \
+		\! -path './*SUMS' \
+	-print0 | sort -z | xargs -0 ${CHECKSUM}sum > ../${CHECKSUMS}
+
+cat > ${CHECKSUMS} << EOF
+This file contains the list of ${CHECKSUM} checksums of all files on this medium.
+
+You can verify them automatically with the 'integrity-check' boot parameter,
+or, manually with: '${CHECKSUM}sum -c ${CHECKSUMS}'.
+
+
+EOF
+
+	cat ../${CHECKSUMS} >> ${CHECKSUMS}
+	rm -f ../${CHECKSUMS}
+
+	cd "${OLDPWD}"
+done
+
+# File list
+cd binary
+find . | sed -e 's|^.||g' | grep "^/" | sort > ../binary.contents
+cd "${OLDPWD}"
+
+# Creating stage file
+Create_stagefile .build/binary_checksums

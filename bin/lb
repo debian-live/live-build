@@ -11,7 +11,7 @@
 set -e
 
 # Including common functions
-( . "${LIVE_BUILD}/scripts/build.sh" > /dev/null 2>&1 || true ) || . /usr/lib/live/build.sh
+[ -e "${LIVE_BUILD}/scripts/build.sh" ] && . "${LIVE_BUILD}/scripts/build.sh" || . /usr/lib/live/build.sh
 
 # Setting static variables
 DESCRIPTION="$(Echo 'utility to build Debian Live systems')"
@@ -40,7 +40,7 @@ case "${1}" in
 		;;
 
 	*)
-		COMMAND="lb_${1}"
+		COMMAND="${1}"
 		shift
 
 		ENV=""
@@ -55,19 +55,26 @@ case "${1}" in
 
 		if [ -x "${LIVE_BUILD}/scripts/build/${COMMAND}" ]
 		then
+			# User has live-build copied locally in the system
 			SCRIPT="${LIVE_BUILD}/scripts/build/${COMMAND}"
+		elif [ -x "local/live-build/scripts/build/${COMMAND}" ]
+		then
+			# User has live-build embedded in the config
+			SCRIPT="local/live-build/scripts/build/${COMMAND}"
 		elif [ -x /usr/lib/live/build/${COMMAND} ]
 		then
+			# User has live-build installed in the system
 			SCRIPT=/usr/lib/live/build/"${COMMAND}"
 		elif [ -x "$(which ${COMMAND} 2>/dev/null)" ]
 		then
+			# User has live-build commands in path
 			SCRIPT="${COMMAND}"
 		else
 			Echo_error "no such script: ${COMMAND}"
 			exit 1
 		fi
 
-		Echo "[%s] %s" "$(date +'%F %T')" "${COMMAND} ${*}"
-		LB=1 ${ENV} exec "${SCRIPT}" "${@}"
+		Echo "[%s] %s" "$(date +'%F %T')" "lb ${COMMAND} $(echo ${@})"
+		${ENV} exec "${SCRIPT}" "${@}"
 		;;
 esac

@@ -1,0 +1,96 @@
+#!/bin/sh
+
+## live-build(7) - System Build Scripts
+## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
+##
+## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+## This is free software, and you are welcome to redistribute it
+## under certain conditions; see COPYING for details.
+
+
+set -e
+
+# Including common functions
+[ -e "${LIVE_BUILD}/scripts/build.sh" ] && . "${LIVE_BUILD}/scripts/build.sh" || . /usr/lib/live/build.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'cache bootstrap stage')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+# Check architecture
+Check_crossarchitectures
+
+for STAGE in ${LB_CACHE_STAGES}
+do
+	if [ "${STAGE}" = "bootstrap" ]
+	then
+		case "${1}" in
+			restore)
+				Echo_message "Restoring bootstrap stage from cache..."
+
+				# Checking stage file
+				Check_stagefile .build/bootstrap_cache.restore
+
+				if [ -d cache/bootstrap ]
+				then
+					# Checking lock file
+					Check_lockfile .lock
+
+					# Creating lock file
+					Create_lockfile .lock
+
+					# Removing old chroot
+					rm -rf chroot
+
+					# Restoring old cache
+					${LB_ROOT_COMMAND} cp -a cache/bootstrap chroot
+
+					if [ -n "${LB_ROOT_COMMAND}" ]
+					then
+						${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
+					fi
+
+					# Creating stage file
+					Create_stagefile .build/bootstrap_cache.restore
+					Create_stagefile .build/bootstrap
+
+					exit 0
+				fi
+				;;
+
+			save)
+				Echo_message "Saving bootstrap stage to cache..."
+
+				# Checking stage file
+				Check_stagefile .build/bootstrap_cache.save
+
+				# Checking lock file
+				Check_lockfile .lock
+
+				# Creating lock file
+				Create_lockfile .lock
+
+				rm -rf cache/bootstrap
+
+				mkdir -p cache
+
+				${LB_ROOT_COMMAND} cp -a chroot cache/bootstrap
+
+				if [ -n "${LB_ROOT_COMMAND}" ]
+				then
+					${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) cache/bootstrap
+				fi
+
+				# Creating stage file
+				Create_stagefile .build/bootstrap_cache.save
+				;;
+		esac
+	fi
+done
