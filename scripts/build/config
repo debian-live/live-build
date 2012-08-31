@@ -140,7 +140,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 
 Local_arguments ()
 {
-	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-options:,aptitute-options:debootstrap-options:,cdebootstrap-ptions,
+	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-options:,aptitute-options:debootstrap-options:,cdebootstrap-options:,
 		apt-pipeline:,apt-recommends:,apt-secure:,apt-source-archives:,bootstrap:,cache:,cache-indices:,cache-packages:,
 		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
 		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,system:,root-command:,use-fakeroot:,tasksel:,
