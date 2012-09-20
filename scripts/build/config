@@ -84,21 +84,21 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [-m|--parent-mirror-bootstrap URL]\n\
 \t    [--parent-mirror-chroot URL]\n\
 \t    [--parent-mirror-chroot-security URL]\n\
-\t    [--parent-mirror-chroot-volatile URL]\n\
+\t    [--parent-mirror-chroot-updates URL]\n\
 \t    [--parent-mirror-chroot-backports URL]\n\
 \t    [--parent-mirror-binary URL]\n\
 \t    [--parent-mirror-binary-security URL]\n\
-\t    [--parent-mirror-binary-volatile URL]\n\
+\t    [--parent-mirror-binary-updates URL]\n\
 \t    [--parent-mirror-binary-backports URL]\n\
 \t    [--parent-mirror-debian-installer URL]\n\
 \t    [--mirror-bootstrap URL]\n\
 \t    [--mirror-chroot URL]\n\
 \t    [--mirror-chroot-security URL]\n\
-\t    [--mirror-chroot-volatile URL]\n\
+\t    [--mirror-chroot-updates URL]\n\
 \t    [--mirror-chroot-backports URL]\n\
 \t    [--mirror-binary URL]\n\
 \t    [--mirror-binary-security URL]\n\
-\t    [--mirror-binary-volatile URL]\n\
+\t    [--mirror-binary-updates URL]\n\
 \t    [--mirror-binary-backports URL]\n\
 \t    [--mirror-debian-installer URL]\n\
 \t    [--mode debian|emdebian|ubuntu|kubuntu]\n\
@@ -128,7 +128,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--syslinux-theme THEME_SUFFIX]\n\
 \t    [--tasksel apt|aptitude|tasksel]\n\
 \t    [--templates PATH]\n\
-\t    [--volatile true|false]\n\
+\t    [--updates true|false]\n\
 \t    [--backports true|false]\n\
 \t    [--exposed-root true|false]\n\
 \t    [--verbose]\n\
@@ -145,13 +145,13 @@ Local_arguments ()
 		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
 		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,system:,root-command:,use-fakeroot:,tasksel:,
 		templates:,architectures:,clean,
-		distribution:,parent-distribution:,parent-debian-installer-distribution:,parent-mirror-bootstrap:,parent-mirror-chroot:,parent-mirror-chroot-security:,parent-mirror-chroot-volatile:,parent-mirror-chroot-backports:,parent-mirror-binary:,
-		parent-mirror-binary-security:,parent-mirror-binary-volatile:,parent-mirror-binary-backports:,parent-mirror-debian-installer:,
-		mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-chroot-backports:,mirror-binary:,
-		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,
+		distribution:,parent-distribution:,parent-debian-installer-distribution:,parent-mirror-bootstrap:,parent-mirror-chroot:,parent-mirror-chroot-security:,parent-mirror-chroot-updates:,parent-mirror-chroot-backports:,parent-mirror-binary:,
+		parent-mirror-binary-security:,parent-mirror-binary-updates:,parent-mirror-binary-backports:,parent-mirror-debian-installer:,
+		mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-updates:,mirror-chroot-backports:,mirror-binary:,
+		mirror-binary-security:,mirror-binary-updates:,mirror-binary-backports:,mirror-debian-installer:,
 		archives:,archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,linux-flavours:,linux-packages:,
-		security:,volatile:,backports:,binary-filesystem:,binary-images:,
+		security:,updates:,backports:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootappend-failsafe:,bootloader:,checksums:,compression:,config:,zsync:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
 		grub-splash:,isohybrid-options:,hdd-label:,hdd-size:,iso-application:,iso-preparer:,iso-publisher:,
@@ -404,8 +404,8 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--parent-mirror-chroot-volatile)
-				LB_PARENT_MIRROR_CHROOT_VOLATILE="${2}"
+			--parent-mirror-chroot-updates)
+				LB_PARENT_MIRROR_CHROOT_UPDATES="${2}"
 				shift 2
 				;;
 
@@ -424,8 +424,8 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--parent-mirror-binary-volatile)
-				LB_PARENT_MIRROR_BINARY_VOLATILE="${2}"
+			--parent-mirror-binary-updates)
+				LB_PARENT_MIRROR_BINARY_UPDATES="${2}"
 				shift 2
 				;;
 
@@ -454,8 +454,8 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--mirror-chroot-volatile)
-				LB_MIRROR_CHROOT_VOLATILE="${2}"
+			--mirror-chroot-updates)
+				LB_MIRROR_CHROOT_UPDATES="${2}"
 				shift 2
 				;;
 
@@ -474,8 +474,8 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--mirror-binary-volatile)
-				LB_MIRROR_BINARY_VOLATILE="${2}"
+			--mirror-binary-updates)
+				LB_MIRROR_BINARY_UPDATES="${2}"
 				shift 2
 				;;
 
@@ -550,8 +550,8 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--volatile)
-				LB_VOLATILE="${2}"
+			--updates)
+				LB_UPDATES="${2}"
 				shift 2
 				;;
 
@@ -1123,9 +1123,9 @@ LB_PARENT_MIRROR_CHROOT="${LB_PARENT_MIRROR_CHROOT}"
 # (Default: ${LB_PARENT_MIRROR_CHROOT_SECURITY})
 LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY}"
 
-# \$LB_PARENT_MIRROR_CHROOT_VOLATILE: set volatile parent mirror to fetch packages from
-# (Default: ${LB_PARENT_MIRROR_CHROOT_VOLATILE})
-LB_PARENT_MIRROR_CHROOT_VOLATILE="${LB_PARENT_MIRROR_CHROOT_VOLATILE}"
+# \$LB_PARENT_MIRROR_CHROOT_UPDATES: set updates parent mirror to fetch packages from
+# (Default: ${LB_PARENT_MIRROR_CHROOT_UPDATES})
+LB_PARENT_MIRROR_CHROOT_UPDATES="${LB_PARENT_MIRROR_CHROOT_UPDATES}"
 
 # \$LB_PARENT_MIRROR_CHROOT_BACKPORTS: set backports parent mirror to fetch packages from
 # (Default: ${LB_PARENT_MIRROR_CHROOT_BACKPORTS})
@@ -1139,9 +1139,9 @@ LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY}"
 # (Default: ${LB_PARENT_MIRROR_BINARY_SECURITY})
 LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY}"
 
-# \$LB_PARENT_MIRROR_BINARY_VOLATILE: set volatile parent mirror which ends up in the image
-# (Default: ${LB_PARENT_MIRROR_BINARY_VOLATILE})
-LB_PARENT_MIRROR_BINARY_VOLATILE="${LB_PARENT_MIRROR_BINARY_VOLATILE}"
+# \$LB_PARENT_MIRROR_BINARY_UPDATES: set updates parent mirror which ends up in the image
+# (Default: ${LB_PARENT_MIRROR_BINARY_UPDATES})
+LB_PARENT_MIRROR_BINARY_UPDATES="${LB_PARENT_MIRROR_BINARY_UPDATES}"
 
 # \$LB_PARENT_MIRROR_BINARY_BACKPORTS: set backports parent mirror which ends up in the image
 # (Default: ${LB_PARENT_MIRROR_BINARY_BACKPORTS})
@@ -1163,9 +1163,9 @@ LB_MIRROR_CHROOT="${LB_MIRROR_CHROOT}"
 # (Default: ${LB_MIRROR_CHROOT_SECURITY})
 LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY}"
 
-# \$LB_MIRROR_CHROOT_VOLATILE: set volatile mirror to fetch packages from
-# (Default: ${LB_MIRROR_CHROOT_VOLATILE})
-LB_MIRROR_CHROOT_VOLATILE="${LB_MIRROR_CHROOT_VOLATILE}"
+# \$LB_MIRROR_CHROOT_UPDATES: set updates mirror to fetch packages from
+# (Default: ${LB_MIRROR_CHROOT_UPDATES})
+LB_MIRROR_CHROOT_UPDATES="${LB_MIRROR_CHROOT_UPDATES}"
 
 # \$LB_MIRROR_CHROOT_BACKPORTS: set backports mirror to fetch packages from
 # (Default: ${LB_MIRROR_CHROOT_BACKPORTS})
@@ -1179,9 +1179,9 @@ LB_MIRROR_BINARY="${LB_MIRROR_BINARY}"
 # (Default: ${LB_MIRROR_BINARY_SECURITY})
 LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY}"
 
-# \$LB_MIRROR_BINARY_VOLATILE: set volatile mirror which ends up in the image
-# (Default: ${LB_MIRROR_BINARY_VOLATILE})
-LB_MIRROR_BINARY_VOLATILE="${LB_MIRROR_BINARY_VOLATILE}"
+# \$LB_MIRROR_BINARY_UPDATES: set updates mirror which ends up in the image
+# (Default: ${LB_MIRROR_BINARY_UPDATES})
+LB_MIRROR_BINARY_UPDATES="${LB_MIRROR_BINARY_UPDATES}"
 
 # \$LB_MIRROR_BINARY_BACKPORTS: set backports mirror which ends up in the image
 # (Default: ${LB_MIRROR_BINARY_BACKPORTS})
@@ -1265,9 +1265,9 @@ LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES}"
 # (Default: ${LB_SECURITY})
 LB_SECURITY="${LB_SECURITY}"
 
-# \$LB_VOLATILE: enable volatile updates
-# (Default: ${LB_VOLATILE})
-LB_VOLATILE="${LB_VOLATILE}"
+# \$LB_UPDATES: enable updates updates
+# (Default: ${LB_UPDATES})
+LB_UPDATES="${LB_UPDATES}"
 
 # \$LB_BACKPORTS: enable backports updates
 # (Default: ${LB_BACKPORTS})
