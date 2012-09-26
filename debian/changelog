@@ -1,3 +1,23 @@
+live-build (3.0~a59-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Adding baureo-backports and charon-backports as valid distributions
+    in progress mode.
+
+  [ Richard Nelson ]
+  * frontend/cgi correctly reference netboot binary-images in form.html.
+
+  [ Daniel Baumann ]
+  * Updating base-files hack for plymouth in progress mode.
+  * Correcting cdebootstraps-options typo in getopt, thanks to chals
+    <chals@altorricon.com>.
+  * Renaming volatile options refering to volatile archive to updates to
+    match current archive namings.
+  * Removing intel-microcode special handling in chroot_linux-image,
+    microcode packages are already included automatically anyway.
+
+ -- Daniel Baumann <daniel@debian.org>  Wed, 26 Sep 2012 14:48:30 +0200
+
 live-build (3.0~a58-1) unstable; urgency=low
 
   [ Daniel Baumann ]
