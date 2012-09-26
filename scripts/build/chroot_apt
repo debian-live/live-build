@@ -160,7 +160,7 @@ case "${1}" in
 						_ENABLE_DISTRIBUTIONS="${_ENABLE_DISTRIBUTIONS} ${_DISTRIBUTION}-security"
 					fi
 
-					if [ "${LB_VOLATILE}" = "true" ]
+					if [ "${LB_UPDATES}" = "true" ]
 					then
 						_ENABLE_DISTRIBUTIONS="${_ENABLE_DISTRIBUTIONS} ${_DISTRIBUTION}-updates"
 					fi

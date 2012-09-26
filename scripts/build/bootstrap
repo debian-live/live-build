@@ -41,9 +41,9 @@ lb bootstrap_cdebootstrap ${@}
 lb bootstrap_debootstrap ${@}
 lb bootstrap_cache save ${@}
 
-# Temporary hack until we have multistrap in place
-case "${LB_MODE}" in
-	progress)
+# Temporary hack for base-files wrt/ plymouth
+case "${LB_DISTRIBUTION}" in
+	artax*)
 		echo '0.0.0' > chroot/etc/progress_version
 		;;
 esac

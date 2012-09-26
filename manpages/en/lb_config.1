@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2012\-08\-27 3.0~a58-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2012\-09\-26 3.0~a59-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -141,7 +141,7 @@
 .br
 	[\fB\-\-parent\-mirror\-chroot\-security\fR \fIURL\fR]
 .br
-	[\fB\-\-parent\-mirror\-chroot\-volatile\fR \fIURL\fR]
+	[\fB\-\-parent\-mirror\-chroot\-updates\fR \fIURL\fR]
 .br
 	[\fB\-\-parent\-mirror\-chroot\-backports\fR \fIURL\fR]
 .br
@@ -149,7 +149,7 @@
 .br
 	[\fB\-\-parent\-mirror\-binary\-security\fR \fIURL\fR]
 .br
-	[\fB\-\-parent\-mirror\-binary\-volatile\fR \fIURL\fR]
+	[\fB\-\-parent\-mirror\-binary\-updates\fR \fIURL\fR]
 .br
 	[\fB\-\-parent\-mirror\-binary\-backports\fR \fIURL\fR]
 .br
@@ -161,7 +161,7 @@
 .br
 	[\fB\-\-mirror\-chroot\-security\fR \fIURL\fR]
 .br
-	[\fB\-\-mirror\-chroot\-volatile\fR \fIURL\fR]
+	[\fB\-\-mirror\-chroot\-updates\fR \fIURL\fR]
 .br
 	[\fB\-\-mirror\-chroot\-backports\fR \fIURL\fR]
 .br
@@ -169,7 +169,7 @@
 .br
 	[\fB\-\-mirror\-binary\-security\fR \fIURL\fR]
 .br
-	[\fB\-\-mirror\-binary\-volatile\fR \fIURL\fR]
+	[\fB\-\-mirror\-binary\-updates\fR \fIURL\fR]
 .br
 	[\fB\-\-mirror\-binary\-backports\fR \fIURL\fR]
 .br
@@ -225,7 +225,7 @@
 .br
 	[\fB\-\-hdd\-size \fIMB\fR]
 .br
-	[\fB\-\-volatile\fR true|false]
+	[\fB\-\-updates\fR true|false]
 .br
 	[\fB\-\-backports\fR true|false]
 .br
@@ -375,16 +375,16 @@ sets the location of the debian package mirror that should be used to bootstrap 
 sets the location of the debian package mirror that will be used to fetch the packages in order to build the live system. By default, this is set to the value of \-\-parent\-mirror\-bootstrap.
 .IP "\fB\-\-parent\-mirror\-chroot\-security\fR \fIURL\fR" 4
 sets the location of the debian security package mirror that will be used to fetch the packages in order to build the live system. By default, this points to http://security.debian.org/debian/.
-.IP "\fB\-\-parent\-mirror\-chroot\-volatile\fR \fIURL\fR" 4
-sets the location of the debian volatile package mirror that will be used to fetch packages in order to build the live system. By default, this is set to the value of \-\-parent\-mirror\-chroot.
+.IP "\fB\-\-parent\-mirror\-chroot\-updates\fR \fIURL\fR" 4
+sets the location of the debian updates package mirror that will be used to fetch packages in order to build the live system. By default, this is set to the value of \-\-parent\-mirror\-chroot.
 .IP "\fB\-\-parent\-mirror\-chroot\-backports\fR \fIURL\fR" 4
 sets the location of the debian backports package mirror that will be used to fetch packages in order to build the live system. By default, this points to http://backports.debian.org/debian-backports/.
 .IP "\fB\-\-parent\-mirror\-binary\fR \fIURL\fR" 4
 sets the location of the debian package mirror that should end up configured in the final image and which is the one a user would see and use. This has not necessarily to be the same that is used to build the image, e.g. if you use a local mirror but want to have an official mirror in the image. By default, 'http://http.debian.net/debian/' is used.
 .IP "\fB\-\-parent\-mirror\-binary\-security\fR \fIURL\fR" 4
 sets the location of the debian security package mirror that should end up configured in the final image. By default, 'http://security.debian.org/' is used.
-.IP "\fB\-\-parent\-mirror\-binary\-volatile\fR \fIURL\fR" 4
-sets the location of the debian volatile package mirror that should end up configured in the final image. By default, the value of \-\-parent\-mirror\-binary is used.
+.IP "\fB\-\-parent\-mirror\-binary\-updates\fR \fIURL\fR" 4
+sets the location of the debian updates package mirror that should end up configured in the final image. By default, the value of \-\-parent\-mirror\-binary is used.
 .IP "\fB\-\-parent\-mirror\-binary\-backports\fR \fIURL\fR" 4
 sets the location of the debian backports package mirror that should end up configured in the final image. By default, 'http://backports.debian.org/debian-backports/' is used.
 .IP "\fB\-\-parent\-mirror\-debian\-installer\fR \fIURL\fR" 4
@@ -395,16 +395,16 @@ sets the location of the debian package mirror that should be used to bootstrap 
 sets the location of the debian package mirror that will be used to fetch the packages of the derivative in order to build the live system. By default, this is set to the value of \-\-mirror\-bootstrap.
 .IP "\fB\-\-mirror\-chroot\-security\fR \fIURL\fR" 4
 sets the location of the debian security package mirror that will be used to fetch the packages of the derivative in order to build the live system. By default, this points to http://security.debian.org/debian/.
-.IP "\fB\-\-mirror\-chroot\-volatile\fR \fIURL\fR" 4
-sets the location of the debian volatile package mirror that will be used to fetch packages of the derivative in order to build the live system. By default, this is set to the value of \-\-mirror\-chroot.
+.IP "\fB\-\-mirror\-chroot\-updates\fR \fIURL\fR" 4
+sets the location of the debian updates package mirror that will be used to fetch packages of the derivative in order to build the live system. By default, this is set to the value of \-\-mirror\-chroot.
 .IP "\fB\-\-mirror\-chroot\-backports\fR \fIURL\fR" 4
 sets the location of the debian backports package mirror that will be used to fetch packages of the derivative in order to build the live system. By default, this points to http://backports.debian.org/debian-backports/.
 .IP "\fB\-\-mirror\-binary\fR \fIURL\fR" 4
 sets the location of the derivative package mirror that should end up configured in the final image and which is the one a user would see and use. This has not necessarily to be the same that is used to build the image, e.g. if you use a local mirror but want to have an official mirror in the image.
 .IP "\fB\-\-mirror\-binary\-security\fR \fIURL\fR" 4
 sets the location of the derivatives security package mirror that should end up configured in the final image.
-.IP "\fB\-\-mirror\-binary\-volatile\fR \fIURL\fR" 4
-sets the location of the derivatives volatile package mirror that should end up configured in the final image.
+.IP "\fB\-\-mirror\-binary\-updates\fR \fIURL\fR" 4
+sets the location of the derivatives updates package mirror that should end up configured in the final image.
 .IP "\fB\-\-mirror\-binary\-backports\fR \fIURL\fR" 4
 sets the location of the derivatives backports package mirror that should end up configured in the final image.
 .IP "\fB\-\-mirror\-debian\-installer\fR \fIURL\fR" 4
@@ -474,8 +474,8 @@ selects which program is used to install tasks. By default, this is set to tasks
 sets the path to the templates that live\-build is going to use, e.g. for bootloaders. By default, this is set to /usr/share/live/build/templates/.
 .IP "\fB\-\-hdd\-size\fR MB" 4
 defines what size the hdd image should be. Note that although the default is set to 10000 (= 10GB), it will not need 10GB space on your harddisk as the files are created as sparse files.
-.IP "\fB\-\-volatile\fR true|false" 4
-defines if debian volatile package archives should be included in the image or not.
+.IP "\fB\-\-updates\fR true|false" 4
+defines if debian updates package archives should be included in the image or not.
 .IP "\fB\-\-backports\fR true|false" 4
 defines if debian backports package archives should be included in the image or not.
 .IP "\fB\-\-exposed\-root\fR true|false" 4

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2012-08-27 16:32+0300\n"
+"POT-Creation-Date: 2012-09-26 14:43+0300\n"
 "PO-Revision-Date: 2012-08-02 18:55+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -29,7 +29,7 @@ msgstr ""
 #: en/lb_chroot.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
 #: en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "2012-08-27"
+msgid "2012-09-26"
 msgstr ""
 
 #. type: TH
@@ -37,7 +37,7 @@ msgstr ""
 #: en/lb_chroot.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
 #: en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "3.0~a58-1"
+msgid "3.0~a59-1"
 msgstr ""
 
 #. type: TH
@@ -513,7 +513,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:145
-msgid "  [B<--parent-mirror-chroot-volatile> I<URL>]"
+msgid "  [B<--parent-mirror-chroot-updates> I<URL>]"
 msgstr ""
 
 #. type: Plain text
@@ -533,7 +533,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:153
-msgid "  [B<--parent-mirror-binary-volatile> I<URL>]"
+msgid "  [B<--parent-mirror-binary-updates> I<URL>]"
 msgstr ""
 
 #. type: Plain text
@@ -563,7 +563,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:165
-msgid "  [B<--mirror-chroot-volatile> I<URL>]"
+msgid "  [B<--mirror-chroot-updates> I<URL>]"
 msgstr ""
 
 #. type: Plain text
@@ -583,7 +583,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:173
-msgid "  [B<--mirror-binary-volatile> I<URL>]"
+msgid "  [B<--mirror-binary-updates> I<URL>]"
 msgstr ""
 
 #. type: Plain text
@@ -725,7 +725,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:229
-msgid "  [B<--volatile> true|false]"
+msgid "  [B<--updates> true|false]"
 msgstr ""
 
 #. type: Plain text
@@ -1711,13 +1711,13 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:378
 #, no-wrap
-msgid "B<--parent-mirror-chroot-volatile> I<URL>"
+msgid "B<--parent-mirror-chroot-updates> I<URL>"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:380
 msgid ""
-"sets the location of the debian volatile package mirror that will be used to "
+"sets the location of the debian updates package mirror that will be used to "
 "fetch packages in order to build the live system. By default, this is set to "
 "the value of --parent-mirror-chroot."
 msgstr ""
@@ -1769,13 +1769,13 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:386
 #, no-wrap
-msgid "B<--parent-mirror-binary-volatile> I<URL>"
+msgid "B<--parent-mirror-binary-updates> I<URL>"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:388
 msgid ""
-"sets the location of the debian volatile package mirror that should end up "
+"sets the location of the debian updates package mirror that should end up "
 "configured in the final image. By default, the value of --parent-mirror-"
 "binary is used."
 msgstr ""
@@ -1853,13 +1853,13 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:398
 #, no-wrap
-msgid "B<--mirror-chroot-volatile> I<URL>"
+msgid "B<--mirror-chroot-updates> I<URL>"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:400
 msgid ""
-"sets the location of the debian volatile package mirror that will be used to "
+"sets the location of the debian updates package mirror that will be used to "
 "fetch packages of the derivative in order to build the live system. By "
 "default, this is set to the value of --mirror-chroot."
 msgstr ""
@@ -1910,13 +1910,13 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:406
 #, no-wrap
-msgid "B<--mirror-binary-volatile> I<URL>"
+msgid "B<--mirror-binary-updates> I<URL>"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:408
 msgid ""
-"sets the location of the derivatives volatile package mirror that should end "
+"sets the location of the derivatives updates package mirror that should end "
 "up configured in the final image."
 msgstr ""
 
@@ -2362,13 +2362,13 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:477
 #, no-wrap
-msgid "B<--volatile> true|false"
+msgid "B<--updates> true|false"
 msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:479
 msgid ""
-"defines if debian volatile package archives should be included in the image "
+"defines if debian updates package archives should be included in the image "
 "or not."
 msgstr ""
 
