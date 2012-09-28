@@ -392,7 +392,7 @@ Set_defaults ()
 	then
 		case "${LB_MODE}" in
 			debian|debian-release)
-				LB_MIRROR_BINARY="http://cdn.debian.net/debian/"
+				LB_MIRROR_BINARY="http://http.debian.net/debian/"
 				;;
 
 			emdebian)
