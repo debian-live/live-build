@@ -1123,6 +1123,30 @@ Set_defaults ()
 	# Setting memtest option
 	LB_MEMTEST="${LB_MEMTEST:-memtest86+}"
 
+	# Setting loadlin option
+	case "${LB_MODE}" in
+		progress|ubuntu|kubuntu)
+
+			;;
+
+		*)
+			case "${LB_ARCHITECTURES}" in
+				amd64|i386)
+					if [ "${LB_DEBIAN_INSTALLER}" != "false" ]
+					then
+						LB_LOADLIN="${LB_LOADLIN:-true}"
+					else
+						LB_LOADLIN="${LB_LOADLIN:-false}"
+					fi
+					;;
+
+				*)
+					LB_LOADLIN="${LB_LOADLIN:-false}"
+					;;
+			esac
+			;;
+	esac
+
 	# Setting win32-loader option
 	case "${LB_MODE}" in
 		progress|ubuntu|kubuntu)
