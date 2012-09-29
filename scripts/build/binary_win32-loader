@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LB_WIN32_LOADER}" != "true" ] || [ "${LB_BINARY_IMAGES}" = "virtual-hdd" ]
+if [ "${LB_WIN32_LOADER}" != "true" ]
 then
 	exit 0
 fi
@@ -67,6 +67,12 @@ case "${LB_ARCHITECTURES}" in
 		if [ -e binary/win32-loader-standalone.exe ]
 		then
 			mv binary/win32-loader-standalone.exe binary/setup-standalone.exe
+		fi
+
+		if ls binary/win32-loader/g2ldr* > /dev/null 2>&1
+		then
+			mv binary/win32-loader/g2ldr* binary
+			rmdir binary/win32-loader > /dev/null 2>&1 || true
 		fi
 
 		if [ "${LB_DEBIAN_INSTALLER}" != "false" ]

@@ -68,6 +68,7 @@ lb binary_syslinux ${@}
 lb binary_yaboot ${@}
 lb binary_silo ${@}
 lb binary_disk ${@}
+lb binary_loadlin ${@}
 lb binary_win32-loader ${@}
 lb binary_includes ${@}
 lb binary_hooks ${@}
@@ -86,7 +87,6 @@ lb binary_iso ${@}
 lb binary_netboot ${@}
 lb binary_tar ${@}
 lb binary_hdd ${@}
-lb binary_virtual-hdd ${@}
 
 lb binary_zsync ${@}
 
