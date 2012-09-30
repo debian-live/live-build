@@ -986,6 +986,16 @@ Set_defaults ()
 	LB_BOOTAPPEND_FAILSAFE="${LB_BOOTAPPEND_FAILSAFE:-memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal}"
 
 	# LB_BOOTAPPEND_LIVE
+	case "${LB_MODE}" in
+		ubuntu)
+			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE:-boot=casper}"
+			;;
+
+		*)
+			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE:-boot=live config}"
+			;;
+	esac
+
 	if [ -n "${LB_DEBIAN_INSTALLER_PRESEEDFILE}" ]
 	then
 		case "${LB_BINARY_IMAGES}" in
