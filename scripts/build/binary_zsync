@@ -24,6 +24,11 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
+if [ "${LB_BINARY_IMAGES}" != "iso" ] && [ "${LB_BINARY_IMAGES}" != "iso-hybrid" ]
+then
+	exit 0
+fi
+
 if [ "${LB_ZSYNC}" != "true" ]
 then
 	exit 0
