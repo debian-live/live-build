@@ -717,7 +717,14 @@ Set_defaults ()
 					;;
 
 				ubuntu|kubuntu)
-					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-generic}"
+					case "${LB_DISTRIBUTION}" in
+						precise)
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-generic-pae}"
+							;;
+						*)
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-generic}"
+							;;
+					esac
 					;;
 
 				*)
