@@ -224,12 +224,14 @@ EOF
 				if [ -e "${_BASE}/archives/${REPOSITORY}.chroot" ]
 				then
 					sed -e "s|@DISTRIBUTION@|${_DISTRIBUTION}|g" \
+					    -e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
 					    -e "s|@ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
 					"${_BASE}/archives/${REPOSITORY}.chroot" > \
 					"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
 				elif [ -e "${_BASE}/archives/${REPOSITORY}" ]
 				then
 					sed -e "s|@DISTRIBUTION@|${_DISTRIBUTION}|g" \
+					    -e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
 					    -e "s|@ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
 					"${_BASE}/archives/${REPOSITORY}" > \
 					"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
@@ -268,8 +270,8 @@ EOF
 				if [ -e "${FILE}" ]
 				then
 					sed -e "s|@DISTRIBUTION@|${LB_DISTRIBUTION}|g" \
-					    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
 					    -e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
+					    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
 					    -e "s|@PARENT_ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
 					"${FILE}" > "chroot/etc/apt/sources.list.d/$(basename ${FILE} .chroot)"
 
@@ -779,12 +781,14 @@ EOF
 				if [ -e "${_BASE}/archives/${REPOSITORY}.binary" ]
 				then
 					sed -e "s|@DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
+					    -e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
 					    -e "s|@ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
 					"${_BASE}/archives/${REPOSITORY}.binary" > \
 					"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
 				elif [ -e "${_BASE}/archives/${REPOSITORY}" ]
 				then
 					sed -e "s|@DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
+					    -e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
 					    -e "s|@ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
 					"${_BASE}/archives/${REPOSITORY}" > \
 					"chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
@@ -823,8 +827,8 @@ EOF
 				if [ -e "${FILE}" ]
 				then
 					sed -e "s|@DISTRIBUTION@|${LB_DISTRIBUTION}|g" \
-					    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
 					    -e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
+					    -e "s|@ARCHIVE_AREAS@|${LB_ARCHIVE_AREAS}|g" \
 					    -e "s|@PARENT_ARCHIVE_AREAS@|${LB_PARENT_ARCHIVE_AREAS}|g" \
 					"${FILE}" > "chroot/etc/apt/sources.list.d/$(basename ${FILE} .binary)"
 
