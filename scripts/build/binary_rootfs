@@ -357,16 +357,11 @@ case "${LB_CHROOT_FILESYSTEM}" in
 			esac
 		fi
 
-		case "${LB_PARENT_DISTRIBUTION}" in
-			squeeze)
-
-				;;
-
-			*)
-				# FIXME: artax-backports too, once d-i has catched up
-				MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -comp xz"
-				;;
-		esac
+		if [ "${LB_PARENT_DISTRIBUTION}" != "squeeze" ] && \
+		   [ "${LB_MODE}" != "ubuntu" ]
+		then
+			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -comp xz"
+		fi
 
 		case "${LB_BUILD_WITH_CHROOT}" in
 			true)
