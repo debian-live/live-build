@@ -90,6 +90,13 @@ case "${1}" in
 			Truncate chroot/etc/resolv.conf
 		fi
 
+		# Clean up resolvconf's pollution
+		if [ -e chroot/etc/resolvconf/resolv.conf.d ]
+		then
+			rm -f chroot/etc/resolvconf/resolv.conf.d/original
+			rm -f chroot/etc/resolvconf/resolv.conf.d/tail
+		fi
+
 		# Removing stage file
 		rm -f .build/chroot_resolv
 		;;

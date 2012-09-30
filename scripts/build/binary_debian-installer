@@ -357,7 +357,14 @@ then
 
 			case "${LB_MODE}" in
 				ubuntu|kubuntu)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-generic"
+					case "${LB_DISTRIBUTION}" in
+						precise)
+							DI_PACKAGES="${DI_REQ_PACKAGES} linux-generic-pae"
+							;;
+						*)
+							DI_PACKAGES="${DI_REQ_PACKAGES} linux-generic"
+							;;
+					esac
 					;;
 
 				*)
@@ -383,7 +390,7 @@ then
 			DI_REQ_PACKAGES="yaboot"
 			case "${LB_MODE}" in
 				ubuntu|kubuntu)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-powerpc linux-image-powerpc64-smp"
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-powerpc-smp linux-image-powerpc64-smp"
 					;;
 
 				*)

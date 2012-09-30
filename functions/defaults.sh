@@ -717,7 +717,14 @@ Set_defaults ()
 					;;
 
 				ubuntu|kubuntu)
-					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-generic}"
+					case "${LB_DISTRIBUTION}" in
+						precise)
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-generic-pae}"
+							;;
+						*)
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-generic}"
+							;;
+					esac
 					;;
 
 				*)
@@ -765,11 +772,11 @@ Set_defaults ()
 				ubuntu|kubuntu)
 					case "${LIST}" in
 						stripped|minimal)
-							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc}"
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc-smp}"
 							;;
 
 						*)
-							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc powerpc64-smp}"
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc-smp powerpc64-smp}"
 							;;
 					esac
 					;;
@@ -986,6 +993,16 @@ Set_defaults ()
 	LB_BOOTAPPEND_FAILSAFE="${LB_BOOTAPPEND_FAILSAFE:-memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal}"
 
 	# LB_BOOTAPPEND_LIVE
+	case "${LB_MODE}" in
+		ubuntu)
+			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE:-boot=casper}"
+			;;
+
+		*)
+			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE:-boot=live config}"
+			;;
+	esac
+
 	if [ -n "${LB_DEBIAN_INSTALLER_PRESEEDFILE}" ]
 	then
 		case "${LB_BINARY_IMAGES}" in

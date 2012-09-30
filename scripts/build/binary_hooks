@@ -50,7 +50,7 @@ do
 			if [ -e "${FILE}" ]
 			then
 				cd binary
-				./"${FILE}" || { Echo_error "${_HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
+				"${FILE}" || { Echo_error "${_HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
 				cd "${OLDPWD}"
 			fi
 		done

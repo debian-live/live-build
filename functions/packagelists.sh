@@ -43,7 +43,15 @@ Expand_packagelist ()
 				\!*)
 					_EXEC="$(echo ${_LB_LINE} | sed -e 's|^!||')"
 
-					chroot chroot ${_EXEC}
+					case "${LB_BUILD_WITH_CHROOT}" in
+						true)
+							chroot chroot sh -c "${_EXEC}"
+							;;
+
+						false)
+							eval ${_EXEC}
+							;;
+					esac
 					;;
 
 				\#if\ *)

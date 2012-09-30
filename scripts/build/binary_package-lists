@@ -41,15 +41,33 @@ Create_lockfile .lock
 if ls config/package-lists/*.list > /dev/null 2>&1 || \
    ls config/package-lists/*.list.binary > /dev/null 2>&1
 then
-	# Restoring cache
-	Restore_cache cache/packages.chroot
+	case "${LB_BUILD_WITH_CHROOT}" in
+		true)
+			# Restoring cache
+			Restore_cache cache/packages.chroot
 
-	# Check depends
-	Check_package chroot/usr/bin/apt-ftparchive apt-utils
-	Check_package chroot/usr/bin/grep-aptavail dctrl-tools
+			# Check depends
+			Check_package chroot/usr/bin/apt-ftparchive apt-utils
+			Check_package chroot/usr/bin/grep-aptavail dctrl-tools
 
-	# Installing depends
-	Install_package
+			# Installing depends
+			Install_package
+			;;
+
+		false)
+			if [ ! -e /usr/bin/apt-ftparchive ]; then
+				# apt-utils
+				Echo_error "/usr/bin/apt-ftparchive - no such file."
+				exit 1
+			fi
+
+			if [ ! -e /usr/bin/grep-aptavail ]; then
+				# dctrl-tools
+				Echo_error "/usr/bin/grep-aptavail - no such file."
+				exit 1
+			fi
+			;;
+	esac
 
 	if [ -e "${LIVE_BUILD}/share/bin/Packages" ]
 	then
@@ -133,11 +151,15 @@ then
 	rm -rf chroot/binary.deb
 	mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
 
-	# Removing depends
-	Remove_package
+	case "${LB_BUILD_WITH_CHROOT}" in
+		true)
+			# Removing depends
+			Remove_package
 
-	# Saving cache
-	Save_cache cache/packages.chroot
+			# Saving cache
+			Save_cache cache/packages.chroot
+			;;
+	esac
 
 	# Creating stage file
 	Create_stagefile .build/binary_package-lists
