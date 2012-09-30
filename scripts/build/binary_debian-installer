@@ -383,7 +383,7 @@ then
 			DI_REQ_PACKAGES="yaboot"
 			case "${LB_MODE}" in
 				ubuntu|kubuntu)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-powerpc linux-image-powerpc64-smp"
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-powerpc-smp linux-image-powerpc64-smp"
 					;;
 
 				*)

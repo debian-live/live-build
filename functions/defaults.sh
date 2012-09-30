@@ -765,11 +765,11 @@ Set_defaults ()
 				ubuntu|kubuntu)
 					case "${LIST}" in
 						stripped|minimal)
-							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc}"
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc-smp}"
 							;;
 
 						*)
-							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc powerpc64-smp}"
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc-smp powerpc64-smp}"
 							;;
 					esac
 					;;
