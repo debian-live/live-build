@@ -307,6 +307,7 @@ then
 
 	sed	-e "s|@PROJECT@|${_PROJECT}|g" \
 		-e "s|@DISTRIBUTION@|${_DISTRIBUTION}|g" \
+		-e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
 		-e "s|@VERSION@|${_VERSION}|g" \
 		-e "s|@ARCHITECTURE@|${_ARCHITECTURE}|g" \
 		-e "s|@DESCRIPTION@|${_DESCRIPTION}|g" \
