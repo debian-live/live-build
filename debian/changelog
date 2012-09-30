@@ -1,3 +1,34 @@
+live-build (3.0~a61-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Correcting 'not-enough-arguments' check in Packages grep-aptavail
+    helper.
+  * Using dedicated initrd line in syslinux configurations rather than
+    stuffing everything in one line.
+  * Using initramfs generator specific boot parameters in syslinux
+    configuration files.
+
+  [ Adam Conrad ]
+  * Switching Ubuntu from powerpc to powerpc-smp kernel.
+
+  [ Colin Watson ]
+  * Using i386 -generic-pae kernel flavour on Ubuntu precise.
+
+  [ Daniel Baumann ]
+  * Don't turn on xz compression in mksquashfs for ubuntu builds
+    according to Adam Conrad <adconrad@ubuntu.com>.
+
+  [ Colin Watson ]
+  * If --build-with-chroot is false, run ! lines in package-lists in the
+    host system.
+  * Fixing execution of binary hooks.
+
+  [ Daniel Baumann ]
+  * Adding slightly modified patch from Adam Conrad
+    <adconrad@ubuntu.com> to remove resolvconf artifacts.
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 30 Sep 2012 09:46:53 +0200
+
 live-build (3.0~a60-1) unstable; urgency=low
 
   * Removing virtual-hdd image type. Rather than a half broken image
