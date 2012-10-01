@@ -1492,11 +1492,10 @@ Check_defaults
 if [ "${_CLEAN}" = "true" ]
 then
 	# Remove empty directories in config tree
+	rmdir --ignore-fail-on-non-empty auto > /dev/null 2>&1 || true
 	rmdir --ignore-fail-on-non-empty config/*/ > /dev/null 2>&1 || true
 	rmdir --ignore-fail-on-non-empty config > /dev/null 2>&1 || true
-	rmdir --ignore-fail-on-non-empty auto > /dev/null 2>&1 || true
-	rmdir --ignore-fail-on-non-empty local/functions > /dev/null 2>&1 || true
-	rmdir --ignore-fail-on-non-empty local/scripts > /dev/null 2>&1 || true
+	rmdir --ignore-fail-on-non-empty local/*/ > /dev/null 2>&1 || true
 	rmdir --ignore-fail-on-non-empty local > /dev/null 2>&1 || true
 fi
 

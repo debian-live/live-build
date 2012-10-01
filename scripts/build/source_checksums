@@ -83,7 +83,7 @@ EOF
 
 	# File list
 	cd ${DIRECTORY}
-	find . | sed -e 's|^.||g' | grep "^/" | sort > ../../$(echo ${DIRECTORY} | sed -e 's|/|.|').list
+	find . | sed -e 's|^.||g' | grep "^/" | sort > ../../$(echo ${DIRECTORY} | sed -e 's|/|.|').contents
 	cd "${OLDPWD}"
 done
 
