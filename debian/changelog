@@ -1,3 +1,28 @@
+live-build (3.0~a62-1) unstable; urgency=low
+
+  * Simplyfing clean option in lb config.
+  * Only producing zsync files for iso and iso-hybrid images.
+  * Supporting parent distribution as a variable field in syslinux
+    splashes.
+  * Supporting parent distribution as a variable field in archive
+    definitions.
+  * Avoiding warnings when checking for arguments in clean.
+  * Updating squeeze point release version.
+  * Updating wheezy pre-release version.
+  * Also use .contents suffix for file list of sources images like for
+    binary images, rather than the old .list suffix.
+  * Using linux rather than kernel directive in syslinux configuration
+    files.
+  * Simplify internal replacement strings when processing syslinux
+    configuration files.
+  * Removing superfluous menu default directive in syslinux
+    configuration files.
+  * Clearing the screen when exiting syslinux menu.
+  * Using menu default only once when populating syslinux configurations
+    for more than one kernel flavour (Closes: #682957).
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 01 Oct 2012 05:02:08 +0200
+
 live-build (3.0~a61-1) unstable; urgency=low
 
   [ Daniel Baumann ]
