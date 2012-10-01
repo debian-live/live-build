@@ -240,6 +240,7 @@ then
 
 				if [ "${_NUMBER}" -gt 1 ]
 				then
+					echo "" >> "${_TARGET}/live.cfg"
 					grep -v 'menu default' "${_TARGET}/live.cfg.in" >> "${_TARGET}/live.cfg"
 				else
 					cat "${_TARGET}/live.cfg.in" >> "${_TARGET}/live.cfg"
