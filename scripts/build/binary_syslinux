@@ -238,12 +238,19 @@ then
 				mv binary/live/vmlinuz-*-${_FLAVOUR} binary/live/vmlinuz${_NUMBER}
 				mv binary/live/initrd.img-*-${_FLAVOUR} binary/live/initrd${_NUMBER}.img
 
-				sed -e "s|@FLAVOUR@|${_FLAVOUR}|g" \
-				    -e "s|@LINUX@|/live/vmlinuz${_NUMBER}|g" \
-				    -e "s|@INITRD@|/live/initrd${_NUMBER}.img|g" \
-				    -e "s|@APPEND_LIVE@|${LB_BOOTAPPEND_LIVE}|g" \
-				    -e "s|@APPEND_FAILSAFE@|${LB_BOOTAPPEND_FAILSAFE}|g" \
-				"${_TARGET}/live.cfg.in" >> "${_TARGET}/live.cfg"
+				if [ "${_NUMBER}" -gt 1 ]
+				then
+					grep -v 'menu default' "${_TARGET}/live.cfg.in" >> "${_TARGET}/live.cfg"
+				else
+					cat "${_TARGET}/live.cfg.in" >> "${_TARGET}/live.cfg"
+				fi
+
+				sed -i -e "s|@FLAVOUR@|${_FLAVOUR}|g" \
+				       -e "s|@LINUX@|/live/vmlinuz${_NUMBER}|g" \
+				       -e "s|@INITRD@|/live/initrd${_NUMBER}.img|g" \
+				       -e "s|@APPEND_LIVE@|${LB_BOOTAPPEND_LIVE}|g" \
+				       -e "s|@APPEND_FAILSAFE@|${LB_BOOTAPPEND_FAILSAFE}|g" \
+				"${_TARGET}/live.cfg"
 			done
 
 			rm -f "${_TARGET}/live.cfg.in"
