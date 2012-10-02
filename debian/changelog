@@ -1,3 +1,11 @@
+live-build (3.0~a63-1) unstable; urgency=low
+
+  * Add missing whitespace when concatenating multiple live.cfg syslinux
+    files.
+  * Booting by default with 'quiet' and 'splash' parameters.
+
+ -- Daniel Baumann <daniel@debian.org>  Tue, 02 Oct 2012 21:24:22 +0200
+
 live-build (3.0~a62-1) unstable; urgency=low
 
   * Simplyfing clean option in lb config.
