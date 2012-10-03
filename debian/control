@@ -19,16 +19,16 @@ Suggests:
  dosfstools, genisoimage, git, loadlin, memtest86+ | memtest86, mtools, parted,
  squashfs-tools | mtd-tools, sudo | fakeroot, syslinux | grub,
  uuid-runtime, win32-loader
-Description: Debian Live - System build scripts
- live-build contains the scripts that build a Debian Live system image from a
- configuration directory.
+Description: Live System Build Scripts
+ live-build contains the scripts that build a live system from a configuration
+ directory.
 
 Package: live-build-cgi
 Architecture: all
 Depends: ${misc:Depends}, live-build (= ${source:Version})
 Recommends: apache2 | httpd, cron
-Description: Debian Live - System build scripts (CGI frontend)
- live-build contains the scripts that build a Debian Live system image from a
- configuration directory.
+Description: Live System Build Scripts (CGI frontend)
+ live-build contains the scripts that build a live system from a configuration
+ directory.
  .
  This package contains the CGI frontend.
