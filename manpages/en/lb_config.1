@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2012\-10\-02 3.0~a63-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2012\-10\-03 3.0~a63-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -41,7 +41,7 @@
 .br
 	[\fB\-\-bootloader\fR grub|syslinux|yaboot]
 .br
-	[\fB\-\-bootstrap\fR cdebootstrap|cdebootstrap-static|debootstrap|copy]
+	[\fB\-\-bootstrap\fR cdebootstrap|cdebootstrap-static|debootstrap]
 .br
 	[\fB\-\-cache\fR true|false]
 .br
@@ -281,8 +281,8 @@ sets boot parameters specific to debian\-installer, if included.
 sets boot parameters specific to debian\-live. A complete list of boot parameters can be found in the \fIlive\-boot\fR(7) and \fIlive\-config\fR(7) manual pages.
 .IP "\fB\-\-bootloader\fR grub|syslinux|yaboot" 4
 defines which bootloader is beeing used in the generated image. This has only an effect if the selected binary image type does allow to choose the bootloader. For example, if you build a iso, always syslinux (or more precise, isolinux) is being used. Also note that some combinations of binary images types and bootloaders may be possible but live\-build does not support them yet. \fBlb config\fR will fail to create such a not yet supported configuration and give a explanation about it. For hdd images on amd64 and i386, the default is syslinux. yaboot is only used on powerpc.
-.IP "\fB\-\-bootstrap\fR cdebootstrap|cdebootstrap-static|debootstrap|copy" 4
-defines which program is used to bootstrap the debian chroot, default is debootstrap. Note that if you set the bootstrap program to copy, then your host system is copied. This can be useful if you want to convert/clone your existing host system into a live system, however, make sure you do have enough free space as this can, depending on your host system, get quite big.
+.IP "\fB\-\-bootstrap\fR cdebootstrap|cdebootstrap-static|debootstrap" 4
+defines which program is used to bootstrap the debian chroot, default is debootstrap.
 .IP "\fB\-\-cache\fR true|false" 4
 defines globally if any cache should be used at all. Different caches can be controled through the their own options.
 .IP "\fB\-\-cache\-indices\fR true|false" 4

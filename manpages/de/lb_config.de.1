@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2012\-10\-02 3.0~a63\-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2012\-10\-03 3.0~a63\-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -46,7 +46,7 @@
 .br
   [\fB\-\-bootloader\fP grub|syslinux|yaboot]
 .br
-  [\fB\-\-bootstrap\fP cdebootstrap|cdebootstrap\-static|debootstrap|copy]
+  [\fB\-\-bootstrap\fP cdebootstrap|cdebootstrap\-static|debootstrap]
 .br
   [\fB\-\-cache\fP true|false]
 .br
@@ -344,12 +344,9 @@ images types and bootloaders may be possible but live\-build does not support
 them yet. \fBlb config\fP will fail to create such a not yet supported
 configuration and give a explanation about it. For hdd images on amd64 and
 i386, the default is syslinux. yaboot is only used on powerpc.
-.IP "\fB\-\-bootstrap\fP cdebootstrap|cdebootstrap\-static|debootstrap|copy" 4
+.IP "\fB\-\-bootstrap\fP cdebootstrap|cdebootstrap\-static|debootstrap" 4
 defines which program is used to bootstrap the debian chroot, default is
-debootstrap. Note that if you set the bootstrap program to copy, then your
-host system is copied. This can be useful if you want to convert/clone your
-existing host system into a live system, however, make sure you do have
-enough free space as this can, depending on your host system, get quite big.
+debootstrap.
 .IP "\fB\-\-cache\fP true|false" 4
 defines globally if any cache should be used at all. Different caches can be
 controled through the their own options.
