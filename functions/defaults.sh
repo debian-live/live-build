@@ -995,11 +995,11 @@ Set_defaults ()
 	# LB_BOOTAPPEND_LIVE
 	case "${LB_MODE}" in
 		ubuntu)
-			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE:-boot=casper}"
+			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE:-boot=casper quiet splash}"
 			;;
 
 		*)
-			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE:-boot=live config}"
+			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE:-boot=live config quiet splash}"
 			;;
 	esac
 
