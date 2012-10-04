@@ -925,23 +925,7 @@ Set_defaults ()
 	LB_CHECKSUMS="${LB_CHECKSUMS:-sha256}"
 
 	# Setting compression
-	case "${LB_MODE}" in
-		progress)
-			LB_COMPRESSION="${LB_COMPRESSION:-none}"
-			;;
-
-		*)
-			case "${LB_PARENT_DISTRIBUTION}" in
-				squeeze)
-					LB_COMPRESSION="${LB_COMPRESSION:-gzip}"
-					;;
-
-				*)
-					LB_COMPRESSION="${LB_COMPRESSION:-xz}"
-					;;
-			esac
-			;;
-	esac
+	LB_COMPRESSION="${LB_COMPRESSION:-none}"
 
 	# Setting zsync
 	LB_ZSYNC="${LB_ZSYNC:-true}"
