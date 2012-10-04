@@ -9,4 +9,4 @@ label live-@FLAVOUR@-failsafe
 	menu label ^Live (@FLAVOUR@ failsafe)
 	linux @LINUX@
 	initrd @INITRD@
-	append @APPEND_LIVE@ @APPEND_FAILSAFE@
+	append @APPEND_LIVE_FAILSAFE@

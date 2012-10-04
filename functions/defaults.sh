@@ -990,8 +990,6 @@ Set_defaults ()
 	fi
 
 	# Setting boot parameters
-	LB_BOOTAPPEND_FAILSAFE="${LB_BOOTAPPEND_FAILSAFE:-memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal}"
-
 	# LB_BOOTAPPEND_LIVE
 	case "${LB_MODE}" in
 		ubuntu)
@@ -1000,6 +998,17 @@ Set_defaults ()
 
 		*)
 			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE:-boot=live config quiet splash}"
+			;;
+	esac
+
+	# LB_BOOTAPPEND_LIVE_FAILSAFE
+	case "${LB_MODE}" in
+		ubuntu)
+			LB_BOOTAPPEND_FAILSAFE="${LB_BOOTAPPEND_FAILSAFE:-boot=casper memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal}"
+			;;
+
+		*)
+			LB_BOOTAPPEND_FAILSAFE="${LB_BOOTAPPEND_FAILSAFE:-boot=live config memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal}"
 			;;
 	esac
 
