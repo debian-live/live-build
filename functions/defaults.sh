@@ -925,23 +925,7 @@ Set_defaults ()
 	LB_CHECKSUMS="${LB_CHECKSUMS:-sha256}"
 
 	# Setting compression
-	case "${LB_MODE}" in
-		progress)
-			LB_COMPRESSION="${LB_COMPRESSION:-none}"
-			;;
-
-		*)
-			case "${LB_PARENT_DISTRIBUTION}" in
-				squeeze)
-					LB_COMPRESSION="${LB_COMPRESSION:-gzip}"
-					;;
-
-				*)
-					LB_COMPRESSION="${LB_COMPRESSION:-xz}"
-					;;
-			esac
-			;;
-	esac
+	LB_COMPRESSION="${LB_COMPRESSION:-none}"
 
 	# Setting zsync
 	LB_ZSYNC="${LB_ZSYNC:-true}"
@@ -990,16 +974,31 @@ Set_defaults ()
 	fi
 
 	# Setting boot parameters
-	LB_BOOTAPPEND_FAILSAFE="${LB_BOOTAPPEND_FAILSAFE:-memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal}"
+	case "${LB_INITRAMFS}" in
+		live-boot)
+			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE:-boot=live config quiet splash}"
+			;;
 
-	# LB_BOOTAPPEND_LIVE
-	case "${LB_MODE}" in
-		ubuntu)
+		casper)
 			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE:-boot=casper quiet splash}"
 			;;
 
 		*)
-			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE:-boot=live config quiet splash}"
+			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE:-quiet splash}"
+			;;
+	esac
+
+	case "${LB_INITRAMFS}" in
+		live-boot)
+			LB_BOOTAPPEND_FAILSAFE="${LB_BOOTAPPEND_FAILSAFE:-boot=live config memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal}"
+			;;
+
+		casper)
+			LB_BOOTAPPEND_FAILSAFE="${LB_BOOTAPPEND_FAILSAFE:-boot=casper memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal}"
+			;;
+
+		*)
+			LB_BOOTAPPEND_FAILSAFE="${LB_BOOTAPPEND_FAILSAFE:-memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal}"
 			;;
 	esac
 
