@@ -1,3 +1,26 @@
+live-build (3.0~a64-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Removing unsupported and unsupportable bootstrap_copy.
+  * Removing ubuntu natty support, EOL.
+
+  [ Michal Suchanek ]
+  * Allowing to include multiple kernel images but menu entry is
+    generated only for one.
+
+  [ Daniel Baumann ]
+  * Updating package descriptions.
+  * Adding note about experimental in cgi frontend package description.
+  * Making failsafe boot parameters fully customizable like the normal
+    ones.
+  * Making different boot options defaults depending on initramfs
+    generator, not depending on mode.
+  * Setting default compression to none. Normally, when using compressed
+    file systems (squashfs), there is no point in further compressing
+    the tarballs and images.
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 05 Oct 2012 09:23:12 +0200
+
 live-build (3.0~a63-1) unstable; urgency=low
 
   * Add missing whitespace when concatenating multiple live.cfg syslinux
