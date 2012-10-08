@@ -184,29 +184,21 @@ Set_defaults ()
 	esac
 
 	# Setting initramfs hook
-	case "${LB_INITRAMFS}" in
-		auto)
+	case "${LB_SYSTEM}" in
+		live)
 			case "${LB_MODE}" in
 				ubuntu|kubuntu)
-					LB_INITRAMFS="casper"
+					LB_INITRAMFS="${LB_INITRAMFS:-casper}"
 					;;
 
 				*)
-					LB_INITRAMFS="live-boot"
+					LB_INITRAMFS="${LB_INITRAMFS:-live-boot}"
 					;;
 			esac
 			;;
 
-		*)
-			case "${LB_SYSTEM}" in
-				live)
-					LB_INITRAMFS="${LB_INITRAMFS:-auto}"
-					;;
-
-				normal)
-					LB_INITRAMFS="${LB_INITRAMFS:-none}"
-					;;
-			esac
+		normal)
+			LB_INITRAMFS="${LB_INITRAMFS:-none}"
 			;;
 	esac
 
@@ -977,28 +969,17 @@ Set_defaults ()
 	case "${LB_INITRAMFS}" in
 		live-boot)
 			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE:-boot=live config quiet splash}"
+			LB_BOOTAPPEND_LIVE_FAILSAFE="${LB_BOOTAPPEND_LIVE_FAILSAFE:-boot=live config memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal}"
 			;;
 
 		casper)
 			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE:-boot=casper quiet splash}"
+			LB_BOOTAPPEND_LIVE_FAILSAFE="${LB_BOOTAPPEND_LIVE_FAILSAFE:-boot=casper memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal}"
 			;;
 
-		*)
+		none)
 			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE:-quiet splash}"
-			;;
-	esac
-
-	case "${LB_INITRAMFS}" in
-		live-boot)
-			LB_BOOTAPPEND_FAILSAFE="${LB_BOOTAPPEND_FAILSAFE:-boot=live config memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal}"
-			;;
-
-		casper)
-			LB_BOOTAPPEND_FAILSAFE="${LB_BOOTAPPEND_FAILSAFE:-boot=casper memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal}"
-			;;
-
-		*)
-			LB_BOOTAPPEND_FAILSAFE="${LB_BOOTAPPEND_FAILSAFE:-memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal}"
+			LB_BOOTAPPEND_LIVE_FAILSAFE="${LB_BOOTAPPEND_LIVE_FAILSAFE:-memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal}"
 			;;
 	esac
 
