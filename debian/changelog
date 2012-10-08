@@ -1,3 +1,16 @@
+live-build (3.0~a65-1) unstable; urgency=low
+
+  * Correcting variable handling for --bootappend-live-failsafe in lb
+    config.
+  * Stopping to support LB_INITRAMFS=auto, when switching the mode one
+    has to update several parameters anyway, use of auto scripts are
+    recommended.
+  * Simplifying bootparameter assembling in defaults.
+  * Correcting variable handling for --bootappend-live-failsafe in
+    defaults.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 08 Oct 2012 20:47:02 +0200
+
 live-build (3.0~a64-1) unstable; urgency=low
 
   [ Daniel Baumann ]
