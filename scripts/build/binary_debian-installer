@@ -851,14 +851,14 @@ then
 	fi
 fi
 
-# Include content of config/includes.binary_debian-installer if exists and not empty
-if [ -d config/includes.binary_debian-installer ] && [ -n "$(ls -A config/includes.binary_debian-installer)" ]
+# Include content of config/includes.debian-installer if exists and not empty
+if [ -d config/includes.debian-installer ] && [ -n "$(ls -A config/includes.debian-installer)" ]
 then
-	Repack_initrd "${DESTDIR}"/"${INITRD_DI}" config/includes.binary_debian-installer
+	Repack_initrd "${DESTDIR}"/"${INITRD_DI}" config/includes.debian-installer
 
 	if [ -e "${DESTDIR}"/"${INITRD_GI}" ]
 	then
-		Repack_initrd "${DESTDIR}"/"${INITRD_GI}" config/includes.binary_debian-installer
+		Repack_initrd "${DESTDIR}"/"${INITRD_GI}" config/includes.debian-installer
 	fi
 fi
 
