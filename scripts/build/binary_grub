@@ -263,37 +263,6 @@ fi
 # Copying grub
 cp ${FILES} binary/boot/grub
 
-# Copying local configuration file
-if [ -f config/binary_grub/menu.lst ]
-then
-	cp config/binary_grub/menu.lst binary/boot/grub/menu.lst
-fi
-
-# Copying splash screen
-if [ -f config/binary_grub/splash.xpm.gz ]
-then
-	LB_GRUB_SPLASH="config/binary_grub/splash.xpm.gz"
-elif [ -f config/binary_grub/splash.xpm ]
-then
-	LB_GRUB_SPLASH="config/binary_grub/splash.xpm"
-fi
-
-if [ -n "${LB_GRUB_SPLASH}" ]
-then
-	if [ "${LB_GRUB_SPLASH}" = "none" ]
-	then
-		# Removing splash file
-		rm -f binary/boot/grub/splash.xpm.gz
-
-		# Removing splash entry
-		sed -i -e "s|splashimage.*||" binary/boot/grub/menu.lst
-	else
-		# Overwriting splash file
-		cp -f "${LB_GRUB_SPLASH}" binary/boot/grub
-		sed -i -e "s|splashimage.*|splashimage /boot/grub/$(basename ${LB_GRUB_SPLASH})|" binary/boot/grub/menu.lst
-	fi
-fi
-
 sed -i -e "s|LINUX_LIVE|${LINUX_LIVE}|" -e "s|LINUX_INSTALL|${LINUX_INSTALL}|" -e "s|MEMTEST|${MEMTEST}|" binary/boot/grub/menu.lst
 sed -i -e "s|LB_BOOTAPPEND_INSTALL|${LB_BOOTAPPEND_INSTALL}|" -e "s|LB_BOOTAPPEND_LIVE|${LB_BOOTAPPEND_LIVE}|" binary/boot/grub/menu.lst
 

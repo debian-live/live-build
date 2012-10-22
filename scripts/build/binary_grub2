@@ -236,34 +236,6 @@ fi
 # Copying grub
 cp ${FILES} binary/boot/grub
 
-# Copying local configuration file
-if [ -f config/binary_grub/grub.cfg ]
-then
-	cp config/binary_grub/grub.cfg binary/boot/grub/grub.cfg
-fi
-
-# Copying splash screen
-if [ -f config/binary_grub/splash.tga ]
-then
-	LB_GRUB_SPLASH="config/binary_grub/splash.tga"
-fi
-
-if [ -n "${LB_GRUB_SPLASH}" ]
-then
-	if [ "${LB_GRUB_SPLASH}" = "none" ]
-	then
-		# Removing splash file
-		rm -f binary/boot/grub/splash.tga
-
-		# Removing splash entry
-		sed -i -e "s|background_image.*||" binary/boot/grub/grub.cfg
-	else
-		# Overwriting splash file
-		cp -f "${LB_GRUB_SPLASH}" binary/boot/grub
-		sed -i -e "s|background_image .*.tga|background_image \$\(root\)/boot/grub/$(basename ${LB_GRUB_SPLASH})|" binary/boot/grub/grub.cfg
-	fi
-fi
-
 sed -i -e "s|LINUX_LIVE|${LINUX_LIVE}|" -e "s|LINUX_INSTALL|${LINUX_INSTALL}|" -e "s|MEMTEST|${MEMTEST}|" binary/boot/grub/grub.cfg
 sed -i -e "s|LB_BOOTAPPEND_INSTALL|${LB_BOOTAPPEND_INSTALL}|" -e "s|LB_BOOTAPPEND_LIVE|${LB_BOOTAPPEND_LIVE}|" binary/boot/grub/grub.cfg
 

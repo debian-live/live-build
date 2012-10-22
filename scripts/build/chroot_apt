@@ -87,30 +87,30 @@ case "${1}" in
 		esac
 
 		# Configuring apt config
-		if [ -f config/chroot_apt/apt.conf ]
+		if [ -f config/apt/apt.conf ]
 		then
 			if [ -f chroot/etc/apt/apt.conf ]
 			then
 				mv chroot/etc/apt/apt.conf chroot/etc/apt/apt.conf.orig
 			fi
 
-			cp config/chroot_apt/apt.conf chroot/etc/apt/apt.conf
+			cp config/apt/apt.conf chroot/etc/apt/apt.conf
 		fi
 
 		# Configuring apt preferences
-		if [ -f config/chroot_apt/preferences ]
+		if [ -f config/apt/preferences ]
 		then
 			if [ -f chroot/etc/apt/preferences ]
 			then
 				mv chroot/etc/apt/preferences chroot/etc/apt/preferences.orig
 			fi
 
-			cp config/chroot_apt/preferences chroot/etc/apt/preferences
+			cp config/apt/preferences chroot/etc/apt/preferences
 		fi
 
-		if Find_files config/chroot_apt/*.pref
+		if Find_files config/apt/*.pref
 		then
-			for _FILE in config/chroot_apt/*.pref
+			for _FILE in config/apt/*.pref
 			do
 				if [ -f chroot/etc/apt/preferences.d/$(basename ${_FILE}) ]
 				then
@@ -256,14 +256,14 @@ EOF
 		fi
 
 		# Configuring apt config
-		if [ -f config/chroot_apt/apt.conf ]
+		if [ -f config/apt/apt.conf ]
 		then
 			if [ -f chroot/etc/apt/apt.conf ]
 			then
 				mv chroot/etc/apt/apt.conf chroot/etc/apt/apt.conf.orig
 			fi
 
-			cp config/chroot_apt/apt.conf chroot/etc/apt/apt.conf
+			cp config/apt/apt.conf chroot/etc/apt/apt.conf
 
 			if [ -f chroot/etc/apt/apt.conf.orig ]
 			then
@@ -272,14 +272,14 @@ EOF
 		fi
 
 		# Deconfiguring apt preferences
-		if [ -f config/chroot_apt/preferences ]
+		if [ -f config/apt/preferences ]
 		then
 			if [ -f chroot/etc/apt/preferences ]
 			then
 				mv chroot/etc/apt/preferences chroot/etc/apt/preferences.orig
 			fi
 
-			cp config/chroot_apt/preferences chroot/etc/apt/preferences
+			cp config/apt/preferences chroot/etc/apt/preferences
 
 			if [ -f chroot/etc/apt/preferences.orig ]
 			then
@@ -287,9 +287,9 @@ EOF
 			fi
 		fi
 
-		if Find_files config/chroot_apt/*.pref
+		if Find_files config/apt/*.pref
 		then
-			for _FILE in config/chroot_apt/*.pref
+			for _FILE in config/apt/*.pref
 			do
 				if [ -f chroot/etc/apt/preferences.d/$(basename ${_FILE}) ]
 				then

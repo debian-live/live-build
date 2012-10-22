@@ -190,7 +190,7 @@ Local_arguments ()
 				Print_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 
 				# Dump contents of directories that contain text files
-				for DIRECTORY in config/package-lists config/chroot_apt config/preseed config/binary_rootfs
+				for DIRECTORY in config/package-lists config/apt config/preseed config/rootfs
 				do
 					if Find_files "${DIRECTORY}"
 					then
@@ -1224,7 +1224,7 @@ EOF
 
 # Creating lb_chroot_* configuration
 mkdir -p config/archives
-mkdir -p config/chroot_apt
+mkdir -p config/apt
 mkdir -p config/hooks
 mkdir -p config/includes.chroot
 mkdir -p config/packages
@@ -1281,14 +1281,12 @@ LB_BACKPORTS="${LB_BACKPORTS}"
 EOF
 
 # Creating lb_binary_* configuration
-mkdir -p config/binary_debian-installer
-mkdir -p config/binary_grub
+mkdir -p config/debian-installer
 mkdir -p config/includes.binary
-mkdir -p config/includes.binary_debian-installer
+mkdir -p config/includes.debian-installer
 mkdir -p config/packages.binary
 mkdir -p config/package-lists
-mkdir -p config/binary_rootfs
-mkdir -p config/binary_syslinux
+mkdir -p config/rootfs
 
 cat > config/binary << EOF
 # config/binary - options for live-build(7), binary stage
@@ -1469,22 +1467,7 @@ LB_SOURCE_IMAGES="${LB_SOURCE_IMAGES}"
 EOF
 
 mkdir -p auto
-mkdir -p local/functions
-mkdir -p local/scripts
-
-if [ "${CONFIG}" = "clone" ] # FIXME
-then
-	# Read package selection
-	echo $(dpkg --get-selections | awk '{ print $1 }') > config/package-lists/local.list.chroot
-
-	# Read debconf questions
-	if [ ! -f /usr/bin/debconf-get-selections ]
-	then
-		Echo_warning "Please install 'debconf-utils' in order to use this feature."
-	else
-		debconf-get-selections | grep -v deinstall | cut -f1 > config/preseed/local.preseed.chroot
-	fi
-fi
+mkdir -p local/bin
 
 # Checking defaults again
 Check_defaults
