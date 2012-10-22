@@ -1287,7 +1287,6 @@ mkdir -p config/includes.binary_debian-installer
 mkdir -p config/packages.binary
 mkdir -p config/package-lists
 mkdir -p config/binary_rootfs
-mkdir -p config/binary_syslinux
 
 cat > config/binary << EOF
 # config/binary - options for live-build(7), binary stage
