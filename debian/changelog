@@ -1,3 +1,30 @@
+live-build (3.0~a66-1) unstable; urgency=low
+
+  * Removing some left-overs from bootstrap-copy removal in lb config.
+  * Removing local/functions functionality, it's not really usefull
+    anyway.
+  * Renaming local/scripts to local/bin for executables overriding not
+    just lb scripts, but any command during live-build runs.
+  * Renaming config/chroot_apt to simply config/apt. Eventually
+    lb_chroot_apt will be folded into chroot_archives but that's left
+    for after wheezy.
+  * Renaming config/binary_debian-installer to simply config/debian-
+    installer.
+  * Removing support for local grub/grub2 splash image and config
+    manipulations, custom templates should be used instead. Rather than
+    doing all the heavy lifting in live-build that nobody really uses
+    and which is quite inflexible, users should (in line with the
+    syslinux handling) either stick with the default grub
+    configurations, or, supply a custom one to live-build, rather than
+    partial/single files only.
+  * Avoid creating old left-over directory for custom syslinux splash
+    handing from within the config tree in lb_config.
+  * Renaming config/binary_rootfs to simply config/rootfs.
+  * Renaming config/includes.binary_debian-installer to simply
+    config/includes.debian-installer.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 22 Oct 2012 20:44:44 +0200
+
 live-build (3.0~a65-1) unstable; urgency=low
 
   * Correcting variable handling for --bootappend-live-failsafe in lb
