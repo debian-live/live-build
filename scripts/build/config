@@ -1469,7 +1469,6 @@ LB_SOURCE_IMAGES="${LB_SOURCE_IMAGES}"
 EOF
 
 mkdir -p auto
-mkdir -p local/functions
 mkdir -p local/scripts
 
 # Checking defaults again

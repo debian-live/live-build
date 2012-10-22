@@ -14,12 +14,3 @@ do
 		. "${FUNCTION}"
 	fi
 done
-
-# Source local functions
-if ls local/functions/* > /dev/null 2>&1
-then
-	for FUNCTION in local/functions/*
-	do
-		. "${FUNCTION}"
-	done
-fi
