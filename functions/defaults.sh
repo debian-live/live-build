@@ -954,14 +954,14 @@ Set_defaults ()
 	# Setting debian-installer preseed filename
 	if [ -z "${LB_DEBIAN_INSTALLER_PRESEEDFILE}" ]
 	then
-		if Find_files config/binary_debian-installer/preseed.cfg
+		if Find_files config/debian-installer/preseed.cfg
 		then
 			LB_DEBIAN_INSTALLER_PRESEEDFILE="/preseed.cfg"
 		fi
 
-		if Find_files config/binary_debian-installer/*.cfg && [ ! -e config/binary_debian-installer/preseed.cfg ]
+		if Find_files config/debian-installer/*.cfg && [ ! -e config/debian-installer/preseed.cfg ]
 		then
-			Echo_warning "You have placed some preseeding files into config/binary_debian-installer but you didn't specify the default preseeding file through LB_DEBIAN_INSTALLER_PRESEEDFILE. This means that debian-installer will not take up a preseeding file by default."
+			Echo_warning "You have placed some preseeding files into config/debian-installer but you didn't specify the default preseeding file through LB_DEBIAN_INSTALLER_PRESEEDFILE. This means that debian-installer will not take up a preseeding file by default."
 		fi
 	fi
 

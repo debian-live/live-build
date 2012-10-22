@@ -1281,7 +1281,7 @@ LB_BACKPORTS="${LB_BACKPORTS}"
 EOF
 
 # Creating lb_binary_* configuration
-mkdir -p config/binary_debian-installer
+mkdir -p config/debian-installer
 mkdir -p config/binary_grub
 mkdir -p config/includes.binary
 mkdir -p config/includes.binary_debian-installer
