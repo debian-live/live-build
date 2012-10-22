@@ -1472,20 +1472,6 @@ mkdir -p auto
 mkdir -p local/functions
 mkdir -p local/scripts
 
-if [ "${CONFIG}" = "clone" ] # FIXME
-then
-	# Read package selection
-	echo $(dpkg --get-selections | awk '{ print $1 }') > config/package-lists/local.list.chroot
-
-	# Read debconf questions
-	if [ ! -f /usr/bin/debconf-get-selections ]
-	then
-		Echo_warning "Please install 'debconf-utils' in order to use this feature."
-	else
-		debconf-get-selections | grep -v deinstall | cut -f1 > config/preseed/local.preseed.chroot
-	fi
-fi
-
 # Checking defaults again
 Check_defaults
 
