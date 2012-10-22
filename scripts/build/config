@@ -1469,7 +1469,7 @@ LB_SOURCE_IMAGES="${LB_SOURCE_IMAGES}"
 EOF
 
 mkdir -p auto
-mkdir -p local/scripts
+mkdir -p local/bin
 
 # Checking defaults again
 Check_defaults
