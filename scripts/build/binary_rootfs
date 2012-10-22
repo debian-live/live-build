@@ -342,17 +342,17 @@ case "${LB_CHROOT_FILESYSTEM}" in
 			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -info"
 		fi
 
-		if [ -f config/binary_rootfs/squashfs.sort ]
+		if [ -f config/rootfs/squashfs.sort ]
 		then
 			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -sort squashfs.sort"
 
 			case "${LB_BUILD_WITH_CHROOT}" in
 				true)
-					cp config/binary_rootfs/squashfs.sort chroot
+					cp config/rootfs/squashfs.sort chroot
 					;;
 
 				false)
-					cp config/binary_rootfs/squashfs.sort .
+					cp config/rootfs/squashfs.sort .
 					;;
 			esac
 		fi
@@ -365,9 +365,9 @@ case "${LB_CHROOT_FILESYSTEM}" in
 
 		case "${LB_BUILD_WITH_CHROOT}" in
 			true)
-				if [ -e config/binary_rootfs/excludes ]
+				if [ -e config/rootfs/excludes ]
 				then
-					cp config/binary_rootfs/excludes chroot/excludes
+					cp config/rootfs/excludes chroot/excludes
 
 					MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -wildcards -ef /excludes"
 				fi
@@ -435,9 +435,9 @@ case "${LB_CHROOT_FILESYSTEM}" in
 				;;
 
 			false)
-				if [ -e config/binary_rootfs/excludes ]
+				if [ -e config/rootfs/excludes ]
 				then
-					MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -wildcards -ef config/binary_rootfs/excludes"
+					MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -wildcards -ef config/rootfs/excludes"
 				fi
 
 				mksquashfs chroot binary/${INITFS}/filesystem.squashfs ${MKSQUASHFS_OPTIONS}

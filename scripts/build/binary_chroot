@@ -97,18 +97,18 @@ fi
 ${LB_ROOT_COMMAND} mv chroot.tmp chroot/chroot
 
 # Handling chroot excludes
-if [ -f config/binary_rootfs/excludes ] && [ "${LB_CHROOT_FILESYSTEM}" != "squashfs" ]
+if [ -f config/rootfs/excludes ] && [ "${LB_CHROOT_FILESYSTEM}" != "squashfs" ]
 then
 	case "${LB_BUILD_WITH_CHROOT}" in
 		true)
-			cp config/binary_rootfs/excludes chroot/chroot/excludes
+			cp config/rootfs/excludes chroot/chroot/excludes
 			# Not using Chroot() here because we want explicitly /bin/bash (for the time being)
 			chroot chroot/chroot /usr/bin/env -i xargs --arg-file=/excludes -I FILE bash -c 'rm -rf FILE'
 			rm -f chroot/chroot/excludes
 			;;
 
 		false)
-			cp config/binary_rootfs/excludes chroot/excludes
+			cp config/rootfs/excludes chroot/excludes
 			# Not using Chroot() here because we want explicitly /bin/bash (for the time being)
 			chroot chroot /usr/bin/env -i xargs --arg-file=/excludes -I FILE bash -c 'rm -rf FILE'
 			rm -f chroot/excludes
