@@ -190,7 +190,7 @@ Local_arguments ()
 				Print_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 
 				# Dump contents of directories that contain text files
-				for DIRECTORY in config/package-lists config/chroot_apt config/preseed config/binary_rootfs
+				for DIRECTORY in config/package-lists config/apt config/preseed config/binary_rootfs
 				do
 					if Find_files "${DIRECTORY}"
 					then
@@ -1224,7 +1224,7 @@ EOF
 
 # Creating lb_chroot_* configuration
 mkdir -p config/archives
-mkdir -p config/chroot_apt
+mkdir -p config/apt
 mkdir -p config/hooks
 mkdir -p config/includes.chroot
 mkdir -p config/packages
