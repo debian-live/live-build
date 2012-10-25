@@ -21,13 +21,13 @@ Set_defaults ()
 	# Setting system type
 	LB_SYSTEM="${LB_SYSTEM:-live}"
 
-	# Setting mode (currently: debian, emdebian, progress, ubuntu and kubuntu)
+	# Setting mode (currently: debian, emdebian, progress-linux, ubuntu and kubuntu)
 	if [ -x /usr/bin/lsb_release ]
 	then
 		_DISTRIBUTOR="$(lsb_release -is | tr [A-Z] [a-z])"
 
 		case "${_DISTRIBUTOR}" in
-			debian|progress|ubuntu)
+			debian|progress-linux|ubuntu)
 				LB_MODE="${LB_MODE:-${_DISTRIBUTOR}}"
 				;;
 
@@ -36,9 +36,9 @@ Set_defaults ()
 				;;
 		esac
 	else
-		if [ -e /etc/progress_version ]
+		if [ -e /etc/progress-linux_version ]
 		then
-			LB_MODE="${LB_MODE:-progress}"
+			LB_MODE="${LB_MODE:-progress-linux}"
 		elif [ -e /etc/ubuntu_version ]
 		then
 			LB_MODE="${LB_MODE:-ubuntu}"
@@ -49,7 +49,7 @@ Set_defaults ()
 
 	# Setting distribution name
 	case "${LB_MODE}" in
-		progress)
+		progress-linux)
 			LB_DISTRIBUTION="${LB_DISTRIBUTION:-baureo}"
 			LB_DERIVATIVE="true"
 			;;
@@ -66,7 +66,7 @@ Set_defaults ()
 	esac
 
 	case "${LB_MODE}" in
-		progress)
+		progress-linux)
 			case "${LB_DISTRIBUTION}" in
 				artax|artax-backports)
 					LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-squeeze}"
@@ -127,7 +127,7 @@ Set_defaults ()
 
 	# Setting apt recommends
 	case "${LB_MODE}" in
-		emdebian|progress)
+		emdebian|progress-linux)
 			LB_APT_RECOMMENDS="${LB_APT_RECOMMENDS:-false}"
 			;;
 
@@ -141,7 +141,7 @@ Set_defaults ()
 
 	# Setting apt source
 	case "${LB_MODE}" in
-		progress)
+		progress-linux)
 			LB_APT_SOURCE_ARCHIVES="${LB_APT_SOURCE_ARCHIVES:-false}"
 			;;
 
@@ -292,11 +292,7 @@ Set_defaults ()
 
 	# Setting root directory
 	case "${LB_MODE}" in
-		debian)
-			LB_ROOT="${LB_ROOT:-debian-live}"
-			;;
-
-		progress)
+		progress-linux)
 			LB_ROOT="${LB_ROOT:-progress-linux}"
 			;;
 
@@ -371,7 +367,7 @@ Set_defaults ()
 			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-${LB_MIRROR_BOOTSTRAP}}"
 			;;
 
-		progress)
+		progress-linux)
 			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-http://ftp.debian.org/debian/}"
 			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://cdn.archive.progress-linux.org/progress/}"
 			;;
@@ -406,7 +402,7 @@ Set_defaults ()
 			LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-${LB_MIRROR_CHROOT_SECURITY}}"
 			;;
 
-		progress)
+		progress-linux)
 			LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-http://security.debian.org/}"
 			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-${LB_MIRROR_CHROOT}}"
 			;;
@@ -428,7 +424,7 @@ Set_defaults ()
 
 	# Setting updates mirror to fetch packages from
 	case "${LB_MODE}" in
-		debian|progress)
+		debian|progress-linux)
 			LB_PARENT_MIRROR_CHROOT_UPDATES="${LB_PARENT_MIRROR_CHROOT_UPDATES:-${LB_PARENT_MIRROR_CHROOT}}"
 			LB_MIRROR_CHROOT_UPDATES="${LB_MIRROR_CHROOT_UPDATES:-${LB_MIRROR_CHROOT}}"
 			;;
@@ -460,7 +456,7 @@ Set_defaults ()
 			LB_PARENT_MIRROR_CHROOT_BACKPORTS="${LB_PARENT_MIRROR_CHROOT_BACKPORTS:-${LB_MIRROR_CHROOT_BACKPORTS}}"
 			;;
 
-		progress)
+		progress-linux)
 			LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-${LB_MIRROR_CHROOT}}"
 			;;
 
@@ -477,7 +473,7 @@ Set_defaults ()
 			LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-${LB_MIRROR_BINARY}}"
 			;;
 
-		progress)
+		progress-linux)
 			LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-http://ftp.debian.org/debian/}"
 			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-${LB_MIRROR_CHROOT}}"
 			;;
@@ -514,7 +510,7 @@ Set_defaults ()
 			LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-${LB_MIRROR_BINARY_SECURITY}}"
 			;;
 
-		progress)
+		progress-linux)
 			LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-http://security.debian.org/}"
 			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-${LB_MIRROR_CHROOT}}"
 			;;
@@ -541,7 +537,7 @@ Set_defaults ()
 			LB_PARENT_MIRROR_BINARY_UPDATES="${LB_PARENT_MIRROR_BINARY_UPDATES:-${LB_PARENT_MIRROR_BINARY}}"
 			;;
 
-		progress)
+		progress-linux)
 			LB_PARENT_MIRROR_BINARY_UPDATES="${LB_PARENT_MIRROR_BINARY_UPDATES:-${LB_PARENT_MIRROR_BINARY}}"
 			LB_MIRROR_BINARY_UPDATES="${LB_MIRROR_BINARY_UPDATES:-${LB_MIRROR_BINARY}}"
 			;;
@@ -572,7 +568,7 @@ Set_defaults ()
 			LB_PARENT_MIRROR_BINARY_BACKPORTS="${LB_PARENT_MIRROR_BINARY_BACKPORTS:-${LB_MIRROR_BINARY_BACKPORTS}}"
 			;;
 
-		progress)
+		progress-linux)
 			LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-${LB_MIRROR_BINARY}}"
 			;;
 
@@ -583,7 +579,7 @@ Set_defaults ()
 	esac
 
 	case "${LB_MODE}" in
-		progress)
+		progress-linux)
 			LB_PARENT_MIRROR_DEBIAN_INSTALLER="${LB_PARENT_MIRROR_DEBIAN_INSTALLER:-${LB_MIRROR_CHROOT}}"
 			LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER:-${LB_MIRROR_CHROOT}}"
 			;;
@@ -596,7 +592,7 @@ Set_defaults ()
 
 	# Setting archive areas value
 	case "${LB_MODE}" in
-		progress)
+		progress-linux)
 			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main contrib non-free}"
 			LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS:-${LB_ARCHIVE_AREAS}}"
 			;;
@@ -696,7 +692,7 @@ Set_defaults ()
 
 		i386)
 			case "${LB_MODE}" in
-				progress)
+				progress-linux)
 					case "${LB_DISTRIBUTION}" in
 						artax)
 							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-686}"
@@ -743,7 +739,7 @@ Set_defaults ()
 
 		ia64)
 			case "${LB_MODE}" in
-				progress)
+				progress-linux)
 					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
 					exit 1
 					;;
@@ -756,7 +752,7 @@ Set_defaults ()
 
 		powerpc)
 			case "${LB_MODE}" in
-				progress)
+				progress-linux)
 					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
 					exit 1
 					;;
@@ -789,7 +785,7 @@ Set_defaults ()
 
 		s390)
 			case "${LB_MODE}" in
-				progress|ubuntu|kubuntu)
+				progress-linux|ubuntu|kubuntu)
 					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
 					exit 1
 					;;
@@ -802,7 +798,7 @@ Set_defaults ()
 
 		sparc)
 			case "${LB_MODE}" in
-				progress)
+				progress-linux)
 					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
 					exit 1
 					;;
@@ -886,7 +882,7 @@ Set_defaults ()
 
 	# Setting apt indices
 	case "${LB_MODE}" in
-		progress)
+		progress-linux)
 			LB_APT_INDICES="${LB_APT_INDICES:-none}"
 			;;
 
@@ -929,7 +925,7 @@ Set_defaults ()
 
 	# Setting debian-installer option
 	case "${LB_MODE}" in
-		progress)
+		progress-linux)
 			LB_DEBIAN_INSTALLER="${LB_DEBIAN_INSTALLER:-live}"
 			;;
 
@@ -942,7 +938,7 @@ Set_defaults ()
 
 	# Setting debian-installer-gui
 	case "${LB_MODE}" in
-		debian|progress)
+		debian|progress-linux)
 			LB_DEBIAN_INSTALLER_GUI="${LB_DEBIAN_INSTALLER_GUI:-true}"
 			;;
 
@@ -1041,7 +1037,7 @@ Set_defaults ()
 			LB_ISO_APPLICATION="${LB_ISO_APPLICATION:-Emdebian Live}"
 			;;
 
-		progress)
+		progress-linux)
 			LB_ISO_APPLICATION="${LB_ISO_APPLICATION:-Progress Linux}"
 			;;
 
@@ -1059,7 +1055,7 @@ Set_defaults ()
 
 	# Set iso publisher
 	case "${LB_MODE}" in
-		progress)
+		progress-linux)
 			LB_ISO_PUBLISHER="${LB_ISO_PUBLISHER:-Progress Linux; http://www.progress-linux.org/; progress-project@lists.progress-linux.org}"
 			;;
 
@@ -1078,7 +1074,7 @@ Set_defaults ()
 			LB_HDD_LABEL="${LB_HDD_LABEL:-EMDEBIAN_LIVE}"
 			;;
 
-		progress)
+		progress-linux)
 			LB_HDD_LABEL="${LB_HDD_LABEL:-PROGRESS_$(echo ${LB_DISTRIBUTION} | tr [a-z] [A-Z])}"
 			;;
 
@@ -1104,7 +1100,7 @@ Set_defaults ()
 			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Emdebian ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)}"
 			;;
 
-		progress)
+		progress-linux)
 			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Progress ${LB_DISTRIBUTION}}"
 			;;
 
@@ -1122,7 +1118,7 @@ Set_defaults ()
 
 	# Setting loadlin option
 	case "${LB_MODE}" in
-		progress|ubuntu|kubuntu)
+		progress-linux|ubuntu|kubuntu)
 
 			;;
 
@@ -1146,7 +1142,7 @@ Set_defaults ()
 
 	# Setting win32-loader option
 	case "${LB_MODE}" in
-		progress|ubuntu|kubuntu)
+		progress-linux|ubuntu|kubuntu)
 
 			;;
 
@@ -1173,7 +1169,7 @@ Set_defaults ()
 
 	# Setting netboot server path
 	case "${LB_MODE}" in
-		progress)
+		progress-linux)
 			LB_NET_ROOT_PATH="${LB_NET_ROOT_PATH:-/srv/progress-linux}"
 			;;
 
@@ -1193,7 +1189,7 @@ Set_defaults ()
 
 	# Setting syslinux theme package
 	case "${LB_MODE}" in
-		progress)
+		progress-linux)
 			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-progress-standard}"
 			;;
 

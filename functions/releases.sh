@@ -14,7 +14,7 @@ RELEASE_wheezy="7.0~a2"
 RELEASE_jessie="8"
 RELEASE_sid="unstable"
 
-# Progress releases
+# Progress Linux releases
 RELEASE_artax="1.0"
 RELEASE_baureo="2.0"
 RELEASE_charon="unstable"

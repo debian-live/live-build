@@ -272,10 +272,10 @@ case "${LB_DERIVATIVE}" in
 			URL="${LB_PARENT_MIRROR_DEBIAN_INSTALLER}/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LB_ARCHITECTURES}/current/images/"
 		fi
 
-		if [ "${LB_MODE}" = "progress" ]
+		if [ "${LB_MODE}" = "progress-linux" ]
 		then
 			# FIXME: normal derivatives probably don't rebuild d-i,
-			# but progress does.
+			# but progress-linux does.
 			URL="${LB_MIRROR_DEBIAN_INSTALLER}/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LB_ARCHITECTURES}/current/images/"
 		fi
 		;;

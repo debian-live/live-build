@@ -53,7 +53,7 @@ case "${LB_BINARY_IMAGES}" in
 		_BOOTLOADER="isolinux"
 
 		case "${LB_MODE}" in
-			progress)
+			progress-linux)
 				_TARGET="binary/boot"
 				;;
 
@@ -72,7 +72,7 @@ case "${LB_BINARY_IMAGES}" in
 		_BOOTLOADER="syslinux"
 
 		case "${LB_MODE}" in
-			progress)
+			progress-linux)
 				_TARGET="binary/boot"
 				;;
 
@@ -273,7 +273,7 @@ fi
 if [ -e "${_TARGET}/splash.svg.in" ]
 then
 	case "${LB_MODE}" in
-		progress)
+		progress-linux)
 			_PROJECT="Progress Linux"
 
 			if ls config/package-lists/client-gnome.list*
@@ -350,7 +350,7 @@ then
 fi
 
 case "${LB_MODE}" in
-	progress)
+	progress-linux)
 		for _FILE in "${_TARGET}/isolinux.bin" "${_TARGET}/isolinux.cfg" "${_TARGET}/syslinux.cfg"
 		do
 			if [ -e "${_FILE}" ]

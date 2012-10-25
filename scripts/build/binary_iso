@@ -128,7 +128,7 @@ case "${LB_BOOTLOADER}" in
 	syslinux)
 		GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -no-emul-boot -boot-load-size 4 -boot-info-table"
 		case "${LB_MODE}" in
-			progress)
+			progress-linux)
 				GENISOIMAGE_OPTIONS="${GENISOIMAGE_OPTIONS} -r -b boot/boot.bin -c boot/boot.cat"
 				GENISOIMAGE_EXCLUDE="boot/boot.bin"
 				;;

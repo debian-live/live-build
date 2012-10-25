@@ -43,6 +43,6 @@ lb bootstrap_cache save ${@}
 # Temporary hack for base-files wrt/ plymouth
 case "${LB_DISTRIBUTION}" in
 	artax*)
-		echo '0.0.0' > chroot/etc/progress_version
+		echo '0.0.0' > chroot/etc/progress-linux_version
 		;;
 esac
