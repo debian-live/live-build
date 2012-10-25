@@ -189,9 +189,6 @@ EOF
 			fi
 		fi
 
-		# probably too bold, needs refinment (FIXME)
-		rm -f chroot/etc/apt/preferences.d/*
-
 		# Configure third-party archives
 		if [ -n "${LB_ARCHIVES}" ]
 		then
