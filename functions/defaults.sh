@@ -214,6 +214,18 @@ Set_defaults ()
 			esac
 			;;
 
+		progress-linux)
+			case "${LB_DISTRIBUTION}" in
+				artax|artax-backports)
+					LB_INITSYSTEM="${LB_INITSYSTEM:-sysvinit}"
+					;;
+
+				*)
+					LB_INITSYSTEM="${LB_INITSYSTEM:-systemd}"
+					;;
+			esac
+			;;
+
 		*)
 			case "${LB_SYSTEM}" in
 				live)
