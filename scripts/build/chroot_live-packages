@@ -49,18 +49,11 @@ then
 fi
 
 # Do initsystem specific hacks
-if [ -n "${LB_INITSYSTEM}" ] && [ "${LB_INITSYSTEM}" != "sysvinit" ]
-then
-	# lets see if we still need the squeeze's "pre init system policy discussion" hack:
-	IS_SYSVINIT_ESSENTIAL="$(Chroot chroot dpkg-query --show --showformat='${Essential}\n' sysvinit)"
-	RC="$?"
-
-	if [ "${IS_SYSVINIT_ESSENTIAL}" != "no" ] && [ "${RC}" = "0" ]
-	then
-		# sysvinit is both installed and essential, ugly hack to remove it
-		Chroot chroot dpkg --force-remove-essential --remove sysvinit || true
-	fi
-fi
+case "${LB_INITSYSTEM}" in
+	systemd)
+		_PACKAGES="${_PACKAGES} systemd-sysv"
+		;;
+esac
 
 # Install live packages
 if [ -n "${_PACKAGES}" ]
