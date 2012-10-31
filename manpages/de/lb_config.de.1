@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2012\-10\-25 3.0~a66\-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2012\-10\-31 3.0~a66\-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -71,8 +71,6 @@
   [\-c|\fB\-\-conffile\fP \fIFILE\fP]
 .br
   [\fB\-\-debconf\-frontend\fP dialog|editor|noninteractive|readline]
-.br
-  [\fB\-\-debconf\-nowarnings\fP true|false]
 .br
   [\fB\-\-debconf\-priority\fP low|medium|high|critical]
 .br
@@ -410,10 +408,6 @@ normally used one in the config directory.
 defines what value the debconf frontend should be set to inside the
 chroot. Note that setting it to anything by noninteractive, which is the
 default, makes your build asking questions during the build.
-.IP "\fB\-\-debconf\-nowarnings\fP true|false" 4
-defines if warnings of debconf should be displayed or not. Warnings from
-debconf are generally very rare and by default, we skip them, if any, in
-order to keep the build process entirely non interactive.
 .IP "\fB\-\-debconf\-priority\fP low|medium|high|critical" 4
 defines what value the debconf priority shoul dbe set to inside the
 chroot. By default, it is set to critical, which means that almost no

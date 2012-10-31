@@ -47,7 +47,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--clean\n\
 \t    [-c|--conffile FILE]\n\
 \t    [--debconf-frontend dialog|editor|noninteractive|readline]\n\
-\t    [--debconf-nowarnings true|false]\n\
 \t    [--debconf-priority low|medium|high|critical]\n\
 \t    [--debian-installer true|cdrom|netinst|netboot|businesscard|live|false]\n\
 \t    [--debian-installer-distribution daily|CODENAME]\n\
@@ -143,7 +142,7 @@ Local_arguments ()
 {
 	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-options:,aptitute-options:,debootstrap-options:,cdebootstrap-options:,
 		apt-pipeline:,apt-recommends:,apt-secure:,apt-source-archives:,bootstrap:,cache:,cache-indices:,cache-packages:,
-		cache-stages:,debconf-frontend:,debconf-nowarnings:,debconf-priority:,dump,
+		cache-stages:,debconf-frontend:,debconf-priority:,dump,
 		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,system:,root-command:,use-fakeroot:,tasksel:,
 		templates:,architectures:,clean,
 		distribution:,parent-distribution:,parent-debian-installer-distribution:,parent-mirror-bootstrap:,parent-mirror-chroot:,parent-mirror-chroot-security:,parent-mirror-chroot-updates:,parent-mirror-chroot-backports:,parent-mirror-binary:,
@@ -306,11 +305,6 @@ Local_arguments ()
 
 			--debconf-frontend)
 				LB_DEBCONF_FRONTEND="${2}"
-				shift 2
-				;;
-
-			--debconf-nowarnings)
-				LB_DEBCONF_NOWARNINGS="${2}"
 				shift 2
 				;;
 
@@ -1009,10 +1003,6 @@ LB_CACHE_STAGES="${LB_CACHE_STAGES}"
 # \$LB_DEBCONF_FRONTEND: set debconf(1) frontend to use
 # (Default: ${LB_DEBCONF_FRONTEND})
 LB_DEBCONF_FRONTEND="${LB_DEBCONF_FRONTEND}"
-
-# \$LB_DEBCONF_NOWARNINGS: set debconf(1) warnings
-# (Default: ${LB_DEBCONF_NOWARNINGS})
-LB_DEBCONF_NOWARNINGS="${LB_DEBCONF_NOWARNINGS}"
 
 # \$LB_DEBCONF_PRIORITY: set debconf(1) priority to use
 # (Default: ${LB_DEBCONF_PRIORITY})

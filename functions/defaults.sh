@@ -170,18 +170,7 @@ Set_defaults ()
 
 	# Setting debconf frontend
 	LB_DEBCONF_FRONTEND="${LB_DEBCONF_FRONTEND:-noninteractive}"
-	LB_DEBCONF_NOWARNINGS="${LB_DEBCONF_NOWARNINGS:-yes}"
 	LB_DEBCONF_PRIORITY="${LB_DEBCONF_PRIORITY:-critical}"
-
-	case "${LB_DEBCONF_NOWARNINGS}" in
-		true)
-			LB_DEBCONF_NOWARNINGS="yes"
-			;;
-
-		false)
-			LB_DEBCONF_NOWARNINGS="no"
-			;;
-	esac
 
 	# Setting initramfs hook
 	case "${LB_SYSTEM}" in

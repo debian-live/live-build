@@ -28,7 +28,7 @@ Chroot ()
 
 	if [ "${LB_USE_FAKEROOT}" != "true" ]
 	then
-		${LB_ROOT_COMMAND} ${_LINUX32} chroot "${CHROOT}" /usr/bin/env -i HOME="/root" PATH="/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin" TERM="${TERM}" DEBIAN_FRONTEND="${LB_DEBCONF_FRONTEND}" DEBIAN_PRIORITY="${LB_DEBCONF_PRIORITY}" DEBCONF_NONINTERACTIVE_SEEN="true" DEBCONF_NOWARNINGS="${LB_DEBCONF_NOWARNINGS}" ${ENV} ${COMMANDS}
+		${LB_ROOT_COMMAND} ${_LINUX32} chroot "${CHROOT}" /usr/bin/env -i HOME="/root" PATH="/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin" TERM="${TERM}" DEBIAN_FRONTEND="${LB_DEBCONF_FRONTEND}" DEBIAN_PRIORITY="${LB_DEBCONF_PRIORITY}" DEBCONF_NONINTERACTIVE_SEEN="true" DEBCONF_NOWARNINGS="true" ${ENV} ${COMMANDS}
 	else
 		# Building with fakeroot/fakechroot
 		${LB_ROOT_COMMAND} ${_LINUX32} chroot "${CHROOT}" ${ENV} ${COMMANDS}
