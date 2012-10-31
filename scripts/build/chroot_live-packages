@@ -58,6 +58,15 @@ case "${LB_INITSYSTEM}" in
 			Chroot chroot "dpkg --force-remove-essential --purge sysvinit"
 		fi
 		;;
+
+	sysvinit)
+		_PACKAGES="${_PACKAGES} sysvinit"
+
+		if [ -e chroot/var/lib/dpkg/info/systemd-sysv.list ]
+		then
+			Chroot chroot "dpkg --force-remove-essential --purge systemd systemd-sysv"
+		fi
+		;;
 esac
 
 # Install live packages
