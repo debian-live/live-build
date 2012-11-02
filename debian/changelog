@@ -1,3 +1,42 @@
+live-build (3.0~a67-1) unstable; urgency=low
+
+  [ chals ]
+  * Addin missing comma in the long debootstrap-options that caused an
+    unrecognized option message.
+
+  [ Daniel Baumann ]
+  * Renaming progress mode to progress-linux to match the used naming
+    scheme.
+  * Removing unecessary removal of apt preferences.
+  * Removing workaround for #657560 where we had to temporarily include
+    bzip2 into the bootstrapped chroot to avoid sids apt failing on
+    mirrors with bzip2 indices only.
+  * Removing cruft line breaks in bailout messages for bootstrap tools.
+  * Using xargs when copying or hardlinking deb files from and to the
+    package cache to avoid hit the shell max command limits (Closes:
+    #691616).
+  * Defaulting to systemd as initsystem for wheezy based progress-linux
+    releases and newer.
+  * Shortening initsystem specific hacks for wheezy, systemd on squeeze
+    never was really supported anyway.
+  * Removing sysvinit when building images with systemd.
+  * Running chrooted commands with DEBCONF_NONINTERACTIVE_SEEN set to
+    true to ensure debconf questions are not reasked uselessly on the
+    final systems.
+  * Making sysvinit removal on systemd systems conditional, newer
+    bootstraps might not always pull in sysvinit packages anymore.
+  * Also supporting the other way around: removing systemd from a
+    bootstrap and switching to sysvinit for those distributions that
+    default to systemd.
+  * Removing debconf-nowarnings option, doesn't provide any advantage to
+    disable this option in the first place.
+  * Correcting typos in aptitude-options name in lb config, thanks to
+    Frank Gard <frank@familie-gard.de> (Closes: #691930).
+  * Workarounding recent archive changes wrt/ content files until
+    #692111 is fixed.
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 02 Nov 2012 12:23:38 +0100
+
 live-build (3.0~a66-1) unstable; urgency=low
 
   * Removing some left-overs from bootstrap-copy removal in lb config.
