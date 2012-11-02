@@ -20,10 +20,10 @@ Restore_cache ()
 			if [ "$(stat --printf %d ${DIRECTORY})" = "$(stat --printf %d chroot/var/cache/apt/archives)" ]
 			then
 				# with hardlinks
-				cp -fl "${DIRECTORY}"/*.deb chroot/var/cache/apt/archives
+				find "${DIRECTORY}" -name "*.deb" | xargs cp -fl -t chroot/var/cache/apt/archives
 			else
 				# without hardlinks
-				cp "${DIRECTORY}"/*.deb chroot/var/cache/apt/archives
+				find "${DIRECTORY}" -name "*.deb" | xargs cp -t chroot/var/cache/apt/archives
 			fi
 		fi
 	fi

@@ -94,7 +94,7 @@ EOF
 		if [ "${LB_SECURITY}" = "true" ]
 		then
 			case "${LB_MODE}" in
-				debian|progress)
+				debian|progress-linux)
 					case "${LB_PARENT_DISTRIBUTION}" in
 						sid)
 
@@ -110,7 +110,7 @@ EOF
 							;;
 					esac
 
-					if [ "${LB_MODE}" = progress ]
+					if [ "${LB_MODE}" = progress-linux ]
 					then
 						echo "deb ${LB_MIRROR_CHROOT_SECURITY} ${_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
 
@@ -188,9 +188,6 @@ EOF
 				fi
 			fi
 		fi
-
-		# probably too bold, needs refinment (FIXME)
-		rm -f chroot/etc/apt/preferences.d/*
 
 		# Configure third-party archives
 		if [ -n "${LB_ARCHIVES}" ]
@@ -664,7 +661,7 @@ EOF
 		if [ "${LB_SECURITY}" = "true" ]
 		then
 			case "${LB_MODE}" in
-				debian|progress)
+				debian|progress-linux)
 					case "${LB_PARENT_DISTRIBUTION}" in
 						sid)
 
@@ -680,7 +677,7 @@ EOF
 							;;
 					esac
 
-					if [ "${LB_MODE}" = progress ]
+					if [ "${LB_MODE}" = progress-linux ]
 					then
 						echo "deb ${LB_MIRROR_BINARY_SECURITY} ${_DISTRIBUTION}-security ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
 

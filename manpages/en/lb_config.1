@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2012\-10\-22 3.0~a66-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2012\-11\-02 3.0~a67-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -66,8 +66,6 @@
 	[\-c|\fB\-\-conffile\fR \fIFILE\fR]
 .br
 	[\fB\-\-debconf\-frontend\fR dialog|editor|noninteractive|readline]
-.br
-	[\fB\-\-debconf\-nowarnings\fR true|false]
 .br
 	[\fB\-\-debconf\-priority\fR low|medium|high|critical]
 .br
@@ -175,7 +173,7 @@
 .br
 	[\fB\-\-mirror\-debian\-installer\fR \fIURL\fR]
 .br
-	[\fB\-\-mode\fR debian|emdebian|progress|ubuntu|kubuntu]
+	[\fB\-\-mode\fR debian|emdebian|progress-linux|ubuntu|kubuntu]
 .br
 	[\fB\-\-system\fR live|normal]
 .br
@@ -307,8 +305,6 @@ minimizes config directory by automatically removing unused and thus empty subdi
 using a user specified alternative configuration file in addition to the normally used one in the config directory.
 .IP "\fB\-\-debconf\-frontend\fR dialog|editor|noninteractive|readline" 4
 defines what value the debconf frontend should be set to inside the chroot. Note that setting it to anything by noninteractive, which is the default, makes your build asking questions during the build.
-.IP "\fB\-\-debconf\-nowarnings\fR true|false" 4
-defines if warnings of debconf should be displayed or not. Warnings from debconf are generally very rare and by default, we skip them, if any, in order to keep the build process entirely non interactive.
 .IP "\fB\-\-debconf\-priority\fR low|medium|high|critical" 4
 defines what value the debconf priority shoul dbe set to inside the chroot. By default, it is set to critical, which means that almost no questions are displayed. Note that this only has an effect if you use any debconf frontend different from noninteractive.
 .IP "\fB\-\-debian\-installer\fR true|cdrom|netinst|netboot|businesscard|live|false" 4

@@ -72,7 +72,7 @@ case "${LB_MODE}" in
 		TRACE=""
 		;;
 
-	progress)
+	progress-linux)
 		TITLE="Progress Linux"
 		STRING="${VERSION} (${DISTRIBUTION}) - ${ARCHITECTURE}"
 		TRACE="project/trace/archive-master.progress-linux.org"

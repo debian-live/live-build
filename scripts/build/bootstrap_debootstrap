@@ -31,9 +31,9 @@ fi
 
 if [ ! -x "$(which debootstrap 2>/dev/null)" ]
 then
-	echo "E: debootstrap - command not found"; \
-	echo "I: debootstrap can be optained from http://ftp.debian.org/debian/pool/main/d/debootstrap/"; \
-	echo "I: On Debian based systems, debootstrap can be installed with 'apt-get install debootstrap'."; \
+	echo "E: debootstrap - command not found"
+	echo "I: debootstrap can be optained from http://ftp.debian.org/debian/pool/main/d/debootstrap/"
+	echo "I: On Debian based systems, debootstrap can be installed with 'apt-get install debootstrap'."
 	exit 1
 fi
 
@@ -59,9 +59,6 @@ Create_lockfile .lock
 
 # Creating chroot directory
 mkdir -p chroot
-
-# Temporarily including bzip2 manually until #657560 has been fixed in unstable
-DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --include=bzip2"
 
 # Setting debootstrap options
 if [ -n "${LB_ARCHITECTURES}" ]
