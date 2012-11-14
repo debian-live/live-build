@@ -48,9 +48,9 @@ Exit ()
 
 	if ls .build/binary* > /dev/null 2>&1
 	then
-		Save_cache cache/packages_binary
+		Save_cache cache/packages.binary
 	else
-		Save_cache cache/packages_chroot
+		Save_cache cache/packages.chroot
 	fi
 
 	return ${VALUE}
