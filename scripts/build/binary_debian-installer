@@ -418,7 +418,7 @@ then
 
 		FIRMWARE_PACKAGES=""
 
-		if [ "${_PARENT_DISTRIBUTION}" = "squeeze" ] || [ "${LB_MODE}" = "ubuntu" ] || [ "${LB_MODE}" = "kubuntu" ]
+		if [ "${LB_PARENT_DISTRIBUTION}" = "squeeze" ] || [ "${LB_MODE}" = "ubuntu" ] || [ "${LB_MODE}" = "kubuntu" ]
 		then
 			_CONTENTS="${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz"
 		else
