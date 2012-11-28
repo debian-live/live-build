@@ -629,7 +629,8 @@ Set_defaults ()
 				remove-dbus-machine-id \
 				remove-openssh-server-host-keys \
 				remove-python-py \
-				remove-udev-persistent-rules}"
+				remove-udev-persistent-rules \
+				remove-linux-image-backups}"
 			;;
 
 		kubuntu)
@@ -640,7 +641,8 @@ Set_defaults ()
 				remove-gnome-icon-cache \
 				remove-openssh-server-host-keys \
 				remove-python-py \
-				remove-udev-persistent-rules}"
+				remove-udev-persistent-rules \
+				remove-linux-image-backups}"
 			;;
 	esac
 
