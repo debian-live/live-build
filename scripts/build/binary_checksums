@@ -66,7 +66,7 @@ cat > ${CHECKSUMS} << EOF
 ## This file contains the list of ${CHECKSUM} checksums of all fileson this
 ## medium.
 ##
-## You can verify them automatically with the 'integrity-check' boot parameter,
+## You can verify them automatically with the 'verify-checksums' boot parameter,
 ## or, manually with: '${CHECKSUM}sum -c ${CHECKSUMS}'.
 ##
 ##
