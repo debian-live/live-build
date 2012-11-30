@@ -68,11 +68,6 @@ Set_defaults ()
 	case "${LB_MODE}" in
 		progress-linux)
 			case "${LB_DISTRIBUTION}" in
-				artax|artax-backports)
-					LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-squeeze}"
-					LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_PARENT_DISTRIBUTION}}"
-					;;
-
 				baureo|baureo-backports)
 					LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-wheezy}"
 					LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_PARENT_DISTRIBUTION}}"
@@ -204,15 +199,7 @@ Set_defaults ()
 			;;
 
 		progress-linux)
-			case "${LB_DISTRIBUTION}" in
-				artax|artax-backports)
-					LB_INITSYSTEM="${LB_INITSYSTEM:-sysvinit}"
-					;;
-
-				*)
-					LB_INITSYSTEM="${LB_INITSYSTEM:-systemd}"
-					;;
-			esac
+			LB_INITSYSTEM="${LB_INITSYSTEM:-systemd}"
 			;;
 
 		*)
@@ -281,15 +268,7 @@ Set_defaults ()
 	fi
 
 	# Setting tasksel
-	case "${LB_PARENT_DISTRIBUTION}" in
-		squeeze)
-			LB_TASKSEL="${LB_TASKSEL:-tasksel}"
-			;;
-
-		*)
-			LB_TASKSEL="${LB_TASKSEL:-apt}"
-			;;
-	esac
+	LB_TASKSEL="${LB_TASKSEL:-apt}"
 
 	# Setting root directory
 	case "${LB_MODE}" in
@@ -696,15 +675,7 @@ Set_defaults ()
 		i386)
 			case "${LB_MODE}" in
 				progress-linux)
-					case "${LB_DISTRIBUTION}" in
-						artax)
-							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-686}"
-							;;
-
-						*)
-							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-686-pae}"
-							;;
-					esac
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-686-pae}"
 					;;
 
 				ubuntu|kubuntu)
@@ -725,15 +696,7 @@ Set_defaults ()
 							;;
 
 						*)
-							case "${LB_PARENT_DISTRIBUTION}" in
-								squeeze)
-									LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486 686}"
-									;;
-
-								*)
-									LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486 686-pae}"
-									;;
-							esac
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486 686-pae}"
 							;;
 					esac
 					;;
@@ -825,15 +788,7 @@ Set_defaults ()
 			;;
 
 		*)
-			case "${LB_PARENT_DISTRIBUTION}" in
-				squeeze)
-					LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES:-linux-image-2.6}"
-					;;
-
-				*)
-					LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES:-linux-image}"
-					;;
-			esac
+			LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES:-linux-image}"
 			;;
 	esac
 

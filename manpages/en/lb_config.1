@@ -240,7 +240,7 @@
 .\" FIXME
 \fBlb config\fR populates the configuration directory for live\-build. By default, this directory is named 'config' and is created in the current directory where \fBlb config\fR was executed.
 .PP
-Note: Currently \fBlb config\fR tries to be smart and sets defaults for some options depending on the setting of other options (e.g. which linux packages to be used depending on if a squeeze system gets build or not). This means that when generating a new configuration, you should call \fBlb config\fR only once with all options specified. Calling it several times with only a subset of the options each can result in non working configurations. This is also caused by the fact that \fBlb config\fR called with one option only changes that option, and leaves everything else as is unless its not defined. However, \fBlb config\fR does warn about know impossible or likely impossible combinations that would lead to non working live systems. If unsure, remove config/{binary,bootstrap,chroot,common,source} and call \fBlb config\fR again.
+Note: Currently \fBlb config\fR tries to be smart and sets defaults for some options depending on the setting of other options (e.g. which linux packages to be used depending on if a wheezy system gets build or not). This means that when generating a new configuration, you should call \fBlb config\fR only once with all options specified. Calling it several times with only a subset of the options each can result in non working configurations. This is also caused by the fact that \fBlb config\fR called with one option only changes that option, and leaves everything else as is unless its not defined. However, \fBlb config\fR does warn about know impossible or likely impossible combinations that would lead to non working live systems. If unsure, remove config/{binary,bootstrap,chroot,common,source} and call \fBlb config\fR again.
 .\" FIXME
 
 .SH OPTIONS
@@ -463,7 +463,7 @@ defines the path to a swap file to create in the binary image. Default is not to
 .IP "\fB\-\-swap\-file\-size\fR \fIMB\fR" 4
 defines what size in megabytes the swap file should be, if one is to be created. Default is 512MB.
 .IP "\fB\-\-syslinux\-theme\fR \fITHEME_SUFFIX\fR" 4
-defines the syslinux theme to use. The theme suffix is the name of a directory in /usr/share/syslinux/themes/ provided by a package named syslinux\-theme\- plus the suffix. In debian mode, this defaults to debian\-squeeze.
+defines the syslinux theme to use. The theme suffix is the name of a directory in /usr/share/syslinux/themes/ provided by a package named syslinux\-theme\- plus the suffix. In debian mode, this defaults to debian\-wheezy.
 .IP "\fB\-\-tasksel\fR apt|aptitude|tasksel" 4
 selects which program is used to install tasks. By default, this is set to tasksel.
 .IP "\fB\-\-templates\fR \fIPATH\fR" 4

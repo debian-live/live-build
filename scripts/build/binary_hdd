@@ -50,15 +50,7 @@ case "${LB_BINARY_FILESYSTEM}" in
 		;;
 
 	ntfs)
-		case "${LB_PARENT_DISTRIBUTION}" in
-			squeeze)
-				Check_package chroot/sbin/mkfs.ntfs ntfsprogs
-				;;
-
-			*)
-				Check_package chroot/sbin/mkfs.nfts ntfs-3g
-				;;
-		esac
+		Check_package chroot/sbin/mkfs.nfts ntfs-3g
 		;;
 esac
 

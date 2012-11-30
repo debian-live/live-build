@@ -67,15 +67,7 @@ case "${LB_BINARY_FILESYSTEM}" in
 		;;
 
 	ntfs)
-		case "${LB_PARENT_DISTRIBUTION}" in
-			squeeze)
-				echo "ntfsprogs" >> source-selection.txt
-				;;
-
-			*)
-				echo "ntfs-3g" >> source-selection.txt
-				;;
-		esac
+		echo "ntfs-3g" >> source-selection.txt
 		;;
 esac
 

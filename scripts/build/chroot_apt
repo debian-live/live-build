@@ -204,19 +204,6 @@ cat >> chroot/etc/apt/preferences.d/progress-linux.pref << EOF
 EOF
 
 					done
-
-					# Add temporary hack to avoid squashfs version mismatch
-					case "${LB_DISTRIBUTION}" in
-						artax-backports)
-
-cat >> chroot/etc/apt/preferences.d/progress-linux.tmp.pref << EOF
-Package: squashfs-tools
-Pin: release n=squeeze
-Pin-Priority: 1001
-EOF
-
-						;;
-					esac
 				fi
 				;;
 		esac
@@ -321,9 +308,6 @@ EOF
 			fi
 
 		fi
-
-		# Remove temporary hack to avoid squashfs version mismatch for artax-backports
-		rm -f chroot/etc/apt/preferences.d/progress-linux.tmp.pref
 
 		# Removing stage file
 		rm -f .build/chroot_apt
