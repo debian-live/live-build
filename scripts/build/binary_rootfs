@@ -357,8 +357,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 			esac
 		fi
 
-		if [ "${LB_PARENT_DISTRIBUTION}" != "squeeze" ] && \
-		   [ "${LB_MODE}" != "ubuntu" ]
+		if [ "${LB_PARENT_DISTRIBUTION}" != "squeeze" ] && [ "${LB_MODE}" != "ubuntu" ] && [ "${LB_MODE}" != "kubuntu" ]
 		then
 			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -comp xz"
 		fi
