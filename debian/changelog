@@ -1,3 +1,9 @@
+live-build (4.0~a1-1) experimental; urgency=low
+
+  * Dropping support for squeeze and squeeze-based distributions.
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 30 Nov 2012 15:22:32 +0100
+
 live-build (3.0~a68-1) unstable; urgency=low
 
   [ Ben Armstrong ]
