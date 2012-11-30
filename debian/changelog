@@ -1,3 +1,48 @@
+live-build (3.0~a68-1) unstable; urgency=low
+
+  [ Ben Armstrong ]
+  * Fixing typo in cache directory names, thanks to Thanatermesis
+    <thanatermesis@gmail.com>.
+
+  [ Daniel Baumann ]
+  * Correcting copying of archive specific apt preferences files, thanks
+    to Thanatermesis <thanatermesis@gmail.com> (Closes: #693250).
+  * Correcting a typo in chroot_apt when re-configuring apt preferences,
+    found by Thanatermesis <thanatermesis@gmail.com> (Closes: #685924).
+
+  [ Richard Nelson ]
+  * Update git paths for cgi form.
+  * Increased the maxlenth of the entry field cgipackages.list.chroot on
+    l-b.cgi (Closes: #693732).
+
+  [ Daniel Baumann ]
+  * Adding backwards compatible handling for squeeze and the ubuntus for
+    old-style Contents files in the archive.
+  * Adding default-preseeding for non-free firmware only when non-free is
+    actually included, to avoid cluttering debconf db by default on all
+    systems.
+
+  [ Richard Nelson ]
+  * Correct typo on commit 11d97a6a5f17fe2c500a798aa4a32fa6889e409c
+  * Correct another typo on commit
+    11d97a6a5f17fe2c500a798aa4a32fa6889e409c
+
+  [ Daniel Baumann ]
+  * Marking comments in checksum files as such to avoid harmless but
+    anoying warning messages during live-boots medium integrity check.
+  * Updating note about integrity check boot parameter within checksum
+    files.
+  * Adding default hook to remove linux-image backup files.
+  * Using four letter digit prefixes for hooks like for consistency with
+    all other live packages.
+  * Adding dpkg-source local options.
+  * Using hash rather than pipe as sed separator for writing boot
+    parameters into bootloader configurations (Closes: #694723).
+  * Replicating same qemu support within bootstrap_debootstrao for
+    bootstrap_cdebootstrap too (Closes: #694102).
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 30 Nov 2012 15:09:48 +0100
+
 live-build (3.0~a67-1) unstable; urgency=low
 
   [ chals ]
