@@ -269,7 +269,7 @@ case "${LB_BINARY_IMAGES}" in
 
 		# Configure yaboot templates
 		sed -i -e "s|LINUX_LIVE|${LINUX_LIVE}|" -e "s|LINUX_INSTALL|${LINUX_INSTALL}|" binary/yaboot/yaboot.conf
-		sed -i -e "s|LB_BOOTAPPEND_INSTALL|${LB_BOOTAPPEND_INSTALL}|" -e "s|LB_BOOTAPPEND_LIVE|${LB_BOOTAPPEND_LIVE}|" binary/yaboot/yaboot.conf
+		sed -i -e "s#LB_BOOTAPPEND_INSTALL#${LB_BOOTAPPEND_INSTALL}#" -e "s#LB_BOOTAPPEND_LIVE#${LB_BOOTAPPEND_LIVE}#" binary/yaboot/yaboot.conf
 		sed -i -e "s|LB_DATE|$(date +%Y%m%d)|" -e "s|LB_VERSION|${VERSION}|" binary/yaboot/boot.msg
 		;;
 esac

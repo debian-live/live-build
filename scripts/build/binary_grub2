@@ -237,7 +237,7 @@ fi
 cp ${FILES} binary/boot/grub
 
 sed -i -e "s|LINUX_LIVE|${LINUX_LIVE}|" -e "s|LINUX_INSTALL|${LINUX_INSTALL}|" -e "s|MEMTEST|${MEMTEST}|" binary/boot/grub/grub.cfg
-sed -i -e "s|LB_BOOTAPPEND_INSTALL|${LB_BOOTAPPEND_INSTALL}|" -e "s|LB_BOOTAPPEND_LIVE|${LB_BOOTAPPEND_LIVE}|" binary/boot/grub/grub.cfg
+sed -i -e "s#LB_BOOTAPPEND_INSTALL#${LB_BOOTAPPEND_INSTALL}#" -e "s#LB_BOOTAPPEND_LIVE#${LB_BOOTAPPEND_LIVE}#" binary/boot/grub/grub.cfg
 
 sed -i -e 's|\ $||g' binary/boot/grub/grub.cfg
 
