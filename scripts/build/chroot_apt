@@ -298,7 +298,7 @@ EOF
 
 				cp -aL ${_FILE} chroot/etc/apt/preferences.d
 
-				if [ -f chroot/etc/apt/preferences.d/$(basename ${_FILE}) ]
+				if [ -f chroot/etc/apt/preferences.d/$(basename ${_FILE}).orig ]
 				then
 					mv chroot/etc/apt/preferences.d/$(basename ${_FILE}).orig chroot/etc/apt/preferences.d/$(basename ${_FILE})
 				fi

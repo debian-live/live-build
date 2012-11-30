@@ -290,7 +290,7 @@ EOF
 			do
 				if [ -e "${FILE}" ]
 				then
-					cp config/archives/$(basename ${_FILE} .chroot) chroot/etc/apt/preferences.d
+					cp ${FILE} chroot/etc/apt/preferences.d/$(basename ${FILE} .chroot)
 				fi
 			done
 		fi
@@ -847,7 +847,7 @@ EOF
 			do
 				if [ -e "${FILE}" ]
 				then
-					cp config/archives/$(basename ${_FILE} .binary) chroot/etc/apt/preferences.d
+					cp ${FILE} chroot/etc/apt/preferences.d/$(basename ${FILE} .binary)
 				fi
 			done
 		fi

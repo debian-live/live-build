@@ -45,7 +45,7 @@ for _HOOK in ${LB_BINARY_HOOKS}
 do
 	for LOCATION in "${LIVE_BUILD}/hooks" /usr/share/live/build/hooks
 	do
-		for FILE in "${LOCATION}"/???-"${_HOOK}".binary
+		for FILE in "${LOCATION}"/????-"${_HOOK}".binary
 		do
 			if [ -e "${FILE}" ]
 			then

@@ -54,7 +54,7 @@ for _HOOK in ${LB_CHROOT_HOOKS}
 do
 	for LOCATION in "${LIVE_BUILD}/hooks" /usr/share/live/build/hooks
 	do
-		for FILE in "${LOCATION}"/???-"${_HOOK}".chroot
+		for FILE in "${LOCATION}"/????-"${_HOOK}".chroot
 		do
 			if [ -e "${FILE}" ]
 			then
