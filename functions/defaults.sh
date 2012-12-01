@@ -690,15 +690,7 @@ Set_defaults ()
 					;;
 
 				*)
-					case "${LIST}" in
-						stripped|minimal)
-							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486}"
-							;;
-
-						*)
-							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486 686-pae}"
-							;;
-					esac
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486 686-pae}"
 					;;
 			esac
 			;;
@@ -724,27 +716,11 @@ Set_defaults ()
 					;;
 
 				ubuntu|kubuntu)
-					case "${LIST}" in
-						stripped|minimal)
-							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc-smp}"
-							;;
-
-						*)
-							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc-smp powerpc64-smp}"
-							;;
-					esac
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc-smp powerpc64-smp}"
 					;;
 
 				*)
-					case "${LIST}" in
-						stripped|minimal)
-							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc}"
-							;;
-
-						*)
-							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc powerpc64}"
-							;;
-					esac
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc powerpc64}"
 					;;
 			esac
 			;;
