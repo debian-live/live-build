@@ -712,6 +712,7 @@ Set_defaults ()
 						precise)
 							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-generic-pae}"
 							;;
+
 						*)
 							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-generic}"
 							;;
