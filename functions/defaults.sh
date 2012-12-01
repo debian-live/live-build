@@ -753,7 +753,7 @@ Set_defaults ()
 					;;
 
 				ubuntu|kubuntu)
-					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc-smp powerpc64-smp}"
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc-smp powerpc64-smp e500 powerpc-e500mc}"
 					;;
 
 				*)
