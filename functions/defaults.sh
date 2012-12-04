@@ -1176,19 +1176,18 @@ Check_defaults ()
 		# except when bootstrapping the functions/defaults etc.).
 		CURRENT_CONFIG_VERSION="$(echo ${LB_CONFIG_VERSION} | awk -F. '{ print $1 }')"
 
-		if [ ${CURRENT_CONFIG_VERSION} -ge 4 ]
+		if [ ${CURRENT_CONFIG_VERSION} -ge 5 ]
 		then
 			Echo_error "This config tree is too new for this version of live-build (${VERSION})."
 			Echo_error "Aborting build, please get a new version of live-build."
 
 			exit 1
-		elif [ ${CURRENT_CONFIG_VERSION} -eq 2 ]
+		elif [ ${CURRENT_CONFIG_VERSION} -eq 3 ]
 		then
 			Echo_error "This config tree is too old for this version of live-build (${VERSION})."
 			Echo_error "Aborting build, please repopulate the config tree."
 			exit 1
-		elif [ ${CURRENT_CONFIG_VERSION} -lt 1 ]
-		then
+		else
 			Echo_warning "This config tree does not specify a format version or has an unknown version number."
 			Echo_warning "Continuing build, but it could lead to errors or different results. Please repopulate the config tree."
 		fi
