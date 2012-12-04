@@ -1230,12 +1230,12 @@ Check_defaults ()
 		elif [ ${CURRENT_CONFIG_VERSION} -eq 2 ]
 		then
 			Echo_error "This config tree is too old for this version of live-build (${VERSION})."
-			Echo_error "Aborting build, please repopulate the config tree."
+			Echo_error "Aborting build, please regenerate the config tree."
 			exit 1
 		elif [ ${CURRENT_CONFIG_VERSION} -lt 1 ]
 		then
 			Echo_warning "This config tree does not specify a format version or has an unknown version number."
-			Echo_warning "Continuing build, but it could lead to errors or different results. Please repopulate the config tree."
+			Echo_warning "Continuing build, but it could lead to errors or different results. Please regenerate the config tree."
 		fi
 	fi
 
