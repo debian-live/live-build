@@ -6,11 +6,18 @@ then
 	export LIVE_BUILD
 fi
 
-# Source global functions
-for FUNCTION in "${LIVE_BUILD}"/functions/*.sh /usr/share/live/build/functions/*.sh
+for _DIRECTORY in "${LIVE_BUILD}/functions" /usr/share/live/build/functions
 do
-	if [ -e "${FUNCTION}" ]
+	if [ -e "${_DIRECTORY}" ]
 	then
-		. "${FUNCTION}"
+		for _FILE in "${_DIRECTORY}"/*.sh
+		do
+			if [ -e "${_FILE}" ]
+			then
+				. "${_FILE}"
+			fi
+		done
+
+		break
 	fi
 done
