@@ -107,6 +107,35 @@ then
 			done
 		fi
 
+		if [ "${LB_PARENT_DISTRIBUTION}" = "squeeze" ]
+		then
+			# Filter out contrib packages if contrib is not enabled
+			if ! echo ${LB_ARCHIVE_AREAS} | grep -qs contrib
+			then
+				_FIRMWARE_PACKAGES=""
+
+				for _PACKAGE in ${FIRMWARE_PACKAGES}
+				do
+					_FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES} $(echo ${_PACKAGE} | sed -e 's|^contrib/.*$||')"
+				done
+
+				FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES}"
+			fi
+
+			# Filter out non-free packages if non-free is not enabled
+			if ! echo ${LB_ARCHIVE_AREAS} | grep -qs non-free
+			then
+				_FIRMWARE_PACKAGES=""
+
+				for _PACKAGE in ${FIRMWARE_PACKAGES}
+				do
+					_FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES} $(echo ${_PACKAGE} | sed -e 's|^non-free/.*$||')"
+				done
+
+				FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES}"
+			fi
+		fi
+
 		# Drop section and keep package names only
 		for _PACKAGE in ${FIRMWARE_PACKAGES}
 		do
