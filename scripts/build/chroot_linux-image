@@ -63,7 +63,7 @@ then
 
 		FIRMWARE_PACKAGES=""
 
-		if [ "${LB_PARENT_DISTRIBUTION}" = "squeeze" ] || [ "${LB_MODE}" = "ubuntu" ] || [ "${LB_MODE}" = "kubuntu" ]
+		if [ "${LB_PARENT_DISTRIBUTION}" = "squeeze" ]
 		then
 			_CONTENTS="${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz"
 		else
@@ -90,7 +90,7 @@ then
 		then
 			# FIXME: account for the fact that PARENT_DISTRIBUTION and DISTRIBUTION might be the same (to not have overlapping cache files for contents).
 
-			if [ "${_PARENT_DISTRIBUTION}" = "squeeze" ] || [ "${LB_MODE}" = "ubuntu" ] || [ "${LB_MODE}" = "kubuntu" ]
+			if [ "${_PARENT_DISTRIBUTION}" = "squeeze" ]
 			then
 				_CONTENTS="${LB_MIRROR_CHROOT}/dists/${LB_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz"
 			else
