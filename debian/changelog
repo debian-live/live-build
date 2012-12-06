@@ -1,3 +1,26 @@
+live-build (3.0~a69-1) unstable; urgency=low
+
+  * Also avoiding to use xz compression for squashfs for kubuntu.
+  * Removing some leftovers from stripped and minimal package lists.
+  * Updating powerpc kernel list on ubuntu.
+  * Adding dropped empty-line separator in defaults.
+  * Adding dropped empty-line separator in binary_debian-installer.
+  * Updating wording about regenerating config trees.
+  * Correcting test for no config tree version number to match all other
+    cases, not just lower-than-1.
+  * Harmonizing apt configuration handling in chroot_archives.
+  * Adding support for local apt conf.d snippets in archive definitions
+    (Closes: #685791).
+  * Ensuring that functions are either sources locally or globally, but
+    not both.
+  * Adding proper header to build.sh include.
+  * Dropping ubuntu guards on firmware selection code, we're not enabling
+    firmware inclusion in ubuntu mode anyway.
+  * Adding back legacy filtering for firmware packages on squeeze when
+    contrib or non-free is not enabled.
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 06 Dec 2012 21:09:00 +0100
+
 live-build (3.0~a68-1) unstable; urgency=low
 
   [ Ben Armstrong ]
