@@ -1,3 +1,23 @@
+live-build (4.0~a2-1) experimental; urgency=low
+
+  * Removing some leftovers from stripped and minimal package lists.
+  * Updating powerpc kernel list on ubuntu.
+  * Adding dropped empty-line separator in defaults.
+  * Adding dropped empty-line separator in binary_debian-installer.
+  * Updating version config tree version check (Closes: #695091).
+  * Updating wording about regenerating config trees.
+  * Harmonizing apt configuration handling in chroot_archives.
+  * Adding support for local apt conf.d snippets in archive definitions
+    (Closes: #685791).
+  * Ensuring that functions are either sources locally or globally, but
+    not both.
+  * Adding proper header to build.sh include.
+  * Dropping ubuntu guards on firmware selection code, we're not enabling
+    firmware inclusion in ubuntu mode anyway.
+  * Adding 3.0~a69-1 changelog entries.
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 06 Dec 2012 21:17:32 +0100
+
 live-build (4.0~a1-1) experimental; urgency=low
 
   * Dropping support for squeeze and squeeze-based distributions.
