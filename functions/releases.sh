@@ -9,7 +9,7 @@
 
 
 # Debian releases
-RELEASE_wheezy="7.0~a2"
+RELEASE_wheezy="7.0~b2"
 RELEASE_jessie="8"
 RELEASE_sid="unstable"
 
