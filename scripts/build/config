@@ -943,7 +943,6 @@ fi
 # Creating bootstrap configuration
 mkdir -p config
 mkdir -p config/includes
-mkdir -p config/templates
 
 # Creating live-build configuration
 cat > config/common << EOF
