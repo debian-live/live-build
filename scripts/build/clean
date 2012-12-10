@@ -63,6 +63,8 @@ do
 			"${0}" noauto --source
 
 			rmdir --ignore-fail-on-non-empty auto > /dev/null 2>&1 || true
+			rmdir --ignore-fail-on-non-empty local/bin > /dev/null 2>&1 || true
+			rmdir --ignore-fail-on-non-empty local > /dev/null 2>&1 || true
 			;;
 
 		--cache)
