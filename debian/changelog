@@ -24,6 +24,17 @@ live-build (4.0~a1-1) experimental; urgency=low
 
  -- Daniel Baumann <daniel@debian.org>  Fri, 30 Nov 2012 15:22:32 +0100
 
+live-build (3.0~b1-1) unstable; urgency=low
+
+  [ Raphaël Hertzog ]
+  * Adding initial menu entries for debian-installer.
+
+  [ Daniel Baumann ]
+  * Removing local/bin by default in lb_clean too.
+  * Skipping creation of soon to be replaced config/templates directory.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 10 Dec 2012 20:38:58 +0100
+
 live-build (3.0~a69-1) unstable; urgency=low
 
   * Also avoiding to use xz compression for squashfs for kubuntu.
