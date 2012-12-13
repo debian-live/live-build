@@ -874,17 +874,28 @@ fi
 
 if [ -n "${_CONFIG}" ]
 then
-	_GIT_REPOSITORY="$(echo ${_CONFIG} | sed -e 's|::.*$||')"
-
-	Echo_message "Cloning ${_GIT_REPOSITORY}"
-	git clone ${_GIT_REPOSITORY} ./
-
-	if [ "${_GIT_REPOSITORY}" != "${_CONFIG}" ]
+	if [ -e "${_CONFIG}" ] || [ -e "/usr/share/live/images/${_CONFIG}" ]
 	then
-		_GIT_BRANCH="$(echo ${_CONFIG} | awk -F\:\: '{ print $NF }')"
+		if [ ! -e "${_CONFIG}" ] && [ -e "/usr/share/live/images/${_CONFIG}" ]
+		then
+			_CONFIG="/usr/share/live/images/${_CONFIG}"
+		fi
 
-		Echo_message "Checking out ${_GIT_BRANCH}"
-		git checkout ${_GIT_BRANCH}
+		Echo_message "Copying ${_CONFIG}"
+		tar -C "${_CONFIG}" -c . | tar -C ./ -x
+	else
+		_GIT_REPOSITORY="$(echo ${_CONFIG} | sed -e 's|::.*$||')"
+
+		Echo_message "Cloning ${_GIT_REPOSITORY}"
+		git clone ${_GIT_REPOSITORY} ./
+
+		if [ "${_GIT_REPOSITORY}" != "${_CONFIG}" ]
+		then
+			_GIT_BRANCH="$(echo ${_CONFIG} | awk -F\:\: '{ print $NF }')"
+
+			Echo_message "Checking out ${_GIT_BRANCH}"
+			git checkout ${_GIT_BRANCH}
+		fi
 	fi
 
 	if [ -e auto/config ]
