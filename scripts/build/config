@@ -872,6 +872,16 @@ then
 	_CONFIG=""
 fi
 
+if [ -e .build/config ] && [ -n "${_CONFIG}" ]
+then
+	if [ "${1}" != "noauto" ]
+	then
+		Echo_message "Ignoring --config ${_CONFIG}: ${PWD} is already a live-build configuration tree"
+	fi
+
+	_CONFIG=""
+fi
+
 if [ -n "${_CONFIG}" ]
 then
 	if [ -e "${_CONFIG}" ] || [ -e "/usr/share/live/images/${_CONFIG}" ]
