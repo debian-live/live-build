@@ -631,7 +631,8 @@ Set_defaults ()
 				remove-python-py \
 				remove-udev-persistent-rules \
 				remove-linux-image-backups \
-				remove-mdadm-configuration}"
+				remove-mdadm-configuration \
+				remote-adjtime-configuration}"
 			;;
 
 		kubuntu)
@@ -644,7 +645,8 @@ Set_defaults ()
 				remove-python-py \
 				remove-udev-persistent-rules \
 				remove-linux-image-backups \
-				remove-mdadm-configuration}"
+				remove-mdadm-configuration \
+				remove-adjtime-configuration}"
 			;;
 	esac
 
