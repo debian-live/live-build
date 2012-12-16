@@ -64,8 +64,7 @@ else
 	_LB_CGIPACKAGES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])cgipackages=[-0-9a-zA-Z. _+]+' | cut -f 2 -d '=' | head -n1)
 
 	# CGI Config for git
-	_LB_CONFIG=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])config=[-a-z.]+' | cut -f 2 -d '=' | head -n1)
-	_LB_CONFIG="git://live.debian.net/git/${_LB_CONFIG}"
+	_LB_CONFIG=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])config=[-a-z]+' | cut -f 2 -d '=' | head -n1)
 
 	# Standard options
 	LB_BINARY_IMAGES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])binary_images=[-a-z]+' | cut -f 2 -d '=' | head -n1)
