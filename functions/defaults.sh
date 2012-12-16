@@ -612,7 +612,9 @@ Set_defaults ()
 				remove-linux-image-backups \
 				remove-mdadm-configuration \
 				remote-adjtime-configuration \
-				disable-kexec-tools}"
+				disable-kexec-tools \
+				remove-backup-files \
+				remove-temporary-files}"
 			;;
 
 		kubuntu)
@@ -627,7 +629,9 @@ Set_defaults ()
 				remove-linux-image-backups \
 				remove-mdadm-configuration \
 				remove-adjtime-configuration \
-				disable-kexec-tools}"
+				disable-kexec-tools \
+				remove-backup-files \
+				remove-temporary-files}"
 			;;
 	esac
 
