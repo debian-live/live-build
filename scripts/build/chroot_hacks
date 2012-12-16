@@ -104,12 +104,6 @@ case "${LB_INITRAMFS_COMPRESSION}" in
 		;;
 esac
 
-# Ensure readable permissions on initramfs. loop-aes-utils sets umask to
-# protect GPG keys, which live-build does not support.
-# Note: Use find rather than chmod on the wildcard, one never knows what
-# people might do in local hooks, and there might be no initrds at all.
-find chroot/boot -name 'initrd*' -print0 | xargs -r -0 chmod go+r
-
 # Remove cruft
 rm -f chroot/boot/initrd*bak*
 rm -f chroot/etc/apt/trusted.gpg~
