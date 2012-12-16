@@ -16,7 +16,7 @@ Recommends:
  live-boot-doc, live-config-doc, live-manual-html | live-manual, cpio,
  gnu-fdisk
 Suggests:
- dosfstools, genisoimage, git, loadlin, memtest86+ | memtest86, mtools, parted,
+ dosfstools, xorriso, git, loadlin, memtest86+ | memtest86, mtools, parted,
  squashfs-tools | mtd-tools, sudo | fakeroot, syslinux | grub,
  uuid-runtime, win32-loader
 Description: Live System Build Scripts
