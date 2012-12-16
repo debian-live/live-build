@@ -614,7 +614,8 @@ Set_defaults ()
 				remote-adjtime-configuration \
 				disable-kexec-tools \
 				remove-backup-files \
-				remove-temporary-files}"
+				remove-temporary-files \
+				truncate-log-files}"
 			;;
 
 		kubuntu)
@@ -631,7 +632,8 @@ Set_defaults ()
 				remove-adjtime-configuration \
 				disable-kexec-tools \
 				remove-backup-files \
-				remove-temporary-files}"
+				remove-temporary-files \
+				truncate-log-files}"
 			;;
 	esac
 
