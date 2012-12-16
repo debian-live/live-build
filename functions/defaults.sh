@@ -636,7 +636,8 @@ Set_defaults ()
 				disable-kexec-tools \
 				remove-backup-files \
 				remove-temporary-files \
-				truncate-log-files}"
+				truncate-log-files \
+				nvidia-default-version}"
 			;;
 
 		kubuntu)
@@ -654,7 +655,8 @@ Set_defaults ()
 				disable-kexec-tools \
 				remove-backup-files \
 				remove-temporary-files \
-				truncate-log-files}"
+				truncate-log-files \
+				nvidia-default-version}"
 			;;
 	esac
 
