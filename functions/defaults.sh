@@ -637,7 +637,8 @@ Set_defaults ()
 				remove-backup-files \
 				remove-temporary-files \
 				remove-log-files \
-				update-nvidia-alternative}"
+				update-nvidia-alternative \
+				update-glx-alternative}"
 			;;
 
 		kubuntu)
@@ -656,7 +657,8 @@ Set_defaults ()
 				remove-backup-files \
 				remove-temporary-files \
 				remove-log-files \
-				update-nvidia-alternative}"
+				update-nvidia-alternative \
+				update-glx-alternative}"
 			;;
 	esac
 
