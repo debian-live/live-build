@@ -621,44 +621,23 @@ Set_defaults ()
 	LB_UNION_FILESYSTEM="${LB_UNION_FILESYSTEM:-aufs}"
 
 	# Setting distribution hooks
-	case "${LB_MODE}" in
-		*)
-			LB_CHROOT_HOOKS="${LB_CHROOT_HOOKS:-update-apt-file-cache \
-				update-apt-xapian-index \
-				update-mlocate-database \
-				remove-dbus-machine-id \
-				remove-openssh-server-host-keys \
-				remove-python-py \
-				remove-udev-persistent-rules \
-				remove-mdadm-configuration \
-				remote-adjtime-configuration \
-				disable-kexec-tools \
-				remove-backup-files \
-				remove-temporary-files \
-				remove-log-files \
-				update-nvidia-alternative \
-				update-glx-alternative}"
-			;;
-
-		kubuntu)
-			LB_CHROOT_HOOKS="${LB_CHROOT_HOOKS:-update-apt-file-cache \
-				update-apt-xapian-index \
-				update-mlocate-database \
-				remove-dbus-machine-id \
-				remove-gnome-icon-cache \
-				remove-openssh-server-host-keys \
-				remove-python-py \
-				remove-udev-persistent-rules \
-				remove-mdadm-configuration \
-				remove-adjtime-configuration \
-				disable-kexec-tools \
-				remove-backup-files \
-				remove-temporary-files \
-				remove-log-files \
-				update-nvidia-alternative \
-				update-glx-alternative}"
-			;;
-	esac
+	LB_CHROOT_HOOKS="${LB_CHROOT_HOOKS:-disable-kexec-tools \
+		remove-adjtime-configuration \
+		remove-apt-sources-lists \
+		remove-backup-files \
+		remove-dbus-machine-id \
+		remove-gnome-icon-cache \
+		remove-log-files \
+		remove-mdadm-configuration \
+		remove-openssh-server-host-keys \
+		remove-python-py \
+		remove-temporary-files \
+		remove-udev-persistent-rules \
+		update-apt-file-cache \
+		update-apt-xapian-index \
+		update-glx-alternative \
+		update-mlocate-database \
+		update-nvidia-alternative}"
 
 	# Setting interactive shell/X11/Xnest
 	LB_INTERACTIVE="${LB_INTERACTIVE:-false}"
