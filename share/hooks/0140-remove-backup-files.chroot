@@ -3,6 +3,9 @@
 set -e
 
 # Remove backup files
+rm -f /boot/*.bak
+rm -f /boot/*.old-dkms
+
 rm -f /etc/apt/trusted.gpg~
 
 rm -f /etc/passwd-

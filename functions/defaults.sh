@@ -630,7 +630,6 @@ Set_defaults ()
 				remove-openssh-server-host-keys \
 				remove-python-py \
 				remove-udev-persistent-rules \
-				remove-linux-image-backups \
 				remove-mdadm-configuration \
 				remote-adjtime-configuration \
 				disable-kexec-tools \
@@ -650,7 +649,6 @@ Set_defaults ()
 				remove-openssh-server-host-keys \
 				remove-python-py \
 				remove-udev-persistent-rules \
-				remove-linux-image-backups \
 				remove-mdadm-configuration \
 				remove-adjtime-configuration \
 				disable-kexec-tools \
