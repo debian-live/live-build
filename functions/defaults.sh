@@ -611,7 +611,8 @@ Set_defaults ()
 				remove-udev-persistent-rules \
 				remove-linux-image-backups \
 				remove-mdadm-configuration \
-				remote-adjtime-configuration}"
+				remote-adjtime-configuration \
+				disable-kexec-tools}"
 			;;
 
 		kubuntu)
@@ -625,7 +626,8 @@ Set_defaults ()
 				remove-udev-persistent-rules \
 				remove-linux-image-backups \
 				remove-mdadm-configuration \
-				remove-adjtime-configuration}"
+				remove-adjtime-configuration \
+				disable-kexec-tools}"
 			;;
 	esac
 
