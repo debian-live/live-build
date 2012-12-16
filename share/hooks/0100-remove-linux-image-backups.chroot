@@ -1,8 +1,0 @@
-#!/bin/sh
-
-set -e
-
-# Remove backup files
-
-rm -f /boot/*.bak
-rm -f /boot/*.old-dkms
