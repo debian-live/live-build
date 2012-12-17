@@ -1,3 +1,26 @@
+live-build (3.0~b3-1) unstable; urgency=low
+
+  * Removing old code in chroot_hacks for tasks which are not used
+    anymore.
+  * Moving kexec-tools default preseeding into its own hook script.
+  * Marking loop-aes-utils related hack as squeeze only.
+  * Moving removal of backup and temporary files to their own hook script.
+  * Adding default hook to truncate log files.
+  * Also removing man chache in remove-temporary-files hook.
+  * Adding default hook to use newest nvidia version.
+  * Using consistent naming for default hooks.
+  * Adding default hook to use mesa glx renderer.
+  * Merging remove-linux-image-backups into remove-backup-files hook.
+  * Renumbering hooks.
+  * Correcting config tree version check for older versions.
+  * Correcting config tree version check for the current version.
+  * Removing some dead default handling code for global includes which do
+    not exist anymore.
+  * Removing kubuntu mode, it's not different anymore to standard ubuntu
+    mode.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 17 Dec 2012 20:29:56 +0100
+
 live-build (3.0~b2-1) unstable; urgency=low
 
   [ Daniel Baumann ]
