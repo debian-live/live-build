@@ -131,7 +131,7 @@ EOF
 					fi
 					;;
 
-				ubuntu|kubuntu)
+				ubuntu)
 					echo "deb ${LB_PARENT_MIRROR_CHROOT_SECURITY} ${LB_PARENT_DISTRIBUTION}-security ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/${_PARENT_FILE}
 
 					if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
@@ -196,7 +196,7 @@ EOF
 			do
 				# ubuntu workaround to allow using live.debian.net
 				case "${LB_MODE}" in
-					ubuntu|kubuntu)
+					ubuntu)
 						if [ "${REPOSITORY}" = "live.debian.net" ]
 						then
 							_DISTRIBUTION="sid"
@@ -701,7 +701,7 @@ EOF
 					fi
 					;;
 
-				ubuntu|kubuntu)
+				ubuntu)
 					echo "deb ${LB_PARENT_MIRROR_BINARY_SECURITY} ${LB_PARENT_DISTRIBUTION}-security ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/${_PARENT_FILE}
 
 					if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
