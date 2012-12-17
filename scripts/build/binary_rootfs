@@ -147,7 +147,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 				mv chroot/filesystem.${LB_CHROOT_FILESYSTEM} binary/${INITFS}
 
 				case "${LB_MODE}" in
-					ubuntu|kubuntu)
+					ubuntu)
 						du -B 1 -s chroot/chroot | cut -f1 > binary/${INITFS}/filesystem.size
 						;;
 				esac
@@ -357,7 +357,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 			esac
 		fi
 
-		if [ "${LB_MODE}" != "ubuntu" ] && [ "${LB_MODE}" != "kubuntu" ]
+		if [ "${LB_MODE}" != "ubuntu" ]
 		then
 			MKSQUASHFS_OPTIONS="${MKSQUASHFS_OPTIONS} -comp xz"
 		fi
@@ -377,7 +377,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 				rm -f chroot/chroot/excludes
 
 				case "${LB_MODE}" in
-					ubuntu|kubuntu)
+					ubuntu)
 						du -B 1 -s chroot/chroot | cut -f1 > binary/${INITFS}/filesystem.size
 						;;
 				esac
@@ -442,7 +442,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 				mksquashfs chroot binary/${INITFS}/filesystem.squashfs ${MKSQUASHFS_OPTIONS}
 
 				case "${LB_MODE}" in
-					ubuntu|kubuntu)
+					ubuntu)
 						du -B 1 -s chroot | cut -f1 > binary/${INITFS}/filesystem.size
 						;;
 				esac
