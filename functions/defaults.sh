@@ -21,7 +21,7 @@ Set_defaults ()
 	# Setting system type
 	LB_SYSTEM="${LB_SYSTEM:-live}"
 
-	# Setting mode (currently: debian, emdebian, progress-linux, ubuntu and kubuntu)
+	# Setting mode (currently: debian, emdebian, progress-linux, and ubuntu)
 	if [ -x /usr/bin/lsb_release ]
 	then
 		_DISTRIBUTOR="$(lsb_release -is | tr [A-Z] [a-z])"
@@ -54,7 +54,7 @@ Set_defaults ()
 			LB_DERIVATIVE="true"
 			;;
 
-		ubuntu|kubuntu)
+		ubuntu)
 			LB_DISTRIBUTION="${LB_DISTRIBUTION:-precise}"
 			LB_DERIVATIVE="false"
 			;;
@@ -176,7 +176,7 @@ Set_defaults ()
 	case "${LB_SYSTEM}" in
 		live)
 			case "${LB_MODE}" in
-				ubuntu|kubuntu)
+				ubuntu)
 					LB_INITRAMFS="${LB_INITRAMFS:-casper}"
 					;;
 
@@ -195,7 +195,7 @@ Set_defaults ()
 
 	# Setting initsystem
 	case "${LB_MODE}" in
-		ubuntu|kubuntu)
+		ubuntu)
 			case "${LB_INITRAMFS}" in
 				live-boot)
 					LB_INITSYSTEM="${LB_INITSYSTEM:-upstart}"
@@ -302,14 +302,6 @@ Set_defaults ()
 			;;
 	esac
 
-	# Setting includes
-	if [ -n "${LIVE_BUID}" ]
-	then
-		LB_INCLUDES="${LB_INCLUDES:-${LIVE_BUILD}/includes}"
-	else
-		LB_INCLUDES="${LB_INCLUDES:-/usr/share/live/build/includes}"
-	fi
-
 	# Setting templates
 	if [ -n "${LIVE_BUID}" ]
 	then
@@ -373,7 +365,7 @@ Set_defaults ()
 			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://cdn.archive.progress-linux.org/progress/}"
 			;;
 
-		ubuntu|kubuntu)
+		ubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
 					LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://archive.ubuntu.com/ubuntu/}"
@@ -408,7 +400,7 @@ Set_defaults ()
 			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-${LB_MIRROR_CHROOT}}"
 			;;
 
-		ubuntu|kubuntu)
+		ubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
 					LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-http://security.ubuntu.com/ubuntu/}"
@@ -430,7 +422,7 @@ Set_defaults ()
 			LB_MIRROR_CHROOT_UPDATES="${LB_MIRROR_CHROOT_UPDATES:-${LB_MIRROR_CHROOT}}"
 			;;
 
-		ubuntu|kubuntu)
+		ubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
 					LB_MIRROR_CHROOT_UPDATES="${LB_MIRROR_CHROOT_UPDATES:-http://archive.ubuntu.com/ubuntu/}"
@@ -484,7 +476,7 @@ Set_defaults ()
 			LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-${LB_MIRROR_BINARY}}"
 			;;
 
-		ubuntu|kubuntu)
+		ubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
 					LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://archive.ubuntu.com/ubuntu/}"
@@ -516,7 +508,7 @@ Set_defaults ()
 			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-${LB_MIRROR_CHROOT}}"
 			;;
 
-		ubuntu|kubuntu)
+		ubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
 					LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-http://security.ubuntu.com/ubuntu/}"
@@ -543,7 +535,7 @@ Set_defaults ()
 			LB_MIRROR_BINARY_UPDATES="${LB_MIRROR_BINARY_UPDATES:-${LB_MIRROR_BINARY}}"
 			;;
 
-		ubuntu|kubuntu)
+		ubuntu)
 			case "${LB_ARCHITECTURES}" in
 				amd64|i386)
 					LB_MIRROR_BINARY_UPDATES="${LB_MIRROR_BINARY_UPDATES:-http://archive.ubuntu.com/ubuntu/}"
@@ -598,7 +590,7 @@ Set_defaults ()
 			LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS:-${LB_ARCHIVE_AREAS}}"
 			;;
 
-		ubuntu|kubuntu)
+		ubuntu)
 			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main restricted}"
 			LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS:-${LB_ARCHIVE_AREAS}}"
 			;;
@@ -621,41 +613,30 @@ Set_defaults ()
 	LB_UNION_FILESYSTEM="${LB_UNION_FILESYSTEM:-aufs}"
 
 	# Setting distribution hooks
-	case "${LB_MODE}" in
-		*)
-			LB_CHROOT_HOOKS="${LB_CHROOT_HOOKS:-update-apt-file-cache \
-				update-apt-xapian-index \
-				update-mlocate-database \
-				remove-dbus-machine-id \
-				remove-openssh-server-host-keys \
-				remove-python-py \
-				remove-udev-persistent-rules \
-				remove-linux-image-backups \
-				remove-mdadm-configuration \
-				remote-adjtime-configuration}"
-			;;
-
-		kubuntu)
-			LB_CHROOT_HOOKS="${LB_CHROOT_HOOKS:-update-apt-file-cache \
-				update-apt-xapian-index \
-				update-mlocate-database \
-				remove-dbus-machine-id \
-				remove-gnome-icon-cache \
-				remove-openssh-server-host-keys \
-				remove-python-py \
-				remove-udev-persistent-rules \
-				remove-linux-image-backups \
-				remove-mdadm-configuration \
-				remove-adjtime-configuration}"
-			;;
-	esac
+	LB_CHROOT_HOOKS="${LB_CHROOT_HOOKS:-disable-kexec-tools \
+		remove-adjtime-configuration \
+		remove-apt-sources-lists \
+		remove-backup-files \
+		remove-dbus-machine-id \
+		remove-gnome-icon-cache \
+		remove-log-files \
+		remove-mdadm-configuration \
+		remove-openssh-server-host-keys \
+		remove-python-py \
+		remove-temporary-files \
+		remove-udev-persistent-rules \
+		update-apt-file-cache \
+		update-apt-xapian-index \
+		update-glx-alternative \
+		update-mlocate-database \
+		update-nvidia-alternative}"
 
 	# Setting interactive shell/X11/Xnest
 	LB_INTERACTIVE="${LB_INTERACTIVE:-false}"
 
 	# Setting keyring packages
 	case "${LB_MODE}" in
-		ubuntu|kubuntu)
+		ubuntu)
 			LB_KEYRING_PACKAGES="${LB_KEYRING_PACKAGES:-ubuntu-keyring}"
 			;;
 
@@ -668,7 +649,7 @@ Set_defaults ()
 	case "${LB_ARCHITECTURES}" in
 		armel)
 			case "${LB_MODE}" in
-                                ubuntu|kubuntu)
+                                ubuntu)
 					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-omap}"
 					;;
 				*)
@@ -687,7 +668,7 @@ Set_defaults ()
 
 		amd64)
 			case "${LB_MODE}" in
-				ubuntu|kubuntu)
+				ubuntu)
 					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-generic}"
 					;;
 
@@ -711,7 +692,7 @@ Set_defaults ()
 					esac
 					;;
 
-				ubuntu|kubuntu)
+				ubuntu)
 					case "${LB_DISTRIBUTION}" in
 						precise)
 							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-generic-pae}"
@@ -757,7 +738,7 @@ Set_defaults ()
 					exit 1
 					;;
 
-				ubuntu|kubuntu)
+				ubuntu)
 					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc-smp powerpc64-smp e500 powerpc-e500mc}"
 					;;
 
@@ -769,7 +750,7 @@ Set_defaults ()
 
 		s390)
 			case "${LB_MODE}" in
-				progress-linux|ubuntu|kubuntu)
+				progress-linux|ubuntu)
 					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
 					exit 1
 					;;
@@ -801,7 +782,7 @@ Set_defaults ()
 
 	# Set linux packages
 	case "${LB_MODE}" in
-		ubuntu|kubuntu)
+		ubuntu)
 			LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES:-linux}"
 			;;
 
@@ -972,7 +953,7 @@ Set_defaults ()
 
 			hdd*)
 				case "${LB_MODE}" in
-					ubuntu|kubuntu)
+					ubuntu)
 						if [ "${LB_DEBIAN_INSTALLER}" = "live" ]
 						then
 							_LB_BOOTAPPEND_PRESEED="file=/cdrom/install/${LB_DEBIAN_INSTALLER_PRESEEDFILE}"
@@ -1028,10 +1009,6 @@ Set_defaults ()
 		ubuntu)
 			LB_ISO_APPLICATION="${LB_ISO_APPLICATION:-Ubuntu Live}"
 			;;
-
-		kubuntu)
-			LB_ISO_APPLICATION="${LB_ISO_APPLICATION:-Kubuntu Live}"
-			;;
 	esac
 
 	# Set iso preparer
@@ -1065,10 +1042,6 @@ Set_defaults ()
 		ubuntu)
 			LB_HDD_LABEL="${LB_HDD_LABEL:-UBUNTU}"
 			;;
-
-		kubuntu)
-			LB_HDD_LABEL="${LB_HDD_LABEL:-KUBUNTU}"
-			;;
 	esac
 
 	# Setting hdd size
@@ -1091,10 +1064,6 @@ Set_defaults ()
 		ubuntu)
 			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Ubuntu ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)}"
 			;;
-
-		kubuntu)
-			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Ubuntu ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)}"
-			;;
 	esac
 
 	# Setting memtest option
@@ -1102,7 +1071,7 @@ Set_defaults ()
 
 	# Setting loadlin option
 	case "${LB_MODE}" in
-		progress-linux|ubuntu|kubuntu)
+		progress-linux|ubuntu)
 
 			;;
 
@@ -1126,7 +1095,7 @@ Set_defaults ()
 
 	# Setting win32-loader option
 	case "${LB_MODE}" in
-		progress-linux|ubuntu|kubuntu)
+		progress-linux|ubuntu)
 
 			;;
 
@@ -1225,20 +1194,24 @@ Check_defaults ()
 		# except when bootstrapping the functions/defaults etc.).
 		CURRENT_CONFIG_VERSION="$(echo ${LB_CONFIG_VERSION} | awk -F. '{ print $1 }')"
 
-		if [ ${CURRENT_CONFIG_VERSION} -ge 4 ]
+		if [ ${CURRENT_CONFIG_VERSION} -ne 3 ]
 		then
-			Echo_error "This config tree is too new for this version of live-build (${VERSION})."
-			Echo_error "Aborting build, please get a new version of live-build."
+			if [ ${CURRENT_CONFIG_VERSION} -ge 4 ]
+			then
+				Echo_error "This config tree is too new for this version of live-build (${VERSION})."
+				Echo_error "Aborting build, please get a new version of live-build."
 
-			exit 1
-		elif [ ${CURRENT_CONFIG_VERSION} -eq 2 ]
-		then
-			Echo_error "This config tree is too old for this version of live-build (${VERSION})."
-			Echo_error "Aborting build, please regenerate the config tree."
-			exit 1
-		else
-			Echo_warning "This config tree does not specify a format version or has an unknown version number."
-			Echo_warning "Continuing build, but it could lead to errors or different results. Please regenerate the config tree."
+				exit 1
+			elif [ ${CURRENT_CONFIG_VERSION} -le 2 ]
+			then
+				Echo_error "This config tree is too old for this version of live-build (${VERSION})."
+				Echo_error "Aborting build, please regenerate the config tree."
+
+				exit 1
+			else
+				Echo_warning "This config tree does not specify a format version or has an unknown version number."
+				Echo_warning "Continuing build, but it could lead to errors or different results. Please regenerate the config tree."
+			fi
 		fi
 	fi
 
