@@ -1220,7 +1220,7 @@ Check_defaults ()
 			Echo_error "Aborting build, please get a new version of live-build."
 
 			exit 1
-		elif [ ${CURRENT_CONFIG_VERSION} -eq 2 ]
+		elif [ ${CURRENT_CONFIG_VERSION} -le 2 ]
 		then
 			Echo_error "This config tree is too old for this version of live-build (${VERSION})."
 			Echo_error "Aborting build, please regenerate the config tree."
