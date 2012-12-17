@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2012-12-16 21:57+0100\n"
+"POT-Creation-Date: 2012-12-17 13:51+0100\n"
 "PO-Revision-Date: 2012-08-02 18:55+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -29,7 +29,7 @@ msgstr ""
 #: en/lb_chroot.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
 #: en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "2012-12-16"
+msgid "2012-12-17"
 msgstr ""
 
 #. type: TH
@@ -593,7 +593,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:177
-msgid "  [B<--mode> debian|emdebian|progress-linux|ubuntu|kubuntu]"
+msgid "  [B<--mode> debian|emdebian|progress-linux|ubuntu]"
 msgstr ""
 
 #. type: Plain text
