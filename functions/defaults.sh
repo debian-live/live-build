@@ -281,14 +281,6 @@ Set_defaults ()
 			;;
 	esac
 
-	# Setting includes
-	if [ -n "${LIVE_BUID}" ]
-	then
-		LB_INCLUDES="${LB_INCLUDES:-${LIVE_BUILD}/includes}"
-	else
-		LB_INCLUDES="${LB_INCLUDES:-/usr/share/live/build/includes}"
-	fi
-
 	# Setting templates
 	if [ -n "${LIVE_BUID}" ]
 	then
