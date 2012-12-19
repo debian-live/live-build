@@ -130,12 +130,12 @@ do
 			;;
 
 		--source)
-			rm -f source*.iso
-			rm -f source*.img
-			rm -f source*.tar
-			rm -f source*.tar.gz
-			rm -f source*.list
-			rm -f source-selection.txt
+			rm -f ${LIVE_IMAGE_NAME}-source*.iso
+			rm -f ${LIVE_IMAGE_NAME}-source*.img
+			rm -f ${LIVE_IMAGE_NAME}-source*.tar
+			rm -f ${LIVE_IMAGE_NAME}-source*.tar.gz
+			rm -f ${LIVE_IMAGE_NAME}-source*.list
+			rm -f ${LIVE_IMAGE_NAME}-source-selection.txt
 
 			rm -rf source
 
