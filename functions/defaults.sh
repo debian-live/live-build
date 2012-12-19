@@ -41,8 +41,9 @@ New_configuration ()
 	export LIVE_CONFIGURATION_VERSION
 
 	# Image
-	#LIVE_IMAGE="$(Get_configuration config/control Image)"
-	#LIVE_IMAGE="${LIVE_IMAGE:-binary}"
+	LIVE_IMAGE_NAME="$(Get_configuration config/control Name)"
+	LIVE_IMAGE_NAME="${LIVE_IMAGE_NAME:-live}"
+	export LIVE_IMAGE_NAME
 
 	# Image: Architecture (FIXME: Support and default to 'any')
 	LIVE_IMAGE_ARCHITECTURE="$(Get_configuration config/control Architecture)"

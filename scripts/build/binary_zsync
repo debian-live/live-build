@@ -59,23 +59,23 @@ Install_package
 
 case "${LIVE_IMAGE_TYPE}" in
 	iso)
-		_IMAGES="binary.iso"
+		_IMAGES="${LIVE_IMAGE_NAME}.iso"
 		;;
 
 	iso-hybrid)
-		_IMAGES="binary.hybrid.iso"
+		_IMAGES="${LIVE_IMAGE_NAME}.hybrid.iso"
 		;;
 
 	hdd)
-		_IMAGES="binary.img"
+		_IMAGES="${LIVE_IMAGE_NAME}.img"
 		;;
 
 	net)
-		_IMAGES="binary.netboot.tar*"
+		_IMAGES="${LIVE_IMAGE_NAME}.netboot.tar*"
 		;;
 
 	tar)
-		_IMAGES="binary.tar*"
+		_IMAGES="${LIVE_IMAGE_NAME}.tar*"
 		;;
 esac
 
