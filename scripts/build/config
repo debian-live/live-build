@@ -370,7 +370,7 @@ Local_arguments ()
 
 			# config/bootstrap
 			-a|--architectures)
-				LB_ARCHITECTURES="${2}"
+				LIVE_IMAGE_ARCHITECTURE="${2}"
 				shift 2
 				;;
 
@@ -956,9 +956,9 @@ Check_defaults
 
 if [ ! -e config ]
 then
-	Echo_message "Creating config tree for a ${LB_MODE}/${LB_ARCHITECTURES} system"
+	Echo_message "Creating config tree for a ${LB_MODE}/${LIVE_IMAGE_ARCHITECTURE} system"
 else
-	Echo_message "Updating config tree for a ${LB_MODE}/${LB_ARCHITECTURES} system"
+	Echo_message "Updating config tree for a ${LB_MODE}/${LIVE_IMAGE_ARCHITECTURE} system"
 fi
 
 # Creating bootstrap configuration
@@ -1107,10 +1107,6 @@ EOF
 # Creating lb_bootstrap_* configuration
 cat > config/bootstrap << EOF
 # config/bootstrap - options for live-build(7), bootstrap stage
-
-# \$LB_ARCHITECTURES: select chroot architectures
-# (Default: autodetected)
-LB_ARCHITECTURES="${LB_ARCHITECTURES}"
 
 # \$LB_DISTRIBUTION: select distribution to use
 # (Default: ${LB_DISTRIBUTION})
@@ -1490,6 +1486,7 @@ Set_configuration "config/control" "Configuration-Version" "${LIVE_CONFIGURATION
 echo "" >> config/control
 Set_configuration "config/control" "Image" "binary"
 Set_configuration "config/control" "Type" "${LIVE_IMAGE_TYPE}"
+Set_configuration "config/control" "Architecture" "${LIVE_IMAGE_ARCHITECTURE}"
 
 # Creating stage file
 Create_stagefile .build/config
