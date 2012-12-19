@@ -42,7 +42,7 @@ New_configuration ()
 
 	# Image
 	LIVE_IMAGE_NAME="$(Get_configuration config/control Name)"
-	LIVE_IMAGE_NAME="${LIVE_IMAGE_NAME:-live}"
+	LIVE_IMAGE_NAME="${LIVE_IMAGE_NAME:-live-image}"
 	export LIVE_IMAGE_NAME
 
 	# Image: Architecture (FIXME: Support and default to 'any')
