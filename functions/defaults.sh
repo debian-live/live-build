@@ -69,6 +69,11 @@ New_configuration ()
 
 	export LIVE_IMAGE_ARCHIVE_AREAS
 
+	# Image: Archive Areas
+	LIVE_IMAGE_PARENT_ARCHIVE_AREAS="$(Get_configuration config/control Parent-Archive-Areas)"
+	LIVE_IMAGE_PARENT_ARCHIVE_AREAS="${LIVE_IMAGE_PARENT_ARCHIVE_AREAS:-${LIVE_IMAGE_ARCHIVE_AREAS}}"
+	export LIVE_IMAGE_PARENT_ARCHIVE_AREAS
+
 	# Image: Type
 	LIVE_IMAGE_TYPE="$(Get_configuration config/control Type)"
 	LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE:-iso-hybrid}"
@@ -602,21 +607,6 @@ Set_defaults ()
 		*)
 			LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER:-${LB_MIRROR_CHROOT}}"
 			LB_PARENT_MIRROR_DEBIAN_INSTALLER="${LB_PARENT_MIRROR_DEBIAN_INSTALLER:-${LB_PARENT_MIRROR_CHROOT}}"
-			;;
-	esac
-
-	# Setting archive areas value
-	case "${LB_MODE}" in
-		progress-linux)
-			LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS:-${LIVE_IMAGE_ARCHIVE_AREAS}}"
-			;;
-
-		ubuntu)
-			LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS:-${LIVE_IMAGE_ARCHIVE_AREAS}}"
-			;;
-
-		*)
-			LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS:-${LIVE_IMAGE_ARCHIVE_AREAS}}"
 			;;
 	esac
 

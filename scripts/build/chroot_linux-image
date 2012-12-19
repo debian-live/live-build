@@ -63,7 +63,7 @@ then
 
 		FIRMWARE_PACKAGES=""
 
-		_CONTENTS="$(for _PARENT_ARCHIVE_AREA in ${LB_PARENT_ARCHIVE_AREAS}; do echo ${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/${_PARENT_ARCHIVE_AREA}/Contents-${LIVE_IMAGE_ARCHITECTURE}.gz; done)"
+		_CONTENTS="$(for _PARENT_ARCHIVE_AREA in ${LIVE_IMAGE_PARENT_ARCHIVE_AREAS}; do echo ${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/${_PARENT_ARCHIVE_AREA}/Contents-${LIVE_IMAGE_ARCHITECTURE}.gz; done)"
 
 		rm -f cache/contents.chroot/contents.${LB_PARENT_DISTRIBUTION}.${LIVE_IMAGE_ARCHITECTURE}
 
@@ -74,7 +74,7 @@ then
 			FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} $(awk '/^lib\/firmware/ { print $2 }' cache/contents.chroot/contents.${LB_PARENT_DISTRIBUTION}.${LIVE_IMAGE_ARCHITECTURE} | sort -u)"
 		done
 
-		if echo ${LB_PARENT_ARCHIVE_AREAS} | grep -qs "non-free"
+		if echo ${LIVE_IMAGE_PARENT_ARCHIVE_AREAS} | grep -qs "non-free"
 		then
 			# FIXME: should check that we're building on debian through e.g. a 'derivative-is-based-on' variable or somesuch.
 			# Manually add firmware-linux/non-free meta package
@@ -104,7 +104,7 @@ then
 		done
 
 		# Some known licenses required to be accepted
-		if echo ${LB_PARENT_ARCHIVE_AREAS} | grep -qs "non-free"
+		if echo ${LIVE_IMAGE_PARENT_ARCHIVE_AREAS} | grep -qs "non-free"
 		then
 
 cat >> chroot/root/packages.chroot.cfg << EOF
