@@ -6,6 +6,7 @@ set -e
 rm -f /boot/*.bak
 rm -f /boot/*.old-dkms
 
+rm -f /etc/apt/sources.list~
 rm -f /etc/apt/trusted.gpg~
 
 rm -f /etc/passwd-
