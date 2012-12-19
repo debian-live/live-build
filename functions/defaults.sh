@@ -10,27 +10,6 @@
 
 New_configuration ()
 {
-	## Configuration
-
-	# Configuration-Version
-	LIVE_CONFIGURATION_VERSION="$(Get_configuration config/control Configuration-Version)"
-	LIVE_CONFIGURATION_VERSION="${LIVE_CONFIGURATION_VERSION:-${LIVE_BUILD_VERSION}}"
-	export LIVE_CONFIGURATION_VERSION
-
-	# Image
-	#LIVE_IMAGE="$(Get_configuration config/control Image)"
-	#LIVE_IMAGE="${LIVE_IMAGE:-binary}"
-
-	# Image: Architecture
-	LIVE_IMAGE_ARCHITECTURE="$(Get_configuration config/control Architecture)"
-	LIVE_IMAGE_ARCHITECTURE="${LIVE_IMAGE_ARCHITECTURE:-any}"
-	export LIVE_IMAGE_ARCHITECTURE
-
-	# Image: Type
-	LIVE_IMAGE_TYPE="$(Get_configuration config/control Type)"
-	LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE:-iso-hybrid}"
-	export LIVE_IMAGE_TYPE
-
 	## Runtime
 
 	# Image: Architecture
@@ -52,6 +31,28 @@ New_configuration ()
 				;;
 		esac
 	fi
+
+
+	## Configuration
+
+	# Configuration-Version
+	LIVE_CONFIGURATION_VERSION="$(Get_configuration config/control Configuration-Version)"
+	LIVE_CONFIGURATION_VERSION="${LIVE_CONFIGURATION_VERSION:-${LIVE_BUILD_VERSION}}"
+	export LIVE_CONFIGURATION_VERSION
+
+	# Image
+	#LIVE_IMAGE="$(Get_configuration config/control Image)"
+	#LIVE_IMAGE="${LIVE_IMAGE:-binary}"
+
+	# Image: Architecture (FIXME: Support and default to 'any')
+	LIVE_IMAGE_ARCHITECTURE="$(Get_configuration config/control Architecture)"
+	LIVE_IMAGE_ARCHITECTURE="${LIVE_IMAGE_ARCHITECTURE:-${CURRENT_IMAGE_ARCHITECTURE}}"
+	export LIVE_IMAGE_ARCHITECTURE
+
+	# Image: Type
+	LIVE_IMAGE_TYPE="$(Get_configuration config/control Type)"
+	LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE:-iso-hybrid}"
+	export LIVE_IMAGE_TYPE
 }
 
 Set_defaults ()
