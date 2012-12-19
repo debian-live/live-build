@@ -5,5 +5,4 @@ set -e
 # Remove apt sources.list files
 
 rm -f /etc/apt/sources.list
-rm -f /etc/apt/sources.list~
 rm -f /etc/apt/sources.list.d/*.list
