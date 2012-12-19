@@ -40,7 +40,7 @@ New_configuration ()
 	LIVE_CONFIGURATION_VERSION="${LIVE_CONFIGURATION_VERSION:-${LIVE_BUILD_VERSION}}"
 	export LIVE_CONFIGURATION_VERSION
 
-	# Image
+	# Image: Name
 	LIVE_IMAGE_NAME="$(Get_configuration config/control Name)"
 	LIVE_IMAGE_NAME="${LIVE_IMAGE_NAME:-live-image}"
 	export LIVE_IMAGE_NAME
