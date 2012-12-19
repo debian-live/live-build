@@ -10,6 +10,8 @@
 
 New_configuration ()
 {
+	## Configuration
+
 	# Configuration-Version
 	LIVE_CONFIGURATION_VERSION="$(Get_configuration config/control Configuration-Version)"
 	LIVE_CONFIGURATION_VERSION="${LIVE_CONFIGURATION_VERSION:-${LIVE_BUILD_VERSION}}"
@@ -19,42 +21,37 @@ New_configuration ()
 	#LIVE_IMAGE="$(Get_configuration config/control Image)"
 	#LIVE_IMAGE="${LIVE_IMAGE:-binary}"
 
-	# Image Type
+	# Image: Architecture
+	LIVE_IMAGE_ARCHITECTURE="$(Get_configuration config/control Architecture)"
+	LIVE_IMAGE_ARCHITECTURE="${LIVE_IMAGE_ARCHITECTURE:-any}"
+	export LIVE_IMAGE_ARCHITECTURE
+
+	# Image: Type
 	LIVE_IMAGE_TYPE="$(Get_configuration config/control Type)"
 	LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE:-iso-hybrid}"
 	export LIVE_IMAGE_TYPE
 
-	# Image Architecture
-	LIVE_IMAGE_ARCHITECTURE="$(Get_configuration config/control Architecture)"
+	## Runtime
 
-	if [ -z "${LIVE_IMAGE_ARCHITECTURE}" ]
+	# Image: Architecture
+	if [ -x "/usr/bin/dpkg" ]
 	then
-		if [ -x "/usr/bin/dpkg" ]
-		then
-			LIVE_IMAGE_ARCHITECTURE="$(dpkg --print-architecture)"
-		else
-			case "$(uname -m)" in
-				sparc|powerpc)
-					LIVE_IMAGE_ARCHITECTURE="$(uname -m)"
-					;;
-				x86_64)
-					LIVE_IMAGE_ARCHITECTURE="amd64"
-					;;
-				*)
-					if [ -e /lib64 ]
-					then
-						LIVE_IMAGE_ARCHITECTURE="amd64"
-					else
-						LIVE_IMAGE_ARCHITECTURE="i386"
-					fi
+		CURRENT_IMAGE_ARCHITECTURE="$(dpkg --print-architecture)"
+	else
+		case "$(uname -m)" in
+			x86_64)
+				CURRENT_IMAGE_ARCHITECTURE="amd64"
+				;;
 
-					Echo_warning "Can't determine architecture, assuming ${LIVE_IMAGE_ARCHITECTURE}"
-					;;
-			esac
-		fi
+			i?86)
+				CURRENT_IMAGE_ARCHITECTURE="i386"
+				;;
+
+			*)
+				Echo_warning "Unable to determine current architecture, using ${CURRENT_IMAGE_ARCHITECTURE}"
+				;;
+		esac
 	fi
-
-	export LIVE_IMAGE_ARCHITECTURE
 }
 
 Set_defaults ()
@@ -312,8 +309,9 @@ Set_defaults ()
 		fi
 	fi
 
-	if [ "${LIVE_IMAGE_ARCHITECTURE}" = "i386" ] && [ "$(uname -m)" = "x86_64" ]
+	if [ "${LIVE_IMAGE_ARCHITECTURE}" = "i386" ] && [ "${CURRENT_IMAGE_ARCHITECTURE}" = "amd64" ]
 	then
+		# Use linux32 when building amd64 images on i386
 		_LINUX32="linux32"
 	else
 		_LINUX32=""
