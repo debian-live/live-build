@@ -294,7 +294,7 @@ then
 	mv chroot/dev.tmp chroot/dev
 fi
 
-mv chroot/binary.img ${LIVE_IMAGE_NAME}
+mv chroot/binary.img ${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}
 
 # Saving cache
 Save_cache cache/packages.binary
