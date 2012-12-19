@@ -562,7 +562,7 @@ Local_arguments ()
 				;;
 
 			-b|--binary-images)
-				LB_BINARY_IMAGES="${2}"
+				LIVE_IMAGE_TYPE="${2}"
 				shift 2
 				;;
 
@@ -1302,10 +1302,6 @@ cat > config/binary << EOF
 # (Default: ${LB_BINARY_FILESYSTEM})
 LB_BINARY_FILESYSTEM="${LB_BINARY_FILESYSTEM}"
 
-# \$LB_BINARY_IMAGES: set image type
-# (Default: ${LB_BINARY_IMAGES})
-LB_BINARY_IMAGES="${LB_BINARY_IMAGES}"
-
 # \$LB_APT_INDICES: set apt/aptitude generic indices
 # (Default: ${LB_APT_INDICES})
 LB_APT_INDICES="${LB_APT_INDICES}"
@@ -1491,6 +1487,9 @@ fi
 
 # New style configuration
 Set_configuration "config/control" "Configuration-Version" "${LIVE_CONFIGURATION_VERSION}"
+echo "" >> config/control
+Set_configuration "config/control" "Image" "binary"
+Set_configuration "config/control" "Type" "${LIVE_IMAGE_TYPE}"
 
 # Creating stage file
 Create_stagefile .build/config

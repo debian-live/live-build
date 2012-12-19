@@ -46,7 +46,7 @@ then
 	cd "${OLDPWD}"
 
 	# Removing symlinks
-	case "${LB_BINARY_IMAGES}" in
+	case "${LIVE_IMAGE_TYPE}" in
 		hdd*)
 			find binary -type l | xargs rm -f
 			;;

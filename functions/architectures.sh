@@ -96,7 +96,7 @@ Check_multiarchitectures ()
 	if [ "$(echo ${LB_ARCHITECTURES} | wc -w)" -gt "1" ]
 	then
 		# First, only support multiarch on iso
-		case "${LB_BINARY_IMAGES}" in
+		case "${LIVE_IMAGE_TYPE}" in
 			iso*)
 				# Assemble multi-arch
 				case "${LB_CURRENT_ARCHITECTURE}" in

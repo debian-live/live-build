@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LB_BINARY_IMAGES}" != "iso" ] && [ "${LB_BINARY_IMAGES}" != "iso-hybrid" ]
+if [ "${LIVE_IMAGE_TYPE}" != "iso" ] && [ "${LIVE_IMAGE_TYPE}" != "iso-hybrid" ]
 then
 	exit 0
 fi
@@ -57,7 +57,7 @@ Restore_cache cache/packages.binary
 # Installing depends
 Install_package
 
-case "${LB_BINARY_IMAGES}" in
+case "${LIVE_IMAGE_TYPE}" in
 	iso)
 		_IMAGES="binary.iso"
 		;;

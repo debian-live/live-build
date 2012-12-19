@@ -74,7 +74,7 @@ Restore_cache cache/packages.binary
 Install_package
 
 # Setting destination directory
-case "${LB_BINARY_IMAGES}" in
+case "${LIVE_IMAGE_TYPE}" in
 	netboot)
 		DESTDIR="tftpboot/debian-install/${LB_ARCHITECTURES}"
 		;;
@@ -94,7 +94,7 @@ case "${LB_DEBIAN_INSTALLER}" in
 		DI_IMAGE_TYPE="netboot"
 		;;
 	*)
-		case "${LB_BINARY_IMAGES}" in
+		case "${LIVE_IMAGE_TYPE}" in
 			netboot)
 				DI_IMAGE_TYPE="netboot"
 				;;
@@ -769,7 +769,7 @@ EOF
 		DISTRIBUTIONS="${DISTRIBUTIONS} ${LB_PARENT_DISTRIBUTION}"
 	fi
 
-	case "${LB_BINARY_IMAGES}" in
+	case "${LIVE_IMAGE_TYPE}" in
 		hdd)
 			case "${LB_BINARY_FILESYSTEM}" in
 				fat*|ntfs)

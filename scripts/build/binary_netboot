@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if ! In_list netboot "${LB_BINARY_IMAGES}"
+if ! In_list netboot "${LIVE_IMAGE_TYPE}"
 then
 	exit 0
 fi
