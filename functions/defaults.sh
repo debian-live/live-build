@@ -594,7 +594,6 @@ Set_defaults ()
 	# Setting distribution hooks
 	LB_CHROOT_HOOKS="${LB_CHROOT_HOOKS:-disable-kexec-tools \
 		remove-adjtime-configuration \
-		remove-apt-sources-lists \
 		remove-backup-files \
 		remove-dbus-machine-id \
 		remove-gnome-icon-cache \
@@ -609,6 +608,7 @@ Set_defaults ()
 		update-glx-alternative \
 		update-mlocate-database \
 		update-nvidia-alternative}"
+		#remove-apt-sources-lists
 
 	# Setting interactive shell/X11/Xnest
 	LB_INTERACTIVE="${LB_INTERACTIVE:-false}"
