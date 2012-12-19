@@ -969,9 +969,6 @@ mkdir -p config/includes
 cat > config/common << EOF
 # config/common - common options for live-build(7)
 
-# LB_CONFIG_VERSION: internal version of the configuration file format
-LB_CONFIG_VERSION="${CONFIG_VERSION}"
-
 # \$LB_APT: set package manager
 # (Default: ${LB_APT})
 LB_APT="${LB_APT}"
@@ -1491,6 +1488,9 @@ then
 	rmdir --ignore-fail-on-non-empty local/*/ > /dev/null 2>&1 || true
 	rmdir --ignore-fail-on-non-empty local > /dev/null 2>&1 || true
 fi
+
+# New style configuration
+Set_configuration "config/control" "Configuration-Version" "${LIVE_CONFIGURATION_VERSION}"
 
 # Creating stage file
 Create_stagefile .build/config
