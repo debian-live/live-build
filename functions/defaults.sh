@@ -1140,32 +1140,41 @@ Set_defaults ()
 
 Check_defaults ()
 {
-	if [ "${LB_CONFIG_VERSION}" ]
+	if [ -n "${LIVE_CONFIGURATION_VERSION}" ]
 	then
 		# We're only checking when we're actually running the checks
 		# that's why the check for emptyness of the version;
-		# however, as live-build always declares LB_CONFIG_VERSION
+		# however, as live-build always declares LIVE_CONFIGURATION_VERSION
 		# internally, this is safe assumption (no cases where it's unset,
 		# except when bootstrapping the functions/defaults etc.).
-		CURRENT_CONFIG_VERSION="$(echo ${LB_CONFIG_VERSION} | awk -F. '{ print $1 }')"
 
-		if [ ${CURRENT_CONFIG_VERSION} -ne 4 ]
+		CURRENT_CONFIGURATION_VERSION="$(Get_configuration config/control Configuration-Version)"
+		CURRENT_CONFIGURATION_VERSION="$(echo ${CURRENT_CONFIGURATION_VERSION} | awk -F. ' { print $1 }')"
+
+		if [ -n "${CURRENT_CONFIGURATION_VERSION}" ]
 		then
-			if [ ${CURRENT_CONFIG_VERSION} -ge 5 ]
-			then
-				Echo_error "This config tree is too new for this version of live-build (${VERSION})."
-				Echo_error "Aborting build, please get a new version of live-build."
+			CORRECT_VERSION="$(echo ${LIVE_CONFIGURATION_VERSION} | awk -F. '{ print $1 }')"
+			TOO_NEW_VERSION="$((${CORRECT_VERSION} + 1))"
+			TOO_OLD_VERSION="$((${CORRECT_VERSION} - 1))"
 
-				exit 1
-			elif [ ${CURRENT_CONFIG_VERSION} -le 3 ]
+			if [ ${CURRENT_CONFIGURATION_VERSION} -ne ${CORRECT_VERSION} ]
 			then
-				Echo_error "This config tree is too old for this version of live-build (${VERSION})."
-				Echo_error "Aborting build, please regenerate the config tree."
+				if [ ${CURRENT_CONFIGURATION_VERSION} -ge ${TOO_NEW_VERSION} ]
+				then
+					Echo_error "This config tree is too new for live-build (${VERSION})."
+					Echo_error "Aborting build, please update live-build."
 
-				exit 1
-			else
-				Echo_warning "This config tree does not specify a format version or has an unknown version number."
-				Echo_warning "Continuing build, but it could lead to errors or different results. Please regenerate the config tree."
+					exit 1
+				elif [ ${CURRENT_CONFIGURATION_VERSION} -le ${TOO_OLD_VERSION} ]
+				then
+					Echo_error "This config tree is too old for live-build (${VERSION})."
+					Echo_error "Aborting build, please update the configuration."
+
+					exit 1
+				else
+					Echo_warning "This configuration does not specify a version or has a unknown version."
+					Echo_warning "Continuing build, please correct the configuration."
+				fi
 			fi
 		fi
 	fi
