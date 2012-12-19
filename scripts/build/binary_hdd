@@ -88,9 +88,9 @@ Restore_cache cache/packages.binary
 Install_package
 
 # Remove old binary
-if [ -f binary.img ]
+if [ -f ${LIVE_iMAGE_NAME}.img ]
 then
-	rm -f binary.img
+	rm -f ${LIVE_iMAGE_NAME}.img
 fi
 
 # Enforce fat32 if we find individual files bigger than 2GB
@@ -294,7 +294,7 @@ then
 	mv chroot/dev.tmp chroot/dev
 fi
 
-mv chroot/binary.img ./
+mv chroot/binary.img ${LIVE_IMAGE_NAME}
 
 # Saving cache
 Save_cache cache/packages.binary
