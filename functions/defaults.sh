@@ -8,8 +8,60 @@
 ## under certain conditions; see COPYING for details.
 
 
+New_configuration ()
+{
+	# Configuration-Version
+	LIVE_CONFIGURATION_VERSION="$(Get_configuration config/control Configuration-Version)"
+	LIVE_CONFIGURATION_VERSION="${LIVE_CONFIGURATION_VERSION:-${LIVE_BUILD_VERSION}}"
+	export LIVE_CONFIGURATION_VERSION
+
+	# Image
+	#LIVE_IMAGE="$(Get_configuration config/control Image)"
+	#LIVE_IMAGE="${LIVE_IMAGE:-binary}"
+
+	# Image Type
+	LIVE_IMAGE_TYPE="$(Get_configuration config/control Type)"
+	LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE:-iso-hybrid}"
+	export LIVE_IMAGE_TYPE
+
+	# Image Architecture
+	LIVE_IMAGE_ARCHITECTURE="$(Get_configuration config/control Architecture)"
+
+	if [ -z "${LIVE_IMAGE_ARCHITECTURE}" ]
+	then
+		if [ -x "/usr/bin/dpkg" ]
+		then
+			LIVE_IMAGE_ARCHITECTURE="$(dpkg --print-architecture)"
+		else
+			case "$(uname -m)" in
+				sparc|powerpc)
+					LIVE_IMAGE_ARCHITECTURE="$(uname -m)"
+					;;
+				x86_64)
+					LIVE_IMAGE_ARCHITECTURE="amd64"
+					;;
+				*)
+					if [ -e /lib64 ]
+					then
+						LIVE_IMAGE_ARCHITECTURE="amd64"
+					else
+						LIVE_IMAGE_ARCHITECTURE="i386"
+					fi
+
+					Echo_warning "Can't determine architecture, assuming ${LIVE_IMAGE_ARCHITECTURE}"
+					;;
+			esac
+		fi
+	fi
+
+	export LIVE_IMAGE_ARCHITECTURE
+}
+
 Set_defaults ()
 {
+	# FIXME
+	New_configuration
+
 	## config/common
 
 	if [ -e local/live-build ]
@@ -298,34 +350,6 @@ Set_defaults ()
 	_VERBOSE="${_VERBOSE:-false}"
 
 	## config/bootstrap
-
-	# Setting architecture value
-	if [ -z "${LIVE_IMAGE_ARCHITECTURE}" ]
-	then
-		if [ -x "/usr/bin/dpkg" ]
-		then
-			LIVE_IMAGE_ARCHITECTURE="$(dpkg --print-architecture)"
-		else
-			case "$(uname -m)" in
-				sparc|powerpc)
-					LIVE_IMAGE_ARCHITECTURE="$(uname -m)"
-					;;
-				x86_64)
-					LIVE_IMAGE_ARCHITECTURE="amd64"
-					;;
-				*)
-					if [ -e /lib64 ]
-					then
-						LIVE_IMAGE_ARCHITECTURE="amd64"
-					else
-						LIVE_IMAGE_ARCHITECTURE="i386"
-					fi
-
-					Echo_warning "Can't determine architecture, assuming ${LIVE_IMAGE_ARCHITECTURE}"
-					;;
-			esac
-		fi
-	fi
 
 	# Setting mirror to fetch packages from
 	case "${LB_MODE}" in
@@ -1140,20 +1164,19 @@ Set_defaults ()
 
 Check_defaults ()
 {
-	if [ -n "${LIVE_CONFIGURATION_VERSION}" ]
+	if [ -n "${LIVE_BUILD_VERSION}" ]
 	then
 		# We're only checking when we're actually running the checks
 		# that's why the check for emptyness of the version;
-		# however, as live-build always declares LIVE_CONFIGURATION_VERSION
+		# however, as live-build always declares LIVE_BUILD_VERSION
 		# internally, this is safe assumption (no cases where it's unset,
 		# except when bootstrapping the functions/defaults etc.).
 
-		CURRENT_CONFIGURATION_VERSION="$(Get_configuration config/control Configuration-Version)"
-		CURRENT_CONFIGURATION_VERSION="$(echo ${CURRENT_CONFIGURATION_VERSION} | awk -F. ' { print $1 }')"
+		CURRENT_CONFIGURATION_VERSION="$(echo ${LIVE_CONFIGURATION_VERSION} | awk -F. ' { print $1 }')"
 
 		if [ -n "${CURRENT_CONFIGURATION_VERSION}" ]
 		then
-			CORRECT_VERSION="$(echo ${LIVE_CONFIGURATION_VERSION} | awk -F. '{ print $1 }')"
+			CORRECT_VERSION="$(echo ${LIVE_BUILD_VERSION} | awk -F. '{ print $1 }')"
 			TOO_NEW_VERSION="$((${CORRECT_VERSION} + 1))"
 			TOO_OLD_VERSION="$((${CORRECT_VERSION} - 1))"
 
