@@ -1489,7 +1489,7 @@ echo "" >> config/control
 Set_configuration "config/control" "Name" "${LIVE_IMAGE_NAME}"
 Set_configuration "config/control" "Architecture" "${LIVE_IMAGE_ARCHITECTURE}"
 Set_configuration "config/control" "Archive-Areas" "${LIVE_IMAGE_ARCHIVE_AREAS}"
-Set_configuration "config/control" "Parent-Archive-Areas" "${LIVE_IMAGE_PARENT_ARCHIVE_AREAS}"
+[ "${LB_DERIVATIVE}" = "true" ] && Set_configuration "config/control" "Parent-Archive-Areas" "${LIVE_IMAGE_PARENT_ARCHIVE_AREAS}" # FIXME
 Set_configuration "config/control" "Type" "${LIVE_IMAGE_TYPE}"
 
 # Creating stage file
