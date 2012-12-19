@@ -139,7 +139,7 @@ case "${LB_INITRAMFS}" in
 esac
 
 # Setting destination directory
-case "${LB_BINARY_IMAGES}" in
+case "${LIVE_IMAGE_TYPE}" in
 	iso*)
 		case "${LB_INITRAMFS}" in
 			casper)
@@ -241,7 +241,7 @@ fi
 
 LINUX_INSTALL="$(/bin/echo ${LINUX_INSTALL} | sed -e 's|binary||g' -e 's|//|/|g')"
 
-case "${LB_BINARY_IMAGES}" in
+case "${LIVE_IMAGE_TYPE}" in
 	iso*|hdd*)
 		# Copying yaboot
 		mkdir -p binary/yaboot
@@ -258,7 +258,7 @@ case "${LB_BINARY_IMAGES}" in
 
 		cp -r "${TEMPLATES}"/* binary/yaboot
 
-		case "${LB_BINARY_IMAGES}" in
+		case "${LIVE_IMAGE_TYPE}" in
 			hdd*)
 				mv binary/yaboot/yaboot.conf binary/yaboot/yaboot.conf.tmp
 				echo "root=/dev/ram" > binary/yaboot/yaboot.conf

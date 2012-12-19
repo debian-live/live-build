@@ -30,7 +30,7 @@ then
 fi
 
 # Check image type
-case "${LB_BINARY_IMAGES}" in
+case "${LIVE_IMAGE_TYPE}" in
 	iso*|hdd*|tar)
 		;;
 
@@ -191,7 +191,7 @@ fi
 
 LINUX_INSTALL="$(/bin/echo ${LINUX_INSTALL} | sed -e 's|binary||g' -e 's|//|/|g')"
 
-case "${LB_BINARY_IMAGES}" in
+case "${LIVE_IMAGE_TYPE}" in
 	iso*|hdd*)
 		# Copying silo
 		mkdir -p binary/boot

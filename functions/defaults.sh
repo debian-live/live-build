@@ -792,11 +792,11 @@ Set_defaults ()
 	# Setting image type
 	case "${LB_ARCHITECTURES}" in
 		amd64|i386)
-			LB_BINARY_IMAGES="${LB_BINARY_IMAGES:-iso-hybrid}"
+			LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE:-iso-hybrid}"
 			;;
 
 		*)
-			LB_BINARY_IMAGES="${LB_BINARY_IMAGES:-iso}"
+			LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE:-iso}"
 			;;
 	esac
 
@@ -901,7 +901,7 @@ Set_defaults ()
 
 	if [ -n "${LB_DEBIAN_INSTALLER_PRESEEDFILE}" ]
 	then
-		case "${LB_BINARY_IMAGES}" in
+		case "${LIVE_IMAGE_TYPE}" in
 			iso*)
 				_LB_BOOTAPPEND_PRESEED="file=/cdrom/install/${LB_DEBIAN_INSTALLER_PRESEEDFILE}"
 				;;
@@ -1200,7 +1200,7 @@ Check_defaults ()
 		esac
 	fi
 
-	case "${LB_BINARY_IMAGES}" in
+	case "${LIVE_IMAGE_TYPE}" in
 		hdd*)
 			# grub or yaboot + hdd
 			case "${LB_BOOTLOADER}" in

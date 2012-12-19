@@ -106,7 +106,7 @@ case "${LB_INITRAMFS}" in
 esac
 
 # Setting destination directory
-case "${LB_BINARY_IMAGES}" in
+case "${LIVE_IMAGE_TYPE}" in
 	iso*|tar)
 		case "${LB_INITRAMFS}" in
 			casper)
@@ -218,7 +218,7 @@ fi
 mkdir -p binary/boot/grub
 cp -r "${TEMPLATES}"/* binary/boot/grub
 
-case ${LB_BINARY_IMAGES} in
+case ${LIVE_IMAGE_TYPE} in
 	iso*)
 		FILES="chroot/usr/lib/grub/i386-pc/*.mod chroot/usr/lib/grub/i386-pc/*.lst chroot/usr/lib/grub/i386-pc/efiemu??.o chroot/usr/share/grub/*.pf2"
 		;;
