@@ -491,7 +491,7 @@ Local_arguments ()
 				;;
 
 			--archive-areas)
-				LB_ARCHIVE_AREAS="${2}"
+				LIVE_IMAGE_ARCHIVE_AREAS="${2}"
 				shift 2
 				;;
 
@@ -1210,10 +1210,6 @@ LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER}"
 # (Default: empty)
 LB_ARCHIVES="${LB_ARCHIVES}"
 
-# \$LB_ARCHIVE_AREAS: select archive areas to use
-# (Default: ${LB_ARCHIVE_AREAS})
-LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS}"
-
 # \$LB_PARENT_ARCHIVE_AREAS: select archive areas to use
 # (Default: ${LB_PARENT_ARCHIVE_AREAS})
 LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS}"
@@ -1496,6 +1492,7 @@ Set_configuration "config/control" "Configuration-Version" "${LIVE_CONFIGURATION
 echo "" >> config/control
 Set_configuration "config/control" "Name" "${LIVE_IMAGE_NAME}"
 Set_configuration "config/control" "Architecture" "${LIVE_IMAGE_ARCHITECTURE}"
+Set_configuration "config/control" "Archive-Areas" "${LIVE_IMAGE_ARCHIVE_AREAS}"
 Set_configuration "config/control" "Type" "${LIVE_IMAGE_TYPE}"
 
 # Creating stage file

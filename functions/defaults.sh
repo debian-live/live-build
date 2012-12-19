@@ -50,6 +50,25 @@ New_configuration ()
 	LIVE_IMAGE_ARCHITECTURE="${LIVE_IMAGE_ARCHITECTURE:-${CURRENT_IMAGE_ARCHITECTURE}}"
 	export LIVE_IMAGE_ARCHITECTURE
 
+	# Image: Archive Areas
+	LIVE_IMAGE_ARCHIVE_AREAS="$(Get_configuration config/control Archive-Areas)"
+
+	case "${LB_MODE}" in
+		progress-linux)
+			LIVE_IMAGE_ARCHIVE_AREAS="${LIVE_IMAGE_ARCHIVE_AREAS:-main contrib non-free}"
+			;;
+
+		ubuntu)
+			LIVE_IMAGE_ARCHIVE_AREAS="${LIVE_IMAGE_ARCHIVE_AREAS:-main restricted}"
+			;;
+
+		*)
+			LIVE_IMAGE_ARCHIVE_AREAS="${LIVE_IMAGE_ARCHIVE_AREAS:-main}"
+			;;
+	esac
+
+	export LIVE_IMAGE_ARCHIVE_AREAS
+
 	# Image: Type
 	LIVE_IMAGE_TYPE="$(Get_configuration config/control Type)"
 	LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE:-iso-hybrid}"
@@ -589,18 +608,15 @@ Set_defaults ()
 	# Setting archive areas value
 	case "${LB_MODE}" in
 		progress-linux)
-			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main contrib non-free}"
-			LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS:-${LB_ARCHIVE_AREAS}}"
+			LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS:-${LIVE_IMAGE_ARCHIVE_AREAS}}"
 			;;
 
 		ubuntu)
-			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main restricted}"
-			LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS:-${LB_ARCHIVE_AREAS}}"
+			LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS:-${LIVE_IMAGE_ARCHIVE_AREAS}}"
 			;;
 
 		*)
-			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main}"
-			LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS:-${LB_ARCHIVE_AREAS}}"
+			LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS:-${LIVE_IMAGE_ARCHIVE_AREAS}}"
 			;;
 	esac
 
