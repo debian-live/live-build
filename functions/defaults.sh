@@ -260,7 +260,7 @@ Set_defaults ()
 		fi
 	fi
 
-	if [ "${LB_ARCHITECTURE}" = "i386" ] && [ "$(uname -m)" = "x86_64" ]
+	if [ "${LIVE_IMAGE_ARCHITECTURE}" = "i386" ] && [ "$(uname -m)" = "x86_64" ]
 	then
 		_LINUX32="linux32"
 	else
@@ -300,28 +300,28 @@ Set_defaults ()
 	## config/bootstrap
 
 	# Setting architecture value
-	if [ -z "${LB_ARCHITECTURES}" ]
+	if [ -z "${LIVE_IMAGE_ARCHITECTURE}" ]
 	then
 		if [ -x "/usr/bin/dpkg" ]
 		then
-			LB_ARCHITECTURES="$(dpkg --print-architecture)"
+			LIVE_IMAGE_ARCHITECTURE="$(dpkg --print-architecture)"
 		else
 			case "$(uname -m)" in
 				sparc|powerpc)
-					LB_ARCHITECTURES="$(uname -m)"
+					LIVE_IMAGE_ARCHITECTURE="$(uname -m)"
 					;;
 				x86_64)
-					LB_ARCHITECTURES="amd64"
+					LIVE_IMAGE_ARCHITECTURE="amd64"
 					;;
 				*)
 					if [ -e /lib64 ]
 					then
-						LB_ARCHITECTURES="amd64"
+						LIVE_IMAGE_ARCHITECTURE="amd64"
 					else
-						LB_ARCHITECTURES="i386"
+						LIVE_IMAGE_ARCHITECTURE="i386"
 					fi
 
-					Echo_warning "Can't determine architecture, assuming ${LB_ARCHITECTURES}"
+					Echo_warning "Can't determine architecture, assuming ${LIVE_IMAGE_ARCHITECTURE}"
 					;;
 			esac
 		fi
@@ -345,7 +345,7 @@ Set_defaults ()
 			;;
 
 		ubuntu)
-			case "${LB_ARCHITECTURES}" in
+			case "${LIVE_IMAGE_ARCHITECTURE}" in
 				amd64|i386)
 					LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://archive.ubuntu.com/ubuntu/}"
 					;;
@@ -380,7 +380,7 @@ Set_defaults ()
 			;;
 
 		ubuntu)
-			case "${LB_ARCHITECTURES}" in
+			case "${LIVE_IMAGE_ARCHITECTURE}" in
 				amd64|i386)
 					LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-http://security.ubuntu.com/ubuntu/}"
 					;;
@@ -402,7 +402,7 @@ Set_defaults ()
 			;;
 
 		ubuntu)
-			case "${LB_ARCHITECTURES}" in
+			case "${LIVE_IMAGE_ARCHITECTURE}" in
 				amd64|i386)
 					LB_MIRROR_CHROOT_UPDATES="${LB_MIRROR_CHROOT_UPDATES:-http://archive.ubuntu.com/ubuntu/}"
 					;;
@@ -456,7 +456,7 @@ Set_defaults ()
 			;;
 
 		ubuntu)
-			case "${LB_ARCHITECTURES}" in
+			case "${LIVE_IMAGE_ARCHITECTURE}" in
 				amd64|i386)
 					LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://archive.ubuntu.com/ubuntu/}"
 				;;
@@ -488,7 +488,7 @@ Set_defaults ()
 			;;
 
 		ubuntu)
-			case "${LB_ARCHITECTURES}" in
+			case "${LIVE_IMAGE_ARCHITECTURE}" in
 				amd64|i386)
 					LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-http://security.ubuntu.com/ubuntu/}"
 					;;
@@ -515,7 +515,7 @@ Set_defaults ()
 			;;
 
 		ubuntu)
-			case "${LB_ARCHITECTURES}" in
+			case "${LIVE_IMAGE_ARCHITECTURE}" in
 				amd64|i386)
 					LB_MIRROR_BINARY_UPDATES="${LB_MIRROR_BINARY_UPDATES:-http://archive.ubuntu.com/ubuntu/}"
 					;;
@@ -625,7 +625,7 @@ Set_defaults ()
 	esac
 
 	# Setting linux flavour string
-	case "${LB_ARCHITECTURES}" in
+	case "${LIVE_IMAGE_ARCHITECTURE}" in
 		armel)
 			case "${LB_MODE}" in
                                 ubuntu)
@@ -684,7 +684,7 @@ Set_defaults ()
 		ia64)
 			case "${LB_MODE}" in
 				progress-linux)
-					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
+					Echo_error "Architecture ${LIVE_IMAGE_ARCHITECTURE} not supported in the ${LB_MODE} mode."
 					exit 1
 					;;
 
@@ -697,7 +697,7 @@ Set_defaults ()
 		powerpc)
 			case "${LB_MODE}" in
 				progress-linux)
-					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
+					Echo_error "Architecture ${LIVE_IMAGE_ARCHITECTURE} not supported in the ${LB_MODE} mode."
 					exit 1
 					;;
 
@@ -714,7 +714,7 @@ Set_defaults ()
 		s390)
 			case "${LB_MODE}" in
 				progress-linux|ubuntu)
-					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
+					Echo_error "Architecture ${LIVE_IMAGE_ARCHITECTURE} not supported in the ${LB_MODE} mode."
 					exit 1
 					;;
 
@@ -727,7 +727,7 @@ Set_defaults ()
 		sparc)
 			case "${LB_MODE}" in
 				progress-linux)
-					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
+					Echo_error "Architecture ${LIVE_IMAGE_ARCHITECTURE} not supported in the ${LB_MODE} mode."
 					exit 1
 					;;
 
@@ -738,7 +738,7 @@ Set_defaults ()
 			;;
 
 		*)
-			Echo_error "Architecture(s) ${LB_ARCHITECTURES} not yet supported (FIXME)"
+			Echo_error "Architecture(s) ${LIVE_IMAGE_ARCHITECTURE} not yet supported (FIXME)"
 			exit 1
 			;;
 	esac
@@ -779,7 +779,7 @@ Set_defaults ()
 	## config/binary
 
 	# Setting image filesystem
-	case "${LB_ARCHITECTURES}" in
+	case "${LIVE_IMAGE_ARCHITECTURE}" in
 		sparc)
 			LB_BINARY_FILESYSTEM="${LB_BINARY_FILESYSTEM:-ext4}"
 			;;
@@ -790,7 +790,7 @@ Set_defaults ()
 	esac
 
 	# Setting image type
-	case "${LB_ARCHITECTURES}" in
+	case "${LIVE_IMAGE_ARCHITECTURE}" in
 		amd64|i386)
 			LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE:-iso-hybrid}"
 			;;
@@ -814,7 +814,7 @@ Set_defaults ()
 	# Setting bootloader
 	if [ -z "${LB_BOOTLOADER}" ]
 	then
-		case "${LB_ARCHITECTURES}" in
+		case "${LIVE_IMAGE_ARCHITECTURE}" in
 			amd64|i386)
 				LB_BOOTLOADER="syslinux"
 				;;
@@ -1031,7 +1031,7 @@ Set_defaults ()
 			;;
 
 		*)
-			case "${LB_ARCHITECTURES}" in
+			case "${LIVE_IMAGE_ARCHITECTURE}" in
 				amd64|i386)
 					if [ "${LB_DEBIAN_INSTALLER}" != "false" ]
 					then
@@ -1055,7 +1055,7 @@ Set_defaults ()
 			;;
 
 		*)
-			case "${LB_ARCHITECTURES}" in
+			case "${LIVE_IMAGE_ARCHITECTURE}" in
 				amd64|i386)
 					if [ "${LB_DEBIAN_INSTALLER}" != "false" ]
 					then

@@ -311,9 +311,9 @@ EOF
 			fi
 
 			# Copy packages
-			if Find_files config/packages.chroot/*_"${LB_ARCHITECTURES}".deb || Find_files config/packages/*_"${LB_ARCHITECTURES}".deb
+			if Find_files config/packages.chroot/*_"${LIVE_IMAGE_ARCHITECTURE}".deb || Find_files config/packages/*_"${LIVE_IMAGE_ARCHITECTURE}".deb
 			then
-				for FILE in config/packages.chroot/*_"${LB_ARCHITECTURES}".deb config/packages/*_"${LB_ARCHITECTURES}".deb
+				for FILE in config/packages.chroot/*_"${LIVE_IMAGE_ARCHITECTURE}".deb config/packages/*_"${LIVE_IMAGE_ARCHITECTURE}".deb
 				do
 					if [ -L "${FILE}" ]
 					then
