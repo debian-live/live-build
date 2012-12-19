@@ -1488,6 +1488,10 @@ then
 fi
 
 # New style configuration
+Echo_warning "WARNING: THIS VERSION OF LIVE-BUILD IS EXPERIMENTAL!"
+Echo_warning "IT IS FULL OF BUGS AND CHANGES HEAVILY WITHOUT PRIOR NOTICE."
+Echo_warning "USER DISCRETION IS ADVISED."
+
 Set_configuration "config/control" "Configuration-Version" "${LIVE_CONFIGURATION_VERSION}"
 echo "" >> config/control
 Set_configuration "config/control" "Name" "${LIVE_IMAGE_NAME}"
