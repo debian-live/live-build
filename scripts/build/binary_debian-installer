@@ -339,7 +339,13 @@ then
 
 	case "${LB_ARCHITECTURES}" in
 		amd64)
-			DI_REQ_PACKAGES="lilo grub grub-pc"
+			DI_REQ_PACKAGES="lilo grub-pc"
+
+			case "${LB_DISTRIBUTION}" in
+				squeeze)
+					DI_REQ_PACAKGES="${DI_REQ_PACKAGES} grub"
+					;;
+			esac
 
 			case "${LB_MODE}" in
 				ubuntu)
@@ -353,7 +359,13 @@ then
 			;;
 
 		i386)
-			DI_REQ_PACKAGES="elilo lilo grub grub-pc"
+			DI_REQ_PACKAGES="elilo lilo grub-pc"
+
+			case "${LB_DISTRIBUTION}" in
+				squeeze)
+					DI_REQ_PACAKGES="${DI_REQ_PACKAGES} grub"
+					;;
+			esac
 
 			case "${LB_MODE}" in
 				ubuntu)
