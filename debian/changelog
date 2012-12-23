@@ -1,3 +1,19 @@
+live-build (3.0~b4-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Moving removal of actual backup files for apt sources into correct
+    hook.
+  * Renumbering hooks.
+  * Disabling accidentally enabled removal of apt sources hook by default.
+
+  [ Richard Nelson ]
+  * Unify _DEBUG variable values to be true or false for l-b-cgi.
+
+  [ Daniel Baumann ]
+  * Removing grub package from binary_debian-installer for wheezy.
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 23 Dec 2012 10:50:38 +0100
+
 live-build (3.0~b3-1) unstable; urgency=low
 
   * Removing old code in chroot_hacks for tasks which are not used
