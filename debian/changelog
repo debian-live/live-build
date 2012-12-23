@@ -1,3 +1,45 @@
+live-build (4.0~a6-1) experimental; urgency=low
+
+  [ Daniel Baumann ]
+  * Moving removal of actual backup files for apt sources into correct
+    hook.
+  * Renumbering hooks.
+  * Disabling accidentally enabled removal of apt sources hook by default.
+  * Moving configuration version off as the first option into new config
+    tree format.
+  * Moving off binary image type into new config tree format.
+  * Moving off binary image architecture into new config tree format.
+  * Also reading in existing values from new config tree format.
+  * Separate between configured values and runtime values in new
+    configuration handling.
+  * Correcting architecture defaults.
+  * Using image name from configuration to name binary output files.
+  * Adding explicit warning for people that do not understand what stable
+    is.
+  * Using image name from configuration to name source output files.
+  * Setting default name to live-image for the time being.
+
+  [ Ben Armstrong ]
+  * Improving warning wording to reflect unfinished state of code better.
+
+  [ Daniel Baumann ]
+  * Including architecture in binary output filenames.
+  * Moving off binary image archive areas into new config tree format.
+  * Updating comment for image name config handling.
+  * Moving off binary image parent archive areas into new config tree
+    format.
+  * Only writing out Parent-Archive-Areas field into configuration when
+    building a derivative.
+
+  [ Richard Nelson ]
+  * Unify _DEBUG variable values to be true or false for l-b-cgi.
+
+  [ Daniel Baumann ]
+  * Removing pre-wheezy grub package from binary_debian-installer.
+  * Adding 3.0~b4-1 changelog entries.
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 23 Dec 2012 10:54:24 +0100
+
 live-build (4.0~a5-1) experimental; urgency=low
 
   * Removing old code in chroot_hacks for tasks which are not used
