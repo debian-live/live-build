@@ -706,7 +706,7 @@ Set_defaults ()
 					;;
 
 				*)
-					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486 686-pae}"
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-686-pae 486}"
 					;;
 			esac
 			;;
@@ -736,7 +736,7 @@ Set_defaults ()
 					;;
 
 				*)
-					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc powerpc64}"
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc64 powerpc}"
 					;;
 			esac
 			;;
