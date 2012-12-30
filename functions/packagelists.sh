@@ -107,22 +107,6 @@ Expand_packagelist ()
 					_LB_ENABLED=1
 					;;
 
-				\#*)
-					if [ ${_LB_ENABLED} -ne 1 ]
-					then
-						continue
-					fi
-
-					# Find includes
-					_LB_INCLUDES="$(echo "${_LB_LINE}" | sed -n \
-						-e 's|^#<include> \([^ ]*\)|\1|gp' \
-						-e 's|^#include <\([^ ]*\)>|\1|gp')"
-
-					# Add to queue
-					_LB_EXPAND_QUEUE="$(echo ${_LB_EXPAND_QUEUE} ${_LB_INCLUDES} |
-						sed -e 's|[ ]*$||' -e 's|^[ ]*||')"
-					;;
-
 				*)
 					if [ ${_LB_ENABLED} -eq 1 ]
 					then
