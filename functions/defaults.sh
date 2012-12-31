@@ -889,15 +889,7 @@ Set_defaults ()
 	LB_BUILD_WITH_TMPFS="${LB_BUILD_WITH_TMPFS:-false}"
 
 	# Setting debian-installer option
-	case "${LB_MODE}" in
-		progress-linux)
-			LB_DEBIAN_INSTALLER="${LB_DEBIAN_INSTALLER:-live}"
-			;;
-
-		*)
-			LB_DEBIAN_INSTALLER="${LB_DEBIAN_INSTALLER:-false}"
-			;;
-	esac
+	LB_DEBIAN_INSTALLER="${LB_DEBIAN_INSTALLER:-false}"
 
 	LB_DEBIAN_INSTALLER_DISTRIBUTION="${LB_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_DISTRIBUTION}}"
 
