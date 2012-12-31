@@ -38,8 +38,8 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if ls config/preseed/*.preseed > /dev/null 2>&1 || \
-   ls config/preseed/*.preseed.chroot > /dev/null 2>&1 || \
+if ls config/preseed/*.cfg > /dev/null 2>&1 || \
+   ls config/preseed/*.cfg.chroot > /dev/null 2>&1 || \
    ls chroot/root/packages.chroot.cfg > /dev/null 2>&1
 then
 	# Check dependency
@@ -48,7 +48,7 @@ then
 	# Install dependency
 	Install_package
 
-	for PRESEED in config/preseed/*.preseed config/preseed/*.preseed.chroot chroot/root/packages.chroot.cfg
+	for PRESEED in config/preseed/*.cfg config/preseed/*.cfg.chroot chroot/root/packages.chroot.cfg
 	do
 		if [ -e "${PRESEED}" ]
 		then
