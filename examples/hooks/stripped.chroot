@@ -31,7 +31,7 @@ done
 apt-get autoremove --yes || true
 
 # Removing unused files
-find . -name *~ | xargs rm -f
+find . -name *~ -print0 | xargs -0 rm -f
 
 rm -rf /usr/include/*
 #rm -rf /usr/share/groff/*
