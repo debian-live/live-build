@@ -860,7 +860,15 @@ Set_defaults ()
 	fi
 
 	# Setting checksums
-	LB_CHECKSUMS="${LB_CHECKSUMS:-sha256}"
+	case "${LB_MODE}" in
+		progress-linux)
+			LB_CHECKSUMS="${LB_CHECKSUMS:-sha256}"
+			;;
+
+		*)
+			LB_CHECKSUMS="${LB_CHECKSUMS:-md5}"
+			;;
+	esac
 
 	# Setting compression
 	LB_COMPRESSION="${LB_COMPRESSION:-none}"
