@@ -68,6 +68,7 @@ do
 		\! -path './boot/boot.bin' \
 		\! -path './boot/grub/stage2_eltorito' \
 		\! -path './*SUMS' \
+		\! -path './*sums.txt' \
 	-print0 | sort -z | xargs -0 ${CHECKSUM}sum > ../${CHECKSUMS}
 
 cat > ${CHECKSUMS} << EOF
