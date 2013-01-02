@@ -72,6 +72,7 @@ do
 		cd ${DIRECTORY}
 		find . -type f \
 			\! -path './*SUMS' \
+			\! -path './*sums.txt' \
 		-print0 | sort -z | xargs -0 ${CHECKSUM}sum > ../${CHECKSUMS}
 
 cat > ${CHECKSUMS} << EOF
