@@ -71,7 +71,7 @@ do
 	-print0 | sort -z | xargs -0 ${CHECKSUM}sum > ../${CHECKSUMS}
 
 cat > ${CHECKSUMS} << EOF
-## This file contains the list of ${CHECKSUM} checksums of all fileson this
+## This file contains the list of ${CHECKSUM} checksums of all files on this
 ## medium.
 ##
 ## You can verify them automatically with the 'verify-checksums' boot parameter,
