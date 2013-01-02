@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -35,7 +35,9 @@ do
 	then
 		for _FILE in po/${_LANGUAGE}/*.po
 		do
-			sed -i -e "s|^msgstr .*.2012\"$|msgstr \"${DAY}.${MONTH}.${YEAR}\"|g" "${_FILE}"
+			sed -i  -e "s|^msgstr .*.2013-.*$|msgstr \"${DAY}.${MONTH}.${YEAR}\"|g" \
+				-e "s|^msgstr .*.2013\"$|msgstr \"${DAY}.${MONTH}.${YEAR}\"|g" \
+			"${_FILE}"
 		done
 	fi
 done
@@ -45,6 +47,8 @@ if ls po/pt_BR/*.po > /dev/null 2>&1
 then
 	for _FILE in po/pt_BR/*.po
 	do
-		sed -i -e "s|^msgstr .*-2012\"$|msgstr \"${DAY}-${MONTH}-${YEAR}\"|g" "${_FILE}"
+		sed -i  -e "s|^msgstr .*.2013-.*$|msgstr \"${DAY}-${MONTH}-${YEAR}\"|g" \
+			-e "s|^msgstr .*-2013\"$|msgstr \"${DAY}-${MONTH}-${YEAR}\"|g" \
+		"${_FILE}"
 	done
 fi
