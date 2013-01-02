@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -707,11 +707,11 @@ Set_defaults ()
 				*)
 					case "${LB_PARENT_DISTRIBUTION}" in
 						squeeze)
-							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486 686}"
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-686 486}"
 							;;
 
 						*)
-							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486 686-pae}"
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-686-pae 486}"
 							;;
 					esac
 					;;
@@ -743,7 +743,7 @@ Set_defaults ()
 					;;
 
 				*)
-					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc powerpc64}"
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-powerpc64 powerpc}"
 					;;
 			esac
 			;;
@@ -875,7 +875,15 @@ Set_defaults ()
 	fi
 
 	# Setting checksums
-	LB_CHECKSUMS="${LB_CHECKSUMS:-sha256}"
+	case "${LB_MODE}" in
+		progress-linux)
+			LB_CHECKSUMS="${LB_CHECKSUMS:-sha256}"
+			;;
+
+		*)
+			LB_CHECKSUMS="${LB_CHECKSUMS:-md5}"
+			;;
+	esac
 
 	# Setting compression
 	LB_COMPRESSION="${LB_COMPRESSION:-none}"
@@ -889,15 +897,7 @@ Set_defaults ()
 	LB_BUILD_WITH_TMPFS="${LB_BUILD_WITH_TMPFS:-false}"
 
 	# Setting debian-installer option
-	case "${LB_MODE}" in
-		progress-linux)
-			LB_DEBIAN_INSTALLER="${LB_DEBIAN_INSTALLER:-live}"
-			;;
-
-		*)
-			LB_DEBIAN_INSTALLER="${LB_DEBIAN_INSTALLER:-false}"
-			;;
-	esac
+	LB_DEBIAN_INSTALLER="${LB_DEBIAN_INSTALLER:-false}"
 
 	LB_DEBIAN_INSTALLER_DISTRIBUTION="${LB_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_DISTRIBUTION}}"
 

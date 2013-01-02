@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -632,7 +632,7 @@ then
 		do
 			for _FILE in $(find ../pool -name "${_PACKAGE}_*.deb")
 			do
-				ln -s ${_FILE} ./
+				ln -sf ${_FILE} ./
 			done
 		done
 
@@ -813,7 +813,16 @@ EOF
 	rm -f chroot/binary.sh
 	mv chroot/root/binary ./
 
-	DISTRIBUTIONS="stable testing unstable"
+	case "${LB_PARENT_DISTRIBUTION}" in
+		wheezy)
+			DISTRIBUTIONS="testing"
+			;;
+
+		*)
+
+			DISTRIBUTIONS="stable testing unstable"
+			;;
+	esac
 
 	if [ "${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}" != "${LB_PARENT_DISTRIBUTION}" ]
 	then

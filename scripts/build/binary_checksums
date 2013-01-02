@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -43,7 +43,15 @@ Create_lockfile .lock
 
 for CHECKSUM in ${LB_CHECKSUMS}
 do
-	CHECKSUMS="$(echo ${CHECKSUM} | tr [a-z] [A-Z])SUMS"
+	case "${LB_MODE}" in
+		progress-linux)
+			CHECKSUMS="$(echo ${CHECKSUM} | tr [a-z] [A-Z])SUMS"
+			;;
+
+		*)
+			CHECKSUMS="${CHECKSUM}sum.txt"
+			;;
+	esac
 
 	Echo_message "Begin creating binary ${CHECKSUMS}..."
 
@@ -60,10 +68,11 @@ do
 		\! -path './boot/boot.bin' \
 		\! -path './boot/grub/stage2_eltorito' \
 		\! -path './*SUMS' \
+		\! -path './*sum.txt' \
 	-print0 | sort -z | xargs -0 ${CHECKSUM}sum > ../${CHECKSUMS}
 
 cat > ${CHECKSUMS} << EOF
-## This file contains the list of ${CHECKSUM} checksums of all fileson this
+## This file contains the list of ${CHECKSUM} checksums of all files on this
 ## medium.
 ##
 ## You can verify them automatically with the 'verify-checksums' boot parameter,

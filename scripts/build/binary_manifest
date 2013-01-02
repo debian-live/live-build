@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -23,6 +23,11 @@ Arguments "${@}"
 # Reading configuration files
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
+
+if [ "${LB_CHROOT_FILESYSTEM}" = "none" ]
+then
+	exit 0
+fi
 
 Echo_message "Begin creating manifest..."
 

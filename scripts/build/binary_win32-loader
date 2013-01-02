@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -63,28 +63,43 @@ case "${LB_ARCHITECTURES}" in
 		fi
 
 		mv binary/win32-loader.exe binary/setup.exe
+		mv binary/win32-loader/g2ldr* binary
+		rmdir binary/win32-loader > /dev/null 2>&1 || true
 
 		if [ -e binary/win32-loader-standalone.exe ]
 		then
+			# squeeze
 			mv binary/win32-loader-standalone.exe binary/setup-standalone.exe
 		fi
 
-		if ls binary/win32-loader/g2ldr* > /dev/null 2>&1
-		then
-			mv binary/win32-loader/g2ldr* binary
-			rmdir binary/win32-loader > /dev/null 2>&1 || true
-		fi
+cat >> binary/autorun.inf << EOF
+[autorun]
+open=setup.exe
+EOF
 
 		if [ "${LB_DEBIAN_INSTALLER}" != "false" ]
 		then
 
 cat > binary/win32-loader.ini << EOF
 [installer]
+kernel=linux
 arch=${LB_ARCHITECTURES}
+default_desktop=gnome
 i386/linux=install/vmlinuz
 i386/initrd=install/initrd.gz
+EOF
+
+			if [ -e install/gtk ]
+			then
+
+cat >> binary/win32-loader.ini << EOF
 i386/gtk/linux=install/vmlinuz
 i386/gtk/initrd=install/gtk/initrd.gz
+EOF
+
+			fi
+
+cat >> binary/win32-loader.ini << EOF
 
 [grub]
 g2ldr=g2ldr

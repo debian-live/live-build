@@ -1,18 +1,17 @@
-# German translations for live-build package
-# Copyright (C) 2012 Free Software Foundation, Inc.
+# German translations for live-build
+# Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
 # This file is distributed under the same license as the live-build package.
-# Automatically generated, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2012-12-23 10:50+0100\n"
-"PO-Revision-Date: 2012-08-02 18:55+0300\n"
-"Last-Translator: Automatically generated\n"
+"Project-Id-Version: live-build 3.0~b5-1\n"
+"POT-Creation-Date: 2012-12-30 15:52+0100\n"
+"PO-Revision-Date: 2010-05-24 09:59+0300\n"
+"Last-Translator: Daniel Baumann <daniel@debian.org>\n"
 "Language-Team: none\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -29,7 +28,7 @@ msgstr ""
 #: en/lb_chroot.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
 #: en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "2012-12-23"
+msgid "2013-01-02"
 msgstr ""
 
 #. type: TH
@@ -37,7 +36,7 @@ msgstr ""
 #: en/lb_chroot.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
 #: en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "3.0~b4-1"
+msgid "3.0~b5-1"
 msgstr ""
 
 #. type: TH
