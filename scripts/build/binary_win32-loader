@@ -63,16 +63,13 @@ case "${LB_ARCHITECTURES}" in
 		fi
 
 		mv binary/win32-loader.exe binary/setup.exe
+		mv binary/win32-loader/g2ldr* binary
+		rmdir binary/win32-loader > /dev/null 2>&1 || true
 
 		if [ -e binary/win32-loader-standalone.exe ]
 		then
+			# squeeze
 			mv binary/win32-loader-standalone.exe binary/setup-standalone.exe
-		fi
-
-		if ls binary/win32-loader/g2ldr* > /dev/null 2>&1
-		then
-			mv binary/win32-loader/g2ldr* binary
-			rmdir binary/win32-loader > /dev/null 2>&1 || true
 		fi
 
 cat >> binary/autorun.inf << EOF
