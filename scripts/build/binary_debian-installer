@@ -813,7 +813,16 @@ EOF
 	rm -f chroot/binary.sh
 	mv chroot/root/binary ./
 
-	DISTRIBUTIONS="stable testing unstable"
+	case "${LB_PARENT_DISTRIBUTION}" in
+		wheezy)
+			DISTRIBUTIONS="testing"
+			;;
+
+		*)
+
+			DISTRIBUTIONS="stable testing unstable"
+			;;
+	esac
 
 	if [ "${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}" != "${LB_PARENT_DISTRIBUTION}" ]
 	then
