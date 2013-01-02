@@ -75,6 +75,11 @@ case "${LIVE_IMAGE_ARCHITECTURE}" in
 			rmdir binary/win32-loader > /dev/null 2>&1 || true
 		fi
 
+cat >> binary/autorun.inf << EOF
+[autorun]
+open=setup.exe
+EOF
+
 		if [ "${LB_DEBIAN_INSTALLER}" != "false" ]
 		then
 
