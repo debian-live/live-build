@@ -88,8 +88,19 @@ cat > binary/win32-loader.ini << EOF
 arch=${LIVE_IMAGE_ARCHITECTURE}
 i386/linux=install/vmlinuz
 i386/initrd=install/initrd.gz
+EOF
+
+			if [ -e install/gtk ]
+			then
+
+cat >> binary/win32-loader.ini << EOF
 i386/gtk/linux=install/vmlinuz
 i386/gtk/initrd=install/gtk/initrd.gz
+EOF
+
+			fi
+
+cat >> binary/win32-loader.ini << EOF
 
 [grub]
 g2ldr=g2ldr
