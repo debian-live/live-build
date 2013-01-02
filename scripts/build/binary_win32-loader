@@ -63,17 +63,8 @@ case "${LIVE_IMAGE_ARCHITECTURE}" in
 		fi
 
 		mv binary/win32-loader.exe binary/setup.exe
-
-		if [ -e binary/win32-loader-standalone.exe ]
-		then
-			mv binary/win32-loader-standalone.exe binary/setup-standalone.exe
-		fi
-
-		if ls binary/win32-loader/g2ldr* > /dev/null 2>&1
-		then
-			mv binary/win32-loader/g2ldr* binary
-			rmdir binary/win32-loader > /dev/null 2>&1 || true
-		fi
+		mv binary/win32-loader/g2ldr* binary
+		rmdir binary/win32-loader > /dev/null 2>&1 || true
 
 cat >> binary/autorun.inf << EOF
 [autorun]
