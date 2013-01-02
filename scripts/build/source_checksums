@@ -56,7 +56,7 @@ do
 				;;
 
 			*)
-				CHECKSUMS="${CHECKSUM}sums.txt"
+				CHECKSUMS="${CHECKSUM}sum.txt"
 				;;
 		esac
 
@@ -72,7 +72,7 @@ do
 		cd ${DIRECTORY}
 		find . -type f \
 			\! -path './*SUMS' \
-			\! -path './*sums.txt' \
+			\! -path './*sum.txt' \
 		-print0 | sort -z | xargs -0 ${CHECKSUM}sum > ../${CHECKSUMS}
 
 cat > ${CHECKSUMS} << EOF
