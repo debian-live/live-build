@@ -581,7 +581,7 @@ then
 		do
 			for _FILE in $(find ../pool -name "${_PACKAGE}_*.deb")
 			do
-				ln -s ${_FILE} ./
+				ln -sf ${_FILE} ./
 			done
 		done
 
