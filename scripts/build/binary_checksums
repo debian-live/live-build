@@ -49,7 +49,7 @@ do
 			;;
 
 		*)
-			CHECKSUMS="${CHECKSUM}sums.txt"
+			CHECKSUMS="${CHECKSUM}sum.txt"
 			;;
 	esac
 
@@ -68,7 +68,7 @@ do
 		\! -path './boot/boot.bin' \
 		\! -path './boot/grub/stage2_eltorito' \
 		\! -path './*SUMS' \
-		\! -path './*sums.txt' \
+		\! -path './*sum.txt' \
 	-print0 | sort -z | xargs -0 ${CHECKSUM}sum > ../${CHECKSUMS}
 
 cat > ${CHECKSUMS} << EOF
