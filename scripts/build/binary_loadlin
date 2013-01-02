@@ -72,6 +72,13 @@ case "${LIVE_IMAGE_ARCHITECTURE}" in
 			gunzip -c /usr/lib/loadlin/loadlin.exe.gz > binary/tools/loadlin.exe
 			gunzip -c /usr/share/doc/loadlin/manual.txt.gz > binary/tools/loadlin.txt
 		fi
+
+		echo "\tools\loadlin.exe vmlinuz initrd=initrd.gz" > binary/install/install.bat
+
+		if [ -e binary/install/gtk ]
+		then
+			echo "\tools\loadlin.exe \install.386\vmlinuz initrd=initrd.gz vga=788" > binary/install/gtk/install.bat
+		fi
 		;;
 
 	*)
