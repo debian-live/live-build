@@ -1,3 +1,42 @@
+live-build (3.0~b5-1) unstable; urgency=low
+
+  * Omitting binary manifest creation when chroot filesystem is set to
+    none.
+  * Omitting memtest in binary if chroot filesystem is set to none.
+  * Removing redundant check for linux-images in binary_linux-image.
+  * Correcting glitch with plain chroot filesystems in binary_chroot.
+  * Switching order of kernel flavours in defaults, the last added one in
+    the list becomes the default symlink target in the rootfs by apt.
+  * Using .cfg suffix for consistency with debian-installer on preseed
+    files in config/preseed.
+  * Adding sample gitignore file in examples.
+  * Setting debian-installer to false in all modes by default.
+  * Updating year in all copyright notices.
+  * Updating removal of backup files in stripped example hook to also work
+    with spaces in filenames.
+  * Don't fail when adding symlinks for firmware in binary/firmware for
+    debian-installer and the symlink already exists (Closes: #696688).
+  * Defaulting to obsolete md5 for checksums instead of sha256 on debian,
+    as debians cdrom-check in d-i only supports md5.
+  * Defaulting to obsolete filenames for checksums on debian, as debians
+    cdrom-check in d-i only supports legacy filenames (Closes: #697082).
+  * Correcting spelling typo in help text within the binary checksums
+    file.
+  * Also ignoring legacy checksum filenames when creating checksum files.
+  * Creating autorun.inf in binary_win32-loader.
+  * Dropping stable and unstable dist symlinks for d-i in dists for
+    wheezy.
+  * Creating install.bat for loadlin.
+  * Only including gtk d-i in win32-loader config if available on the
+    target image.
+  * Updating win32-loader.ini for wheezy.
+  * Correcting legacy filename for checksum files.
+  * Removing all checksum files in lb clean.
+  * Adding support for sha512 checksums.
+  * Dropping pre-squeeze handling for win32-loader files.
+
+ -- Daniel Baumann <daniel@debian.org>  Wed, 02 Jan 2013 11:45:30 +0100
+
 live-build (3.0~b4-1) unstable; urgency=low
 
   [ Daniel Baumann ]
