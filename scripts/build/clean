@@ -103,8 +103,8 @@ do
 			rm -f binary*.zsync*
 			rm -f binary.sh
 			rm -f binary.contents binary.packages
-			rm -f MD5SUMS SHA1SUMS SHA256SUMS
-			rm -f md5sum.txt sha1sum.txt sha256sum.txt
+			rm -f MD5SUMS SHA1SUMS SHA256SUMS SHA512SUMS
+			rm -f md5sum.txt sha1sum.txt sha256sum.txt sha512sum.txt
 
 			rm -rf binary
 			rm -rf tftpboot

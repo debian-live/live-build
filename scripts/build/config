@@ -38,7 +38,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--cache-indices true|false]\n\
 \t    [--cache-packages true|false]\n\
 \t    [--cache-stages STAGE|\"STAGES\"]\n\
-\t    [--checksums md5|sha1|sha256|none]\n\
+\t    [--checksums md5|sha1|sha256|sha512|none]\n\
 \t    [--compression bzip2|gzip|lzip|xz|none]\n\
 \t    [--config GIT_URL::GIT_BRANCH]\n\
 \t    [--zsync true|false]\n\
