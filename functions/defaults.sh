@@ -296,15 +296,7 @@ Set_defaults ()
 	then
 		case "${LH_MODE}" in
 			debian|debian-release)
-				case "${LH_ARCHITECTURE}" in
-					amd64|i386)
-						LH_MIRROR_BOOTSTRAP="http://ftp.de.debian.org/debian/"
-						;;
-
-					*)
-						LH_MIRROR_BOOTSTRAP="http://ftp.de.debian.org/debian/"
-						;;
-				esac
+				LH_MIRROR_BOOTSTRAP="http://archive.debian.org/debian/"
 				;;
 
 			emdebian)
@@ -332,7 +324,7 @@ Set_defaults ()
 	then
 		case "${LH_MODE}" in
 			debian|debian-release)
-				LH_MIRROR_CHROOT_SECURITY="http://security.debian.org/"
+				LH_MIRROR_CHROOT_SECURITY="http://archive.debian.org/debian-security/"
 				;;
 
 			emdebian)
@@ -358,7 +350,7 @@ Set_defaults ()
 	then
 		case "${LH_MODE}" in
 			debian|debian-release)
-				LH_MIRROR_BINARY="http://cdn.debian.net/debian/"
+				LH_MIRROR_BINARY="http://archive.debian.org/debian/"
 				;;
 
 			emdebian)
@@ -384,7 +376,7 @@ Set_defaults ()
 	then
 		case "${LH_MODE}" in
 			debian|debian-release)
-				LH_MIRROR_BINARY_SECURITY="http://security.debian.org/"
+				LH_MIRROR_BINARY_SECURITY="http://archive.debian.org/debian-security/"
 				;;
 
 			emdebian)
