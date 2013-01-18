@@ -358,7 +358,7 @@ Set_defaults ()
 	esac
 
 	# Setting templates
-	if [ -n "${LIVE_BUID}" ]
+	if [ -n "${LIVE_BUILD}" ]
 	then
 		LB_TEMPLATES="${LB_TEMPLATES:-${LIVE_BUILD}/templates}"
 	else
