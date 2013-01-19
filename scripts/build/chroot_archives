@@ -889,9 +889,9 @@ EOF
 		rm -rf chroot/root/packages
 
 		# Remove local packages key if it exists
-		if apt-key list | grep -q ${_LB_LOCAL_KEY_EMAIL}
+		if Chroot chroot apt-key list | grep -q ${_LB_LOCAL_KEY_EMAIL}
 		then
-			apt-key del ${_LB_LOCAL_KEY_EMAIL}
+			Chroot chroot apt-key del ${_LB_LOCAL_KEY_EMAIL}
 		fi
 
 		# Removing stage file
