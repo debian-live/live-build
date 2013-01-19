@@ -73,7 +73,7 @@ then
 fi
 
 # Handle xorriso generic options
-XORRISO_OPTIONS="-as mkisofs -r -J -joliet-long -l -cache-inodes"
+XORRISO_OPTIONS="-r -J -joliet-long -l -cache-inodes"
 
 # Handle xorriso live-build specific options
 if [ "${LIVE_IMAGE_TYPE}" = "iso-hybrid" ]
@@ -199,7 +199,7 @@ fi
 
 cat >> binary.sh << EOF
 
-xorriso ${XORRISO_OPTIONS} -o ${IMAGE} binary
+xorriso -as mkisofs ${XORRISO_OPTIONS} -o ${IMAGE} binary
 EOF
 
 case "${LB_BUILD_WITH_CHROOT}" in
