@@ -64,10 +64,10 @@ EOF
 		# samhain
 		if [ -e /var/state/samhain/samhain_file ]
 		then
-			mv /var/state/samhain/samhain_file /var/state/samhain/samhain_file.orig
+			${LB_ROOT_COMMAND} mv /var/state/samhain/samhain_file /var/state/samhain/samhain_file.orig
 		else
-			mkdir -p /var/state/samhain
-			touch /var/state/samhain/samhain_file
+			${LB_ROOT_COMMAND} mkdir -p /var/state/samhain
+			${LB_ROOT_COMMAND} touch /var/state/samhain/samhain_file
 		fi
 
 		# flash-kernel
@@ -96,11 +96,11 @@ EOF
 		# samhain
 		if [ -e /var/state/samhain/samhain_file.orig ]
 		then
-			mv /var/state/samhain/samhain_file.orig /var/state/samhain/samhain_file
+			${LB_ROOT_COMMAND} mv /var/state/samhain/samhain_file.orig /var/state/samhain/samhain_file
 		elif [ -d /var/state/samhain ]
 		then
-			rm -f /var/state/samhain/samhain_file
-			rmdir --ignore-fail-on-non-empty /var/state/samhain || true
+			${LB_ROOT_COMMAND} rm -f /var/state/samhain/samhain_file
+			${LB_ROOT_COMMAND} rmdir --ignore-fail-on-non-empty /var/state/samhain || true
 		fi
 
 		# Restore start-stop-daemon program
