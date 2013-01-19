@@ -53,12 +53,25 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Checking depends
-Check_package chroot/usr/bin/xorriso xorriso
+case "${LB_PARENT_DISTRIBUTION}" in
+	squeeze)
+		Check_package chroot/usr/bin/genisoimage genisoimage
 
-if [ "${LB_BINARY_IMAGES}" = "iso-hybrid" ]
-then
-	Check_package chroot/usr/lib/syslinux/isohdpfx.bin syslinux-common
-fi
+		if [ "${LB_BINARY_IMAGES}" = "iso-hybrid" ]
+		then
+			Check_package chroot/usr/bin/isohybrid syslinux
+		fi
+		;;
+
+	*)
+		Check_package chroot/usr/bin/xorriso xorriso
+
+		if [ "${LB_BINARY_IMAGES}" = "iso-hybrid" ]
+		then
+			Check_package chroot/usr/lib/syslinux/isohdpfx.bin syslinux-common
+		fi
+		;;
+esac
 
 # Restoring cache
 Restore_cache cache/packages.binary
@@ -73,13 +86,20 @@ then
 fi
 
 # Handle xorriso generic options
-XORRISO_OPTIONS="-as mkisofs -r -J -joliet-long -l -cache-inodes"
+XORRISO_OPTIONS="-r -J -joliet-long -l -cache-inodes"
 
 # Handle xorriso live-build specific options
-if [ "${LB_BINARY_IMAGES}" = "iso-hybrid" ]
-then
-	XORRISO_OPTIONS="${XORRISO_OPTIONS} -isohybrid-mbr /usr/lib/syslinux/isohdpfx.bin -partition_offset 16"
-fi
+case "${LB_PARENT_DISTRIBUTION}" in
+	squeeze)
+		;;
+
+	*)
+		if [ "${LB_BINARY_IMAGES}" = "iso-hybrid" ]
+		then
+			XORRISO_OPTIONS="${XORRISO_OPTIONS} -isohybrid-mbr /usr/lib/syslinux/isohdpfx.bin -partition_offset 16"
+		fi
+		;;
+esac
 
 if [ "${_QUIET}" = "true" ]
 then
@@ -197,10 +217,33 @@ else
 	echo "#!/bin/sh" > binary.sh
 fi
 
+case "${LB_PARENT_DISTRIBUTION}" in
+	squeeze)
+
+cat >> binary.sh << EOF
+genisoimage ${XORRISO_OPTIONS} -o ${IMAGE} binary
+EOF
+
+		if [ "${LB_BINARY_IMAGES}" = "iso-hybrid" ]
+		then
+
 cat >> binary.sh << EOF
 
-xorriso ${XORRISO_OPTIONS} -o ${IMAGE} binary
+isohybrid ${IMAGE}
 EOF
+
+		fi
+		;;
+
+	*)
+
+cat >> binary.sh << EOF
+
+xorriso -as mkisofs ${XORRISO_OPTIONS} -o ${IMAGE} binary
+EOF
+
+		;;
+esac
 
 case "${LB_BUILD_WITH_CHROOT}" in
 	true)
