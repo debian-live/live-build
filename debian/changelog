@@ -1,3 +1,39 @@
+live-build (3.0~b6-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Updating manpage year handling for 2013.
+  * Updating wheezy beta-release number.
+  * Using cat instead of echo to workaround incompatible and conflicting
+    uses in escaping of \t in dash and bash, and less importantly to
+    workaround a false-positive in checkbashisms.
+  * Updating footer link to 'legal information' in cgi html template.
+  * Cleaning up binary_loadlin.
+  * Updating for twitter-bootstrap usage on live.debia.net in the cgi html
+    templates.
+  * Updating footer in cgi html template.
+  * Correcting spelling typo in html footer of the cgi, thanks to Jean-
+    Christophe Saint-Marc <jchristophe.stmarc@free.fr>.
+  * Removing reference to removed --package-lists option in lb_config
+    manpage (Closes: #698260).
+
+  [ Richard Nelson ]
+  * Correcting typo on functions/default.sh, thanks to jhcha54008
+    <jhcha54008@free.fr> (Closes: #698397).
+
+  [ Daniel Baumann ]
+  * Updating samhain workaround in chroot_dpkg to work if live-build is
+    being used with sudo or fakeroot (Closes: #698423).
+  * Correcting apt-key cleanup of local dummy signing keys when using
+    local packages, thanks to jhcha54008 <jhcha54008@free.fr>.
+  * Falling back to use genisoimage when building squeeze iso-hybrid
+    images.
+  * Applying slightly modified patch from Raphaël Hertzog
+    <hertzog@debian.org> to fix automatic firmware inclusion when using
+    debian-installer with live-installer and having firmware packages
+    installed in the live system already.
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 20 Jan 2013 10:17:42 +0100
+
 live-build (3.0~b5-1) unstable; urgency=low
 
   * Omitting binary manifest creation when chroot filesystem is set to
