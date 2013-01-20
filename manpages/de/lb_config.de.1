@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2013\-01\-02 3.0~b5\-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 20.01.2013 3.0~b6\-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -199,8 +199,6 @@
   [\fB\-\-net\-cow\-server\fP \fIIP\fP|\fIHOSTNAME\fP]
 .br
   [\fB\-\-net\-tarball\fP true|false]
-.br
-  [\-p|\fB\-\-package\-lists\fP \fILIST\fP|\fI"LISTS"\fP]
 .br
   [\fB\-\-quiet\fP]
 .br
@@ -671,14 +669,6 @@ by default empty.
 defines if a compressed tarball should be created. Disabling this options
 leads to no tarball at all, the plain binary directory is considered the
 output in this case. Default is true.
-.IP "\-p|\fB\-\-package\-lists\fP \fILIST\fP|\(dq\fILISTS\fP\(dq" 4
-defines which lists available in /usr/share/live/build/package\-lists should
-be used. By default, this is set to standard. Note that in case you have
-local package lists, you don't need to list them here. Putting them into
-config/package\-lists is enough (the filename needs to have the .list suffix
-though).
-.IP \fB\-\-quiet\fP 4
-reduces the verbosity of messages output by \fBlb build\fP.
 .IP "\fB\-\-archives\fP \fIARCHIVE\fP|\(dq\fIARCHIVES\fP\(dq" 4
 enables one of available third\-party archive configurations in
 /usr/share/live/build/archives.

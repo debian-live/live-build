@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2013\-01\-02 3.0~b5-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2013\-01\-20 3.0~b6-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -194,8 +194,6 @@
 	[\fB\-\-net\-cow\-server\fR \fIIP\fR|\fIHOSTNAME\fR]
 .br
 	[\fB\-\-net\-tarball\fR true|false]
-.br
-	[\-p|\fB\-\-package\-lists\fR \fILIST\fR|\fI"LISTS"\fR]
 .br
 	[\fB\-\-quiet\fR]
 .br
@@ -434,10 +432,6 @@ Example:
 sets the IP or hostname that will be configured in the bootloader configuration for the copy\-on\-write filesystem of your netboot image and is by default empty.
 .IP "\fB\-\-net\-tarball\fR true|false" 4
 defines if a compressed tarball should be created. Disabling this options leads to no tarball at all, the plain binary directory is considered the output in this case. Default is true.
-.IP "\-p|\fB\-\-package\-lists\fR \fILIST\fR|""\fILISTS\fR""" 4
-defines which lists available in /usr/share/live/build/package-lists should be used. By default, this is set to standard. Note that in case you have local package lists, you don't need to list them here. Putting them into config/package-lists is enough (the filename needs to have the .list suffix though).
-.IP "\fB\-\-quiet\fR" 4
-reduces the verbosity of messages output by \fBlb build\fR.
 .IP "\fB\-\-archives\fR \fIARCHIVE\fR|""\fIARCHIVES\fR""" 4
 enables one of available third-party archive configurations in /usr/share/live/build/archives.
 .IP "\fB\-\-root-command\fR sudo" 4
