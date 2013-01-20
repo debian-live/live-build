@@ -523,33 +523,24 @@ then
 		# d-i does not support (for example) re-installing grub from target/ - the grub
 		# .debs must actually exist.
 
-		# Modify dpkg status to show the required packages are not installed.
-		cp chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
-		for PACKAGE in ${DI_REQ_PACKAGES}
-		do
-			awk -v f=0 '
-				f == 1 { print "Status: purge ok not-installed"; f=0; next }
-				/Package: '"${PACKAGE}"'/ { f=1; }
-				{ print }
-				' chroot/var/lib/dpkg/status > chroot/var/lib/dpkg/status.awk
-			mv chroot/var/lib/dpkg/status.awk chroot/var/lib/dpkg/status
-		done
-
-		# Download .deb's that we just marked as "purged" which caused broken dependencies
-		Chroot chroot ${_LB_APT_COMMAND} -f dist-upgrade
-
-		# Revert dpkg status file
-		mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
-
 		# Download .debs of the required packages
 		Chroot chroot ${_LB_APT_COMMAND} install ${DI_PACKAGES} ${DI_FIRMWARE_PACKAGES} ${DI_REQ_PACKAGES}
+
+		# Drop the packages already installed that d-i doesn't explicitely need
+		_REMAINING_PACKAGES="$(echo ${DI_FIRMWARE_PACKAGES} ${DI_REQ_PACKAGES} | sed -e 's# #|#g')"
+		_REMAINING_PACKAGES="$(sed -n -e 's|Package: ||p' chroot/var/lib/dpkg/status.tmp | grep -E -v "^${_REMAINING_PACKAGES}$")"
+
+		for _PACKAGE in ${_REMAINING_PACKAGES}
+		do
+			rm -f "chroot/binary.deb/archives/${_PACKAGE}_*.deb"
+		done
 	else
 		# Download .debs of the required packages
 		Chroot chroot ${_LB_APT_COMMAND} install ${DI_PACKAGES} ${DI_FIRMWARE_PACKAGES}
-
-		# Revert dpkg status file
-		mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
 	fi
+
+	# Revert dpkg status file
+	mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
 
 	mv chroot/binary.deb ./
 
