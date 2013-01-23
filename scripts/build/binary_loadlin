@@ -87,7 +87,7 @@ EOF
 		then
 
 cat > binary/install/gtk/install.bat << EOF
-\tools\loadlin.exe \install.386\vmlinuz initrd=initrd.gz vga=788
+\tools\loadlin.exe \install\vmlinuz initrd=initrd.gz vga=788
 EOF
 
 		fi
