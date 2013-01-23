@@ -4375,7 +4375,7 @@ live-helper (1.0~a38-1) unstable; urgency=medium
   * Don't fail if resolv.conf is a symlink, thanks to David Madore
     <david.madore@ens.fr> (Closes: #457595).
   * Fixing changelog.
-  * Consistently using the pipe as seperator in sed commands now.
+  * Consistently using the pipe as separator in sed commands now.
   * Checking for /sys/class rather than /sys/kernel, avoids problem when
     running under OpenVZ which doesn't have sys/kernel, thanks to
     Takeshi Yaegashi <yaegashi@debian.org>.
