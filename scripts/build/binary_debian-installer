@@ -802,14 +802,14 @@ fi
 Repack_initrd()
 {
 	local TARGET_INITRD
-	local INCLUDE_PATH
+	local INCLUDES_SOURCE
 	TARGET_INITRD="${1}"
-	INCLUDE_PATH="${2}"
+	INCLUDES_SOURCE="${2}"
 	REPACK_TMPDIR="unpacked-initrd"
 
-	if [ -d "${INCLUDE_PATH}" ]
+	if [ -d "${INCLUDES_SOURCE}" ]
 	then
-		INCLUDE_PATH=$(readlink -f ${INCLUDE_PATH})
+		INCLUDES_SOURCE=$(readlink -f ${INCLUDES_SOURCE})
 	fi
 
 	# cpio does not have a "extract to directory", so we must change directory
@@ -817,33 +817,39 @@ Repack_initrd()
 	cd ${REPACK_TMPDIR}
 
 	gzip -d < ../${TARGET_INITRD} | cpio -i --make-directories --no-absolute-filenames
-	if [ ! -d "${INCLUDE_PATH}" ]
-	then
-		# Invoked the old way, just copy the preseeds
-		cp ../config/debian-installer/*.cfg .
-	else
-		# New way, include target directory content in the initrd
-		REPACK_TMPDIR_ABS="${PWD}"
-		cd "${INCLUDE_PATH}"
-		find -print0 | cpio -pumd0 --no-preserve-owner "${REPACK_TMPDIR_ABS}/"
-		cd "${OLDPWD}"
-	fi
+
+	for _INCLUDE in ${INCLUDES_SOURCE}
+	do
+		if [ ! -d ${_INCLUDE} ]
+		then
+			cp ${_INCLUDE} .
+		else
+			REPACK_TMPDIR_ABS="${PWD}"
+			cd "${_INCLUDE}"
+			find -print0 | cpio -pumd0 --no-preserve-owner "${REPACK_TMPDIR_ABS}/"
+			cd "${OLDPWD}"
+		fi
+	done
 	find -print0 | cpio -H newc -o0 | gzip -9 > ../${TARGET_INITRD}
 
 	cd ..
 	rm -rf ${REPACK_TMPDIR}
 }
 
-# Preseed d-i by repacking the initrd in certain situations
-if [ "${DI_IMAGE_TYPE}" = "netboot" ] && [ -e config/debian-installer/preseed.cfg ]
-then
-	Repack_initrd "${DESTDIR}"/"${INITRD_DI}"
+case "${DI_IMAGE_TYPE}" in
+	netboot)
+		# Preseed d-i by repacking the initrd in certain situations
+		if [ -e config/debian-installer/preseed.cfg ]
+		then
+			Repack_initrd "${DESTDIR}"/"${INITRD_DI}" config/debian-installer/preseed.cfg
 
-	if [ -e "${DESTDIR}"/"${INITRD_GI}" ]
-	then
-		Repack_initrd "${DESTDIR}"/"${INITRD_GI}"
-	fi
-fi
+			if [ -e "${DESTDIR}"/"${INITRD_GI}" ]
+			then
+				Repack_initrd "${DESTDIR}"/"${INITRD_GI}" config/debian-installer/preseed.cfg
+			fi
+		fi
+		;;
+esac
 
 # Include content of config/includes.debian-installer if exists and not empty
 if [ -d config/includes.debian-installer ] && [ -n "$(ls -A config/includes.debian-installer)" ]
