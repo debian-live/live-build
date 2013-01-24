@@ -830,7 +830,7 @@ Set_defaults ()
 			;;
 
 		*)
-			LB_BINARY_FILESYSTEM="${LB_BINARY_FILESYSTEM:-fat16}"
+			LB_BINARY_FILESYSTEM="${LB_BINARY_FILESYSTEM:-fat32}"
 			;;
 	esac
 
