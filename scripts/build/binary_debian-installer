@@ -838,6 +838,17 @@ Repack_initrd()
 
 case "${DI_IMAGE_TYPE}" in
 	netboot)
+		# Include firmware into d-i initrd on netboot images
+		if ls binary/firmware/*.deb > /dev/null 2>&1
+		then
+			Repack_initrd "${DESTDIR}"/"${INITRD_DI}" "binary/firmware/*.deb"
+
+			if [ -e "${DESTDIR}"/"${INITRD_GI}" ]
+			then
+				Repack_initrd "${DESTDIR}"/"${INITRD_GI}" "binary/firmware/*.deb"
+			fi
+		fi
+
 		# Preseed d-i by repacking the initrd in certain situations
 		if [ -e config/debian-installer/preseed.cfg ]
 		then
