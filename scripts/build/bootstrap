@@ -38,6 +38,7 @@ Setup_cleanup
 lb bootstrap_cache restore ${@}
 lb bootstrap_cdebootstrap ${@}
 lb bootstrap_debootstrap ${@}
+lb bootstrap_archive-keys ${@}
 lb bootstrap_cache save ${@}
 
 # Temporary hack for base-files wrt/ plymouth
