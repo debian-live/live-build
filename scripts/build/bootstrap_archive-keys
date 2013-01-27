@@ -1,0 +1,77 @@
+#!/bin/sh
+
+## live-build(7) - System Build Scripts
+## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
+##
+## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+## This is free software, and you are welcome to redistribute it
+## under certain conditions; see COPYING for details.
+
+
+set -e
+
+# Including common functions
+[ -e "${LIVE_BUILD}/scripts/build.sh" ] && . "${LIVE_BUILD}/scripts/build.sh" || . /usr/lib/live/build.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'bootstrap non-Debian archive-signing-keys')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+# TODO: allow verification against user-specified keyring
+# For now, we'll only validate against debian-keyring
+
+# TODO2: use chrooted validation rather than host system based one
+
+case "${LB_MODE}" in
+	progress-linux)
+		case "${LB_DISTRIBUTION}" in
+			artax*)
+				_KEYS="1.0-artax 1.0-artax-packages"
+				;;
+
+			baureo*)
+				_KEYS="2.0-baureo 2.0-baureo-packages"
+				;;
+
+			chairon*)
+				_KEYS="3.0-chairon 3.0-chairon-packages"
+				;;
+		esac
+
+		_URL="${LB_MIRROR_CHROOT}/project/keys"
+		;;
+esac
+
+for _KEY in ${_KEYS}
+do
+	Echo_message "Fetching archive-key ${_KEY}..."
+
+	wget -q "${_URL}/archive-key-${_KEY}.asc" -O chroot/key.asc
+	wget -q "${_URL}/archive-key-${_KEY}.asc.sig" -O chroot/key.asc.sig
+
+	if [ -e /usr/bin/gpgv ] && [ -e /usr/share/keyrings/debian-keyring.gpg ]
+	then
+		Echo_message "Verifying archive-key ${_KEY} against debian-keyring..."
+
+		/usr/bin/gpgv --quiet --keyring /usr/share/keyrings/debian-keyring.gpg chroot/key.asc.sig chroot/key.asc > /dev/null 2>&1 || { Echo_error "archive-key ${_KEY} has invalid signature."; return 1;}
+	else
+		Echo_warning "Skipping archive-key ${_KEY} verification, either gpgv or debian-keyring not available on host system..."
+	fi
+
+	Echo_message "Importing archive-key ${_KEY}..."
+
+	Chroot chroot "apt-key add key.asc"
+	rm -f chroot/key.asc chroot/key.asc.sig
+done
+
+Chroot chroot "apt-get update"
+
+# Creating stage file
+Create_stagefile .build/bootstrap_archive-keys
