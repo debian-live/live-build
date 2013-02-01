@@ -179,10 +179,10 @@ case "${LB_BUILD_WITH_CHROOT}" in
 		if [ "${LB_SYSLINUX_THEME}" = "live-build" ]
 		then
 			cp -a ${_SOURCE} chroot/root
-			Chroot chroot cp -aL /root/$(basename ${_SOURCE}) /root/$(basename ${_SOURCE}).tmp
+			Chroot chroot cp -aL /root/$(basename ${_SOURCE}) /root/$(basename ${_SOURCE}).tmp || true
 			rm -rf chroot/$(basename ${_SOURCE})
 		else
-			Chroot chroot cp -aL ${_SOURCE} /root/$(basename ${_SOURCE}).tmp
+			Chroot chroot cp -aL ${_SOURCE} /root/$(basename ${_SOURCE}).tmp || true
 		fi
 
 		case "${LB_MODE}" in
@@ -197,7 +197,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 	false)
 		mkdir -p ${_TARGET}
 
-		cp -aL ${_SOURCE}/* ${_TARGET}
+		cp -aL ${_SOURCE}/* ${_TARGET} || true
 
 		case "${LB_MODE}" in
 			ubuntu)
