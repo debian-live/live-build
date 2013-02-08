@@ -207,6 +207,39 @@ live-build (4.0~a1-1) experimental; urgency=low
 
  -- Daniel Baumann <daniel@debian.org>  Fri, 30 Nov 2012 15:22:32 +0100
 
+live-build (3.0.0-1) unstable; urgency=low
+
+  * Updating wheezy pre-release number for b4.
+  * Dropping dpkg compression level.
+  * Correcting spelling typos in changelog to make lintian happy.
+  * Escaping quotes to workaround a false-positive of checkbashisms in
+    binary_debian-installer.
+  * Correcting install path in loadlins install.bat for the gtk d-i
+    flavour.
+  * Switching default binary filesystem for hdd images to fat32 to be more
+    robust on todays flash devices.
+  * Correcting vshift in syslinux themes to correct display bug with
+    overlong lines, thanks to Thanatermesis <thanatermesis@gmail.com>.
+  * Adding bootrap_archive-keys to establish secure trust-chain on top of
+    debian-keyring for derivatives.
+  * Updating syslinux configurations and handling for syslinux 5.
+  * Adding hook to remove systemd machine-id.
+  * Renumbering hooks.
+  * Correcting wrong debian-installer syslinux menu files.
+  * Including HDT in advanced options menu within syslinux menu.
+  * Updating binary_debian-installer for newer append replacement
+    variables used in syslinux configs.
+  * Dropping theme package support, themes are either in the config tree
+    or the embedded one from live-build is used.
+  * Correctly remove binary contents and packages file in clean script.
+  * Adding key-shortcut for advanced options in syslinux menu.
+  * Removing default menu marker for install entry in syslinux menu.
+  * Converting splash.svg not just splash.svg.in files as syslinux
+    bootsplashes.
+  * Removing dropped syslinux-theme config option from lb_config manpage.
+
+ -- Daniel Baumann <daniel@debian.org>  Sat, 09 Feb 2013 00:18:07 +0100
+
 live-build (3.0~b6-1) unstable; urgency=low
 
   [ Daniel Baumann ]
