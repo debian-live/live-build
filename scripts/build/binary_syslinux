@@ -266,7 +266,7 @@ fi
 
 if [ -e ${_TARGET}/install.cfg ]
 then
-	sed -i -e "s#@LB_BOOTAPPEND_INSTALL@#${LB_BOOTAPPEND_INSTALL}#g" \
+	sed -i -e "s#@APPEND_INSTALL@#${LB_BOOTAPPEND_INSTALL}#g" \
 	${_TARGET}/install.cfg
 fi
 
