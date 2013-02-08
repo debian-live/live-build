@@ -633,6 +633,7 @@ Set_defaults ()
 		remove-python-py \
 		remove-temporary-files \
 		remove-udev-persistent-rules \
+		remove-systemd-machine-id \
 		update-apt-file-cache \
 		update-apt-xapian-index \
 		update-glx-alternative \
