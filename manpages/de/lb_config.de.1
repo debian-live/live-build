@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 20.01.2013 4.0~a8\-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 09.02.2013 4.0~a8\-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -218,8 +218,6 @@
   [\fB\-\-source\fP true|false]
 .br
   [\-s|\fB\-\-source\-images\fP iso|netboot|tar|hdd]
-.br
-  [\fB\-\-syslinux\-theme\fP \fITHEME_SUFFIX\fP]
 .br
   [\fB\-\-tasksel\fP apt|aptitude|tasksel]
 .br
@@ -720,11 +718,6 @@ not to create a swap file.
 .IP "\fB\-\-swap\-file\-size\fP \fIMB\fP" 4
 defines what size in megabytes the swap file should be, if one is to be
 created. Default is 512MB.
-.IP "\fB\-\-syslinux\-theme\fP \fITHEME_SUFFIX\fP" 4
-defines the syslinux theme to use. The theme suffix is the name of a
-directory in /usr/share/syslinux/themes/ provided by a package named
-syslinux\-theme\- plus the suffix. In debian mode, this defaults to
-debian\-wheezy.
 .IP "\fB\-\-tasksel\fP apt|aptitude|tasksel" 4
 selects which program is used to install tasks. By default, this is set to
 tasksel.

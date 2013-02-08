@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2013\-01\-20 4.0~a8-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2013\-02\-09 4.0~a8-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -212,8 +212,6 @@
 	[\fB\-\-source\fR true|false]
 .br
 	[\-s|\fB\-\-source\-images\fR iso|netboot|tar|hdd]
-.br
-	[\fB\-\-syslinux\-theme\fR \fITHEME_SUFFIX\fR]
 .br
 	[\fB\-\-tasksel\fR apt|aptitude|tasksel]
 .br
@@ -458,8 +456,6 @@ defines if firmware packages should be automatically included into the live imag
 defines the path to a swap file to create in the binary image. Default is not to create a swap file.
 .IP "\fB\-\-swap\-file\-size\fR \fIMB\fR" 4
 defines what size in megabytes the swap file should be, if one is to be created. Default is 512MB.
-.IP "\fB\-\-syslinux\-theme\fR \fITHEME_SUFFIX\fR" 4
-defines the syslinux theme to use. The theme suffix is the name of a directory in /usr/share/syslinux/themes/ provided by a package named syslinux\-theme\- plus the suffix. In debian mode, this defaults to debian\-wheezy.
 .IP "\fB\-\-tasksel\fR apt|aptitude|tasksel" 4
 selects which program is used to install tasks. By default, this is set to tasksel.
 .IP "\fB\-\-templates\fR \fIPATH\fR" 4

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build 4.0~a7-1\n"
-"POT-Creation-Date: 2013-01-20 11:28+0100\n"
+"POT-Creation-Date: 2013-02-09 00:13+0100\n"
 "PO-Revision-Date: 2010-05-24 09:59+0300\n"
 "Last-Translator: Daniel Baumann <daniel@debian.org>\n"
 "Language-Team: none\n"
@@ -28,8 +28,8 @@ msgstr ""
 #: en/lb_chroot.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
 #: en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "2013-01-20"
-msgstr "20.01.2013"
+msgid "2013-02-09"
+msgstr "09.02.2013"
 
 #. type: TH
 #: en/lb.1:1 en/lb_binary.1:1 en/lb_bootstrap.1:1 en/lb_build.1:1
@@ -80,7 +80,7 @@ msgstr ""
 
 #. type: SH
 #: en/lb.1:11 en/lb_binary.1:9 en/lb_bootstrap.1:9 en/lb_build.1:9
-#: en/lb_chroot.1:9 en/lb_clean.1:9 en/lb_config.1:235 en/lb_source.1:9
+#: en/lb_chroot.1:9 en/lb_clean.1:9 en/lb_config.1:233 en/lb_source.1:9
 #: en/lb_testroot.1:9 en/live-build.7:11
 #, no-wrap
 msgid "DESCRIPTION"
@@ -95,7 +95,7 @@ msgstr ""
 
 #. type: SH
 #: en/lb.1:16 en/lb_binary.1:14 en/lb_bootstrap.1:14 en/lb_build.1:14
-#: en/lb_chroot.1:14 en/lb_clean.1:16 en/lb_config.1:244 en/lb_source.1:14
+#: en/lb_chroot.1:14 en/lb_clean.1:16 en/lb_config.1:242 en/lb_source.1:14
 #: en/lb_testroot.1:18 en/live-build.7:20
 #, no-wrap
 msgid "OPTIONS"
@@ -111,7 +111,7 @@ msgstr ""
 
 #. type: SH
 #: en/lb.1:19 en/lb_binary.1:17 en/lb_bootstrap.1:17 en/lb_build.1:17
-#: en/lb_chroot.1:17 en/lb_clean.1:38 en/lb_config.1:486 en/lb_source.1:17
+#: en/lb_chroot.1:17 en/lb_clean.1:38 en/lb_config.1:482 en/lb_source.1:17
 #: en/lb_testroot.1:21 en/live-build.7:219
 #, no-wrap
 msgid "FILES"
@@ -126,7 +126,7 @@ msgstr ""
 
 #. type: SH
 #: en/lb.1:22 en/lb_binary.1:20 en/lb_bootstrap.1:20 en/lb_build.1:22
-#: en/lb_chroot.1:20 en/lb_clean.1:43 en/lb_config.1:493 en/lb_source.1:20
+#: en/lb_chroot.1:20 en/lb_clean.1:43 en/lb_config.1:489 en/lb_source.1:20
 #: en/lb_testroot.1:24 en/live-build.7:223
 #, no-wrap
 msgid "SEE ALSO"
@@ -134,21 +134,21 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb.1:24 en/lb_binary.1:22 en/lb_bootstrap.1:22 en/lb_build.1:24
-#: en/lb_chroot.1:22 en/lb_clean.1:45 en/lb_config.1:495 en/lb_source.1:22
+#: en/lb_chroot.1:22 en/lb_clean.1:45 en/lb_config.1:491 en/lb_source.1:22
 #: en/lb_testroot.1:26
 msgid "I<live-build>(7)"
 msgstr ""
 
 #. type: Plain text
 #: en/lb.1:26 en/lb_binary.1:24 en/lb_bootstrap.1:24 en/lb_build.1:26
-#: en/lb_chroot.1:24 en/lb_clean.1:47 en/lb_config.1:501 en/lb_source.1:24
+#: en/lb_chroot.1:24 en/lb_clean.1:47 en/lb_config.1:497 en/lb_source.1:24
 #: en/lb_testroot.1:28 en/live-build.7:229
 msgid "This program is a part of live-build."
 msgstr ""
 
 #. type: SH
 #: en/lb.1:27 en/lb_binary.1:25 en/lb_bootstrap.1:25 en/lb_build.1:27
-#: en/lb_chroot.1:25 en/lb_clean.1:48 en/lb_config.1:502 en/lb_source.1:25
+#: en/lb_chroot.1:25 en/lb_clean.1:48 en/lb_config.1:498 en/lb_source.1:25
 #: en/lb_testroot.1:29 en/live-build.7:230
 #, no-wrap
 msgid "HOMEPAGE"
@@ -156,7 +156,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb.1:29 en/lb_binary.1:27 en/lb_bootstrap.1:27 en/lb_build.1:29
-#: en/lb_chroot.1:27 en/lb_clean.1:50 en/lb_config.1:504 en/lb_source.1:27
+#: en/lb_chroot.1:27 en/lb_clean.1:50 en/lb_config.1:500 en/lb_source.1:27
 #: en/lb_testroot.1:31 en/live-build.7:232
 msgid ""
 "More information about live-build and the Debian Live project can be found "
@@ -166,7 +166,7 @@ msgstr ""
 
 #. type: SH
 #: en/lb.1:30 en/lb_binary.1:28 en/lb_bootstrap.1:28 en/lb_build.1:30
-#: en/lb_chroot.1:28 en/lb_clean.1:51 en/lb_config.1:505 en/lb_source.1:28
+#: en/lb_chroot.1:28 en/lb_clean.1:51 en/lb_config.1:501 en/lb_source.1:28
 #: en/lb_testroot.1:32 en/live-build.7:233
 #, no-wrap
 msgid "BUGS"
@@ -174,7 +174,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb.1:32 en/lb_binary.1:30 en/lb_bootstrap.1:30 en/lb_build.1:32
-#: en/lb_chroot.1:30 en/lb_clean.1:53 en/lb_config.1:507 en/lb_source.1:30
+#: en/lb_chroot.1:30 en/lb_clean.1:53 en/lb_config.1:503 en/lb_source.1:30
 #: en/lb_testroot.1:34 en/live-build.7:235
 msgid ""
 "Bugs can be reported by submitting a bugreport for the live-build package in "
@@ -185,7 +185,7 @@ msgstr ""
 
 #. type: SH
 #: en/lb.1:33 en/lb_binary.1:31 en/lb_bootstrap.1:31 en/lb_build.1:33
-#: en/lb_chroot.1:31 en/lb_clean.1:54 en/lb_config.1:508 en/lb_source.1:31
+#: en/lb_chroot.1:31 en/lb_clean.1:54 en/lb_config.1:504 en/lb_source.1:31
 #: en/lb_testroot.1:35 en/live-build.7:236
 #, no-wrap
 msgid "AUTHOR"
@@ -193,7 +193,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb.1:34 en/lb_binary.1:32 en/lb_bootstrap.1:32 en/lb_build.1:34
-#: en/lb_chroot.1:32 en/lb_clean.1:55 en/lb_config.1:509 en/lb_source.1:32
+#: en/lb_chroot.1:32 en/lb_clean.1:55 en/lb_config.1:505 en/lb_source.1:32
 #: en/lb_testroot.1:36 en/live-build.7:237
 msgid ""
 "live-build was written by Daniel Baumann E<lt>I<daniel@debian.org>E<gt> for "
