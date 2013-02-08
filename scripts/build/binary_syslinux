@@ -286,7 +286,10 @@ then
 		-e "s|@LIVE_CONFIG_VERSION@|${_LIVE_CONFIG_VERSION}|g" \
 		-e "s|@LIVE_TOOLS_VERSION@|${_LIVE_TOOLS_VERSION}|g" \
 	"${_TARGET}/splash.svg.in" > "${_TARGET}/splash.svg"
+fi
 
+if [ -e "${_TARGET}/splash.svg" ]
+then
 	case "${LB_BUILD_WITH_CHROOT}" in
 		true)
 			cp "${_TARGET}/splash.svg" chroot
@@ -299,9 +302,9 @@ then
 			rsvg --format png --height 480 --width 640 "${_TARGET}/splash.svg" "${_TARGET}/splash.png"
 			;;
 	esac
-
-	rm -f "${_TARGET}/splash.svg.in" "${_TARGET}/splash.svg"
 fi
+
+rm -f "${_TARGET}/splash.svg.in" "${_TARGET}/splash.svg"
 
 case "${LB_MODE}" in
 	progress-linux)
