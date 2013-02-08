@@ -124,7 +124,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--firmware-chroot true|false]\n\
 \t    [--swap-file-path PATH]\n\
 \t    [--swap-file-size MB]\n\
-\t    [--syslinux-theme THEME_SUFFIX]\n\
 \t    [--tasksel apt|aptitude|tasksel]\n\
 \t    [--templates PATH]\n\
 \t    [--updates true|false]\n\
@@ -157,7 +156,7 @@ Local_arguments ()
 		grub-splash:,isohybrid-options:,hdd-label:,hdd-size:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
 		net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,
-		net-cow-server:,net-tarball:,firmware-binary:,firmware-chroot:,swap-file-path:,swap-file-size:,syslinux-theme:,
+		net-cow-server:,net-tarball:,firmware-binary:,firmware-chroot:,swap-file-path:,swap-file-size:,
 		loadlin:,win32-loader:,source:,source-images:,breakpoints,conffile:,debug,force,
 		help,ignore-system-defaults,quiet,usage,verbose,version,bootstrap-qemu-static:,bootstrap-qemu-arch:,
 		bootstrap-qemu-exclude:"
@@ -748,11 +747,6 @@ Local_arguments ()
 
 			--swap-file-size)
 				LB_SWAP_FILE_SIZE="${2}"
-				shift 2
-				;;
-
-			--syslinux-theme)
-				LB_SYSLINUX_THEME="${2}"
 				shift 2
 				;;
 
@@ -1457,10 +1451,6 @@ LB_SWAP_FILE_PATH="${LB_SWAP_FILE_PATH}"
 # \$LB_SWAP_FILE_SIZE: set swap file size
 # (Default: ${LB_SWAP_FILE_SIZE})
 LB_SWAP_FILE_SIZE="${LB_SWAP_FILE_SIZE}"
-
-# \$LB_SYSLINUX_THEME: set syslinux theme package
-# (Default: ${LB_SYSLINUX_THEME})
-LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME}"
 EOF
 
 # Creating lb_source_* configuration
