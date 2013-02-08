@@ -1126,21 +1126,6 @@ Set_defaults ()
 	# Setting net tarball
 	LB_NET_TARBALL="${LB_NET_TARBALL:-true}"
 
-	# Setting syslinux theme package
-	case "${LB_MODE}" in
-		progress-linux)
-			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-progress-standard}"
-			;;
-
-		ubuntu)
-			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-ubuntu-oneiric}"
-			;;
-
-		*)
-			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-live-build}"
-			;;
-	esac
-
 	# Setting firmware option
 	case "${LB_MODE}" in
 		ubuntu)
