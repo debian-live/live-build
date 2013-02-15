@@ -44,7 +44,7 @@
 .br
   [\fB\-\-bootappend\-live\fP \fIPARAMETER\fP|\fI"PARAMETERS"\fP]
 .br
-  [\fB\-\-bootloader\fP grub|syslinux|yaboot]
+  [\fB\-\-bootloader\fP grub|syslinux]
 .br
   [\fB\-\-bootstrap\fP cdebootstrap|cdebootstrap\-static|debootstrap]
 .br
@@ -329,7 +329,7 @@ sets boot parameters specific to debian\-installer, if included.
 sets boot parameters specific to debian\-live. A complete list of boot
 parameters can be found in the \fIlive\-boot\fP(7) and \fIlive\-config\fP(7) manual
 pages.
-.IP "\fB\-\-bootloader\fP grub|syslinux|yaboot" 4
+.IP "\fB\-\-bootloader\fP grub|syslinux" 4
 defines which bootloader is beeing used in the generated image. This has
 only an effect if the selected binary image type does allow to choose the
 bootloader. For example, if you build a iso, always syslinux (or more
@@ -337,7 +337,7 @@ precise, isolinux) is being used. Also note that some combinations of binary
 images types and bootloaders may be possible but live\-build does not support
 them yet. \fBlb config\fP will fail to create such a not yet supported
 configuration and give a explanation about it. For hdd images on amd64 and
-i386, the default is syslinux. yaboot is only used on powerpc.
+i386, the default is syslinux.
 .IP "\fB\-\-bootstrap\fP cdebootstrap|cdebootstrap\-static|debootstrap" 4
 defines which program is used to bootstrap the debian chroot, default is
 debootstrap.
@@ -381,12 +381,12 @@ defines whetever live\-build should use the tools from within the chroot to
 build the binary image or not by using and including the host systems
 tools. This is a very dangerous option, using the tools of the host system
 can lead to tainted and even non\-bootable images if the host systems version
-of the required tools (mainly these are the bootloaders such as syslinux,
-grub and yaboot, and the auxilliary tools such as dosfstools, xorriso,
-squashfs\-tools and others) do not \fBexactely\fP match what is present at
-build\-time in the target distribution. Never do disable this option unless
-you are \fBexactely\fP sure what you are doing and have \fBcompletely\fP\fI
-understood its consequences.\fP
+of the required tools (mainly these are the bootloaders such as syslinux and
+grub, and the auxilliary tools such as dosfstools, xorriso, squashfs\-tools
+and others) do not \fBexactely\fP match what is present at build\-time in the
+target distribution. Never do disable this option unless you are \fBexactely\fP
+sure what you are doing and have \fBcompletely\fP\fI understood its
+consequences.\fP
 .IP "\fB\-\-chroot\-filesystem\fP ext2|ext3|ext4|squashfs|jffs2|none" 4
 defines which filesystem type should be used for the root filesystem
 image. If you use none, then no filesystem image is created and the root

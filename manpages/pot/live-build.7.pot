@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2013-02-15 12:10+0100\n"
+"POT-Creation-Date: 2013-02-15 12:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,7 +83,7 @@ msgstr ""
 #. type: SH
 #: en/lb.1:19 en/lb_binary.1:17 en/lb_bootstrap.1:17 en/lb_build.1:17
 #: en/lb_chroot.1:17 en/lb_clean.1:38 en/lb_config.1:482 en/lb_source.1:17
-#: en/lb_testroot.1:21 en/live-build.7:217
+#: en/lb_testroot.1:21 en/live-build.7:215
 #, no-wrap
 msgid "FILES"
 msgstr ""
@@ -91,7 +91,7 @@ msgstr ""
 #. type: SH
 #: en/lb.1:22 en/lb_binary.1:20 en/lb_bootstrap.1:20 en/lb_build.1:22
 #: en/lb_chroot.1:20 en/lb_clean.1:43 en/lb_config.1:489 en/lb_source.1:20
-#: en/lb_testroot.1:24 en/live-build.7:221
+#: en/lb_testroot.1:24 en/live-build.7:219
 #, no-wrap
 msgid "SEE ALSO"
 msgstr ""
@@ -99,14 +99,14 @@ msgstr ""
 #. type: Plain text
 #: en/lb.1:26 en/lb_binary.1:24 en/lb_bootstrap.1:24 en/lb_build.1:26
 #: en/lb_chroot.1:24 en/lb_clean.1:47 en/lb_config.1:497 en/lb_source.1:24
-#: en/lb_testroot.1:28 en/live-build.7:227
+#: en/lb_testroot.1:28 en/live-build.7:225
 msgid "This program is a part of live-build."
 msgstr ""
 
 #. type: SH
 #: en/lb.1:27 en/lb_binary.1:25 en/lb_bootstrap.1:25 en/lb_build.1:27
 #: en/lb_chroot.1:25 en/lb_clean.1:48 en/lb_config.1:498 en/lb_source.1:25
-#: en/lb_testroot.1:29 en/live-build.7:228
+#: en/lb_testroot.1:29 en/live-build.7:226
 #, no-wrap
 msgid "HOMEPAGE"
 msgstr ""
@@ -114,7 +114,7 @@ msgstr ""
 #. type: Plain text
 #: en/lb.1:29 en/lb_binary.1:27 en/lb_bootstrap.1:27 en/lb_build.1:29
 #: en/lb_chroot.1:27 en/lb_clean.1:50 en/lb_config.1:500 en/lb_source.1:27
-#: en/lb_testroot.1:31 en/live-build.7:230
+#: en/lb_testroot.1:31 en/live-build.7:228
 msgid ""
 "More information about live-build and the Debian Live project can be found "
 "on the homepage at E<lt>I<http://live.debian.net/>E<gt> and in the manual at "
@@ -124,7 +124,7 @@ msgstr ""
 #. type: SH
 #: en/lb.1:30 en/lb_binary.1:28 en/lb_bootstrap.1:28 en/lb_build.1:30
 #: en/lb_chroot.1:28 en/lb_clean.1:51 en/lb_config.1:501 en/lb_source.1:28
-#: en/lb_testroot.1:32 en/live-build.7:231
+#: en/lb_testroot.1:32 en/live-build.7:229
 #, no-wrap
 msgid "BUGS"
 msgstr ""
@@ -132,7 +132,7 @@ msgstr ""
 #. type: Plain text
 #: en/lb.1:32 en/lb_binary.1:30 en/lb_bootstrap.1:30 en/lb_build.1:32
 #: en/lb_chroot.1:30 en/lb_clean.1:53 en/lb_config.1:503 en/lb_source.1:30
-#: en/lb_testroot.1:34 en/live-build.7:233
+#: en/lb_testroot.1:34 en/live-build.7:231
 msgid ""
 "Bugs can be reported by submitting a bugreport for the live-build package in "
 "the Debian Bug Tracking System at E<lt>I<http://bugs.debian.org/>E<gt> or by "
@@ -143,7 +143,7 @@ msgstr ""
 #. type: SH
 #: en/lb.1:33 en/lb_binary.1:31 en/lb_bootstrap.1:31 en/lb_build.1:33
 #: en/lb_chroot.1:31 en/lb_clean.1:54 en/lb_config.1:504 en/lb_source.1:31
-#: en/lb_testroot.1:35 en/live-build.7:234
+#: en/lb_testroot.1:35 en/live-build.7:232
 #, no-wrap
 msgid "AUTHOR"
 msgstr ""
@@ -151,7 +151,7 @@ msgstr ""
 #. type: Plain text
 #: en/lb.1:34 en/lb_binary.1:32 en/lb_bootstrap.1:32 en/lb_build.1:34
 #: en/lb_chroot.1:32 en/lb_clean.1:55 en/lb_config.1:505 en/lb_source.1:32
-#: en/lb_testroot.1:36 en/live-build.7:235
+#: en/lb_testroot.1:36 en/live-build.7:233
 msgid ""
 "live-build was written by Daniel Baumann E<lt>I<daniel@debian.org>E<gt> for "
 "the Debian project."
@@ -182,12 +182,12 @@ msgid "B<--verbose>"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:493 en/live-build.7:223
+#: en/lb_config.1:493 en/live-build.7:221
 msgid "I<live-boot>(7)"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:495 en/live-build.7:225
+#: en/lb_config.1:495 en/live-build.7:223
 msgid "I<live-config>(7)"
 msgstr ""
 
@@ -1048,121 +1048,110 @@ msgstr ""
 msgid "installs win32-loader into binary"
 msgstr ""
 
-#. type: IP
-#: en/live-build.7:183
-#, no-wrap
-msgid "B<lb_binary_yaboot>(1)"
-msgstr ""
-
-#. type: Plain text
-#: en/live-build.7:185
-msgid "installs yaboot into binary"
-msgstr ""
-
 #. type: SS
-#: en/live-build.7:185
+#: en/live-build.7:183
 #, no-wrap
 msgid "Source commands"
 msgstr ""
 
 #. type: IP
-#: en/live-build.7:186
+#: en/live-build.7:184
 #, no-wrap
 msgid "B<lb_source_debian>(1)"
 msgstr ""
 
 #. type: Plain text
-#: en/live-build.7:188
+#: en/live-build.7:186
 msgid "download sources"
 msgstr ""
 
 #. type: IP
-#: en/live-build.7:188
+#: en/live-build.7:186
 #, no-wrap
 msgid "B<lb_source_debian-live>(1)"
 msgstr ""
 
 #. type: Plain text
-#: en/live-build.7:190
+#: en/live-build.7:188
 msgid "copy debian-live config into source"
 msgstr ""
 
 #. type: IP
-#: en/live-build.7:190
+#: en/live-build.7:188
 #, no-wrap
 msgid "B<lb_source_disk>(1)"
 msgstr ""
 
 #. type: Plain text
-#: en/live-build.7:192
+#: en/live-build.7:190
 msgid "install disk information into source"
 msgstr ""
 
 #. type: IP
-#: en/live-build.7:192
+#: en/live-build.7:190
 #, no-wrap
 msgid "B<lb_source_iso>(1)"
 msgstr ""
 
 #. type: Plain text
-#: en/live-build.7:194
+#: en/live-build.7:192
 msgid "build iso source image"
 msgstr ""
 
 #. type: IP
-#: en/live-build.7:194
+#: en/live-build.7:192
 #, no-wrap
 msgid "B<lb_source_checksums>(1)"
 msgstr ""
 
 #. type: Plain text
-#: en/live-build.7:196
+#: en/live-build.7:194
 msgid "create source checksums (md5, sha1, and/or sha256)"
 msgstr ""
 
 #. type: IP
-#: en/live-build.7:196
+#: en/live-build.7:194
 #, no-wrap
 msgid "B<lb_source_net>(1)"
 msgstr ""
 
 #. type: Plain text
-#: en/live-build.7:198
+#: en/live-build.7:196
 msgid "build source net image"
 msgstr ""
 
 #. type: IP
-#: en/live-build.7:198
+#: en/live-build.7:196
 #, no-wrap
 msgid "B<lb_source_tar>(1)"
 msgstr ""
 
 #. type: Plain text
-#: en/live-build.7:200
+#: en/live-build.7:198
 msgid "build source tarball"
 msgstr ""
 
 #. type: IP
-#: en/live-build.7:200
+#: en/live-build.7:198
 #, no-wrap
 msgid "B<lb_source_hdd>(1)"
 msgstr ""
 
 #.  FIXME
 #. type: Plain text
-#: en/live-build.7:203
+#: en/live-build.7:201
 msgid "build source hdd image"
 msgstr ""
 
 #. type: SH
-#: en/live-build.7:204
+#: en/live-build.7:202
 #, no-wrap
 msgid "CONFIG FILES"
 msgstr ""
 
 #.  FIXME
 #. type: Plain text
-#: en/live-build.7:207
+#: en/live-build.7:205
 msgid ""
 "Many live-build commands make use of files in the I<config/> directory to "
 "control what they do. Besides the common I<config/common>, which is used by "
@@ -1174,7 +1163,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/live-build.7:209
+#: en/live-build.7:207
 msgid ""
 "For example, lb_bootstrap_debootstrap uses files named config/bootstrap and "
 "config/bootstrap_debootstrap to read the options it will use. See the man "
@@ -1185,7 +1174,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/live-build.7:211
+#: en/live-build.7:209
 msgid ""
 "Note that live-build will respect environment variables which are present in "
 "the context of the shell it is running. If variables can be read from config "
@@ -1196,7 +1185,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/live-build.7:213
+#: en/live-build.7:211
 msgid ""
 "In some rare cases, you may want to have different versions of these files "
 "for different architectures or distributions. If files named config/stage."
@@ -1209,7 +1198,7 @@ msgstr ""
 
 #.  FIXME
 #. type: Plain text
-#: en/live-build.7:216
+#: en/live-build.7:214
 msgid ""
 "All config files are shell scripts which are sourced by a live-build "
 "program. That means they have to follow the normal shell syntax. You can "
@@ -1217,13 +1206,13 @@ msgid ""
 msgstr ""
 
 #. type: IP
-#: en/live-build.7:218
+#: en/live-build.7:216
 #, no-wrap
 msgid "B</etc/live/build.conf>"
 msgstr ""
 
 #. type: IP
-#: en/live-build.7:219
+#: en/live-build.7:217
 #, no-wrap
 msgid "B</etc/live/build/*>"
 msgstr ""

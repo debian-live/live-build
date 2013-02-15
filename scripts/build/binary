@@ -65,7 +65,6 @@ lb binary_memtest ${@}
 lb binary_grub ${@}
 lb binary_grub2 ${@}
 lb binary_syslinux ${@}
-lb binary_yaboot ${@}
 lb binary_disk ${@}
 lb binary_loadlin ${@}
 lb binary_win32-loader ${@}

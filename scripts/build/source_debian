@@ -85,10 +85,6 @@ EOF
 			echo "${LB_MEMTEST}" >> source-selection.txt
 		fi
 		;;
-
-	powerpc)
-		echo "yaboot" >> source-selection.txt
-		;;
 esac
 
 if [ -n "${LB_TASKS}" ]

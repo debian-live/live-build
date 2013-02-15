@@ -141,13 +141,6 @@ case "${LB_BOOTLOADER}" in
 		XORRISO_OPTIONS="${XORRISO_OPTIONS} -no-emul-boot -boot-load-size 4 -boot-info-table"
 		;;
 
-	yaboot)
-		XORRISO_OPTIONS="${XORRISO_OPTIONS} --iso-level 2 --netatalk -hfs -probe -map"
-		XORRISO_OPTIONS="${XORRISO_OPTIONS} binary/yaboot/hfs.map --chrp-boot -part -no-desktop"
-		XORRISO_OPTIONS="${XORRISO_OPTIONS} -hfs-bless binary/yaboot -hfs-volid Debian/Live_powerpc"
-		XORRISO_EXCLUDE="yaboot/hfs.map"
-		;;
-
 	*)
 		Echo_warning "Bootloader on your architecture not yet supported by live-build."
 		Echo_warning "This will produce a most likely not bootable image (Continuing in 5 seconds)."

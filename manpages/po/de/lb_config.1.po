@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build 4.0~a10-1\n"
-"POT-Creation-Date: 2013-02-15 08:59+0100\n"
+"POT-Creation-Date: 2013-02-15 12:11+0100\n"
 "PO-Revision-Date: 2010-05-24 09:59+0300\n"
 "Last-Translator: Daniel Baumann <daniel@debian.org>\n"
 "Language-Team: none\n"
@@ -82,7 +82,7 @@ msgstr ""
 #. type: SH
 #: en/lb.1:19 en/lb_binary.1:17 en/lb_bootstrap.1:17 en/lb_build.1:17
 #: en/lb_chroot.1:17 en/lb_clean.1:38 en/lb_config.1:482 en/lb_source.1:17
-#: en/lb_testroot.1:21 en/live-build.7:219
+#: en/lb_testroot.1:21 en/live-build.7:217
 #, no-wrap
 msgid "FILES"
 msgstr ""
@@ -90,7 +90,7 @@ msgstr ""
 #. type: SH
 #: en/lb.1:22 en/lb_binary.1:20 en/lb_bootstrap.1:20 en/lb_build.1:22
 #: en/lb_chroot.1:20 en/lb_clean.1:43 en/lb_config.1:489 en/lb_source.1:20
-#: en/lb_testroot.1:24 en/live-build.7:223
+#: en/lb_testroot.1:24 en/live-build.7:221
 #, no-wrap
 msgid "SEE ALSO"
 msgstr ""
@@ -105,14 +105,14 @@ msgstr ""
 #. type: Plain text
 #: en/lb.1:26 en/lb_binary.1:24 en/lb_bootstrap.1:24 en/lb_build.1:26
 #: en/lb_chroot.1:24 en/lb_clean.1:47 en/lb_config.1:497 en/lb_source.1:24
-#: en/lb_testroot.1:28 en/live-build.7:229
+#: en/lb_testroot.1:28 en/live-build.7:227
 msgid "This program is a part of live-build."
 msgstr ""
 
 #. type: SH
 #: en/lb.1:27 en/lb_binary.1:25 en/lb_bootstrap.1:25 en/lb_build.1:27
 #: en/lb_chroot.1:25 en/lb_clean.1:48 en/lb_config.1:498 en/lb_source.1:25
-#: en/lb_testroot.1:29 en/live-build.7:230
+#: en/lb_testroot.1:29 en/live-build.7:228
 #, no-wrap
 msgid "HOMEPAGE"
 msgstr ""
@@ -120,7 +120,7 @@ msgstr ""
 #. type: Plain text
 #: en/lb.1:29 en/lb_binary.1:27 en/lb_bootstrap.1:27 en/lb_build.1:29
 #: en/lb_chroot.1:27 en/lb_clean.1:50 en/lb_config.1:500 en/lb_source.1:27
-#: en/lb_testroot.1:31 en/live-build.7:232
+#: en/lb_testroot.1:31 en/live-build.7:230
 msgid ""
 "More information about live-build and the Debian Live project can be found "
 "on the homepage at E<lt>I<http://live.debian.net/>E<gt> and in the manual at "
@@ -130,7 +130,7 @@ msgstr ""
 #. type: SH
 #: en/lb.1:30 en/lb_binary.1:28 en/lb_bootstrap.1:28 en/lb_build.1:30
 #: en/lb_chroot.1:28 en/lb_clean.1:51 en/lb_config.1:501 en/lb_source.1:28
-#: en/lb_testroot.1:32 en/live-build.7:233
+#: en/lb_testroot.1:32 en/live-build.7:231
 #, no-wrap
 msgid "BUGS"
 msgstr ""
@@ -138,7 +138,7 @@ msgstr ""
 #. type: Plain text
 #: en/lb.1:32 en/lb_binary.1:30 en/lb_bootstrap.1:30 en/lb_build.1:32
 #: en/lb_chroot.1:30 en/lb_clean.1:53 en/lb_config.1:503 en/lb_source.1:30
-#: en/lb_testroot.1:34 en/live-build.7:235
+#: en/lb_testroot.1:34 en/live-build.7:233
 msgid ""
 "Bugs can be reported by submitting a bugreport for the live-build package in "
 "the Debian Bug Tracking System at E<lt>I<http://bugs.debian.org/>E<gt> or by "
@@ -149,7 +149,7 @@ msgstr ""
 #. type: SH
 #: en/lb.1:33 en/lb_binary.1:31 en/lb_bootstrap.1:31 en/lb_build.1:33
 #: en/lb_chroot.1:31 en/lb_clean.1:54 en/lb_config.1:504 en/lb_source.1:31
-#: en/lb_testroot.1:35 en/live-build.7:236
+#: en/lb_testroot.1:35 en/live-build.7:234
 #, no-wrap
 msgid "AUTHOR"
 msgstr ""
@@ -157,7 +157,7 @@ msgstr ""
 #. type: Plain text
 #: en/lb.1:34 en/lb_binary.1:32 en/lb_bootstrap.1:32 en/lb_build.1:34
 #: en/lb_chroot.1:32 en/lb_clean.1:55 en/lb_config.1:505 en/lb_source.1:32
-#: en/lb_testroot.1:36 en/live-build.7:237
+#: en/lb_testroot.1:36 en/live-build.7:235
 msgid ""
 "live-build was written by Daniel Baumann E<lt>I<daniel@debian.org>E<gt> for "
 "the Debian project."
@@ -256,7 +256,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:43
-msgid "  [B<--bootloader> grub|syslinux|yaboot]"
+msgid "  [B<--bootloader> grub|syslinux]"
 msgstr ""
 
 #. type: Plain text
@@ -991,7 +991,7 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:276
 #, no-wrap
-msgid "B<--bootloader> grub|syslinux|yaboot"
+msgid "B<--bootloader> grub|syslinux"
 msgstr ""
 
 #. type: Plain text
@@ -1004,7 +1004,7 @@ msgid ""
 "images types and bootloaders may be possible but live-build does not support "
 "them yet. B<lb config> will fail to create such a not yet supported "
 "configuration and give a explanation about it. For hdd images on amd64 and "
-"i386, the default is syslinux. yaboot is only used on powerpc."
+"i386, the default is syslinux."
 msgstr ""
 
 #. type: IP
@@ -1137,12 +1137,11 @@ msgid ""
 "build the binary image or not by using and including the host systems tools. "
 "This is a very dangerous option, using the tools of the host system can lead "
 "to tainted and even non-bootable images if the host systems version of the "
-"required tools (mainly these are the bootloaders such as syslinux, grub and "
-"yaboot, and the auxilliary tools such as dosfstools, xorriso, squashfs-tools "
-"and others) do not B<exactely> match what is present at build-time in the "
-"target distribution. Never do disable this option unless you are B<exactely> "
-"sure what you are doing and have B<completely>I< understood its consequences."
-">"
+"required tools (mainly these are the bootloaders such as syslinux and grub, "
+"and the auxilliary tools such as dosfstools, xorriso, squashfs-tools and "
+"others) do not B<exactely> match what is present at build-time in the target "
+"distribution. Never do disable this option unless you are B<exactely> sure "
+"what you are doing and have B<completely>I< understood its consequences.>"
 msgstr ""
 
 #. type: IP
@@ -2402,11 +2401,11 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:493 en/live-build.7:225
+#: en/lb_config.1:493 en/live-build.7:223
 msgid "I<live-boot>(7)"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_config.1:495 en/live-build.7:227
+#: en/lb_config.1:495 en/live-build.7:225
 msgid "I<live-config>(7)"
 msgstr ""

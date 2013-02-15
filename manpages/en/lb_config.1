@@ -39,7 +39,7 @@
 .br
 	[\fB\-\-bootappend\-live\fR \fIPARAMETER\fR|\fI"PARAMETERS"\fR]
 .br
-	[\fB\-\-bootloader\fR grub|syslinux|yaboot]
+	[\fB\-\-bootloader\fR grub|syslinux]
 .br
 	[\fB\-\-bootstrap\fR cdebootstrap|cdebootstrap-static|debootstrap]
 .br
@@ -273,8 +273,8 @@ defines the filesystem to be used in the image type. This only has an effect if 
 sets boot parameters specific to debian\-installer, if included.
 .IP "\fB\-\-bootappend\-live\fR \fIPARAMETER\fR|""\fIPARAMETERS\fR""" 4
 sets boot parameters specific to debian\-live. A complete list of boot parameters can be found in the \fIlive\-boot\fR(7) and \fIlive\-config\fR(7) manual pages.
-.IP "\fB\-\-bootloader\fR grub|syslinux|yaboot" 4
-defines which bootloader is beeing used in the generated image. This has only an effect if the selected binary image type does allow to choose the bootloader. For example, if you build a iso, always syslinux (or more precise, isolinux) is being used. Also note that some combinations of binary images types and bootloaders may be possible but live\-build does not support them yet. \fBlb config\fR will fail to create such a not yet supported configuration and give a explanation about it. For hdd images on amd64 and i386, the default is syslinux. yaboot is only used on powerpc.
+.IP "\fB\-\-bootloader\fR grub|syslinux" 4
+defines which bootloader is beeing used in the generated image. This has only an effect if the selected binary image type does allow to choose the bootloader. For example, if you build a iso, always syslinux (or more precise, isolinux) is being used. Also note that some combinations of binary images types and bootloaders may be possible but live\-build does not support them yet. \fBlb config\fR will fail to create such a not yet supported configuration and give a explanation about it. For hdd images on amd64 and i386, the default is syslinux.
 .IP "\fB\-\-bootstrap\fR cdebootstrap|cdebootstrap-static|debootstrap" 4
 defines which program is used to bootstrap the debian chroot, default is debootstrap.
 .IP "\fB\-\-cache\fR true|false" 4
@@ -292,7 +292,7 @@ defines the compression program to be used to compress tarballs. Defaults to gzi
 .IP "\fB\-\-config\fR \fIGIT_URL\fR::\fIGIT_ID\fR" 4
 allows to bootstrap a config tree from a git repositories, optionally appended by a Git Id (branch, commit, tag, etc.).
 .IP "\fB\-\-build\-with\-chroot\fR true|false" 4
-defines whetever live\-build should use the tools from within the chroot to build the binary image or not by using and including the host systems tools. This is a very dangerous option, using the tools of the host system can lead to tainted and even non-bootable images if the host systems version of the required tools (mainly these are the bootloaders such as syslinux, grub and yaboot, and the auxilliary tools such as dosfstools, xorriso, squashfs-tools and others) do not \fBexactely\fR match what is present at build-time in the target distribution. Never do disable this option unless you are \fBexactely\fR sure what you are doing and have \fBcompletely\fI understood its consequences.
+defines whetever live\-build should use the tools from within the chroot to build the binary image or not by using and including the host systems tools. This is a very dangerous option, using the tools of the host system can lead to tainted and even non-bootable images if the host systems version of the required tools (mainly these are the bootloaders such as syslinux and grub, and the auxilliary tools such as dosfstools, xorriso, squashfs-tools and others) do not \fBexactely\fR match what is present at build-time in the target distribution. Never do disable this option unless you are \fBexactely\fR sure what you are doing and have \fBcompletely\fI understood its consequences.
 .IP "\fB\-\-chroot\-filesystem\fR ext2|ext3|ext4|squashfs|jffs2|none" 4
 defines which filesystem type should be used for the root filesystem image. If you use none, then no filesystem image is created and the root filesystem content is copied on the binary image filesystem as flat files. Depending on what binary filesystem you have choosen, it may not be possible to build with such a plain root filesystem, e.g. fat16/fat32 will not work as linux does not support to run directly on them.
 .IP "\fB\-\-clean\fR" 4
