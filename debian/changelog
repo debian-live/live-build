@@ -241,6 +241,16 @@ live-build (4.0~a1-1) experimental; urgency=low
 
  -- Daniel Baumann <daniel@debian.org>  Fri, 30 Nov 2012 15:22:32 +0100
 
+live-build (3.0.1-1) unstable; urgency=low
+
+  * Removing superfluous menu default directive in installer syslinux
+    menues.
+  * Updating wheezy release number.
+  * Updating squeeze point-release number.
+  * Dropping German manpage translations stubs for the release.
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 14 Feb 2013 19:31:04 +0100
+
 live-build (3.0.0-1) unstable; urgency=low
 
   * Updating wheezy pre-release number for b4.
