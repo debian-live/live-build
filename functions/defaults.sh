@@ -1194,6 +1194,13 @@ Check_defaults ()
 		fi
 	fi
 
+	if echo ${LB_HDD_LABEL} | grep -qs ' '
+	then
+		Echo_error "There are currently no whitespaces supported in hdd labels."
+
+		exit 1
+	fi
+
 	if [ "${LB_DEBIAN_INSTALLER}" != "false" ]
 	then
 		# d-i true, no caching
