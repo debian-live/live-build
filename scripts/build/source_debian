@@ -89,15 +89,6 @@ EOF
 	powerpc)
 		echo "yaboot" >> source-selection.txt
 		;;
-
-	sparc)
-
-cat >> source-selection.txt << EOF
-silo
-sparc-utils
-EOF
-
-		;;
 esac
 
 if [ -n "${LB_TASKS}" ]

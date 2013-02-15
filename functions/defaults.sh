@@ -853,10 +853,6 @@ Set_defaults ()
 			powerpc)
 				LB_BOOTLOADER="yaboot"
 				;;
-
-			sparc)
-				LB_BOOTLOADER="silo"
-				;;
 		esac
 	fi
 

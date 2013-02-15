@@ -125,11 +125,6 @@ case "${LB_BOOTLOADER}" in
 		XORRISO_EXCLUDE="boot/grub/grub_eltorito"
 		;;
 
-	silo)
-		XORRISO_OPTIONS="${XORRISO_OPTIONS} -G boot/isofs.b -B ..."
-		XORRISO_EXCLUDE="boot/isofs.b"
-		;;
-
 	syslinux)
 		case "${LB_MODE}" in
 			progress-linux)
