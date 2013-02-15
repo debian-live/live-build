@@ -1,3 +1,15 @@
+live-build (4.0~a11-1) experimental; urgency=low
+
+  * Allowing to use parted its automatic offset handling at the beginning
+    of a disk, rather than to harcode it to first block (Closes: #647607).
+  * Aborting with error if hdd label has a whitespace (Closes: #648861).
+  * Dropping sparc bootloader support (silo), there is nobody actively
+    maintaining this in live-build.
+  * Dropping powerpc bootloader support (yaboot), there is nobody actively
+    maintaining this in live-build.
+
+ -- Daniel Baumann <daniel@debian.org>  Fri, 15 Feb 2013 12:39:09 +0100
+
 live-build (4.0~a10-1) experimental; urgency=low
 
   * Removing superfluous menu default directive in installer syslinux
