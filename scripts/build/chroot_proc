@@ -49,7 +49,7 @@ case "${1}" in
 			mkdir -p chroot/proc
 
 			# Mounting /proc
-			${LB_ROOT_COMMAND} mount proc-live -t proc chroot/proc
+			mount proc-live -t proc chroot/proc
 		else
 			rm -rf chroot/proc
 			ln -s /proc chroot/
@@ -73,14 +73,14 @@ case "${1}" in
 			# Workaround binfmt-support /proc locking
 			if [ -e chroot/proc/sys/fs/binfmt_misc/status ]
 			then
-				${LB_ROOT_COMMAND} umount chroot/proc/sys/fs/binfmt_misc
+				umount chroot/proc/sys/fs/binfmt_misc
 			fi
 
 			# Unmounting /proc
 			#fuser -km chroot/proc
 			if [ -e chroot/proc/version ]
 			then
-				${LB_ROOT_COMMAND} umount chroot/proc
+				umount chroot/proc
 			fi
 		else
 			rm -rf chroot/proc

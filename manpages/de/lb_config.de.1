@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 15.02.2013 4.0~a11\-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 18.02.2013 4.0~a11\-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fP \- Create config directory
@@ -201,8 +201,6 @@
   [\fB\-\-net\-tarball\fP true|false]
 .br
   [\fB\-\-quiet\fP]
-.br
-  [\fB\-\-root\-command\fP sudo]
 .br
   [\fB\-\-use\-fakeroot\fP true|false]
 .br
@@ -672,10 +670,6 @@ reduces the verbosity of messages output by \fBlb build\fP.
 .IP "\fB\-\-archives\fP \fIARCHIVE\fP|\(dq\fIARCHIVES\fP\(dq" 4
 enables one of available third\-party archive configurations in
 /usr/share/live/build/archives.
-.IP "\fB\-\-root\-command\fP sudo" 4
-controls if live\-build should use sudo internally to build the live
-image. Note that this is not well tested and that you should, when relying
-on sudo, call the individual live\-build command with sudo itself.
 .IP "\fB\-\-use\-fakeroot\fP true|false" 4
 controls if live\-build should utilize fakeroot and fakechroot to try and
 avoid requiring root privillages where possible. By default, this option is

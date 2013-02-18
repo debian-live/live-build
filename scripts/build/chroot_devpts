@@ -49,7 +49,7 @@ case "${1}" in
 			mkdir -p chroot/dev/pts
 
 			# Mounting /dev/pts
-			${LB_ROOT_COMMAND} mount devpts-live -t devpts chroot/dev/pts || true
+			mount devpts-live -t devpts chroot/dev/pts || true
 		fi
 
 		# Creating stage file
@@ -70,9 +70,9 @@ case "${1}" in
 		then
 			if grep -qs "$(pwd)/chroot/dev/pts" /proc/mounts || Find_files chroot/dev/pts/*
 			then
-				${LB_ROOT_COMMAND} umount chroot/dev/pts
+				umount chroot/dev/pts
 			else
-				${LB_ROOT_COMMAND} umount -f chroot/dev/pts > /dev/null 2>&1 || true
+				umount -f chroot/dev/pts > /dev/null 2>&1 || true
 			fi
 		fi
 

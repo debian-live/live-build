@@ -51,7 +51,7 @@ case "${1}" in
 				mkdir -p chroot/selinux
 
 				# Mounting /selinux
-				${LB_ROOT_COMMAND} mount selinuxfs-live -t selinuxfs chroot/selinux
+				mount selinuxfs-live -t selinuxfs chroot/selinux
 			else
 				rm -rf chroot/selinux
 				ln -s /selinux chroot/
@@ -77,7 +77,7 @@ case "${1}" in
 			#fuser -km chroot/selinux
 			if [ -e chroot/selinux/enforce ]
 			then
-				${LB_ROOT_COMMAND} umount chroot/selinux
+				umount chroot/selinux
 			fi
 		else
 			if [ -e chroot/selinux ]

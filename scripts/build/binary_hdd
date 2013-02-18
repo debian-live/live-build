@@ -234,7 +234,7 @@ case "${LB_BINARY_FILESYSTEM}" in
 esac
 
 mkdir -p chroot/binary.tmp
-${LB_ROOT_COMMAND} mount ${FREELO} chroot/binary.tmp
+mount ${FREELO} chroot/binary.tmp
 cp -r -T ${CP_OPTIONS} binary/ chroot/binary.tmp
 
 FIXME()
@@ -268,7 +268,7 @@ EOF
 fi
 }
 
-${LB_ROOT_COMMAND} umount chroot/binary.tmp
+umount chroot/binary.tmp
 rmdir chroot/binary.tmp
 
 if [ "${LB_BOOTLOADER}" = "syslinux" ]

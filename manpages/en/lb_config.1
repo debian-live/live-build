@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2013\-02\-15 4.0~a11-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2013\-02\-18 4.0~a11-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -196,8 +196,6 @@
 	[\fB\-\-net\-tarball\fR true|false]
 .br
 	[\fB\-\-quiet\fR]
-.br
-	[\fB\-\-root-command\fR sudo]
 .br
 	[\fB\-\-use-fakeroot\fR true|false]
 .br
@@ -434,8 +432,6 @@ defines if a compressed tarball should be created. Disabling this options leads 
 reduces the verbosity of messages output by \fBlb build\fR.
 .IP "\fB\-\-archives\fR \fIARCHIVE\fR|""\fIARCHIVES\fR""" 4
 enables one of available third-party archive configurations in /usr/share/live/build/archives.
-.IP "\fB\-\-root-command\fR sudo" 4
-controls if live\-build should use sudo internally to build the live image. Note that this is not well tested and that you should, when relying on sudo, call the individual live\-build command with sudo itself.
 .IP "\fB\-\-use-fakeroot\fR true|false" 4
 controls if live\-build should utilize fakeroot and fakechroot to try and avoid requiring root privillages where possible. By default, this option is false.
 .IP "\fB\-\-archive\-areas\fR \fIARCHIVE_AREA\fR|""\fIARCHIVE_AREAS\fR""" 4

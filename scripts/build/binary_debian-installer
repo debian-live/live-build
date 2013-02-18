@@ -290,12 +290,12 @@ then
 	Download_file mini.iso ${URL}/mini.iso
 
 	mkdir mini.tmp
-	${LB_ROOT_COMMAND} mount -o loop -t iso9660 mini.iso mini.tmp
+	mount -o loop -t iso9660 mini.iso mini.tmp
 
 	cp mini.tmp/boot/vmlinuz-${DEFAULT_FLAVOUR} "${DESTDIR}"/"${VMLINUZ_DI}"
 	cp mini.tmp/boot/initrd.gz "${DESTDIR}"/"${INITRD_DI}"
 
-	${LB_ROOT_COMMAND} umount mini.tmp
+	umount mini.tmp
 	rm -rf mini.tmp mini.iso
 else
 	# Downloading debian-installer

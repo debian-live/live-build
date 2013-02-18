@@ -68,26 +68,26 @@ do
 			;;
 
 		--cache)
-			${LB_ROOT_COMMAND} rm -rf cache
+			rm -rf cache
 			;;
 
 		--chroot)
 			Echo_message "Cleaning chroot"
-			${LB_ROOT_COMMAND} umount -f chroot/run > /dev/null 2>&1 || true
-			${LB_ROOT_COMMAND} umount -f chroot/sys > /dev/null 2>&1 || true
-			${LB_ROOT_COMMAND} umount -f chroot/proc/sys/fs/binfmt_misc > /dev/null 2>&1 || true
-			${LB_ROOT_COMMAND} umount -f chroot/proc > /dev/null 2>&1 || true
-			${LB_ROOT_COMMAND} umount -f chroot/lib/init/rw > /dev/null 2>&1 || true
-			${LB_ROOT_COMMAND} umount -f chroot/dev/shm > /dev/null 2>&1 || true
-			${LB_ROOT_COMMAND} umount -f chroot/dev/pts > /dev/null 2>&1 || true
-			${LB_ROOT_COMMAND} umount -f chroot/dev > /dev/null 2>&1 || true
-			${LB_ROOT_COMMAND} umount -f chroot/var/lib/dpkg > /dev/null 2>&1 || true
-			${LB_ROOT_COMMAND} umount -f chroot/root/config > /dev/null 2>&1 || true
+			umount -f chroot/run > /dev/null 2>&1 || true
+			umount -f chroot/sys > /dev/null 2>&1 || true
+			umount -f chroot/proc/sys/fs/binfmt_misc > /dev/null 2>&1 || true
+			umount -f chroot/proc > /dev/null 2>&1 || true
+			umount -f chroot/lib/init/rw > /dev/null 2>&1 || true
+			umount -f chroot/dev/shm > /dev/null 2>&1 || true
+			umount -f chroot/dev/pts > /dev/null 2>&1 || true
+			umount -f chroot/dev > /dev/null 2>&1 || true
+			umount -f chroot/var/lib/dpkg > /dev/null 2>&1 || true
+			umount -f chroot/root/config > /dev/null 2>&1 || true
 
-			${LB_ROOT_COMMAND} umount -f chroot/binary.tmp > /dev/null 2>&1 || true
-			${LB_ROOT_COMMAND} umount -f chroot/dev.tmp/pts > /dev/null 2>&1 || true
+			umount -f chroot/binary.tmp > /dev/null 2>&1 || true
+			umount -f chroot/dev.tmp/pts > /dev/null 2>&1 || true
 
-			${LB_ROOT_COMMAND} rm -rf chroot chroot.tmp
+			rm -rf chroot chroot.tmp
 
 			rm -f chroot.packages.live chroot.packages.install
 
@@ -95,7 +95,7 @@ do
 			;;
 
 		--binary)
-			${LB_ROOT_COMMAND} umount -f binary.tmp > /dev/null 2>&1 || true
+			umount -f binary.tmp > /dev/null 2>&1 || true
 			rm -rf binary.tmp binary.deb binary.udeb
 			rm -f ${LIVE_IMAGE_NAME}*.iso
 			rm -f ${LIVE_IMAGE_NAME}*.img

@@ -113,7 +113,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--net-cow-server IP|HOSTNAME]\n\
 \t    [--net-tarball true|false]\n\
 \t    [--quiet]\n\
-\t    [--root-command sudo]\n\
 \t    [--use-fakeroot true|false]\n\
 \t    [--archives ARCHIVE|\"ARCHIVES\"]\n\
 \t    [--archive-areas ARCHIVE_AREA|\"ARCHIVE_AREAS\"]\n\
@@ -143,7 +142,7 @@ Local_arguments ()
 	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-options:,aptitude-options:,debootstrap-options:,cdebootstrap-options:,
 		apt-pipeline:,apt-recommends:,apt-secure:,apt-source-archives:,bootstrap:,cache:,cache-indices:,cache-packages:,
 		cache-stages:,debconf-frontend:,debconf-priority:,dump,
-		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,system:,root-command:,use-fakeroot:,tasksel:,
+		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,system:,use-fakeroot:,tasksel:,
 		templates:,architectures:,clean,
 		distribution:,parent-distribution:,parent-debian-installer-distribution:,parent-mirror-bootstrap:,parent-mirror-chroot:,parent-mirror-chroot-security:,parent-mirror-chroot-updates:,parent-mirror-chroot-backports:,parent-mirror-binary:,
 		parent-mirror-binary-security:,parent-mirror-binary-updates:,parent-mirror-binary-backports:,parent-mirror-debian-installer:,
@@ -345,11 +344,6 @@ Local_arguments ()
 
 			--system)
 				LB_SYSTEM="${2}"
-				shift 2
-				;;
-
-			--root-command)
-				LB_ROOT_COMMAND="${2}"
 				shift 2
 				;;
 
@@ -1052,10 +1046,6 @@ LB_MODE="${LB_MODE}"
 # \$LB_SYSTEM: set system type
 # (Default: ${LB_SYSTEM})
 LB_SYSTEM="${LB_SYSTEM}"
-
-# \$LB_ROOT_COMMAND: use sudo or equivalent
-# (Default: empty)
-#LB_ROOT_COMMAND="sudo"
 
 # \$LB_USE_FAKEROOT: use fakeroot/fakechroot
 # (Default: ${LB_USE_FAKEROOT})

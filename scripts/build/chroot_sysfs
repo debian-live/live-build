@@ -49,7 +49,7 @@ case "${1}" in
 			mkdir -p chroot/sys
 
 			# Mounting /sys
-			${LB_ROOT_COMMAND} mount sysfs-live -t sysfs chroot/sys
+			mount sysfs-live -t sysfs chroot/sys
 		else
 			rm -rf chroot/sys
 			ln -s /sys chroot/
@@ -74,7 +74,7 @@ case "${1}" in
 			#fuser -km chroot/sys
 			if [ -e chroot/sys/class ]
 			then
-				${LB_ROOT_COMMAND} umount chroot/sys
+				umount chroot/sys
 			fi
 		else
 			rm -rf chroot/sys

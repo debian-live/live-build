@@ -322,19 +322,6 @@ Set_defaults ()
 		fi
 	fi
 
-	if [ "$(id -u)" = "0" ]
-	then
-		# If we are root, disable root command
-		LB_ROOT_COMMAND=""
-	else
-		if [ -x /usr/bin/sudo ]
-		then
-			# FIXME: this is false until considered safe
-			#LB_ROOT_COMMAND="sudo"
-			LB_ROOT_COMMAND=""
-		fi
-	fi
-
 	if [ "${LIVE_IMAGE_ARCHITECTURE}" = "i386" ] && [ "${CURRENT_IMAGE_ARCHITECTURE}" = "amd64" ]
 	then
 		# Use linux32 when building amd64 images on i386
