@@ -6,7 +6,7 @@ DEFAULT_SETTINGS="/etc/live/build.conf"
 dpkg -l debootstrap cdebootstrap
 
 # Checking suggests
-dpkg -l dosfstools xorriso loadlin memtest86+ memtest86 mtools parted squashfs-tools mtd-tools sudo fakeroot syslinux grub uuid-runtime win32-loader
+dpkg -l dosfstools xorriso loadlin memtest86+ memtest86 mtools parted squashfs-tools mtd-tools syslinux grub uuid-runtime win32-loader
 
 if [ -e "${DEFAULT_SETTINGS}" ]; then
 	echo "Contents of ${DEFAULT_SETTINGS}:"

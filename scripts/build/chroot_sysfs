@@ -43,17 +43,11 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ "${LB_USE_FAKEROOT}" != "true" ]
-		then
-			# Create mountpoint
-			mkdir -p chroot/sys
+		# Create mountpoint
+		mkdir -p chroot/sys
 
-			# Mounting /sys
-			mount sysfs-live -t sysfs chroot/sys
-		else
-			rm -rf chroot/sys
-			ln -s /sys chroot/
-		fi
+		# Mounting /sys
+		mount sysfs-live -t sysfs chroot/sys
 
 		# Creating stage file
 		Create_stagefile .build/chroot_sysfs
@@ -68,17 +62,10 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ "${LB_USE_FAKEROOT}" != "true" ]
+		# Unmounting /sys
+		if [ -e chroot/sys/class ]
 		then
-			# Unmounting /sys
-			#fuser -km chroot/sys
-			if [ -e chroot/sys/class ]
-			then
-				umount chroot/sys
-			fi
-		else
-			rm -rf chroot/sys
-			mkdir -p chroot/sys
+			umount chroot/sys
 		fi
 
 		# Removing stage file

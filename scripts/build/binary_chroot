@@ -41,31 +41,12 @@ Create_lockfile .lock
 # Normally, virtual filesystems are not mounted here, but people tend to be lazy
 if [ -f chroot/proc/version ]
 then
-	if [ "${LB_USE_FAKEROOT}" != "true" ]
-	then
-		umount chroot/proc
-	else
-		rm -rf chroot/proc
-		mkdir -p chroot/proc
-	fi
+	umount chroot/proc
 fi
 
 if [ -d chroot/sys/kernel ]
 then
-	if [ "${LB_USE_FAKEROOT}" != "true" ]
-	then
-		umount chroot/sys
-	else
-		rm -rf chroot/sys
-		mkdir -p chroot/sys
-	fi
-fi
-
-# Copying /dev if using fakeroot
-if [ "${LB_USE_FAKEROOT}" = "true" ]
-then
-	rm -rf chroot/dev
-	find /dev | cpio -dmpu chroot
+	umount chroot/sys
 fi
 
 if [ "${LB_BUILD_WITH_CHROOT}" = "false" ]

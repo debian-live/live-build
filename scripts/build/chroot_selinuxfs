@@ -45,17 +45,11 @@ case "${1}" in
 			# Creating lock file
 			Create_lockfile .lock
 
-			if [ "${LB_USE_FAKEROOT}" != "true" ]
-			then
-				# Create mountpoint
-				mkdir -p chroot/selinux
+			# Create mountpoint
+			mkdir -p chroot/selinux
 
-				# Mounting /selinux
-				mount selinuxfs-live -t selinuxfs chroot/selinux
-			else
-				rm -rf chroot/selinux
-				ln -s /selinux chroot/
-			fi
+			# Mounting /selinux
+			mount selinuxfs-live -t selinuxfs chroot/selinux
 
 			# Creating stage file
 			Create_stagefile .build/chroot_selinuxfs
@@ -71,20 +65,10 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ "${LB_USE_FAKEROOT}" != "true" ]
+		# Unmounting /selinux
+		if [ -e chroot/selinux/enforce ]
 		then
-			# Unmounting /selinux
-			#fuser -km chroot/selinux
-			if [ -e chroot/selinux/enforce ]
-			then
-				umount chroot/selinux
-			fi
-		else
-			if [ -e chroot/selinux ]
-			then
-				rm -rf chroot/selinux
-				mkdir -p chroot/selinux
-			fi
+			umount chroot/selinux
 		fi
 
 		# Removing stage file

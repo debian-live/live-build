@@ -43,17 +43,11 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ "${LB_USE_FAKEROOT}" != "true" ]
-		then
-			# Creating mountpoint
-			mkdir -p chroot/proc
+		# Creating mountpoint
+		mkdir -p chroot/proc
 
-			# Mounting /proc
-			mount proc-live -t proc chroot/proc
-		else
-			rm -rf chroot/proc
-			ln -s /proc chroot/
-		fi
+		# Mounting /proc
+		mount proc-live -t proc chroot/proc
 
 		# Creating stage file
 		Create_stagefile .build/chroot_proc
@@ -68,23 +62,16 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ "${LB_USE_FAKEROOT}" != "true" ]
+		# Workaround binfmt-support /proc locking
+		if [ -e chroot/proc/sys/fs/binfmt_misc/status ]
 		then
-			# Workaround binfmt-support /proc locking
-			if [ -e chroot/proc/sys/fs/binfmt_misc/status ]
-			then
-				umount chroot/proc/sys/fs/binfmt_misc
-			fi
+			umount chroot/proc/sys/fs/binfmt_misc
+		fi
 
-			# Unmounting /proc
-			#fuser -km chroot/proc
-			if [ -e chroot/proc/version ]
-			then
-				umount chroot/proc
-			fi
-		else
-			rm -rf chroot/proc
-			mkdir -p chroot/proc
+		# Unmounting /proc
+		if [ -e chroot/proc/version ]
+		then
+			umount chroot/proc
 		fi
 
 		# Removing stage file

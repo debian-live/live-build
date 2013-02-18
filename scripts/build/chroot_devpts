@@ -43,14 +43,11 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ "${LB_USE_FAKEROOT}" != "true" ]
-		then
-			# Creating mountpoint
-			mkdir -p chroot/dev/pts
+		# Creating mountpoint
+		mkdir -p chroot/dev/pts
 
-			# Mounting /dev/pts
-			mount devpts-live -t devpts chroot/dev/pts || true
-		fi
+		# Mounting /dev/pts
+		mount devpts-live -t devpts chroot/dev/pts || true
 
 		# Creating stage file
 		Create_stagefile .build/chroot_devpts
@@ -66,14 +63,11 @@ case "${1}" in
 		Create_lockfile .lock
 
 		# Unmounting /dev/pts
-		if [ "${LB_USE_FAKEROOT}" != "true" ]
+		if grep -qs "$(pwd)/chroot/dev/pts" /proc/mounts || Find_files chroot/dev/pts/*
 		then
-			if grep -qs "$(pwd)/chroot/dev/pts" /proc/mounts || Find_files chroot/dev/pts/*
-			then
-				umount chroot/dev/pts
-			else
-				umount -f chroot/dev/pts > /dev/null 2>&1 || true
-			fi
+			umount chroot/dev/pts
+		else
+			umount -f chroot/dev/pts > /dev/null 2>&1 || true
 		fi
 
 		# Removing stage file

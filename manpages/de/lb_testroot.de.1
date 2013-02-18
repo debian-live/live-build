@@ -16,13 +16,10 @@
 Debian Live tool suite.
 .PP
 .\" FIXME
-\fBlb testroot\fP simply checks to see if you are root. If not, it exits with
-an error. Debian Live images must currently be built as real root.
-.PP
 .\" FIXME
-Note: Support for using \fIfakeroot\fP(1) and \fIsudo\fP(8) internally in
-live\-build itself is still experimental, however, calling a helper yourself
-with sudo is safe.
+\fBlb testroot\fP simply checks to see if you are root. If not, it exits with
+an error. Debian Live images must currently be built as real root (using
+sudo is fine too).
 
 .SH OPTIONS
 \fBlb testroot\fP has no specific options but understands all generic

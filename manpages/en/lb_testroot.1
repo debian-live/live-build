@@ -10,9 +10,7 @@
 \fBlb testroot\fR is a high\-level command (porcelain) of \fIlive\-build\fR(7), the Debian Live tool suite.
 .PP
 .\" FIXME
-\fBlb testroot\fR simply checks to see if you are root. If not, it exits with an error. Debian Live images must currently be built as real root.
-.PP
-Note: Support for using \fIfakeroot\fR(1) and \fIsudo\fR(8) internally in live\-build itself is still experimental, however, calling a helper yourself with sudo is safe.
+\fBlb testroot\fR simply checks to see if you are root. If not, it exits with an error. Debian Live images must currently be built as real root (using sudo is fine too).
 .\" FIXME
 
 .SH OPTIONS

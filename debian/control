@@ -17,7 +17,7 @@ Recommends:
  gnu-fdisk
 Suggests:
  dosfstools, debian-keyring, xorriso, git, gpgv, loadlin, memtest86+ | memtest86,
- mtools, parted, squashfs-tools | mtd-tools, sudo | fakeroot, syslinux | grub,
+ mtools, parted, squashfs-tools | mtd-tools, syslinux | grub,
  uuid-runtime, win32-loader
 Description: Live System Build Scripts
  live-build contains the scripts that build a live system from a configuration

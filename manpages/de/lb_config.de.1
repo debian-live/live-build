@@ -202,8 +202,6 @@
 .br
   [\fB\-\-quiet\fP]
 .br
-  [\fB\-\-use\-fakeroot\fP true|false]
-.br
   [\fB\-\-archives\fP \fIARCHIVE\fP|\fI"ARCHIVES"\fP]
 .br
   [\fB\-\-archive\-areas\fP \fIARCHIVE_AREA\fP|\fI"ARCHIVE_AREAS"\fP]
@@ -670,10 +668,6 @@ reduces the verbosity of messages output by \fBlb build\fP.
 .IP "\fB\-\-archives\fP \fIARCHIVE\fP|\(dq\fIARCHIVES\fP\(dq" 4
 enables one of available third\-party archive configurations in
 /usr/share/live/build/archives.
-.IP "\fB\-\-use\-fakeroot\fP true|false" 4
-controls if live\-build should utilize fakeroot and fakechroot to try and
-avoid requiring root privillages where possible. By default, this option is
-false.
 .IP "\fB\-\-archive\-areas\fP \fIARCHIVE_AREA\fP|\(dq\fIARCHIVE_AREAS\fP\(dq" 4
 defines which package archive areas of a debian packages archive should be
 used for configured debian package mirrors. By default, this is set to

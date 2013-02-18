@@ -1128,9 +1128,6 @@ Set_defaults ()
 
 	# Setting image type
 	LB_SOURCE_IMAGES="${LB_SOURCE_IMAGES:-tar}"
-
-	# Setting fakeroot/fakechroot
-	LB_USE_FAKEROOT="${LB_USE_FAKEROOT:-false}"
 }
 
 Check_defaults ()

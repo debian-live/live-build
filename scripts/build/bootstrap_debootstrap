@@ -72,12 +72,6 @@ then
 	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --components=$(echo ${LIVE_IMAGE_ARCHIVE_AREAS} | sed -e 's| |,|g')"
 fi
 
-case "${LB_USE_FAKEROOT}" in
-	true)
-		DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --variant=fakechroot"
-		;;
-esac
-
 if [ "${_VERBOSE}" = "true" ]
 then
 	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --verbose"
