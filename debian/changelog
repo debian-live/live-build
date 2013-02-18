@@ -1,3 +1,17 @@
+live-build (4.0~a12-1) experimental; urgency=low
+
+  * De-debianizing linux-flavour defaults on i386 and only including 486.
+  * Defaulting to latest ubuntu release by default in ubuntu mode.
+  * Adding release version for ubuntu raring.
+  * Updating d-i suite symlink for wheezy release.
+  * Removing incomplete support for root-command.
+  * Removing incomplete support for fakeroot.
+  * Correcting typo in grub2 config template.
+  * Synchronise grub and grub2 splashes with internal live-build splash
+    for syslinux bootloaders.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 18 Feb 2013 21:49:32 +0100
+
 live-build (4.0~a11-1) experimental; urgency=low
 
   * Allowing to use parted its automatic offset handling at the beginning
