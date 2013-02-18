@@ -755,7 +755,7 @@ EOF
 
 	case "${LB_PARENT_DISTRIBUTION}" in
 		wheezy)
-			DISTRIBUTIONS="testing"
+			DISTRIBUTIONS="stable"
 			;;
 
 		*)
