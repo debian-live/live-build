@@ -130,7 +130,7 @@ Set_defaults ()
 			;;
 
 		ubuntu)
-			LB_DISTRIBUTION="${LB_DISTRIBUTION:-precise}"
+			LB_DISTRIBUTION="${LB_DISTRIBUTION:-quantal}"
 			LB_DERIVATIVE="false"
 			;;
 
