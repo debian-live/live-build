@@ -944,9 +944,9 @@ Check_defaults
 
 if [ ! -e config ]
 then
-	Echo_message "Creating config tree for a ${LB_MODE}/${LIVE_IMAGE_ARCHITECTURE} system"
+	Echo_message "Creating config tree for a ${LB_MODE}/${LB_DISTRIBUTION}/${LIVE_IMAGE_ARCHITECTURE} system"
 else
-	Echo_message "Updating config tree for a ${LB_MODE}/${LIVE_IMAGE_ARCHITECTURE} system"
+	Echo_message "Updating config tree for a ${LB_MODE}/${LB_DISTRIBUTION}/${LIVE_IMAGE_ARCHITECTURE} system"
 fi
 
 # Creating bootstrap configuration
