@@ -821,7 +821,7 @@ Set_defaults ()
 	# Setting apt indices
 	case "${LB_MODE}" in
 		progress-linux)
-			LB_APT_INDICES="${LB_APT_INDICES:-none}"
+			LB_APT_INDICES="${LB_APT_INDICES:-false}"
 			;;
 
 		*)

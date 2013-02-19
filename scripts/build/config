@@ -19,7 +19,7 @@ DESCRIPTION="$(Echo 'create configuration for live-build(7)')"
 USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--apt-ftp-proxy URL]\n\
 \t    [--apt-http-proxy URL]\n\
-\t    [--apt-indices true|false|none]\n\
+\t    [--apt-indices true|false]\n\
 \t    [--apt-options OPTION|\"OPTIONS\"]\n\
 \t    [--aptitude-options OPTION|\"OPTIONS\"]\n\
 \t    [--apt-pipeline DEPTH]\n\
