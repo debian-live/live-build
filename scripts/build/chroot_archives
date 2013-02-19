@@ -366,13 +366,12 @@ EOF
 
 				if [ "${LB_APT_SECURE}" = "true" ]
 				then
-					_LB_DOTGNUPG_EXISTED=0
-					if [ -d chroot/root/.gnupg ]
+					if [ -e chroot/root/.gnupg ]
 					then
-						_LB_DOTGNUPG_EXISTED=1
+						mv chroot/root/.gnupg chroot/root/.gnupg.orig
 					fi
 
-					# Ensure ~/.gnupg exists (required for gnupg >= ~1.4.9)
+					# Ensure ~/.gnupg exists
 					mkdir -p chroot/root/.gnupg
 
 					# Temporarily replace /dev/random with /dev/urandom so as not
@@ -436,10 +435,11 @@ EOF
 						mv chroot/dev/random.orig chroot/dev/random
 					fi
 
-					# Remove /root/.gnupg if we created it during the signing process
-					if [ "${_LB_DOTGNUPG_EXISTED}" -eq 0 ]
+					rm -rf chroot/root/.gnupg
+
+					if [ -e chroot/root/.gnupg.orig ]
 					then
-						rm -rf chroot/root/.gnupg
+						mv chroot/root/.gnupg.orig chroot/root/.gnupg
 					fi
 				fi
 
