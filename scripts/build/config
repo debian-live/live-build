@@ -919,11 +919,16 @@ then
 fi
 
 # Reading system configuration
-if ! In_list "--ignore-system-defaults" "${@}"
+if ls /etc/live/build.conf > /dev/null 2>&1 || ls /etc/live/build/* > /dev/null 2>&1
 then
-	Echo_message "Considering defaults defined in %s" "/etc/live/build.conf"
+	if In_list "--ignore-system-defaults" "${@}"
+	then
+		Echo_message "Ignoring defaults in %s" "/etc/live/build.conf"
+	else
+		Echo_message "Using defaults in %s" "/etc/live/build.conf"
 
-	Read_conffiles /etc/live/build.conf /etc/live/build/*
+		Read_conffiles /etc/live/build.conf /etc/live/build/*
+	fi
 fi
 
 # Reading existing configuration
