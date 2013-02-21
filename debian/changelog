@@ -1,3 +1,24 @@
+live-build (4.0~a13-1) experimental; urgency=low
+
+  [ Daniel Baumann ]
+  * Removing non-existent --apt-indices none references.
+  * Also showing distribution in lb config initial messages.
+  * Making messages about reading system conffiles in lb config more
+    accurate.
+  * Harmonize handling of pre-existing gnupg dotfiles in chroot when
+    handling fake signing keys for local repository.
+  * Making some more debian source-selections conditional on certain image
+    options.
+
+  [ Raphaël Hertzog ]
+  * Increasing oversizing factor of ext* filesystems from 5 to 6%.
+
+  [ Daniel Baumann ]
+  * Adding source_hooks for hooks on source images like already supported
+    on binary images.
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 21 Feb 2013 23:29:53 +0100
+
 live-build (4.0~a12-1) experimental; urgency=low
 
   * De-debianizing linux-flavour defaults on i386 and only including 486.
