@@ -13,3 +13,5 @@ _TEMPDIR="/srv/debian-live/build/tmp"
 _SERVER="http://live.debian.net/build"
 
 _LB_GIT="git://live-systems.org/git/live-images.git"
+
+_CGI_CONFIG_APPEND=""
