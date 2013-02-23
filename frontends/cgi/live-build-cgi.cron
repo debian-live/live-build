@@ -67,6 +67,12 @@ then
 		git clone ${_LB_GIT} "${_TEMPDIR}"/"${_BUILD}" >> /var/log/live
 		_ERRORGIT="${?}"
 
+		# Sanity check to default to something since we are going to build from git clone.
+		if [ -z "${_LB_CONFIG}" ]
+		then
+			_LB_CONFIG="standard"
+		fi
+
 		# Now set a variable for the correct build path
 		_BUILD_PATH="${_TEMPDIR}/${_BUILD}/images/${_LB_CONFIG}"
 
