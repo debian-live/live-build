@@ -63,6 +63,9 @@ then
 		# Pull in variables from the build file.
 		. "${_FILE}"
 
+		# Drop out some build data for information if something goes wrong.
+		echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build-cgi: begin web build (${_BUILD})." >> /var/log/live
+
 		# Clone the git config to target build directory
 		git clone ${_LB_GIT} "${_TEMPDIR}"/"${_BUILD}" >> /var/log/live
 		_ERRORGIT="${?}"
@@ -76,8 +79,9 @@ then
 		# Now set a variable for the correct build path
 		_BUILD_PATH="${_TEMPDIR}/${_BUILD}/images/${_LB_CONFIG}"
 
-		# Drop out some build data for information if something goes wrong.
-		echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build-cgi: begin web build (${_BUILD})." >> /var/log/live
+		_DATE_START="`date -R`"
+		echo "Begin live-build-cgi: ${_DATE_START}" > "${_BUILD_PATH}"/log
+		echo "Info live-build-cgi: Config tree cloned from ${_LB_GIT} for build ${_BUILD}" >> "${_BUILD_PATH}"/log
 
 		# Creating directory for the config/package-lists
 		mkdir -p "${_BUILD_PATH}"/config/package-lists
@@ -87,9 +91,6 @@ then
 		then
 			echo "${_LB_CGIPACKAGES}" > "${_BUILD_PATH}"/config/package-lists/cgipackages.list.chroot
 		fi
-
-		_DATE_START="`date -R`"
-		echo "Begin: ${_DATE_START}" > "${_BUILD_PATH}"/log
 
 		# Generating config here
 		if [ "${_ERRORGIT}" -eq "0" ]
