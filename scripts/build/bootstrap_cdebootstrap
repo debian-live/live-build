@@ -32,8 +32,8 @@ fi
 if [ ! -x "$(which cdebootstrap 2>/dev/null)" ]
 then
 	echo "E: cdebootstrap - command not found"
-	echo "I: cdebootstrap can be optained from http://ftp.debian.org/debian/pool/main/d/cdebootstrap/"
-	echo "I: On Debian based systems, cdebootstrap can be installed with 'apt-get install debootstrap'."
+	echo "I: cdebootstrap can be obtained from http://ftp.debian.org/debian/pool/main/d/cdebootstrap/"
+	echo "I: On Debian based systems, cdebootstrap can be installed with 'apt-get install cdebootstrap'."
 	exit 1
 fi
 

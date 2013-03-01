@@ -32,7 +32,7 @@ fi
 if [ ! -x "$(which debootstrap 2>/dev/null)" ]
 then
 	echo "E: debootstrap - command not found"
-	echo "I: debootstrap can be optained from http://ftp.debian.org/debian/pool/main/d/debootstrap/"
+	echo "I: debootstrap can be obtained from http://ftp.debian.org/debian/pool/main/d/debootstrap/"
 	echo "I: On Debian based systems, debootstrap can be installed with 'apt-get install debootstrap'."
 	exit 1
 fi
