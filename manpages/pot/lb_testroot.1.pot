@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2013-03-10 19:07+0100\n"
+"POT-Creation-Date: 2013-03-10 19:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -167,8 +167,8 @@ msgstr ""
 #: en/lb_chroot.1:32 en/lb_clean.1:55 en/lb_config.1:497 en/lb_source.1:32
 #: en/lb_testroot.1:34 en/live-build.7:233
 msgid ""
-"live-build was written by Daniel Baumann E<lt>I<daniel@debian.org>E<gt> for "
-"the Debian project."
+"live-build was written by Daniel Baumann E<lt>I<mail@daniel-baumann.ch>E<gt> "
+"for the Debian project."
 msgstr ""
 
 #. type: Plain text

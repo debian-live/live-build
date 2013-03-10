@@ -4,11 +4,11 @@ Upstream-Contact: Debian Live Project <debian-live@lists.debian.org>
 Source: http://live.debian.net/archive/packages/live-build/
 
 Files: *
-Copyright: 2006-2013 Daniel Baumann <daniel@debian.org>
+Copyright: 2006-2013 Daniel Baumann <mail@daniel-baumann.ch>
 License: GPL-3+
 
 Files: share/bootloaders/*/splash.svg.in
-Copyright: 2006-2013 Daniel Baumann <daniel@debian.org>
+Copyright: 2006-2013 Daniel Baumann <mail@daniel-baumann.ch>
 License: other
 
 License: GPL-3+
@@ -29,7 +29,7 @@ License: GPL-3+
  can be found in /usr/share/common-licenses/GPL-3 file.
 
 License: other
- The splash for Debian Live was made by Daniel Baumann <daniel@debian.org> based
+ The splash for Debian Live was made by Daniel Baumann <mail@daniel-baumann.ch> based
  on the Debian Open Use Logo.
  .
  The contribution of Daniel is hereby placed in the public domain (no rights

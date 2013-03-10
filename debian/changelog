@@ -20,7 +20,7 @@ live-build (4.0~a14-1) experimental; urgency=low
   [ Raphaël Hertzog ]
   * Fixing win32-loader.ini by including the GTK related entries.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 10 Mar 2013 19:06:14 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 10 Mar 2013 19:06:14 +0100
 
 live-build (4.0~a13-1) experimental; urgency=low
 
@@ -41,7 +41,7 @@ live-build (4.0~a13-1) experimental; urgency=low
   * Adding source_hooks for hooks on source images like already supported
     on binary images.
 
- -- Daniel Baumann <daniel@debian.org>  Thu, 21 Feb 2013 23:29:53 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 21 Feb 2013 23:29:53 +0100
 
 live-build (4.0~a12-1) experimental; urgency=low
 
@@ -55,7 +55,7 @@ live-build (4.0~a12-1) experimental; urgency=low
   * Synchronise grub and grub2 splashes with internal live-build splash
     for syslinux bootloaders.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 18 Feb 2013 21:49:32 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 18 Feb 2013 21:49:32 +0100
 
 live-build (4.0~a11-1) experimental; urgency=low
 
@@ -67,7 +67,7 @@ live-build (4.0~a11-1) experimental; urgency=low
   * Dropping powerpc bootloader support (yaboot), there is nobody actively
     maintaining this in live-build.
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 15 Feb 2013 12:39:09 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 15 Feb 2013 12:39:09 +0100
 
 live-build (4.0~a10-1) experimental; urgency=low
 
@@ -76,7 +76,7 @@ live-build (4.0~a10-1) experimental; urgency=low
   * Updating wheezy release number.
   * Adding 3.0.1-1 changelog entries.
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 15 Feb 2013 09:00:52 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 15 Feb 2013 09:00:52 +0100
 
 live-build (4.0~a9-1) experimental; urgency=low
 
@@ -110,7 +110,7 @@ live-build (4.0~a9-1) experimental; urgency=low
   * Removing dropped syslinux-theme config option from lb_config manpage.
   * Adding 3.0.0-1 changelog entries.
 
- -- Daniel Baumann <daniel@debian.org>  Sat, 09 Feb 2013 00:23:47 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 09 Feb 2013 00:23:47 +0100
 
 live-build (4.0~a8-1) experimental; urgency=low
 
@@ -150,7 +150,7 @@ live-build (4.0~a8-1) experimental; urgency=low
   * Avoiding to unconditionally adding whitespace separator to
     config/control for existing configs.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 20 Jan 2013 11:28:27 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 20 Jan 2013 11:28:27 +0100
 
 live-build (4.0~a7-1) experimental; urgency=low
 
@@ -193,7 +193,7 @@ live-build (4.0~a7-1) experimental; urgency=low
   * Dropping pre-wheezy handling for win32-loader files.
   * Adding 3.0~b5-1 changelog entries.
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 02 Jan 2013 11:50:55 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 02 Jan 2013 11:50:55 +0100
 
 live-build (4.0~a6-1) experimental; urgency=low
 
@@ -235,7 +235,7 @@ live-build (4.0~a6-1) experimental; urgency=low
   * Removing pre-wheezy grub package from binary_debian-installer.
   * Adding 3.0~b4-1 changelog entries.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 23 Dec 2012 10:54:24 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 23 Dec 2012 10:54:24 +0100
 
 live-build (4.0~a5-1) experimental; urgency=low
 
@@ -259,7 +259,7 @@ live-build (4.0~a5-1) experimental; urgency=low
     mode.
   * Adding 3.0~b3-1 changelog entries.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 17 Dec 2012 20:32:41 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 17 Dec 2012 20:32:41 +0100
 
 live-build (4.0~a4-1) experimental; urgency=low
 
@@ -281,7 +281,7 @@ live-build (4.0~a4-1) experimental; urgency=low
   * Switching from genisoimage to xorriso.
   * Adding 3.0~b2-1 changelog entries.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 16 Dec 2012 22:01:58 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 16 Dec 2012 22:01:58 +0100
 
 live-build (4.0~a3-1) experimental; urgency=low
 
@@ -293,7 +293,7 @@ live-build (4.0~a3-1) experimental; urgency=low
   * Skipping creation of soon to be replaced config/templates directory.
   * Adding 3.0~b1-1 changelog entries.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 10 Dec 2012 20:40:05 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 10 Dec 2012 20:40:05 +0100
 
 live-build (4.0~a2-1) experimental; urgency=low
 
@@ -313,13 +313,13 @@ live-build (4.0~a2-1) experimental; urgency=low
     firmware inclusion in ubuntu mode anyway.
   * Adding 3.0~a69-1 changelog entries.
 
- -- Daniel Baumann <daniel@debian.org>  Thu, 06 Dec 2012 21:17:32 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 06 Dec 2012 21:17:32 +0100
 
 live-build (4.0~a1-1) experimental; urgency=low
 
   * Dropping support for squeeze and squeeze-based distributions.
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 30 Nov 2012 15:22:32 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 30 Nov 2012 15:22:32 +0100
 
 live-build (3.0.1-1) unstable; urgency=low
 
@@ -329,7 +329,7 @@ live-build (3.0.1-1) unstable; urgency=low
   * Updating squeeze point-release number.
   * Dropping German manpage translations stubs for the release.
 
- -- Daniel Baumann <daniel@debian.org>  Thu, 14 Feb 2013 19:31:04 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 14 Feb 2013 19:31:04 +0100
 
 live-build (3.0.0-1) unstable; urgency=low
 
@@ -362,7 +362,7 @@ live-build (3.0.0-1) unstable; urgency=low
     bootsplashes.
   * Removing dropped syslinux-theme config option from lb_config manpage.
 
- -- Daniel Baumann <daniel@debian.org>  Sat, 09 Feb 2013 00:18:07 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 09 Feb 2013 00:18:07 +0100
 
 live-build (3.0~b6-1) unstable; urgency=low
 
@@ -398,7 +398,7 @@ live-build (3.0~b6-1) unstable; urgency=low
     debian-installer with live-installer and having firmware packages
     installed in the live system already.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 20 Jan 2013 10:17:42 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 20 Jan 2013 10:17:42 +0100
 
 live-build (3.0~b5-1) unstable; urgency=low
 
@@ -437,7 +437,7 @@ live-build (3.0~b5-1) unstable; urgency=low
   * Adding support for sha512 checksums.
   * Dropping pre-squeeze handling for win32-loader files.
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 02 Jan 2013 11:45:30 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 02 Jan 2013 11:45:30 +0100
 
 live-build (3.0~b4-1) unstable; urgency=low
 
@@ -453,7 +453,7 @@ live-build (3.0~b4-1) unstable; urgency=low
   [ Daniel Baumann ]
   * Removing grub package from binary_debian-installer for wheezy.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 23 Dec 2012 10:50:38 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 23 Dec 2012 10:50:38 +0100
 
 live-build (3.0~b3-1) unstable; urgency=low
 
@@ -476,7 +476,7 @@ live-build (3.0~b3-1) unstable; urgency=low
   * Removing kubuntu mode, it's not different anymore to standard ubuntu
     mode.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 17 Dec 2012 20:29:56 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 17 Dec 2012 20:29:56 +0100
 
 live-build (3.0~b2-1) unstable; urgency=low
 
@@ -497,7 +497,7 @@ live-build (3.0~b2-1) unstable; urgency=low
   [ Daniel Baumann ]
   * Switching from genisoimage to xorriso.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 16 Dec 2012 21:57:11 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 16 Dec 2012 21:57:11 +0100
 
 live-build (3.0~b1-1) unstable; urgency=low
 
@@ -508,7 +508,7 @@ live-build (3.0~b1-1) unstable; urgency=low
   * Removing local/bin by default in lb_clean too.
   * Skipping creation of soon to be replaced config/templates directory.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 10 Dec 2012 20:38:58 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 10 Dec 2012 20:38:58 +0100
 
 live-build (3.0~a69-1) unstable; urgency=low
 
@@ -531,7 +531,7 @@ live-build (3.0~a69-1) unstable; urgency=low
   * Adding back legacy filtering for firmware packages on squeeze when
     contrib or non-free is not enabled.
 
- -- Daniel Baumann <daniel@debian.org>  Thu, 06 Dec 2012 21:09:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 06 Dec 2012 21:09:00 +0100
 
 live-build (3.0~a68-1) unstable; urgency=low
 
@@ -576,7 +576,7 @@ live-build (3.0~a68-1) unstable; urgency=low
   * Replicating same qemu support within bootstrap_debootstrao for
     bootstrap_cdebootstrap too (Closes: #694102).
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 30 Nov 2012 15:09:48 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 30 Nov 2012 15:09:48 +0100
 
 live-build (3.0~a67-1) unstable; urgency=low
 
@@ -615,7 +615,7 @@ live-build (3.0~a67-1) unstable; urgency=low
   * Workarounding recent archive changes wrt/ content files until
     #692111 is fixed.
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 02 Nov 2012 12:23:38 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 02 Nov 2012 12:23:38 +0100
 
 live-build (3.0~a66-1) unstable; urgency=low
 
@@ -642,7 +642,7 @@ live-build (3.0~a66-1) unstable; urgency=low
   * Renaming config/includes.binary_debian-installer to simply
     config/includes.debian-installer.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 22 Oct 2012 20:44:44 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 22 Oct 2012 20:44:44 +0200
 
 live-build (3.0~a65-1) unstable; urgency=low
 
@@ -655,7 +655,7 @@ live-build (3.0~a65-1) unstable; urgency=low
   * Correcting variable handling for --bootappend-live-failsafe in
     defaults.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 08 Oct 2012 20:47:02 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 08 Oct 2012 20:47:02 +0200
 
 live-build (3.0~a64-1) unstable; urgency=low
 
@@ -678,7 +678,7 @@ live-build (3.0~a64-1) unstable; urgency=low
     file systems (squashfs), there is no point in further compressing
     the tarballs and images.
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 05 Oct 2012 09:23:12 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 05 Oct 2012 09:23:12 +0200
 
 live-build (3.0~a63-1) unstable; urgency=low
 
@@ -686,7 +686,7 @@ live-build (3.0~a63-1) unstable; urgency=low
     files.
   * Booting by default with 'quiet' and 'splash' parameters.
 
- -- Daniel Baumann <daniel@debian.org>  Tue, 02 Oct 2012 21:24:22 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 02 Oct 2012 21:24:22 +0200
 
 live-build (3.0~a62-1) unstable; urgency=low
 
@@ -711,7 +711,7 @@ live-build (3.0~a62-1) unstable; urgency=low
   * Using menu default only once when populating syslinux configurations
     for more than one kernel flavour (Closes: #682957).
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 01 Oct 2012 05:02:08 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 01 Oct 2012 05:02:08 +0200
 
 live-build (3.0~a61-1) unstable; urgency=low
 
@@ -742,7 +742,7 @@ live-build (3.0~a61-1) unstable; urgency=low
   * Adding slightly modified patch from Adam Conrad
     <adconrad@ubuntu.com> to remove resolvconf artifacts.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 30 Sep 2012 09:46:53 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 30 Sep 2012 09:46:53 +0200
 
 live-build (3.0~a60-1) unstable; urgency=low
 
@@ -755,7 +755,7 @@ live-build (3.0~a60-1) unstable; urgency=low
   * Including loadlin on d-i images on amd64 and i386.
   * Updating to standards version 3.9.4.
 
- -- Daniel Baumann <daniel@debian.org>  Sat, 29 Sep 2012 14:08:42 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 29 Sep 2012 14:08:42 +0200
 
 live-build (3.0~a59-1) unstable; urgency=low
 
@@ -775,7 +775,7 @@ live-build (3.0~a59-1) unstable; urgency=low
   * Removing intel-microcode special handling in chroot_linux-image,
     microcode packages are already included automatically anyway.
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 26 Sep 2012 14:48:30 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 26 Sep 2012 14:48:30 +0200
 
 live-build (3.0~a58-1) unstable; urgency=low
 
@@ -834,7 +834,7 @@ live-build (3.0~a58-1) unstable; urgency=low
   * Dropping lb prefix from live-build scripts, not needed anymore.
   * Setting default progress distribution from artax to baureo.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 27 Aug 2012 16:33:10 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 27 Aug 2012 16:33:10 +0200
 
 live-build (3.0~a57-1) unstable; urgency=low
 
@@ -855,7 +855,7 @@ live-build (3.0~a57-1) unstable; urgency=low
   * Adding live-build to depends for live-build-cgi.
   * Adding cron to recommends for live-build-cgi.
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 10 Aug 2012 22:42:17 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 10 Aug 2012 22:42:17 +0200
 
 live-build (3.0~a56-1) unstable; urgency=low
 
@@ -873,7 +873,7 @@ live-build (3.0~a56-1) unstable; urgency=low
     anyway.
   * Disabling volatile for wheezy for the time being.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 30 Jul 2012 21:55:32 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 30 Jul 2012 21:55:32 +0200
 
 live-build (3.0~a55-1) unstable; urgency=low
 
@@ -910,7 +910,7 @@ live-build (3.0~a55-1) unstable; urgency=low
   * Optimizing chroot package-lists handling for the cases where it's
     not used.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 29 Jul 2012 01:59:42 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 29 Jul 2012 01:59:42 +0200
 
 live-build (3.0~a54-1) unstable; urgency=low
 
@@ -921,7 +921,7 @@ live-build (3.0~a54-1) unstable; urgency=low
   * Correcting accidentally reverted check for rsvg in binary_syslinux
     when building non-chrooted.
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 20 Jul 2012 04:36:21 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 20 Jul 2012 04:36:21 +0200
 
 live-build (3.0~a53-1) unstable; urgency=low
 
@@ -969,7 +969,7 @@ live-build (3.0~a53-1) unstable; urgency=low
   * Correcting spelling typo in 3.0~a52-1 changelog entry.
   * Removing leftover maintainer scripts from cron removals.
 
- -- Daniel Baumann <daniel@debian.org>  Thu, 19 Jul 2012 04:14:38 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 19 Jul 2012 04:14:38 +0200
 
 live-build (3.0~a52-1) unstable; urgency=low
 
@@ -1019,7 +1019,7 @@ live-build (3.0~a52-1) unstable; urgency=low
     derivatives compliant.
   * Enabling security archives on wheezy.
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 18 Jul 2012 22:46:55 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 18 Jul 2012 22:46:55 +0200
 
 live-build (3.0~a51-1) unstable; urgency=low
 
@@ -1038,7 +1038,7 @@ live-build (3.0~a51-1) unstable; urgency=low
   * Switching from smbfs to cifs-utils (Closes: #679240).
   * Switching to xz compression in source and binary packages.
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 27 Jun 2012 14:38:21 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 27 Jun 2012 14:38:21 +0200
 
 live-build (3.0~a50-1) unstable; urgency=low
 
@@ -1060,7 +1060,7 @@ live-build (3.0~a50-1) unstable; urgency=low
   [ Hector Oron ]
   * Dont assume bash when configuring chroot with QEMU.
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 06 Jun 2012 20:00:02 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 06 Jun 2012 20:00:02 +0200
 
 live-build (3.0~a49-1) unstable; urgency=low
 
@@ -1102,7 +1102,7 @@ live-build (3.0~a49-1) unstable; urgency=low
   * Moving local includes from auto/{functions,scripts} to
     local/{functions,scripts} where they belong.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 04 Jun 2012 12:15:37 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 04 Jun 2012 12:15:37 +0200
 
 live-build (3.0~a48-1) unstable; urgency=low
 
@@ -1123,7 +1123,7 @@ live-build (3.0~a48-1) unstable; urgency=low
   * Allowing to inject variables through config/environment.chroot into
     the chroots environment.
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 25 May 2012 08:22:27 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 25 May 2012 08:22:27 +0200
 
 live-build (3.0~a47-1) unstable; urgency=low
 
@@ -1166,7 +1166,7 @@ live-build (3.0~a47-1) unstable; urgency=low
   * Adding symlinks in /firmware for debian-installer on live media.
   * Slight reordering in lb_binary_debian-installer.
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 27 Apr 2012 11:37:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 27 Apr 2012 11:37:00 +0200
 
 live-build (3.0~a46-1) unstable; urgency=low
 
@@ -1212,7 +1212,7 @@ live-build (3.0~a46-1) unstable; urgency=low
   * Prefering default modules in initrd even on netboot images (Closes:
     #667594).
 
- -- Daniel Baumann <daniel@debian.org>  Thu, 05 Apr 2012 10:32:51 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 05 Apr 2012 10:32:51 +0200
 
 live-build (3.0~a45-1) unstable; urgency=low
 
@@ -1231,7 +1231,7 @@ live-build (3.0~a45-1) unstable; urgency=low
   * Adding Polish debconf translations from Michal Kulach
     <michalkulach@gmail.com> (Closes: #660003).
 
- -- Daniel Baumann <daniel@debian.org>  Thu, 16 Feb 2012 21:47:11 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 16 Feb 2012 21:47:11 +0100
 
 live-build (3.0~a44-1) unstable; urgency=low
 
@@ -1255,7 +1255,7 @@ live-build (3.0~a44-1) unstable; urgency=low
     configs need to use absolute symlinks on purpose to allow chrooted
     builds).
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 12 Feb 2012 22:08:49 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 12 Feb 2012 22:08:49 +0100
 
 live-build (3.0~a43-1) unstable; urgency=low
 
@@ -1303,7 +1303,7 @@ live-build (3.0~a43-1) unstable; urgency=low
   * Shortening kernel and initrd filenames in /live again similar to
     what we did with in lenny.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 06 Feb 2012 23:23:32 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 06 Feb 2012 23:23:32 +0100
 
 live-build (3.0~a42-1) unstable; urgency=low
 
@@ -1336,7 +1336,7 @@ live-build (3.0~a42-1) unstable; urgency=low
   * Adding reference to --parent-archive-areas in lb_config manpage
     (Closes: #646797).
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 15 Jan 2012 19:25:42 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 15 Jan 2012 19:25:42 +0100
 
 live-build (3.0~a41-1) unstable; urgency=low
 
@@ -1375,7 +1375,7 @@ live-build (3.0~a41-1) unstable; urgency=low
   * Adding updated Swedish debconf translations from Martin Bagge
     <brother@bsnet.se> (Closes: #651345).
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 08 Jan 2012 02:23:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 08 Jan 2012 02:23:00 +0100
 
 live-build (3.0~a40-1) unstable; urgency=low
 
@@ -1391,7 +1391,7 @@ live-build (3.0~a40-1) unstable; urgency=low
   * Adding updated French debconf translations from Julien Patriarca
     <patriarcaj@gmail.com> (Closes: #650655).
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 04 Dec 2011 10:14:06 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 04 Dec 2011 10:14:06 +0100
 
 live-build (3.0~a39-1) unstable; urgency=low
 
@@ -1425,7 +1425,7 @@ live-build (3.0~a39-1) unstable; urgency=low
     <linux@wansing-online.de> (Closes: #648381).
   * Updating and completing German debconf translations.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 14 Nov 2011 12:46:20 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 14 Nov 2011 12:46:20 +0100
 
 live-build (3.0~a38-1) unstable; urgency=low
 
@@ -1439,7 +1439,7 @@ live-build (3.0~a38-1) unstable; urgency=low
   * Adding precise in releases list.
   * Correcting defaults d-i mirror for progress.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 30 Oct 2011 08:46:54 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 30 Oct 2011 08:46:54 +0100
 
 live-build (3.0~a37-1) unstable; urgency=low
 
@@ -1447,7 +1447,7 @@ live-build (3.0~a37-1) unstable; urgency=low
     using --apt-source-archives false.
   * Correcting typo in defaults for system variable.
 
- -- Daniel Baumann <daniel@debian.org>  Thu, 13 Oct 2011 20:03:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 13 Oct 2011 20:03:00 +0200
 
 live-build (3.0~a36-1) unstable; urgency=low
 
@@ -1458,7 +1458,7 @@ live-build (3.0~a36-1) unstable; urgency=low
     #645116).
   * Deal with non-existing preseed files in config tree.
 
- -- Daniel Baumann <daniel@debian.org>  Thu, 13 Oct 2011 15:55:53 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 13 Oct 2011 15:55:53 +0200
 
 live-build (3.0~a35-1) unstable; urgency=low
 
@@ -1485,7 +1485,7 @@ live-build (3.0~a35-1) unstable; urgency=low
   * Adding Ubuntu Cloud images packages lists.
   * Adding foreign bootstrap via qemu for cross arch building.
 
- -- Daniel Baumann <daniel@debian.org>  Sat, 08 Oct 2011 10:57:04 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 08 Oct 2011 10:57:04 +0200
 
 live-build (3.0~a34-1) unstable; urgency=low
 
@@ -1520,14 +1520,14 @@ live-build (3.0~a34-1) unstable; urgency=low
   * Setting default ubuntu release to oneric.
   * Removing EOL Ubuntu dapper from release information.
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 30 Sep 2011 14:50:40 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 30 Sep 2011 14:50:40 +0200
 
 live-build (3.0~a33-1) unstable; urgency=low
 
   * Correcting check for debian-installer-distribution when using daily
     images in non-derivatives mode.
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 28 Sep 2011 07:33:59 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 28 Sep 2011 07:33:59 +0200
 
 live-build (3.0~a32-1) unstable; urgency=low
 
@@ -1568,7 +1568,7 @@ live-build (3.0~a32-1) unstable; urgency=low
   * Fixing left-over uses of --packages-lists in cron scripts and
     examples.
 
- -- Daniel Baumann <daniel@debian.org>  Tue, 27 Sep 2011 22:54:36 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 27 Sep 2011 22:54:36 +0200
 
 live-build (3.0~a31-1) experimental; urgency=low
 
@@ -1627,7 +1627,7 @@ live-build (3.0~a31-1) experimental; urgency=low
     chroot and binary.
   * Correcting syntax error in local package handling.
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 07 Sep 2011 17:41:19 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 07 Sep 2011 17:41:19 +0200
 
 live-build (3.0~a30-1) experimental; urgency=low
 
@@ -1649,7 +1649,7 @@ live-build (3.0~a30-1) experimental; urgency=low
   * Moving removal of udev persistent rules from chroot_hacks to a hook,
     that way it can be easily skipped if desired.
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 24 Aug 2011 19:37:17 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 24 Aug 2011 19:37:17 +0200
 
 live-build (3.0~a29-1) experimental; urgency=low
 
@@ -1665,7 +1665,7 @@ live-build (3.0~a29-1) experimental; urgency=low
   * Also guarding key additions for local configured archives to not
     fail if no key is supplied.
 
- -- Daniel Baumann <daniel@debian.org>  Sat, 13 Aug 2011 08:07:10 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 13 Aug 2011 08:07:10 +0200
 
 live-build (3.0~a28-1) experimental; urgency=low
 
@@ -1680,7 +1680,7 @@ live-build (3.0~a28-1) experimental; urgency=low
   * Since all (false positives for) bashisms are gone, making the test
     target fail on bashisms.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 08 Aug 2011 21:12:17 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 08 Aug 2011 21:12:17 +0200
 
 live-build (3.0~a27-1) experimental; urgency=low
 
@@ -1693,7 +1693,7 @@ live-build (3.0~a27-1) experimental; urgency=low
   * Removing left-over mentioning of lb_binary_local-hooks instead of
     lb_binary_hooks in lb_binary.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 08 Aug 2011 08:04:08 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 08 Aug 2011 08:04:08 +0200
 
 live-build (3.0~a26-1) experimental; urgency=low
 
@@ -1812,7 +1812,7 @@ live-build (3.0~a26-1) experimental; urgency=low
   * Adding missing 'set -e' in remove-python-py.chroot hook.
   * Correcting indentiation in hook defaults assignment.
 
- -- Daniel Baumann <daniel@debian.org>  Thu, 04 Aug 2011 21:51:37 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 04 Aug 2011 21:51:37 +0200
 
 live-build (3.0~a25-1) experimental; urgency=low
 
@@ -1820,7 +1820,7 @@ live-build (3.0~a25-1) experimental; urgency=low
   * Adding live-manual to recommends.
   * Adding initial live-build-cron package.
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 15 Jul 2011 20:33:24 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 15 Jul 2011 20:33:24 +0200
 
 live-build (3.0~a24-1) experimental; urgency=low
 
@@ -1835,14 +1835,14 @@ live-build (3.0~a24-1) experimental; urgency=low
   * Adding live-boot-doc to recommends.
   * Adding live-config-doc to recommends.
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 13 Jul 2011 10:42:29 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 13 Jul 2011 10:42:29 +0200
 
 live-build (3.0~a23-1) experimental; urgency=low
 
   * Correcting wrong chroot call in chroot_archives, only affecting
     derivatives.
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 29 Jun 2011 07:58:09 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 29 Jun 2011 07:58:09 +0200
 
 live-build (3.0~a22-1) experimental; urgency=low
 
@@ -1892,7 +1892,7 @@ live-build (3.0~a22-1) experimental; urgency=low
   * Making help message about missing po4a in manpages makefile
     distribution neutral.
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 29 Jun 2011 06:18:11 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 29 Jun 2011 06:18:11 +0200
 
 live-build (3.0~a21-1) unstable; urgency=low
 
@@ -1910,7 +1910,7 @@ live-build (3.0~a21-1) unstable; urgency=low
     #630350).
   * Add --initramfs-compression option (Closes: #627677).
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 13 Jun 2011 20:42:13 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 13 Jun 2011 20:42:13 +0200
 
 live-build (3.0~a20-1) unstable; urgency=low
 
@@ -1948,7 +1948,7 @@ live-build (3.0~a20-1) unstable; urgency=low
     Eventually, this allows to have media containing a 'bigger' live
     system that what they end up installing (Closes: #627439).
 
- -- Daniel Baumann <daniel@debian.org>  Sat, 11 Jun 2011 17:46:24 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 11 Jun 2011 17:46:24 +0200
 
 live-build (3.0~a19-1) unstable; urgency=low
 
@@ -1970,7 +1970,7 @@ live-build (3.0~a19-1) unstable; urgency=low
   [ Daniel Baumann ]
   * Don't try to install standard task on anything but ubuntu.
 
- -- Daniel Baumann <daniel@debian.org>  Sat, 11 Jun 2011 11:04:08 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 11 Jun 2011 11:04:08 +0200
 
 live-build (3.0~a18-1) unstable; urgency=low
 
@@ -1998,7 +1998,7 @@ live-build (3.0~a18-1) unstable; urgency=low
   * Correcting wrong task defaults.
   * Updating grub paths for d-i files (Closes: #627695).
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 03 Jun 2011 11:59:30 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 03 Jun 2011 11:59:30 +0200
 
 live-build (3.0~a17-1) unstable; urgency=low
 
@@ -2037,7 +2037,7 @@ live-build (3.0~a17-1) unstable; urgency=low
   [ liandro sg ]
   * Be more careful with subshells (Closes: #623356).
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 18 May 2011 19:49:53 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 18 May 2011 19:49:53 +0200
 
 live-build (3.0~a16-1) unstable; urgency=low
 
@@ -2049,14 +2049,14 @@ live-build (3.0~a16-1) unstable; urgency=low
     installation; the tasks should only 'fill-up' with what has not
     already been provided by packages or package lists.
 
- -- Daniel Baumann <daniel@debian.org>  Sat, 23 Apr 2011 19:27:16 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 23 Apr 2011 19:27:16 +0200
 
 live-build (3.0~a15-1) unstable; urgency=low
 
   * Adding temporary hack for progress until multistrap can be used for
     bootstrapping.
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 22 Apr 2011 23:11:56 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 22 Apr 2011 23:11:56 +0200
 
 live-build (3.0~a14-1) unstable; urgency=low
 
@@ -2083,7 +2083,7 @@ live-build (3.0~a14-1) unstable; urgency=low
   * Updating security archive entries for progress.
   * Correcting repository handling for live.debian.net wrt/ derivatives.
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 25 Mar 2011 09:13:52 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 25 Mar 2011 09:13:52 +0100
 
 live-build (3.0~a13-1) unstable; urgency=low
 
@@ -2100,7 +2100,7 @@ live-build (3.0~a13-1) unstable; urgency=low
   [ Daniel Baumann ]
   * Updating archive signing key for live.debian.net repository.
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 09 Mar 2011 19:27:39 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 09 Mar 2011 19:27:39 +0100
 
 live-build (3.0~a12-1) experimental; urgency=low
 
@@ -2164,7 +2164,7 @@ live-build (3.0~a12-1) experimental; urgency=low
   * Correcting udeb download for derivatives to only fall back to
     debians repository if required to.
 
- -- Daniel Baumann <daniel@debian.org>  Tue, 15 Feb 2011 19:43:44 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 15 Feb 2011 19:43:44 +0100
 
 live-build (3.0~a11-1) experimental; urgency=low
 
@@ -2199,7 +2199,7 @@ live-build (3.0~a11-1) experimental; urgency=low
   * Correcting typo in lzip default options.
   * Updating compression defaults for progress.
 
- -- Daniel Baumann <daniel@debian.org>  Tue, 11 Jan 2011 13:42:17 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 11 Jan 2011 13:42:17 +0100
 
 live-build (3.0~a10-1) experimental; urgency=low
 
@@ -2226,7 +2226,7 @@ live-build (3.0~a10-1) experimental; urgency=low
   * Marking ntop as sid only in rescue list.
   * Marking tob as sid only in rescue list.
 
- -- Daniel Baumann <daniel@debian.org>  Tue, 14 Dec 2010 13:17:58 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 14 Dec 2010 13:17:58 +0100
 
 live-build (3.0~a9-1) experimental; urgency=low
 
@@ -2242,7 +2242,7 @@ live-build (3.0~a9-1) experimental; urgency=low
   [ Ben Armstrong ]
   * Updating lb config --help and man page.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 06 Dec 2010 12:19:09 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 06 Dec 2010 12:19:09 +0100
 
 live-build (3.0~a8-1) experimental; urgency=low
 
@@ -2261,7 +2261,7 @@ live-build (3.0~a8-1) experimental; urgency=low
     calls more robust.
   * Updating initramfs switch in lb config manpage (Closes: #605255).
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 29 Nov 2010 23:19:28 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 29 Nov 2010 23:19:28 +0100
 
 live-build (3.0~a7-1) experimental; urgency=low
 
@@ -2284,7 +2284,7 @@ live-build (3.0~a7-1) experimental; urgency=low
   * Simplyfing ssh host key removal.
   * Adding dpkg source options file.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 22 Nov 2010 23:22:15 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 22 Nov 2010 23:22:15 +0100
 
 live-build (3.0~a6-1) experimental; urgency=low
 
@@ -2334,13 +2334,13 @@ live-build (3.0~a6-1) experimental; urgency=low
     config.
   * Making d-i indices copying depending on binary image type.
 
- -- Daniel Baumann <daniel@debian.org>  Sat, 13 Nov 2010 16:01:57 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 13 Nov 2010 16:01:57 +0100
 
 live-build (3.0~a5-1) experimental; urgency=low
 
   * Removing --binary-pool again, not ready yet.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 04 Oct 2010 18:13:53 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 04 Oct 2010 18:13:53 +0200
 
 live-build (3.0~a4-1) experimental; urgency=low
 
@@ -2361,7 +2361,7 @@ live-build (3.0~a4-1) experimental; urgency=low
   [ Daniel Baumann ]
   * Correcting typo with lb config call for usb-hdd in autobuild script.
 
- -- Daniel Baumann <daniel@debian.org>  Sat, 02 Oct 2010 10:18:16 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 02 Oct 2010 10:18:16 +0200
 
 live-build (3.0~a3-1) experimental; urgency=low
 
@@ -2374,7 +2374,7 @@ live-build (3.0~a3-1) experimental; urgency=low
   * Avoid using bashism when handling codename/suite mapping for debian-
     installer release file.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 26 Sep 2010 23:24:01 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 26 Sep 2010 23:24:01 +0200
 
 live-build (3.0~a2-1) experimental; urgency=low
 
@@ -2382,21 +2382,21 @@ live-build (3.0~a2-1) experimental; urgency=low
   * Adding option to allow using the live-media pool in live system.
   * Updating version constraints in config tree version check.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 26 Sep 2010 20:09:14 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 26 Sep 2010 20:09:14 +0200
 
 live-build (3.0~a1-1) experimental; urgency=low
 
   * Removing lenny support.
   * Switching to source format 3.0 (quilt).
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 26 Sep 2010 12:38:28 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 26 Sep 2010 12:38:28 +0200
 
 live-build (2.0.12-2) unstable; urgency=low
 
   * Adding preinst script to remove
     /usr/share/live/build/includes/squeeze (Closes: #611794).
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 02 Feb 2011 12:35:41 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 02 Feb 2011 12:35:41 +0100
 
 live-build (2.0.12-1) unstable; urgency=low
 
@@ -2439,7 +2439,7 @@ live-build (2.0.12-1) unstable; urgency=low
   * Updating syslinux theme for squeeze.
   * Removing wheezy splash.
 
- -- Daniel Baumann <daniel@debian.org>  Tue, 01 Feb 2011 22:32:56 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 01 Feb 2011 22:32:56 +0100
 
 live-build (2.0.11-1) unstable; urgency=low
 
@@ -2455,7 +2455,7 @@ live-build (2.0.11-1) unstable; urgency=low
   [ Daniel Baumann ]
   * Removing unmaintained package lists (Closes: #598100).
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 24 Dec 2010 18:49:26 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 24 Dec 2010 18:49:26 +0100
 
 live-build (2.0.10-1) unstable; urgency=low
 
@@ -2487,7 +2487,7 @@ live-build (2.0.10-1) unstable; urgency=low
   * Marking ntop as lenny and sid only in rescue list.
   * Marking tob as lenny and sid only in rescue list.
 
- -- Daniel Baumann <daniel@debian.org>  Tue, 14 Dec 2010 13:05:39 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 14 Dec 2010 13:05:39 +0100
 
 live-build (2.0.9-1) unstable; urgency=medium
 
@@ -2500,7 +2500,7 @@ live-build (2.0.9-1) unstable; urgency=medium
   [ Daniel Baumann ]
   * Unfuzzying German manpage translations.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 06 Dec 2010 12:01:43 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 06 Dec 2010 12:01:43 +0100
 
 live-build (2.0.8-1) unstable; urgency=medium
 
@@ -2517,7 +2517,7 @@ live-build (2.0.8-1) unstable; urgency=medium
     calls more robust.
   * Updating initramfs switch in lb config manpage (Closes: #605255).
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 29 Nov 2010 23:12:54 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 29 Nov 2010 23:12:54 +0100
 
 live-build (2.0.7-1) unstable; urgency=medium
 
@@ -2538,7 +2538,7 @@ live-build (2.0.7-1) unstable; urgency=medium
     config.
   * Simplyfing ssh host key removal.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 22 Nov 2010 23:13:43 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 22 Nov 2010 23:13:43 +0100
 
 live-build (2.0.6-1) unstable; urgency=medium
 
@@ -2559,13 +2559,13 @@ live-build (2.0.6-1) unstable; urgency=medium
   [ Daniel Baumann ]
   * Making d-i indices copying depending on binary image type.
 
- -- Daniel Baumann <daniel@debian.org>  Sat, 13 Nov 2010 16:10:43 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 13 Nov 2010 16:10:43 +0100
 
 live-build (2.0.5-1) unstable; urgency=medium
 
   * Removing dpkg-tmpfs hack, this is too intrusive atm.
 
- -- Daniel Baumann <daniel@debian.org>  Thu, 28 Oct 2010 09:44:14 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 28 Oct 2010 09:44:14 +0200
 
 live-build (2.0.4-1) unstable; urgency=medium
 
@@ -2578,7 +2578,7 @@ live-build (2.0.4-1) unstable; urgency=medium
   * Removing deep link to bug page in the manual, since we don't have
     stable references yet.
 
- -- Daniel Baumann <daniel@debian.org>  Thu, 28 Oct 2010 09:34:43 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 28 Oct 2010 09:34:43 +0200
 
 live-build (2.0.3-1) unstable; urgency=medium
 
@@ -2599,7 +2599,7 @@ live-build (2.0.3-1) unstable; urgency=medium
     entries, will re-add them after squeeze.
   * Updating special handling for backports.
 
- -- Daniel Baumann <daniel@debian.org>  Tue, 12 Oct 2010 11:05:07 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 12 Oct 2010 11:05:07 +0200
 
 live-build (2.0.2-1) unstable; urgency=medium
 
@@ -2621,7 +2621,7 @@ live-build (2.0.2-1) unstable; urgency=medium
   [ Daniel Baumann ]
   * Correcting typo with lb config call for usb-hdd in autobuild script.
 
- -- Daniel Baumann <daniel@debian.org>  Sat, 02 Oct 2010 10:00:45 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 02 Oct 2010 10:00:45 +0200
 
 live-build (2.0.1-1) unstable; urgency=medium
 
@@ -2640,7 +2640,7 @@ live-build (2.0.1-1) unstable; urgency=medium
   * Avoid using bashism when handling codename/suite mapping for debian-
     installer release file.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 27 Sep 2010 07:41:45 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 27 Sep 2010 07:41:45 +0200
 
 live-build (2.0.0-1) unstable; urgency=medium
 
@@ -2678,7 +2678,7 @@ live-build (2.0.0-1) unstable; urgency=medium
     debootstrap seems not to create it anymore.
   * Releasing debian version 2.0.0-1.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 26 Sep 2010 12:14:46 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 26 Sep 2010 12:14:46 +0200
 
 live-build (2.0~a29-1) unstable; urgency=low
 
@@ -2696,7 +2696,7 @@ live-build (2.0~a29-1) unstable; urgency=low
   * Allowing also symlinks in chroot_local-packages (Closes: #593186).
   * Correcting typo in binary sources.list creating.
 
- -- Daniel Baumann <daniel@debian.org>  Thu, 16 Sep 2010 21:13:58 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 16 Sep 2010 21:13:58 +0200
 
 live-build (2.0~a28-1) unstable; urgency=low
 
@@ -2711,7 +2711,7 @@ live-build (2.0~a28-1) unstable; urgency=low
     (Closes: #572455).
   * Avoid running helpers twice when using auto (Closes: #584884).
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 13 Sep 2010 21:28:16 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 13 Sep 2010 21:28:16 +0200
 
 live-build (2.0~a27-1) unstable; urgency=low
 
@@ -2724,7 +2724,7 @@ live-build (2.0~a27-1) unstable; urgency=low
   * Correcting --clean handling in lb_config.
   * Replacing references to lh commands with lb in live-build manpage.
 
- -- Daniel Baumann <daniel@debian.org>  Tue, 07 Sep 2010 21:41:44 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 07 Sep 2010 21:41:44 +0200
 
 live-build (2.0~a26-1) unstable; urgency=low
 
@@ -2739,14 +2739,14 @@ live-build (2.0~a26-1) unstable; urgency=low
   * Also deconfiguring /etc/hosts when using debootstrap to bootstrap
     system.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 06 Sep 2010 15:31:28 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 06 Sep 2010 15:31:28 +0200
 
 live-build (2.0~a25-1) unstable; urgency=low
 
   * Updating internal calls to use live-build instead of live-helper.
   * Updating lenny point release number.
 
- -- Daniel Baumann <daniel@debian.org>  Thu, 02 Sep 2010 15:15:31 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 02 Sep 2010 15:15:31 +0200
 
 live-build (2.0~a24-1) unstable; urgency=low
 
@@ -2775,7 +2775,7 @@ live-build (2.0~a24-1) unstable; urgency=low
   * Replacing some references to live-helper with live-build in
     debhelper bug files.
 
- -- Daniel Baumann <daniel@debian.org>  Thu, 02 Sep 2010 15:06:23 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 02 Sep 2010 15:06:23 +0200
 
 live-build (2.0~a23-1) unstable; urgency=low
 
@@ -2786,7 +2786,7 @@ live-build (2.0~a23-1) unstable; urgency=low
   * Moving /usr/share/live-helper to /usr/share/live/build.
   * Removing old and unmaintained po files.
 
- -- Daniel Baumann <daniel@debian.org>  Sat, 14 Aug 2010 20:53:08 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 14 Aug 2010 20:53:08 +0200
 
 live-build (2.0~a22-1) unstable; urgency=low
 
@@ -2822,7 +2822,7 @@ live-build (2.0~a22-1) unstable; urgency=low
     avoid ending up with a pulled in gnome in all cases, thanks a lot to
     Ben Armstrong <synrg@debian.org> for finding this solution.
 
- -- Daniel Baumann <daniel@debian.org>  Tue, 10 Aug 2010 04:21:01 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 10 Aug 2010 04:21:01 +0200
 
 live-build (2.0~a21-1) unstable; urgency=low
 
@@ -2839,7 +2839,7 @@ live-build (2.0~a21-1) unstable; urgency=low
   [ Marco Amadori ]
   * Correcting typo, live-helper should depend on live-build.
 
- -- Daniel Baumann <daniel@debian.org>  Tue, 27 Jul 2010 16:07:52 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 27 Jul 2010 16:07:52 +0200
 
 live-build (2.0~a20-1) unstable; urgency=low
 
@@ -2856,7 +2856,7 @@ live-build (2.0~a20-1) unstable; urgency=low
   * Removing example sources, not really useful anymore since
     repositories are in place.
 
- -- Daniel Baumann <daniel@debian.org>  Sat, 24 Jul 2010 17:22:56 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 24 Jul 2010 17:22:56 +0200
 
 live-helper (2.0~a19-1) unstable; urgency=low
 
@@ -2878,7 +2878,7 @@ live-helper (2.0~a19-1) unstable; urgency=low
   * Updating syslinux splash screen for squeeze.
   * Updating image autobuild script for squeeze alpha2.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 18 Jul 2010 01:16:13 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 18 Jul 2010 01:16:13 +0200
 
 live-helper (2.0~a18-1) unstable; urgency=low
 
@@ -2898,7 +2898,7 @@ live-helper (2.0~a18-1) unstable; urgency=low
   * Copying win32-loader recursively to cope with another win32-loader
     file re-arangement.
 
- -- Daniel Baumann <daniel@debian.org>  Sat, 10 Jul 2010 22:43:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 10 Jul 2010 22:43:00 +0200
 
 live-helper (2.0~a17-1) unstable; urgency=low
 
@@ -2932,7 +2932,7 @@ live-helper (2.0~a17-1) unstable; urgency=low
   * Correcting entry about --language in lh_config manpage, it doesn't
     set the bootparameters automatically for locale selection.
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 02 Jul 2010 18:23:47 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 02 Jul 2010 18:23:47 +0200
 
 live-helper (2.0~a16-1) unstable; urgency=low
 
@@ -2989,7 +2989,7 @@ live-helper (2.0~a16-1) unstable; urgency=low
   * Making excludes handling simpler, and dropping excluding of kernel
     images for minimal or stripped images (Closes: #586367).
 
- -- Daniel Baumann <daniel@debian.org>  Thu, 24 Jun 2010 01:49:57 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 24 Jun 2010 01:49:57 +0200
 
 live-helper (2.0~a15-1) unstable; urgency=low
 
@@ -3007,7 +3007,7 @@ live-helper (2.0~a15-1) unstable; urgency=low
   * Temporarily removing grub2 from d-i packages again, needs some fixes
     first.
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 18 Jun 2010 04:01:29 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 18 Jun 2010 04:01:29 +0200
 
 live-helper (2.0~a14-1) unstable; urgency=low
 
@@ -3023,7 +3023,7 @@ live-helper (2.0~a14-1) unstable; urgency=low
   * Using umlauts in German manpages.
   * Using old pathes for win32-loader on squeeze too.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 30 May 2010 09:43:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 30 May 2010 09:43:00 +0200
 
 live-helper (2.0~a13-1) unstable; urgency=low
 
@@ -3059,7 +3059,7 @@ live-helper (2.0~a13-1) unstable; urgency=low
   * Adding user-setup to minimal packages list.
   * Setting version number to 2.0~a13.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 23 May 2010 12:37:33 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 23 May 2010 12:37:33 +0200
 
 live-helper (2.0~a12-1) unstable; urgency=low
 
@@ -3083,7 +3083,7 @@ live-helper (2.0~a12-1) unstable; urgency=low
     projects.org.
   * Setting version number.
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 12 May 2010 06:01:39 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 12 May 2010 06:01:39 +0200
 
 live-helper (2.0~a11-1) unstable; urgency=low
 
@@ -3108,7 +3108,7 @@ live-helper (2.0~a11-1) unstable; urgency=low
     scripts.
   * Updating maintainer field.
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 30 Apr 2010 17:10:38 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 30 Apr 2010 17:10:38 +0200
 
 live-helper (2.0~a10-1) unstable; urgency=low
 
@@ -3128,7 +3128,7 @@ live-helper (2.0~a10-1) unstable; urgency=low
   * Adding gdb to rescue list.
   * Updating Man function to work with lh as wrapper.
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 09 Apr 2010 21:29:10 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 09 Apr 2010 21:29:10 +0200
 
 live-helper (2.0~a9-1) unstable; urgency=low
 
@@ -3208,7 +3208,7 @@ live-helper (2.0~a9-1) unstable; urgency=low
   * Simplifying wording in bug-presubj file.
   * Reordering auto install overrides in rules file.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 14 Mar 2010 23:31:59 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 14 Mar 2010 23:31:59 +0100
 
 live-helper (2.0~a8-1) unstable; urgency=low
 
@@ -3244,7 +3244,7 @@ live-helper (2.0~a8-1) unstable; urgency=low
   * Updating tasks handling for squeeze.
   * Updating default desktop configuration quirks.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 21 Feb 2010 14:42:21 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 21 Feb 2010 14:42:21 +0100
 
 live-helper (2.0~a7-1) unstable; urgency=low
 
@@ -3276,7 +3276,7 @@ live-helper (2.0~a7-1) unstable; urgency=low
     Cohen <tzafrir.cohen@xorcom.com>.
   * Removing whitespaces at the end of bootappend-install assignements.
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 17 Feb 2010 12:30:46 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 17 Feb 2010 12:30:46 +0100
 
 live-helper (2.0~a6-1) unstable; urgency=low
 
@@ -3289,7 +3289,7 @@ live-helper (2.0~a6-1) unstable; urgency=low
   * Also making use of package cache during chroot_local-hooks (Closes:
     #566838).
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 31 Jan 2010 14:20:23 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 31 Jan 2010 14:20:23 +0100
 
 live-helper (2.0~a5-1) unstable; urgency=low
 
@@ -3307,7 +3307,7 @@ live-helper (2.0~a5-1) unstable; urgency=low
     mksquashfs so that users know what is going on, thanks to Michal
     Suchanek <michal.suchanek@ruk.cuni.cz> (Closes: #566250).
 
- -- Daniel Baumann <daniel@debian.org>  Sat, 23 Jan 2010 12:47:21 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 23 Jan 2010 12:47:21 +0100
 
 live-helper (2.0~a4-1) unstable; urgency=low
 
@@ -3335,7 +3335,7 @@ live-helper (2.0~a4-1) unstable; urgency=low
   * Adjusting lh_config manpage to reflect changes wrt/ local packages
     lists.
 
- -- Daniel Baumann <daniel@debian.org>  Tue, 19 Jan 2010 20:25:35 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 19 Jan 2010 20:25:35 +0100
 
 live-helper (2.0~a3-1) unstable; urgency=low
 
@@ -3352,7 +3352,7 @@ live-helper (2.0~a3-1) unstable; urgency=low
     configuration options.
   * Adding experimental support for isohybrid (Closes: #558688).
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 13 Dec 2009 21:41:49 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 13 Dec 2009 21:41:49 +0100
 
 live-helper (2.0~a2-1) unstable; urgency=low
 
@@ -3370,7 +3370,7 @@ live-helper (2.0~a2-1) unstable; urgency=low
   * Setting LH_BASE variable in defaults.sh globally.
   * Adding changelog of 1.0.6-2.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 30 Nov 2009 12:41:06 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 30 Nov 2009 12:41:06 +0100
 
 live-helper (2.0~a1-1) experimental; urgency=low
 
@@ -3380,14 +3380,14 @@ live-helper (2.0~a1-1) experimental; urgency=low
     /usr/bin.
   * Removing legacy function for dashed commands.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 15 Nov 2009 22:42:59 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 15 Nov 2009 22:42:59 +0100
 
 live-helper (1.0.6-2) unstable; urgency=high
 
   * Replacing sed 4.2 command to assemble debootstraps components option
     with a less advanced one, in order to work on legacy distributions.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 22 Nov 2009 13:35:50 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 22 Nov 2009 13:35:50 +0100
 
 live-helper (1.0.6-1) unstable; urgency=medium
 
@@ -3507,7 +3507,7 @@ live-helper (1.0.6-1) unstable; urgency=medium
   * Removing newline in f8.txt.install syslinux template.
   * Removing newline in f6.txt syslinux template.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 15 Nov 2009 17:16:19 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 15 Nov 2009 17:16:19 +0100
 
 live-helper (1.0.5-2) unstable; urgency=low
 
@@ -3593,7 +3593,7 @@ live-helper (1.0.5-2) unstable; urgency=low
   * Adding a message about which hook made a build fail, if any.
   * Updating lenny point release number.
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 04 Sep 2009 13:21:04 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 04 Sep 2009 13:21:04 +0200
 
 live-helper (1.0.5-1) unstable; urgency=medium
 
@@ -3721,7 +3721,7 @@ live-helper (1.0.5-1) unstable; urgency=medium
   * Emitting a warning if resolvconf is detected on the to be generated
     live system. Beware of resolvconf, it's broken beyond repair.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 14 Jun 2009 15:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 14 Jun 2009 15:00:00 +0200
 
 live-helper (1.0.4-1) unstable; urgency=low
 
@@ -3741,7 +3741,7 @@ live-helper (1.0.4-1) unstable; urgency=low
   * Correcting path within netboot tarballs.
   * Redirecting stderr to log as well in example image build script.
 
- -- Daniel Baumann <daniel@debian.org>  Sat, 14 Feb 2009 18:00:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 14 Feb 2009 18:00:00 +0100
 
 live-helper (1.0.3-2) unstable; urgency=medium
 
@@ -3785,7 +3785,7 @@ live-helper (1.0.3-2) unstable; urgency=medium
   [ Tiago Bortoletto Vaz ]
   * Updating pt_br localization (Closes: #514196).
 
- -- Daniel Baumann <daniel@debian.org>  Tue, 10 Feb 2009 00:00:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 10 Feb 2009 00:00:00 +0100
 
 live-helper (1.0.3-1) unstable; urgency=medium
 
@@ -3862,7 +3862,7 @@ live-helper (1.0.3-1) unstable; urgency=medium
   * Correcting wrong logic in defaults.sh which resultet in having
     loop-aes-utils always installed.
 
- -- Daniel Baumann <daniel@debian.org>  Sun,  1 Feb 2009 17:00:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun,  1 Feb 2009 17:00:00 +0100
 
 live-helper (1.0.2-4) unstable; urgency=low
 
@@ -3871,7 +3871,7 @@ live-helper (1.0.2-4) unstable; urgency=low
   * Moving removal of apt packages lists from minimal and stripped hook
     to lh_chroot_sources, thanks to Ben Armstrong <synrg@debian.org>.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 12 Jan 2009 13:00:00 -0500
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 12 Jan 2009 13:00:00 -0500
 
 live-helper (1.0.2-3) unstable; urgency=medium
 
@@ -3895,7 +3895,7 @@ live-helper (1.0.2-3) unstable; urgency=medium
     up with a local resolv.conf in the final image. Thanks to Ben Armstrong
     <synrg@debian.org>.
 
- -- Daniel Baumann <daniel@debian.org>  Sat, 10 Jan 2009 15:00:00 -0500
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 10 Jan 2009 15:00:00 -0500
 
 live-helper (1.0.2-2) unstable; urgency=medium
 
@@ -3904,7 +3904,7 @@ live-helper (1.0.2-2) unstable; urgency=medium
   * Marking pstack in rescuelist as i386 only.
   * Updating location of archive key in in image autobuild script.
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 26 Dec 2008 09:00:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 26 Dec 2008 09:00:00 +0100
 
 live-helper (1.0.2-1) unstable; urgency=medium
 
@@ -3913,7 +3913,7 @@ live-helper (1.0.2-1) unstable; urgency=medium
   * Updating udeb data.
   * Updating cd includes.
 
- -- Daniel Baumann <daniel@debian.org>  Sat, 20 Dec 2008 15:00:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 20 Dec 2008 15:00:00 +0100
 
 live-helper (1.0.1-4) unstable; urgency=medium
 
@@ -3937,7 +3937,7 @@ live-helper (1.0.1-4) unstable; urgency=medium
   [ Marco Amadori ]
   * NEW: "binary_debian-installer-includes" config directory.
 
- -- Daniel Baumann <daniel@debian.org>  Thu, 11 Dec 2008 06:00:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 11 Dec 2008 06:00:00 +0100
 
 live-helper (1.0.1-3) unstable; urgency=medium
 
@@ -3959,7 +3959,7 @@ live-helper (1.0.1-3) unstable; urgency=medium
     correct owner and permissions, we set them manually on /home/user as
     it's likely that anybody will forget it (Closes: #506553).
 
- -- Daniel Baumann <daniel@debian.org>  Tue, 25 Nov 2008 12:00:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 25 Nov 2008 12:00:00 +0100
 
 live-helper (1.0.1-2) unstable; urgency=medium
 
@@ -4077,7 +4077,7 @@ live-helper (1.0.1-2) unstable; urgency=medium
   [ Kai Hendry ]
   * Removing etch-only madwifi-doc package from madwifi example hook.
 
- -- Daniel Baumann <daniel@debian.org>  Tue, 11 Nov 2008 13:00:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 11 Nov 2008 13:00:00 +0100
 
 live-helper (1.0.1-1) unstable; urgency=medium
 
@@ -4150,7 +4150,7 @@ live-helper (1.0.1-1) unstable; urgency=medium
   [ Marco Amadori ]
   * Splitted "longoptions" in various lines.
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 19 Sep 2008 14:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 19 Sep 2008 14:00:00 +0200
 
 live-helper (1.0.0-2) unstable; urgency=medium
 
@@ -4185,7 +4185,7 @@ live-helper (1.0.0-2) unstable; urgency=medium
   [ Marco Amadori ]
   * Fixed 2 typos in getopt longoptions string.
 
- -- Daniel Baumann <daniel@debian.org>  Mon,  1 Sep 2008 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon,  1 Sep 2008 00:00:00 +0200
 
 live-helper (1.0.0-1) unstable; urgency=medium
 
@@ -4323,7 +4323,7 @@ live-helper (1.0.0-1) unstable; urgency=medium
   * Adding missing debian-installer options in lh_config --help message.
   * Improving message when using default values in /etc/default/live-helper.
 
- -- Daniel Baumann <daniel@debian.org>  Sun, 24 Aug 2008 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 24 Aug 2008 00:00:00 +0200
 
 live-helper (1.0~a48-1) unstable; urgency=medium
 
@@ -4431,7 +4431,7 @@ live-helper (1.0~a48-1) unstable; urgency=medium
   * Added support for /etc/live-helper.
   * Removed a useless space.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 14 Jul 2008 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 14 Jul 2008 00:00:00 +0200
 
 live-helper (1.0~a47-1) unstable; urgency=medium
 
@@ -4452,7 +4452,7 @@ live-helper (1.0~a47-1) unstable; urgency=medium
   * Updating udeb include/exclude files from debian-cd.
   * Reverting previous commit to compress build logs.
 
- -- Daniel Baumann <daniel@debian.org>  Mon,  9 Jun 2008 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon,  9 Jun 2008 00:00:00 +0200
 
 live-helper (1.0~a46-2) unstable; urgency=medium
 
@@ -4471,7 +4471,7 @@ live-helper (1.0~a46-2) unstable; urgency=medium
   * Only install sysutils on Etch in rescue list
   * Only install read-edid on i386 and powerpc in rescue list
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 28 Apr 2008 18:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 28 Apr 2008 18:00:00 +0200
 
 live-helper (1.0~a46-1) unstable; urgency=low
 
@@ -4505,7 +4505,7 @@ live-helper (1.0~a46-1) unstable; urgency=low
   * Getting architecture dynamically in images cron script.
   * Correcting permissions in snapshot script.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 28 Apr 2008 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 28 Apr 2008 00:00:00 +0200
 
 live-helper (1.0~a45-1) unstable; urgency=medium
 
@@ -4539,7 +4539,7 @@ live-helper (1.0~a45-1) unstable; urgency=medium
   * Adjusting Save_cache(); to skip already cached .deb files and only
     copying new packages to it.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 21 Apr 2008 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 21 Apr 2008 00:00:00 +0200
 
 live-helper (1.0~a44-1) unstable; urgency=medium
 
@@ -4567,7 +4567,7 @@ live-helper (1.0~a44-1) unstable; urgency=medium
   * Also adding a packages.txt when building etch images, although there
     is a casper/filesystem.manifest already.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 14 Apr 2008 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 14 Apr 2008 00:00:00 +0200
 
 live-helper (1.0~a43-1) unstable; urgency=medium
 
@@ -4583,7 +4583,7 @@ live-helper (1.0~a43-1) unstable; urgency=medium
   * Removing temporary workaround of adding lzma-modules2.6 to linux
     packages, all fixed squashfs are now in sid and lenny.
 
- -- Daniel Baumann <daniel@debian.org>  Mon,  7 Apr 2008 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon,  7 Apr 2008 00:00:00 +0200
 
 live-helper (1.0~a42-1) unstable; urgency=medium
 
@@ -4594,7 +4594,7 @@ live-helper (1.0~a42-1) unstable; urgency=medium
     Check_crossarchitecture() working on non-listed architectures
     (Closes: #472775).
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 31 Mar 2008 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 31 Mar 2008 00:00:00 +0200
 
 live-helper (1.0~a41-1) unstable; urgency=medium
 
@@ -4632,7 +4632,7 @@ live-helper (1.0~a41-1) unstable; urgency=medium
   [ Cyril Brulebois ]
   * Fix various typos.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 24 Mar 2008 00:00:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 24 Mar 2008 00:00:00 +0100
 
 live-helper (1.0~a40-1) unstable; urgency=medium
 
@@ -4662,7 +4662,7 @@ live-helper (1.0~a40-1) unstable; urgency=medium
   * functions/losetup.sh: use SECTORS as variable name to reflect the
     real usage
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 10 Mar 2008 00:00:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 10 Mar 2008 00:00:00 +0100
 
 live-helper (1.0~a39-1) unstable; urgency=medium
 
@@ -4694,7 +4694,7 @@ live-helper (1.0~a39-1) unstable; urgency=medium
   * Also handling ext3 in lh_binary_rootfs, thanks to Bas Wijnen
     <wijnen@debian.org> (Closes: #468902).
 
- -- Daniel Baumann <daniel@debian.org>  Mon,  3 Mar 2008 00:00:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon,  3 Mar 2008 00:00:00 +0100
 
 live-helper (1.0~a38-1) unstable; urgency=medium
 
@@ -4788,13 +4788,13 @@ live-helper (1.0~a38-1) unstable; urgency=medium
   * lh_binary_encryption: add jffs2 as not supported filesystem
   * lh_binary_rootfs: add support to generate jffs2 filesystem
 
- -- Daniel Baumann <daniel@debian.org>  Tue, 26 Feb 2008 13:33:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 26 Feb 2008 13:33:00 +0100
 
 live-helper (1.0~a37-2) unstable; urgency=medium
 
   * Disabling global arguments in lh_clean (Closes: #451960).
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 19 Nov 2007 18:00:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 19 Nov 2007 18:00:00 +0100
 
 live-helper (1.0~a37-1) unstable; urgency=medium
 
@@ -4838,7 +4838,7 @@ live-helper (1.0~a37-1) unstable; urgency=medium
   * Rewritten lh_config manpage.
   * Rewritten lh_testroot manpage.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 19 Nov 2007 00:00:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 19 Nov 2007 00:00:00 +0100
 
 live-helper (1.0~a36-1) unstable; urgency=medium
 
@@ -4884,7 +4884,7 @@ live-helper (1.0~a36-1) unstable; urgency=medium
     needs some other changes before it can safely be done.
   * Adding 'remove' case, which is in between of all and purge.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 12 Nov 2007 00:00:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 12 Nov 2007 00:00:00 +0100
 
 live-helper (1.0~a35-1) unstable; urgency=medium
 
@@ -4910,7 +4910,7 @@ live-helper (1.0~a35-1) unstable; urgency=medium
   * fix isolinux when booting multiple kernel flavours
   * add new option --syslinux-menu to enable syslinux menu
 
- -- Daniel Baumann <daniel@debian.org>  Mon,  5 Nov 2007 00:00:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon,  5 Nov 2007 00:00:00 +0100
 
 live-helper (1.0~a34-1) unstable; urgency=medium
 
@@ -4932,7 +4932,7 @@ live-helper (1.0~a34-1) unstable; urgency=medium
   * Fixed lh_config tool name in manpage.
   * Avoid [Y/n] query on package autoremove in "mini" hook.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 29 Oct 2007 00:00:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 29 Oct 2007 00:00:00 +0100
 
 live-helper (1.0~a33-1) unstable; urgency=medium
 
@@ -4955,7 +4955,7 @@ live-helper (1.0~a33-1) unstable; urgency=medium
   * Remove ".img" from kernel image file name.
   * Added feature to exclude paths from the root filesystem.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 22 Oct 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 22 Oct 2007 00:00:00 +0200
 
 live-helper (1.0~a32-1) unstable; urgency=medium
 
@@ -4988,7 +4988,7 @@ live-helper (1.0~a32-1) unstable; urgency=medium
   * lh_binary_syslinux: always put splash image as splash.{rle,png} to avoid
     filename issues
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 15 Oct 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 15 Oct 2007 00:00:00 +0200
 
 live-helper (1.0~a31-1) unstable; urgency=medium
 
@@ -5011,7 +5011,7 @@ live-helper (1.0~a31-1) unstable; urgency=medium
     not exists
   * syslinux: fix usb-hdd templates coping
 
- -- Daniel Baumann <daniel@debian.org>  Mon,  8 Oct 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon,  8 Oct 2007 00:00:00 +0200
 
 live-helper (1.0~a30-1) unstable; urgency=medium
 
@@ -5047,7 +5047,7 @@ live-helper (1.0~a30-1) unstable; urgency=medium
   * debian/control: use XS-Homepage to avoid errors while calling dpkg-
     gencontrol
 
- -- Daniel Baumann <daniel@debian.org>  Mon,  1 Oct 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon,  1 Oct 2007 00:00:00 +0200
 
 live-helper (1.0~a29-1) unstable; urgency=medium
 
@@ -5057,31 +5057,31 @@ live-helper (1.0~a29-1) unstable; urgency=medium
     - Fixed typing error in lh_binary_syslinux, thanks to Jean Pierre LeJacq
       <jp.lejacq@quoininc.com> (Closes: #443099).
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 24 Sep 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 24 Sep 2007 00:00:00 +0200
 
 live-helper (1.0~a28-1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 17 Sep 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 17 Sep 2007 00:00:00 +0200
 
 live-helper (1.0~a27-1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 10 Sep 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 10 Sep 2007 00:00:00 +0200
 
 live-helper (1.0~a26-1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon,  3 Sep 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon,  3 Sep 2007 00:00:00 +0200
 
 live-helper (1.0~a25-1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 27 Aug 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 27 Aug 2007 00:00:00 +0200
 
 live-helper (1.0~a24-1) unstable; urgency=medium
 
@@ -5089,13 +5089,13 @@ live-helper (1.0~a24-1) unstable; urgency=medium
     - lh_clean accepts more than one argument at the same time
       (Closes: #439947).
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 20 Aug 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 20 Aug 2007 00:00:00 +0200
 
 live-helper (1.0~a23-1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 13 Aug 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 13 Aug 2007 00:00:00 +0200
 
 live-helper (1.0~a22-1) unstable; urgency=medium
 
@@ -5105,20 +5105,20 @@ live-helper (1.0~a22-1) unstable; urgency=medium
       lh_binary_yaboot to work under dash (Closes: #431748).
     - Using fake hostname instead of setting it at build-time (Closes: #435699).
 
- -- Daniel Baumann <daniel@debian.org>  Mon,  6 Aug 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon,  6 Aug 2007 00:00:00 +0200
 
 live-helper (1.0~a21-1) unstable; urgency=medium
 
   * New upstream release:
     - Suppresses xorg configuration in chroot (Closes: #430566).
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 30 Jul 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 30 Jul 2007 00:00:00 +0200
 
 live-helper (1.0~a20-1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 23 Jul 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 23 Jul 2007 00:00:00 +0200
 
 live-helper (1.0~a19-1) unstable; urgency=medium
 
@@ -5126,72 +5126,72 @@ live-helper (1.0~a19-1) unstable; urgency=medium
     - Supports using packages from the build host (Closes: #433611).
     - Adds destdir to default entries in grub (Closes: #433612).
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 16 Jul 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 16 Jul 2007 00:00:00 +0200
 
 live-helper (1.0~a18-1) unstable; urgency=medium
 
   * New upstream release:
     - Dropping transitional package, not needed anymore.
 
- -- Daniel Baumann <daniel@debian.org>  Mon,  9 Jul 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon,  9 Jul 2007 00:00:00 +0200
 
 live-helper (1.0~a17-1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon,  2 Jul 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon,  2 Jul 2007 00:00:00 +0200
 
 live-helper (1.0~a16-1) unstable; urgency=medium
 
   * New upstream release:
     - Caches also linux-image packages (Closes: #430511).
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 25 Jun 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 25 Jun 2007 00:00:00 +0200
 
 live-helper (1.0~a15-1) unstable; urgency=medium
 
   * New upstream release:
     - corrected wrong project name in examples/sources/fai (Closes: #428360).
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 18 Jun 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 18 Jun 2007 00:00:00 +0200
 
 live-helper (1.0~a14-1) unstable; urgency=medium
 
   * New upstream release:
     - fixes typo in manpage (Closes: #428192).
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 11 Jun 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 11 Jun 2007 00:00:00 +0200
 
 live-helper (1.0~a13-1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon,  4 Jun 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon,  4 Jun 2007 00:00:00 +0200
 
 live-helper (1.0~a12-1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 28 May 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 28 May 2007 00:00:00 +0200
 
 live-helper (1.0~a11-1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 21 May 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 21 May 2007 00:00:00 +0200
 
 live-helper (1.0~a10-1) unstable; urgency=medium
 
   * New upstream release:
     - really removed forgotten set -x in the cron (Closes: #421105).
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 14 May 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 14 May 2007 00:00:00 +0200
 
 live-helper (1.0~a9-1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon,  7 May 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon,  7 May 2007 00:00:00 +0200
 
 live-helper (1.0~a8-1) unstable; urgency=medium
 
@@ -5199,7 +5199,7 @@ live-helper (1.0~a8-1) unstable; urgency=medium
     - updated syslinux templates (Closes: #399658).
     - removed forgotten set -x in the cron (Closes: #421105).
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 30 Apr 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 30 Apr 2007 00:00:00 +0200
 
 live-helper (1.0~a7-1) unstable; urgency=medium
 
@@ -5208,73 +5208,73 @@ live-helper (1.0~a7-1) unstable; urgency=medium
       (Closes: #394334, #410147).
     - supporting sudo (Closes: #387069).
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 23 Apr 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 23 Apr 2007 00:00:00 +0200
 
 live-helper (1.0~a6-1) unstable; urgency=low
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 16 Apr 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 16 Apr 2007 00:00:00 +0200
 
 live-helper (1.0~a5-1) unstable; urgency=low
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon,  9 Apr 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon,  9 Apr 2007 00:00:00 +0200
 
 live-helper (1.0~a4-1) unstable; urgency=low
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon,  2 Apr 2007 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon,  2 Apr 2007 00:00:00 +0200
 
 live-helper (1.0~a3-2) unstable; urgency=low
 
   * New upstream snapshot.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 26 Mar 2007 17:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 26 Mar 2007 17:00:00 +0200
 
 live-helper (1.0~a3-1) unstable; urgency=low
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 26 Mar 2007 00:00:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 26 Mar 2007 00:00:00 +0100
 
 live-helper (1.0~a2-1) unstable; urgency=low
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 19 Mar 2007 00:00:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 19 Mar 2007 00:00:00 +0100
 
 live-helper (1.0~a1-3) unstable; urgency=low
 
   * New upstream snapshot.
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 14 Mar 2007 21:00:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 14 Mar 2007 21:00:00 +0100
 
 live-helper (1.0~a1-2) unstable; urgency=low
 
   * New upstream snapshot.
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 14 Mar 2007 18:00:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 14 Mar 2007 18:00:00 +0100
 
 live-helper (1.0~a1-1) unstable; urgency=low
 
   * Initial release, replacing live-package.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 12 Mar 2007 00:00:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 12 Mar 2007 00:00:00 +0100
 
 live-package (0.99.26-1) unstable; urgency=low
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Fri,  9 Mar 2007 12:27:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri,  9 Mar 2007 12:27:00 +0100
 
 live-package (0.99.25-1) unstable; urgency=low
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Fri,  9 Mar 2007 01:49:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri,  9 Mar 2007 01:49:00 +0100
 
 live-package (0.99.24-1) unstable; urgency=low
 
@@ -5282,26 +5282,26 @@ live-package (0.99.24-1) unstable; urgency=low
     - adds LIVE_INCLUDE_CHROOT to the manual exported variables as reported by
       Mathieu Geli <mathieu.geli@gmail.com> (Closes: #412325).
 
- -- Daniel Baumann <daniel@debian.org>  Sun,  3 Mar 2007 12:25:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun,  3 Mar 2007 12:25:00 +0100
 
 live-package (0.99.23-1) unstable; urgency=low
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 21 Feb 2007 22:08:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 21 Feb 2007 22:08:00 +0100
 
 live-package (0.99.22-1) unstable; urgency=low
 
   * New upstream release:
     - updates manpage (Closes: #411008).
 
- -- Daniel Baumann <daniel@debian.org>  Fri, 16 Feb 2007 20:38:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 16 Feb 2007 20:38:00 +0100
 
 live-package (0.99.21-1) unstable; urgency=low
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 12 Feb 2007 15:06:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 12 Feb 2007 15:06:00 +0100
 
 live-package (0.99.20-1) unstable; urgency=low
 
@@ -5309,31 +5309,31 @@ live-package (0.99.20-1) unstable; urgency=low
     - Fixed manual pruning in minimal flavour as suggested by
       Bas Wijnen <wijnen@debian.org> (Closes: #410040).
 
- -- Daniel Baumann <daniel@debian.org>  Thu,  1 Feb 2007 17:35:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu,  1 Feb 2007 17:35:00 +0100
 
 live-package (0.99.19-1) unstable; urgency=low
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 31 Jan 2007 12:38:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 31 Jan 2007 12:38:00 +0100
 
 live-package (0.99.18-1) unstable; urgency=low
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Thu, 25 Jan 2007 08:29:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 25 Jan 2007 08:29:00 +0100
 
 live-package (0.99.17-1) unstable; urgency=low
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Wed, 24 Jan 2007 22:18:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 24 Jan 2007 22:18:00 +0100
 
 live-package (0.99.16-1) unstable; urgency=low
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Thu, 18 Jan 2007 16:25:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 18 Jan 2007 16:25:00 +0100
 
 live-package (0.99.15-1) unstable; urgency=low
 
@@ -5342,7 +5342,7 @@ live-package (0.99.15-1) unstable; urgency=low
       again from the kernel point of view (Closes: #400457).
     - added file to the minimal package list (Closes: #400485).
 
- -- Daniel Baumann <daniel@debian.org>  Tue, 16 Jan 2007 21:24:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 16 Jan 2007 21:24:00 +0100
 
 live-package (0.99.14-4) testing; urgency=medium
 
@@ -5351,7 +5351,7 @@ live-package (0.99.14-4) testing; urgency=medium
   * 14chroot.sh: Fixed misspelling of aptitude.
   * main.sh: Updated release codenames to match etch.
 
- -- Daniel Baumann <daniel@debian.org>  Thu,  8 Mar 2007 10:55:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu,  8 Mar 2007 10:55:00 +0100
 
 live-package (0.99.14-3) unstable; urgency=high
 
@@ -5360,13 +5360,13 @@ live-package (0.99.14-3) unstable; urgency=high
     information.
   * Adding xdebconfigurator to all X11 package lists.
 
- -- Daniel Baumann <daniel@debian.org>  Fri,  5 Jan 2007 22:34:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri,  5 Jan 2007 22:34:00 +0100
 
 live-package (0.99.14-2) unstable; urgency=high
 
   * Adding workaround for initrd backup files (Closes: #404314).
 
- -- Daniel Baumann <daniel@debian.org>  Thu,  4 Jan 2007 20:52:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu,  4 Jan 2007 20:52:00 +0100
 
 live-package (0.99.14-1) unstable; urgency=medium
 
@@ -5378,13 +5378,13 @@ live-package (0.99.14-1) unstable; urgency=medium
     - fixes script sourcing to exclude files in .svn (Closes: #396861),
       thanks to Markus Bauer <bauer-markus@web.de>.
 
- -- Daniel Baumann <daniel@debian.org>  Mon,  6 Nov 2006 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon,  6 Nov 2006 00:00:00 +0200
 
 live-package (0.99.13-1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 30 Oct 2006 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 30 Oct 2006 00:00:00 +0200
 
 live-package (0.99.12-1) unstable; urgency=medium
 
@@ -5392,19 +5392,19 @@ live-package (0.99.12-1) unstable; urgency=medium
     - Reverted mangling of LIVE_DISTRIBUTION for sources.list generation
       (Closes: #394226).
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 23 Oct 2006 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 23 Oct 2006 00:00:00 +0200
 
 live-package (0.99.11-1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 16 Oct 2006 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 16 Oct 2006 00:00:00 +0200
 
 live-package (0.99.10-1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon,  9 Oct 2006 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon,  9 Oct 2006 00:00:00 +0200
 
 live-package (0.99.9-1) unstable; urgency=medium
 
@@ -5412,13 +5412,13 @@ live-package (0.99.9-1) unstable; urgency=medium
     - adds support for custom repositories (Closes: #387068).
     - using proxy for chroot creating too (Closes: #390378).
 
- -- Daniel Baumann <daniel@debian.org>  Mon,  2 Oct 2006 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon,  2 Oct 2006 00:00:00 +0200
 
 live-package (0.99.8-1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 25 Sep 2006 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 25 Sep 2006 00:00:00 +0200
 
 live-package (0.99.7-1) unstable; urgency=medium
 
@@ -5430,21 +5430,21 @@ live-package (0.99.7-1) unstable; urgency=medium
     - fixes package list handling similar to the fix suggested by Alex Owen
       <r.alex.owen@gmail.com> (Closes: #388060).
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 18 Sep 2006 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 18 Sep 2006 00:00:00 +0200
 
 live-package (0.99.6-1) unstable; urgency=medium
 
   * New upstream release:
     - fixing netboot.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 11 Sep 2006 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 11 Sep 2006 00:00:00 +0200
 
 live-package (0.99.5-1) unstable; urgency=low
 
   * New upstream release.
   * Set maintainer to the project list.
 
- -- Daniel Baumann <daniel@debian.org>  Mon,  4 Sep 2006 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon,  4 Sep 2006 00:00:00 +0200
 
 live-package (0.99.4-1) unstable; urgency=low
 
@@ -5454,7 +5454,7 @@ live-package (0.99.4-1) unstable; urgency=low
     - Temporarily hacks xorg configuration file to remove BusID and set
       default driver to vesa (Closes: #382391).
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 28 Aug 2006 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 28 Aug 2006 00:00:00 +0200
 
 live-package (0.99.3-1) unstable; urgency=low
 
@@ -5462,22 +5462,22 @@ live-package (0.99.3-1) unstable; urgency=low
     - fixed configuration file handling (Closes: #384598).
   * Update long descriptiong (Closes: #382473).
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 21 Aug 2006 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 21 Aug 2006 00:00:00 +0200
 
 live-package (0.99.2-1) unstable; urgency=low
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 31 Jul 2006 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 31 Jul 2006 00:00:00 +0200
 
 live-package (0.99.1-1) unstable; urgency=low
 
   * New upstream release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 24 Jul 2006 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 24 Jul 2006 00:00:00 +0200
 
 live-package (0.99-1) unstable; urgency=low
 
   * Initial release.
 
- -- Daniel Baumann <daniel@debian.org>  Mon, 17 Jul 2006 00:00:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 17 Jul 2006 00:00:00 +0200
