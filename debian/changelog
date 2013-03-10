@@ -1,3 +1,27 @@
+live-build (4.0~a14-1) experimental; urgency=low
+
+  [ Richard Nelson ]
+  * Add sanity check on config type to build for l-b-cgi.
+  * Add _CGI_CONFIG_APPEND varialbe for appending options to lb config
+    call on l-b-cgi frontend.
+  * Change _CGI_CONFIG_APPEND to front of the lb config call on l-b-cgi
+    frontend.
+  * Removing quotes around _CGI_CONFIG_APPEND to handle multiple
+    parameters correctly on l-b-cgi frontend.
+  * Adding binary image type to config call on l-b-cgi frontend.
+  * Add log information of git:://url for l-b-cgi frontend.
+  * Append to log file on errors and not truncate the file on l-b-cgi
+    frontend.
+
+  [ Daniel Baumann ]
+  * Correcting spelling typos, thanks to Adam D. Barratt <adam@adam-
+    barratt.org.uk>.
+
+  [ Raphaël Hertzog ]
+  * Fixing win32-loader.ini by including the GTK related entries.
+
+ -- Daniel Baumann <daniel@debian.org>  Sun, 10 Mar 2013 19:06:14 +0100
+
 live-build (4.0~a13-1) experimental; urgency=low
 
   [ Daniel Baumann ]
