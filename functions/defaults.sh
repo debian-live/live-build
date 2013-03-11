@@ -977,7 +977,7 @@ Set_defaults ()
 	esac
 
 	# Set iso preparer
-	LB_ISO_PREPARER="${LB_ISO_PREPARER:-live-build \$VERSION; http://packages.qa.debian.org/live-build}"
+	LB_ISO_PREPARER="${LB_ISO_PREPARER:-live-build \$VERSION; http://live-systems.org/devel/live-build}"
 
 	# Set iso publisher
 	case "${LB_MODE}" in
@@ -986,7 +986,7 @@ Set_defaults ()
 			;;
 
 		*)
-			LB_ISO_PUBLISHER="${LB_ISO_PUBLISHER:-Debian Live project; http://live.debian.net/; debian-live@lists.debian.org}"
+			LB_ISO_PUBLISHER="${LB_ISO_PUBLISHER:-Live Systems project; http://live-systems.org/; debian-live@lists.debian.org}"
 			;;
 	esac
 

@@ -194,10 +194,10 @@ EOF
 		then
 			for REPOSITORY in ${LB_ARCHIVES}
 			do
-				# ubuntu workaround to allow using live.debian.net
+				# ubuntu workaround to allow using live-systems.org
 				case "${LB_MODE}" in
 					ubuntu)
-						if [ "${REPOSITORY}" = "live.debian.net" ]
+						if [ "${REPOSITORY}" = "live-systems.org" ]
 						then
 							_DISTRIBUTION="sid"
 						else

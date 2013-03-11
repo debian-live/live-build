@@ -1,13 +1,13 @@
 Source: live-build
 Section: misc
 Priority: optional
-Maintainer: Debian Live Project <debian-live@lists.debian.org>
+Maintainer: Live Systems Maintainers <debian-live@lists.debian.org>
 Uploaders: Daniel Baumann <mail@daniel-baumann.ch>
 Build-Depends: debhelper (>= 9)
 Standards-Version: 3.9.4
-Homepage: http://live.debian.net/devel/live-build/
-Vcs-Browser: http://live.debian.net/gitweb/?p=live-build.git
-Vcs-Git: git://live.debian.net/git/live-build.git
+Homepage: http://live-systems.org/devel/live-build/
+Vcs-Browser: http://live-systems.org/gitweb/?p=live-build.git
+Vcs-Git: git://live-systems.org/git/live-build.git
 
 Package: live-build
 Architecture: all

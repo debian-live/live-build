@@ -40,7 +40,7 @@ Set_defaults
 # Avoid cases were users accidentally nuke their config/binary
 if [ ! -d config ] && [ "$(basename ${PWD})" = "config" ]
 then
-	Echo_error "%s is not a good Debian Live working directory to clean." "${PWD}"
+	Echo_error "%s is not a good live-build working directory to clean." "${PWD}"
 	exit 1
 fi
 

@@ -31,6 +31,6 @@ Help ()
 		echo
 	fi
 
-	Echo "Report bugs to Debian Live project <http://live.debian.net/>."
+	Echo "Report bugs to the Live Systems project <http://live-systems.org/>."
 	exit 0
 }

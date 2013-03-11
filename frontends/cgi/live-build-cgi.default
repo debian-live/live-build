@@ -10,7 +10,7 @@ _DESTDIR="/srv/debian-live/build/www"
 _TEMPLATES="/usr/share/live/build/templates/cgi/${_MODE}"
 _TEMPDIR="/srv/debian-live/build/tmp"
 
-_SERVER="http://live.debian.net/build"
+_SERVER="http://live-systems.org/build"
 
 _LB_GIT="git://live-systems.org/git/live-images.git"
 

@@ -14,7 +14,7 @@ set -e
 [ -e "${LIVE_BUILD}/scripts/build.sh" ] && . "${LIVE_BUILD}/scripts/build.sh" || . /usr/lib/live/build.sh
 
 # Setting static variables
-DESCRIPTION="$(Echo 'utility to build Debian Live systems')"
+DESCRIPTION="$(Echo 'utility to build live systems')"
 HELP="FIXME"
 USAGE="FIXME"
 
