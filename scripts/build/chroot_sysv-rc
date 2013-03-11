@@ -40,10 +40,10 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ -f chroot/usr/sbin/policy-rc.d ]
+		if [ -e chroot/usr/sbin/policy-rc.d ]
 		then
 			# Save policy-rc.d file
-			mv chroot/usr/sbin/policy-rc.d chroot/usr/sbin/policy-rc.d.orig
+			Chroot chroot dpkg-divert --rename --quiet --add /usr/sbin/policy-rc.d
 		fi
 
 		# Create policy-rc.d file
@@ -68,13 +68,13 @@ EOF
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ -f chroot/usr/sbin/policy-rc.d.orig ]
+		# Remove custom policy-rc.d file
+		rm -f chroot/usr/sbin/policy-rc.d
+
+		if [ -e chroot/usr/sbin/policy-rc.d.distrib ]
 		then
 			# Restore policy-rc.d file
-			mv chroot/usr/sbin/policy-rc.d.orig chroot/usr/sbin/policy-rc.d
-		else
-			# Remove policy-rc.d file
-			rm -f chroot/usr/sbin/policy-rc.d
+			Chroot chroot dpkg-divert --rename --quiet --remove /usr/sbin/policy-rc.d
 		fi
 
 		# Removing stage file
