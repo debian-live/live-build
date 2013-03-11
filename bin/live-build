@@ -22,17 +22,16 @@
 
 set -e
 
-# Including common functions
-[ -e "${LIVE_BUILD}/scripts/build.sh" ] && . "${LIVE_BUILD}/scripts/build.sh" || . /usr/lib/live/build.sh
-
 if [ -x "$(which man 2>/dev/null)" ]
 then
 	man live-build
-	exit 0
 else
-	Echo "live-build contains the scripts that build a live system from a configuration directory."
-	echo
-	Echo "An introduction to live-build can be found in the live-build(7) manpage."
 
-	exit 0
+cat << EOF
+live-build contains the scripts that build a live system from a configuration
+directory.
+
+An introduction to live-build can be found in the live-build(7) manpage.
+EOF
+
 fi
