@@ -59,6 +59,9 @@ EOF
 
 		# Manual hacks for special packages
 
+		# Generic live-build handle for other live packages to act upon
+		touch chroot/.live-build
+
 		# samhain
 		if [ -e /var/state/samhain/samhain_file ]
 		then
@@ -86,6 +89,9 @@ EOF
 		Create_lockfile .lock
 
 		# Manual hacks for special packages
+
+		# Generic live-build handle
+		rm -f chroot/.live-build
 
 		# flash-kernel
 		rm -f chroot/usr/sbin/flash-kernel
