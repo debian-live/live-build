@@ -20,7 +20,7 @@ Suggests:
  mtools, parted, squashfs-tools | mtd-tools, syslinux | grub,
  uuid-runtime, win32-loader
 Description: Live System Build Scripts
- live-build contains the scripts that build a live system from a configuration
+ live-build contains the scripts to build a live system from a configuration
  directory.
 
 Package: live-build-cgi
@@ -28,7 +28,7 @@ Architecture: all
 Depends: ${misc:Depends}, live-build (= ${source:Version})
 Recommends: apache2 | httpd, cron
 Description: Live System Build Scripts (CGI frontend)
- live-build contains the scripts that build a live system from a configuration
+ live-build contains the scripts to build a live system from a configuration
  directory.
  .
  This package contains the CGI frontend (experimental!).

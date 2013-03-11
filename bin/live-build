@@ -28,7 +28,7 @@ then
 else
 
 cat << EOF
-live-build contains the scripts that build a live system from a configuration
+live-build contains the scripts to build a live system from a configuration
 directory.
 
 An introduction to live-build can be found in the live-build(7) manpage.
