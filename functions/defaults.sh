@@ -1032,7 +1032,7 @@ Set_defaults ()
 	esac
 
 	# Setting memtest option
-	LB_MEMTEST="${LB_MEMTEST:-memtest86+}"
+	LB_MEMTEST="${LB_MEMTEST:-none}"
 
 	# Setting loadlin option
 	case "${LB_MODE}" in
