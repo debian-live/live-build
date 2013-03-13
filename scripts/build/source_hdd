@@ -105,28 +105,32 @@ case "${LB_BINARY_FILESYSTEM}" in
 	ext2|ext3|ext4)
 		MKFS="${LB_BINARY_FILESYSTEM}"
 		MKFS_OPTIONS="-L ${LB_HDD_LABEL} -m 0"
+		MOUNT_OPTIONS=""
 		;;
 
 	fat16)
 		MKFS="vfat"
 		MKFS_OPTIONS="-F 16 -n ${LB_HDD_LABEL}"
+		MOUNT_OPTIONS=""
 		;;
 
 	fat32)
 		MKFS="vfat"
 		MKFS_OPTIONS="-F 32 -n ${LB_HDD_LABEL}"
+		MOUNT_OPTIONS=""
 		;;
 
 	ntfs)
 		MKFS="ntfs"
 		MKFS_OPTIONS="-L ${LB_HDD_LABEL}"
+		MOUNT_OPTIONS="-t ntfs-3g"
 		;;
 esac
 
 Chroot chroot "mkfs.${MKFS} ${MKFS_OPTIONS} ${FREELO}"
 
 mkdir -p source.tmp
-mount ${FREELO} source.tmp
+mount ${MOUNT_OPTIONS} ${FREELO} source.tmp
 cp -r source/* source.tmp
 umount source.tmp
 rmdir source.tmp
