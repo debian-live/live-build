@@ -1170,6 +1170,18 @@ Check_defaults ()
 		fi
 	fi
 
+	case "${LB_BINARY_FILESYSTEM}" in
+		ntfs)
+			if [ ! -x "$(which ntfs-3g 2>/dev/null)" ]
+			then
+				Echo_error "Using ntfs as the binary filesystem is currently only supported"
+				Echo_error "if ntfs-3g is installed on the host system."
+
+				exit 1
+			fi
+			;;
+	esac
+
 	if echo ${LB_HDD_LABEL} | grep -qs ' '
 	then
 		Echo_error "There are currently no whitespaces supported in hdd labels."
