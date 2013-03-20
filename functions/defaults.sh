@@ -456,23 +456,6 @@ Set_defaults ()
 			;;
 	esac
 
-	# Setting backports mirror to fetch packages from
-	case "${LB_MODE}" in
-		debian)
-			LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-http://backports.debian.org/debian-backports/}"
-			LB_PARENT_MIRROR_CHROOT_BACKPORTS="${LB_PARENT_MIRROR_CHROOT_BACKPORTS:-${LB_MIRROR_CHROOT_BACKPORTS}}"
-			;;
-
-		progress-linux)
-			LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-${LB_MIRROR_CHROOT}}"
-			;;
-
-		*)
-			LB_PARENT_MIRROR_CHROOT_BACKPORTS="${LB_PARENT_MIRROR_CHROOT_BACKPORTS:-none}"
-			LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-none}"
-			;;
-	esac
-
 	# Setting mirror which ends up in the image
 	case "${LB_MODE}" in
 		debian)
@@ -565,23 +548,6 @@ Set_defaults ()
 
 		*)
 			LB_PARENT_MIRROR_BINARY_UPDATES="${LB_PARENT_MIRROR_BINARY_UPDATES:-none}"
-			;;
-	esac
-
-	# Setting backports mirror which ends up in the image
-	case "${LB_MODE}" in
-		debian)
-			LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-http://http.debian.net/debian-backports/}"
-			LB_PARENT_MIRROR_BINARY_BACKPORTS="${LB_PARENT_MIRROR_BINARY_BACKPORTS:-${LB_MIRROR_BINARY_BACKPORTS}}"
-			;;
-
-		progress-linux)
-			LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-${LB_MIRROR_BINARY}}"
-			;;
-
-		*)
-			LB_PARENT_MIRROR_BINARY_BACKPORTS="${LB_PARENT_MIRROR_BINARY_BACKPORTS:-none}"
-			LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-none}"
 			;;
 	esac
 

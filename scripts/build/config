@@ -85,21 +85,17 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--parent-mirror-chroot URL]\n\
 \t    [--parent-mirror-chroot-security URL]\n\
 \t    [--parent-mirror-chroot-updates URL]\n\
-\t    [--parent-mirror-chroot-backports URL]\n\
 \t    [--parent-mirror-binary URL]\n\
 \t    [--parent-mirror-binary-security URL]\n\
 \t    [--parent-mirror-binary-updates URL]\n\
-\t    [--parent-mirror-binary-backports URL]\n\
 \t    [--parent-mirror-debian-installer URL]\n\
 \t    [--mirror-bootstrap URL]\n\
 \t    [--mirror-chroot URL]\n\
 \t    [--mirror-chroot-security URL]\n\
 \t    [--mirror-chroot-updates URL]\n\
-\t    [--mirror-chroot-backports URL]\n\
 \t    [--mirror-binary URL]\n\
 \t    [--mirror-binary-security URL]\n\
 \t    [--mirror-binary-updates URL]\n\
-\t    [--mirror-binary-backports URL]\n\
 \t    [--mirror-debian-installer URL]\n\
 \t    [--mode debian|emdebian|ubuntu]\n\
 \t    [--system live|normal]\n\
@@ -143,10 +139,10 @@ Local_arguments ()
 		cache-stages:,debconf-frontend:,debconf-priority:,dump,
 		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,system:,tasksel:,
 		templates:,architectures:,clean,
-		distribution:,parent-distribution:,parent-debian-installer-distribution:,parent-mirror-bootstrap:,parent-mirror-chroot:,parent-mirror-chroot-security:,parent-mirror-chroot-updates:,parent-mirror-chroot-backports:,parent-mirror-binary:,
-		parent-mirror-binary-security:,parent-mirror-binary-updates:,parent-mirror-binary-backports:,parent-mirror-debian-installer:,
-		mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-updates:,mirror-chroot-backports:,mirror-binary:,
-		mirror-binary-security:,mirror-binary-updates:,mirror-binary-backports:,mirror-debian-installer:,
+		distribution:,parent-distribution:,parent-debian-installer-distribution:,parent-mirror-bootstrap:,parent-mirror-chroot:,parent-mirror-chroot-security:,parent-mirror-chroot-updates:,parent-mirror-binary:,
+		parent-mirror-binary-security:,parent-mirror-binary-updates:,parent-mirror-debian-installer:,
+		mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-updates:,mirror-binary:,
+		mirror-binary-security:,mirror-binary-updates:,mirror-debian-installer:,
 		archives:,archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,
 		gzip-options:,hooks:,image-name:,interactive:,keyring-packages:,linux-flavours:,linux-packages:,
 		security:,updates:,backports:,binary-filesystem:,binary-images:,
@@ -392,11 +388,6 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--parent-mirror-chroot-backports)
-				LB_PARENT_MIRROR_CHROOT_BACKPORTS="${2}"
-				shift 2
-				;;
-
 			--parent-mirror-binary)
 				LB_PARENT_MIRROR_BINARY="${2}"
 				shift 2
@@ -409,11 +400,6 @@ Local_arguments ()
 
 			--parent-mirror-binary-updates)
 				LB_PARENT_MIRROR_BINARY_UPDATES="${2}"
-				shift 2
-				;;
-
-			--parent-mirror-binary-backports)
-				LB_PARENT_MIRROR_BINARY_BACKPORTS="${2}"
 				shift 2
 				;;
 
@@ -442,11 +428,6 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--mirror-chroot-backports)
-				LB_MIRROR_CHROOT_BACKPORTS="${2}"
-				shift 2
-				;;
-
 			--mirror-binary)
 				LB_MIRROR_BINARY="${2}"
 				shift 2
@@ -459,11 +440,6 @@ Local_arguments ()
 
 			--mirror-binary-updates)
 				LB_MIRROR_BINARY_UPDATES="${2}"
-				shift 2
-				;;
-
-			--mirror-binary-backports)
-				LB_MIRROR_BINARY_BACKPORTS="${2}"
 				shift 2
 				;;
 
@@ -1121,10 +1097,6 @@ LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY}"
 # (Default: ${LB_PARENT_MIRROR_CHROOT_UPDATES})
 LB_PARENT_MIRROR_CHROOT_UPDATES="${LB_PARENT_MIRROR_CHROOT_UPDATES}"
 
-# \$LB_PARENT_MIRROR_CHROOT_BACKPORTS: set backports parent mirror to fetch packages from
-# (Default: ${LB_PARENT_MIRROR_CHROOT_BACKPORTS})
-LB_PARENT_MIRROR_CHROOT_BACKPORTS="${LB_PARENT_MIRROR_CHROOT_BACKPORTS}"
-
 # \$LB_PARENT_MIRROR_BINARY: set parent mirror which ends up in the image
 # (Default: ${LB_PARENT_MIRROR_BINARY})
 LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY}"
@@ -1136,10 +1108,6 @@ LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY}"
 # \$LB_PARENT_MIRROR_BINARY_UPDATES: set updates parent mirror which ends up in the image
 # (Default: ${LB_PARENT_MIRROR_BINARY_UPDATES})
 LB_PARENT_MIRROR_BINARY_UPDATES="${LB_PARENT_MIRROR_BINARY_UPDATES}"
-
-# \$LB_PARENT_MIRROR_BINARY_BACKPORTS: set backports parent mirror which ends up in the image
-# (Default: ${LB_PARENT_MIRROR_BINARY_BACKPORTS})
-LB_PARENT_MIRROR_BINARY_BACKPORTS="${LB_PARENT_MIRROR_BINARY_BACKPORTS}"
 
 # \$LB_PARENT_MIRROR_DEBIAN_INSTALLER: set debian-installer parent mirror
 # (Default: ${LB_PARENT_MIRROR_BOOTSTRAP})
@@ -1161,10 +1129,6 @@ LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY}"
 # (Default: ${LB_MIRROR_CHROOT_UPDATES})
 LB_MIRROR_CHROOT_UPDATES="${LB_MIRROR_CHROOT_UPDATES}"
 
-# \$LB_MIRROR_CHROOT_BACKPORTS: set backports mirror to fetch packages from
-# (Default: ${LB_MIRROR_CHROOT_BACKPORTS})
-LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS}"
-
 # \$LB_MIRROR_BINARY: set mirror which ends up in the image
 # (Default: ${LB_MIRROR_BINARY})
 LB_MIRROR_BINARY="${LB_MIRROR_BINARY}"
@@ -1176,10 +1140,6 @@ LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY}"
 # \$LB_MIRROR_BINARY_UPDATES: set updates mirror which ends up in the image
 # (Default: ${LB_MIRROR_BINARY_UPDATES})
 LB_MIRROR_BINARY_UPDATES="${LB_MIRROR_BINARY_UPDATES}"
-
-# \$LB_MIRROR_BINARY_BACKPORTS: set backports mirror which ends up in the image
-# (Default: ${LB_MIRROR_BINARY_BACKPORTS})
-LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS}"
 
 # \$LB_MIRROR_DEBIAN_INSTALLER: set debian-installer mirror
 # (Default: ${LB_MIRROR_BOOTSTRAP})
