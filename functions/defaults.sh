@@ -36,22 +36,22 @@ New_configuration ()
 	## Configuration
 
 	# Configuration-Version
-	LIVE_CONFIGURATION_VERSION="${LIVE_CONFIGURATION_VERSION:-$(Get_configuration config/control Configuration-Version)}"
+	LIVE_CONFIGURATION_VERSION="${LIVE_CONFIGURATION_VERSION:-$(Get_configuration config/image Configuration-Version)}"
 	LIVE_CONFIGURATION_VERSION="${LIVE_CONFIGURATION_VERSION:-${LIVE_BUILD_VERSION}}"
 	export LIVE_CONFIGURATION_VERSION
 
 	# Image: Name
-	LIVE_IMAGE_NAME="${LIVE_IMAGE_NAME:-$(Get_configuration config/control Name)}"
+	LIVE_IMAGE_NAME="${LIVE_IMAGE_NAME:-$(Get_configuration config/image Name)}"
 	LIVE_IMAGE_NAME="${LIVE_IMAGE_NAME:-live-image}"
 	export LIVE_IMAGE_NAME
 
 	# Image: Architecture (FIXME: Support and default to 'any')
-	LIVE_IMAGE_ARCHITECTURE="${LIVE_IMAGE_ARCHITECTURE:-$(Get_configuration config/control Architecture)}"
+	LIVE_IMAGE_ARCHITECTURE="${LIVE_IMAGE_ARCHITECTURE:-$(Get_configuration config/image Architecture)}"
 	LIVE_IMAGE_ARCHITECTURE="${LIVE_IMAGE_ARCHITECTURE:-${CURRENT_IMAGE_ARCHITECTURE}}"
 	export LIVE_IMAGE_ARCHITECTURE
 
 	# Image: Archive Areas
-	LIVE_IMAGE_ARCHIVE_AREAS="${LIVE_IMAGE_ARCHIVE_AREAS:-$(Get_configuration config/control Archive-Areas)}"
+	LIVE_IMAGE_ARCHIVE_AREAS="${LIVE_IMAGE_ARCHIVE_AREAS:-$(Get_configuration config/image Archive-Areas)}"
 
 	case "${LB_MODE}" in
 		progress-linux)
@@ -70,12 +70,12 @@ New_configuration ()
 	export LIVE_IMAGE_ARCHIVE_AREAS
 
 	# Image: Archive Areas
-	LIVE_IMAGE_PARENT_ARCHIVE_AREAS="${LIVE_IMAGE_PARENT_ARCHIVE_AREAS:-$(Get_configuration config/control Parent-Archive-Areas)}"
+	LIVE_IMAGE_PARENT_ARCHIVE_AREAS="${LIVE_IMAGE_PARENT_ARCHIVE_AREAS:-$(Get_configuration config/image Parent-Archive-Areas)}"
 	LIVE_IMAGE_PARENT_ARCHIVE_AREAS="${LIVE_IMAGE_PARENT_ARCHIVE_AREAS:-${LIVE_IMAGE_ARCHIVE_AREAS}}"
 	export LIVE_IMAGE_PARENT_ARCHIVE_AREAS
 
 	# Image: Type
-	LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE:-$(Get_configuration config/control Type)}"
+	LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE:-$(Get_configuration config/image Type)}"
 	LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE:-iso-hybrid}"
 	export LIVE_IMAGE_TYPE
 }
