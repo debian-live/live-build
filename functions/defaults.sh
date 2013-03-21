@@ -429,33 +429,6 @@ Set_defaults ()
 			;;
 	esac
 
-	# Setting updates mirror to fetch packages from
-	case "${LB_MODE}" in
-		debian|progress-linux)
-			LB_PARENT_MIRROR_CHROOT_UPDATES="${LB_PARENT_MIRROR_CHROOT_UPDATES:-${LB_PARENT_MIRROR_CHROOT}}"
-			LB_MIRROR_CHROOT_UPDATES="${LB_MIRROR_CHROOT_UPDATES:-${LB_MIRROR_CHROOT}}"
-			;;
-
-		ubuntu)
-			case "${LIVE_IMAGE_ARCHITECTURE}" in
-				amd64|i386)
-					LB_MIRROR_CHROOT_UPDATES="${LB_MIRROR_CHROOT_UPDATES:-http://archive.ubuntu.com/ubuntu/}"
-					;;
-
-				*)
-					LB_MIRROR_CHROOT_UPDATES="${LB_MIRROR_CHROOT_UPDATES:-http://ports.ubuntu.com/ubuntu-ports/}"
-					;;
-			esac
-
-			LB_PARENT_MIRROR_CHROOT_UPDATES="${LB_PARENT_MIRROR_CHROOT_UPDATES:-${LB_PARENT_MIRROR_CHROOT}}"
-			;;
-
-		*)
-			LB_PARENT_MIRROR_CHROOT_UPDATES="${LB_PARENT_MIRROR_CHROOT_UPDATES:-none}"
-			LB_MIRROR_CHROOT_UPDATES="${LB_MIRROR_CHROOT_UPDATES:-none}"
-			;;
-	esac
-
 	# Setting mirror which ends up in the image
 	case "${LB_MODE}" in
 		debian)
@@ -517,37 +490,6 @@ Set_defaults ()
 			esac
 
 			LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-${LB_MIRROR_BINARY_SECURITY}}"
-			;;
-	esac
-
-	# Setting updates mirror which ends up in the image
-	case "${LB_MODE}" in
-		debian)
-			LB_MIRROR_BINARY_UPDATES="${LB_MIRROR_BINARY_UPDATES:-${LB_MIRROR_BINARY}}"
-			LB_PARENT_MIRROR_BINARY_UPDATES="${LB_PARENT_MIRROR_BINARY_UPDATES:-${LB_PARENT_MIRROR_BINARY}}"
-			;;
-
-		progress-linux)
-			LB_PARENT_MIRROR_BINARY_UPDATES="${LB_PARENT_MIRROR_BINARY_UPDATES:-${LB_PARENT_MIRROR_BINARY}}"
-			LB_MIRROR_BINARY_UPDATES="${LB_MIRROR_BINARY_UPDATES:-${LB_MIRROR_BINARY}}"
-			;;
-
-		ubuntu)
-			case "${LIVE_IMAGE_ARCHITECTURE}" in
-				amd64|i386)
-					LB_MIRROR_BINARY_UPDATES="${LB_MIRROR_BINARY_UPDATES:-http://archive.ubuntu.com/ubuntu/}"
-					;;
-
-				*)
-					LB_MIRROR_BINARY_UPDATES="${LB_MIRROR_BINARY_UPDATES:-http://ports.ubuntu.com/ubuntu-ports/}"
-					;;
-			esac
-
-			LB_PARENT_MIRROR_BINARY_UPDATES="${LB_PARENT_MIRROR_BINARY_UPDATES:-${LB_PARENT_MIRROR_BINARY}}"
-			;;
-
-		*)
-			LB_PARENT_MIRROR_BINARY_UPDATES="${LB_PARENT_MIRROR_BINARY_UPDATES:-none}"
 			;;
 	esac
 
