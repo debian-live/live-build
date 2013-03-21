@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2013\-03\-11 4.0~a15-1 "Live Systems Project"
+.TH LIVE\-BUILD 1 2013\-03\-21 4.0~a15-1 "Live Systems Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -173,7 +173,7 @@
 .br
 	[\fB\-\-mirror\-debian\-installer\fR \fIURL\fR]
 .br
-	[\fB\-\-mode\fR debian|emdebian|progress-linux|ubuntu]
+	[\fB\-\-mode\fR debian|progress-linux|ubuntu]
 .br
 	[\fB\-\-system\fR live|normal]
 .br
@@ -254,7 +254,7 @@ defines the default options that will be appended to every aptitude call that is
 .IP "\fB\-\-apt\-pipeline\fR \fIDEPTH\fR" 4
 sets the depth of the apt/aptitude pipeline. In cases where the remote server is not RFC conforming or buggy (such as Squid 2.0.2) this option can be a value from 0 to 5 indicating how many outstanding requests APT should send. A value of zero MUST be specified if the remote host does not properly linger on TCP connections \- otherwise data corruption will occur. Hosts which require this are in violation of RFC 2068. By default, live\-build does not set this option.
 .IP "\fB\-\-apt\-recommends\fR true|false" 4
-defines if apt should install recommended packages automatically. By default, this is true except in emdebian mode.
+defines if apt should install recommended packages automatically. By default, this is true.
 .IP "\fB\-\-apt\-secure\fR true|false" 4
 defines if apt should check repository signatures. This is true by default.
 .IP "\fB\-\-apt\-source\-archives\fR true|false" 4
@@ -338,7 +338,7 @@ defines if after the chroot stage and before the beginning of the binary stage, 
 .IP "\fB\-\-isohybrid\-options\fR \fIOPTION\fR|""\fIOPTIONS\fR""" 4
 defines options to pass to isohybrid.
 .IP "\fB\-\-iso\-application\fR \fINAME\fR" 4
-sets the APPLICATION field in the header of a resulting CD/DVD image and defaults to "Debian Live" in debian mode, and to "Emdebian Live" in emdebian mode, and "Ubuntu Live" in ubuntu mode.
+sets the APPLICATION field in the header of a resulting CD/DVD image and defaults to "Debian Live" in debian mode, and "Ubuntu Live" in ubuntu mode.
 .IP "\fB\-\-iso\-preparer\fR \fINAME\fR" 4
 sets the PREPARER field in the header of a resulting CD/DVD image. By default this is set to "live\-build \fIVERSION\fR; http://packages.qa.debian.org/live\-build", whereas VERSION is expanded to the version of live\-build that was used to build the image.
 .IP "\fB\-\-iso\-publisher\fR \fINAME\fR" 4
@@ -397,7 +397,7 @@ sets the location of the derivatives updates package mirror that should end up c
 sets the location of the derivatives backports package mirror that should end up configured in the final image.
 .IP "\fB\-\-mirror\-debian\-installer\fR \fIURL\fR" 4
 sets the location of the mirror that will be used to fetch the debian installer images of the derivative. By default, this points to the same mirror used to build the live system, i.e. the value of \-\-mirror\-bootstrap.
-.IP "\fB\-\-mode\fR debian|emdebian|progress|ubuntu" 4
+.IP "\fB\-\-mode\fR debian|progress|ubuntu" 4
 defines a global mode to load project specific defaults. By default this is set to debian.
 .IP "\fB\-\-system\fR live|normal" 4
 defines if the resulting system image should a live system or a normal, non-live system.
@@ -406,7 +406,7 @@ defines the filesystem that will be configured in the bootloader configuration f
 .IP "\fB\-\-net\-root\-mountoptions\fR \fIOPTIONS\fR" 4
 sets additional options for mounting the root filesystem in netboot images and is by default empty.
 .IP "\fB\-\-net\-root\-path\fR \fIPATH\fR" 4
-sets the file path that will be configured in the bootloader configuration for your netboot image. This defaults to /srv/debian\-live in debian mode and to /srv/emebian-live when being in emdebian mode, and /srv/ubuntu-live when in ubuntu mode.
+sets the file path that will be configured in the bootloader configuration for your netboot image. This defaults to /srv/debian\-live in debian mode, and /srv/ubuntu-live when in ubuntu mode.
 .IP "\fB\-\-net\-root\-server\fR \fIIP\fR|\fIHOSTNAME\fR" 4
 sets the IP or hostname that will be configured in the bootloader configuration for the root filesystem of your netboot image. This defaults to 192.168.1.1.
 .IP "\fB\-\-net\-cow\-filesystem\fR nfs|cfs" 4

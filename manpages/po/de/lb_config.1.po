@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build 4.0~a15-1\n"
-"POT-Creation-Date: 2013-03-11 06:26+0100\n"
+"POT-Creation-Date: 2013-03-21 17:35+0100\n"
 "PO-Revision-Date: 2010-05-24 09:59+0300\n"
 "Last-Translator: Daniel Baumann <mail@daniel-baumann.ch>\n"
 "Language-Team: none\n"
@@ -28,8 +28,8 @@ msgstr ""
 #: en/lb_chroot.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
 #: en/lb_testroot.1:1 en/live-build.7:1
 #, no-wrap
-msgid "2013-03-11"
-msgstr "11.03.2013"
+msgid "2013-03-21"
+msgstr "21.03.2013"
 
 #. type: TH
 #: en/lb.1:1 en/lb_binary.1:1 en/lb_bootstrap.1:1 en/lb_build.1:1
@@ -591,7 +591,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:177
-msgid "  [B<--mode> debian|emdebian|progress-linux|ubuntu]"
+msgid "  [B<--mode> debian|progress-linux|ubuntu]"
 msgstr ""
 
 #. type: Plain text
@@ -874,7 +874,7 @@ msgstr ""
 #: en/lb_config.1:258
 msgid ""
 "defines if apt should install recommended packages automatically. By "
-"default, this is true except in emdebian mode."
+"default, this is true."
 msgstr ""
 
 #. type: IP
@@ -1483,8 +1483,8 @@ msgstr ""
 #: en/lb_config.1:342
 msgid ""
 "sets the APPLICATION field in the header of a resulting CD/DVD image and "
-"defaults to \"Debian Live\" in debian mode, and to \"Emdebian Live\" in "
-"emdebian mode, and \"Ubuntu Live\" in ubuntu mode."
+"defaults to \"Debian Live\" in debian mode, and \"Ubuntu Live\" in ubuntu "
+"mode."
 msgstr ""
 
 #. type: IP
@@ -1905,7 +1905,7 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:400
 #, no-wrap
-msgid "B<--mode> debian|emdebian|progress|ubuntu"
+msgid "B<--mode> debian|progress|ubuntu"
 msgstr ""
 
 #. type: Plain text
@@ -1964,9 +1964,8 @@ msgstr ""
 #: en/lb_config.1:410
 msgid ""
 "sets the file path that will be configured in the bootloader configuration "
-"for your netboot image. This defaults to /srv/debian-live in debian mode and "
-"to /srv/emebian-live when being in emdebian mode, and /srv/ubuntu-live when "
-"in ubuntu mode."
+"for your netboot image. This defaults to /srv/debian-live in debian mode, "
+"and /srv/ubuntu-live when in ubuntu mode."
 msgstr ""
 
 #. type: IP

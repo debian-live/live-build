@@ -96,7 +96,7 @@ Set_defaults ()
 	# Setting system type
 	LB_SYSTEM="${LB_SYSTEM:-live}"
 
-	# Setting mode (currently: debian, emdebian, progress-linux, and ubuntu)
+	# Setting mode (currently: debian, progress-linux, and ubuntu)
 	if [ -x /usr/bin/lsb_release ]
 	then
 		_DISTRIBUTOR="$(lsb_release -is | tr [A-Z] [a-z])"
@@ -197,7 +197,7 @@ Set_defaults ()
 
 	# Setting apt recommends
 	case "${LB_MODE}" in
-		emdebian|progress-linux)
+		progress-linux)
 			LB_APT_RECOMMENDS="${LB_APT_RECOMMENDS:-false}"
 			;;
 
@@ -369,11 +369,6 @@ Set_defaults ()
 			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-${LB_MIRROR_BOOTSTRAP}}"
 			;;
 
-		emdebian)
-			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://www.emdebian.org/grip/}"
-			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-${LB_MIRROR_BOOTSTRAP}}"
-			;;
-
 		progress-linux)
 			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-http://ftp.debian.org/debian/}"
 			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://cdn.archive.progress-linux.org/progress/}"
@@ -401,11 +396,6 @@ Set_defaults ()
 	case "${LB_MODE}" in
 		debian)
 			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-http://security.debian.org/}"
-			LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-${LB_MIRROR_CHROOT_SECURITY}}"
-			;;
-
-		emdebian)
-			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-none}"
 			LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-${LB_MIRROR_CHROOT_SECURITY}}"
 			;;
 
@@ -441,11 +431,6 @@ Set_defaults ()
 			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-${LB_MIRROR_CHROOT}}"
 			;;
 
-		emdebian)
-			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://www.emdebian.org/grip/}"
-			LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-${LB_MIRROR_BINARY}}"
-			;;
-
 		ubuntu)
 			case "${LIVE_IMAGE_ARCHITECTURE}" in
 				amd64|i386)
@@ -465,11 +450,6 @@ Set_defaults ()
 	case "${LB_MODE}" in
 		debian)
 			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-http://security.debian.org/}"
-			LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-${LB_MIRROR_BINARY_SECURITY}}"
-			;;
-
-		emdebian)
-			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-none}"
 			LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-${LB_MIRROR_BINARY_SECURITY}}"
 			;;
 
@@ -871,10 +851,6 @@ Set_defaults ()
 			LB_ISO_APPLICATION="${LB_ISO_APPLICATION:-Debian Live}"
 			;;
 
-		emdebian)
-			LB_ISO_APPLICATION="${LB_ISO_APPLICATION:-Emdebian Live}"
-			;;
-
 		progress-linux)
 			LB_ISO_APPLICATION="${LB_ISO_APPLICATION:-Progress Linux}"
 			;;
@@ -904,10 +880,6 @@ Set_defaults ()
 			LB_HDD_LABEL="${LB_HDD_LABEL:-DEBIAN_LIVE}"
 			;;
 
-		emdebian)
-			LB_HDD_LABEL="${LB_HDD_LABEL:-EMDEBIAN_LIVE}"
-			;;
-
 		progress-linux)
 			LB_HDD_LABEL="${LB_HDD_LABEL:-PROGRESS_$(echo ${LB_DISTRIBUTION} | tr [a-z] [A-Z])}"
 			;;
@@ -924,10 +896,6 @@ Set_defaults ()
 	case "${LB_MODE}" in
 		debian)
 			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Debian ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)}"
-			;;
-
-		emdebian)
-			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Emdebian ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)}"
 			;;
 
 		progress-linux)
