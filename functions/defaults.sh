@@ -99,7 +99,7 @@ Set_defaults ()
 	# Setting mode (currently: debian, progress-linux, and ubuntu)
 	if [ -x /usr/bin/lsb_release ]
 	then
-		_DISTRIBUTOR="$(lsb_release -is | tr [A-Z] [a-z])"
+		_DISTRIBUTOR="$(lsb_release -is | tr "[A-Z]" "[a-z]")"
 
 		case "${_DISTRIBUTOR}" in
 			debian|progress-linux|ubuntu)
@@ -881,7 +881,7 @@ Set_defaults ()
 			;;
 
 		progress-linux)
-			LB_HDD_LABEL="${LB_HDD_LABEL:-PROGRESS_$(echo ${LB_DISTRIBUTION} | tr [a-z] [A-Z])}"
+			LB_HDD_LABEL="${LB_HDD_LABEL:-PROGRESS_$(echo ${LB_DISTRIBUTION} | tr "[a-z]" "[A-Z]")}"
 			;;
 
 		ubuntu)
