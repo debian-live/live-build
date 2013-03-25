@@ -32,6 +32,14 @@ fi
 echo "Content-type: text/html"
 echo
 
+#QUERY_STRING=`cat /dev/stdin`
+QUERY_STRING=$(cat /dev/stdin)
+# Translate parameters
+QUERY_STRING=$(echo "${QUERY_STRING}" | sed -e 's/%2F/\//g' -e 's/+/ /g' -e 's/%3B/;/g' -e 's/%7E/~/g' -e 's/%3A/:/g' -e 's/%40/@/g' -e 's/%3D/=/g' -e 's/%2B/+/g')
+# Debug the filtering string
+# echo ${QUERY_STRING}
+
+
 # Sending html header
 cat "${_TEMPLATES}"/header.html
 
@@ -51,11 +59,6 @@ else
 	# Converting '~':	sed 's/%7E/\~/g'
 	# Converting '=':	sed 's/%3D/=/g'
 	# Converting '+':	sed 's/%2B/+/g'
-
-	# Translate parameters
-	QUERY_STRING=$(echo "${QUERY_STRING}" | sed -e 's/%2F/\//g' -e 's/+/ /g' -e 's/%3B/;/g' -e 's/%7E/~/g' -e 's/%3A/:/g' -e 's/%40/@/g' -e 's/%3D/=/g' -e 's/%2B/+/g')
-	# Debug the filtering string
-	# echo ${QUERY_STRING}
 
 	# Email
 	_EMAIL=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])email=[-0-9a-zA-Z._@]+' | cut -f 2 -d '=' | head -n1)
