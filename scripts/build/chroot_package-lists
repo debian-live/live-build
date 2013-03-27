@@ -85,7 +85,7 @@ do
 	then
 		# Generating package list
 		Expand_packagelist "$(basename ${LIST})" "config/package-lists" \
-			>> chroot/root/packages.chroot
+			| grep -v '^#' >> chroot/root/packages.chroot
 	fi
 done
 
