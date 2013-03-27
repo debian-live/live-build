@@ -42,66 +42,68 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Handling local package lists
-if ls config/package-lists/*.list > /dev/null 2>&1 || \
+if ! ( ls config/package-lists/*.list > /dev/null 2>&1 || \
    ls config/package-lists/*.list.chroot > /dev/null 2>&1 || \
-   ls config/package-lists/*.list.chroot_${_PASS} > /dev/null 2>&1
+   ls config/package-lists/*.list.chroot_${_PASS} > /dev/null 2>&1 )
 then
-	case "${LB_BUILD_WITH_CHROOT}" in
-		true)
-			# Checking depends
-			Check_package chroot/usr/bin/grep-aptavail dctrl-tools
-
-			# Restoring cache
-			Restore_cache cache/packages.chroot
-
-			# Installing depends
-			Install_package
-			;;
-
-		false)
-			if [ ! -e /usr/bin/grep-aptavail ]; then
-				# dctrl-tools
-				Echo_error "/usr/bin/grep-aptavail - no such file."
-				exit 1
-			fi
-			;;
-	esac
-
-	if [ -e "${LIVE_BUILD}/share/bin/Packages" ]
-	then
-		cp "${LIVE_BUILD}/share/bin/Packages" chroot/bin
-	else
-		cp /usr/share/live/build/bin/Packages chroot/bin
-	fi
-
-	for LIST in config/package-lists/*.list \
-		    config/package-lists/*.list.chroot \
-		    config/package-lists/*.list.chroot_${_PASS}
-	do
-		if [ -e "${LIST}" ]
-		then
-			# Generating package list
-			Expand_packagelist "$(basename ${LIST})" "config/package-lists" \
-				>> chroot/root/packages.chroot
-		fi
-	done
-
-	rm -f chroot/bin/Packages
-
-	case "${LB_BUILD_WITH_CHROOT}" in
-		true)
-			# Removing dctrl-tools again if the user has not installed it
-			if ! grep -qs dctrl-tools chroot/root/packages.chroot
-			then
-				# Removing depends
-				Remove_package
-			fi
-
-			# Saving cache
-			Save_cache cache/packages.binary
-			;;
-	esac
-
-	# Creating stage file
-	Create_stagefile .build/chroot_package-lists.${_PASS}
+	exit 0
 fi
+
+case "${LB_BUILD_WITH_CHROOT}" in
+	true)
+		# Checking depends
+		Check_package chroot/usr/bin/grep-aptavail dctrl-tools
+
+		# Restoring cache
+		Restore_cache cache/packages.chroot
+
+		# Installing depends
+		Install_package
+		;;
+
+	false)
+		if [ ! -e /usr/bin/grep-aptavail ]; then
+			# dctrl-tools
+			Echo_error "/usr/bin/grep-aptavail - no such file."
+			exit 1
+		fi
+		;;
+esac
+
+if [ -e "${LIVE_BUILD}/share/bin/Packages" ]
+then
+	cp "${LIVE_BUILD}/share/bin/Packages" chroot/bin
+else
+	cp /usr/share/live/build/bin/Packages chroot/bin
+fi
+
+for LIST in config/package-lists/*.list \
+	    config/package-lists/*.list.chroot \
+	    config/package-lists/*.list.chroot_${_PASS}
+do
+	if [ -e "${LIST}" ]
+	then
+		# Generating package list
+		Expand_packagelist "$(basename ${LIST})" "config/package-lists" \
+			>> chroot/root/packages.chroot
+	fi
+done
+
+rm -f chroot/bin/Packages
+
+case "${LB_BUILD_WITH_CHROOT}" in
+	true)
+		# Removing dctrl-tools again if the user has not installed it
+		if ! grep -qs dctrl-tools chroot/root/packages.chroot
+		then
+			# Removing depends
+			Remove_package
+		fi
+
+		# Saving cache
+		Save_cache cache/packages.binary
+		;;
+esac
+
+# Creating stage file
+Create_stagefile .build/chroot_package-lists.${_PASS}
