@@ -175,8 +175,6 @@ then
 			sed -e "s|@FLAVOUR@|${LB_LINUX_FLAVOURS}|g" \
 			    -e "s|@LINUX@|/live/vmlinuz|g" \
 			    -e "s|@INITRD@|/live/initrd.img|g" \
-			    -e "s#@APPEND_LIVE@#${LB_BOOTAPPEND_LIVE}#g" \
-			    -e "s#@APPEND_LIVE_FAILSAFE@#${LB_BOOTAPPEND_LIVE_FAILSAFE}#g" \
 			"${_TARGET}/live.cfg.in" >> "${_TARGET}/live.cfg"
 
 			rm -f "${_TARGET}/live.cfg.in"
@@ -203,8 +201,6 @@ then
 				sed -i -e "s|@FLAVOUR@|${_FLAVOUR}|g" \
 				       -e "s|@LINUX@|/live/vmlinuz${_NUMBER}|g" \
 				       -e "s|@INITRD@|/live/initrd${_NUMBER}.img|g" \
-				       -e "s#@APPEND_LIVE@#${LB_BOOTAPPEND_LIVE}#g" \
-				       -e "s#@APPEND_LIVE_FAILSAFE@#${LB_BOOTAPPEND_LIVE_FAILSAFE}#g" \
 				"${_TARGET}/live.cfg"
 			done
 
@@ -215,9 +211,10 @@ fi
 
 for _FILE in "${_TARGET}"/*.cfg
 do
-	sed -i  -e "s#@LB_BOOTAPPEND_LIVE@#${LB_BOOTAPPEND_LIVE}#g" \
-		-e "s#@LB_BOOTAPPEND_LIVE_FAILSAFE@#${LB_BOOTAPPEND_LIVE_FAILSAFE}#g" \
+	sed -i  -e "s#@APPEND_LIVE@#${LB_BOOTAPPEND_LIVE}#g" \
+		-e "s#@APPEND_LIVE_FAILSAFE@#${LB_BOOTAPPEND_LIVE_FAILSAFE}#g" \
 		-e "s#@APPEND_INSTALL@#${LB_BOOTAPPEND_INSTALL}#g" \
+		-e "s#@APPEND_INSTALL_FAILSAFE@#${LB_BOOTAPPEND_INSTALL_FAILSAFE}#g" \
 	"${_FILE}"
 done
 
