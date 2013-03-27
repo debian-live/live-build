@@ -211,18 +211,15 @@ then
 			rm -f "${_TARGET}/live.cfg.in"
 			;;
 	esac
-elif [ -e "${_TARGET}/live.cfg" ]
-then
-	sed -i  -e "s#@LB_BOOTAPPEND_LIVE@#${LB_BOOTAPPEND_LIVE}#g" \
-		-e "s#@LB_BOOTAPPEND_LIVE_FAILSAFE@#${LB_BOOTAPPEND_LIVE_FAILSAFE}#g" \
-	${_TARGET}/live.cfg
 fi
 
-if [ -e ${_TARGET}/install.cfg ]
-then
-	sed -i -e "s#@APPEND_INSTALL@#${LB_BOOTAPPEND_INSTALL}#g" \
-	${_TARGET}/install.cfg
-fi
+for _FILE in "${_TARGET}"/*.cfg
+do
+	sed -i  -e "s#@LB_BOOTAPPEND_LIVE@#${LB_BOOTAPPEND_LIVE}#g" \
+		-e "s#@LB_BOOTAPPEND_LIVE_FAILSAFE@#${LB_BOOTAPPEND_LIVE_FAILSAFE}#g" \
+		-e "s#@APPEND_INSTALL@#${LB_BOOTAPPEND_INSTALL}#g" \
+	"${_FILE}"
+done
 
 if [ -e "${_TARGET}/splash.svg.in" ]
 then
