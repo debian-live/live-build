@@ -1,3 +1,50 @@
+live-build (4.0~a16-1) experimental; urgency=low
+
+  [ Daniel Baumann ]
+  * Correcting typo directory when dereferencing syslinux symlinks when
+    building chrooted, thanks to Luigi Capriotti <l.capriotti@xbmc.org>.
+  * Debranding package for derivatives.
+  * Using dpkg-divert in chroot_upstart script to handle upgrades of
+    upstart during the build (Closes: #702537).
+  * Using dpkg-divert for other diversions too to handle upgrades of the
+    diverted stuff during build.
+  * Adding generic live-build handle in chroot_dpkg for other live
+    packages to act upon.
+  * Updating fallback help message in live-build pseudo-command.
+  * Simplyfing live-build pseudo-command.
+  * Correcting grammer error in live-build description.
+  * Improving comment in lb about embedded live-build within config tree.
+  * Removing old docs.
+  * Adding set -e in example auto scripts.
+  * Setting memtest default to none.
+  * Using ntfs-3g to mount ntfs partitions.
+  * Adding check for ntfs-3g on the host system, precluding the initial
+    ntfs binary filesystem support (Closes: #697793).
+  * Dropping dedicated backports mirror handling, not needed anymore with
+    the move of backports.d.o into ftp.d.o.
+  * Dropping dedicated updates (formerly volatile) mirror handling, not
+    needed anymore.
+  * Renaming config/control to config/image.
+  * Removing dedicated emdebian mode, this can entirely be handled with
+    different defaults.
+
+  [ Michael Stummvoll ]
+  * Fixing missing quotes for tr commands to avoid unwanted expansions.
+
+  [ Richard Nelson ]
+  * Converting l-b-cgi frontend to process forms with post.
+
+  [ Daniel Baumann ]
+  * Replacing strings in all syslinux config files, not just certain
+    hardcoded ones.
+  * Cleaning up installer file locations for progress-linux.
+  * Aborting early in chroot_package-lists if no package list is found.
+  * Stripping out comments in package lists.
+  * Unifying append options in binary_syslinux when processing
+    configuration files.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 01 Apr 2013 08:25:04 +0200
+
 live-build (4.0~a15-1) experimental; urgency=low
 
   * Removing all references to my old email address.
