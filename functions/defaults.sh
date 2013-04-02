@@ -890,7 +890,7 @@ Set_defaults ()
 	esac
 
 	# Setting hdd size
-	LB_HDD_SIZE="${LB_HDD_SIZE:-10000}"
+	LB_HDD_SIZE="${LB_HDD_SIZE:-auto}"
 
 	# Setting iso volume
 	case "${LB_MODE}" in
