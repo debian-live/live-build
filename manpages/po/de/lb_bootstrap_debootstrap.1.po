@@ -19,42 +19,42 @@ msgstr ""
 #: en/lb_bootstrap_debootstrap.1:9
 #, no-wrap
 msgid "LIVE-BUILD"
-msgstr ""
+msgstr "LIVE-BUILD"
 
 #. type: TH
 #: en/lb_bootstrap_debootstrap.1:9
 #, no-wrap
 msgid "2013-04-06"
-msgstr ""
+msgstr "06.04.2013"
 
 #. type: TH
 #: en/lb_bootstrap_debootstrap.1:9
 #, no-wrap
 msgid "4.0~a16-1"
-msgstr ""
+msgstr "4.0~a16-1"
 
 #. type: TH
 #: en/lb_bootstrap_debootstrap.1:9
 #, no-wrap
 msgid "Live Systems Project"
-msgstr ""
+msgstr "Live Systems Projekt"
 
 #. type: SH
 #: en/lb_bootstrap_debootstrap.1:11
 #, no-wrap
 msgid "NAME"
-msgstr ""
+msgstr "NAME"
 
 #. type: Plain text
 #: en/lb_bootstrap_debootstrap.1:13
 msgid "B<live-build> - System Build Scripts"
-msgstr ""
+msgstr "B<live-build> - System Build Skripte"
 
 #. type: SH
 #: en/lb_bootstrap_debootstrap.1:14
 #, no-wrap
 msgid "SYNOPSIS"
-msgstr ""
+msgstr "SYNTAX"
 
 #. type: Plain text
 #: en/lb_bootstrap_debootstrap.1:16
@@ -62,22 +62,24 @@ msgid ""
 "B<lb bootstrap_debootstrap> [--debootstrap-options=I<DEBOOTSTRAP_OPTIONS>] "
 "[--verbose]"
 msgstr ""
+"B<lb bootstrap_debootstrap> [--debootstrap-options=I<DEBOOTSTRAP_OPTIONEN>] "
+"[--verbose]"
 
 #. type: Plain text
 #: en/lb_bootstrap_debootstrap.1:18
 msgid "B<lb bootstrap_debootstrap> [--help]"
-msgstr ""
+msgstr "B<lb bootstrap_debootstrap> [--help]"
 
 #. type: Plain text
 #: en/lb_bootstrap_debootstrap.1:20
 msgid "B<lb bootstrap_debootstrap> [--version]"
-msgstr ""
+msgstr "B<lb bootstrap_debootstrap> [--version]"
 
 #. type: SH
 #: en/lb_bootstrap_debootstrap.1:21
 #, no-wrap
 msgid "DESCRIPTION"
-msgstr ""
+msgstr "BESCHREIBUNG"
 
 #. type: Plain text
 #: en/lb_bootstrap_debootstrap.1:23
@@ -85,6 +87,8 @@ msgid ""
 "live-build contains the programs to build a live system from a configuration "
 "directory."
 msgstr ""
+"live-build enthält die Skripte um ein Live System von einem "
+"Konfigurationsverzeichnis zu erstellen."
 
 #. type: Plain text
 #: en/lb_bootstrap_debootstrap.1:25
@@ -92,18 +96,20 @@ msgid ""
 "The B<lb bootstrap_debootstrap> program bootstraps the chroot system with "
 "debootstrap(8)."
 msgstr ""
+"Das B<lb bootstrap_debootstrap> Programm erstellt das Chroot System mit "
+"debootstrap(8)."
 
 #. type: SH
 #: en/lb_bootstrap_debootstrap.1:26
 #, no-wrap
 msgid "OPTIONS"
-msgstr ""
+msgstr "OPTIONEN"
 
 #. type: IP
 #: en/lb_bootstrap_debootstrap.1:27
 #, no-wrap
 msgid "--debootstrap-options=I<DEBOOTSTRAP_OPTIONS>"
-msgstr ""
+msgstr "--debootstrap-options=I<DEBOOTSTRAP_OPTIONEN>"
 
 #. type: Plain text
 #: en/lb_bootstrap_debootstrap.1:29
@@ -111,56 +117,58 @@ msgid ""
 "set debootstrap(8) options (default: None), see I<debootstrap>(8) for more "
 "information about debootstrap."
 msgstr ""
+"setzt debootstrap(8) Optionen (Standardwert: keine), siehe I<debootstrap>(8) "
+"für mehr Informationen über debootstrap."
 
 #. type: IP
 #: en/lb_bootstrap_debootstrap.1:29
 #, no-wrap
 msgid "--verbose"
-msgstr ""
+msgstr "--verbose"
 
 #. type: Plain text
 #: en/lb_bootstrap_debootstrap.1:31
 msgid "sets verbose option (default: False)"
-msgstr ""
+msgstr "setzt verbose Option für mehr Ausgaben (Standardwert: aus)"
 
 #. type: IP
 #: en/lb_bootstrap_debootstrap.1:31
 #, no-wrap
 msgid "-h, --help"
-msgstr ""
+msgstr "-h, --help"
 
 #. type: Plain text
 #: en/lb_bootstrap_debootstrap.1:33
 msgid "show help message and exit"
-msgstr ""
+msgstr "zeigt Hilfenachricht und beendet sich"
 
 #. type: IP
 #: en/lb_bootstrap_debootstrap.1:33
 #, no-wrap
 msgid "-v, --version"
-msgstr ""
+msgstr "-v, --version"
 
 #. type: Plain text
 #: en/lb_bootstrap_debootstrap.1:35
 msgid "show program's version number and exit"
-msgstr ""
+msgstr "zeigt Versionsnummer des Programms und beendet sich"
 
 #. type: SH
 #: en/lb_bootstrap_debootstrap.1:36
 #, no-wrap
 msgid "SEE ALSO"
-msgstr ""
+msgstr "SIEHE AUCH"
 
 #. type: Plain text
 #: en/lb_bootstrap_debootstrap.1:38
 msgid "I<debootstrap>(8)"
-msgstr ""
+msgstr "I<debootstrap>(8)"
 
 #. type: SH
 #: en/lb_bootstrap_debootstrap.1:39
 #, no-wrap
 msgid "HOMEPAGE"
-msgstr ""
+msgstr "HOMEPAGE"
 
 #. type: Plain text
 #: en/lb_bootstrap_debootstrap.1:41
@@ -169,12 +177,15 @@ msgid ""
 "on the homepage at E<lt>I<http://live-systems.org/>E<gt> and in the manual "
 "at E<lt>I<http://live-systems.org/manual/>E<gt>."
 msgstr ""
+"Weitere Informationen über live-build und das Live Systems Projekt können "
+"auf der Homepage unter E<lt>I<http://live-systems.org/>E<gt> und im Handbuch "
+"unter E<lt>I<http://live-systems.org/manual/>E<gt> gefunden werden."
 
 #. type: SH
 #: en/lb_bootstrap_debootstrap.1:42
 #, no-wrap
 msgid "BUGS"
-msgstr ""
+msgstr "FEHLER"
 
 #. type: Plain text
 #: en/lb_bootstrap_debootstrap.1:44
@@ -184,15 +195,23 @@ msgid ""
 "writing a mail to the Live Systems mailing list at E<lt>I<debian-live@lists."
 "debian.org>E<gt>."
 msgstr ""
+"Fehler können durch Einreichen eines Fehlerberichtes für das live-build "
+"Paket im Debian Bug Tracking System unter E<lt>I<http://bugs.debian.org/"
+">E<gt> oder durch Senden einer E-Mail an die Debian Live Mailing Liste unter "
+"E<lt>I<debian-live@lists.debian.org>E<gt> (englischsprachig) mitgeteilt "
+"werden."
 
+#
 #. type: SH
 #: en/lb_bootstrap_debootstrap.1:45
 #, no-wrap
 msgid "AUTHOR"
-msgstr ""
+msgstr "AUTOR"
 
 #. type: Plain text
 #: en/lb_bootstrap_debootstrap.1:46
 msgid ""
 "live-build was written by Daniel Baumann E<lt>I<mail@daniel-baumann.ch>E<gt>."
 msgstr ""
+"live-build wurde von Daniel Baumann E<lt>I<mail@daniel-baumann.ch>E<gt> "
+"geschrieben."
