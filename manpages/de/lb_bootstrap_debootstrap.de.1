@@ -1,0 +1,61 @@
+.\" live-build(7) - System Build Scripts
+.\" Copyright (C) 2006-2013 Daniel Baumann <mail@daniel-baumann.ch>
+.\"
+.\" This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+.\" This is free software, and you are welcome to redistribute it
+.\" under certain conditions; see COPYING for details.
+.\"
+.\"
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH LIVE\-BUILD 1 2013\-04\-06 4.0~a16\-1 "Live Systems Project"
+
+.SH NAME
+\fBlive\-build\fP \- System Build Scripts
+
+.SH SYNOPSIS
+\fBlb bootstrap_debootstrap\fP [\-\-debootstrap\-options=\fIDEBOOTSTRAP_OPTIONS\fP]
+[\-\-verbose]
+.PP
+\fBlb bootstrap_debootstrap\fP [\-\-help]
+.br
+\fBlb bootstrap_debootstrap\fP [\-\-version]
+.
+.SH DESCRIPTION
+live\-build contains the programs to build a live system from a configuration
+directory.
+.PP
+The \fBlb bootstrap_debootstrap\fP program bootstraps the chroot system with
+debootstrap(8).
+
+.SH OPTIONS
+.IP \-\-debootstrap\-options=\fIDEBOOTSTRAP_OPTIONS\fP 4
+set debootstrap(8) options (default: None), see \fIdebootstrap\fP(8) for more
+information about debootstrap.
+.IP \-\-verbose 4
+sets verbose option (default: False)
+.IP "\-h, \-\-help" 4
+show help message and exit
+.IP "\-v, \-\-version" 4
+show program's version number and exit
+
+.SH "SEE ALSO"
+\fIdebootstrap\fP(8)
+
+.SH HOMEPAGE
+More information about live\-build and the Live Systems project can be found
+on the homepage at <\fIhttp://live\-systems.org/\fP> and in the manual
+at <\fIhttp://live\-systems.org/manual/\fP>.
+
+.SH BUGS
+Bugs can be reported by submitting a bugreport for the live\-build package in
+the Bug Tracking System at <\fIhttp://bugs.debian.org/\fP> or by
+writing a mail to the Live Systems mailing list at
+<\fIdebian\-live@lists.debian.org\fP>.
+
+.SH AUTHOR
+live\-build was written by Daniel Baumann
+<\fImail@daniel\-baumann.ch\fP>.
