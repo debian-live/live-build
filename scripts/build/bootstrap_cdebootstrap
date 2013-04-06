@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/python3.2
 
 ## live-build(7) - System Build Scripts
 ## Copyright (C) 2006-2013 Daniel Baumann <mail@daniel-baumann.ch>
@@ -8,136 +8,159 @@
 ## under certain conditions; see COPYING for details.
 
 
-set -e
+import configparser
+import argparse
+import os
+import sys
+import shutil
+import glob
+import subprocess
 
-# Including common functions
-[ -e "${LIVE_BUILD}/scripts/build.sh" ] && . "${LIVE_BUILD}/scripts/build.sh" || . /usr/lib/live/build.sh
 
-# Setting static variables
-DESCRIPTION="$(Echo 'bootstrap a Debian system with cdebootstrap(1)')"
-HELP=""
-USAGE="${PROGRAM} [--force]"
+# TODO:
+# - lockfile handling
+# - cdebootstrap-options from config
 
-Arguments "${@}"
+def main():
+	## Parsing Configuration
+	config = configparser.ConfigParser()
 
-# Reading configuration files
-Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
-Set_defaults
+	config.read('config/build')
 
-if [ "${LB_BOOTSTRAP}" != "cdebootstrap" ] && [ "${LB_BOOTSTRAP}" != "cdebootstrap-static" ]
-then
-	exit 0
-fi
+	try:
+		architecture     = config.get('Image', 'Architecture')
+		distribution     = config.get('Image', 'Parent-Distribution')
+		mirror_bootstrap = config.get('Image', 'Parent-Mirror-Bootstrap')
+	except:
+		distribution     = config.get('Image', 'Distribution')
+		mirror_bootstrap = config.get('Image', 'Mirror-Bootstrap')
 
-if [ ! -x "$(which cdebootstrap 2>/dev/null)" ]
-then
-	echo "E: cdebootstrap - command not found"
-	echo "I: cdebootstrap can be obtained from http://ftp.debian.org/debian/pool/main/d/cdebootstrap/"
-	echo "I: On Debian based systems, cdebootstrap can be installed with 'apt-get install cdebootstrap'."
-	exit 1
-fi
+	## Parsing Arguments
+	arguments = argparse.ArgumentParser(
+		prog            = 'lb bootstrap_cdebootstrap',
+		usage           = '%(prog)s [arguments]',
+		description     = '''live-build contains the programs to build a live system from a configuration directory.
+		                     The lb bootstrap_cdebootstrap program bootstraps the chroot system with cdebootstrap.''',
+		epilog          = 'live-build was written by Daniel Baumann <mail@daniel-baumann.ch>.',
+		version         = 'live-build 4.0',
+		formatter_class = argparse.ArgumentDefaultsHelpFormatter
+	)
 
-# Check architecture
-Check_crossarchitectures
+	arguments.add_argument('--verbose',              help='set verbose option',         action='store_true')
+	arguments.add_argument('--cdebootstrap-options', help='set cdebootstrap(1) options' )
 
-Echo_message "Begin bootstrapping system..."
+	args = arguments.parse_args()
 
-Check_package /usr/bin/${LB_BOOTSTRAP} cdebootstrap
+	# --verbose
+	verbose = args.verbose
 
-# Ensure that a system is built as root
-lb testroot
+	# --cdebootstrap-options
+	cdebootstrap_options_late = distribution + ' chroot ' + mirror_bootstrap
 
-# Checking stage file
-Check_stagefile .build/bootstrap
-Check_stagefile .build/bootstrap_cache.restore
+	cdebootstrap_options_early = ''
 
-# Checking lock file
-Check_lockfile .lock
+	if (architecture) and (not architecture == 'auto'):
+		cdebootstrap_options_early = cdebootstrap_options_early + ' --arch=' + architecture
 
-# Creating lock file
-Create_lockfile .lock
+	if args.cdebootstrap_options:
+		cdebootstrap_options = cdebootstrap_options_early + ' ' + args.cdebootstrap_options + ' ' + cdebootstrap_options_late
+	else:
+		cdebootstrap_options = cdebootstrap_options_early + ' ' + cdebootstrap_options_late
 
-# Creating chroot directory
-mkdir -p chroot
+	## Calling cdebootstrap
 
-# Setting cdebootstrap options
-if [ -n "${LIVE_IMAGE_ARCHITECTURE}" ]
-then
-	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --arch=${LIVE_IMAGE_ARCHITECTURE}"
-fi
+	# stagefile
+	if os.path.isfile('.build/bootstrap'):
+		if verbose:
+			print('I: bootstrap already done - nothing to do')
 
-if [ "${_DEBUG}" = "true" ]
-then
-	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --debug"
-fi
+		sys.exit(0)
 
-if [ "${_QUIET}" = "true" ]
-then
-	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --quiet"
-fi
+	# dependencies
+	if not os.path.isfile('/usr/bin/cdebootstrap'):
+		print('E: /usr/bin/cdebootstrap - no such file')
 
-if [ "${_VERBOSE}" = "true" ]
-then
-	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --verbose"
-fi
+		if verbose:
+			print('I: cdebootstrap can be optained from:\n'
+			      'I:   http://anonscm.debian.org/gitweb/?p=users/waldi/cdebootstrap.git\n'
+			      'I:   http://ftp.debian.org/debian/pool/main/c/cdebootstrap/\n'
+			      'I: On Debian based systems, cdebootstrap can be installed with:\n'
+			      'I:   # sudo apt-get install cdebootstrap')
 
-if [ "${LB_APT_SECURE}" = "false" ]
-then
-	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --allow-unauthenticated"
-fi
+		sys.exit(1)
 
-if [ -x "/usr/bin/cdebootstrap" ] || [ -x "/usr/bin/cdebootstrap-static" ]
-then
-	if [ "${LB_CACHE_PACKAGES}" = "true" ]
-	then
-		if ls cache/packages.bootstrap/*.deb > /dev/null 2>&1
-		then
-			mkdir -p chroot/var/cache/bootstrap
-			cp cache/packages.bootstrap/*.deb chroot/var/cache/bootstrap
-		fi
+	# clean
+	if os.path.exists('chroot'):
+		print('E: chroot already exists - unclean build')
 
-		Echo_breakage "Running ${LB_BOOTSTRAP} (download-only)... "
-		${LB_BOOTSTRAP} ${CDEBOOTSTRAP_OPTIONS} --download-only "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}"
+		if verbose:
+			print('I: use \'lb clean\' to clean up a previously incomplete build')
 
-		# Removing old cache
-		rm -f cache/packages.bootstrap/*.deb
+		sys.exit(1)
+	# stage cache
+	elif os.path.exists('cache/bootstrap'):
+		if verbose:
+			print('I: Copying cache/bootstrap to chroot')
 
-		# Saving new cache
-		mkdir -p cache/packages.bootstrap
-		cp chroot/var/cache/bootstrap/*.deb cache/packages.bootstrap
-	fi
+		# Note: copy instead of move to make cache survive incomplete build
+		#shutil.copytree('cache/bootstrap', 'chroot') # FIXME: copytree() doesn't work with device files :(
+		cp = subprocess.call('cp -a cache/bootstrap chroot', shell=True)
+	# packages cache
+	elif glob.glob('cache/packages.bootstrap/*.deb'):
+		if verbose:
+			print('I: Copying cache/packages.bootstrap/*.deb to chroot/var/cache/bootstrap/*.deb')
 
-	Echo_breakage "Running ${LB_BOOTSTRAP}... "
+		# Note: copy instead of move to make cache survive incomplete build
+		os.makedirs('chroot/var/cache/bootstrap', exist_ok=True)
 
-	# Run appropriate bootstrap, i.e. foreign or regular bootstrap
-	if [ "${LB_BOOTSTRAP_QEMU_ARCHITECTURES}" = "${LIVE_IMAGE_ARCHITECTURE}" ]; then
+		for package in glob.glob('cache/packages.bootstrap/*.deb'):
+			os.link(package, os.path.join('chroot/var/cache/bootstrap/' + os.path.basename(package)))
+	else:
+		# cdebootstrap
+		if verbose:
+			print('I: Calling \'/usr/bin/debootstrap --download-only ' + cdebootstrap_options + '\'')
 
-		if [ -n "${LB_BOOTSTRAP_QEMU_EXCLUDE}" ]
-		then
-			CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --exclude=$(echo ${LB_BOOTSTRAP_QEMU_EXCLUDE} | sed 's|  *|,|g')"
-		fi
+			# Note: calling cdebootstrap twice:
+			#       - to use already downloaded /var/cache/bootstrap/*.deb on incomplete builds
+			#       - to use /var/cache/boottrap/*.deb for debian-installer
+			cdebootstrap = subprocess.call('/usr/bin/cdebootstrap --download-only ' + cdebootstrap_options, shell=True)
 
-		Echo_message "Bootstrap will be foreign"
-		${LB_BOOTSTRAP} ${CDEBOOTSTRAP_OPTIONS} --foreign "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}"
+		# package cache
+		if glob.glob('chroot/var/cache/bootstrap/*.deb'):
+			if verbose:
+				print('I: Copying chroot/var/cache/bootstrap/*.deb to cache/packages.bootstrap')
 
-		Echo_message "Running debootstrap second stage under QEMU"
-		cp ${LB_BOOTSTRAP_QEMU_STATIC} chroot/usr/bin
-		Chroot chroot /bin/sh /sbin/cdebootstrap-foreign
-	else
-		${LB_BOOTSTRAP} ${CDEBOOTSTRAP_OPTIONS} "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}"
-	fi
+			# Notes: - remove first to keep cache minimal
+			#        - remove files instead of directory to work with symlinked directory
+			for package in glob.glob('cache/packages.bootstrap/*.deb'):
+				os.remove(package)
 
-	# Deconfiguring cdebootstrap configurations
-	rm -f chroot/etc/apt/sources.list
-	rm -f chroot/etc/hosts
-	rm -f chroot/etc/resolv.conf
+			os.makedirs('cache/packages.bootstrap', exist_ok=True)
 
-	# Removing bootstrap cache
-	rm -rf chroot/var/cache/bootstrap
+			for package in glob.glob('chroot/var/cache/bootstrap/*.deb'):
+				shutil.copy2(package, 'cache/packages.bootstrap')
 
-	# Creating stage file
-	Create_stagefile .build/bootstrap
-else
-	Echo_error "Can't process file /usr/bin/${LB_BOOTSTRAP} (FIXME)"
-	exit 1
-fi
+	# cdebootstrap
+	if not os.path.exists('chroot/bin'):
+		if verbose:
+			print('I: Calling \'/usr/bin/debootstrap ' + cdebootstrap_options + '\'')
+
+		cdebootstrap = subprocess.call('/usr/bin/cdebootstrap ' + cdebootstrap_options, shell=True)
+
+	# stage cache
+	if (os.path.exists('chroot')) and (not os.path.exists('cache/bootstrap')):
+		if verbose:
+			print('I: Copying chroot to cache/bootstrap')
+
+		# Note: copy instead of move to keep stage
+		#shutil.copytree('chroot', 'cache/bootstrap') # FIXME: copytree() doesn't work with device files :(
+		os.makedirs('cache', exist_ok=True)
+		cp = subprocess.call('cp -a chroot cache/bootstrap', shell=True)
+
+	## stagefile
+	os.makedirs('.build', exist_ok=True)
+	open('.build/bootstrap', 'w').close()
+
+
+if __name__ == '__main__':
+	main()
