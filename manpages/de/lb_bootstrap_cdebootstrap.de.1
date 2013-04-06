@@ -1,0 +1,62 @@
+.\" live-build(7) - System Build Scripts
+.\" Copyright (C) 2006-2013 Daniel Baumann <mail@daniel-baumann.ch>
+.\"
+.\" This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+.\" This is free software, and you are welcome to redistribute it
+.\" under certain conditions; see COPYING for details.
+.\"
+.\"
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH LIVE\-BUILD 1 06.04.2013 4.0~a16\-1 "Live Systems Projekt"
+
+.SH NAME
+\fBlive\-build\fP \- System Build Skripte
+
+.SH SYNTAX
+\fBlb bootstrap_cdebootstrap\fP
+[\-\-cdebootstrap\-options=\fICDEBOOTSTRAP_OPTIONS\fP] [\-\-verbose]
+.PP
+\fBlb bootstrap_cdebootstrap\fP [\-\-help]
+.br
+\fBlb bootstrap_cdebootstrap\fP [\-\-version]
+.
+.SH BESCHREIBUNG
+live\-build enthält die Skripte um ein Live System von einem
+Konfigurationsverzeichnis zu erstellen.
+.PP
+The \fBlb bootstrap_cdebootstrap\fP program bootstraps the chroot system with
+cdebootstrap(1).
+
+.SH OPTIONEN
+.IP \-\-cdebootstrap\-options=\fICDEBOOTSTRAP_OPTIONS\fP 4
+set cdebootstrap(1) options (default: None), see \fIcdebootstrap\fP(1) for more
+information about cdebootstrap.
+.IP \-\-verbose 4
+setzt verbose Option für mehr Ausgaben (Standardwert: aus)
+.IP "\-h, \-\-help" 4
+zeigt Hilfenachricht und beendet sich
+.IP "\-v, \-\-version" 4
+zeigt Versionsnummer des Programms und beendet sich
+
+.SH "SIEHE AUCH"
+\fIcdebootstrap\fP(1)
+
+.SH HOMEPAGE
+Weitere Informationen über live\-build und das Live Systems Projekt können
+auf der Homepage unter <\fIhttp://live\-systems.org/\fP> und im Handbuch
+unter <\fIhttp://live\-systems.org/manual/\fP> gefunden werden.
+
+.SH FEHLER
+Fehler können durch Einreichen eines Fehlerberichtes für das live\-build
+Paket im Debian Bug Tracking System unter
+<\fIhttp://bugs.debian.org/\fP> oder durch Senden einer E\-Mail an die
+Debian Live Mailing Liste unter <\fIdebian\-live@lists.debian.org\fP>
+(englischsprachig) mitgeteilt werden.
+
+.SH AUTOR
+live\-build wurde von Daniel Baumann <\fImail@daniel\-baumann.ch\fP>
+geschrieben.
