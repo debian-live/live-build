@@ -8,8 +8,8 @@
 ## under certain conditions; see COPYING for details.
 
 
-import configparser
 import argparse
+import configparser
 import os
 import sys
 import shutil
@@ -22,7 +22,28 @@ import subprocess
 # - cdebootstrap-options from config
 
 def main():
+	## Parsing Arguments
+	arguments = argparse.ArgumentParser(
+		prog            = 'lb bootstrap_cdebootstrap',
+		usage           = '%(prog)s [arguments]',
+		description     = '''live-build contains the programs to build a live system from a configuration directory.
+		                     The lb bootstrap_cdebootstrap program bootstraps the chroot system with cdebootstrap.''',
+		epilog          = 'See \'man lb_bootstrap_cdebootstrap\' for more information.',
+		version         = 'live-build 4.0',
+		formatter_class = argparse.ArgumentDefaultsHelpFormatter
+	)
+
+	arguments.add_argument('--verbose',              help='set verbose option',         action='store_true')
+	arguments.add_argument('--cdebootstrap-options', help='set cdebootstrap(1) options' )
+
+	args = arguments.parse_args()
+
 	## Parsing Configuration
+	if not os.path.isfile('config/build'):
+		print('E: config/build - no such file')
+
+		sys.exit(1)
+
 	config = configparser.ConfigParser()
 
 	config.read('config/build')
@@ -34,22 +55,6 @@ def main():
 	except:
 		distribution     = config.get('Image', 'Distribution')
 		mirror_bootstrap = config.get('Image', 'Mirror-Bootstrap')
-
-	## Parsing Arguments
-	arguments = argparse.ArgumentParser(
-		prog            = 'lb bootstrap_cdebootstrap',
-		usage           = '%(prog)s [arguments]',
-		description     = '''live-build contains the programs to build a live system from a configuration directory.
-		                     The lb bootstrap_cdebootstrap program bootstraps the chroot system with cdebootstrap.''',
-		epilog          = 'live-build was written by Daniel Baumann <mail@daniel-baumann.ch>.',
-		version         = 'live-build 4.0',
-		formatter_class = argparse.ArgumentDefaultsHelpFormatter
-	)
-
-	arguments.add_argument('--verbose',              help='set verbose option',         action='store_true')
-	arguments.add_argument('--cdebootstrap-options', help='set cdebootstrap(1) options' )
-
-	args = arguments.parse_args()
 
 	# --verbose
 	verbose = args.verbose
