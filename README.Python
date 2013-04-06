@@ -1,0 +1,8 @@
+live-build 4.x is transitioning from shell scripts to Python scripts.
+
+In order to ensure a smooth transition without breaks until completion,
+one component at the time is being rewritten and re-documented without
+interconnection between them.
+
+Once done, the newly Python sources will be shaped into modules and
+subcommands properly.
