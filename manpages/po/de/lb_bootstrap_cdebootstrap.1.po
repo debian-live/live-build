@@ -1,14 +1,13 @@
-# German translations for live-build package
-# Copyright (C) 2013 Free Software Foundation, Inc.
+# German translations for live-build
+# Copyright (C) 2006-2013 Daniel Baumann <mail@daniel-baumann.ch>
 # This file is distributed under the same license as the live-build package.
-# Automatically generated, 2013.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: live-build VERSION\n"
+"Project-Id-Version: live-build 4.0~a16-1\n"
 "POT-Creation-Date: 2013-04-06 13:17+0300\n"
-"PO-Revision-Date: 2013-04-06 13:13+0300\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2010-05-24 09:59+0300\n"
+"Last-Translator: Daniel Baumann <mail@daniel-baumann.ch>\n"
 "Language-Team: none\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -59,30 +58,22 @@ msgstr "SYNTAX"
 
 #. type: Plain text
 #: en/lb_bootstrap_cdebootstrap.1:16
-#, fuzzy
-#| msgid ""
-#| "B<lb bootstrap_debootstrap> [--debootstrap-"
-#| "options=I<DEBOOTSTRAP_OPTIONS>] [--verbose]"
 msgid ""
 "B<lb bootstrap_cdebootstrap> [--cdebootstrap-"
 "options=I<CDEBOOTSTRAP_OPTIONS>] [--verbose]"
 msgstr ""
-"B<lb bootstrap_debootstrap> [--debootstrap-options=I<DEBOOTSTRAP_OPTIONEN>] "
-"[--verbose]"
+"B<lb bootstrap_cdebootstrap> [--cdebootstrap-"
+"options=I<CDEBOOTSTRAP_OPTIONEN>] [--verbose]"
 
 #. type: Plain text
 #: en/lb_bootstrap_cdebootstrap.1:18
-#, fuzzy
-#| msgid "B<lb bootstrap_debootstrap> [--help]"
 msgid "B<lb bootstrap_cdebootstrap> [--help]"
-msgstr "B<lb bootstrap_debootstrap> [--help]"
+msgstr "B<lb bootstrap_cdebootstrap> [--help]"
 
 #. type: Plain text
 #: en/lb_bootstrap_cdebootstrap.1:20
-#, fuzzy
-#| msgid "B<lb bootstrap_debootstrap> [--version]"
 msgid "B<lb bootstrap_cdebootstrap> [--version]"
-msgstr "B<lb bootstrap_debootstrap> [--version]"
+msgstr "B<lb bootstrap_cdebootstrap> [--version]"
 
 #. type: SH
 #: en/lb_bootstrap_cdebootstrap.1:21 en/lb_bootstrap_debootstrap.1:21
@@ -101,16 +92,12 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_bootstrap_cdebootstrap.1:25
-#, fuzzy
-#| msgid ""
-#| "The B<lb bootstrap_debootstrap> program bootstraps the chroot system with "
-#| "debootstrap(8)."
 msgid ""
 "The B<lb bootstrap_cdebootstrap> program bootstraps the chroot system with "
 "cdebootstrap(1)."
 msgstr ""
-"Das B<lb bootstrap_debootstrap> Programm erstellt das Chroot System mit "
-"debootstrap(8)."
+"Das B<lb bootstrap_cdebootstrap> Programm erstellt das Chroot System mit "
+"cdebootstrap(1)."
 
 #. type: SH
 #: en/lb_bootstrap_cdebootstrap.1:26 en/lb_bootstrap_debootstrap.1:26
@@ -120,23 +107,18 @@ msgstr "OPTIONEN"
 
 #. type: IP
 #: en/lb_bootstrap_cdebootstrap.1:27
-#, fuzzy, no-wrap
-#| msgid "--debootstrap-options=I<DEBOOTSTRAP_OPTIONS>"
+#, no-wrap
 msgid "--cdebootstrap-options=I<CDEBOOTSTRAP_OPTIONS>"
-msgstr "--debootstrap-options=I<DEBOOTSTRAP_OPTIONEN>"
+msgstr "--cdebootstrap-options=I<CDEBOOTSTRAP_OPTIONEN>"
 
 #. type: Plain text
 #: en/lb_bootstrap_cdebootstrap.1:29
-#, fuzzy
-#| msgid ""
-#| "set debootstrap(8) options (default: None), see I<debootstrap>(8) for "
-#| "more information about debootstrap."
 msgid ""
 "set cdebootstrap(1) options (default: None), see I<cdebootstrap>(1) for more "
 "information about cdebootstrap."
 msgstr ""
-"setzt debootstrap(8) Optionen (Standardwert: keine), siehe I<debootstrap>(8) "
-"für mehr Informationen über debootstrap."
+"setzt cdebootstrap(1) Optionen (Standardwert: keine), siehe I<cdebootstrap>"
+"(1) für mehr Informationen über cdebootstrap."
 
 #. type: IP
 #: en/lb_bootstrap_cdebootstrap.1:29 en/lb_bootstrap_debootstrap.1:29
@@ -179,10 +161,8 @@ msgstr "SIEHE AUCH"
 
 #. type: Plain text
 #: en/lb_bootstrap_cdebootstrap.1:38
-#, fuzzy
-#| msgid "I<debootstrap>(8)"
 msgid "I<cdebootstrap>(1)"
-msgstr "I<debootstrap>(8)"
+msgstr "I<cdebootstrap>(1)"
 
 #. type: SH
 #: en/lb_bootstrap_cdebootstrap.1:39 en/lb_bootstrap_debootstrap.1:39
