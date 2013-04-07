@@ -40,7 +40,7 @@ def main():
 
 	## Parsing Configuration
 	if not os.path.isfile('config/build'):
-		print('E: config/build - no such file')
+		print('E: config/build - no such file', file=sys.stderr)
 
 		sys.exit(1)
 
@@ -88,7 +88,7 @@ def main():
 
 	# dependencies
 	if not os.path.isfile('/usr/sbin/debootstrap'):
-		print('E: /usr/sbin/debootstrap - no such file')
+		print('E: /usr/sbin/debootstrap - no such file', file=sys.stderr)
 
 		if verbose:
 			print('I: debootstrap can be optained from:\n'
@@ -101,7 +101,7 @@ def main():
 
 	# clean
 	if os.path.exists('chroot'):
-		print('E: chroot already exists - unclean build')
+		print('E: chroot already exists - unclean build', file=sys.stderr)
 
 		if verbose:
 			print('I: use \'lb clean\' to clean up a previously incomplete build')
