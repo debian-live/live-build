@@ -1,3 +1,37 @@
+live-build (4.0~a17-1) experimental; urgency=low
+
+  [ Michael Stummvoll ]
+  * Using LB_HDD_SIZE to determine the size of the image.
+
+  [ Daniel Baumann ]
+  * Replacing bootstrap_debootstrap with Python stub.
+  * Replacing bootstrap_cdebootstrap with Python stub.
+  * Updating bootstrap for Python stubs.
+  * Excluding Python scripts from shell script tests in top-level
+    Makefile.
+  * Adding depends to python3.2.
+  * Temporary hack for lb config to produce config/build until stuff is
+    cleaned up properly.
+  * Removing bootstrap_cache, not needed anymore.
+  * Dropping now unused intermediate config/image.
+  * Adding python readme.
+  * Moving old manpages out of the way.
+  * Adding new lb_bootstrap_debootstrap manpage.
+  * Adding initial German translation for bootstrap_debootstrap manpage.
+  * Adding new lb_bootstrap_cdebootstrap manpage.
+  * Adding initial German translation for bootstrap_cdebootstrap manpage.
+  * Switching argument and configuration handling order in Python stubs.
+  * Adding files section in bootstrap_debootstrap and
+    bootstrap_cdebootstrap manpages.
+
+  [ chals ]
+  * Adding initial Spanish translation of two man pages.
+
+  [ Daniel Baumann ]
+  * Writing errors to stderr in Python stubs.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 08 Apr 2013 22:19:36 +0200
+
 live-build (4.0~a16-1) experimental; urgency=low
 
   [ Daniel Baumann ]
