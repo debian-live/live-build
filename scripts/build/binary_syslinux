@@ -150,7 +150,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 		# Copy in two steps since the theme can have absolute symlinks and would therefore not be dereferenced correctly
 		cp -a ${_SOURCE} chroot/root
 		Chroot chroot cp -aL /root/$(basename ${_SOURCE}) /root/$(basename ${_SOURCE}).tmp || true
-		rm -rf chroot/$(basename ${_SOURCE})
+		rm -rf chroot/root/$(basename ${_SOURCE})
 		mv chroot/root/$(basename ${_SOURCE}).tmp ${_TARGET}
 		;;
 
