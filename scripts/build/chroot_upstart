@@ -27,6 +27,12 @@ Set_defaults
 # Requiring stage file
 Require_stagefile .build/config .build/bootstrap
 
+# Check if system uses upstart
+if [ ! -e chroot/sbin/initctl ]
+then
+	exit 0
+fi
+
 case "${1}" in
 	install)
 		Echo_message "Configuring file /sbin/initctl"
@@ -40,13 +46,9 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ -f chroot/sbin/initctl ]
-		then
-			# Save initctl file
-			mv chroot/sbin/initctl chroot/sbin/initctl.orig
-		fi
+		# Create custom initctl file
+		Chroot chroot dpkg-divert --rename --quiet --add /sbin/initctl
 
-		# Create initctl file
 cat > chroot/sbin/initctl << EOF
 #!/bin/sh
 echo "All runlevel operations denied by policy" >&2
@@ -68,14 +70,9 @@ EOF
 		# Creating lock file
 		Create_lockfile .lock
 
-		if [ -f chroot/sbin/initctl.orig ]
-		then
-			# Restore initctl file
-			mv chroot/sbin/initctl.orig chroot/sbin/initctl
-		else
-			# Remove initctl file
-			rm -f chroot/sbin/initctl
-		fi
+		# Remove custom initctl file
+		rm -f chroot/sbin/initctl
+		Chroot chroot dpkg-divert --rename --quiet --remove /sbin/initctl
 
 		# Removing stage file
 		rm -f .build/chroot_upstart
