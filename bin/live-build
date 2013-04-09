@@ -30,7 +30,7 @@ then
 	man live-build
 	exit 0
 else
-	Echo "live-build contains the scripts that build a Debian Live system from a configuration directory."
+	Echo "live-build contains the scripts to build a Debian Live system from a configuration directory."
 	echo
 	Echo "An introduction to live-build can be found in the live-build(7) manpage."
 
