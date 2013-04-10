@@ -32,16 +32,28 @@ Set_defaults
 case "${LB_MODE}" in
 	progress-linux)
 		case "${LB_DISTRIBUTION}" in
-			artax*)
-				_KEYS="1.0-artax 1.0-artax-packages"
+			artax)
+				_KEYS="1.0-artax"
 				;;
 
-			baureo*)
-				_KEYS="2.0-baureo 2.0-baureo-packages"
+			artax-backports)
+				_KEYS="1.0-artax 1.9-artax-backports"
 				;;
 
-			chairon*)
-				_KEYS="3.0-chairon 3.0-chairon-packages"
+			baureo)
+				_KEYS="2.0-baureo"
+				;;
+
+			baureo-backports)
+				_KEYS="2.0-baureo 2.9-baureo-backports"
+				;;
+
+			chairon)
+				_KEYS="3.0-chairon"
+				;;
+
+			chairon-backports)
+				_KEYS="3.0-chairon 3.9-chairon-backports"
 				;;
 		esac
 
@@ -56,13 +68,39 @@ do
 	wget -q "${_URL}/archive-key-${_KEY}.asc" -O chroot/key.asc
 	wget -q "${_URL}/archive-key-${_KEY}.asc.sig" -O chroot/key.asc.sig
 
-	if [ -e /usr/bin/gpgv ] && [ -e /usr/share/keyrings/debian-keyring.gpg ]
+	if [ -e /usr/bin/gpgv ]
 	then
-		Echo_message "Verifying archive-key ${_KEY} against debian-keyring..."
+		if [ -e /usr/share/keyrings/debian-keyring.gpg ] || [ -e /usr/share/keyrings/debian-maintainers.gpg ]
+		then
+			_KEY_VALID=""
 
-		/usr/bin/gpgv --quiet --keyring /usr/share/keyrings/debian-keyring.gpg chroot/key.asc.sig chroot/key.asc > /dev/null 2>&1 || { Echo_error "archive-key ${_KEY} has invalid signature."; return 1;}
+			for _KEYRING in /usr/share/keyrings/debian-keyring.gpg /usr/share/keyrings/debian-maintainers.gpg
+			do
+				if [ -e "${_KEYRING}" ]
+				then
+					Echo_message "Verifying archive-key ${_KEY} against $(basename ${_KEYRING} .gpg | sed -e 's|-keyring||') keyring..."
+
+					set +e
+					/usr/bin/gpgv --quiet --keyring ${_KEYRING} chroot/key.asc.sig chroot/key.asc > /dev/null 2>&1 && _KEY_VALID="true" && break
+					set -e
+				fi
+			done
+
+			case "${_KEY_VALID}" in
+				true)
+					Echo_message "Verifying ${_KEY} signature successful."
+					;;
+
+				*)
+					Echo_error "Verifying ${_KEY} signature failed."
+					return 1
+					;;
+			esac
+		else
+			Echo_warning "Skipping archive-key ${_KEY} verification, debian-keyring not available..."
+		fi
 	else
-		Echo_warning "Skipping archive-key ${_KEY} verification, either gpgv or debian-keyring not available on host system..."
+		Echo_warning "Skipping archive-key ${_KEY} verification, gpgv not available..."
 	fi
 
 	Echo_message "Importing archive-key ${_KEY}..."
