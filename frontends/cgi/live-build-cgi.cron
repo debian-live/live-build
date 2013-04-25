@@ -63,15 +63,25 @@ then
 		# Pull in variables from the build file.
 		. "${_FILE}"
 
+		# Drop out some build data for information if something goes wrong.
+		echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build-cgi: begin web build (${_BUILD})." >> /var/log/live
+
 		# Clone the git config to target build directory
 		git clone ${_LB_GIT} "${_TEMPDIR}"/"${_BUILD}" >> /var/log/live
 		_ERRORGIT="${?}"
 
+		# Sanity check to default to something since we are going to build from git clone.
+		if [ -z "${_LB_CONFIG}" ]
+		then
+			_LB_CONFIG="standard"
+		fi
+
 		# Now set a variable for the correct build path
 		_BUILD_PATH="${_TEMPDIR}/${_BUILD}/images/${_LB_CONFIG}"
 
-		# Drop out some build data for information if something goes wrong.
-		echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build-cgi: begin web build (${_BUILD})." >> /var/log/live
+		_DATE_START="`date -R`"
+		echo "Begin live-build-cgi: ${_DATE_START}" > "${_BUILD_PATH}"/log
+		echo "Info live-build-cgi: Config tree cloned from ${_LB_GIT} for build ${_BUILD}" >> "${_BUILD_PATH}"/log
 
 		# Creating directory for the config/package-lists
 		mkdir -p "${_BUILD_PATH}"/config/package-lists
@@ -82,18 +92,15 @@ then
 			echo "${_LB_CGIPACKAGES}" > "${_BUILD_PATH}"/config/package-lists/cgipackages.list.chroot
 		fi
 
-		_DATE_START="`date -R`"
-		echo "Begin: ${_DATE_START}" > "${_BUILD_PATH}"/log
-
 		# Generating config here
 		if [ "${_ERRORGIT}" -eq "0" ]
 		then
 			cd "${_BUILD_PATH}"
 			# Do config with git and stack on config file params to build
-			lb config --distribution "${LB_DISTRIBUTION}" --architectures "${LB_ARCHITECTURES}" --archive-areas "${LB_ARCHIVE_AREAS}" --chroot-filesystem "${LB_CHROOT_FILESYSTEM}" --linux-flavours "${LB_LINUX_FLAVOURS}" --security "${LB_SECURITY}" --apt-indices "${LB_APT_INDICES}" --bootappend-install "${LB_BOOTAPPEND_INSTALL}" --bootappend-live "${LB_BOOTAPPEND_LIVE}" --bootloader "${LB_BOOTLOADER}" --debian-installer "${LB_DEBIAN_INSTALLER}" --iso-application "${LB_ISO_APPLICATION}" --iso-preparer "${LB_ISO_PREPARER}" --iso-publisher "${LB_ISO_PUBLISHER}" --iso-volume "${LB_ISO_VOLUME}" --memtest "${LB_MEMTEST}" --net-root-path "${LB_NET_ROOT_PATH}" --net-root-server "${LB_NET_ROOT_SERVER}" --source-images "${LB_SOURCE_IMAGES}" --source "${LB_SOURCE}"
+			lb config ${_CGI_CONFIG_APPEND} --distribution "${LB_DISTRIBUTION}" --binary-images "${LB_BINARY_IMAGES}" --architectures "${LB_ARCHITECTURES}" --archive-areas "${LB_ARCHIVE_AREAS}" --chroot-filesystem "${LB_CHROOT_FILESYSTEM}" --linux-flavours "${LB_LINUX_FLAVOURS}" --security "${LB_SECURITY}" --apt-indices "${LB_APT_INDICES}" --bootappend-install "${LB_BOOTAPPEND_INSTALL}" --bootappend-live "${LB_BOOTAPPEND_LIVE}" --bootloader "${LB_BOOTLOADER}" --debian-installer "${LB_DEBIAN_INSTALLER}" --iso-application "${LB_ISO_APPLICATION}" --iso-preparer "${LB_ISO_PREPARER}" --iso-publisher "${LB_ISO_PUBLISHER}" --iso-volume "${LB_ISO_VOLUME}" --memtest "${LB_MEMTEST}" --net-root-path "${LB_NET_ROOT_PATH}" --net-root-server "${LB_NET_ROOT_SERVER}" --source-images "${LB_SOURCE_IMAGES}" --source "${LB_SOURCE}"
 			_ERRORCONFIG="${?}"
 		else
-			echo "Config stage skipped. The git clone produced an error: ${_ERRORGIT}" > "${_BUILD_PATH}"/log
+			echo "Config stage skipped. The git clone produced an error: ${_ERRORGIT}" >> "${_BUILD_PATH}"/log
 		fi
 
 		# Run build if config went ok
@@ -102,7 +109,7 @@ then
 			lb build >> "${_BUILD_PATH}"/log 2>&1
 			_ERRORBUILD="${?}"
 		else
-			echo "Build stage skipped. Config produced an error: ${_ERRORCONFIG}" > "${_BUILD_PATH}"/log
+			echo "Build stage skipped. Config produced an error: ${_ERRORCONFIG}" >> "${_BUILD_PATH}"/log
 		fi
 
 		_DATE_END="`date -R`"

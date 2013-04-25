@@ -30,10 +30,9 @@ then
 	man live-build
 	exit 0
 else
-	Echo "live-build is a set of scripts to build Debian Live system images."
-	echo
-	Echo "The idea behind live-build is a framework that uses a configuration directory to completely automate and customize all aspects of building a Live image."
+	Echo "live-build contains the scripts to build a Debian Live system from a configuration directory."
 	echo
 	Echo "An introduction to live-build can be found in the live-build(7) manpage."
+
 	exit 0
 fi

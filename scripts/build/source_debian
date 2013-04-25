@@ -55,11 +55,23 @@ Chroot chroot "dpkg --get-selections" | awk '{ print $1 }' > source-selection.tx
 cat >> source-selection.txt << EOF
 ${LB_BOOTLOADER}
 live-build
-xorriso
-parted
-squashfs-tools
-mtd-tools
 EOF
+
+case "${LB_BINARY_IMAGES}" in
+	iso*)
+		echo "xorriso" >> source-selection.txt
+		;;
+
+	hdd*)
+		echo "parted" >> source-selection.txt
+		;;
+esac
+
+case "${LB_CHROOT_FILESYSTEM}" in
+	squashfs)
+		echo "squashfs-tools" >> source-selection.txt
+		;;
+esac
 
 case "${LB_BINARY_FILESYSTEM}" in
 	fat*)

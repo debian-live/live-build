@@ -362,7 +362,7 @@ Set_defaults ()
 
 		progress-linux)
 			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-http://ftp.debian.org/debian/}"
-			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://cdn.archive.progress-linux.org/progress/}"
+			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://cdn.archive.progress-linux.org/packages/}"
 			;;
 
 		ubuntu)
@@ -849,7 +849,7 @@ Set_defaults ()
 	# Setting apt indices
 	case "${LB_MODE}" in
 		progress-linux)
-			LB_APT_INDICES="${LB_APT_INDICES:-none}"
+			LB_APT_INDICES="${LB_APT_INDICES:-false}"
 			;;
 
 		*)
@@ -1199,6 +1199,13 @@ Check_defaults ()
 				Echo_warning "Continuing build, but it could lead to errors or different results. Please regenerate the config tree."
 			fi
 		fi
+	fi
+
+	if echo ${LB_HDD_LABEL} | grep -qs ' '
+	then
+		Echo_error "There are currently no whitespaces supported in hdd labels."
+
+		exit 1
 	fi
 
 	if [ "${LB_DEBIAN_INSTALLER}" != "false" ]

@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2013\-02\-14 3.0.1-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2013\-04\-25 3.0.2-1 "Debian Live Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -15,7 +15,7 @@
 .br
 	[\fB\-\-apt\-http\-proxy\fR \fIURL\fR]
 .br
-	[\fB\-\-apt\-indices\fR true|false|none]
+	[\fB\-\-apt\-indices\fR true|false]
 .br
 	[\fB\-\-apt\-options\fR \fIOPTION\fR|"\fIOPTIONS\fR"]
 .br
@@ -249,8 +249,8 @@ defines if apt\-get or aptitude is used to install packages when building the im
 sets the ftp proxy to be used by apt. By default, this is empty. Note that this variable is only for the proxy that gets used by apt internally within the chroot, it is not used for anything else.
 .IP "\fB\-\-apt\-http\-proxy\fR \fIURL\fR" 4
 sets the http proxy to be used by apt. By default, this is empty. Note that this variable is only for the proxy that gets used by apt internally within the chroot, it is not used for anything else.
-.IP "\fB\-\-apt\-indices\fR true|false|none" 4
-defines if the resulting images should have apt indices or not and defaults to true. If set to none, no indices are included at all.
+.IP "\fB\-\-apt\-indices\fR true|false" 4
+defines if the resulting images should have apt indices or not and defaults to true.
 .IP "\fB\-\-apt\-options\fR \fIOPTION\fR|""\fIOPTIONS\fR""" 4
 defines the default options that will be appended to every apt call that is made inside chroot during the building of the image. By default, this is set to \-\-yes to allow non-interactive installation of packages.
 .IP "\fB\-\-aptitude\-options\fR \fIOPTION\fR|""\fIOPTIONS\fR""" 4
