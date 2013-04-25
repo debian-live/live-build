@@ -445,7 +445,16 @@ Set_defaults ()
 	# Setting backports mirror to fetch packages from
 	case "${LB_MODE}" in
 		debian)
-			LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-http://backports.debian.org/debian-backports/}"
+			case "${LB_DISTRIBUTION}" in
+				squeeze)
+					LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-http://backports.debian.org/debian-backports/}"
+					;;
+
+				*)
+					LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-${LB_MIRROR_CHROOT}}"
+					;;
+			esac
+
 			LB_PARENT_MIRROR_CHROOT_BACKPORTS="${LB_PARENT_MIRROR_CHROOT_BACKPORTS:-${LB_MIRROR_CHROOT_BACKPORTS}}"
 			;;
 
@@ -557,7 +566,16 @@ Set_defaults ()
 	# Setting backports mirror which ends up in the image
 	case "${LB_MODE}" in
 		debian)
-			LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-http://http.debian.net/debian-backports/}"
+			case "${LB_DISTRIBUTIO}" in
+				squeeze)
+					LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-http://http.debian.net/debian-backports/}"
+					;;
+
+				*)
+					LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-${LB_MIRROR_BINARY}}"
+					;;
+			esac
+
 			LB_PARENT_MIRROR_BINARY_BACKPORTS="${LB_PARENT_MIRROR_BINARY_BACKPORTS:-${LB_MIRROR_BINARY_BACKPORTS}}"
 			;;
 
@@ -813,7 +831,7 @@ Set_defaults ()
 
 	# Setting updates updates option
 	case "${LB_PARENT_DISTRIBUTION}" in
-		wheezy|jessie|sid)
+		jessie|sid)
 			LB_UPDATES="${LB_UPDATES:-false}"
 			;;
 
