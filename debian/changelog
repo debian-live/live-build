@@ -1,3 +1,10 @@
+live-build (3.0.3-1) unstable; urgency=low
+
+  * Updating debian-backports mirrors for wheezy.
+  * Enabling release updates (formerly known as volatile) for wheezy.
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 25 Apr 2013 17:39:31 +0200
+
 live-build (3.0.2-1) unstable; urgency=low
 
   [ Daniel Baumann ]
