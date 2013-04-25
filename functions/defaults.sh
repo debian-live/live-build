@@ -673,7 +673,7 @@ Set_defaults ()
 
 	# Setting updates updates option
 	case "${LB_PARENT_DISTRIBUTION}" in
-		wheezy|jessie|sid)
+		jessie|sid)
 			LB_UPDATES="${LB_UPDATES:-false}"
 			;;
 
