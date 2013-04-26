@@ -20,6 +20,8 @@ import subprocess
 # TODO:
 # - lockfile handling
 # - debootstrap-options from config
+# - use gettext for i18n
+# - take mirrors from config/archives/debian.{bootstrap,chroot}
 
 def main():
 	## Parsing Arguments
