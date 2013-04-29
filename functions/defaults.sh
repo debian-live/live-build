@@ -566,7 +566,7 @@ Set_defaults ()
 	# Setting backports mirror which ends up in the image
 	case "${LB_MODE}" in
 		debian)
-			case "${LB_DISTRIBUTIO}" in
+			case "${LB_DISTRIBUTION}" in
 				squeeze)
 					LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-http://http.debian.net/debian-backports/}"
 					;;
