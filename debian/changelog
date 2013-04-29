@@ -1,3 +1,10 @@
+live-build (3.0.4-1) unstable; urgency=low
+
+  * Correcting variable typo when setting distribution specific defaults
+    of the backports mirror for the binary image.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 29 Apr 2013 12:47:24 +0200
+
 live-build (3.0.3-1) unstable; urgency=low
 
   * Updating debian-backports mirrors for wheezy.
