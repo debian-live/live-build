@@ -1,3 +1,9 @@
+live-build (3.0.5-1) unstable; urgency=low
+
+  * Skipping loadlin inclusion on netboot images.
+
+ -- Daniel Baumann <daniel@debian.org>  Tue, 30 Apr 2013 10:26:09 +0200
+
 live-build (3.0.4-1) unstable; urgency=low
 
   * Correcting variable typo when setting distribution specific defaults
