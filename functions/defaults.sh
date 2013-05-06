@@ -633,6 +633,7 @@ Set_defaults ()
 		remove-python-py \
 		remove-temporary-files \
 		remove-udev-persistent-rules \
+		remove-systemd-machine-id \
 		update-apt-file-cache \
 		update-apt-xapian-index \
 		update-glx-alternative \
@@ -815,7 +816,7 @@ Set_defaults ()
 			;;
 
 		*)
-			LB_BINARY_FILESYSTEM="${LB_BINARY_FILESYSTEM:-fat16}"
+			LB_BINARY_FILESYSTEM="${LB_BINARY_FILESYSTEM:-fat32}"
 			;;
 	esac
 
@@ -1124,21 +1125,6 @@ Set_defaults ()
 
 	# Setting net tarball
 	LB_NET_TARBALL="${LB_NET_TARBALL:-true}"
-
-	# Setting syslinux theme package
-	case "${LB_MODE}" in
-		progress-linux)
-			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-progress-standard}"
-			;;
-
-		ubuntu)
-			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-ubuntu-oneiric}"
-			;;
-
-		*)
-			LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME:-live-build}"
-			;;
-	esac
 
 	# Setting firmware option
 	case "${LB_MODE}" in

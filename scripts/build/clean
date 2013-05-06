@@ -102,7 +102,7 @@ do
 			rm -f ${LIVE_IMAGE_NAME}*.tar.gz
 			rm -f ${LIVE_IMAGE_NAME}*.zsync*
 			rm -f ${LIVE_IMAGE_NAME}.sh
-			rm -f ${LIVE_IMAGE_NAME}.contents ${LIVE_IMAGE_NAME}.packages
+			rm -f ${LIVE_IMAGE_NAME}*.contents ${LIVE_IMAGE_NAME}*.packages
 			rm -f MD5SUMS SHA1SUMS SHA256SUMS SHA512SUMS
 			rm -f md5sum.txt sha1sum.txt sha256sum.txt sha512sum.txt
 

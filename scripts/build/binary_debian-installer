@@ -477,7 +477,7 @@ then
 
 		# Drop the packages already installed that d-i doesn't explicitely need
 		_REMAINING_PACKAGES="$(echo ${DI_FIRMWARE_PACKAGES} ${DI_REQ_PACKAGES} | sed -e 's# #|#g')"
-		_REMAINING_PACKAGES="$(sed -n -e 's|Package: ||p' chroot/var/lib/dpkg/status.tmp | grep -E -v "^${_REMAINING_PACKAGES}$")"
+		_REMAINING_PACKAGES="$(sed -n -e 's|Package: ||p' chroot/var/lib/dpkg/status.tmp | grep -E -v \"^${_REMAINING_PACKAGES}$\")"
 
 		for _PACKAGE in ${_REMAINING_PACKAGES}
 		do
