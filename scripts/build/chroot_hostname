@@ -29,8 +29,6 @@ Require_stagefile .build/config .build/bootstrap
 
 case "${1}" in
 	install)
-		Echo_message "Configuring file /etc/hostname"
-
 		# Checking stage file
 		Check_stagefile .build/chroot_hostname
 
@@ -40,15 +38,15 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		# Save hostname
-		mv chroot/bin/hostname chroot/bin/hostname.orig
-
 		# Create hostname file
+		Echo_message "Configuring file /etc/hostname"
+
 		echo "localhost.localdomain" > chroot/etc/hostname
 
+		# Create custom hostname
 		Echo_message "Configuring file /bin/hostname"
 
-		# Create hostname program
+		Chroot chroot dpkg-divert --rename --quiet --add /bin/hostname
 
 cat > chroot/bin/hostname << EOF
 #!/bin/sh
@@ -79,11 +77,9 @@ EOF
 
 		Echo_message "Deconfiguring file /bin/hostname"
 
-		# Restore hostname file
-		if [ -e chroot/bin/hostname.orig ]
-		then
-			mv chroot/bin/hostname.orig chroot/bin/hostname
-		fi
+		# Remove custom hostname
+		rm -f chroot/bin/hostname
+		Chroot chroot dpkg-divert --rename --quiet --remove /bin/hostname
 
 		# Removing stage file
 		rm -f .build/chroot_hostname

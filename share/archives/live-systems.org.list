@@ -1,0 +1,3 @@
+# Live Systems Project
+deb http://live-systems.org/ @DISTRIBUTION@-snapshots @ARCHIVE_AREAS@
+deb-src http://live-systems.org/ @DISTRIBUTION@-snapshots @ARCHIVE_AREAS@

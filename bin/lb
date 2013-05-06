@@ -14,7 +14,7 @@ set -e
 [ -e "${LIVE_BUILD}/scripts/build.sh" ] && . "${LIVE_BUILD}/scripts/build.sh" || . /usr/lib/live/build.sh
 
 # Setting static variables
-DESCRIPTION="$(Echo 'utility to build Debian Live systems')"
+DESCRIPTION="$(Echo 'utility to build live systems')"
 HELP="FIXME"
 USAGE="FIXME"
 
@@ -59,7 +59,7 @@ case "${1}" in
 			SCRIPT="${LIVE_BUILD}/scripts/build/${COMMAND}"
 		elif [ -x "local/live-build/scripts/build/${COMMAND}" ]
 		then
-			# User has live-build embedded in the config
+			# User has live-build copied locally in the config
 			SCRIPT="local/live-build/scripts/build/${COMMAND}"
 		elif [ -x /usr/lib/live/build/${COMMAND} ]
 		then

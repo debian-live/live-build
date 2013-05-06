@@ -36,22 +36,22 @@ New_configuration ()
 	## Configuration
 
 	# Configuration-Version
-	LIVE_CONFIGURATION_VERSION="${LIVE_CONFIGURATION_VERSION:-$(Get_configuration config/control Configuration-Version)}"
+	LIVE_CONFIGURATION_VERSION="${LIVE_CONFIGURATION_VERSION:-$(Get_configuration config/image Configuration-Version)}"
 	LIVE_CONFIGURATION_VERSION="${LIVE_CONFIGURATION_VERSION:-${LIVE_BUILD_VERSION}}"
 	export LIVE_CONFIGURATION_VERSION
 
 	# Image: Name
-	LIVE_IMAGE_NAME="${LIVE_IMAGE_NAME:-$(Get_configuration config/control Name)}"
+	LIVE_IMAGE_NAME="${LIVE_IMAGE_NAME:-$(Get_configuration config/image Name)}"
 	LIVE_IMAGE_NAME="${LIVE_IMAGE_NAME:-live-image}"
 	export LIVE_IMAGE_NAME
 
 	# Image: Architecture (FIXME: Support and default to 'any')
-	LIVE_IMAGE_ARCHITECTURE="${LIVE_IMAGE_ARCHITECTURE:-$(Get_configuration config/control Architecture)}"
+	LIVE_IMAGE_ARCHITECTURE="${LIVE_IMAGE_ARCHITECTURE:-$(Get_configuration config/image Architecture)}"
 	LIVE_IMAGE_ARCHITECTURE="${LIVE_IMAGE_ARCHITECTURE:-${CURRENT_IMAGE_ARCHITECTURE}}"
 	export LIVE_IMAGE_ARCHITECTURE
 
 	# Image: Archive Areas
-	LIVE_IMAGE_ARCHIVE_AREAS="${LIVE_IMAGE_ARCHIVE_AREAS:-$(Get_configuration config/control Archive-Areas)}"
+	LIVE_IMAGE_ARCHIVE_AREAS="${LIVE_IMAGE_ARCHIVE_AREAS:-$(Get_configuration config/image Archive-Areas)}"
 
 	case "${LB_MODE}" in
 		progress-linux)
@@ -70,12 +70,12 @@ New_configuration ()
 	export LIVE_IMAGE_ARCHIVE_AREAS
 
 	# Image: Archive Areas
-	LIVE_IMAGE_PARENT_ARCHIVE_AREAS="${LIVE_IMAGE_PARENT_ARCHIVE_AREAS:-$(Get_configuration config/control Parent-Archive-Areas)}"
+	LIVE_IMAGE_PARENT_ARCHIVE_AREAS="${LIVE_IMAGE_PARENT_ARCHIVE_AREAS:-$(Get_configuration config/image Parent-Archive-Areas)}"
 	LIVE_IMAGE_PARENT_ARCHIVE_AREAS="${LIVE_IMAGE_PARENT_ARCHIVE_AREAS:-${LIVE_IMAGE_ARCHIVE_AREAS}}"
 	export LIVE_IMAGE_PARENT_ARCHIVE_AREAS
 
 	# Image: Type
-	LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE:-$(Get_configuration config/control Type)}"
+	LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE:-$(Get_configuration config/image Type)}"
 	LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE:-iso-hybrid}"
 	export LIVE_IMAGE_TYPE
 }
@@ -96,10 +96,10 @@ Set_defaults ()
 	# Setting system type
 	LB_SYSTEM="${LB_SYSTEM:-live}"
 
-	# Setting mode (currently: debian, emdebian, progress-linux, and ubuntu)
+	# Setting mode (currently: debian, progress-linux, and ubuntu)
 	if [ -x /usr/bin/lsb_release ]
 	then
-		_DISTRIBUTOR="$(lsb_release -is | tr [A-Z] [a-z])"
+		_DISTRIBUTOR="$(lsb_release -is | tr "[A-Z]" "[a-z]")"
 
 		case "${_DISTRIBUTOR}" in
 			debian|progress-linux|ubuntu)
@@ -197,7 +197,7 @@ Set_defaults ()
 
 	# Setting apt recommends
 	case "${LB_MODE}" in
-		emdebian|progress-linux)
+		progress-linux)
 			LB_APT_RECOMMENDS="${LB_APT_RECOMMENDS:-false}"
 			;;
 
@@ -369,11 +369,6 @@ Set_defaults ()
 			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-${LB_MIRROR_BOOTSTRAP}}"
 			;;
 
-		emdebian)
-			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://www.emdebian.org/grip/}"
-			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-${LB_MIRROR_BOOTSTRAP}}"
-			;;
-
 		progress-linux)
 			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-http://ftp.debian.org/debian/}"
 			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://cdn.archive.progress-linux.org/progress/}"
@@ -404,11 +399,6 @@ Set_defaults ()
 			LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-${LB_MIRROR_CHROOT_SECURITY}}"
 			;;
 
-		emdebian)
-			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-none}"
-			LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-${LB_MIRROR_CHROOT_SECURITY}}"
-			;;
-
 		progress-linux)
 			LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-http://security.debian.org/}"
 			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-${LB_MIRROR_CHROOT}}"
@@ -429,50 +419,6 @@ Set_defaults ()
 			;;
 	esac
 
-	# Setting updates mirror to fetch packages from
-	case "${LB_MODE}" in
-		debian|progress-linux)
-			LB_PARENT_MIRROR_CHROOT_UPDATES="${LB_PARENT_MIRROR_CHROOT_UPDATES:-${LB_PARENT_MIRROR_CHROOT}}"
-			LB_MIRROR_CHROOT_UPDATES="${LB_MIRROR_CHROOT_UPDATES:-${LB_MIRROR_CHROOT}}"
-			;;
-
-		ubuntu)
-			case "${LIVE_IMAGE_ARCHITECTURE}" in
-				amd64|i386)
-					LB_MIRROR_CHROOT_UPDATES="${LB_MIRROR_CHROOT_UPDATES:-http://archive.ubuntu.com/ubuntu/}"
-					;;
-
-				*)
-					LB_MIRROR_CHROOT_UPDATES="${LB_MIRROR_CHROOT_UPDATES:-http://ports.ubuntu.com/ubuntu-ports/}"
-					;;
-			esac
-
-			LB_PARENT_MIRROR_CHROOT_UPDATES="${LB_PARENT_MIRROR_CHROOT_UPDATES:-${LB_PARENT_MIRROR_CHROOT}}"
-			;;
-
-		*)
-			LB_PARENT_MIRROR_CHROOT_UPDATES="${LB_PARENT_MIRROR_CHROOT_UPDATES:-none}"
-			LB_MIRROR_CHROOT_UPDATES="${LB_MIRROR_CHROOT_UPDATES:-none}"
-			;;
-	esac
-
-	# Setting backports mirror to fetch packages from
-	case "${LB_MODE}" in
-		debian)
-			LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-http://backports.debian.org/debian-backports/}"
-			LB_PARENT_MIRROR_CHROOT_BACKPORTS="${LB_PARENT_MIRROR_CHROOT_BACKPORTS:-${LB_MIRROR_CHROOT_BACKPORTS}}"
-			;;
-
-		progress-linux)
-			LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-${LB_MIRROR_CHROOT}}"
-			;;
-
-		*)
-			LB_PARENT_MIRROR_CHROOT_BACKPORTS="${LB_PARENT_MIRROR_CHROOT_BACKPORTS:-none}"
-			LB_MIRROR_CHROOT_BACKPORTS="${LB_MIRROR_CHROOT_BACKPORTS:-none}"
-			;;
-	esac
-
 	# Setting mirror which ends up in the image
 	case "${LB_MODE}" in
 		debian)
@@ -483,11 +429,6 @@ Set_defaults ()
 		progress-linux)
 			LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-http://ftp.debian.org/debian/}"
 			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-${LB_MIRROR_CHROOT}}"
-			;;
-
-		emdebian)
-			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://www.emdebian.org/grip/}"
-			LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-${LB_MIRROR_BINARY}}"
 			;;
 
 		ubuntu)
@@ -512,11 +453,6 @@ Set_defaults ()
 			LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-${LB_MIRROR_BINARY_SECURITY}}"
 			;;
 
-		emdebian)
-			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-none}"
-			LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-${LB_MIRROR_BINARY_SECURITY}}"
-			;;
-
 		progress-linux)
 			LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-http://security.debian.org/}"
 			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-${LB_MIRROR_CHROOT}}"
@@ -534,54 +470,6 @@ Set_defaults ()
 			esac
 
 			LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-${LB_MIRROR_BINARY_SECURITY}}"
-			;;
-	esac
-
-	# Setting updates mirror which ends up in the image
-	case "${LB_MODE}" in
-		debian)
-			LB_MIRROR_BINARY_UPDATES="${LB_MIRROR_BINARY_UPDATES:-${LB_MIRROR_BINARY}}"
-			LB_PARENT_MIRROR_BINARY_UPDATES="${LB_PARENT_MIRROR_BINARY_UPDATES:-${LB_PARENT_MIRROR_BINARY}}"
-			;;
-
-		progress-linux)
-			LB_PARENT_MIRROR_BINARY_UPDATES="${LB_PARENT_MIRROR_BINARY_UPDATES:-${LB_PARENT_MIRROR_BINARY}}"
-			LB_MIRROR_BINARY_UPDATES="${LB_MIRROR_BINARY_UPDATES:-${LB_MIRROR_BINARY}}"
-			;;
-
-		ubuntu)
-			case "${LIVE_IMAGE_ARCHITECTURE}" in
-				amd64|i386)
-					LB_MIRROR_BINARY_UPDATES="${LB_MIRROR_BINARY_UPDATES:-http://archive.ubuntu.com/ubuntu/}"
-					;;
-
-				*)
-					LB_MIRROR_BINARY_UPDATES="${LB_MIRROR_BINARY_UPDATES:-http://ports.ubuntu.com/ubuntu-ports/}"
-					;;
-			esac
-
-			LB_PARENT_MIRROR_BINARY_UPDATES="${LB_PARENT_MIRROR_BINARY_UPDATES:-${LB_PARENT_MIRROR_BINARY}}"
-			;;
-
-		*)
-			LB_PARENT_MIRROR_BINARY_UPDATES="${LB_PARENT_MIRROR_BINARY_UPDATES:-none}"
-			;;
-	esac
-
-	# Setting backports mirror which ends up in the image
-	case "${LB_MODE}" in
-		debian)
-			LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-http://http.debian.net/debian-backports/}"
-			LB_PARENT_MIRROR_BINARY_BACKPORTS="${LB_PARENT_MIRROR_BINARY_BACKPORTS:-${LB_MIRROR_BINARY_BACKPORTS}}"
-			;;
-
-		progress-linux)
-			LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-${LB_MIRROR_BINARY}}"
-			;;
-
-		*)
-			LB_PARENT_MIRROR_BINARY_BACKPORTS="${LB_PARENT_MIRROR_BINARY_BACKPORTS:-none}"
-			LB_MIRROR_BINARY_BACKPORTS="${LB_MIRROR_BINARY_BACKPORTS:-none}"
 			;;
 	esac
 
@@ -963,10 +851,6 @@ Set_defaults ()
 			LB_ISO_APPLICATION="${LB_ISO_APPLICATION:-Debian Live}"
 			;;
 
-		emdebian)
-			LB_ISO_APPLICATION="${LB_ISO_APPLICATION:-Emdebian Live}"
-			;;
-
 		progress-linux)
 			LB_ISO_APPLICATION="${LB_ISO_APPLICATION:-Progress Linux}"
 			;;
@@ -977,7 +861,7 @@ Set_defaults ()
 	esac
 
 	# Set iso preparer
-	LB_ISO_PREPARER="${LB_ISO_PREPARER:-live-build \$VERSION; http://packages.qa.debian.org/live-build}"
+	LB_ISO_PREPARER="${LB_ISO_PREPARER:-live-build \$VERSION; http://live-systems.org/devel/live-build}"
 
 	# Set iso publisher
 	case "${LB_MODE}" in
@@ -986,7 +870,7 @@ Set_defaults ()
 			;;
 
 		*)
-			LB_ISO_PUBLISHER="${LB_ISO_PUBLISHER:-Debian Live project; http://live.debian.net/; debian-live@lists.debian.org}"
+			LB_ISO_PUBLISHER="${LB_ISO_PUBLISHER:-Live Systems project; http://live-systems.org/; debian-live@lists.debian.org}"
 			;;
 	esac
 
@@ -996,12 +880,8 @@ Set_defaults ()
 			LB_HDD_LABEL="${LB_HDD_LABEL:-DEBIAN_LIVE}"
 			;;
 
-		emdebian)
-			LB_HDD_LABEL="${LB_HDD_LABEL:-EMDEBIAN_LIVE}"
-			;;
-
 		progress-linux)
-			LB_HDD_LABEL="${LB_HDD_LABEL:-PROGRESS_$(echo ${LB_DISTRIBUTION} | tr [a-z] [A-Z])}"
+			LB_HDD_LABEL="${LB_HDD_LABEL:-PROGRESS_$(echo ${LB_DISTRIBUTION} | tr "[a-z]" "[A-Z]")}"
 			;;
 
 		ubuntu)
@@ -1018,10 +898,6 @@ Set_defaults ()
 			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Debian ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)}"
 			;;
 
-		emdebian)
-			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Emdebian ${LB_DISTRIBUTION} \$(date +%Y%m%d-%H:%M)}"
-			;;
-
 		progress-linux)
 			LB_ISO_VOLUME="${LB_ISO_VOLUME:-Progress ${LB_DISTRIBUTION}}"
 			;;
@@ -1032,7 +908,7 @@ Set_defaults ()
 	esac
 
 	# Setting memtest option
-	LB_MEMTEST="${LB_MEMTEST:-memtest86+}"
+	LB_MEMTEST="${LB_MEMTEST:-none}"
 
 	# Setting loadlin option
 	case "${LB_MODE}" in
@@ -1169,6 +1045,18 @@ Check_defaults ()
 			fi
 		fi
 	fi
+
+	case "${LB_BINARY_FILESYSTEM}" in
+		ntfs)
+			if [ ! -x "$(which ntfs-3g 2>/dev/null)" ]
+			then
+				Echo_error "Using ntfs as the binary filesystem is currently only supported"
+				Echo_error "if ntfs-3g is installed on the host system."
+
+				exit 1
+			fi
+			;;
+	esac
 
 	if echo ${LB_HDD_LABEL} | grep -qs ' '
 	then

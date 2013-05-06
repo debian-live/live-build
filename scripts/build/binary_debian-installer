@@ -856,6 +856,22 @@ then
 	fi
 fi
 
+case "${LB_MODE}" in
+	progress-linux)
+		mv binary/install binary/installer
+
+		rm -f binary/debian
+
+		for _DIRECTORY in dists pool project firmware
+		do
+			if [ -e "${_DIRECTORY}" ]
+			then
+				mv binary/"${_DIRECTORY}" binary/installer
+			fi
+		done
+		;;
+esac
+
 # Saving cache
 Save_cache cache/packages.binary
 

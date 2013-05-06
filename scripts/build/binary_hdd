@@ -199,21 +199,25 @@ case "${LB_BINARY_FILESYSTEM}" in
 	ext2|ext3|ext4)
 		MKFS="${LB_BINARY_FILESYSTEM}"
 		MKFS_OPTIONS="-L ${LB_HDD_LABEL} -m 0"
+		MOUNT_OPTIONS=""
 		;;
 
 	fat16)
 		MKFS="vfat"
 		MKFS_OPTIONS="-F 16 -n ${LB_HDD_LABEL}"
+		MOUNT_OPTIONS=""
 		;;
 
 	fat32)
 		MKFS="vfat"
 		MKFS_OPTIONS="-F 32 -n ${LB_HDD_LABEL}"
+		MOUNT_OPTIONS=""
 		;;
 
 	ntfs)
 		MKFS="ntfs"
 		MKFS_OPTIONS="-L ${LB_HDD_LABEL}"
+		MOUNT_OPTIONS="-t ntfs-3g"
 		;;
 esac
 
@@ -234,7 +238,7 @@ case "${LB_BINARY_FILESYSTEM}" in
 esac
 
 mkdir -p chroot/binary.tmp
-mount ${FREELO} chroot/binary.tmp
+mount ${MOUNT_OPTIONS} ${FREELO} chroot/binary.tmp
 cp -r -T ${CP_OPTIONS} binary/ chroot/binary.tmp
 
 FIXME()

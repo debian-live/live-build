@@ -1,10 +1,10 @@
-Subject: Debian Live, live-build web-frontend - Build BUILD
-From: Debian Live live-build web-frontend <debian-live@lists.debian.org>
+Subject: Live Systems, live-build web-frontend - Build BUILD
+From: Live Systems live-build web-frontend <debian-live@lists.debian.org>
 To: EMAIL
 
 Hi,
 
-This is live-build web-frontend <http://live-build.debian.net/> of the Debian Live project <http://live.debian.net/>.
+This is live-build web-frontend <http://live-build.debian.net/> of the Live Systems project <http://live-systems.org/>.
 
 Your build BUILD was started DATE_START and ended DATE_END with status 'STATUS'.
 
@@ -12,7 +12,7 @@ You can see the log file and download the image from <SERVER/BUILD/>.
 
 Note that builds are removed after 24 hours.
 
-Feedback about all Debian Live matters can be sent to our mailinglist at debian-live@lists.debian.org (no subscription required).
+Feedback about all Live Systems matters can be sent to our mailinglist at debian-live@lists.debian.org (no subscription required).
 
 Have fun,
-The Debian Live Team
+The Live Systems Team

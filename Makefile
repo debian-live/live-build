@@ -52,7 +52,7 @@ install:
 
 	# Installing documentation
 	mkdir -p $(DESTDIR)/usr/share/doc/live-build
-	cp -r COPYING docs/* examples $(DESTDIR)/usr/share/doc/live-build
+	cp -r COPYING examples $(DESTDIR)/usr/share/doc/live-build
 
 	# Installing manpages
 	for MANPAGE in manpages/en/*; \
