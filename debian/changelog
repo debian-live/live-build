@@ -1,3 +1,28 @@
+live-build (4.0~a18-1) experimental; urgency=low
+
+  [ Daniel Baumann ]
+  * Updating derivatives archive-key signature validiation to look by
+    default at both debian and debian-maintainers keyrings.
+  * Updating bootstrap mirror for progress-linux.
+  * Enabling release updates (formerly known as volatile) for wheezy.
+  * Updating todo in python stubs.
+  * Skipping loadlin inclusion on netboot images.
+
+  [ chals ]
+  * Changing how syslinux files are copied to make netboot images work
+    properly.
+
+  [ Daniel Baumann ]
+  * Adding ls -lR files as .files output.
+  * Renaming remove-udev-persistent-rules.chroot hook to remove-udev-
+    persistent-net-rules.chroot for future additional udev hooks.
+  * Adding hook to disable 70-persistent-cd.rules udev rule to prevent
+    udev remember the cd device name both the one of the build system and
+    the one of the live system (Closes: #706926).
+  * Renumbering hook scripts.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 06 May 2013 20:09:54 +0200
+
 live-build (4.0~a17-1) experimental; urgency=low
 
   [ Michael Stummvoll ]
