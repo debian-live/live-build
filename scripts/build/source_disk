@@ -66,12 +66,6 @@ case "${LB_MODE}" in
 		TRACE=""
 		;;
 
-	kubuntu)
-		TITLE="Kubuntu"
-		STRING="Build ${ARCHITECTURE}"
-		TRACE=""
-		;;
-
 	progress-linux)
 		TITLE="Progress Linux"
 		STRING="${VERSION} (${DISTRIBUTION}) - ${ARCHITECTURE}"
