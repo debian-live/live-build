@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -63,7 +63,7 @@ then
 
 		FIRMWARE_PACKAGES=""
 
-		if [ "${LB_PARENT_DISTRIBUTION}" = "squeeze" ]
+		if [ "${LB_MODE}" = "ubuntu" ] || [ "${LB_MODE}" = "kubuntu" ]
 		then
 			_CONTENTS="${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz"
 		else
@@ -90,7 +90,7 @@ then
 		then
 			# FIXME: account for the fact that PARENT_DISTRIBUTION and DISTRIBUTION might be the same (to not have overlapping cache files for contents).
 
-			if [ "${_PARENT_DISTRIBUTION}" = "squeeze" ]
+			if [ "${LB_MODE}" = "ubuntu" ] || [ "${LB_MODE}" = "kubuntu" ]
 			then
 				_CONTENTS="${LB_MIRROR_CHROOT}/dists/${LB_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz"
 			else
@@ -105,35 +105,6 @@ then
 
 				FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} $(awk '/^lib\/firmware/ { print $2 }' cache/contents.chroot/contents.${LB_DISTRIBUTION}.${LB_ARCHITECTURES} | sort -u)"
 			done
-		fi
-
-		if [ "${LB_PARENT_DISTRIBUTION}" = "squeeze" ]
-		then
-			# Filter out contrib packages if contrib is not enabled
-			if ! echo ${LB_ARCHIVE_AREAS} | grep -qs contrib
-			then
-				_FIRMWARE_PACKAGES=""
-
-				for _PACKAGE in ${FIRMWARE_PACKAGES}
-				do
-					_FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES} $(echo ${_PACKAGE} | sed -e 's|^contrib/.*$||')"
-				done
-
-				FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES}"
-			fi
-
-			# Filter out non-free packages if non-free is not enabled
-			if ! echo ${LB_ARCHIVE_AREAS} | grep -qs non-free
-			then
-				_FIRMWARE_PACKAGES=""
-
-				for _PACKAGE in ${FIRMWARE_PACKAGES}
-				do
-					_FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES} $(echo ${_PACKAGE} | sed -e 's|^non-free/.*$||')"
-				done
-
-				FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES}"
-			fi
 		fi
 
 		# Drop section and keep package names only

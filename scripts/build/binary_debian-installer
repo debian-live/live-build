@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -339,16 +339,10 @@ then
 
 	case "${LB_ARCHITECTURES}" in
 		amd64)
-			DI_REQ_PACKAGES="lilo grub-pc"
-
-			case "${LB_DISTRIBUTION}" in
-				squeeze)
-					DI_REQ_PACAKGES="${DI_REQ_PACKAGES} grub"
-					;;
-			esac
+			DI_REQ_PACKAGES="lilo grub grub-pc"
 
 			case "${LB_MODE}" in
-				ubuntu)
+				ubuntu|kubuntu)
 					DI_PACKAGES="${DI_REQ_PACKAGES} linux-generic"
 					;;
 
@@ -359,21 +353,14 @@ then
 			;;
 
 		i386)
-			DI_REQ_PACKAGES="elilo lilo grub-pc"
-
-			case "${LB_DISTRIBUTION}" in
-				squeeze)
-					DI_REQ_PACAKGES="${DI_REQ_PACKAGES} grub"
-					;;
-			esac
+			DI_REQ_PACKAGES="elilo lilo grub grub-pc"
 
 			case "${LB_MODE}" in
-				ubuntu)
+				ubuntu|kubuntu)
 					case "${LB_DISTRIBUTION}" in
 						precise)
 							DI_PACKAGES="${DI_REQ_PACKAGES} linux-generic-pae"
 							;;
-
 						*)
 							DI_PACKAGES="${DI_REQ_PACKAGES} linux-generic"
 							;;
@@ -389,7 +376,7 @@ then
 		sparc)
 			DI_REQ_PACKAGES="silo"
 			case "${LB_MODE}" in
-				ubuntu)
+				ubuntu|kubuntu)
 					DI_PACKAGES="${DI_REQ_PACKAGES} linux-sparc64"
 					;;
 
@@ -402,8 +389,8 @@ then
 		powerpc)
 			DI_REQ_PACKAGES="yaboot"
 			case "${LB_MODE}" in
-				ubuntu)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-powerpc-smp linux-image-powerpc64-smp linux-image-powerpc-e500 linux-image-powerpc-e500mc"
+				ubuntu|kubuntu)
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-powerpc-smp linux-image-powerpc64-smp"
 					;;
 
 				*)
@@ -431,7 +418,7 @@ then
 
 		FIRMWARE_PACKAGES=""
 
-		if [ "${LB_PARENT_DISTRIBUTION}" = "squeeze" ]
+		if [ "${LB_MODE}" = "ubuntu" ] || [ "${LB_MODE}" = "kubuntu" ]
 		then
 			_CONTENTS="${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz"
 		else
@@ -458,7 +445,7 @@ then
 		then
 			# FIXME: account for the fact that PARENT_DISTRIBUTION and DISTRIBUTION might be the same (to not have overlapping cache files for contents).
 
-			if [ "${_PARENT_DISTRIBUTION}" = "squeeze" ]
+			if [ "${LB_MODE}" = "ubuntu" ] || [ "${LB_MODE}" = "kubuntu" ]
 			then
 				_CONTENTS="${LB_MIRROR_CHROOT}/dists/${LB_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz"
 			else
@@ -473,35 +460,6 @@ then
 
 				FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} $(awk '/^lib\/firmware/ { print $2 }' cache/contents.chroot/contents.${LB_DISTRIBUTION}.${LB_ARCHITECTURES} | sort -u)"
 			done
-		fi
-
-		if [ "${LB_PARENT_DISTRIBUTION}" = "squeeze" ]
-		then
-			# Filter out contrib packages if contrib is not enabled
-			if ! echo ${LB_ARCHIVE_AREAS} | grep -qs contrib
-			then
-				_FIRMWARE_PACKAGES=""
-
-				for _PACKAGE in ${FIRMWARE_PACKAGES}
-				do
-					_FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES} $(echo ${_PACKAGE} | sed -e 's|^contrib/.*$||')"
-				done
-
-				FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES}"
-			fi
-
-			# Filter out non-free packages if non-free is not enabled
-			if ! echo ${LB_ARCHIVE_AREAS} | grep -qs non-free
-			then
-				_FIRMWARE_PACKAGES=""
-
-				for _PACKAGE in ${FIRMWARE_PACKAGES}
-				do
-					_FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES} $(echo ${_PACKAGE} | sed -e 's|^non-free/.*$||')"
-				done
-
-				FIRMWARE_PACKAGES="${_FIRMWARE_PACKAGES}"
-			fi
 		fi
 
 		# Drop section and keep package names only
@@ -523,24 +481,33 @@ then
 		# d-i does not support (for example) re-installing grub from target/ - the grub
 		# .debs must actually exist.
 
+		# Modify dpkg status to show the required packages are not installed.
+		cp chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
+		for PACKAGE in ${DI_REQ_PACKAGES}
+		do
+			awk -v f=0 '
+				f == 1 { print "Status: purge ok not-installed"; f=0; next }
+				/Package: '"${PACKAGE}"'/ { f=1; }
+				{ print }
+				' chroot/var/lib/dpkg/status > chroot/var/lib/dpkg/status.awk
+			mv chroot/var/lib/dpkg/status.awk chroot/var/lib/dpkg/status
+		done
+
+		# Download .deb's that we just marked as "purged" which caused broken dependencies
+		Chroot chroot ${_LB_APT_COMMAND} -f dist-upgrade
+
+		# Revert dpkg status file
+		mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
+
 		# Download .debs of the required packages
 		Chroot chroot ${_LB_APT_COMMAND} install ${DI_PACKAGES} ${DI_FIRMWARE_PACKAGES} ${DI_REQ_PACKAGES}
-
-		# Drop the packages already installed that d-i doesn't explicitely need
-		_REMAINING_PACKAGES="$(echo ${DI_FIRMWARE_PACKAGES} ${DI_REQ_PACKAGES} | sed -e 's# #|#g')"
-		_REMAINING_PACKAGES="$(sed -n -e 's|Package: ||p' chroot/var/lib/dpkg/status.tmp | grep -E -v \"^${_REMAINING_PACKAGES}$\")"
-
-		for _PACKAGE in ${_REMAINING_PACKAGES}
-		do
-			rm -f "chroot/binary.deb/archives/${_PACKAGE}_*.deb"
-		done
 	else
 		# Download .debs of the required packages
 		Chroot chroot ${_LB_APT_COMMAND} install ${DI_PACKAGES} ${DI_FIRMWARE_PACKAGES}
-	fi
 
-	# Revert dpkg status file
-	mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
+		# Revert dpkg status file
+		mv chroot/var/lib/dpkg/status.tmp chroot/var/lib/dpkg/status
+	fi
 
 	mv chroot/binary.deb ./
 
@@ -623,7 +590,7 @@ then
 		do
 			for _FILE in $(find ../pool -name "${_PACKAGE}_*.deb")
 			do
-				ln -sf ${_FILE} ./
+				ln -s ${_FILE} ./
 			done
 		done
 
@@ -804,16 +771,7 @@ EOF
 	rm -f chroot/binary.sh
 	mv chroot/root/binary ./
 
-	case "${LB_PARENT_DISTRIBUTION}" in
-		wheezy)
-			DISTRIBUTIONS="stable"
-			;;
-
-		*)
-
-			DISTRIBUTIONS="stable testing unstable"
-			;;
-	esac
+	DISTRIBUTIONS="stable testing unstable"
 
 	if [ "${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}" != "${LB_PARENT_DISTRIBUTION}" ]
 	then
@@ -907,22 +865,6 @@ then
 		Repack_initrd "${DESTDIR}"/"${INITRD_GI}" config/includes.debian-installer
 	fi
 fi
-
-case "${LB_MODE}" in
-	progress-linux)
-		mv binary/install binary/installer
-
-		rm -f binary/debian
-
-		for _DIRECTORY in dists pool project firmware
-		do
-			if [ -e "${_DIRECTORY}" ]
-			then
-				mv binary/"${_DIRECTORY}" binary/installer
-			fi
-		done
-		;;
-esac
 
 # Saving cache
 Save_cache cache/packages.binary

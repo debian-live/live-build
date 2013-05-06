@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -19,7 +19,7 @@ DESCRIPTION="$(Echo 'create configuration for live-build(7)')"
 USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--apt-ftp-proxy URL]\n\
 \t    [--apt-http-proxy URL]\n\
-\t    [--apt-indices true|false\n\
+\t    [--apt-indices true|false|none]\n\
 \t    [--apt-options OPTION|\"OPTIONS\"]\n\
 \t    [--aptitude-options OPTION|\"OPTIONS\"]\n\
 \t    [--apt-pipeline DEPTH]\n\
@@ -38,7 +38,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--cache-indices true|false]\n\
 \t    [--cache-packages true|false]\n\
 \t    [--cache-stages STAGE|\"STAGES\"]\n\
-\t    [--checksums md5|sha1|sha256|sha512|none]\n\
+\t    [--checksums md5|sha1|sha256|none]\n\
 \t    [--compression bzip2|gzip|lzip|xz|none]\n\
 \t    [--config GIT_URL::GIT_BRANCH]\n\
 \t    [--zsync true|false]\n\
@@ -100,7 +100,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--mirror-binary-updates URL]\n\
 \t    [--mirror-binary-backports URL]\n\
 \t    [--mirror-debian-installer URL]\n\
-\t    [--mode debian|emdebian|ubuntu]\n\
+\t    [--mode debian|emdebian|ubuntu|kubuntu]\n\
 \t    [--system live|normal]\n\
 \t    [--net-root-filesystem nfs|cfs]\n\
 \t    [--net-root-mountoptions OPTIONS]\n\
@@ -124,6 +124,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--firmware-chroot true|false]\n\
 \t    [--swap-file-path PATH]\n\
 \t    [--swap-file-size MB]\n\
+\t    [--syslinux-theme THEME_SUFFIX]\n\
 \t    [--tasksel apt|aptitude|tasksel]\n\
 \t    [--templates PATH]\n\
 \t    [--updates true|false]\n\
@@ -156,7 +157,7 @@ Local_arguments ()
 		grub-splash:,isohybrid-options:,hdd-label:,hdd-size:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
 		net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,
-		net-cow-server:,net-tarball:,firmware-binary:,firmware-chroot:,swap-file-path:,swap-file-size:,
+		net-cow-server:,net-tarball:,firmware-binary:,firmware-chroot:,swap-file-path:,swap-file-size:,syslinux-theme:,
 		loadlin:,win32-loader:,source:,source-images:,breakpoints,conffile:,debug,force,
 		help,ignore-system-defaults,quiet,usage,verbose,version,bootstrap-qemu-static:,bootstrap-qemu-arch:,
 		bootstrap-qemu-exclude:"
@@ -750,6 +751,11 @@ Local_arguments ()
 				shift 2
 				;;
 
+			--syslinux-theme)
+				LB_SYSLINUX_THEME="${2}"
+				shift 2
+				;;
+
 			--loadlin)
 				LB_LOADLIN="${2}"
 				shift 2
@@ -866,40 +872,19 @@ then
 	_CONFIG=""
 fi
 
-if [ -e .build/config ] && [ -n "${_CONFIG}" ]
-then
-	if [ "${1}" != "noauto" ]
-	then
-		Echo_message "Ignoring --config ${_CONFIG}: ${PWD} is already a live-build configuration tree"
-	fi
-
-	_CONFIG=""
-fi
-
 if [ -n "${_CONFIG}" ]
 then
-	if [ -e "${_CONFIG}" ] || [ -e "/usr/share/live/images/${_CONFIG}" ]
+	_GIT_REPOSITORY="$(echo ${_CONFIG} | sed -e 's|::.*$||')"
+
+	Echo_message "Cloning ${_GIT_REPOSITORY}"
+	git clone ${_GIT_REPOSITORY} ./
+
+	if [ "${_GIT_REPOSITORY}" != "${_CONFIG}" ]
 	then
-		if [ ! -e "${_CONFIG}" ] && [ -e "/usr/share/live/images/${_CONFIG}" ]
-		then
-			_CONFIG="/usr/share/live/images/${_CONFIG}"
-		fi
+		_GIT_BRANCH="$(echo ${_CONFIG} | awk -F\:\: '{ print $NF }')"
 
-		Echo_message "Copying ${_CONFIG}"
-		tar -C "${_CONFIG}" -c . | tar -C ./ -x
-	else
-		_GIT_REPOSITORY="$(echo ${_CONFIG} | sed -e 's|::.*$||')"
-
-		Echo_message "Cloning ${_GIT_REPOSITORY}"
-		git clone ${_GIT_REPOSITORY} ./
-
-		if [ "${_GIT_REPOSITORY}" != "${_CONFIG}" ]
-		then
-			_GIT_BRANCH="$(echo ${_CONFIG} | awk -F\:\: '{ print $NF }')"
-
-			Echo_message "Checking out ${_GIT_BRANCH}"
-			git checkout ${_GIT_BRANCH}
-		fi
+		Echo_message "Checking out ${_GIT_BRANCH}"
+		git checkout ${_GIT_BRANCH}
 	fi
 
 	if [ -e auto/config ]
@@ -925,16 +910,11 @@ then
 fi
 
 # Reading system configuration
-if ls /etc/live/build.conf > /dev/null 2>&1 || ls /etc/live/build/* > /dev/null 2>&1
+if ! In_list "--ignore-system-defaults" "${@}"
 then
-	if In_list "--ignore-system-defaults" "${@}"
-	then
-		Echo_message "Ignoring defaults in %s" "/etc/live/build.conf"
-	else
-		Echo_message "Using defaults in %s" "/etc/live/build.conf"
+	Echo_message "Considering defaults defined in %s" "/etc/live/build.conf"
 
-		Read_conffiles /etc/live/build.conf /etc/live/build/*
-	fi
+	Read_conffiles /etc/live/build.conf /etc/live/build/*
 fi
 
 # Reading existing configuration
@@ -955,14 +935,15 @@ Check_defaults
 
 if [ ! -e config ]
 then
-	Echo_message "Creating config tree for a ${LB_MODE}/${LB_DISTRIBUTION}/${LB_ARCHITECTURES} system"
+	Echo_message "Creating config tree for a ${LB_MODE}/${LB_ARCHITECTURES} system"
 else
-	Echo_message "Updating config tree for a ${LB_MODE}/${LB_DISTRIBUTION}/${LB_ARCHITECTURES} system"
+	Echo_message "Updating config tree for a ${LB_MODE}/${LB_ARCHITECTURES} system"
 fi
 
 # Creating bootstrap configuration
 mkdir -p config
 mkdir -p config/includes
+mkdir -p config/templates
 
 # Creating live-build configuration
 cat > config/common << EOF
@@ -1456,6 +1437,10 @@ LB_SWAP_FILE_PATH="${LB_SWAP_FILE_PATH}"
 # \$LB_SWAP_FILE_SIZE: set swap file size
 # (Default: ${LB_SWAP_FILE_SIZE})
 LB_SWAP_FILE_SIZE="${LB_SWAP_FILE_SIZE}"
+
+# \$LB_SYSLINUX_THEME: set syslinux theme package
+# (Default: ${LB_SYSLINUX_THEME})
+LB_SYSLINUX_THEME="${LB_SYSLINUX_THEME}"
 EOF
 
 # Creating lb_source_* configuration

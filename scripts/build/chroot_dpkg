@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -40,8 +40,10 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		# Create custom start-stop-daemon program
-		Chroot chroot dpkg-divert --rename --quiet --add /sbin/start-stop-daemon
+		# Save start-stop-daemon program
+		mv chroot/sbin/start-stop-daemon chroot/sbin/start-stop-daemon.orig
+
+		# Create start-stop-daemon program
 
 cat > chroot/sbin/start-stop-daemon << EOF
 #!/bin/sh
@@ -59,16 +61,13 @@ EOF
 
 		# Manual hacks for special packages
 
-		# Generic live-build handle for other live packages to act upon
-		touch chroot/.live-build
-
 		# samhain
 		if [ -e /var/state/samhain/samhain_file ]
 		then
-			${LB_ROOT_COMMAND} mv /var/state/samhain/samhain_file /var/state/samhain/samhain_file.orig
+			mv /var/state/samhain/samhain_file /var/state/samhain/samhain_file.orig
 		else
-			${LB_ROOT_COMMAND} mkdir -p /var/state/samhain
-			${LB_ROOT_COMMAND} touch /var/state/samhain/samhain_file
+			mkdir -p /var/state/samhain
+			touch /var/state/samhain/samhain_file
 		fi
 
 		# flash-kernel
@@ -90,9 +89,6 @@ EOF
 
 		# Manual hacks for special packages
 
-		# Generic live-build handle
-		rm -f chroot/.live-build
-
 		# flash-kernel
 		rm -f chroot/usr/sbin/flash-kernel
 		Chroot chroot dpkg-divert --rename --quiet --remove /usr/sbin/flash-kernel
@@ -100,16 +96,18 @@ EOF
 		# samhain
 		if [ -e /var/state/samhain/samhain_file.orig ]
 		then
-			${LB_ROOT_COMMAND} mv /var/state/samhain/samhain_file.orig /var/state/samhain/samhain_file
+			mv /var/state/samhain/samhain_file.orig /var/state/samhain/samhain_file
 		elif [ -d /var/state/samhain ]
 		then
-			${LB_ROOT_COMMAND} rm -f /var/state/samhain/samhain_file
-			${LB_ROOT_COMMAND} rmdir --ignore-fail-on-non-empty /var/state/samhain || true
+			rm -f /var/state/samhain/samhain_file
+			rmdir --ignore-fail-on-non-empty /var/state/samhain || true
 		fi
 
-		# Remove custom start-stop-daemon program
-		rm -f chroot/sbin/start-stop-daemon
-		Chroot chroot dpkg-divert --rename --quiet --remove /sbin/start-stop-daemon
+		# Restore start-stop-daemon program
+		if [ -e chroot/sbin/start-stop-daemon.orig ]
+		then
+			mv chroot/sbin/start-stop-daemon.orig chroot/sbin/start-stop-daemon
+		fi
 
 		# Remove dpkg sync configuration
 		rm -f chroot/etc/dpkg/dpkg.cfg.d/live-build

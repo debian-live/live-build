@@ -1,7 +1,7 @@
 
 <h3>Submit your parameters (<b>working</b> email address is required) to generate your very own Debian Live system.</h3>
 
-<form action="live-build" method="post">
+<form action="live-build" method="get">
 
 <fieldset>
 
@@ -37,8 +37,7 @@
 			<td><label for="Distribution">--distribution:</label> </td>
 			<td>
 				<select id="Distribution" name="distribution" size="1">
-					<option selected value="squeeze">squeeze</option>
-					<option value="wheezy">wheezy</option>
+					<option selected value="wheezy">wheezy</option>
 					<option value="sid">sid</option>
 				</select>
 			</td>
@@ -47,12 +46,12 @@
 			<td><label for="Config">--config:</label> </td>
 			<td>
 				<select id="Config" name="config" size="1" >
-					<option value="gnome-desktop">GNOME Desktop</option>
-					<option value="kde-desktop">KDE Desktop</option>
-					<option value="lxde-desktop">LXDE Desktop</option>
-					<option value="rescue">Rescue</option>
-					<option selected value="standard">Standard</option>
-					<option value="xfce-desktop">Xfce Desktop</option>
+					<option value="debian-gnome-desktop.git">GNOME Desktop</option>
+					<option value="debian-kde-desktop.git">KDE Desktop</option>
+					<option value="debian-lxde-desktop.git">LXDE Desktop</option>
+					<option value="debian-rescue.git">Rescue</option>
+					<option selected value="debian-standard.git">Standard</option>
+					<option value="debian-xfce-desktop.git">Xfce Desktop</option>
 				</select>
 			</td>
 		</tr>

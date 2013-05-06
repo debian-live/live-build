@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -20,15 +20,15 @@ else
 fi
 
 # Exit if disabled
-if [ "${_WEBBUILD}" != "true" ]
+if [ "${_WEBBUILD}" != "enabled" ]
 then
 	exit 0
 fi
 
 _HOSTNAME="$(hostname -f)"
 
-# Turn on debug if true
-if [ "${_DEBUG}" = "true" ]
+# Turn on debug if enabled
+if [ "${_DEBUG}" = "enabled" ]
 then
 	set -x
 fi
@@ -63,57 +63,47 @@ then
 		# Pull in variables from the build file.
 		. "${_FILE}"
 
+		# Clone the git config to target build directory
+		git clone ${_LB_CONFIG} "${_TEMPDIR}"/"${_BUILD}" >> /var/log/live
+		_ERRORGIT="${?}"
+
 		# Drop out some build data for information if something goes wrong.
 		echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build-cgi: begin web build (${_BUILD})." >> /var/log/live
 
-		# Clone the git config to target build directory
-		git clone ${_LB_GIT} "${_TEMPDIR}"/"${_BUILD}" >> /var/log/live
-		_ERRORGIT="${?}"
-
-		# Sanity check to default to something since we are going to build from git clone.
-		if [ -z "${_LB_CONFIG}" ]
-		then
-			_LB_CONFIG="standard"
-		fi
-
-		# Now set a variable for the correct build path
-		_BUILD_PATH="${_TEMPDIR}/${_BUILD}/images/${_LB_CONFIG}"
-
-		_DATE_START="`date -R`"
-		echo "Begin live-build-cgi: ${_DATE_START}" > "${_BUILD_PATH}"/log
-		echo "Info live-build-cgi: Config tree cloned from ${_LB_GIT} for build ${_BUILD}" >> "${_BUILD_PATH}"/log
-
 		# Creating directory for the config/package-lists
-		mkdir -p "${_BUILD_PATH}"/config/package-lists
+		mkdir -p "${_TEMPDIR}"/"${_BUILD}"/config/package-lists
 
 		# Add cgipackages.list.chroot
 		if [ -n "${_LB_CGIPACKAGES}" ]
 		then
-			echo "${_LB_CGIPACKAGES}" > "${_BUILD_PATH}"/config/package-lists/cgipackages.list.chroot
+			echo "${_LB_CGIPACKAGES}" > "${_TEMPDIR}"/"${_BUILD}"/config/package-lists/cgipackages.list.chroot
 		fi
+
+		_DATE_START="`date -R`"
+		echo "Begin: ${_DATE_START}" > "${_TEMPDIR}"/"${_BUILD}"/log
 
 		# Generating config here
 		if [ "${_ERRORGIT}" -eq "0" ]
 		then
-			cd "${_BUILD_PATH}"
+			cd "${_TEMPDIR}"/"${_BUILD}"
 			# Do config with git and stack on config file params to build
-			lb config ${_CGI_CONFIG_APPEND} --distribution "${LB_DISTRIBUTION}" --binary-images "${LB_BINARY_IMAGES}" --architectures "${LB_ARCHITECTURES}" --archive-areas "${LB_ARCHIVE_AREAS}" --chroot-filesystem "${LB_CHROOT_FILESYSTEM}" --linux-flavours "${LB_LINUX_FLAVOURS}" --security "${LB_SECURITY}" --apt-indices "${LB_APT_INDICES}" --bootappend-install "${LB_BOOTAPPEND_INSTALL}" --bootappend-live "${LB_BOOTAPPEND_LIVE}" --bootloader "${LB_BOOTLOADER}" --debian-installer "${LB_DEBIAN_INSTALLER}" --iso-application "${LB_ISO_APPLICATION}" --iso-preparer "${LB_ISO_PREPARER}" --iso-publisher "${LB_ISO_PUBLISHER}" --iso-volume "${LB_ISO_VOLUME}" --memtest "${LB_MEMTEST}" --net-root-path "${LB_NET_ROOT_PATH}" --net-root-server "${LB_NET_ROOT_SERVER}" --source-images "${LB_SOURCE_IMAGES}" --source "${LB_SOURCE}"
+			lb config --distribution "${LB_DISTRIBUTION}" --architectures "${LB_ARCHITECTURES}" --archive-areas "${LB_ARCHIVE_AREAS}" --chroot-filesystem "${LB_CHROOT_FILESYSTEM}" --linux-flavours "${LB_LINUX_FLAVOURS}" --security "${LB_SECURITY}" --apt-indices "${LB_APT_INDICES}" --bootappend-install "${LB_BOOTAPPEND_INSTALL}" --bootappend-live "${LB_BOOTAPPEND_LIVE}" --bootloader "${LB_BOOTLOADER}" --debian-installer "${LB_DEBIAN_INSTALLER}" --iso-application "${LB_ISO_APPLICATION}" --iso-preparer "${LB_ISO_PREPARER}" --iso-publisher "${LB_ISO_PUBLISHER}" --iso-volume "${LB_ISO_VOLUME}" --memtest "${LB_MEMTEST}" --net-root-path "${LB_NET_ROOT_PATH}" --net-root-server "${LB_NET_ROOT_SERVER}" --source-images "${LB_SOURCE_IMAGES}" --source "${LB_SOURCE}"
 			_ERRORCONFIG="${?}"
 		else
-			echo "Config stage skipped. The git clone produced an error: ${_ERRORGIT}" >> "${_BUILD_PATH}"/log
+			echo "Config stage skipped. The git clone produced an error: ${_ERRORGIT}" > "${_TEMPDIR}"/"${_BUILD}"/log
 		fi
 
 		# Run build if config went ok
 		if [ "${_ERRORCONFIG}" -eq "0" ]
 		then
-			lb build >> "${_BUILD_PATH}"/log 2>&1
+			lb build >> "${_TEMPDIR}"/"${_BUILD}"/log 2>&1
 			_ERRORBUILD="${?}"
 		else
-			echo "Build stage skipped. Config produced an error: ${_ERRORCONFIG}" >> "${_BUILD_PATH}"/log
+			echo "Build stage skipped. Config produced an error: ${_ERRORCONFIG}" > "${_TEMPDIR}"/"${_BUILD}"/log
 		fi
 
 		_DATE_END="`date -R`"
-		echo "End: ${_DATE_END}" >> "${_BUILD_PATH}"/log
+		echo "End: ${_DATE_END}" >> "${_TEMPDIR}"/"${_BUILD}"/log
 
 		# Creating image directory
 		mkdir -p "${_DESTDIR}"/"${_BUILD}"
@@ -149,23 +139,23 @@ EOF
 
 		# Moving binary image
 		#if ls "${_TEMPDIR}"/"${_BUILD}"/binary*.* > /dev/null 2>&1
-		if Find_files ${_BUILD_PATH}/binary*.*
+		if Find_files ${_TEMPDIR}/${_BUILD}/binary*.*
 		then
-			mv "${_BUILD_PATH}"/binary*.* "${_DESTDIR}"/"${_BUILD}"
+			mv "${_TEMPDIR}"/"${_BUILD}"/binary*.* "${_DESTDIR}"/"${_BUILD}"
 		fi
 
 		# Moving source image
 		#if ls "${_TEMPDIR}"/"${_BUILD}"/source.* > /dev/null 2>&1
-		if Find_files ${_BUILD_PATH}/source.*
+		if Find_files ${_TEMPDIR}/${_BUILD}/source.*
 		then
-			mv "${_BUILD_PATH}"/source.* "${_DESTDIR}"/"${_BUILD}"
+			mv "${_TEMPDIR}"/"${_BUILD}"/source.* "${_DESTDIR}"/"${_BUILD}"
 		fi
 
 		# Moving build
 		mv "${_TEMPDIR}"/"${_BUILD}".build "${_DESTDIR}"/"${_BUILD}"/build
 
 		# Moving log
-		mv "${_BUILD_PATH}"/log "${_DESTDIR}"/"${_BUILD}"
+		mv "${_TEMPDIR}"/"${_BUILD}"/log "${_DESTDIR}"/"${_BUILD}"
 
 		# Generating md5sum
 		cd "${_DESTDIR}"/"${_BUILD}"
@@ -177,21 +167,21 @@ EOF
 
 		# Unmounting devpts-live
 		#if ls "${_TEMPDIR}"/"${_BUILD}"/chroot/dev/pts/* > /dev/null 2>&1
-		if Find_files ${_BUILD_PATH}/chroot/dev/pts/*
+		if Find_files ${_TEMPDIR}/${_BUILD}/chroot/dev/pts/*
 		then
-			umount "${_BUILD_PATH}"/chroot/dev/pts
+			umount "${_TEMPDIR}"/${_BUILD}/chroot/dev/pts
 		fi
 
 		# Unmounting proc
-		if [ -f "${_BUILD_PATH}"/chroot/proc/version ]
+		if [ -f "${_TEMPDIR}"/"${_BUILD}"/chroot/proc/version ]
 		then
-			umount "${_BUILD_PATH}"/chroot/proc
+			umount "${_TEMPDIR}"/"${_BUILD}"/chroot/proc
 		fi
 
 		# Unmounting sysfs
-		if [ -d "${_BUILD_PATH}"/chroot/sys/kernel ]
+		if [ -d "${_TEMPDIR}"/"${_BUILD}"/chroot/sys/kernel ]
 		then
-			umount "${_BUILD_PATH}"/chroot/sys
+			umount "${_TEMPDIR}"/${_BUILD}/chroot/sys
 		fi
 
 		# Removing build directory

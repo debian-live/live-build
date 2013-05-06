@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -30,9 +30,10 @@ then
 	man live-build
 	exit 0
 else
-	Echo "live-build contains the scripts to build a Debian Live system from a configuration directory."
+	Echo "live-build is a set of scripts to build Debian Live system images."
+	echo
+	Echo "The idea behind live-build is a framework that uses a configuration directory to completely automate and customize all aspects of building a Live image."
 	echo
 	Echo "An introduction to live-build can be found in the live-build(7) manpage."
-
 	exit 0
 fi

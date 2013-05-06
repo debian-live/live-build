@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -29,6 +29,8 @@ Require_stagefile .build/config .build/bootstrap
 
 case "${1}" in
 	install)
+		Echo_message "Configuring file /etc/hostname"
+
 		# Checking stage file
 		Check_stagefile .build/chroot_hostname
 
@@ -38,15 +40,15 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		# Create hostname file
-		Echo_message "Configuring file /etc/hostname"
+		# Save hostname
+		mv chroot/bin/hostname chroot/bin/hostname.orig
 
+		# Create hostname file
 		echo "localhost.localdomain" > chroot/etc/hostname
 
-		# Create custom hostname
 		Echo_message "Configuring file /bin/hostname"
 
-		Chroot chroot dpkg-divert --rename --quiet --add /bin/hostname
+		# Create hostname program
 
 cat > chroot/bin/hostname << EOF
 #!/bin/sh
@@ -77,9 +79,11 @@ EOF
 
 		Echo_message "Deconfiguring file /bin/hostname"
 
-		# Remove custom hostname
-		rm -f chroot/bin/hostname
-		Chroot chroot dpkg-divert --rename --quiet --remove /bin/hostname
+		# Restore hostname file
+		if [ -e chroot/bin/hostname.orig ]
+		then
+			mv chroot/bin/hostname.orig chroot/bin/hostname
+		fi
 
 		# Removing stage file
 		rm -f .build/chroot_hostname
