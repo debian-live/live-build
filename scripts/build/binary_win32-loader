@@ -79,16 +79,16 @@ cat > binary/win32-loader.ini << EOF
 kernel=linux
 arch=${LIVE_IMAGE_ARCHITECTURE}
 default_desktop=gnome
-i386/linux=install/vmlinuz
-i386/initrd=install/initrd.gz
+${LIVE_IMAGE_ARCHITECTURE}/linux=install/vmlinuz
+${LIVE_IMAGE_ARCHITECTURE}/initrd=install/initrd.gz
 EOF
 
-			if [ -e install/gtk ]
+			if [ -e binary/install/gtk ]
 			then
 
 cat >> binary/win32-loader.ini << EOF
-i386/gtk/linux=install/vmlinuz
-i386/gtk/initrd=install/gtk/initrd.gz
+${LIVE_IMAGE_ARCHITECTURE}/gtk/linux=install/vmlinuz
+${LIVE_IMAGE_ARCHITECTURE}/gtk/initrd=install/gtk/initrd.gz
 EOF
 
 			fi

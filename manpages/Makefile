@@ -23,7 +23,7 @@ build: po4a.cfg
 	@if [ ! -x "$$(which po4a 2>/dev/null)" ]; \
 	then \
 		echo "E: po4a - command not found"; \
-		echo "I: po4a can be optained from http://po4a.alioth.debian.org/"; \
+		echo "I: po4a can be obtained from http://po4a.alioth.debian.org/"; \
 		echo "I: On Debian based systems, po4a can be installed with 'apt-get install po4a'."; \
 		exit 1; \
 	fi
