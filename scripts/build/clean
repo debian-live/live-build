@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -102,7 +102,9 @@ do
 			rm -f ${LIVE_IMAGE_NAME}*.tar.gz
 			rm -f ${LIVE_IMAGE_NAME}*.zsync*
 			rm -f ${LIVE_IMAGE_NAME}.sh
-			rm -f ${LIVE_IMAGE_NAME}.contents ${LIVE_IMAGE_NAME}.packages md5sum.txt
+			rm -f ${LIVE_IMAGE_NAME}.contents ${LIVE_IMAGE_NAME}.packages
+			rm -f MD5SUMS SHA1SUMS SHA256SUMS SHA512SUMS
+			rm -f md5sum.txt sha1sum.txt sha256sum.txt sha512sum.txt
 
 			rm -rf binary
 			rm -rf tftpboot

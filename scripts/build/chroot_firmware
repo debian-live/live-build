@@ -1,0 +1,111 @@
+#!/bin/sh
+
+## live-build(7) - System Build Scripts
+## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
+##
+## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+## This is free software, and you are welcome to redistribute it
+## under certain conditions; see COPYING for details.
+
+
+set -e
+
+# Including common functions
+[ -e "${LIVE_BUILD}/scripts/build.sh" ] && . "${LIVE_BUILD}/scripts/build.sh" || . /usr/lib/live/build.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'schedule kernel packages for installation')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+if [ "${LB_FIRMWARE_CHROOT}" != "true" ]
+then
+	exit 0
+fi
+
+# Requiring stage file
+Require_stagefile .build/config .build/bootstrap
+
+# Checking stage file
+Check_stagefile .build/chroot_firmware
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+# Diverting update-initramfs
+#case "${LB_INITRAMFS}" in
+#	live-boot)
+#		mv chroot/usr/sbin/update-initramfs chroot/usr/sbin/update-initramfs.live-build
+#		;;
+#esac
+
+# Include firmware packages
+# Assumption: firmware packages install files into /lib/firmware
+
+# Get all firmware packages names
+mkdir -p cache/contents.chroot
+
+FIRMWARE_PACKAGES=""
+
+_CONTENTS="$(for _PARENT_ARCHIVE_AREA in ${LIVE_IMAGE_PARENT_ARCHIVE_AREAS}; do echo ${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/${_PARENT_ARCHIVE_AREA}/Contents-${LIVE_IMAGE_ARCHITECTURE}.gz; done)"
+
+rm -f cache/contents.chroot/contents.${LB_PARENT_DISTRIBUTION}.${LIVE_IMAGE_ARCHITECTURE}
+
+for _CONTENT in ${_CONTENTS}
+do
+	wget ${WGET_OPTIONS} ${_CONTENT} -O - | gunzip -c >> cache/contents.chroot/contents.${LB_PARENT_DISTRIBUTION}.${LIVE_IMAGE_ARCHITECTURE}
+
+	FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} $(awk '/^lib\/firmware/ { print $2 }' cache/contents.chroot/contents.${LB_PARENT_DISTRIBUTION}.${LIVE_IMAGE_ARCHITECTURE} | sort -u)"
+done
+
+if echo ${LIVE_IMAGE_PARENT_ARCHIVE_AREAS} | grep -qs "non-free"
+then
+	# FIXME: should check that we're building on debian through e.g. a 'derivative-is-based-on' variable or somesuch.
+	# Manually add firmware-linux/non-free meta package
+	FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} firmware-linux"
+fi
+
+if [ "${LB_DERIVATIVE}" = "true" ]
+then
+	# FIXME: account for the fact that PARENT_DISTRIBUTION and DISTRIBUTION might be the same (to not have overlapping cache files for contents).
+
+	_CONTENTS="$(for _ARCHIVE_AREA in ${LIVE_IMAGE_ARCHIVE_AREAS}; do echo ${LB_MIRROR_CHROOT}/dists/${LB_DISTRIBUTION}/${_ARCHIVE_AREA}/Contents-${LIVE_IMAGE_ARCHITECTURE}.gz; done)"
+
+	rm -f cache/contents.chroot/contents.${LB_DISTRIBUTION}.${LIVE_IMAGE_ARCHITECTURE}
+
+	for _CONTENT in ${_CONTENTS}
+	do
+		wget ${WGET_OPTIONS} ${_CONTENT} -O - | gunzip -c >> cache/contents.chroot/contents.${LB_DISTRIBUTION}.${LIVE_IMAGE_ARCHITECTURE}
+
+		FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} $(awk '/^lib\/firmware/ { print $2 }' cache/contents.chroot/contents.${LB_DISTRIBUTION}.${LIVE_IMAGE_ARCHITECTURE} | sort -u)"
+	done
+fi
+
+# Drop section and keep package names only
+for _PACKAGE in ${FIRMWARE_PACKAGES}
+do
+	echo $(echo ${_PACKAGE} | awk -F/ '{ print $NF }') >> chroot/root/packages.chroot
+done
+
+# Some known licenses required to be accepted
+if echo ${LIVE_IMAGE_PARENT_ARCHIVE_AREAS} | grep -qs "non-free"
+then
+
+cat >> chroot/root/packages.chroot.cfg << EOF
+firmware-ivtv firmware-ivtv/license/accepted boolean true
+firmware-ipw2x00 firmware-ipw2x00/license/accepted boolean true
+EOF
+
+fi
+
+# Creating stage file
+Create_stagefile .build/chroot_firmware
