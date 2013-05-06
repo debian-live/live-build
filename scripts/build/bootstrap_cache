@@ -50,12 +50,7 @@ do
 					rm -rf chroot
 
 					# Restoring old cache
-					${LB_ROOT_COMMAND} cp -a cache/bootstrap chroot
-
-					if [ -n "${LB_ROOT_COMMAND}" ]
-					then
-						${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
-					fi
+					cp -a cache/bootstrap chroot
 
 					# Creating stage file
 					Create_stagefile .build/bootstrap_cache.restore
@@ -81,12 +76,7 @@ do
 
 				mkdir -p cache
 
-				${LB_ROOT_COMMAND} cp -a chroot cache/bootstrap
-
-				if [ -n "${LB_ROOT_COMMAND}" ]
-				then
-					${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) cache/bootstrap
-				fi
+				cp -a chroot cache/bootstrap
 
 				# Creating stage file
 				Create_stagefile .build/bootstrap_cache.save

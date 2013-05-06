@@ -126,9 +126,9 @@ esac
 Chroot chroot "mkfs.${MKFS} ${MKFS_OPTIONS} ${FREELO}"
 
 mkdir -p source.tmp
-${LB_ROOT_COMMAND} mount ${FREELO} source.tmp
+mount ${FREELO} source.tmp
 cp -r source/* source.tmp
-${LB_ROOT_COMMAND} umount source.tmp
+umount source.tmp
 rmdir source.tmp
 Lodetach ${FREELO}
 Echo_warning "!!! The above error/warning messages can be ignored !!!"

@@ -97,12 +97,7 @@ then
 		fi
 
 		Echo_breakage "Running ${LB_BOOTSTRAP} (download-only)... "
-		${LB_ROOT_COMMAND} ${LB_BOOTSTRAP} ${CDEBOOTSTRAP_OPTIONS} --download-only "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}"
-
-		if [ -n "${LB_ROOT_COMMAND}" ]
-		then
-			${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
-		fi
+		${LB_BOOTSTRAP} ${CDEBOOTSTRAP_OPTIONS} --download-only "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}"
 
 		# Removing old cache
 		rm -f cache/packages.bootstrap/*.deb
@@ -123,18 +118,13 @@ then
 		fi
 
 		Echo_message "Bootstrap will be foreign"
-		${LB_ROOT_COMMAND} ${LB_BOOTSTRAP} ${CDEBOOTSTRAP_OPTIONS} --foreign "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}"
+		${LB_BOOTSTRAP} ${CDEBOOTSTRAP_OPTIONS} --foreign "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}"
 
 		Echo_message "Running debootstrap second stage under QEMU"
 		cp ${LB_BOOTSTRAP_QEMU_STATIC} chroot/usr/bin
 		Chroot chroot /bin/sh /sbin/cdebootstrap-foreign
 	else
-		${LB_ROOT_COMMAND} ${LB_BOOTSTRAP} ${CDEBOOTSTRAP_OPTIONS} "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}"
-	fi
-
-	if [ -n "${LB_ROOT_COMMAND}" ]
-	then
-		${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) chroot
+		${LB_BOOTSTRAP} ${CDEBOOTSTRAP_OPTIONS} "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}"
 	fi
 
 	# Deconfiguring cdebootstrap configurations

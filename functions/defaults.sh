@@ -130,7 +130,7 @@ Set_defaults ()
 			;;
 
 		ubuntu)
-			LB_DISTRIBUTION="${LB_DISTRIBUTION:-precise}"
+			LB_DISTRIBUTION="${LB_DISTRIBUTION:-quantal}"
 			LB_DERIVATIVE="false"
 			;;
 
@@ -319,19 +319,6 @@ Set_defaults ()
 			LB_LOSETUP="losetup"
 		else
 			Echo_error "Can't process file /sbin/losetup"
-		fi
-	fi
-
-	if [ "$(id -u)" = "0" ]
-	then
-		# If we are root, disable root command
-		LB_ROOT_COMMAND=""
-	else
-		if [ -x /usr/bin/sudo ]
-		then
-			# FIXME: this is false until considered safe
-			#LB_ROOT_COMMAND="sudo"
-			LB_ROOT_COMMAND=""
 		fi
 	fi
 
@@ -707,7 +694,7 @@ Set_defaults ()
 					;;
 
 				*)
-					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-686-pae 486}"
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486}"
 					;;
 			esac
 			;;
@@ -1141,9 +1128,6 @@ Set_defaults ()
 
 	# Setting image type
 	LB_SOURCE_IMAGES="${LB_SOURCE_IMAGES:-tar}"
-
-	# Setting fakeroot/fakechroot
-	LB_USE_FAKEROOT="${LB_USE_FAKEROOT:-false}"
 }
 
 Check_defaults ()

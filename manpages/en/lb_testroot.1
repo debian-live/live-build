@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2013\-02\-15 4.0~a11-1 "Debian Live Project"
+.TH LIVE\-BUILD 1 2013\-02\-18 4.0~a12-1 "Debian Live Project"
 
 .SH NAME
 \fBlb testroot\fR \- Ensure that a system is built as root
@@ -10,9 +10,7 @@
 \fBlb testroot\fR is a high\-level command (porcelain) of \fIlive\-build\fR(7), the Debian Live tool suite.
 .PP
 .\" FIXME
-\fBlb testroot\fR simply checks to see if you are root. If not, it exits with an error. Debian Live images must currently be built as real root.
-.PP
-Note: Support for using \fIfakeroot\fR(1) and \fIsudo\fR(8) internally in live\-build itself is still experimental, however, calling a helper yourself with sudo is safe.
+\fBlb testroot\fR simply checks to see if you are root. If not, it exits with an error. Debian Live images must currently be built as real root (using sudo is fine too).
 .\" FIXME
 
 .SH OPTIONS

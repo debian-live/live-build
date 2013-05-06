@@ -74,12 +74,7 @@ do
 
 		# Restoring old cache
 		mkdir -p binary/"${INITFS}"
-		${LB_ROOT_COMMAND} cp -a cache/binary_rootfs/filesystem.* binary/"${INITFS}"
-
-		if [ -n "${LB_ROOT_COMMAND}" ]
-		then
-			${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) binary
-		fi
+		cp -a cache/binary_rootfs/filesystem.* binary/"${INITFS}"
 
 		# Creating stage file
 		Create_stagefile .build/binary_rootfs
@@ -132,7 +127,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 				Chroot chroot "mkfs.${LB_CHROOT_FILESYSTEM} -F -b 1024 -N ${REAL_INODES} -m 0 filesystem.${LB_CHROOT_FILESYSTEM}"
 
 				mkdir -p filesystem.tmp
-				${LB_ROOT_COMMAND} mount -o loop chroot/filesystem.${LB_CHROOT_FILESYSTEM} filesystem.tmp
+				mount -o loop chroot/filesystem.${LB_CHROOT_FILESYSTEM} filesystem.tmp
 				cp -a chroot/chroot/* filesystem.tmp
 
 				if [ "${FAKE_MTAB}" = "true" ]
@@ -140,7 +135,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 					Chroot chroot "rm -f /etc/mtab"
 				fi
 
-				${LB_ROOT_COMMAND} umount filesystem.tmp
+				umount filesystem.tmp
 				rmdir filesystem.tmp
 
 				# Move image
@@ -202,10 +197,10 @@ case "${LB_CHROOT_FILESYSTEM}" in
 				mkfs.${LB_CHROOT_FILESYSTEM} -F -b 1024 -N ${REAL_INODES} -m 0 binary/${INITFS}/filesystem.${LB_CHROOT_FILESYSTEM}
 
 				mkdir -p filesystem.tmp
-				${LB_ROOT_COMMAND} mount -o loop binary/${INITFS}/filesystem.${LB_CHROOT_FILESYSTEM} filesystem.tmp
+				mount -o loop binary/${INITFS}/filesystem.${LB_CHROOT_FILESYSTEM} filesystem.tmp
 				cp -a chroot/* filesystem.tmp
 
-				${LB_ROOT_COMMAND} umount filesystem.tmp
+				umount filesystem.tmp
 				rmdir filesystem.tmp
 				;;
 		esac
@@ -383,8 +378,8 @@ case "${LB_CHROOT_FILESYSTEM}" in
 				esac
 
 				# Move image
-				${LB_ROOT_COMMAND} mv chroot/filesystem.squashfs binary/${INITFS}
-				${LB_ROOT_COMMAND} rm -f chroot/squashfs.sort
+				mv chroot/filesystem.squashfs binary/${INITFS}
+				rm -f chroot/squashfs.sort
 
 				if [ -e chroot/chroot.cache ]
 				then
@@ -430,7 +425,7 @@ case "${LB_CHROOT_FILESYSTEM}" in
 					Remove_package
 				fi
 
-				${LB_ROOT_COMMAND} chmod 0644 binary/${INITFS}/filesystem.squashfs
+				chmod 0644 binary/${INITFS}/filesystem.squashfs
 				;;
 
 			false)
@@ -448,11 +443,6 @@ case "${LB_CHROOT_FILESYSTEM}" in
 				esac
 				;;
 		esac
-
-		if [ -n "${LB_ROOT_COMMAND}" ]
-		then
-			${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) binary/${INITFS}
-		fi
 
 		# Saving cache
 		Save_cache cache/packages.binary
@@ -488,12 +478,7 @@ do
 
 		if [ "${LB_CHROOT_FILESYSTEM}" != "none" ]
 		then
-			${LB_ROOT_COMMAND} cp -a binary/"${INITFS}"/filesystem.* cache/binary_rootfs
-		fi
-
-		if [ -n "${LB_ROOT_COMMAND}" ]
-		then
-			${LB_ROOT_COMMAND} chown -R $(whoami):$(whoami) cache/binary_rootfs
+			cp -a binary/"${INITFS}"/filesystem.* cache/binary_rootfs
 		fi
 	fi
 done

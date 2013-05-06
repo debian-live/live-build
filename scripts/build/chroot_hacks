@@ -104,11 +104,6 @@ case "${LB_INITRAMFS_COMPRESSION}" in
 		;;
 esac
 
-if [ -n "${LB_ROOT_COMMAND}" ]
-then
-	${LB_ROOT_COMMAND} chown -R --quiet $(whoami):$(whoami) chroot
-fi
-
 case "${LB_INITRAMFS}" in
 	casper)
 		ID="999"
