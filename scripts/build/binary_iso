@@ -125,11 +125,6 @@ case "${LB_BOOTLOADER}" in
 		XORRISO_EXCLUDE="boot/grub/grub_eltorito"
 		;;
 
-	silo)
-		XORRISO_OPTIONS="${XORRISO_OPTIONS} -G boot/isofs.b -B ..."
-		XORRISO_EXCLUDE="boot/isofs.b"
-		;;
-
 	syslinux)
 		case "${LB_MODE}" in
 			progress-linux)
@@ -144,13 +139,6 @@ case "${LB_BOOTLOADER}" in
 		esac
 
 		XORRISO_OPTIONS="${XORRISO_OPTIONS} -no-emul-boot -boot-load-size 4 -boot-info-table"
-		;;
-
-	yaboot)
-		XORRISO_OPTIONS="${XORRISO_OPTIONS} --iso-level 2 --netatalk -hfs -probe -map"
-		XORRISO_OPTIONS="${XORRISO_OPTIONS} binary/yaboot/hfs.map --chrp-boot -part -no-desktop"
-		XORRISO_OPTIONS="${XORRISO_OPTIONS} -hfs-bless binary/yaboot -hfs-volid Debian/Live_powerpc"
-		XORRISO_EXCLUDE="yaboot/hfs.map"
 		;;
 
 	*)

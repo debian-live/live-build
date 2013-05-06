@@ -849,14 +849,6 @@ Set_defaults ()
 			amd64|i386)
 				LB_BOOTLOADER="syslinux"
 				;;
-
-			powerpc)
-				LB_BOOTLOADER="yaboot"
-				;;
-
-			sparc)
-				LB_BOOTLOADER="silo"
-				;;
 		esac
 	fi
 
@@ -1194,6 +1186,13 @@ Check_defaults ()
 		fi
 	fi
 
+	if echo ${LB_HDD_LABEL} | grep -qs ' '
+	then
+		Echo_error "There are currently no whitespaces supported in hdd labels."
+
+		exit 1
+	fi
+
 	if [ "${LB_DEBIAN_INSTALLER}" != "false" ]
 	then
 		# d-i true, no caching
@@ -1217,9 +1216,8 @@ Check_defaults ()
 
 	case "${LIVE_IMAGE_TYPE}" in
 		hdd*)
-			# grub or yaboot + hdd
 			case "${LB_BOOTLOADER}" in
-				grub|yaboot)
+				grub)
 					Echo_error "You have selected a combination of bootloader and image type that is currently not supported by live-build. Please use either another bootloader or a different image type."
 					exit 1
 					;;

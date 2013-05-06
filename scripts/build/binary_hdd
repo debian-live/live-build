@@ -167,7 +167,7 @@ esac
 case "${LB_BUILD_WITH_CHROOT}" in
 	true)
 		Chroot chroot "parted -s ${FREELO} mklabel ${PARTITION_TABLE_TYPE}" || true
-		Chroot chroot "parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100%" || true
+		Chroot chroot "parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0% 100%" || true
 		Chroot chroot "parted -s ${FREELO} set 1 boot on" || true
 		Chroot chroot "parted -s ${FREELO} set 1 lba off" || true
 
@@ -179,7 +179,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 
 	false)
 		parted -s ${FREELO} mklabel ${PARTITION_TABLE_TYPE} || true
-		parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0.0 100% || true
+		parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0% 100% || true
 		parted -s "${FREELO}" set 1 boot on || true
 		parted -s "${FREELO}" set 1 lba off || true
 

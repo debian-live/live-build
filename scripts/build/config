@@ -32,7 +32,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--bootappend-install PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootappend-live PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootappend-live-failsafe PARAMETER|\"PARAMETERS\"]\n\
-\t    [--bootloader grub|syslinux|yaboot]\n\
+\t    [--bootloader grub|syslinux]\n\
 \t    [--bootstrap cdebootstrap|cdebootstrap-static|debootstrap]\n\
 \t    [--cache true|false]\n\
 \t    [--cache-indices true|false]\n\
