@@ -74,6 +74,7 @@ lb chroot_hacks ${@}
 lb chroot_interactive ${@}
 
 Chroot chroot "dpkg-query -W" > chroot.packages.live
+Chroot chroot "ls -lR" > chroot.files
 
 # Deconfiguring chroot
 lb chroot_archives chroot remove ${@}

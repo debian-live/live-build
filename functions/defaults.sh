@@ -371,7 +371,7 @@ Set_defaults ()
 
 		progress-linux)
 			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-http://ftp.debian.org/debian/}"
-			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://cdn.archive.progress-linux.org/progress/}"
+			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://cdn.archive.progress-linux.org/packages/}"
 			;;
 
 		ubuntu)
@@ -507,7 +507,8 @@ Set_defaults ()
 		remove-openssh-server-host-keys \
 		remove-python-py \
 		remove-temporary-files \
-		remove-udev-persistent-rules \
+		remove-udev-persistent-cd-rules \
+		remove-udev-persistent-net-rules \
 		remove-systemd-machine-id \
 		update-apt-file-cache \
 		update-apt-xapian-index \
@@ -673,7 +674,7 @@ Set_defaults ()
 
 	# Setting updates updates option
 	case "${LB_PARENT_DISTRIBUTION}" in
-		wheezy|jessie|sid)
+		jessie|sid)
 			LB_UPDATES="${LB_UPDATES:-false}"
 			;;
 

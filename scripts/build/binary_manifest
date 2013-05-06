@@ -67,5 +67,7 @@ echo "$(diff chroot.packages.live chroot.packages.install | awk '/^< / { print $
 
 cp chroot.packages.live ${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.packages
 
+cp chroot.files ${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.files
+
 # Creating stage file
 Create_stagefile .build/binary_manifest

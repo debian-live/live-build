@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LB_LOADLIN}" != "true" ]
+if [ "${LB_LOADLIN}" != "true" ] || [ "${LB_BINARY_IMAGES}" = "netboot" ]
 then
 	exit 0
 fi
