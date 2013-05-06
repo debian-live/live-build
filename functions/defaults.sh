@@ -507,7 +507,7 @@ Set_defaults ()
 		remove-openssh-server-host-keys \
 		remove-python-py \
 		remove-temporary-files \
-		remove-udev-persistent-rules \
+		remove-udev-persistent-net-rules \
 		remove-systemd-machine-id \
 		update-apt-file-cache \
 		update-apt-xapian-index \
