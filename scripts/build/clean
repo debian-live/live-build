@@ -97,12 +97,12 @@ do
 		--binary)
 			${LB_ROOT_COMMAND} umount -f binary.tmp > /dev/null 2>&1 || true
 			rm -rf binary.tmp binary.deb binary.udeb
-			rm -f binary*.iso
-			rm -f binary*.img
-			rm -f binary*.tar.gz
-			rm -f binary*.zsync*
-			rm -f binary.sh
-			rm -f binary.contents binary.packages md5sum.txt
+			rm -f ${LIVE_IMAGE_NAME}*.iso
+			rm -f ${LIVE_IMAGE_NAME}*.img
+			rm -f ${LIVE_IMAGE_NAME}*.tar.gz
+			rm -f ${LIVE_IMAGE_NAME}*.zsync*
+			rm -f ${LIVE_IMAGE_NAME}.sh
+			rm -f ${LIVE_IMAGE_NAME}.contents ${LIVE_IMAGE_NAME}.packages md5sum.txt
 
 			rm -rf binary
 			rm -rf tftpboot
@@ -130,12 +130,12 @@ do
 			;;
 
 		--source)
-			rm -f source*.iso
-			rm -f source*.img
-			rm -f source*.tar
-			rm -f source*.tar.gz
-			rm -f source*.list
-			rm -f source-selection.txt
+			rm -f ${LIVE_IMAGE_NAME}-source*.iso
+			rm -f ${LIVE_IMAGE_NAME}-source*.img
+			rm -f ${LIVE_IMAGE_NAME}-source*.tar
+			rm -f ${LIVE_IMAGE_NAME}-source*.tar.gz
+			rm -f ${LIVE_IMAGE_NAME}-source*.list
+			rm -f ${LIVE_IMAGE_NAME}-source-selection.txt
 
 			rm -rf source
 

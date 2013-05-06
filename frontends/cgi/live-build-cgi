@@ -22,8 +22,8 @@ fi
 
 _HOSTNAME="$(hostname -f)"
 
-# Turn on debug if enabled
-if [ "${_DEBUG}" = "enabled" ]
+# Turn on debug if true
+if [ "${_DEBUG}" = "true" ]
 then
 	set -x
 fi
@@ -67,12 +67,12 @@ else
 	_LB_CONFIG=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])config=[-a-z]+' | cut -f 2 -d '=' | head -n1)
 
 	# Standard options
-	LB_BINARY_IMAGES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])binary_images=[-a-z]+' | cut -f 2 -d '=' | head -n1)
+	LIVE_IMAGE_TYPE=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])binary_images=[-a-z]+' | cut -f 2 -d '=' | head -n1)
 	LB_DISTRIBUTION=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])distribution=[a-z]+' | cut -f 2 -d '=' | head -n1)
 
 	# Advanced bootstrap options
-	LB_ARCHITECTURES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])architectures=[0-9a-z]+' | cut -f 2 -d '=' | head -n1)
-	LB_ARCHIVE_AREAS=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])archive_areas=[a-z]+' | cut -f 2 -d '=' | head -n1)
+	LIVE_IMAGE_ARCHITECTURE=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])architectures=[0-9a-z]+' | cut -f 2 -d '=' | head -n1)
+	LIVE_IMAGE_ARCHIVE_AREAS=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])archive_areas=[a-z]+' | cut -f 2 -d '=' | head -n1)
 
 	# Advanced chroot options
 	LB_CHROOT_FILESYSTEM=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])chroot_filesystem=[0-9a-z]+' | cut -f 2 -d '=' | head -n1)
@@ -123,12 +123,12 @@ else
 	sed -e "s/BUILD/${_BUILD}/g" \
 	    -e "s/EMAIL/${_EMAIL}/" \
 	    -e "s/QUEUENUM/${_QUEUENUM}/" \
-	    -e "s/LB_BINARY_IMAGES/${LB_BINARY_IMAGES}/" \
+	    -e "s/LIVE_IMAGE_TYPE/${LIVE_IMAGE_TYPE}/" \
 	    -e "s/LB_DISTRIBUTION/${LB_DISTRIBUTION}/" \
 	    -e "s#_LB_CONFIG#${_LB_CONFIG}#" \
 	    -e "s/_LB_CGIPACKAGES/${_LB_CGIPACKAGES}/" \
-	    -e "s/LB_ARCHITECTURES/${LB_ARCHITECTURES}/" \
-	    -e "s/LB_ARCHIVE_AREAS/${LB_ARCHIVE_AREAS}/" \
+	    -e "s/LIVE_IMAGE_ARCHITECTURE/${LIVE_IMAGE_ARCHITECTURE}/" \
+	    -e "s/LIVE_IMAGE_ARCHIVE_AREAS/${LIVE_IMAGE_ARCHIVE_AREAS}/" \
 	    -e "s/LB_CHROOT_FILESYSTEM/${LB_CHROOT_FILESYSTEM}/" \
 	    -e "s/LB_LINUX_FLAVOURS/${LB_LINUX_FLAVOURS}/" \
 	    -e "s/LB_SECURITY/${LB_SECURITY}/" \
@@ -169,12 +169,12 @@ _LB_CGIPACKAGES="${_LB_CGIPACKAGES}"
 _LB_CONFIG="${_LB_CONFIG}"
 
 # Standard options
-LB_BINARY_IMAGES="${LB_BINARY_IMAGES}"
+LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE}"
 LB_DISTRIBUTION="${LB_DISTRIBUTION}"
 
 # Advanced bootstrap options
-LB_ARCHITECTURES="${LB_ARCHITECTURES}"
-LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS}"
+LIVE_IMAGE_ARCHITECTURE="${LIVE_IMAGE_ARCHITECTURE}"
+LIVE_IMAGE_ARCHIVE_AREAS="${LIVE_IMAGE_ARCHIVE_AREAS}"
 
 # Advanced chroot options
 LB_CHROOT_FILESYSTEM="${LB_CHROOT_FILESYSTEM}"
@@ -202,7 +202,7 @@ LB_SOURCE="${LB_SOURCE}"
 EOF
 
 	echo "$(date +%b\ %d\ %H:%M:%S) ${_HOSTNAME} live-build-cgi: add web build (${_BUILD}) from ${REMOTE_ADDR}." >> /var/log/live
-	echo "$(date +%b\ %d\ %H:%M:%S) ${_HOSTNAME} live-build-cgi: options ${_BUILD} |email ${_EMAIL}|binary_images ${LB_BINARY_IMAGES}|distribution ${LB_DISTRIBUTION}|config ${_LB_CONFIG}|cgipackages ${_LB_CGIPACKAGES}|architectures ${LB_ARCHITECTURES}|archive_areas ${LB_ARCHIVE_AREAS}|chroot_filesystem ${LB_CHROOT_FILESYSTEM}|linux_flavours ${LB_LINUX_FLAVOURS}|security ${LB_SECURITY}|apt_indices ${LB_APT_INDICES}|bootappend_install ${LB_BOOTAPPEND_INSTALL}|bootappend_live ${LB_BOOTAPPEND_LIVE}|bootloader ${LB_BOOTLOADER}|debian_installer ${LB_DEBIAN_INSTALLER}|iso_application ${LB_ISO_APPLICATION}|iso_preparer ${LB_ISO_PREPARER}|iso_publisher ${LB_ISO_PUBLISHER}|iso_volume ${LB_ISO_VOLUME}|memtest ${LB_MEMTEST}|net_path ${LB_NET_ROOT_PATH}|net_server ${LB_NET_ROOT_SERVER}|source_images ${LB_SOURCE_IMAGES}|sources ${LB_SOURCE}" >> /var/log/live
+	echo "$(date +%b\ %d\ %H:%M:%S) ${_HOSTNAME} live-build-cgi: options ${_BUILD} |email ${_EMAIL}|binary_images ${LIVE_IMAGE_TYPE}|distribution ${LB_DISTRIBUTION}|config ${_LB_CONFIG}|cgipackages ${_LB_CGIPACKAGES}|architectures ${LIVE_IMAGE_ARCHITECTURE}|archive_areas ${LIVE_IMAGE_ARCHIVE_AREAS}|chroot_filesystem ${LB_CHROOT_FILESYSTEM}|linux_flavours ${LB_LINUX_FLAVOURS}|security ${LB_SECURITY}|apt_indices ${LB_APT_INDICES}|bootappend_install ${LB_BOOTAPPEND_INSTALL}|bootappend_live ${LB_BOOTAPPEND_LIVE}|bootloader ${LB_BOOTLOADER}|debian_installer ${LB_DEBIAN_INSTALLER}|iso_application ${LB_ISO_APPLICATION}|iso_preparer ${LB_ISO_PREPARER}|iso_publisher ${LB_ISO_PUBLISHER}|iso_volume ${LB_ISO_VOLUME}|memtest ${LB_MEMTEST}|net_path ${LB_NET_ROOT_PATH}|net_server ${LB_NET_ROOT_SERVER}|source_images ${LB_SOURCE_IMAGES}|sources ${LB_SOURCE}" >> /var/log/live
 fi
 
 sed -e "s/VERSION/${VERSION}/" "${_TEMPLATES}"/footer.html

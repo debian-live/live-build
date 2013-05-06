@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LB_BINARY_IMAGES}" != "iso" ] && [ "${LB_BINARY_IMAGES}" != "iso-hybrid" ]
+if [ "${LIVE_IMAGE_TYPE}" != "iso" ] && [ "${LIVE_IMAGE_TYPE}" != "iso-hybrid" ]
 then
 	exit 0
 fi
@@ -57,25 +57,25 @@ Restore_cache cache/packages.binary
 # Installing depends
 Install_package
 
-case "${LB_BINARY_IMAGES}" in
+case "${LIVE_IMAGE_TYPE}" in
 	iso)
-		_IMAGES="binary.iso"
+		_IMAGES="${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.iso"
 		;;
 
 	iso-hybrid)
-		_IMAGES="binary.hybrid.iso"
+		_IMAGES="${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.hybrid.iso"
 		;;
 
 	hdd)
-		_IMAGES="binary.img"
+		_IMAGES="${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.img"
 		;;
 
 	net)
-		_IMAGES="binary.netboot.tar*"
+		_IMAGES="${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.netboot.tar*"
 		;;
 
 	tar)
-		_IMAGES="binary.tar*"
+		_IMAGES="${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.tar*"
 		;;
 esac
 

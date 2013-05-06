@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if ! In_list netboot "${LB_BINARY_IMAGES}"
+if ! In_list netboot "${LIVE_IMAGE_TYPE}"
 then
 	exit 0
 fi
@@ -48,7 +48,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-if [ "${LB_ARCHITECTURES}" = "sparc" ]
+if [ "${LIVE_IMAGE_ARCHITECTURE}" = "sparc" ]
 then
 	# Checking depends
 	Check_package chroot/usr/bin/elftoaout sparc-utils
@@ -119,7 +119,7 @@ then
 fi
 
 # Remove old binary
-rm -f binary.netboot.tar binary.netboot.tar.gz binary.netboot.tar.bz2 binary.netboot.tar.xz binary.netboot.tar.xz
+rm -f ${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.netboot.tar ${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.netboot.tar.gz ${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.netboot.tar.bz2 ${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.netboot.tar.xz ${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.netboot.tar.xz
 
 # Creating image file
 ROOT_DIR=$(basename ${LB_NET_ROOT_PATH})
@@ -142,23 +142,23 @@ cd binary.tmp
 mkdir tftpboot/live
 mv */live/vmlinuz* */live/initrd* tftpboot/live
 
-tar cf ../binary.netboot.tar *
+tar cf ../${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.netboot.tar *
 
 case "${LB_COMPRESSION}" in
 	bzip2)
-		bzip2 ${BZIP2_OPTIONS} ../binary.netboot.tar
+		bzip2 ${BZIP2_OPTIONS} ../${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.netboot.tar
 		;;
 
 	gzip)
-		gzip ${GZIP_OPTIONS} ../binary.netboot.tar
+		gzip ${GZIP_OPTIONS} ../${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.netboot.tar
 		;;
 
 	lzip)
-		lzip ${LZIP_OPTIONS} ../binary.netboot.tar
+		lzip ${LZIP_OPTIONS} ../${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.netboot.tar
 		;;
 
 	xz)
-		xz ${XZ_OPTIONS} ../binary.netboot.tar
+		xz ${XZ_OPTIONS} ../${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.netboot.tar
 		;;
 
 	none)

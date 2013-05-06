@@ -60,7 +60,7 @@ cp chroot.packages.live "binary/${INITFS}/filesystem.${SUFFIX}"
 echo "$(diff chroot.packages.live chroot.packages.install | awk '/^< / { print $2 }')" \
 	> "binary/${INITFS}/filesystem.${SUFFIX}-remove"
 
-cp chroot.packages.live binary.packages
+cp chroot.packages.live ${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.packages
 
 # Creating stage file
 Create_stagefile .build/binary_manifest

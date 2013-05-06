@@ -24,13 +24,13 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-case "${LB_BINARY_IMAGES}" in
+case "${LIVE_IMAGE_TYPE}" in
 	iso)
-		IMAGE="binary.iso"
+		IMAGE="${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.iso"
 		;;
 
 	iso-hybrid)
-		IMAGE="binary.hybrid.iso"
+		IMAGE="${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.hybrid.iso"
 		;;
 
 	*)
@@ -55,7 +55,7 @@ Create_lockfile .lock
 # Checking depends
 Check_package chroot/usr/bin/xorriso xorriso
 
-if [ "${LB_BINARY_IMAGES}" = "iso-hybrid" ]
+if [ "${LIVE_IMAGE_TYPE}" = "iso-hybrid" ]
 then
 	Check_package chroot/usr/lib/syslinux/isohdpfx.bin syslinux-common
 fi
@@ -76,7 +76,7 @@ fi
 XORRISO_OPTIONS="-as mkisofs -r -J -joliet-long -l -cache-inodes"
 
 # Handle xorriso live-build specific options
-if [ "${LB_BINARY_IMAGES}" = "iso-hybrid" ]
+if [ "${LIVE_IMAGE_TYPE}" = "iso-hybrid" ]
 then
 	XORRISO_OPTIONS="${XORRISO_OPTIONS} -isohybrid-mbr /usr/lib/syslinux/isohdpfx.bin -partition_offset 16"
 fi

@@ -1,10 +1,10 @@
 # Defaults for /etc/cron.daily/live-build-cgi
 
-_WEBBUILD="disabled"
+_WEBBUILD="false"
 
 _MODE="debian"
 
-_DEBUG="disabled"
+_DEBUG="false"
 
 _DESTDIR="/srv/debian-live/build/www"
 _TEMPLATES="/usr/share/live/build/templates/cgi/${_MODE}"

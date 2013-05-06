@@ -24,7 +24,7 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if ! In_list hdd "${LB_BINARY_IMAGES}"
+if ! In_list hdd "${LIVE_IMAGE_TYPE}"
 then
 	exit 0
 fi
@@ -57,7 +57,7 @@ esac
 Check_package chroot/usr/share/doc/mtools mtools
 Check_package chroot/sbin/parted parted
 
-if [ "${LB_ARCHITECTURES}" = "sparc" ]
+if [ "${LIVE_IMAGE_ARCHITECTURE}" = "sparc" ]
 then
 	case "${LB_BINARY_FILESYSTEM}" in
 		ext2|ext3|ext4)
@@ -88,9 +88,9 @@ Restore_cache cache/packages.binary
 Install_package
 
 # Remove old binary
-if [ -f binary.img ]
+if [ -f ${LIVE_iMAGE_NAME}.img ]
 then
-	rm -f binary.img
+	rm -f ${LIVE_iMAGE_NAME}.img
 fi
 
 # Enforce fat32 if we find individual files bigger than 2GB
@@ -136,7 +136,7 @@ fi
 echo "!!! The following error/warning messages can be ignored !!!"
 Losetup $FREELO chroot/binary.img 0
 
-case "${LB_ARCHITECTURES}" in
+case "${LIVE_IMAGE_ARCHITECTURE}" in
 	sparc)
 		PARTITION_TABLE_TYPE="sun"
 		;;
@@ -294,7 +294,7 @@ then
 	mv chroot/dev.tmp chroot/dev
 fi
 
-mv chroot/binary.img ./
+mv chroot/binary.img ${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}
 
 # Saving cache
 Save_cache cache/packages.binary

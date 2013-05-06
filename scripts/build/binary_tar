@@ -14,7 +14,7 @@ set -e
 [ -e "${LIVE_BUILD}/scripts/build.sh" ] && . "${LIVE_BUILD}/scripts/build.sh" || . /usr/lib/live/build.sh
 
 # Setting static variables
-DESCRIPTION="$(Echo 'build harddisk binary image')"
+DESCRIPTION="$(Echo 'build binary tarball')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -24,12 +24,12 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if ! In_list tar "${LB_BINARY_IMAGES}"
+if ! In_list tar "${LIVE_IMAGE_TYPE}"
 then
 	exit 0
 fi
 
-Echo_message "Begin building binary harddisk image..."
+Echo_message "Begin building binary tarball..."
 
 # Requiring stage file
 Require_stagefile .build/config .build/bootstrap
@@ -44,25 +44,24 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Remove old binary
-rm -f binary.tar.bz2 binary.tar.gz binary.tar.lz binary.tar
+rm -f ${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.tar.bz2 ${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.tar.gz ${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.tar.lz ${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.tar
 
-tar cf binary-tar.tar binary
-
+tar cf ${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.tar.tar ${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.
 case "${LB_COMPRESSION}" in
 	bzip2)
-		bzip2 ${BZIP2_OPTIONS} binary-tar.tar
+		bzip2 ${BZIP2_OPTIONS} ${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.tar.tar
 		;;
 
 	gzip)
-		gzip ${GZIP_OPTIONS} binary-tar.tar
+		gzip ${GZIP_OPTIONS} ${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.tar.tar
 		;;
 
 	lzip)
-		lzip ${LZIP_OPTIONS} binary-tar.tar
+		lzip ${LZIP_OPTIONS} ${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.tar.tar
 		;;
 
 	xz)
-		xz ${XZ_OPTIONS} binary-tar.tar
+		xz ${XZ_OPTIONS} ${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.tar.tar
 		;;
 
 	none)

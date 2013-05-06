@@ -48,7 +48,7 @@ Check_architectures amd64 i386
 Check_crossarchitectures
 
 # Assembling image specifics
-case "${LB_BINARY_IMAGES}" in
+case "${LIVE_IMAGE_TYPE}" in
 	iso*)
 		_BOOTLOADER="isolinux"
 
@@ -299,7 +299,7 @@ then
 
 	eval _VERSION="$`echo RELEASE_${LB_DISTRIBUTION}`"
 	_DISTRIBUTION="${LB_DISTRIBUTION}"
-	_ARCHITECTURE="${LB_ARCHITECTURES}"
+	_ARCHITECTURE="${LIVE_IMAGE_ARCHITECTURE}"
 	_DATE=$(date -R)
 	_YEAR="$(date +%Y)"
 	_MONTH="$(date +%m)"

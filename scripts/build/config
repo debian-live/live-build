@@ -66,6 +66,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--initramfs auto|none|live-boot|casper]\n\
 \t    [--initramfs-compression bzip2|gzip|lzma]\n\
 \t    [--initsystem sysvinit|runit|systemd|upstart|none]\n\
+\t    [--image-name [NAME]\n\
 \t    [--interactive shell]\n\
 \t    [--isohybrid-options OPTION|\"OPTIONS\"]\n\
 \t    [--hdd-label LABEL]\n\
@@ -150,7 +151,7 @@ Local_arguments ()
 		mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-updates:,mirror-chroot-backports:,mirror-binary:,
 		mirror-binary-security:,mirror-binary-updates:,mirror-binary-backports:,mirror-debian-installer:,
 		archives:,archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,
-		gzip-options:,hooks:,interactive:,keyring-packages:,linux-flavours:,linux-packages:,
+		gzip-options:,hooks:,image-name:,interactive:,keyring-packages:,linux-flavours:,linux-packages:,
 		security:,updates:,backports:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootappend-live-failsafe:,bootloader:,checksums:,compression:,config:,zsync:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
@@ -370,7 +371,7 @@ Local_arguments ()
 
 			# config/bootstrap
 			-a|--architectures)
-				LB_ARCHITECTURES="${2}"
+				LIVE_IMAGE_ARCHITECTURE="${2}"
 				shift 2
 				;;
 
@@ -490,12 +491,12 @@ Local_arguments ()
 				;;
 
 			--archive-areas)
-				LB_ARCHIVE_AREAS="${2}"
+				LIVE_IMAGE_ARCHIVE_AREAS="${2}"
 				shift 2
 				;;
 
 			--parent-archive-areas)
-				LB_PARENT_ARCHIVE_AREAS="${2}"
+				LIVE_IMAGE_PARENT_ARCHIVE_AREAS="${2}"
 				shift 2
 				;;
 
@@ -517,6 +518,11 @@ Local_arguments ()
 
 			--hooks)
 				LB_HOOKS="${2}"
+				shift 2
+				;;
+
+			--image-name)
+				LIVE_IMAGE_NAME="${2}"
 				shift 2
 				;;
 
@@ -562,7 +568,7 @@ Local_arguments ()
 				;;
 
 			-b|--binary-images)
-				LB_BINARY_IMAGES="${2}"
+				LIVE_IMAGE_TYPE="${2}"
 				shift 2
 				;;
 
@@ -956,9 +962,9 @@ Check_defaults
 
 if [ ! -e config ]
 then
-	Echo_message "Creating config tree for a ${LB_MODE}/${LB_ARCHITECTURES} system"
+	Echo_message "Creating config tree for a ${LB_MODE}/${LIVE_IMAGE_ARCHITECTURE} system"
 else
-	Echo_message "Updating config tree for a ${LB_MODE}/${LB_ARCHITECTURES} system"
+	Echo_message "Updating config tree for a ${LB_MODE}/${LIVE_IMAGE_ARCHITECTURE} system"
 fi
 
 # Creating bootstrap configuration
@@ -968,9 +974,6 @@ mkdir -p config/includes
 # Creating live-build configuration
 cat > config/common << EOF
 # config/common - common options for live-build(7)
-
-# LB_CONFIG_VERSION: internal version of the configuration file format
-LB_CONFIG_VERSION="${CONFIG_VERSION}"
 
 # \$LB_APT: set package manager
 # (Default: ${LB_APT})
@@ -1111,10 +1114,6 @@ EOF
 cat > config/bootstrap << EOF
 # config/bootstrap - options for live-build(7), bootstrap stage
 
-# \$LB_ARCHITECTURES: select chroot architectures
-# (Default: autodetected)
-LB_ARCHITECTURES="${LB_ARCHITECTURES}"
-
 # \$LB_DISTRIBUTION: select distribution to use
 # (Default: ${LB_DISTRIBUTION})
 LB_DISTRIBUTION="${LB_DISTRIBUTION}"
@@ -1211,14 +1210,6 @@ LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER}"
 # (Default: empty)
 LB_ARCHIVES="${LB_ARCHIVES}"
 
-# \$LB_ARCHIVE_AREAS: select archive areas to use
-# (Default: ${LB_ARCHIVE_AREAS})
-LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS}"
-
-# \$LB_PARENT_ARCHIVE_AREAS: select archive areas to use
-# (Default: ${LB_PARENT_ARCHIVE_AREAS})
-LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS}"
-
 # \$LB_BOOTSTRAP_QEMU_ARCHITECTURES: architectures to use foreign bootstrap
 # (Default: ${LB_BOOTSTRAP_QEMU_ARCHITECTURES})
 LB_BOOTSTRAP_QEMU_ARCHITECTURES="${LB_BOOTSTRAP_QEMU_ARCHITECTURES}"
@@ -1304,10 +1295,6 @@ cat > config/binary << EOF
 # \$LB_BINARY_FILESYSTEM: set image filesystem
 # (Default: ${LB_BINARY_FILESYSTEM})
 LB_BINARY_FILESYSTEM="${LB_BINARY_FILESYSTEM}"
-
-# \$LB_BINARY_IMAGES: set image type
-# (Default: ${LB_BINARY_IMAGES})
-LB_BINARY_IMAGES="${LB_BINARY_IMAGES}"
 
 # \$LB_APT_INDICES: set apt/aptitude generic indices
 # (Default: ${LB_APT_INDICES})
@@ -1491,6 +1478,19 @@ then
 	rmdir --ignore-fail-on-non-empty local/*/ > /dev/null 2>&1 || true
 	rmdir --ignore-fail-on-non-empty local > /dev/null 2>&1 || true
 fi
+
+# New style configuration
+Echo_warning "WARNING: THIS VERSION OF LIVE-BUILD IS EXPERIMENTAL!"
+Echo_warning "IT IS UNFINISHED AND CHANGES HEAVILY WITHOUT PRIOR NOTICE."
+Echo_warning "USER DISCRETION IS ADVISED."
+
+Set_configuration "config/control" "Configuration-Version" "${LIVE_CONFIGURATION_VERSION}"
+echo "" >> config/control
+Set_configuration "config/control" "Name" "${LIVE_IMAGE_NAME}"
+Set_configuration "config/control" "Architecture" "${LIVE_IMAGE_ARCHITECTURE}"
+Set_configuration "config/control" "Archive-Areas" "${LIVE_IMAGE_ARCHIVE_AREAS}"
+[ "${LB_DERIVATIVE}" = "true" ] && Set_configuration "config/control" "Parent-Archive-Areas" "${LIVE_IMAGE_PARENT_ARCHIVE_AREAS}" # FIXME
+Set_configuration "config/control" "Type" "${LIVE_IMAGE_TYPE}"
 
 # Creating stage file
 Create_stagefile .build/config
