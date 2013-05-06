@@ -13,8 +13,11 @@ test:
 
 	@for SCRIPT in $(SCRIPTS); \
 	do \
-		sh -n $${SCRIPT}; \
-		echo -n "."; \
+		if ! head -n1 $${SCRIPT} | grep -qs python; \
+		then \
+			sh -n $${SCRIPT}; \
+			echo -n "."; \
+		fi; \
 	done
 
 	@echo " done."
@@ -25,8 +28,11 @@ test:
 	then \
 		for SCRIPT in $(SCRIPTS); \
 		do \
-			checkbashisms -f -x $${SCRIPT}; \
-			echo -n "."; \
+			if ! head -n1 $${SCRIPT} | grep -qs python; \
+			then \
+				checkbashisms -f -x $${SCRIPT}; \
+				echo -n "."; \
+			fi; \
 		done; \
 	else \
 		echo "WARNING: skipping bashism test - you need to install devscripts."; \

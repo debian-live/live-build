@@ -121,8 +121,14 @@ then
 fi
 
 # Everything which comes here needs to be cleaned up,
-DU_DIM="$(du -ms binary | cut -f1)"
-REAL_DIM="$(Calculate_partition_size ${DU_DIM} ${LB_BINARY_FILESYSTEM})"
+if [ "$LB_HDD_SIZE" = "auto" ];
+then
+	DU_DIM="$(du -ms binary | cut -f1)"
+	REAL_DIM="$(Calculate_partition_size ${DU_DIM} ${LB_BINARY_FILESYSTEM})"
+else
+	REAL_DIM=$LB_HDD_SIZE
+fi
+
 dd if=/dev/zero of=chroot/binary.img bs=1024k count=0 seek=${REAL_DIM}
 FREELO="$(${LB_LOSETUP} -f)"
 if [ ! -b chroot/${FREELO} ]

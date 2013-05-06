@@ -20,7 +20,7 @@ config/chroot
 config/common
 config/source
 
-config/image
+config/build
 
 source/
 source*.iso

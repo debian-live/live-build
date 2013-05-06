@@ -35,8 +35,5 @@ Set_defaults
 Setup_cleanup
 
 # Bootstrapping system
-lb bootstrap_cache restore ${@}
-lb bootstrap_cdebootstrap ${@}
-lb bootstrap_debootstrap ${@}
+lb bootstrap_${LB_BOOTSTRAP}
 lb bootstrap_archive-keys ${@}
-lb bootstrap_cache save ${@}

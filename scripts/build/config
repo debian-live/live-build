@@ -1379,19 +1379,33 @@ Echo_warning "WARNING: THIS VERSION OF LIVE-BUILD IS EXPERIMENTAL!"
 Echo_warning "IT IS UNFINISHED AND CHANGES HEAVILY WITHOUT PRIOR NOTICE."
 Echo_warning "USER DISCRETION IS ADVISED."
 
-if [ ! -e config/image ]
+cat > config/build << EOF
+[Image]
+Architecture: ${LIVE_IMAGE_ARCHITECTURE}
+Archive-Areas: ${LIVE_IMAGE_ARCHIVE_AREAS}
+Distribution: ${LB_DISTRIBUTION}
+Mirror-Bootstrap: ${LB_MIRROR_BOOTSTRAP}
+EOF
+
+if [ "${LB_DERIVATIVE}" = "true" ]
 then
-	_NEW_CONFIG="true"
+
+cat >> config/build << EOF
+
+Parent-Archive-Areas: ${LIVE_IMAGE_ARCHIVE_AREAS}
+Parent-Distribution: ${LB_DISTRIBUTION}
+Parent-Mirror-Bootstrap: ${LB_PARENT_MIRROR_BOOTSTRAP}
+EOF
+
 fi
 
-# config/image
-Set_configuration "config/image" "Configuration-Version" "${LIVE_CONFIGURATION_VERSION}"
-[ "${_NEW_CONFIG}" = "true" ] && echo "" >> config/image
-Set_configuration "config/image" "Name" "${LIVE_IMAGE_NAME}"
-Set_configuration "config/image" "Architecture" "${LIVE_IMAGE_ARCHITECTURE}"
-Set_configuration "config/image" "Archive-Areas" "${LIVE_IMAGE_ARCHIVE_AREAS}"
-[ "${LB_DERIVATIVE}" = "true" ] && Set_configuration "config/image" "Parent-Archive-Areas" "${LIVE_IMAGE_PARENT_ARCHIVE_AREAS}" # FIXME
-Set_configuration "config/image" "Type" "${LIVE_IMAGE_TYPE}"
+cat >> config/build << EOF
+
+[FIXME]
+Configuration-Version: ${LIVE_CONFIGURATION_VERSION}
+Name: ${LIVE_IMAGE_NAME}
+Type: ${LIVE_IMAGE_TYPE}
+EOF
 
 # Creating stage file
 Create_stagefile .build/config

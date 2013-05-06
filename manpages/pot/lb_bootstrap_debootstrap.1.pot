@@ -1,0 +1,235 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the live-build package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: live-build VERSION\n"
+"POT-Creation-Date: 2013-04-08 22:19+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. type: TH
+#: en/lb_bootstrap_cdebootstrap.1:9 en/lb_bootstrap_debootstrap.1:9
+#, no-wrap
+msgid "LIVE-BUILD"
+msgstr ""
+
+#. type: TH
+#: en/lb_bootstrap_cdebootstrap.1:9 en/lb_bootstrap_debootstrap.1:9
+#, no-wrap
+msgid "2013-04-08"
+msgstr ""
+
+#. type: TH
+#: en/lb_bootstrap_cdebootstrap.1:9 en/lb_bootstrap_debootstrap.1:9
+#, no-wrap
+msgid "4.0~a17-1"
+msgstr ""
+
+#. type: TH
+#: en/lb_bootstrap_cdebootstrap.1:9 en/lb_bootstrap_debootstrap.1:9
+#, no-wrap
+msgid "Live Systems Project"
+msgstr ""
+
+#. type: SH
+#: en/lb_bootstrap_cdebootstrap.1:11 en/lb_bootstrap_debootstrap.1:11
+#, no-wrap
+msgid "NAME"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_bootstrap_cdebootstrap.1:13 en/lb_bootstrap_debootstrap.1:13
+msgid "B<live-build> - System Build Scripts"
+msgstr ""
+
+#. type: SH
+#: en/lb_bootstrap_cdebootstrap.1:14 en/lb_bootstrap_debootstrap.1:14
+#, no-wrap
+msgid "SYNOPSIS"
+msgstr ""
+
+#. type: SH
+#: en/lb_bootstrap_cdebootstrap.1:21 en/lb_bootstrap_debootstrap.1:21
+#, no-wrap
+msgid "DESCRIPTION"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_bootstrap_cdebootstrap.1:23 en/lb_bootstrap_debootstrap.1:23
+msgid ""
+"live-build contains the programs to build a live system from a configuration "
+"directory."
+msgstr ""
+
+#. type: SH
+#: en/lb_bootstrap_cdebootstrap.1:26 en/lb_bootstrap_debootstrap.1:26
+#, no-wrap
+msgid "OPTIONS"
+msgstr ""
+
+#. type: IP
+#: en/lb_bootstrap_cdebootstrap.1:29 en/lb_bootstrap_debootstrap.1:29
+#, no-wrap
+msgid "--verbose"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_bootstrap_cdebootstrap.1:31 en/lb_bootstrap_debootstrap.1:31
+msgid "sets verbose option (default: False)"
+msgstr ""
+
+#. type: IP
+#: en/lb_bootstrap_cdebootstrap.1:31 en/lb_bootstrap_debootstrap.1:31
+#, no-wrap
+msgid "-h, --help"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_bootstrap_cdebootstrap.1:33 en/lb_bootstrap_debootstrap.1:33
+msgid "show help message and exit"
+msgstr ""
+
+#. type: IP
+#: en/lb_bootstrap_cdebootstrap.1:33 en/lb_bootstrap_debootstrap.1:33
+#, no-wrap
+msgid "-v, --version"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_bootstrap_cdebootstrap.1:35 en/lb_bootstrap_debootstrap.1:35
+msgid "show program's version number and exit"
+msgstr ""
+
+#. type: SH
+#: en/lb_bootstrap_cdebootstrap.1:36 en/lb_bootstrap_debootstrap.1:36
+#, no-wrap
+msgid "FILES"
+msgstr ""
+
+#. type: IP
+#: en/lb_bootstrap_cdebootstrap.1:37 en/lb_bootstrap_debootstrap.1:37
+#, no-wrap
+msgid "B<config/build>"
+msgstr ""
+
+#. type: IP
+#: en/lb_bootstrap_cdebootstrap.1:38 en/lb_bootstrap_debootstrap.1:38
+#, no-wrap
+msgid "B<cache/bootstrap>"
+msgstr ""
+
+#. type: IP
+#: en/lb_bootstrap_cdebootstrap.1:39 en/lb_bootstrap_debootstrap.1:39
+#, no-wrap
+msgid "B<cache/packages.bootstrap>"
+msgstr ""
+
+#. type: IP
+#: en/lb_bootstrap_cdebootstrap.1:40 en/lb_bootstrap_debootstrap.1:40
+#, no-wrap
+msgid "B<chroot>"
+msgstr ""
+
+#. type: IP
+#: en/lb_bootstrap_cdebootstrap.1:41 en/lb_bootstrap_debootstrap.1:41
+#, no-wrap
+msgid "B<.build/bootstrap>"
+msgstr ""
+
+#. type: SH
+#: en/lb_bootstrap_cdebootstrap.1:43 en/lb_bootstrap_debootstrap.1:43
+#, no-wrap
+msgid "SEE ALSO"
+msgstr ""
+
+#. type: SH
+#: en/lb_bootstrap_cdebootstrap.1:46 en/lb_bootstrap_debootstrap.1:46
+#, no-wrap
+msgid "HOMEPAGE"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_bootstrap_cdebootstrap.1:48 en/lb_bootstrap_debootstrap.1:48
+msgid ""
+"More information about live-build and the Live Systems project can be found "
+"on the homepage at E<lt>I<http://live-systems.org/>E<gt> and in the manual "
+"at E<lt>I<http://live-systems.org/manual/>E<gt>."
+msgstr ""
+
+#. type: SH
+#: en/lb_bootstrap_cdebootstrap.1:49 en/lb_bootstrap_debootstrap.1:49
+#, no-wrap
+msgid "BUGS"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_bootstrap_cdebootstrap.1:51 en/lb_bootstrap_debootstrap.1:51
+msgid ""
+"Bugs can be reported by submitting a bugreport for the live-build package in "
+"the Bug Tracking System at E<lt>I<http://bugs.debian.org/>E<gt> or by "
+"writing a mail to the Live Systems mailing list at E<lt>I<debian-live@lists."
+"debian.org>E<gt>."
+msgstr ""
+
+#. type: SH
+#: en/lb_bootstrap_cdebootstrap.1:52 en/lb_bootstrap_debootstrap.1:52
+#, no-wrap
+msgid "AUTHOR"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_bootstrap_cdebootstrap.1:53 en/lb_bootstrap_debootstrap.1:53
+msgid ""
+"live-build was written by Daniel Baumann E<lt>I<mail@daniel-baumann.ch>E<gt>."
+msgstr ""
+
+#. type: Plain text
+#: en/lb_bootstrap_debootstrap.1:16
+msgid ""
+"B<lb bootstrap_debootstrap> [--debootstrap-options=I<DEBOOTSTRAP_OPTIONS>] "
+"[--verbose]"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_bootstrap_debootstrap.1:18
+msgid "B<lb bootstrap_debootstrap> [--help]"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_bootstrap_debootstrap.1:20
+msgid "B<lb bootstrap_debootstrap> [--version]"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_bootstrap_debootstrap.1:25
+msgid ""
+"The B<lb bootstrap_debootstrap> program bootstraps the chroot system with "
+"debootstrap(8)."
+msgstr ""
+
+#. type: IP
+#: en/lb_bootstrap_debootstrap.1:27
+#, no-wrap
+msgid "--debootstrap-options=I<DEBOOTSTRAP_OPTIONS>"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_bootstrap_debootstrap.1:29
+msgid ""
+"set debootstrap(8) options (default: None), see I<debootstrap>(8) for more "
+"information about debootstrap."
+msgstr ""
+
+#. type: Plain text
+#: en/lb_bootstrap_debootstrap.1:45
+msgid "I<debootstrap>(8)"
+msgstr ""
