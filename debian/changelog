@@ -433,6 +433,92 @@ live-build (4.0~a1-1) experimental; urgency=low
 
  -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 30 Nov 2012 15:22:32 +0100
 
+live-build (3.0.5-1) unstable; urgency=low
+
+  * Skipping loadlin inclusion on netboot images.
+
+ -- Daniel Baumann <daniel@debian.org>  Tue, 30 Apr 2013 10:26:09 +0200
+
+live-build (3.0.4-1) unstable; urgency=low
+
+  * Correcting variable typo when setting distribution specific defaults
+    of the backports mirror for the binary image.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 29 Apr 2013 12:47:24 +0200
+
+live-build (3.0.3-1) unstable; urgency=low
+
+  * Updating debian-backports mirrors for wheezy.
+  * Enabling release updates (formerly known as volatile) for wheezy.
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 25 Apr 2013 17:39:31 +0200
+
+live-build (3.0.2-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Allowing to use parted its automatic offset handling at the beginning
+    of a disk, rather than to harcode it to first block (Closes: #647607).
+  * Aborting with error if hdd label has a whitespace (Closes: #648861).
+  * Updating d-i suite symlink for wheezy release.
+  * Correcting typo in grub2 config template.
+  * Synchronise grub and grub2 splashes with internal live-build splash
+    for syslinux bootloaders.
+  * Removing non-existent --apt-indices none references.
+  * Also showing distribution in lb config initial messages.
+  * Making messages about reading system conffiles in lb config more
+    accurate.
+  * Harmonize handling of pre-existing gnupg dotfiles in chroot when
+    handling fake signing keys for local repository.
+  * Making some more debian source-selections conditional on certain image
+    options.
+  * Adding source_hooks for hooks on source images like already supported
+    on binary images.
+
+  [ Richard Nelson ]
+  * Add sanity check on config type to build for l-b-cgi.
+  * Add _CGI_CONFIG_APPEND varialbe for appending options to lb config
+    call on l-b-cgi frontend.
+  * Change _CGI_CONFIG_APPEND to front of the lb config call on l-b-cgi
+    frontend.
+  * Removing quotes around _CGI_CONFIG_APPEND to handle multiple
+    parameters correctly on l-b-cgi frontend.
+  * Adding binary image type to config call on l-b-cgi frontend.
+  * Add log information of git:://url for l-b-cgi frontend.
+  * Append to log file on errors and not truncate the file on l-b-cgi
+    frontend.
+
+  [ Daniel Baumann ]
+  * Correcting spelling typos, thanks to Adam D. Barratt <adam@adam-
+    barratt.org.uk>.
+
+  [ Raphaël Hertzog ]
+  * Fixing win32-loader.ini by including the GTK related entries.
+
+  [ Daniel Baumann ]
+  * Correcting typo directory when dereferencing syslinux symlinks when
+    building chrooted, thanks to Luigi Capriotti <l.capriotti@xbmc.org>.
+  * Using dpkg-divert in chroot_upstart script to handle upgrades of
+    upstart during the build (Closes: #702537).
+  * Using dpkg-divert for other diversions too to handle upgrades of the
+    diverted stuff during build.
+  * Adding generic live-build handle in chroot_dpkg for other live
+    packages to act upon.
+  * Updating fallback help message in live-build pseudo-command.
+  * Correcting grammer error in live-build description.
+  * Adding set -e in example auto scripts.
+
+  [ Richard Nelson ]
+  * Converting l-b-cgi frontend to process forms with post.
+
+  [ Daniel Baumann ]
+  * Cleaning up installer file locations for progress-linux.
+  * Stripping out comments in package lists.
+  * Updating derivatives archive-key signature validiation to look by
+    default at both debian and debian-maintainers keyrings.
+  * Updating bootstrap mirror for progress-linux.
+
+ -- Daniel Baumann <daniel@debian.org>  Thu, 25 Apr 2013 12:41:54 +0200
+
 live-build (3.0.1-1) unstable; urgency=low
 
   * Removing superfluous menu default directive in installer syslinux
