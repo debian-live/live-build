@@ -51,6 +51,7 @@ lb chroot_archives source install ${@}
 lb source_debian-live ${@}
 lb source_debian ${@}
 lb source_disk ${@}
+lb source_hooks ${@}
 lb source_checksums ${@}
 
 # Building images
