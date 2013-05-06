@@ -361,6 +361,7 @@ then
 						precise)
 							DI_PACKAGES="${DI_REQ_PACKAGES} linux-generic-pae"
 							;;
+
 						*)
 							DI_PACKAGES="${DI_REQ_PACKAGES} linux-generic"
 							;;
@@ -390,7 +391,7 @@ then
 			DI_REQ_PACKAGES="yaboot"
 			case "${LB_MODE}" in
 				ubuntu|kubuntu)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-powerpc-smp linux-image-powerpc64-smp"
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-powerpc-smp linux-image-powerpc64-smp linux-image-powerpc-e500 linux-image-powerpc-e500mc"
 					;;
 
 				*)
@@ -418,12 +419,7 @@ then
 
 		FIRMWARE_PACKAGES=""
 
-		if [ "${LB_MODE}" = "ubuntu" ] || [ "${LB_MODE}" = "kubuntu" ]
-		then
-			_CONTENTS="${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz"
-		else
-			_CONTENTS="$(for _PARENT_ARCHIVE_AREA in ${LB_PARENT_ARCHIVE_AREAS}; do echo ${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/${_PARENT_ARCHIVE_AREA}/Contents-${LB_ARCHITECTURES}.gz; done)"
-		fi
+		_CONTENTS="$(for _PARENT_ARCHIVE_AREA in ${LB_PARENT_ARCHIVE_AREAS}; do echo ${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/${_PARENT_ARCHIVE_AREA}/Contents-${LB_ARCHITECTURES}.gz; done)"
 
 		rm -f cache/contents.chroot/contents.${LB_PARENT_DISTRIBUTION}.${LB_ARCHITECTURES}
 
@@ -445,12 +441,7 @@ then
 		then
 			# FIXME: account for the fact that PARENT_DISTRIBUTION and DISTRIBUTION might be the same (to not have overlapping cache files for contents).
 
-			if [ "${LB_MODE}" = "ubuntu" ] || [ "${LB_MODE}" = "kubuntu" ]
-			then
-				_CONTENTS="${LB_MIRROR_CHROOT}/dists/${LB_DISTRIBUTION}/Contents-${LB_ARCHITECTURES}.gz"
-			else
-				_CONTENTS="$(for _ARCHIVE_AREA in ${LB_ARCHIVE_AREAS}; do echo ${LB_MIRROR_CHROOT}/dists/${LB_DISTRIBUTION}/${_ARCHIVE_AREA}/Contents-${LB_ARCHITECTURES}.gz; done)"
-			fi
+			_CONTENTS="$(for _ARCHIVE_AREA in ${LB_ARCHIVE_AREAS}; do echo ${LB_MIRROR_CHROOT}/dists/${LB_DISTRIBUTION}/${_ARCHIVE_AREA}/Contents-${LB_ARCHITECTURES}.gz; done)"
 
 			rm -f cache/contents.chroot/contents.${LB_DISTRIBUTION}.${LB_ARCHITECTURES}
 
