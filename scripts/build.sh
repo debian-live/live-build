@@ -1,45 +1,16 @@
 #!/bin/sh
 
-## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
-##
-## This program is free software: you can redistribute it and/or modify
-## it under the terms of the GNU General Public License as published by
-## the Free Software Foundation, either version 3 of the License, or
-## (at your option) any later version.
-##
-## This program is distributed in the hope that it will be useful,
-## but WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-## GNU General Public License for more details.
-##
-## You should have received a copy of the GNU General Public License
-## along with this program. If not, see <http://www.gnu.org/licenses/>.
-##
-## The complete text of the GNU General Public License
-## can be found in /usr/share/common-licenses/GPL-3 file.
-
-
-set -e
-
 if [ -e local/live-build ]
 then
 	LIVE_BUILD="${LIVE_BUILD:-${PWD}/local/live-build}"
 	export LIVE_BUILD
 fi
 
-for _DIRECTORY in "${LIVE_BUILD}/functions" /usr/share/live/build/functions
+# Source global functions
+for FUNCTION in "${LIVE_BUILD}"/functions/*.sh /usr/share/live/build/functions/*.sh
 do
-	if [ -e "${_DIRECTORY}" ]
+	if [ -e "${FUNCTION}" ]
 	then
-		for _FILE in "${_DIRECTORY}"/*.sh
-		do
-			if [ -e "${_FILE}" ]
-			then
-				. "${_FILE}"
-			fi
-		done
-
-		break
+		. "${FUNCTION}"
 	fi
 done

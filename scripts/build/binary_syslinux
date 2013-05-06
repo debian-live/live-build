@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -83,30 +83,27 @@ case "${LB_BINARY_IMAGES}" in
 		;;
 esac
 
-if [ -e "config/bootloaders/${_BOOTLOADER}" ]
-then
-	# Internal local copy
-	_SOURCE="config/bootloaders/${_BOOTLOADER}"
-else
-	# Internal system copy
-	if [ -n "${LIVE_BUILD}" ]
-	then
-		_SOURCE="${LIVE_BUILD}/share/bootloaders/${_BOOTLOADER}"
-	else
-		_SOURCE="/usr/share/live/build/bootloaders/${_BOOTLOADER}"
-	fi
-fi
-
 # Checking depends
 case "${LB_BUILD_WITH_CHROOT}" in
 	true)
 		Check_package chroot/usr/bin/syslinux syslinux
 		Check_package chroot/usr/lib/syslinux syslinux-common
 
-		if ls "${_SOURCE}"/*.svg* > /dev/null 2>&1
-		then
-			Check_package chroot/usr/bin/rsvg librsvg2-bin
-		fi
+		case "${LB_SYSLINUX_THEME}" in
+			live-build)
+				Check_package chroot/usr/bin/rsvg librsvg2-bin
+				;;
+
+			*)
+				Check_package chroot/usr/share/syslinux/themes/${LB_SYSLINUX_THEME} syslinux-themes-${LB_SYSLINUX_THEME}
+
+				case "${LB_MODE}" in
+					ubuntu)
+						Check_package chroot/usr/share/gfxboot-theme-ubuntu/bootlogo.tar.gz gfxboot-theme-ubuntu
+						;;
+				esac
+				;;
+		esac
 		;;
 
 	false)
@@ -124,15 +121,25 @@ case "${LB_BUILD_WITH_CHROOT}" in
 			exit 1
 		fi
 
-		if ls "${_SOURCE}"/*.svg* > /dev/null 2>&1
-		then
-			if [ ! -e /usr/bin/rsvg ]
-			then
-				# librsvg2-bin
-				Echo_error "/usr/bin/rsvg - no such file"
-				exit 1
-			fi
-		fi
+		case "${LB_SYSLINUX_THEME}" in
+			live-build)
+				if [ ! -e /usr/bin/rsvg ]
+				then
+					# librsvg2-bin
+					Echo_error "/usr/bin/rsvg - no such file"
+					exit 1
+				fi
+				;;
+
+			*)
+				if [ ! -e /usr/share/syslinux/themes/${LB_SYSLINUX_THEME} ]
+				then
+					# syslinux-theme
+					Echo_error "/usr/share/syslinux/themes/${LB_SYSLINUX_THEME} - no such directory."
+					exit 1
+				fi
+				;;
+		esac
 		;;
 esac
 
@@ -142,22 +149,61 @@ Restore_cache cache/packages.binary
 # Installing depends
 Install_package
 
+# FIXME: cleanup, unify, and extend themes for ${_BOOTLOADER}-live and ${_BOOTLOADER}-installer
+if [ "${LB_SYSLINUX_THEME}" = "live-build" ]
+then
+	if [ -e "config/bootloaders/${_BOOTLOADER}" ]
+	then
+		# Internal local copy
+		_SOURCE="config/bootloaders/${_BOOTLOADER}"
+	else
+		# Internal system copy
+		if [ -n "${LIVE_BUILD}" ]
+		then
+			_SOURCE="${LIVE_BUILD}/share/bootloaders/${_BOOTLOADER}"
+		else
+			_SOURCE="/usr/share/live/build/bootloaders/${_BOOTLOADER}"
+		fi
+	fi
+else
+	# External copy from chroot or system
+	_SOURCE="/usr/share/syslinux/themes/${LB_SYSLINUX_THEME}/${_BOOTLOADER}-live"
+fi
+
 # Copying files
 case "${LB_BUILD_WITH_CHROOT}" in
 	true)
 		mkdir -p $(dirname ${_TARGET})
 
 		# Copy in two steps since the theme can have absolute symlinks and would therefore not be dereferenced correctly
-		cp -a ${_SOURCE} chroot/root
-		Chroot chroot cp -aL /root/$(basename ${_SOURCE}) /root/$(basename ${_SOURCE}).tmp || true
-		rm -rf chroot/root/$(basename ${_SOURCE})
+		if [ "${LB_SYSLINUX_THEME}" = "live-build" ]
+		then
+			cp -a ${_SOURCE} chroot/root
+			Chroot chroot cp -aL /root/$(basename ${_SOURCE}) /root/$(basename ${_SOURCE}).tmp
+			rm -rf chroot/$(basename ${_SOURCE})
+		else
+			Chroot chroot cp -aL ${_SOURCE} /root/$(basename ${_SOURCE}).tmp
+		fi
+
+		case "${LB_MODE}" in
+			ubuntu)
+				Chroot chroot "tar xfz /usr/share/gfxboot-theme-ubuntu/bootlogo.tar.gz -C /root/$(basename ${_SOURCE}).tmp"
+				;;
+		esac
+
 		mv chroot/root/$(basename ${_SOURCE}).tmp ${_TARGET}
 		;;
 
 	false)
 		mkdir -p ${_TARGET}
 
-		cp -aL ${_SOURCE}/* ${_TARGET} || true
+		cp -aL ${_SOURCE}/* ${_TARGET}
+
+		case "${LB_MODE}" in
+			ubuntu)
+				tar xfz /usr/share/gfxboot-theme-ubuntu/bootlogo.tar.gz -C ${_TARGET}
+				;;
+		esac
 		;;
 esac
 
@@ -220,7 +266,7 @@ fi
 
 if [ -e ${_TARGET}/install.cfg ]
 then
-	sed -i -e "s#@APPEND_INSTALL@#${LB_BOOTAPPEND_INSTALL}#g" \
+	sed -i -e "s#@LB_BOOTAPPEND_INSTALL@#${LB_BOOTAPPEND_INSTALL}#g" \
 	${_TARGET}/install.cfg
 fi
 
@@ -286,10 +332,7 @@ then
 		-e "s|@LIVE_CONFIG_VERSION@|${_LIVE_CONFIG_VERSION}|g" \
 		-e "s|@LIVE_TOOLS_VERSION@|${_LIVE_TOOLS_VERSION}|g" \
 	"${_TARGET}/splash.svg.in" > "${_TARGET}/splash.svg"
-fi
 
-if [ -e "${_TARGET}/splash.svg" ]
-then
 	case "${LB_BUILD_WITH_CHROOT}" in
 		true)
 			cp "${_TARGET}/splash.svg" chroot
@@ -302,9 +345,9 @@ then
 			rsvg --format png --height 480 --width 640 "${_TARGET}/splash.svg" "${_TARGET}/splash.png"
 			;;
 	esac
-fi
 
-rm -f "${_TARGET}/splash.svg.in" "${_TARGET}/splash.svg"
+	rm -f "${_TARGET}/splash.svg.in" "${_TARGET}/splash.svg"
+fi
 
 case "${LB_MODE}" in
 	progress-linux)

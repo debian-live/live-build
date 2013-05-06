@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -55,23 +55,11 @@ Chroot chroot "dpkg --get-selections" | awk '{ print $1 }' > source-selection.tx
 cat >> source-selection.txt << EOF
 ${LB_BOOTLOADER}
 live-build
+genisoimage
+parted
+squashfs-tools
+mtd-tools
 EOF
-
-case "${LB_BINARY_IMAGES}" in
-	iso*)
-		echo "xorriso" >> source-selection.txt
-		;;
-
-	hdd*)
-		echo "parted" >> source-selection.txt
-		;;
-esac
-
-case "${LB_CHROOT_FILESYSTEM}" in
-	squashfs)
-		echo "squashfs-tools" >> source-selection.txt
-		;;
-esac
 
 case "${LB_BINARY_FILESYSTEM}" in
 	fat*)
@@ -79,15 +67,7 @@ case "${LB_BINARY_FILESYSTEM}" in
 		;;
 
 	ntfs)
-		case "${LB_PARENT_DISTRIBUTION}" in
-			squeeze)
-				echo "ntfsprogs" >> source-selection.txt
-				;;
-
-			*)
-				echo "ntfs-3g" >> source-selection.txt
-				;;
-		esac
+		echo "ntfs-3g" >> source-selection.txt
 		;;
 esac
 

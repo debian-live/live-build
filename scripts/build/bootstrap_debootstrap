@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -32,7 +32,7 @@ fi
 if [ ! -x "$(which debootstrap 2>/dev/null)" ]
 then
 	echo "E: debootstrap - command not found"
-	echo "I: debootstrap can be obtained from http://ftp.debian.org/debian/pool/main/d/debootstrap/"
+	echo "I: debootstrap can be optained from http://ftp.debian.org/debian/pool/main/d/debootstrap/"
 	echo "I: On Debian based systems, debootstrap can be installed with 'apt-get install debootstrap'."
 	exit 1
 fi

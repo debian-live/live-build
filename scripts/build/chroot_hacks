@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
+## Copyright (C) 2006-2012 Daniel Baumann <daniel@debian.org>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -37,6 +37,92 @@ Check_lockfile .lock
 
 # Creating lock file
 Create_lockfile .lock
+
+# Handling default desktop configuration
+case "${LB_MODE}" in
+	debian*)
+		# disable kexec-tools
+		if [ -e chroot/sbin/kexec ]
+		then
+			echo "kexec-tools kexec-tools/load_kexec boolean false" > chroot/root/preseed
+			Chroot chroot "debconf-set-selections /root/preseed"
+			rm -f chroot/root/preseed
+			Chroot chroot "dpkg-reconfigure kexec-tools"
+		fi
+		;;
+esac
+
+for TASK in ${LB_TASKS}
+do
+	case "${TASK}" in
+		gnome-desktop)
+			# gnome is the only desktop environment in this image
+			if [ -z "$(echo ${LB_TASKS} | sed -e 's|gnome-desktop||' -e 's| desktop ||' | grep desktop)" ]
+			then
+				# set display manager
+				echo "gdm shared/default-x-display-manager select gdm" > chroot/root/preseed
+				Chroot chroot "debconf-set-selections /root/preseed"
+				rm -f chroot/root/preseed
+				Chroot chroot "dpkg-reconfigure gdm"
+				echo "/usr/bin/gdm" > chroot/etc/X11/default-display-manager
+
+				# set session manager
+				Chroot chroot "update-alternatives --set x-session-manager /usr/bin/gnome-session"
+			fi
+			;;
+
+		kde-desktop)
+			# kde is the only desktop-environment in this image
+			if [ -z "$(echo ${LB_TASKS} | sed -e 's|kde-desktop||' -e 's| desktop ||' | grep desktop)" ]
+			then
+				# set display manager
+				echo "kdm shared/default-x-display-manager select kdm" > chroot/root/preseed
+				Chroot chroot "debconf-set-selections /root/preseed"
+				rm -f chroot/root/preseed
+				Chroot chroot "dpkg-reconfigure kdm"
+				echo "/usr/bin/kdm" > chroot/etc/X11/default-display-manager
+
+				# set session manager
+				Chroot chroot "update-alternatives --set x-session-manager /usr/bin/startkde"
+
+				# get rid of resolvconf
+				Chroot chroot "dpkg -P resolvconf"
+			fi
+			;;
+
+		lxde-desktop)
+			# lxde is the only desktop environment in this image
+			if [ -z "$(echo ${LB_TASKS} | sed -e 's|lxde-desktop||' -e 's| desktop ||' | grep desktop)" ]
+			then
+				# set display manager
+				echo "gdm shared/default-x-display-manager select gdm" > chroot/root/preseed
+				Chroot chroot "debconf-set-selections /root/preseed"
+				rm -f chroot/root/preseed
+				Chroot chroot "dpkg-reconfigure gdm"
+				echo "/usr/bin/gdm" > chroot/etc/X11/default-display-manager
+
+				# set session manager
+				Chroot chroot "update-alternatives --set x-session-manager /usr/bin/startlxde"
+			fi
+			;;
+
+		xfce-desktop)
+			# xfce is the only desktop environment in this image
+			if [ -z "$(echo ${LB_TASKS} | sed -e 's|xfce-desktop||' -e 's| desktop ||' | grep desktop)" ]
+			then
+				# set display manager
+				echo "gdm shared/default-x-display-manager select gdm" > chroot/root/preseed
+				Chroot chroot "debconf-set-selections /root/preseed"
+				rm -f chroot/root/preseed
+				Chroot chroot "dpkg-reconfigure gdm"
+				echo "/usr/bin/gdm" > chroot/etc/X11/default-display-manager
+
+				# set session manager
+				Chroot chroot "update-alternatives --set x-session-manager /usr/bin/xfce4-session"
+			fi
+			;;
+	esac
+done
 
 case "${LB_BINARY_IMAGES}" in
 	netboot)
@@ -104,15 +190,31 @@ case "${LB_INITRAMFS_COMPRESSION}" in
 		;;
 esac
 
-case "${LB_PARENT_DISTRIBUTION}" in
-	squeeze)
-		# Ensure readable permissions on initramfs. loop-aes-utils sets umask to
-		# protect GPG keys, which live-build does not support.
-		# Note: Use find rather than chmod on the wildcard, one never knows what
-		# people might do in local hooks, and there might be no initrds at all.
-		find chroot/boot -name 'initrd*' -print0 | xargs -r -0 chmod go+r
-		;;
-esac
+# Ensure readable permissions on initramfs. loop-aes-utils sets umask to
+# protect GPG keys, which live-build does not support.
+# Note: Use find rather than chmod on the wildcard, one never knows what
+# people might do in local hooks, and there might be no initrds at all.
+find chroot/boot -name 'initrd*' -print0 | xargs -r -0 chmod go+r
+
+# Remove build systems clock drift
+echo "0.0 0 0.0" > chroot/etc/adjtime
+
+# Remove cruft
+rm -f chroot/boot/initrd*bak*
+rm -f chroot/etc/apt/trusted.gpg~
+rm -f chroot/etc/group- chroot/etc/passwd-
+rm -f chroot/etc/gshadow- chroot/etc/shadow-
+rm -f chroot/var/cache/debconf/*-old
+rm -f chroot/var/lib/dpkg/*-old
+rm -f chroot/var/log/apt/term.log
+
+# Delete and re-create temporary directories
+TEMP_DIRS="/tmp /var/tmp"
+for DIR in ${TEMP_DIRS}
+do
+	rm -rf "chroot/${DIR}"
+	install -d -m 1777 "chroot/${DIR}"
+done
 
 if [ -n "${LB_ROOT_COMMAND}" ]
 then
