@@ -62,85 +62,85 @@ fi
 if Find_files ${_TEMPDIR}/*.build
 then
 	_FILE=$(ls "${_TEMPDIR}"/*.build | sort | head -1)
-		# Pull in variables from the build file.
-		. "${_FILE}"
+	# Pull in variables from the build file.
+	. "${_FILE}"
 
-		# Drop out some build data for information if something goes wrong.
-		echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build-cgi: begin web build (${_BUILD})." >> /var/log/live
+	# Drop out some build data for information if something goes wrong.
+	echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build-cgi: begin web build (${_BUILD})." >> /var/log/live
 
-		# Clone the git config to target build directory
-		git clone ${_LB_GIT} "${_TEMPDIR}"/"${_BUILD}" >> /var/log/live
-		_ERRORGIT="${?}"
+	# Clone the git config to target build directory
+	git clone ${_LB_GIT} "${_TEMPDIR}"/"${_BUILD}" >> /var/log/live
+	_ERRORGIT="${?}"
 
-		# Moving build file to the tempdir and remove from submission area.
-		mv "${_TEMPDIR}"/"${_BUILD}".build "${_TEMPDIR}"/"${_BUILD}"/
+	# Moving build file to the tempdir and remove from submission area.
+	mv "${_TEMPDIR}"/"${_BUILD}".build "${_TEMPDIR}"/"${_BUILD}"/
 
-		# Sanity check to default to something since we are going to build from git clone.
-		if [ -z "${_LB_CONFIG}" ]
-		then
-			_LB_CONFIG="standard"
-		fi
+	# Sanity check to default to something since we are going to build from git clone.
+	if [ -z "${_LB_CONFIG}" ]
+	then
+		_LB_CONFIG="standard"
+	fi
 
-		# Now set a variable for the correct build path
-		_BUILD_PATH="${_TEMPDIR}/${_BUILD}/images/${_LB_CONFIG}"
+	# Now set a variable for the correct build path
+	_BUILD_PATH="${_TEMPDIR}/${_BUILD}/images/${_LB_CONFIG}"
 
-		_DATE_START="`date -R`"
-		echo "Begin live-build-cgi: ${_DATE_START}" > "${_BUILD_PATH}"/log
-		echo "Info live-build-cgi: Config tree cloned from ${_LB_GIT} for build ${_BUILD}" >> "${_BUILD_PATH}"/log
+	_DATE_START="`date -R`"
+	echo "Begin live-build-cgi: ${_DATE_START}" > "${_BUILD_PATH}"/log
+	echo "Info live-build-cgi: Config tree cloned from ${_LB_GIT} for build ${_BUILD}" >> "${_BUILD_PATH}"/log
 
-		# Creating directory for the config/package-lists
-		mkdir -p "${_BUILD_PATH}"/config/package-lists
+	# Creating directory for the config/package-lists
+	mkdir -p "${_BUILD_PATH}"/config/package-lists
 
-		# Add cgipackages.list.chroot
-		if [ -n "${_LB_CGIPACKAGES}" ]
-		then
-			echo "${_LB_CGIPACKAGES}" > "${_BUILD_PATH}"/config/package-lists/cgipackages.list.chroot
-		fi
+	# Add cgipackages.list.chroot
+	if [ -n "${_LB_CGIPACKAGES}" ]
+	then
+		echo "${_LB_CGIPACKAGES}" > "${_BUILD_PATH}"/config/package-lists/cgipackages.list.chroot
+	fi
 
-		# Generating config here
-		if [ "${_ERRORGIT}" -eq "0" ]
-		then
-			cd "${_BUILD_PATH}"
-			# Do config with git and stack on config file params to build
-			lb config ${_CGI_CONFIG_APPEND} --distribution "${LB_DISTRIBUTION}" --binary-images "${LB_BINARY_IMAGES}" --architectures "${LIVE_IMAGE_ARCHITECTURE}" --archive-areas "${LIVE_IMAGE_ARCHIVE_AREAS}" --chroot-filesystem "${LB_CHROOT_FILESYSTEM}" --linux-flavours "${LB_LINUX_FLAVOURS}" --security "${LB_SECURITY}" --apt-indices "${LB_APT_INDICES}" --bootappend-install "${LB_BOOTAPPEND_INSTALL}" --bootappend-live "${LB_BOOTAPPEND_LIVE}" --bootloader "${LB_BOOTLOADER}" --debian-installer "${LB_DEBIAN_INSTALLER}" --iso-application "${LB_ISO_APPLICATION}" --iso-preparer "${LB_ISO_PREPARER}" --iso-publisher "${LB_ISO_PUBLISHER}" --iso-volume "${LB_ISO_VOLUME}" --memtest "${LB_MEMTEST}" --net-root-path "${LB_NET_ROOT_PATH}" --net-root-server "${LB_NET_ROOT_SERVER}" --source-images "${LB_SOURCE_IMAGES}" --source "${LB_SOURCE}"
-			_ERRORCONFIG="${?}"
-		else
-			echo "Config stage skipped. The git clone produced an error: ${_ERRORGIT}" >> "${_BUILD_PATH}"/log
-		fi
+	# Generating config here
+	if [ "${_ERRORGIT}" -eq "0" ]
+	then
+		cd "${_BUILD_PATH}"
+		# Do config with git and stack on config file params to build
+		lb config ${_CGI_CONFIG_APPEND} --distribution "${LB_DISTRIBUTION}" --binary-images "${LB_BINARY_IMAGES}" --architectures "${LIVE_IMAGE_ARCHITECTURE}" --archive-areas "${LIVE_IMAGE_ARCHIVE_AREAS}" --chroot-filesystem "${LB_CHROOT_FILESYSTEM}" --linux-flavours "${LB_LINUX_FLAVOURS}" --security "${LB_SECURITY}" --apt-indices "${LB_APT_INDICES}" --bootappend-install "${LB_BOOTAPPEND_INSTALL}" --bootappend-live "${LB_BOOTAPPEND_LIVE}" --bootloader "${LB_BOOTLOADER}" --debian-installer "${LB_DEBIAN_INSTALLER}" --iso-application "${LB_ISO_APPLICATION}" --iso-preparer "${LB_ISO_PREPARER}" --iso-publisher "${LB_ISO_PUBLISHER}" --iso-volume "${LB_ISO_VOLUME}" --memtest "${LB_MEMTEST}" --net-root-path "${LB_NET_ROOT_PATH}" --net-root-server "${LB_NET_ROOT_SERVER}" --source-images "${LB_SOURCE_IMAGES}" --source "${LB_SOURCE}"
+		_ERRORCONFIG="${?}"
+	else
+		echo "Config stage skipped. The git clone produced an error: ${_ERRORGIT}" >> "${_BUILD_PATH}"/log
+	fi
 
-		# Run build if config went ok
-		if [ "${_ERRORCONFIG}" -eq "0" ]
-		then
-			lb build >> "${_BUILD_PATH}"/log 2>&1
-			_ERRORBUILD="${?}"
-		else
-			echo "Build stage skipped. Config produced an error: ${_ERRORCONFIG}" >> "${_BUILD_PATH}"/log
-		fi
+	# Run build if config went ok
+	if [ "${_ERRORCONFIG}" -eq "0" ]
+	then
+		lb build >> "${_BUILD_PATH}"/log 2>&1
+		_ERRORBUILD="${?}"
+	else
+		echo "Build stage skipped. Config produced an error: ${_ERRORCONFIG}" >> "${_BUILD_PATH}"/log
+	fi
 
-		_DATE_END="`date -R`"
-		echo "End: ${_DATE_END}" >> "${_BUILD_PATH}"/log
+	_DATE_END="`date -R`"
+	echo "End: ${_DATE_END}" >> "${_BUILD_PATH}"/log
 
-		# Creating image directory
-		mkdir -p "${_DESTDIR}"/"${_BUILD}"
+	# Creating image directory
+	mkdir -p "${_DESTDIR}"/"${_BUILD}"
 
-		# Creating mail and logging.
-		if [ "${_ERRORGIT}" -eq "0" ] && [ "${_ERRORCONFIG}" -eq "0" ] && [ "${_ERRORBUILD}" -eq "0" ]
-		then
-			_STATUS="maybe-successful"
-			echo "${REMOTE_ADDR} - - `date +[%d/%b/%Y:%H:%m:%S\ %z]` \"${_BUILD} ${LIVE_IMAGE_ARCHITECTURE}/${LB_DISTRIBUTION}/${_LB_CGIPACKAGES}\" 200 - \"-\" \"\"">>/var/log/live-cgi.builds
-		else
-			_STATUS="maybe-failed"
-			echo "${REMOTE_ADDR} - - `date +[%d/%b/%Y:%H:%m:%S\ %z]` \"${_BUILD} ${LIVE_IMAGE_ARCHITECTURE}/${LB_DISTRIBUTION}/${_LB_CGIPACKAGES}\" 404 - \"-\" \"\"">>/var/log/live-cgi.builds
-		fi
+	# Creating mail and logging.
+	if [ "${_ERRORGIT}" -eq "0" ] && [ "${_ERRORCONFIG}" -eq "0" ] && [ "${_ERRORBUILD}" -eq "0" ]
+	then
+		_STATUS="maybe-successful"
+		echo "${REMOTE_ADDR} - - `date +[%d/%b/%Y:%H:%m:%S\ %z]` \"${_BUILD} ${LIVE_IMAGE_ARCHITECTURE}/${LB_DISTRIBUTION}/${_LB_CGIPACKAGES}\" 200 - \"-\" \"\"">>/var/log/live-cgi.builds
+	else
+		_STATUS="maybe-failed"
+		echo "${REMOTE_ADDR} - - `date +[%d/%b/%Y:%H:%m:%S\ %z]` \"${_BUILD} ${LIVE_IMAGE_ARCHITECTURE}/${LB_DISTRIBUTION}/${_LB_CGIPACKAGES}\" 404 - \"-\" \"\"">>/var/log/live-cgi.builds
+	fi
 
-		sed -e "s/BUILD/${_BUILD}/g" \
-		    -e "s/EMAIL/${_EMAIL}/" \
-		    -e "s/VERSION/${VERSION}/" \
-		    -e "s/DATE_START/${_DATE_START}/" \
-		    -e "s/DATE_END/${_DATE_END}/" \
-		    -e "s/STATUS/${_STATUS}/" \
-		    -e "s#SERVER#${_SERVER}#" \
-		"${_TEMPLATES}"/mail.txt > "${_DESTDIR}"/"${_BUILD}"/mail
+	sed -e "s/BUILD/${_BUILD}/g" \
+	    -e "s/EMAIL/${_EMAIL}/" \
+	    -e "s/VERSION/${VERSION}/" \
+	    -e "s/DATE_START/${_DATE_START}/" \
+	    -e "s/DATE_END/${_DATE_END}/" \
+	    -e "s/STATUS/${_STATUS}/" \
+	    -e "s#SERVER#${_SERVER}#" \
+	"${_TEMPLATES}"/mail.txt > "${_DESTDIR}"/"${_BUILD}"/mail
 
 cat >> "${_DESTDIR}"/"${_BUILD}"/mail << EOF
 
@@ -150,57 +150,57 @@ Here's a list of all build-options that were used to build your image:
 
 EOF
 
-		cat "${_TEMPDIR}"/"${_BUILD}"/"${_BUILD}".build >> "${_DESTDIR}"/"${_BUILD}"/mail
+	cat "${_TEMPDIR}"/"${_BUILD}"/"${_BUILD}".build >> "${_DESTDIR}"/"${_BUILD}"/mail
 
-		# Moving binary image
-		#if ls "${_TEMPDIR}"/"${_BUILD}"/binary*.* > /dev/null 2>&1
-		if Find_files ${_BUILD_PATH}/binary*.*
-		then
-			mv "${_BUILD_PATH}"/binary*.* "${_DESTDIR}"/"${_BUILD}"
-		fi
+	# Moving binary image
+	#if ls "${_TEMPDIR}"/"${_BUILD}"/binary*.* > /dev/null 2>&1
+	if Find_files ${_BUILD_PATH}/binary*.*
+	then
+		mv "${_BUILD_PATH}"/binary*.* "${_DESTDIR}"/"${_BUILD}"
+	fi
 
-		# Moving source image
-		#if ls "${_TEMPDIR}"/"${_BUILD}"/source.* > /dev/null 2>&1
-		if Find_files ${_BUILD_PATH}/source.*
-		then
-			mv "${_BUILD_PATH}"/source.* "${_DESTDIR}"/"${_BUILD}"
-		fi
+	# Moving source image
+	#if ls "${_TEMPDIR}"/"${_BUILD}"/source.* > /dev/null 2>&1
+	if Find_files ${_BUILD_PATH}/source.*
+	then
+		mv "${_BUILD_PATH}"/source.* "${_DESTDIR}"/"${_BUILD}"
+	fi
 
-		# Moving build
-		mv "${_TEMPDIR}"/"${_BUILD}"/"${_BUILD}".build "${_DESTDIR}"/"${_BUILD}"/build
+	# Moving build
+	mv "${_TEMPDIR}"/"${_BUILD}"/"${_BUILD}".build "${_DESTDIR}"/"${_BUILD}"/build
 
-		# Moving log
-		mv "${_BUILD_PATH}"/log "${_DESTDIR}"/"${_BUILD}"
+	# Moving log
+	mv "${_BUILD_PATH}"/log "${_DESTDIR}"/"${_BUILD}"
 
-		# Generating md5sum
-		cd "${_DESTDIR}"/"${_BUILD}"
-		md5sum * > md5sum
-		cd "${OLDPWD}"
+	# Generating md5sum
+	cd "${_DESTDIR}"/"${_BUILD}"
+	md5sum * > md5sum
+	cd "${OLDPWD}"
 
-		# Sending mail
-		cat "${_DESTDIR}"/"${_BUILD}"/mail | /usr/sbin/sendmail -t
+	# Sending mail
+	cat "${_DESTDIR}"/"${_BUILD}"/mail | /usr/sbin/sendmail -t
 
-		# Unmounting devpts-live
-		#if ls "${_TEMPDIR}"/"${_BUILD}"/chroot/dev/pts/* > /dev/null 2>&1
-		if Find_files ${_BUILD_PATH}/chroot/dev/pts/*
-		then
-			umount "${_BUILD_PATH}"/chroot/dev/pts
-		fi
+	# Unmounting devpts-live
+	#if ls "${_TEMPDIR}"/"${_BUILD}"/chroot/dev/pts/* > /dev/null 2>&1
+	if Find_files ${_BUILD_PATH}/chroot/dev/pts/*
+	then
+		umount "${_BUILD_PATH}"/chroot/dev/pts
+	fi
 
-		# Unmounting proc
-		if [ -f "${_BUILD_PATH}"/chroot/proc/version ]
-		then
-			umount "${_BUILD_PATH}"/chroot/proc
-		fi
+	# Unmounting proc
+	if [ -f "${_BUILD_PATH}"/chroot/proc/version ]
+	then
+		umount "${_BUILD_PATH}"/chroot/proc
+	fi
 
-		# Unmounting sysfs
-		if [ -d "${_BUILD_PATH}"/chroot/sys/kernel ]
-		then
-			umount "${_BUILD_PATH}"/chroot/sys
-		fi
+	# Unmounting sysfs
+	if [ -d "${_BUILD_PATH}"/chroot/sys/kernel ]
+	then
+		umount "${_BUILD_PATH}"/chroot/sys
+	fi
 
-		# Removing build directory
-		rm -rf "${_TEMPDIR}"/"${_BUILD}"
+	# Removing build directory
+	rm -rf "${_TEMPDIR}"/"${_BUILD}"
 
-		echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build-cgi: end web build (${_BUILD}: ${_STATUS})." >> /var/log/live
+	echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build-cgi: end web build (${_BUILD}: ${_STATUS})." >> /var/log/live
 fi
