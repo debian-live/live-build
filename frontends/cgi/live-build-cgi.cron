@@ -33,18 +33,21 @@ then
 	set -x
 fi
 
+# Locknum sets the lock enumeration for multiple instances of l-b-cgi
+_LOCKNUM="$(expr 1 + $(expr $(date +%M) % ${_INSTANCES}))"
+
 # Checking lock file
-if [ -f /var/lock/live-build-cgi.lock ]
+if [ -f /var/lock/live-build-cgi-${_LOCKNUM}.lock ]
 then
-	echo "E: live-build-cgi already/still running."
+	echo "E: live-build-cgi instance ${_LOCKNUM} already/still running."
 	exit 1
 fi
 
 # Creating lock trap
-trap "test -f /var/lock/live-build-cgi.lock && rm -f /var/lock/live-build-cgi.lock; exit 0" 0 1 2 3 9 15
+trap "test -f /var/lock/live-build-cgi-${_LOCKNUM}.lock && rm -f /var/lock/live-build-cgi-${_LOCKNUM}.lock; exit 0" 0 1 2 3 9 15
 
 # Creating lock file
-touch /var/lock/live-build-cgi.lock
+touch /var/lock/live-build-cgi-${_LOCKNUM}.lock
 
 # Cleanup old builds: cron should be run at least once per hour to take effect
 if ls "${_DESTDIR}"/`date -d yesterday +%Y%m%d.%H`* > /dev/null 2>&1
@@ -58,8 +61,7 @@ fi
 #if ls "${_TEMPDIR}"/*.build > /dev/null 2>&1
 if Find_files ${_TEMPDIR}/*.build
 then
-	for _FILE in "${_TEMPDIR}"/*.build
-	do
+	_FILE=$(ls "${_TEMPDIR}"/*.build | sort | head -1)
 		# Pull in variables from the build file.
 		. "${_FILE}"
 
@@ -201,5 +203,4 @@ EOF
 		rm -rf "${_TEMPDIR}"/"${_BUILD}"
 
 		echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build-cgi: end web build (${_BUILD}: ${_STATUS})." >> /var/log/live
-	done
 fi
