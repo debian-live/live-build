@@ -1,3 +1,29 @@
+live-build (4.0~a19-1) experimental; urgency=low
+
+  [ Richard Nelson ]
+  * Modified l-b-cgi cron to move submitted build file to temporary build
+    directory after reading.
+  * Initial commit on l-b-cgi frontend to support multiple instances of
+    image building.
+  * Formatting cleanup on l-b-cgi.cron wrt commit that support multiple
+    instances of image building.
+
+  [ Daniel Baumann ]
+  * Sorting kernel versions in reverse order (newest first) in syslinux
+    configurations in consistency with normal bootloader behaviours.
+  * Moving creation of chroot.files manifest in lb chroot after pseudo-
+    filesystems have been unmounted to avoid loops, thanks to Michal
+    Suchanek <hramrach@gmail.com>.
+  * Sorting imports in python stubs.
+
+  [ Richard Nelson ]
+  * Return the error code from auto/build script.
+
+  [ Daniel Baumann ]
+  * Including memtest86+ in syslinux menu.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 27 May 2013 16:48:19 +0200
+
 live-build (4.0~a18-1) experimental; urgency=low
 
   [ Daniel Baumann ]
