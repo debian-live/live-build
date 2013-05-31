@@ -111,7 +111,7 @@ then
 	# Run build if config went ok
 	if [ "${_ERRORCONFIG}" -eq "0" ]
 	then
-		lb build >> "${_BUILD_PATH}"/log 2>&1
+		lb build noauto >> "${_BUILD_PATH}"/log 2>&1
 		_ERRORBUILD="${?}"
 	else
 		echo "Build stage skipped. Config produced an error: ${_ERRORCONFIG}" >> "${_BUILD_PATH}"/log
