@@ -33,27 +33,27 @@ case "${LB_MODE}" in
 	progress-linux)
 		case "${LB_DISTRIBUTION}" in
 			artax)
-				_KEYS="1.0-artax"
+				_KEYS="1-artax"
 				;;
 
 			artax-backports)
-				_KEYS="1.0-artax 1.9-artax-backports"
+				_KEYS="1-artax 1+-artax-backports"
 				;;
 
 			baureo)
-				_KEYS="2.0-baureo"
+				_KEYS="2-baureo"
 				;;
 
 			baureo-backports)
-				_KEYS="2.0-baureo 2.9-baureo-backports"
+				_KEYS="2-baureo 2+-baureo-backports"
 				;;
 
 			chairon)
-				_KEYS="3.0-chairon"
+				_KEYS="3-chairon"
 				;;
 
 			chairon-backports)
-				_KEYS="3.0-chairon 3.9-chairon-backports"
+				_KEYS="3-chairon 3+-chairon-backports"
 				;;
 		esac
 
