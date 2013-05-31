@@ -9,15 +9,15 @@
 
 
 # Debian releases
-RELEASE_squeeze="6.0.7"
-RELEASE_wheezy="7.0.0"
+RELEASE_squeeze="6"
+RELEASE_wheezy="7"
 RELEASE_jessie="8"
 RELEASE_sid="unstable"
 
 # Progress Linux releases
-RELEASE_artax="1.0"
-RELEASE_baureo="2.0"
-RELEASE_charon="unstable"
+RELEASE_artax="1"
+RELEASE_baureo="2"
+RELEASE_charon="3"
 
 # Ubuntu releases
 RELEASE_hardy="8.04"		# LTS: 2013-04-01
