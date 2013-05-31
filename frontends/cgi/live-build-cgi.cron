@@ -111,6 +111,8 @@ then
 	# Run build if config went ok
 	if [ "${_ERRORCONFIG}" -eq "0" ]
 	then
+		# We need to finish script.
+		set +e
 		lb build noauto >> "${_BUILD_PATH}"/log 2>&1
 		_ERRORBUILD="${?}"
 	else
