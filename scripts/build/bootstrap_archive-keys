@@ -65,8 +65,8 @@ for _KEY in ${_KEYS}
 do
 	Echo_message "Fetching archive-key ${_KEY}..."
 
-	wget -q "${_URL}/archive-key-${_KEY}.asc" -O chroot/key.asc
-	wget -q "${_URL}/archive-key-${_KEY}.asc.sig" -O chroot/key.asc.sig
+	wget ${WGET_OPTIONS} "${_URL}/archive-key-${_KEY}.asc" -O chroot/key.asc
+	wget ${WGET_OPTIONS} "${_URL}/archive-key-${_KEY}.asc.sig" -O chroot/key.asc.sig
 
 	if [ -e /usr/bin/gpgv ]
 	then
