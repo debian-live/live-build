@@ -32,10 +32,16 @@ fi
 echo "Content-type: text/html"
 echo
 
-#QUERY_STRING=`cat /dev/stdin`
-QUERY_STRING=$(cat /dev/stdin)
+# If we are passed something then read it in.
+if [ "$REQUEST_METHOD" = "POST" ] && [ "$CONTENT_LENGTH" -gt 0 ]
+then
+	#QUERY_STRING=`cat /dev/stdin`
+	QUERY_STRING=$(cat /dev/stdin)
+	#read -n $CONTENT_LENGTH POST_DATA <&0
+fi
+
 # Translate parameters
-QUERY_STRING=$(echo "${QUERY_STRING}" | sed -e 's/%2F/\//g' -e 's/+/ /g' -e 's/%3B/;/g' -e 's/%7E/~/g' -e 's/%3A/:/g' -e 's/%40/@/g' -e 's/%3D/=/g' -e 's/%2B/+/g')
+QUERY_STRING=$(echo "${POST_DATA}" | sed -e 's/%2F/\//g' -e 's/+/ /g' -e 's/%3B/;/g' -e 's/%7E/~/g' -e 's/%3A/:/g' -e 's/%40/@/g' -e 's/%3D/=/g' -e 's/%2B/+/g')
 # Debug the filtering string
 # echo ${QUERY_STRING}
 
