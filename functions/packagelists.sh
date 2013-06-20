@@ -118,3 +118,30 @@ Expand_packagelist ()
 		done
 	done
 }
+
+Discover_package_architectures ()
+{
+	_LB_EXPANDED_PKG_LIST="${1}"
+	_LB_DISCOVERED_ARCHITECTURES=""
+
+	shift
+
+	if [ -e "${_LB_EXPANDED_PKG_LIST}" ] && [ -s "${_LB_EXPANDED_PKG_LIST}" ]
+	then
+		while read _LB_PACKAGE_LINE
+		do
+			# Lines from the expanded package list may have multiple, space-separated packages
+			for _LB_PACKAGE_LINE_PART in ${_LB_PACKAGE_LINE}
+			do
+				# Looking for <package>:<architecture>
+				if [ -n "$(echo ${_LB_PACKAGE_LINE_PART} | awk -F':' '{print $2}')" ]
+				then
+					_LB_DISCOVERED_ARCHITECTURES="${_LB_DISCOVERED_ARCHITECTURES} $(echo ${_LB_PACKAGE_LINE_PART} | awk -F':' '{print $2}')"
+				fi
+			done
+		done < "${_LB_EXPANDED_PKG_LIST}"
+
+		# Output unique architectures, alpha-sorted, one per line
+		echo "${_LB_DISCOVERED_ARCHITECTURES}" | tr -s '[:space:]' '\n' | sort | uniq
+	fi
+}
