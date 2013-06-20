@@ -55,6 +55,7 @@ fi
 
 # Building installer
 lb installer_debian-installer ${@}
+lb installer_preseed ${@}
 
 if [ "${LB_BUILD_WITH_CHROOT}" = "true" ]
 then

@@ -791,12 +791,6 @@ EOF
 			ln -s . binary/debian
 			;;
 	esac
-
-	# Including preseeding files
-	if Find_files config/debian-installer/*.cfg
-	then
-		cp config/debian-installer/*.cfg binary/install
-	fi
 fi
 
 Repack_initrd()
@@ -820,7 +814,13 @@ Repack_initrd()
 	if [ ! -d "${INCLUDE_PATH}" ]
 	then
 		# Invoked the old way, just copy the preseeds
-		cp ../config/debian-installer/*.cfg .
+		for _FILE in ../config/preseed/*.cfg ../config/preseed/*.cfg.installer
+		do
+			if [ -e "${_FILE}" ]
+			then
+				cp "${_FILE}" .
+			fi
+		done
 	else
 		# New way, include target directory content in the initrd
 		REPACK_TMPDIR_ABS="${PWD}"
@@ -835,7 +835,7 @@ Repack_initrd()
 }
 
 # Preseed d-i by repacking the initrd in certain situations
-if [ "${DI_IMAGE_TYPE}" = "netboot" ] && [ -e config/debian-installer/preseed.cfg ]
+if [ "${DI_IMAGE_TYPE}" = "netboot" ] && ( ls config/preseed/*.cfg > /dev/null 2>&1 || ls config/preseed/*.cfg.installer > /dev/null 2>&1 )
 then
 	Repack_initrd "${DESTDIR}"/"${INITRD_DI}"
 
