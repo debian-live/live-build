@@ -1183,7 +1183,7 @@ EOF
 # Creating lb_binary_* configuration
 mkdir -p config/debian-installer
 mkdir -p config/includes.binary
-mkdir -p config/includes.debian-installer
+mkdir -p config/includes.installer
 mkdir -p config/packages.binary
 mkdir -p config/package-lists
 mkdir -p config/rootfs
