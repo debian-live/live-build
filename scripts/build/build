@@ -64,6 +64,9 @@ Set_defaults
 # Checking defaults
 Check_defaults
 
+Echo_message "live-build ${LIVE_BUILD_VERSION}"
+Echo_message "Building config tree for a ${LB_MODE}/${LB_DISTRIBUTION}/${LIVE_IMAGE_ARCHITECTURE} system"
+
 # Bootstrapping system
 lb bootstrap ${@}
 
