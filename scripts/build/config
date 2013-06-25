@@ -105,7 +105,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--net-cow-server IP|HOSTNAME]\n\
 \t    [--net-tarball true|false]\n\
 \t    [--quiet]\n\
-\t    [--archives ARCHIVE|\"ARCHIVES\"]\n\
 \t    [--archive-areas ARCHIVE_AREA|\"ARCHIVE_AREAS\"]\n\
 \t    [--parent-archive-areas ARCHIVE_AREA|\"ARCHIVE_AREAS\"]\n\
 \t    [--security true|false]\n\
@@ -139,7 +138,7 @@ Local_arguments ()
 		parent-mirror-binary-security:,parent-mirror-debian-installer:,
 		mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,
 		mirror-binary-security:,mirror-debian-installer:,
-		archives:,archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,
+		archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,
 		gzip-options:,hooks:,image-name:,interactive:,keyring-packages:,linux-flavours:,linux-packages:,
 		security:,updates:,backports:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootappend-live-failsafe:,bootloader:,checksums:,compression:,config:,zsync:,build-with-chroot:,
@@ -421,11 +420,6 @@ Local_arguments ()
 
 			--mirror-debian-installer)
 				LB_MIRROR_DEBIAN_INSTALLER="${2}"
-				shift 2
-				;;
-
-			--archives)
-				LB_ARCHIVES="${2}"
 				shift 2
 				;;
 
@@ -1104,10 +1098,6 @@ LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY}"
 # \$LB_MIRROR_DEBIAN_INSTALLER: set debian-installer mirror
 # (Default: ${LB_MIRROR_BOOTSTRAP})
 LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER}"
-
-# \$LB_ARCHIVES: enable available third-party archives
-# (Default: empty)
-LB_ARCHIVES="${LB_ARCHIVES}"
 
 # \$LB_BOOTSTRAP_QEMU_ARCHITECTURES: architectures to use foreign bootstrap
 # (Default: ${LB_BOOTSTRAP_QEMU_ARCHITECTURES})

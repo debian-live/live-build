@@ -197,8 +197,6 @@
 .br
 	[\fB\-\-quiet\fR]
 .br
-	[\fB\-\-archives\fR \fIARCHIVE\fR|\fI"ARCHIVES"\fR]
-.br
 	[\fB\-\-archive\-areas\fR \fIARCHIVE_AREA\fR|\fI"ARCHIVE_AREAS"\fR]
 .br
 	[\fB\-\-parent\-archive\-areas\fR \fIPARENT_ARCHIVE_AREA\fR|\fI"PARENT_ARCHIVE_AREAS"\fR]
@@ -428,8 +426,6 @@ sets the IP or hostname that will be configured in the bootloader configuration 
 defines if a compressed tarball should be created. Disabling this options leads to no tarball at all, the plain binary directory is considered the output in this case. Default is true.
 .IP "\fB\-\-quiet\fR" 4
 reduces the verbosity of messages output by \fBlb build\fR.
-.IP "\fB\-\-archives\fR \fIARCHIVE\fR|""\fIARCHIVES\fR""" 4
-enables one of available third-party archive configurations in /usr/share/live/build/archives.
 .IP "\fB\-\-archive\-areas\fR \fIARCHIVE_AREA\fR|""\fIARCHIVE_AREAS\fR""" 4
 defines which package archive areas of a debian packages archive should be used for configured debian package mirrors. By default, this is set to main. Remember to check the licenses of each packages with respect to their redistributability in your juristiction when enabling contrib or non\-free with this mechanism.
 .IP "\fB\-\-parent\-archive\-areas\fR \fIPARENT_ARCHIVE_AREA\fR|""\fIPARENT_ARCHIVE_AREAS\fR""" 4
