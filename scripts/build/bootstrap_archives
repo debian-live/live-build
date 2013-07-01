@@ -19,7 +19,10 @@ HELP=""
 USAGE="${PROGRAM} [--force]"
 
 _PASS="${1:-binary}"
-shift
+if [ -n "${1}" ]
+then
+	shift
+fi
 
 Arguments "${@}"
 
