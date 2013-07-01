@@ -14,7 +14,7 @@ set -e
 [ -e "${LIVE_BUILD}/scripts/build.sh" ] && . "${LIVE_BUILD}/scripts/build.sh" || . /usr/lib/live/build.sh
 
 # Setting static variables
-DESCRIPTION="$(Echo 'copy debian-live config into source')"
+DESCRIPTION="$(Echo 'copy live config into source')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -35,7 +35,7 @@ Echo_message "Begin copying live-build configuration..."
 Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .build/source_debian-live
+Check_stagefile .build/source_live
 
 # Checking lock file
 Check_lockfile .lock
@@ -44,19 +44,19 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Remove old sources
-if [ -d source/debian-live ]
+if [ -d source/live ]
 then
-	rm -rf source/debian-live
+	rm -rf source/live
 fi
 
 # Copy system configuration
-mkdir -p source/debian-live
-cp -a config source/debian-live
+mkdir -p source/live
+cp -a config source/live
 
 if Find_files auto/*
 then
-	cp -a auto source/debian-live
+	cp -a auto source/live
 fi
 
 # Creating stage file
-Create_stagefile .build/source_debian-live
+Create_stagefile .build/source_live
