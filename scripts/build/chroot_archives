@@ -32,14 +32,6 @@ Require_stagefile .build/config .build/bootstrap
 
 _LB_LOCAL_KEY_EMAIL="live-build-local-key@invalid"
 
-# FIXME: this is ugly
-if [ -n "${LIVE_BUILD}" ]
-then
-	_BASE="${LIVE_BUILD}"
-else
-	_BASE="/usr/share/live/build"
-fi
-
 case "${LB_DERIVATIVE}" in
 	true)
 		_PARENT_FILE="sources.list.d/debian.list"
