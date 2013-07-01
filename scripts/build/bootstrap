@@ -35,6 +35,7 @@ Set_defaults
 Setup_cleanup
 
 # Bootstrapping system
+lb bootstrap_cache restore ${@}
 lb bootstrap_${LB_BOOTSTRAP}
 
 # Configuring chroot
@@ -69,3 +70,5 @@ lb chroot_sysfs remove ${@}
 lb chroot_selinuxfs remove ${@}
 lb chroot_proc remove ${@}
 lb chroot_devpts remove ${@}
+
+lb bootstrap_cache save ${@}
