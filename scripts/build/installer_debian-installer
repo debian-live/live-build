@@ -347,7 +347,7 @@ then
 					;;
 
 				*)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-amd64"
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-amd64"
 					;;
 			esac
 			;;
@@ -369,7 +369,7 @@ then
 					;;
 
 				*)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-486 linux-image-2.6-686"
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-486 linux-image-686-pae"
 					;;
 			esac
 			;;
@@ -382,7 +382,7 @@ then
 					;;
 
 				*)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-sparc64 linux-image-2.6-sparc64-smp"
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-sparc64 linux-image-sparc64-smp"
 					;;
 			esac
 			;;
@@ -395,7 +395,7 @@ then
 					;;
 
 				*)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-powerpc linux-image-2.6-powerpc64 linux-image-2.6-powerpc-smp"
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-powerpc linux-image-powerpc64 linux-image-powerpc-smp"
 					;;
 			esac
 			;;
