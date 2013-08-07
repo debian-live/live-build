@@ -104,6 +104,33 @@ then
 	echo "${LB_TASKSEL}" >> source-selection.txt
 fi
 
+# apt-get source does not respect pinning
+# building images with backports included but not enabled
+# will result in apt-get source download stuff from backports
+# where available. workaround: disable backports
+case "${LB_MODE}" in
+	progress-linux)
+		case "${LB_DISTRIBUTION}" in
+			*-backports)
+
+				;;
+
+			*)
+				if grep -qs "-backports" chroot/etc/apt/sources.list.d/progress-linux.list
+				then
+					while read _LINE
+					do
+						if echo "${_LINE}" | grep -qs ${LB_DISTRIBUTION}-backports
+						then
+							sed -i -e "s|${_LINE}|#${_LINE}|" chroot/etc/apt/sources.list.d/progress-linux.list
+						fi
+					done < chroot/etc/apt/sources.list.d/progress-linux.list
+				fi
+				;;
+		esac
+		;;
+esac
+
 MISSING=""
 
 grep . source-selection.txt | \
