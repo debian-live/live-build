@@ -864,7 +864,7 @@ case "${LB_MODE}" in
 
 		for _DIRECTORY in dists pool project firmware
 		do
-			if [ -e "${_DIRECTORY}" ]
+			if [ -e "binary/${_DIRECTORY}" ]
 			then
 				mv binary/"${_DIRECTORY}" binary/installer
 			fi
