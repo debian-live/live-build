@@ -1,3 +1,41 @@
+live-build (4.0~a21-1) experimental; urgency=low
+
+  * Breaking out installer integration into an own stage.
+  * Splitting out preseed handling from main installer script.
+  * Adding note about live-build version in build to get the lb version
+    into build logs.
+  * Using includes.installer instead of includes.debian-installer.
+  * Avoid failing on package lists fails that have no newline at the end.
+  * Reorganizing frontend in source tree.
+  * Dropping global archive definitions shipped in
+    /usr/share/live/build/archives (same as with packagelists, hidden
+    archive 'magic' is gone now in favour of explicit config tree
+    configuration).
+  * Removing some leftovers in chroot_archives from --archives removal.
+  * Handling dist-upgrade right after bootstrap with copy of
+    chroot_archives as bootstrap_archives in preparation for a future
+    multi-archive bootstrap.
+  * Moving caching out of bootstrap_{c,}debootstrap to own helper for
+    future unification with chroot caches helper.
+  * Debranding live sources.
+  * Expanding all variables in all syslinux configuration files, rathern
+    than on some selected ones only.
+  * Updating linux-image package names for 3.0 in installer_debian-
+    installer.
+  * Stripping backports from sources.list temporarily when obtaining
+    sources to workaround apts disregard of pinning for the cases where
+    backports are included but not enabled.
+  * Calling bootstrap_archives with correct pass argument.
+  * Correcting wrong defaults setting for parent distribution in
+    config/build.
+  * Removing obsolete starting of binary_debian-installer in binary.
+  * Renaming some leftover pieces from binary_debian-installer to
+    installer_debian-installer.
+  * Correcting wrong installer directory moving check in progress-linux
+    mode.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 07 Aug 2013 18:06:23 +0200
+
 live-build (4.0~a20-1) experimental; urgency=low
 
   [ Richard Nelson ]
