@@ -32,14 +32,6 @@ Require_stagefile .build/config .build/bootstrap
 
 _LB_LOCAL_KEY_EMAIL="live-build-local-key@invalid"
 
-# FIXME: this is ugly
-if [ -n "${LIVE_BUILD}" ]
-then
-	_BASE="${LIVE_BUILD}"
-else
-	_BASE="/usr/share/live/build"
-fi
-
 case "${LB_DERIVATIVE}" in
 	true)
 		_PARENT_FILE="sources.list.d/debian.list"
@@ -187,78 +179,6 @@ EOF
 					echo "deb-src ${LB_MIRROR_CHROOT} ${_DISTRIBUTION}-backports ${LIVE_IMAGE_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list.d/${LB_MODE}.list
 				fi
 			fi
-		fi
-
-		# Configure third-party archives
-		if [ -n "${LB_ARCHIVES}" ]
-		then
-			for REPOSITORY in ${LB_ARCHIVES}
-			do
-				# ubuntu workaround to allow using live-systems.org
-				case "${LB_MODE}" in
-					ubuntu)
-						if [ "${REPOSITORY}" = "live-systems.org" ]
-						then
-							_DISTRIBUTION="sid"
-						else
-							_DISTRIBUTION="${LB_PARENT_DISTRIBUTION}"
-						fi
-						;;
-
-					*)
-						_DISTRIBUTION="${LB_PARENT_DISTRIBUTION}"
-						;;
-				esac
-
-				# Prefer archives from the config tree
-				# over the global ones.
-				if ! ls "${_BASE}/archives/${REPOSITORY}"* > /dev/null 2>&1
-				then
-					continue
-				fi
-
-				# Adding apt sources (chroot)
-				for _FILE in "${_BASE}/archives/${REPOSITORY}" "${_BASE}/archives/${REPOSITORY}.chroot"
-				do
-					if [ -e "${_FILE}" ]
-					then
-						sed -e "s|@DISTRIBUTION@|${_DISTRIBUTION}|g" \
-						    -e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
-						    -e "s|@ARCHIVE_AREAS@|${LIVE_IMAGE_PARENT_ARCHIVE_AREAS}|g" \
-						"${_FILE}" > "chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
-					fi
-				done
-
-				# Adding apt configuration (chroot)
-				for _FILE in "${_BASE}/archives/${REPOSITORY}.conf" "${_BASE}/archives/${REPOSITORY}.conf.chroot"
-				do
-					if [ -e "${_FILE}" ]
-					then
-						cp "${_FILE}" "chroot/etc/apt/conf.d/${REPOSITORY}.conf"
-					fi
-				done
-
-				# Adding apt preferences (chroot)
-				for _FILE in "${_BASE}/archives/${REPOSITORY}.pref" "${_BASE}/archives/${REPOSITORY}.pref.chroot"
-				do
-					if [ -e "${_FILE}" ]
-					then
-						cp "${_FILE}" "chroot/etc/apt/preferences.d/${REPOSITORY}.pref"
-					fi
-				done
-
-				# Adding apt keys (chroot)
-				if [ "${LB_APT_SECURE}" != false ]
-				then
-					for _FILE in "${_BASE}/archives/${REPOSITORY}.key" "${_BASE}/archives/${REPOSITORY}.key.chroot"
-					do
-						if [ -e "${_FILE}" ]
-						then
-							cat "${_FILE}" | Chroot chroot "apt-key add -"
-						fi
-					done
-				fi
-			done
 		fi
 
 		# Adding local apt sources (chroot)
@@ -756,65 +676,6 @@ EOF
 		# probably too bold, needs refinment (FIXME)
 		rm -f chroot/etc/apt/conf.d/*
 		rm -f chroot/etc/apt/preferences.d/*
-
-		# Configure third-party archives
-		if [ -n "${LB_ARCHIVES}" ]
-		then
-			for REPOSITORY in ${LB_ARCHIVES}
-			do
-				# Removing sources.list entries (chroot)
-				rm -f "chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
-
-				# Prefer archives from the config tree
-				# over the global ones.
-				if ! ls "${_BASE}/archives/${REPOSITORY}"* > /dev/null 2>&1
-				then
-					continue
-				fi
-
-				# Adding apt sources (binary)
-				for _FILE in "${_BASE}/archives/${REPOSITORY}" "${_BASE}/archives/${REPOSITORY}.binary"
-				do
-					if [ -e "${_FILE}" ]
-					then
-						sed -e "s|@DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
-						    -e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
-						    -e "s|@ARCHIVE_AREAS@|${LIVE_IMAGE_PARENT_ARCHIVE_AREAS}|g" \
-						"${_FILE}" > "chroot/etc/apt/sources.list.d/${REPOSITORY}.list"
-					fi
-				done
-
-				# Adding apt configuration (binary)
-				for _FILE in "${_BASE}/archives/${REPOSITORY}.conf" "${_BASE}/archives/${REPOSITORY}.conf.binary"
-				do
-					if [ -e "${_FILE}" ]
-					then
-						cp "${_FILE}" "chroot/etc/apt/conf.d/${REPOSITORY}.conf"
-					fi
-				done
-
-				# Adding apt preferences (binary)
-				for _FILE in "${_BASE}/archives/${REPOSITORY}.pref" "${_BASE}/archives/${REPOSITORY}.pref.binary"
-				do
-					if [ -e "${_FILE}" ]
-					then
-						cp "${_FILE}" "chroot/etc/apt/preferences.d/${REPOSITORY}.pref"
-					fi
-				done
-
-				# Adding apt keys (binary)
-				if [ "${LB_APT_SECURE}" != false ]
-				then
-					for _FILE in "${_BASE}/archives/${REPOSITORY}.key" "${_BASE}/archives/${REPOSITORY}.key.binary"
-					do
-						if [ -e "${_FILE}" ]
-						then
-							cat "${_FILE}" | Chroot chroot "apt-key add -"
-						fi
-					done
-				fi
-			done
-		fi
 
 		# Adding local apt sources (binary)
 		for FILE in config/archives/*.list config/archives/*.list.binary

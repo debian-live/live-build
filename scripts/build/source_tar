@@ -51,30 +51,30 @@ Create_lockfile .lock
 
 # Remove old source
 rm -f ${LIVE_IMAGE_NAME}-source.debian.tar.bz2 ${LIVE_IMAGE_NAME}-source.debian.tar.gz ${LIVE_IMAGE_NAME}-source.debian.tar.lz ${LIVE_IMAGE_NAME}-source.debian.tar
-rm -f ${LIVE_IMAGE_NAME}-source.debian-live.tar.bz2 ${LIVE_IMAGE_NAME}-source.debian-live.tar.gz ${LIVE_IMAGE_NAME}-source.debian-live.tar.lz ${LIVE_IMAGE_NAME}-source.debian-live.tar
+rm -f ${LIVE_IMAGE_NAME}-source.live.tar.bz2 ${LIVE_IMAGE_NAME}-source.live.tar.gz ${LIVE_IMAGE_NAME}-source.live.tar.lz ${LIVE_IMAGE_NAME}-source.live.tar
 
 tar cf ${LIVE_IMAGE_NAME}-source.debian.tar source/debian
-tar cf ${LIVE_IMAGE_NAME}-source.debian-live.tar source/debian-live
+tar cf ${LIVE_IMAGE_NAME}-source.live.tar source/live
 
 case "${LB_COMPRESSION}" in
 	bzip2)
 		bzip2 ${BZIP2_OPTIONS} ${LIVE_IMAGE_NAME}-source.debian.tar
-		bzip2 ${BZIP2_OPTIONS} ${LIVE_IMAGE_NAME}-source.debian-live.tar
+		bzip2 ${BZIP2_OPTIONS} ${LIVE_IMAGE_NAME}-source.live.tar
 		;;
 
 	gzip)
 		gzip ${GZIP_OPTIONS} ${LIVE_IMAGE_NAME}-source.debian.tar
-		gzip ${GZIP_OPTIONS} ${LIVE_IMAGE_NAME}-source.debian-live.tar
+		gzip ${GZIP_OPTIONS} ${LIVE_IMAGE_NAME}-source.live.tar
 		;;
 
 	lzip)
 		lzip ${LZIP_OPTIONS} ${LIVE_IMAGE_NAME}-source.debian.tar
-		lzip ${LZIP_OPTIONS} ${LIVE_IMAGE_NAME}-source.debian-live.tar
+		lzip ${LZIP_OPTIONS} ${LIVE_IMAGE_NAME}-source.live.tar
 		;;
 
 	xz)
 		xz ${XZ_OPTIONS} ${LIVE_IMAGE_NAME}-source.debian.tar
-		xz ${XZ_OPTIONS} ${LIVE_IMAGE_NAME}-source.debian-live.tar
+		xz ${XZ_OPTIONS} ${LIVE_IMAGE_NAME}-source.live.tar
 		;;
 
 	none)

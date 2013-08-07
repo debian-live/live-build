@@ -37,7 +37,7 @@ Expand_packagelist ()
 			continue
 		fi
 
-		while read _LB_LINE
+		printf "$(cat ${_LB_LIST_LOCATION})\n" | while read _LB_LINE
 		do
 			case "${_LB_LINE}" in
 				\!*)
@@ -115,6 +115,6 @@ Expand_packagelist ()
 					;;
 
 			esac
-		done < "${_LB_LIST_LOCATION}"
+		done
 	done
 }

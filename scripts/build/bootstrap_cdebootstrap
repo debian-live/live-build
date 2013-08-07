@@ -104,14 +104,6 @@ def main():
 			print('I: use \'lb clean\' to clean up a previously incomplete build')
 
 		sys.exit(1)
-	# stage cache
-	elif os.path.exists('cache/bootstrap'):
-		if verbose:
-			print('I: Copying cache/bootstrap to chroot')
-
-		# Note: copy instead of move to make cache survive incomplete build
-		#shutil.copytree('cache/bootstrap', 'chroot') # FIXME: copytree() doesn't work with device files :(
-		cp = subprocess.call('cp -a cache/bootstrap chroot', shell=True)
 	# packages cache
 	elif glob.glob('cache/packages.bootstrap/*.deb'):
 		if verbose:
@@ -153,16 +145,6 @@ def main():
 			print('I: Calling \'/usr/bin/debootstrap ' + cdebootstrap_options + '\'')
 
 		cdebootstrap = subprocess.call('/usr/bin/cdebootstrap ' + cdebootstrap_options, shell=True)
-
-	# stage cache
-	if (os.path.exists('chroot')) and (not os.path.exists('cache/bootstrap')):
-		if verbose:
-			print('I: Copying chroot to cache/bootstrap')
-
-		# Note: copy instead of move to keep stage
-		#shutil.copytree('chroot', 'cache/bootstrap') # FIXME: copytree() doesn't work with device files :(
-		os.makedirs('cache', exist_ok=True)
-		cp = subprocess.call('cp -a chroot cache/bootstrap', shell=True)
 
 	## stagefile
 	os.makedirs('.build', exist_ok=True)

@@ -55,7 +55,7 @@ Echo_message "Begin installing debian-installer..."
 Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .build/binary_debian-installer
+Check_stagefile .build/installer_debian-installer
 
 # Checking lock file
 Check_lockfile .lock
@@ -208,7 +208,7 @@ Install_file() {
 
 # Set absolute directory for caching; we require it when we call Download_file
 # from a non-standard cwd.
-_LB_CACHE_DIR="$(pwd)/cache/binary_debian-installer"
+_LB_CACHE_DIR="$(pwd)/cache/installer_debian-installer"
 
 Download_file () {
 	local _LB_TARGET
@@ -347,7 +347,7 @@ then
 					;;
 
 				*)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-amd64"
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-amd64"
 					;;
 			esac
 			;;
@@ -369,7 +369,7 @@ then
 					;;
 
 				*)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-486 linux-image-2.6-686"
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-486 linux-image-686-pae"
 					;;
 			esac
 			;;
@@ -382,7 +382,7 @@ then
 					;;
 
 				*)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-sparc64 linux-image-2.6-sparc64-smp"
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-sparc64 linux-image-sparc64-smp"
 					;;
 			esac
 			;;
@@ -395,7 +395,7 @@ then
 					;;
 
 				*)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-2.6-powerpc linux-image-2.6-powerpc64 linux-image-2.6-powerpc-smp"
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-powerpc linux-image-powerpc64 linux-image-powerpc-smp"
 					;;
 			esac
 			;;
@@ -611,10 +611,10 @@ then
 
 	for UDEB in ${UDEBS}
 	do
-		if [ -f ../cache/packages.binary_debian-installer.udeb/"$(basename ${UDEB})" ]
+		if [ -f ../cache/packages.installer_debian-installer.udeb/"$(basename ${UDEB})" ]
 		then
 			# Copying cached udebs
-			cp ../cache/packages.binary_debian-installer.udeb/"$(basename ${UDEB})" ./
+			cp ../cache/packages.installer_debian-installer.udeb/"$(basename ${UDEB})" ./
 		else
 			# Downloading udebs
 			if ! ls "$(basename ${UDEB} | awk -F_ '{ print $1 }')"_* > /dev/null 2>&1
@@ -625,9 +625,9 @@ then
 	done
 
 	# Caching udebs
-	rm -rf ../cache/packages.binary_debian-installer.udeb
-	mkdir -p ../cache/packages.binary_debian-installer.udeb
-	cp *.udeb ../cache/packages.binary_debian-installer.udeb
+	rm -rf ../cache/packages.installer_debian-installer.udeb
+	mkdir -p ../cache/packages.installer_debian-installer.udeb
+	cp *.udeb ../cache/packages.installer_debian-installer.udeb
 
 	# Including local udebs
 	if Find_files ../config/packages.binary/*_"${LIVE_IMAGE_ARCHITECTURE}".udeb || Find_files ../config/packages/*_"${LIVE_IMAGE_ARCHITECTURE}".udeb
@@ -791,12 +791,6 @@ EOF
 			ln -s . binary/debian
 			;;
 	esac
-
-	# Including preseeding files
-	if Find_files config/debian-installer/*.cfg
-	then
-		cp config/debian-installer/*.cfg binary/install
-	fi
 fi
 
 Repack_initrd()
@@ -820,7 +814,13 @@ Repack_initrd()
 	if [ ! -d "${INCLUDE_PATH}" ]
 	then
 		# Invoked the old way, just copy the preseeds
-		cp ../config/debian-installer/*.cfg .
+		for _FILE in ../config/preseed/*.cfg ../config/preseed/*.cfg.installer
+		do
+			if [ -e "${_FILE}" ]
+			then
+				cp "${_FILE}" .
+			fi
+		done
 	else
 		# New way, include target directory content in the initrd
 		REPACK_TMPDIR_ABS="${PWD}"
@@ -835,7 +835,7 @@ Repack_initrd()
 }
 
 # Preseed d-i by repacking the initrd in certain situations
-if [ "${DI_IMAGE_TYPE}" = "netboot" ] && [ -e config/debian-installer/preseed.cfg ]
+if [ "${DI_IMAGE_TYPE}" = "netboot" ] && ( ls config/preseed/*.cfg > /dev/null 2>&1 || ls config/preseed/*.cfg.installer > /dev/null 2>&1 )
 then
 	Repack_initrd "${DESTDIR}"/"${INITRD_DI}"
 
@@ -845,14 +845,14 @@ then
 	fi
 fi
 
-# Include content of config/includes.debian-installer if exists and not empty
-if [ -d config/includes.debian-installer ] && [ -n "$(ls -A config/includes.debian-installer)" ]
+# Include content of config/includes.installer if exists and not empty
+if [ -d config/includes.installer ] && [ -n "$(ls -A config/includes.installer)" ]
 then
-	Repack_initrd "${DESTDIR}"/"${INITRD_DI}" config/includes.debian-installer
+	Repack_initrd "${DESTDIR}"/"${INITRD_DI}" config/includes.installer
 
 	if [ -e "${DESTDIR}"/"${INITRD_GI}" ]
 	then
-		Repack_initrd "${DESTDIR}"/"${INITRD_GI}" config/includes.debian-installer
+		Repack_initrd "${DESTDIR}"/"${INITRD_GI}" config/includes.installer
 	fi
 fi
 
@@ -864,7 +864,7 @@ case "${LB_MODE}" in
 
 		for _DIRECTORY in dists pool project firmware
 		do
-			if [ -e "${_DIRECTORY}" ]
+			if [ -e "binary/${_DIRECTORY}" ]
 			then
 				mv binary/"${_DIRECTORY}" binary/installer
 			fi
@@ -879,4 +879,4 @@ Save_cache cache/packages.binary
 Remove_package
 
 # Creating stage file
-Create_stagefile .build/binary_debian-installer
+Create_stagefile .build/installer_debian-installer

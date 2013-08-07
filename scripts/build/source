@@ -48,7 +48,7 @@ lb chroot_hostname install ${@}
 lb chroot_archives source install ${@}
 
 # Preparing images
-lb source_debian-live ${@}
+lb source_live ${@}
 lb source_debian ${@}
 lb source_disk ${@}
 lb source_hooks ${@}

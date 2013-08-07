@@ -209,78 +209,80 @@ then
 	esac
 fi
 
-for _FILE in "${_TARGET}"/*.cfg
+eval _VERSION="$`echo RELEASE_${LB_DISTRIBUTION}`"
+
+_DISTRIBUTION="${LB_DISTRIBUTION}"
+_ARCHITECTURE="${LIVE_IMAGE_ARCHITECTURE}"
+
+_DATE=$(date -R)
+_YEAR="$(date +%Y)"
+_MONTH="$(date +%m)"
+_DAY="$(date +%d)"
+_HOUR="$(date +%H)"
+_MINUTE="$(date +%M)"
+_SECOND="$(date +%S)"
+
+_LINUX_VERSIONS="$(for _LINUX in chroot/boot/vmlinuz-* ; do chroot chroot apt-cache policy $(basename ${_LINUX} | sed -e 's|vmlinuz-|linux-image-|') | awk '/Installed: / { print $2 }' ; done | sort -Vru | tr "\n" " ")"
+
+_LIVE_BUILD_VERSION="$(lb --version)"
+_LIVE_BOOT_VERSION="$(chroot chroot apt-cache policy live-boot | awk '/Installed: / { print $2 }')"
+_LIVE_CONFIG_VERSION="$(chroot chroot apt-cache policy live-config | awk '/Installed: / { print $2 }')"
+_LIVE_TOOLS_VERSION="$(chroot chroot apt-cache policy live-tools | awk '/Installed: / { print $2 }')"
+
+case "${LB_MODE}" in
+	progress-linux)
+		_PROJECT="Progress Linux"
+
+		if ls config/package-lists/client-gnome.list*
+		then
+			_DESCRIPTION="Client GNOME"
+		elif ls config/package-lists/client-lxde.list* > /dev/null 2>&1
+		then
+			_DESCRIPTION="Client LXDE"
+		elif ls config/package-lists/server-lxc.list* > /dev/null 2>&1
+		then
+			_DESCRIPTION="Server LXC"
+		else
+			_DESCRIPTION="Standard"
+		fi
+		;;
+
+	*)
+		_PROJECT="Debian GNU/Linux"
+		_DESCRIPTION=""
+		;;
+
+esac
+
+for _FILE in "${_TARGET}"/*.cfg ${_TARGET}/*.svg
 do
-	sed -i  -e "s#@APPEND_LIVE@#${LB_BOOTAPPEND_LIVE}#g" \
-		-e "s#@APPEND_LIVE_FAILSAFE@#${LB_BOOTAPPEND_LIVE_FAILSAFE}#g" \
-		-e "s#@APPEND_INSTALL@#${LB_BOOTAPPEND_INSTALL}#g" \
-		-e "s#@APPEND_INSTALL_FAILSAFE@#${LB_BOOTAPPEND_INSTALL_FAILSAFE}#g" \
-	"${_FILE}"
+	if [ -e "${_FILE}" ]
+	then
+		sed -i  -e "s#@APPEND_LIVE@#${LB_BOOTAPPEND_LIVE}#g" \
+			-e "s#@APPEND_LIVE_FAILSAFE@#${LB_BOOTAPPEND_LIVE_FAILSAFE}#g" \
+			-e "s#@APPEND_INSTALL@#${LB_BOOTAPPEND_INSTALL}#g" \
+			-e "s#@APPEND_INSTALL_FAILSAFE@#${LB_BOOTAPPEND_INSTALL_FAILSAFE}#g" \
+			-e "s|@PROJECT@|${_PROJECT}|g" \
+			-e "s|@DISTRIBUTION@|${_DISTRIBUTION}|g" \
+			-e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
+			-e "s|@VERSION@|${_VERSION}|g" \
+			-e "s|@ARCHITECTURE@|${_ARCHITECTURE}|g" \
+			-e "s|@DESCRIPTION@|${_DESCRIPTION}|g" \
+			-e "s|@DATE@|${_DATE}|g" \
+			-e "s|@YEAR@|${_YEAR}|g" \
+			-e "s|@MONTH@|${_MONTH}|g" \
+			-e "s|@DAY@|${_DAY}|g" \
+			-e "s|@HOUR@|${_HOUR}|g" \
+			-e "s|@MINUTE@|${_MINUTE}|g" \
+			-e "s|@SECOND@|${_SECOND}|g" \
+			-e "s|@LINUX_VERSIONS@|${_LINUX_VERSIONS}|g" \
+			-e "s|@LIVE_BUILD_VERSION@|${_LIVE_BUILD_VERSION}|g" \
+			-e "s|@LIVE_BOOT_VERSION@|${_LIVE_BOOT_VERSION}|g" \
+			-e "s|@LIVE_CONFIG_VERSION@|${_LIVE_CONFIG_VERSION}|g" \
+			-e "s|@LIVE_TOOLS_VERSION@|${_LIVE_TOOLS_VERSION}|g" \
+		"${_FILE}"
+	fi
 done
-
-if [ -e "${_TARGET}/splash.svg.in" ]
-then
-	case "${LB_MODE}" in
-		progress-linux)
-			_PROJECT="Progress Linux"
-
-			if ls config/package-lists/client-gnome.list*
-			then
-				_DESCRIPTION="Client GNOME"
-			elif ls config/package-lists/client-lxde.list* > /dev/null 2>&1
-			then
-				_DESCRIPTION="Client LXDE"
-			elif ls config/package-lists/server-lxc.list* > /dev/null 2>&1
-			then
-				_DESCRIPTION="Server LXC"
-			else
-				_DESCRIPTION="Standard"
-			fi
-			;;
-
-		*)
-			_PROJECT="Debian GNU/Linux"
-			_DESCRIPTION=""
-			;;
-
-	esac
-
-	eval _VERSION="$`echo RELEASE_${LB_DISTRIBUTION}`"
-	_DISTRIBUTION="${LB_DISTRIBUTION}"
-	_ARCHITECTURE="${LIVE_IMAGE_ARCHITECTURE}"
-	_DATE=$(date -R)
-	_YEAR="$(date +%Y)"
-	_MONTH="$(date +%m)"
-	_DAY="$(date +%d)"
-	_HOUR="$(date +%H)"
-	_MINUTE="$(date +%M)"
-	_SECOND="$(date +%S)"
-	_LINUX_VERSIONS="$(for _LINUX in chroot/boot/vmlinuz-* ; do chroot chroot apt-cache policy $(basename ${_LINUX} | sed -e 's|vmlinuz-|linux-image-|') | awk '/Installed: / { print $2 }' ; done | sort -Vru | tr "\n" " ")"
-	_LIVE_BUILD_VERSION="$(lb --version)"
-	_LIVE_BOOT_VERSION="$(chroot chroot apt-cache policy live-boot | awk '/Installed: / { print $2 }')"
-	_LIVE_CONFIG_VERSION="$(chroot chroot apt-cache policy live-config | awk '/Installed: / { print $2 }')"
-	_LIVE_TOOLS_VERSION="$(chroot chroot apt-cache policy live-tools | awk '/Installed: / { print $2 }')"
-
-	sed	-e "s|@PROJECT@|${_PROJECT}|g" \
-		-e "s|@DISTRIBUTION@|${_DISTRIBUTION}|g" \
-		-e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
-		-e "s|@VERSION@|${_VERSION}|g" \
-		-e "s|@ARCHITECTURE@|${_ARCHITECTURE}|g" \
-		-e "s|@DESCRIPTION@|${_DESCRIPTION}|g" \
-		-e "s|@DATE@|${_DATE}|g" \
-		-e "s|@YEAR@|${_YEAR}|g" \
-		-e "s|@MONTH@|${_MONTH}|g" \
-		-e "s|@DAY@|${_DAY}|g" \
-		-e "s|@HOUR@|${_HOUR}|g" \
-		-e "s|@MINUTE@|${_MINUTE}|g" \
-		-e "s|@SECOND@|${_SECOND}|g" \
-		-e "s|@LINUX_VERSIONS@|${_LINUX_VERSIONS}|g" \
-		-e "s|@LIVE_BUILD_VERSION@|${_LIVE_BUILD_VERSION}|g" \
-		-e "s|@LIVE_BOOT_VERSION@|${_LIVE_BOOT_VERSION}|g" \
-		-e "s|@LIVE_CONFIG_VERSION@|${_LIVE_CONFIG_VERSION}|g" \
-		-e "s|@LIVE_TOOLS_VERSION@|${_LIVE_TOOLS_VERSION}|g" \
-	"${_TARGET}/splash.svg.in" > "${_TARGET}/splash.svg"
-fi
 
 if [ -e "${_TARGET}/splash.svg" ]
 then
@@ -296,9 +298,9 @@ then
 			rsvg --format png --height 480 --width 640 "${_TARGET}/splash.svg" "${_TARGET}/splash.png"
 			;;
 	esac
-fi
 
-rm -f "${_TARGET}/splash.svg.in" "${_TARGET}/splash.svg"
+	rm -f "${_TARGET}/splash.svg"
+fi
 
 case "${LB_MODE}" in
 	progress-linux)

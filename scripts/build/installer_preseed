@@ -14,7 +14,7 @@ set -e
 [ -e "${LIVE_BUILD}/scripts/build.sh" ] && . "${LIVE_BUILD}/scripts/build.sh" || . /usr/lib/live/build.sh
 
 # Setting static variables
-DESCRIPTION="$(Echo 'copy debian-live config into source')"
+DESCRIPTION="$(Echo 'include local preseed in installer')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -24,18 +24,10 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LB_SOURCE}" != "true" ]
-then
-	exit 0
-fi
-
-Echo_message "Begin copying live-build configuration..."
-
-# Requiring stage file
-Require_stagefile .build/config .build/bootstrap
+Echo_message "Begin including local preseeds..."
 
 # Checking stage file
-Check_stagefile .build/source_debian-live
+Check_stagefile .build/installer_preseed
 
 # Checking lock file
 Check_lockfile .lock
@@ -43,20 +35,30 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-# Remove old sources
-if [ -d source/debian-live ]
+if ls config/preseed/*.cfg > /dev/null 2>&1 || \
+   ls config/preseed/*.cfg.installer > /dev/null 2>&1 || \
+   ls chroot/root/packages.installer > /dev/null 2>&1
 then
-	rm -rf source/debian-live
+	case "${LB_MODE}" in
+		progress-linux)
+			_DIRECTORY="binary/installer"
+			;;
+
+		*)
+			_DIRECTORY="binary/install"
+			;;
+	esac
+
+	rm -f "${_DIRECTORY}/preseed.cfg"
+
+	for _FILE in config/preseed/*.cfg config/preseed/*.cfg.installer chroot/root/packages.installer
+	do
+		if [ -e "${_FILE}" ]
+		then
+			cat "${_FILE}" >> "${_DIRECTORY}/preseed.cfg"
+		fi
+	done
+
+	# Creating stage file
+	Create_stagefile .build/installer_preseed
 fi
-
-# Copy system configuration
-mkdir -p source/debian-live
-cp -a config source/debian-live
-
-if Find_files auto/*
-then
-	cp -a auto source/debian-live
-fi
-
-# Creating stage file
-Create_stagefile .build/source_debian-live
