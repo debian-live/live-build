@@ -55,7 +55,7 @@ Echo_message "Begin installing debian-installer..."
 Require_stagefile .build/config .build/bootstrap
 
 # Checking stage file
-Check_stagefile .build/binary_debian-installer
+Check_stagefile .build/installer_debian-installer
 
 # Checking lock file
 Check_lockfile .lock
@@ -208,7 +208,7 @@ Install_file() {
 
 # Set absolute directory for caching; we require it when we call Download_file
 # from a non-standard cwd.
-_LB_CACHE_DIR="$(pwd)/cache/binary_debian-installer"
+_LB_CACHE_DIR="$(pwd)/cache/installer_debian-installer"
 
 Download_file () {
 	local _LB_TARGET
@@ -611,10 +611,10 @@ then
 
 	for UDEB in ${UDEBS}
 	do
-		if [ -f ../cache/packages.binary_debian-installer.udeb/"$(basename ${UDEB})" ]
+		if [ -f ../cache/packages.installer_debian-installer.udeb/"$(basename ${UDEB})" ]
 		then
 			# Copying cached udebs
-			cp ../cache/packages.binary_debian-installer.udeb/"$(basename ${UDEB})" ./
+			cp ../cache/packages.installer_debian-installer.udeb/"$(basename ${UDEB})" ./
 		else
 			# Downloading udebs
 			if ! ls "$(basename ${UDEB} | awk -F_ '{ print $1 }')"_* > /dev/null 2>&1
@@ -625,9 +625,9 @@ then
 	done
 
 	# Caching udebs
-	rm -rf ../cache/packages.binary_debian-installer.udeb
-	mkdir -p ../cache/packages.binary_debian-installer.udeb
-	cp *.udeb ../cache/packages.binary_debian-installer.udeb
+	rm -rf ../cache/packages.installer_debian-installer.udeb
+	mkdir -p ../cache/packages.installer_debian-installer.udeb
+	cp *.udeb ../cache/packages.installer_debian-installer.udeb
 
 	# Including local udebs
 	if Find_files ../config/packages.binary/*_"${LIVE_IMAGE_ARCHITECTURE}".udeb || Find_files ../config/packages/*_"${LIVE_IMAGE_ARCHITECTURE}".udeb
@@ -879,4 +879,4 @@ Save_cache cache/packages.binary
 Remove_package
 
 # Creating stage file
-Create_stagefile .build/binary_debian-installer
+Create_stagefile .build/installer_debian-installer
