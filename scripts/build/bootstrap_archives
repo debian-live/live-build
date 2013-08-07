@@ -18,7 +18,7 @@ DESCRIPTION="$(Echo 'manage /etc/apt/sources.list')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
-_PASS="${1}"
+_PASS="${1:-binary}"
 shift
 
 Arguments "${@}"
