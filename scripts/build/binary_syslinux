@@ -233,17 +233,14 @@ case "${LB_MODE}" in
 	progress-linux)
 		_PROJECT="Progress Linux"
 
-		if ls config/package-lists/client-gnome.list*
+		if ls config/package-lists/desktop-gnome.list*
 		then
-			_DESCRIPTION="Client GNOME"
-		elif ls config/package-lists/client-lxde.list* > /dev/null 2>&1
-		then
-			_DESCRIPTION="Client LXDE"
+			_DESCRIPTION="Desktop GNOME"
 		elif ls config/package-lists/server-lxc.list* > /dev/null 2>&1
 		then
 			_DESCRIPTION="Server LXC"
 		else
-			_DESCRIPTION="Standard"
+			_DESCRIPTION="Base System"
 		fi
 		;;
 
@@ -251,7 +248,6 @@ case "${LB_MODE}" in
 		_PROJECT="Debian GNU/Linux"
 		_DESCRIPTION=""
 		;;
-
 esac
 
 for _FILE in "${_TARGET}"/*.cfg ${_TARGET}/*.svg
