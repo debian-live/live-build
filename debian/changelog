@@ -1,3 +1,15 @@
+live-build (4.0~a22-1) experimental; urgency=low
+
+  [ Daniel Baumann ]
+  * Updating binary repository prefix for progress-linux.
+  * Updating syslinux flavour detection for progress-linux.
+
+  [ Raphaël Hertzog ]
+  * Ensure xfsprogs and jfsutils are available in the ISO when d-i is
+    used.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 05 Sep 2013 17:30:38 +0200
+
 live-build (4.0~a21-1) experimental; urgency=low
 
   * Breaking out installer integration into an own stage.
