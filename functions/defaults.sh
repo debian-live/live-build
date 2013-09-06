@@ -274,7 +274,15 @@ Set_defaults ()
 			;;
 
 		progress-linux)
-			LB_INITSYSTEM="${LB_INITSYSTEM:-systemd}"
+			case "${LB_DISTRIBUTION}" in
+				chairon*)
+					LB_INITSYSTEM="${LB_INITSYSTEM:-systemd}"
+					;;
+
+				*)
+					LB_INITSYSTEM="${LB_INITSYSTEM:-sysvinit}"
+					;;
+			esac
 			;;
 
 		*)
