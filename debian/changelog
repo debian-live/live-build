@@ -1,3 +1,12 @@
+live-build (4.0~a23-1) experimental; urgency=low
+
+  * Updating cgi templates for current bootstrap version 3.0.0 based theme
+    on live-systems.org.
+  * Updating hardcoded defaults for syslinux splash descriptions for
+    progress-linux.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 06 Sep 2013 18:30:14 +0200
+
 live-build (4.0~a22-1) experimental; urgency=low
 
   [ Daniel Baumann ]
