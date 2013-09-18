@@ -54,7 +54,7 @@ if ls "${_DESTDIR}"/`date -d yesterday +%Y%m%d.%H`* > /dev/null 2>&1
 then
 	rm -rf "${_DESTDIR}"/`date -d yesterday +%Y%m%d.%H`*
 
-	echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build-cgi: remove web build (`date -d yesterday +%Y%m%d.%H`*)." >> /var/log/live
+	echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build-cgi: remove web build (`date -d yesterday +%Y%m%d.%H`*)." >> /var/log/live/live-build
 fi
 
 # Ok from here spin through the live-build-cgi files we have waiting to build
@@ -66,10 +66,10 @@ then
 	. "${_FILE}"
 
 	# Drop out some build data for information if something goes wrong.
-	echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build-cgi: begin web build (${_BUILD})." >> /var/log/live
+	echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build-cgi: begin web build (${_BUILD})." >> /var/log/live/live-build
 
 	# Clone the git config to target build directory
-	git clone ${_LB_GIT} "${_TEMPDIR}"/"${_BUILD}" >> /var/log/live
+	git clone ${_LB_GIT} "${_TEMPDIR}"/"${_BUILD}" >> /var/log/live/live-build
 	_ERRORGIT="${?}"
 
 	# Moving build file to the tempdir and remove from submission area.
@@ -129,10 +129,10 @@ then
 	if [ "${_ERRORGIT}" -eq "0" ] && [ "${_ERRORCONFIG}" -eq "0" ] && [ "${_ERRORBUILD}" -eq "0" ]
 	then
 		_STATUS="maybe-successful"
-		echo "${REMOTE_ADDR} - - `date +[%d/%b/%Y:%H:%m:%S\ %z]` \"${_BUILD} ${LIVE_IMAGE_ARCHITECTURE}/${LB_DISTRIBUTION}/${_LB_CGIPACKAGES}\" 200 - \"-\" \"\"">>/var/log/live-cgi.builds
+		echo "${REMOTE_ADDR} - - `date +[%d/%b/%Y:%H:%m:%S\ %z]` \"${_BUILD} ${LIVE_IMAGE_ARCHITECTURE}/${LB_DISTRIBUTION}/${_LB_CGIPACKAGES}\" 200 - \"-\" \"\"">>/var/log/live/live-build-cgi-status
 	else
 		_STATUS="maybe-failed"
-		echo "${REMOTE_ADDR} - - `date +[%d/%b/%Y:%H:%m:%S\ %z]` \"${_BUILD} ${LIVE_IMAGE_ARCHITECTURE}/${LB_DISTRIBUTION}/${_LB_CGIPACKAGES}\" 404 - \"-\" \"\"">>/var/log/live-cgi.builds
+		echo "${REMOTE_ADDR} - - `date +[%d/%b/%Y:%H:%m:%S\ %z]` \"${_BUILD} ${LIVE_IMAGE_ARCHITECTURE}/${LB_DISTRIBUTION}/${_LB_CGIPACKAGES}\" 404 - \"-\" \"\"">>/var/log/live/live-build-cgi-status
 	fi
 
 	sed -e "s/BUILD/${_BUILD}/g" \
@@ -204,5 +204,5 @@ EOF
 	# Removing build directory
 	rm -rf "${_TEMPDIR}"/"${_BUILD}"
 
-	echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build-cgi: end web build (${_BUILD}: ${_STATUS})." >> /var/log/live
+	echo "`date +%b\ %d\ %H:%M:%S` ${_HOSTNAME} live-build-cgi: end web build (${_BUILD}: ${_STATUS})." >> /var/log/live/live-build
 fi

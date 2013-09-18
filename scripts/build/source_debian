@@ -116,15 +116,19 @@ case "${LB_MODE}" in
 				;;
 
 			*)
-				if grep -qs "-backports" chroot/etc/apt/sources.list.d/progress-linux.list
+				if grep -qs "${LB_DISTRIBUTION}-backports" chroot/etc/apt/sources.list.d/progress-linux.list
 				then
+					cp chroot/etc/apt/sources.list.d/progress-linux.list chroot/etc/apt/sources.list.d/progress-linux.list.orig
+
 					while read _LINE
 					do
 						if echo "${_LINE}" | grep -qs ${LB_DISTRIBUTION}-backports
 						then
 							sed -i -e "s|${_LINE}|#${_LINE}|" chroot/etc/apt/sources.list.d/progress-linux.list
 						fi
-					done < chroot/etc/apt/sources.list.d/progress-linux.list
+					done < chroot/etc/apt/sources.list.d/progress-linux.list.orig
+
+					Apt chroot update
 				fi
 				;;
 		esac
@@ -182,6 +186,14 @@ do
 	# Move files
 	mv chroot/"${SOURCE}"_* source/debian/"${LETTER}"/"${SOURCE}"
 done
+
+# Reverting apt sources again
+if [ -e chroot/etc/apt/sources.list.d/progress-linux.list.orig ]
+then
+	mv chroot/etc/apt/sources.list.d/progress-linux.list.orig chroot/etc/apt/sources.list.d/progress-linux.list
+
+	Apt chroot update
+fi
 
 # Creating stage file
 Create_stagefile .build/source_debian
