@@ -1,3 +1,14 @@
+live-build (4.0~alpha25-1) experimental; urgency=low
+
+  [ Richard Nelson ]
+  * Modify l-b-cgi frontend logging paths.
+
+  [ Daniel Baumann ]
+  * Making workaround for apt-get source actually working in backports-
+    included-but-not-enabled scenarios.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 18 Sep 2013 10:23:16 +0200
+
 live-build (4.0~a24-1) experimental; urgency=low
 
   * Updating initsystem default for progress-linux releases.
