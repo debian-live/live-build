@@ -1,3 +1,16 @@
+live-build (4.0~alpha26-1) experimental; urgency=low
+
+  [ Jan Blunck ]
+  * Remove chroot-only configured apt sources in chroot_archives remove.
+  * Selectively remove chroot-only APT configuration and preferences
+    instead of wiping everything.
+
+  [ Daniel Baumann ]
+  * Removing unused description variable in syslinux configs.
+  * Updating to python 3.3 (Closes: #723702).
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 19 Sep 2013 09:10:12 +0200
+
 live-build (4.0~alpha25-1) experimental; urgency=low
 
   [ Richard Nelson ]
