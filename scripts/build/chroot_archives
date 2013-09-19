@@ -673,9 +673,32 @@ EOF
 			fi
 		fi
 
-		# probably too bold, needs refinment (FIXME)
-		rm -f chroot/etc/apt/conf.d/*
-		rm -f chroot/etc/apt/preferences.d/*
+		# Removing chroot-only apt sources
+		for FILE in config/archives/*.list.chroot
+		do
+			if [ -e "${FILE}" ]
+			then
+				rm -f "chroot/etc/apt/sources.list.d/$(basename ${FILE} .chroot)"
+			fi
+		done
+
+		# Removing chroot-only apt configuration
+		for FILE in config/archives/*.conf.chroot
+		do
+			if [ -e "${FILE}" ]
+			then
+				rm -f "chroot/etc/apt/conf.d/$(basename ${FILE} .chroot)"
+			fi
+		done
+
+		# Removing chroot-only apt preferences
+		for FILE in config/archives/*.pref.chroot
+		do
+			if [ -e "${FILE}" ]
+			then
+				rm -f "chroot/etc/apt/preferences.d/$(basename ${FILE} .chroot)"
+			fi
+		done
 
 		# Adding local apt sources (binary)
 		for FILE in config/archives/*.list config/archives/*.list.binary

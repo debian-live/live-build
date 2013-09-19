@@ -232,24 +232,10 @@ _LIVE_TOOLS_VERSION="$(chroot chroot apt-cache policy live-tools | awk '/Install
 case "${LB_MODE}" in
 	progress-linux)
 		_PROJECT="Progress Linux"
-
-		if ls config/package-lists/base-system.list*
-		then
-			_DESCRIPTION="Base System"
-		elif ls config/package-lists/gnome-desktop.list*
-		then
-			_DESCRIPTION="GNOME Desktop"
-		elif ls config/package-lists/lxc-server.list* > /dev/null 2>&1
-		then
-			_DESCRIPTION="LXC Server"
-		else
-			_DESCRIPTION=""
-		fi
 		;;
 
 	*)
 		_PROJECT="Debian GNU/Linux"
-		_DESCRIPTION=""
 		;;
 esac
 
@@ -266,7 +252,6 @@ do
 			-e "s|@PARENT_DISTRIBUTION@|${LB_PARENT_DISTRIBUTION}|g" \
 			-e "s|@VERSION@|${_VERSION}|g" \
 			-e "s|@ARCHITECTURE@|${_ARCHITECTURE}|g" \
-			-e "s|@DESCRIPTION@|${_DESCRIPTION}|g" \
 			-e "s|@DATE@|${_DATE}|g" \
 			-e "s|@YEAR@|${_YEAR}|g" \
 			-e "s|@MONTH@|${_MONTH}|g" \
