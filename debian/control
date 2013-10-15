@@ -12,7 +12,7 @@ Vcs-Git: git://live-systems.org/git/live-build.git
 Package: live-build
 Architecture: all
 Depends:
- ${misc:Depends}, python3.3, debootstrap | cdebootstrap | cdebootstrap-static
+ ${misc:Depends}, python, debootstrap | cdebootstrap | cdebootstrap-static
 Recommends:
  live-boot-doc, live-config-doc, live-manual-html | live-manual, cpio,
  gnu-fdisk
