@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-## live-build(7) - System Build Scripts
+## live-build(7) - Live Systems Build Components
 ## Copyright (C) 2006-2013 Daniel Baumann <mail@daniel-baumann.ch>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -17,11 +17,11 @@ import subprocess
 import sys
 
 
-# TODO:
-# - lockfile handling
-# - cdebootstrap-options from config
-# - use gettext for i18n
-# - take mirrors from config/archives/debian.{bootstrap,chroot}
+# TODOs:
+#   * lockfile handling
+#   * cdebootstrap-options from config
+#   * use gettext for i18n
+#   * take mirrors from config/archives/debian.{bootstrap,chroot}
 
 def main():
 	## Parsing Arguments
@@ -109,7 +109,8 @@ def main():
 		if verbose:
 			print('I: Copying cache/packages.bootstrap/*.deb to chroot/var/cache/bootstrap/*.deb')
 
-		# Note: copy instead of move to make cache survive incomplete build
+		# Notes:
+		#   * copy instead of move to make cache survive incomplete build
 		os.makedirs('chroot/var/cache/bootstrap', exist_ok=True)
 
 		for package in glob.glob('cache/packages.bootstrap/*.deb'):
@@ -119,9 +120,10 @@ def main():
 		if verbose:
 			print('I: Calling \'/usr/bin/debootstrap --download-only ' + cdebootstrap_options + '\'')
 
-			# Note: calling cdebootstrap twice:
-			#       - to use already downloaded /var/cache/bootstrap/*.deb on incomplete builds
-			#       - to use /var/cache/boottrap/*.deb for debian-installer
+			# Notes:
+			#   * calling cdebootstrap twice:
+			#     - to use already downloaded /var/cache/bootstrap/*.deb on incomplete builds
+			#     - to use /var/cache/boottrap/*.deb for debian-installer
 			cdebootstrap = subprocess.call('/usr/bin/cdebootstrap --download-only ' + cdebootstrap_options, shell=True)
 
 		# package cache
@@ -129,8 +131,9 @@ def main():
 			if verbose:
 				print('I: Copying chroot/var/cache/bootstrap/*.deb to cache/packages.bootstrap')
 
-			# Notes: - remove first to keep cache minimal
-			#        - remove files instead of directory to work with symlinked directory
+			# Notes:
+			#   * remove first to keep cache minimal
+			#   * remove files instead of directory to work with symlinked directory
 			for package in glob.glob('cache/packages.bootstrap/*.deb'):
 				os.remove(package)
 
