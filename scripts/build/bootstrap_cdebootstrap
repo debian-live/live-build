@@ -18,9 +18,10 @@ import sys
 
 
 # TODOs:
+#   * logfile output
 #   * lockfile handling
-#   * cdebootstrap-options from config
 #   * use gettext for i18n
+#   * cdebootstrap-options from config
 #   * take mirrors from config/archives/debian.{bootstrap,chroot}
 
 def main():
