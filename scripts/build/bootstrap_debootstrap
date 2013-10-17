@@ -31,7 +31,7 @@ def main():
 		description     = '''live-build contains the programs to build a live system from a configuration directory.
 		                     The lb bootstrap_debootstrap program bootstraps the chroot system with debootstrap.''',
 		epilog          = 'See \'man lb_bootstrap_debootstrap\' for more information.',
-		version         = 'live-build 4.0',
+		version         = 'live-build 4',
 		formatter_class = argparse.ArgumentDefaultsHelpFormatter
 	)
 
