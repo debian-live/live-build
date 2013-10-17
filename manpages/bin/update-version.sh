@@ -1,6 +1,6 @@
 #!/bin/sh
 
-## live-build(7) - System Build Scripts
+## live-build(7) - Live System Build Components
 ## Copyright (C) 2006-2013 Daniel Baumann <mail@daniel-baumann.ch>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
