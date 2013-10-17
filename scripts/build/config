@@ -1364,10 +1364,13 @@ then
 	rmdir --ignore-fail-on-non-empty local > /dev/null 2>&1 || true
 fi
 
-# New style configuration
-Echo_warning "WARNING: THIS VERSION OF LIVE-BUILD IS EXPERIMENTAL!"
-Echo_warning "IT IS UNFINISHED AND CHANGES HEAVILY WITHOUT PRIOR NOTICE."
-Echo_warning "USER DISCRETION IS ADVISED."
+if echo "${VERSION}" | grep -qs "alpha"
+then
+	# live-build alpha version
+	Echo_warning "WARNING: THIS VERSION OF LIVE-BUILD IS EXPERIMENTAL!"
+	Echo_warning "IT IS UNFINISHED AND CHANGES HEAVILY WITHOUT PRIOR NOTICE."
+	Echo_warning "USER DISCRETION IS ADVISED."
+fi
 
 cat > config/build << EOF
 [Image]
