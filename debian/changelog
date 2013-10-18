@@ -1,3 +1,26 @@
+live-build (4.0~alpha27-1) experimental; urgency=low
+
+  * Updating package descriptions.
+  * Replacing s390 with s390x in architecture specific defaults.
+  * Adding bootstrap hooks.
+  * Depending on python only for the time being, rather than python3.3.
+  * Rewrapping control file.
+  * Moving /selinux to /sys/fs/selinux to accomodate newer selinux in
+    debian.
+  * Making warning about alpha version of live-build in lb_config
+    conditional on the internal version.
+  * Using 4 instead of 4.0 for unreleased 4.x versions as version number
+    in python stubs.
+  * Updating German manpage translations.
+  * Harmonize comments in python stubs.
+  * Calling parted with optimal aligning.
+  * Sorting todo items in python stubs.
+  * Updating descriptions in python stubs.
+  * Adding note about outdated/unsupported versions in general develop-
+    ment-version warning message.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 18 Oct 2013 09:48:31 +0200
+
 live-build (4.0~alpha26-1) experimental; urgency=low
 
   [ Jan Blunck ]
