@@ -55,6 +55,7 @@ lb chroot_apt install ${@}
 
 lb bootstrap_archive-keys ${@}
 lb bootstrap_archives binary ${@}
+lb bootstrap_hooks ${@}
 
 # Deconfiguring chroot
 lb chroot_apt remove ${@}

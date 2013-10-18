@@ -627,7 +627,7 @@ Set_defaults ()
 			esac
 			;;
 
-		s390)
+		s390x)
 			case "${LB_MODE}" in
 				progress-linux|ubuntu)
 					Echo_error "Architecture ${LIVE_IMAGE_ARCHITECTURE} not supported in the ${LB_MODE} mode."
@@ -635,7 +635,7 @@ Set_defaults ()
 					;;
 
 				*)
-					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-s390}"
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-s390x}"
 					;;
 			esac
 			;;

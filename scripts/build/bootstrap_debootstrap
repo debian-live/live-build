@@ -1,6 +1,6 @@
-#!/usr/bin/python3.3
+#!/usr/bin/python
 
-## live-build(7) - System Build Scripts
+## live-build(7) - Live System Build Components
 ## Copyright (C) 2006-2013 Daniel Baumann <mail@daniel-baumann.ch>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -18,20 +18,21 @@ import sys
 
 
 # TODO:
-# - lockfile handling
-# - debootstrap-options from config
-# - use gettext for i18n
-# - take mirrors from config/archives/debian.{bootstrap,chroot}
+#   * logfile output
+#   * lockfile handling
+#   * use gettext for i18n
+#   * debootstrap-options from config
+#   * take mirrors from config/archives/debian.{bootstrap,chroot}
 
 def main():
 	## Parsing Arguments
 	arguments = argparse.ArgumentParser(
 		prog            = 'lb bootstrap_debootstrap',
 		usage           = '%(prog)s [arguments]',
-		description     = '''live-build contains the programs to build a live system from a configuration directory.
-		                     The lb bootstrap_debootstrap program bootstraps the chroot system with debootstrap.''',
+		description     = '''live-build contains the components to build a live system from a configuration directory.
+		                     The bootstrap_debootstrap command bootstraps the chroot system with debootstrap.''',
 		epilog          = 'See \'man lb_bootstrap_debootstrap\' for more information.',
-		version         = 'live-build 4.0',
+		version         = 'live-build 4',
 		formatter_class = argparse.ArgumentDefaultsHelpFormatter
 	)
 
@@ -114,7 +115,8 @@ def main():
 		if verbose:
 			print('I: Copying cache/packages.bootstrap/*.deb to chroot/var/cache/apt/archives/*.deb')
 
-		# Note: copy instead of move to make cache survive incomplete build
+		# Notes:
+		#   * copy instead of move to make cache survive incomplete build
 		os.makedirs('chroot/var/cache/apt/archives', exist_ok=True)
 
 		for package in glob.glob('cache/packages.bootstrap/*.deb'):
@@ -132,14 +134,16 @@ def main():
 		if verbose:
 			print('I: Copying chroot/var/cache/apt/archives/*.deb to cache/packages.bootstrap')
 
-		# Note: remove first to keep cache minimal,
-		#       remove files instead of directory to work with symlinked directory
+		# Notes:
+		#   * remove first to keep cache minimal,
+		#   * remove files instead of directory to work with symlinked directory
 		for package in glob.glob('cache/packages.bootstrap/*.deb'):
 			os.remove(package)
 
 		os.makedirs('cache/packages.bootstrap', exist_ok=True)
 
-		# Note: move instead of copy to keep stage minimal
+		# Notes:
+		#   * move instead of copy to keep stage minimal
 		for package in glob.glob('chroot/var/cache/apt/archives/*.deb'):
 			shutil.move(package, 'cache/packages.bootstrap')
 

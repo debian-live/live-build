@@ -14,7 +14,7 @@ set -e
 [ -e "${LIVE_BUILD}/scripts/build.sh" ] && . "${LIVE_BUILD}/scripts/build.sh" || . /usr/lib/live/build.sh
 
 # Setting static variables
-DESCRIPTION="$(Echo 'mount /selinux')"
+DESCRIPTION="$(Echo 'mount /sys/fs/selinux')"
 HELP=""
 USAGE="${PROGRAM} {install|remove} [--force]"
 
@@ -32,9 +32,9 @@ Require_stagefile .build/config .build/bootstrap
 
 case "${1}" in
 	install)
-		if [ -e /selinux/enforce ] && [ "$(cat /selinux/enforce)" = "1" ]
+		if [ -e /sys/fs/selinux/enforce ] && [ "$(cat /sys/fs/selinux/enforce)" = "1" ]
 		then
-			Echo_message "Begin mounting /selinux..."
+			Echo_message "Begin mounting /sys/fs/selinux..."
 
 			# Checking stage file
 			Check_stagefile .build/chroot_selinuxfs
@@ -46,10 +46,10 @@ case "${1}" in
 			Create_lockfile .lock
 
 			# Create mountpoint
-			mkdir -p chroot/selinux
+			mkdir -p chroot/sys/fs/selinux
 
-			# Mounting /selinux
-			mount selinuxfs-live -t selinuxfs chroot/selinux
+			# Mounting /sys/fs/selinux
+			mount selinuxfs-live -t selinuxfs chroot/sys/fs/selinux
 
 			# Creating stage file
 			Create_stagefile .build/chroot_selinuxfs
@@ -57,7 +57,7 @@ case "${1}" in
 		;;
 
 	remove)
-		Echo_message "Begin unmounting /selinux..."
+		Echo_message "Begin unmounting /sys/fs/selinux..."
 
 		# Checking lock file
 		Check_lockfile .lock
@@ -65,10 +65,10 @@ case "${1}" in
 		# Creating lock file
 		Create_lockfile .lock
 
-		# Unmounting /selinux
-		if [ -e chroot/selinux/enforce ]
+		# Unmounting /sys/fs/selinux
+		if [ -e chroot/sys/fs/selinux/enforce ]
 		then
-			umount chroot/selinux
+			umount chroot/sys/fs/selinux
 		fi
 
 		# Removing stage file
