@@ -13,7 +13,7 @@ Package: live-build
 Architecture: all
 Depends:
  ${misc:Depends},
- python,
+ python3,
  debootstrap | cdebootstrap | cdebootstrap-static,
 Recommends:
  live-boot-doc,
