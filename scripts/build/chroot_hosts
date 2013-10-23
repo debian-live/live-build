@@ -83,8 +83,7 @@ EOF
 			# Restore hosts file
 			mv chroot/etc/hosts.orig chroot/etc/hosts
 		else
-			# Blank out hosts file, don't remove in case
-			# its a symlink, as in the case of exposedroot mode
+			# Blank out hosts file, don't remove in case its a symlink
 			Truncate chroot/etc/hosts
 		fi
 

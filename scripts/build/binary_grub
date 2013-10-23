@@ -175,11 +175,6 @@ then
 	exit 1
 fi
 
-if [ "${LB_EXPOSED_ROOT}" != "false" ]
-then
-	LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} exposedroot"
-fi
-
 LB_BOOTAPPEND_LIVE="$(echo ${LB_BOOTAPPEND_LIVE} | sed -e 's|  ||')"
 
 # Assembling kernel configuration

@@ -118,7 +118,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--templates PATH]\n\
 \t    [--updates true|false]\n\
 \t    [--backports true|false]\n\
-\t    [--exposed-root true|false]\n\
 \t    [--verbose]\n\
 \t    [--loadlin true|false]\n\
 \t    [--win32-loader true|false]\n\
@@ -138,7 +137,7 @@ Local_arguments ()
 		parent-mirror-binary-security:,parent-mirror-debian-installer:,
 		mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,
 		mirror-binary-security:,mirror-debian-installer:,
-		archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,
+		archive-areas:,parent-archive-areas:,chroot-filesystem:,
 		gzip-options:,hooks:,image-name:,interactive:,keyring-packages:,linux-flavours:,linux-packages:,
 		security:,updates:,backports:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootappend-live-failsafe:,bootloader:,checksums:,compression:,config:,zsync:,build-with-chroot:,
@@ -436,11 +435,6 @@ Local_arguments ()
 			# config/chroot
 			--chroot-filesystem)
 				LB_CHROOT_FILESYSTEM="${2}"
-				shift 2
-				;;
-
-			--exposed-root)
-				LB_EXPOSED_ROOT="${2}"
 				shift 2
 				;;
 
@@ -1132,10 +1126,6 @@ LB_CHROOT_FILESYSTEM="${LB_CHROOT_FILESYSTEM}"
 # \$LB_UNION_FILESYSTEM: set union filesystem
 # (Default: ${LB_UNION_FILESYSTEM})
 LB_UNION_FILESYSTEM="${LB_UNION_FILESYSTEM}"
-
-# \$LB_EXPOSED_ROOT: expose root as read only
-# (Default: ${LB_EXPOSED_ROOT})
-LB_EXPOSED_ROOT="${LB_EXPOSED_ROOT}"
 
 # \$LB_HOOKS: set hook commands
 # (Default: empty)

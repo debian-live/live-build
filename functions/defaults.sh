@@ -498,9 +498,6 @@ Set_defaults ()
 	# Setting chroot filesystem
 	LB_CHROOT_FILESYSTEM="${LB_CHROOT_FILESYSTEM:-squashfs}"
 
-	# Setting whether to expose root filesystem as read only
-	LB_EXPOSED_ROOT="${LB_EXPOSED_ROOT:-false}"
-
 	# Setting union filesystem
 	LB_UNION_FILESYSTEM="${LB_UNION_FILESYSTEM:-aufs}"
 
