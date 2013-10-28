@@ -105,7 +105,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 
 		if ls "${_SOURCE}"/*.svg* > /dev/null 2>&1
 		then
-			Check_package chroot/usr/bin/rsvg librsvg2-bin
+			Check_package chroot/usr/bin/rsvg-convert librsvg2-bin
 		fi
 		;;
 
@@ -126,10 +126,10 @@ case "${LB_BUILD_WITH_CHROOT}" in
 
 		if ls "${_SOURCE}"/*.svg* > /dev/null 2>&1
 		then
-			if [ ! -e /usr/bin/rsvg ]
+			if [ ! -e /usr/bin/rsvg-convert ]
 			then
 				# librsvg2-bin
-				Echo_error "/usr/bin/rsvg - no such file"
+				Echo_error "/usr/bin/rsvg-convert - no such file"
 				exit 1
 			fi
 		fi
@@ -273,13 +273,13 @@ then
 	case "${LB_BUILD_WITH_CHROOT}" in
 		true)
 			cp "${_TARGET}/splash.svg" chroot
-			Chroot chroot "rsvg --format png --height 480 --width 640 splash.svg splash.png"
+			Chroot chroot "rsvg-convert --format png --height 480 --width 640 splash.svg -o splash.png"
 			mv chroot/splash.png "${_TARGET}"
 			rm -f chroot/splash.svg
 			;;
 
 		false)
-			rsvg --format png --height 480 --width 640 "${_TARGET}/splash.svg" "${_TARGET}/splash.png"
+			rsvg-convert --format png --height 480 --width 640 "${_TARGET}/splash.svg" -o "${_TARGET}/splash.png"
 			;;
 	esac
 
