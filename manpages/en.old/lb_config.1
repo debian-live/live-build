@@ -217,8 +217,6 @@
 .br
 	[\fB\-\-backports\fR true|false]
 .br
-	[\fB\-\-exposed\-root\fR true|false]
-.br
 	[\fB\-\-verbose\fR]
 .br
 	[\fB\-\-win32\-loader true|false]
@@ -454,8 +452,6 @@ defines what size the hdd image should be. Note that although the default is set
 defines if debian updates package archives should be included in the image or not.
 .IP "\fB\-\-backports\fR true|false" 4
 defines if debian backports package archives should be included in the image or not.
-.IP "\fB\-\-exposed\-root\fR true|false" 4
-defines whether to expose the root filesystem as read only and not covered by the union filesystem. This has useful implications for certain speciality setups such as LTSP. By default, this option is false.
 .IP "\fB\-\-verbose\fR" 4
 increases the verbosity of messages output by \fBlb build\fR.
 .IP "\fB\-\-win32\-loader true|false" 4

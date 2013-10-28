@@ -47,7 +47,7 @@ case "${1}" in
 		mkdir -p chroot/dev/pts
 
 		# Mounting /dev/pts
-		mount devpts-live -t devpts chroot/dev/pts || true
+		mount devpts-live -t devpts -o gid=5,mode=620 chroot/dev/pts || true
 
 		# Creating stage file
 		Create_stagefile .build/chroot_devpts

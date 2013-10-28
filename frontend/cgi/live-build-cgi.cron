@@ -154,18 +154,10 @@ EOF
 
 	cat "${_TEMPDIR}"/"${_BUILD}"/"${_BUILD}".build >> "${_DESTDIR}"/"${_BUILD}"/mail
 
-	# Moving binary image
-	#if ls "${_TEMPDIR}"/"${_BUILD}"/binary*.* > /dev/null 2>&1
-	if Find_files ${_BUILD_PATH}/binary*.*
+	# Moving live-image-* files
+	if Find_files ${_BUILD_PATH}/live-image-*
 	then
-		mv "${_BUILD_PATH}"/binary*.* "${_DESTDIR}"/"${_BUILD}"
-	fi
-
-	# Moving source image
-	#if ls "${_TEMPDIR}"/"${_BUILD}"/source.* > /dev/null 2>&1
-	if Find_files ${_BUILD_PATH}/source.*
-	then
-		mv "${_BUILD_PATH}"/source.* "${_DESTDIR}"/"${_BUILD}"
+		mv "${_BUILD_PATH}"/live-image-* "${_DESTDIR}"/"${_BUILD}"
 	fi
 
 	# Moving build

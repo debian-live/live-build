@@ -126,47 +126,6 @@ then
 	touch chroot/etc/fstab
 fi
 
-if [ "${LB_EXPOSED_ROOT}" = "true" ]
-then
-	# Make sure RW dirs exist so that the initramfs script has
-	# a directory in which to bind the tmpfs filesystems
-	COW_DIRECTORIES="/home /live /tmp /var/lib/live /var/lock /var/log /var/run /var/tmp /var/spool"
-
-	for DIRECTORY in ${COW_DIRECTORIES}
-	do
-		mkdir -p chroot/"${DIRECTORY}"
-	done
-
-	# Config files which need to be RW
-	COW_FILES="/etc/adjtime /etc/fstab /etc/hostname /etc/hosts /etc/live.conf /etc/network/interfaces /etc/resolv.conf /etc/udev/rules.d/*persistent-net.rules /etc/udev/rules.d/*persistent-cd.rules /etc/X11/xorg.conf"
-
-	# Where we will store RW config files
-	RW_DIRECTORY="/var/lib/live"
-
-	for FILE in ${COW_FILES}
-	do
-		DIRECTORY="$(dirname ${FILE})"
-		FILE="$(basename ${FILE})"
-		RELATIVE_PATH="$(echo ${DIRECTORY} | sed 's|[^/]\+|..|g; s|^/||g')"
-
-		# Touch files in case they don't yet exist
-		mkdir -p chroot/${DIRECTORY}
-		touch chroot/${DIRECTORY}/${FILE}
-
-		# Move files to the read-write directory
-		mkdir -p chroot/${RW_DIRECTORY}/${DIRECTORY}
-		mv chroot/${DIRECTORY}/${FILE} chroot/${RW_DIRECTORY}/${DIRECTORY}
-
-		# Create a symbolic link to RW config file
-		ln -s ${RELATIVE_PATH}/${RW_DIRECTORY}/${DIRECTORY}/${FILE} chroot/${DIRECTORY}/${FILE}
-	done
-
-	# Mount doesn't write to a symlink so use /proc/mounts instead,
-	# see debian bug #154438 for more info
-	rm -f chroot/etc/mtab
-	ln -s /proc/mounts chroot/etc/mtab
-fi
-
 if [ "${LB_SWAP_FILE_PATH}" ]; then
 	dd if=/dev/zero of="chroot/${LB_SWAP_FILE_PATH}" bs=1024k count="${LB_SWAP_FILE_SIZE}"
 	mkswap "chroot/${LB_SWAP_FILE_PATH}"
