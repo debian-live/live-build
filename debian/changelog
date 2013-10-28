@@ -1,3 +1,23 @@
+live-build (4.0~alpha28-1) experimental; urgency=low
+
+  [ Daniel Baumann ]
+  * Depending on python3, thanks to Richard Nelson <unixabg@gmail.com>
+    (Closes: #726806)
+
+  [ Richard Nelson ]
+  * Updating files to copy for finished build on l-b-cgi frontend and the
+    4.x branch.
+
+  [ Daniel Baumann ]
+  * Dropping incomplete and not really supported exposed root mode.
+  * Weakening mode on pts for compliance with eglibc 2.18 within
+    containers during build.
+  * Updating rsvg calls in binary_syslinux for newer versions of
+    librsvg2-bin, thanks to Roberto Carlos Morano <rcmorano@emergya.com>
+    (Closes: #728030).
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 28 Oct 2013 08:35:53 +0100
+
 live-build (4.0~alpha27-1) experimental; urgency=low
 
   * Updating package descriptions.
