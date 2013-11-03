@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/usr/bin/python3
 
-## live-build(7) - System Build Scripts
+## live-build(7) - Live System Build Components
 ## Copyright (C) 2006-2013 Daniel Baumann <mail@daniel-baumann.ch>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -8,108 +8,101 @@
 ## under certain conditions; see COPYING for details.
 
 
-set -e
+import argparse
+import configparser
+import glob
+import os
+import shutil
+import subprocess
+import sys
 
-# Including common functions
-[ -e "${LIVE_BUILD}/scripts/build.sh" ] && . "${LIVE_BUILD}/scripts/build.sh" || . /usr/lib/live/build.sh
 
-# Setting static variables
-DESCRIPTION="$(Echo 'execute hooks in chroot')"
-HELP=""
-USAGE="${PROGRAM} [--force]"
+# TODO:
+#   * logfile output
+#   * lockfile handling
+#   * use gettext for i18n
 
-Arguments "${@}"
+def main():
+	## Parsing Arguments
+	arguments = argparse.ArgumentParser(
+		prog            = 'lb chroot_hooks',
+		usage           = '%(prog)s [arguments]',
+		description     = '''live-build contains the components to build a live system from a configuration directory.
+		                     The chroot_hooks command executes hooks after the chroot stage.''',
+		epilog          = 'See \'man lb_chroot_hooks\' for more information.',
+		version         = 'live-build 4',
+		formatter_class = argparse.ArgumentDefaultsHelpFormatter
+	)
 
-# Reading configuration files
-Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
-Set_defaults
+	arguments.add_argument('--verbose',     help='set verbose option',         action='store_true')
 
-Echo_message "Begin executing hooks..."
+	args = arguments.parse_args()
 
-# Requiring stage file
-Require_stagefile .build/config .build/bootstrap
+	# --verbose
+	verbose = args.verbose
 
-# Checking stage file
-Check_stagefile .build/chroot_hooks
+	## Executing hooks
 
-# Checking lock file
-Check_lockfile .lock
+	# stagefile
+	if os.path.isfile('.build/chroot_hooks'):
+		if verbose:
+			print('I: chroot_hooks already done - nothing to do')
 
-# Creating lock file
-Create_lockfile .lock
+		sys.exit(0)
 
-## Processing distribution hooks
+	# dependencies
+	if not os.path.isfile('.build/bootstrap'):
+		print('E: bootstrap stage missing - aborting', file=sys.stderr)
 
-# Make build config available to chroot hooks. First, make the bind
-# mount and then make it read-only. This can't happen in one mount
-# command, then the resulting mount will be rw (see mount(8)). Making it
-# ro prevents modifications and prevents accidentally removing the
-# contents of the config directory when removing the chroot.
-mkdir -p chroot/root/config
-mount -o bind config chroot/root/config
-mount -o remount,ro,bind config chroot/root/config
+		if verbose:
+			print('I: use \'lb bootstrap\' to bootstrap system')
 
-# Copying hooks
-for _HOOK in ${LB_CHROOT_HOOKS}
-do
-	for LOCATION in "${LIVE_BUILD}/hooks" /usr/share/live/build/hooks
-	do
-		for FILE in "${LOCATION}"/????-"${_HOOK}".chroot
-		do
-			if [ -e "${FILE}" ]
-			then
-				mkdir -p chroot/root/lb_chroot_hooks
-				cp "${FILE}" chroot/root/lb_chroot_hooks
-			fi
-		done
-	done
-done
+		sys.exit(1)
 
-# Running hooks
-if ls chroot/root/lb_chroot_hooks/* > /dev/null 2>&1
-then
-	for _HOOK in chroot/root/lb_chroot_hooks/*
-	do
-		Chroot chroot "/root/lb_chroot_hooks/$(basename ${_HOOK})" || { Echo_error "${_HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
-		rm -f chroot/root/lb_chroot_hooks/"$(basename ${_HOOK})"
-	done
+	# hooks
+	if not glob.glob('config/hooks/*.hook') and not glob.glob('config/hooks/*.hook.chroot'):
+		if verbose:
+			print ('I: no chroot hooks found at config/hooks/*.hook{,.chroot} - nothing to do')
 
-	rmdir chroot/root/lb_chroot_hooks
-fi
+		sys.exit(0)
 
-## Processing local hooks
+	# bind mount configuration directory
+	if verbose:
+		print('I: Mounting config to chroot/live-build/config')
 
-if Find_files config/hooks/*.chroot
-then
-	# Restoring cache
-	Restore_cache cache/packages.chroot
+	os.makedirs('chroot/live-build/config', exist_ok=True)
 
-	for _HOOK in config/hooks/*.chroot
-	do
-		# Copying hook
-		cp "${_HOOK}" chroot/root
+	mount = subprocess.call('mount -o bind config chroot/live-build/config', shell=True)
+	remount = subprocess.call('mount -o remount,ro,bind chroot/live-build/config', shell=True)
 
-		# Making hook executable
-		if [ ! -x chroot/root/"$(basename ${_HOOK})" ]
-		then
-			chmod +x chroot/root/"$(basename ${_HOOK})"
-		fi
+	# process hooks
+	os.makedirs('chroot/live-build', exist_ok=True)
 
-		# Executing hook
-		Chroot chroot "/root/$(basename ${_HOOK})" || { Echo_error "${_HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
+	hooks = glob.glob('config/hooks/*.hook') + glob.glob('config/hooks/*.hook.chroot')
 
-		# Removing hook
-		rm -f chroot/root/"$(basename ${_HOOK})"
-	done
+	for hook in hooks:
+		if verbose:
+			print('I: Copying config/hooks/*.hook.chroot to chroot/live-build')
 
-	# Saving cache
-	Save_cache cache/packages.chroot
+		os.link(hook, os.path.join('chroot/live-build/' + os.path.basename(hook)), follow_symlinks=True)
 
-	# Creating stage file
-	Create_stagefile .build/chroot_hooks
-fi
+		if verbose:
+			print('I: Executing \' ' + hook + '\'')
 
-# Remove bind mount of build config inside chroot.
-umount chroot/root/config
-rmdir chroot/root/config
+		os.chmod(hook, 0o755)
+		exec_hook = subprocess.call('chroot chroot /live-build/' + os.path.basename(hook), shell=True)
+		os.remove('chroot/live-build/' + os.path.basename(hook))
 
+	# unmount coniguration directory
+	umount = subprocess.call('umount chroot/live-build/config', shell=True)
+
+	os.rmdir('chroot/live-build/config')
+	os.rmdir('chroot/live-build')
+
+	## stagefile
+	os.makedirs('.build', exist_ok=True)
+	open('.build/chroot_hooks', 'w').close()
+
+
+if __name__ == '__main__':
+	main()
