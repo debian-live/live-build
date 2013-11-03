@@ -60,9 +60,9 @@ def main():
 		sys.exit(1)
 
 	# hooks
-	if not glob.glob('config/hooks/*.hook.bootstrap'):
+	if not glob.glob('config/hooks/*.hook') and not glob.glob('config/hooks/*.hook.bootstrap'):
 		if verbose:
-			print ('I: no bootstrap hooks found at config/hooks/*.hook.bootstrap - nothing to do')
+			print ('I: no bootstrap hooks found at config/hooks/*.hook{,.bootstrap} - nothing to do')
 
 		sys.exit(0)
 
@@ -78,7 +78,9 @@ def main():
 	# process hooks
 	os.makedirs('chroot/live-build', exist_ok=True)
 
-	for hook in glob.glob('config/hooks/*.hook.bootstrap'):
+	hooks = glob.glob('config/hooks/*.hook') + glob.glob('config/hooks/*.hook.bootstrap')
+
+	for hook in hooks:
 		if verbose:
 			print('I: Copying config/hooks/*.hook.bootstrap to chroot/live-build')
 
