@@ -61,7 +61,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--force]\n\
 \t    [--grub-splash FILE]\n\
 \t    [--gzip-options OPTION|\"OPTIONS\"]\n\
-\t    [--hooks FILE]\n\
 \t    [--ignore-system-defaults]\n\
 \t    [--initramfs auto|none|live-boot|casper]\n\
 \t    [--initramfs-compression bzip2|gzip|lzma]\n\
@@ -138,7 +137,7 @@ Local_arguments ()
 		mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,
 		mirror-binary-security:,mirror-debian-installer:,
 		archive-areas:,parent-archive-areas:,chroot-filesystem:,
-		gzip-options:,hooks:,image-name:,interactive:,keyring-packages:,linux-flavours:,linux-packages:,
+		gzip-options:,image-name:,interactive:,keyring-packages:,linux-flavours:,linux-packages:,
 		security:,updates:,backports:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootappend-live-failsafe:,bootloader:,checksums:,compression:,config:,zsync:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
@@ -440,11 +439,6 @@ Local_arguments ()
 
 			--gzip-options)
 				GZIP_OPTIONS="${2}"
-				shift 2
-				;;
-
-			--hooks)
-				LB_HOOKS="${2}"
 				shift 2
 				;;
 
@@ -1127,10 +1121,6 @@ LB_CHROOT_FILESYSTEM="${LB_CHROOT_FILESYSTEM}"
 # (Default: ${LB_UNION_FILESYSTEM})
 LB_UNION_FILESYSTEM="${LB_UNION_FILESYSTEM}"
 
-# \$LB_HOOKS: set hook commands
-# (Default: empty)
-LB_HOOKS="${LB_HOOKS}"
-
 # \$LB_INTERACTIVE: set interactive build
 # (Default: ${LB_INTERACTIVE})
 LB_INTERACTIVE="${LB_INTERACTIVE}"
@@ -1366,6 +1356,14 @@ then
 	Echo_warning ""
 	Echo_warning "Make sure you are using the newest version at all times."
 fi
+
+for _HOOK in "${LIVE_BUILD}"/share/hooks/*.hook* /usr/share/live/build/hooks/*.hook*
+do
+	if [ -e "${_HOOK}" ] && [ ! -e "config/hooks/$(basename ${_HOOK})" ]
+	then
+		ln -s "${_HOOK}" "config/hooks/$(basename ${_HOOK})"
+	fi
+done
 
 cat > config/build << EOF
 [Image]
