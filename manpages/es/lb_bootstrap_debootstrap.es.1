@@ -11,10 +11,10 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 28.10.2013 4.0~alpha27\-1 "Proyecto Live Systems"
+.TH LIVE\-BUILD 1 03.11.2013 4.0~alpha27\-1 "Proyecto Live Systems"
 
 .SH NOMBRE
-\fBlive\-build\fP \- Scripts de Creación del Sistema
+\fBlive\-build\fP \- Live System Build Components
 
 .SH SINOPSIS
 \fBlb bootstrap_debootstrap\fP [\-\-debootstrap\-options=\fIOPCIONES_DEBOOTSTRAP\fP]
@@ -25,18 +25,18 @@
 \fBlb bootstrap_debootstrap\fP [\-\-version]
 .
 .SH DESCRIPCIÓN
-live\-build contiene los programas para construir un sistema en vivo a partir
-de un directorio de configuración.
+live\-build contains the components to build a live system from a
+configuration directory.
 .PP
-El programa \fBlb bootstrap_debootstrap\fP preinstala el chroot del sistema con
-debootstrap(8).
+The \fBlb bootstrap_debootstrap\fP command bootstraps the chroot system with
+\fIdebootstrap\fP(8).
 
 .SH OPCIONES
 .IP \-\-debootstrap\-options=\fIOPCIONES_DEBOOTSTRAP\fP 4
-establece las opciones de debootstrap(8) (por defecto: Ninguna), ver
+establece las opciones de \fIdebootstrap\fP(8) (por defecto: Ninguna), ver
 \fIdebootstrap\fP(8) para más información acerca de debootstrap.
 .IP \-\-verbose 4
-establece la opción verbose (por defecto: False)
+establece la opción verbose (por defecto: False).
 .IP "\-h, \-\-help" 4
 muestra el mensaje de ayuda y sale.
 .IP "\-v, \-\-version" 4
