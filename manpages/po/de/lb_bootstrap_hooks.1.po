@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build 4.0~alpha28-1\n"
-"POT-Creation-Date: 2013-11-03 19:51+0100\n"
+"POT-Creation-Date: 2013-11-03 20:50+0100\n"
 "PO-Revision-Date: 2010-05-24 09:59+0300\n"
 "Last-Translator: Daniel Baumann <mail@daniel-baumann.ch>\n"
 "Language-Team: none\n"
@@ -141,30 +141,11 @@ msgid "B<config/build>"
 msgstr "B<config/build>"
 
 #. type: IP
-#: en/lb_bootstrap_cdebootstrap.1:38 en/lb_bootstrap_debootstrap.1:38
-#, no-wrap
-msgid "B<cache/bootstrap>"
-msgstr "B<cache/bootstrap>"
-
-#. type: IP
-#: en/lb_bootstrap_cdebootstrap.1:39 en/lb_bootstrap_debootstrap.1:39
-#, no-wrap
-msgid "B<cache/packages.bootstrap>"
-msgstr "B<cache/packages.bootstrap>"
-
-#. type: IP
 #: en/lb_bootstrap_cdebootstrap.1:40 en/lb_bootstrap_debootstrap.1:40
-#: en/lb_bootstrap_hooks.1:37
+#: en/lb_bootstrap_hooks.1:38
 #, no-wrap
 msgid "B<chroot>"
 msgstr "B<chroot>"
-
-#. type: IP
-#: en/lb_bootstrap_cdebootstrap.1:41 en/lb_bootstrap_debootstrap.1:41
-#: en/lb_bootstrap_hooks.1:38
-#, no-wrap
-msgid "B<.build/bootstrap>"
-msgstr "B<.build/bootstrap>"
 
 #. type: SH
 #: en/lb_bootstrap_cdebootstrap.1:43 en/lb_bootstrap_debootstrap.1:43
@@ -233,49 +214,35 @@ msgstr ""
 "geschrieben."
 
 #. type: Plain text
-#: en/lb_bootstrap_debootstrap.1:16
+#: en/lb_bootstrap_hooks.1:16
+msgid "B<lb bootstrap_hooks> [--verbose]"
+msgstr "B<lb bootstrap_hooks> [--verbose]"
+
+#. type: Plain text
+#: en/lb_bootstrap_hooks.1:18
+msgid "B<lb bootstrap_hooks> [--help]"
+msgstr "B<lb bootstrap_hooks> [--help]"
+
+#. type: Plain text
+#: en/lb_bootstrap_hooks.1:20
+msgid "B<lb bootstrap_hooks> [--version]"
+msgstr "B<lb bootstrap_hooks> [--version]"
+
+#. type: Plain text
+#: en/lb_bootstrap_hooks.1:25
 msgid ""
-"B<lb bootstrap_debootstrap> [--debootstrap-options=I<DEBOOTSTRAP_OPTIONS>] "
-"[--verbose]"
+"The B<lb bootstrap_hooks> command executes hooks after the bootstrap stage."
 msgstr ""
-"B<lb bootstrap_debootstrap> [--debootstrap-options=I<DEBOOTSTRAP_OPTIONEN>] "
-"[--verbose]"
-
-#. type: Plain text
-#: en/lb_bootstrap_debootstrap.1:18
-msgid "B<lb bootstrap_debootstrap> [--help]"
-msgstr "B<lb bootstrap_debootstrap> [--help]"
-
-#. type: Plain text
-#: en/lb_bootstrap_debootstrap.1:20
-msgid "B<lb bootstrap_debootstrap> [--version]"
-msgstr "B<lb bootstrap_debootstrap> [--version]"
-
-#. type: Plain text
-#: en/lb_bootstrap_debootstrap.1:25
-msgid ""
-"The B<lb bootstrap_debootstrap> command bootstraps the chroot system with "
-"I<debootstrap>(8)."
-msgstr ""
-"Der B<lb bootstrap_debootstrap> Befehl erstellt das Chroot System mit "
-"I<debootstrap>(8)."
+"Der B<lb bootstrap_hooks> Befehl führt Hooks nach dem Bootstrap Stage aus."
 
 #. type: IP
-#: en/lb_bootstrap_debootstrap.1:27
+#: en/lb_bootstrap_hooks.1:36
 #, no-wrap
-msgid "--debootstrap-options=I<DEBOOTSTRAP_OPTIONS>"
-msgstr "--debootstrap-options=I<DEBOOTSTRAP_OPTIONEN>"
+msgid "B<config/hooks/*.hook>"
+msgstr "B<config/hooks/*.hook>"
 
-#. type: Plain text
-#: en/lb_bootstrap_debootstrap.1:29
-msgid ""
-"set I<debootstrap>(8) options (default: None), see I<debootstrap>(8) for "
-"more information about debootstrap."
-msgstr ""
-"setzt I<debootstrap>(8) Optionen (Standardwert: keine), siehe I<debootstrap>"
-"(8) für mehr Informationen über debootstrap."
-
-#. type: Plain text
-#: en/lb_bootstrap_debootstrap.1:45
-msgid "I<debootstrap>(8)"
-msgstr "I<debootstrap>(8)"
+#. type: IP
+#: en/lb_bootstrap_hooks.1:37
+#, no-wrap
+msgid "B<config/hooks/*.hook.bootstrap>"
+msgstr "B<config/hooks/*.hook.bootstrap>"
