@@ -111,6 +111,20 @@ def main():
 
 		sys.exit(1)
 
+	# stage cache
+	if os.path.exists('cache/bootstrap'):
+		if verbose:
+			print('I: Copying cache/bootstrap to chroot')
+
+		# Notes:
+		#  * there's no Python equivalent to 'cp -a' that handels both symlinks and device nodes properly.
+		cache = subprocess.call('cp -a cache/bootstrap chroot', shell=True)
+
+		os.makedirs('.build', exist_ok=True)
+		open('.build/bootstrap', 'w').close()
+
+		sys.exit(0)
+
 	# packages cache
 	if glob.glob('cache/packages.bootstrap/*.deb'):
 		if verbose:
@@ -147,6 +161,15 @@ def main():
 		#   * move instead of copy to keep stage minimal
 		for package in glob.glob('chroot/var/cache/apt/archives/*.deb'):
 			shutil.move(package, 'cache/packages.bootstrap')
+
+	# stage cache
+	if not os.path.exists('cache/bootstrap'):
+		if verbose:
+			print('I: Copying chroot to cache/bootstrap')
+
+		# Notes:
+		#  * there's no Python equivalent to 'cp -a' that handels both symlinks and device nodes properly.
+		cache = subprocess.call('cp -a chroot cache/bootstrap', shell=True)
 
 	## stagefile
 	os.makedirs('.build', exist_ok=True)
