@@ -21,8 +21,8 @@ import sys
 #   * logfile output
 #   * lockfile handling
 #   * use gettext for i18n
-#   * debootstrap-options from config
-#   * take mirrors from config/archives/debian.{bootstrap,chroot}
+#   * debootstrap-options from config/options/debootstrap
+#   * take mirrors from config/archives/mirror.{bootstrap,chroot}
 
 def main():
 	## Parsing Arguments
