@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2013-11-04 11:34+0100\n"
+"POT-Creation-Date: 2013-11-04 12:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,9 +89,15 @@ msgid ""
 msgstr ""
 
 #. type: SH
+#: en/lb_binary_hooks.1:26 en/lb_source_hooks.1:26
+#, no-wrap
+msgid "SPECIFICATION"
+msgstr ""
+
+#. type: SH
 #: en/lb_binary_hooks.1:41 en/lb_bootstrap_cdebootstrap.1:26
 #: en/lb_bootstrap_debootstrap.1:26 en/lb_bootstrap_hooks.1:26
-#: en/lb_chroot_hooks.1:26 en/lb_source_hooks.1:26
+#: en/lb_chroot_hooks.1:26 en/lb_source_hooks.1:41
 #, no-wrap
 msgid "OPTIONS"
 msgstr ""
@@ -99,7 +105,7 @@ msgstr ""
 #. type: IP
 #: en/lb_binary_hooks.1:42 en/lb_bootstrap_cdebootstrap.1:29
 #: en/lb_bootstrap_debootstrap.1:29 en/lb_bootstrap_hooks.1:27
-#: en/lb_chroot_hooks.1:27 en/lb_source_hooks.1:27
+#: en/lb_chroot_hooks.1:27 en/lb_source_hooks.1:42
 #, no-wrap
 msgid "--verbose"
 msgstr ""
@@ -107,14 +113,14 @@ msgstr ""
 #. type: Plain text
 #: en/lb_binary_hooks.1:44 en/lb_bootstrap_cdebootstrap.1:31
 #: en/lb_bootstrap_debootstrap.1:31 en/lb_bootstrap_hooks.1:29
-#: en/lb_chroot_hooks.1:29 en/lb_source_hooks.1:29
+#: en/lb_chroot_hooks.1:29 en/lb_source_hooks.1:44
 msgid "sets verbose option (default: False)."
 msgstr ""
 
 #. type: IP
 #: en/lb_binary_hooks.1:44 en/lb_bootstrap_cdebootstrap.1:31
 #: en/lb_bootstrap_debootstrap.1:31 en/lb_bootstrap_hooks.1:29
-#: en/lb_chroot_hooks.1:29 en/lb_source_hooks.1:29
+#: en/lb_chroot_hooks.1:29 en/lb_source_hooks.1:44
 #, no-wrap
 msgid "-h, --help"
 msgstr ""
@@ -122,14 +128,14 @@ msgstr ""
 #. type: Plain text
 #: en/lb_binary_hooks.1:46 en/lb_bootstrap_cdebootstrap.1:33
 #: en/lb_bootstrap_debootstrap.1:33 en/lb_bootstrap_hooks.1:31
-#: en/lb_chroot_hooks.1:31 en/lb_source_hooks.1:31
+#: en/lb_chroot_hooks.1:31 en/lb_source_hooks.1:46
 msgid "show help message and exit."
 msgstr ""
 
 #. type: IP
 #: en/lb_binary_hooks.1:46 en/lb_bootstrap_cdebootstrap.1:33
 #: en/lb_bootstrap_debootstrap.1:33 en/lb_bootstrap_hooks.1:31
-#: en/lb_chroot_hooks.1:31 en/lb_source_hooks.1:31
+#: en/lb_chroot_hooks.1:31 en/lb_source_hooks.1:46
 #, no-wrap
 msgid "-v, --version"
 msgstr ""
@@ -137,34 +143,66 @@ msgstr ""
 #. type: Plain text
 #: en/lb_binary_hooks.1:48 en/lb_bootstrap_cdebootstrap.1:35
 #: en/lb_bootstrap_debootstrap.1:35 en/lb_bootstrap_hooks.1:33
-#: en/lb_chroot_hooks.1:33 en/lb_source_hooks.1:33
+#: en/lb_chroot_hooks.1:33 en/lb_source_hooks.1:48
 msgid "show program's version number and exit."
 msgstr ""
 
 #. type: SH
 #: en/lb_binary_hooks.1:49 en/lb_bootstrap_cdebootstrap.1:36
 #: en/lb_bootstrap_debootstrap.1:36 en/lb_bootstrap_hooks.1:34
-#: en/lb_chroot_hooks.1:34 en/lb_source_hooks.1:34
+#: en/lb_chroot_hooks.1:34 en/lb_source_hooks.1:49
 #, no-wrap
 msgid "FILES"
+msgstr ""
+
+#. type: IP
+#: en/lb_binary_hooks.1:50 en/lb_source_hooks.1:50
+#, no-wrap
+msgid "B<config/build>:"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_binary_hooks.1:52 en/lb_source_hooks.1:52
+msgid "generic configuration file."
+msgstr ""
+
+#. type: IP
+#: en/lb_binary_hooks.1:52 en/lb_source_hooks.1:52
+#, no-wrap
+msgid "B<config/hooks/*.hook>:"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_binary_hooks.1:54 en/lb_source_hooks.1:54
+msgid "generic hook files."
+msgstr ""
+
+#. type: Plain text
+#: en/lb_binary_hooks.1:58 en/lb_source_hooks.1:58
+msgid "directory in which the hook files are executed."
+msgstr ""
+
+#. type: Plain text
+#: en/lb_binary_hooks.1:62 en/lb_source_hooks.1:62
+msgid "directory in which hook files are copied."
 msgstr ""
 
 #. type: SH
 #: en/lb_binary_hooks.1:63 en/lb_bootstrap_cdebootstrap.1:43
 #: en/lb_bootstrap_debootstrap.1:43 en/lb_bootstrap_hooks.1:40
-#: en/lb_chroot_hooks.1:40 en/lb_source_hooks.1:40
+#: en/lb_chroot_hooks.1:40 en/lb_source_hooks.1:63
 #, no-wrap
 msgid "SEE ALSO"
 msgstr ""
 
 #. type: IP
-#: en/lb_binary_hooks.1:64 en/lb_chroot_hooks.1:41 en/lb_source_hooks.1:41
+#: en/lb_binary_hooks.1:64 en/lb_chroot_hooks.1:41 en/lb_source_hooks.1:64
 #, no-wrap
 msgid "I<lb_bootstrap_hooks>(1)"
 msgstr ""
 
 #. type: IP
-#: en/lb_binary_hooks.1:65 en/lb_bootstrap_hooks.1:41 en/lb_source_hooks.1:42
+#: en/lb_binary_hooks.1:65 en/lb_bootstrap_hooks.1:41 en/lb_source_hooks.1:65
 #, no-wrap
 msgid "I<lb_chroot_hooks>(1)"
 msgstr ""
@@ -172,7 +210,7 @@ msgstr ""
 #. type: SH
 #: en/lb_binary_hooks.1:68 en/lb_bootstrap_cdebootstrap.1:46
 #: en/lb_bootstrap_debootstrap.1:46 en/lb_bootstrap_hooks.1:45
-#: en/lb_chroot_hooks.1:45 en/lb_source_hooks.1:45
+#: en/lb_chroot_hooks.1:45 en/lb_source_hooks.1:68
 #, no-wrap
 msgid "HOMEPAGE"
 msgstr ""
@@ -180,7 +218,7 @@ msgstr ""
 #. type: Plain text
 #: en/lb_binary_hooks.1:70 en/lb_bootstrap_cdebootstrap.1:48
 #: en/lb_bootstrap_debootstrap.1:48 en/lb_bootstrap_hooks.1:47
-#: en/lb_chroot_hooks.1:47 en/lb_source_hooks.1:47
+#: en/lb_chroot_hooks.1:47 en/lb_source_hooks.1:70
 msgid ""
 "More information about live-build and the Live Systems project can be found "
 "on the homepage at E<lt>I<http://live-systems.org/>E<gt> and in the manual "
@@ -190,7 +228,7 @@ msgstr ""
 #. type: SH
 #: en/lb_binary_hooks.1:71 en/lb_bootstrap_cdebootstrap.1:49
 #: en/lb_bootstrap_debootstrap.1:49 en/lb_bootstrap_hooks.1:48
-#: en/lb_chroot_hooks.1:48 en/lb_source_hooks.1:48
+#: en/lb_chroot_hooks.1:48 en/lb_source_hooks.1:71
 #, no-wrap
 msgid "BUGS"
 msgstr ""
@@ -198,7 +236,7 @@ msgstr ""
 #. type: Plain text
 #: en/lb_binary_hooks.1:73 en/lb_bootstrap_cdebootstrap.1:51
 #: en/lb_bootstrap_debootstrap.1:51 en/lb_bootstrap_hooks.1:50
-#: en/lb_chroot_hooks.1:50 en/lb_source_hooks.1:50
+#: en/lb_chroot_hooks.1:50 en/lb_source_hooks.1:73
 msgid ""
 "Bugs can be reported by submitting a bugreport for the live-build package in "
 "the Bug Tracking System at E<lt>I<http://bugs.debian.org/>E<gt> or by "
@@ -209,7 +247,7 @@ msgstr ""
 #. type: SH
 #: en/lb_binary_hooks.1:74 en/lb_bootstrap_cdebootstrap.1:52
 #: en/lb_bootstrap_debootstrap.1:52 en/lb_bootstrap_hooks.1:51
-#: en/lb_chroot_hooks.1:51 en/lb_source_hooks.1:51
+#: en/lb_chroot_hooks.1:51 en/lb_source_hooks.1:74
 #, no-wrap
 msgid "AUTHOR"
 msgstr ""
@@ -217,26 +255,13 @@ msgstr ""
 #. type: Plain text
 #: en/lb_binary_hooks.1:75 en/lb_bootstrap_cdebootstrap.1:53
 #: en/lb_bootstrap_debootstrap.1:53 en/lb_bootstrap_hooks.1:52
-#: en/lb_chroot_hooks.1:52 en/lb_source_hooks.1:52
+#: en/lb_chroot_hooks.1:52 en/lb_source_hooks.1:75
 msgid ""
 "live-build was written by Daniel Baumann E<lt>I<mail@daniel-baumann.ch>E<gt>."
 msgstr ""
 
 #. type: IP
-#: en/lb_bootstrap_cdebootstrap.1:37 en/lb_bootstrap_debootstrap.1:37
-#: en/lb_bootstrap_hooks.1:35 en/lb_chroot_hooks.1:35 en/lb_source_hooks.1:35
-#, no-wrap
-msgid "B<config/build>"
-msgstr ""
-
-#. type: IP
-#: en/lb_bootstrap_hooks.1:36 en/lb_chroot_hooks.1:36 en/lb_source_hooks.1:36
-#, no-wrap
-msgid "B<config/hooks/*.hook>"
-msgstr ""
-
-#. type: IP
-#: en/lb_bootstrap_hooks.1:42 en/lb_chroot_hooks.1:42 en/lb_source_hooks.1:43
+#: en/lb_bootstrap_hooks.1:42 en/lb_chroot_hooks.1:42 en/lb_source_hooks.1:66
 #, no-wrap
 msgid "I<lb_binary_hooks>(1)"
 msgstr ""
@@ -258,17 +283,95 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_source_hooks.1:25
-msgid "The B<lb source_hooks> command executes hooks after the source stage."
+msgid ""
+"The B<lb source_hooks> command executes hook files after the source stage."
 msgstr ""
 
-#. type: IP
-#: en/lb_source_hooks.1:37
-#, no-wrap
-msgid "B<config/hooks/*.hook.source>"
+#. type: Plain text
+#: en/lb_source_hooks.1:28
+msgid ""
+"B<lb source_hooks> executes any hook files found in the B<config/hooks> "
+"directory within the configuration directory."
 msgstr ""
 
-#. type: IP
+#. type: Plain text
+#: en/lb_source_hooks.1:30
+msgid ""
+"Hook files do not require to have a specific owner nor specific permissions. "
+"They are marked executable by B<lb source_hooks> automatically when they are "
+"executed."
+msgstr ""
+
+#. type: Plain text
+#: en/lb_source_hooks.1:32
+msgid "Hook files must either have the suffix B<*.hook> or B<*.hook.source>."
+msgstr ""
+
+#. type: Plain text
+#: en/lb_source_hooks.1:34
+msgid ""
+"Hook files with the suffix B<*.hook> are executed first, hook files with the "
+"suffix B<*.hook.source> are executed second."
+msgstr ""
+
+#. type: Plain text
+#: en/lb_source_hooks.1:36
+msgid ""
+"Hook files are executed in alphanumberical order by B<lb source_hooks>. If "
+"one hook file depends on being run after another, best practise is to use "
+"number prefixes (nnnn, starting with 0001) to ensure the order of execution."
+msgstr ""
+
+#. type: Plain text
 #: en/lb_source_hooks.1:38
+msgid ""
+"Hook files are copied into the B<source/live-build> directory by B<lb "
+"source_hoooks>. They are executed from within the source directory and can "
+"read the configuration directory in B<live-build/config> within the source "
+"directory."
+msgstr ""
+
+#. type: Plain text
+#: en/lb_source_hooks.1:40
+msgid ""
+"B<Warning:> hook files are not executed within a chroot but within the "
+"context of the host system in the source directory. They have root "
+"privileges and access to the all host system ressources (devices, "
+"filesystems, network, etc.)."
+msgstr ""
+
+#. type: IP
+#: en/lb_source_hooks.1:54
 #, no-wrap
-msgid "B<source>"
+msgid "B<config/hooks/*.hook.source>:"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_source_hooks.1:56
+msgid "hook files specific for the source stage."
+msgstr ""
+
+#. type: IP
+#: en/lb_source_hooks.1:56
+#, no-wrap
+msgid "B<source>:"
+msgstr ""
+
+#. type: IP
+#: en/lb_source_hooks.1:58
+#, no-wrap
+msgid "B<source/live-build/config>:"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_source_hooks.1:60
+msgid ""
+"bind mounted configuration directory within the source directory to be read "
+"by hook files."
+msgstr ""
+
+#. type: IP
+#: en/lb_source_hooks.1:60
+#, no-wrap
+msgid "B<source/live-build>:"
 msgstr ""
