@@ -35,7 +35,7 @@ Set_defaults
 Setup_cleanup
 
 # Bootstrapping system
-lb bootstrap_${LB_BOOTSTRAP}
+lb bootstrap-${LB_BOOTSTRAP}
 
 # Configuring chroot
 lb chroot_devpts install ${@}
@@ -53,7 +53,7 @@ lb chroot_hostname install ${@}
 lb chroot_apt install ${@}
 
 lb bootstrap_archives binary ${@}
-lb bootstrap_hooks ${@}
+lb bootstrap-hooks ${@}
 
 # Deconfiguring chroot
 lb chroot_apt remove ${@}

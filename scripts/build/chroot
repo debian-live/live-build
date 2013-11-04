@@ -69,7 +69,7 @@ done
 
 lb chroot_live-packages ${@}
 lb chroot_includes ${@}
-lb chroot_hooks ${@}
+lb chroot-hooks ${@}
 lb chroot_hacks ${@}
 lb chroot_interactive ${@}
 
