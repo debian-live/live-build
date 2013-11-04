@@ -53,7 +53,6 @@ lb chroot_resolv install ${@}
 lb chroot_hostname install ${@}
 lb chroot_apt install ${@}
 
-lb bootstrap_archive-keys ${@}
 lb bootstrap_archives binary ${@}
 lb bootstrap_hooks ${@}
 
