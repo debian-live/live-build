@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2013-11-04 12:35+0100\n"
+"POT-Creation-Date: 2013-11-04 12:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,7 +108,7 @@ msgstr ""
 #: en/lb_bootstrap_debootstrap.1:29 en/lb_bootstrap_hooks.1:40
 #: en/lb_chroot_hooks.1:40 en/lb_source_hooks.1:42
 #, no-wrap
-msgid "--verbose"
+msgid "B<--verbose>"
 msgstr ""
 
 #. type: Plain text
@@ -123,7 +123,7 @@ msgstr ""
 #: en/lb_bootstrap_debootstrap.1:31 en/lb_bootstrap_hooks.1:42
 #: en/lb_chroot_hooks.1:42 en/lb_source_hooks.1:44
 #, no-wrap
-msgid "-h, --help"
+msgid "B<-h, --help>"
 msgstr ""
 
 #. type: Plain text
@@ -138,7 +138,7 @@ msgstr ""
 #: en/lb_bootstrap_debootstrap.1:33 en/lb_bootstrap_hooks.1:44
 #: en/lb_chroot_hooks.1:44 en/lb_source_hooks.1:46
 #, no-wrap
-msgid "-v, --version"
+msgid "B<--version>"
 msgstr ""
 
 #. type: Plain text

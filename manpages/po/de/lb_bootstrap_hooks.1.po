@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build 4.0~alpha29-1\n"
-"POT-Creation-Date: 2013-11-04 12:35+0100\n"
+"POT-Creation-Date: 2013-11-04 12:39+0100\n"
 "PO-Revision-Date: 2010-05-24 09:59+0300\n"
 "Last-Translator: Daniel Baumann <mail@daniel-baumann.ch>\n"
 "Language-Team: none\n"
@@ -109,8 +109,8 @@ msgstr "OPTIONEN"
 #: en/lb_bootstrap_debootstrap.1:29 en/lb_bootstrap_hooks.1:40
 #: en/lb_chroot_hooks.1:40 en/lb_source_hooks.1:42
 #, no-wrap
-msgid "--verbose"
-msgstr "--verbose"
+msgid "B<--verbose>"
+msgstr "B<--verbose>"
 
 #. type: Plain text
 #: en/lb_binary_hooks.1:44 en/lb_bootstrap_cdebootstrap.1:31
@@ -124,8 +124,8 @@ msgstr "setzt verbose Option für mehr Ausgaben (Standardwert: aus)."
 #: en/lb_bootstrap_debootstrap.1:31 en/lb_bootstrap_hooks.1:42
 #: en/lb_chroot_hooks.1:42 en/lb_source_hooks.1:44
 #, no-wrap
-msgid "-h, --help"
-msgstr "-h, --help"
+msgid "B<-h, --help>"
+msgstr "B<-h, --help>"
 
 #. type: Plain text
 #: en/lb_binary_hooks.1:46 en/lb_bootstrap_cdebootstrap.1:33
@@ -139,8 +139,8 @@ msgstr "zeigt Hilfenachricht und beendet sich."
 #: en/lb_bootstrap_debootstrap.1:33 en/lb_bootstrap_hooks.1:44
 #: en/lb_chroot_hooks.1:44 en/lb_source_hooks.1:46
 #, no-wrap
-msgid "-v, --version"
-msgstr "-v, --version"
+msgid "B<--version>"
+msgstr "B<--version>"
 
 #. type: Plain text
 #: en/lb_binary_hooks.1:48 en/lb_bootstrap_cdebootstrap.1:35

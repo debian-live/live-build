@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build 4.0~alpha29-1\n"
-"POT-Creation-Date: 2013-11-04 12:35+0100\n"
+"POT-Creation-Date: 2013-11-04 12:39+0100\n"
 "PO-Revision-Date: 2010-05-24 09:59+0300\n"
 "Last-Translator: Carlos Zuferri <chals@altorricon.com>\n"
 "Language-Team: none\n"
@@ -109,8 +109,8 @@ msgstr "OPCIONES"
 #: en/lb_binary_hooks.1:42 en/lb_bootstrap_cdebootstrap.1:29
 #: en/lb_bootstrap_debootstrap.1:29 en/lb_bootstrap_hooks.1:40
 #: en/lb_chroot_hooks.1:40 en/lb_source_hooks.1:42
-#, no-wrap
-msgid "--verbose"
+#, fuzzy, no-wrap
+msgid "B<--verbose>"
 msgstr "--verbose"
 
 #. type: Plain text
@@ -124,8 +124,8 @@ msgstr "establece la opción verbose (por defecto: False)."
 #: en/lb_binary_hooks.1:44 en/lb_bootstrap_cdebootstrap.1:31
 #: en/lb_bootstrap_debootstrap.1:31 en/lb_bootstrap_hooks.1:42
 #: en/lb_chroot_hooks.1:42 en/lb_source_hooks.1:44
-#, no-wrap
-msgid "-h, --help"
+#, fuzzy, no-wrap
+msgid "B<-h, --help>"
 msgstr "-h, --help"
 
 #. type: Plain text
@@ -139,8 +139,8 @@ msgstr "muestra el mensaje de ayuda y sale."
 #: en/lb_binary_hooks.1:46 en/lb_bootstrap_cdebootstrap.1:33
 #: en/lb_bootstrap_debootstrap.1:33 en/lb_bootstrap_hooks.1:44
 #: en/lb_chroot_hooks.1:44 en/lb_source_hooks.1:46
-#, no-wrap
-msgid "-v, --version"
+#, fuzzy, no-wrap
+msgid "B<--version>"
 msgstr "-v, --version"
 
 #. type: Plain text
