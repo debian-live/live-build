@@ -34,7 +34,7 @@ Hook files with the suffix \fB*.hook\fR are executed first, hook files with the 
 .PP
 Hook files are executed in alphanumberical order by \fBlb binary_hooks\fR. If one hook file depends on being run after another, best practise is to use number prefixes (nnnn, starting with 0001) to ensure the order of execution.
 .PP
-Hook files are copied into the \fBbinary/live-build\fR directory by \fBlb binary_hoooks\fR. They are executed from within the binary directory and can read the configuration directory in \fBlive-build/config\fR within the binary directory.
+Hook files are copied into the \fBbinary/live-build\fR directory by \fBlb binary_hooks\fR. They are executed from within the binary directory and can read the configuration directory in \fBlive-build/config\fR within the binary directory.
 .PP
 \fBWarning:\fR hook files are not executed within a chroot but within the context of the host system in the binary directory. They have root privileges and access to the all host system ressources (devices, filesystems, network, etc.).
 
