@@ -17,33 +17,33 @@
 \fBlive\-build\fP \- Live System Build Components
 
 .SH SINOPSIS
-\fBlb chroot\-includes\fP [\-\-verbose]
+\fBlb binary\-includes\fP [\-\-verbose]
 .PP
-\fBlb chroot\-includes\fP [\-\-help]
+\fBlb binary\-includes\fP [\-\-help]
 .br
-\fBlb chroot\-includes\fP [\-\-version]
+\fBlb binary\-includes\fP [\-\-version]
 .
 .SH DESCRIPCIÓN
 live\-build contains the components to build a live system from a
 configuration directory.
 .PP
-The \fBlb chroot\-includes\fP command copies include files into the chroot
+The \fBlb binary\-includes\fP command copies include files into the binary
 stage.
 
 .SH SPECIFICATION
-\fBlb chroot\-includes\fP copies any include files found in the
-\fBconfig/includes\fP and \fBconfig/includes.chroot\fP directories within the
+\fBlb binary\-includes\fP copies any include files found in the
+\fBconfig/includes\fP and \fBconfig/includes.binary\fP directories within the
 configuration directory.
 .PP
 Include files do not require to have a specific owner nor specific
-permissions. The files are set to be owned by root by \fBlb chroot\-includes\fP
+permissions. The files are set to be owned by root by \fBlb binary\-includes\fP
 automatically when they are copied, original permissions of the files are
 preserved. Specific owners can be set with a corresponding hook file, see
-\fIlb\-chroot\-hooks\fP(1) for more information about hooks.
+\fIlb\-binary\-hooks\fP(1) for more information about hooks.
 .PP
 Include files in the \fBconfig/includes\fP directory are copied first, include
-files in the \fBconfig/includes.chroot\fP directory are copied second. Files
-present in the chroot and either of the include directories are silently
+files in the \fBconfig/includes.binary\fP directory are copied second. Files
+present in the binary and either of the include directories are silently
 overwritten, the later file replaces the earlier.
 
 .SH OPCIONES
@@ -57,9 +57,9 @@ muestra el número de versión del programa y sale.
 .SH FICHEROS
 .IP \fBconfig/includes\fP: 4
 generic include files.
-.IP \fBconfig/includes.chroot\fP: 4
-include files specific for the chroot stage.
-.IP \fBchroot\fP: 4
+.IP \fBconfig/includes.binary\fP: 4
+include files specific for the binary stage.
+.IP \fBbinary\fP: 4
 directory in which the include files are copied into.
 
 .SH "VER TAMBIÉN"
