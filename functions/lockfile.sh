@@ -14,7 +14,7 @@ Check_lockfile ()
 
 	if [ -z "${FILE}" ]
 	then
-		FILE="/var/lock/${PROGRAM}.lock"
+		FILE=".build/lock"
 	fi
 
 	# Checking lock file
@@ -31,7 +31,7 @@ Create_lockfile ()
 
 	if [ -z "${FILE}" ]
 	then
-		FILE="/var/lock/${PROGRAM}.lock"
+		FILE=".build/lock"
 	fi
 
 	DIRECTORY="$(dirname ${FILE})"
