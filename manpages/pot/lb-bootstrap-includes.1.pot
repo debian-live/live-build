@@ -307,68 +307,69 @@ msgstr ""
 msgid "B<chroot>:"
 msgstr ""
 
-#. type: IP
-#: en/lb-bootstrap-includes.1:51 en/lb-chroot-includes.1:51
-#: en/lb-source-includes.1:52
-#, no-wrap
-msgid "I<lb-binary-includes>(1)"
+#. type: Plain text
+#: en/lb-bootstrap-includes.1:16
+msgid "B<lb bootstrap-includes> [--verbose]"
 msgstr ""
 
 #. type: Plain text
-#: en/lb-chroot-includes.1:16
-msgid "B<lb chroot-includes> [--verbose]"
+#: en/lb-bootstrap-includes.1:18
+msgid "B<lb bootstrap-includes> [--help]"
 msgstr ""
 
 #. type: Plain text
-#: en/lb-chroot-includes.1:18
-msgid "B<lb chroot-includes> [--help]"
+#: en/lb-bootstrap-includes.1:20
+msgid "B<lb bootstrap-includes> [--version]"
 msgstr ""
 
 #. type: Plain text
-#: en/lb-chroot-includes.1:20
-msgid "B<lb chroot-includes> [--version]"
-msgstr ""
-
-#. type: Plain text
-#: en/lb-chroot-includes.1:25
+#: en/lb-bootstrap-includes.1:25
 msgid ""
-"The B<lb chroot-includes> command copies include files into the chroot stage."
+"The B<lb bootstrap-includes> command copies include files into the bootstrap "
+"stage."
 msgstr ""
 
 #. type: Plain text
-#: en/lb-chroot-includes.1:28
+#: en/lb-bootstrap-includes.1:28
 msgid ""
-"B<lb chroot-includes> copies any include files found in the B<config/"
-"includes> and B<config/includes.chroot> directories within the configuration "
-"directory."
+"B<lb bootstrap-includes> copies any include files found in the B<config/"
+"includes> and B<config/includes.bootstrap> directories within the "
+"configuration directory."
 msgstr ""
 
 #. type: Plain text
-#: en/lb-chroot-includes.1:30
+#: en/lb-bootstrap-includes.1:30
 msgid ""
 "Include files do not require to have a specific owner nor specific "
-"permissions. The files are set to be owned by root by B<lb chroot-includes> "
-"automatically when they are copied, original permissions of the files are "
-"preserved. Specific owners can be set with a corresponding hook file, see "
-"I<lb-chroot-hooks>(1) for more information about hooks."
+"permissions. The files are set to be owned by root by B<lb bootstrap-"
+"includes> automatically when they are copied, original permissions of the "
+"files are preserved. Specific owners can be set with a corresponding hook "
+"file, see I<lb-bootstrap-hooks>(1) for more information about hooks."
 msgstr ""
 
 #. type: Plain text
-#: en/lb-chroot-includes.1:32
+#: en/lb-bootstrap-includes.1:32
 msgid ""
 "Include files in the B<config/includes> directory are copied first, include "
-"files in the B<config/includes.chroot> directory are copied second. Files "
+"files in the B<config/includes.bootstrap> directory are copied second. Files "
 "present in the chroot and either of the include directories are silently "
 "overwritten, the later file replaces the earlier."
 msgstr ""
 
 #. type: IP
-#: en/lb-chroot-includes.1:44
+#: en/lb-bootstrap-includes.1:44
 #, no-wrap
-msgid "B<config/includes.chroot>:"
+msgid "B<config/includes.bootstrap>:"
 msgstr ""
 
 #. type: Plain text
-#: en/lb-chroot-includes.1:46
-msgid "include files specific for the chroot stage."
+#: en/lb-bootstrap-includes.1:46
+msgid "include files specific for the bootstrap stage."
+msgstr ""
+
+#. type: IP
+#: en/lb-bootstrap-includes.1:51 en/lb-chroot-includes.1:51
+#: en/lb-source-includes.1:52
+#, no-wrap
+msgid "I<lb-binary-includes>(1)"
 msgstr ""
