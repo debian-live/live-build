@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/usr/bin/python3
 
-## live-build(7) - System Build Scripts
+## live-build(7) - Live System Build Components
 ## Copyright (C) 2006-2013 Daniel Baumann <mail@daniel-baumann.ch>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
@@ -8,71 +8,101 @@
 ## under certain conditions; see COPYING for details.
 
 
-set -e
+import argparse
+import configparser
+import glob
+import os
+import shutil
+import subprocess
+import sys
 
-# Including common functions
-[ -e "${LIVE_BUILD}/scripts/build.sh" ] && . "${LIVE_BUILD}/scripts/build.sh" || . /usr/lib/live/build.sh
 
-# Setting static variables
-DESCRIPTION="$(Echo 'execute hooks in binary')"
-HELP=""
-USAGE="${PROGRAM} [--force]"
+# TODO:
+#   * logfile output
+#   * lockfile handling
+#   * use gettext for i18n
 
-Arguments "${@}"
+def main():
+	## Parsing Arguments
+	arguments = argparse.ArgumentParser(
+		prog            = 'lb binary_hooks',
+		usage           = '%(prog)s [arguments]',
+		description     = '''live-build contains the components to build a live system from a configuration directory.
+		                     The binary_hooks command executes hooks after the binary stage.''',
+		epilog          = 'See \'man lb_binary_hooks\' for more information.',
+		version         = 'live-build 4',
+		formatter_class = argparse.ArgumentDefaultsHelpFormatter
+	)
 
-# Reading configuration files
-Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
-Set_defaults
+	arguments.add_argument('--verbose',     help='set verbose option',         action='store_true')
 
-Echo_message "Begin executing hooks..."
+	args = arguments.parse_args()
 
-# Requiring stage file
-Require_stagefile .build/config .build/bootstrap
+	# --verbose
+	verbose = args.verbose
 
-# Checking stage file
-Check_stagefile .build/binary_hooks
+	## Executing hooks
 
-# Checking lock file
-Check_lockfile .lock
+	# stagefile
+	if os.path.isfile('.build/binary_hooks'):
+		if verbose:
+			print('I: binary_hooks already done - nothing to do')
 
-# Creating lock file
-Create_lockfile .lock
+		sys.exit(0)
 
-## Processing distribution hooks
+	# dependencies
+	if not os.path.isfile('.build/bootstrap'):
+		print('E: bootstrap stage missing - aborting', file=sys.stderr)
 
-# Running hooks
-for _HOOK in ${LB_BINARY_HOOKS}
-do
-	for LOCATION in "${LIVE_BUILD}/hooks" /usr/share/live/build/hooks
-	do
-		for FILE in "${LOCATION}"/????-"${_HOOK}".binary
-		do
-			if [ -e "${FILE}" ]
-			then
-				cd binary
-				"${FILE}" || { Echo_error "${_HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
-				cd "${OLDPWD}"
-			fi
-		done
-	done
-done
+		if verbose:
+			print('I: use \'lb bootstrap\' to bootstrap system')
 
-## Processing local hooks
+		sys.exit(1)
 
-if Find_files config/hooks/*.binary
-then
-	for HOOK in config/hooks/*.binary
-	do
-		# Making hook executable
-		if [ ! -x "${HOOK}" ]
-		then
-			chmod +x "${HOOK}"
-		fi
+	# hooks
+	if not glob.glob('config/hooks/*.hook') and not glob.glob('config/hooks/*.hook.binary'):
+		if verbose:
+			print ('I: no binary hooks found at config/hooks/*.hook{,.binary} - nothing to do')
 
-		# Executing hook
-		./"${HOOK}" || { Echo_error "${HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
-	done
+		sys.exit(0)
 
-	# Creating stage file
-	Create_stagefile .build/binary_hooks
-fi
+	# bind mount configuration directory
+	if verbose:
+		print('I: Mounting config to binary/live-build/config')
+
+	os.makedirs('binary/live-build/config', exist_ok=True)
+
+	mount = subprocess.call('mount -o bind config binary/live-build/config', shell=True)
+	remount = subprocess.call('mount -o remount,ro,bind binary/live-build/config', shell=True)
+
+	# process hooks
+	os.makedirs('binary/live-build', exist_ok=True)
+
+	hooks = glob.glob('config/hooks/*.hook') + glob.glob('config/hooks/*.hook.binary')
+
+	for hook in hooks:
+		if verbose:
+			print('I: Copying config/hooks/*.hook.binary to binary/live-build')
+
+		os.link(hook, os.path.join('binary/live-build/' + os.path.basename(hook)), follow_symlinks=True)
+
+		if verbose:
+			print('I: Executing \' ' + hook + '\'')
+
+		os.chmod(hook, 0o755)
+		exec_hook = subprocess.call('cd binary && live-build/' + os.path.basename(hook), shell=True)
+		os.remove('binary/live-build/' + os.path.basename(hook))
+
+	# unmount coniguration directory
+	umount = subprocess.call('umount binary/live-build/config', shell=True)
+
+	os.rmdir('binary/live-build/config')
+	os.rmdir('binary/live-build')
+
+	## stagefile
+	os.makedirs('.build', exist_ok=True)
+	open('.build/binary_hooks', 'w').close()
+
+
+if __name__ == '__main__':
+	main()
