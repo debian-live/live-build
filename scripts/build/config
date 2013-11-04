@@ -888,10 +888,6 @@ else
 	Echo_message "Updating config tree for a ${LB_MODE}/${LB_DISTRIBUTION}/${LIVE_IMAGE_ARCHITECTURE} system"
 fi
 
-# Creating bootstrap configuration
-mkdir -p config
-mkdir -p config/includes
-
 # Creating live-build configuration
 cat > config/common << EOF
 # config/common - common options for live-build(7)
@@ -1103,8 +1099,6 @@ EOF
 # Creating lb_chroot_* configuration
 mkdir -p config/archives
 mkdir -p config/apt
-mkdir -p config/hooks
-mkdir -p config/includes.chroot
 mkdir -p config/packages
 mkdir -p config/packages.chroot
 mkdir -p config/package-lists
@@ -1152,7 +1146,6 @@ EOF
 
 # Creating lb_binary_* configuration
 mkdir -p config/debian-installer
-mkdir -p config/includes.binary
 mkdir -p config/includes.installer
 mkdir -p config/packages.binary
 mkdir -p config/package-lists
@@ -1356,6 +1349,9 @@ then
 	Echo_warning ""
 	Echo_warning "Make sure you are using the newest version at all times."
 fi
+
+mkdir -p config/hooks
+mkdir -p config/includes config/includes.bootstrap config/includes.chroot config/includes.binary config/includes.source
 
 Echo_message "Symlinking hooks..."
 
