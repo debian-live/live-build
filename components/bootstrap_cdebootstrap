@@ -32,11 +32,11 @@ def main():
 		description     = '''live-build contains the components to build a live system from a configuration directory.
 		                     The bootstrap_cdebootstrap command bootstraps the chroot system with cdebootstrap.''',
 		epilog          = 'See \'man lb_bootstrap_cdebootstrap\' for more information.',
-		version         = 'live-build 4',
 		formatter_class = argparse.ArgumentDefaultsHelpFormatter
 	)
 
-	arguments.add_argument('--verbose',              help='set verbose option',         action='store_true')
+	arguments.add_argument('--version',              help='show program\'s version number and exit', action='version', version='live-build 4')
+	arguments.add_argument('--verbose',              help='set verbose option',                      action='store_true')
 	arguments.add_argument('--cdebootstrap-options', help='set cdebootstrap(1) options' )
 
 	args = arguments.parse_args()

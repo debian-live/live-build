@@ -30,11 +30,11 @@ def main():
 		description     = '''live-build contains the components to build a live system from a configuration directory.
 		                     The binary_hooks command executes hooks after the binary stage.''',
 		epilog          = 'See \'man lb_binary_hooks\' for more information.',
-		version         = 'live-build 4',
 		formatter_class = argparse.ArgumentDefaultsHelpFormatter
 	)
 
-	arguments.add_argument('--verbose',     help='set verbose option',         action='store_true')
+	arguments.add_argument('--version',     help='show program\'s version number and exit', action='version', version='live-build 4')
+	arguments.add_argument('--verbose',     help='set verbose option',                      action='store_true')
 
 	args = arguments.parse_args()
 
