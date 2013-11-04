@@ -28,7 +28,7 @@ def main():
 		prog            = 'lb binary-hooks',
 		usage           = '%(prog)s [arguments]',
 		description     = '''live-build contains the components to build a live system from a configuration directory.
-		                     The binary-hooks command executes hooks after the binary stage.''',
+		                     The binary-hooks command executes hook files after the binary stage.''',
 		epilog          = 'See \'man lb-binary-hooks\' for more information.',
 		formatter_class = argparse.ArgumentDefaultsHelpFormatter
 	)

@@ -28,7 +28,7 @@ def main():
 		prog            = 'lb bootstrap-hooks',
 		usage           = '%(prog)s [arguments]',
 		description     = '''live-build contains the components to build a live system from a configuration directory.
-		                     The bootstrap-hooks command executes hooks after the bootstrap stage.''',
+		                     The bootstrap-hooks command executes hook files after the bootstrap stage.''',
 		epilog          = 'See \'man lb-bootstrap-hooks\' for more information.',
 		formatter_class = argparse.ArgumentDefaultsHelpFormatter
 	)

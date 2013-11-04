@@ -28,7 +28,7 @@ def main():
 		prog            = 'lb source-hooks',
 		usage           = '%(prog)s [arguments]',
 		description     = '''live-build contains the components to build a live system from a configuration directory.
-		                     The source-hooks command executes hooks after the source stage.''',
+		                     The source-hooks command executes hook files after the source stage.''',
 		epilog          = 'See \'man lb-source-hooks\' for more information.',
 		formatter_class = argparse.ArgumentDefaultsHelpFormatter
 	)

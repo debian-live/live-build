@@ -28,7 +28,7 @@ def main():
 		prog            = 'lb chroot-hooks',
 		usage           = '%(prog)s [arguments]',
 		description     = '''live-build contains the components to build a live system from a configuration directory.
-		                     The chroot-hooks command executes hooks after the chroot stage.''',
+		                     The chroot-hooks command executes hook files after the chroot stage.''',
 		epilog          = 'See \'man lb-chroot-hooks\' for more information.',
 		formatter_class = argparse.ArgumentDefaultsHelpFormatter
 	)
