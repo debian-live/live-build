@@ -1,3 +1,28 @@
+live-build (4.0~alpha29-1) experimental; urgency=low
+
+  * Updating to standards version 3.9.5.
+  * Rewriting bootstrap_hooks in python.
+  * Making various things in bootstrap manpages more consistent.
+  * Also processing config/hooks/*.hook in bootstrap_hooks, if any.
+  * Adding lb_bootstrap_hooks manpage.
+  * Rewriting chroot_hooks in python.
+  * Adding lb_chroot_hooks manpage.
+  * Updating file suffixes of the internal default hooks.
+  * Automatically symlink hooks upon creation of the configuration tree.
+  * Updating configuration path in update-apt-file-cache.hook.chroot.
+  * Rewriting binary_hooks in python.
+  * Adding lb_binary_hooks manpage.
+  * Rewriting source_hooks in python.
+  * Adding lb_source_hooks manpage.
+  * Adding see also entries in hooks manpages.
+  * Moving python stubs to their own subdirectory within the source tree.
+  * Manually adding --version to argparse in python stub since python 3.3
+    dropped the version keyword.
+  * Replacing os.link calls for hooks with shutil.copy to properly
+    dereference symlinks in python stubs.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 04 Nov 2013 07:17:48 +0100
+
 live-build (4.0~alpha28-1) experimental; urgency=low
 
   [ Daniel Baumann ]
