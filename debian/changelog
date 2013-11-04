@@ -1,3 +1,41 @@
+live-build (4.0~alpha30-1) experimental; urgency=low
+
+  * Updating filenames suffixes of example hook files.
+  * Switching from global lock file to config tree specific one.
+  * Simplifying package cache stanza in python bootstrap stubs.
+  * Adding program specification to lb_binary_hooks manpage.
+  * Adding program specification to lb_source_hooks manpage.
+  * Adding program specification to lb_chroot_hooks manpage.
+  * Adding program specification to lb_bootstrap_hooks manpage.
+  * Harmonizing options markup in manpages.
+  * Correcting spelling typo in manpages (s/hoooks/hooks/).
+  * Moving testroot into lb wrapper itself.
+  * Stuffing bootstrapping of archive-keys for derivatives into lb_config,
+    it's not a runtime thing and its logic should not be embedded in live-
+    build but the config directory.
+  * Handling bootstrap cache inside the bootstrap stubs itself.
+  * Streamlineing a few comments in the python stubs.
+  * Removing wrong reference to config/build in lb_*_hooks manpages.
+  * Switching to later submodule naming scheme for python stubs.
+  * Updating todos in python stubs.
+  * Rewriting chroot_includes in python.
+  * Updating program description of *-hook commands.
+  * Adding lb-chroot-includes manpage.
+  * Adding dependency check for cpio in chroot-includes.
+  * Correcting spelling typo in python stubs (s/optained/obtained/).
+  * Completing incomplete verbose message when copying files in chroot-
+    includes.
+  * Rewriting binary_includes in python.
+  * Adding lb-binary-includes manpage.
+  * Adding sources-includes.
+  * Adding lb-source-includes manpage.
+  * Adding bootstrap-includes.
+  * Correcting error message when no includes have been found in
+    *-includes commands.
+  * Adding lb-bootstrap-includes manpage.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 04 Nov 2013 19:08:04 +0100
+
 live-build (4.0~alpha29-1) experimental; urgency=low
 
   * Updating to standards version 3.9.5.

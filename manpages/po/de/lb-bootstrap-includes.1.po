@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2013-11-04 19:02+0100\n"
+"POT-Creation-Date: 2013-11-04 19:09+0100\n"
 "PO-Revision-Date: 2013-11-04 19:02+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -43,8 +43,8 @@ msgstr "04.11.2013"
 #: en/lb-chroot-hooks.1:9 en/lb-chroot-includes.1:9 en/lb-source-hooks.1:9
 #: en/lb-source-includes.1:9
 #, no-wrap
-msgid "4.0~alpha29-1"
-msgstr "4.0~alpha29-1"
+msgid "4.0~alpha30-1"
+msgstr "4.0~alpha30-1"
 
 #. type: TH
 #: en/lb-binary-hooks.1:9 en/lb-binary-includes.1:9
@@ -300,11 +300,11 @@ msgid "directory in which the include files are copied into."
 msgstr "Verzeichnis in das die Include Dateien kopiert werden."
 
 #. type: IP
-#: en/lb-binary-includes.1:50 en/lb-bootstrap-includes.1:50
-#: en/lb-chroot-includes.1:50 en/lb-source-includes.1:50
+#: en/lb-binary-includes.1:51 en/lb-bootstrap-includes.1:50
+#: en/lb-source-includes.1:51
 #, no-wrap
-msgid "I<lb-bootstrap-includes>(1)"
-msgstr "I<lb-bootstrap-includes>(1)"
+msgid "I<lb-chroot-includes>(1)"
+msgstr "I<lb-chroot-includes>(1)"
 
 #. type: IP
 #: en/lb-binary-includes.1:52 en/lb-bootstrap-includes.1:52
