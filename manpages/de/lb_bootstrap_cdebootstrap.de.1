@@ -11,10 +11,10 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 28.10.2013 4.0~alpha27\-1 "Live Systems Projekt"
+.TH LIVE\-BUILD 1 04.11.2013 4.0~alpha29\-1 "Live Systems Projekt"
 
 .SH NAME
-\fBlive\-build\fP \- System Build Skripte
+\fBlive\-build\fP \- System Build Komponenten
 
 .SH SYNTAX
 \fBlb bootstrap_cdebootstrap\fP
@@ -25,22 +25,22 @@
 \fBlb bootstrap_cdebootstrap\fP [\-\-version]
 .
 .SH BESCHREIBUNG
-live\-build enthält die Skripte um ein Live System von einem
+live\-build enthält die Komponenten um ein Live System von einem
 Konfigurationsverzeichnis zu erstellen.
 .PP
-Das \fBlb bootstrap_cdebootstrap\fP Programm erstellt das Chroot System mit
-cdebootstrap(1).
+Der \fBlb bootstrap_cdebootstrap\fP Befehl erstellt das Chroot System mit
+\fIcdebootstrap\fP(1).
 
 .SH OPTIONEN
 .IP \-\-cdebootstrap\-options=\fICDEBOOTSTRAP_OPTIONEN\fP 4
-setzt cdebootstrap(1) Optionen (Standardwert: keine), siehe
+setzt \fIcdebootstrap\fP(1) Optionen (Standardwert: keine), siehe
 \fIcdebootstrap\fP(1) für mehr Informationen über cdebootstrap.
 .IP \-\-verbose 4
-setzt verbose Option für mehr Ausgaben (Standardwert: aus)
+setzt verbose Option für mehr Ausgaben (Standardwert: aus).
 .IP "\-h, \-\-help" 4
-zeigt Hilfenachricht und beendet sich
+zeigt Hilfenachricht und beendet sich.
 .IP "\-v, \-\-version" 4
-zeigt Versionsnummer des Programms und beendet sich
+zeigt Versionsnummer des Programms und beendet sich.
 
 .SH DATEIEN
 .IP \fBconfig/build\fP 4
@@ -50,7 +50,7 @@ zeigt Versionsnummer des Programms und beendet sich
 .IP \fB.build/bootstrap\fP 4
 
 .SH "SIEHE AUCH"
-\fIcdebootstrap\fP(1)
+.IP fIcdebootstrap(1) 4
 
 .SH HOMEPAGE
 Weitere Informationen über live\-build und das Live Systems Projekt können

@@ -13,11 +13,8 @@ test:
 
 	@for SCRIPT in $(SCRIPTS); \
 	do \
-		if ! head -n1 $${SCRIPT} | grep -qs python; \
-		then \
-			sh -n $${SCRIPT}; \
-			echo -n "."; \
-		fi; \
+		sh -n $${SCRIPT}; \
+		echo -n "."; \
 	done
 
 	@echo " done."
@@ -28,11 +25,8 @@ test:
 	then \
 		for SCRIPT in $(SCRIPTS); \
 		do \
-			if ! head -n1 $${SCRIPT} | grep -qs python; \
-			then \
-				checkbashisms -f -x $${SCRIPT}; \
-				echo -n "."; \
-			fi; \
+			checkbashisms -f -x $${SCRIPT}; \
+			echo -n "."; \
 		done; \
 	else \
 		echo "WARNING: skipping bashism test - you need to install devscripts."; \
@@ -55,6 +49,7 @@ install:
 
 	mkdir -p $(DESTDIR)/usr/lib/live
 	cp -a scripts/* $(DESTDIR)/usr/lib/live
+	cp -a components/* $(DESTDIR)/usr/lib/live/build
 
 	# Installing documentation
 	mkdir -p $(DESTDIR)/usr/share/doc/live-build

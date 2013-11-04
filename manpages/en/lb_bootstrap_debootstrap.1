@@ -6,10 +6,10 @@
 .\" under certain conditions; see COPYING for details.
 .\"
 .\"
-.TH LIVE\-BUILD 1 2013\-10\-28 4.0~alpha28-1 "Live Systems Project"
+.TH LIVE\-BUILD 1 2013\-11\-04 4.0~alpha29-1 "Live Systems Project"
 
 .SH NAME
-\fBlive\-build\fR \- System Build Scripts
+\fBlive\-build\fR \- Live System Build Components
 
 .SH SYNOPSIS
 \fBlb bootstrap_debootstrap\fR [\-\-debootstrap\-options=\fIDEBOOTSTRAP_OPTIONS\fR] [\-\-verbose]
@@ -19,19 +19,19 @@
 \fBlb bootstrap_debootstrap\fR [\-\-version]
 .
 .SH DESCRIPTION
-live\-build contains the programs to build a live system from a configuration directory.
+live\-build contains the components to build a live system from a configuration directory.
 .PP
-The \fBlb bootstrap_debootstrap\fR program bootstraps the chroot system with debootstrap(8).
+The \fBlb bootstrap_debootstrap\fR command bootstraps the chroot system with \fIdebootstrap\fR(8).
 
 .SH OPTIONS
 .IP "\-\-debootstrap\-options=\fIDEBOOTSTRAP_OPTIONS\fR" 4
-set debootstrap(8) options (default: None), see \fIdebootstrap\fR(8) for more information about debootstrap.
+set \fIdebootstrap\fR(8) options (default: None), see \fIdebootstrap\fR(8) for more information about debootstrap.
 .IP "\-\-verbose" 4
-sets verbose option (default: False)
+sets verbose option (default: False).
 .IP "\-h, \-\-help" 4
-show help message and exit
+show help message and exit.
 .IP "\-v, \-\-version" 4
-show program's version number and exit
+show program's version number and exit.
 
 .SH FILES
 .IP "\fBconfig/build\fR" 4
@@ -41,7 +41,7 @@ show program's version number and exit
 .IP "\fB.build/bootstrap\fR" 4
 
 .SH SEE ALSO
-\fIdebootstrap\fR(8)
+.IP "\fIdebootstrap\fR(8)" 4
 
 .SH HOMEPAGE
 More information about live\-build and the Live Systems project can be found on the homepage at <\fIhttp://live-systems.org/\fR> and in the manual at <\fIhttp://live-systems.org/manual/\fR>.

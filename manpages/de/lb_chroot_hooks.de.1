@@ -17,24 +17,19 @@
 \fBlive\-build\fP \- System Build Komponenten
 
 .SH SYNTAX
-\fBlb bootstrap_debootstrap\fP [\-\-debootstrap\-options=\fIDEBOOTSTRAP_OPTIONEN\fP]
-[\-\-verbose]
+\fBlb chroot_hooks\fP [\-\-verbose]
 .PP
-\fBlb bootstrap_debootstrap\fP [\-\-help]
+\fBlb chroot_hooks\fP [\-\-help]
 .br
-\fBlb bootstrap_debootstrap\fP [\-\-version]
+\fBlb chroot_hooks\fP [\-\-version]
 .
 .SH BESCHREIBUNG
 live\-build enthält die Komponenten um ein Live System von einem
 Konfigurationsverzeichnis zu erstellen.
 .PP
-Der \fBlb bootstrap_debootstrap\fP Befehl erstellt das Chroot System mit
-\fIdebootstrap\fP(8).
+Der \fBlb chroot_hooks\fP Befehl führt Hooks nach dem Chroot Stage aus.
 
 .SH OPTIONEN
-.IP \-\-debootstrap\-options=\fIDEBOOTSTRAP_OPTIONEN\fP 4
-setzt \fIdebootstrap\fP(8) Optionen (Standardwert: keine), siehe
-\fIdebootstrap\fP(8) für mehr Informationen über debootstrap.
 .IP \-\-verbose 4
 setzt verbose Option für mehr Ausgaben (Standardwert: aus).
 .IP "\-h, \-\-help" 4
@@ -44,13 +39,14 @@ zeigt Versionsnummer des Programms und beendet sich.
 
 .SH DATEIEN
 .IP \fBconfig/build\fP 4
-.IP \fBcache/bootstrap\fP 4
-.IP \fBcache/packages.bootstrap\fP 4
+.IP \fBconfig/hooks/*.hook\fP 4
+.IP \fBconfig/hooks/*.hook.chroot\fP 4
 .IP \fBchroot\fP 4
-.IP \fB.build/bootstrap\fP 4
 
 .SH "SIEHE AUCH"
-.IP \fIdebootstrap\fP(8) 4
+.IP \fIlb_bootstrap_hooks\fP(1) 4
+.IP \fIlb_binary_hooks\fP(1) 4
+.IP \fIlb_source_hooks\fP(1) 4
 
 .SH HOMEPAGE
 Weitere Informationen über live\-build und das Live Systems Projekt können

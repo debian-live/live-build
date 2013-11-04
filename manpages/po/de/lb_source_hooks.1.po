@@ -158,6 +158,13 @@ msgstr "DATEIEN"
 msgid "B<config/build>"
 msgstr "B<config/build>"
 
+#. type: IP
+#: en/lb_binary_hooks.1:36 en/lb_bootstrap_hooks.1:36 en/lb_chroot_hooks.1:36
+#: en/lb_source_hooks.1:36
+#, no-wrap
+msgid "B<config/hooks/*.hook>"
+msgstr "B<config/hooks/*.hook>"
+
 #. type: SH
 #: en/lb_binary_hooks.1:40 en/lb_bootstrap_cdebootstrap.1:43
 #: en/lb_bootstrap_debootstrap.1:43 en/lb_bootstrap_hooks.1:40
@@ -165,6 +172,18 @@ msgstr "B<config/build>"
 #, no-wrap
 msgid "SEE ALSO"
 msgstr "SIEHE AUCH"
+
+#. type: IP
+#: en/lb_binary_hooks.1:41 en/lb_chroot_hooks.1:41 en/lb_source_hooks.1:41
+#, no-wrap
+msgid "I<lb_bootstrap_hooks>(1)"
+msgstr "I<lb_bootstrap_hooks>(1)"
+
+#. type: IP
+#: en/lb_binary_hooks.1:42 en/lb_bootstrap_hooks.1:41 en/lb_source_hooks.1:42
+#, no-wrap
+msgid "I<lb_chroot_hooks>(1)"
+msgstr "I<lb_chroot_hooks>(1)"
 
 #. type: SH
 #: en/lb_binary_hooks.1:45 en/lb_bootstrap_cdebootstrap.1:46
@@ -230,76 +249,40 @@ msgstr ""
 "live-build wurde von Daniel Baumann E<lt>I<mail@daniel-baumann.ch>E<gt> "
 "geschrieben."
 
-#. type: Plain text
-#: en/lb_bootstrap_cdebootstrap.1:16
-msgid ""
-"B<lb bootstrap_cdebootstrap> [--cdebootstrap-"
-"options=I<CDEBOOTSTRAP_OPTIONS>] [--verbose]"
-msgstr ""
-"B<lb bootstrap_cdebootstrap> [--cdebootstrap-"
-"options=I<CDEBOOTSTRAP_OPTIONEN>] [--verbose]"
+#. type: IP
+#: en/lb_bootstrap_hooks.1:42 en/lb_chroot_hooks.1:42 en/lb_source_hooks.1:43
+#, no-wrap
+msgid "I<lb_binary_hooks>(1)"
+msgstr "I<lb_binary_hooks>(1)"
 
 #. type: Plain text
-#: en/lb_bootstrap_cdebootstrap.1:18
-msgid "B<lb bootstrap_cdebootstrap> [--help]"
-msgstr "B<lb bootstrap_cdebootstrap> [--help]"
+#: en/lb_source_hooks.1:16
+msgid "B<lb source_hooks> [--verbose]"
+msgstr "B<lb source_hooks> [--verbose]"
 
 #. type: Plain text
-#: en/lb_bootstrap_cdebootstrap.1:20
-msgid "B<lb bootstrap_cdebootstrap> [--version]"
-msgstr "B<lb bootstrap_cdebootstrap> [--version]"
+#: en/lb_source_hooks.1:18
+msgid "B<lb source_hooks> [--help]"
+msgstr "B<lb source_hooks> [--help]"
 
 #. type: Plain text
-#: en/lb_bootstrap_cdebootstrap.1:25
-msgid ""
-"The B<lb bootstrap_cdebootstrap> command bootstraps the chroot system with "
-"I<cdebootstrap>(1)."
-msgstr ""
-"Der B<lb bootstrap_cdebootstrap> Befehl erstellt das Chroot System mit "
-"I<cdebootstrap>(1)."
-
-#. type: IP
-#: en/lb_bootstrap_cdebootstrap.1:27
-#, no-wrap
-msgid "--cdebootstrap-options=I<CDEBOOTSTRAP_OPTIONS>"
-msgstr "--cdebootstrap-options=I<CDEBOOTSTRAP_OPTIONEN>"
+#: en/lb_source_hooks.1:20
+msgid "B<lb source_hooks> [--version]"
+msgstr "B<lb source_hooks> [--version]"
 
 #. type: Plain text
-#: en/lb_bootstrap_cdebootstrap.1:29
-msgid ""
-"set I<cdebootstrap>(1) options (default: None), see I<cdebootstrap>(1) for "
-"more information about cdebootstrap."
-msgstr ""
-"setzt I<cdebootstrap>(1) Optionen (Standardwert: keine), siehe "
-"I<cdebootstrap>(1) für mehr Informationen über cdebootstrap."
+#: en/lb_source_hooks.1:25
+msgid "The B<lb source_hooks> command executes hooks after the source stage."
+msgstr "Der B<lb source_hooks> Befehl führt Hooks nach dem Source Stage aus."
 
 #. type: IP
-#: en/lb_bootstrap_cdebootstrap.1:38 en/lb_bootstrap_debootstrap.1:38
+#: en/lb_source_hooks.1:37
 #, no-wrap
-msgid "B<cache/bootstrap>"
-msgstr "B<cache/bootstrap>"
+msgid "B<config/hooks/*.hook.source>"
+msgstr "B<config/hooks/*.hook.source>"
 
 #. type: IP
-#: en/lb_bootstrap_cdebootstrap.1:39 en/lb_bootstrap_debootstrap.1:39
+#: en/lb_source_hooks.1:38
 #, no-wrap
-msgid "B<cache/packages.bootstrap>"
-msgstr "B<cache/packages.bootstrap>"
-
-#. type: IP
-#: en/lb_bootstrap_cdebootstrap.1:40 en/lb_bootstrap_debootstrap.1:40
-#: en/lb_bootstrap_hooks.1:38 en/lb_chroot_hooks.1:38
-#, no-wrap
-msgid "B<chroot>"
-msgstr "B<chroot>"
-
-#. type: IP
-#: en/lb_bootstrap_cdebootstrap.1:41 en/lb_bootstrap_debootstrap.1:41
-#, no-wrap
-msgid "B<.build/bootstrap>"
-msgstr "B<.build/bootstrap>"
-
-#. type: IP
-#: en/lb_bootstrap_cdebootstrap.1:44
-#, no-wrap
-msgid "fIcdebootstrap(1)"
-msgstr "fIcdebootstrap(1)"
+msgid "B<source>"
+msgstr "B<source>"

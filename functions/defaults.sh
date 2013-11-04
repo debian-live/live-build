@@ -501,28 +501,6 @@ Set_defaults ()
 	# Setting union filesystem
 	LB_UNION_FILESYSTEM="${LB_UNION_FILESYSTEM:-aufs}"
 
-	# Setting distribution hooks
-	LB_CHROOT_HOOKS="${LB_CHROOT_HOOKS:-disable-kexec-tools \
-		remove-adjtime-configuration \
-		remove-backup-files \
-		remove-dbus-machine-id \
-		remove-gnome-icon-cache \
-		remove-log-files \
-		remove-mdadm-configuration \
-		remove-openssh-server-host-keys \
-		remove-python-py \
-		remove-temporary-files \
-		remove-ssl-cert-snakeoil \
-		remove-udev-persistent-cd-rules \
-		remove-udev-persistent-net-rules \
-		remove-systemd-machine-id \
-		update-apt-file-cache \
-		update-apt-xapian-index \
-		update-glx-alternative \
-		update-mlocate-database \
-		update-nvidia-alternative}"
-		#remove-apt-sources-lists
-
 	# Setting interactive shell/X11/Xnest
 	LB_INTERACTIVE="${LB_INTERACTIVE:-false}"
 
