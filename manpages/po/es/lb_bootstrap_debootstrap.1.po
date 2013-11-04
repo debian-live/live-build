@@ -102,9 +102,9 @@ msgstr "OPCIONES"
 #: en/lb_binary_hooks.1:42 en/lb_bootstrap_cdebootstrap.1:29
 #: en/lb_bootstrap_debootstrap.1:29 en/lb_bootstrap_hooks.1:40
 #: en/lb_chroot_hooks.1:40 en/lb_source_hooks.1:42
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "B<--verbose>"
-msgstr "--verbose"
+msgstr "B<--verbose>"
 
 #. type: Plain text
 #: en/lb_binary_hooks.1:44 en/lb_bootstrap_cdebootstrap.1:31
@@ -117,9 +117,9 @@ msgstr "establece la opción verbose (por defecto: False)."
 #: en/lb_binary_hooks.1:44 en/lb_bootstrap_cdebootstrap.1:31
 #: en/lb_bootstrap_debootstrap.1:31 en/lb_bootstrap_hooks.1:42
 #: en/lb_chroot_hooks.1:42 en/lb_source_hooks.1:44
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "B<-h, --help>"
-msgstr "-h, --help"
+msgstr "B<-h, --help>"
 
 #. type: Plain text
 #: en/lb_binary_hooks.1:46 en/lb_bootstrap_cdebootstrap.1:33
@@ -132,9 +132,9 @@ msgstr "muestra el mensaje de ayuda y sale."
 #: en/lb_binary_hooks.1:46 en/lb_bootstrap_cdebootstrap.1:33
 #: en/lb_bootstrap_debootstrap.1:33 en/lb_bootstrap_hooks.1:44
 #: en/lb_chroot_hooks.1:44 en/lb_source_hooks.1:46
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "B<--version>"
-msgstr "-v, --version"
+msgstr "B<--version>"
 
 #. type: Plain text
 #: en/lb_binary_hooks.1:48 en/lb_bootstrap_cdebootstrap.1:35
