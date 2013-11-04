@@ -1,0 +1,99 @@
+.\" live-build(7) - System Build Scripts
+.\" Copyright (C) 2006-2013 Daniel Baumann <mail@daniel-baumann.ch>
+.\"
+.\" This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+.\" This is free software, and you are welcome to redistribute it
+.\" under certain conditions; see COPYING for details.
+.\"
+.\"
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH LIVE\-BUILD 1 04.11.2013 4.0~alpha30\-1 "Proyecto Live Systems"
+
+.SH NOMBRE
+\fBlive\-build\fP \- Live System Build Components
+
+.SH SINOPSIS
+\fBlb binary\-hooks\fP [\-\-verbose]
+.PP
+\fBlb binary\-hooks\fP [\-\-help]
+.br
+\fBlb binary\-hooks\fP [\-\-version]
+.
+.SH DESCRIPCIÓN
+live\-build contains the components to build a live system from a
+configuration directory.
+.PP
+The \fBlb binary\-hooks\fP command executes hook files after the binary stage.
+
+.SH SPECIFICATION
+\fBlb binary\-hooks\fP executes any hook files found in the \fBconfig/hooks\fP
+directory within the configuration directory.
+.PP
+Hook files do not require to have a specific owner nor specific
+permissions. They are marked executable by \fBlb binary\-hooks\fP automatically
+when they are executed.
+.PP
+Hook files must either have the suffix \fB*.hook\fP or \fB*.hook.binary\fP.
+.PP
+Hook files with the suffix \fB*.hook\fP are executed first, hook files with the
+suffix \fB*.hook.binary\fP are executed second.
+.PP
+Hook files are executed in alphanumberical order by \fBlb binary\-hooks\fP. If
+one hook file depends on being run after another, best practise is to use
+number prefixes (nnnn, starting with 0001) to ensure the order of execution.
+.PP
+Hook files are copied into the \fBbinary/live\-build\fP directory by \fBlb
+binary\-hooks\fP. They are executed from within the binary directory and can
+read the configuration directory in \fBlive\-build/config\fP within the binary
+directory.
+.PP
+\fBWarning:\fP hook files are not executed within a chroot but within the
+context of the host system in the binary directory. They have root
+privileges and access to the all host system ressources (devices,
+filesystems, network, etc.).
+
+.SH OPCIONES
+.IP \fB\-\-verbose\fP 4
+establece la opción verbose (por defecto: False).
+.IP "\fB\-h, \-\-help\fP" 4
+muestra el mensaje de ayuda y sale.
+.IP \fB\-\-version\fP 4
+muestra el número de versión del programa y sale.
+
+.SH FICHEROS
+.IP \fBconfig/hooks/*.hook\fP: 4
+generic hook files.
+.IP \fBconfig/hooks/*.hook.binary\fP: 4
+hook files specific for the binary stage.
+.IP \fBbinary\fP: 4
+directory in which the hook files are executed.
+.IP \fBbinary/live\-build/config\fP: 4
+bind mounted configuration directory within the binary directory to be read
+by hook files.
+.IP \fBbinary/live\-build\fP: 4
+directory in which hook files are copied.
+
+.SH "VER TAMBIÉN"
+.IP \fIlb\-bootstrap\-hooks\fP(1) 4
+.IP \fIlb\-chroot\-hooks\fP(1) 4
+.IP \fIlb\-source\-hooks\fP(1) 4
+
+.SH "PÁGINA WEB"
+Se puede encontrar más información acerca de live\-build y el proyecto Live
+Systems en la página web <\fIhttp://live\-systems.org/\fP> y en el
+manual en <\fIhttp://live\-systems.org/manual/\fP>.
+
+.SH ERRORES
+Se puede notificar los fallos enviando un informe de errores sobre el
+paquete live\-build en el Bug Tracking System en
+<\fIhttp://bugs.debian.org/\fP> o escribiendo un mensaje a la lista de
+correo de Live Systems a la dirección
+<\fIdebian\-live@lists.debian.org\fP>.
+
+.SH AUTOR
+live\-build fue escrito por Daniel Baumann
+<\fImail@daniel\-baumann.ch\fP>.

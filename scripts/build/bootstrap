@@ -35,8 +35,7 @@ Set_defaults
 Setup_cleanup
 
 # Bootstrapping system
-lb bootstrap_cache restore ${@}
-lb bootstrap_${LB_BOOTSTRAP}
+lb bootstrap-${LB_BOOTSTRAP}
 
 # Configuring chroot
 lb chroot_devpts install ${@}
@@ -53,9 +52,9 @@ lb chroot_resolv install ${@}
 lb chroot_hostname install ${@}
 lb chroot_apt install ${@}
 
-lb bootstrap_archive-keys ${@}
 lb bootstrap_archives binary ${@}
-lb bootstrap_hooks ${@}
+lb bootstrap-includes ${@}
+lb bootstrap-hooks ${@}
 
 # Deconfiguring chroot
 lb chroot_apt remove ${@}
@@ -71,5 +70,3 @@ lb chroot_sysfs remove ${@}
 lb chroot_selinuxfs remove ${@}
 lb chroot_proc remove ${@}
 lb chroot_devpts remove ${@}
-
-lb bootstrap_cache save ${@}
