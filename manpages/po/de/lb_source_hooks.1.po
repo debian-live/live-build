@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build 4.0~alpha28-1\n"
-"POT-Creation-Date: 2013-11-04 06:44+0100\n"
+"POT-Creation-Date: 2013-11-04 06:51+0100\n"
 "PO-Revision-Date: 2010-05-24 09:59+0300\n"
 "Last-Translator: Daniel Baumann <mail@daniel-baumann.ch>\n"
 "Language-Team: none\n"
@@ -173,19 +173,30 @@ msgstr "B<config/hooks/*.hook>"
 msgid "SEE ALSO"
 msgstr "SIEHE AUCH"
 
-#.  FIXME
+#. type: IP
+#: en/lb_binary_hooks.1:41 en/lb_chroot_hooks.1:41 en/lb_source_hooks.1:41
+#, no-wrap
+msgid "I<lb_bootstrap_hooks>(1)"
+msgstr "I<lb_bootstrap_hooks>(1)"
+
+#. type: IP
+#: en/lb_binary_hooks.1:42 en/lb_bootstrap_hooks.1:41 en/lb_source_hooks.1:42
+#, no-wrap
+msgid "I<lb_chroot_hooks>(1)"
+msgstr "I<lb_chroot_hooks>(1)"
+
 #. type: SH
-#: en/lb_binary_hooks.1:43 en/lb_bootstrap_cdebootstrap.1:46
-#: en/lb_bootstrap_debootstrap.1:46 en/lb_bootstrap_hooks.1:43
-#: en/lb_chroot_hooks.1:43 en/lb_source_hooks.1:43
+#: en/lb_binary_hooks.1:45 en/lb_bootstrap_cdebootstrap.1:46
+#: en/lb_bootstrap_debootstrap.1:46 en/lb_bootstrap_hooks.1:45
+#: en/lb_chroot_hooks.1:45 en/lb_source_hooks.1:45
 #, no-wrap
 msgid "HOMEPAGE"
 msgstr "HOMEPAGE"
 
 #. type: Plain text
-#: en/lb_binary_hooks.1:45 en/lb_bootstrap_cdebootstrap.1:48
-#: en/lb_bootstrap_debootstrap.1:48 en/lb_bootstrap_hooks.1:45
-#: en/lb_chroot_hooks.1:45 en/lb_source_hooks.1:45
+#: en/lb_binary_hooks.1:47 en/lb_bootstrap_cdebootstrap.1:48
+#: en/lb_bootstrap_debootstrap.1:48 en/lb_bootstrap_hooks.1:47
+#: en/lb_chroot_hooks.1:47 en/lb_source_hooks.1:47
 msgid ""
 "More information about live-build and the Live Systems project can be found "
 "on the homepage at E<lt>I<http://live-systems.org/>E<gt> and in the manual "
@@ -196,17 +207,17 @@ msgstr ""
 "unter E<lt>I<http://live-systems.org/manual/>E<gt> gefunden werden."
 
 #. type: SH
-#: en/lb_binary_hooks.1:46 en/lb_bootstrap_cdebootstrap.1:49
-#: en/lb_bootstrap_debootstrap.1:49 en/lb_bootstrap_hooks.1:46
-#: en/lb_chroot_hooks.1:46 en/lb_source_hooks.1:46
+#: en/lb_binary_hooks.1:48 en/lb_bootstrap_cdebootstrap.1:49
+#: en/lb_bootstrap_debootstrap.1:49 en/lb_bootstrap_hooks.1:48
+#: en/lb_chroot_hooks.1:48 en/lb_source_hooks.1:48
 #, no-wrap
 msgid "BUGS"
 msgstr "FEHLER"
 
 #. type: Plain text
-#: en/lb_binary_hooks.1:48 en/lb_bootstrap_cdebootstrap.1:51
-#: en/lb_bootstrap_debootstrap.1:51 en/lb_bootstrap_hooks.1:48
-#: en/lb_chroot_hooks.1:48 en/lb_source_hooks.1:48
+#: en/lb_binary_hooks.1:50 en/lb_bootstrap_cdebootstrap.1:51
+#: en/lb_bootstrap_debootstrap.1:51 en/lb_bootstrap_hooks.1:50
+#: en/lb_chroot_hooks.1:50 en/lb_source_hooks.1:50
 msgid ""
 "Bugs can be reported by submitting a bugreport for the live-build package in "
 "the Bug Tracking System at E<lt>I<http://bugs.debian.org/>E<gt> or by "
@@ -221,22 +232,28 @@ msgstr ""
 
 #
 #. type: SH
-#: en/lb_binary_hooks.1:49 en/lb_bootstrap_cdebootstrap.1:52
-#: en/lb_bootstrap_debootstrap.1:52 en/lb_bootstrap_hooks.1:49
-#: en/lb_chroot_hooks.1:49 en/lb_source_hooks.1:49
+#: en/lb_binary_hooks.1:51 en/lb_bootstrap_cdebootstrap.1:52
+#: en/lb_bootstrap_debootstrap.1:52 en/lb_bootstrap_hooks.1:51
+#: en/lb_chroot_hooks.1:51 en/lb_source_hooks.1:51
 #, no-wrap
 msgid "AUTHOR"
 msgstr "AUTOR"
 
 #. type: Plain text
-#: en/lb_binary_hooks.1:50 en/lb_bootstrap_cdebootstrap.1:53
-#: en/lb_bootstrap_debootstrap.1:53 en/lb_bootstrap_hooks.1:50
-#: en/lb_chroot_hooks.1:50 en/lb_source_hooks.1:50
+#: en/lb_binary_hooks.1:52 en/lb_bootstrap_cdebootstrap.1:53
+#: en/lb_bootstrap_debootstrap.1:53 en/lb_bootstrap_hooks.1:52
+#: en/lb_chroot_hooks.1:52 en/lb_source_hooks.1:52
 msgid ""
 "live-build was written by Daniel Baumann E<lt>I<mail@daniel-baumann.ch>E<gt>."
 msgstr ""
 "live-build wurde von Daniel Baumann E<lt>I<mail@daniel-baumann.ch>E<gt> "
 "geschrieben."
+
+#. type: IP
+#: en/lb_bootstrap_hooks.1:42 en/lb_chroot_hooks.1:42 en/lb_source_hooks.1:43
+#, no-wrap
+msgid "I<lb_binary_hooks>(1)"
+msgstr "I<lb_binary_hooks>(1)"
 
 #. type: Plain text
 #: en/lb_source_hooks.1:16
