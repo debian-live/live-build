@@ -83,7 +83,7 @@ def main():
 		hooks = glob.glob('config/includes/*') + glob.glob('config/includes/.*')
 
 		if verbose:
-			print('I: Copying config/includes to')
+			print('I: Copying config/includes to chroot')
 
 		cpio = subprocess.call('cd config/includes && find . | cpio -dmpu --no-preserve-owner ../../chroot', shell=True)
 
