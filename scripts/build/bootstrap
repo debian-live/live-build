@@ -53,6 +53,7 @@ lb chroot_hostname install ${@}
 lb chroot_apt install ${@}
 
 lb bootstrap_archives binary ${@}
+lb bootstrap-includes ${@}
 lb bootstrap-hooks ${@}
 
 # Deconfiguring chroot
