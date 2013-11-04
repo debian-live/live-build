@@ -84,7 +84,7 @@ def main():
 		if verbose:
 			print('I: Copying config/hooks/*.hook.chroot to chroot/live-build')
 
-		os.link(hook, os.path.join('chroot/live-build/' + os.path.basename(hook)), follow_symlinks=True)
+		shutil.copy(hook, os.path.join('chroot/live-build/' + os.path.basename(hook)), follow_symlinks=True)
 
 		if verbose:
 			print('I: Executing \' ' + hook + '\'')
