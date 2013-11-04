@@ -20,9 +20,6 @@ USAGE="${PROGRAM} {install|remove} [--force]"
 
 Arguments "${@}"
 
-# Ensure that a system is built as root
-lb testroot
-
 # Reading configuration files
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
