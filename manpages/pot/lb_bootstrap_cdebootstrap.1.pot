@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2013-11-04 07:18+0100\n"
+"POT-Creation-Date: 2013-11-04 11:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,7 +89,7 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: en/lb_binary_hooks.1:26 en/lb_bootstrap_cdebootstrap.1:26
+#: en/lb_binary_hooks.1:41 en/lb_bootstrap_cdebootstrap.1:26
 #: en/lb_bootstrap_debootstrap.1:26 en/lb_bootstrap_hooks.1:26
 #: en/lb_chroot_hooks.1:26 en/lb_source_hooks.1:26
 #, no-wrap
@@ -97,7 +97,7 @@ msgid "OPTIONS"
 msgstr ""
 
 #. type: IP
-#: en/lb_binary_hooks.1:27 en/lb_bootstrap_cdebootstrap.1:29
+#: en/lb_binary_hooks.1:42 en/lb_bootstrap_cdebootstrap.1:29
 #: en/lb_bootstrap_debootstrap.1:29 en/lb_bootstrap_hooks.1:27
 #: en/lb_chroot_hooks.1:27 en/lb_source_hooks.1:27
 #, no-wrap
@@ -105,14 +105,14 @@ msgid "--verbose"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_binary_hooks.1:29 en/lb_bootstrap_cdebootstrap.1:31
+#: en/lb_binary_hooks.1:44 en/lb_bootstrap_cdebootstrap.1:31
 #: en/lb_bootstrap_debootstrap.1:31 en/lb_bootstrap_hooks.1:29
 #: en/lb_chroot_hooks.1:29 en/lb_source_hooks.1:29
 msgid "sets verbose option (default: False)."
 msgstr ""
 
 #. type: IP
-#: en/lb_binary_hooks.1:29 en/lb_bootstrap_cdebootstrap.1:31
+#: en/lb_binary_hooks.1:44 en/lb_bootstrap_cdebootstrap.1:31
 #: en/lb_bootstrap_debootstrap.1:31 en/lb_bootstrap_hooks.1:29
 #: en/lb_chroot_hooks.1:29 en/lb_source_hooks.1:29
 #, no-wrap
@@ -120,14 +120,14 @@ msgid "-h, --help"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_binary_hooks.1:31 en/lb_bootstrap_cdebootstrap.1:33
+#: en/lb_binary_hooks.1:46 en/lb_bootstrap_cdebootstrap.1:33
 #: en/lb_bootstrap_debootstrap.1:33 en/lb_bootstrap_hooks.1:31
 #: en/lb_chroot_hooks.1:31 en/lb_source_hooks.1:31
 msgid "show help message and exit."
 msgstr ""
 
 #. type: IP
-#: en/lb_binary_hooks.1:31 en/lb_bootstrap_cdebootstrap.1:33
+#: en/lb_binary_hooks.1:46 en/lb_bootstrap_cdebootstrap.1:33
 #: en/lb_bootstrap_debootstrap.1:33 en/lb_bootstrap_hooks.1:31
 #: en/lb_chroot_hooks.1:31 en/lb_source_hooks.1:31
 #, no-wrap
@@ -135,30 +135,22 @@ msgid "-v, --version"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_binary_hooks.1:33 en/lb_bootstrap_cdebootstrap.1:35
+#: en/lb_binary_hooks.1:48 en/lb_bootstrap_cdebootstrap.1:35
 #: en/lb_bootstrap_debootstrap.1:35 en/lb_bootstrap_hooks.1:33
 #: en/lb_chroot_hooks.1:33 en/lb_source_hooks.1:33
 msgid "show program's version number and exit."
 msgstr ""
 
 #. type: SH
-#: en/lb_binary_hooks.1:34 en/lb_bootstrap_cdebootstrap.1:36
+#: en/lb_binary_hooks.1:49 en/lb_bootstrap_cdebootstrap.1:36
 #: en/lb_bootstrap_debootstrap.1:36 en/lb_bootstrap_hooks.1:34
 #: en/lb_chroot_hooks.1:34 en/lb_source_hooks.1:34
 #, no-wrap
 msgid "FILES"
 msgstr ""
 
-#. type: IP
-#: en/lb_binary_hooks.1:35 en/lb_bootstrap_cdebootstrap.1:37
-#: en/lb_bootstrap_debootstrap.1:37 en/lb_bootstrap_hooks.1:35
-#: en/lb_chroot_hooks.1:35 en/lb_source_hooks.1:35
-#, no-wrap
-msgid "B<config/build>"
-msgstr ""
-
 #. type: SH
-#: en/lb_binary_hooks.1:40 en/lb_bootstrap_cdebootstrap.1:43
+#: en/lb_binary_hooks.1:63 en/lb_bootstrap_cdebootstrap.1:43
 #: en/lb_bootstrap_debootstrap.1:43 en/lb_bootstrap_hooks.1:40
 #: en/lb_chroot_hooks.1:40 en/lb_source_hooks.1:40
 #, no-wrap
@@ -166,7 +158,7 @@ msgid "SEE ALSO"
 msgstr ""
 
 #. type: SH
-#: en/lb_binary_hooks.1:45 en/lb_bootstrap_cdebootstrap.1:46
+#: en/lb_binary_hooks.1:68 en/lb_bootstrap_cdebootstrap.1:46
 #: en/lb_bootstrap_debootstrap.1:46 en/lb_bootstrap_hooks.1:45
 #: en/lb_chroot_hooks.1:45 en/lb_source_hooks.1:45
 #, no-wrap
@@ -174,7 +166,7 @@ msgid "HOMEPAGE"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_binary_hooks.1:47 en/lb_bootstrap_cdebootstrap.1:48
+#: en/lb_binary_hooks.1:70 en/lb_bootstrap_cdebootstrap.1:48
 #: en/lb_bootstrap_debootstrap.1:48 en/lb_bootstrap_hooks.1:47
 #: en/lb_chroot_hooks.1:47 en/lb_source_hooks.1:47
 msgid ""
@@ -184,7 +176,7 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: en/lb_binary_hooks.1:48 en/lb_bootstrap_cdebootstrap.1:49
+#: en/lb_binary_hooks.1:71 en/lb_bootstrap_cdebootstrap.1:49
 #: en/lb_bootstrap_debootstrap.1:49 en/lb_bootstrap_hooks.1:48
 #: en/lb_chroot_hooks.1:48 en/lb_source_hooks.1:48
 #, no-wrap
@@ -192,7 +184,7 @@ msgid "BUGS"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_binary_hooks.1:50 en/lb_bootstrap_cdebootstrap.1:51
+#: en/lb_binary_hooks.1:73 en/lb_bootstrap_cdebootstrap.1:51
 #: en/lb_bootstrap_debootstrap.1:51 en/lb_bootstrap_hooks.1:50
 #: en/lb_chroot_hooks.1:50 en/lb_source_hooks.1:50
 msgid ""
@@ -203,7 +195,7 @@ msgid ""
 msgstr ""
 
 #. type: SH
-#: en/lb_binary_hooks.1:51 en/lb_bootstrap_cdebootstrap.1:52
+#: en/lb_binary_hooks.1:74 en/lb_bootstrap_cdebootstrap.1:52
 #: en/lb_bootstrap_debootstrap.1:52 en/lb_bootstrap_hooks.1:51
 #: en/lb_chroot_hooks.1:51 en/lb_source_hooks.1:51
 #, no-wrap
@@ -211,7 +203,7 @@ msgid "AUTHOR"
 msgstr ""
 
 #. type: Plain text
-#: en/lb_binary_hooks.1:52 en/lb_bootstrap_cdebootstrap.1:53
+#: en/lb_binary_hooks.1:75 en/lb_bootstrap_cdebootstrap.1:53
 #: en/lb_bootstrap_debootstrap.1:53 en/lb_bootstrap_hooks.1:52
 #: en/lb_chroot_hooks.1:52 en/lb_source_hooks.1:52
 msgid ""
@@ -253,6 +245,13 @@ msgstr ""
 msgid ""
 "set I<cdebootstrap>(1) options (default: None), see I<cdebootstrap>(1) for "
 "more information about cdebootstrap."
+msgstr ""
+
+#. type: IP
+#: en/lb_bootstrap_cdebootstrap.1:37 en/lb_bootstrap_debootstrap.1:37
+#: en/lb_bootstrap_hooks.1:35 en/lb_chroot_hooks.1:35 en/lb_source_hooks.1:35
+#, no-wrap
+msgid "B<config/build>"
 msgstr ""
 
 #. type: IP
