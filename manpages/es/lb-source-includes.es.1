@@ -17,33 +17,33 @@
 \fBlive\-build\fP \- Live System Build Components
 
 .SH SINOPSIS
-\fBlb binary\-includes\fP [\-\-verbose]
+\fBlb source\-includes\fP [\-\-verbose]
 .PP
-\fBlb binary\-includes\fP [\-\-help]
+\fBlb source\-includes\fP [\-\-help]
 .br
-\fBlb binary\-includes\fP [\-\-version]
+\fBlb source\-includes\fP [\-\-version]
 .
 .SH DESCRIPCIÓN
 live\-build contains the components to build a live system from a
 configuration directory.
 .PP
-The \fBlb binary\-includes\fP command copies include files into the binary
+The \fBlb source\-includes\fP command copies include files into the source
 stage.
 
 .SH SPECIFICATION
-\fBlb binary\-includes\fP copies any include files found in the
-\fBconfig/includes\fP and \fBconfig/includes.binary\fP directories within the
+\fBlb source\-includes\fP copies any include files found in the
+\fBconfig/includes\fP and \fBconfig/includes.source\fP directories within the
 configuration directory.
 .PP
 Include files do not require to have a specific owner nor specific
-permissions. The files are set to be owned by root by \fBlb binary\-includes\fP
+permissions. The files are set to be owned by root by \fBlb source\-includes\fP
 automatically when they are copied, original permissions of the files are
 preserved. Specific owners can be set with a corresponding hook file, see
-\fIlb\-binary\-hooks\fP(1) for more information about hooks.
+\fIlb\-source\-hooks\fP(1) for more information about hooks.
 .PP
 Include files in the \fBconfig/includes\fP directory are copied first, include
-files in the \fBconfig/includes.binary\fP directory are copied second. Files
-present in the binary and either of the include directories are silently
+files in the \fBconfig/includes.source\fP directory are copied second. Files
+present in the source and either of the include directories are silently
 overwritten, the later file replaces the earlier.
 
 .SH OPCIONES
@@ -57,15 +57,15 @@ muestra el número de versión del programa y sale.
 .SH FICHEROS
 .IP \fBconfig/includes\fP: 4
 generic include files.
-.IP \fBconfig/includes.binary\fP: 4
-include files specific for the binary stage.
-.IP \fBbinary\fP: 4
+.IP \fBconfig/includes.source\fP: 4
+include files specific for the source stage.
+.IP \fBsource\fP: 4
 directory in which the include files are copied into.
 
 .SH "VER TAMBIÉN"
 .IP \fIlb\-bootstrap\-includes\fP(1) 4
 .IP \fIlb\-chroot\-includes\fP(1) 4
-.IP \fIlb\-source\-includes\fP(1) 4
+.IP \fIlb\-binary\-includes\fP(1) 4
 
 .SH "PÁGINA WEB"
 Se puede encontrar más información acerca de live\-build y el proyecto Live
