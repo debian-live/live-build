@@ -59,6 +59,18 @@ def main():
 
 		sys.exit(1)
 
+	if not os.path.isfile('/bin/cpio'):
+		print('E: /bin/cpio - no such file', file=sys.stderr)
+
+		if verbose:
+			print('I: cpio can be optained from:\n'
+			      'I:   http://www.gnu.org/software/cpio/\n'
+			      'I:   http://ftp.gnu.org/gnu/cpio/\n'
+			      'I: On Debian based systems, cpio can be installed with:\n'
+			      'I:   # sudo apt-get install cpio')
+
+		sys.exit(1)
+
 	# includes
 	if not glob.glob('config/includes/*') and not glob.glob('config/includes/.*') and not glob.glob('config/includes.chroot/*') and not glob.glob('config/includes.chroot/.*'):
 		if verbose:
