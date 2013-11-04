@@ -74,7 +74,7 @@ def main():
 	# includes
 	if not glob.glob('config/includes/*') and not glob.glob('config/includes/.*') and not glob.glob('config/includes.bootstrap/*') and not glob.glob('config/includes.bootstrap/.*'):
 		if verbose:
-			print ('I: no bootstrap includes found at config/includes.bootstrap - nothing to do')
+			print ('I: no bootstrap includes found at config/includes{,.bootstrap} - nothing to do')
 
 		sys.exit(0)
 

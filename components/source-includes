@@ -75,7 +75,7 @@ def main():
 	# includes
 	if not glob.glob('config/includes/*') and not glob.glob('config/includes/.*') and not glob.glob('config/includes.source/*') and not glob.glob('config/includes.source/.*'):
 		if verbose:
-			print ('I: no source includes found at config/includes.source - nothing to do')
+			print ('I: no source includes found at config/includes{,.source} - nothing to do')
 
 		sys.exit(0)
 

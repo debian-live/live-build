@@ -75,7 +75,7 @@ def main():
 	# includes
 	if not glob.glob('config/includes/*') and not glob.glob('config/includes/.*') and not glob.glob('config/includes.binary/*') and not glob.glob('config/includes.binary/.*'):
 		if verbose:
-			print ('I: no binary includes found at config/includes.binary - nothing to do')
+			print ('I: no binary includes found at config/includes{,.binary} - nothing to do')
 
 		sys.exit(0)
 

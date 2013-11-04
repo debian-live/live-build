@@ -74,7 +74,7 @@ def main():
 	# includes
 	if not glob.glob('config/includes/*') and not glob.glob('config/includes/.*') and not glob.glob('config/includes.chroot/*') and not glob.glob('config/includes.chroot/.*'):
 		if verbose:
-			print ('I: no chroot includes found at config/includes.chroot - nothing to do')
+			print ('I: no chroot includes found at config/includes{,.chroot} - nothing to do')
 
 		sys.exit(0)
 
