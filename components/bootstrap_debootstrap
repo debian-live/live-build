@@ -110,8 +110,9 @@ def main():
 			print('I: use \'lb clean\' to clean up a previously incomplete build')
 
 		sys.exit(1)
+
 	# packages cache
-	elif glob.glob('cache/packages.bootstrap/*.deb'):
+	if glob.glob('cache/packages.bootstrap/*.deb'):
 		if verbose:
 			print('I: Copying cache/packages.bootstrap/*.deb to chroot/var/cache/apt/archives/*.deb')
 
