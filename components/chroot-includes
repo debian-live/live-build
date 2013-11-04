@@ -63,7 +63,7 @@ def main():
 		print('E: /bin/cpio - no such file', file=sys.stderr)
 
 		if verbose:
-			print('I: cpio can be optained from:\n'
+			print('I: cpio can be obtained from:\n'
 			      'I:   http://www.gnu.org/software/cpio/\n'
 			      'I:   http://ftp.gnu.org/gnu/cpio/\n'
 			      'I: On Debian based systems, cpio can be installed with:\n'

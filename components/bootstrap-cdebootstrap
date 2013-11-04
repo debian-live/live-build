@@ -89,7 +89,7 @@ def main():
 		print('E: /usr/bin/cdebootstrap - no such file', file=sys.stderr)
 
 		if verbose:
-			print('I: cdebootstrap can be optained from:\n'
+			print('I: cdebootstrap can be obtained from:\n'
 			      'I:   http://anonscm.debian.org/gitweb/?p=users/waldi/cdebootstrap.git\n'
 			      'I:   http://ftp.debian.org/debian/pool/main/c/cdebootstrap/\n'
 			      'I: On Debian based systems, cdebootstrap can be installed with:\n'

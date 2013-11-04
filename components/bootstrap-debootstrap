@@ -94,7 +94,7 @@ def main():
 		print('E: /usr/sbin/debootstrap - no such file', file=sys.stderr)
 
 		if verbose:
-			print('I: debootstrap can be optained from:\n'
+			print('I: debootstrap can be obtained from:\n'
 			      'I:   http://anonscm.debian.org/gitweb/?p=d-i/debootstrap.git\n'
 			      'I:   http://ftp.debian.org/debian/pool/main/d/debootstrap/\n'
 			      'I: On Debian based systems, debootstrap can be installed with:\n'
