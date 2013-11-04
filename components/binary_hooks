@@ -41,7 +41,7 @@ def main():
 	# --verbose
 	verbose = args.verbose
 
-	## Executing hooks
+	## Calling binary hooks
 
 	# stagefile
 	if os.path.isfile('.build/binary_hooks'):

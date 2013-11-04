@@ -41,7 +41,7 @@ def main():
 	# --verbose
 	verbose = args.verbose
 
-	## Executing hooks
+	## Calling chroot hooks
 
 	# stagefile
 	if os.path.isfile('.build/chroot_hooks'):
@@ -99,7 +99,7 @@ def main():
 	os.rmdir('chroot/live-build/config')
 	os.rmdir('chroot/live-build')
 
-	## stagefile
+	# stagefile
 	os.makedirs('.build', exist_ok=True)
 	open('.build/chroot_hooks', 'w').close()
 

@@ -41,7 +41,7 @@ def main():
 	# --verbose
 	verbose = args.verbose
 
-	## Executing hooks
+	## Calling source hooks
 
 	# stagefile
 	if os.path.isfile('.build/source_hooks'):
@@ -99,7 +99,7 @@ def main():
 	os.rmdir('source/live-build/config')
 	os.rmdir('source/live-build')
 
-	## stagefile
+	# stagefile
 	os.makedirs('.build', exist_ok=True)
 	open('.build/source_hooks', 'w').close()
 
