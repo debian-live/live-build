@@ -1,19 +1,17 @@
-# SOME DESCRIPTIVE TITLE
-# Copyright (C) YEAR Free Software Foundation, Inc.
+# Spanish translations for live-build
+# Copyright (C) 2013 Carlos Zuferri <chals@altorricon.com>
 # This file is distributed under the same license as the live-build package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: live-build VERSION\n"
+"Project-Id-Version: live-build 4.0~alpha28-1\n"
 "POT-Creation-Date: 2013-11-04 06:38+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2010-05-24 09:59+0300\n"
+"Last-Translator: Carlos Zuferri <chals@altorricon.com>\n"
+"Language-Team: none\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. type: TH
@@ -22,7 +20,7 @@ msgstr ""
 #: en/lb_chroot_hooks.1:9
 #, no-wrap
 msgid "LIVE-BUILD"
-msgstr ""
+msgstr "LIVE-BUILD"
 
 #. type: TH
 #: en/lb_binary_hooks.1:9 en/lb_bootstrap_cdebootstrap.1:9
@@ -30,7 +28,7 @@ msgstr ""
 #: en/lb_chroot_hooks.1:9
 #, no-wrap
 msgid "2013-11-04"
-msgstr ""
+msgstr "04.11.2013"
 
 #. type: TH
 #: en/lb_binary_hooks.1:9 en/lb_bootstrap_cdebootstrap.1:9
@@ -38,7 +36,7 @@ msgstr ""
 #: en/lb_chroot_hooks.1:9
 #, no-wrap
 msgid "4.0~alpha28-1"
-msgstr ""
+msgstr "4.0~alpha28-1"
 
 #. type: TH
 #: en/lb_binary_hooks.1:9 en/lb_bootstrap_cdebootstrap.1:9
@@ -46,7 +44,7 @@ msgstr ""
 #: en/lb_chroot_hooks.1:9
 #, no-wrap
 msgid "Live Systems Project"
-msgstr ""
+msgstr "Proyecto Live Systems"
 
 #. type: SH
 #: en/lb_binary_hooks.1:11 en/lb_bootstrap_cdebootstrap.1:11
@@ -54,14 +52,15 @@ msgstr ""
 #: en/lb_chroot_hooks.1:11
 #, no-wrap
 msgid "NAME"
-msgstr ""
+msgstr "NOMBRE"
 
 #. type: Plain text
 #: en/lb_binary_hooks.1:13 en/lb_bootstrap_cdebootstrap.1:13
 #: en/lb_bootstrap_debootstrap.1:13 en/lb_bootstrap_hooks.1:13
 #: en/lb_chroot_hooks.1:13
+#, fuzzy
 msgid "B<live-build> - Live System Build Components"
-msgstr ""
+msgstr "B<live-build> - Scripts de Creación del Sistema"
 
 #. type: SH
 #: en/lb_binary_hooks.1:14 en/lb_bootstrap_cdebootstrap.1:14
@@ -69,7 +68,22 @@ msgstr ""
 #: en/lb_chroot_hooks.1:14
 #, no-wrap
 msgid "SYNOPSIS"
-msgstr ""
+msgstr "SINOPSIS"
+
+#. type: Plain text
+#: en/lb_binary_hooks.1:16
+msgid "B<lb binary_hooks> [--verbose]"
+msgstr "B<lb binary_hooks> [--verbose]"
+
+#. type: Plain text
+#: en/lb_binary_hooks.1:18
+msgid "B<lb binary_hooks> [--help]"
+msgstr "B<lb binary_hooks> [--help]"
+
+#. type: Plain text
+#: en/lb_binary_hooks.1:20
+msgid "B<lb binary_hooks> [--version]"
+msgstr "B<lb binary_hooks> [--version]"
 
 #. type: SH
 #: en/lb_binary_hooks.1:21 en/lb_bootstrap_cdebootstrap.1:21
@@ -77,16 +91,27 @@ msgstr ""
 #: en/lb_chroot_hooks.1:21
 #, no-wrap
 msgid "DESCRIPTION"
-msgstr ""
+msgstr "DESCRIPCIÓN"
 
 #. type: Plain text
 #: en/lb_binary_hooks.1:23 en/lb_bootstrap_cdebootstrap.1:23
 #: en/lb_bootstrap_debootstrap.1:23 en/lb_bootstrap_hooks.1:23
 #: en/lb_chroot_hooks.1:23
+#, fuzzy
 msgid ""
 "live-build contains the components to build a live system from a "
 "configuration directory."
 msgstr ""
+"live-build contiene los programas para construir un sistema en vivo a partir "
+"de un directorio de configuración."
+
+#. type: Plain text
+#: en/lb_binary_hooks.1:25
+#, fuzzy
+msgid "The B<lb binary_hooks> command executes hooks after the binary stage."
+msgstr ""
+"El programa B<lb binary_hooks> preinstala el chroot del sistema con "
+"I<debootstrap>(8)."
 
 #. type: SH
 #: en/lb_binary_hooks.1:26 en/lb_bootstrap_cdebootstrap.1:26
@@ -94,7 +119,7 @@ msgstr ""
 #: en/lb_chroot_hooks.1:26
 #, no-wrap
 msgid "OPTIONS"
-msgstr ""
+msgstr "OPCIONES"
 
 #. type: IP
 #: en/lb_binary_hooks.1:27 en/lb_bootstrap_cdebootstrap.1:29
@@ -102,14 +127,14 @@ msgstr ""
 #: en/lb_chroot_hooks.1:27
 #, no-wrap
 msgid "--verbose"
-msgstr ""
+msgstr "--verbose"
 
 #. type: Plain text
 #: en/lb_binary_hooks.1:29 en/lb_bootstrap_cdebootstrap.1:31
 #: en/lb_bootstrap_debootstrap.1:31 en/lb_bootstrap_hooks.1:29
 #: en/lb_chroot_hooks.1:29
 msgid "sets verbose option (default: False)."
-msgstr ""
+msgstr "establece la opción verbose (por defecto: False)."
 
 #. type: IP
 #: en/lb_binary_hooks.1:29 en/lb_bootstrap_cdebootstrap.1:31
@@ -117,14 +142,14 @@ msgstr ""
 #: en/lb_chroot_hooks.1:29
 #, no-wrap
 msgid "-h, --help"
-msgstr ""
+msgstr "-h, --help"
 
 #. type: Plain text
 #: en/lb_binary_hooks.1:31 en/lb_bootstrap_cdebootstrap.1:33
 #: en/lb_bootstrap_debootstrap.1:33 en/lb_bootstrap_hooks.1:31
 #: en/lb_chroot_hooks.1:31
 msgid "show help message and exit."
-msgstr ""
+msgstr "muestra el mensaje de ayuda y sale."
 
 #. type: IP
 #: en/lb_binary_hooks.1:31 en/lb_bootstrap_cdebootstrap.1:33
@@ -132,14 +157,14 @@ msgstr ""
 #: en/lb_chroot_hooks.1:31
 #, no-wrap
 msgid "-v, --version"
-msgstr ""
+msgstr "-v, --version"
 
 #. type: Plain text
 #: en/lb_binary_hooks.1:33 en/lb_bootstrap_cdebootstrap.1:35
 #: en/lb_bootstrap_debootstrap.1:35 en/lb_bootstrap_hooks.1:33
 #: en/lb_chroot_hooks.1:33
 msgid "show program's version number and exit."
-msgstr ""
+msgstr "muestra el número de versión del programa y sale."
 
 #. type: SH
 #: en/lb_binary_hooks.1:34 en/lb_bootstrap_cdebootstrap.1:36
@@ -147,7 +172,7 @@ msgstr ""
 #: en/lb_chroot_hooks.1:34
 #, no-wrap
 msgid "FILES"
-msgstr ""
+msgstr "FICHEROS"
 
 #. type: IP
 #: en/lb_binary_hooks.1:35 en/lb_bootstrap_cdebootstrap.1:37
@@ -155,7 +180,25 @@ msgstr ""
 #: en/lb_chroot_hooks.1:35
 #, no-wrap
 msgid "B<config/build>"
-msgstr ""
+msgstr "B<config/build>"
+
+#. type: IP
+#: en/lb_binary_hooks.1:36 en/lb_bootstrap_hooks.1:36 en/lb_chroot_hooks.1:36
+#, no-wrap
+msgid "B<config/hooks/*.hook>"
+msgstr "B<config/hooks/*.hook>"
+
+#. type: IP
+#: en/lb_binary_hooks.1:37
+#, no-wrap
+msgid "B<config/hooks/*.hook.binary>"
+msgstr "B<config/hooks/*.hook.binary>"
+
+#. type: IP
+#: en/lb_binary_hooks.1:38
+#, no-wrap
+msgid "B<binary>"
+msgstr "B<binary>"
 
 #. type: SH
 #: en/lb_binary_hooks.1:40 en/lb_bootstrap_cdebootstrap.1:43
@@ -163,7 +206,7 @@ msgstr ""
 #: en/lb_chroot_hooks.1:40
 #, no-wrap
 msgid "SEE ALSO"
-msgstr ""
+msgstr "VER TAMBIÉN"
 
 #.  FIXME
 #. type: SH
@@ -172,7 +215,7 @@ msgstr ""
 #: en/lb_chroot_hooks.1:43
 #, no-wrap
 msgid "HOMEPAGE"
-msgstr ""
+msgstr "PÁGINA WEB"
 
 #. type: Plain text
 #: en/lb_binary_hooks.1:45 en/lb_bootstrap_cdebootstrap.1:48
@@ -183,6 +226,9 @@ msgid ""
 "on the homepage at E<lt>I<http://live-systems.org/>E<gt> and in the manual "
 "at E<lt>I<http://live-systems.org/manual/>E<gt>."
 msgstr ""
+"Se puede encontrar más información acerca de live-build y el proyecto Live "
+"Systems en la página web E<lt>I<http://live-systems.org/>E<gt> y en el "
+"manual en E<lt>I<http://live-systems.org/manual/>E<gt>."
 
 #. type: SH
 #: en/lb_binary_hooks.1:46 en/lb_bootstrap_cdebootstrap.1:49
@@ -190,7 +236,7 @@ msgstr ""
 #: en/lb_chroot_hooks.1:46
 #, no-wrap
 msgid "BUGS"
-msgstr ""
+msgstr "ERRORES"
 
 #. type: Plain text
 #: en/lb_binary_hooks.1:48 en/lb_bootstrap_cdebootstrap.1:51
@@ -202,6 +248,10 @@ msgid ""
 "writing a mail to the Live Systems mailing list at E<lt>I<debian-live@lists."
 "debian.org>E<gt>."
 msgstr ""
+"Se puede notificar los fallos enviando un informe de errores sobre el "
+"paquete live-build en el Bug Tracking System en E<lt>I<http://bugs.debian."
+"org/>E<gt> o escribiendo un mensaje a la lista de correo de Live Systems a "
+"la dirección E<lt>I<debian-live@lists.debian.org>E<gt>."
 
 #. type: SH
 #: en/lb_binary_hooks.1:49 en/lb_bootstrap_cdebootstrap.1:52
@@ -209,7 +259,7 @@ msgstr ""
 #: en/lb_chroot_hooks.1:49
 #, no-wrap
 msgid "AUTHOR"
-msgstr ""
+msgstr "AUTOR"
 
 #. type: Plain text
 #: en/lb_binary_hooks.1:50 en/lb_bootstrap_cdebootstrap.1:53
@@ -218,70 +268,5 @@ msgstr ""
 msgid ""
 "live-build was written by Daniel Baumann E<lt>I<mail@daniel-baumann.ch>E<gt>."
 msgstr ""
-
-#. type: IP
-#: en/lb_bootstrap_cdebootstrap.1:38 en/lb_bootstrap_debootstrap.1:38
-#, no-wrap
-msgid "B<cache/bootstrap>"
-msgstr ""
-
-#. type: IP
-#: en/lb_bootstrap_cdebootstrap.1:39 en/lb_bootstrap_debootstrap.1:39
-#, no-wrap
-msgid "B<cache/packages.bootstrap>"
-msgstr ""
-
-#. type: IP
-#: en/lb_bootstrap_cdebootstrap.1:40 en/lb_bootstrap_debootstrap.1:40
-#: en/lb_bootstrap_hooks.1:38 en/lb_chroot_hooks.1:38
-#, no-wrap
-msgid "B<chroot>"
-msgstr ""
-
-#. type: IP
-#: en/lb_bootstrap_cdebootstrap.1:41 en/lb_bootstrap_debootstrap.1:41
-#, no-wrap
-msgid "B<.build/bootstrap>"
-msgstr ""
-
-#. type: Plain text
-#: en/lb_bootstrap_debootstrap.1:16
-msgid ""
-"B<lb bootstrap_debootstrap> [--debootstrap-options=I<DEBOOTSTRAP_OPTIONS>] "
-"[--verbose]"
-msgstr ""
-
-#. type: Plain text
-#: en/lb_bootstrap_debootstrap.1:18
-msgid "B<lb bootstrap_debootstrap> [--help]"
-msgstr ""
-
-#. type: Plain text
-#: en/lb_bootstrap_debootstrap.1:20
-msgid "B<lb bootstrap_debootstrap> [--version]"
-msgstr ""
-
-#. type: Plain text
-#: en/lb_bootstrap_debootstrap.1:25
-msgid ""
-"The B<lb bootstrap_debootstrap> command bootstraps the chroot system with "
-"I<debootstrap>(8)."
-msgstr ""
-
-#. type: IP
-#: en/lb_bootstrap_debootstrap.1:27
-#, no-wrap
-msgid "--debootstrap-options=I<DEBOOTSTRAP_OPTIONS>"
-msgstr ""
-
-#. type: Plain text
-#: en/lb_bootstrap_debootstrap.1:29
-msgid ""
-"set I<debootstrap>(8) options (default: None), see I<debootstrap>(8) for "
-"more information about debootstrap."
-msgstr ""
-
-#. type: Plain text
-#: en/lb_bootstrap_debootstrap.1:45
-msgid "I<debootstrap>(8)"
-msgstr ""
+"live-build fue escrito por Daniel Baumann E<lt>I<mail@daniel-baumann."
+"ch>E<gt>."

@@ -12,20 +12,18 @@
 \fBlive\-build\fR \- Live System Build Components
 
 .SH SYNOPSIS
-\fBlb bootstrap_debootstrap\fR [\-\-debootstrap\-options=\fIDEBOOTSTRAP_OPTIONS\fR] [\-\-verbose]
+\fBlb binary_hooks\fR [\-\-verbose]
 .PP
-\fBlb bootstrap_debootstrap\fR [\-\-help]
+\fBlb binary_hooks\fR [\-\-help]
 .br
-\fBlb bootstrap_debootstrap\fR [\-\-version]
+\fBlb binary_hooks\fR [\-\-version]
 .
 .SH DESCRIPTION
 live\-build contains the components to build a live system from a configuration directory.
 .PP
-The \fBlb bootstrap_debootstrap\fR command bootstraps the chroot system with \fIdebootstrap\fR(8).
+The \fBlb binary_hooks\fR command executes hooks after the binary stage.
 
 .SH OPTIONS
-.IP "\-\-debootstrap\-options=\fIDEBOOTSTRAP_OPTIONS\fR" 4
-set \fIdebootstrap\fR(8) options (default: None), see \fIdebootstrap\fR(8) for more information about debootstrap.
 .IP "\-\-verbose" 4
 sets verbose option (default: False).
 .IP "\-h, \-\-help" 4
@@ -35,13 +33,12 @@ show program's version number and exit.
 
 .SH FILES
 .IP "\fBconfig/build\fR" 4
-.IP "\fBcache/bootstrap\fR" 4
-.IP "\fBcache/packages.bootstrap\fR" 4
-.IP "\fBchroot\fR" 4
-.IP "\fB.build/bootstrap\fR" 4
+.IP "\fBconfig/hooks/*.hook\fR" 4
+.IP "\fBconfig/hooks/*.hook.binary\fR" 4
+.IP "\fBbinary\fR" 4
 
 .SH SEE ALSO
-\fIdebootstrap\fR(8)
+.\" FIXME
 
 .SH HOMEPAGE
 More information about live\-build and the Live Systems project can be found on the homepage at <\fIhttp://live-systems.org/\fR> and in the manual at <\fIhttp://live-systems.org/manual/\fR>.

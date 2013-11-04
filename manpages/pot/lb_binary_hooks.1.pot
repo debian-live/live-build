@@ -71,6 +71,21 @@ msgstr ""
 msgid "SYNOPSIS"
 msgstr ""
 
+#. type: Plain text
+#: en/lb_binary_hooks.1:16
+msgid "B<lb binary_hooks> [--verbose]"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_binary_hooks.1:18
+msgid "B<lb binary_hooks> [--help]"
+msgstr ""
+
+#. type: Plain text
+#: en/lb_binary_hooks.1:20
+msgid "B<lb binary_hooks> [--version]"
+msgstr ""
+
 #. type: SH
 #: en/lb_binary_hooks.1:21 en/lb_bootstrap_cdebootstrap.1:21
 #: en/lb_bootstrap_debootstrap.1:21 en/lb_bootstrap_hooks.1:21
@@ -86,6 +101,11 @@ msgstr ""
 msgid ""
 "live-build contains the components to build a live system from a "
 "configuration directory."
+msgstr ""
+
+#. type: Plain text
+#: en/lb_binary_hooks.1:25
+msgid "The B<lb binary_hooks> command executes hooks after the binary stage."
 msgstr ""
 
 #. type: SH
@@ -157,6 +177,24 @@ msgstr ""
 msgid "B<config/build>"
 msgstr ""
 
+#. type: IP
+#: en/lb_binary_hooks.1:36 en/lb_bootstrap_hooks.1:36 en/lb_chroot_hooks.1:36
+#, no-wrap
+msgid "B<config/hooks/*.hook>"
+msgstr ""
+
+#. type: IP
+#: en/lb_binary_hooks.1:37
+#, no-wrap
+msgid "B<config/hooks/*.hook.binary>"
+msgstr ""
+
+#. type: IP
+#: en/lb_binary_hooks.1:38
+#, no-wrap
+msgid "B<binary>"
+msgstr ""
+
 #. type: SH
 #: en/lb_binary_hooks.1:40 en/lb_bootstrap_cdebootstrap.1:43
 #: en/lb_bootstrap_debootstrap.1:43 en/lb_bootstrap_hooks.1:40
@@ -217,71 +255,4 @@ msgstr ""
 #: en/lb_chroot_hooks.1:50
 msgid ""
 "live-build was written by Daniel Baumann E<lt>I<mail@daniel-baumann.ch>E<gt>."
-msgstr ""
-
-#. type: IP
-#: en/lb_bootstrap_cdebootstrap.1:38 en/lb_bootstrap_debootstrap.1:38
-#, no-wrap
-msgid "B<cache/bootstrap>"
-msgstr ""
-
-#. type: IP
-#: en/lb_bootstrap_cdebootstrap.1:39 en/lb_bootstrap_debootstrap.1:39
-#, no-wrap
-msgid "B<cache/packages.bootstrap>"
-msgstr ""
-
-#. type: IP
-#: en/lb_bootstrap_cdebootstrap.1:40 en/lb_bootstrap_debootstrap.1:40
-#: en/lb_bootstrap_hooks.1:38 en/lb_chroot_hooks.1:38
-#, no-wrap
-msgid "B<chroot>"
-msgstr ""
-
-#. type: IP
-#: en/lb_bootstrap_cdebootstrap.1:41 en/lb_bootstrap_debootstrap.1:41
-#, no-wrap
-msgid "B<.build/bootstrap>"
-msgstr ""
-
-#. type: Plain text
-#: en/lb_bootstrap_debootstrap.1:16
-msgid ""
-"B<lb bootstrap_debootstrap> [--debootstrap-options=I<DEBOOTSTRAP_OPTIONS>] "
-"[--verbose]"
-msgstr ""
-
-#. type: Plain text
-#: en/lb_bootstrap_debootstrap.1:18
-msgid "B<lb bootstrap_debootstrap> [--help]"
-msgstr ""
-
-#. type: Plain text
-#: en/lb_bootstrap_debootstrap.1:20
-msgid "B<lb bootstrap_debootstrap> [--version]"
-msgstr ""
-
-#. type: Plain text
-#: en/lb_bootstrap_debootstrap.1:25
-msgid ""
-"The B<lb bootstrap_debootstrap> command bootstraps the chroot system with "
-"I<debootstrap>(8)."
-msgstr ""
-
-#. type: IP
-#: en/lb_bootstrap_debootstrap.1:27
-#, no-wrap
-msgid "--debootstrap-options=I<DEBOOTSTRAP_OPTIONS>"
-msgstr ""
-
-#. type: Plain text
-#: en/lb_bootstrap_debootstrap.1:29
-msgid ""
-"set I<debootstrap>(8) options (default: None), see I<debootstrap>(8) for "
-"more information about debootstrap."
-msgstr ""
-
-#. type: Plain text
-#: en/lb_bootstrap_debootstrap.1:45
-msgid "I<debootstrap>(8)"
 msgstr ""
