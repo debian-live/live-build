@@ -12,20 +12,20 @@
 \fBlive\-build\fR \- Live System Build Components
 
 .SH SYNOPSIS
-\fBlb bootstrap\-debootstrap\fR [\-\-debootstrap\-options=\fIDEBOOTSTRAP_OPTIONS\fR] [\-\-verbose]
+\fBlb init\fR [\-\-project \fIPROJECT\fR] [\-\-verbose]
 .PP
-\fBlb bootstrap\-debootstrap\fR [\-\-help]
+\fBlb init\fR [\-\-help]
 .br
-\fBlb bootstrap\-debootstrap\fR [\-\-version]
+\fBlb init\fR [\-\-version]
 .
 .SH DESCRIPTION
 live\-build contains the components to build a live system from a configuration directory.
 .PP
-The \fBlb bootstrap\-debootstrap\fR command bootstraps the chroot system with \fIdebootstrap\fR(8).
+The \fBlb init\fR command creates an empty configuration directory or reinitialize an existing one.
 
 .SH OPTIONS
-.IP "\fB\-\-debootstrap\-options=\fR\fIDEBOOTSTRAP_OPTIONS\fR" 4
-set \fIdebootstrap\fR(8) options (default: None), see \fIdebootstrap\fR(8) for more information about debootstrap.
+.IP "\fB\-\-project\fR" 4
+set the project to derive internal defaults from. Currently valid projects are 'debian', 'progress-linux', and 'ubuntu' (default: debian).
 .IP "\fB\-\-verbose\fR" 4
 sets verbose option (default: False).
 .IP "\fB\-h, \-\-help\fR" 4
@@ -34,14 +34,13 @@ show help message and exit.
 show program's version number and exit.
 
 .SH FILES
-.IP "\fBconfig/build\fR" 4
-.IP "\fBcache/bootstrap\fR" 4
-.IP "\fBcache/packages.bootstrap\fR" 4
-.IP "\fBchroot\fR" 4
-.IP "\fB.build/bootstrap\fR" 4
+.IP "\fBconfig\fR:" 4
+configuration directory.
+.IP "\fB.build\fR:" 4
+configuration directory for meta-information.
 
 .SH SEE ALSO
-.IP "\fIdebootstrap\fR(8)" 4
+.\" FIXME
 
 .SH HOMEPAGE
 More information about live\-build and the Live Systems project can be found on the homepage at <\fIhttp://live-systems.org/\fR> and in the manual at <\fIhttp://live-systems.org/manual/\fR>.

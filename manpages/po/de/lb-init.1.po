@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2013-11-05 12:01+0100\n"
-"PO-Revision-Date: 2013-11-04 19:02+0100\n"
+"POT-Creation-Date: 2013-11-05 12:04+0100\n"
+"PO-Revision-Date: 2013-11-05 12:01+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: de\n"
@@ -107,15 +107,6 @@ msgid ""
 msgstr ""
 "live-build enthält die Komponenten um ein Live System von einem "
 "Konfigurationsverzeichnis zu erstellen."
-
-#. type: SH
-#: en/lb-binary-hooks.1:26 en/lb-binary-includes.1:26
-#: en/lb-bootstrap-hooks.1:26 en/lb-bootstrap-includes.1:26
-#: en/lb-chroot-hooks.1:26 en/lb-chroot-includes.1:26 en/lb-source-hooks.1:26
-#: en/lb-source-includes.1:26
-#, no-wrap
-msgid "SPECIFICATION"
-msgstr "SPEZIFIKATION"
 
 #. type: SH
 #: en/lb-binary-hooks.1:41 en/lb-binary-includes.1:33
@@ -280,125 +271,64 @@ msgstr ""
 "live-build wurde von Daniel Baumann E<lt>I<mail@daniel-baumann.ch>E<gt> "
 "geschrieben."
 
-#. type: IP
-#: en/lb-binary-includes.1:42 en/lb-bootstrap-includes.1:42
-#: en/lb-chroot-includes.1:42 en/lb-source-includes.1:42
-#, no-wrap
-msgid "B<config/includes>:"
-msgstr "B<config/includes>:"
+#. type: Plain text
+#: en/lb-init.1:16
+msgid "B<lb init> [--project I<PROJECT>] [--verbose]"
+msgstr "B<lb init> [--project I<PROJEKT>] [--verbose]"
 
 #. type: Plain text
-#: en/lb-binary-includes.1:44 en/lb-bootstrap-includes.1:44
-#: en/lb-chroot-includes.1:44 en/lb-source-includes.1:44
-msgid "generic include files."
-msgstr "Allgemeine Include Dateien."
+#: en/lb-init.1:18
+msgid "B<lb init> [--help]"
+msgstr "B<lb init> [--help]"
 
 #. type: Plain text
-#: en/lb-binary-includes.1:48 en/lb-bootstrap-includes.1:48
-#: en/lb-chroot-includes.1:48 en/lb-source-includes.1:48
-msgid "directory in which the include files are copied into."
-msgstr "Verzeichnis in das die Include Dateien kopiert werden."
-
-#. type: IP
-#: en/lb-binary-includes.1:51 en/lb-bootstrap-includes.1:50
-#: en/lb-source-includes.1:51
-#, no-wrap
-msgid "I<lb-chroot-includes>(1)"
-msgstr "I<lb-chroot-includes>(1)"
-
-#. type: IP
-#: en/lb-binary-includes.1:52 en/lb-bootstrap-includes.1:52
-#: en/lb-chroot-includes.1:52
-#, no-wrap
-msgid "I<lb-source-includes>(1)"
-msgstr "I<lb-source-includes>(1)"
-
-#. type: IP
-#: en/lb-bootstrap-hooks.1:52 en/lb-bootstrap-includes.1:46
-#: en/lb-chroot-hooks.1:52 en/lb-chroot-includes.1:46
-#, no-wrap
-msgid "B<chroot>:"
-msgstr "B<chroot>:"
+#: en/lb-init.1:20
+msgid "B<lb init> [--version]"
+msgstr "B<lb init> [--version]"
 
 #. type: Plain text
-#: en/lb-bootstrap-includes.1:16
-msgid "B<lb bootstrap-includes> [--verbose]"
-msgstr "B<lb bootstrap-includes> [--verbose]"
-
-#. type: Plain text
-#: en/lb-bootstrap-includes.1:18
-msgid "B<lb bootstrap-includes> [--help]"
-msgstr "B<lb bootstrap-includes> [--help]"
-
-#. type: Plain text
-#: en/lb-bootstrap-includes.1:20
-msgid "B<lb bootstrap-includes> [--version]"
-msgstr "B<lb bootstrap-includes> [--version]"
-
-#. type: Plain text
-#: en/lb-bootstrap-includes.1:25
+#: en/lb-init.1:25
 msgid ""
-"The B<lb bootstrap-includes> command copies include files into the bootstrap "
-"stage."
+"The B<lb init> command creates an empty configuration directory or "
+"reinitialize an existing one."
 msgstr ""
-"Der B<lb bootstrap-hooks> Befehl kopiert Include Dateien in den Bootstrap "
-"Stage."
-
-#. type: Plain text
-#: en/lb-bootstrap-includes.1:28
-msgid ""
-"B<lb bootstrap-includes> copies any include files found in the B<config/"
-"includes> and B<config/includes.bootstrap> directories within the "
-"configuration directory."
-msgstr ""
-"B<lb bootstrap-includes> kopiert alle Include Dateien die sich im B<config/"
-"includes> oder B<config/includes.bootstrap> Verzeichnis innerhalb des "
-"Konfigurationsvereichnisses befinden."
-
-#. type: Plain text
-#: en/lb-bootstrap-includes.1:30
-msgid ""
-"Include files do not require to have a specific owner nor specific "
-"permissions. The files are set to be owned by root by B<lb bootstrap-"
-"includes> automatically when they are copied, original permissions of the "
-"files are preserved. Specific owners can be set with a corresponding hook "
-"file, see I<lb-bootstrap-hooks>(1) for more information about hooks."
-msgstr ""
-"Include Dateien benötigen weder einen speziellen Besitzer noch spezielle "
-"Zugriffsrechte. Sie werden automatisch als Root zugehörig markiert wenn sie "
-"von B<lb bootstrap-includes> kopiert werden, die ursprünglichen "
-"Zugriffsrechte bleiben erhalten. Spezielle Besitzer können mit einer "
-"passenden Hook Datei gesetzt werden, siehe I<lb-bootstrap-hooks>(1) für mehr "
-"Informationen über Hook Dateien."
-
-#. type: Plain text
-#: en/lb-bootstrap-includes.1:32
-msgid ""
-"Include files in the B<config/includes> directory are copied first, include "
-"files in the B<config/includes.bootstrap> directory are copied second. Files "
-"present in the chroot and either of the include directories are silently "
-"overwritten, the later file replaces the earlier."
-msgstr ""
-"Include Dateien im B<config/includes> Verzeichnis werden als erstes kopiert, "
-"Include Dateien im B<config/includes.bootstrap> Verzeichnis als zweites. "
-"Dateien die sowohl im Chroot als auch in einem der Include Verzeichnisse "
-"vorliegen werden ohne Rückfrage überschrieben, die spätere Datei "
-"überschreibt die frühere."
+"Das B<lb init> Kommando erstellt ein leeres Konfigurationsverzeichnis oder "
+"re-initialisiert ein bestehendes."
 
 #. type: IP
-#: en/lb-bootstrap-includes.1:44
+#: en/lb-init.1:27
 #, no-wrap
-msgid "B<config/includes.bootstrap>:"
-msgstr "B<config/includes.bootstrap>:"
+msgid "B<--project>"
+msgstr "B<--project>"
 
 #. type: Plain text
-#: en/lb-bootstrap-includes.1:46
-msgid "include files specific for the bootstrap stage."
-msgstr "Include Dateien spezifisch für den Bootstrap Stage."
+#: en/lb-init.1:29
+msgid ""
+"set the project to derive internal defaults from. Currently valid projects "
+"are 'debian', 'progress-linux', and 'ubuntu' (default: debian)."
+msgstr ""
+"setzt das Projeckt von dem die internen Standardwerte abgeleitet werden. "
+"Momentan gültige Projekte sind 'debian', 'progress-linux' und "
+"'ubuntu' (Standardwert: debian)."
 
 #. type: IP
-#: en/lb-bootstrap-includes.1:51 en/lb-chroot-includes.1:51
-#: en/lb-source-includes.1:52
+#: en/lb-init.1:37
 #, no-wrap
-msgid "I<lb-binary-includes>(1)"
-msgstr "I<lb-binary-includes>(1)"
+msgid "B<config>:"
+msgstr "B<config>:"
+
+#. type: Plain text
+#: en/lb-init.1:39
+msgid "configuration directory."
+msgstr "Konfigurationsverzeichnis."
+
+#. type: IP
+#: en/lb-init.1:39
+#, no-wrap
+msgid "B<.build>:"
+msgstr "B<.build>:"
+
+#. type: Plain text
+#: en/lb-init.1:41
+msgid "configuration directory for meta-information."
+msgstr "Konfigurationsverzeichnis für Meta-Informationen."

@@ -17,36 +17,23 @@
 \fBlive\-build\fP \- Live System Build Components
 
 .SH SINOPSIS
-\fBlb source\-includes\fP [\-\-verbose]
+\fBlb init\fP [\-\-project \fIPROJECT\fP] [\-\-verbose]
 .PP
-\fBlb source\-includes\fP [\-\-help]
+\fBlb init\fP [\-\-help]
 .br
-\fBlb source\-includes\fP [\-\-version]
+\fBlb init\fP [\-\-version]
 .
 .SH DESCRIPCIÓN
 live\-build contains the components to build a live system from a
 configuration directory.
 .PP
-The \fBlb source\-includes\fP command copies include files into the source
-stage.
-
-.SH SPECIFICATION
-\fBlb source\-includes\fP copies any include files found in the
-\fBconfig/includes\fP and \fBconfig/includes.source\fP directories within the
-configuration directory.
-.PP
-Include files do not require to have a specific owner nor specific
-permissions. The files are set to be owned by root by \fBlb source\-includes\fP
-automatically when they are copied, original permissions of the files are
-preserved. Specific owners can be set with a corresponding hook file, see
-\fIlb\-source\-hooks\fP(1) for more information about hooks.
-.PP
-Include files in the \fBconfig/includes\fP directory are copied first, include
-files in the \fBconfig/includes.source\fP directory are copied second. Files
-present in the source and either of the include directories are silently
-overwritten, the later file replaces the earlier.
+The \fBlb init\fP command creates an empty configuration directory or
+reinitialize an existing one.
 
 .SH OPCIONES
+.IP \fB\-\-project\fP 4
+set the project to derive internal defaults from. Currently valid projects
+are 'debian', 'progress\-linux', and 'ubuntu' (default: debian).
 .IP \fB\-\-verbose\fP 4
 establece la opción verbose (por defecto: False).
 .IP "\fB\-h, \-\-help\fP" 4
@@ -55,18 +42,14 @@ muestra el mensaje de ayuda y sale.
 muestra el número de versión del programa y sale.
 
 .SH FICHEROS
-.IP \fBconfig/includes\fP: 4
-generic include files.
-.IP \fBconfig/includes.source\fP: 4
-include files specific for the source stage.
-.IP \fBsource\fP: 4
-directory in which the include files are copied into.
+.IP \fBconfig\fP: 4
+configuration directory.
+.IP \fB.build\fP 4
+configuration directory for meta\-information.
 
 .SH "VER TAMBIÉN"
-.IP \fIlb\-bootstrap\-includes\fP(1) 4
-.IP \fIlb\-chroot\-includes\fP(1) 4
-.IP \fIlb\-binary\-includes\fP(1) 4
 
+.\" FIXME
 .SH "PÁGINA WEB"
 Se puede encontrar más información acerca de live\-build y el proyecto Live
 Systems en la página web <\fIhttp://live\-systems.org/\fP> y en el

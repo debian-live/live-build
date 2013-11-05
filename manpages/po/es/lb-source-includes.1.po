@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2013-11-04 18:48+0100\n"
+"POT-Creation-Date: 2013-11-05 12:01+0100\n"
 "PO-Revision-Date: 2013-11-04 18:48+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -19,7 +19,8 @@ msgstr ""
 #. type: TH
 #: en/lb-binary-hooks.1:9 en/lb-binary-includes.1:9
 #: en/lb-bootstrap-cdebootstrap.1:9 en/lb-bootstrap-debootstrap.1:9
-#: en/lb-bootstrap-hooks.1:9 en/lb-chroot-hooks.1:9 en/lb-chroot-includes.1:9
+#: en/lb-bootstrap-hooks.1:9 en/lb-bootstrap-includes.1:9
+#: en/lb-chroot-hooks.1:9 en/lb-chroot-includes.1:9 en/lb-init.1:9
 #: en/lb-source-hooks.1:9 en/lb-source-includes.1:9
 #, no-wrap
 msgid "LIVE-BUILD"
@@ -28,16 +29,18 @@ msgstr "LIVE-BUILD"
 #. type: TH
 #: en/lb-binary-hooks.1:9 en/lb-binary-includes.1:9
 #: en/lb-bootstrap-cdebootstrap.1:9 en/lb-bootstrap-debootstrap.1:9
-#: en/lb-bootstrap-hooks.1:9 en/lb-chroot-hooks.1:9 en/lb-chroot-includes.1:9
+#: en/lb-bootstrap-hooks.1:9 en/lb-bootstrap-includes.1:9
+#: en/lb-chroot-hooks.1:9 en/lb-chroot-includes.1:9 en/lb-init.1:9
 #: en/lb-source-hooks.1:9 en/lb-source-includes.1:9
 #, no-wrap
-msgid "2013-11-04"
-msgstr "04.11.2013"
+msgid "2013-11-05"
+msgstr "05.11.2013"
 
 #. type: TH
 #: en/lb-binary-hooks.1:9 en/lb-binary-includes.1:9
 #: en/lb-bootstrap-cdebootstrap.1:9 en/lb-bootstrap-debootstrap.1:9
-#: en/lb-bootstrap-hooks.1:9 en/lb-chroot-hooks.1:9 en/lb-chroot-includes.1:9
+#: en/lb-bootstrap-hooks.1:9 en/lb-bootstrap-includes.1:9
+#: en/lb-chroot-hooks.1:9 en/lb-chroot-includes.1:9 en/lb-init.1:9
 #: en/lb-source-hooks.1:9 en/lb-source-includes.1:9
 #, no-wrap
 msgid "4.0~alpha30-1"
@@ -46,7 +49,8 @@ msgstr "4.0~alpha30-1"
 #. type: TH
 #: en/lb-binary-hooks.1:9 en/lb-binary-includes.1:9
 #: en/lb-bootstrap-cdebootstrap.1:9 en/lb-bootstrap-debootstrap.1:9
-#: en/lb-bootstrap-hooks.1:9 en/lb-chroot-hooks.1:9 en/lb-chroot-includes.1:9
+#: en/lb-bootstrap-hooks.1:9 en/lb-bootstrap-includes.1:9
+#: en/lb-chroot-hooks.1:9 en/lb-chroot-includes.1:9 en/lb-init.1:9
 #: en/lb-source-hooks.1:9 en/lb-source-includes.1:9
 #, no-wrap
 msgid "Live Systems Project"
@@ -55,9 +59,9 @@ msgstr "Proyecto Live Systems"
 #. type: SH
 #: en/lb-binary-hooks.1:11 en/lb-binary-includes.1:11
 #: en/lb-bootstrap-cdebootstrap.1:11 en/lb-bootstrap-debootstrap.1:11
-#: en/lb-bootstrap-hooks.1:11 en/lb-chroot-hooks.1:11
-#: en/lb-chroot-includes.1:11 en/lb-source-hooks.1:11
-#: en/lb-source-includes.1:11
+#: en/lb-bootstrap-hooks.1:11 en/lb-bootstrap-includes.1:11
+#: en/lb-chroot-hooks.1:11 en/lb-chroot-includes.1:11 en/lb-init.1:11
+#: en/lb-source-hooks.1:11 en/lb-source-includes.1:11
 #, no-wrap
 msgid "NAME"
 msgstr "NOMBRE"
@@ -65,9 +69,9 @@ msgstr "NOMBRE"
 #. type: Plain text
 #: en/lb-binary-hooks.1:13 en/lb-binary-includes.1:13
 #: en/lb-bootstrap-cdebootstrap.1:13 en/lb-bootstrap-debootstrap.1:13
-#: en/lb-bootstrap-hooks.1:13 en/lb-chroot-hooks.1:13
-#: en/lb-chroot-includes.1:13 en/lb-source-hooks.1:13
-#: en/lb-source-includes.1:13
+#: en/lb-bootstrap-hooks.1:13 en/lb-bootstrap-includes.1:13
+#: en/lb-chroot-hooks.1:13 en/lb-chroot-includes.1:13 en/lb-init.1:13
+#: en/lb-source-hooks.1:13 en/lb-source-includes.1:13
 #, fuzzy
 msgid "B<live-build> - Live System Build Components"
 msgstr "B<live-build> - Scripts de Creación del Sistema"
@@ -75,9 +79,9 @@ msgstr "B<live-build> - Scripts de Creación del Sistema"
 #. type: SH
 #: en/lb-binary-hooks.1:14 en/lb-binary-includes.1:14
 #: en/lb-bootstrap-cdebootstrap.1:14 en/lb-bootstrap-debootstrap.1:14
-#: en/lb-bootstrap-hooks.1:14 en/lb-chroot-hooks.1:14
-#: en/lb-chroot-includes.1:14 en/lb-source-hooks.1:14
-#: en/lb-source-includes.1:14
+#: en/lb-bootstrap-hooks.1:14 en/lb-bootstrap-includes.1:14
+#: en/lb-chroot-hooks.1:14 en/lb-chroot-includes.1:14 en/lb-init.1:14
+#: en/lb-source-hooks.1:14 en/lb-source-includes.1:14
 #, no-wrap
 msgid "SYNOPSIS"
 msgstr "SINOPSIS"
@@ -85,9 +89,9 @@ msgstr "SINOPSIS"
 #. type: SH
 #: en/lb-binary-hooks.1:21 en/lb-binary-includes.1:21
 #: en/lb-bootstrap-cdebootstrap.1:21 en/lb-bootstrap-debootstrap.1:21
-#: en/lb-bootstrap-hooks.1:21 en/lb-chroot-hooks.1:21
-#: en/lb-chroot-includes.1:21 en/lb-source-hooks.1:21
-#: en/lb-source-includes.1:21
+#: en/lb-bootstrap-hooks.1:21 en/lb-bootstrap-includes.1:21
+#: en/lb-chroot-hooks.1:21 en/lb-chroot-includes.1:21 en/lb-init.1:21
+#: en/lb-source-hooks.1:21 en/lb-source-includes.1:21
 #, no-wrap
 msgid "DESCRIPTION"
 msgstr "DESCRIPCIÓN"
@@ -95,9 +99,9 @@ msgstr "DESCRIPCIÓN"
 #. type: Plain text
 #: en/lb-binary-hooks.1:23 en/lb-binary-includes.1:23
 #: en/lb-bootstrap-cdebootstrap.1:23 en/lb-bootstrap-debootstrap.1:23
-#: en/lb-bootstrap-hooks.1:23 en/lb-chroot-hooks.1:23
-#: en/lb-chroot-includes.1:23 en/lb-source-hooks.1:23
-#: en/lb-source-includes.1:23
+#: en/lb-bootstrap-hooks.1:23 en/lb-bootstrap-includes.1:23
+#: en/lb-chroot-hooks.1:23 en/lb-chroot-includes.1:23 en/lb-init.1:23
+#: en/lb-source-hooks.1:23 en/lb-source-includes.1:23
 #, fuzzy
 msgid ""
 "live-build contains the components to build a live system from a "
@@ -108,8 +112,8 @@ msgstr ""
 
 #. type: SH
 #: en/lb-binary-hooks.1:26 en/lb-binary-includes.1:26
-#: en/lb-bootstrap-hooks.1:26 en/lb-chroot-hooks.1:26
-#: en/lb-chroot-includes.1:26 en/lb-source-hooks.1:26
+#: en/lb-bootstrap-hooks.1:26 en/lb-bootstrap-includes.1:26
+#: en/lb-chroot-hooks.1:26 en/lb-chroot-includes.1:26 en/lb-source-hooks.1:26
 #: en/lb-source-includes.1:26
 #, no-wrap
 msgid "SPECIFICATION"
@@ -118,9 +122,9 @@ msgstr ""
 #. type: SH
 #: en/lb-binary-hooks.1:41 en/lb-binary-includes.1:33
 #: en/lb-bootstrap-cdebootstrap.1:26 en/lb-bootstrap-debootstrap.1:26
-#: en/lb-bootstrap-hooks.1:39 en/lb-chroot-hooks.1:39
-#: en/lb-chroot-includes.1:33 en/lb-source-hooks.1:41
-#: en/lb-source-includes.1:33
+#: en/lb-bootstrap-hooks.1:39 en/lb-bootstrap-includes.1:33
+#: en/lb-chroot-hooks.1:39 en/lb-chroot-includes.1:33 en/lb-init.1:26
+#: en/lb-source-hooks.1:41 en/lb-source-includes.1:33
 #, no-wrap
 msgid "OPTIONS"
 msgstr "OPCIONES"
@@ -128,9 +132,9 @@ msgstr "OPCIONES"
 #. type: IP
 #: en/lb-binary-hooks.1:42 en/lb-binary-includes.1:34
 #: en/lb-bootstrap-cdebootstrap.1:29 en/lb-bootstrap-debootstrap.1:29
-#: en/lb-bootstrap-hooks.1:40 en/lb-chroot-hooks.1:40
-#: en/lb-chroot-includes.1:34 en/lb-source-hooks.1:42
-#: en/lb-source-includes.1:34
+#: en/lb-bootstrap-hooks.1:40 en/lb-bootstrap-includes.1:34
+#: en/lb-chroot-hooks.1:40 en/lb-chroot-includes.1:34 en/lb-init.1:29
+#: en/lb-source-hooks.1:42 en/lb-source-includes.1:34
 #, no-wrap
 msgid "B<--verbose>"
 msgstr "B<--verbose>"
@@ -138,18 +142,18 @@ msgstr "B<--verbose>"
 #. type: Plain text
 #: en/lb-binary-hooks.1:44 en/lb-binary-includes.1:36
 #: en/lb-bootstrap-cdebootstrap.1:31 en/lb-bootstrap-debootstrap.1:31
-#: en/lb-bootstrap-hooks.1:42 en/lb-chroot-hooks.1:42
-#: en/lb-chroot-includes.1:36 en/lb-source-hooks.1:44
-#: en/lb-source-includes.1:36
+#: en/lb-bootstrap-hooks.1:42 en/lb-bootstrap-includes.1:36
+#: en/lb-chroot-hooks.1:42 en/lb-chroot-includes.1:36 en/lb-init.1:31
+#: en/lb-source-hooks.1:44 en/lb-source-includes.1:36
 msgid "sets verbose option (default: False)."
 msgstr "establece la opción verbose (por defecto: False)."
 
 #. type: IP
 #: en/lb-binary-hooks.1:44 en/lb-binary-includes.1:36
 #: en/lb-bootstrap-cdebootstrap.1:31 en/lb-bootstrap-debootstrap.1:31
-#: en/lb-bootstrap-hooks.1:42 en/lb-chroot-hooks.1:42
-#: en/lb-chroot-includes.1:36 en/lb-source-hooks.1:44
-#: en/lb-source-includes.1:36
+#: en/lb-bootstrap-hooks.1:42 en/lb-bootstrap-includes.1:36
+#: en/lb-chroot-hooks.1:42 en/lb-chroot-includes.1:36 en/lb-init.1:31
+#: en/lb-source-hooks.1:44 en/lb-source-includes.1:36
 #, no-wrap
 msgid "B<-h, --help>"
 msgstr "B<-h, --help>"
@@ -157,18 +161,18 @@ msgstr "B<-h, --help>"
 #. type: Plain text
 #: en/lb-binary-hooks.1:46 en/lb-binary-includes.1:38
 #: en/lb-bootstrap-cdebootstrap.1:33 en/lb-bootstrap-debootstrap.1:33
-#: en/lb-bootstrap-hooks.1:44 en/lb-chroot-hooks.1:44
-#: en/lb-chroot-includes.1:38 en/lb-source-hooks.1:46
-#: en/lb-source-includes.1:38
+#: en/lb-bootstrap-hooks.1:44 en/lb-bootstrap-includes.1:38
+#: en/lb-chroot-hooks.1:44 en/lb-chroot-includes.1:38 en/lb-init.1:33
+#: en/lb-source-hooks.1:46 en/lb-source-includes.1:38
 msgid "show help message and exit."
 msgstr "muestra el mensaje de ayuda y sale."
 
 #. type: IP
 #: en/lb-binary-hooks.1:46 en/lb-binary-includes.1:38
 #: en/lb-bootstrap-cdebootstrap.1:33 en/lb-bootstrap-debootstrap.1:33
-#: en/lb-bootstrap-hooks.1:44 en/lb-chroot-hooks.1:44
-#: en/lb-chroot-includes.1:38 en/lb-source-hooks.1:46
-#: en/lb-source-includes.1:38
+#: en/lb-bootstrap-hooks.1:44 en/lb-bootstrap-includes.1:38
+#: en/lb-chroot-hooks.1:44 en/lb-chroot-includes.1:38 en/lb-init.1:33
+#: en/lb-source-hooks.1:46 en/lb-source-includes.1:38
 #, no-wrap
 msgid "B<--version>"
 msgstr "B<--version>"
@@ -176,18 +180,18 @@ msgstr "B<--version>"
 #. type: Plain text
 #: en/lb-binary-hooks.1:48 en/lb-binary-includes.1:40
 #: en/lb-bootstrap-cdebootstrap.1:35 en/lb-bootstrap-debootstrap.1:35
-#: en/lb-bootstrap-hooks.1:46 en/lb-chroot-hooks.1:46
-#: en/lb-chroot-includes.1:40 en/lb-source-hooks.1:48
-#: en/lb-source-includes.1:40
+#: en/lb-bootstrap-hooks.1:46 en/lb-bootstrap-includes.1:40
+#: en/lb-chroot-hooks.1:46 en/lb-chroot-includes.1:40 en/lb-init.1:35
+#: en/lb-source-hooks.1:48 en/lb-source-includes.1:40
 msgid "show program's version number and exit."
 msgstr "muestra el número de versión del programa y sale."
 
 #. type: SH
 #: en/lb-binary-hooks.1:49 en/lb-binary-includes.1:41
 #: en/lb-bootstrap-cdebootstrap.1:36 en/lb-bootstrap-debootstrap.1:36
-#: en/lb-bootstrap-hooks.1:47 en/lb-chroot-hooks.1:47
-#: en/lb-chroot-includes.1:41 en/lb-source-hooks.1:49
-#: en/lb-source-includes.1:41
+#: en/lb-bootstrap-hooks.1:47 en/lb-bootstrap-includes.1:41
+#: en/lb-chroot-hooks.1:47 en/lb-chroot-includes.1:41 en/lb-init.1:36
+#: en/lb-source-hooks.1:49 en/lb-source-includes.1:41
 #, no-wrap
 msgid "FILES"
 msgstr "FICHEROS"
@@ -195,9 +199,9 @@ msgstr "FICHEROS"
 #. type: SH
 #: en/lb-binary-hooks.1:61 en/lb-binary-includes.1:49
 #: en/lb-bootstrap-cdebootstrap.1:43 en/lb-bootstrap-debootstrap.1:43
-#: en/lb-bootstrap-hooks.1:59 en/lb-chroot-hooks.1:59
-#: en/lb-chroot-includes.1:49 en/lb-source-hooks.1:61
-#: en/lb-source-includes.1:49
+#: en/lb-bootstrap-hooks.1:59 en/lb-bootstrap-includes.1:49
+#: en/lb-chroot-hooks.1:59 en/lb-chroot-includes.1:49 en/lb-init.1:42
+#: en/lb-source-hooks.1:61 en/lb-source-includes.1:49
 #, no-wrap
 msgid "SEE ALSO"
 msgstr "VER TAMBIÉN"
@@ -205,9 +209,9 @@ msgstr "VER TAMBIÉN"
 #. type: SH
 #: en/lb-binary-hooks.1:66 en/lb-binary-includes.1:54
 #: en/lb-bootstrap-cdebootstrap.1:46 en/lb-bootstrap-debootstrap.1:46
-#: en/lb-bootstrap-hooks.1:64 en/lb-chroot-hooks.1:64
-#: en/lb-chroot-includes.1:54 en/lb-source-hooks.1:66
-#: en/lb-source-includes.1:54
+#: en/lb-bootstrap-hooks.1:64 en/lb-bootstrap-includes.1:54
+#: en/lb-chroot-hooks.1:64 en/lb-chroot-includes.1:54 en/lb-init.1:45
+#: en/lb-source-hooks.1:66 en/lb-source-includes.1:54
 #, no-wrap
 msgid "HOMEPAGE"
 msgstr "PÁGINA WEB"
@@ -215,9 +219,9 @@ msgstr "PÁGINA WEB"
 #. type: Plain text
 #: en/lb-binary-hooks.1:68 en/lb-binary-includes.1:56
 #: en/lb-bootstrap-cdebootstrap.1:48 en/lb-bootstrap-debootstrap.1:48
-#: en/lb-bootstrap-hooks.1:66 en/lb-chroot-hooks.1:66
-#: en/lb-chroot-includes.1:56 en/lb-source-hooks.1:68
-#: en/lb-source-includes.1:56
+#: en/lb-bootstrap-hooks.1:66 en/lb-bootstrap-includes.1:56
+#: en/lb-chroot-hooks.1:66 en/lb-chroot-includes.1:56 en/lb-init.1:47
+#: en/lb-source-hooks.1:68 en/lb-source-includes.1:56
 msgid ""
 "More information about live-build and the Live Systems project can be found "
 "on the homepage at E<lt>I<http://live-systems.org/>E<gt> and in the manual "
@@ -230,9 +234,9 @@ msgstr ""
 #. type: SH
 #: en/lb-binary-hooks.1:69 en/lb-binary-includes.1:57
 #: en/lb-bootstrap-cdebootstrap.1:49 en/lb-bootstrap-debootstrap.1:49
-#: en/lb-bootstrap-hooks.1:67 en/lb-chroot-hooks.1:67
-#: en/lb-chroot-includes.1:57 en/lb-source-hooks.1:69
-#: en/lb-source-includes.1:57
+#: en/lb-bootstrap-hooks.1:67 en/lb-bootstrap-includes.1:57
+#: en/lb-chroot-hooks.1:67 en/lb-chroot-includes.1:57 en/lb-init.1:48
+#: en/lb-source-hooks.1:69 en/lb-source-includes.1:57
 #, no-wrap
 msgid "BUGS"
 msgstr "ERRORES"
@@ -240,9 +244,9 @@ msgstr "ERRORES"
 #. type: Plain text
 #: en/lb-binary-hooks.1:71 en/lb-binary-includes.1:59
 #: en/lb-bootstrap-cdebootstrap.1:51 en/lb-bootstrap-debootstrap.1:51
-#: en/lb-bootstrap-hooks.1:69 en/lb-chroot-hooks.1:69
-#: en/lb-chroot-includes.1:59 en/lb-source-hooks.1:71
-#: en/lb-source-includes.1:59
+#: en/lb-bootstrap-hooks.1:69 en/lb-bootstrap-includes.1:59
+#: en/lb-chroot-hooks.1:69 en/lb-chroot-includes.1:59 en/lb-init.1:50
+#: en/lb-source-hooks.1:71 en/lb-source-includes.1:59
 msgid ""
 "Bugs can be reported by submitting a bugreport for the live-build package in "
 "the Bug Tracking System at E<lt>I<http://bugs.debian.org/>E<gt> or by "
@@ -257,9 +261,9 @@ msgstr ""
 #. type: SH
 #: en/lb-binary-hooks.1:72 en/lb-binary-includes.1:60
 #: en/lb-bootstrap-cdebootstrap.1:52 en/lb-bootstrap-debootstrap.1:52
-#: en/lb-bootstrap-hooks.1:70 en/lb-chroot-hooks.1:70
-#: en/lb-chroot-includes.1:60 en/lb-source-hooks.1:72
-#: en/lb-source-includes.1:60
+#: en/lb-bootstrap-hooks.1:70 en/lb-bootstrap-includes.1:60
+#: en/lb-chroot-hooks.1:70 en/lb-chroot-includes.1:60 en/lb-init.1:51
+#: en/lb-source-hooks.1:72 en/lb-source-includes.1:60
 #, no-wrap
 msgid "AUTHOR"
 msgstr "AUTOR"
@@ -267,9 +271,9 @@ msgstr "AUTOR"
 #. type: Plain text
 #: en/lb-binary-hooks.1:73 en/lb-binary-includes.1:61
 #: en/lb-bootstrap-cdebootstrap.1:53 en/lb-bootstrap-debootstrap.1:53
-#: en/lb-bootstrap-hooks.1:71 en/lb-chroot-hooks.1:71
-#: en/lb-chroot-includes.1:61 en/lb-source-hooks.1:73
-#: en/lb-source-includes.1:61
+#: en/lb-bootstrap-hooks.1:71 en/lb-bootstrap-includes.1:61
+#: en/lb-chroot-hooks.1:71 en/lb-chroot-includes.1:61 en/lb-init.1:52
+#: en/lb-source-hooks.1:73 en/lb-source-includes.1:61
 msgid ""
 "live-build was written by Daniel Baumann E<lt>I<mail@daniel-baumann.ch>E<gt>."
 msgstr ""
@@ -277,21 +281,21 @@ msgstr ""
 "ch>E<gt>."
 
 #. type: IP
-#: en/lb-binary-includes.1:42 en/lb-chroot-includes.1:42
-#: en/lb-source-includes.1:42
+#: en/lb-binary-includes.1:42 en/lb-bootstrap-includes.1:42
+#: en/lb-chroot-includes.1:42 en/lb-source-includes.1:42
 #, no-wrap
 msgid "B<config/includes>:"
 msgstr "B<config/includes>:"
 
 #. type: Plain text
-#: en/lb-binary-includes.1:44 en/lb-chroot-includes.1:44
-#: en/lb-source-includes.1:44
+#: en/lb-binary-includes.1:44 en/lb-bootstrap-includes.1:44
+#: en/lb-chroot-includes.1:44 en/lb-source-includes.1:44
 msgid "generic include files."
 msgstr ""
 
 #. type: Plain text
-#: en/lb-binary-includes.1:48 en/lb-chroot-includes.1:48
-#: en/lb-source-includes.1:48
+#: en/lb-binary-includes.1:48 en/lb-bootstrap-includes.1:48
+#: en/lb-chroot-includes.1:48 en/lb-source-includes.1:48
 msgid "directory in which the include files are copied into."
 msgstr ""
 
@@ -303,13 +307,15 @@ msgid "I<lb-bootstrap-includes>(1)"
 msgstr "I<lb-bootstrap-includes>(1)"
 
 #. type: IP
-#: en/lb-binary-includes.1:51 en/lb-source-includes.1:51
+#: en/lb-binary-includes.1:51 en/lb-bootstrap-includes.1:50
+#: en/lb-source-includes.1:51
 #, no-wrap
 msgid "I<lb-chroot-includes>(1)"
 msgstr "I<lb-chroot-includes>(1)"
 
 #. type: IP
-#: en/lb-chroot-includes.1:51 en/lb-source-includes.1:52
+#: en/lb-bootstrap-includes.1:51 en/lb-chroot-includes.1:51
+#: en/lb-source-includes.1:52
 #, no-wrap
 msgid "I<lb-binary-includes>(1)"
 msgstr "I<lb-binary-includes>(1)"
