@@ -1475,5 +1475,17 @@ do
 	fi
 done
 
+case "${LB_SYSTEM}" in
+	live)
+		for _PACKAGE in live-boot live-config live-config-sysvinit
+		do
+			if ! grep -qs "${_PACKAGE}" config/package-lists/*
+			then
+				echo "${_PACKAGE}" >> config/package-lists/live.list.chroot
+			fi
+		done
+		;;
+esac
+
 # Creating stage file
 Create_stagefile .build/config
