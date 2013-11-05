@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: live-build 4.0~alpha30-1\n"
 "POT-Creation-Date: 2013-11-05 19:23+0100\n"
-"PO-Revision-Date: 2010-05-24 09:59+0300\n"
+"PO-Revision-Date: 2013-11-05 19:30+0100\n"
 "Last-Translator: Carlos Zuferri <chals@altorricon.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -70,9 +70,8 @@ msgstr "NOMBRE"
 #: en/lb-bootstrap-hooks.1:13 en/lb-bootstrap-includes.1:13
 #: en/lb-chroot-hooks.1:13 en/lb-chroot-includes.1:13 en/lb-init.1:13
 #: en/lb-source-hooks.1:13 en/lb-source-includes.1:13
-#, fuzzy
 msgid "B<live-build> - Live System Build Components"
-msgstr "B<live-build> - Scripts de Creación del Sistema"
+msgstr "B<live-build> - Componentes de Construcción del Sistema en vivo"
 
 #. type: SH
 #: en/lb-binary-hooks.1:14 en/lb-binary-includes.1:14
@@ -115,22 +114,20 @@ msgstr "DESCRIPCIÓN"
 #: en/lb-bootstrap-hooks.1:23 en/lb-bootstrap-includes.1:23
 #: en/lb-chroot-hooks.1:23 en/lb-chroot-includes.1:23 en/lb-init.1:23
 #: en/lb-source-hooks.1:23 en/lb-source-includes.1:23
-#, fuzzy
 msgid ""
 "live-build contains the components to build a live system from a "
 "configuration directory."
 msgstr ""
-"live-build contiene los programas para construir un sistema en vivo a partir "
-"de un directorio de configuración."
+"live-build contiene los componentes para construir un sistema en vivo a "
+"partir de un directorio de configuración."
 
 #. type: Plain text
 #: en/lb-binary-hooks.1:25
-#, fuzzy
 msgid ""
 "The B<lb binary-hooks> command executes hook files after the binary stage."
 msgstr ""
-"El programa B<lb binary_hooks> preinstala el chroot del sistema con "
-"I<debootstrap>(8)."
+"El comando B<lb binary_hooks> ejecuta los scripts gancho después de la etapa "
+"«binary»."
 
 #. type: SH
 #: en/lb-binary-hooks.1:26 en/lb-binary-includes.1:26
@@ -139,7 +136,7 @@ msgstr ""
 #: en/lb-source-includes.1:26
 #, no-wrap
 msgid "SPECIFICATION"
-msgstr ""
+msgstr "ESPECIFICACIÓN"
 
 #. type: Plain text
 #: en/lb-binary-hooks.1:28
@@ -147,6 +144,8 @@ msgid ""
 "B<lb binary-hooks> executes any hook files found in the B<config/hooks> "
 "directory within the configuration directory."
 msgstr ""
+"B<lb binary-hooks> ejecuta todos los scripts gancho que se encuentran en el "
+"directorio B<config/hooks> dentro del directorio de configuración."
 
 #. type: Plain text
 #: en/lb-binary-hooks.1:30
@@ -155,11 +154,14 @@ msgid ""
 "They are marked executable by B<lb binary-hooks> automatically when they are "
 "executed."
 msgstr ""
+"No es necesario que los scripts gancho tengan un propietario o permisos "
+"especiales. Ya que B<lb binary-hooks> los convertirá en ejecutables "
+"automáticamente."
 
 #. type: Plain text
 #: en/lb-binary-hooks.1:32
 msgid "Hook files must either have the suffix B<*.hook> or B<*.hook.binary>."
-msgstr ""
+msgstr "Los scripts gancho deben tener el sufijo B<*.hook> o B<*.hook.binary>."
 
 #. type: Plain text
 #: en/lb-binary-hooks.1:34
@@ -167,6 +169,8 @@ msgid ""
 "Hook files with the suffix B<*.hook> are executed first, hook files with the "
 "suffix B<*.hook.binary> are executed second."
 msgstr ""
+"Los scripts gancho con el sufijo B<*.hook> se ejecutan en primer lugar, los "
+"scripts gancho con el sufijo B<*.hook.binary> se ejecutan en segundo lugar."
 
 #. type: Plain text
 #: en/lb-binary-hooks.1:36
@@ -175,6 +179,10 @@ msgid ""
 "one hook file depends on being run after another, best practise is to use "
 "number prefixes (nnnn, starting with 0001) to ensure the order of execution."
 msgstr ""
+"B<lb binary-hooks> ejecuta los scripts gancho en orden alfanumérico. Si uno "
+"de estos scripts tiene que ser ejecutado después de otro, lo ideal es "
+"utilizar números como prefijos (nnnn, a partir de 0001) para asegurarse el "
+"orden de ejecución correcto."
 
 #. type: Plain text
 #: en/lb-binary-hooks.1:38
@@ -183,6 +191,10 @@ msgid ""
 "hooks>. They are executed from within the binary directory and can read the "
 "configuration directory in B<live-build/config> within the binary directory."
 msgstr ""
+"B<lb binary-hooks> copia los scripts gancho dentro del directorio B<binary/"
+"live-build>. Estos se ejecutan desde dentro del directorio «binary» y pueden "
+"leer el directorio de configuración en B<live-build/config> dentro del "
+"directorio «binary»."
 
 #. type: Plain text
 #: en/lb-binary-hooks.1:40
@@ -192,6 +204,10 @@ msgid ""
 "privileges and access to the all host system resources (devices, "
 "filesystems, network, etc.)."
 msgstr ""
+"B<Advertencia:> Los scripts gancho no son ejecutados dentro del directorio "
+"«chroot» sino en el sistema anfitrión dentro del directorio «binary». Estos "
+"tienen privilegios de superusuario y acceso a todos los recursos del sistema "
+"anfitrión (dispositivos, sistemas de ficheros, redes, etc.)."
 
 #. type: SH
 #: en/lb-binary-hooks.1:41 en/lb-binary-includes.1:33
@@ -281,7 +297,7 @@ msgstr "B<config/hooks/*.hook>:"
 #: en/lb-binary-hooks.1:52 en/lb-bootstrap-hooks.1:50 en/lb-chroot-hooks.1:50
 #: en/lb-source-hooks.1:52
 msgid "generic hook files."
-msgstr ""
+msgstr "scripts gancho genéricos."
 
 #. type: IP
 #: en/lb-binary-hooks.1:52
@@ -292,7 +308,7 @@ msgstr "B<config/hooks/*.hook.binary>:"
 #. type: Plain text
 #: en/lb-binary-hooks.1:54
 msgid "hook files specific for the binary stage."
-msgstr ""
+msgstr "scripts gancho específicos para la etapa «binary»."
 
 #. type: IP
 #: en/lb-binary-hooks.1:54 en/lb-binary-includes.1:46
@@ -304,7 +320,7 @@ msgstr "B<binary>:"
 #: en/lb-binary-hooks.1:56 en/lb-bootstrap-hooks.1:54 en/lb-chroot-hooks.1:54
 #: en/lb-source-hooks.1:56
 msgid "directory in which the hook files are executed."
-msgstr ""
+msgstr "directorio en el que se ejecutan los scripts gancho."
 
 #. type: IP
 #: en/lb-binary-hooks.1:56
@@ -318,6 +334,8 @@ msgid ""
 "bind mounted configuration directory within the binary directory to be read "
 "by hook files."
 msgstr ""
+"directorio de configuración montado en el directorio «binary» para ser leído "
+"por los scripts gancho."
 
 #. type: IP
 #: en/lb-binary-hooks.1:58
@@ -329,7 +347,7 @@ msgstr "B<binary/live-build>:"
 #: en/lb-binary-hooks.1:60 en/lb-bootstrap-hooks.1:58 en/lb-chroot-hooks.1:58
 #: en/lb-source-hooks.1:60
 msgid "directory in which hook files are copied."
-msgstr ""
+msgstr "directorio en el que se copian los scripts gancho."
 
 #. type: SH
 #: en/lb-binary-hooks.1:61 en/lb-binary-includes.1:49
