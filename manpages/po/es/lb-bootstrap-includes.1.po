@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
 "POT-Creation-Date: 2013-11-05 12:01+0100\n"
-"PO-Revision-Date: 2013-11-05 20:27+0100\n"
+"PO-Revision-Date: 2013-11-05 20:41+0100\n"
 "Last-Translator: Carlos Zuferri <chals@altorricon.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -367,7 +367,7 @@ msgstr ""
 "al superusuario root en el momento de copiarlos, mientras que los permisos "
 "iniciales de los ficheros se mantienen intactos. Se puede establecer "
 "propietarios específicos de los ficheros utilizando un script gancho, ver "
-"I<lb-binary-hooks>(1) para más información acerca de los scripts gancho."
+"I<lb-bootstrap-hooks>(1) para más información acerca de los scripts gancho."
 
 #. type: Plain text
 #: en/lb-bootstrap-includes.1:32
