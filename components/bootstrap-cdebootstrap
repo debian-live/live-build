@@ -17,7 +17,7 @@ import subprocess
 import sys
 
 
-# TODOs:
+# TODO:
 #   * logfile output
 #   * lockfile handling
 #   * use gettext for i18n
