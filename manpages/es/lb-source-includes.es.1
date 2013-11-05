@@ -27,24 +27,25 @@
 live\-build contiene los componentes para construir un sistema en vivo a
 partir de un directorio de configuración.
 .PP
-The \fBlb source\-includes\fP command copies include files into the source
-stage.
+El comando \fBlb source\-includes\fP copia los ficheros «include» durante la
+etapa «source».
 
 .SH ESPECIFICACIÓN
-\fBlb source\-includes\fP copies any include files found in the
-\fBconfig/includes\fP and \fBconfig/includes.source\fP directories within the
-configuration directory.
+\fBlb source\-includes\fP copia todos los ficheros «include» que encuentra en
+los directorios \fBconfig/includes\fP y \fBconfig/includes.source\fP dentro del
+directorio de configuración.
 .PP
-Include files do not require to have a specific owner nor specific
-permissions. The files are set to be owned by root by \fBlb source\-includes\fP
-automatically when they are copied, original permissions of the files are
-preserved. Specific owners can be set with a corresponding hook file, see
-\fIlb\-source\-hooks\fP(1) for more information about hooks.
+No es necesario que los ficheros «include» tengan un propietario o permisos
+especiales. \fBlb source\-includes\fP automáticamente asignará los ficheros al
+superusuario root en el momento de copiarlos, mientras que los permisos
+iniciales de los ficheros se mantienen intactos. Se puede establecer
+propietarios específicos de los ficheros utilizando un script gancho, ver
+\fIlb\-source\-hooks\fP(1) para más información acerca de los scripts gancho.
 .PP
-Include files in the \fBconfig/includes\fP directory are copied first, include
-files in the \fBconfig/includes.source\fP directory are copied second. Files
-present in the source and either of the include directories are silently
-overwritten, the later file replaces the earlier.
+Los ficheros «include» del directorio \fBconfig/includes\fP se copian en primer
+lugar, los del directorio \fBconfig/includes.source\fP se copian en segundo
+lugar. Los ficheros existentes en los directorios «source» e «include» se
+sobreescriben sin previo aviso, el último fichero reemplaza al anterior.
 
 .SH OPCIONES
 .IP \fB\-\-verbose\fP 4
@@ -56,11 +57,11 @@ muestra el número de versión del programa y sale.
 
 .SH FICHEROS
 .IP \fBconfig/includes\fP: 4
-generic include files.
+ficheros «include» genéricos.
 .IP \fBconfig/includes.source\fP: 4
-include files specific for the source stage.
+ficheros «include» específicos para la etapa «source».
 .IP \fBsource\fP: 4
-directory in which the include files are copied into.
+directorio en el que se copian los ficheros «include».
 
 .SH "VER TAMBIÉN"
 .IP \fIlb\-bootstrap\-includes\fP(1) 4

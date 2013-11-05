@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
 "POT-Creation-Date: 2013-11-05 12:01+0100\n"
-"PO-Revision-Date: 2013-11-04 18:48+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2013-11-05 20:59+0100\n"
+"Last-Translator: Carlos Zuferri <chals@altorricon.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -289,13 +289,13 @@ msgstr "B<config/includes>:"
 #: en/lb-binary-includes.1:44 en/lb-bootstrap-includes.1:44
 #: en/lb-chroot-includes.1:44 en/lb-source-includes.1:44
 msgid "generic include files."
-msgstr ""
+msgstr "ficheros «include» genéricos."
 
 #. type: Plain text
 #: en/lb-binary-includes.1:48 en/lb-bootstrap-includes.1:48
 #: en/lb-chroot-includes.1:48 en/lb-source-includes.1:48
 msgid "directory in which the include files are copied into."
-msgstr ""
+msgstr "directorio en el que se copian los ficheros «include»."
 
 #. type: IP
 #: en/lb-binary-includes.1:50 en/lb-chroot-includes.1:50
@@ -341,12 +341,11 @@ msgstr "B<lb source-includes> [--version]"
 
 #. type: Plain text
 #: en/lb-source-includes.1:25
-#, fuzzy
 msgid ""
 "The B<lb source-includes> command copies include files into the source stage."
 msgstr ""
-"El programa B<lb chroot_hooks> preinstala el chroot del sistema con "
-"I<debootstrap>(8)."
+"El comando B<lb source-includes> copia los ficheros «include» durante la "
+"etapa «source»."
 
 #. type: Plain text
 #: en/lb-source-includes.1:28
@@ -355,6 +354,9 @@ msgid ""
 "includes> and B<config/includes.source> directories within the configuration "
 "directory."
 msgstr ""
+"B<lb source-includes> copia todos los ficheros «include» que encuentra en "
+"los directorios B<config/includes> y B<config/includes.source> dentro del "
+"directorio de configuración."
 
 #. type: Plain text
 #: en/lb-source-includes.1:30
@@ -365,6 +367,12 @@ msgid ""
 "preserved. Specific owners can be set with a corresponding hook file, see "
 "I<lb-source-hooks>(1) for more information about hooks."
 msgstr ""
+"No es necesario que los ficheros «include» tengan un propietario o permisos "
+"especiales. B<lb source-includes> automáticamente asignará los ficheros al "
+"superusuario root en el momento de copiarlos, mientras que los permisos "
+"iniciales de los ficheros se mantienen intactos. Se puede establecer "
+"propietarios específicos de los ficheros utilizando un script gancho, ver "
+"I<lb-source-hooks>(1) para más información acerca de los scripts gancho."
 
 #. type: Plain text
 #: en/lb-source-includes.1:32
@@ -374,6 +382,10 @@ msgid ""
 "present in the source and either of the include directories are silently "
 "overwritten, the later file replaces the earlier."
 msgstr ""
+"Los ficheros «include» del directorio B<config/includes> se copian en primer "
+"lugar, los del directorio B<config/includes.source> se copian en segundo "
+"lugar. Los ficheros existentes en los directorios «source» e «include» se "
+"sobreescriben sin previo aviso, el último fichero reemplaza al anterior."
 
 #. type: IP
 #: en/lb-source-includes.1:44
@@ -384,4 +396,4 @@ msgstr "B<config/includes.source>:"
 #. type: Plain text
 #: en/lb-source-includes.1:46
 msgid "include files specific for the source stage."
-msgstr ""
+msgstr "ficheros «include» específicos para la etapa «source»."
