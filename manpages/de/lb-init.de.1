@@ -17,7 +17,8 @@
 \fBlive\-build\fP \- System Build Komponenten
 
 .SH SYNTAX
-\fBlb init\fP [\-\-project \fIPROJEKT\fP] [\-\-verbose]
+\fBlb init\fP [\-\-distribution \fIDISTRIBUTION\fP] [\-\-project \fIPROJEKT\fP]
+[\-\-verbose]
 .PP
 \fBlb init\fP [\-\-help]
 .br
@@ -31,6 +32,8 @@ Das \fBlb init\fP Kommando erstellt ein leeres Konfigurationsverzeichnis oder
 re\-initialisiert ein bestehendes.
 
 .SH OPTIONEN
+.IP \fB\-\-distribution\fP 4
+sets die Standard Distribution.
 .IP \fB\-\-project\fP 4
 setzt das Projeckt von dem die internen Standardwerte abgeleitet
 werden. Momentan gültige Projekte sind 'debian', 'progress\-linux' und

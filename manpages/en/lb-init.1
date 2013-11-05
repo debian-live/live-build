@@ -12,7 +12,7 @@
 \fBlive\-build\fR \- Live System Build Components
 
 .SH SYNOPSIS
-\fBlb init\fR [\-\-project \fIPROJECT\fR] [\-\-verbose]
+\fBlb init\fR [\-\-distribution \fIDISTRIBUTION\fR] [\-\-project \fIPROJECT\fR] [\-\-verbose]
 .PP
 \fBlb init\fR [\-\-help]
 .br
@@ -24,6 +24,8 @@ live\-build contains the components to build a live system from a configuration 
 The \fBlb init\fR command creates an empty configuration directory or reinitialize an existing one.
 
 .SH OPTIONS
+.IP "\fB\-\-distribution\fR" 4
+set the default distribution.
 .IP "\fB\-\-project\fR" 4
 set the project to derive internal defaults from. Currently valid projects are 'debian', 'progress-linux', and 'ubuntu' (default: debian).
 .IP "\fB\-\-verbose\fR" 4

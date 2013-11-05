@@ -28,20 +28,24 @@ def main():
 		prog            = 'lb init',
 		usage           = '%(prog)s [arguments]',
 		description     = '''live-build contains the components to build a live system from a configuration directory.
-		                     The init command creates an empty configuration tree or reinitialize an existing one.''',
+		                     The init command creates an empty configuration directory or reinitialize an existing one.''',
 		epilog          = 'See \'man lb-init\' for more information.',
 		formatter_class = argparse.ArgumentDefaultsHelpFormatter
 	)
 
-	arguments.add_argument('--version',     help='show program\'s version number and exit', action='version', version='live-build 4')
-	arguments.add_argument('--verbose',     help='set verbose option',                      action='store_true')
+	arguments.add_argument('--version',      help='show program\'s version number and exit', action='version', version='live-build 4')
+	arguments.add_argument('--verbose',      help='set verbose option',                      action='store_true')
 
-	arguments.add_argument('--project',     help='set project defaults')
+	arguments.add_argument('--distribution', help='set default distribution')
+	arguments.add_argument('--project',      help='set project defaults')
 
 	args = arguments.parse_args()
 
 	# --verbose
 	verbose = args.verbose
+
+	# --distribution
+	distribution = args.distribution
 
 	# --project
 	project = args.project
