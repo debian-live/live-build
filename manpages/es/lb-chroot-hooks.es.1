@@ -14,7 +14,7 @@
 .TH LIVE\-BUILD 1 05.11.2013 4.0~alpha30\-1 "Proyecto Live Systems"
 
 .SH NOMBRE
-\fBlive\-build\fP \- Live System Build Components
+\fBlive\-build\fP \- Componentes de Construcción del Sistema en vivo
 
 .SH SINOPSIS
 \fBlb chroot\-hooks\fP [\-\-verbose]
@@ -24,12 +24,12 @@
 \fBlb chroot\-hooks\fP [\-\-version]
 .
 .SH DESCRIPCIÓN
-live\-build contains the components to build a live system from a
-configuration directory.
+live\-build contiene los componentes para construir un sistema en vivo a
+partir de un directorio de configuración.
 .PP
 The \fBlb chroot\-hooks\fP command executes hook files after the chroot stage.
 
-.SH SPECIFICATION
+.SH ESPECIFICACIÓN
 \fBlb chroot\-hooks\fP executes any hook files found in the \fBconfig/hooks\fP
 directory within the configuration directory.
 .PP
@@ -61,16 +61,16 @@ muestra el número de versión del programa y sale.
 
 .SH FICHEROS
 .IP \fBconfig/hooks/*.hook\fP: 4
-generic hook files.
+scripts gancho genéricos.
 .IP \fBconfig/hooks/*.hook.chroot\fP: 4
 hook files specific for the chroot stage.
 .IP \fBchroot\fP: 4
-directory in which the hook files are executed.
+directorio en el que se ejecutan los scripts gancho.
 .IP \fBchroot/live\-build/config\fP: 4
 bind mounted configuration directory within the chroot directory to be read
 by hook files.
 .IP \fBchroot/live\-build\fP: 4
-directory in which hook files are copied.
+directorio en el que se copian los scripts gancho.
 
 .SH "VER TAMBIÉN"
 .IP \fIlb\-bootstrap\-hooks\fP(1) 4

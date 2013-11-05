@@ -70,9 +70,8 @@ msgstr "NOMBRE"
 #: en/lb-bootstrap-hooks.1:13 en/lb-bootstrap-includes.1:13
 #: en/lb-chroot-hooks.1:13 en/lb-chroot-includes.1:13 en/lb-init.1:13
 #: en/lb-source-hooks.1:13 en/lb-source-includes.1:13
-#, fuzzy
 msgid "B<live-build> - Live System Build Components"
-msgstr "B<live-build> - Scripts de Creación del Sistema"
+msgstr "B<live-build> - Componentes de Construcción del Sistema en vivo"
 
 #. type: SH
 #: en/lb-binary-hooks.1:14 en/lb-binary-includes.1:14
@@ -100,13 +99,12 @@ msgstr "DESCRIPCIÓN"
 #: en/lb-bootstrap-hooks.1:23 en/lb-bootstrap-includes.1:23
 #: en/lb-chroot-hooks.1:23 en/lb-chroot-includes.1:23 en/lb-init.1:23
 #: en/lb-source-hooks.1:23 en/lb-source-includes.1:23
-#, fuzzy
 msgid ""
 "live-build contains the components to build a live system from a "
 "configuration directory."
 msgstr ""
-"live-build contiene los programas para construir un sistema en vivo a partir "
-"de un directorio de configuración."
+"live-build contiene los componentes para construir un sistema en vivo a "
+"partir de un directorio de configuración."
 
 #. type: SH
 #: en/lb-binary-hooks.1:26 en/lb-binary-includes.1:26
@@ -115,7 +113,7 @@ msgstr ""
 #: en/lb-source-includes.1:26
 #, no-wrap
 msgid "SPECIFICATION"
-msgstr ""
+msgstr "ESPECIFICACIÓN"
 
 #. type: SH
 #: en/lb-binary-hooks.1:41 en/lb-binary-includes.1:33
@@ -205,19 +203,19 @@ msgstr "B<config/hooks/*.hook>:"
 #: en/lb-binary-hooks.1:52 en/lb-bootstrap-hooks.1:50 en/lb-chroot-hooks.1:50
 #: en/lb-source-hooks.1:52
 msgid "generic hook files."
-msgstr ""
+msgstr "scripts gancho genéricos."
 
 #. type: Plain text
 #: en/lb-binary-hooks.1:56 en/lb-bootstrap-hooks.1:54 en/lb-chroot-hooks.1:54
 #: en/lb-source-hooks.1:56
 msgid "directory in which the hook files are executed."
-msgstr ""
+msgstr "directorio en el que se ejecutan los scripts gancho."
 
 #. type: Plain text
 #: en/lb-binary-hooks.1:60 en/lb-bootstrap-hooks.1:58 en/lb-chroot-hooks.1:58
 #: en/lb-source-hooks.1:60
 msgid "directory in which hook files are copied."
-msgstr ""
+msgstr "directorio en el que se copian los scripts gancho."
 
 #. type: SH
 #: en/lb-binary-hooks.1:61 en/lb-binary-includes.1:49

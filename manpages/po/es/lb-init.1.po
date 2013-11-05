@@ -72,9 +72,8 @@ msgstr "NOMBRE"
 #: en/lb-bootstrap-hooks.1:13 en/lb-bootstrap-includes.1:13
 #: en/lb-chroot-hooks.1:13 en/lb-chroot-includes.1:13 en/lb-init.1:13
 #: en/lb-source-hooks.1:13 en/lb-source-includes.1:13
-#, fuzzy
 msgid "B<live-build> - Live System Build Components"
-msgstr "B<live-build> - Scripts de Creación del Sistema"
+msgstr "B<live-build> - Componentes de Construcción del Sistema en vivo"
 
 #. type: SH
 #: en/lb-binary-hooks.1:14 en/lb-binary-includes.1:14
@@ -102,13 +101,12 @@ msgstr "DESCRIPCIÓN"
 #: en/lb-bootstrap-hooks.1:23 en/lb-bootstrap-includes.1:23
 #: en/lb-chroot-hooks.1:23 en/lb-chroot-includes.1:23 en/lb-init.1:23
 #: en/lb-source-hooks.1:23 en/lb-source-includes.1:23
-#, fuzzy
 msgid ""
 "live-build contains the components to build a live system from a "
 "configuration directory."
 msgstr ""
-"live-build contiene los programas para construir un sistema en vivo a partir "
-"de un directorio de configuración."
+"live-build contiene los componentes para construir un sistema en vivo a "
+"partir de un directorio de configuración."
 
 #. type: SH
 #: en/lb-binary-hooks.1:41 en/lb-binary-includes.1:33
