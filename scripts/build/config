@@ -1350,19 +1350,6 @@ then
 	Echo_warning "Make sure you are using the newest version at all times."
 fi
 
-mkdir -p config/hooks
-mkdir -p config/includes config/includes.bootstrap config/includes.chroot config/includes.binary config/includes.source
-
-Echo_message "Symlinking hooks..."
-
-for _HOOK in "${LIVE_BUILD}"/share/hooks/*.hook* /usr/share/live/build/hooks/*.hook*
-do
-	if [ -e "${_HOOK}" ] && [ ! -e "config/hooks/$(basename ${_HOOK})" ]
-	then
-		ln -s "${_HOOK}" "config/hooks/$(basename ${_HOOK})"
-	fi
-done
-
 cat > config/build << EOF
 [Image]
 Architecture: ${LIVE_IMAGE_ARCHITECTURE}
@@ -1474,18 +1461,6 @@ do
 		Echo_warning "Skipping archive-key ${_KEY} verification, gpgv not available..."
 	fi
 done
-
-case "${LB_SYSTEM}" in
-	live)
-		for _PACKAGE in live-boot live-config live-config-sysvinit
-		do
-			if ! grep -qs "${_PACKAGE}" config/package-lists/*
-			then
-				echo "${_PACKAGE}" >> config/package-lists/live.list.chroot
-			fi
-		done
-		;;
-esac
 
 # Creating stage file
 Create_stagefile .build/config

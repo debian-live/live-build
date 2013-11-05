@@ -1,0 +1,84 @@
+#!/usr/bin/python3
+
+## live-build(7) - Live System Build Components
+## Copyright (C) 2006-2013 Daniel Baumann <mail@daniel-baumann.ch>
+##
+## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+## This is free software, and you are welcome to redistribute it
+## under certain conditions; see COPYING for details.
+
+
+import argparse
+import configparser
+import glob
+import os
+import shutil
+import subprocess
+import sys
+
+
+# TODO:
+#   * logfile output
+#   * lockfile handling
+#   * use gettext for i18n
+
+def main():
+	## Parsing Arguments
+	arguments = argparse.ArgumentParser(
+		prog            = 'lb init',
+		usage           = '%(prog)s [arguments]',
+		description     = '''live-build contains the components to build a live system from a configuration directory.
+		                     The init command creates an empty configuration tree or reinitialize an existing one.''',
+		epilog          = 'See \'man lb-init\' for more information.',
+		formatter_class = argparse.ArgumentDefaultsHelpFormatter
+	)
+
+	arguments.add_argument('--version',     help='show program\'s version number and exit', action='version', version='live-build 4')
+	arguments.add_argument('--verbose',     help='set verbose option',                      action='store_true')
+
+	arguments.add_argument('--project',     help='set project defaults')
+
+	args = arguments.parse_args()
+
+	# --verbose
+	verbose = args.verbose
+
+	# --project
+	project = args.project
+
+	## Creating configuration directory
+
+	# stagefile
+	if os.path.isdir('.build'):
+		if verbose:
+			print('I: configuration directory already initialized - nothing to do')
+
+		# Note: until further tests, we do not allow to re-run lb init on an already initialized directory.
+		sys.exit(0)
+
+	# Configuring default hooks
+	os.makedirs('config/hooks', exist_ok=True)
+
+	for hook in glob.glob('/usr/share/live/build/hooks/*.hook*'):
+		os.symlink(hook, os.path.join('config/hooks/' + os.path.basename(hook)))
+
+	# Configuring default includes
+	os.makedirs('config/includes', exist_ok=True)
+	os.makedirs('config/includes.bootstrap', exist_ok=True)
+	os.makedirs('config/includes.chroot', exist_ok=True)
+	os.makedirs('config/includes.binary', exist_ok=True)
+	os.makedirs('config/includes.source', exist_ok=True)
+
+	# Configuring default package lists
+	os.makedirs('config/package-lists', exist_ok=True)
+
+	f = open('config/package-lists/live.list.chroot', 'a')
+	f.write('live-boot\nlive-config\nlive-config-sysvinit\n')
+	f.close()
+
+	## stagefile
+	os.makedirs('.build', exist_ok=True)
+
+
+if __name__ == '__main__':
+	main()
