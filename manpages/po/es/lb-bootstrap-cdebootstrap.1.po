@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: live-build 4.0~alpha30-1\n"
 "POT-Creation-Date: 2013-11-06 09:09+0100\n"
-"PO-Revision-Date: 2010-05-24 09:59+0300\n"
+"PO-Revision-Date: 2013-11-06 09:12+0100\n"
 "Last-Translator: Carlos Zuferri <chals@altorricon.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -30,8 +30,7 @@ msgstr "LIVE-BUILD"
 #: en/lb-bootstrap-hooks.1:9 en/lb-bootstrap-includes.1:9
 #: en/lb-chroot-hooks.1:9 en/lb-chroot-includes.1:9 en/lb-init.1:9
 #: en/lb-source-hooks.1:9 en/lb-source-includes.1:9
-#, fuzzy, no-wrap
-#| msgid "2013-11-05"
+#, no-wrap
 msgid "2013-11-06"
 msgstr "06.11.2013"
 
@@ -289,13 +288,12 @@ msgstr "B<lb bootstrap-cdebootstrap> [--version]"
 
 #. type: Plain text
 #: en/lb-bootstrap-cdebootstrap.1:25
-#, fuzzy
 msgid ""
 "The B<lb bootstrap-cdebootstrap> command bootstraps the chroot system with "
 "I<cdebootstrap>(1)."
 msgstr ""
-"El programa B<lb bootstrap_cdebootstrap> preinstala el chroot del sistema "
-"con I<cdebootstrap>(1)."
+"El comando B<lb bootstrap_cdebootstrap> preinstala el chroot del sistema con "
+"I<cdebootstrap>(1)."
 
 #. type: IP
 #: en/lb-bootstrap-cdebootstrap.1:27
