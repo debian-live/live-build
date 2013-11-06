@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build 4.0~alpha30-1\n"
-"POT-Creation-Date: 2013-11-05 19:23+0100\n"
+"POT-Creation-Date: 2013-11-06 09:09+0100\n"
 "PO-Revision-Date: 2013-11-05 19:30+0100\n"
 "Last-Translator: Carlos Zuferri <chals@altorricon.com>\n"
 "Language-Team: none\n"
@@ -30,9 +30,10 @@ msgstr "LIVE-BUILD"
 #: en/lb-bootstrap-hooks.1:9 en/lb-bootstrap-includes.1:9
 #: en/lb-chroot-hooks.1:9 en/lb-chroot-includes.1:9 en/lb-init.1:9
 #: en/lb-source-hooks.1:9 en/lb-source-includes.1:9
-#, no-wrap
-msgid "2013-11-05"
-msgstr "05.11.2013"
+#, fuzzy, no-wrap
+#| msgid "2013-11-05"
+msgid "2013-11-06"
+msgstr "06.11.2013"
 
 #. type: TH
 #: en/lb-binary-hooks.1:9 en/lb-binary-includes.1:9
