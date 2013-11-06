@@ -77,6 +77,17 @@ def main():
 		#   * until further tests, we do not allow to re-run lb init on an already initialized directory.
 		sys.exit(0)
 
+	# Print warning about live-build development version
+	print('WARNING: THIS VERSION OF LIVE-BUILD IS EXPERIMENTAL\n')
+
+	print('IT IS UNFINISHED AND CHANGES HEAVILY WITHOUT PRIOR NOTICE.')
+	print('USER DISCRETION IS ADVISED.\n')
+
+	print('Please also note that you are running a live-build development version')
+	print('and that we are only supporting the newest development version.\n')
+
+	print('Make sure you are using the newest version at all times.')
+
 	# Configuring default archive-keys
 	if (project == 'progress-linux'):
 		# dependencies

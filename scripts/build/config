@@ -1337,19 +1337,6 @@ then
 	rmdir --ignore-fail-on-non-empty local > /dev/null 2>&1 || true
 fi
 
-if echo "${VERSION}" | grep -qs "alpha"
-then
-	# live-build alpha version
-	Echo_warning "WARNING: THIS VERSION OF LIVE-BUILD IS EXPERIMENTAL!"
-	Echo_warning "IT IS UNFINISHED AND CHANGES HEAVILY WITHOUT PRIOR NOTICE."
-	Echo_warning "USER DISCRETION IS ADVISED."
-	Echo_warning ""
-	Echo_warning "Please also note that you are running a live-build development version"
-	Echo_warning "and that we are only supporting the newest development version."
-	Echo_warning ""
-	Echo_warning "Make sure you are using the newest version at all times."
-fi
-
 cat > config/build << EOF
 [Image]
 Architecture: ${LIVE_IMAGE_ARCHITECTURE}
