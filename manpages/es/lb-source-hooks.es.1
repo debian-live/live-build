@@ -11,7 +11,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2013\-11\-06 4.0~alpha30\-1 "Proyecto Live Systems"
+.TH LIVE\-BUILD 1 06.11.2013 4.0~alpha30\-1 "Proyecto Live Systems"
 
 .SH NOMBRE
 \fBlive\-build\fP \- Componentes de Construcción del Sistema en vivo
@@ -27,34 +27,36 @@
 live\-build contiene los componentes para construir un sistema en vivo a
 partir de un directorio de configuración.
 .PP
-The \fBlb source\-hooks\fP command executes hook files after the source stage.
+El comando \fBlb source_hooks\fP ejecuta los scripts gancho después de la etapa
+«source».
 
 .SH ESPECIFICACIÓN
-\fBlb source\-hooks\fP executes any hook files found in the \fBconfig/hooks\fP
-directory within the configuration directory.
+\fBlb source\-hooks\fP ejecuta todos los scripts gancho que se encuentran en el
+directorio \fBconfig/hooks\fP dentro del directorio de configuración.
 .PP
-Hook files do not require to have a specific owner nor specific
-permissions. They are marked executable by \fBlb source\-hooks\fP automatically
-when they are executed.
+No es necesario que los scripts gancho tengan un propietario o permisos
+especiales. Ya que \fBlb source\-hooks\fP los convertirá en ejecutables
+automáticamente.
 .PP
-Hook files must either have the suffix \fB*.hook\fP or \fB*.hook.source\fP.
+Los scripts gancho deben tener el sufijo \fB*.hook\fP o \fB*.hook.source\fP.
 .PP
-Hook files with the suffix \fB*.hook\fP are executed first, hook files with the
-suffix \fB*.hook.source\fP are executed second.
+Los scripts gancho con el sufijo \fB*.hook\fP se ejecutan en primer lugar, los
+scripts gancho con el sufijo \fB*.hook.source\fP se ejecutan en segundo lugar.
 .PP
-Hook files are executed in alphanumberical order by \fBlb source\-hooks\fP. If
-one hook file depends on being run after another, best practise is to use
-number prefixes (nnnn, starting with 0001) to ensure the order of execution.
+\fBlb source\-hooks\fP ejecuta los scripts gancho en orden alfanumérico. Si uno
+de estos scripts tiene que ser ejecutado después de otro, lo ideal es
+utilizar números como prefijos (nnnn, a partir de 0001) para asegurarse el
+orden de ejecución correcto.
 .PP
-Hook files are copied into the \fBsource/live\-build\fP directory by \fBlb
-source\-hooks\fP. They are executed from within the source directory and can
-read the configuration directory in \fBlive\-build/config\fP within the source
-directory.
+\fBlb source\-hooks\fP copia los scripts gancho dentro del directorio
+\fBsource/live\-build\fP. Estos se ejecutan desde dentro del directorio «source»
+y pueden leer el directorio de configuración en \fBlive\-build/config\fP dentro
+del directorio «source».
 .PP
-\fBWarning:\fP hook files are not executed within a chroot but within the
-context of the host system in the source directory. They have root
-privileges and access to the all host system ressources (devices,
-filesystems, network, etc.).
+\fBAdvertencia:\fP Los scripts gancho no son ejecutados dentro del directorio
+«chroot» sino en el sistema anfitrión dentro del directorio «source». Estos
+tienen privilegios de superusuario y acceso a todos los recursos del sistema
+anfitrión (dispositivos, sistemas de ficheros, redes, etc.).
 
 .SH OPCIONES
 .IP \fB\-\-verbose\fP 4
@@ -68,12 +70,12 @@ muestra el número de versión del programa y sale.
 .IP \fBconfig/hooks/*.hook\fP: 4
 scripts gancho genéricos.
 .IP \fBconfig/hooks/*.hook.source\fP: 4
-hook files specific for the source stage.
+scripts gancho específicos para la etapa «source».
 .IP \fBsource\fP: 4
 directorio en el que se ejecutan los scripts gancho.
 .IP \fBsource/live\-build/config\fP: 4
-bind mounted configuration directory within the source directory to be read
-by hook files.
+directorio de configuración montado en el directorio «source» para ser leído
+por los scripts gancho.
 .IP \fBsource/live\-build\fP: 4
 directorio en el que se copian los scripts gancho.
 
