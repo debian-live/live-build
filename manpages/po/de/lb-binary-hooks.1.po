@@ -201,12 +201,6 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb-binary-hooks.1:40
-#, fuzzy
-#| msgid ""
-#| "B<Warning:> hook files are not executed within a chroot but within the "
-#| "context of the host system in the binary directory. They have root "
-#| "privileges and access to the all host system ressources (devices, "
-#| "filesystems, network, etc.)."
 msgid ""
 "B<Warning:> hook files are not executed within a chroot but within the "
 "context of the host system in the binary directory. They have root "
