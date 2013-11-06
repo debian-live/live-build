@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
 "POT-Creation-Date: 2013-11-06 09:09+0100\n"
-"PO-Revision-Date: 2013-11-05 12:01+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2013-11-06 10:00+0100\n"
+"Last-Translator: Carlos Zuferri <chals@altorricon.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -32,8 +32,7 @@ msgstr "LIVE-BUILD"
 #: en/lb-bootstrap-hooks.1:9 en/lb-bootstrap-includes.1:9
 #: en/lb-chroot-hooks.1:9 en/lb-chroot-includes.1:9 en/lb-init.1:9
 #: en/lb-source-hooks.1:9 en/lb-source-includes.1:9
-#, fuzzy, no-wrap
-#| msgid "2013-11-05"
+#, no-wrap
 msgid "2013-11-06"
 msgstr "06.11.2013"
 
@@ -276,6 +275,8 @@ msgid ""
 "B<lb init> [--distribution I<DISTRIBUTION>] [--project I<PROJECT>] [--"
 "verbose]"
 msgstr ""
+"B<lb init> [--distribution I<DISTRIBUTION>] [--project I<PROJECT>] [--"
+"verbose]"
 
 #. type: Plain text
 #: en/lb-init.1:18
@@ -293,6 +294,8 @@ msgid ""
 "The B<lb init> command creates an empty configuration directory or "
 "reinitialize an existing one."
 msgstr ""
+"El comando B<lb init> crea un directorio de configuración vacio o "
+"reinicializa uno ya existente."
 
 #. type: IP
 #: en/lb-init.1:27
@@ -303,7 +306,7 @@ msgstr "B<--distribution>"
 #. type: Plain text
 #: en/lb-init.1:29
 msgid "set the default distribution."
-msgstr ""
+msgstr "establece la distribución predeterminada."
 
 #. type: IP
 #: en/lb-init.1:29
@@ -317,6 +320,9 @@ msgid ""
 "set the project to derive internal defaults from. Currently valid projects "
 "are 'debian', 'progress-linux', and 'ubuntu' (default: debian)."
 msgstr ""
+"establece el proyecto para el que se utilizarán sus valores predeterminados. "
+"Actualmente, los proyectos válidos son «debian», «progress-linux» y "
+"«ubuntu» (valor predeterminado: debian)."
 
 #. type: IP
 #: en/lb-init.1:39
@@ -327,7 +333,7 @@ msgstr "B<config>:"
 #. type: Plain text
 #: en/lb-init.1:41
 msgid "configuration directory."
-msgstr ""
+msgstr "directorio de configuración."
 
 #. type: IP
 #: en/lb-init.1:41
@@ -338,4 +344,4 @@ msgstr "B<.build>"
 #. type: Plain text
 #: en/lb-init.1:43
 msgid "configuration directory for meta-information."
-msgstr ""
+msgstr "directorio de configuración para meta-información."
