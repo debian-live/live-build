@@ -125,7 +125,7 @@ def main():
 				print('I: Downloading ' + url)
 
 			r = urllib.request.urlopen(url)
-			f = open('config/archives/' + target[0] + '.key', 'b+w')
+			f = open('config/archives/' + target[0] + '.key', 'w')
 
 			f.write(r.read())
 
@@ -147,7 +147,7 @@ def main():
 	# Configuring default package lists
 	os.makedirs('config/package-lists', exist_ok=True)
 
-	f = open('config/package-lists/live.list.chroot', 'a')
+	f = open('config/package-lists/live.list.chroot', 'w')
 	f.write('live-boot\nlive-config\nlive-config-sysvinit\n')
 	f.close()
 
