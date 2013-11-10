@@ -81,16 +81,12 @@ def main():
 
 	# process includes
 	if glob.glob('config/includes/*') or glob.glob('config/includes/.*'):
-		hooks = glob.glob('config/includes/*') + glob.glob('config/includes/.*')
-
 		if verbose:
 			print('I: Copying config/includes to binary')
 
 		cpio = subprocess.call('cd config/includes && find . | cpio -dmpu --no-preserve-owner ../../binary', shell=True)
 
-	if glob.glob('config/includes.binary/*') and not glob.glob('config/includes.binary/.*'):
-		hooks = glob.glob('config/includes.binary/*') + glob.glob('config/includes.binary/.*')
-
+	if glob.glob('config/includes.binary/*') or glob.glob('config/includes.binary/.*'):
 		if verbose:
 			print('I: Copying config/includes.binary to binary')
 

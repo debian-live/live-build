@@ -80,16 +80,12 @@ def main():
 
 	# process includes
 	if glob.glob('config/includes/*') or glob.glob('config/includes/.*'):
-		hooks = glob.glob('config/includes/*') + glob.glob('config/includes/.*')
-
 		if verbose:
 			print('I: Copying config/includes to chroot')
 
 		cpio = subprocess.call('cd config/includes && find . | cpio -dmpu --no-preserve-owner ../../chroot', shell=True)
 
-	if glob.glob('config/includes.bootstrap/*') and not glob.glob('config/includes.bootstrap/.*'):
-		hooks = glob.glob('config/includes.bootstrap/*') + glob.glob('config/includes.bootstrap/.*')
-
+	if glob.glob('config/includes.bootstrap/*') or glob.glob('config/includes.bootstrap/.*'):
 		if verbose:
 			print('I: Copying config/includes.bootstrap to chroot')
 
