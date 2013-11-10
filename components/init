@@ -61,7 +61,6 @@ def main():
 		# FIXME hardcoded release information
 		default_distribution = { 'debian' :         'wheezy',
 					 'progress-linux' : 'baureo',
-					 'ubuntu' :         'saucy',
 		}
 
 		distribution = default_distribution[project]

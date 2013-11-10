@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2013-11-06 09:09+0100\n"
+"POT-Creation-Date: 2013-11-10 09:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,7 @@ msgstr ""
 #: en/lb-chroot-hooks.1:9 en/lb-chroot-includes.1:9 en/lb-init.1:9
 #: en/lb-source-hooks.1:9 en/lb-source-includes.1:9
 #, no-wrap
-msgid "2013-11-06"
+msgid "2013-11-10"
 msgstr ""
 
 #. type: TH
@@ -303,7 +303,7 @@ msgstr ""
 #: en/lb-init.1:31
 msgid ""
 "set the project to derive internal defaults from. Currently valid projects "
-"are 'debian', 'progress-linux', and 'ubuntu' (default: debian)."
+"are 'debian' and 'progress-linux' (default: debian)."
 msgstr ""
 
 #. type: IP
