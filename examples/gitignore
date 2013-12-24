@@ -5,6 +5,7 @@ binary*.tar*
 binary*.contents
 binary*.packages
 binary*.zsync
+live-image-*
 
 .build/
 build.log
@@ -13,6 +14,7 @@ cache/
 
 chroot/
 chroot.packages.*
+chroot.files
 
 config/binary
 config/bootstrap
