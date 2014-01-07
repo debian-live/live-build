@@ -1,3 +1,71 @@
+live-build (4.0~alpha31-1) experimental; urgency=low
+
+  [ Daniel Baumann ]
+  * Creating all includes directories in config.
+  * Decrufting depends, recommends and suggests.
+  * Dropping chroot_live-packages by moving logic outside of live-build
+    into the config directory.
+  * Adding initial stub for lb init.
+  * Adding lb-init manpage.
+  * Adding --distribution to lb-init.
+
+  [ chals ]
+  * Removing obsolete po4a flag 'no-backups' from manpages/Makefile.
+  * Fixing typo in lb-binary-hooks.1 manpage.
+  * Translating lb-binary-hooks.1 into Spanish.
+  * Updating small bits in several .po files, Spanish translation.
+
+  [ Daniel Baumann ]
+  * Correcting comment in bootstrap-cdebootstrap.
+
+  [ chals ]
+  * Translating lb-binary-includes.1 manpage into Spanish.
+  * Translating lb-bootstrap-includes.1 manpage into Spanish.
+  * Translating lb-chroot-includes.1 manpage into Spanish.
+  * Fixing copy and paste error in lb-bootstrap-includes.es.1 manpage,
+    Spanish translation.
+  * Translating lb-source-includes.1 manpage into Spanish.
+
+  [ Daniel Baumann ]
+  * Moving bootstrapping of derivative archive-keys from config to init.
+  * Moving live-build development disclaimer message from lb-config to lb-
+    init.
+  * Adding some notes on coding style in python readme.
+
+  [ chals ]
+  * Updating dates in manpages.
+  * Updating Spanish translation of lb-bootstrap-cdebootstrap manpage.
+  * Updating Spanish translation of lb-bootstrap-debootstrap manpage.
+  * Updating Spanish translation of lb-bootstrap-hooks manpage.
+  * Updating Spanish translation of lb-chroot-hooks manpage.
+  * Translating lb-init manpage into Spanish.
+  * Translating lb-source-hooks manpage into Spanish.
+  * Updating, again, lb-bootstrap-debootstrap manpage, Spanish
+    translation.
+  * Unfuzzying dates in the Spanish translation.
+  * Unfuzzying dates in the German translation of the manpages.
+
+  [ Daniel Baumann ]
+  * Unfuzzing German translation of lb-binary-hooks.1
+  * Correcting file open modes in lb-init.
+  * Correcting a few copy/paste errors in *-includes python stubs.
+  * Pre-emptively removing occurances of the short name of the Debian
+    derivative from Canonical that cannot be named.
+  * Silencing copying of syslinux themes since users get always distracted
+    about syslinux 6 files not being dereferenced (which can be totally
+    ignored if you're using syslinux 4).
+
+  [ Richard Nelson ]
+  * Adding jessie distribution to l-b-cgi frontend.
+
+  [ Diederik de Haas ]
+  * Updated gitignore file with newly generated files.
+
+  [ Daniel Baumann ]
+  * Explicitly building iso images with rock ridge extension.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 07 Jan 2014 21:03:41 +0100
+
 live-build (4.0~alpha30-1) experimental; urgency=low
 
   * Updating filenames suffixes of example hook files.

@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: live-build 4.0~alpha30-1\n"
-"POT-Creation-Date: 2013-11-10 09:30+0100\n"
+"Project-Id-Version: live-build 4.0~alpha31-1\n"
+"POT-Creation-Date: 2014-01-07 21:04+0100\n"
 "PO-Revision-Date: 2013-11-06 10:38+0100\n"
-"Last-Translator: Carlos Zuferri <chals@altorricon.com>\n"
+"Last-Translator: Daniel Baumann <mail@daniel-baumann.ch>\n"
 "Language-Team: none\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -32,8 +32,8 @@ msgstr "LIVE-BUILD"
 #: en/lb-chroot-hooks.1:9 en/lb-chroot-includes.1:9 en/lb-init.1:9
 #: en/lb-source-hooks.1:9 en/lb-source-includes.1:9
 #, no-wrap
-msgid "2013-11-10"
-msgstr "10.11.2013"
+msgid "2014-01-07"
+msgstr "07.01.2014"
 
 #. type: TH
 #: en/lb-binary-hooks.1:9 en/lb-binary-includes.1:9
@@ -42,8 +42,8 @@ msgstr "10.11.2013"
 #: en/lb-chroot-hooks.1:9 en/lb-chroot-includes.1:9 en/lb-init.1:9
 #: en/lb-source-hooks.1:9 en/lb-source-includes.1:9
 #, no-wrap
-msgid "4.0~alpha30-1"
-msgstr "4.0~alpha30-1"
+msgid "4.0~alpha31-1"
+msgstr "4.0~alpha31-1"
 
 #. type: TH
 #: en/lb-binary-hooks.1:9 en/lb-binary-includes.1:9
