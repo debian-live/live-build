@@ -11,10 +11,10 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 04.11.2013 4.0~alpha30\-1 "Proyecto Live Systems"
+.TH LIVE\-BUILD 1 07.01.2014 4.0~alpha31\-1 "Proyecto Live Systems"
 
 .SH NOMBRE
-\fBlive\-build\fP \- Live System Build Components
+\fBlive\-build\fP \- Componentes de Construcción del Sistema en vivo
 
 .SH SINOPSIS
 \fBlb bootstrap\-hooks\fP [\-\-verbose]
@@ -24,34 +24,35 @@
 \fBlb bootstrap\-hooks\fP [\-\-version]
 .
 .SH DESCRIPCIÓN
-live\-build contains the components to build a live system from a
-configuration directory.
+live\-build contiene los componentes para construir un sistema en vivo a
+partir de un directorio de configuración.
 .PP
-The \fBlb bootstrap\-hooks\fP command executes hook files after the bootstrap
-stage.
+El comando \fBlb bootstrap_hooks\fP ejecuta los scripts gancho después de la
+etapa «bootstrap».
 
-.SH SPECIFICATION
-\fBlb bootstrap\-hooks\fP executes any hook files found in the \fBconfig/hooks\fP
-directory within the configuration directory.
+.SH ESPECIFICACIÓN
+\fBlb bootstrap\-hooks\fP ejecuta todos los scripts gancho que se encuentran en
+el directorio \fBconfig/hooks\fP dentro del directorio de configuración.
 .PP
-Hook files do not require to have a specific owner nor specific
-permissions. They are marked executable by \fBlb bootstrap\-hooks\fP
-automatically when they are executed.
+No es necesario que los scripts gancho tengan un propietario o permisos
+especiales. Ya que \fBlb bootstrap\-hooks\fP los convertirá en ejecutables
+automáticamente.
 .PP
-Hook files must either have the suffix \fB*.hook\fP or \fB*.hook.bootstrap\fP.
+Los scripts gancho deben tener el sufijo \fB*.hook\fP o \fB*.hook.bootstrap\fP.
 .PP
-Hook files with the suffix \fB*.hook\fP are executed first, hook files with the
-suffix \fB*.hook.bootstrap\fP are executed second.
+Los scripts gancho con el sufijo \fB*.hook\fP se ejecutan en primer lugar, los
+scripts gancho con el sufijo \fB*.hook.bootstrap\fP se ejecutan en segundo
+lugar.
 .PP
-Hook files are executed in alphanumberical order by \fBlb
-bootstrap\-hooks\fP. If one hook file depends on being run after another, best
-practise is to use number prefixes (nnnn, starting with 0001) to ensure the
-order of execution.
+\fBlb bootstrap\-hooks\fP ejecuta los scripts gancho en orden alfanumérico. Si
+uno de estos scripts tiene que ser ejecutado después de otro, lo ideal es
+utilizar números como prefijos (nnnn, a partir de 0001) para asegurarse el
+orden de ejecución correcto.
 .PP
-Hook files are copied into the \fBchroot/live\-build\fP directory by \fBlb
-bootstrap\-hooks\fP. They are executed from within the chroot directory
-(chrooted) and can read the configuration directory in \fB/live\-build/config\fP
-within the chroot directory.
+\fBlb bootstrap\-hooks\fP copia los scripts gancho dentro del directorio
+\fBchroot/live\-build\fP. Estos se ejecutan desde dentro del directorio «chroot»
+(en el chroot) y pueden leer el directorio de configuración en
+\fBlive\-build/config\fP dentro del directorio «chroot».
 
 .SH OPCIONES
 .IP \fB\-\-verbose\fP 4
@@ -63,16 +64,16 @@ muestra el número de versión del programa y sale.
 
 .SH FICHEROS
 .IP \fBconfig/hooks/*.hook\fP: 4
-generic hook files.
+scripts gancho genéricos.
 .IP \fBconfig/hooks/*.hook.bootstrap\fP: 4
-hook files specific for the bootstrap stage.
+scripts gancho específicos para la etapa «bootstrap».
 .IP \fBchroot\fP: 4
-directory in which the hook files are executed.
+directorio en el que se ejecutan los scripts gancho.
 .IP \fBchroot/live\-build/config\fP: 4
-bind mounted configuration directory within the chroot directory to be read
-by hook files.
+directorio de configuración montado en el directorio «chroot» para ser leído
+por los scripts gancho.
 .IP \fBchroot/live\-build\fP: 4
-directory in which hook files are copied.
+directorio en el que se copian los scripts gancho.
 
 .SH "VER TAMBIÉN"
 .IP \fIlb\-bootstrap\-hooks\fP(1) 4

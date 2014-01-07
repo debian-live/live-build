@@ -1,18 +1,19 @@
-# Spanish translations for live-build
-# Copyright (C) 2013 Carlos Zuferri <chals@altorricon.com>
+# German translations for live-build
+# Copyright (C) 2006-2013 Daniel Baumann <mail@daniel-baumann.ch>
 # This file is distributed under the same license as the live-build package.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build 4.0~alpha31-1\n"
 "POT-Creation-Date: 2014-01-07 21:04+0100\n"
-"PO-Revision-Date: 2013-11-05 19:30+0100\n"
-"Last-Translator: Carlos Zuferri <chals@altorricon.com>\n"
+"PO-Revision-Date: 2013-11-06 10:38+0100\n"
+"Last-Translator: Daniel Baumann <mail@daniel-baumann.ch>\n"
 "Language-Team: none\n"
-"Language: es\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. type: TH
 #: en/lb-binary-hooks.1:9 en/lb-binary-includes.1:9
@@ -52,7 +53,7 @@ msgstr "4.0~alpha31-1"
 #: en/lb-source-hooks.1:9 en/lb-source-includes.1:9
 #, no-wrap
 msgid "Live Systems Project"
-msgstr "Proyecto Live Systems"
+msgstr "Live Systems Projekt"
 
 #. type: SH
 #: en/lb-binary-hooks.1:11 en/lb-binary-includes.1:11
@@ -62,7 +63,7 @@ msgstr "Proyecto Live Systems"
 #: en/lb-source-hooks.1:11 en/lb-source-includes.1:11
 #, no-wrap
 msgid "NAME"
-msgstr "NOMBRE"
+msgstr "NAME"
 
 #. type: Plain text
 #: en/lb-binary-hooks.1:13 en/lb-binary-includes.1:13
@@ -71,7 +72,7 @@ msgstr "NOMBRE"
 #: en/lb-chroot-hooks.1:13 en/lb-chroot-includes.1:13 en/lb-init.1:13
 #: en/lb-source-hooks.1:13 en/lb-source-includes.1:13
 msgid "B<live-build> - Live System Build Components"
-msgstr "B<live-build> - Componentes de Construcción del Sistema en vivo"
+msgstr "B<live-build> - System Build Komponenten"
 
 #. type: SH
 #: en/lb-binary-hooks.1:14 en/lb-binary-includes.1:14
@@ -81,7 +82,7 @@ msgstr "B<live-build> - Componentes de Construcción del Sistema en vivo"
 #: en/lb-source-hooks.1:14 en/lb-source-includes.1:14
 #, no-wrap
 msgid "SYNOPSIS"
-msgstr "SINOPSIS"
+msgstr "SYNTAX"
 
 #. type: SH
 #: en/lb-binary-hooks.1:21 en/lb-binary-includes.1:21
@@ -91,7 +92,7 @@ msgstr "SINOPSIS"
 #: en/lb-source-hooks.1:21 en/lb-source-includes.1:21
 #, no-wrap
 msgid "DESCRIPTION"
-msgstr "DESCRIPCIÓN"
+msgstr "BESCHREIBUNG"
 
 #. type: Plain text
 #: en/lb-binary-hooks.1:23 en/lb-binary-includes.1:23
@@ -103,17 +104,8 @@ msgid ""
 "live-build contains the components to build a live system from a "
 "configuration directory."
 msgstr ""
-"live-build contiene los componentes para construir un sistema en vivo a "
-"partir de un directorio de configuración."
-
-#. type: SH
-#: en/lb-binary-hooks.1:26 en/lb-binary-includes.1:26
-#: en/lb-bootstrap-hooks.1:26 en/lb-bootstrap-includes.1:26
-#: en/lb-chroot-hooks.1:26 en/lb-chroot-includes.1:26 en/lb-source-hooks.1:26
-#: en/lb-source-includes.1:26
-#, no-wrap
-msgid "SPECIFICATION"
-msgstr "ESPECIFICACIÓN"
+"live-build enthält die Komponenten um ein Live System von einem "
+"Konfigurationsverzeichnis zu erstellen."
 
 #. type: SH
 #: en/lb-binary-hooks.1:41 en/lb-binary-includes.1:33
@@ -123,7 +115,7 @@ msgstr "ESPECIFICACIÓN"
 #: en/lb-source-hooks.1:41 en/lb-source-includes.1:33
 #, no-wrap
 msgid "OPTIONS"
-msgstr "OPCIONES"
+msgstr "OPTIONEN"
 
 #. type: IP
 #: en/lb-binary-hooks.1:42 en/lb-binary-includes.1:34
@@ -142,7 +134,7 @@ msgstr "B<--verbose>"
 #: en/lb-chroot-hooks.1:42 en/lb-chroot-includes.1:36 en/lb-init.1:33
 #: en/lb-source-hooks.1:44 en/lb-source-includes.1:36
 msgid "sets verbose option (default: False)."
-msgstr "establece la opción verbose (por defecto: False)."
+msgstr "setzt verbose Option für mehr Ausgaben (Standardwert: aus)."
 
 #. type: IP
 #: en/lb-binary-hooks.1:44 en/lb-binary-includes.1:36
@@ -161,7 +153,7 @@ msgstr "B<-h, --help>"
 #: en/lb-chroot-hooks.1:44 en/lb-chroot-includes.1:38 en/lb-init.1:35
 #: en/lb-source-hooks.1:46 en/lb-source-includes.1:38
 msgid "show help message and exit."
-msgstr "muestra el mensaje de ayuda y sale."
+msgstr "zeigt Hilfenachricht und beendet sich."
 
 #. type: IP
 #: en/lb-binary-hooks.1:46 en/lb-binary-includes.1:38
@@ -180,7 +172,7 @@ msgstr "B<--version>"
 #: en/lb-chroot-hooks.1:46 en/lb-chroot-includes.1:40 en/lb-init.1:37
 #: en/lb-source-hooks.1:48 en/lb-source-includes.1:40
 msgid "show program's version number and exit."
-msgstr "muestra el número de versión del programa y sale."
+msgstr "zeigt Versionsnummer des Programms und beendet sich."
 
 #. type: SH
 #: en/lb-binary-hooks.1:49 en/lb-binary-includes.1:41
@@ -190,7 +182,7 @@ msgstr "muestra el número de versión del programa y sale."
 #: en/lb-source-hooks.1:49 en/lb-source-includes.1:41
 #, no-wrap
 msgid "FILES"
-msgstr "FICHEROS"
+msgstr "DATEIEN"
 
 #. type: SH
 #: en/lb-binary-hooks.1:61 en/lb-binary-includes.1:49
@@ -200,7 +192,7 @@ msgstr "FICHEROS"
 #: en/lb-source-hooks.1:61 en/lb-source-includes.1:49
 #, no-wrap
 msgid "SEE ALSO"
-msgstr "VER TAMBIÉN"
+msgstr "SIEHE AUCH"
 
 #. type: SH
 #: en/lb-binary-hooks.1:66 en/lb-binary-includes.1:54
@@ -210,7 +202,7 @@ msgstr "VER TAMBIÉN"
 #: en/lb-source-hooks.1:66 en/lb-source-includes.1:54
 #, no-wrap
 msgid "HOMEPAGE"
-msgstr "PÁGINA WEB"
+msgstr "HOMEPAGE"
 
 #. type: Plain text
 #: en/lb-binary-hooks.1:68 en/lb-binary-includes.1:56
@@ -223,9 +215,9 @@ msgid ""
 "on the homepage at E<lt>I<http://live-systems.org/>E<gt> and in the manual "
 "at E<lt>I<http://live-systems.org/manual/>E<gt>."
 msgstr ""
-"Se puede encontrar más información acerca de live-build y el proyecto Live "
-"Systems en la página web E<lt>I<http://live-systems.org/>E<gt> y en el "
-"manual en E<lt>I<http://live-systems.org/manual/>E<gt>."
+"Weitere Informationen über live-build und das Live Systems Projekt können "
+"auf der Homepage unter E<lt>I<http://live-systems.org/>E<gt> und im Handbuch "
+"unter E<lt>I<http://live-systems.org/manual/>E<gt> gefunden werden."
 
 #. type: SH
 #: en/lb-binary-hooks.1:69 en/lb-binary-includes.1:57
@@ -235,7 +227,7 @@ msgstr ""
 #: en/lb-source-hooks.1:69 en/lb-source-includes.1:57
 #, no-wrap
 msgid "BUGS"
-msgstr "ERRORES"
+msgstr "FEHLER"
 
 #. type: Plain text
 #: en/lb-binary-hooks.1:71 en/lb-binary-includes.1:59
@@ -249,11 +241,13 @@ msgid ""
 "writing a mail to the Live Systems mailing list at E<lt>I<debian-live@lists."
 "debian.org>E<gt>."
 msgstr ""
-"Se puede notificar los fallos enviando un informe de errores sobre el "
-"paquete live-build en el Bug Tracking System en E<lt>I<http://bugs.debian."
-"org/>E<gt> o escribiendo un mensaje a la lista de correo de Live Systems a "
-"la dirección E<lt>I<debian-live@lists.debian.org>E<gt>."
+"Fehler können durch Einreichen eines Fehlerberichtes für das live-build "
+"Paket im Bug Tracking System unter E<lt>I<http://bugs.debian.org/>E<gt> oder "
+"durch Senden einer E-Mail an die Live Systems Mailing Liste unter "
+"E<lt>I<debian-live@lists.debian.org>E<gt> (englischsprachig) mitgeteilt "
+"werden."
 
+#
 #. type: SH
 #: en/lb-binary-hooks.1:72 en/lb-binary-includes.1:60
 #: en/lb-bootstrap-cdebootstrap.1:52 en/lb-bootstrap-debootstrap.1:52
@@ -273,127 +267,82 @@ msgstr "AUTOR"
 msgid ""
 "live-build was written by Daniel Baumann E<lt>I<mail@daniel-baumann.ch>E<gt>."
 msgstr ""
-"live-build fue escrito por Daniel Baumann E<lt>I<mail@daniel-baumann."
-"ch>E<gt>."
-
-#. type: IP
-#: en/lb-binary-includes.1:42 en/lb-bootstrap-includes.1:42
-#: en/lb-chroot-includes.1:42 en/lb-source-includes.1:42
-#, no-wrap
-msgid "B<config/includes>:"
-msgstr "B<config/includes>:"
+"live-build wurde von Daniel Baumann E<lt>I<mail@daniel-baumann.ch>E<gt> "
+"geschrieben."
 
 #. type: Plain text
-#: en/lb-binary-includes.1:44 en/lb-bootstrap-includes.1:44
-#: en/lb-chroot-includes.1:44 en/lb-source-includes.1:44
-msgid "generic include files."
-msgstr "ficheros «include» genéricos."
-
-#. type: Plain text
-#: en/lb-binary-includes.1:48 en/lb-bootstrap-includes.1:48
-#: en/lb-chroot-includes.1:48 en/lb-source-includes.1:48
-msgid "directory in which the include files are copied into."
-msgstr "directorio en el que se copian los ficheros «include»."
-
-#. type: IP
-#: en/lb-binary-includes.1:51 en/lb-bootstrap-includes.1:50
-#: en/lb-source-includes.1:51
-#, no-wrap
-msgid "I<lb-chroot-includes>(1)"
-msgstr "I<lb-chroot-includes>(1)"
-
-#. type: IP
-#: en/lb-binary-includes.1:52 en/lb-bootstrap-includes.1:52
-#: en/lb-chroot-includes.1:52
-#, no-wrap
-msgid "I<lb-source-includes>(1)"
-msgstr "I<lb-source-includes>(1)"
-
-#. type: IP
-#: en/lb-bootstrap-hooks.1:52 en/lb-bootstrap-includes.1:46
-#: en/lb-chroot-hooks.1:52 en/lb-chroot-includes.1:46
-#, no-wrap
-msgid "B<chroot>:"
-msgstr "B<chroot>:"
-
-#. type: Plain text
-#: en/lb-bootstrap-includes.1:16
-msgid "B<lb bootstrap-includes> [--verbose]"
-msgstr "B<lb bootstrap-includes> [--verbose]"
-
-#. type: Plain text
-#: en/lb-bootstrap-includes.1:18
-msgid "B<lb bootstrap-includes> [--help]"
-msgstr "B<lb bootstrap-includes> [--help]"
-
-#. type: Plain text
-#: en/lb-bootstrap-includes.1:20
-msgid "B<lb bootstrap-includes> [--version]"
-msgstr "B<lb bootstrap-includes> [--version]"
-
-#. type: Plain text
-#: en/lb-bootstrap-includes.1:25
+#: en/lb-init.1:16
 msgid ""
-"The B<lb bootstrap-includes> command copies include files into the bootstrap "
-"stage."
+"B<lb init> [--distribution I<DISTRIBUTION>] [--project I<PROJECT>] [--"
+"verbose]"
 msgstr ""
-"El comando B<lb bootstrap-includes> copia los ficheros «include» durante la "
-"etapa «bootstrap»."
+"B<lb init> [--distribution I<DISTRIBUTION>] [--project I<PROJEKT>] [--"
+"verbose]"
 
 #. type: Plain text
-#: en/lb-bootstrap-includes.1:28
-msgid ""
-"B<lb bootstrap-includes> copies any include files found in the B<config/"
-"includes> and B<config/includes.bootstrap> directories within the "
-"configuration directory."
-msgstr ""
-"B<lb bootstrap-includes> copia todos los ficheros «include» que encuentra en "
-"los directorios B<config/includes> y B<config/includes.bootstrap> dentro del "
-"directorio de configuración."
+#: en/lb-init.1:18
+msgid "B<lb init> [--help]"
+msgstr "B<lb init> [--help]"
 
 #. type: Plain text
-#: en/lb-bootstrap-includes.1:30
-msgid ""
-"Include files do not require to have a specific owner nor specific "
-"permissions. The files are set to be owned by root by B<lb bootstrap-"
-"includes> automatically when they are copied, original permissions of the "
-"files are preserved. Specific owners can be set with a corresponding hook "
-"file, see I<lb-bootstrap-hooks>(1) for more information about hooks."
-msgstr ""
-"No es necesario que los ficheros «include» tengan un propietario o permisos "
-"especiales. B<lb bootstrap-includes> automáticamente asignará los ficheros "
-"al superusuario root en el momento de copiarlos, mientras que los permisos "
-"iniciales de los ficheros se mantienen intactos. Se puede establecer "
-"propietarios específicos de los ficheros utilizando un script gancho, ver "
-"I<lb-bootstrap-hooks>(1) para más información acerca de los scripts gancho."
+#: en/lb-init.1:20
+msgid "B<lb init> [--version]"
+msgstr "B<lb init> [--version]"
 
 #. type: Plain text
-#: en/lb-bootstrap-includes.1:32
+#: en/lb-init.1:25
 msgid ""
-"Include files in the B<config/includes> directory are copied first, include "
-"files in the B<config/includes.bootstrap> directory are copied second. Files "
-"present in the chroot and either of the include directories are silently "
-"overwritten, the later file replaces the earlier."
+"The B<lb init> command creates an empty configuration directory or "
+"reinitialize an existing one."
 msgstr ""
-"Los ficheros «include» del directorio B<config/includes> se copian en primer "
-"lugar, los del directorio B<config/includes.bootstrap> se copian en segundo "
-"lugar. Los ficheros existentes en los directorios «chroot» e «include» se "
-"sobreescriben sin previo aviso, el último fichero reemplaza al anterior."
+"Das B<lb init> Kommando erstellt ein leeres Konfigurationsverzeichnis oder "
+"re-initialisiert ein bestehendes."
 
 #. type: IP
-#: en/lb-bootstrap-includes.1:44
+#: en/lb-init.1:27
 #, no-wrap
-msgid "B<config/includes.bootstrap>:"
-msgstr "B<config/includes.bootstrap>:"
+msgid "B<--distribution>"
+msgstr "B<--distribution>"
 
 #. type: Plain text
-#: en/lb-bootstrap-includes.1:46
-msgid "include files specific for the bootstrap stage."
-msgstr "ficheros «include» específicos para la etapa «bootstrap»."
+#: en/lb-init.1:29
+msgid "set the default distribution."
+msgstr "sets die Standard Distribution."
 
 #. type: IP
-#: en/lb-bootstrap-includes.1:51 en/lb-chroot-includes.1:51
-#: en/lb-source-includes.1:52
+#: en/lb-init.1:29
 #, no-wrap
-msgid "I<lb-binary-includes>(1)"
-msgstr "I<lb-binary-includes>(1)"
+msgid "B<--project>"
+msgstr "B<--project>"
+
+#. type: Plain text
+#: en/lb-init.1:31
+msgid ""
+"set the project to derive internal defaults from. Currently valid projects "
+"are 'debian' and 'progress-linux' (default: debian)."
+msgstr ""
+"setzt das Projeckt von dem die internen Standardwerte abgeleitet werden. "
+"Momentan gültige Projekte sind 'debian' und 'progress-linux' (Standardwert: "
+"debian)."
+
+#. type: IP
+#: en/lb-init.1:39
+#, no-wrap
+msgid "B<config>:"
+msgstr "B<config>:"
+
+#. type: Plain text
+#: en/lb-init.1:41
+msgid "configuration directory."
+msgstr "Konfigurationsverzeichnis."
+
+#. type: IP
+#: en/lb-init.1:41
+#, no-wrap
+msgid "B<.build>:"
+msgstr "B<.build>:"
+
+#. type: Plain text
+#: en/lb-init.1:43
+msgid "configuration directory for meta-information."
+msgstr "Konfigurationsverzeichnis für Meta-Informationen."

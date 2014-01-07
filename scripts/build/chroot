@@ -67,7 +67,6 @@ do
 	fi
 done
 
-lb chroot_live-packages ${@}
 lb chroot-includes ${@}
 lb chroot-hooks ${@}
 lb chroot_hacks ${@}

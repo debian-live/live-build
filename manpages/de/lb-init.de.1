@@ -17,37 +17,27 @@
 \fBlive\-build\fP \- System Build Komponenten
 
 .SH SYNTAX
-\fBlb chroot\-includes\fP [\-\-verbose]
+\fBlb init\fP [\-\-distribution \fIDISTRIBUTION\fP] [\-\-project \fIPROJEKT\fP]
+[\-\-verbose]
 .PP
-\fBlb chroot\-includes\fP [\-\-help]
+\fBlb init\fP [\-\-help]
 .br
-\fBlb chroot\-includes\fP [\-\-version]
+\fBlb init\fP [\-\-version]
 .
 .SH BESCHREIBUNG
 live\-build enthält die Komponenten um ein Live System von einem
 Konfigurationsverzeichnis zu erstellen.
 .PP
-Der \fBlb chroot\-hooks\fP Befehl kopiert Include Dateien in den Chroot Stage.
-
-.SH SPEZIFIKATION
-\fBlb chroot\-includes\fP kopiert alle Include Dateien die sich im
-\fBconfig/includes\fP oder \fBconfig/includes.chroot\fP Verzeichnis innerhalb des
-Konfigurationsvereichnisses befinden.
-.PP
-Include Dateien benötigen weder einen speziellen Besitzer noch spezielle
-Zugriffsrechte. Sie werden automatisch als Root zugehörig markiert wenn sie
-von \fBlb chroot\-includes\fP kopiert werden, die ursprünglichen Zugriffsrechte
-bleiben erhalten. Spezielle Besitzer können mit einer passenden Hook Datei
-gesetzt werden, siehe \fIlb\-chroot\-hooks\fP(1) für mehr Informationen über Hook
-Dateien.
-.PP
-Include Dateien im \fBconfig/includes\fP Verzeichnis werden als erstes kopiert,
-Include Dateien im \fBconfig/includes.chroot\fP Verzeichnis als
-zweites. Dateien die sowohl im Chroot als auch in einem der Include
-Verzeichnisse vorliegen werden ohne Rückfrage überschrieben, die spätere
-Datei überschreibt die frühere.
+Das \fBlb init\fP Kommando erstellt ein leeres Konfigurationsverzeichnis oder
+re\-initialisiert ein bestehendes.
 
 .SH OPTIONEN
+.IP \fB\-\-distribution\fP 4
+sets die Standard Distribution.
+.IP \fB\-\-project\fP 4
+setzt das Projeckt von dem die internen Standardwerte abgeleitet
+werden. Momentan gültige Projekte sind 'debian' und 'progress\-linux'
+(Standardwert: debian).
 .IP \fB\-\-verbose\fP 4
 setzt verbose Option für mehr Ausgaben (Standardwert: aus).
 .IP "\fB\-h, \-\-help\fP" 4
@@ -56,18 +46,14 @@ zeigt Hilfenachricht und beendet sich.
 zeigt Versionsnummer des Programms und beendet sich.
 
 .SH DATEIEN
-.IP \fBconfig/includes\fP: 4
-Allgemeine Include Dateien.
-.IP \fBconfig/includes.chroot\fP: 4
-Include Dateien spezifisch für den Chroot Stage.
-.IP \fBchroot\fP: 4
-Verzeichnis in das die Include Dateien kopiert werden.
+.IP \fBconfig\fP: 4
+Konfigurationsverzeichnis.
+.IP \fB.build\fP: 4
+Konfigurationsverzeichnis für Meta\-Informationen.
 
 .SH "SIEHE AUCH"
-.IP \fIlb\-bootstrap\-includes\fP(1) 4
-.IP \fIlb\-binary\-includes\fP(1) 4
-.IP \fIlb\-source\-includes\fP(1) 4
 
+.\" FIXME
 .SH HOMEPAGE
 Weitere Informationen über live\-build und das Live Systems Projekt können
 auf der Homepage unter <\fIhttp://live\-systems.org/\fP> und im Handbuch
