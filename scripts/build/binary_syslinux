@@ -179,8 +179,10 @@ then
 
 	case "${_FLAVOURS}" in
 		1)
-			mv binary/${_INITRAMFS}/vmlinuz-* binary/${_INITRAMFS}/vmlinuz
-			mv binary/${_INITRAMFS}/initrd.img-* binary/${_INITRAMFS}/initrd.img
+			# If multiple initrd images are being generated (by DKMS packages, etc),
+			# we likely only want the latest version.
+			mv $(ls -r1 --sort=version binary/${_INITRAMFS}/vmlinuz-* | head -n 1) binary/${_INITRAMFS}/vmlinuz
+			mv $(ls -r1 --sort=version binary/${_INITRAMFS}/initrd.img-* | head -n 1) binary/${_INITRAMFS}/initrd.img
 
 			sed -e "s|@FLAVOUR@|${LB_LINUX_FLAVOURS}|g" \
 			    -e "s|@LINUX@|/${_INITRAMFS}/vmlinuz|g" \
