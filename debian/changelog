@@ -1,3 +1,18 @@
+live-build (4.0~alpha32-1) experimental; urgency=low
+
+  [ Daniel Baumann ]
+  * Updating copyright notices for 2014.
+
+  [ Kiel Christofferson ]
+  * Use LB_INITRAMFS case instead of assuming "live".
+  * Only grab the latest version of kernel+initrd pair.
+  * Auto-detect foreign architectures in packagelist.
+  * Only call shift if args are not empty.
+  * Allow config command without root privileges.
+  * Include "components" when detecting local scripts.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 02 Mar 2014 06:24:34 +0100
+
 live-build (4.0~alpha31-1) experimental; urgency=low
 
   [ Daniel Baumann ]
