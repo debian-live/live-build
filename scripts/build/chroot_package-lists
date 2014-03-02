@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2013 Daniel Baumann <mail@daniel-baumann.ch>
+## Copyright (C) 2006-2014 Daniel Baumann <mail@daniel-baumann.ch>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -86,6 +86,17 @@ do
 		# Generating package list
 		Expand_packagelist "$(basename ${LIST})" "config/package-lists" \
 			| grep -v '^#' >> chroot/root/packages.chroot
+	fi
+done
+
+# Discover unique package architectures in fully-expanded package list
+for _PACKAGE_ARCHITECTURE in $(Discover_package_architectures "chroot/root/packages.chroot")
+do
+	# If this is a foreign architecture, append to packages.foreign-architectures
+	if [ "${_PACKAGE_ARCHITECTURE}" != "${LIVE_IMAGE_ARCHITECTURE}" ]
+	then
+		Echo_message "Accepting foreign architecture: ${_PACKAGE_ARCHITECTURE}, live image architecture is: ${LIVE_IMAGE_ARCHITECTURE}"
+		echo "${_PACKAGE_ARCHITECTURE}" >> chroot/root/packages.foreign-architectures
 	fi
 done
 

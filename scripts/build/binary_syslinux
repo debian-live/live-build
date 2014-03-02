@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## live-build(7) - System Build Scripts
-## Copyright (C) 2006-2013 Daniel Baumann <mail@daniel-baumann.ch>
+## Copyright (C) 2006-2014 Daniel Baumann <mail@daniel-baumann.ch>
 ##
 ## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
 ## This is free software, and you are welcome to redistribute it
@@ -46,6 +46,16 @@ Create_lockfile .lock
 # Check architecture
 Check_architectures amd64 i386
 Check_crossarchitectures
+
+case "${LB_INITRAMFS}" in
+	casper)
+		_INITRAMFS="casper"
+		;;
+
+	*)
+		_INITRAMFS="live"
+		;;
+esac
 
 # Assembling image specifics
 case "${LIVE_IMAGE_TYPE}" in
@@ -169,12 +179,14 @@ then
 
 	case "${_FLAVOURS}" in
 		1)
-			mv binary/live/vmlinuz-* binary/live/vmlinuz
-			mv binary/live/initrd.img-* binary/live/initrd.img
+			# If multiple initrd images are being generated (by DKMS packages, etc),
+			# we likely only want the latest version.
+			mv $(ls -r1 --sort=version binary/${_INITRAMFS}/vmlinuz-* | head -n 1) binary/${_INITRAMFS}/vmlinuz
+			mv $(ls -r1 --sort=version binary/${_INITRAMFS}/initrd.img-* | head -n 1) binary/${_INITRAMFS}/initrd.img
 
 			sed -e "s|@FLAVOUR@|${LB_LINUX_FLAVOURS}|g" \
-			    -e "s|@LINUX@|/live/vmlinuz|g" \
-			    -e "s|@INITRD@|/live/initrd.img|g" \
+			    -e "s|@LINUX@|/${_INITRAMFS}/vmlinuz|g" \
+			    -e "s|@INITRD@|/${_INITRAMFS}/initrd.img|g" \
 			"${_TARGET}/live.cfg.in" >> "${_TARGET}/live.cfg"
 
 			rm -f "${_TARGET}/live.cfg.in"
@@ -187,8 +199,8 @@ then
 			do
 				_NUMBER="$((${_NUMBER} + 1))"
 
-				mv binary/live/vmlinuz-*-${_FLAVOUR} binary/live/vmlinuz${_NUMBER}
-				mv binary/live/initrd.img-*-${_FLAVOUR} binary/live/initrd${_NUMBER}.img
+				mv binary/${_INITRAMFS}/vmlinuz-*-${_FLAVOUR} binary/${_INITRAMFS}/vmlinuz${_NUMBER}
+				mv binary/${_INITRAMFS}/initrd.img-*-${_FLAVOUR} binary/${_INITRAMFS}/initrd${_NUMBER}.img
 
 				if [ "${_NUMBER}" -gt 1 ]
 				then
@@ -199,8 +211,8 @@ then
 				fi
 
 				sed -i -e "s|@FLAVOUR@|${_FLAVOUR}|g" \
-				       -e "s|@LINUX@|/live/vmlinuz${_NUMBER}|g" \
-				       -e "s|@INITRD@|/live/initrd${_NUMBER}.img|g" \
+				       -e "s|@LINUX@|/${_INITRAMFS}/vmlinuz${_NUMBER}|g" \
+				       -e "s|@INITRD@|/${_INITRAMFS}/initrd${_NUMBER}.img|g" \
 				"${_TARGET}/live.cfg"
 			done
 
