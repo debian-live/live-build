@@ -4,8 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: live-build 4.0~alpha32-1\n"
-"POT-Creation-Date: 2014-03-02 06:22+0100\n"
+"Project-Id-Version: live-build 4.0~alpha33-1\n"
+"POT-Creation-Date: 2014-03-31 21:43+0200\n"
 "PO-Revision-Date: 2013-11-06 10:38+0100\n"
 "Last-Translator: Daniel Baumann <mail@daniel-baumann.ch>\n"
 "Language-Team: none\n"
@@ -32,8 +32,8 @@ msgstr "LIVE-BUILD"
 #: en/lb-chroot-hooks.1:9 en/lb-chroot-includes.1:9 en/lb-init.1:9
 #: en/lb-source-hooks.1:9 en/lb-source-includes.1:9
 #, no-wrap
-msgid "2014-03-02"
-msgstr "02.03.2014"
+msgid "2014-03-31"
+msgstr "31.03.2014"
 
 #. type: TH
 #: en/lb-binary-hooks.1:9 en/lb-binary-includes.1:9
@@ -42,8 +42,8 @@ msgstr "02.03.2014"
 #: en/lb-chroot-hooks.1:9 en/lb-chroot-includes.1:9 en/lb-init.1:9
 #: en/lb-source-hooks.1:9 en/lb-source-includes.1:9
 #, no-wrap
-msgid "4.0~alpha32-1"
-msgstr "4.0~alpha32-1"
+msgid "4.0~alpha33-1"
+msgstr "4.0~alpha33-1"
 
 #. type: TH
 #: en/lb-binary-hooks.1:9 en/lb-binary-includes.1:9
@@ -340,8 +340,8 @@ msgid ""
 "set I<debootstrap>(8) options (default: None), see I<debootstrap>(8) for "
 "more information about debootstrap."
 msgstr ""
-"setzt I<debootstrap>(8) Optionen (Standardwert: keine), siehe I<debootstrap>"
-"(8) für mehr Informationen über debootstrap."
+"setzt I<debootstrap>(8) Optionen (Standardwert: keine), siehe "
+"I<debootstrap>(8) für mehr Informationen über debootstrap."
 
 #. type: IP
 #: en/lb-bootstrap-debootstrap.1:44
