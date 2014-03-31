@@ -1,3 +1,9 @@
+live-build (4.0~alpha33-1) unstable; urgency=low
+
+  * Building with dh --parallel.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 31 Mar 2014 21:47:27 +0200
+
 live-build (4.0~alpha32-1) experimental; urgency=low
 
   [ Daniel Baumann ]
