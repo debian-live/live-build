@@ -90,6 +90,7 @@ case "${LB_INITRAMFS_COMPRESSION}" in
 		for INITRAMFS in $(find chroot/boot -name 'initrd*'); do
 			zcat "${INITRAMFS}" | bzip2 -c ${BZIP2_OPTIONS} > "${INITRAMFS}.new"
 			mv "${INITRAMFS}.new" "${INITRAMFS}"
+			echo "$(sha1sum ${INITRAMFS} | awk '{ print $1 }')  /boot/$(basename ${INITRAMFS})" > chroot/var/lib/initramfs-tools/$(basename ${INITRAMFS} | sed -e 's|initrd.img-||')
 		done
 		;;
 
@@ -97,6 +98,7 @@ case "${LB_INITRAMFS_COMPRESSION}" in
 		for INITRAMFS in $(find chroot/boot -name 'initrd*'); do
 			zcat "${INITRAMFS}" | lzma -c ${LZMA_OPTIONS} > "${INITRAMFS}.new"
 			mv "${INITRAMFS}.new" "${INITRAMFS}"
+			echo "$(sha1sum ${INITRAMFS} | awk '{ print $1 }')  /boot/$(basename ${INITRAMFS})" > chroot/var/lib/initramfs-tools/$(basename ${INITRAMFS} | sed -e 's|initrd.img-||')
 		done
 		;;
 esac
