@@ -94,9 +94,6 @@ case "${LB_INITRAMFS_COMPRESSION}" in
 		;;
 
 	lzma)
-		# We probably ought to use COMPRESS= in a temporary file in
-		# /etc/initramfs-tools/conf.d/ instead, but it's hard to
-		# pass options that way.
 		for INITRAMFS in $(find chroot/boot -name 'initrd*'); do
 			zcat "${INITRAMFS}" | lzma -c ${LZMA_OPTIONS} > "${INITRAMFS}.new"
 			mv "${INITRAMFS}.new" "${INITRAMFS}"
