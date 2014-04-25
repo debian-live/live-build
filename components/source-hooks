@@ -80,7 +80,7 @@ def main():
 
 	hooks = glob.glob('config/hooks/*.hook') + glob.glob('config/hooks/*.hook.source')
 
-	for hook in hooks:
+	for hook in sorted(hooks):
 		if verbose:
 			print('I: Copying config/hooks/*.hook.source to source/live-build')
 
