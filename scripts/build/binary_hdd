@@ -239,13 +239,17 @@ esac
 
 case "${LB_BINARY_FILESYSTEM}" in
 	fat*)
-		CP_OPTIONS="-L"
+		CP_OPTIONS="-r -L"
+		;;
+
+	*)
+		CP_OPTIONS="-a"
 		;;
 esac
 
 mkdir -p chroot/binary.tmp
 mount ${MOUNT_OPTIONS} ${FREELO} chroot/binary.tmp
-cp -r -T ${CP_OPTIONS} binary/ chroot/binary.tmp
+cp -T ${CP_OPTIONS} binary/ chroot/binary.tmp
 
 FIXME()
 {

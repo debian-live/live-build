@@ -90,16 +90,15 @@ case "${LB_INITRAMFS_COMPRESSION}" in
 		for INITRAMFS in $(find chroot/boot -name 'initrd*'); do
 			zcat "${INITRAMFS}" | bzip2 -c ${BZIP2_OPTIONS} > "${INITRAMFS}.new"
 			mv "${INITRAMFS}.new" "${INITRAMFS}"
+			echo "$(sha1sum ${INITRAMFS} | awk '{ print $1 }')  /boot/$(basename ${INITRAMFS})" > chroot/var/lib/initramfs-tools/$(basename ${INITRAMFS} | sed -e 's|initrd.img-||')
 		done
 		;;
 
 	lzma)
-		# We probably ought to use COMPRESS= in a temporary file in
-		# /etc/initramfs-tools/conf.d/ instead, but it's hard to
-		# pass options that way.
 		for INITRAMFS in $(find chroot/boot -name 'initrd*'); do
 			zcat "${INITRAMFS}" | lzma -c ${LZMA_OPTIONS} > "${INITRAMFS}.new"
 			mv "${INITRAMFS}.new" "${INITRAMFS}"
+			echo "$(sha1sum ${INITRAMFS} | awk '{ print $1 }')  /boot/$(basename ${INITRAMFS})" > chroot/var/lib/initramfs-tools/$(basename ${INITRAMFS} | sed -e 's|initrd.img-||')
 		done
 		;;
 esac

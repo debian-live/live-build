@@ -253,7 +253,7 @@ esac
 
 for _FILE in "${_TARGET}"/*.cfg ${_TARGET}/*.svg
 do
-	if [ -e "${_FILE}" ]
+	if [ -e "${_FILE}" ] && [ ! -d "${_FILE}" ]
 	then
 		sed -i  -e "s#@APPEND_LIVE@#${LB_BOOTAPPEND_LIVE}#g" \
 			-e "s#@APPEND_LIVE_FAILSAFE@#${LB_BOOTAPPEND_LIVE_FAILSAFE}#g" \
