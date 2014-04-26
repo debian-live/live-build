@@ -1,3 +1,33 @@
+live-build (4.0~alpha34-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Only automatically do replacements within syslinux configs when they
+    are not directories (as they can be in the pxelinux.cfg case), thanks
+    to Antony Messerli <amesserl@rackspace.com> (Closes: #745760).
+  * Correcting required installer package determination to avoid extra
+    packages, thanks to Benjamin Moody <benjamin.moody@gmail.com> (Closes:
+    #739729).
+  * Failing in lb config when config wasn't initialized first with lb init
+    (Closes: #744365).
+  * Using cp -a on all non-fat filesystems to copy content into the binary
+    image (Closes: #745824).
+
+  [ Simon McVittie ]
+  * Run hooks in sorted order (Closes: #745839).
+
+  [ Daniel Baumann ]
+  * Dropping superfluous comment about recompression initrd images in
+    chroot_hacks.
+  * Updating sha1sum for recompressed initrd images (Closes: #745205).
+  * Adjusting splash.svg filename in embedded syslinux configurations to
+    match code (Closes: #745020).
+  * Ensuring correct include directory permissions avoiding tainting of
+    target system in lb init.
+  * Abort early in installer_preseed if d-i is not included on the image
+    (Closes: #745855).
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 26 Apr 2014 08:01:22 +0200
+
 live-build (4.0~alpha33-1) unstable; urgency=low
 
   * Building with dh --parallel.
