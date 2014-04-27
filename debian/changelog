@@ -1,3 +1,19 @@
+live-build (4.0~alpha35-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Calling init in build as well when automatically populating a new
+    config tree.
+  * Switching default debian release to jessie.
+  * Allow cache directories to be symlinks as well (Closes: #741934).
+  * Cleaning /etc/hosts as in previous live-build versions (Closes:
+    #744939).
+
+  [ Simon McVittie ]
+  * Add support for making ext[234] or btrfs hdd images bootable with
+    extlinux (Closes: #745816)
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 27 Apr 2014 12:39:53 +0200
+
 live-build (4.0~alpha34-1) unstable; urgency=low
 
   [ Daniel Baumann ]
