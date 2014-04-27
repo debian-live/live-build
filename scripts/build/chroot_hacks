@@ -117,6 +117,8 @@ case "${LB_INITRAMFS}" in
 		;;
 esac
 
+rm -f chroot/etc/hosts
+
 if [ "${LB_DEBIAN_INSTALLER}" = "live" ]
 then
 	# This is a temporary hack to get rid of fstab;

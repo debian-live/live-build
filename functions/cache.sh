@@ -14,7 +14,7 @@ Restore_cache ()
 
 	if [ "${LB_CACHE}" = "true" ] && [ "${LB_CACHE_PACKAGES}" = "true" ]
 	then
-		if [ -d "${DIRECTORY}" ]
+		if [ -e "${DIRECTORY}" ]
 		then
 			# Restore old cache
 			if [ "$(stat --printf %d ${DIRECTORY})" = "$(stat --printf %d chroot/var/cache/apt/archives)" ]

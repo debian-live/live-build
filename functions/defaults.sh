@@ -135,7 +135,7 @@ Set_defaults ()
 			;;
 
 		*)
-			LB_DISTRIBUTION="${LB_DISTRIBUTION:-wheezy}"
+			LB_DISTRIBUTION="${LB_DISTRIBUTION:-jessie}"
 			LB_DERIVATIVE="false"
 			;;
 	esac
@@ -1061,12 +1061,12 @@ Check_defaults ()
 
 	if [ "${LB_BOOTLOADER}" = "syslinux" ]
 	then
-		# syslinux + fat
+		# syslinux + fat or ntfs, or extlinux + ext[234] or btrfs
 		case "${LB_BINARY_FILESYSTEM}" in
-			fat*|ntfs)
+			fat*|ntfs|ext[234]|btrfs)
 				;;
 			*)
-				Echo_warning "You have selected values of LB_BOOTLOADER and LB_BINARY_FILESYSTEM which are incompatible - syslinux only supports FAT and NTFS filesystems."
+				Echo_warning "You have selected values of LB_BOOTLOADER and LB_BINARY_FILESYSTEM which are incompatible - the syslinux family only support FAT, NTFS, ext[234] or btrfs filesystems."
 				;;
 		esac
 	fi

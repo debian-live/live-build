@@ -77,7 +77,19 @@ case "${LB_BOOTLOADER}" in
 		;;
 
 	syslinux)
-		Check_package chroot/usr/bin/syslinux syslinux
+		case ${LB_BINARY_FILESYSTEM} in
+			fat*|ntfs)
+				_BOOTLOADER=syslinux
+				;;
+			ext[234]|btrfs)
+				_BOOTLOADER=extlinux
+				;;
+			*)
+				Echo_error "syslinux/extlinux doesn't support ${LB_BINARY_FILESYSTEM}"
+				exit 1
+				;;
+		esac
+		Check_package chroot/usr/bin/${_BOOTLOADER} ${_BOOTLOADER}
 		;;
 esac
 
@@ -179,7 +191,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 
 		if [ "${LB_BOOTLOADER}" = "syslinux" ]
 		then
-			dd if=chroot/usr/lib/syslinux/mbr.bin of=${FREELO} bs=440 count=1
+			dd if=chroot/usr/lib/${_BOOTLOADER}/mbr.bin of=${FREELO} bs=440 count=1
 		fi
 		;;
 
@@ -191,7 +203,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 
 		if [ "${LB_BOOTLOADER}" = "syslinux" ]
 		then
-			dd if=/usr/lib/syslinux/mbr.bin of=${FREELO} bs=440 count=1
+			dd if=/usr/lib/${_BOOTLOADER}/mbr.bin of=${FREELO} bs=440 count=1
 		fi
 		;;
 esac
@@ -247,6 +259,8 @@ case "${LB_BINARY_FILESYSTEM}" in
 		;;
 esac
 
+Echo_message "Copying binary contents into image..."
+
 mkdir -p chroot/binary.tmp
 mount ${MOUNT_OPTIONS} ${FREELO} chroot/binary.tmp
 cp -T ${CP_OPTIONS} binary/ chroot/binary.tmp
@@ -282,21 +296,32 @@ EOF
 fi
 }
 
-umount chroot/binary.tmp
-rmdir chroot/binary.tmp
+case "${_BOOTLOADER}" in
+	syslinux)
+		_SYSLINUX_INSTALLER="syslinux ${FREELO}"
+		;;
+	extlinux)
+		_SYSLINUX_INSTALLER="extlinux --install /binary.tmp/boot/extlinux"
+		;;
+	*)
+		_SYSLINUX_INSTALLER=""
+		;;
+esac
 
-if [ "${LB_BOOTLOADER}" = "syslinux" ]
+if [ -n "${_SYSLINUX_INSTALLER}" ]
 then
 	case "${LB_BUILD_WITH_CHROOT}" in
 		true)
-			Chroot chroot "syslinux ${FREELO}"
+			Chroot chroot "${_SYSLINUX_INSTALLER}"
 			;;
-
 		false)
-			syslinux ${FREELO}
+			${_SYSLINUX_INSTALLER}
 			;;
 	esac
 fi
+
+umount chroot/binary.tmp
+rmdir chroot/binary.tmp
 
 Lodetach ${FREELO}
 

@@ -79,15 +79,28 @@ case "${LIVE_IMAGE_TYPE}" in
 		;;
 
 	hdd*|*)
-		_BOOTLOADER="syslinux"
+		case ${LB_BINARY_FILESYSTEM} in
+			fat*|ntfs)
+				_BOOTLOADER=syslinux
 
-		case "${LB_MODE}" in
-			progress-linux)
-				_TARGET="binary/boot"
+				case "${LB_MODE}" in
+					progress-linux)
+						_TARGET="binary/boot"
+						;;
+
+					*)
+						_TARGET="binary/syslinux"
+						;;
+				esac
 				;;
 
+			ext[234]|btrfs)
+				_BOOTLOADER=extlinux
+				_TARGET="binary/boot/extlinux"
+				;;
 			*)
-				_TARGET="binary/syslinux"
+				Echo_error "syslinux/extlinux doesn't support ${LB_BINARY_FILESYSTEM}"
+				exit 1
 				;;
 		esac
 		;;
@@ -110,7 +123,7 @@ fi
 # Checking depends
 case "${LB_BUILD_WITH_CHROOT}" in
 	true)
-		Check_package chroot/usr/bin/syslinux syslinux
+		Check_package chroot/usr/bin/${_BOOTLOADER} ${_BOOTLOADER}
 		Check_package chroot/usr/lib/syslinux syslinux-common
 
 		if ls "${_SOURCE}"/*.svg* > /dev/null 2>&1
@@ -120,10 +133,10 @@ case "${LB_BUILD_WITH_CHROOT}" in
 		;;
 
 	false)
-		if [ ! -e /usr/bin/syslinux ]
+		if [ ! -e /usr/bin/${_BOOTLOADER} ]
 		then
-			# syslinux
-			Echo_error "/usr/bin/syslinux - no such file."
+			# syslinux or extlinux
+			Echo_error "/usr/bin/${_BOOTLOADER} - no such file."
 			exit 1
 		fi
 
