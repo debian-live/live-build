@@ -135,7 +135,7 @@ Set_defaults ()
 			;;
 
 		*)
-			LB_DISTRIBUTION="${LB_DISTRIBUTION:-wheezy}"
+			LB_DISTRIBUTION="${LB_DISTRIBUTION:-jessie}"
 			LB_DERIVATIVE="false"
 			;;
 	esac
