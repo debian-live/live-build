@@ -2,8 +2,12 @@
 
 set -e
 
-# Remove systemd machine id.
-#
-# This removes systemd machine id that cache that makes each system unique.
+# Blank out systemd machine id. If it does not exist, systemd-journald
+# will fail, but if it exists and is empty, systemd will automatically
+# set up a new unique ID.
 
-rm -f /etc/machine-id
+if [ -e /etc/machine-id ]
+then
+	rm -f /etc/machine-id
+	: > /etc/machine-id
+fi
