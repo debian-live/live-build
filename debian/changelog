@@ -1,3 +1,13 @@
+live-build (4.0~alpha36-1) unstable; urgency=medium
+
+  [ Simon McVittie ]
+  * Truncate /etc/machine-id instead of deleting it.
+
+  [ Daniel Baumann ]
+  * Correcting os.chmod usage in lb init.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 28 Apr 2014 19:50:40 +0200
+
 live-build (4.0~alpha35-1) unstable; urgency=low
 
   [ Daniel Baumann ]
