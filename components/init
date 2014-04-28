@@ -144,11 +144,11 @@ def main():
 	os.makedirs('config/includes.source', exist_ok=True)
 
 	# Ensure correct include directory permissions avoiding tainting of target system
-	os.chmod('config/includes', 0755)
-	os.chmod('config/includes.bootstrap', 0755)
-	os.chmod('config/includes.chroot', 0755)
-	os.chmod('config/includes.binary', 0755)
-	os.chmod('config/includes.source', 0755)
+	os.chmod('config/includes', 0o755)
+	os.chmod('config/includes.bootstrap', 0o755)
+	os.chmod('config/includes.chroot', 0o755)
+	os.chmod('config/includes.binary', 0o755)
+	os.chmod('config/includes.source', 0o755)
 
 	# Configuring default package lists
 	os.makedirs('config/package-lists', exist_ok=True)
