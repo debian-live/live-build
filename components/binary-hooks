@@ -72,8 +72,8 @@ def main():
 
 	os.makedirs('binary/live-build/config', exist_ok=True)
 
-	mount = subprocess.call('mount -o bind config binary/live-build/config', shell=True)
-	remount = subprocess.call('mount -o remount,ro,bind binary/live-build/config', shell=True)
+	mount = subprocess.check_call('mount -o bind config binary/live-build/config', shell=True)
+	remount = subprocess.check_call('mount -o remount,ro,bind binary/live-build/config', shell=True)
 
 	# process hooks
 	os.makedirs('binary/live-build', exist_ok=True)
@@ -90,11 +90,11 @@ def main():
 			print('I: Executing \' ' + hook + '\'')
 
 		os.chmod(hook, 0o755)
-		exec_hook = subprocess.call('cd binary && live-build/' + os.path.basename(hook), shell=True)
+		exec_hook = subprocess.check_call('cd binary && live-build/' + os.path.basename(hook), shell=True)
 		os.remove('binary/live-build/' + os.path.basename(hook))
 
 	# unmount coniguration directory
-	umount = subprocess.call('umount binary/live-build/config', shell=True)
+	umount = subprocess.check_call('umount binary/live-build/config', shell=True)
 
 	os.rmdir('binary/live-build/config')
 	os.rmdir('binary/live-build')

@@ -118,7 +118,7 @@ def main():
 
 		# Notes:
 		#  * there's no Python equivalent to 'cp -a' that handels both symlinks and device nodes properly.
-		cache = subprocess.call('cp -a cache/bootstrap chroot', shell=True)
+		cache = subprocess.check_call('cp -a cache/bootstrap chroot', shell=True)
 
 		os.makedirs('.build', exist_ok=True)
 		open('.build/bootstrap', 'w').close()
@@ -142,7 +142,7 @@ def main():
 		if verbose:
 			print('I: Calling \'/usr/sbin/debootstrap ' + debootstrap_options + '\'')
 
-		debootstrap = subprocess.call('/usr/sbin/debootstrap ' + debootstrap_options, shell=True)
+		debootstrap = subprocess.check_call('/usr/sbin/debootstrap ' + debootstrap_options, shell=True)
 
 	# package cache
 	if glob.glob('chroot/var/cache/apt/archives/*.deb'):
@@ -169,7 +169,7 @@ def main():
 
 		# Notes:
 		#  * there's no Python equivalent to 'cp -a' that handels both symlinks and device nodes properly.
-		cache = subprocess.call('cp -a chroot cache/bootstrap', shell=True)
+		cache = subprocess.check_call('cp -a chroot cache/bootstrap', shell=True)
 
 	# stagefile
 	os.makedirs('.build', exist_ok=True)
