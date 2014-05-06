@@ -123,7 +123,24 @@ fi
 # Checking depends
 case "${LB_BUILD_WITH_CHROOT}" in
 	true)
-		Check_package chroot/usr/bin/${_BOOTLOADER} ${_BOOTLOADER}
+		case "${LB_PARENT_DISTRIBUTION}" in
+			wheezy|jessie|sid)
+				case "${_BOOTLOADER}" in
+					syslinux|extlinux)
+						Check_package chroot/usr/bin/${_BOOTLOADER} ${_BOOTLOADER}
+						;;
+
+					*)
+						Check_package chroot/usr/lib/syslinux syslinux-common
+						;;
+				esac
+				;;
+
+			*)
+				Check_package chroot/share/$(echo ${_BOOTLOADER} | tr [a-z] [A-Z]) ${_BOOTLOADER}
+				;;
+		esac
+
 		Check_package chroot/usr/lib/syslinux syslinux-common
 
 		if ls "${_SOURCE}"/*.svg* > /dev/null 2>&1
@@ -133,12 +150,37 @@ case "${LB_BUILD_WITH_CHROOT}" in
 		;;
 
 	false)
-		if [ ! -e /usr/bin/${_BOOTLOADER} ]
-		then
-			# syslinux or extlinux
-			Echo_error "/usr/bin/${_BOOTLOADER} - no such file."
-			exit 1
-		fi
+		case "${LB_PARENT_DISTRIBUTION}" in
+			wheezy|jessie|sid)
+				case "${_BOOTLOADER}" in
+					syslinux|extlinux)
+						if [ ! -e /usr/bin/${_BOOTLOADER} ]
+						then
+							# syslinux or extlinux
+							Echo_error "/usr/bin/${_BOOTLOADER} - no such file."
+							exit 1
+						fi
+						;;
+
+					*)
+						if ! ls /usr/lib/syslinux/${_BOOTLOADER}* > /dev/null 2>&1
+						then
+							Echo_error "/usr/lib/syslinux/${_BOOTLOADER}* - no such files."
+							exit 1
+						fi
+						;;
+				esac
+				;;
+
+			*)
+				if [ ! -e "/usr/share/$(echo ${_BOOTLOADER} | tr [a-z] [A-Z])" ]
+				then
+					Echo_error "/usr/share/$(echo ${_BOOTLOADER} | tr [a-z] [A-Z])"
+					exit 1
+				fi
+				;;
+		esac
+
 
 		if [ ! -e /usr/lib/syslinux ]
 		then
