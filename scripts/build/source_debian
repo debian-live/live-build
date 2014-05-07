@@ -197,3 +197,4 @@ fi
 
 # Creating stage file
 Create_stagefile .build/source_debian
+Create_stagefile .build/source
