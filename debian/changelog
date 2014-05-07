@@ -1,3 +1,14 @@
+live-build (4.0~alpha37-1) unstable; urgency=low
+
+  * Updating default boot parameters for live-config 4.x.
+  * Adding hook to create /etc/mtab as a symlink to /proc/mtab if not
+    already existing (Closes: #746570).
+  * Only removing stage files in lb clean --stage and keep .build around
+    in order for init to detect initialized config directories properly.
+  * Adding wheezy legacy handling for syslinux.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 07 May 2014 07:01:35 +0200
+
 live-build (4.0~alpha36-1) unstable; urgency=medium
 
   [ Simon McVittie ]
