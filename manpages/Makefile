@@ -19,7 +19,7 @@ po4a.cfg:
 update:
 	./bin/update-version.sh
 
-build: po4a.cfg
+build: check po4a.cfg
 	@if [ ! -x "$$(which po4a 2>/dev/null)" ]; \
 	then \
 		echo "E: po4a - command not found"; \
@@ -38,3 +38,19 @@ distclean: clean
 	rm -rf $(LANGUAGES)
 
 rebuild: distclean update build
+
+check:
+	@echo -n "Checking the integrity of .po files "
+
+	@if [ -x /usr/bin/msgfmt ]; \
+	then \
+		for POFILE in po/*/*; \
+		do \
+			msgfmt --check --output-file=/dev/null $${POFILE}; \
+			echo -n "."; \
+		done; \
+	else \
+		echo "WARNING: skipping po integrity check. You must install gettext."; \
+	fi
+	
+	@echo " done!"
