@@ -124,7 +124,7 @@ fi
 case "${LB_BUILD_WITH_CHROOT}" in
 	true)
 		case "${LB_PARENT_DISTRIBUTION}" in
-			wheezy|jessie|sid)
+			wheezy|jessie)
 				case "${_BOOTLOADER}" in
 					syslinux|extlinux)
 						Check_package chroot/usr/bin/${_BOOTLOADER} ${_BOOTLOADER}
@@ -151,7 +151,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 
 	false)
 		case "${LB_PARENT_DISTRIBUTION}" in
-			wheezy|jessie|sid)
+			wheezy|jessie)
 				case "${_BOOTLOADER}" in
 					syslinux|extlinux)
 						if [ ! -e /usr/bin/${_BOOTLOADER} ]
