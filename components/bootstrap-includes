@@ -83,13 +83,13 @@ def main():
 		if verbose:
 			print('I: Copying config/includes to chroot')
 
-		cpio = subprocess.call('cd config/includes && find . | cpio -dmpu --no-preserve-owner ../../chroot', shell=True)
+		cpio = subprocess.check_call('cd config/includes && find . | cpio -dmpu --no-preserve-owner ../../chroot', shell=True)
 
 	if glob.glob('config/includes.bootstrap/*') or glob.glob('config/includes.bootstrap/.*'):
 		if verbose:
 			print('I: Copying config/includes.bootstrap to chroot')
 
-		cpio = subprocess.call('cd config/includes.bootstrap && find . | cpio -dmpu --no-preserve-owner ../../chroot', shell=True)
+		cpio = subprocess.check_call('cd config/includes.bootstrap && find . | cpio -dmpu --no-preserve-owner ../../chroot', shell=True)
 
 	# stagefile
 	os.makedirs('.build', exist_ok=True)

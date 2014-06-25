@@ -113,7 +113,7 @@ def main():
 
 		# Notes:
 		#  * there's no Python equivalent to 'cp -a' that handels both symlinks and device nodes properly.
-		cache = subprocess.call('cp -a cache/bootstrap chroot', shell=True)
+		cache = subprocess.check_call('cp -a cache/bootstrap chroot', shell=True)
 
 		os.makedirs('.build', exist_ok=True)
 		open('.build/bootstrap', 'w').close()
@@ -140,7 +140,7 @@ def main():
 			#   * calling cdebootstrap twice:
 			#     - to use already downloaded /var/cache/bootstrap/*.deb on incomplete builds
 			#     - to use /var/cache/boottrap/*.deb for debian-installer
-			cdebootstrap = subprocess.call('/usr/bin/cdebootstrap --download-only ' + cdebootstrap_options, shell=True)
+			cdebootstrap = subprocess.check_call('/usr/bin/cdebootstrap --download-only ' + cdebootstrap_options, shell=True)
 
 		# package cache
 		if glob.glob('chroot/var/cache/bootstrap/*.deb'):
@@ -163,7 +163,7 @@ def main():
 		if verbose:
 			print('I: Calling \'/usr/bin/debootstrap ' + cdebootstrap_options + '\'')
 
-		cdebootstrap = subprocess.call('/usr/bin/cdebootstrap ' + cdebootstrap_options, shell=True)
+		cdebootstrap = subprocess.check_call('/usr/bin/cdebootstrap ' + cdebootstrap_options, shell=True)
 
 	# stage cache
 	if not os.path.exists('cache/bootstrap'):
@@ -172,7 +172,7 @@ def main():
 
 		# Notes:
 		#  * there's no Python equivalent to 'cp -a' that handels both symlinks and device nodes properly.
-		cache = subprocess.call('cp -a chroot cache/bootstrap', shell=True)
+		cache = subprocess.check_call('cp -a chroot cache/bootstrap', shell=True)
 
 	# stagefile
 	os.makedirs('.build', exist_ok=True)

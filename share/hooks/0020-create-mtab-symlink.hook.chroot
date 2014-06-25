@@ -2,9 +2,10 @@
 
 set -e
 
-# Create /etc/mtab symlink
+# Create /etc/mtab symlink, replacing a regular file if necessary
 
 if [ ! -L /etc/mtab ]
 then
+	rm -f /etc/mtab
 	ln -s /proc/mtab /etc/mtab
 fi

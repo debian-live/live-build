@@ -84,13 +84,13 @@ def main():
 		if verbose:
 			print('I: Copying config/includes to source')
 
-		cpio = subprocess.call('cd config/includes && find . | cpio -dmpu --no-preserve-owner ../../source', shell=True)
+		cpio = subprocess.check_call('cd config/includes && find . | cpio -dmpu --no-preserve-owner ../../source', shell=True)
 
 	if glob.glob('config/includes.source/*') or glob.glob('config/includes.source/.*'):
 		if verbose:
 			print('I: Copying config/includes.source to source')
 
-		cpio = subprocess.call('cd config/includes.source && find . | cpio -dmpu --no-preserve-owner ../../source', shell=True)
+		cpio = subprocess.check_call('cd config/includes.source && find . | cpio -dmpu --no-preserve-owner ../../source', shell=True)
 
 	# stagefile
 	os.makedirs('.build', exist_ok=True)

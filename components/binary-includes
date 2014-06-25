@@ -84,13 +84,13 @@ def main():
 		if verbose:
 			print('I: Copying config/includes to binary')
 
-		cpio = subprocess.call('cd config/includes && find . | cpio -dmpu --no-preserve-owner ../../binary', shell=True)
+		cpio = subprocess.check_call('cd config/includes && find . | cpio -dmpu --no-preserve-owner ../../binary', shell=True)
 
 	if glob.glob('config/includes.binary/*') or glob.glob('config/includes.binary/.*'):
 		if verbose:
 			print('I: Copying config/includes.binary to binary')
 
-		cpio = subprocess.call('cd config/includes.binary && find . | cpio -dmpu --no-preserve-owner ../../binary', shell=True)
+		cpio = subprocess.check_call('cd config/includes.binary && find . | cpio -dmpu --no-preserve-owner ../../binary', shell=True)
 
 	# stagefile
 	os.makedirs('.build', exist_ok=True)
