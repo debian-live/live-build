@@ -1,3 +1,30 @@
+live-build (4.0~alpha38-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Also creating source stagefile in source_debian.
+
+  [ Carlos Zuferri ]
+  * Adding .po integrity check target to manpages/Makefile.
+  * Adding '--package-version' to po4a options.
+
+  [ Daniel Baumann ]
+  * Enabling syslinux 6 support for sid.
+
+  [ Kiel Christofferson ]
+  * Replace subprocess.call() with subprocess.check_call().
+
+  [ Richard Nelson ]
+  * Add --apt option on frontend/cgi.
+
+  [ Daniel Baumann ]
+  * Adding symlink for udeb data for jessie.
+
+  [ Simon McVittie ]
+  * If /etc/mtab exists as a file, replace it with a symlink (Closes:
+    #746570).
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 25 Jun 2014 21:04:46 +0200
+
 live-build (4.0~alpha37-1) unstable; urgency=low
 
   * Updating default boot parameters for live-config 4.x.

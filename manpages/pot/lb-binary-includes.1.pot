@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: live-build VERSION\n"
-"POT-Creation-Date: 2014-05-07 07:00+0200\n"
+"Project-Id-Version: live-build 4.0~alpha38-1\n"
+"POT-Creation-Date: 2014-06-25 21:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,7 @@ msgstr ""
 #: en/lb-chroot-hooks.1:9 en/lb-chroot-includes.1:9 en/lb-init.1:9
 #: en/lb-source-hooks.1:9 en/lb-source-includes.1:9
 #, no-wrap
-msgid "2014-05-07"
+msgid "2014-06-25"
 msgstr ""
 
 #. type: TH
@@ -43,7 +43,7 @@ msgstr ""
 #: en/lb-chroot-hooks.1:9 en/lb-chroot-includes.1:9 en/lb-init.1:9
 #: en/lb-source-hooks.1:9 en/lb-source-includes.1:9
 #, no-wrap
-msgid "4.0~alpha37-1"
+msgid "4.0~alpha38-1"
 msgstr ""
 
 #. type: TH
