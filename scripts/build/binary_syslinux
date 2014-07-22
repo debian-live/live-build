@@ -138,6 +138,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 
 			*)
 				Check_package chroot/share/$(echo ${_BOOTLOADER} | tr [a-z] [A-Z]) ${_BOOTLOADER}
+				Check_package chroot/usr/lib/syslinux syslinux-common
 				;;
 		esac
 
