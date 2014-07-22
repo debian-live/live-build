@@ -56,7 +56,7 @@ Create_lockfile .lock
 Check_package chroot/usr/bin/xorriso xorriso
 
 case "${LB_PARENT_DISTRIBUTION}" in
-	wheezy|jessie)
+	wheezy)
 		_ISOHDPFX="/usr/lib/syslinux/isohdpfx.bin"
 		Check_package chroot/${_ISOHDPFX} syslinux-common
 		;;
