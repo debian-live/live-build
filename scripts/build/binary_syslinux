@@ -120,6 +120,12 @@ else
 	fi
 fi
 
+# legacy compatibility for wheezy
+if [ -e "${_SOURCE}.${LB_PARENT_DISTRIBUTION}" ]
+then
+	_SOURCE="${_SOURCE}.${LB_PARENT_DISTRIBUTION}"
+fi
+
 # Checking depends
 case "${LB_BUILD_WITH_CHROOT}" in
 	true)
