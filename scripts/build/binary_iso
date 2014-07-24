@@ -55,10 +55,17 @@ Create_lockfile .lock
 # Checking depends
 Check_package chroot/usr/bin/xorriso xorriso
 
-if [ "${LIVE_IMAGE_TYPE}" = "iso-hybrid" ]
-then
-	Check_package chroot/usr/lib/syslinux/isohdpfx.bin syslinux-common
-fi
+case "${LB_PARENT_DISTRIBUTION}" in
+	wheezy)
+		_ISOHDPFX="/usr/lib/syslinux/isohdpfx.bin"
+		Check_package chroot/${_ISOHDPFX} syslinux-common
+		;;
+
+	*)
+		_ISOHDPFX="/usr/lib/ISOLINUX/isohdpfx.bin"
+		Check_package chroot/${_ISOHDPFX} isolinux
+		;;
+esac
 
 # Restoring cache
 Restore_cache cache/packages.binary
@@ -78,7 +85,7 @@ XORRISO_OPTIONS="-R -r -J -joliet-long -l -cache-inodes"
 # Handle xorriso live-build specific options
 if [ "${LIVE_IMAGE_TYPE}" = "iso-hybrid" ]
 then
-	XORRISO_OPTIONS="${XORRISO_OPTIONS} -isohybrid-mbr /usr/lib/syslinux/isohdpfx.bin -partition_offset 16"
+	XORRISO_OPTIONS="${XORRISO_OPTIONS} -isohybrid-mbr ${_ISOHDPFX} -partition_offset 16"
 fi
 
 if [ "${_QUIET}" = "true" ]

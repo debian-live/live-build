@@ -120,11 +120,17 @@ else
 	fi
 fi
 
+# legacy compatibility for wheezy
+if [ -e "${_SOURCE}.${LB_PARENT_DISTRIBUTION}" ]
+then
+	_SOURCE="${_SOURCE}.${LB_PARENT_DISTRIBUTION}"
+fi
+
 # Checking depends
 case "${LB_BUILD_WITH_CHROOT}" in
 	true)
 		case "${LB_PARENT_DISTRIBUTION}" in
-			wheezy|jessie)
+			wheezy)
 				case "${_BOOTLOADER}" in
 					syslinux|extlinux)
 						Check_package chroot/usr/bin/${_BOOTLOADER} ${_BOOTLOADER}
@@ -138,6 +144,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 
 			*)
 				Check_package chroot/share/$(echo ${_BOOTLOADER} | tr [a-z] [A-Z]) ${_BOOTLOADER}
+				Check_package chroot/usr/lib/syslinux syslinux-common
 				;;
 		esac
 
@@ -151,7 +158,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 
 	false)
 		case "${LB_PARENT_DISTRIBUTION}" in
-			wheezy|jessie)
+			wheezy)
 				case "${_BOOTLOADER}" in
 					syslinux|extlinux)
 						if [ ! -e /usr/bin/${_BOOTLOADER} ]
