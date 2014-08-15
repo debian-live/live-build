@@ -27,4 +27,5 @@ fi
 _FIELD="${1}"
 _VALUE="${2}"
 
-grep-aptavail -n -sPackage -F${_FIELD} ${_VALUE} | sort
+# For compatibility with tasksel, exclude lib and non-main packages
+grep-aptavail -n -sPackage -F${_FIELD} ${_VALUE} -a -! -e -FSection '^(lib|/)' | sort
