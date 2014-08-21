@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+for _FILE in /etc/rsyslog.conf /etc/rsyslog.d/*
+do
+	if [ -e "${_FILE}" ]
+	then
+		sed -i -e 's|^ *$ModLoad *imklog|#$ModLoad imklog|' "${_FILE}"
+	fi
+done

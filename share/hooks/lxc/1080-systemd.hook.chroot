@@ -1,0 +1,67 @@
+#!/bin/sh
+
+set -e
+
+if [ ! -e /lib/systemd/systemd ]
+then
+	# System does not use systemd
+	exit 0
+fi
+
+_LXC_CONSOLES="6"
+_LXC_DISABLE_SERVICES="checkroot.service dev-hugepages.mount dev-mqueue.mount proc-sys-fs-binfmt_misc.automount remount-rootfs.service run-lock.mount run-user.mount swap.target sys-kernel-debug.mount sys-kernel-security.mount systemd-modules-load.service systemd-remount-api-vfs.service systemd-sysctl.service systemd-update-utmp-runlevel.service udev.service udev-settle.service udev-trigger.service user.mount var-lock.mount systemd-update-utmp-runlevel.service rescue.target sys-fs-fuse-connections.mount"
+
+# systemd starts counting consoles at 0, not 1 like sysvinit.
+_LXC_CONSOLES="$((${_LXC_CONSOLES} - 1))"
+
+# Disable sulogin
+ln -sf /dev/null /etc/systemd/system/console-shell.service
+
+# Disable ctrlaltdel
+ln -sf /dev/null /etc/systemd/system/ctrl-alt-del.target
+
+# Disable normal getty
+rm -f /etc/systemd/system/getty.target.wants/getty@*.service
+
+# Enable container getty
+sed -e 's|^ *BindTo=|#BindTo=|' /lib/systemd/system/getty@.service > /etc/systemd/system/getty.target.wants/getty@console.service
+
+for _CONSOLE in $(seq 0 ${_LXC_CONSOLES})
+do
+	if [ -L /etc/systemd/system/getty.target.wants/getty@tty${_CONSOLE}.service ]
+	then
+		rm -f /etc/systemd/system/getty.target.wants/getty@tty${_CONSOLE}.service
+	fi
+
+	sed -e 's|^ *BindTo=|#BindTo=|' /lib/systemd/system/getty@.service > /etc/systemd/system/getty.target.wants/getty@tty${_CONSOLE}.service
+done
+
+# Enable powerfail for lxc-shutdown
+ln -sf /lib/systemd/system/reboot.target /etc/systemd/system/sigpwr.target
+
+# Disable default cpu and cpupacct
+grep -Eq '^ *JoinControllers=' /etc/systemd/system.conf || echo "JoinControllers=" >> /etc/systemd/system.conf
+
+sed -e 's|^ *JoinControllers=.*|JoinControllers=|' /etc/systemd/system.conf > /etc/systemd/system.conf.tmp
+mv /etc/systemd/system.conf.tmp /etc/systemd/system.conf
+
+# squeeze and newer have /dev/tty and /dev/tty0 by default
+for _CONSOLE in $(seq 0 ${_LXC_CONSOLES})
+do
+	if [ ! -e "/dev/tty${_CONSOLE}" ]
+	then
+		mknod "/dev/tty${_CONSOLE}" c 4 "${_CONSOLE}"
+	fi
+done
+
+# Remove uneeded services in a container
+for _SERVICE in ${_LXC_DISABLE_SERVICES}
+do
+	ln -sf "/dev/null" "/etc/systemd/system/${_SERVICE}"
+done
+
+# Disable setting CapabilityBoundingSet for journald
+sed -e 's/^ *CapabilityBoundingSet/\#&/' /lib/systemd/system/systemd-journald.service > /etc/systemd/system/systemd-journald.service
+
+# Disable setting CapabilityBoundingSet for logind
+sed -e 's/^ *CapabilityBoundingSet/\#&/' /lib/systemd/system/systemd-logind.service > /etc/systemd/system/systemd-logind.service

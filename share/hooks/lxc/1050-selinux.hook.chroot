@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -e
+
+# Disable SELinux
+mkdir -p /sys/fs/selinux
+echo 0 > /sys/fs/selinux/enforce.tmp
+mv /sys/fs/selinux/enforce.tmp /sys/fs/selinux/enforce

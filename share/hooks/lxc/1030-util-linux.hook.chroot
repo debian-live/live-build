@@ -1,0 +1,37 @@
+#!/bin/sh
+
+set -e
+
+# /etc/default/hwclock is supported as of util-linux version 2.20.1-5
+_UTIL_LINUX_VERSION="$(dpkg -l util-linux | awk '/^ii/ { print $3 }')"
+
+if dpkg --compare-versions "${_UTIL_LINUX_VERSION}" lt 2.20.1-5~
+then
+	exit 0
+fi
+
+if [ -e /etc/default/hwclock ]
+then
+	. /etc/default/hwclock
+
+	# HWCLOCKACCESS is commented in /etc/default/hwclock
+	if [ -z "${HWCLOCKACCESS}" ]
+	then
+		# uncommenting it
+		sed -e "s|^# *HWCLOCKACCESS=|HWCLOCKACCESS=|" \
+			/etc/default/hwclock > /etc/default/hwclock.tmp
+	else
+		cp /etc/default/hwclock /etc/default/hwclock.tmp
+	fi
+else
+	touch /etc/default/hwclock.tmp
+fi
+
+# Set the hwclock parameters
+grep -Eq '^ *HWCLOCKACCESS=' /etc/default/hwclock.tmp || \
+	echo "HWCLOCKACCESS=" >> /etc/default/hwclock.tmp
+
+sed -i -e "s|^ *HWCLOCKACCESS=.*|HWCLOCKACCESS=\"${_HWCLOCKACCESS}\"|" \
+	/etc/default/hwclock.tmp
+
+mv /etc/default/hwclock.tmp /etc/default/hwclock

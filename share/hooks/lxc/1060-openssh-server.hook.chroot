@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -e
+
+# Disabling loginuid (requires read-write proc filesystem)
+if grep -E -qs "^ *session *required *pam_loginuid.so" /etc/pam.d/sshd
+then
+	sed -i -e 's|^.*\(session.*required.*pam_loginuid.so\)$|#\1|' /etc/pam.d/sshd
+fi

@@ -1,0 +1,177 @@
+#!/bin/sh
+
+set -e
+
+_LXC_CONSOLES="6"
+_LXC_DISABLE_SERVICES="checkroot.sh hwclockfirst.sh hwclock.sh kmod module-init-tools mountall.sh mountkernfs.sh umountfs umountroot"
+
+if [ ! -e /usr/share/sysvinit/inittab ]
+then
+	# System does not use sysvinit
+	exit 0
+fi
+
+# Revert /etc/inittab
+cp -p /usr/share/sysvinit/inittab /etc/inittab.tmp
+
+# Disable sulogin
+#   ~~:S:wait:/sbin/sulogin
+sed -i -e 's|\(^[^#].*S:wait:.*$\)|#\1|' /etc/inittab.tmp
+
+# Disable ctrlaltdel
+#   ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
+sed -i -e 's|\(^[^#].*:ctrlaltdel:.*$\)|#\1|' /etc/inittab.tmp
+
+# Disable power
+#   pf::powerwait:/etc/init.d/powerfail start
+#   pn::powerfailnow:/etc/init.d/powerfail now
+#   po::powerokwait:/etc/init.d/powerfail stop
+sed -i -e 's|\(^[^#].*:power.*:.*$\)|#\1|' /etc/inittab.tmp
+
+# Disable normal getty
+#  1:2345:respawn:/sbin/getty 38400 tty1
+#  2:23:respawn:/sbin/getty 38400 tty2
+#  3:23:respawn:/sbin/getty 38400 tty3
+#  ...
+# Keep container getty
+#  1:2345:respawn:/sbin/getty 38400 console
+#  c1:23:respawn:/sbin/getty 38400 tty1
+#  c2:23:respawn:/sbin/getty 38400 tty2
+#  ...
+sed -i -e 's|\(^[^#,^c].*:respawn:/sbin/getty.*[^console,linux]$\)|#\1|' /etc/inittab.tmp
+
+# Enable container getty
+#  1:2345:respawn:/sbin/getty 38400 console
+#  c1:23:respawn:/sbin/getty 38400 tty1
+#  c2:23:respawn:/sbin/getty 38400 tty2
+
+if [ -e /etc/progress-linux_version ]
+then
+	_OPTIONS="--nohostname 38400"
+else
+	_OPTIONS="38400"
+fi
+
+# Assemble new entries
+_CONSOLES="\n#-- live-debconfig begin\n1:2345:respawn:/sbin/getty ${_OPTIONS} console"
+
+for _CONSOLE in $(seq 1 ${_LXC_CONSOLES})
+do
+	_CONSOLES="${_CONSOLES}\nc${_CONSOLE}:12345:respawn:/sbin/getty ${_OPTIONS} tty${_CONSOLE} linux"
+done
+
+_CONSOLES="${_CONSOLES}\n#-- live-debconfig end"
+
+# Remove old entries
+sed -i -e '/#-- live-debconfig begin/,/#-- live-debconfig end/d' /etc/inittab.tmp
+
+# Add new entries
+_CONSOLE="$(grep '#[0-9].*:respawn:/sbin/getty' /etc/inittab.tmp | tail -1)"
+
+sed -i -e "s|\(${_CONSOLE}\)|\1${_CONSOLES}|" /etc/inittab.tmp
+
+# Enable powerfail entries for lxc-shutdown
+if ! grep -qs ^p0:: /etc/inittab.tmp
+then
+	echo "p0::powerfail:/sbin/init 0" >> /etc/inittab.tmp
+fi
+
+if ! grep -qs ^p6:: /etc/inittab.tmp
+then
+	echo "p6::ctrlaltdel:/sbin/init 6" >> /etc/inittab.tmp
+fi
+
+mv /etc/inittab.tmp /etc/inittab
+
+# squeeze and newer have /dev/tty and /dev/tty0 by default
+for _CONSOLE in $(seq 1 ${_LXC_CONSOLES})
+do
+	if [ ! -e "/dev/tty${_CONSOLE}" ]
+	then
+		mknod "/dev/tty${_CONSOLE}" c 4 "${_CONSOLE}"
+	fi
+done
+
+# Remove uneeded services in a container
+for _SERVICE in ${_LXC_DISABLE_SERVICES}
+do
+	# service does not exist
+	if [ ! -e /etc/init.d/${_SERVICE} ]
+	then
+		continue
+	fi
+
+	_ALREADY_DISABLED="false"
+
+	# service is already disabled
+	for _RUNLEVEL in /etc/rc*.d
+	do
+		if ! ls ${_RUNLEVEL}/K*${_SERVICE} > /dev/null 2>&1
+		then
+			# disabled services have stop links in all runlevels
+			# if at least one runlevel does not have a stop link,
+			# then the service was not disabled and we need to continue
+			# with disabling the service later on
+			_ALREADY_DISABLED="false"
+			break
+		fi
+
+		# service is indeed already disabled
+		_ALREADY_DISABLED="true"
+	done
+
+	if [ "${_ALREADY_DISABLED}" = "false" ]
+	then
+		if ls /etc/rc*.d/K*${_SERVICE} > /dev/null 2>&1 && \
+		   ! ls /etc/rc*.d/S*${_SERVICE} > /dev/null 2>&1
+		then
+			# service has only stop links
+			# therefore, using 'update-rc.d disable' does not work,
+			# and using 'update-rc.d remove' is not upgrade safe
+			# (on upgrades, the stop links would be re-added).
+			for _SYMLINK in /etc/rc*.d/K*${_SERVICE}
+			do
+				LIVE_INITSCRIPT_EMPTY="true"
+
+				rm -f ${_SYMLINK}
+				ln -s /bin/live-initscripts-empty-stop ${_SYMLINK}
+			done
+		fi
+
+		# service is a normal service with both start and stop links
+		update-rc.d -f ${_SERVICE} disable 2>&1 | \
+			grep -v -e "^insserv: warning:" \
+				-e "^update-rc.d: warning:" \
+				-e "^update-rc.d: using dependency based boot sequencing" \
+				-e "^update-rc.d: error: .* Default-Start contains no runlevels, aborting." \
+			|| true
+	fi
+done
+
+case ${LIVE_INITSCRIPT_EMPTY} in
+	true)
+
+cat > /bin/live-initscripts-empty-stop < EOF
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:		live-build
+# Required-Start:
+# Required-Stop:
+# Should-Start:
+# Should-Stop:
+# Default-Start:
+# Default-Stop:		0 6
+# Short-Description:	Live System Build Components
+# Description:		live-build contains the components to build a live
+#			system from a configuration directory.
+# X-Start-Before:
+# X-Stop-After:
+# X-Interactive:
+### END INIT INFO
+
+exit 0
+EOF
+
+	;;
+esac
