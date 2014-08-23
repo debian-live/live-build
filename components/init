@@ -59,8 +59,8 @@ def main():
 
 	if not distribution:
 		# FIXME hardcoded release information
-		default_distribution = { 'debian' :         'wheezy',
-					 'progress-linux' : 'baureo',
+		default_distribution = { 'debian' :         'jessie',
+					 'progress-linux' : 'cairon',
 		}
 
 		distribution = default_distribution[project]
