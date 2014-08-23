@@ -93,7 +93,7 @@ def main():
 		exec_hook = subprocess.check_call('chroot chroot /live-build/' + os.path.basename(hook), shell=True)
 		os.remove('chroot/live-build/' + os.path.basename(hook))
 
-	# unmount coniguration directory
+	# unmount configuration directory
 	umount = subprocess.check_call('umount chroot/live-build/config', shell=True)
 
 	os.rmdir('chroot/live-build/config')
