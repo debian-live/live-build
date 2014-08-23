@@ -133,7 +133,7 @@ def main():
 	# Configuring default hooks
 	os.makedirs('config/hooks', exist_ok=True)
 
-	for hook in glob.glob('/usr/share/live/build/hooks/*.hook*'):
+	for hook in glob.glob('/usr/share/live/build/hooks/all/*.hook*'):
 		os.symlink(hook, os.path.join('config/hooks/' + os.path.basename(hook)))
 
 	# Configuring default includes
