@@ -39,6 +39,7 @@ def main():
 
 	arguments.add_argument('--distribution', help='set default distribution')
 	arguments.add_argument('--project',      help='set project defaults')
+	arguments.add_argument('--system',       help='set system type')
 
 	args = arguments.parse_args()
 
@@ -51,7 +52,13 @@ def main():
 	# --project
 	project = args.project
 
+	# --system
+	system = args.system
+
 	## Setting defaults
+
+	if not system:
+		system = 'live'
 
 	if not project:
 		# FIXME: hardcoded project information
@@ -135,6 +142,10 @@ def main():
 
 	for hook in glob.glob('/usr/share/live/build/hooks/all/*.hook*'):
 		os.symlink(hook, os.path.join('config/hooks/' + os.path.basename(hook)))
+
+	if os.path.exists('/usr/share/live/build/hooks/' + system):
+		for hook in glob.glob('/usr/share/live/build/hooks/' + system + '/*.hook*'):
+			os.symlink(hook, os.path.join('config/hooks/' + os.path.basename(hook)))
 
 	# Configuring default includes
 	os.makedirs('config/includes', exist_ok=True)
