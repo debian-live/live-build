@@ -247,44 +247,44 @@ def main():
 
 	config.add_section('build')
 
-	config.set('build','Architecture',                  architecture)
+	config.set('build','architecture',                  architecture)
 
-	config.set('build','Archive-Areas',                 archive_areas)
-	config.set('build','Parent-Archive-Areas',          parent_archive_areas)
+	config.set('build','archive-areas',                 archive_areas)
+	config.set('build','parent-archive-areas',          parent_archive_areas)
 
-	config.set('build','Distribution',                  distribution)
-	config.set('build','Parent-Distribution',           parent_distribution)
+	config.set('build','distribution',                  distribution)
+	config.set('build','parent-distribution',           parent_distribution)
 
-	config.set('build','Mirror-Bootstrap',              mirror_bootstrap)
-	config.set('build','Parent-Mirror-Bootstrap',       parent_mirror_bootstrap)
+	config.set('build','mirror-bootstrap',              mirror_bootstrap)
+	config.set('build','parent-mirror-bootstrap',       parent_mirror_bootstrap)
 
-	config.set('build','Mirror-Chroot',                 mirror_chroot)
-	config.set('build','Parent-Mirror-Chroot',          parent_mirror_chroot)
+	config.set('build','mirror-chroot',                 mirror_chroot)
+	config.set('build','parent-mirror-chroot',          parent_mirror_chroot)
 
-	config.set('build','Mirror-Chroot-Security',        mirror_chroot_security)
-	config.set('build','Parent-Mirror-Chroot-Security', parent_mirror_chroot_security)
+	config.set('build','mirror-chroot-security',        mirror_chroot_security)
+	config.set('build','parent-mirror-chroot-security', parent_mirror_chroot_security)
 
-	config.set('build','Mirror-Installer',              mirror_installer)
-	config.set('build','Parent-Mirror-Installer',       parent_mirror_installer)
+	config.set('build','mirror-installer',              mirror_installer)
+	config.set('build','parent-mirror-installer',       parent_mirror_installer)
 
-	config.set('build','Mirror-Binary',                 mirror_binary)
-	config.set('build','Parent-Mirror-Binary',          parent_mirror_binary)
+	config.set('build','mirror-binary',                 mirror_binary)
+	config.set('build','parent-mirror-binary',          parent_mirror_binary)
 
-	config.set('build','Mirror-Binary-Security',        mirror_binary_security)
-	config.set('build','Parent-Mirror-Binary-Security', parent_mirror_binary_security)
+	config.set('build','mirror-binary-security',        mirror_binary_security)
+	config.set('build','parent-mirror-binary-security', parent_mirror_binary_security)
 
-	config.set('build','Mirror-Source',                 mirror_source)
-	config.set('build','Parent-Mirror-Source',          parent_mirror_source)
+	config.set('build','mirror-source',                 mirror_source)
+	config.set('build','parent-mirror-source',          parent_mirror_source)
 
-	config.set('build','Mirror-Source-Security',        mirror_source_security)
-	config.set('build','Parent-Mirror-Source-Security', parent_mirror_source_security)
+	config.set('build','mirror-source-security',        mirror_source_security)
+	config.set('build','parent-mirror-source-security', parent_mirror_source_security)
 
-	config.set('build','Project',                       project)
-	config.set('build','System',                        system)
+	config.set('build','project',                       project)
+	config.set('build','system',                        system)
 
 	config.add_section('meta')
 
-	config.set('meta','Version',                  '4.0')
+	config.set('meta','version',                  '4.0')
 
 	config.write(configfile)
 	configfile.close()

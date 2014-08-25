@@ -11,65 +11,65 @@
 New_configuration ()
 {
 	# Version
-	LIVE_CONFIGURATION_VERSION="${LIVE_CONFIGURATION_VERSION:-$(Get_configuration config/build.conf Version)}"
+	LIVE_CONFIGURATION_VERSION="${LIVE_CONFIGURATION_VERSION:-$(Get_configuration config/build.conf version)}"
 	export LIVE_CONFIGURATION_VERSION
 
 	# Name
-	LIVE_IMAGE_NAME="${LIVE_IMAGE_NAME:-$(Get_configuration config/build.conf Name)}"
+	LIVE_IMAGE_NAME="${LIVE_IMAGE_NAME:-$(Get_configuration config/build.conf name)}"
 	LIVE_IMAGE_NAME="${LIVE_IMAGE_NAME:-live-image}" # FIXME
 	export LIVE_IMAGE_NAME
 
 	# Architecture (FIXME: Support and default to 'any')
-	LIVE_IMAGE_ARCHITECTURE="${LIVE_IMAGE_ARCHITECTURE:-$(Get_configuration config/build.conf Architecture)}"
+	LIVE_IMAGE_ARCHITECTURE="${LIVE_IMAGE_ARCHITECTURE:-$(Get_configuration config/build.conf architecture)}"
 	export LIVE_IMAGE_ARCHITECTURE
 
 	# Archive Areas
-	LIVE_IMAGE_ARCHIVE_AREAS="${LIVE_IMAGE_ARCHIVE_AREAS:-$(Get_configuration config/build.conf Archive-Areas)}"
+	LIVE_IMAGE_ARCHIVE_AREAS="${LIVE_IMAGE_ARCHIVE_AREAS:-$(Get_configuration config/build.conf archive-areas)}"
 	export LIVE_IMAGE_ARCHIVE_AREAS
 
 	# Archive Areas
-	LIVE_IMAGE_PARENT_ARCHIVE_AREAS="${LIVE_IMAGE_PARENT_ARCHIVE_AREAS:-$(Get_configuration config/build.conf Parent-Archive-Areas)}"
+	LIVE_IMAGE_PARENT_ARCHIVE_AREAS="${LIVE_IMAGE_PARENT_ARCHIVE_AREAS:-$(Get_configuration config/build.conf parent-archive-areas)}"
 	export LIVE_IMAGE_PARENT_ARCHIVE_AREAS
 
 	# Type
-	LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE:-$(Get_configuration config/build.conf Type)}"
+	LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE:-$(Get_configuration config/build.conf type)}"
 	export LIVE_IMAGE_TYPE
 
 	# Mirrors
-	LB_MIRROR_BOOTSTRAP="$(Get_configuration config/build.conf Mirror-Bootstrap)"
+	LB_MIRROR_BOOTSTRAP="$(Get_configuration config/build.conf mirror-bootstrap)"
 	export LB_MIRROR_BOOTSTRAP
 
-	LB_PARENT_MIRROR_BOOTSTRAP="$(Get_configuration config/build.conf Parent-Mirror-Bootstrap)"
+	LB_PARENT_MIRROR_BOOTSTRAP="$(Get_configuration config/build.conf parent-mirror-bootstrap)"
 	export LB_PARENT_MIRROR_BOOTSTRAP
 
-	LB_MIRROR_CHROOT="$(Get_configuration config/build.conf Mirror-Chroot)"
+	LB_MIRROR_CHROOT="$(Get_configuration config/build.conf mirror-chroot)"
 	export LB_MIRROR_CHROOT
 
-	LB_PARENT_MIRROR_CHROOT="$(Get_configuration config/build.conf Parent-Mirror-Chroot)"
+	LB_PARENT_MIRROR_CHROOT="$(Get_configuration config/build.conf parent-mirror-chroot)"
 	export LB_MIRROR_CHROOT
 
-	LB_MIRROR_CHROOT_SECURITY="$(Get_configuration config/build.conf Mirror-Chroot-Security)"
+	LB_MIRROR_CHROOT_SECURITY="$(Get_configuration config/build.conf mirror-chroot-security)"
 	export LB_MIRROR_CHROOT_SECURITY
 
-	LB_PARENT_MIRROR_CHROOT_SECURITY="$(Get_configuration config/build.conf Parent-Mirror-Chroot-Security)"
+	LB_PARENT_MIRROR_CHROOT_SECURITY="$(Get_configuration config/build.conf parent-mirror-chroot-security)"
 	export LB_PARENT_MIRROR_CHROOT_SECURITY
 
-	LB_MIRROR_BINARY="$(Get_configuration config/build.conf Mirror-Binary)"
+	LB_MIRROR_BINARY="$(Get_configuration config/build.conf mirror-binary)"
 	export LB_MIRROR_BINARY
 
-	LB_PARENT_MIRROR_BINARY="$(Get_configuration config/build.conf Parent-Mirror-Binary)"
+	LB_PARENT_MIRROR_BINARY="$(Get_configuration config/build.conf parent-mirror-binary)"
 	export LB_PARENT_MIRROR_BINARY
 
-	LB_MIRROR_BINARY_SECURITY="$(Get_configuration config/build.conf Mirror-Binary-Security)"
+	LB_MIRROR_BINARY_SECURITY="$(Get_configuration config/build.conf mirror-binary-security)"
 	export LB_MIRROR_BINARY_SECURITY
 
-	LB_PARENT_MIRROR_BINARY_SECURITY="$(Get_configuration config/build.conf Parent-Mirror-Binary-Security)"
+	LB_PARENT_MIRROR_BINARY_SECURITY="$(Get_configuration config/build.conf parent-mirror-binary-security)"
 	export LB_PARENT_MIRROR_BINARY_SECURITY
 
-	LB_MIRROR_DEBIAN_INSTALLER="$(Get_configuration config/build.conf Mirror-Installer)"
+	LB_MIRROR_DEBIAN_INSTALLER="$(Get_configuration config/build.conf mirror-installer)"
 	export LB_MIRROR_DEBIAN_INSTALLER
 
-	LB_PARENT_MIRROR_DEBIAN_INSTALLER="$(Get_configuration config/build.conf Parent-Mirror-Installer)"
+	LB_PARENT_MIRROR_DEBIAN_INSTALLER="$(Get_configuration config/build.conf parent-mirror-installer)"
 	export LB_PARENT_MIRROR_DEBIAN_INSTALLER
 }
 
