@@ -242,7 +242,7 @@ def main():
 	## Creating configuration directory
 
 	# stagefile
-	if os.path.isdir('.build'):
+	if os.path.exists('.build/init'):
 		if verbose:
 			print('I: configuration directory already initialized - nothing to do')
 
@@ -514,6 +514,7 @@ def main():
 
 	## stagefile
 	os.makedirs('.build', exist_ok=True)
+	open('.build/init', 'w').close()
 
 
 if __name__ == '__main__':
