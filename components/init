@@ -329,9 +329,13 @@ def main():
 		# config/archives/debian.list.source
 		f = open('config/archives/debian.list.source', 'w')
 		f.write('deb ' + mirror_source + ' ' + distribution + ' ' + archive_areas + '\n'
+			'deb-src ' + mirror_source + ' ' + distribution + ' ' + archive_areas + '\n'
 			'deb ' + mirror_source_security + ' ' + distribution + '/updates ' + archive_areas + '\n'
+			'deb-src ' + mirror_source_security + ' ' + distribution + '/updates ' + archive_areas + '\n'
 			'deb ' + mirror_source + ' ' + distribution + '-updates ' + archive_areas + '\n'
-			'deb ' + mirror_source + ' ' + distribution + '-backports ' + archive_areas + '\n')
+			'deb-src ' + mirror_source + ' ' + distribution + '-updates ' + archive_areas + '\n'
+			'deb ' + mirror_source + ' ' + distribution + '-backports ' + archive_areas + '\n'
+			'deb-src ' + mirror_source + ' ' + distribution + '-backports ' + archive_areas + '\n')
 		f.close()
 	elif(project == 'progress-linux'):
 		# config/archives/debian.list.bootstrap
@@ -369,9 +373,13 @@ def main():
 		# config/archives/debian.list.source
 		f = open('config/archives/debian.list.source', 'w')
 		f.write('deb ' + parent_mirror_source + ' ' + distribution + ' ' + archive_areas + '\n'
+			'deb-src ' + parent_mirror_source + ' ' + distribution + ' ' + archive_areas + '\n'
 			'deb ' + parent_mirror_source_security + ' ' + distribution + '/updates ' + archive_areas + '\n'
+			'deb-src ' + parent_mirror_source_security + ' ' + distribution + '/updates ' + archive_areas + '\n'
 			'deb ' + parent_mirror_bootstrap + ' ' + distribution + '-updates ' + archive_areas + '\n'
-			'deb ' + parent_mirror_bootstrap + ' ' + distribution + '-backports' + archive_areas + '\n')
+			'deb-src ' + parent_mirror_bootstrap + ' ' + distribution + '-updates ' + archive_areas + '\n'
+			'deb ' + parent_mirror_bootstrap + ' ' + distribution + '-backports' + archive_areas + '\n'
+			'deb-src ' + parent_mirror_bootstrap + ' ' + distribution + '-backports' + archive_areas + '\n')
 		f.close()
 
 		# config/archives/project.list.bootstrap
@@ -409,9 +417,13 @@ def main():
 		# config/archives/project.list.source
 		f = open('config/archives/' + project + '.list.source', 'w')
 		f.write('deb ' + mirror_source + ' ' + distribution + ' ' + archive_areas + '\n'
+			'deb-src ' + mirror_source + ' ' + distribution + ' ' + archive_areas + '\n'
 			'deb ' + mirror_source_security + ' ' + distribution + '-security ' + archive_areas + '\n'
+			'deb-src ' + mirror_source_security + ' ' + distribution + '-security ' + archive_areas + '\n'
 			'deb ' + mirror_source + ' ' + distribution + '-updates ' + archive_areas + '\n'
-			'deb ' + mirror_source + ' ' + distribution + '-backports ' + archive_areas + '\n')
+			'deb-src ' + mirror_source + ' ' + distribution + '-updates ' + archive_areas + '\n'
+			'deb ' + mirror_source + ' ' + distribution + '-backports ' + archive_areas + '\n'
+			'deb-src ' + mirror_source + ' ' + distribution + '-backports ' + archive_areas + '\n')
 		f.close()
 
 	## Populating configuration directory
