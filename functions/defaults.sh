@@ -497,11 +497,6 @@ Set_defaults ()
 					;;
 			esac
 			;;
-
-		*)
-			Echo_error "Architecture(s) ${LIVE_IMAGE_ARCHITECTURE} not yet supported (FIXME)"
-			exit 1
-			;;
 	esac
 
 	# Set linux packages
