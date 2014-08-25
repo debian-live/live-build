@@ -362,7 +362,15 @@ def main():
 	os.makedirs('config/package-lists', exist_ok=True)
 
 	f = open('config/package-lists/live.list.chroot', 'w')
-	f.write('live-boot\nlive-config\nlive-config-sysvinit\n')
+
+	f.write('live-boot\n'
+		'live-config\n')
+
+	if(parent_distribution == 'wheezy'):
+		f.write('live-config-sysvinit\n')
+	else:
+		f.write('live-config-systemd\n')
+
 	f.close()
 
 	## stagefile
