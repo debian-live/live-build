@@ -272,20 +272,20 @@ def main():
 
 	config.add_section('build')
 
-	config.set('build','architecture',                  architecture)
+	config.set('build', 'architecture',                  architecture)
 
-	config.set('build','archive-areas',                 archive_areas)
-	config.set('build','parent-archive-areas',          parent_archive_areas)
+	config.set('build', 'archive-areas',                 archive_areas)
+	config.set('build', 'parent-archive-areas',          parent_archive_areas)
 
-	config.set('build','distribution',                  distribution)
-	config.set('build','parent-distribution',           parent_distribution)
+	config.set('build', 'distribution',                  distribution)
+	config.set('build', 'parent-distribution',           parent_distribution)
 
-	config.set('build','project',                       project)
-	config.set('build','system',                        system)
+	config.set('build', 'project',                       project)
+	config.set('build', 'system',                        system)
 
 	config.add_section('meta')
 
-	config.set('meta','version',                  '4.0')
+	config.set('meta', 'version',                        '4.0')
 
 	config.write(f)
 	f.close()
