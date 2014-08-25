@@ -473,6 +473,7 @@ def main():
 	os.makedirs('config/includes', exist_ok=True)
 	os.makedirs('config/includes.bootstrap', exist_ok=True)
 	os.makedirs('config/includes.chroot', exist_ok=True)
+	#os.makedirs('config/includes.installer', exist_ok=True) FIXME
 	os.makedirs('config/includes.binary', exist_ok=True)
 	os.makedirs('config/includes.source', exist_ok=True)
 
@@ -480,6 +481,7 @@ def main():
 	os.chmod('config/includes', 0o755)
 	os.chmod('config/includes.bootstrap', 0o755)
 	os.chmod('config/includes.chroot', 0o755)
+	#os.chmod('config/includes.installer', 0o755) FIXME
 	os.chmod('config/includes.binary', 0o755)
 	os.chmod('config/includes.source', 0o755)
 
