@@ -26,7 +26,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--apt-recommends true|false]\n\
 \t    [--apt-secure true|false]\n\
 \t    [--apt-source-archives true|false]\n\
-\t    [-a|--architectures ARCHITECTURE]\n\
 \t    [-b|--binary-images iso|iso-hybrid|netboot|tar|hdd]\n\
 \t    [--binary-filesystem fat16|fat32|ext2|ext3|ext4|ntfs]\n\
 \t    [--bootappend-install PARAMETER|\"PARAMETERS\"]\n\
@@ -104,8 +103,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--net-cow-server IP|HOSTNAME]\n\
 \t    [--net-tarball true|false]\n\
 \t    [--quiet]\n\
-\t    [--archive-areas ARCHIVE_AREA|\"ARCHIVE_AREAS\"]\n\
-\t    [--parent-archive-areas ARCHIVE_AREA|\"ARCHIVE_AREAS\"]\n\
 \t    [--security true|false]\n\
 \t    [--source true|false]\n\
 \t    [-s|--source-images iso|netboot|tar|hdd]\n\
@@ -131,12 +128,12 @@ Local_arguments ()
 		apt-pipeline:,apt-recommends:,apt-secure:,apt-source-archives:,bootstrap:,cache:,cache-indices:,cache-packages:,
 		cache-stages:,debconf-frontend:,debconf-priority:,dump,
 		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,system:,tasksel:,
-		templates:,architectures:,clean,
-		distribution:,parent-distribution:,parent-debian-installer-distribution:,parent-mirror-bootstrap:,parent-mirror-chroot:,parent-mirror-chroot-security:,parent-mirror-binary:,
+		templates:,clean,
+		parent-debian-installer-distribution:,parent-mirror-bootstrap:,parent-mirror-chroot:,parent-mirror-chroot-security:,parent-mirror-binary:,
 		parent-mirror-binary-security:,parent-mirror-debian-installer:,
 		mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,
 		mirror-binary-security:,mirror-debian-installer:,
-		archive-areas:,parent-archive-areas:,chroot-filesystem:,
+		chroot-filesystem:,
 		gzip-options:,image-name:,interactive:,keyring-packages:,linux-flavours:,linux-packages:,
 		security:,updates:,backports:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootappend-live-failsafe:,bootloader:,checksums:,compression:,config:,zsync:,build-with-chroot:,
@@ -346,21 +343,6 @@ Local_arguments ()
 				;;
 
 			# config/bootstrap
-			-a|--architectures)
-				LIVE_IMAGE_ARCHITECTURE="${2}"
-				shift 2
-				;;
-
-			-d|--distribution)
-				LB_DISTRIBUTION="${2}"
-				shift 2
-				;;
-
-			--parent-distribution)
-				LB_PARENT_DISTRIBUTION="${2}"
-				shift 2
-				;;
-
 			-m|--parent-mirror-bootstrap)
 				LB_PARENT_MIRROR_BOOTSTRAP="${2}"
 				shift 2
@@ -418,16 +400,6 @@ Local_arguments ()
 
 			--mirror-debian-installer)
 				LB_MIRROR_DEBIAN_INSTALLER="${2}"
-				shift 2
-				;;
-
-			--archive-areas)
-				LIVE_IMAGE_ARCHIVE_AREAS="${2}"
-				shift 2
-				;;
-
-			--parent-archive-areas)
-				LIVE_IMAGE_PARENT_ARCHIVE_AREAS="${2}"
 				shift 2
 				;;
 
@@ -1337,34 +1309,6 @@ then
 	rmdir --ignore-fail-on-non-empty local/*/ > /dev/null 2>&1 || true
 	rmdir --ignore-fail-on-non-empty local > /dev/null 2>&1 || true
 fi
-
-cat > config/build << EOF
-[Image]
-Architecture: ${LIVE_IMAGE_ARCHITECTURE}
-Archive-Areas: ${LIVE_IMAGE_ARCHIVE_AREAS}
-Distribution: ${LB_DISTRIBUTION}
-Mirror-Bootstrap: ${LB_MIRROR_BOOTSTRAP}
-EOF
-
-if [ "${LB_DERIVATIVE}" = "true" ]
-then
-
-cat >> config/build << EOF
-
-Parent-Archive-Areas: ${LIVE_IMAGE_ARCHIVE_AREAS}
-Parent-Distribution: ${LB_PARENT_DISTRIBUTION}
-Parent-Mirror-Bootstrap: ${LB_PARENT_MIRROR_BOOTSTRAP}
-EOF
-
-fi
-
-cat >> config/build << EOF
-
-[FIXME]
-Configuration-Version: ${LIVE_CONFIGURATION_VERSION}
-Name: ${LIVE_IMAGE_NAME}
-Type: ${LIVE_IMAGE_TYPE}
-EOF
 
 # Creating stage file
 Create_stagefile .build/config

@@ -42,22 +42,22 @@ def main():
 	args = arguments.parse_args()
 
 	## Parsing Configuration
-	if not os.path.isfile('config/build'):
-		print('E: config/build - no such file', file=sys.stderr)
+	if not os.path.isfile('config/build.conf'):
+		print('E: config/build.conf - no such file', file=sys.stderr)
 
 		sys.exit(1)
 
 	config = configparser.ConfigParser()
 
-	config.read('config/build')
+	config.read('config/build.conf')
 
 	try:
-		architecture     = config.get('Image', 'Architecture')
-		distribution     = config.get('Image', 'Parent-Distribution')
-		mirror_bootstrap = config.get('Image', 'Parent-Mirror-Bootstrap')
+		architecture     = config.get('build', 'Architecture')
+		distribution     = config.get('build', 'Parent-Distribution')
+		mirror_bootstrap = config.get('build', 'Parent-Mirror-Bootstrap')
 	except:
-		distribution     = config.get('Image', 'Distribution')
-		mirror_bootstrap = config.get('Image', 'Mirror-Bootstrap')
+		distribution     = config.get('build', 'Distribution')
+		mirror_bootstrap = config.get('build', 'Mirror-Bootstrap')
 
 	# --verbose
 	verbose = args.verbose

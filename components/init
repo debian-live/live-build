@@ -12,6 +12,7 @@ import argparse
 import configparser
 import glob
 import os
+import platform
 import shutil
 import subprocess
 import sys
@@ -24,6 +25,12 @@ import urllib.request
 #   * use gettext for i18n
 
 def main():
+	## early defaults detection
+	architecture = platform.machine()
+
+	if (architecture == 'x86_64'):
+		architecture = 'amd64'
+
 	## Parsing Arguments
 	arguments = argparse.ArgumentParser(
 		prog            = 'lb init',
@@ -34,26 +41,53 @@ def main():
 		formatter_class = argparse.ArgumentDefaultsHelpFormatter
 	)
 
-	arguments.add_argument('--version',      help='show program\'s version number and exit', action='version', version='live-build 4')
-	arguments.add_argument('--verbose',      help='set verbose option',                      action='store_true')
+	arguments.add_argument('--version',                 help='show program\'s version number and exit', action='version', version='live-build 4')
+	arguments.add_argument('--verbose',                 help='set verbose option',                      action='store_true')
 
-	arguments.add_argument('--distribution', help='set default distribution',                default='jessie')
-	arguments.add_argument('--project',      help='set project defaults',                    default='debian')
-	arguments.add_argument('--system',       help='set system type',                         default='live')
+	arguments.add_argument('--project',                 help='set project defaults',                    default='debian')
+	arguments.add_argument('--system',                  help='set system type',                         default='live')
+	arguments.add_argument('--architecture',            help='set system architecture',                 default=architecture)
+
+	arguments.add_argument('--archive-areas',           help='set default archive areas',               default='main')
+	arguments.add_argument('--parent-archive-areas',    help='set default parent archive areas',        default='main')
+
+	arguments.add_argument('--distribution',            help='set default distribution',                default='jessie')
+	arguments.add_argument('--parent-distribution',     help='set default parent distribution',         default='jessie')
+
+	arguments.add_argument('--mirror-bootstrap',        help='set default bootstrap mirror',            default='http://ftp.debian.org/debian')
+	arguments.add_argument('--parent-mirror-bootstrap', help='set default parent bootstrap mirror',     default='http://ftp.debian.org/debian')
 
 	args = arguments.parse_args()
 
 	# --verbose
 	verbose = args.verbose
 
-	# --distribution
-	distribution = args.distribution
-
 	# --project
 	project = args.project
 
 	# --system
 	system = args.system
+
+	# --architecture
+	architecture = args.architecture
+
+	# --archive-areas
+	archive_areas = args.archive_areas
+
+	# --parent-archive-areas
+	parent_archive_areas = args.parent_archive_areas
+
+	# --distribution
+	distribution = args.distribution
+
+	# --parent-distribution
+	parent_distribution = args.parent_distribution
+
+	# --mirror-bootstrap
+	mirror_bootstrap = args.mirror_bootstrap
+
+	# --parent-mirror-bootstrap
+	parent_mirror_bootstrap = args.parent_mirror_bootstrap
 
 	## Setting defaults
 
@@ -71,6 +105,31 @@ def main():
 		}
 
 		distribution = default_distribution[project]
+
+	## Setting derivative defaults
+	if (project == 'progress-linux'):
+		# parent-distribution
+		if(distribution == 'artax'):
+			parent_distribution = 'squeeze'
+		if(distribution == 'artax-backports'):
+			parent_distribution = 'squeeze'
+		if(distribution == 'baureo'):
+			parent_distribution = 'wheezy'
+		if(distribution == 'baureo-backports'):
+			parent_distribution = 'wheezy'
+		if(distribution == 'cairon'):
+			parent_distribution = 'jessie'
+		if(distribution == 'cairon-backports'):
+			parent_distribution = 'jessie'
+	else:
+		# parent-architecture
+		parent_architecture = architecture
+
+		# parent-distribution
+		parent_distribution = distribution
+
+		# parent-mirror-bootstrap
+		parent_mirror_bootstrap = mirror_bootstrap
 
 	## Creating configuration directory
 
@@ -93,6 +152,39 @@ def main():
 	print('and that we are only supporting the newest development version.\n')
 
 	print('Make sure you are using the newest version at all times.')
+
+	## Writing main configuration file
+
+	os.makedirs('config', exist_ok=True)
+
+	config = configparser.ConfigParser()
+
+	configfile = open("config/build.conf", 'w')
+
+	config.add_section('build')
+
+	config.set('build','Architecture',            architecture)
+
+	config.set('build','Archive-Areas',           archive_areas)
+	config.set('build','Parent-Archive-Areas',    parent_archive_areas)
+
+	config.set('build','Distribution',            distribution)
+	config.set('build','Parent-Distribution',     parent_distribution)
+
+	config.set('build','Mirror-Bootstrap',        mirror_bootstrap)
+	config.set('build','Parent-Mirror-Bootstrap', parent_mirror_bootstrap)
+
+	config.set('build','Project',                 project)
+	config.set('build','System',                  system)
+
+	config.add_section('meta')
+
+	config.set('meta','Version',                  '4.0')
+
+	config.write(configfile)
+	configfile.close()
+
+	## Populating configuration directory
 
 	# Configuring default archive-keys
 	if (project == 'progress-linux'):
