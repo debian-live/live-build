@@ -37,9 +37,9 @@ def main():
 	arguments.add_argument('--version',      help='show program\'s version number and exit', action='version', version='live-build 4')
 	arguments.add_argument('--verbose',      help='set verbose option',                      action='store_true')
 
-	arguments.add_argument('--distribution', help='set default distribution')
-	arguments.add_argument('--project',      help='set project defaults')
-	arguments.add_argument('--system',       help='set system type')
+	arguments.add_argument('--distribution', help='set default distribution',                default='jessie')
+	arguments.add_argument('--project',      help='set project defaults',                    default='debian')
+	arguments.add_argument('--system',       help='set system type',                         default='live')
 
 	args = arguments.parse_args()
 
