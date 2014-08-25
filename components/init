@@ -41,42 +41,48 @@ def main():
 		formatter_class = argparse.ArgumentDefaultsHelpFormatter
 	)
 
-	arguments.add_argument('--version',                       help='show program\'s version number and exit', action='version', version='live-build 4')
-	arguments.add_argument('--verbose',                       help='set verbose option',                      action='store_true')
+	arguments.add_argument('--version',                          help='show program\'s version number and exit',      action='version', version='live-build 4')
+	arguments.add_argument('--verbose',                          help='set verbose option',                           action='store_true')
 
-	arguments.add_argument('--project',                       help='set project defaults',                    default='debian')
-	arguments.add_argument('--system',                        help='set system type',                         default='live')
-	arguments.add_argument('--architecture',                  help='set system architecture',                 default=architecture)
+	arguments.add_argument('--project',                          help='set project defaults',                         default='debian')
+	arguments.add_argument('--system',                           help='set system type',                              default='live')
+	arguments.add_argument('--architecture',                     help='set system architecture',                      default=architecture)
 
-	arguments.add_argument('--archive-areas',                 help='set default archive areas',               default='main')
-	arguments.add_argument('--parent-archive-areas',          help='set default parent archive areas',        default='main')
+	arguments.add_argument('--archive-areas',                    help='set default archive areas',                    default='main')
+	arguments.add_argument('--parent-archive-areas',             help='set default parent archive areas',             default='main')
 
-	arguments.add_argument('--distribution',                  help='set default distribution',                default='jessie')
-	arguments.add_argument('--parent-distribution',           help='set default parent distribution',         default='jessie')
+	arguments.add_argument('--distribution',                     help='set default distribution',                     default='jessie')
+	arguments.add_argument('--parent-distribution',              help='set default parent distribution',              default='jessie')
 
-	arguments.add_argument('--mirror-bootstrap',              help='set default bootstrap mirror',            default='http://ftp.debian.org/debian')
-	arguments.add_argument('--parent-mirror-bootstrap',       help='set default parent bootstrap mirror',     default='http://ftp.debian.org/debian')
+	arguments.add_argument('--mirror-bootstrap',                 help='set default bootstrap mirror',                 default='http://ftp.debian.org/debian')
+	arguments.add_argument('--parent-mirror-bootstrap',          help='set default parent bootstrap mirror',          default='http://ftp.debian.org/debian')
 
-	arguments.add_argument('--mirror-chroot',                 help='set default chroot mirror',               default='http://ftp.debian.org/debian')
-	arguments.add_argument('--parent-mirror-chroot',          help='set default parent chroot mirror',        default='http://ftp.debian.org/debian')
+	arguments.add_argument('--mirror-bootstrap-security',        help='set default bootstrap security mirror',        default='http://security.debian.org')
+	arguments.add_argument('--parent-mirror-bootstrap-security', help='set default parent security bootstrap mirror', default='http://security.debian.org')
 
-	arguments.add_argument('--mirror-chroot-security',        help='set default chroot mirror',               default='http://security.debian.org')
-	arguments.add_argument('--parent-mirror-chroot-security', help='set default parent chroot mirror',        default='http://security.debian.org')
+	arguments.add_argument('--mirror-chroot',                    help='set default chroot mirror',                    default='http://ftp.debian.org/debian')
+	arguments.add_argument('--parent-mirror-chroot',             help='set default parent chroot mirror',             default='http://ftp.debian.org/debian')
 
-	arguments.add_argument('--mirror-installer',              help='set default installer mirror',            default='http://ftp.debian.org/debian')
-	arguments.add_argument('--parent-mirror-installer',       help='set default parent installer mirror',     default='http://ftp.debian.org/debian')
+	arguments.add_argument('--mirror-chroot-security',           help='set default chroot security mirror',           default='http://security.debian.org')
+	arguments.add_argument('--parent-mirror-chroot-security',    help='set default parent chroot security mirror',    default='http://security.debian.org')
 
-	arguments.add_argument('--mirror-binary',                 help='set default binary mirror',               default='http://ftp.debian.org/debian')
-	arguments.add_argument('--parent-mirror-binary',          help='set default parent binary mirror',        default='http://ftp.debian.org/debian')
+	arguments.add_argument('--mirror-installer',                 help='set default installer mirror',                 default='http://ftp.debian.org/debian')
+	arguments.add_argument('--parent-mirror-installer',          help='set default parent installer mirror',          default='http://ftp.debian.org/debian')
 
-	arguments.add_argument('--mirror-binary-security',        help='set default binary mirror',               default='http://security.debian.org')
-	arguments.add_argument('--parent-mirror-binary-security', help='set default parent binary mirror',        default='http://security.debian.org')
+	arguments.add_argument('--mirror-installer-security',        help='set default installer security mirror',        default='http://security.debian.org')
+	arguments.add_argument('--parent-mirror-installer-security', help='set default parent installer security mirror', default='http://security.debian.org')
 
-	arguments.add_argument('--mirror-source',                 help='set default source mirror',               default='http://ftp.debian.org/debian')
-	arguments.add_argument('--parent-mirror-source',          help='set default parent source mirror',        default='http://ftp.debian.org/debian')
+	arguments.add_argument('--mirror-binary',                    help='set default binary mirror',                    default='http://ftp.debian.org/debian')
+	arguments.add_argument('--parent-mirror-binary',             help='set default parent binary mirror',             default='http://ftp.debian.org/debian')
 
-	arguments.add_argument('--mirror-source-security',        help='set default source mirror',               default='http://security.debian.org')
-	arguments.add_argument('--parent-mirror-source-security', help='set default parent source mirror',        default='http://security.debian.org')
+	arguments.add_argument('--mirror-binary-security',           help='set default binary security mirror',           default='http://security.debian.org')
+	arguments.add_argument('--parent-mirror-binary-security',    help='set default parent binary security mirror',    default='http://security.debian.org')
+
+	arguments.add_argument('--mirror-source',                    help='set default source mirror',                    default='http://ftp.debian.org/debian')
+	arguments.add_argument('--parent-mirror-source',             help='set default parent source mirror',             default='http://ftp.debian.org/debian')
+
+	arguments.add_argument('--mirror-source-security',           help='set default source security mirror',           default='http://security.debian.org')
+	arguments.add_argument('--parent-mirror-source-security',    help='set default parent source security mirror',    default='http://security.debian.org')
 
 	args = arguments.parse_args()
 
@@ -110,6 +116,12 @@ def main():
 	# --parent-mirror-bootstrap
 	parent_mirror_bootstrap = args.parent_mirror_bootstrap
 
+	# --mirror-bootstrap-security
+	mirror_bootstrap_security = args.mirror_bootstrap_security
+
+	# --parent-mirror-bootstrap-security
+	parent_mirror_bootstrap_security = args.parent_mirror_bootstrap_security
+
 	# --mirror-chroot
 	mirror_chroot = args.mirror_chroot
 
@@ -127,6 +139,12 @@ def main():
 
 	# --parent-mirror-installer
 	parent_mirror_installer = args.parent_mirror_installer
+
+	# --mirror-installer-security
+	mirror_installer_security = args.mirror_installer_security
+
+	# --parent-mirror-installer-security
+	parent_mirror_installer_security = args.parent_mirror_installer_security
 
 	# --mirror-binary
 	mirror_binary = args.mirror_binary
@@ -194,6 +212,9 @@ def main():
 		# parent-mirror-bootstrap
 		parent_mirror_bootstrap = mirror_bootstrap
 
+		# parent-mirror-bootstrap-security
+		parent_mirror_bootstrap_security = mirror_bootstrap_security
+
 		# parent-mirror-chroot
 		parent_mirror_chroot = mirror_chroot
 
@@ -202,6 +223,9 @@ def main():
 
 		# parent-mirror-installer
 		parent_mirror_installer = mirror_installer
+
+		# parent-mirror-installer-security
+		parent_mirror_installer_security = mirror_installer_security
 
 		# parent-mirror-binary
 		parent_mirror_binary = mirror_binary
@@ -243,7 +267,8 @@ def main():
 
 	config = configparser.ConfigParser()
 
-	configfile = open("config/build.conf", 'w')
+	# build.conf
+	f = open('config/build.conf', 'w')
 
 	config.add_section('build')
 
@@ -255,30 +280,6 @@ def main():
 	config.set('build','distribution',                  distribution)
 	config.set('build','parent-distribution',           parent_distribution)
 
-	config.set('build','mirror-bootstrap',              mirror_bootstrap)
-	config.set('build','parent-mirror-bootstrap',       parent_mirror_bootstrap)
-
-	config.set('build','mirror-chroot',                 mirror_chroot)
-	config.set('build','parent-mirror-chroot',          parent_mirror_chroot)
-
-	config.set('build','mirror-chroot-security',        mirror_chroot_security)
-	config.set('build','parent-mirror-chroot-security', parent_mirror_chroot_security)
-
-	config.set('build','mirror-installer',              mirror_installer)
-	config.set('build','parent-mirror-installer',       parent_mirror_installer)
-
-	config.set('build','mirror-binary',                 mirror_binary)
-	config.set('build','parent-mirror-binary',          parent_mirror_binary)
-
-	config.set('build','mirror-binary-security',        mirror_binary_security)
-	config.set('build','parent-mirror-binary-security', parent_mirror_binary_security)
-
-	config.set('build','mirror-source',                 mirror_source)
-	config.set('build','parent-mirror-source',          parent_mirror_source)
-
-	config.set('build','mirror-source-security',        mirror_source_security)
-	config.set('build','parent-mirror-source-security', parent_mirror_source_security)
-
 	config.set('build','project',                       project)
 	config.set('build','system',                        system)
 
@@ -286,8 +287,132 @@ def main():
 
 	config.set('meta','version',                  '4.0')
 
-	config.write(configfile)
-	configfile.close()
+	config.write(f)
+	f.close()
+
+	# config/archives
+	os.makedirs('config/archives', exist_ok=True)
+
+	if (project == 'debian'):
+		# config/archives/debian.list.bootstrap
+		f = open('config/archives/debian.list.bootstrap', 'w')
+		f.write('deb ' + mirror_bootstrap + ' ' + distribution + ' ' + archive_areas + '\n'
+			'deb ' + mirror_bootstrap_security + ' ' + distribution + '/updates ' + archive_areas + '\n'
+			'deb ' + mirror_bootstrap + ' ' + distribution + '-updates ' + archive_areas + '\n'
+			'deb ' + mirror_bootstrap + ' ' + distribution + '-backports ' + archive_areas + '\n')
+		f.close()
+
+		# config/archives/debian.list.chroot
+		f = open('config/archives/debian.list.chroot', 'w')
+		f.write('deb ' + mirror_chroot + ' ' + distribution + ' ' + archive_areas + '\n'
+			'deb ' + mirror_chroot_security + ' ' + distribution + '/updates ' + archive_areas + '\n'
+			'deb ' + mirror_chroot + ' ' + distribution + '-updates ' + archive_areas + '\n'
+			'deb ' + mirror_chroot + ' ' + distribution + '-backports ' + archive_areas + '\n')
+		f.close()
+
+		# config/archives/debian.list.installer
+		f = open('config/archives/debian.list.installer', 'w')
+		f.write('deb ' + mirror_installer + ' ' + distribution + ' ' + archive_areas + '\n'
+			'deb ' + mirror_installer_security + ' ' + distribution + '/updates ' + archive_areas + '\n'
+			'deb ' + mirror_installer + ' ' + distribution + '-updates ' + archive_areas + '\n'
+			'deb ' + mirror_installer + ' ' + distribution + '-backports ' + archive_areas + '\n')
+		f.close()
+
+		# config/archives/debian.list.binary
+		f = open('config/archives/debian.list.binary', 'w')
+		f.write('deb ' + mirror_binary + ' ' + distribution + ' ' + archive_areas + '\n'
+			'deb ' + mirror_binary_security + ' ' + distribution + '/updates ' + archive_areas + '\n'
+			'deb ' + mirror_binary + ' ' + distribution + '-updates ' + archive_areas + '\n'
+			'deb ' + mirror_binary + ' ' + distribution + '-backports ' + archive_areas + '\n')
+		f.close()
+
+		# config/archives/debian.list.source
+		f = open('config/archives/debian.list.source', 'w')
+		f.write('deb ' + mirror_source + ' ' + distribution + ' ' + archive_areas + '\n'
+			'deb ' + mirror_source_security + ' ' + distribution + '/updates ' + archive_areas + '\n'
+			'deb ' + mirror_source + ' ' + distribution + '-updates ' + archive_areas + '\n'
+			'deb ' + mirror_source + ' ' + distribution + '-backports ' + archive_areas + '\n')
+		f.close()
+	elif(project == 'progress-linux'):
+		# config/archives/debian.list.bootstrap
+		f = open('config/archives/debian.list.bootstrap', 'w')
+		f.write('deb ' + parent_mirror_bootstrap + ' ' + distribution + ' ' + archive_areas + '\n'
+			'deb ' + parent_mirror_bootstrap_security + ' ' + distribution + '/updates ' + archive_areas + '\n'
+			'deb ' + parent_mirror_bootstrap + ' ' + distribution + '-updates ' + archive_areas + '\n'
+			'deb ' + parent_mirror_bootstrap + ' ' + distribution + '-backports' + archive_areas + '\n')
+		f.close()
+
+		# config/archives/debian.list.chroot
+		f = open('config/archives/debian.list.chroot', 'w')
+		f.write('deb ' + parent_mirror_chroot + ' ' + distribution + ' ' + archive_areas + '\n'
+			'deb ' + parent_mirror_chroot_security + ' ' + distribution + '/updates ' + archive_areas + '\n'
+			'deb ' + parent_mirror_bootstrap + ' ' + distribution + '-updates ' + archive_areas + '\n'
+			'deb ' + parent_mirror_bootstrap + ' ' + distribution + '-backports' + archive_areas + '\n')
+		f.close()
+
+		# config/archives/debian.list.installer
+		f = open('config/archives/debian.list.installer', 'w')
+		f.write('deb ' + parent_mirror_installer + ' ' + distribution + ' ' + archive_areas + '\n'
+			'deb ' + parent_mirror_installer_security + ' ' + distribution + '/updates ' + archive_areas + '\n'
+			'deb ' + parent_mirror_bootstrap + ' ' + distribution + '-updates ' + archive_areas + '\n'
+			'deb ' + parent_mirror_bootstrap + ' ' + distribution + '-backports' + archive_areas + '\n')
+		f.close()
+
+		# config/archives/debian.list.binary
+		f = open('config/archives/debian.list.binary', 'w')
+		f.write('deb ' + parent_mirror_binary + ' ' + distribution + ' ' + archive_areas + '\n'
+			'deb ' + parent_mirror_binary_security + ' ' + distribution + '/updates ' + archive_areas + '\n'
+			'deb ' + parent_mirror_bootstrap + ' ' + distribution + '-updates ' + archive_areas + '\n'
+			'deb ' + parent_mirror_bootstrap + ' ' + distribution + '-backports' + archive_areas + '\n')
+		f.close()
+
+		# config/archives/debian.list.source
+		f = open('config/archives/debian.list.source', 'w')
+		f.write('deb ' + parent_mirror_source + ' ' + distribution + ' ' + archive_areas + '\n'
+			'deb ' + parent_mirror_source_security + ' ' + distribution + '/updates ' + archive_areas + '\n'
+			'deb ' + parent_mirror_bootstrap + ' ' + distribution + '-updates ' + archive_areas + '\n'
+			'deb ' + parent_mirror_bootstrap + ' ' + distribution + '-backports' + archive_areas + '\n')
+		f.close()
+
+		# config/archives/project.list.bootstrap
+		f = open('config/archives/' + project + '.list.bootstrap', 'w')
+		f.write('deb ' + mirror_bootstrap + ' ' + distribution + ' ' + archive_areas + '\n'
+			'deb ' + mirror_bootstrap_security + ' ' + distribution + '-security ' + archive_areas + '\n'
+			'deb ' + mirror_bootstrap + ' ' + distribution + '-updates ' + archive_areas + '\n'
+			'deb ' + mirror_bootstrap + ' ' + distribution + '-backports ' + archive_areas + '\n')
+		f.close()
+
+		# config/archives/project.list.chroot
+		f = open('config/archives/' + project + '.list.chroot', 'w')
+		f.write('deb ' + mirror_chroot + ' ' + distribution + ' ' + archive_areas + '\n'
+			'deb ' + mirror_chroot_security + ' ' + distribution + '-security ' + archive_areas + '\n'
+			'deb ' + mirror_chroot + ' ' + distribution + '-updates ' + archive_areas + '\n'
+			'deb ' + mirror_chroot + ' ' + distribution + '-backports ' + archive_areas + '\n')
+		f.close()
+
+		# config/archives/project.list.installer
+		f = open('config/archives/' + project + '.list.installer', 'w')
+		f.write('deb ' + mirror_installer + ' ' + distribution + ' ' + archive_areas + '\n'
+			'deb ' + mirror_installer_security + ' ' + distribution + '-security ' + archive_areas + '\n'
+			'deb ' + mirror_installer + ' ' + distribution + '-updates ' + archive_areas + '\n'
+			'deb ' + mirror_installer + ' ' + distribution + '-backports ' + archive_areas + '\n')
+		f.close()
+
+		# config/archives/project.list.binary
+		f = open('config/archives/' + project + '.list.binary', 'w')
+		f.write('deb ' + mirror_binary + ' ' + distribution + ' ' + archive_areas + '\n'
+			'deb ' + mirror_binary_security + ' ' + distribution + '-security ' + archive_areas + '\n'
+			'deb ' + mirror_binary + ' ' + distribution + '-updates ' + archive_areas + '\n'
+			'deb ' + mirror_binary + ' ' + distribution + '-backports ' + archive_areas + '\n')
+		f.close()
+
+		# config/archives/project.list.source
+		f = open('config/archives/' + project + '.list.source', 'w')
+		f.write('deb ' + mirror_source + ' ' + distribution + ' ' + archive_areas + '\n'
+			'deb ' + mirror_source_security + ' ' + distribution + '-security ' + archive_areas + '\n'
+			'deb ' + mirror_source + ' ' + distribution + '-updates ' + archive_areas + '\n'
+			'deb ' + mirror_source + ' ' + distribution + '-backports ' + archive_areas + '\n')
+		f.close()
 
 	## Populating configuration directory
 
