@@ -79,18 +79,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--linux-packages \"PACKAGES\"]\n\
 \t    [--losetup losetup|losetup.orig]\n\
 \t    [--memtest memtest86+|memtest86|none]\n\
-\t    [-m|--parent-mirror-bootstrap URL]\n\
-\t    [--parent-mirror-chroot URL]\n\
-\t    [--parent-mirror-chroot-security URL]\n\
-\t    [--parent-mirror-binary URL]\n\
-\t    [--parent-mirror-binary-security URL]\n\
-\t    [--parent-mirror-debian-installer URL]\n\
-\t    [--mirror-bootstrap URL]\n\
-\t    [--mirror-chroot URL]\n\
-\t    [--mirror-chroot-security URL]\n\
-\t    [--mirror-binary URL]\n\
-\t    [--mirror-binary-security URL]\n\
-\t    [--mirror-debian-installer URL]\n\
 \t    [--mode debian|ubuntu]\n\
 \t    [--system live|normal]\n\
 \t    [--net-root-filesystem nfs|cfs]\n\
@@ -129,10 +117,7 @@ Local_arguments ()
 		cache-stages:,debconf-frontend:,debconf-priority:,dump,
 		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,system:,tasksel:,
 		templates:,clean,
-		parent-debian-installer-distribution:,parent-mirror-bootstrap:,parent-mirror-chroot:,parent-mirror-chroot-security:,parent-mirror-binary:,
-		parent-mirror-binary-security:,parent-mirror-debian-installer:,
-		mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-binary:,
-		mirror-binary-security:,mirror-debian-installer:,
+		parent-debian-installer-distribution:,
 		chroot-filesystem:,
 		gzip-options:,image-name:,interactive:,keyring-packages:,linux-flavours:,linux-packages:,
 		security:,updates:,backports:,binary-filesystem:,binary-images:,
@@ -339,67 +324,6 @@ Local_arguments ()
 
 			--templates)
 				LB_TEMPLATES="${2}"
-				shift 2
-				;;
-
-			# config/bootstrap
-			-m|--parent-mirror-bootstrap)
-				LB_PARENT_MIRROR_BOOTSTRAP="${2}"
-				shift 2
-				;;
-
-			--parent-mirror-chroot)
-				LB_PARENT_MIRROR_CHROOT="${2}"
-				shift 2
-				;;
-
-			--parent-mirror-chroot-security)
-				LB_PARENT_MIRROR_CHROOT_SECURITY="${2}"
-				shift 2
-				;;
-
-			--parent-mirror-binary)
-				LB_PARENT_MIRROR_BINARY="${2}"
-				shift 2
-				;;
-
-			--parent-mirror-binary-security)
-				LB_PARENT_MIRROR_BINARY_SECURITY="${2}"
-				shift 2
-				;;
-
-			--parent-mirror-debian-installer)
-				LB_PARENT_MIRROR_DEBIAN_INSTALLER="${2}"
-				shift 2
-				;;
-
-			--mirror-bootstrap)
-				LB_MIRROR_BOOTSTRAP="${2}"
-				shift 2
-				;;
-
-			--mirror-chroot)
-				LB_MIRROR_CHROOT="${2}"
-				shift 2
-				;;
-
-			--mirror-chroot-security)
-				LB_MIRROR_CHROOT_SECURITY="${2}"
-				shift 2
-				;;
-
-			--mirror-binary)
-				LB_MIRROR_BINARY="${2}"
-				shift 2
-				;;
-
-			--mirror-binary-security)
-				LB_MIRROR_BINARY_SECURITY="${2}"
-				shift 2
-				;;
-
-			--mirror-debian-installer)
-				LB_MIRROR_DEBIAN_INSTALLER="${2}"
 				shift 2
 				;;
 
@@ -1007,54 +931,6 @@ LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION}"
 # \$LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION: select parent distribution for debian-installer to use
 # (Default: ${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION})
 LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"
-
-# \$LB_PARENT_MIRROR_BOOTSTRAP: set parent mirror to bootstrap from
-# (Default: ${LB_PARENT_MIRROR_BOOTSTRAP})
-LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP}"
-
-# \$LB_PARENT_MIRROR_CHROOT: set parent mirror to fetch packages from
-# (Default: ${LB_PARENT_MIRROR_CHROOT})
-LB_PARENT_MIRROR_CHROOT="${LB_PARENT_MIRROR_CHROOT}"
-
-# \$LB_PARENT_MIRROR_CHROOT_SECURITY: set security parent mirror to fetch packages from
-# (Default: ${LB_PARENT_MIRROR_CHROOT_SECURITY})
-LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY}"
-
-# \$LB_PARENT_MIRROR_BINARY: set parent mirror which ends up in the image
-# (Default: ${LB_PARENT_MIRROR_BINARY})
-LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY}"
-
-# \$LB_PARENT_MIRROR_BINARY_SECURITY: set security parent mirror which ends up in the image
-# (Default: ${LB_PARENT_MIRROR_BINARY_SECURITY})
-LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY}"
-
-# \$LB_PARENT_MIRROR_DEBIAN_INSTALLER: set debian-installer parent mirror
-# (Default: ${LB_PARENT_MIRROR_BOOTSTRAP})
-LB_PARENT_MIRROR_DEBIAN_INSTALLER="${LB_PARENT_MIRROR_DEBIAN_INSTALLER}"
-
-# \$LB_MIRROR_BOOTSTRAP: set mirror to bootstrap from
-# (Default: ${LB_MIRROR_BOOTSTRAP})
-LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP}"
-
-# \$LB_MIRROR_CHROOT: set mirror to fetch packages from
-# (Default: ${LB_MIRROR_CHROOT})
-LB_MIRROR_CHROOT="${LB_MIRROR_CHROOT}"
-
-# \$LB_MIRROR_CHROOT_SECURITY: set security mirror to fetch packages from
-# (Default: ${LB_MIRROR_CHROOT_SECURITY})
-LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY}"
-
-# \$LB_MIRROR_BINARY: set mirror which ends up in the image
-# (Default: ${LB_MIRROR_BINARY})
-LB_MIRROR_BINARY="${LB_MIRROR_BINARY}"
-
-# \$LB_MIRROR_BINARY_SECURITY: set security mirror which ends up in the image
-# (Default: ${LB_MIRROR_BINARY_SECURITY})
-LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY}"
-
-# \$LB_MIRROR_DEBIAN_INSTALLER: set debian-installer mirror
-# (Default: ${LB_MIRROR_BOOTSTRAP})
-LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER}"
 
 # \$LB_BOOTSTRAP_QEMU_ARCHITECTURES: architectures to use foreign bootstrap
 # (Default: ${LB_BOOTSTRAP_QEMU_ARCHITECTURES})

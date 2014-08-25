@@ -10,74 +10,67 @@
 
 New_configuration ()
 {
-	## Runtime
-
-	# Image: Architecture
-	if [ -x "/usr/bin/dpkg" ]
-	then
-		CURRENT_IMAGE_ARCHITECTURE="$(dpkg --print-architecture)"
-	else
-		case "$(uname -m)" in
-			x86_64)
-				CURRENT_IMAGE_ARCHITECTURE="amd64"
-				;;
-
-			i?86)
-				CURRENT_IMAGE_ARCHITECTURE="i386"
-				;;
-
-			*)
-				Echo_warning "Unable to determine current architecture, using ${CURRENT_IMAGE_ARCHITECTURE}"
-				;;
-		esac
-	fi
-
-
-	## Configuration
-
-	# Configuration-Version
-	LIVE_CONFIGURATION_VERSION="${LIVE_CONFIGURATION_VERSION:-$(Get_configuration config/build Configuration-Version)}"
-	LIVE_CONFIGURATION_VERSION="${LIVE_CONFIGURATION_VERSION:-${LIVE_BUILD_VERSION}}"
+	# Version
+	LIVE_CONFIGURATION_VERSION="${LIVE_CONFIGURATION_VERSION:-$(Get_configuration config/build.conf Version)}"
 	export LIVE_CONFIGURATION_VERSION
 
-	# Image: Name
-	LIVE_IMAGE_NAME="${LIVE_IMAGE_NAME:-$(Get_configuration config/build Name)}"
-	LIVE_IMAGE_NAME="${LIVE_IMAGE_NAME:-live-image}"
+	# Name
+	LIVE_IMAGE_NAME="${LIVE_IMAGE_NAME:-$(Get_configuration config/build.conf Name)}"
+	LIVE_IMAGE_NAME="${LIVE_IMAGE_NAME:-live-image}" # FIXME
 	export LIVE_IMAGE_NAME
 
-	# Image: Architecture (FIXME: Support and default to 'any')
-	LIVE_IMAGE_ARCHITECTURE="${LIVE_IMAGE_ARCHITECTURE:-$(Get_configuration config/build Architecture)}"
-	LIVE_IMAGE_ARCHITECTURE="${LIVE_IMAGE_ARCHITECTURE:-${CURRENT_IMAGE_ARCHITECTURE}}"
+	# Architecture (FIXME: Support and default to 'any')
+	LIVE_IMAGE_ARCHITECTURE="${LIVE_IMAGE_ARCHITECTURE:-$(Get_configuration config/build.conf Architecture)}"
 	export LIVE_IMAGE_ARCHITECTURE
 
-	# Image: Archive Areas
-	LIVE_IMAGE_ARCHIVE_AREAS="${LIVE_IMAGE_ARCHIVE_AREAS:-$(Get_configuration config/build Archive-Areas)}"
-
-	case "${LB_MODE}" in
-		progress-linux)
-			LIVE_IMAGE_ARCHIVE_AREAS="${LIVE_IMAGE_ARCHIVE_AREAS:-main contrib non-free}"
-			;;
-
-		ubuntu)
-			LIVE_IMAGE_ARCHIVE_AREAS="${LIVE_IMAGE_ARCHIVE_AREAS:-main restricted}"
-			;;
-
-		*)
-			LIVE_IMAGE_ARCHIVE_AREAS="${LIVE_IMAGE_ARCHIVE_AREAS:-main}"
-			;;
-	esac
-
+	# Archive Areas
+	LIVE_IMAGE_ARCHIVE_AREAS="${LIVE_IMAGE_ARCHIVE_AREAS:-$(Get_configuration config/build.conf Archive-Areas)}"
 	export LIVE_IMAGE_ARCHIVE_AREAS
 
-	# Image: Archive Areas
-	LIVE_IMAGE_PARENT_ARCHIVE_AREAS="${LIVE_IMAGE_PARENT_ARCHIVE_AREAS:-$(Get_configuration config/build Parent-Archive-Areas)}"
-	LIVE_IMAGE_PARENT_ARCHIVE_AREAS="${LIVE_IMAGE_PARENT_ARCHIVE_AREAS:-${LIVE_IMAGE_ARCHIVE_AREAS}}"
+	# Archive Areas
+	LIVE_IMAGE_PARENT_ARCHIVE_AREAS="${LIVE_IMAGE_PARENT_ARCHIVE_AREAS:-$(Get_configuration config/build.conf Parent-Archive-Areas)}"
 	export LIVE_IMAGE_PARENT_ARCHIVE_AREAS
 
-	# Image: Type
-	LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE:-$(Get_configuration config/build Type)}"
-	LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE:-iso-hybrid}"
+	# Type
+	LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE:-$(Get_configuration config/build.conf Type)}"
 	export LIVE_IMAGE_TYPE
+
+	# Mirrors
+	LB_MIRROR_BOOTSTRAP="$(Get_configuration config/build.conf Mirror-Bootstrap)"
+	export LB_MIRROR_BOOTSTRAP
+
+	LB_PARENT_MIRROR_BOOTSTRAP="$(Get_configuration config/build.conf Parent-Mirror-Bootstrap)"
+	export LB_PARENT_MIRROR_BOOTSTRAP
+
+	LB_MIRROR_CHROOT="$(Get_configuration config/build.conf Mirror-Chroot)"
+	export LB_MIRROR_CHROOT
+
+	LB_PARENT_MIRROR_CHROOT="$(Get_configuration config/build.conf Parent-Mirror-Chroot)"
+	export LB_MIRROR_CHROOT
+
+	LB_MIRROR_CHROOT_SECURITY="$(Get_configuration config/build.conf Mirror-Chroot-Security)"
+	export LB_MIRROR_CHROOT_SECURITY
+
+	LB_PARENT_MIRROR_CHROOT_SECURITY="$(Get_configuration config/build.conf Parent-Mirror-Chroot-Security)"
+	export LB_PARENT_MIRROR_CHROOT_SECURITY
+
+	LB_MIRROR_BINARY="$(Get_configuration config/build.conf Mirror-Binary)"
+	export LB_MIRROR_BINARY
+
+	LB_PARENT_MIRROR_BINARY="$(Get_configuration config/build.conf Parent-Mirror-Binary)"
+	export LB_PARENT_MIRROR_BINARY
+
+	LB_MIRROR_BINARY_SECURITY="$(Get_configuration config/build.conf Mirror-Binary-Security)"
+	export LB_MIRROR_BINARY_SECURITY
+
+	LB_PARENT_MIRROR_BINARY_SECURITY="$(Get_configuration config/build.conf Parent-Mirror-Binary-Security)"
+	export LB_PARENT_MIRROR_BINARY_SECURITY
+
+	LB_MIRROR_DEBIAN_INSTALLER="$(Get_configuration config/build.conf Mirror-Installer)"
+	export LB_MIRROR_DEBIAN_INSTALLER
+
+	LB_PARENT_MIRROR_DEBIAN_INSTALLER="$(Get_configuration config/build.conf Parent-Mirror-Installer)"
+	export LB_PARENT_MIRROR_DEBIAN_INSTALLER
 }
 
 Set_defaults ()
@@ -369,129 +362,6 @@ Set_defaults ()
 	_VERBOSE="${_VERBOSE:-false}"
 
 	## config/bootstrap
-
-	# Setting mirror to fetch packages from
-	case "${LB_MODE}" in
-		debian)
-			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://ftp.debian.org/debian/}"
-			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-${LB_MIRROR_BOOTSTRAP}}"
-			;;
-
-		progress-linux)
-			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-http://ftp.debian.org/debian/}"
-			LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://cdn.archive.progress-linux.org/packages/}"
-			;;
-
-		ubuntu)
-			case "${LIVE_IMAGE_ARCHITECTURE}" in
-				amd64|i386)
-					LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://archive.ubuntu.com/ubuntu/}"
-					;;
-
-				*)
-					LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://ports.ubuntu.com/ubuntu-ports/}"
-					;;
-			esac
-
-			LB_PARENT_MIRROR_BOOTSTRAP="${LB_PARENT_MIRROR_BOOTSTRAP:-${LB_MIRROR_BOOTSTRAP}}"
-			;;
-	esac
-
-	LB_PARENT_MIRROR_CHROOT="${LB_PARENT_MIRROR_CHROOT:-${LB_PARENT_MIRROR_BOOTSTRAP}}"
-	LB_MIRROR_CHROOT="${LB_MIRROR_CHROOT:-${LB_MIRROR_BOOTSTRAP}}"
-
-	# Setting security mirror to fetch packages from
-	case "${LB_MODE}" in
-		debian)
-			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-http://security.debian.org/}"
-			LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-${LB_MIRROR_CHROOT_SECURITY}}"
-			;;
-
-		progress-linux)
-			LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-http://security.debian.org/}"
-			LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-${LB_MIRROR_CHROOT}}"
-			;;
-
-		ubuntu)
-			case "${LIVE_IMAGE_ARCHITECTURE}" in
-				amd64|i386)
-					LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-http://security.ubuntu.com/ubuntu/}"
-					;;
-
-				*)
-					LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-http://ports.ubuntu.com/ubuntu-ports/}"
-					;;
-			esac
-
-			LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-${LB_MIRROR_CHROOT_SECURITY}}"
-			;;
-	esac
-
-	# Setting mirror which ends up in the image
-	case "${LB_MODE}" in
-		debian)
-			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://http.debian.net/debian/}"
-			LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-${LB_MIRROR_BINARY}}"
-			;;
-
-		progress-linux)
-			LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-http://ftp.debian.org/debian/}"
-			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-${LB_MIRROR_CHROOT}}"
-			;;
-
-		ubuntu)
-			case "${LIVE_IMAGE_ARCHITECTURE}" in
-				amd64|i386)
-					LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://archive.ubuntu.com/ubuntu/}"
-				;;
-
-				*)
-					LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://ports.ubuntu.com/ubuntu-ports/}"
-					;;
-			esac
-
-			LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-${LB_MIRROR_BINARY}}"
-			;;
-	esac
-
-	# Setting security mirror which ends up in the image
-	case "${LB_MODE}" in
-		debian)
-			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-http://security.debian.org/}"
-			LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-${LB_MIRROR_BINARY_SECURITY}}"
-			;;
-
-		progress-linux)
-			LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-http://security.debian.org/}"
-			LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-${LB_MIRROR_CHROOT}}"
-			;;
-
-		ubuntu)
-			case "${LIVE_IMAGE_ARCHITECTURE}" in
-				amd64|i386)
-					LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-http://security.ubuntu.com/ubuntu/}"
-					;;
-
-				*)
-					LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-http://ports.ubuntu.com/ubuntu-ports/}"
-					;;
-			esac
-
-			LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-${LB_MIRROR_BINARY_SECURITY}}"
-			;;
-	esac
-
-	case "${LB_MODE}" in
-		progress-linux)
-			LB_PARENT_MIRROR_DEBIAN_INSTALLER="${LB_PARENT_MIRROR_DEBIAN_INSTALLER:-${LB_MIRROR_CHROOT}}"
-			LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER:-${LB_MIRROR_CHROOT}}"
-			;;
-
-		*)
-			LB_MIRROR_DEBIAN_INSTALLER="${LB_MIRROR_DEBIAN_INSTALLER:-${LB_MIRROR_CHROOT}}"
-			LB_PARENT_MIRROR_DEBIAN_INSTALLER="${LB_PARENT_MIRROR_DEBIAN_INSTALLER:-${LB_PARENT_MIRROR_CHROOT}}"
-			;;
-	esac
 
 	## config/chroot
 
