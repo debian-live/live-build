@@ -119,6 +119,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--use-fakeroot true|false]\n\
 \t    [--archive-areas ARCHIVE_AREA|\"ARCHIVE_AREAS\"]\n\
 \t    [--security true|false]\n\
+\t    [--lts true|false]\n\
 \t    [--source true|false]\n\
 \t    [-s|--source-images iso|net|tar|usb-hdd]\n\
 \t    [--symlinks true|false]\n\
@@ -147,7 +148,7 @@ Local_arguments ()
 		distribution:,mirror-bootstrap:,mirror-chroot:,mirror-chroot-security:,mirror-chroot-volatile:,mirror-chroot-backports:,mirror-binary:,
 		mirror-binary-security:,mirror-binary-volatile:,mirror-binary-backports:,mirror-debian-installer:,archive-areas:,chroot-filesystem:,exposed-root:,virtual-root-size:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,language:,linux-flavours:,linux-packages:,
-		packages:,packages-lists:,tasks:,security:,volatile:,backports:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,
+		packages:,packages-lists:,tasks:,security:,lts:,volatile:,backports:,symlinks:,sysvinit:,binary-filesystem:,binary-images:,
 		binary-indices:,bootappend-install:,bootappend-live:,bootloader:,checksums:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
 		encryption:,grub-splash:,hostname:,isohybrid-options:,iso-application:,iso-preparer:,iso-publisher:,
@@ -514,6 +515,11 @@ Local_arguments ()
 
 			--security)
 				LB_SECURITY="${2}"
+				shift 2
+				;;
+
+			--lts)
+				LB_LTS="${2}"
 				shift 2
 				;;
 
@@ -1118,6 +1124,10 @@ LB_TASKS="${LB_TASKS}"
 # \$LB_SECURITY: enable security updates
 # (Default: ${LB_SECURITY})
 LB_SECURITY="${LB_SECURITY}"
+
+# \$LB_LTS: enable lts updates
+# (Default: ${LB_LTS})
+LB_LTS="${LB_LTS}"
 
 # \$LB_VOLATILE: enable volatile updates
 # (Default: ${LB_VOLATILE})

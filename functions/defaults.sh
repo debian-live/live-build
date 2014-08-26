@@ -800,6 +800,16 @@ Set_defaults ()
 
 	LB_SECURITY="${LB_SECURITY:-true}"
 
+	case "${LB_DISTRIBUTION}" in
+		squeeze)
+			LB_LTS="${LB_LTS:-true}"
+			;;
+
+		*)
+			LB_LTS="${LB_LTS:-false}"
+			;;
+	esac
+
 	# Setting volatile updates option
 	if [ "${LB_MIRROR_CHROOT_VOLATILE}" = "none" ] || [ "${LB_MIRROR_BINARY_VOLATILE}" = "none" ]
 	then

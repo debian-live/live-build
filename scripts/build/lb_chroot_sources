@@ -84,6 +84,16 @@ EOF
 			esac
 		fi
 
+		if [ "${LB_LTS}" = "true" ]
+		then
+			echo "deb ${LB_MIRROR_CHROOT} ${LB_DISTRIBUTION}-lts ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+
+			if [ "${LB_SOURCE}" = "true" ]
+			then
+				echo "deb-src ${LB_MIRROR_CHROOT} ${LB_DISTRIBUTION}-lts ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+			fi
+		fi
+
 		if [ "${LB_VOLATILE}" = "true" ]
 		then
 			case "${LB_MODE}" in
@@ -536,6 +546,16 @@ EOF
 					fi
 					;;
 			esac
+		fi
+
+		if [ "${LB_LTS}" = "true" ]
+		then
+			echo "deb ${LB_MIRROR_BINARY} ${LB_DISTRIBUTION}-lts ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+
+			if [ "${LB_SOURCE}" = "true" ]
+			then
+				echo "deb-src ${LB_MIRROR_BINARY} ${LB_DISTRIBUTION}-lts ${LB_ARCHIVE_AREAS}" >> chroot/etc/apt/sources.list
+			fi
 		fi
 
 		if [ "${LB_VOLATILE}" = "true" ]
