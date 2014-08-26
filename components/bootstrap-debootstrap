@@ -12,6 +12,7 @@ import argparse
 import configparser
 import glob
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -22,7 +23,6 @@ import sys
 #   * lockfile handling
 #   * use gettext for i18n
 #   * debootstrap-options from config/options/debootstrap
-#   * take mirrors from config/archives/mirror.{bootstrap,chroot}
 
 def main():
 	## Parsing Arguments
@@ -48,21 +48,23 @@ def main():
 		sys.exit(1)
 
 	config = configparser.ConfigParser()
-
 	config.read('config/build.conf')
 
-	try:
-		architecture     = config.get('build', 'Architecture')
-		archive_areas    = config.get('build', 'Parent-Archive-Areas')
-		distribution     = config.get('build', 'Parent-Distribution')
-		mirror_bootstrap = config.get('build', 'Parent-Mirror-Bootstrap')
-	except:
-		archive_areas    = config.get('build', 'Archive-Areas')
-		distribution     = config.get('build', 'Distribution')
-		mirror_bootstrap = config.get('build', 'Mirror-Bootstrap')
+	architecture = config.get('build', 'architecture')
+	distribution = config.get('build', 'parent-distribution')
 
 	# --verbose
 	verbose = args.verbose
+
+	# mirror-bootstrap
+	f = open('config/build.conf', 'r')
+
+	for line in f:
+		if re.match('^deb ', line):
+			mirror_bootstrap = line
+			break
+
+	f.close()
 
 	# --debootstrap-options
 	debootstrap_options_late = distribution + ' chroot ' + mirror_bootstrap
