@@ -118,6 +118,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--archive-areas ARCHIVE_AREA|\"ARCHIVE_AREAS\"]\n\
 \t    [--parent-archive-areas ARCHIVE_AREA|\"ARCHIVE_AREAS\"]\n\
 \t    [--security true|false]\n\
+\t    [--lts true|false]\n\
 \t    [--source true|false]\n\
 \t    [-s|--source-images iso|netboot|tar|hdd]\n\
 \t    [--firmware-binary true|false]\n\
@@ -150,7 +151,7 @@ Local_arguments ()
 		mirror-binary-security:,mirror-binary-updates:,mirror-binary-backports:,mirror-debian-installer:,
 		archives:,archive-areas:,parent-archive-areas:,chroot-filesystem:,exposed-root:,
 		gzip-options:,hooks:,interactive:,keyring-packages:,linux-flavours:,linux-packages:,
-		security:,updates:,backports:,binary-filesystem:,binary-images:,
+		security:,lts:,updates:,backports:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootappend-live-failsafe:,bootloader:,checksums:,compression:,config:,zsync:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
 		grub-splash:,isohybrid-options:,hdd-label:,hdd-size:,iso-application:,iso-preparer:,iso-publisher:,
@@ -541,6 +542,11 @@ Local_arguments ()
 
 			--security)
 				LB_SECURITY="${2}"
+				shift 2
+				;;
+
+			--lts)
+				LB_LTS="${2}"
 				shift 2
 				;;
 
@@ -1279,6 +1285,10 @@ LB_LINUX_PACKAGES="${LB_LINUX_PACKAGES}"
 # \$LB_SECURITY: enable security updates
 # (Default: ${LB_SECURITY})
 LB_SECURITY="${LB_SECURITY}"
+
+# \$LB_LTS: enable lts updates
+# (Default: ${LB_LTS})
+LB_LTS="${LB_LTS}"
 
 # \$LB_UPDATES: enable updates updates
 # (Default: ${LB_UPDATES})

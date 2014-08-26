@@ -142,6 +142,16 @@ EOF
 			esac
 		fi
 
+		if [ "${LB_LTS}" = "true" ]
+		then
+			echo "deb ${LB_PARENT_MIRROR_CHROOT} ${LB_PARENT_DISTRIBUTION}-lts ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/${_PARENT_FILE}
+
+			if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
+			then
+				echo "deb-src ${LB_PARENT_MIRROR_CHROOT} ${LB_PARENT_DISTRIBUTION}-lts ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/${_PARENT_FILE}
+			fi
+		fi
+
 		if [ "${LB_UPDATES}" = "true" ]
 		then
 			echo "deb ${LB_PARENT_MIRROR_CHROOT_UPDATES} ${LB_PARENT_DISTRIBUTION}-updates ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/${_PARENT_FILE}
@@ -704,6 +714,16 @@ EOF
 					fi
 					;;
 			esac
+		fi
+
+		if [ "${LB_LTS}" = "true" ]
+		then
+			echo "deb ${LB_PARENT_MIRROR_BINARY} ${LB_PARENT_DISTRIBUTION}-lts ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/${_PARENT_FILE}
+
+			if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
+			then
+				echo "deb-src ${LB_PARENT_MIRROR_BINARY} ${LB_PARENT_DISTRIBUTION}-lts ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/${_PARENT_FILE}
+			fi
 		fi
 
 		if [ "${LB_UPDATES}" = "true" ]

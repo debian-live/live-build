@@ -829,6 +829,17 @@ Set_defaults ()
 			;;
 	esac
 
+	# Setting lts updates option
+	case "${LB_PARENT_DISTRIBUTION}" in
+		squeeze)
+			LB_LTS="${LB_LTS:-true}"
+			;;
+
+		*)
+			LB_LTS="${LB_LTS:-false}"
+			;;
+	esac
+
 	# Setting updates updates option
 	case "${LB_PARENT_DISTRIBUTION}" in
 		jessie|sid)
