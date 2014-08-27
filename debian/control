@@ -14,7 +14,6 @@ Architecture: all
 Depends:
  ${misc:Depends},
  debootstrap | cdebootstrap | cdebootstrap-static,
- python3,
 Recommends:
  cpio,
  live-boot-doc,

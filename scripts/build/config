@@ -883,8 +883,8 @@ Check_defaults
 
 if [ ! -e config ]
 then
-	Echo_error "fatal: Not a live-build directory: use 'lb init' to initialize it"
-	exit 1
+	Echo_message "Creating config tree for a ${LB_MODE}/${LB_DISTRIBUTION}/${LIVE_IMAGE_ARCHITECTURE} system"
+	mkdir config
 else
 	Echo_message "Updating config tree for a ${LB_MODE}/${LB_DISTRIBUTION}/${LIVE_IMAGE_ARCHITECTURE} system"
 fi
@@ -1337,6 +1337,19 @@ then
 	rmdir --ignore-fail-on-non-empty local/*/ > /dev/null 2>&1 || true
 	rmdir --ignore-fail-on-non-empty local > /dev/null 2>&1 || true
 fi
+
+mkdir -p config/hooks
+mkdir -p config/includes config/includes.bootstrap config/includes.chroot config/includes.binary config/includes.source
+
+Echo_message "Symlinking hooks..."
+
+for _HOOK in "${LIVE_BUILD}"/share/hooks/*.hook* /usr/share/live/build/hooks/*.hook*
+do
+	if [ -e "${_HOOK}" ] && [ ! -e "config/hooks/$(basename ${_HOOK})" ]
+	then
+		ln -s "${_HOOK}" "config/hooks/$(basename ${_HOOK})"
+	fi
+done
 
 cat > config/build << EOF
 [Image]
