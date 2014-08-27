@@ -1,3 +1,21 @@
+live-build (4.0.0-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Correcting wrong target for /etc/mtab symlink in create-mtab-symlink
+    hook, thanks to Ben Armstrong <synrg@sanctuary.nslug.ns.ca>.
+  * Setting default distribution to jessie.
+
+  [ Ben Armstrong ]
+  * Exclude lib and non-main sections as tasksel does (Closes: #758218).
+
+  [ Daniel Baumann ]
+  * Moving partial python rewrite to separate branch, let's do it in the
+    jessie+1 cycle rather than go with the current mixed code.
+  * Restoring old manpages since we're back to the non-python
+    implementation (Closes: #745134).
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 28 Aug 2014 00:59:45 +0200
+
 live-build (4.0~alpha39-1) unstable; urgency=low
 
   [ Daniel Baumann ]
