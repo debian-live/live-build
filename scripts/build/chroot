@@ -67,8 +67,8 @@ do
 	fi
 done
 
-lb chroot-includes ${@}
-lb chroot-hooks ${@}
+lb chroot_includes ${@}
+lb chroot_hooks ${@}
 lb chroot_hacks ${@}
 lb chroot_interactive ${@}
 

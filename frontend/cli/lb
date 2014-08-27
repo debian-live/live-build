@@ -67,10 +67,6 @@ case "${1}" in
 		then
 			# User has live-build copied locally in the system
 			SCRIPT="${LIVE_BUILD}/scripts/build/${COMMAND}"
-		elif [ -x "${LIVE_BUILD}/components/${COMMAND}" ]
-		then
-			# User has live-build copied locally in the system
-			SCRIPT="${LIVE_BUILD}/components/${COMMAND}"
 		elif [ -x "local/live-build/scripts/build/${COMMAND}" ]
 		then
 			# User has live-build copied locally in the config

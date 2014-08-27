@@ -1,0 +1,87 @@
+#!/bin/sh
+
+## live-build(7) - System Build Scripts
+## Copyright (C) 2006-2014 Daniel Baumann <mail@daniel-baumann.ch>
+##
+## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+## This is free software, and you are welcome to redistribute it
+## under certain conditions; see COPYING for details.
+
+
+set -e
+
+# Including common functions
+[ -e "${LIVE_BUILD}/scripts/build.sh" ] && . "${LIVE_BUILD}/scripts/build.sh" || . /usr/lib/live/build.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'schedule live packages for installation')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+# Requiring stage file
+Require_stagefile .build/config .build/bootstrap
+
+# Checking stage file
+Check_stagefile .build/chroot_live-packages
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+# Queue installation of live-boot
+if [ -n "${LB_INITRAMFS}" ] && [ "${LB_INITRAMFS}" != "none" ]
+then
+	_PACKAGES="${LB_INITRAMFS}"
+fi
+
+# Queue installation of live-config
+if [ -n "${LB_INITSYSTEM}" ] && [ "${LB_INITSYSTEM}" != "none" ]
+then
+	_PACKAGES="${_PACKAGES} live-config live-config-${LB_INITSYSTEM}"
+fi
+
+# Do initsystem specific hacks
+case "${LB_INITSYSTEM}" in
+	systemd)
+		_PACKAGES="${_PACKAGES} systemd-sysv"
+
+		if [ -e chroot/var/lib/dpkg/info/sysvinit.list ]
+		then
+			Chroot chroot "dpkg --force-remove-essential --purge sysvinit"
+		fi
+		;;
+
+	sysvinit)
+		_PACKAGES="${_PACKAGES} sysvinit"
+
+		if [ -e chroot/var/lib/dpkg/info/systemd-sysv.list ]
+		then
+			Chroot chroot "dpkg --force-remove-essential --purge systemd systemd-sysv"
+		fi
+		;;
+esac
+
+# Install live packages
+if [ -n "${_PACKAGES}" ]
+then
+	case "${LB_APT}" in
+		apt|apt-get)
+			Chroot chroot "apt-get ${APT_OPTIONS} install ${_PACKAGES}"
+			;;
+
+		aptitude)
+			Chroot chroot "aptitude ${APTITUDE_OPTIONS} install ${_PACKAGES}"
+			;;
+	esac
+
+	# Creating stage file
+	Create_stagefile .build/chroot_live-packages
+fi

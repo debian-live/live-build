@@ -17,7 +17,6 @@ set -e
 if [ -x auto/config ] && [ ! -e .build/config ]
 then
 	Echo_message "Automatically populating config tree."
-	lb init
 	lb config
 fi
 

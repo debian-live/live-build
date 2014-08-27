@@ -7,5 +7,5 @@ set -e
 if [ ! -L /etc/mtab ]
 then
 	rm -f /etc/mtab
-	ln -s /proc/mtab /etc/mtab
+	ln -s /proc/mounts /etc/mtab
 fi

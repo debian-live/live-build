@@ -49,7 +49,6 @@ install:
 
 	mkdir -p $(DESTDIR)/usr/lib/live
 	cp -a scripts/* $(DESTDIR)/usr/lib/live
-	cp -a components/* $(DESTDIR)/usr/lib/live/build
 
 	# Installing documentation
 	mkdir -p $(DESTDIR)/usr/share/doc/live-build
