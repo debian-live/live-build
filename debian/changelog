@@ -1,3 +1,10 @@
+live-build (4.0.1-1) unstable; urgency=low
+
+  * Dropping leftover testroot call in bootstrap_cdebootstrap and
+    bootstrap_debootstrap.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 28 Aug 2014 23:25:52 +0200
+
 live-build (4.0.0-1) unstable; urgency=low
 
   [ Daniel Baumann ]
