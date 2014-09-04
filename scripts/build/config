@@ -1351,6 +1351,17 @@ do
 	fi
 done
 
+if [ ! -e config/package-lists/live.list.chroot ]
+then
+
+cat > config/package-lists/live.list.chroot << EOF
+live-boot
+live-config
+live-config-sysvinit
+EOF
+
+fi
+
 cat > config/build << EOF
 [Image]
 Architecture: ${LIVE_IMAGE_ARCHITECTURE}
