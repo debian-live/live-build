@@ -1357,8 +1357,17 @@ then
 cat > config/package-lists/live.list.chroot << EOF
 live-boot
 live-config
-live-config-sysvinit
 EOF
+
+case "${LB_PARENT_DISTRIBUTION}" in
+	wheezy)
+		echo "live-config-sysvinit" >> config/package-lists/live.list.chroot
+		;;
+
+	*)
+		echo "live-config-systemd" >> config/package-lists/live.list.chroot
+		;;
+esac
 
 fi
 
