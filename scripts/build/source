@@ -51,7 +51,6 @@ lb chroot_archives source install ${@}
 lb source_live ${@}
 lb source_debian ${@}
 lb source_disk ${@}
-lb source_includes ${@}
 lb source_hooks ${@}
 lb source_checksums ${@}
 
