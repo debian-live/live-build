@@ -1,0 +1,263 @@
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH LIVE\-BUILD 7 2014\-09\-12 4.0.2\-1 "Live システムプロジェクト"
+
+.SH 名前
+\fBlive\-build\fP \- Live システムツール集
+
+.SH 概要
+.\" FIXME
+.\" FIXME
+\fBlb \fP\fIコマンド\fP [\fB\-h|\-\-help\fP] [\fB\-u|\-\-usage\fP] [\fB\-v|\-\-version\fP]
+[\fB\-\-breakpoints\fP] [\fB\-\-conffile\fP] [\fB\-\-debug\fP] [\fB\-\-force\fP] [\fB\-\-quiet\fP]
+[\fB\-\-verbose\fP]
+
+.SH 説明
+.\" FIXME
+live\-build は Live システムのイメージをビルドするためのスクリプト集です。live\-build
+の背景となる考え方は、設定ディレクトリを使って Live イメージのビルドに関するあらゆる面を完全に自動化、独自化するツール集ということです。
+.PP
+\fIコマンド\fPは live\-build コマンドの名前です (以下参照)。
+.PP
+.\" FIXME
+live\-build 及び Live システムプロジェクトについてのさらなる情報は、それぞれの man ページや
+<\fIhttp://live\-systems.org/manual/\fP> のマニュアルにあります。
+
+.SH オプション
+.\" FIXME
+.SS "live\-build 共有オプション"
+以下のコマンドラインオプションは全 live\-build プログラムでサポートされています。
+.IP "\fB\-h, \-\-help\fP" 4
+ヘルプを表示して終了します。
+.IP "\fB\-u, \-\-usage\fP" 4
+使用方法を表示して終了します。
+.IP "\fB\-v, \-\-version\fP" 4
+バージョン情報を表示して終了します。
+.SS "live\-build 共通オプション"
+以下のコマンドラインオプションはほとんどの live\-build プログラムでサポートされています。各オプションの完全な説明については各プログラムの
+man ページを見てください。
+.IP \fB\-\-breakpoints\fP 4
+ブレークポイントをたどります。
+.IP \fB\-\-conffile\fP 4
+独自の設定ファイルを使います。
+.IP \fB\-\-debug\fP 4
+デバッグ情報を表示します。
+.IP \fB\-\-force\fP 4
+段階ファイルが存在する場合でも強制的にヘルパーを実行します。
+.IP \fB\-\-quiet\fP 4
+出力するメッセージを少なくします。
+.IP \fB\-\-verbose\fP 4
+.\" FIXME
+出力するメッセージを多くします。
+
+.SH "LIVE\-BUILD コマンド"
+.\" FIXME
+live\-build は高レベル (「porcelain」) コマンドと低レベル (「plumbing」) コマンドに分割されています。
+.PP
+.\" FIXME
+利用可能な全 live\-build コマンドの一覧です。詳しくはそれぞれの man ページを見てください。
+
+.SH "高レベルコマンド (PORCELAIN)"
+.\" FIXME
+高レベルコマンドは主要コマンドといくらかの副次的なユーザ向けユーティリティに分けられています。
+.SS 主要コマンド
+.IP \fBlb_config\fP(1) 4
+live\-build の設定ファイルを作成します
+.IP \fBlb_bootstrap\fP(1) 4
+第1の段階で基本的な debian システムのパッケージ収集を行います
+.IP \fBlb_chroot\fP(1) 4
+第2の段階で chroot の独自化を行います
+.IP \fBlb_binary\fP(1) 4
+第3の段階でバイナリイメージの生成を行います
+.IP \fBlb_source\fP(1) 4
+オプションの第4の段階でソースイメージの生成を行います
+.IP \fBlb_clean\fP(1) 4
+システムのビルド用ディレクトリを掃除します
+.SS 副次的なコマンド
+.IP \fBlb\fP(1) 4
+live\-build の包括的なラッパー
+.IP \fBlb_build\fP(1) 4
+全段階のラッパーです
+.IP \fBlb_local\fP(1) 4
+ローカルの live\-build を利用する支援コマンド
+.IP \fBlb_testroot\fP(1) 4
+.\" FIXME
+システムが root により構成されていることを確認します
+
+.SH "低レベルコマンド (PLUMBING)"
+.\" FIXME
+live\-build
+の実際の作業は低レベルコマンドにより実装されています。低レベルコマンドはエンドユーザが直接実行することは想定していません。高レベルの主要コマンドに操作させることにより、様々な低レベルコマンドを必ず正しい順で実行するようにしています。しかし、live\-build
+コマンドを自分のスクリプトで再利用したい場合はこの低レベルコマンドが対象となるかもしれません。
+.PP
+この低レベルコマンドへのインターフェイス (オプション群やセマンティクス)
+は高レベルの主要コマンドよりもはるかに安定していることが求められることに注意してください。それに対して高レベルの主要コマンドへのインターフェイスは、エンドユーザの使い勝手改善のために変更される対象となります。
+.SS パッケージ収集用のコマンド
+.IP \fBlb_bootstrap_cache\fP(1) 4
+パッケージ収集段階をキャッシュします
+.IP \fBlb_bootstrap_cdebootstrap\fP(1) 4
+cdebootstrap(1) により Debian システムのパッケージ収集を行います
+.IP \fBlb_bootstrap_debootstrap\fP(1) 4
+debootstrap(8) により Debian システムのパッケージ収集を行います
+.SS "chroot コマンド"
+.IP \fBlb_chroot_apt\fP(1) 4
+/etc/apt/apt.conf の管理
+.IP \fBlb_chroot_cache\fP(1) 4
+chroot 段階をキャッシュします
+.IP \fBlb_chroot_debianchroot\fP(1) 4
+/etc/debian_chroot の管理
+.IP \fBlb_chroot_devpts\fP(1) 4
+/dev/pts をマウントします。
+.IP \fBlb_chroot_dpkg\fP(1) 4
+/sbin/dpkg の管理
+.IP \fBlb_chroot_hacks\fP(1) 4
+hacks (応急的な操作を行うスクリプト) を chroot で実行します
+.IP \fBlb_chroot_hostname\fP(1) 4
+/bin/hostname の管理
+.IP \fBlb_chroot_hosts\fP(1) 4
+/etc/hosts の管理
+.IP \fBlb_chroot_install\-packages\fP(1) 4
+キューにあるパッケージを chroot にインストールします
+.IP \fBlb_chroot_interactive\fP(1) 4
+対話的にビルドします
+.IP \fBlb_chroot_linux\-image\fP(1) 4
+/etc/kernel\-img.conf の管理
+.IP \fBlb_chroot_hooks\fP(1) 4
+ローカルフックを chroot で実行します
+.IP \fBlb_chroot_local\-includes\fP(1) 4
+ローカルファイルを chroot にコピーします
+.IP \fBlb_chroot_packages\fP(1) 4
+chroot にインストールするパッケージをキューに追加します
+.IP \fBlb_chroot_local\-patches\fP(1) 4
+ローカルのパッチを chroot に適用させます
+.IP \fBlb_chroot_local\-preseed\fP(1) 4
+ローカルにある debconf の preseed 用ファイルを利用します
+.IP \fBlb_chroot_packagelists\fP(1) 4
+chroot にインストールするパッケージ一覧をキューに追加します
+.IP \fBlb_chroot_proc\fP(1) 4
+/proc をマウントします。
+.IP \fBlb_chroot_resolv\fP(1) 4
+/etc/resolv.conf の管理
+.IP \fBlb_chroot_selinuxfs\fP(1) 4
+/selinux をマウントします。
+.IP \fBlb_chroot_archives\fP(1) 4
+/etc/apt/sources.list の管理
+.IP \fBlb_chroot_sysfs\fP(1) 4
+/sys をマウントします。
+.IP \fBlb_chroot_sysv\-rc\fP(1) 4
+/usr/sbin/policy\-rc.d の管理
+.IP \fBlb_chroot_task\-lists\fP(1) 4
+タスク一覧を chroot にインストールします
+.SS バイナリコマンド
+.IP \fBlb_binary_chroot\fP(1) 4
+chroot を chroot にコピーします
+.IP \fBlb_binary_debian\-installer\fP(1) 4
+debian\-installer をバイナリにインストールします
+.IP \fBlb_binary_disk\fP(1) 4
+ディスク情報をバイナリにインストールします
+.IP \fBlb_binary_grub\fP(1) 4
+grub をバイナリにインストールします
+.IP \fBlb_binary_grub2\fP(1) 4
+grub2 をバイナリにインストールします
+.IP \fBlb_binary_includes\fP(1) 4
+ファイルをバイナリにコピーします
+.IP \fBlb_binary_iso\fP(1) 4
+ISOバイナリイメージをビルドします
+.IP \fBlb_binary_linux\-image\fP(1) 4
+linux\-image をバイナリにインストールします
+.IP \fBlb_binary_local\-hooks\fP(1) 4
+ローカルフックをバイナリで実行します
+.IP \fBlb_binary_local\-includes\fP(1) 4
+ファイルをバイナリにコピーします
+.IP \fBlb_binary_local\-packagelists\fP(1) 4
+ローカルパッケージ一覧をバイナリにインストールします
+.IP \fBlb_binary_manifest\fP(1) 4
+名簿ファイルを作成します
+.IP \fBlb_binary_checksums\fP(1) 4
+バイナリのチェックサム (md5、sha1、sha256 のどれか) を作成します
+.IP \fBlb_binary_memtest\fP(1) 4
+memtest をバイナリにインストールします
+.IP \fBlb_binary_net\fP(1) 4
+ネットワークブート用バイナリイメージをビルドします
+.IP \fBlb_binary_rootfs\fP(1) 4
+rootfs イメージをビルドします
+.IP \fBlb_binary_syslinux\fP(1) 4
+syslinux をバイナリにインストールします
+.IP \fBlb_binary_tar\fP(1) 4
+ハードディスクバイナリイメージをビルドします
+.IP \fBlb_binary_hdd\fP(1) 4
+バイナリhddイメージをビルドします
+.IP \fBlb_binary_win32\-loader\fP(1) 4
+win32\-loader をバイナリにインストールします
+.SS ソースコマンド
+.IP \fBlb_source_debian\fP(1) 4
+ソースをダウンロードします
+.IP \fBlb_source_debian\-live\fP(1) 4
+debian\-live の設定をソースにコピーします。
+.IP \fBlb_source_disk\fP(1) 4
+ディスク情報をソースにインストールします
+.IP \fBlb_source_iso\fP(1) 4
+ISOソースイメージをビルドします
+.IP \fBlb_source_checksums\fP(1) 4
+ソースのチェックサム (md5、sha1、sha256 のどれか) を作成します
+.IP \fBlb_source_net\fP(1) 4
+build source net image
+.IP \fBlb_source_tar\fP(1) 4
+ソースの tar アーカイブをビルドします
+.IP \fBlb_source_hdd\fP(1) 4
+.\" FIXME
+ソースhddイメージをビルドします
+
+.SH 設定ファイル
+.\" FIXME
+例えば lb_bootstrap_debootstrap は利用するオプションを読み取るのに config/bootstrap 及び
+config/bootstrap_debootstrap
+という名のファイルを使います。利用するファイルの名前やフォーマットの詳細については個々のコマンドの man
+ページを見てください。こういったファイルには一般的に、変数とそれに指定する値を1行に1件ずつ収録します。live\-build
+の一部のプログラムでは組にした値や、変数の指定にわずかに複雑な方法を採っているものがあります。
+.PP
+例えば lb_bootstrap_debootstrap は利用するオプションを読み取るのに config/bootstrap 及び
+config/bootstrap_debootstrap
+という名のファイルを使います。利用するファイルの名前やフォーマットの詳細については個々のコマンドの man
+ページを見てください。こういったファイルには一般的に、変数とそれに指定する値を1行に1件ずつ収録します。live\-build
+の一部のプログラムでは組にした値や、変数の指定にわずかに複雑な方法を採っているものがあります。
+.PP
+live\-build
+は実行中のシェルに存在する環境変数を尊重することに注意してください。変数が設定ファイルから読み取れる場合にはそれが環境変数より優先され、コマンドラインオプションで指定された場合にはそれが設定ファイルの値より優先されます。ある変数が見つからない、つまり値がセットされていない場合は
+live\-build が自動的にデフォルト値をセットします。
+.PP
+一部のまれな状況で、そういったファイルにアーキテクチャやディストリビューションにより異なるものを使いたいことがあるかもしれません。「config/段階.アーキテクチャ」または「config/段階_補助.アーキテクチャ」、それと「config/段階.ディストリビューション」または「config/段階_補助.ディストリビューション」(「アーキテクチャ」には「dpkg
+\-\-print\-architecture」の出力と同じもの、「ディストリビューション」には対象ディストリビューションのコード名と同じものが入ります)
+という名のファイルが存在する場合には他のそれよりも一般的な名前のファイルに優先してそのファイルが利用されます。
+.PP
+.\" FIXME
+設定ファイルは全て、live\-build
+プログラムにより作成されたシェルスクリプトです。それはつまり、通常のシェル構文に従う必要があるということです。また、設定ファイルにはコメントを残しておくこともできます。「#」で始まる行は無視されます。
+
+.SH ファイル
+.IP \fB/etc/live/build.conf\fP 4
+.IP \fB/etc/live/build/*\fP 4
+
+.SH 関連項目
+\fIlive\-boot\fP(7)
+.PP
+\fIlive\-config\fP(7)
+.PP
+このプログラムは live\-build の一部です。
+
+.SH ホームページ
+live\-build 及び Live
+システムプロジェクトについてのさらなる情報は、<\fIhttp://live\-systems.org/\fP> のホームページや
+<\fIhttp://live\-systems.org/manual/\fP> のマニュアルにあります。
+
+.SH バグ
+バグは <\fIhttp://bugs.debian.org/\fP> にあるバグ追跡システムに live\-build
+パッケージのバグ報告として提出するか、<\fIdebian\-live@lists.debian.org\fP> にある Live
+システムのメーリングリスト宛てにメールを書くことにより報告できます。
+
+.SH 作者
+live\-build は Daniel Baumann さん <\fImail@daniel\-baumann.ch\fP>
+により書かれました。

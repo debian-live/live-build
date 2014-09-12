@@ -1,4 +1,4 @@
-.TH LIVE\-BUILD 1 2014\-08\-28 4.0~alpha39-1 "Live Systems Project"
+.TH LIVE\-BUILD 1 2014\-09\-12 4.0.2-1 "Live Systems Project"
 
 .SH NAME
 \fBlb config\fR \- Create config directory
@@ -254,9 +254,9 @@ defines if apt should install recommended packages automatically. By default, th
 .IP "\fB\-\-apt\-secure\fR true|false" 4
 defines if apt should check repository signatures. This is true by default.
 .IP "\fB\-\-apt\-source\-archives\fR true|false" 4
-defines if deb-src entries should be included in the resulting live image or not, defaults to on.
+defines if deb-src entries should be included in the resulting live image or not, defaults to true.
 .IP "\-a|\fB\-\-architectures\fR \fIARCHITECTURE\fR" 4
-defines the architecture of the to be build image. By default, this is set to the host architecture. Note that you cannot crossbuild for another architecture if your host system is not able to execute binaries for the target architecture natively. For example, building amd64 images on i386 and vice versa is possile if you have a 64bit capable i386 processor and the right kernel. But building powerpc images on an i386 system is not possible.
+defines the architecture of the to be build image. By default, this is set to the host architecture. Note that you cannot crossbuild for another architecture if your host system is not able to execute binaries for the target architecture natively. For example, building amd64 images on i386 and vice versa is possible if you have a 64bit capable i386 processor and the right kernel. But building powerpc images on an i386 system is not possible.
 .IP "\-b|\fB\-\-binary\-images\fR iso|iso\-hybrid|netboot|tar|hdd" 4
 defines the image type to build. By default, for images using syslinux this is set to iso\-hybrid to build CD/DVD images that may also be used like hdd images, for non\-syslinux images, it defaults to iso.
 .IP "\fB\-\-binary\-filesystem\fR fat16|fat32|ext2|ext3|ext4" 4
@@ -266,37 +266,37 @@ sets boot parameters specific to debian\-installer, if included.
 .IP "\fB\-\-bootappend\-live\fR \fIPARAMETER\fR|""\fIPARAMETERS\fR""" 4
 sets boot parameters specific to debian\-live. A complete list of boot parameters can be found in the \fIlive\-boot\fR(7) and \fIlive\-config\fR(7) manual pages.
 .IP "\fB\-\-bootloader\fR grub|syslinux" 4
-defines which bootloader is beeing used in the generated image. This has only an effect if the selected binary image type does allow to choose the bootloader. For example, if you build a iso, always syslinux (or more precise, isolinux) is being used. Also note that some combinations of binary images types and bootloaders may be possible but live\-build does not support them yet. \fBlb config\fR will fail to create such a not yet supported configuration and give a explanation about it. For hdd images on amd64 and i386, the default is syslinux.
+defines which bootloader is being used in the generated image. This has only an effect if the selected binary image type does allow to choose the bootloader. For example, if you build a iso, always syslinux (or more precise, isolinux) is being used. Also note that some combinations of binary images types and bootloaders may be possible but live\-build does not support them yet. \fBlb config\fR will fail to create such a not yet supported configuration and give a explanation about it. For hdd images on amd64 and i386, the default is syslinux.
 .IP "\fB\-\-bootstrap\fR cdebootstrap|cdebootstrap-static|debootstrap" 4
 defines which program is used to bootstrap the debian chroot, default is debootstrap.
 .IP "\fB\-\-cache\fR true|false" 4
-defines globally if any cache should be used at all. Different caches can be controled through the their own options.
+defines globally if any cache should be used at all. Different caches can be controlled through the their own options.
 .IP "\fB\-\-cache\-indices\fR true|false" 4
 defines if downloaded package indices and lists should be cached which is false by default. Enabling it would allow to rebuild an image completely offline, however, you would not get updates anymore then.
 .IP "\fB\-\-cache\-packages\fR true|false" 4
-defines if downloaded packages files should be cached which is true by default. Disabling it does save space consumtion in your build directory, but remember that you will cause much unnecessary traffic if you do a couple of rebuilds. In general you should always leave it true, however, in some particular rare build setups, it can be faster to refetch packages from the local network mirror rather than to utilize the local disk.
+defines if downloaded packages files should be cached which is true by default. Disabling it does save space consumption in your build directory, but remember that you will cause much unnecessary traffic if you do a couple of rebuilds. In general you should always leave it true, however, in some particular rare build setups, it can be faster to refetch packages from the local network mirror rather than to utilize the local disk.
 .IP "\fB\-\-cache\-stages\fR true|false|\fISTAGE\fR|""\fISTAGES\fR""" 4
 sets which stages should be cached. By default set to bootstrap. As an exception to the normal stage names, also rootfs can be used here which does only cache the generated root filesystem in filesystem.{dir,ext*,squashfs}. This is useful during development if you want to rebuild the binary stage but not regenerate the root filesystem all the time.
 .IP "\fB\-\-checksums\fR md5|sha1|sha256|none" 4
-defines if the binary image should contain a file called md5sums.txt, sha1sums.txt and/or sha256sums.txt. These lists all files on the image together with their checksums. This in turn can be used by live\-boots built\-in integrity\-check to verify the medium if specified at boot prompt. In general, this should not be false and is an important feature of live system released to the public. However, during development of very big images it can save some time by not calculating the checksums.
+defines if the binary image should contain a file called md5sums.txt, sha1sums.txt and/or sha256sums.txt. These lists all files on the image together with their checksums. This in turn can be used by live\-boot's built\-in integrity\-check to verify the medium if specified at boot prompt. In general, this should not be false and is an important feature of live system released to the public. However, during development of very big images it can save some time by not calculating the checksums.
 .IP "\fB\-\-compression\fR bzip2|gzip|lzip|none" 4
 defines the compression program to be used to compress tarballs. Defaults to gzip.
 .IP "\fB\-\-config\fR \fIGIT_URL\fR::\fIGIT_ID\fR" 4
 allows to bootstrap a config tree from a git repositories, optionally appended by a Git Id (branch, commit, tag, etc.).
 .IP "\fB\-\-build\-with\-chroot\fR true|false" 4
-defines whetever live\-build should use the tools from within the chroot to build the binary image or not by using and including the host systems tools. This is a very dangerous option, using the tools of the host system can lead to tainted and even non-bootable images if the host systems version of the required tools (mainly these are the bootloaders such as syslinux and grub, and the auxilliary tools such as dosfstools, xorriso, squashfs-tools and others) do not \fBexactely\fR match what is present at build-time in the target distribution. Never do disable this option unless you are \fBexactely\fR sure what you are doing and have \fBcompletely\fI understood its consequences.
+defines whether live\-build should use the tools from within the chroot to build the binary image or not by using and including the host system's tools. This is a very dangerous option, using the tools of the host system can lead to tainted and even non-bootable images if the host systems version of the required tools (mainly these are the bootloaders such as syslinux and grub, and the auxiliary tools such as dosfstools, xorriso, squashfs-tools and others) do not \fBexactly\fR match what is present at build-time in the target distribution. Never do disable this option unless you are \fBexactly\fR sure what you are doing and have \fBcompletely\fI understood its consequences.
 .IP "\fB\-\-chroot\-filesystem\fR ext2|ext3|ext4|squashfs|jffs2|none" 4
-defines which filesystem type should be used for the root filesystem image. If you use none, then no filesystem image is created and the root filesystem content is copied on the binary image filesystem as flat files. Depending on what binary filesystem you have choosen, it may not be possible to build with such a plain root filesystem, e.g. fat16/fat32 will not work as linux does not support to run directly on them.
+defines which filesystem type should be used for the root filesystem image. If you use none, then no filesystem image is created and the root filesystem content is copied on the binary image filesystem as flat files. Depending on what binary filesystem you have chosen, it may not be possible to build with such a plain root filesystem, e.g. fat16/fat32 will not work as linux does not support to run directly on them.
 .IP "\fB\-\-clean\fR" 4
 minimizes config directory by automatically removing unused and thus empty subdirectories.
 .IP "\-c|\fB\-\-conffile\fR \fIFILE\fR" 4
 using a user specified alternative configuration file in addition to the normally used one in the config directory.
 .IP "\fB\-\-debconf\-frontend\fR dialog|editor|noninteractive|readline" 4
-defines what value the debconf frontend should be set to inside the chroot. Note that setting it to anything by noninteractive, which is the default, makes your build asking questions during the build.
+defines what value the debconf frontend should be set to inside the chroot. Note that setting it to anything but noninteractive, which is the default, makes your build asking questions during the build.
 .IP "\fB\-\-debconf\-priority\fR low|medium|high|critical" 4
-defines what value the debconf priority shoul dbe set to inside the chroot. By default, it is set to critical, which means that almost no questions are displayed. Note that this only has an effect if you use any debconf frontend different from noninteractive.
+defines what value the debconf priority should be set to inside the chroot. By default, it is set to critical, which means that almost no questions are displayed. Note that this only has an effect if you use any debconf frontend different from noninteractive.
 .IP "\fB\-\-debian\-installer\fR true|cdrom|netinst|netboot|businesscard|live|false" 4
-defines which type, if any, of the debian\-installer should be included in the resulting binary image. By default, no installer is included. All available flavours except live are the identical configurations used on the installer media produced by regular debian\-cd. When live is choosen, the live\-installer udeb is included so that debian\-installer will behave different than usual \- instead of installing the debian system from packages from the medium or the network, it installs the live system to the disk.
+defines which type, if any, of the debian\-installer should be included in the resulting binary image. By default, no installer is included. All available flavours except live are the identical configurations used on the installer media produced by regular debian\-cd. When live is chosen, the live\-installer udeb is included so that debian\-installer will behave different than usual \- instead of installing the debian system from packages from the medium or the network, it installs the live system to the disk.
 .IP "\fB\-\-debian\-installer\-distribution\fR daily|\fICODENAME\fR" 4
 defines the distribution where the debian\-installer files should be taken out from. Normally, this should be set to the same distribution as the live system. However, some times, one wants to use a newer or even daily built installer.
 .IP "\fB\-\-debian\-installer\-preseedfile\fR \fIFILE\fR|\fIURL\fR" 4
@@ -336,13 +336,13 @@ defines options to pass to isohybrid.
 .IP "\fB\-\-iso\-application\fR \fINAME\fR" 4
 sets the APPLICATION field in the header of a resulting CD/DVD image and defaults to "Debian Live" in debian mode, and "Ubuntu Live" in ubuntu mode.
 .IP "\fB\-\-iso\-preparer\fR \fINAME\fR" 4
-sets the PREPARER field in the header of a resulting CD/DVD image. By default this is set to "live\-build \fIVERSION\fR; http://packages.qa.debian.org/live\-build", whereas VERSION is expanded to the version of live\-build that was used to build the image.
+sets the PREPARER field in the header of a resulting CD/DVD image. By default this is set to "live\-build \fIVERSION\fR; http://packages.qa.debian.org/live\-build", where VERSION is expanded to the version of live\-build that was used to build the image.
 .IP "\fB\-\-iso\-publisher\fR \fINAME\fR" 4
 sets the PUBLISHED field in the header of a resulting CD/DVD image. By default, this is set to 'Live Systems project; http:/live-systems.org/; debian\-live@lists.debian.org'. Remember to change this to the appropriate values at latest when you distributing custom and unofficial images.
 .IP "\fB\-\-iso\-volume\fR \fINAME\fR" 4
 sets the VOLUME field in the header of a resulting CD/DVD and defaults to '(\fIMODE\fR) (\fIDISTRIBUTION\fR) (\fIDATE\fR)' whereas MODE is expanded to the name of the mode in use, DISTRIBUTION the distribution name, and DATE with the current date and time of the generation.
 .IP "\fB\-\-jffs2\-eraseblock\fR \fISIZE\fR" 4
-sets the eraseblock size for a JFFS2 (Second Journalling Flash File System) filesystem. The default is 64 KiB. If you use an erase block size different than the erase block size of the target MTD device, JFFS2 may not perform optimally. If the SIZE specified is below 4096, the units are assumed to be KiB.
+sets the eraseblock size for a JFFS2 (Second Journaling Flash File System) filesystem. The default is 64 KiB. If you use an erase block size different than the erase block size of the target MTD device, JFFS2 may not perform optimally. If the SIZE specified is below 4096, the units are assumed to be KiB.
 .IP "\fB\-\-keyring\-packages\fR \fIPACKAGE\fI|""\fIPACKAGES\fR""" 4
 sets the keyring package or additional keyring packages. By default this is set to debian\-archive\-keyring.
 .IP "\-k|\fB\-\-linux\-flavours\fR \fIFLAVOUR\fR|""\fIFLAVOURS\fR""" 4

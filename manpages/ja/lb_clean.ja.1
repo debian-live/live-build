@@ -1,0 +1,67 @@
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH LIVE\-BUILD 1 2014\-09\-12 4.0.2\-1 "Live システムプロジェクト"
+
+.SH 名前
+\fBlb clean\fP \- 設定ディレクトリを掃除します
+
+.SH 概要
+\fBlb clean\fP [\fIlive\-build オプション\fP]
+
+.SH 説明
+\fBlb clean\fP は Live システムツール集 \fIlive\-build\fP(7) の高レベルコマンド (porcelain) です。
+.PP
+.\" FIXME
+.\" FIXME
+\fBlb clean\fP はシステムビルド後の掃除を担当します。ビルドディレクトリや段階ファイル等その他のファイルの一部を削除します。他の
+live\-build コマンドの残骸は全て残します。
+
+.SH オプション
+\fBlb clean\fP は固有のオプションに加え、live\-build 全般のオプションを全て理解します。live\-build
+全般のオプションの全容については \fIlive\-build\fP(7) を見てください。
+.PP
+.\" FIXME
+.IP \fB\-\-all\fP 4
+chroot、バイナリ、各段階での生成物、ソースを削除します。キャッシュディレクトリは残します。これはデフォルトの動作で、引数がない場合はこの動作になります。
+.IP \fB\-\-cache\fP 4
+キャッシュディレクトリを削除します。
+.IP \fB\-\-chroot\fP 4
+chroot ディレクトリをマウント解除、削除します。
+.IP \fB\-\-binary\fP 4
+バイナリ関連のキャッシュやファイル、ディレクトリ、各段階で生成したファイルを全て削除します。
+.IP \fB\-\-purge\fP 4
+全キャッシュを含め、全て削除します。設定ディレクトリは残されます。
+.IP \fB\-\-remove\fP 4
+段階キャッシュを除いたパッケージキャッシュを含め、全て削除します。設定ディレクトリは残されます。
+.IP \fB\-\-stage\fP 4
+各段階で生成したファイルを全て削除します。
+.IP \fB\-\-source\fP 4
+.\" FIXME
+ソース関連のキャッシュやファイル、ディレクトリ、各段階で生成したファイルを全て削除します。
+
+.SH ファイル
+.\" FIXME
+.IP \fBauto/clean\fP 4
+
+.\" FIXME
+.SH 関連項目
+\fIlive\-build\fP(7)
+.PP
+このプログラムは live\-build の一部です。
+
+.SH ホームページ
+live\-build 及び Live
+システムプロジェクトについてのさらなる情報は、<\fIhttp://live\-systems.org/\fP> のホームページや
+<\fIhttp://live\-systems.org/manual/\fP> のマニュアルにあります。
+
+.SH バグ
+バグは <\fIhttp://bugs.debian.org/\fP> にあるバグ追跡システムに live\-build
+パッケージのバグ報告として提出するか、<\fIdebian\-live@lists.debian.org\fP> にある Live
+システムのメーリングリスト宛てにメールを書くことにより報告できます。
+
+.SH 作者
+live\-build は Daniel Baumann さん <\fImail@daniel\-baumann.ch\fP>
+により書かれました。

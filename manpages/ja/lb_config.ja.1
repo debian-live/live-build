@@ -1,0 +1,620 @@
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH LIVE\-BUILD 1 2014\-09\-12 4.0.2\-1 "Live システムプロジェクト"
+
+.SH 名前
+\fBlb config\fP \- 設定ディレクトリを作成します
+
+.SH 概要
+\fBlb config\fP [\fIlive\-build オプション\fP]
+.PP
+.\" FIXME
+\fBlb config\fP
+.br
+  [\fB\-\-apt\fP apt|aptitude]
+.br
+  [\fB\-\-apt\-ftp\-proxy\fP \fIURL\fP]
+.br
+  [\fB\-\-apt\-http\-proxy\fP \fIURL\fP]
+.br
+  [\fB\-\-apt\-indices\fP true|false]
+.br
+  [\fB\-\-apt\-options\fP \fIオプション\fP|"\fIオプション\fP"]
+.br
+  [\fB\-\-aptitude\-options\fP \fIオプション\fP|"\fIオプション\fP"]
+.br
+  [\fB\-\-apt\-pipeline\fP \fI深度\fP]
+.br
+  [\fB\-\-apt\-recommends\fP true|false]
+.br
+  [\fB\-\-apt\-secure\fP true|false]
+.br
+  [\fB\-\-apt\-source\-archives\fP true|false]
+.br
+  [\-a|\fB\-\-architectures\fP \fIアーキテクチャ\fP]
+.br
+  [\-b|\fB\-\-binary\-images\fP iso|iso\-hybrid|netboot|tar|hdd]
+.br
+  [\fB\-\-binary\-filesystem\fP fat16|fat32|ext2|ext3|ext4]
+.br
+  [\fB\-\-bootappend\-install\fP \fIパラメータ\fP|\fI"パラメータ"\fP]
+.br
+  [\fB\-\-bootappend\-live\fP \fIパラメータ\fP|\fI"パラメータ"\fP]
+.br
+  [\fB\-\-bootloader\fP grub|syslinux]
+.br
+  [\fB\-\-bootstrap\fP cdebootstrap|cdebootstrap\-static|debootstrap]
+.br
+  [\fB\-\-cache\fP true|false]
+.br
+  [\fB\-\-cache\-indices\fP true|false]
+.br
+  [\fB\-\-cache\-packages\fP true|false]
+.br
+  [\fB\-\-cache\-stages\fP \fI段階\fP|\fI"段階"\fP]
+.br
+  [\fB\-\-checksums\fP md5|sha1|sha256|none]
+.br
+  [\fB\-\-compression\fP bzip2|gzip|lzip|none]
+.br
+  [\fB\-\-config\fP \fIGIT_URL::GIT_ID\fP]
+.br
+  [\fB\-\-build\-with\-chroot\fP true|false]
+.br
+  [\fB\-\-chroot\-filesystem\fP ext2|ext3|ext4|squashfs|jffs2|none]
+.br
+  [\fB\-\-clean\fP]
+.br
+  [\-c|\fB\-\-conffile\fP \fIファイル\fP]
+.br
+  [\fB\-\-debconf\-frontend\fP dialog|editor|noninteractive|readline]
+.br
+  [\fB\-\-debconf\-priority\fP low|medium|high|critical]
+.br
+  [\fB\-\-debian\-installer\fP true|cdrom|netinst|netboot|businesscard|live|false]
+.br
+  [\fB\-\-debian\-installer\-distribution\fP daily|\fIコード名\fP]
+.br
+  [\fB\-\-debian\-installer\-preseedfile\fP \fIファイル\fP|\fIURL\fP]
+.br
+  [\fB\-\-debian\-installer\-gui\fP true|false]
+.br
+  [\fB\-\-debug\fP]
+.br
+  [\-d|\fB\-\-distribution\fP \fIコード名\fP]
+.br
+  [\fB\-\-parent\-distribution\fP \fIコード名\fP]
+.br
+  [\fB\-\-parent\-debian\-installer\-distribution\fP \fIコード名\fP]
+.br
+  [\fB\-\-dump\fP]
+.br
+  [\fB\-\-fdisk\fP fdisk|fdisk.dist]
+.br
+  [\fB\-\-firmware\-binary true|false\fP]
+.br
+  [\fB\-\-firmware\-chroot true|false\fP]
+.br
+  [\fB\-\-force\fP]
+.br
+  [\fB\-\-grub\-splash\fP \fIファイル\fP]
+.br
+  [\fB\-\-gzip\-options\fP \fIオプション\fP|"\fIオプション\fP"]
+.br
+  [\fB\-\-hooks\fP \fIファイル\fP]
+.br
+  [\fB\-\-ignore\-system\-defaults\fP]
+.br
+  [\fB\-\-initramfs\fP auto|none|live\-boot|casper]
+.br
+  [\fB\-\-initramfs\-compression\fP bzip2|gzip|lzma]
+.br
+  [\fB\-\-initsystem\fP sysvinit|runit|systemd|upstart|none]
+.br
+  [\fB\-\-interactive\fP shell]
+.br
+  [\fB\-\-isohybrid\-options\fP \fIオプション\fP|"\fIオプション\fP"]
+.br
+  [\fB\-\-iso\-application\fP \fI名前\fP]
+.br
+  [\fB\-\-iso\-preparer\fP \fINAME\fP]
+.br
+  [\fB\-\-iso\-publisher\fP \fI名前\fP]
+.br
+  [\fB\-\-iso\-volume\fP \fI名前\fP]
+.br
+  [\fB\-\-jffs2\-eraseblock\fP \fIサイズ\fP]
+.br
+  [\fB\-\-keyring\-packages\fP \fIパッケージ|"パッケージ"\fP]
+.br
+  [\-k|\fB\-\-linux\-flavours\fP \fIフレーバー\fP|\fI"フレーバー"\fP]
+.br
+  [\fB\-\-linux\-packages\fP \fI"パッケージ"\fP]
+.br
+  [\fB\-\-losetup\fP losetup|losetup.orig]
+.br
+  [\fB\-\-memtest\fP memtest86+|memtest86|none]
+.br
+  [\-m|\fB\-\-parent\-mirror\-bootstrap\fP \fIURL\fP]
+.br
+  [\fB\-\-parent\-mirror\-chroot\fP \fIURL\fP]
+.br
+  [\fB\-\-parent\-mirror\-chroot\-security\fP \fIURL\fP]
+.br
+  [\fB\-\-parent\-mirror\-chroot\-updates\fP \fIURL\fP]
+.br
+  [\fB\-\-parent\-mirror\-chroot\-backports\fP \fIURL\fP]
+.br
+  [\fB\-\-parent\-mirror\-binary\fP \fIURL\fP]
+.br
+  [\fB\-\-parent\-mirror\-binary\-security\fP \fIURL\fP]
+.br
+  [\fB\-\-parent\-mirror\-binary\-updates\fP \fIURL\fP]
+.br
+  [\fB\-\-parent\-mirror\-binary\-backports\fP \fIURL\fP]
+.br
+  [\fB\-\-parent\-mirror\-debian\-installer\fP \fIURL\fP]
+.br
+  [\fB\-\-mirror\-bootstrap\fP \fIURL\fP]
+.br
+  [\fB\-\-mirror\-chroot\fP \fIURL\fP]
+.br
+  [\fB\-\-mirror\-chroot\-security\fP \fIURL\fP]
+.br
+  [\fB\-\-mirror\-chroot\-updates\fP \fIURL\fP]
+.br
+  [\fB\-\-mirror\-chroot\-backports\fP \fIURL\fP]
+.br
+  [\fB\-\-mirror\-binary\fP \fIURL\fP]
+.br
+  [\fB\-\-mirror\-binary\-security\fP \fIURL\fP]
+.br
+  [\fB\-\-mirror\-binary\-updates\fP \fIURL\fP]
+.br
+  [\fB\-\-mirror\-binary\-backports\fP \fIURL\fP]
+.br
+  [\fB\-\-mirror\-debian\-installer\fP \fIURL\fP]
+.br
+  [\fB\-\-mode\fP debian|progress\-linux|ubuntu]
+.br
+  [\fB\-\-system\fP live|normal]
+.br
+  [\fB\-\-net\-root\-filesystem\fP nfs|cfs]
+.br
+  [\fB\-\-net\-root\-mountoptions\fP \fIオプション\fP]
+.br
+  [\fB\-\-net\-root\-path\fP \fIパス\fP]
+.br
+  [\fB\-\-net\-root\-server\fP \fIIPアドレス\fP|\fIホスト名\fP]
+.br
+  [\fB\-\-net\-cow\-filesystem\fP nfs|cfs]
+.br
+  [\fB\-\-net\-cow\-mountoptions\fP \fIオプション\fP]
+.br
+  [\fB\-\-net\-cow\-path\fP \fIパス\fP]
+.br
+  [\fB\-\-net\-cow\-server\fP \fIIPアドレス\fP|\fIホスト名\fP]
+.br
+  [\fB\-\-net\-tarball\fP true|false]
+.br
+  [\fB\-\-quiet\fP]
+.br
+  [\fB\-\-archive\-areas\fP \fIアーカイブ領域\fP|\fI"アーカイブ領域"\fP]
+.br
+  [\fB\-\-parent\-archive\-areas\fP \fI親アーカイブ領域\fP|\fI"親アーカイブ領域"\fP]
+.br
+  [\fB\-\-security\fP true|false]
+.br
+  [\fB\-\-source\fP true|false]
+.br
+  [\-s|\fB\-\-source\-images\fP iso|netboot|tar|hdd]
+.br
+  [\fB\-\-tasksel\fP apt|aptitude|tasksel]
+.br
+  [\fB\-\-templates\fP \fIパス\fP]
+.br
+  [\fB\-\-hdd\-size \fP\fIMB\fP]
+.br
+  [\fB\-\-updates\fP true|false]
+.br
+  [\fB\-\-backports\fP true|false]
+.br
+  [\fB\-\-verbose\fP]
+.br
+.\" FIXME
+  [\fB\-\-win32\-loader true|false]\fP
+
+.SH 説明
+\fBlb config\fP は Live システムツール集 \fIlive\-build\fP(7) の高レベルコマンド (porcelain) です。
+.PP
+.\" FIXME
+\fBlb config\fP は live\-build の設定ディレクトリを用意します。デフォルトで、このディレクトリは「config」という名で、\fBlb
+config\fP が実行された現在のディレクトリに作成されます。
+.PP
+.\" FIXME
+注意: 現在 \fBlb config\fP は気を利かせようとして、他のオプションの設定に依存する一部のオプションのデフォルト値をセット (例えば利用する
+linux パッケージをビルドしようとしているのが wheezy システムがどうかにより判断)
+します。これはつまり、新しい設定を生成する際はオプションを全て指定して \fBlb config\fP
+を一度だけ実行すべきだということです。一部のオプションだけを指定して何度も実行した場合には、その度に使えない設定が出来る可能性があります。変更するオプションだけを指定して
+\fBlb config\fP
+を実行した場合、指定されていないオプションは、定義されている限りは全てそのまま維持されるためにこれが起きることもあります。ただし、不可能あるいはほぼ不可能な組み合わせであることがわかっていて使えない
+Live システムを作成することになりそうなときには \fBlb config\fP それについて警告します。よくわからない場合は
+config/{binary,bootstrap,chroot,common,source} を削除して再び \fBlb config\fP
+を実行してください。
+
+.SH オプション
+\fBlb config\fP は固有のオプションに加え、live\-build 全般のオプションを全て理解します。live\-build
+全般のオプションの全容については \fIlive\-build\fP(7) を見てください。
+.PP
+.\" FIXME
+.IP "\fB\-\-apt\fP apt|aptitude" 4
+イメージのビルド時にパッケージをインストールするのに apt\-get と aptitude のどちらを利用するか決定します。デフォルトは apt です。
+.IP "\fB\-\-apt\-ftp\-proxy\fP \fIURL\fP" 4
+apt により利用する ftp プロキシをセットします。デフォルトでは利用しません。この変数は chroot 内で利用する apt
+でのみ有効で、それ以外では利用されないことに注意してください
+.IP "\fB\-\-apt\-http\-proxy\fP \fIURL\fP" 4
+apt により利用する http プロキシをセットします。デフォルトでは利用しません。この変数は chroot 内で利用する apt
+でのみ有効で、それ以外では利用されないことに注意してください
+.IP "\fB\-\-apt\-indices\fP true|false|none" 4
+作成されるイメージに apt の索引ファイルを収録するか否かを決定します。デフォルトは true です。none
+をセットすると索引ファイルは一切収録されません。
+.IP "\fB\-\-apt\-options\fP \fIオプション\fP|\(dq\fIオプション\fP\(dq" 4
+イメージのビルド時に chroot 内で apt を利用する際に毎回付加されるデフォルトのオプションを決定します。デフォルトでは \-\-yes
+がセットされていて、パッケージの対話的ではないインストール処理ができるようになっています。
+.IP "\fB\-\-aptitude\-options\fP \fIオプション\fP|\(dq\fIオプション\fP\(dq" 4
+イメージのビルド時に chroot 内で aptitude を利用する際に毎回付加されるデフォルトのオプションを決定します。デフォルトでは
+\-\-assume\-yes がセットされていて、パッケージの対話的ではないインストール処理ができるようになっています。
+.IP "\fB\-\-apt\-pipeline\fP \fI深度\fP" 4
+apt/aptitude のパイプラインの深さを決定します。リモートのサーバがRFCに準拠していないあるいはバグが多い (Squid 2.0.2 等)
+の場合、このオプションで「0」から「5」までの値を指定し、APTが送るべき処理中リクエストの数を指示できます。リモートホストがTCP接続を適切に残さない場合は「0」を指定*しないといけません*
+\- そうしない場合はデータの破損が発生します。これを必要とするホストは RFC 2068 に違反しています。デフォルトで live\-build
+はこのオプションをセットしていません。
+.IP "\fB\-\-apt\-recommends\fP true|false" 4
+aptが推奨パッケージを自動的にインストールすべきか否かを決定します。デフォルトは true です。
+.IP "\fB\-\-apt\-secure\fP true|false" 4
+aptがリポジトリの署名を確認すべきか否かを決定します。デフォルトは true です。
+.IP "\fB\-\-apt\-source\-archives\fP true|false" 4
+作成される Live イメージに deb\-src の行を収録すべきか否かを決定します。デフォルトは true です。
+.IP "\-a|\fB\-\-architectures\fP \fIアーキテクチャ\fP" 4
+ビルドされるイメージのアーキテクチャを指定します。デフォルトではホストのアーキテクチャがセットされます。ホストシステムで対象アーキテクチャのバイナリをネイティブに実行できない場合には別のアーキテクチャのクロスビルドはできないことに注意してください。例えば64ビット対応の
+i386 系列プロセッサ及び適切なカーネルを使っている場合には i386 で amd64 イメージを、あるいはその逆に、ビルドできます。しかし i386
+システムで powerpc 用イメージをビルドするのは不可能です。
+.IP "\-b|\fB\-\-binary\-images\fP iso|iso\-hybrid|netboot|tar|hdd" 4
+ビルドするイメージの種類を決定します。デフォルトで、syslinux を利用するイメージではハードディスク向けイメージと同じようにも利用できる
+CD/DVD イメージをビルドするため iso\-hybrid が、syslinux 以外のイメージでは iso がセットされます。
+.IP "\fB\-\-binary\-filesystem\fP fat16|fat32|ext2|ext3|ext4" 4
+指定した種類のイメージで利用するファイルシステムを指定します。これは選択した種類のバイナリイメージでファイルシステムを選択できる場合にのみ効果があります。例えば
+iso 選択時に作成される CD/DVD のファイルシステムは常に ISO9660
+となります。USBメモリ向けのhddイメージをビルドする場合にはこれが有効になります。sparc のデフォルトが ext4
+である例外を除く全アーキテクチャでデフォルトが fat16 となっていることに注意してください。また、fat16
+選択時に出来上がったバイナリイメージのサイズが2GBを超えた場合はそのバイナリのファイルシステムは自動的に fat32
+に切り替えられることに注意してください。
+.IP "\fB\-\-bootappend\-install\fP \fIパラメータ\fP|\(dq\fIパラメータ\fP\(dq" 4
+debian\-installer を収録した場合、debian\-installer 特有のブートパラメータをセットします。
+.IP "\fB\-\-bootappend\-live\fP \fIパラメータ\fP|\(dq\fIパラメータ\fP\(dq" 4
+debian\-live 特有のブートパラメータをセットします。ブートパラメータの全容は \fIlive\-boot\fP(7) 及び
+\fIlive\-config\fP(7) マニュアルページにあります。
+.IP "\fB\-\-bootloader\fP grub|syslinux" 4
+生成されたイメージで利用するブートローダを選択します。これは選択した種類のバイナリイメージでブートローダを選択できる場合にのみ効果があります。例えば
+iso をビルドする場合は常に syslinux (さらに言えば isolinux)
+が利用されます。また、バイナリイメージの種類とブートローダの組み合わせの中には、可能ではあるものの live\-build
+でのサポートが追いついていないものがあり得ることに注意してください。\fBlb config\fP
+はそういった未サポートの設定の作成には失敗し、そのことについて説明します。amd64 や i386 用のhddイメージでは syslinux
+がデフォルトとなっています。
+.IP "\fB\-\-bootstrap\fP cdebootstrap|cdebootstrap\-static|debootstrap" 4
+debian chroot でのパッケージ収集に利用するプログラムを選択します。デフォルトでは debootstrap となっています。
+.IP "\fB\-\-cache\fP true|false" 4
+全体としてキャッシュを使うか否か大域的に決定します。異なるキャッシュを、キャッシュそれぞれのオプションで制御できます。
+.IP "\fB\-\-cache\-indices\fP true|false" 4
+ダウンロードしたパッケージ索引や一覧をキャッシュするか否かを決定します。デフォルトで false
+となっています。有効にするとイメージを完全にオフラインで再ビルドできるようになりますが、以後の更新は得られなくなります。
+.IP "\fB\-\-cache\-packages\fP true|false" 4
+ダウンロードしたパッケージファイルをキャッシュするか否かを決定します。デフォルトで true
+となっています。無効化するとビルドディレクトリの容量を節約できますが、再ビルドした場合には不要な転送が発生することを覚えておいてください。一般にこれは常に
+true
+にしておくべきですが、特定のまれなビルド環境でローカルディスクを使うよりもローカルのネットワークミラーからパッケージを再取得した方が速いことがあります。
+.IP "\fB\-\-cache\-stages\fP true|false|\fI段階\fP|\(dq\fI段階\fP\(dq" 4
+キャッシュする段階を指定します。デフォルトでパッケージ収集段階をキャッシュします。通常の段階を示す名前に対する例外として、filesystem.{dir,ext*,squashfs}
+に生成したルートファイルシステムだけをキャッシュする rootfs
+を指定できます。開発時にバイナリ段階を再ビルドする際、ルートファイルシステムを毎回再生成するのは避けたい場合にこれは有用です。
+.IP "\fB\-\-checksums\fP md5|sha1|sha256|none" 4
+バイナリイメージに md5sums.txt や sha1sums.txt、sha256sums.txt
+等のファイルを収録するか否かを決定します。この各ファイルではイメージのチェックサムとそのイメージにある全ファイルを列挙します。ブートプロンプトで指定した場合は
+live\-boot 組み込みの整合性確認によりこれを利用してメディアを検証できます。一般にこれは false にすべきではなく、一般向けにリリースした
+Live
+システムにとって重要な機能でもあります。しかし、巨大なイメージの開発の際にはチェックサムを計算しないことによりいくらか時間を節約できる可能性があります。
+.IP "\fB\-\-compression\fP bzip2|gzip|lzip|none" 4
+tar アーカイブの圧縮に利用する圧縮プログラムを決定します。デフォルトは gzip です。
+.IP "\fB\-\-config\fP \fIGIT_URL\fP::\fIGIT_ID\fP" 4
+設定ツリーをgitリポジトリから取得できます。オプションとして Git Id (ブランチやコミット、タグ等) を指定できます。
+.IP "\fB\-\-build\-with\-chroot\fP true|false" 4
+live\-build がバイナリイメージのビルドに chroot 内のツールを使うのか、chroot
+ではなくホストのシステムツールを取り込んで使うのかを決定します。これは非常に危険なオプションであり、ホストシステムのツールを利用することで汚染され、必要とするツール
+(主に syslinux や grub 等のブートローダや、dosfstools や xorriso、squashfs\-tools その他の補助ツール)
+のバージョンがホストシステムのものと対象ディストリビューションとでビルド時に存在するものとで\fB正確に\fP一致しないとブート不可能なイメージが出来上がってしまう可能性もあります。何をしているのか\fB正確に\fPわかっていて\fB完全に\fP\fI結果を理解している\fP場合を除き、このオプションを決して無効化することのないようにしてください。
+.IP "\fB\-\-chroot\-filesystem\fP ext2|ext3|ext4|squashfs|jffs2|none" 4
+ルートファイルシステムのイメージとして利用するファイルシステムの種類を決定します。none
+を指定した場合はファイルシステムイメージは作成されず、ルートファイルシステムの内容は非圧縮ファイルとしてバイナリイメージファイルシステムにコピーされます。選択したバイナリファイルシステムによっては、こういったそのままのルートファイルシステムのビルドができないものもあります。例えば
+fat16/fat32 では linux からの直接の実行をサポートしていないため機能しません。
+.IP \fB\-\-clean\fP 4
+未使用のため内容が空のサブディレクトリを自動的に削除し、設定ディレクトリを最小にします。
+.IP "\-c|\fB\-\-conffile\fP \fIファイル\fP" 4
+設定ディレクトリの通常利用される設定ファイルに加え、ユーザが指定した別の設定ファイルを使います。
+.IP "\fB\-\-debconf\-frontend\fP dialog|editor|noninteractive|readline" 4
+chroot 内での debconf フロントエンドの値を決定します。デフォルトの noninteractive
+以外をセットした場合、ビルド中に質問するようになることに注意してください。
+.IP "\fB\-\-debconf\-priority\fP low|medium|high|critical" 4
+chroot 内での debconf の優先度の値を決定します。デフォルトでは critical で、ほとんどの質問は表示されなくなっています。これは
+debconf フロントエンドに noninteractive 以外を指定している場合にのみ有効であることに注意してください
+.IP "\fB\-\-debian\-installer\fP true|cdrom|netinst|netboot|businesscard|live|false" 4
+出来上がったバイナリイメージに debian\-installer
+を収録する場合にその種類を指定します。デフォルトではインストーラは収録されません。live 以外はどれでも、通常の debian\-cd
+として作成されているインストール用メディアと同等の設定を使います。live を選択した場合は live\-installer の udeb
+が収録されるため、debian\-installer が普通とは異なる挙動を取ります \- メディアやネットワークのパッケージを使って Debian
+システムをインストールするのではなく、ディスクに Live システムをインストールします。
+.IP "\fB\-\-debian\-installer\-distribution\fP daily|\fIコード名\fP" 4
+debian\-installer のファイルを取得するディストリビューションを決定します。これは通常 Live
+システムと同一のディストリビューションになりますが、新しい、あるいは日次ビルドのインストーラを使いたいときもあります。
+.IP "\fB\-\-debian\-installer\-preseedfile\fP \fIファイル\fP|\fIURL\fP" 4
+オプションで利用、収録する debian\-installer 用の preseed
+ファイルのファイル名またはURLをセットします。config/binary_debian\-installer/preseed.cfg
+が存在する場合はそれがデフォルトで利用されます。
+.IP "\fB\-\-debian\-installer\-gui\fP true|false" 4
+debian\-installer グラフィカルGTKインターフェイスを true にするか否かを決定します。デフォルトでは、Debian モードや
+Ubuntu のほとんどのバージョンで true、それ以外では false となっています。
+.IP \fB\-\-debug\fP 4
+デバッグ情報のメッセージを表示します。
+.IP "\-d|\fB\-\-distribution\fP \fIコード名\fP" 4
+出来上がる Live システムのディストリビューションを決定します。
+.IP "\-d|\fB\-\-parent\-distribution\fP \fIコード名\fP" 4
+出来上がる Live システムの派生元のディストリビューションを決定します。
+.IP "\-d|\fB\-\-parent\-debian\-installer\-distribution\fP \fIコード名\fP" 4
+出来上がる Live システムの派生元の debian\-installer のディストリビューションを決定します。
+.IP \fB\-\-dump\fP 4
+現在存在している Live システムの設定と利用されている live\-build
+のバージョンの報告を作成します。これはバグ報告の際に有用で、エラーが起きている部分を見つけ出し、再現するのに必要となる情報を全て提供します。
+.IP "\fB\-\-fdisk\fP fdisk|fdisk.dist" 4
+利用するホストシステムの fdisk バイナリのファイル名を指定します。これは自動的に検出されるため通常は独自に指定する必要はありません。
+.IP \fB\-\-force\fP 4
+既に実行した段階を強制的に再び実行します。何をしているのかわかっている場合にのみ実行してください。通常、\fBlb build\fP を再び実行する前に
+\fBlb clean\fP を実行して掃除すると安全性は上がります。
+.IP "\fB\-\-grub\-splash\fP \fIファイル\fP" 4
+オプションで収録する、grub ブートローダのスプラッシュ画面に利用する画像のファイル名を指定します。
+.IP "\fB\-\-gzip\-options\fP \fIオプション\fP|\(dq\fIオプション\fP\(dq" 4
+イメージのビルド時に gzip を利用する際に (ほぼ) 毎回付加されるデフォルトのオプションを決定します。デフォルトでは \-\-best
+がセットされていて、圧縮率の最も高い (ただし最も遅い) 圧縮を行います。ホストシステムで対応していれば \-\-rsyncable も動的に付加されます。
+.IP "\fB\-\-hooks\fP \fIファイル\fP" 4
+/usr/share/live/build/examples/hooks
+から利用できるフックから有効にするものを指定します。通常、実行されるフックはありません。フックを有効にする前にそれが何をするものなのか、確実に知って理解するようにしてください。
+.IP \fB\-\-ignore\-system\-defaults\fP 4
+\fBlb config\fP はデフォルトで、新しい Live システム設定ディレクトリ生成時にシステムのデフォルト値を
+\fI/etc/live/build.conf\fP と \fI/etc/live/build/*\fP
+から読み取ります。これはミラーの場所等の全体的な設定を毎回指定したくない場合に有用です。
+.IP "\fB\-\-initramfs\fP auto|none|live\-boot|casper" 4
+Live システム特有の initramfs への変更を収録するパッケージの名前をセットします。デフォルトは auto
+で、イメージの設定時ではなくビルド時に、ubuntu システムをビルドしている場合は casper、それ以外のシステムでは live\-boot
+に展開されます。出来上がるシステムイメージが Live イメージではない場合には「none」が有用です (実験的設定値)。
+.IP "\fB\-\-initramfs\-compression\fP bzip2|gzip|lzma]"
+initramfs の圧縮に利用する圧縮プログラムを決定します。デフォルトは gzip です。
+.IP "\fB\-\-interactive\fP shell" 4
+chroot 段階の終了とバイナリ段階の開始の間に chroot
+内で対話シェルへのログインを行い、手作業による介入できる機会を儲けるか否かを決定します。シェルをログアウトまたは終了により閉じた後は、ビルドは通常と同様に続きます。テスト以外でのこの機能の利用は全く勧められないことに注意してください。Live
+システムの全ビルドで行うべき変更はフックにより適切に行うようにしてください。この機能はビルド過程を完全に自動化して双方向性を排除できるという長所を破壊します。これはもちろんデフォルトで
+false となっています。
+.IP "\fB\-\-isohybrid\-options\fP \fIオプション\fP|\(dq\fIオプション\fP\(dq" 4
+isohybrid に渡すオプションを指定します。
+.IP "\fB\-\-iso\-application\fP \fI名前\fP" 4
+出来上がる CD/DVD イメージのヘッダの APPLICATION フィールドをセットします。デフォルトは Debian モードでは「Debian
+Live」、ubuntu モードでは「Ubuntu Live」となっています。
+.IP "\fB\-\-iso\-preparer\fP \fI名前\fP" 4
+出来上がる CD/DVD イメージのヘッダの PREPARER フィールドをセットします。デフォルトは「live\-build \fIバージョン\fP;
+http://packages.qa.debian.org/live\-build」で、バージョンはそのイメージのビルドに利用した live\-build
+のバージョンに展開されます。
+.IP "\fB\-\-iso\-publisher\fP \fI名前\fP" 4
+出来上がる CD/DVD イメージのヘッダの PUBLISHED フィールドをセットします。デフォルトは「Live Systems project;
+http:/live\-systems.org/;
+debian\-live@lists.debian.org」となっています。独自の非公式イメージを配布する際はこれを忘れずに最新の適切な値に変更してください。
+.IP "\fB\-\-iso\-volume\fP \fI名前\fP" 4
+出来上がる CD/DVD イメージのヘッダの VOLUME フィールドをセットします。デフォルトは「(\fIモード\fP) (\fIディストリビューション\fP)
+(\fI日時\fP)」で、モードは現在利用しているモード、ディストリビューションはディストリビューションの名前、日時は作成時の日付と時刻に展開されます。
+.IP "\fB\-\-jffs2\-eraseblock\fP \fIサイズ\fP" 4
+JFFS2 (Second Journaling Flash File System) ファイルシステムの eraseblock
+のサイズを指定します。デフォルトは 64 KiB となっています。対象の MTD デバイスと一致しない値をこれに指定した場合は JFFS2
+が最適に機能しなくなるかもしれません。サイズに 4096 未満の値が指定された場合は KiB 単位の値が指定されたものと仮定します。
+.IP "\fB\-\-keyring\-packages\fP \fIパッケージ|\(dqパッケージ\fP\(dq" 4
+キーリングパッケージや追加のキーリングパッケージをセットします。デフォルトでは debian\-archive\-keyring となっています。
+.IP "\-k|\fB\-\-linux\-flavours\fP \fIフレーバー\fP|\(dq\fIフレーバー\fP\(dq" 4
+インストールするカーネルの種類 (フレーバー)
+を指定します。複数指定した場合は最初に指定したものがデフォルトでブートされるカーネルとして設定されることに注意してください。
+.IP "\fB\-\-linux\-packages\fP \(dq\fIパッケージ\fP\(dq" 4
+カーネルのパッケージ命名規則に従った内部名をセットします。Debian のカーネルパッケージを利用している場合は調整する必要はありません。Debian
+の命名規則に従わない独自のカーネルパッケージを利用する場合にはこのオプションでパッケージの前半部 (Debian の場合は
+linux\-image\-2.6) だけを忘れずに指定し、\fI前半部\fP\-\fIフレーバー\fP (Debian の場合は例えば
+linux\-image\-2.6\-486)
+が有効なパッケージ名になるようにしてください。好ましいのは、メタパッケージがある場合にはその名前を前半部に使うことで、そうすると設定とABIが独立します。また、unionfs
+や aufs、squashfs
+のバイナリモジュールパッケージについても、ツリー外でビルドした場合にはその前半部を含める必要があることを忘れないようにしてください。
+.IP "\fB\-\-losetup\fP losetup|losetup.orig" 4
+利用するホストシステムの losetup バイナリのファイル名を指定します。これは自動的に検出されるため通常は独自に指定する必要はありません。
+.IP "\fB\-\-memtest\fP memtest86+|memtest86|none" 4
+補助的なブートローダ設定として、memtest や memtest86+
+を収録するか、あるいはメモリのテスト用プログラムを収録しないのかを決定します。これは amd64 及び i386 でのみ利用可能で、デフォルトは
+memtest86+ となっています。
+.IP "\-m|\fB\-\-parent\-mirror\-bootstrap\fP \fIURL\fP" 4
+パッケージ収集段階で利用するパッケージミラーの場所を指定します。デフォルトは「http://ftp.de.debian.org/debian/」ですが、ヨーロッパ以外では適切なデフォルトではないかもしれません。
+.IP "\fB\-\-parent\-mirror\-chroot\fP \fIURL\fP" 4
+Live システムをビルドするためにパッケージを取得するのに利用するパッケージのミラーの場所をセットします。デフォルトでは
+\-\-parent\-mirror\-bootstrap で指定された値が利用されます。
+.IP "\fB\-\-parent\-mirror\-chroot\-security\fP \fIURL\fP" 4
+Live
+システムをビルドするためにパッケージを取得するのに利用するセキュリティパッケージのミラーの場所をセットします。デフォルトでは「http://security.debian.org/debian/」が利用されます。
+.IP "\fB\-\-parent\-mirror\-chroot\-updates\fP \fIURL\fP" 4
+Live システムをビルドするためにパッケージを取得するのに利用する updates パッケージのミラーの場所をセットします。デフォルトでは
+\-\-parent\-mirror\-chroot で指定された値が利用されます。
+.IP "\fB\-\-parent\-mirror\-chroot\-backports\fP \fIURL\fP" 4
+Live システムをビルドするためにパッケージを取得するのに利用する backports
+パッケージのミラーの場所をセットします。デフォルトでは「http://backports.debian.org/debian\-backports/」が利用されます。
+.IP "\fB\-\-parent\-mirror\-binary\fP \fIURL\fP" 4
+出来上がったイメージ中で設定され、ユーザが利用することになる Debian
+パッケージミラーの場所を指定します。これはイメージのビルドに利用するものと同一である必要はありません。例えばローカルミラーを利用しているけれどもイメージでは公式のミラーを使うようにしたい場合。デフォルトでは「http://http.debian.net/debian/」を利用します。
+.IP "\fB\-\-parent\-mirror\-binary\-security\fP \fIURL\fP" 4
+最終的に出来上がるイメージで設定すべきセキュリティパッケージのミラーの場所をセットします。デフォルトでは「http://security.debian.org/」が利用されます。
+.IP "\fB\-\-parent\-mirror\-binary\-updates\fP \fIURL\fP" 4
+最終的に出来上がるイメージで設定すべき updates パッケージのミラーの場所をセットします。デフォルトでは
+\-\-parent\-mirror\-binary で指定された値が利用されます。
+.IP "\fB\-\-parent\-mirror\-binary\-backports\fP \fIURL\fP" 4
+最終的に出来上がるイメージで設定すべき backports
+パッケージのミラーの場所をセットします。デフォルトでは「http://backports.debian.org/debian\-backports/」が利用されます。
+.IP "\fB\-\-parent\-mirror\-debian\-installer\fP \fIURL\fP" 4
+debian インストーラのイメージを取得するのに利用するミラーの場所をセットします。デフォルトでは Live
+システムをビルドするために利用するのと同じミラー、つまり \-\-parent\-mirror\-bootstrap で指定された値が利用されます。
+.IP "\fB\-\-mirror\-bootstrap\fP \fIURL\fP" 4
+派生物のパッケージ収集段階で利用するパッケージのミラーの場所をセットします。デフォルトは「http://ftp.de.debian.org/debian/」ですが、ヨーロッパ以外では適切なデフォルトではないかもしれません。
+.IP "\fB\-\-mirror\-chroot\fP \fIURL\fP" 4
+Live システムをビルドするために派生物のパッケージを取得するのに利用するパッケージのミラーの場所をセットします。デフォルトでは
+\-\-mirror\-bootstrap で指定された値が利用されます。
+.IP "\fB\-\-mirror\-chroot\-security\fP \fIURL\fP" 4
+Live
+システムをビルドするために派生物のパッケージを取得するのに利用するセキュリティパッケージのミラーの場所をセットします。デフォルトでは「http://security.debian.org/debian/」が利用されます。
+.IP "\fB\-\-mirror\-chroot\-updates\fP \fIURL\fP" 4
+Live システムをビルドするために派生物のパッケージを取得するのに利用する updates パッケージのミラーの場所をセットします。デフォルトでは
+\-\-mirror\-chroot で指定された値が利用されます。
+.IP "\fB\-\-mirror\-chroot\-backports\fP \fIURL\fP" 4
+Live システムをビルドするために派生物のパッケージを取得するのに利用する backports
+パッケージのミラーの場所をセットします。デフォルトでは「http://backports.debian.org/debian\-backports/」が利用されます。
+.IP "\fB\-\-mirror\-binary\fP \fIURL\fP" 4
+出来上がったイメージ中で設定され、ユーザが利用することになる派生物のパッケージミラーの場所を指定します。これはイメージのビルドに利用するものと同一である必要はありません。例えばローカルミラーを利用しているけれどもイメージでは公式のミラーを使うようにしたい場合。デフォルトでは「http://http.debian.net/debian/」を利用します。
+.IP "\fB\-\-mirror\-binary\-security\fP \fIURL\fP" 4
+最終的に出来上がるイメージで設定すべき派生セキュリティパッケージのミラーの場所をセットします。
+.IP "\fB\-\-mirror\-binary\-updates\fP \fIURL\fP" 4
+最終的に出来上がるイメージで設定すべき派生 updates パッケージのミラーの場所をセットします。
+.IP "\fB\-\-mirror\-binary\-backports\fP \fIURL\fP" 4
+最終的に出来上がるイメージで設定すべき派生 backports パッケージのミラーの場所をセットします。
+.IP "\fB\-\-mirror\-debian\-installer\fP \fIURL\fP" 4
+派生物の debian インストーラのイメージを取得するのに利用するミラーの場所をセットします。デフォルトでは Live
+システムをビルドするために利用するのと同じミラー、つまり \-\-mirror\-bootstrap で指定された値が利用されます。
+.IP "\fB\-\-mode\fP debian|progress|ubuntu" 4
+プロジェクト特有のデフォルト値を読み込むようにする大域モードを指定します。デフォルトでは debian となっています。
+.IP "\fB\-\-system\fP live|normal" 4
+出来上がるシステムのイメージを Live システムにするのか Live システムではない普通のイメージにするのかを指定します。
+.IP "\fB\-\-net\-root\-filesystem\fP nfs|cfs" 4
+ネットワーク経由のブート用イメージのブートローダ設定で設定するファイルシステムを指定します。デフォルトは nfs となっています。
+.IP "\fB\-\-net\-root\-mountoptions\fP \fIオプション\fP" 4
+ネットワーク経由のブート用イメージのルートファイルシステムをマウントする際のオプションを指定します。デフォルトは空です。
+.IP "\fB\-\-net\-root\-path\fP \fIパス\fP" 4
+ネットワーク経由のブート用イメージのブートローダ設定で設定するファイルのパスをセットします。デフォルトは Debian
+モードでは「/srv/debian\-live」、ubuntu モードでは「/srv/ubuntu\-live」となっています。
+.IP "\fB\-\-net\-root\-server\fP \fIIPアドレス\fP|\fIホスト名\fP" 4
+ネットワーク経由のブート用イメージのルートファイルシステムのブートローダ設定で設定するIPアドレスやホスト名をセットします。デフォルトは
+192.168.1.1 となっています。
+.IP "\fB\-\-net\-cow\-filesystem\fP nfs|cfs" 4
+copy\-on\-write レイヤーのファイルシステムの種類を指定します。デフォルトは nfs です。
+.IP "\fB\-\-net\-cow\-mountoptions\fP \fIオプション\fP" 4
+ネットワーク経由のブート用イメージの copy\-on\-write レイヤーをマウントする際の追加オプションを指定します。デフォルトは空です。
+.IP "\fB\-\-net\-cow\-path\fP \fIパス\fP" 4
+クライアントの書き込み可能ファイルシステムへのパスを指定します。パス中のどこかに \fIclient_mac_address\fP を指定すると
+live\-boot はその部分をクライアントのMACアドレスをハイフンで区切ったものに置き換えます。
+.PP
+.IP "" 4
+例:
+.br
+/export/hosts/client_mac_address
+.br
+/export/hosts/00\-16\-D3\-33\-92\-E8
+.IP "\fB\-\-net\-cow\-server\fP \fIIPアドレス\fP|\fIホスト名\fP" 4
+ネットワーク経由のブート用イメージの copy\-on\-write
+ファイルシステムのブートローダ設定で設定するIPアドレスやホスト名をセットします。デフォルトは空です。
+.IP "\fB\-\-net\-tarball\fP true|false" 4
+圧縮した tar アーカイブを作成するか否かを決定します。このオプションを無効にすると tar
+アーカイブは作成されなくなり、その場合はそのままのバイナリディレクトリが出力されることになります。デフォルトは true です。
+.IP \fB\-\-quiet\fP 4
+\fBlb build\fP からのメッセージの出力を少なくします。
+.IP "\fB\-\-archive\-areas\fP \fIアーカイブ領域\fP|\(dq\fIアーカイブ領域\fP\(dq" 4
+設定した Debian パッケージミラーに利用する Debian パッケージアーカイブのパッケージアーカイブ領域を指定します。デフォルトでは main
+となっています。この仕組みにより contrib や non\-free
+を有効化する際は、該当する法律の下で再配布が可能かどうか、各パッケージのライセンスを忘れずに確認してください。
+.IP "\fB\-\-parent\-archive\-areas\fP \fI親アーカイブ領域\fP|\(dq\fI親アーカイブ領域\fP\(dq" 4
+出来上がる Live システムの派生物のアーカイブ領域のディストリビューションを決定します。
+.IP "\fB\-\-security\fP true|false" 4
+セキュリティミラーオプションで指定されたセキュリティリポジトリを利用するか否かを決定します。
+.IP "\fB\-\-source\fP true|false" 4
+バイナリイメージに対応するソースイメージをビルドするか否かを決定します。ソースパッケージはほとんどの人にとって不要で、ダウンロードする必要があるものはかなり少数なので、デフォルトでは
+false となっています。しかし、作成した Live イメージの配布を始める際には平行して、ソースイメージを利用してビルドできることを確認すべきです。
+.IP "\-s|\fB\-\-source\-images\fP iso|netboot|tar|hdd" 4
+ソースイメージのイメージの種類を指定します。デフォルトは tar です。
+.IP "\fB\-\-firmware\-binary\fP true|false" 4
+ファームウェアパッケージを debian\-installer
+用のバイナリ置き場に自動的に収録するか否かを決定します。設定したアーカイブ領域で利用できるファームウェアパッケージだけが収録されることに注意してください。例えば
+main のパッケージだけで構成したイメージでは non\-free
+のファームウェアを自動的には収録しません。このオプションはバイナリパッケージ一覧で明示的に指定したパッケージには干渉しません。
+.IP "\fB\-\-firmware\-chroot\fP true|false" 4
+ファームウェアパッケージを Live
+イメージに自動的に収録するか否かを決定します。設定したアーカイブ領域で利用できるファームウェアパッケージだけが収録されることに注意してください。例えば
+main のパッケージだけで構成したイメージでは non\-free
+のファームウェアを自動的には収録しません。このオプションはバイナリパッケージ一覧で明示的に指定したパッケージには干渉しません。
+.IP "\fB\-\-swap\-file\-path\fP \fIパス\fP" 4
+バイナリイメージ中に作成するスワップファイルのパスを指定します。デフォルトではスワップファイルを作成しません。
+.IP "\fB\-\-swap\-file\-size\fP \fIMB\fP" 4
+スワップファイルを作成する場合のサイズをメガバイトで指定します。デフォルトは 512MB です。
+.IP "\fB\-\-tasksel\fP apt|aptitude|tasksel" 4
+タスクのインストールに利用するプログラムを選択します。デフォルトでは tasksel となっています。
+.IP "\fB\-\-templates\fP \fIパス\fP" 4
+例えばブートローダ用に live\-build が利用するテンプレートへのパスを指定します。デフォルトでは
+/usr/share/live/build/templates/ となっています。
+.IP "\fB\-\-hdd\-size\fP MB" 4
+hddイメージのサイズを指定します。デフォルトは 10000 (= 10GB)
+となっていますが、イメージファイルはわずかなファイルとして作成されるためハードディスクに 10GB
+の空き容量が必要というわけではないことに注意してください。
+.IP "\fB\-\-updates\fP true|false" 4
+イメージに updates パッケージアーカイブを収録すべきか否かを決定します。
+.IP "\fB\-\-backports\fP true|false" 4
+イメージに backports パッケージアーカイブを収録すべきか否かを決定します。
+.IP \fB\-\-verbose\fP 4
+\fBlb build\fP からのメッセージの出力を多くします。
+.IP "\fB\-\-win32\-loader true|false\fP" 4
+.\" FIXME
+バイナリイメージに win32\-loader を収録すべきか否かを決定します。
+
+.SH 環境変数
+.\" FIXME
+コマンドラインオプションは現在、対応する環境変数でも同様に指定できます。しかし、この実装は将来のリリースで変更される対象であり、基本的に使うべきではありません。live\-build
+に直接適用するオプションに対応する環境変数は LB_FOO のようになり、例えば \fB\-\-apt\-ftp\-proxy\fP は
+LB_APT_FTP_PROXY となります (\fB\-\-debug\fP 等の内部オプションは例外です)。他のプログラムに渡されるオプションには
+APT_OPTIONS や GZIP_OPTIONS と同様に LB_ を付加しません。
+
+
+.\" FIXME
+.SH ファイル
+.\" FIXME
+.IP \fBauto/config\fP 4
+.IP "\fB/etc/live/build.conf, /etc/live/build/*\fP" 4
+.\" FIXME
+\fBlb config\fP 変数向けのオプションの大域設定ファイルです。LB_PARENT_MIRROR_BOOTSTRAP
+のようなシステム全体の少数のデフォルトを指定するのに有用です。この機能は \fB\-\-ignore\-system\-defaults\fP
+オプションを指定することで無効にできます。
+
+.SH 関連項目
+\fIlive\-build\fP(7)
+.PP
+\fIlive\-boot\fP(7)
+.PP
+\fIlive\-config\fP(7)
+.PP
+このプログラムは live\-build の一部です。
+
+.SH ホームページ
+live\-build 及び Live
+システムプロジェクトについてのさらなる情報は、<\fIhttp://live\-systems.org/\fP> のホームページや
+<\fIhttp://live\-systems.org/manual/\fP> のマニュアルにあります。
+
+.SH バグ
+バグは <\fIhttp://bugs.debian.org/\fP> にあるバグ追跡システムに live\-build
+パッケージのバグ報告として提出するか、<\fIdebian\-live@lists.debian.org\fP> にある Live
+システムのメーリングリスト宛てにメールを書くことにより報告できます。
+
+.SH 作者
+live\-build は Daniel Baumann さん <\fImail@daniel\-baumann.ch\fP>
+により書かれました。

@@ -1351,6 +1351,26 @@ do
 	fi
 done
 
+if [ ! -e config/package-lists/live.list.chroot ]
+then
+
+cat > config/package-lists/live.list.chroot << EOF
+live-boot
+live-config
+EOF
+
+case "${LB_PARENT_DISTRIBUTION}" in
+	wheezy)
+		echo "live-config-sysvinit" >> config/package-lists/live.list.chroot
+		;;
+
+	*)
+		echo "live-config-systemd" >> config/package-lists/live.list.chroot
+		;;
+esac
+
+fi
+
 cat > config/build << EOF
 [Image]
 Architecture: ${LIVE_IMAGE_ARCHITECTURE}
