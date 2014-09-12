@@ -1,3 +1,22 @@
+live-build (4.0.2-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Creating live.list.chroot with live packages in config.
+
+  [ victory ]
+  * Fix typos in lb_config.1.
+  * Add Japanese translations.
+
+  [ Daniel Baumann ]
+  * Making populating of live.chroot.list distribution specific.
+  * Making check target in manpages makefile comply with the rest.
+  * Dropping incomplete German manpage translations.
+  * Dropping syslinux 6 symlinks from bootloader configs for wheezy.
+  * Removing source_includes from toplevel source script, it was a python
+    stub and will come back at a later point.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 12 Sep 2014 13:42:37 +0200
+
 live-build (4.0.1-1) unstable; urgency=low
 
   * Dropping leftover testroot call in bootstrap_cdebootstrap and
