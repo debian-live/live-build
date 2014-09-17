@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Live Systems Maintainers <debian-live@lists.debian.org>
 Uploaders: Daniel Baumann <mail@daniel-baumann.ch>
 Build-Depends: debhelper (>= 9)
-Standards-Version: 3.9.5
+Standards-Version: 3.9.6
 Homepage: http://live-systems.org/devel/live-build/
 Vcs-Browser: http://live-systems.org/gitweb/?p=live-build.git
 Vcs-Git: git://live-systems.org/git/live-build.git
