@@ -296,7 +296,7 @@ _HOUR="$(date +%H)"
 _MINUTE="$(date +%M)"
 _SECOND="$(date +%S)"
 
-_LINUX_VERSIONS="$(for _LINUX in chroot/boot/vmlinuz-* ; do chroot chroot apt-cache policy $(basename ${_LINUX} | sed -e 's|vmlinuz-|linux-image-|') | awk '/Installed: / { print $2 }' ; done | sort -Vru | tr "\n" " ")"
+_LINUX_VERSIONS="$(for _LINUX in chroot/boot/vmlinuz-* ; do chroot chroot apt-cache show $(basename ${_LINUX} | sed -e 's|vmlinuz-|linux-image-|') | awk '/Version: / { print $2 }' ; done | sort -Vru | tr "\n" " ")"
 
 _LIVE_BUILD_VERSION="$(lb --version)"
 _LIVE_BOOT_VERSION="$(chroot chroot apt-cache policy live-boot | awk '/Installed: / { print $2 }')"
