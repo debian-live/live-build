@@ -1,3 +1,17 @@
+live-build (4.0.3-1) unstable; urgency=low
+
+  [ Richard Nelson ]
+  * Adding cinnamon-desktop to frontend/cgi.
+
+  [ Daniel Baumann ]
+  * Updating to standards version 3.9.6.
+
+  [ Richard Nelson ]
+  * Correct variable name for apt_indices and adjust sed order for
+    population of build feedback on frontend/cgi.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 25 Oct 2014 14:39:03 +0200
+
 live-build (4.0.2-1) unstable; urgency=low
 
   [ Daniel Baumann ]
