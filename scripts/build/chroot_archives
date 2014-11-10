@@ -456,8 +456,8 @@ EOF
 				done
 			fi
 
-			# Installing aptitude (FIXME)
-			if [ "${LB_APT}" = "aptitude" ] && [ ! -x /usr/bin/aptitude ]
+			# Installing aptitude
+			if [ "${LB_APT}" = "aptitude" ] && [ ! -x /chroot/usr/bin/aptitude ]
 			then
 				Chroot chroot "apt-get ${APT_OPTIONS} update"
 				Chroot chroot "apt-get ${APT_OPTIONS} install aptitude"
