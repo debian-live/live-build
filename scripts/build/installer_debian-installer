@@ -256,6 +256,11 @@ case "${LB_DERIVATIVE}" in
 
 			# Debian Installer daily builds
 			URL="http://d-i.debian.org/daily-images/${LIVE_IMAGE_ARCHITECTURE}/daily/"
+			# use snapshot installer too
+			if [ -n "${LB_SNAPSHOT}" ]
+			then
+				URL="http://d-i.debian.org/daily-images/${LIVE_IMAGE_ARCHITECTURE}/$(Available_daily_installer)/"
+			fi
 		else
 			URL="${LB_MIRROR_DEBIAN_INSTALLER}/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LIVE_IMAGE_ARCHITECTURE}/current/images/"
 		fi

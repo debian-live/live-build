@@ -71,7 +71,12 @@ do
 	rm -f chroot/key.asc chroot/key.asc.sig
 done
 
-Chroot chroot "apt-get update"
+if [ -n "${LB_SNAPSHOT}" ]
+then
+	Chroot chroot "apt-get update -o Acquire::Check-Valid-Until=false"
+else
+	Chroot chroot "apt-get update"
+fi
 
 # Creating stage file
 Create_stagefile .build/bootstrap_archive-keys

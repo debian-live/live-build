@@ -54,6 +54,13 @@ case "${1}" in
 			echo "Acquire::http::Proxy \"${LB_APT_HTTP_PROXY}\";" > chroot/etc/apt/apt.conf.d/00http-proxy
 		fi
 
+		# Configuring snapshot.debian.org
+		if [ -n "${LB_SNAPSHOT}" ]
+		then
+			echo '// see bug #595801' > chroot/etc/apt/apt.conf.d/00debian-snapshot
+			echo 'Acquire::Check-Valid-Until "false";' >> chroot/etc/apt/apt.conf.d/00debian-snapshot
+		fi
+
 		# Configuring apt pipeline
 		if [ -n "${LB_APT_PIPELINE}" ]
 		then
@@ -226,6 +233,9 @@ EOF
 
 		# Deconfiguring aptitude http proxy
 		rm -f chroot/etc/apt/apt.conf.d/00http-proxy
+
+		# Deconfiguring snapshot.debian.org
+		rm -f chroot/etc/apt/apt.conf.d/00debian-snapshot
 
 		# Deconfiguring aptitude pipeline
 		rm -f chroot/etc/apt/apt.conf.d/00pipeline

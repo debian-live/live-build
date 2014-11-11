@@ -370,6 +370,19 @@ Set_defaults ()
 
 	## config/bootstrap
 
+	# Setting snapshot.debian.org
+	if [ -n "${LB_SNAPSHOT}" ]
+	then
+		LB_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP:-http://snapshot.debian.org/archive/debian/${LB_SNAPSHOT}}"
+		LB_PARENT_MIRROR_BOOTSTRAP="${LB_MIRROR_BOOTSTRAP}"
+		LB_MIRROR_CHROOT_SECURITY="${LB_MIRROR_CHROOT_SECURITY:-http://snapshot.debian.org/archive/debian-security/${LB_SNAPSHOT}}"
+		LB_PARENT_MIRROR_CHROOT_SECURITY="${LB_PARENT_MIRROR_CHROOT_SECURITY:-${LB_MIRROR_CHROOT_SECURITY}}"
+		LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://snapshot.debian.org/archive/debian/${LB_SNAPSHOT}}"
+		LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-${LB_MIRROR_BINARY}}"
+		LB_MIRROR_BINARY_SECURITY="${LB_MIRROR_BINARY_SECURITY:-http://snapshot.debian.org/archive/debian-security/${LB_SNAPSHOT}}"
+		LB_PARENT_MIRROR_BINARY_SECURITY="${LB_PARENT_MIRROR_BINARY_SECURITY:-${LB_MIRROR_BINARY_SECURITY}}"
+	fi
+
 	# Setting mirror to fetch packages from
 	case "${LB_MODE}" in
 		debian)
@@ -1056,6 +1069,17 @@ Check_defaults ()
 		if ! echo ${LB_CACHE_STAGES} | grep -qs "bootstrap\b" || [ "${LB_CACHE}" != "true" ] || [ "${LB_CACHE_PACKAGES}" != "true" ]
 		then
 			Echo_warning "You have selected values of LB_CACHE, LB_CACHE_PACKAGES, LB_CACHE_STAGES and LB_DEBIAN_INSTALLER which will result in 'bootstrap' packages not being cached. This configuration is potentially unsafe as the bootstrap packages are re-used when integrating the Debian Installer."
+		fi
+	fi
+
+	if [ -n "${LB_SNAPSHOT}" ] && [ "${LB_DEBIAN_INSTALLER}" = "live" ] && [ "${LB_DEBIAN_INSTALLER_DISTRIBUTION}" = "daily" ]
+	then
+		DAILY_LIVE_INSTALLER="$(Dated_debian_installer_snapshot)"
+		# if there is no available daily installer
+		if [ -z "${DAILY_LIVE_INSTALLER}" ]
+		then
+			Echo_warning "You have selected the debian-snapshot option with daily live-installer, but there is no daily live installer available at that date. The selected date was ${LB_SNAPSHOT}"
+			Echo_warning "The last available daily installer before ${LB_SNAPSHOT} will be used. Please check http://d-i.debian.org/daily-images/ to see the oldest daily installer available."
 		fi
 	fi
 

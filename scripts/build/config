@@ -52,6 +52,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--debian-installer-distribution daily|CODENAME]\n\
 \t    [--debian-installer-preseedfile FILE|URL]\n\
 \t    [--debian-installer-gui true|false]\n\
+\t    [--snapshot yyyymmdd|yyyymmddThhmmssZ\n\
 \t    [--debug]\n\
 \t    [-d|--distribution CODENAME]\n\
 \t    [--parent-distribution CODENAME]\n\
@@ -147,7 +148,7 @@ Local_arguments ()
 		net-cow-server:,net-tarball:,firmware-binary:,firmware-chroot:,swap-file-path:,swap-file-size:,
 		loadlin:,win32-loader:,source:,source-images:,breakpoints,conffile:,debug,force,
 		help,ignore-system-defaults,quiet,usage,verbose,version,bootstrap-qemu-static:,bootstrap-qemu-arch:,
-		bootstrap-qemu-exclude:"
+		bootstrap-qemu-exclude:,snapshot:"
 	# Remove spaces added by indentation
 	LONG_OPTIONS="$(echo ${LONG_OPTIONS} | tr -d ' ')"
 	ARGUMENTS="$(getopt --longoptions ${LONG_OPTIONS} --name="${PROGRAM}" --options a:f:d:m:l:k:p:b:e:s:c:huv --shell sh -- "${@}")"
@@ -297,6 +298,11 @@ Local_arguments ()
 
 			--debconf-priority)
 				LB_DEBCONF_PRIORITY="${2}"
+				shift 2
+				;;
+
+			--snapshot)
+				LB_SNAPSHOT="${2}"
 				shift 2
 				;;
 
@@ -948,6 +954,10 @@ LB_DEBCONF_FRONTEND="${LB_DEBCONF_FRONTEND}"
 # \$LB_DEBCONF_PRIORITY: set debconf(1) priority to use
 # (Default: ${LB_DEBCONF_PRIORITY})
 LB_DEBCONF_PRIORITY="${LB_DEBCONF_PRIORITY}"
+
+# \$LB_SNAPSHOT: set snapshot.debian.org date to use
+# (Default: empty or not set to not use archive snapshot, or a valid date in snapshot.debian.org URL format)
+LB_SNAPSHOT="${LB_SNAPSHOT}"
 
 # \$LB_INITRAMFS: set initramfs hook
 # (Default: ${LB_INITRAMFS})
