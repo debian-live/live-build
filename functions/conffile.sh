@@ -28,7 +28,7 @@ Get_conffiles ()
 
 Read_conffiles ()
 {
-	for CONFFILE in Get_conffiles "${@}"
+	for CONFFILE in $(Get_conffiles "${@}")
 	do
 		if [ -f "${CONFFILE}" ]
 		then
@@ -45,7 +45,7 @@ Read_conffiles ()
 
 Print_conffiles ()
 {
-	for CONFFILE in Get_conffiles "${@}"
+	for CONFFILE in $(Get_conffiles "${@}")
 	do
 		if [ -f "${CONFFILE}" ]
 		then
