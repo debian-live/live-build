@@ -127,6 +127,7 @@ Set_defaults ()
 		progress-linux)
 			LB_DISTRIBUTION="${LB_DISTRIBUTION:-baureo}"
 			LB_DERIVATIVE="true"
+			LB_DERIVATIVE_IS_BASED_ON="debian"
 			;;
 
 		ubuntu)

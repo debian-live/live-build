@@ -432,9 +432,19 @@ then
 
 		if echo ${LIVE_IMAGE_PARENT_ARCHIVE_AREAS} | grep -qs "non-free"
 		then
-			# FIXME: should check that we're building on debian through e.g. a 'derivative-is-based-on' variable or somesuch.
 			# Manually add firmware-linux/non-free meta package
-			FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} firmware-linux"
+			if [ "${LB_DERIVATIVE}" != "true" ]
+			then
+				FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} firmware-linux"
+			else
+				case "${LB_DERIVATIVE_IS_BASED_ON}" in
+					debian)
+						FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} firmware-linux"
+						;;
+					*)
+						;;
+				esac
+			fi
 		fi
 
 		if [ "${LB_DERIVATIVE}" = "true" ]
