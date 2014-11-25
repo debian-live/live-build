@@ -112,7 +112,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 		fi
 
 		# Saving cache
-		Save_cache cache/packages.binary
+		Save_cache cache/packages.chroot
 		;;
 esac
 
