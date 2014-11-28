@@ -60,6 +60,11 @@ case "${1}" in
 
 		# Configure custom sources.list
 
+if echo "${LB_PARENT_MIRROR_CHROOT}" | grep -q '^file:/'
+then
+	Chroot_bind_path chroot "$(echo ${LB_PARENT_MIRROR_CHROOT} | sed -e 's|file:||')"
+fi
+
 cat > chroot/etc/apt/${_PARENT_FILE} << EOF
 deb ${LB_PARENT_MIRROR_CHROOT} ${LB_PARENT_DISTRIBUTION} ${LIVE_IMAGE_PARENT_ARCHIVE_AREAS}
 EOF
@@ -533,6 +538,12 @@ EOF
 		then
 			mv chroot/etc/apt/sources.list.d/zz-sources.list chroot/etc/apt/sources.list
 		fi
+
+		# Unmount local repository
+if echo "${LB_PARENT_MIRROR_CHROOT}" | grep -q '^file:/'
+then
+	Chroot_unbind_path chroot "$(echo ${LB_PARENT_MIRROR_CHROOT} | sed -e 's|file:||')"
+fi
 
 		# Configure generic indices
 		# Don't do anything if it's not required

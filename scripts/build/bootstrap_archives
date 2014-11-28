@@ -59,6 +59,11 @@ Restore_cache cache/packages.chroot
 
 # Configure custom sources.list
 
+if echo "${LB_PARENT_MIRROR_CHROOT}" | grep -q '^file:/'
+then
+    Chroot_bind_path chroot "$(echo ${LB_PARENT_MIRROR_CHROOT} | sed -e 's|file:||')"
+fi
+
 cat > chroot/etc/apt/${_PARENT_FILE} << EOF
 deb ${LB_PARENT_MIRROR_CHROOT} ${LB_PARENT_DISTRIBUTION} ${LIVE_IMAGE_PARENT_ARCHIVE_AREAS}
 EOF
