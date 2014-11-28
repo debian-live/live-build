@@ -90,6 +90,9 @@ then
 	done
 fi
 
+# Remove broken packages
+FIRMWARE_PACKAGES="$(echo ${FIRMWARE_PACKAGES} | grep -v prism2-usb-firmware-installer || true)"
+
 # Drop section and keep package names only
 for _PACKAGE in ${FIRMWARE_PACKAGES}
 do
