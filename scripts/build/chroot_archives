@@ -545,17 +545,30 @@ then
 	Chroot_unbind_path chroot "$(echo ${LB_PARENT_MIRROR_CHROOT} | sed -e 's|file:||')"
 fi
 
-		# Configure generic indices
-		# Don't do anything if it's not required
-		if [ "${LB_PARENT_MIRROR_CHROOT}" = "${LB_PARENT_MIRROR_BINARY}" ] && \
-		[ "${LB_PARENT_MIRROR_CHROOT_SECURITY}" = "${LB_PARENT_MIRROR_BINARY_SECURITY}" ] && \
-		[ ! -d chroot/root/packages ]
-		then
-			# Removing stage file
-			rm -f .build/chroot_archives
+# FIXME:
+# Temporarily disabling this early-exit code that was put here for efficiency,
+# but which causes a lot of code to be skipped that really shouldn't be skipped.
+# To elaborate, the regeneration of the archive source file isn't needed if the
+# mirrors are the same, however blocking the rest causes the following issues:
+#  - Small bits of code towards the end, such as that needed to honor the
+#    --apt-indices parameter when set to false, are not executed.
+#  - This script is executed multiple times throughout the process, and should
+#    toggle the apt config cleanly between chroot and binary modes. It does not
+#    do this perfectly though. Part of the problem is this early exit, however
+#    the issue also extends into the install (chroot config) code above not
+#    removing the remove (binary) config components correctly, and neither
+#    removing the keys each other installs.
+	#	# Configure generic indices
+	#	# Don't do anything if it's not required
+	#	if [ "${LB_PARENT_MIRROR_CHROOT}" = "${LB_PARENT_MIRROR_BINARY}" ] && \
+	#	[ "${LB_PARENT_MIRROR_CHROOT_SECURITY}" = "${LB_PARENT_MIRROR_BINARY_SECURITY}" ] && \
+	#	[ ! -d chroot/root/packages ]
+	#	then
+	#		# Removing stage file
+	#		rm -f .build/chroot_archives
 
-			exit 0
-		fi
+	#		exit 0
+	#	fi
 
 		# Cleaning apt list cache
 		rm -rf chroot/var/lib/apt/lists
