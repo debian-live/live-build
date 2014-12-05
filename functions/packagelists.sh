@@ -107,6 +107,10 @@ Expand_packagelist ()
 					_LB_ENABLED=1
 					;;
 
+				\#*)
+					# Skip comments
+					;;
+
 				*)
 					if [ ${_LB_ENABLED} -eq 1 ]
 					then
