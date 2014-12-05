@@ -101,7 +101,7 @@ then
 			Expand_packagelist "${LIST}" "config/package-lists" > chroot/root/"$(basename ${LIST})"
 
 			# Downloading additional packages
-			Chroot chroot "xargs --arg-file=/root/$(basename ${LIST}) apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb --download-only install"
+			Chroot chroot "xargs --no-run-if-empty --arg-file=/root/$(basename ${LIST}) apt-get ${APT_OPTIONS} -o Dir::Cache=/binary.deb --download-only install"
 
 			# Remove package list
 			rm chroot/root/"$(basename ${LIST})"
@@ -110,6 +110,10 @@ then
 
 	for FILE in chroot/binary.deb/archives/*.deb
 	do
+		if [ ! -e ${FILE} ]; then
+			break # Do nothing if the package lists were empty...
+		fi
+
 		SOURCE="$(dpkg -f ${FILE} Source | awk '{ print $1 }')"
 		SECTION="$(dpkg -f ${FILE} Section | awk '{ print $1 }')"
 
