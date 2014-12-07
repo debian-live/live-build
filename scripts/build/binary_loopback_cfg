@@ -1,0 +1,341 @@
+#!/bin/sh
+
+## live-build(7) - System Build Scripts
+## Copyright (C) 2006-2015 Daniel Baumann <mail@daniel-baumann.ch>
+##
+## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+## This is free software, and you are welcome to redistribute it
+## under certain conditions; see COPYING for details.
+
+
+set -e
+
+# Including common functions
+[ -e "${LIVE_BUILD}/scripts/build.sh" ] && . "${LIVE_BUILD}/scripts/build.sh" || . /usr/lib/live/build.sh
+
+# Setting static variables
+DESCRIPTION="$(Echo 'installs loopback.cfg into binary')"
+HELP=""
+USAGE="${PROGRAM} [--force]"
+
+Arguments "${@}"
+
+# Reading configuration files
+Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
+Set_defaults
+
+# We avoid checking if we need to be running this bootloader
+# on purpose. The reason: You will always want to have
+# a loopback.cfg file
+# TODO: Add an option to be able to disable this file creation
+Echo_message "Begin installing loopback.cfg..."
+
+# Requiring stage file
+Require_stagefile .build/config .build/bootstrap
+
+# Checking stage file
+Check_stagefile .build/binary_loopback_cfg
+
+# Checking lock file
+Check_lockfile .lock
+
+# Creating lock file
+Create_lockfile .lock
+
+# Check architecture
+Check_architectures amd64 i386
+Check_crossarchitectures
+
+# Local functions
+Grub_live_entry_commands ()
+{
+	local KERNEL="${1}"
+	local INITRD="${2}"
+	local APPEND="${3}"
+
+	LINUX_LIVE="${LINUX_LIVE}\nlinux\t\t/${KERNEL} ${INITFS:+boot=${INITFS} }config LB_BOOTAPPEND_LIVE ${APPEND}"
+	LINUX_LIVE="${LINUX_LIVE}\ninitrd\t\t/${INITRD}"
+}
+
+Grub_live_entry ()
+{
+	local LABEL="${1}"
+	local KERNEL="${2}"
+	local INITRD="${3}"
+	local APPEND="${4}"
+
+	LINUX_LIVE="${LINUX_LIVE}\nmenuentry \"Debian GNU/Linux - ${LABEL}\" {"
+	Grub_live_entry_commands "${KERNEL}" "${INITRD}" "${APPEND} findiso=\${iso_path}"
+	LINUX_LIVE="${LINUX_LIVE}\n}"
+}
+
+Grub_live_autodetect_entry ()
+{
+	local LABEL="${1}"
+	local AMD64_KERNEL="${2}"
+	local AMD64_INITRD="${3}"
+	local _486_KERNEL="${4}"
+	local _486_INITRD="${5}"
+	local APPEND="${6}"
+
+	LINUX_LIVE="${LINUX_LIVE}\nmenuentry \"Debian GNU/Linux - ${LABEL}\" {"
+	LINUX_LIVE="${LINUX_LIVE}\nif cpuid -l ; then"
+	Grub_live_entry_commands "${AMD64_KERNEL}" "${AMD64_INITRD}" "${APPEND} findiso=\${iso_path}"
+	LINUX_LIVE="${LINUX_LIVE}\nelse"
+	Grub_live_entry_commands "${_486_KERNEL}" "${_486_INITRD}" "${APPEND} findiso=\${iso_path}"
+	LINUX_LIVE="${LINUX_LIVE}\nfi"
+	LINUX_LIVE="${LINUX_LIVE}\n}"
+}
+
+if [ -e "config/bootloaders/grub-pc" ]
+then
+	# Internal local copy
+	_SOURCE="config/bootloaders/grub-pc"
+else
+	# Internal system copy
+	if [ -n "${LIVE_BUILD}" ]
+	then
+		_SOURCE="${LIVE_BUILD}/share/bootloaders/grub-pc"
+	else
+		_SOURCE="/usr/share/live/build/bootloaders/grub-pc"
+	fi
+fi
+
+case "${LB_INITRAMFS}" in
+	live-boot)
+		INITFS="live"
+		;;
+
+	*)
+		INITFS=""
+		;;
+esac
+
+# Assembling image specifics
+case "${LIVE_IMAGE_TYPE}" in
+	iso*)
+		_BOOTLOADER="isolinux"
+
+		case "${LB_MODE}" in
+			progress-linux)
+				_TARGET="binary/boot"
+				;;
+
+			*)
+				_TARGET="binary/isolinux"
+				;;
+		esac
+		;;
+
+	netboot)
+		_BOOTLOADER="pxelinux"
+		_TARGET="tftpboot"
+		;;
+
+	hdd*|*)
+		case ${LB_BINARY_FILESYSTEM} in
+			fat*|ntfs)
+				_BOOTLOADER=syslinux
+
+				case "${LB_MODE}" in
+					progress-linux)
+						_TARGET="binary/boot"
+						;;
+
+					*)
+						_TARGET="binary/syslinux"
+						;;
+				esac
+				;;
+
+			ext[234]|btrfs)
+				_BOOTLOADER=extlinux
+				_TARGET="binary/boot/extlinux"
+				;;
+			*)
+				Echo_error "syslinux/extlinux doesn't support ${LB_BINARY_FILESYSTEM}"
+				exit 1
+				;;
+		esac
+		;;
+esac
+
+DESTDIR_LIVE="${_TARGET}"
+
+Check_multiarchitectures
+
+# Creating directory
+mkdir -p "${DESTDIR_LIVE}"
+
+# Setting boot parameters
+if [ "${LB_UNION_FILESYSTEM}" != "aufs" ]
+then
+	LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE} union=${LB_UNION_FILESYSTEM}"
+fi
+
+if [ -n "${LB_NET_COW_PATH}" ]
+then
+	Echo_error "Net cow not yet supported on grub"
+	exit 1
+fi
+
+LB_BOOTAPPEND_LIVE="$(echo ${LB_BOOTAPPEND_LIVE} | sed -e 's|  ||')"
+
+# Assembling kernel configuration
+# If Bootloader is not syslinux that means
+# binary_syslinux it's not going to rename kernel filenames in a later stage.
+# We will use binary_grub2 algorithm which does not rename kernel filenames.
+
+FOUND_SYSLINUX=""
+OLDIFS="$IFS"
+IFS=","
+for BOOTLOADER in ${LB_BOOTLOADERS}
+do
+
+       case ${BOOTLOADER} in
+               "syslinux" )
+                       FOUND_SYSLINUX="True"
+                       break ;;
+       esac
+
+done
+IFS="$OLDIFS"
+
+if [ -z ${FOUND_SYSLINUX} ]
+then
+
+	_AMD64_486_NUMBER="0"
+
+	for _FLAVOUR in ${LB_LINUX_FLAVOURS}
+	do
+		if [ "${_FLAVOUR}" = "amd64" -o "${_FLAVOUR}" = "486" ] ; then
+			_AMD64_486_NUMBER="$((${_AMD64_486_NUMBER} + 1))"
+		fi
+	done
+
+	if [ "${_AMD64_486_NUMBER}" -ge 2 ] ; then
+		# Default entries
+		AMD64_KERNEL="$(basename chroot/boot/vmlinuz-*amd64)"
+		AMD64_INITRD="initrd.img-$(echo ${AMD64_KERNEL} | sed -e 's|vmlinuz-||')"
+		_486_KERNEL="$(basename chroot/boot/vmlinuz-*486)"
+		_486_INITRD="initrd.img-$(echo ${_486_KERNEL} | sed -e 's|vmlinuz-||')"
+
+		Grub_live_autodetect_entry "live (autodetect)" \
+			"${INITFS}/${AMD64_KERNEL}" \
+			"${INITFS}/${AMD64_INITRD}" \
+			"${INITFS}/${_486_KERNEL}" \
+			"${INITFS}/${_486_INITRD}"
+	fi
+
+	# Default entries
+	DEFAULT_FLAVOUR="$(echo ${LB_LINUX_FLAVOURS} | awk '{ print $1 }')"
+	DEFAULT_KERNEL="$(basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR})"
+	DEFAULT_INITRD="initrd.img-$(echo ${DEFAULT_KERNEL} | sed -e 's|vmlinuz-||')"
+
+	Grub_live_entry "live" "${INITFS}/${DEFAULT_KERNEL}" "${INITFS}/${DEFAULT_INITRD}"
+
+	if [ "${LB_BOOTAPPEND_FAILSAFE}" != "none" ]
+	then
+		Grub_live_entry "live (fail-safe mode)" "${INITFS}/${DEFAULT_KERNEL}" "${INITFS}/${DEFAULT_INITRD}" "${LB_BOOTAPPEND_FAILSAFE}"
+	fi
+
+	for KERNEL in chroot/boot/vmlinuz-*
+	do
+		VERSION="$(basename ${KERNEL} | sed -e 's|vmlinuz-||')"
+
+		Grub_live_entry "live, kernel ${VERSION}" "${INITFS}/$(basename ${KERNEL})" "${INITFS}/initrd.img-${VERSION}"
+		Grub_live_entry "live, kernel ${VERSION} (fail-safe mode)" "${INITFS}/$(basename ${KERNEL})" "${INITFS}/initrd.img-${VERSION}" "${LB_BOOTAPPEND_FAILSAFE}"
+	done
+else # LB_BOOTLOADERS does not contain syslinux
+# If one of the bootloader is syslinux that means
+# binary_syslinux it's going to rename kernel filenames.
+# We will use binary_syslinux algorithm but without renaming kernel filenames.
+# That will ensure binary_syslinux will find the original kernel filenames.
+	#if [ -e "${_TARGET}/live.cfg.in" ]
+	#then
+		# This is all rather suboptimal.. needs prettifying at some point
+		_FLAVOURS="$(echo ${LB_LINUX_FLAVOURS} | wc -w)"
+
+		case "${_FLAVOURS}" in
+			1)
+				Grub_live_entry "live (${LB_LINUX_FLAVOURS})" "${INITFS}/vmlinuz" "${INITFS}/initrd.img" "${LB_BOOTAPPEND_LIVE}"
+				Grub_live_entry "live (${LB_LINUX_FLAVOURS}) (failsafe mode)" "${INITFS}/vmlinuz" "${INITFS}/initrd.img" "${LB_BOOTAPPEND_LIVE_FAILSAFE}"
+			;;
+
+			*)
+				_AMD64_486_NUMBER="0"
+
+				for _FLAVOUR in ${LB_LINUX_FLAVOURS}
+				do
+					if [ "${_FLAVOUR}" = "amd64" -o "${_FLAVOUR}" = "486" ] ; then
+						_AMD64_486_NUMBER="$((${_AMD64_486_NUMBER} + 1))"
+					fi
+				done
+
+				_NUMBER="0"
+				for _FLAVOUR in ${LB_LINUX_FLAVOURS}
+				do
+					_NUMBER="$((${_NUMBER} + 1))"
+					if [ "${_FLAVOUR}" = "amd64" ] ; then
+						AMD64_KERNEL="vmlinuz${_NUMBER}"
+						AMD64_INITRD="initrd${_NUMBER}.img"
+					fi
+
+					if [ "${_FLAVOUR}" = "486" ] ; then
+						_486_KERNEL="vmlinuz${_NUMBER}"
+						_486_INITRD="initrd${_NUMBER}.img"
+					fi
+				done
+
+				_NUMBER="0"
+
+				for _FLAVOUR in ${LB_LINUX_FLAVOURS}
+				do
+					_NUMBER="$((${_NUMBER} + 1))"
+
+					if [ "${_NUMBER}" -gt 1 ]
+					then
+						Grub_live_entry "live (${_FLAVOUR})" "${INITFS}/vmlinuz${_NUMBER}" "${INITFS}/initrd${_NUMBER}.img" "${LB_BOOTAPPEND_LIVE}"
+						Grub_live_entry "live (${_FLAVOUR}) (failsafe mode)" "${INITFS}/vmlinuz${_NUMBER}" "${INITFS}/initrd${_NUMBER}.img" "${LB_BOOTAPPEND_LIVE_FAILSAFE}"
+
+					else
+						if [ "${_AMD64_486_NUMBER}" -ge 2 ] ; then
+
+							Grub_live_autodetect_entry "live (autodetect)" \
+								"${INITFS}/${AMD64_KERNEL}" \
+								"${INITFS}/${AMD64_INITRD}" \
+								"${INITFS}/${_486_KERNEL}" \
+								"${INITFS}/${_486_INITRD}"
+						fi
+
+						Grub_live_entry "live (${_FLAVOUR})" "${INITFS}/vmlinuz${_NUMBER}" "${INITFS}/initrd${_NUMBER}.img" "${LB_BOOTAPPEND_LIVE}"
+						Grub_live_entry "live (${_FLAVOUR}) (failsafe mode)" "${INITFS}/vmlinuz${_NUMBER}" "${INITFS}/initrd${_NUMBER}.img" "${LB_BOOTAPPEND_LIVE_FAILSAFE}"
+					fi
+
+				done
+
+				;;
+		esac
+	#fi
+fi
+LINUX_LIVE="$(/bin/echo ${LINUX_LIVE} | sed -e 's|binary||g' -e 's|//|/|g')"
+
+# Assembling memtest configuration
+if [ -f "${DESTDIR_LIVE}"/memtest ]
+then
+	MEMTEST="#\t \"Other\"\n"
+	MEMTEST="${MEMTEST}\nmenuentry\t\"${LB_MEMTEST}\" {\nlinux16\t${INITFS}/memtest\n}"
+	MEMTEST="$(/bin/echo ${MEMTEST} | sed -e 's|//|/|g')"
+fi
+
+# Copying templates
+mkdir -p binary/boot/grub
+cp "${_SOURCE}"/grub.cfg binary/boot/grub/loopback.cfg
+
+sed -i -e "s|LINUX_LIVE|${LINUX_LIVE}|" -e "s|LINUX_INSTALL||" -e "s|MEMTEST|${MEMTEST}|" binary/boot/grub/loopback.cfg
+sed -i -e "s#LB_BOOTAPPEND_INSTALL##" -e "s#LB_BOOTAPPEND_LIVE#${LB_BOOTAPPEND_LIVE}#" binary/boot/grub/loopback.cfg
+
+sed -i -e 's|\ $||g' binary/boot/grub/loopback.cfg
+
+# Creating stage file
+Create_stagefile .build/binary_loopback_cfg

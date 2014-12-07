@@ -62,6 +62,7 @@ lb binary_linux-image ${@}
 lb binary_memtest ${@}
 lb binary_grub-legacy ${@}
 lb binary_grub-pc ${@}
+lb binary_loopback_cfg ${@}
 lb binary_syslinux ${@}
 lb binary_disk ${@}
 lb binary_loadlin ${@}
