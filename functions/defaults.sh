@@ -525,15 +525,29 @@ Set_defaults ()
 				*)
 					# armel will have special images: one rootfs image and many additional kernel images.
 					# therefore we default to all available armel flavours
-					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-iop32x ixp4xx kirkwood orion5x versatile}"
+					case "${LB_DISTRIBUTION}" in
+						wheezy)
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-iop32x ixp4xx kirkwood orion5x versatile}"
+							;;
+						*)
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-ixp4xx kirkwood orion5x versatile}"
+							;;
+					esac
 					;;
 			esac
 			;;
 
 		armhf)
 			# armhf will have special images: one rootfs image and many additional kernel images.
-			# therefore we default to all available armel flavours
-			LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-mx5 omap}"
+			# therefore we default to all available armhf flavours
+			case "${LB_DISTRIBUTION}" in
+				wheezy)
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-mx5 omap}"
+					;;
+				*)
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-armmp armmp-lpae}"
+					;;
+			esac
 			;;
 
 		amd64)
