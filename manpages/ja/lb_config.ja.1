@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2014\-10\-25 4.0.3\-1 "Live システムプロジェクト"
+.TH LIVE\-BUILD 1 2014\-12\-10 4.0.4\-1 "Live システムプロジェクト"
 
 .SH 名前
 \fBlb config\fP \- 設定ディレクトリを作成します
@@ -44,7 +44,7 @@
 .br
   [\fB\-\-bootappend\-live\fP \fIパラメータ\fP|\fI"パラメータ"\fP]
 .br
-  [\fB\-\-bootloader\fP grub|syslinux]
+  [\fB\-\-bootloader\fP grub|grub2|syslinux]
 .br
   [\fB\-\-bootstrap\fP cdebootstrap|cdebootstrap\-static|debootstrap]
 .br
@@ -297,7 +297,7 @@ debian\-installer を収録した場合、debian\-installer 特有のブート�
 .IP "\fB\-\-bootappend\-live\fP \fIパラメータ\fP|\(dq\fIパラメータ\fP\(dq" 4
 debian\-live 特有のブートパラメータをセットします。ブートパラメータの全容は \fIlive\-boot\fP(7) 及び
 \fIlive\-config\fP(7) マニュアルページにあります。
-.IP "\fB\-\-bootloader\fP grub|syslinux" 4
+.IP "\fB\-\-bootloader\fP grub|grub2|syslinux" 4
 生成されたイメージで利用するブートローダを選択します。これは選択した種類のバイナリイメージでブートローダを選択できる場合にのみ効果があります。例えば
 iso をビルドする場合は常に syslinux (さらに言えば isolinux)
 が利用されます。また、バイナリイメージの種類とブートローダの組み合わせの中には、可能ではあるものの live\-build

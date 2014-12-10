@@ -1,3 +1,51 @@
+live-build (4.0.4-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Applying patch from Gabriele Gristina <gabriele.gristina@gmail.com> to
+    fix automated checks for using aptitude.
+  * Adding hook to enable cryptsetup (Closes: #767195).
+  * Dropping prism2-usb-firmware-installer which fetches firmware from (at
+    least) temporarily broken website.
+
+  [ Raphaël Hertzog ]
+  * Update linux flavours for armhf/armel.
+  * Properly support empty package lists.
+  * binary_syslinux: correct the path used to check if the bootloader is
+    available.
+
+  [ Daniel Baumann ]
+  * Cleaning up from python removal (LIVE_IMAGE_ARCHITECTURE).
+  * Cleaning up from python removal (LIVE_IMAGE_ARCHIVE_AREAS).
+  * Avoid failing to autocreate live.list.chroot in lb config when using
+    --clean, thanks to jnqnfe <jnqnfe@gmail.com> (Closes: #770637).
+
+  [ jnqnfe ]
+  * Fix broken calls to Get_conffiles() from Read_conffiles() and
+    Print_conffiles() (Closes: #770645).
+  * Fix chroot_package-lists script saving to wrong cache (Closes:
+    #771002).
+  * Fix missing grub2 option in bootloader selection (Closes: #772671).
+
+  [ Daniel Baumann ]
+  * Correcting stage name check in chroot_includes, thanks to jnqnfe
+    <jnqnfe@gmail.com> (Closes: #771377).
+  * Correcting typo in apt.conf.d directory name, thanks to jnqnfe
+    <jnqnfe@gmail.com> (Closes: #771392).
+
+  [ jnqnfe ]
+  * Fix typo in variable name (LH_LINUX_FLAVOURS instead of
+    LB_LINUX_FLAVOURS) in installer_debian-installer script, affecting the
+    armel architecture (Closes: #770796).
+
+  [ Daniel Baumann ]
+  * Somewhat fixing sysvinit and casper legacy support, slightly improved
+    patch from Rui Miguel P. Bernardo <rui.bernardo.pt@gmail.com> (Closes:
+    #772522, #772651).
+  * Ugly hack to force dbus inclusion when using live-config-systemd
+    (Closes: #769635).
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 10 Dec 2014 08:23:55 +0100
+
 live-build (4.0.3-1) unstable; urgency=low
 
   [ Richard Nelson ]

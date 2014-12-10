@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: live-build 4.0.3-1\n"
-"POT-Creation-Date: 2014-10-25 14:34+0200\n"
+"Project-Id-Version: live-build 4.0.4-1\n"
+"POT-Creation-Date: 2014-12-10 08:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 #: en/lb_chroot.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
 #: en/live-build.7:1
 #, no-wrap
-msgid "2014-10-25"
+msgid "2014-12-10"
 msgstr ""
 
 #. type: TH
@@ -37,7 +37,7 @@ msgstr ""
 #: en/lb_chroot.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
 #: en/live-build.7:1
 #, no-wrap
-msgid "4.0.3-1"
+msgid "4.0.4-1"
 msgstr ""
 
 #. type: TH
@@ -255,7 +255,7 @@ msgstr ""
 
 #. type: Plain text
 #: en/lb_config.1:43
-msgid "  [B<--bootloader> grub|syslinux]"
+msgid "  [B<--bootloader> grub|grub2|syslinux]"
 msgstr ""
 
 #. type: Plain text
@@ -970,7 +970,7 @@ msgstr ""
 #. type: IP
 #: en/lb_config.1:268
 #, no-wrap
-msgid "B<--bootloader> grub|syslinux"
+msgid "B<--bootloader> grub|grub2|syslinux"
 msgstr ""
 
 #. type: Plain text
