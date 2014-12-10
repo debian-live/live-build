@@ -1,3 +1,9 @@
+live-build (5.0~a1-1) experimental; urgency=low
+
+  * Dropping support for wheezy.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 10 Dec 2014 08:39:14 +0100
+
 live-build (4.0.4-1) unstable; urgency=low
 
   [ Daniel Baumann ]
