@@ -1353,6 +1353,7 @@ done
 
 if [ ! -e config/package-lists/live.list.chroot ]
 then
+	mkdir -p config/package-lists
 
 cat > config/package-lists/live.list.chroot << EOF
 live-boot
