@@ -58,9 +58,9 @@ Create_lockfile .lock
 mkdir -p chroot
 
 # Setting cdebootstrap options
-if [ -n "${LIVE_IMAGE_ARCHITECTURE}" ]
+if [ -n "${LB_ARCHITECTURES}" ]
 then
-	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --arch=${LIVE_IMAGE_ARCHITECTURE}"
+	CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS} --arch=${LB_ARCHITECTURES}"
 fi
 
 if [ "${_DEBUG}" = "true" ]
@@ -107,7 +107,7 @@ then
 	Echo_breakage "Running ${LB_BOOTSTRAP}... "
 
 	# Run appropriate bootstrap, i.e. foreign or regular bootstrap
-	if [ "${LB_BOOTSTRAP_QEMU_ARCHITECTURES}" = "${LIVE_IMAGE_ARCHITECTURE}" ]; then
+	if [ "${LB_BOOTSTRAP_QEMU_ARCHITECTURES}" = "${LB_ARCHITECTURES}" ]; then
 
 		if [ -n "${LB_BOOTSTRAP_QEMU_EXCLUDE}" ]
 		then

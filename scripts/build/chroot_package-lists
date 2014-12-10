@@ -93,9 +93,9 @@ done
 for _PACKAGE_ARCHITECTURE in $(Discover_package_architectures "chroot/root/packages.chroot")
 do
 	# If this is a foreign architecture, append to packages.foreign-architectures
-	if [ "${_PACKAGE_ARCHITECTURE}" != "${LIVE_IMAGE_ARCHITECTURE}" ]
+	if [ "${_PACKAGE_ARCHITECTURE}" != "${LB_ARCHITECTURES}" ]
 	then
-		Echo_message "Accepting foreign architecture: ${_PACKAGE_ARCHITECTURE}, live image architecture is: ${LIVE_IMAGE_ARCHITECTURE}"
+		Echo_message "Accepting foreign architecture: ${_PACKAGE_ARCHITECTURE}, live image architecture is: ${LB_ARCHITECTURES}"
 		echo "${_PACKAGE_ARCHITECTURE}" >> chroot/root/packages.foreign-architectures
 	fi
 done

@@ -58,9 +58,9 @@ Create_lockfile .lock
 mkdir -p chroot
 
 # Setting debootstrap options
-if [ -n "${LIVE_IMAGE_ARCHITECTURE}" ]
+if [ -n "${LB_ARCHITECTURES}" ]
 then
-	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --arch=${LIVE_IMAGE_ARCHITECTURE}"
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --arch=${LB_ARCHITECTURES}"
 fi
 
 if [ "${LIVE_IMAGE_ARCHIVE_AREAS}" != "main" ]
@@ -105,7 +105,7 @@ then
 	Echo_breakage "Running debootstrap... "
 
 	# Run appropriate bootstrap, i.e. foreign or regular bootstrap
-	if [ "${LB_BOOTSTRAP_QEMU_ARCHITECTURES}" = "${LIVE_IMAGE_ARCHITECTURE}" ]; then
+	if [ "${LB_BOOTSTRAP_QEMU_ARCHITECTURES}" = "${LB_ARCHITECTURES}" ]; then
 
 		if [ -n "${LB_BOOTSTRAP_QEMU_EXCLUDE}" ]
 		then

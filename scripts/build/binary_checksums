@@ -89,7 +89,7 @@ done
 
 # File list
 cd binary
-find . | sed -e 's|^.||g' | grep "^/" | sort > ../${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.contents
+find . | sed -e 's|^.||g' | grep "^/" | sort > ../${LIVE_IMAGE_NAME}-${LB_ARCHITECTURES}.contents
 cd "${OLDPWD}"
 
 # Creating stage file

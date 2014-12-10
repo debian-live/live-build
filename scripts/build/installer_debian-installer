@@ -76,7 +76,7 @@ Install_package
 # Setting destination directory
 case "${LIVE_IMAGE_TYPE}" in
 	netboot)
-		DESTDIR="tftpboot/debian-install/${LIVE_IMAGE_ARCHITECTURE}"
+		DESTDIR="tftpboot/debian-install/${LB_ARCHITECTURES}"
 		;;
 
 	hdd*|tar)
@@ -107,7 +107,7 @@ case "${LB_DEBIAN_INSTALLER}" in
 esac
 
 # Set architecture-specific variables
-case "${LIVE_IMAGE_ARCHITECTURE}" in
+case "${LB_ARCHITECTURES}" in
 	armel)
 		DEFAULT_FLAVOUR="$(echo ${LH_LINUX_FLAVOURS} | awk '{ print $1 }')"
 		case "${DI_IMAGE_TYPE}" in
@@ -127,11 +127,11 @@ case "${LIVE_IMAGE_ARCHITECTURE}" in
 	powerpc)
 		case "${DI_IMAGE_TYPE}" in
 			cdrom)
-				DI_REMOTE_BASE="${LIVE_IMAGE_ARCHITECTURE}/cdrom"
+				DI_REMOTE_BASE="${LB_ARCHITECTURES}/cdrom"
 			;;
 
 			netboot)
-				DI_REMOTE_BASE="${LIVE_IMAGE_ARCHITECTURE}/netboot"
+				DI_REMOTE_BASE="${LB_ARCHITECTURES}/netboot"
 				;;
 		esac
 
@@ -149,8 +149,8 @@ case "${LIVE_IMAGE_ARCHITECTURE}" in
 	*)
 		case "${DI_IMAGE_TYPE}" in
 			netboot)
-				DI_REMOTE_BASE="netboot/debian-installer/${LIVE_IMAGE_ARCHITECTURE}"
-				DI_REMOTE_BASE_GTK="netboot/gtk/debian-installer/${LIVE_IMAGE_ARCHITECTURE}"
+				DI_REMOTE_BASE="netboot/debian-installer/${LB_ARCHITECTURES}"
+				DI_REMOTE_BASE_GTK="netboot/gtk/debian-installer/${LB_ARCHITECTURES}"
 				DI_REMOTE_KERNEL="linux"
 				;;
 
@@ -255,9 +255,9 @@ case "${LB_DERIVATIVE}" in
 			LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="sid"
 
 			# Debian Installer daily builds
-			URL="http://d-i.debian.org/daily-images/${LIVE_IMAGE_ARCHITECTURE}/daily/"
+			URL="http://d-i.debian.org/daily-images/${LB_ARCHITECTURES}/daily/"
 		else
-			URL="${LB_MIRROR_DEBIAN_INSTALLER}/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LIVE_IMAGE_ARCHITECTURE}/current/images/"
+			URL="${LB_MIRROR_DEBIAN_INSTALLER}/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LB_ARCHITECTURES}/current/images/"
 		fi
 		;;
 
@@ -267,23 +267,23 @@ case "${LB_DERIVATIVE}" in
 			LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="sid"
 
 			# Debian Installer daily builds
-			URL="http://d-i.debian.org/daily-images/${LIVE_IMAGE_ARCHITECTURE}/daily/"
+			URL="http://d-i.debian.org/daily-images/${LB_ARCHITECTURES}/daily/"
 		else
-			URL="${LB_PARENT_MIRROR_DEBIAN_INSTALLER}/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LIVE_IMAGE_ARCHITECTURE}/current/images/"
+			URL="${LB_PARENT_MIRROR_DEBIAN_INSTALLER}/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LB_ARCHITECTURES}/current/images/"
 		fi
 
 		if [ "${LB_MODE}" = "progress-linux" ]
 		then
 			# FIXME: normal derivatives probably don't rebuild d-i,
 			# but progress-linux does.
-			URL="${LB_MIRROR_DEBIAN_INSTALLER}/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LIVE_IMAGE_ARCHITECTURE}/current/images/"
+			URL="${LB_MIRROR_DEBIAN_INSTALLER}/dists/${LB_DEBIAN_INSTALLER_DISTRIBUTION}/main/installer-${LB_ARCHITECTURES}/current/images/"
 		fi
 		;;
 esac
 
 mkdir -p "${DESTDIR_DI}"
 
-if [ "${LIVE_IMAGE_ARCHITECTURE}" = "sparc" ] && [ "${DI_IMAGE_TYPE}" = "netboot" ]
+if [ "${LB_ARCHITECTURES}" = "sparc" ] && [ "${DI_IMAGE_TYPE}" = "netboot" ]
 then
 	# There are no prepared kernel/initrd pairs for sparc netboot so we
 	# must unpack them from a mini.iso
@@ -306,7 +306,7 @@ else
 	DOWNLOAD_GTK_INSTALLER=0
 	if [ "${LB_DEBIAN_INSTALLER_GUI}" = "true" ]
 	then
-		case "${LIVE_IMAGE_ARCHITECTURE}" in
+		case "${LB_ARCHITECTURES}" in
 			amd64|i386)
 				DOWNLOAD_GTK_INSTALLER=1
 				;;
@@ -337,7 +337,7 @@ then
 	mv chroot/var/lib/dpkg/status chroot/var/lib/dpkg/status.tmp
 	touch chroot/var/lib/dpkg/status
 
-	case "${LIVE_IMAGE_ARCHITECTURE}" in
+	case "${LB_ARCHITECTURES}" in
 		amd64)
 			DI_REQ_PACKAGES="lilo grub-pc"
 
@@ -419,15 +419,15 @@ then
 
 		FIRMWARE_PACKAGES=""
 
-		_CONTENTS="$(for _PARENT_ARCHIVE_AREA in ${LIVE_IMAGE_PARENT_ARCHIVE_AREAS}; do echo ${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/${_PARENT_ARCHIVE_AREA}/Contents-${LIVE_IMAGE_ARCHITECTURE}.gz; done)"
+		_CONTENTS="$(for _PARENT_ARCHIVE_AREA in ${LIVE_IMAGE_PARENT_ARCHIVE_AREAS}; do echo ${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/${_PARENT_ARCHIVE_AREA}/Contents-${LB_ARCHITECTURES}.gz; done)"
 
-		rm -f cache/contents.chroot/contents.${LB_PARENT_DISTRIBUTION}.${LIVE_IMAGE_ARCHITECTURE}
+		rm -f cache/contents.chroot/contents.${LB_PARENT_DISTRIBUTION}.${LB_ARCHITECTURES}
 
 		for _CONTENT in ${_CONTENTS}
 		do
-			wget ${WGET_OPTIONS} ${_CONTENT} -O - | gunzip -c >> cache/contents.chroot/contents.${LB_PARENT_DISTRIBUTION}.${LIVE_IMAGE_ARCHITECTURE}
+			wget ${WGET_OPTIONS} ${_CONTENT} -O - | gunzip -c >> cache/contents.chroot/contents.${LB_PARENT_DISTRIBUTION}.${LB_ARCHITECTURES}
 
-			FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} $(awk '/^lib\/firmware/ { print $2 }' cache/contents.chroot/contents.${LB_PARENT_DISTRIBUTION}.${LIVE_IMAGE_ARCHITECTURE} | sort -u)"
+			FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} $(awk '/^lib\/firmware/ { print $2 }' cache/contents.chroot/contents.${LB_PARENT_DISTRIBUTION}.${LB_ARCHITECTURES} | sort -u)"
 		done
 
 		if echo ${LIVE_IMAGE_PARENT_ARCHIVE_AREAS} | grep -qs "non-free"
@@ -441,15 +441,15 @@ then
 		then
 			# FIXME: account for the fact that PARENT_DISTRIBUTION and DISTRIBUTION might be the same (to not have overlapping cache files for contents).
 
-			_CONTENTS="$(for _ARCHIVE_AREA in ${LIVE_IMAGE_ARCHIVE_AREAS}; do echo ${LB_MIRROR_CHROOT}/dists/${LB_DISTRIBUTION}/${_ARCHIVE_AREA}/Contents-${LIVE_IMAGE_ARCHITECTURE}.gz; done)"
+			_CONTENTS="$(for _ARCHIVE_AREA in ${LIVE_IMAGE_ARCHIVE_AREAS}; do echo ${LB_MIRROR_CHROOT}/dists/${LB_DISTRIBUTION}/${_ARCHIVE_AREA}/Contents-${LB_ARCHITECTURES}.gz; done)"
 
-			rm -f cache/contents.chroot/contents.${LB_DISTRIBUTION}.${LIVE_IMAGE_ARCHITECTURE}
+			rm -f cache/contents.chroot/contents.${LB_DISTRIBUTION}.${LB_ARCHITECTURES}
 
 			for _CONTENT in ${_CONTENTS}
 			do
-				wget ${WGET_OPTIONS} ${_CONTENT} -O - | gunzip -c >> cache/contents.chroot/contents.${LB_DISTRIBUTION}.${LIVE_IMAGE_ARCHITECTURE}
+				wget ${WGET_OPTIONS} ${_CONTENT} -O - | gunzip -c >> cache/contents.chroot/contents.${LB_DISTRIBUTION}.${LB_ARCHITECTURES}
 
-				FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} $(awk '/^lib\/firmware/ { print $2 }' cache/contents.chroot/contents.${LB_DISTRIBUTION}.${LIVE_IMAGE_ARCHITECTURE} | sort -u)"
+				FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} $(awk '/^lib\/firmware/ { print $2 }' cache/contents.chroot/contents.${LB_DISTRIBUTION}.${LB_ARCHITECTURES} | sort -u)"
 			done
 		fi
 
@@ -523,9 +523,9 @@ then
 	fi
 
 	# Including local debs
-	if Find_files config/packages.binary/*_"${LIVE_IMAGE_ARCHITECTURE}".deb || Find_files config/packages/*_"${LIVE_IMAGE_ARCHITECTURE}".deb
+	if Find_files config/packages.binary/*_"${LB_ARCHITECTURES}".deb || Find_files config/packages/*_"${LB_ARCHITECTURES}".deb
 	then
-		for FILE in config/packages.binary/*_"${LIVE_IMAGE_ARCHITECTURE}".deb config/packages/*_"${LIVE_IMAGE_ARCHITECTURE}".deb
+		for FILE in config/packages.binary/*_"${LB_ARCHITECTURES}".deb config/packages/*_"${LB_ARCHITECTURES}".deb
 		do
 			if [ -e "${FILE}" ]
 			then
@@ -548,18 +548,18 @@ then
 	# Generating deb indices
 	for _ARCHIVE_AREA in $(cd binary/pool && ls)
 	do
-		mkdir -p binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/${_ARCHIVE_AREA}/binary-${LIVE_IMAGE_ARCHITECTURE}
+		mkdir -p binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/${_ARCHIVE_AREA}/binary-${LB_ARCHITECTURES}
 
 		mv binary chroot/root
-		echo "cd /root/binary && apt-ftparchive packages pool/${_ARCHIVE_AREA} > dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/${_ARCHIVE_AREA}/binary-${LIVE_IMAGE_ARCHITECTURE}/Packages" > chroot/binary.sh
+		echo "cd /root/binary && apt-ftparchive packages pool/${_ARCHIVE_AREA} > dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/${_ARCHIVE_AREA}/binary-${LB_ARCHITECTURES}/Packages" > chroot/binary.sh
 		Chroot chroot "sh binary.sh"
 		rm -f chroot/binary.sh
 		mv chroot/root/binary ./
 
-		gzip -9 -c binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/${_ARCHIVE_AREA}/binary-${LIVE_IMAGE_ARCHITECTURE}/Packages > binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/${_ARCHIVE_AREA}/binary-${LIVE_IMAGE_ARCHITECTURE}/Packages.gz
+		gzip -9 -c binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/${_ARCHIVE_AREA}/binary-${LB_ARCHITECTURES}/Packages > binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/${_ARCHIVE_AREA}/binary-${LB_ARCHITECTURES}/Packages.gz
 
 		# Fetching release
-		Download_file binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/${_ARCHIVE_AREA}/binary-${LIVE_IMAGE_ARCHITECTURE}/Release "${LB_PARENT_MIRROR_CHROOT}"/dists/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/${_ARCHIVE_AREA}/binary-"${LIVE_IMAGE_ARCHITECTURE}"/Release
+		Download_file binary/dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/${_ARCHIVE_AREA}/binary-${LB_ARCHITECTURES}/Release "${LB_PARENT_MIRROR_CHROOT}"/dists/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/${_ARCHIVE_AREA}/binary-"${LB_ARCHITECTURES}"/Release
 	done
 
 	# Symlink firmware packages to /firmware
@@ -584,12 +584,12 @@ then
 	cd binary.udeb
 
 	# Downloading udeb indices
-	Download_file Packages.gz "${LB_PARENT_MIRROR_CHROOT}"/dists/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LIVE_IMAGE_ARCHITECTURE}"/Packages.gz
+	Download_file Packages.gz "${LB_PARENT_MIRROR_CHROOT}"/dists/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LB_ARCHITECTURES}"/Packages.gz
 	gunzip -c Packages.gz > Packages
 
 	if [ "${LB_DERIVATIVE}" = "true" ]
 	then
-		Download_file Packages.derivative.gz "${LB_MIRROR_CHROOT}"/dists/"${LB_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LIVE_IMAGE_ARCHITECTURE}"/Packages.gz
+		Download_file Packages.derivative.gz "${LB_MIRROR_CHROOT}"/dists/"${LB_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LB_ARCHITECTURES}"/Packages.gz
 		gunzip -c Packages.derivative.gz > Packages.derivative
 	fi
 
@@ -630,9 +630,9 @@ then
 	cp *.udeb ../cache/packages.installer_debian-installer.udeb
 
 	# Including local udebs
-	if Find_files ../config/packages.binary/*_"${LIVE_IMAGE_ARCHITECTURE}".udeb || Find_files ../config/packages/*_"${LIVE_IMAGE_ARCHITECTURE}".udeb
+	if Find_files ../config/packages.binary/*_"${LB_ARCHITECTURES}".udeb || Find_files ../config/packages/*_"${LB_ARCHITECTURES}".udeb
 	then
-		for FILE in ../config/packages.binary/*_"${LIVE_IMAGE_ARCHITECTURE}".udeb ../config/packages/*_"${LIVE_IMAGE_ARCHITECTURE}".udeb
+		for FILE in ../config/packages.binary/*_"${LB_ARCHITECTURES}".udeb ../config/packages/*_"${LB_ARCHITECTURES}".udeb
 		do
 			if [ -e "${FILE}" ]
 			then
@@ -665,7 +665,7 @@ then
 		then
 			grep -v "^#" "${LOCATION}/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/udeb_exclude" > exclude || true
 	grep -v "^#" "${LOCATION}/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/exclude-udebs" >> exclude || true
-	grep -v "^#" "${LOCATION}/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/exclude-udebs-${LIVE_IMAGE_ARCHITECTURE}" >> exclude || true
+	grep -v "^#" "${LOCATION}/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/exclude-udebs-${LB_ARCHITECTURES}" >> exclude || true
 
 			continue
 		fi
@@ -701,17 +701,17 @@ then
 	done
 
 	# Creating udeb indices
-	mkdir -p dists/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LIVE_IMAGE_ARCHITECTURE}"
+	mkdir -p dists/"${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}"/main/debian-installer/binary-"${LB_ARCHITECTURES}"
 	cd "${OLDPWD}"
 
 	mv binary.udeb chroot/root
-	echo "cd /root/binary.udeb && apt-ftparchive packages pool/main > dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LIVE_IMAGE_ARCHITECTURE}/Packages" > chroot/binary.sh
+	echo "cd /root/binary.udeb && apt-ftparchive packages pool/main > dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LB_ARCHITECTURES}/Packages" > chroot/binary.sh
 	Chroot chroot "sh binary.sh"
 	rm -f chroot/binary.sh
 	mv chroot/root/binary.udeb ./
 
 	cd binary.udeb
-	gzip -9 -c dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LIVE_IMAGE_ARCHITECTURE}/Packages > dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LIVE_IMAGE_ARCHITECTURE}/Packages.gz
+	gzip -9 -c dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LB_ARCHITECTURES}/Packages > dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/main/debian-installer/binary-${LB_ARCHITECTURES}/Packages.gz
 
 	rm -f Packages* exclude
 	find . | cpio -dmpu "${OLDPWD}"/binary
@@ -743,7 +743,7 @@ cd /root/binary && apt-ftparchive \
 	-o APT::FTPArchive::Release::Version="${_VERSION}" \
 	-o APT::FTPArchive::Release::Codename="${LB_PARENT_DISTRIBUTION}" \
 	-o APT::FTPArchive::Release::Date="$(date -R)" \
-	-o APT::FTPArchive::Release::Architectures="${LIVE_IMAGE_ARCHITECTURE}" \
+	-o APT::FTPArchive::Release::Architectures="${LB_ARCHITECTURES}" \
 	-o APT::FTPArchive::Release::Components="${LIVE_IMAGE_PARENT_ARCHIVE_AREAS}" \
 	-o APT::FTPArchive::Release::Description="Last updated: $(date -R)" \
 	release dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION} > dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/Release

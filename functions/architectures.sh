@@ -15,7 +15,7 @@ Check_architectures ()
 
 	for ARCHITECTURE in ${ARCHITECTURES}
 	do
-		if [ "$(echo ${LIVE_IMAGE_ARCHITECTURE} | grep ${ARCHITECTURE})" ]
+		if [ "$(echo ${LB_ARCHITECTURES} | grep ${ARCHITECTURE})" ]
 		then
 			VALID="true"
 			break
@@ -70,7 +70,7 @@ Check_crossarchitectures ()
 			;;
 	esac
 
-	if [ "${LIVE_IMAGE_ARCHITECTURE}" = "${LB_BOOTSTRAP_QEMU_ARCHITECTURES}" ]
+	if [ "${LB_ARCHITECTURES}" = "${LB_BOOTSTRAP_QEMU_ARCHITECTURES}" ]
 	then
 
 		if [ ! -e "${LB_BOOTSTRAP_QEMU_STATIC}" ]
@@ -93,7 +93,7 @@ Check_crossarchitectures ()
 
 Check_multiarchitectures ()
 {
-	if [ "$(echo ${LIVE_IMAGE_ARCHITECTURE} | wc -w)" -gt "1" ]
+	if [ "$(echo ${LB_ARCHITECTURES} | wc -w)" -gt "1" ]
 	then
 		# First, only support multiarch on iso
 		case "${LIVE_IMAGE_TYPE}" in

@@ -81,7 +81,7 @@ else
 	LB_APT=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])apt=[a-u]+' | cut -f 2 -d '=' | head -n1)
 
 	# Advanced bootstrap options
-	LIVE_IMAGE_ARCHITECTURE=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])architectures=[0-9a-z]+' | cut -f 2 -d '=' | head -n1)
+	LB_ARCHITECTURES=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])architectures=[0-9a-z]+' | cut -f 2 -d '=' | head -n1)
 	LIVE_IMAGE_ARCHIVE_AREAS=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])archive_areas=[a-z]+' | cut -f 2 -d '=' | head -n1)
 
 	# Advanced chroot options
@@ -139,7 +139,7 @@ else
 	    -e "s/LB_APT_INDICES/${LB_APT_INDICES}/" \
 	    -e "s/LB_APT/${LB_APT}/" \
 	    -e "s/_LB_CGIPACKAGES/${_LB_CGIPACKAGES}/" \
-	    -e "s/LIVE_IMAGE_ARCHITECTURE/${LIVE_IMAGE_ARCHITECTURE}/" \
+	    -e "s/LB_ARCHITECTURES/${LB_ARCHITECTURES}/" \
 	    -e "s/LIVE_IMAGE_ARCHIVE_AREAS/${LIVE_IMAGE_ARCHIVE_AREAS}/" \
 	    -e "s/LB_CHROOT_FILESYSTEM/${LB_CHROOT_FILESYSTEM}/" \
 	    -e "s/LB_LINUX_FLAVOURS/${LB_LINUX_FLAVOURS}/" \
@@ -185,7 +185,7 @@ LB_DISTRIBUTION="${LB_DISTRIBUTION}"
 LB_APT="${LB_APT}"
 
 # Advanced bootstrap options
-LIVE_IMAGE_ARCHITECTURE="${LIVE_IMAGE_ARCHITECTURE}"
+LB_ARCHITECTURES="${LB_ARCHITECTURES}"
 LIVE_IMAGE_ARCHIVE_AREAS="${LIVE_IMAGE_ARCHIVE_AREAS}"
 
 # Advanced chroot options
@@ -214,7 +214,7 @@ LB_SOURCE="${LB_SOURCE}"
 EOF
 
 	echo "$(date +%b\ %d\ %H:%M:%S) ${_HOSTNAME} live-build-cgi: add web build (${_BUILD}) from ${REMOTE_ADDR}." >> /var/log/live/live-build-request
-	echo "$(date +%b\ %d\ %H:%M:%S) ${_HOSTNAME} live-build-cgi: options ${_BUILD} |email ${_EMAIL}|binary_images ${LIVE_IMAGE_TYPE}|distribution ${LB_DISTRIBUTION}|config ${_LB_CONFIG}|apt ${LB_APT}|cgipackages ${_LB_CGIPACKAGES}|architectures ${LIVE_IMAGE_ARCHITECTURE}|archive_areas ${LIVE_IMAGE_ARCHIVE_AREAS}|chroot_filesystem ${LB_CHROOT_FILESYSTEM}|linux_flavours ${LB_LINUX_FLAVOURS}|security ${LB_SECURITY}|apt_indices ${LB_APT_INDICES}|bootappend_install ${LB_BOOTAPPEND_INSTALL}|bootappend_live ${LB_BOOTAPPEND_LIVE}|bootloader ${LB_BOOTLOADER}|debian_installer ${LB_DEBIAN_INSTALLER}|iso_application ${LB_ISO_APPLICATION}|iso_preparer ${LB_ISO_PREPARER}|iso_publisher ${LB_ISO_PUBLISHER}|iso_volume ${LB_ISO_VOLUME}|memtest ${LB_MEMTEST}|net_path ${LB_NET_ROOT_PATH}|net_server ${LB_NET_ROOT_SERVER}|source_images ${LB_SOURCE_IMAGES}|sources ${LB_SOURCE}" >> /var/log/live/live-build-request
+	echo "$(date +%b\ %d\ %H:%M:%S) ${_HOSTNAME} live-build-cgi: options ${_BUILD} |email ${_EMAIL}|binary_images ${LIVE_IMAGE_TYPE}|distribution ${LB_DISTRIBUTION}|config ${_LB_CONFIG}|apt ${LB_APT}|cgipackages ${_LB_CGIPACKAGES}|architectures ${LB_ARCHITECTURES}|archive_areas ${LIVE_IMAGE_ARCHIVE_AREAS}|chroot_filesystem ${LB_CHROOT_FILESYSTEM}|linux_flavours ${LB_LINUX_FLAVOURS}|security ${LB_SECURITY}|apt_indices ${LB_APT_INDICES}|bootappend_install ${LB_BOOTAPPEND_INSTALL}|bootappend_live ${LB_BOOTAPPEND_LIVE}|bootloader ${LB_BOOTLOADER}|debian_installer ${LB_DEBIAN_INSTALLER}|iso_application ${LB_ISO_APPLICATION}|iso_preparer ${LB_ISO_PREPARER}|iso_publisher ${LB_ISO_PUBLISHER}|iso_volume ${LB_ISO_VOLUME}|memtest ${LB_MEMTEST}|net_path ${LB_NET_ROOT_PATH}|net_server ${LB_NET_ROOT_SERVER}|source_images ${LB_SOURCE_IMAGES}|sources ${LB_SOURCE}" >> /var/log/live/live-build-request
 fi
 
 sed -e "s/VERSION/${VERSION}/" "${_TEMPLATES}"/footer.html

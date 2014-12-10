@@ -56,15 +56,15 @@ mkdir -p cache/contents.chroot
 
 FIRMWARE_PACKAGES=""
 
-_CONTENTS="$(for _PARENT_ARCHIVE_AREA in ${LIVE_IMAGE_PARENT_ARCHIVE_AREAS}; do echo ${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/${_PARENT_ARCHIVE_AREA}/Contents-${LIVE_IMAGE_ARCHITECTURE}.gz; done)"
+_CONTENTS="$(for _PARENT_ARCHIVE_AREA in ${LIVE_IMAGE_PARENT_ARCHIVE_AREAS}; do echo ${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/${_PARENT_ARCHIVE_AREA}/Contents-${LB_ARCHITECTURES}.gz; done)"
 
-rm -f cache/contents.chroot/contents.${LB_PARENT_DISTRIBUTION}.${LIVE_IMAGE_ARCHITECTURE}
+rm -f cache/contents.chroot/contents.${LB_PARENT_DISTRIBUTION}.${LB_ARCHITECTURES}
 
 for _CONTENT in ${_CONTENTS}
 do
-	wget ${WGET_OPTIONS} ${_CONTENT} -O - | gunzip -c >> cache/contents.chroot/contents.${LB_PARENT_DISTRIBUTION}.${LIVE_IMAGE_ARCHITECTURE}
+	wget ${WGET_OPTIONS} ${_CONTENT} -O - | gunzip -c >> cache/contents.chroot/contents.${LB_PARENT_DISTRIBUTION}.${LB_ARCHITECTURES}
 
-	FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} $(awk '/^lib\/firmware/ { print $2 }' cache/contents.chroot/contents.${LB_PARENT_DISTRIBUTION}.${LIVE_IMAGE_ARCHITECTURE} | sort -u)"
+	FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} $(awk '/^lib\/firmware/ { print $2 }' cache/contents.chroot/contents.${LB_PARENT_DISTRIBUTION}.${LB_ARCHITECTURES} | sort -u)"
 done
 
 if echo ${LIVE_IMAGE_PARENT_ARCHIVE_AREAS} | grep -qs "non-free"
@@ -78,15 +78,15 @@ if [ "${LB_DERIVATIVE}" = "true" ]
 then
 	# FIXME: account for the fact that PARENT_DISTRIBUTION and DISTRIBUTION might be the same (to not have overlapping cache files for contents).
 
-	_CONTENTS="$(for _ARCHIVE_AREA in ${LIVE_IMAGE_ARCHIVE_AREAS}; do echo ${LB_MIRROR_CHROOT}/dists/${LB_DISTRIBUTION}/${_ARCHIVE_AREA}/Contents-${LIVE_IMAGE_ARCHITECTURE}.gz; done)"
+	_CONTENTS="$(for _ARCHIVE_AREA in ${LIVE_IMAGE_ARCHIVE_AREAS}; do echo ${LB_MIRROR_CHROOT}/dists/${LB_DISTRIBUTION}/${_ARCHIVE_AREA}/Contents-${LB_ARCHITECTURES}.gz; done)"
 
-	rm -f cache/contents.chroot/contents.${LB_DISTRIBUTION}.${LIVE_IMAGE_ARCHITECTURE}
+	rm -f cache/contents.chroot/contents.${LB_DISTRIBUTION}.${LB_ARCHITECTURES}
 
 	for _CONTENT in ${_CONTENTS}
 	do
-		wget ${WGET_OPTIONS} ${_CONTENT} -O - | gunzip -c >> cache/contents.chroot/contents.${LB_DISTRIBUTION}.${LIVE_IMAGE_ARCHITECTURE}
+		wget ${WGET_OPTIONS} ${_CONTENT} -O - | gunzip -c >> cache/contents.chroot/contents.${LB_DISTRIBUTION}.${LB_ARCHITECTURES}
 
-		FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} $(awk '/^lib\/firmware/ { print $2 }' cache/contents.chroot/contents.${LB_DISTRIBUTION}.${LIVE_IMAGE_ARCHITECTURE} | sort -u)"
+		FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} $(awk '/^lib\/firmware/ { print $2 }' cache/contents.chroot/contents.${LB_DISTRIBUTION}.${LB_ARCHITECTURES} | sort -u)"
 	done
 fi
 

@@ -38,7 +38,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-case "${LIVE_IMAGE_ARCHITECTURE}" in
+case "${LB_ARCHITECTURES}" in
 	amd64|i386)
 		LINUX="vmlinuz"
 		;;

@@ -43,7 +43,7 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
-case "${LIVE_IMAGE_ARCHITECTURE}" in
+case "${LB_ARCHITECTURES}" in
 	amd64|i386)
 		if [ "${LB_BUILD_WITH_CHROOT}" = "true" ]
 		then
@@ -77,18 +77,18 @@ EOF
 cat > binary/win32-loader.ini << EOF
 [installer]
 kernel=linux
-arch=${LIVE_IMAGE_ARCHITECTURE}
+arch=${LB_ARCHITECTURES}
 default_desktop=gnome
-${LIVE_IMAGE_ARCHITECTURE}/linux=install/vmlinuz
-${LIVE_IMAGE_ARCHITECTURE}/initrd=install/initrd.gz
+${LB_ARCHITECTURES}/linux=install/vmlinuz
+${LB_ARCHITECTURES}/initrd=install/initrd.gz
 EOF
 
 			if [ -e binary/install/gtk ]
 			then
 
 cat >> binary/win32-loader.ini << EOF
-${LIVE_IMAGE_ARCHITECTURE}/gtk/linux=install/vmlinuz
-${LIVE_IMAGE_ARCHITECTURE}/gtk/initrd=install/gtk/initrd.gz
+${LB_ARCHITECTURES}/gtk/linux=install/vmlinuz
+${LB_ARCHITECTURES}/gtk/initrd=install/gtk/initrd.gz
 EOF
 
 			fi

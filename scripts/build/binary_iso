@@ -26,11 +26,11 @@ Set_defaults
 
 case "${LIVE_IMAGE_TYPE}" in
 	iso)
-		IMAGE="${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.iso"
+		IMAGE="${LIVE_IMAGE_NAME}-${LB_ARCHITECTURES}.iso"
 		;;
 
 	iso-hybrid)
-		IMAGE="${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}.hybrid.iso"
+		IMAGE="${LIVE_IMAGE_NAME}-${LB_ARCHITECTURES}.hybrid.iso"
 		;;
 
 	*)

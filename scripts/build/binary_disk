@@ -48,7 +48,7 @@ Create_lockfile .lock
 
 mkdir -p binary/.disk
 
-ARCHITECTURE="$(echo ${LIVE_IMAGE_ARCHITECTURE} | sed -e 's| |/|g')"
+ARCHITECTURE="$(echo ${LB_ARCHITECTURES} | sed -e 's| |/|g')"
 DISTRIBUTION="$(echo ${LB_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]')"
 DISTRIBUTION="${DISTRIBUTION}$(echo ${LB_DISTRIBUTION} | cut -b 2-)"
 eval VERSION="$`echo RELEASE_${LB_DISTRIBUTION}`"
@@ -133,7 +133,7 @@ case "${LB_DEBIAN_INSTALLER}" in
 		do
 			if [ -e "${LOCATION}" ]
 			then
-				cp "${LOCATION}/${LB_PARENT_DISTRIBUTION}/${LIVE_IMAGE_ARCHITECTURE}_udeb_include" binary/.disk/udeb_include
+				cp "${LOCATION}/${LB_PARENT_DISTRIBUTION}/${LB_ARCHITECTURES}_udeb_include" binary/.disk/udeb_include
 
 				continue
 			fi
@@ -158,7 +158,7 @@ case "${LB_DEBIAN_INSTALLER}" in
 		do
 			if [ -e "${LOCATION}" ]
 			then
-				cp "${LOCATION}/${LB_PARENT_DISTRIBUTION}/${LIVE_IMAGE_ARCHITECTURE}_netinst_udeb_include" binary/.disk/udeb_include
+				cp "${LOCATION}/${LB_PARENT_DISTRIBUTION}/${LB_ARCHITECTURES}_netinst_udeb_include" binary/.disk/udeb_include
 
 				continue
 			fi
@@ -181,7 +181,7 @@ case "${LB_DEBIAN_INSTALLER}" in
 		do
 			if [ -e "${LOCATION}" ]
 			then
-				cp "${LOCATION}/${LB_PARENT_DISTRIBUTION}/${LIVE_IMAGE_ARCHITECTURE}_businesscard_udeb_include" binary/.disk/udeb_include
+				cp "${LOCATION}/${LB_PARENT_DISTRIBUTION}/${LB_ARCHITECTURES}_businesscard_udeb_include" binary/.disk/udeb_include
 
 				continue
 			fi

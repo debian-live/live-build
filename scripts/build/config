@@ -347,7 +347,7 @@ Local_arguments ()
 
 			# config/bootstrap
 			-a|--architectures)
-				LIVE_IMAGE_ARCHITECTURE="${2}"
+				LB_ARCHITECTURES="${2}"
 				shift 2
 				;;
 
@@ -883,10 +883,10 @@ Check_defaults
 
 if [ ! -e config ]
 then
-	Echo_message "Creating config tree for a ${LB_MODE}/${LB_DISTRIBUTION}/${LIVE_IMAGE_ARCHITECTURE} system"
+	Echo_message "Creating config tree for a ${LB_MODE}/${LB_DISTRIBUTION}/${LB_ARCHITECTURES} system"
 	mkdir config
 else
-	Echo_message "Updating config tree for a ${LB_MODE}/${LB_DISTRIBUTION}/${LIVE_IMAGE_ARCHITECTURE} system"
+	Echo_message "Updating config tree for a ${LB_MODE}/${LB_DISTRIBUTION}/${LB_ARCHITECTURES} system"
 fi
 
 # Creating live-build configuration
@@ -1373,7 +1373,7 @@ fi
 
 cat > config/build << EOF
 [Image]
-Architecture: ${LIVE_IMAGE_ARCHITECTURE}
+Architecture: ${LB_ARCHITECTURES}
 Archive-Areas: ${LIVE_IMAGE_ARCHIVE_AREAS}
 Distribution: ${LB_DISTRIBUTION}
 Mirror-Bootstrap: ${LB_MIRROR_BOOTSTRAP}

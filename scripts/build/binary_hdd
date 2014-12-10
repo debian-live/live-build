@@ -57,7 +57,7 @@ esac
 Check_package chroot/usr/share/doc/mtools mtools
 Check_package chroot/sbin/parted parted
 
-if [ "${LIVE_IMAGE_ARCHITECTURE}" = "sparc" ]
+if [ "${LB_ARCHITECTURES}" = "sparc" ]
 then
 	case "${LB_BINARY_FILESYSTEM}" in
 		ext2|ext3|ext4)
@@ -154,7 +154,7 @@ fi
 echo "!!! The following error/warning messages can be ignored !!!"
 Losetup $FREELO chroot/binary.img 0
 
-case "${LIVE_IMAGE_ARCHITECTURE}" in
+case "${LB_ARCHITECTURES}" in
 	sparc)
 		PARTITION_TABLE_TYPE="sun"
 		;;
@@ -333,7 +333,7 @@ then
 	mv chroot/dev.tmp chroot/dev
 fi
 
-mv chroot/binary.img ${LIVE_IMAGE_NAME}-${LIVE_IMAGE_ARCHITECTURE}
+mv chroot/binary.img ${LIVE_IMAGE_NAME}-${LB_ARCHITECTURES}
 
 # Saving cache
 Save_cache cache/packages.binary

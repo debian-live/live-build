@@ -83,7 +83,7 @@ case "${LB_BINARY_FILESYSTEM}" in
 		;;
 esac
 
-case "${LIVE_IMAGE_ARCHITECTURE}" in
+case "${LB_ARCHITECTURES}" in
 	amd64|i386)
 
 cat >> source-selection.txt << EOF
