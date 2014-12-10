@@ -441,7 +441,7 @@ then
 		then
 			# FIXME: account for the fact that PARENT_DISTRIBUTION and DISTRIBUTION might be the same (to not have overlapping cache files for contents).
 
-			_CONTENTS="$(for _ARCHIVE_AREA in ${LIVE_IMAGE_ARCHIVE_AREAS}; do echo ${LB_MIRROR_CHROOT}/dists/${LB_DISTRIBUTION}/${_ARCHIVE_AREA}/Contents-${LB_ARCHITECTURES}.gz; done)"
+			_CONTENTS="$(for _ARCHIVE_AREA in ${LB_ARCHIVE_AREAS}; do echo ${LB_MIRROR_CHROOT}/dists/${LB_DISTRIBUTION}/${_ARCHIVE_AREA}/Contents-${LB_ARCHITECTURES}.gz; done)"
 
 			rm -f cache/contents.chroot/contents.${LB_DISTRIBUTION}.${LB_ARCHITECTURES}
 
@@ -493,7 +493,7 @@ then
 
 	mv chroot/binary.deb ./
 
-	for _ARCHIVE_AREA in $(echo ${LIVE_IMAGE_PARENT_ARCHIVE_AREAS} ${LIVE_IMAGE_ARCHIVE_AREAS})
+	for _ARCHIVE_AREA in $(echo ${LIVE_IMAGE_PARENT_ARCHIVE_AREAS} ${LB_ARCHIVE_AREAS})
 	do
 		mkdir -p binary/pool/${_ARCHIVE_AREA}
 	done

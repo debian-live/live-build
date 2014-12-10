@@ -51,27 +51,27 @@ New_configuration ()
 	export LB_ARCHITECTURES
 
 	# Image: Archive Areas
-	LIVE_IMAGE_ARCHIVE_AREAS="${LIVE_IMAGE_ARCHIVE_AREAS:-$(Get_configuration config/build Archive-Areas)}"
+	LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-$(Get_configuration config/build Archive-Areas)}"
 
 	case "${LB_MODE}" in
 		progress-linux)
-			LIVE_IMAGE_ARCHIVE_AREAS="${LIVE_IMAGE_ARCHIVE_AREAS:-main contrib non-free}"
+			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main contrib non-free}"
 			;;
 
 		ubuntu)
-			LIVE_IMAGE_ARCHIVE_AREAS="${LIVE_IMAGE_ARCHIVE_AREAS:-main restricted}"
+			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main restricted}"
 			;;
 
 		*)
-			LIVE_IMAGE_ARCHIVE_AREAS="${LIVE_IMAGE_ARCHIVE_AREAS:-main}"
+			LB_ARCHIVE_AREAS="${LB_ARCHIVE_AREAS:-main}"
 			;;
 	esac
 
-	export LIVE_IMAGE_ARCHIVE_AREAS
+	export LB_ARCHIVE_AREAS
 
 	# Image: Archive Areas
 	LIVE_IMAGE_PARENT_ARCHIVE_AREAS="${LIVE_IMAGE_PARENT_ARCHIVE_AREAS:-$(Get_configuration config/build Parent-Archive-Areas)}"
-	LIVE_IMAGE_PARENT_ARCHIVE_AREAS="${LIVE_IMAGE_PARENT_ARCHIVE_AREAS:-${LIVE_IMAGE_ARCHIVE_AREAS}}"
+	LIVE_IMAGE_PARENT_ARCHIVE_AREAS="${LIVE_IMAGE_PARENT_ARCHIVE_AREAS:-${LB_ARCHIVE_AREAS}}"
 	export LIVE_IMAGE_PARENT_ARCHIVE_AREAS
 
 	# Image: Type
