@@ -288,7 +288,15 @@ Set_defaults ()
 		*)
 			case "${LB_SYSTEM}" in
 				live)
-					LB_INITSYSTEM="${LB_INITSYSTEM:-sysvinit}"
+					case "${LB_PARENT_DISTRIBUTION}" in
+						wheezy)
+							LB_INITSYSTEM="${LB_INITSYSTEM:-sysvinit}"
+							;;
+
+						*)
+							LB_INITSYSTEM="${LB_INITSYSTEM:-systemd}"
+							;;
+					esac
 					;;
 
 				normal)
