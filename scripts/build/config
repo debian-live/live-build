@@ -1360,27 +1360,19 @@ then
 			echo "live-boot" > config/package-lists/live.list.chroot
 			echo "live-config" >> config/package-lists/live.list.chroot
 
-			case "${LB_PARENT_DISTRIBUTION}" in
-				wheezy)
-					echo "live-config-sysvinit" >> config/package-lists/live.list.chroot
+			case "${LB_INITSYSTEM}" in
+				none)
+					# do nothing
 					;;
 
-				*)
-					case "${LB_INITSYSTEM}" in
-						none)
-							# do nothing
-							;;
+				systemd)
+					echo "live-config-systemd" >> config/package-lists/live.list.chroot
+					echo "dbus" >> config/package-lists/live.list.chroot
+					;;
 
-						systemd)
-							echo "live-config-systemd" >> config/package-lists/live.list.chroot
-							echo "dbus" >> config/package-lists/live.list.chroot
-							;;
-
-						sysvinit|upstart)
-							echo "live-config-${LB_INITSYSTEM}" >> config/package-lists/live.list.chroot
-							echo "sysvinit-core" >> config/package-lists/live.list.chroot
-							;;
-					esac
+				sysvinit|upstart)
+					echo "live-config-${LB_INITSYSTEM}" >> config/package-lists/live.list.chroot
+					echo "sysvinit-core" >> config/package-lists/live.list.chroot
 					;;
 			esac
 			;;

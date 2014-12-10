@@ -754,7 +754,7 @@ EOF
 	mv chroot/root/binary ./
 
 	case "${LB_PARENT_DISTRIBUTION}" in
-		wheezy)
+		jessie)
 			DISTRIBUTIONS="stable"
 			;;
 

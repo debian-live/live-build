@@ -9,8 +9,8 @@
 
 
 # Debian releases
-RELEASE_wheezy="7"
 RELEASE_jessie="8"
+RELEASE_stretch="9"
 RELEASE_sid="unstable"
 
 # Progress Linux releases
