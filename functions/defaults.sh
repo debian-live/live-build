@@ -70,9 +70,9 @@ New_configuration ()
 	export LB_ARCHIVE_AREAS
 
 	# Image: Archive Areas
-	LIVE_IMAGE_PARENT_ARCHIVE_AREAS="${LIVE_IMAGE_PARENT_ARCHIVE_AREAS:-$(Get_configuration config/build Parent-Archive-Areas)}"
-	LIVE_IMAGE_PARENT_ARCHIVE_AREAS="${LIVE_IMAGE_PARENT_ARCHIVE_AREAS:-${LB_ARCHIVE_AREAS}}"
-	export LIVE_IMAGE_PARENT_ARCHIVE_AREAS
+	LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS:-$(Get_configuration config/build Parent-Archive-Areas)}"
+	LB_PARENT_ARCHIVE_AREAS="${LB_PARENT_ARCHIVE_AREAS:-${LB_ARCHIVE_AREAS}}"
+	export LB_PARENT_ARCHIVE_AREAS
 
 	# Image: Type
 	LIVE_IMAGE_TYPE="${LIVE_IMAGE_TYPE:-$(Get_configuration config/build Type)}"

@@ -419,7 +419,7 @@ then
 
 		FIRMWARE_PACKAGES=""
 
-		_CONTENTS="$(for _PARENT_ARCHIVE_AREA in ${LIVE_IMAGE_PARENT_ARCHIVE_AREAS}; do echo ${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/${_PARENT_ARCHIVE_AREA}/Contents-${LB_ARCHITECTURES}.gz; done)"
+		_CONTENTS="$(for _PARENT_ARCHIVE_AREA in ${LB_PARENT_ARCHIVE_AREAS}; do echo ${LB_PARENT_MIRROR_CHROOT}/dists/${LB_PARENT_DISTRIBUTION}/${_PARENT_ARCHIVE_AREA}/Contents-${LB_ARCHITECTURES}.gz; done)"
 
 		rm -f cache/contents.chroot/contents.${LB_PARENT_DISTRIBUTION}.${LB_ARCHITECTURES}
 
@@ -430,7 +430,7 @@ then
 			FIRMWARE_PACKAGES="${FIRMWARE_PACKAGES} $(awk '/^lib\/firmware/ { print $2 }' cache/contents.chroot/contents.${LB_PARENT_DISTRIBUTION}.${LB_ARCHITECTURES} | sort -u)"
 		done
 
-		if echo ${LIVE_IMAGE_PARENT_ARCHIVE_AREAS} | grep -qs "non-free"
+		if echo ${LB_PARENT_ARCHIVE_AREAS} | grep -qs "non-free"
 		then
 			# Manually add firmware-linux/non-free meta package
 			if [ "${LB_DERIVATIVE}" != "true" ]
@@ -503,7 +503,7 @@ then
 
 	mv chroot/binary.deb ./
 
-	for _ARCHIVE_AREA in $(echo ${LIVE_IMAGE_PARENT_ARCHIVE_AREAS} ${LB_ARCHIVE_AREAS})
+	for _ARCHIVE_AREA in $(echo ${LB_PARENT_ARCHIVE_AREAS} ${LB_ARCHIVE_AREAS})
 	do
 		mkdir -p binary/pool/${_ARCHIVE_AREA}
 	done
@@ -754,7 +754,7 @@ cd /root/binary && apt-ftparchive \
 	-o APT::FTPArchive::Release::Codename="${LB_PARENT_DISTRIBUTION}" \
 	-o APT::FTPArchive::Release::Date="$(date -R)" \
 	-o APT::FTPArchive::Release::Architectures="${LB_ARCHITECTURES}" \
-	-o APT::FTPArchive::Release::Components="${LIVE_IMAGE_PARENT_ARCHIVE_AREAS}" \
+	-o APT::FTPArchive::Release::Components="${LB_PARENT_ARCHIVE_AREAS}" \
 	-o APT::FTPArchive::Release::Description="Last updated: $(date -R)" \
 	release dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION} > dists/${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION}/Release
 EOF
