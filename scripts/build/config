@@ -427,7 +427,7 @@ Local_arguments ()
 				;;
 
 			--parent-archive-areas)
-				LIVE_IMAGE_PARENT_ARCHIVE_AREAS="${2}"
+				LB_PARENT_ARCHIVE_AREAS="${2}"
 				shift 2
 				;;
 
