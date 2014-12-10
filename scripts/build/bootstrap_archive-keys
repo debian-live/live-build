@@ -33,19 +33,19 @@ case "${LB_MODE}" in
 	progress-linux)
 		case "${LB_DISTRIBUTION}" in
 			artax*)
-				_KEYS="1.0-artax 1.0-artax-packages"
+				_KEYS="artax artax-backports"
 				;;
 
 			baureo*)
-				_KEYS="2.0-baureo 2.0-baureo-packages"
+				_KEYS="baureo baureo-backports"
 				;;
 
-			chairon*)
-				_KEYS="3.0-chairon 3.0-chairon-packages"
+			cairon*)
+				_KEYS="cairon cairon-backports"
 				;;
 		esac
 
-		_URL="${LB_MIRROR_CHROOT}/project/keys"
+		_URL="${LB_MIRROR_CHROOT}/project/pgp"
 		;;
 esac
 

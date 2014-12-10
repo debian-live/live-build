@@ -149,7 +149,7 @@ Set_defaults ()
 					LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_PARENT_DISTRIBUTION}}"
 					;;
 
-				charon|charon-backports)
+				cairon|cairon-backports)
 					LB_PARENT_DISTRIBUTION="${LB_PARENT_DISTRIBUTION:-sid}"
 					LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION="${LB_PARENT_DEBIAN_INSTALLER_DISTRIBUTION:-${LB_PARENT_DISTRIBUTION}}"
 					;;
@@ -276,7 +276,7 @@ Set_defaults ()
 
 		progress-linux)
 			case "${LB_DISTRIBUTION}" in
-				chairon*)
+				cairon*)
 					LB_INITSYSTEM="${LB_INITSYSTEM:-systemd}"
 					;;
 

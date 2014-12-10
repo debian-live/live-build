@@ -15,7 +15,7 @@ RELEASE_sid="unstable"
 
 # Progress Linux releases
 RELEASE_baureo="2"
-RELEASE_charon="3"
+RELEASE_cairon="3"
 
 # Ubuntu releases
 RELEASE_lucid="10.04"		# LTS: 2015-04-01
