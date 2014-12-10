@@ -204,7 +204,7 @@ for FILE in config/archives/*.conf config/archives/*.conf.chroot
 do
 	if [ -e "${FILE}" ]
 	then
-		cp ${FILE} chroot/etc/apt/conf.d/$(basename ${FILE} .chroot)
+		cp ${FILE} chroot/etc/apt/apt.conf.d/$(basename ${FILE} .chroot)
 	fi
 done
 

@@ -205,7 +205,7 @@ EOF
 		do
 			if [ -e "${FILE}" ]
 			then
-				cp ${FILE} chroot/etc/apt/conf.d/$(basename ${FILE} .chroot)
+				cp ${FILE} chroot/etc/apt/apt.conf.d/$(basename ${FILE} .chroot)
 			fi
 		done
 
@@ -687,7 +687,7 @@ EOF
 		do
 			if [ -e "${FILE}" ]
 			then
-				rm -f "chroot/etc/apt/conf.d/$(basename ${FILE} .chroot)"
+				rm -f "chroot/etc/apt/apt.conf.d/$(basename ${FILE} .chroot)"
 			fi
 		done
 
@@ -724,7 +724,7 @@ EOF
 		do
 			if [ -e "${FILE}" ]
 			then
-				cp ${FILE} chroot/etc/apt/conf.d/$(basename ${FILE} .binary)
+				cp ${FILE} chroot/etc/apt/apt.conf.d/$(basename ${FILE} .binary)
 			fi
 		done
 
