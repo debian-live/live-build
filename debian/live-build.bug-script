@@ -3,7 +3,7 @@
 DEFAULT_SETTINGS="/etc/live/build.conf"
 
 # Checking depends
-dpkg -l debootstrap cdebootstrap
+dpkg -l debootstrap
 
 # Checking suggests
 dpkg -l dosfstools xorriso loadlin memtest86+ memtest86 mtools parted squashfs-tools mtd-tools syslinux syslinux-common extlinux grub uuid-runtime win32-loader

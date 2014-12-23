@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build\n"
-"POT-Creation-Date: 2014-12-10 08:38+0100\n"
+"POT-Creation-Date: 2014-12-23 22:52+0100\n"
 "PO-Revision-Date: 2014-09-07 13:13+0900\n"
 "Last-Translator: victory <victory.deb@gmail.com>\n"
 "Language-Team: none\n"
@@ -27,7 +27,7 @@ msgstr "LIVE-BUILD"
 #: en/lb_chroot.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
 #: en/live-build.7:1
 #, no-wrap
-msgid "2014-12-10"
+msgid "2014-12-23"
 msgstr ""
 
 #. type: TH
@@ -64,7 +64,7 @@ msgstr "概要"
 
 #. type: SH
 #: en/lb.1:11 en/lb_binary.1:9 en/lb_bootstrap.1:9 en/lb_build.1:9
-#: en/lb_chroot.1:9 en/lb_clean.1:9 en/lb_config.1:225 en/lb_source.1:9
+#: en/lb_chroot.1:9 en/lb_clean.1:9 en/lb_config.1:223 en/lb_source.1:9
 #: en/live-build.7:11
 #, no-wrap
 msgid "DESCRIPTION"
@@ -72,7 +72,7 @@ msgstr "説明"
 
 #. type: SH
 #: en/lb.1:16 en/lb_binary.1:14 en/lb_bootstrap.1:14 en/lb_build.1:14
-#: en/lb_chroot.1:14 en/lb_clean.1:16 en/lb_config.1:234 en/lb_source.1:14
+#: en/lb_chroot.1:14 en/lb_clean.1:16 en/lb_config.1:232 en/lb_source.1:14
 #: en/live-build.7:20
 #, no-wrap
 msgid "OPTIONS"
@@ -80,45 +80,45 @@ msgstr "オプション"
 
 #. type: SH
 #: en/lb.1:19 en/lb_binary.1:17 en/lb_bootstrap.1:17 en/lb_build.1:17
-#: en/lb_chroot.1:17 en/lb_clean.1:38 en/lb_config.1:466 en/lb_source.1:17
-#: en/live-build.7:215
+#: en/lb_chroot.1:17 en/lb_clean.1:38 en/lb_config.1:462 en/lb_source.1:17
+#: en/live-build.7:213
 #, no-wrap
 msgid "FILES"
 msgstr "ファイル"
 
 #. type: SH
 #: en/lb.1:22 en/lb_binary.1:20 en/lb_bootstrap.1:20 en/lb_build.1:22
-#: en/lb_chroot.1:20 en/lb_clean.1:43 en/lb_config.1:473 en/lb_source.1:20
-#: en/live-build.7:219
+#: en/lb_chroot.1:20 en/lb_clean.1:43 en/lb_config.1:469 en/lb_source.1:20
+#: en/live-build.7:217
 #, no-wrap
 msgid "SEE ALSO"
 msgstr "関連項目"
 
 #. type: Plain text
 #: en/lb.1:24 en/lb_binary.1:22 en/lb_bootstrap.1:22 en/lb_build.1:24
-#: en/lb_chroot.1:22 en/lb_clean.1:45 en/lb_config.1:475 en/lb_source.1:22
+#: en/lb_chroot.1:22 en/lb_clean.1:45 en/lb_config.1:471 en/lb_source.1:22
 msgid "I<live-build>(7)"
 msgstr "I<live-build>(7)"
 
 #. type: Plain text
 #: en/lb.1:26 en/lb_binary.1:24 en/lb_bootstrap.1:24 en/lb_build.1:26
-#: en/lb_chroot.1:24 en/lb_clean.1:47 en/lb_config.1:481 en/lb_source.1:24
-#: en/live-build.7:225
+#: en/lb_chroot.1:24 en/lb_clean.1:47 en/lb_config.1:477 en/lb_source.1:24
+#: en/live-build.7:223
 msgid "This program is a part of live-build."
 msgstr "このプログラムは live-build の一部です。"
 
 #. type: SH
 #: en/lb.1:27 en/lb_binary.1:25 en/lb_bootstrap.1:25 en/lb_build.1:27
-#: en/lb_chroot.1:25 en/lb_clean.1:48 en/lb_config.1:482 en/lb_source.1:25
-#: en/live-build.7:226
+#: en/lb_chroot.1:25 en/lb_clean.1:48 en/lb_config.1:478 en/lb_source.1:25
+#: en/live-build.7:224
 #, no-wrap
 msgid "HOMEPAGE"
 msgstr "ホームページ"
 
 #. type: Plain text
 #: en/lb.1:29 en/lb_binary.1:27 en/lb_bootstrap.1:27 en/lb_build.1:29
-#: en/lb_chroot.1:27 en/lb_clean.1:50 en/lb_config.1:484 en/lb_source.1:27
-#: en/live-build.7:228
+#: en/lb_chroot.1:27 en/lb_clean.1:50 en/lb_config.1:480 en/lb_source.1:27
+#: en/live-build.7:226
 msgid ""
 "More information about live-build and the Live Systems project can be found "
 "on the homepage at E<lt>I<http://live-systems.org/>E<gt> and in the manual "
@@ -130,16 +130,16 @@ msgstr ""
 
 #. type: SH
 #: en/lb.1:30 en/lb_binary.1:28 en/lb_bootstrap.1:28 en/lb_build.1:30
-#: en/lb_chroot.1:28 en/lb_clean.1:51 en/lb_config.1:485 en/lb_source.1:28
-#: en/live-build.7:229
+#: en/lb_chroot.1:28 en/lb_clean.1:51 en/lb_config.1:481 en/lb_source.1:28
+#: en/live-build.7:227
 #, no-wrap
 msgid "BUGS"
 msgstr "バグ"
 
 #. type: Plain text
 #: en/lb.1:32 en/lb_binary.1:30 en/lb_bootstrap.1:30 en/lb_build.1:32
-#: en/lb_chroot.1:30 en/lb_clean.1:53 en/lb_config.1:487 en/lb_source.1:30
-#: en/live-build.7:231
+#: en/lb_chroot.1:30 en/lb_clean.1:53 en/lb_config.1:483 en/lb_source.1:30
+#: en/live-build.7:229
 msgid ""
 "Bugs can be reported by submitting a bugreport for the live-build package in "
 "the Bug Tracking System at E<lt>I<http://bugs.debian.org/>E<gt> or by "
@@ -153,16 +153,16 @@ msgstr ""
 
 #. type: SH
 #: en/lb.1:33 en/lb_binary.1:31 en/lb_bootstrap.1:31 en/lb_build.1:33
-#: en/lb_chroot.1:31 en/lb_clean.1:54 en/lb_config.1:488 en/lb_source.1:31
-#: en/live-build.7:232
+#: en/lb_chroot.1:31 en/lb_clean.1:54 en/lb_config.1:484 en/lb_source.1:31
+#: en/live-build.7:230
 #, no-wrap
 msgid "AUTHOR"
 msgstr "作者"
 
 #. type: Plain text
 #: en/lb.1:34 en/lb_binary.1:32 en/lb_bootstrap.1:32 en/lb_build.1:34
-#: en/lb_chroot.1:32 en/lb_clean.1:55 en/lb_config.1:489 en/lb_source.1:32
-#: en/live-build.7:233
+#: en/lb_chroot.1:32 en/lb_clean.1:55 en/lb_config.1:485 en/lb_source.1:32
+#: en/live-build.7:231
 msgid ""
 "live-build was written by Daniel Baumann E<lt>I<mail@daniel-baumann.ch>E<gt>."
 msgstr ""
@@ -269,403 +269,398 @@ msgstr "  [B<--bootloader> grub|syslinux]"
 
 #. type: Plain text
 #: en/lb_config.1:45
-msgid "  [B<--bootstrap> cdebootstrap|cdebootstrap-static|debootstrap]"
-msgstr "  [B<--bootstrap> cdebootstrap|cdebootstrap-static|debootstrap]"
-
-#. type: Plain text
-#: en/lb_config.1:47
 msgid "  [B<--cache> true|false]"
 msgstr "  [B<--cache> true|false]"
 
 #. type: Plain text
-#: en/lb_config.1:49
+#: en/lb_config.1:47
 msgid "  [B<--cache-indices> true|false]"
 msgstr "  [B<--cache-indices> true|false]"
 
 #. type: Plain text
-#: en/lb_config.1:51
+#: en/lb_config.1:49
 msgid "  [B<--cache-packages> true|false]"
 msgstr "  [B<--cache-packages> true|false]"
 
 #. type: Plain text
-#: en/lb_config.1:53
+#: en/lb_config.1:51
 msgid "  [B<--cache-stages> I<STAGE>|I<\"STAGES\">]"
 msgstr "  [B<--cache-stages> I<段階>|I<\"段階\">]"
 
 #. type: Plain text
-#: en/lb_config.1:55
+#: en/lb_config.1:53
 msgid "  [B<--checksums> md5|sha1|sha256|none]"
 msgstr "  [B<--checksums> md5|sha1|sha256|none]"
 
 #. type: Plain text
-#: en/lb_config.1:57
+#: en/lb_config.1:55
 msgid "  [B<--compression> bzip2|gzip|lzip|none]"
 msgstr "  [B<--compression> bzip2|gzip|lzip|none]"
 
 #. type: Plain text
-#: en/lb_config.1:59
+#: en/lb_config.1:57
 msgid "  [B<--config> I<GIT_URL::GIT_ID>]"
 msgstr "  [B<--config> I<GIT_URL::GIT_ID>]"
 
 #. type: Plain text
-#: en/lb_config.1:61
+#: en/lb_config.1:59
 msgid "  [B<--build-with-chroot> true|false]"
 msgstr "  [B<--build-with-chroot> true|false]"
 
 #. type: Plain text
-#: en/lb_config.1:63
+#: en/lb_config.1:61
 msgid "  [B<--chroot-filesystem> ext2|ext3|ext4|squashfs|jffs2|none]"
 msgstr "  [B<--chroot-filesystem> ext2|ext3|ext4|squashfs|jffs2|none]"
 
 #. type: Plain text
-#: en/lb_config.1:65
+#: en/lb_config.1:63
 msgid "  [B<--clean>]"
 msgstr "  [B<--clean>]"
 
 #. type: Plain text
-#: en/lb_config.1:67
+#: en/lb_config.1:65
 msgid "  [-c|B<--conffile> I<FILE>]"
 msgstr "  [-c|B<--conffile> I<ファイル>]"
 
 #. type: Plain text
-#: en/lb_config.1:69
+#: en/lb_config.1:67
 msgid "  [B<--debconf-frontend> dialog|editor|noninteractive|readline]"
 msgstr "  [B<--debconf-frontend> dialog|editor|noninteractive|readline]"
 
 #. type: Plain text
-#: en/lb_config.1:71
+#: en/lb_config.1:69
 msgid "  [B<--debconf-priority> low|medium|high|critical]"
 msgstr "  [B<--debconf-priority> low|medium|high|critical]"
 
 #. type: Plain text
-#: en/lb_config.1:73
+#: en/lb_config.1:71
 msgid ""
 "  [B<--debian-installer> true|cdrom|netinst|netboot|businesscard|live|false]"
 msgstr ""
 "  [B<--debian-installer> true|cdrom|netinst|netboot|businesscard|live|false]"
 
 #. type: Plain text
-#: en/lb_config.1:75
+#: en/lb_config.1:73
 msgid "  [B<--debian-installer-distribution> daily|I<CODENAME>]"
 msgstr "  [B<--debian-installer-distribution> daily|I<コード名>]"
 
 #. type: Plain text
-#: en/lb_config.1:77
+#: en/lb_config.1:75
 msgid "  [B<--debian-installer-preseedfile> I<FILE>|I<URL>]"
 msgstr "  [B<--debian-installer-preseedfile> I<ファイル>|I<URL>]"
 
 #. type: Plain text
-#: en/lb_config.1:79
+#: en/lb_config.1:77
 msgid "  [B<--debian-installer-gui> true|false]"
 msgstr "  [B<--debian-installer-gui> true|false]"
 
 #. type: Plain text
-#: en/lb_config.1:81
+#: en/lb_config.1:79
 msgid "  [B<--debug>]"
 msgstr "  [B<--debug>]"
 
 #. type: Plain text
-#: en/lb_config.1:83
+#: en/lb_config.1:81
 msgid "  [-d|B<--distribution> I<CODENAME>]"
 msgstr "  [-d|B<--distribution> I<コード名>]"
 
 #. type: Plain text
-#: en/lb_config.1:85
+#: en/lb_config.1:83
 msgid "  [B<--parent-distribution> I<CODENAME>]"
 msgstr "  [B<--parent-distribution> I<コード名>]"
 
 #. type: Plain text
-#: en/lb_config.1:87
+#: en/lb_config.1:85
 msgid "  [B<--parent-debian-installer-distribution> I<CODENAME>]"
 msgstr "  [B<--parent-debian-installer-distribution> I<コード名>]"
 
 #. type: Plain text
-#: en/lb_config.1:89
+#: en/lb_config.1:87
 msgid "  [B<--dump>]"
 msgstr "  [B<--dump>]"
 
 #. type: Plain text
-#: en/lb_config.1:91
+#: en/lb_config.1:89
 msgid "  [B<--fdisk> fdisk|fdisk.dist]"
 msgstr "  [B<--fdisk> fdisk|fdisk.dist]"
 
 #. type: Plain text
-#: en/lb_config.1:93
+#: en/lb_config.1:91
 msgid "  [B<--firmware-binary true|false>]"
 msgstr "  [B<--firmware-binary true|false>]"
 
 #. type: Plain text
-#: en/lb_config.1:95
+#: en/lb_config.1:93
 msgid "  [B<--firmware-chroot true|false>]"
 msgstr "  [B<--firmware-chroot true|false>]"
 
 #. type: Plain text
-#: en/lb_config.1:97
+#: en/lb_config.1:95
 msgid "  [B<--force>]"
 msgstr "  [B<--force>]"
 
 #. type: Plain text
-#: en/lb_config.1:99
+#: en/lb_config.1:97
 msgid "  [B<--grub-splash> I<FILE>]"
 msgstr "  [B<--grub-splash> I<ファイル>]"
 
 #. type: Plain text
-#: en/lb_config.1:101
+#: en/lb_config.1:99
 msgid "  [B<--gzip-options> I<OPTION>|\"I<OPTIONS>\"]"
 msgstr "  [B<--gzip-options> I<オプション>|\"I<オプション>\"]"
 
 #. type: Plain text
-#: en/lb_config.1:103
+#: en/lb_config.1:101
 msgid "  [B<--hooks> I<FILE>]"
 msgstr "  [B<--hooks> I<ファイル>]"
 
 #. type: Plain text
-#: en/lb_config.1:105
+#: en/lb_config.1:103
 msgid "  [B<--ignore-system-defaults>]"
 msgstr "  [B<--ignore-system-defaults>]"
 
 #. type: Plain text
-#: en/lb_config.1:107
+#: en/lb_config.1:105
 msgid "  [B<--initramfs> auto|none|live-boot|casper]"
 msgstr "  [B<--initramfs> auto|none|live-boot|casper]"
 
 #. type: Plain text
-#: en/lb_config.1:109
+#: en/lb_config.1:107
 msgid "  [B<--initramfs-compression> bzip2|gzip|lzma]"
 msgstr "  [B<--initramfs-compression> bzip2|gzip|lzma]"
 
 #. type: Plain text
-#: en/lb_config.1:111
+#: en/lb_config.1:109
 msgid "  [B<--initsystem> sysvinit|runit|systemd|upstart|none]"
 msgstr "  [B<--initsystem> sysvinit|runit|systemd|upstart|none]"
 
 #. type: Plain text
-#: en/lb_config.1:113
+#: en/lb_config.1:111
 msgid "  [B<--interactive> shell]"
 msgstr "  [B<--interactive> shell]"
 
 #. type: Plain text
-#: en/lb_config.1:115
+#: en/lb_config.1:113
 msgid "  [B<--isohybrid-options> I<OPTION>|\"I<OPTIONS>\"]"
 msgstr "  [B<--isohybrid-options> I<オプション>|\"I<オプション>\"]"
 
 #. type: Plain text
-#: en/lb_config.1:117
+#: en/lb_config.1:115
 msgid "  [B<--iso-application> I<NAME>]"
 msgstr "  [B<--iso-application> I<名前>]"
 
 #. type: Plain text
-#: en/lb_config.1:119
+#: en/lb_config.1:117
 msgid "  [B<--iso-preparer> I<NAME>]"
 msgstr "  [B<--iso-preparer> I<NAME>]"
 
 #. type: Plain text
-#: en/lb_config.1:121
+#: en/lb_config.1:119
 msgid "  [B<--iso-publisher> I<NAME>]"
 msgstr "  [B<--iso-publisher> I<名前>]"
 
 #. type: Plain text
-#: en/lb_config.1:123
+#: en/lb_config.1:121
 msgid "  [B<--iso-volume> I<NAME>]"
 msgstr "  [B<--iso-volume> I<名前>]"
 
 #. type: Plain text
-#: en/lb_config.1:125
+#: en/lb_config.1:123
 msgid "  [B<--jffs2-eraseblock> I<SIZE>]"
 msgstr "  [B<--jffs2-eraseblock> I<サイズ>]"
 
 #. type: Plain text
-#: en/lb_config.1:127
+#: en/lb_config.1:125
 msgid "  [B<--keyring-packages> I<PACKAGE|\"PACKAGES\">]"
 msgstr "  [B<--keyring-packages> I<パッケージ|\"パッケージ\">]"
 
 #. type: Plain text
-#: en/lb_config.1:129
+#: en/lb_config.1:127
 msgid "  [-k|B<--linux-flavours> I<FLAVOUR>|I<\"FLAVOURS\">]"
 msgstr "  [-k|B<--linux-flavours> I<フレーバー>|I<\"フレーバー\">]"
 
 #. type: Plain text
-#: en/lb_config.1:131
+#: en/lb_config.1:129
 msgid "  [B<--linux-packages> I<\"PACKAGES\">]"
 msgstr "  [B<--linux-packages> I<\"パッケージ\">]"
 
 #. type: Plain text
-#: en/lb_config.1:133
+#: en/lb_config.1:131
 msgid "  [B<--losetup> losetup|losetup.orig]"
 msgstr "  [B<--losetup> losetup|losetup.orig]"
 
 #. type: Plain text
-#: en/lb_config.1:135
+#: en/lb_config.1:133
 msgid "  [B<--memtest> memtest86+|memtest86|none]"
 msgstr "  [B<--memtest> memtest86+|memtest86|none]"
 
 #. type: Plain text
-#: en/lb_config.1:137
+#: en/lb_config.1:135
 msgid "  [-m|B<--parent-mirror-bootstrap> I<URL>]"
 msgstr "  [-m|B<--parent-mirror-bootstrap> I<URL>]"
 
 #. type: Plain text
-#: en/lb_config.1:139
+#: en/lb_config.1:137
 msgid "  [B<--parent-mirror-chroot> I<URL>]"
 msgstr "  [B<--parent-mirror-chroot> I<URL>]"
 
 #. type: Plain text
-#: en/lb_config.1:141
+#: en/lb_config.1:139
 msgid "  [B<--parent-mirror-chroot-security> I<URL>]"
 msgstr "  [B<--parent-mirror-chroot-security> I<URL>]"
 
 #. type: Plain text
-#: en/lb_config.1:143
+#: en/lb_config.1:141
 msgid "  [B<--parent-mirror-chroot-updates> I<URL>]"
 msgstr "  [B<--parent-mirror-chroot-updates> I<URL>]"
 
 #. type: Plain text
-#: en/lb_config.1:145
+#: en/lb_config.1:143
 msgid "  [B<--parent-mirror-chroot-backports> I<URL>]"
 msgstr "  [B<--parent-mirror-chroot-backports> I<URL>]"
 
 #. type: Plain text
-#: en/lb_config.1:147
+#: en/lb_config.1:145
 msgid "  [B<--parent-mirror-binary> I<URL>]"
 msgstr "  [B<--parent-mirror-binary> I<URL>]"
 
 #. type: Plain text
-#: en/lb_config.1:149
+#: en/lb_config.1:147
 msgid "  [B<--parent-mirror-binary-security> I<URL>]"
 msgstr "  [B<--parent-mirror-binary-security> I<URL>]"
 
 #. type: Plain text
-#: en/lb_config.1:151
+#: en/lb_config.1:149
 msgid "  [B<--parent-mirror-binary-updates> I<URL>]"
 msgstr "  [B<--parent-mirror-binary-updates> I<URL>]"
 
 #. type: Plain text
-#: en/lb_config.1:153
+#: en/lb_config.1:151
 msgid "  [B<--parent-mirror-binary-backports> I<URL>]"
 msgstr "  [B<--parent-mirror-binary-backports> I<URL>]"
 
 #. type: Plain text
-#: en/lb_config.1:155
+#: en/lb_config.1:153
 msgid "  [B<--parent-mirror-debian-installer> I<URL>]"
 msgstr "  [B<--parent-mirror-debian-installer> I<URL>]"
 
 #. type: Plain text
-#: en/lb_config.1:157
+#: en/lb_config.1:155
 msgid "  [B<--mirror-bootstrap> I<URL>]"
 msgstr "  [B<--mirror-bootstrap> I<URL>]"
 
 #. type: Plain text
-#: en/lb_config.1:159
+#: en/lb_config.1:157
 msgid "  [B<--mirror-chroot> I<URL>]"
 msgstr "  [B<--mirror-chroot> I<URL>]"
 
 #. type: Plain text
-#: en/lb_config.1:161
+#: en/lb_config.1:159
 msgid "  [B<--mirror-chroot-security> I<URL>]"
 msgstr "  [B<--mirror-chroot-security> I<URL>]"
 
 #. type: Plain text
-#: en/lb_config.1:163
+#: en/lb_config.1:161
 msgid "  [B<--mirror-chroot-updates> I<URL>]"
 msgstr "  [B<--mirror-chroot-updates> I<URL>]"
 
 #. type: Plain text
-#: en/lb_config.1:165
+#: en/lb_config.1:163
 msgid "  [B<--mirror-chroot-backports> I<URL>]"
 msgstr "  [B<--mirror-chroot-backports> I<URL>]"
 
 #. type: Plain text
-#: en/lb_config.1:167
+#: en/lb_config.1:165
 msgid "  [B<--mirror-binary> I<URL>]"
 msgstr "  [B<--mirror-binary> I<URL>]"
 
 #. type: Plain text
-#: en/lb_config.1:169
+#: en/lb_config.1:167
 msgid "  [B<--mirror-binary-security> I<URL>]"
 msgstr "  [B<--mirror-binary-security> I<URL>]"
 
 #. type: Plain text
-#: en/lb_config.1:171
+#: en/lb_config.1:169
 msgid "  [B<--mirror-binary-updates> I<URL>]"
 msgstr "  [B<--mirror-binary-updates> I<URL>]"
 
 #. type: Plain text
-#: en/lb_config.1:173
+#: en/lb_config.1:171
 msgid "  [B<--mirror-binary-backports> I<URL>]"
 msgstr "  [B<--mirror-binary-backports> I<URL>]"
 
 #. type: Plain text
-#: en/lb_config.1:175
+#: en/lb_config.1:173
 msgid "  [B<--mirror-debian-installer> I<URL>]"
 msgstr "  [B<--mirror-debian-installer> I<URL>]"
 
 #. type: Plain text
-#: en/lb_config.1:177
+#: en/lb_config.1:175
 msgid "  [B<--mode> debian|progress-linux|ubuntu]"
 msgstr "  [B<--mode> debian|progress-linux|ubuntu]"
 
 #. type: Plain text
-#: en/lb_config.1:179
+#: en/lb_config.1:177
 msgid "  [B<--system> live|normal]"
 msgstr "  [B<--system> live|normal]"
 
 #. type: Plain text
-#: en/lb_config.1:181
+#: en/lb_config.1:179
 msgid "  [B<--net-root-filesystem> nfs|cfs]"
 msgstr "  [B<--net-root-filesystem> nfs|cfs]"
 
 #. type: Plain text
-#: en/lb_config.1:183
+#: en/lb_config.1:181
 msgid "  [B<--net-root-mountoptions> I<OPTIONS>]"
 msgstr "  [B<--net-root-mountoptions> I<オプション>]"
 
 #. type: Plain text
-#: en/lb_config.1:185
+#: en/lb_config.1:183
 msgid "  [B<--net-root-path> I<PATH>]"
 msgstr "  [B<--net-root-path> I<パス>]"
 
 #. type: Plain text
-#: en/lb_config.1:187
+#: en/lb_config.1:185
 msgid "  [B<--net-root-server> I<IP>|I<HOSTNAME>]"
 msgstr "  [B<--net-root-server> I<IPアドレス>|I<ホスト名>]"
 
 #. type: Plain text
-#: en/lb_config.1:189
+#: en/lb_config.1:187
 msgid "  [B<--net-cow-filesystem> nfs|cfs]"
 msgstr "  [B<--net-cow-filesystem> nfs|cfs]"
 
 #. type: Plain text
-#: en/lb_config.1:191
+#: en/lb_config.1:189
 msgid "  [B<--net-cow-mountoptions> I<OPTIONS>]"
 msgstr "  [B<--net-cow-mountoptions> I<オプション>]"
 
 #. type: Plain text
-#: en/lb_config.1:193
+#: en/lb_config.1:191
 msgid "  [B<--net-cow-path> I<PATH>]"
 msgstr "  [B<--net-cow-path> I<パス>]"
 
 #. type: Plain text
-#: en/lb_config.1:195
+#: en/lb_config.1:193
 msgid "  [B<--net-cow-server> I<IP>|I<HOSTNAME>]"
 msgstr "  [B<--net-cow-server> I<IPアドレス>|I<ホスト名>]"
 
 #. type: Plain text
-#: en/lb_config.1:197
+#: en/lb_config.1:195
 msgid "  [B<--net-tarball> true|false]"
 msgstr "  [B<--net-tarball> true|false]"
 
 #. type: Plain text
-#: en/lb_config.1:199
+#: en/lb_config.1:197
 msgid "  [B<--quiet>]"
 msgstr "  [B<--quiet>]"
 
 #. type: Plain text
-#: en/lb_config.1:201
+#: en/lb_config.1:199
 msgid "  [B<--archive-areas> I<ARCHIVE_AREA>|I<\"ARCHIVE_AREAS\">]"
 msgstr "  [B<--archive-areas> I<アーカイブ領域>|I<\"アーカイブ領域\">]"
 
 #. type: Plain text
-#: en/lb_config.1:203
+#: en/lb_config.1:201
 msgid ""
 "  [B<--parent-archive-areas> I<PARENT_ARCHIVE_AREA>|I<\"PARENT_ARCHIVE_AREAS"
 "\">]"
@@ -673,58 +668,58 @@ msgstr ""
 "  [B<--parent-archive-areas> I<親アーカイブ領域>|I<\"親アーカイブ領域\">]"
 
 #. type: Plain text
-#: en/lb_config.1:205
+#: en/lb_config.1:203
 msgid "  [B<--security> true|false]"
 msgstr "  [B<--security> true|false]"
 
 #. type: Plain text
-#: en/lb_config.1:207
+#: en/lb_config.1:205
 msgid "  [B<--source> true|false]"
 msgstr "  [B<--source> true|false]"
 
 #. type: Plain text
-#: en/lb_config.1:209
+#: en/lb_config.1:207
 msgid "  [-s|B<--source-images> iso|netboot|tar|hdd]"
 msgstr "  [-s|B<--source-images> iso|netboot|tar|hdd]"
 
 #. type: Plain text
-#: en/lb_config.1:211
+#: en/lb_config.1:209
 msgid "  [B<--tasksel> apt|aptitude|tasksel]"
 msgstr "  [B<--tasksel> apt|aptitude|tasksel]"
 
 #. type: Plain text
-#: en/lb_config.1:213
+#: en/lb_config.1:211
 msgid "  [B<--templates> I<PATH>]"
 msgstr "  [B<--templates> I<パス>]"
 
 #. type: Plain text
-#: en/lb_config.1:215
+#: en/lb_config.1:213
 msgid "  [B<--hdd-size >I<MB>]"
 msgstr "  [B<--hdd-size >I<MB>]"
 
 #. type: Plain text
-#: en/lb_config.1:217
+#: en/lb_config.1:215
 msgid "  [B<--updates> true|false]"
 msgstr "  [B<--updates> true|false]"
 
 #. type: Plain text
-#: en/lb_config.1:219
+#: en/lb_config.1:217
 msgid "  [B<--backports> true|false]"
 msgstr "  [B<--backports> true|false]"
 
 #. type: Plain text
-#: en/lb_config.1:221
+#: en/lb_config.1:219
 msgid "  [B<--verbose>]"
 msgstr "  [B<--verbose>]"
 
 #.  FIXME
 #. type: Plain text
-#: en/lb_config.1:224
+#: en/lb_config.1:222
 msgid "  [B<--win32-loader true|false]>"
 msgstr "  [B<--win32-loader true|false]>"
 
 #. type: Plain text
-#: en/lb_config.1:227
+#: en/lb_config.1:225
 msgid ""
 "B<lb config> is a high-level command (porcelain) of I<live-build>(7), the "
 "live systems tool suite."
@@ -734,7 +729,7 @@ msgstr ""
 
 #.  FIXME
 #. type: Plain text
-#: en/lb_config.1:230
+#: en/lb_config.1:228
 msgid ""
 "B<lb config> populates the configuration directory for live-build. By "
 "default, this directory is named 'config' and is created in the current "
@@ -746,7 +741,7 @@ msgstr ""
 
 #.  FIXME
 #. type: Plain text
-#: en/lb_config.1:233
+#: en/lb_config.1:231
 msgid ""
 "Note: Currently B<lb config> tries to be smart and sets defaults for some "
 "options depending on the setting of other options (e.g. which linux packages "
@@ -774,7 +769,7 @@ msgstr ""
 "を削除して再び B<lb config> を実行してください。"
 
 #. type: Plain text
-#: en/lb_config.1:236
+#: en/lb_config.1:234
 msgid ""
 "In addition to its specific options B<lb config> understands all generic "
 "live-build options. See I<live-build>(7) for a complete list of all generic "
@@ -786,13 +781,13 @@ msgstr ""
 
 #.  FIXME
 #. type: IP
-#: en/lb_config.1:238
+#: en/lb_config.1:236
 #, no-wrap
 msgid "B<--apt> apt|aptitude"
 msgstr "B<--apt> apt|aptitude"
 
 #. type: Plain text
-#: en/lb_config.1:240
+#: en/lb_config.1:238
 msgid ""
 "defines if apt-get or aptitude is used to install packages when building the "
 "image. The default is apt."
@@ -801,13 +796,13 @@ msgstr ""
 "ちらを利用するか決定します。デフォルトは apt です。"
 
 #. type: IP
-#: en/lb_config.1:240
+#: en/lb_config.1:238
 #, no-wrap
 msgid "B<--apt-ftp-proxy> I<URL>"
 msgstr "B<--apt-ftp-proxy> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:242
+#: en/lb_config.1:240
 msgid ""
 "sets the ftp proxy to be used by apt. By default, this is empty. Note that "
 "this variable is only for the proxy that gets used by apt internally within "
@@ -818,13 +813,13 @@ msgstr ""
 "注意してください"
 
 #. type: IP
-#: en/lb_config.1:242
+#: en/lb_config.1:240
 #, no-wrap
 msgid "B<--apt-http-proxy> I<URL>"
 msgstr "B<--apt-http-proxy> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:244
+#: en/lb_config.1:242
 msgid ""
 "sets the http proxy to be used by apt. By default, this is empty. Note that "
 "this variable is only for the proxy that gets used by apt internally within "
@@ -835,13 +830,13 @@ msgstr ""
 "に注意してください"
 
 #. type: IP
-#: en/lb_config.1:244
+#: en/lb_config.1:242
 #, no-wrap
 msgid "B<--apt-indices> true|false|none"
 msgstr "B<--apt-indices> true|false|none"
 
 #. type: Plain text
-#: en/lb_config.1:246
+#: en/lb_config.1:244
 msgid ""
 "defines if the resulting images should have apt indices or not and defaults "
 "to true. If set to none, no indices are included at all."
@@ -850,13 +845,13 @@ msgstr ""
 "トは true です。none をセットすると索引ファイルは一切収録されません。"
 
 #. type: IP
-#: en/lb_config.1:246
+#: en/lb_config.1:244
 #, no-wrap
 msgid "B<--apt-options> I<OPTION>|\"I<OPTIONS>\""
 msgstr "B<--apt-options> I<オプション>|\"I<オプション>\""
 
 #. type: Plain text
-#: en/lb_config.1:248
+#: en/lb_config.1:246
 msgid ""
 "defines the default options that will be appended to every apt call that is "
 "made inside chroot during the building of the image. By default, this is set "
@@ -867,13 +862,13 @@ msgstr ""
 "対話的ではないインストール処理ができるようになっています。"
 
 #. type: IP
-#: en/lb_config.1:248
+#: en/lb_config.1:246
 #, no-wrap
 msgid "B<--aptitude-options> I<OPTION>|\"I<OPTIONS>\""
 msgstr "B<--aptitude-options> I<オプション>|\"I<オプション>\""
 
 #. type: Plain text
-#: en/lb_config.1:250
+#: en/lb_config.1:248
 msgid ""
 "defines the default options that will be appended to every aptitude call "
 "that is made inside chroot during building of the image. By default, this is "
@@ -884,13 +879,13 @@ msgstr ""
 "て、パッケージの対話的ではないインストール処理ができるようになっています。"
 
 #. type: IP
-#: en/lb_config.1:250
+#: en/lb_config.1:248
 #, no-wrap
 msgid "B<--apt-pipeline> I<DEPTH>"
 msgstr "B<--apt-pipeline> I<深度>"
 
 #. type: Plain text
-#: en/lb_config.1:252
+#: en/lb_config.1:250
 msgid ""
 "sets the depth of the apt/aptitude pipeline. In cases where the remote "
 "server is not RFC conforming or buggy (such as Squid 2.0.2) this option can "
@@ -909,13 +904,13 @@ msgstr ""
 "ん。"
 
 #. type: IP
-#: en/lb_config.1:252
+#: en/lb_config.1:250
 #, no-wrap
 msgid "B<--apt-recommends> true|false"
 msgstr "B<--apt-recommends> true|false"
 
 #. type: Plain text
-#: en/lb_config.1:254
+#: en/lb_config.1:252
 msgid ""
 "defines if apt should install recommended packages automatically. By "
 "default, this is true."
@@ -924,26 +919,26 @@ msgstr ""
 "は true です。"
 
 #. type: IP
-#: en/lb_config.1:254
+#: en/lb_config.1:252
 #, no-wrap
 msgid "B<--apt-secure> true|false"
 msgstr "B<--apt-secure> true|false"
 
 #. type: Plain text
-#: en/lb_config.1:256
+#: en/lb_config.1:254
 msgid ""
 "defines if apt should check repository signatures. This is true by default."
 msgstr ""
 "aptがリポジトリの署名を確認すべきか否かを決定します。デフォルトは true です。"
 
 #. type: IP
-#: en/lb_config.1:256
+#: en/lb_config.1:254
 #, no-wrap
 msgid "B<--apt-source-archives> true|false"
 msgstr "B<--apt-source-archives> true|false"
 
 #. type: Plain text
-#: en/lb_config.1:258
+#: en/lb_config.1:256
 msgid ""
 "defines if deb-src entries should be included in the resulting live image or "
 "not, defaults to true."
@@ -952,13 +947,13 @@ msgstr ""
 "ルトは true です。"
 
 #. type: IP
-#: en/lb_config.1:258
+#: en/lb_config.1:256
 #, no-wrap
 msgid "-a|B<--architectures> I<ARCHITECTURE>"
 msgstr "-a|B<--architectures> I<アーキテクチャ>"
 
 #. type: Plain text
-#: en/lb_config.1:260
+#: en/lb_config.1:258
 msgid ""
 "defines the architecture of the to be build image. By default, this is set "
 "to the host architecture. Note that you cannot crossbuild for another "
@@ -975,13 +970,13 @@ msgstr ""
 "ます。しかし i386 システムで powerpc 用イメージをビルドするのは不可能です。"
 
 #. type: IP
-#: en/lb_config.1:260
+#: en/lb_config.1:258
 #, no-wrap
 msgid "-b|B<--binary-images> iso|iso-hybrid|netboot|tar|hdd"
 msgstr "-b|B<--binary-images> iso|iso-hybrid|netboot|tar|hdd"
 
 #. type: Plain text
-#: en/lb_config.1:262
+#: en/lb_config.1:260
 msgid ""
 "defines the image type to build. By default, for images using syslinux this "
 "is set to iso-hybrid to build CD/DVD images that may also be used like hdd "
@@ -993,13 +988,13 @@ msgstr ""
 "す。"
 
 #. type: IP
-#: en/lb_config.1:262
+#: en/lb_config.1:260
 #, no-wrap
 msgid "B<--binary-filesystem> fat16|fat32|ext2|ext3|ext4"
 msgstr "B<--binary-filesystem> fat16|fat32|ext2|ext3|ext4"
 
 #. type: Plain text
-#: en/lb_config.1:264
+#: en/lb_config.1:262
 msgid ""
 "defines the filesystem to be used in the image type. This only has an effect "
 "if the selected binary image type does allow to choose a filesystem. For "
@@ -1020,26 +1015,26 @@ msgstr ""
 "的に fat32 に切り替えられることに注意してください。"
 
 #. type: IP
-#: en/lb_config.1:264
+#: en/lb_config.1:262
 #, no-wrap
 msgid "B<--bootappend-install> I<PARAMETER>|\"I<PARAMETERS>\""
 msgstr "B<--bootappend-install> I<パラメータ>|\"I<パラメータ>\""
 
 #. type: Plain text
-#: en/lb_config.1:266
+#: en/lb_config.1:264
 msgid "sets boot parameters specific to debian-installer, if included."
 msgstr ""
 "debian-installer を収録した場合、debian-installer 特有のブートパラメータを"
 "セットします。"
 
 #. type: IP
-#: en/lb_config.1:266
+#: en/lb_config.1:264
 #, no-wrap
 msgid "B<--bootappend-live> I<PARAMETER>|\"I<PARAMETERS>\""
 msgstr "B<--bootappend-live> I<パラメータ>|\"I<パラメータ>\""
 
 #. type: Plain text
-#: en/lb_config.1:268
+#: en/lb_config.1:266
 msgid ""
 "sets boot parameters specific to debian-live. A complete list of boot "
 "parameters can be found in the I<live-boot>(7) and I<live-config>(7) manual "
@@ -1049,14 +1044,14 @@ msgstr ""
 "I<live-boot>(7) 及び I<live-config>(7) マニュアルページにあります。"
 
 #. type: IP
-#: en/lb_config.1:268
+#: en/lb_config.1:266
 #, fuzzy, no-wrap
 #| msgid "B<--bootloader> grub|syslinux"
 msgid "B<--bootloader> grub|grub2|syslinux"
 msgstr "B<--bootloader> grub|syslinux"
 
 #. type: Plain text
-#: en/lb_config.1:270
+#: en/lb_config.1:268
 msgid ""
 "defines which bootloader is being used in the generated image. This has only "
 "an effect if the selected binary image type does allow to choose the "
@@ -1077,28 +1072,13 @@ msgstr ""
 "なっています。"
 
 #. type: IP
-#: en/lb_config.1:270
-#, no-wrap
-msgid "B<--bootstrap> cdebootstrap|cdebootstrap-static|debootstrap"
-msgstr "B<--bootstrap> cdebootstrap|cdebootstrap-static|debootstrap"
-
-#. type: Plain text
-#: en/lb_config.1:272
-msgid ""
-"defines which program is used to bootstrap the debian chroot, default is "
-"debootstrap."
-msgstr ""
-"debian chroot でのパッケージ収集に利用するプログラムを選択します。デフォルト"
-"では debootstrap となっています。"
-
-#. type: IP
-#: en/lb_config.1:272
+#: en/lb_config.1:268
 #, no-wrap
 msgid "B<--cache> true|false"
 msgstr "B<--cache> true|false"
 
 #. type: Plain text
-#: en/lb_config.1:274
+#: en/lb_config.1:270
 msgid ""
 "defines globally if any cache should be used at all. Different caches can be "
 "controlled through the their own options."
@@ -1107,13 +1087,13 @@ msgstr ""
 "キャッシュそれぞれのオプションで制御できます。"
 
 #. type: IP
-#: en/lb_config.1:274
+#: en/lb_config.1:270
 #, no-wrap
 msgid "B<--cache-indices> true|false"
 msgstr "B<--cache-indices> true|false"
 
 #. type: Plain text
-#: en/lb_config.1:276
+#: en/lb_config.1:272
 msgid ""
 "defines if downloaded package indices and lists should be cached which is "
 "false by default. Enabling it would allow to rebuild an image completely "
@@ -1124,13 +1104,13 @@ msgstr ""
 "ルドできるようになりますが、以後の更新は得られなくなります。"
 
 #. type: IP
-#: en/lb_config.1:276
+#: en/lb_config.1:272
 #, no-wrap
 msgid "B<--cache-packages> true|false"
 msgstr "B<--cache-packages> true|false"
 
 #. type: Plain text
-#: en/lb_config.1:278
+#: en/lb_config.1:274
 msgid ""
 "defines if downloaded packages files should be cached which is true by "
 "default. Disabling it does save space consumption in your build directory, "
@@ -1147,13 +1127,13 @@ msgstr ""
 "が速いことがあります。"
 
 #. type: IP
-#: en/lb_config.1:278
+#: en/lb_config.1:274
 #, no-wrap
 msgid "B<--cache-stages> true|false|I<STAGE>|\"I<STAGES>\""
 msgstr "B<--cache-stages> true|false|I<段階>|\"I<段階>\""
 
 #. type: Plain text
-#: en/lb_config.1:280
+#: en/lb_config.1:276
 msgid ""
 "sets which stages should be cached. By default set to bootstrap. As an "
 "exception to the normal stage names, also rootfs can be used here which does "
@@ -1168,13 +1148,13 @@ msgstr ""
 "のは避けたい場合にこれは有用です。"
 
 #. type: IP
-#: en/lb_config.1:280
+#: en/lb_config.1:276
 #, no-wrap
 msgid "B<--checksums> md5|sha1|sha256|none"
 msgstr "B<--checksums> md5|sha1|sha256|none"
 
 #. type: Plain text
-#: en/lb_config.1:282
+#: en/lb_config.1:278
 msgid ""
 "defines if the binary image should contain a file called md5sums.txt, "
 "sha1sums.txt and/or sha256sums.txt. These lists all files on the image "
@@ -1193,13 +1173,13 @@ msgstr ""
 "ないことによりいくらか時間を節約できる可能性があります。"
 
 #. type: IP
-#: en/lb_config.1:282
+#: en/lb_config.1:278
 #, no-wrap
 msgid "B<--compression> bzip2|gzip|lzip|none"
 msgstr "B<--compression> bzip2|gzip|lzip|none"
 
 #. type: Plain text
-#: en/lb_config.1:284
+#: en/lb_config.1:280
 msgid ""
 "defines the compression program to be used to compress tarballs. Defaults to "
 "gzip."
@@ -1208,13 +1188,13 @@ msgstr ""
 "です。"
 
 #. type: IP
-#: en/lb_config.1:284
+#: en/lb_config.1:280
 #, no-wrap
 msgid "B<--config> I<GIT_URL>::I<GIT_ID>"
 msgstr "B<--config> I<GIT_URL>::I<GIT_ID>"
 
 #. type: Plain text
-#: en/lb_config.1:286
+#: en/lb_config.1:282
 msgid ""
 "allows to bootstrap a config tree from a git repositories, optionally "
 "appended by a Git Id (branch, commit, tag, etc.)."
@@ -1223,13 +1203,13 @@ msgstr ""
 "やコミット、タグ等) を指定できます。"
 
 #. type: IP
-#: en/lb_config.1:286
+#: en/lb_config.1:282
 #, no-wrap
 msgid "B<--build-with-chroot> true|false"
 msgstr "B<--build-with-chroot> true|false"
 
 #. type: Plain text
-#: en/lb_config.1:288
+#: en/lb_config.1:284
 msgid ""
 "defines whether live-build should use the tools from within the chroot to "
 "build the binary image or not by using and including the host system's "
@@ -1253,13 +1233,13 @@ msgstr ""
 "ションを決して無効化することのないようにしてください。 "
 
 #. type: IP
-#: en/lb_config.1:288
+#: en/lb_config.1:284
 #, no-wrap
 msgid "B<--chroot-filesystem> ext2|ext3|ext4|squashfs|jffs2|none"
 msgstr "B<--chroot-filesystem> ext2|ext3|ext4|squashfs|jffs2|none"
 
 #. type: Plain text
-#: en/lb_config.1:290
+#: en/lb_config.1:286
 msgid ""
 "defines which filesystem type should be used for the root filesystem image. "
 "If you use none, then no filesystem image is created and the root filesystem "
@@ -1276,13 +1256,13 @@ msgstr ""
 "では linux からの直接の実行をサポートしていないため機能しません。"
 
 #. type: IP
-#: en/lb_config.1:290
+#: en/lb_config.1:286
 #, no-wrap
 msgid "B<--clean>"
 msgstr "B<--clean>"
 
 #. type: Plain text
-#: en/lb_config.1:292
+#: en/lb_config.1:288
 msgid ""
 "minimizes config directory by automatically removing unused and thus empty "
 "subdirectories."
@@ -1291,13 +1271,13 @@ msgstr ""
 "小にします。"
 
 #. type: IP
-#: en/lb_config.1:292
+#: en/lb_config.1:288
 #, no-wrap
 msgid "-c|B<--conffile> I<FILE>"
 msgstr "-c|B<--conffile> I<ファイル>"
 
 #. type: Plain text
-#: en/lb_config.1:294
+#: en/lb_config.1:290
 msgid ""
 "using a user specified alternative configuration file in addition to the "
 "normally used one in the config directory."
@@ -1306,13 +1286,13 @@ msgstr ""
 "ファイルを使います。"
 
 #. type: IP
-#: en/lb_config.1:294
+#: en/lb_config.1:290
 #, no-wrap
 msgid "B<--debconf-frontend> dialog|editor|noninteractive|readline"
 msgstr "B<--debconf-frontend> dialog|editor|noninteractive|readline"
 
 #. type: Plain text
-#: en/lb_config.1:296
+#: en/lb_config.1:292
 msgid ""
 "defines what value the debconf frontend should be set to inside the chroot. "
 "Note that setting it to anything but noninteractive, which is the default, "
@@ -1323,13 +1303,13 @@ msgstr ""
 "てください。"
 
 #. type: IP
-#: en/lb_config.1:296
+#: en/lb_config.1:292
 #, no-wrap
 msgid "B<--debconf-priority> low|medium|high|critical"
 msgstr "B<--debconf-priority> low|medium|high|critical"
 
 #. type: Plain text
-#: en/lb_config.1:298
+#: en/lb_config.1:294
 msgid ""
 "defines what value the debconf priority should be set to inside the chroot. "
 "By default, it is set to critical, which means that almost no questions are "
@@ -1341,13 +1321,13 @@ msgstr ""
 "noninteractive 以外を指定している場合にのみ有効であることに注意してください"
 
 #. type: IP
-#: en/lb_config.1:298
+#: en/lb_config.1:294
 #, no-wrap
 msgid "B<--debian-installer> true|cdrom|netinst|netboot|businesscard|live|false"
 msgstr "B<--debian-installer> true|cdrom|netinst|netboot|businesscard|live|false"
 
 #. type: Plain text
-#: en/lb_config.1:300
+#: en/lb_config.1:296
 msgid ""
 "defines which type, if any, of the debian-installer should be included in "
 "the resulting binary image. By default, no installer is included. All "
@@ -1366,13 +1346,13 @@ msgstr ""
 "ムをインストールします。"
 
 #. type: IP
-#: en/lb_config.1:300
+#: en/lb_config.1:296
 #, no-wrap
 msgid "B<--debian-installer-distribution> daily|I<CODENAME>"
 msgstr "B<--debian-installer-distribution> daily|I<コード名>"
 
 #. type: Plain text
-#: en/lb_config.1:302
+#: en/lb_config.1:298
 msgid ""
 "defines the distribution where the debian-installer files should be taken "
 "out from. Normally, this should be set to the same distribution as the live "
@@ -1384,13 +1364,13 @@ msgstr ""
 "いは日次ビルドのインストーラを使いたいときもあります。"
 
 #. type: IP
-#: en/lb_config.1:302
+#: en/lb_config.1:298
 #, no-wrap
 msgid "B<--debian-installer-preseedfile> I<FILE>|I<URL>"
 msgstr "B<--debian-installer-preseedfile> I<ファイル>|I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:304
+#: en/lb_config.1:300
 msgid ""
 "sets the filename or URL for an optionally used and included preseeding file "
 "for debian-installer. If config/binary_debian-installer/preseed.cfg exists, "
@@ -1401,13 +1381,13 @@ msgstr ""
 "る場合はそれがデフォルトで利用されます。"
 
 #. type: IP
-#: en/lb_config.1:304
+#: en/lb_config.1:300
 #, no-wrap
 msgid "B<--debian-installer-gui> true|false"
 msgstr "B<--debian-installer-gui> true|false"
 
 #. type: Plain text
-#: en/lb_config.1:306
+#: en/lb_config.1:302
 msgid ""
 "defines if the debian-installer graphical GTK interface should be true or "
 "not. In Debian mode and for most versions of Ubuntu, this option is true, "
@@ -1418,47 +1398,47 @@ msgstr ""
 "それ以外では false となっています。"
 
 #. type: IP
-#: en/lb_config.1:306 en/live-build.7:36
+#: en/lb_config.1:302 en/live-build.7:36
 #, no-wrap
 msgid "B<--debug>"
 msgstr "B<--debug>"
 
 #. type: Plain text
-#: en/lb_config.1:308
+#: en/lb_config.1:304
 msgid "turn on debugging informational messages."
 msgstr "デバッグ情報のメッセージを表示します。"
 
 #. type: IP
-#: en/lb_config.1:308
+#: en/lb_config.1:304
 #, no-wrap
 msgid "-d|B<--distribution> I<CODENAME>"
 msgstr "-d|B<--distribution> I<コード名>"
 
 #. type: Plain text
-#: en/lb_config.1:310
+#: en/lb_config.1:306
 msgid "defines the distribution of the resulting live system."
 msgstr "出来上がる Live システムのディストリビューションを決定します。"
 
 #. type: IP
-#: en/lb_config.1:310
+#: en/lb_config.1:306
 #, no-wrap
 msgid "-d|B<--parent-distribution> I<CODENAME>"
 msgstr "-d|B<--parent-distribution> I<コード名>"
 
 #. type: Plain text
-#: en/lb_config.1:312
+#: en/lb_config.1:308
 msgid ""
 "defines the parent distribution for derivatives of the resulting live system."
 msgstr "出来上がる Live システムの派生元のディストリビューションを決定します。"
 
 #. type: IP
-#: en/lb_config.1:312
+#: en/lb_config.1:308
 #, no-wrap
 msgid "-d|B<--parent-debian-installer-distribution> I<CODENAME>"
 msgstr "-d|B<--parent-debian-installer-distribution> I<コード名>"
 
 #. type: Plain text
-#: en/lb_config.1:314
+#: en/lb_config.1:310
 msgid ""
 "defines the parent debian-installer distribution for derivatives of the "
 "resulting live system."
@@ -1467,13 +1447,13 @@ msgstr ""
 "を決定します。"
 
 #. type: IP
-#: en/lb_config.1:314
+#: en/lb_config.1:310
 #, no-wrap
 msgid "B<--dump>"
 msgstr "B<--dump>"
 
 #. type: Plain text
-#: en/lb_config.1:316
+#: en/lb_config.1:312
 msgid ""
 "prepares a report of the currently present live system configuration and the "
 "version of live-build used. This is useful to provide if you submit bug "
@@ -1485,13 +1465,13 @@ msgstr ""
 "け出し、再現するのに必要となる情報を全て提供します。"
 
 #. type: IP
-#: en/lb_config.1:316
+#: en/lb_config.1:312
 #, no-wrap
 msgid "B<--fdisk> fdisk|fdisk.dist"
 msgstr "B<--fdisk> fdisk|fdisk.dist"
 
 #. type: Plain text
-#: en/lb_config.1:318
+#: en/lb_config.1:314
 msgid ""
 "sets the filename of the fdisk binary from the host system that should be "
 "used. This is autodetected and does generally not need any customization."
@@ -1500,13 +1480,13 @@ msgstr ""
 "に検出されるため通常は独自に指定する必要はありません。"
 
 #. type: IP
-#: en/lb_config.1:318 en/live-build.7:38
+#: en/lb_config.1:314 en/live-build.7:38
 #, no-wrap
 msgid "B<--force>"
 msgstr "B<--force>"
 
 #. type: Plain text
-#: en/lb_config.1:320
+#: en/lb_config.1:316
 msgid ""
 "forces re-execution of already run stages. Use only if you know what you are "
 "doing. It is generally safer to use B<lb clean> to clean up before re-"
@@ -1517,13 +1497,13 @@ msgstr ""
 "して掃除すると安全性は上がります。"
 
 #. type: IP
-#: en/lb_config.1:320
+#: en/lb_config.1:316
 #, no-wrap
 msgid "B<--grub-splash> I<FILE>"
 msgstr "B<--grub-splash> I<ファイル>"
 
 #. type: Plain text
-#: en/lb_config.1:322
+#: en/lb_config.1:318
 msgid ""
 "defines the name of an optional to be included splash screen graphic for the "
 "grub bootloader."
@@ -1532,13 +1512,13 @@ msgstr ""
 "イル名を指定します。"
 
 #. type: IP
-#: en/lb_config.1:322
+#: en/lb_config.1:318
 #, no-wrap
 msgid "B<--gzip-options> I<OPTION>|\"I<OPTIONS>\""
 msgstr "B<--gzip-options> I<オプション>|\"I<オプション>\""
 
 #. type: Plain text
-#: en/lb_config.1:324
+#: en/lb_config.1:320
 msgid ""
 "defines the default options that will be appended to (almost) every gzip "
 "call during the building of the image. By default, this is set to --best to "
@@ -1551,13 +1531,13 @@ msgstr ""
 "rsyncable も動的に付加されます。"
 
 #. type: IP
-#: en/lb_config.1:324
+#: en/lb_config.1:320
 #, no-wrap
 msgid "B<--hooks> I<FILE>"
 msgstr "B<--hooks> I<ファイル>"
 
 #. type: Plain text
-#: en/lb_config.1:326
+#: en/lb_config.1:322
 msgid ""
 "defines which hooks available in /usr/share/live/build/examples/hooks should "
 "be activated. Normally, there are no hooks executed. Make sure you know and "
@@ -1568,13 +1548,13 @@ msgstr ""
 "何をするものなのか、確実に知って理解するようにしてください。"
 
 #. type: IP
-#: en/lb_config.1:326
+#: en/lb_config.1:322
 #, no-wrap
 msgid "B<--ignore-system-defaults>"
 msgstr "B<--ignore-system-defaults>"
 
 #. type: Plain text
-#: en/lb_config.1:328
+#: en/lb_config.1:324
 msgid ""
 "B<lb config> by default reads system defaults from I</etc/live/build.conf> "
 "and I</etc/live/build/*> when generating a new live system config directory. "
@@ -1587,13 +1567,13 @@ msgstr ""
 "す。"
 
 #. type: IP
-#: en/lb_config.1:328
+#: en/lb_config.1:324
 #, no-wrap
 msgid "B<--initramfs> auto|none|live-boot|casper"
 msgstr "B<--initramfs> auto|none|live-boot|casper"
 
 #. type: Plain text
-#: en/lb_config.1:330
+#: en/lb_config.1:326
 msgid ""
 "sets the name of package that contains the live system specific initramfs "
 "modification. By default, auto is used, which means that at build time of "
@@ -1609,13 +1589,13 @@ msgstr ""
 "です (実験的設定値)。"
 
 #. type: IP
-#: en/lb_config.1:330
+#: en/lb_config.1:326
 #, no-wrap
 msgid "B<--initramfs-compression> bzip2|gzip|lzma]"
 msgstr "B<--initramfs-compression> bzip2|gzip|lzma]"
 
 #. type: Plain text
-#: en/lb_config.1:332
+#: en/lb_config.1:328
 msgid ""
 "defines the compression program to be used to compress the initramfs. "
 "Defaults to gzip."
@@ -1624,13 +1604,13 @@ msgstr ""
 "す。"
 
 #. type: IP
-#: en/lb_config.1:332
+#: en/lb_config.1:328
 #, no-wrap
 msgid "B<--interactive> shell"
 msgstr "B<--interactive> shell"
 
 #. type: Plain text
-#: en/lb_config.1:334
+#: en/lb_config.1:330
 msgid ""
 "defines if after the chroot stage and before the beginning of the binary "
 "stage, a interactive shell login should be spawned in the chroot in order to "
@@ -1651,24 +1631,24 @@ msgstr ""
 "ろんデフォルトで false となっています。"
 
 #. type: IP
-#: en/lb_config.1:334
+#: en/lb_config.1:330
 #, no-wrap
 msgid "B<--isohybrid-options> I<OPTION>|\"I<OPTIONS>\""
 msgstr "B<--isohybrid-options> I<オプション>|\"I<オプション>\""
 
 #. type: Plain text
-#: en/lb_config.1:336
+#: en/lb_config.1:332
 msgid "defines options to pass to isohybrid."
 msgstr "isohybrid に渡すオプションを指定します。"
 
 #. type: IP
-#: en/lb_config.1:336
+#: en/lb_config.1:332
 #, no-wrap
 msgid "B<--iso-application> I<NAME>"
 msgstr "B<--iso-application> I<名前>"
 
 #. type: Plain text
-#: en/lb_config.1:338
+#: en/lb_config.1:334
 msgid ""
 "sets the APPLICATION field in the header of a resulting CD/DVD image and "
 "defaults to \"Debian Live\" in debian mode, and \"Ubuntu Live\" in ubuntu "
@@ -1679,13 +1659,13 @@ msgstr ""
 "となっています。"
 
 #. type: IP
-#: en/lb_config.1:338
+#: en/lb_config.1:334
 #, no-wrap
 msgid "B<--iso-preparer> I<NAME>"
 msgstr "B<--iso-preparer> I<名前>"
 
 #. type: Plain text
-#: en/lb_config.1:340
+#: en/lb_config.1:336
 msgid ""
 "sets the PREPARER field in the header of a resulting CD/DVD image. By "
 "default this is set to \"live-build I<VERSION>; http://packages.qa.debian."
@@ -1698,13 +1678,13 @@ msgstr ""
 "に展開されます。"
 
 #. type: IP
-#: en/lb_config.1:340
+#: en/lb_config.1:336
 #, no-wrap
 msgid "B<--iso-publisher> I<NAME>"
 msgstr "B<--iso-publisher> I<名前>"
 
 #. type: Plain text
-#: en/lb_config.1:342
+#: en/lb_config.1:338
 msgid ""
 "sets the PUBLISHED field in the header of a resulting CD/DVD image. By "
 "default, this is set to 'Live Systems project; http:/live-systems.org/; "
@@ -1717,13 +1697,13 @@ msgstr ""
 "最新の適切な値に変更してください。"
 
 #. type: IP
-#: en/lb_config.1:342
+#: en/lb_config.1:338
 #, no-wrap
 msgid "B<--iso-volume> I<NAME>"
 msgstr "B<--iso-volume> I<名前>"
 
 #. type: Plain text
-#: en/lb_config.1:344
+#: en/lb_config.1:340
 msgid ""
 "sets the VOLUME field in the header of a resulting CD/DVD and defaults to "
 "'(I<MODE>) (I<DISTRIBUTION>) (I<DATE>)' whereas MODE is expanded to the name "
@@ -1736,13 +1716,13 @@ msgstr ""
 "は作成時の日付と時刻に展開されます。"
 
 #. type: IP
-#: en/lb_config.1:344
+#: en/lb_config.1:340
 #, no-wrap
 msgid "B<--jffs2-eraseblock> I<SIZE>"
 msgstr "B<--jffs2-eraseblock> I<サイズ>"
 
 #. type: Plain text
-#: en/lb_config.1:346
+#: en/lb_config.1:342
 msgid ""
 "sets the eraseblock size for a JFFS2 (Second Journaling Flash File System) "
 "filesystem. The default is 64 KiB. If you use an erase block size different "
@@ -1757,13 +1737,13 @@ msgstr ""
 "定します。"
 
 #. type: IP
-#: en/lb_config.1:346
+#: en/lb_config.1:342
 #, no-wrap
 msgid "B<--keyring-packages> I<PACKAGE|\"PACKAGES>\""
 msgstr "B<--keyring-packages> I<パッケージ|\"パッケージ>\""
 
 #. type: Plain text
-#: en/lb_config.1:348
+#: en/lb_config.1:344
 msgid ""
 "sets the keyring package or additional keyring packages. By default this is "
 "set to debian-archive-keyring."
@@ -1772,13 +1752,13 @@ msgstr ""
 "は debian-archive-keyring となっています。"
 
 #. type: IP
-#: en/lb_config.1:348
+#: en/lb_config.1:344
 #, no-wrap
 msgid "-k|B<--linux-flavours> I<FLAVOUR>|\"I<FLAVOURS>\""
 msgstr "-k|B<--linux-flavours> I<フレーバー>|\"I<フレーバー>\""
 
 #. type: Plain text
-#: en/lb_config.1:350
+#: en/lb_config.1:346
 msgid ""
 "sets the kernel flavours to be installed. Note that in case you specify more "
 "than that the first will be configured the default kernel that gets booted."
@@ -1788,13 +1768,13 @@ msgstr ""
 "意してください。"
 
 #. type: IP
-#: en/lb_config.1:350
+#: en/lb_config.1:346
 #, no-wrap
 msgid "B<--linux-packages> \"I<PACKAGES>\""
 msgstr "B<--linux-packages> \"I<パッケージ>\""
 
 #. type: Plain text
-#: en/lb_config.1:352
+#: en/lb_config.1:348
 msgid ""
 "sets the internal name of the kernel packages naming scheme. If you use "
 "debian kernel packages, you will not have to adjust it. If you decide to use "
@@ -1817,13 +1797,13 @@ msgstr ""
 "はその前半部を含める必要があることを忘れないようにしてください。"
 
 #. type: IP
-#: en/lb_config.1:352
+#: en/lb_config.1:348
 #, no-wrap
 msgid "B<--losetup> losetup|losetup.orig"
 msgstr "B<--losetup> losetup|losetup.orig"
 
 #. type: Plain text
-#: en/lb_config.1:354
+#: en/lb_config.1:350
 msgid ""
 "sets the filename of the losetup binary from the host system that should be "
 "used. This is autodetected and does generally not need any customization."
@@ -1832,13 +1812,13 @@ msgstr ""
 "的に検出されるため通常は独自に指定する必要はありません。"
 
 #. type: IP
-#: en/lb_config.1:354
+#: en/lb_config.1:350
 #, no-wrap
 msgid "B<--memtest> memtest86+|memtest86|none"
 msgstr "B<--memtest> memtest86+|memtest86|none"
 
 #. type: Plain text
-#: en/lb_config.1:356
+#: en/lb_config.1:352
 msgid ""
 "defines if memtest, memtest86+ or no memory tester at all should be included "
 "as secondary bootloader configuration. This is only available on amd64 and "
@@ -1849,13 +1829,13 @@ msgstr ""
 "i386 でのみ利用可能で、デフォルトは memtest86+ となっています。"
 
 #. type: IP
-#: en/lb_config.1:356
+#: en/lb_config.1:352
 #, no-wrap
 msgid "-m|B<--parent-mirror-bootstrap> I<URL>"
 msgstr "-m|B<--parent-mirror-bootstrap> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:358
+#: en/lb_config.1:354
 msgid ""
 "sets the location of the debian package mirror that should be used to "
 "bootstrap from. This defaults to http://ftp.de.debian.org/debian/ which may "
@@ -1866,13 +1846,13 @@ msgstr ""
 "トではないかもしれません。"
 
 #. type: IP
-#: en/lb_config.1:358
+#: en/lb_config.1:354
 #, no-wrap
 msgid "B<--parent-mirror-chroot> I<URL>"
 msgstr "B<--parent-mirror-chroot> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:360
+#: en/lb_config.1:356
 msgid ""
 "sets the location of the debian package mirror that will be used to fetch "
 "the packages in order to build the live system. By default, this is set to "
@@ -1883,13 +1863,13 @@ msgstr ""
 "た値が利用されます。"
 
 #. type: IP
-#: en/lb_config.1:360
+#: en/lb_config.1:356
 #, no-wrap
 msgid "B<--parent-mirror-chroot-security> I<URL>"
 msgstr "B<--parent-mirror-chroot-security> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:362
+#: en/lb_config.1:358
 msgid ""
 "sets the location of the debian security package mirror that will be used to "
 "fetch the packages in order to build the live system. By default, this "
@@ -1900,13 +1880,13 @@ msgstr ""
 "debian.org/debian/」が利用されます。"
 
 #. type: IP
-#: en/lb_config.1:362
+#: en/lb_config.1:358
 #, no-wrap
 msgid "B<--parent-mirror-chroot-updates> I<URL>"
 msgstr "B<--parent-mirror-chroot-updates> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:364
+#: en/lb_config.1:360
 msgid ""
 "sets the location of the debian updates package mirror that will be used to "
 "fetch packages in order to build the live system. By default, this is set to "
@@ -1917,13 +1897,13 @@ msgstr ""
 "指定された値が利用されます。"
 
 #. type: IP
-#: en/lb_config.1:364
+#: en/lb_config.1:360
 #, no-wrap
 msgid "B<--parent-mirror-chroot-backports> I<URL>"
 msgstr "B<--parent-mirror-chroot-backports> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:366
+#: en/lb_config.1:362
 msgid ""
 "sets the location of the debian backports package mirror that will be used "
 "to fetch packages in order to build the live system. By default, this points "
@@ -1934,13 +1914,13 @@ msgstr ""
 "debian.org/debian-backports/」が利用されます。"
 
 #. type: IP
-#: en/lb_config.1:366
+#: en/lb_config.1:362
 #, no-wrap
 msgid "B<--parent-mirror-binary> I<URL>"
 msgstr "B<--parent-mirror-binary> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:368
+#: en/lb_config.1:364
 msgid ""
 "sets the location of the debian package mirror that should end up configured "
 "in the final image and which is the one a user would see and use. This has "
@@ -1955,13 +1935,13 @@ msgstr ""
 "debian/」を利用します。"
 
 #. type: IP
-#: en/lb_config.1:368
+#: en/lb_config.1:364
 #, no-wrap
 msgid "B<--parent-mirror-binary-security> I<URL>"
 msgstr "B<--parent-mirror-binary-security> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:370
+#: en/lb_config.1:366
 msgid ""
 "sets the location of the debian security package mirror that should end up "
 "configured in the final image. By default, 'http://security.debian.org/' is "
@@ -1971,13 +1951,13 @@ msgstr ""
 "セットします。デフォルトでは「http://security.debian.org/」が利用されます。"
 
 #. type: IP
-#: en/lb_config.1:370
+#: en/lb_config.1:366
 #, no-wrap
 msgid "B<--parent-mirror-binary-updates> I<URL>"
 msgstr "B<--parent-mirror-binary-updates> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:372
+#: en/lb_config.1:368
 msgid ""
 "sets the location of the debian updates package mirror that should end up "
 "configured in the final image. By default, the value of --parent-mirror-"
@@ -1988,13 +1968,13 @@ msgstr ""
 "す。"
 
 #. type: IP
-#: en/lb_config.1:372
+#: en/lb_config.1:368
 #, no-wrap
 msgid "B<--parent-mirror-binary-backports> I<URL>"
 msgstr "B<--parent-mirror-binary-backports> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:374
+#: en/lb_config.1:370
 msgid ""
 "sets the location of the debian backports package mirror that should end up "
 "configured in the final image. By default, 'http://backports.debian.org/"
@@ -2005,13 +1985,13 @@ msgstr ""
 "が利用されます。"
 
 #. type: IP
-#: en/lb_config.1:374
+#: en/lb_config.1:370
 #, no-wrap
 msgid "B<--parent-mirror-debian-installer> I<URL>"
 msgstr "B<--parent-mirror-debian-installer> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:376
+#: en/lb_config.1:372
 msgid ""
 "sets the location of the mirror that will be used to fetch the debian "
 "installer images. By default, this points to the same mirror used to build "
@@ -2022,13 +2002,13 @@ msgstr ""
 "まり --parent-mirror-bootstrap で指定された値が利用されます。"
 
 #. type: IP
-#: en/lb_config.1:376
+#: en/lb_config.1:372
 #, no-wrap
 msgid "B<--mirror-bootstrap> I<URL>"
 msgstr "B<--mirror-bootstrap> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:378
+#: en/lb_config.1:374
 msgid ""
 "sets the location of the debian package mirror that should be used to "
 "bootstrap the derivative from. This defaults to http://ftp.de.debian.org/"
@@ -2039,13 +2019,13 @@ msgstr ""
 "切なデフォルトではないかもしれません。"
 
 #. type: IP
-#: en/lb_config.1:378
+#: en/lb_config.1:374
 #, no-wrap
 msgid "B<--mirror-chroot> I<URL>"
 msgstr "B<--mirror-chroot> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:380
+#: en/lb_config.1:376
 msgid ""
 "sets the location of the debian package mirror that will be used to fetch "
 "the packages of the derivative in order to build the live system. By "
@@ -2056,13 +2036,13 @@ msgstr ""
 "された値が利用されます。"
 
 #. type: IP
-#: en/lb_config.1:380
+#: en/lb_config.1:376
 #, no-wrap
 msgid "B<--mirror-chroot-security> I<URL>"
 msgstr "B<--mirror-chroot-security> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:382
+#: en/lb_config.1:378
 msgid ""
 "sets the location of the debian security package mirror that will be used to "
 "fetch the packages of the derivative in order to build the live system. By "
@@ -2073,13 +2053,13 @@ msgstr ""
 "security.debian.org/debian/」が利用されます。"
 
 #. type: IP
-#: en/lb_config.1:382
+#: en/lb_config.1:378
 #, no-wrap
 msgid "B<--mirror-chroot-updates> I<URL>"
 msgstr "B<--mirror-chroot-updates> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:384
+#: en/lb_config.1:380
 msgid ""
 "sets the location of the debian updates package mirror that will be used to "
 "fetch packages of the derivative in order to build the live system. By "
@@ -2090,13 +2070,13 @@ msgstr ""
 "chroot で指定された値が利用されます。"
 
 #. type: IP
-#: en/lb_config.1:384
+#: en/lb_config.1:380
 #, no-wrap
 msgid "B<--mirror-chroot-backports> I<URL>"
 msgstr "B<--mirror-chroot-backports> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:386
+#: en/lb_config.1:382
 msgid ""
 "sets the location of the debian backports package mirror that will be used "
 "to fetch packages of the derivative in order to build the live system. By "
@@ -2107,13 +2087,13 @@ msgstr ""
 "backports.debian.org/debian-backports/」が利用されます。"
 
 #. type: IP
-#: en/lb_config.1:386
+#: en/lb_config.1:382
 #, no-wrap
 msgid "B<--mirror-binary> I<URL>"
 msgstr "B<--mirror-binary> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:388
+#: en/lb_config.1:384
 msgid ""
 "sets the location of the derivative package mirror that should end up "
 "configured in the final image and which is the one a user would see and use. "
@@ -2128,13 +2108,13 @@ msgstr ""
 "debian/」を利用します。"
 
 #. type: IP
-#: en/lb_config.1:388
+#: en/lb_config.1:384
 #, no-wrap
 msgid "B<--mirror-binary-security> I<URL>"
 msgstr "B<--mirror-binary-security> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:390
+#: en/lb_config.1:386
 msgid ""
 "sets the location of the derivatives security package mirror that should end "
 "up configured in the final image."
@@ -2143,13 +2123,13 @@ msgstr ""
 "所をセットします。"
 
 #. type: IP
-#: en/lb_config.1:390
+#: en/lb_config.1:386
 #, no-wrap
 msgid "B<--mirror-binary-updates> I<URL>"
 msgstr "B<--mirror-binary-updates> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:392
+#: en/lb_config.1:388
 msgid ""
 "sets the location of the derivatives updates package mirror that should end "
 "up configured in the final image."
@@ -2158,13 +2138,13 @@ msgstr ""
 "セットします。"
 
 #. type: IP
-#: en/lb_config.1:392
+#: en/lb_config.1:388
 #, no-wrap
 msgid "B<--mirror-binary-backports> I<URL>"
 msgstr "B<--mirror-binary-backports> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:394
+#: en/lb_config.1:390
 msgid ""
 "sets the location of the derivatives backports package mirror that should "
 "end up configured in the final image."
@@ -2173,13 +2153,13 @@ msgstr ""
 "をセットします。"
 
 #. type: IP
-#: en/lb_config.1:394
+#: en/lb_config.1:390
 #, no-wrap
 msgid "B<--mirror-debian-installer> I<URL>"
 msgstr "B<--mirror-debian-installer> I<URL>"
 
 #. type: Plain text
-#: en/lb_config.1:396
+#: en/lb_config.1:392
 msgid ""
 "sets the location of the mirror that will be used to fetch the debian "
 "installer images of the derivative. By default, this points to the same "
@@ -2190,13 +2170,13 @@ msgstr ""
 "ミラー、つまり --mirror-bootstrap で指定された値が利用されます。"
 
 #. type: IP
-#: en/lb_config.1:396
+#: en/lb_config.1:392
 #, no-wrap
 msgid "B<--mode> debian|progress|ubuntu"
 msgstr "B<--mode> debian|progress|ubuntu"
 
 #. type: Plain text
-#: en/lb_config.1:398
+#: en/lb_config.1:394
 msgid ""
 "defines a global mode to load project specific defaults. By default this is "
 "set to debian."
@@ -2205,13 +2185,13 @@ msgstr ""
 "フォルトでは debian となっています。"
 
 #. type: IP
-#: en/lb_config.1:398
+#: en/lb_config.1:394
 #, no-wrap
 msgid "B<--system> live|normal"
 msgstr "B<--system> live|normal"
 
 #. type: Plain text
-#: en/lb_config.1:400
+#: en/lb_config.1:396
 msgid ""
 "defines if the resulting system image should a live system or a normal, non-"
 "live system."
@@ -2220,13 +2200,13 @@ msgstr ""
 "普通のイメージにするのかを指定します。"
 
 #. type: IP
-#: en/lb_config.1:400
+#: en/lb_config.1:396
 #, no-wrap
 msgid "B<--net-root-filesystem> nfs|cfs"
 msgstr "B<--net-root-filesystem> nfs|cfs"
 
 #. type: Plain text
-#: en/lb_config.1:402
+#: en/lb_config.1:398
 msgid ""
 "defines the filesystem that will be configured in the bootloader "
 "configuration for your netboot image. This defaults to nfs."
@@ -2235,13 +2215,13 @@ msgstr ""
 "ムを指定します。デフォルトは nfs となっています。"
 
 #. type: IP
-#: en/lb_config.1:402
+#: en/lb_config.1:398
 #, no-wrap
 msgid "B<--net-root-mountoptions> I<OPTIONS>"
 msgstr "B<--net-root-mountoptions> I<オプション>"
 
 #. type: Plain text
-#: en/lb_config.1:404
+#: en/lb_config.1:400
 msgid ""
 "sets additional options for mounting the root filesystem in netboot images "
 "and is by default empty."
@@ -2250,13 +2230,13 @@ msgstr ""
 "オプションを指定します。デフォルトは空です。"
 
 #. type: IP
-#: en/lb_config.1:404
+#: en/lb_config.1:400
 #, no-wrap
 msgid "B<--net-root-path> I<PATH>"
 msgstr "B<--net-root-path> I<パス>"
 
 #. type: Plain text
-#: en/lb_config.1:406
+#: en/lb_config.1:402
 msgid ""
 "sets the file path that will be configured in the bootloader configuration "
 "for your netboot image. This defaults to /srv/debian-live in debian mode, "
@@ -2267,13 +2247,13 @@ msgstr ""
 "モードでは「/srv/ubuntu-live」となっています。"
 
 #. type: IP
-#: en/lb_config.1:406
+#: en/lb_config.1:402
 #, no-wrap
 msgid "B<--net-root-server> I<IP>|I<HOSTNAME>"
 msgstr "B<--net-root-server> I<IPアドレス>|I<ホスト名>"
 
 #. type: Plain text
-#: en/lb_config.1:408
+#: en/lb_config.1:404
 msgid ""
 "sets the IP or hostname that will be configured in the bootloader "
 "configuration for the root filesystem of your netboot image. This defaults "
@@ -2284,13 +2264,13 @@ msgstr ""
 "ています。"
 
 #. type: IP
-#: en/lb_config.1:408
+#: en/lb_config.1:404
 #, no-wrap
 msgid "B<--net-cow-filesystem> nfs|cfs"
 msgstr "B<--net-cow-filesystem> nfs|cfs"
 
 #. type: Plain text
-#: en/lb_config.1:410
+#: en/lb_config.1:406
 msgid ""
 "defines the filesystem type for the copy-on-write layer and defaults to nfs."
 msgstr ""
@@ -2298,13 +2278,13 @@ msgstr ""
 "です。"
 
 #. type: IP
-#: en/lb_config.1:410
+#: en/lb_config.1:406
 #, no-wrap
 msgid "B<--net-cow-mountoptions> I<OPTIONS>"
 msgstr "B<--net-cow-mountoptions> I<オプション>"
 
 #. type: Plain text
-#: en/lb_config.1:412
+#: en/lb_config.1:408
 msgid ""
 "sets additional options for mounting the copy-on-write layer in netboot "
 "images and is by default empty."
@@ -2313,13 +2293,13 @@ msgstr ""
 "追加オプションを指定します。デフォルトは空です。"
 
 #. type: IP
-#: en/lb_config.1:412
+#: en/lb_config.1:408
 #, no-wrap
 msgid "B<--net-cow-path> I<PATH>"
 msgstr "B<--net-cow-path> I<パス>"
 
 #. type: Plain text
-#: en/lb_config.1:414
+#: en/lb_config.1:410
 msgid ""
 "defines the path to client writable filesystem. Anywhere that "
 "I<client_mac_address> is specified in the path live-boot will substitute the "
@@ -2330,28 +2310,28 @@ msgstr ""
 "MACアドレスをハイフンで区切ったものに置き換えます。"
 
 #. type: Plain text
-#: en/lb_config.1:417
+#: en/lb_config.1:413
 msgid "Example:"
 msgstr "例:"
 
 #. type: Plain text
-#: en/lb_config.1:419
+#: en/lb_config.1:415
 msgid "/export/hosts/client_mac_address"
 msgstr "/export/hosts/client_mac_address"
 
 #. type: Plain text
-#: en/lb_config.1:421
+#: en/lb_config.1:417
 msgid "/export/hosts/00-16-D3-33-92-E8"
 msgstr "/export/hosts/00-16-D3-33-92-E8"
 
 #. type: IP
-#: en/lb_config.1:421
+#: en/lb_config.1:417
 #, no-wrap
 msgid "B<--net-cow-server> I<IP>|I<HOSTNAME>"
 msgstr "B<--net-cow-server> I<IPアドレス>|I<ホスト名>"
 
 #. type: Plain text
-#: en/lb_config.1:423
+#: en/lb_config.1:419
 msgid ""
 "sets the IP or hostname that will be configured in the bootloader "
 "configuration for the copy-on-write filesystem of your netboot image and is "
@@ -2361,13 +2341,13 @@ msgstr ""
 "ローダ設定で設定するIPアドレスやホスト名をセットします。デフォルトは空です。"
 
 #. type: IP
-#: en/lb_config.1:423
+#: en/lb_config.1:419
 #, no-wrap
 msgid "B<--net-tarball> true|false"
 msgstr "B<--net-tarball> true|false"
 
 #. type: Plain text
-#: en/lb_config.1:425
+#: en/lb_config.1:421
 msgid ""
 "defines if a compressed tarball should be created. Disabling this options "
 "leads to no tarball at all, the plain binary directory is considered the "
@@ -2378,24 +2358,24 @@ msgstr ""
 "リが出力されることになります。デフォルトは true です。"
 
 #. type: IP
-#: en/lb_config.1:425 en/live-build.7:40
+#: en/lb_config.1:421 en/live-build.7:40
 #, no-wrap
 msgid "B<--quiet>"
 msgstr "B<--quiet>"
 
 #. type: Plain text
-#: en/lb_config.1:427
+#: en/lb_config.1:423
 msgid "reduces the verbosity of messages output by B<lb build>."
 msgstr "B<lb build> からのメッセージの出力を少なくします。"
 
 #. type: IP
-#: en/lb_config.1:427
+#: en/lb_config.1:423
 #, no-wrap
 msgid "B<--archive-areas> I<ARCHIVE_AREA>|\"I<ARCHIVE_AREAS>\""
 msgstr "B<--archive-areas> I<アーカイブ領域>|\"I<アーカイブ領域>\""
 
 #. type: Plain text
-#: en/lb_config.1:429
+#: en/lb_config.1:425
 msgid ""
 "defines which package archive areas of a debian packages archive should be "
 "used for configured debian package mirrors. By default, this is set to main. "
@@ -2409,26 +2389,26 @@ msgstr ""
 "能かどうか、各パッケージのライセンスを忘れずに確認してください。"
 
 #. type: IP
-#: en/lb_config.1:429
+#: en/lb_config.1:425
 #, no-wrap
 msgid "B<--parent-archive-areas> I<PARENT_ARCHIVE_AREA>|\"I<PARENT_ARCHIVE_AREAS>\""
 msgstr "B<--parent-archive-areas> I<親アーカイブ領域>|\"I<親アーカイブ領域>\""
 
 #. type: Plain text
-#: en/lb_config.1:431
+#: en/lb_config.1:427
 msgid "defines the archive areas for derivatives of the resulting live system."
 msgstr ""
 "出来上がる Live システムの派生物のアーカイブ領域のディストリビューションを決"
 "定します。"
 
 #. type: IP
-#: en/lb_config.1:431
+#: en/lb_config.1:427
 #, no-wrap
 msgid "B<--security> true|false"
 msgstr "B<--security> true|false"
 
 #. type: Plain text
-#: en/lb_config.1:433
+#: en/lb_config.1:429
 msgid ""
 "defines if the security repositories specified in the security mirror "
 "options should be used or not."
@@ -2437,13 +2417,13 @@ msgstr ""
 "かを決定します。"
 
 #. type: IP
-#: en/lb_config.1:433
+#: en/lb_config.1:429
 #, no-wrap
 msgid "B<--source> true|false"
 msgstr "B<--source> true|false"
 
 #. type: Plain text
-#: en/lb_config.1:435
+#: en/lb_config.1:431
 msgid ""
 "defines if a corresponding source image to the binary image should be build. "
 "By default this is false because most people do not require this and would "
@@ -2458,24 +2438,24 @@ msgstr ""
 "を確認すべきです。"
 
 #. type: IP
-#: en/lb_config.1:435
+#: en/lb_config.1:431
 #, no-wrap
 msgid "-s|B<--source-images> iso|netboot|tar|hdd"
 msgstr "-s|B<--source-images> iso|netboot|tar|hdd"
 
 #. type: Plain text
-#: en/lb_config.1:437
+#: en/lb_config.1:433
 msgid "defines the image type for the source image. Default is tar."
 msgstr "ソースイメージのイメージの種類を指定します。デフォルトは tar です。"
 
 #. type: IP
-#: en/lb_config.1:437
+#: en/lb_config.1:433
 #, no-wrap
 msgid "B<--firmware-binary> true|false"
 msgstr "B<--firmware-binary> true|false"
 
 #. type: Plain text
-#: en/lb_config.1:439
+#: en/lb_config.1:435
 msgid ""
 "defines if firmware packages should be automatically included into the "
 "binary pool for debian-installer. Note that only firmware packages available "
@@ -2492,13 +2472,13 @@ msgstr ""
 "ん。"
 
 #. type: IP
-#: en/lb_config.1:439
+#: en/lb_config.1:435
 #, no-wrap
 msgid "B<--firmware-chroot> true|false"
 msgstr "B<--firmware-chroot> true|false"
 
 #. type: Plain text
-#: en/lb_config.1:441
+#: en/lb_config.1:437
 msgid ""
 "defines if firmware packages should be automatically included into the live "
 "image. Note that only firmware packages available within the configured "
@@ -2513,13 +2493,13 @@ msgstr ""
 "パッケージ一覧で明示的に指定したパッケージには干渉しません。"
 
 #. type: IP
-#: en/lb_config.1:441
+#: en/lb_config.1:437
 #, no-wrap
 msgid "B<--swap-file-path> I<PATH>"
 msgstr "B<--swap-file-path> I<パス>"
 
 #. type: Plain text
-#: en/lb_config.1:443
+#: en/lb_config.1:439
 msgid ""
 "defines the path to a swap file to create in the binary image. Default is "
 "not to create a swap file."
@@ -2528,13 +2508,13 @@ msgstr ""
 "はスワップファイルを作成しません。"
 
 #. type: IP
-#: en/lb_config.1:443
+#: en/lb_config.1:439
 #, no-wrap
 msgid "B<--swap-file-size> I<MB>"
 msgstr "B<--swap-file-size> I<MB>"
 
 #. type: Plain text
-#: en/lb_config.1:445
+#: en/lb_config.1:441
 msgid ""
 "defines what size in megabytes the swap file should be, if one is to be "
 "created. Default is 512MB."
@@ -2543,13 +2523,13 @@ msgstr ""
 "512MB です。"
 
 #. type: IP
-#: en/lb_config.1:445
+#: en/lb_config.1:441
 #, no-wrap
 msgid "B<--tasksel> apt|aptitude|tasksel"
 msgstr "B<--tasksel> apt|aptitude|tasksel"
 
 #. type: Plain text
-#: en/lb_config.1:447
+#: en/lb_config.1:443
 msgid ""
 "selects which program is used to install tasks. By default, this is set to "
 "tasksel."
@@ -2558,13 +2538,13 @@ msgstr ""
 "となっています。"
 
 #. type: IP
-#: en/lb_config.1:447
+#: en/lb_config.1:443
 #, no-wrap
 msgid "B<--templates> I<PATH>"
 msgstr "B<--templates> I<パス>"
 
 #. type: Plain text
-#: en/lb_config.1:449
+#: en/lb_config.1:445
 msgid ""
 "sets the path to the templates that live-build is going to use, e.g. for "
 "bootloaders. By default, this is set to /usr/share/live/build/templates/."
@@ -2573,13 +2553,13 @@ msgstr ""
 "す。デフォルトでは /usr/share/live/build/templates/ となっています。"
 
 #. type: IP
-#: en/lb_config.1:449
+#: en/lb_config.1:445
 #, no-wrap
 msgid "B<--hdd-size> MB"
 msgstr "B<--hdd-size> MB"
 
 #. type: Plain text
-#: en/lb_config.1:451
+#: en/lb_config.1:447
 msgid ""
 "defines what size the hdd image should be. Note that although the default is "
 "set to 10000 (= 10GB), it will not need 10GB space on your harddisk as the "
@@ -2590,13 +2570,13 @@ msgstr ""
 "10GB の空き容量が必要というわけではないことに注意してください。"
 
 #. type: IP
-#: en/lb_config.1:451
+#: en/lb_config.1:447
 #, no-wrap
 msgid "B<--updates> true|false"
 msgstr "B<--updates> true|false"
 
 #. type: Plain text
-#: en/lb_config.1:453
+#: en/lb_config.1:449
 msgid ""
 "defines if debian updates package archives should be included in the image "
 "or not."
@@ -2604,13 +2584,13 @@ msgstr ""
 "イメージに updates パッケージアーカイブを収録すべきか否かを決定します。"
 
 #. type: IP
-#: en/lb_config.1:453
+#: en/lb_config.1:449
 #, no-wrap
 msgid "B<--backports> true|false"
 msgstr "B<--backports> true|false"
 
 #. type: Plain text
-#: en/lb_config.1:455
+#: en/lb_config.1:451
 msgid ""
 "defines if debian backports package archives should be included in the image "
 "or not."
@@ -2618,37 +2598,37 @@ msgstr ""
 "イメージに backports パッケージアーカイブを収録すべきか否かを決定します。"
 
 #. type: IP
-#: en/lb_config.1:455 en/live-build.7:42
+#: en/lb_config.1:451 en/live-build.7:42
 #, no-wrap
 msgid "B<--verbose>"
 msgstr "B<--verbose>"
 
 #. type: Plain text
-#: en/lb_config.1:457
+#: en/lb_config.1:453
 msgid "increases the verbosity of messages output by B<lb build>."
 msgstr "B<lb build> からのメッセージの出力を多くします。"
 
 #. type: IP
-#: en/lb_config.1:457
+#: en/lb_config.1:453
 #, no-wrap
 msgid "B<--win32-loader true|false>"
 msgstr "B<--win32-loader true|false>"
 
 #.  FIXME
 #. type: Plain text
-#: en/lb_config.1:460
+#: en/lb_config.1:456
 msgid "defines if win32-loader should be included in the binary image or not."
 msgstr "バイナリイメージに win32-loader を収録すべきか否かを決定します。"
 
 #. type: SH
-#: en/lb_config.1:461
+#: en/lb_config.1:457
 #, no-wrap
 msgid "ENVIRONMENT"
 msgstr "環境変数"
 
 #.  FIXME
 #. type: Plain text
-#: en/lb_config.1:464
+#: en/lb_config.1:460
 msgid ""
 "Currently, command line switches can also be specified through the "
 "corresponding environment variable. However, this generally should not be "
@@ -2668,20 +2648,20 @@ msgstr ""
 
 #.  FIXME
 #. type: IP
-#: en/lb_config.1:468
+#: en/lb_config.1:464
 #, no-wrap
 msgid "B<auto/config>"
 msgstr "B<auto/config>"
 
 #. type: IP
-#: en/lb_config.1:469
+#: en/lb_config.1:465
 #, no-wrap
 msgid "B</etc/live/build.conf, /etc/live/build/*>"
 msgstr "B</etc/live/build.conf, /etc/live/build/*>"
 
 #.  FIXME
 #. type: Plain text
-#: en/lb_config.1:472
+#: en/lb_config.1:468
 msgid ""
 "An optional, global configuration file for B<lb config> variables. It is "
 "useful to specify a few system wide defaults, like "
@@ -2694,11 +2674,11 @@ msgstr ""
 "無効にできます。"
 
 #. type: Plain text
-#: en/lb_config.1:477 en/live-build.7:221
+#: en/lb_config.1:473 en/live-build.7:219
 msgid "I<live-boot>(7)"
 msgstr "I<live-boot>(7)"
 
 #. type: Plain text
-#: en/lb_config.1:479 en/live-build.7:223
+#: en/lb_config.1:475 en/live-build.7:221
 msgid "I<live-config>(7)"
 msgstr "I<live-config>(7)"

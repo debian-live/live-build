@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2014\-12\-10 5.0~a1\-1 "Live システムプロジェクト"
+.TH LIVE\-BUILD 1 2014\-12\-23 5.0~a1\-1 "Live システムプロジェクト"
 
 .SH 名前
 \fBlb config\fP \- 設定ディレクトリを作成します
@@ -45,8 +45,6 @@
   [\fB\-\-bootappend\-live\fP \fIパラメータ\fP|\fI"パラメータ"\fP]
 .br
   [\fB\-\-bootloader\fP grub|grub2|syslinux]
-.br
-  [\fB\-\-bootstrap\fP cdebootstrap|cdebootstrap\-static|debootstrap]
 .br
   [\fB\-\-cache\fP true|false]
 .br
@@ -304,8 +302,6 @@ iso をビルドする場合は常に syslinux (さらに言えば isolinux)
 でのサポートが追いついていないものがあり得ることに注意してください。\fBlb config\fP
 はそういった未サポートの設定の作成には失敗し、そのことについて説明します。amd64 や i386 用のhddイメージでは syslinux
 がデフォルトとなっています。
-.IP "\fB\-\-bootstrap\fP cdebootstrap|cdebootstrap\-static|debootstrap" 4
-debian chroot でのパッケージ収集に利用するプログラムを選択します。デフォルトでは debootstrap となっています。
 .IP "\fB\-\-cache\fP true|false" 4
 全体としてキャッシュを使うか否か大域的に決定します。異なるキャッシュを、キャッシュそれぞれのオプションで制御できます。
 .IP "\fB\-\-cache\-indices\fP true|false" 4

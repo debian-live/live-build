@@ -221,18 +221,6 @@ Set_defaults ()
 			;;
 	esac
 
-	# Setting bootstrap program
-	if [ -z "${LB_BOOTSTRAP}" ] || ( [ ! -x "$(which ${LB_BOOTSTRAP} 2>/dev/null)" ] && [ "${LB_BOOTSTRAP}" != "copy" ] )
-	then
-		if [ -x "/usr/sbin/debootstrap" ]
-		then
-			LB_BOOTSTRAP="debootstrap"
-		elif [ -x "/usr/bin/cdebootstrap" ]
-		then
-			LB_BOOTSTRAP="cdebootstrap"
-		fi
-	fi
-
 	# Setting cache option
 	LB_CACHE="${LB_CACHE:-true}"
 	LB_CACHE_INDICES="${LB_CACHE_INDICES:-false}"

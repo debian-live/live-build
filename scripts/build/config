@@ -33,7 +33,6 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--bootappend-live PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootappend-live-failsafe PARAMETER|\"PARAMETERS\"]\n\
 \t    [--bootloader grub|grub2|syslinux]\n\
-\t    [--bootstrap cdebootstrap|cdebootstrap-static|debootstrap]\n\
 \t    [--cache true|false]\n\
 \t    [--cache-indices true|false]\n\
 \t    [--cache-packages true|false]\n\
@@ -127,7 +126,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 
 Local_arguments ()
 {
-	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-options:,aptitude-options:,debootstrap-options:,cdebootstrap-options:,
+	LONG_OPTIONS="apt:,apt-ftp-proxy:,apt-http-proxy:,apt-options:,aptitude-options:,debootstrap-options:,
 		apt-pipeline:,apt-recommends:,apt-secure:,apt-source-archives:,bootstrap:,cache:,cache-indices:,cache-packages:,
 		cache-stages:,debconf-frontend:,debconf-priority:,dump,
 		initramfs:,initramfs-compression:,initsystem:,fdisk:,losetup:,mode:,system:,tasksel:,
@@ -255,18 +254,8 @@ Local_arguments ()
 				shift 2
 				;;
 
-			--bootstrap)
-				LB_BOOTSTRAP="${2}"
-				shift 2
-				;;
-
 			--debootstrap-options)
 				DEBOOTSTRAP_OPTIONS="${2}"
-				shift 2
-				;;
-
-			--cdebootstrap-options)
-				CDEBOOTSTRAP_OPTIONS="${2}"
 				shift 2
 				;;
 
@@ -921,10 +910,6 @@ LB_APT_SECURE="${LB_APT_SECURE}"
 # (Default: ${LB_APT_SOURCE_ARCHIVES})
 LB_APT_SOURCE_ARCHIVES="${LB_APT_SOURCE_ARCHIVES}"
 
-# \$LB_BOOTSTRAP: set bootstrap program
-# (Default: ${LB_BOOTSTRAP})
-LB_BOOTSTRAP="${LB_BOOTSTRAP}"
-
 # \$LB_CACHE: control cache
 # (Default: ${LB_CACHE})
 LB_CACHE="${LB_CACHE}"
@@ -1015,7 +1000,6 @@ _QUIET="${_QUIET}"
 APT_OPTIONS="${APT_OPTIONS}"
 APTITUDE_OPTIONS="${APTITUDE_OPTIONS}"
 DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS}"
-CDEBOOTSTRAP_OPTIONS="${CDEBOOTSTRAP_OPTIONS}"
 GZIP_OPTIONS="${GZIP_OPTIONS}"
 ISOHYBRID_OPTIONS="${ISOHYBRID_OPTIONS}"
 EOF
