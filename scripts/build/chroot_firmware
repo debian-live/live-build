@@ -41,6 +41,9 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
+# Checking depends
+Check_package host /usr/bin/wget wget
+
 # Diverting update-initramfs
 #case "${LB_INITRAMFS}" in
 #	live-boot)
