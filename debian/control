@@ -15,6 +15,7 @@ Depends:
  ${misc:Depends},
  debootstrap,
 Recommends:
+ apt-utils,
  cpio,
  wget,
  live-boot-doc,
