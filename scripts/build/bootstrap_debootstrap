@@ -37,7 +37,7 @@ Check_crossarchitectures
 
 Echo_message "Begin bootstrapping system..."
 
-Check_package /usr/sbin/debootstrap debootstrap
+Check_package chroot bin/debootstrap debootstrap
 
 # Checking stage file
 Check_stagefile .build/bootstrap

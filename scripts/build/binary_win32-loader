@@ -48,7 +48,7 @@ case "${LB_ARCHITECTURES}" in
 		if [ "${LB_BUILD_WITH_CHROOT}" = "true" ]
 		then
 			# Checking depends
-			Check_package chroot/usr/share/win32/win32-loader.exe win32-loader
+			Check_package chroot /usr/share/win32/win32-loader.exe win32-loader
 
 			# Restoring cache
 			Restore_cache cache/packages.binary

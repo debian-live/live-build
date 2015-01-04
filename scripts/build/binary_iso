@@ -53,7 +53,7 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Checking depends
-Check_package chroot/usr/bin/xorriso xorriso
+Check_package chroot /usr/bin/xorriso xorriso
 
 # Restoring cache
 Restore_cache cache/packages.binary

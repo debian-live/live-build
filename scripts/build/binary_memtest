@@ -64,11 +64,11 @@ fi
 # Checking depends
 case "${LB_MEMTEST}" in
 	memtest86)
-		Check_package chroot/boot/memtest86.bin memtest86
+		Check_package chroot /boot/memtest86.bin memtest86
 		;;
 
 	memtest86+)
-		Check_package chroot/boot/memtest86+.bin memtest86+
+		Check_package chroot /boot/memtest86+.bin memtest86+
 		;;
 esac
 

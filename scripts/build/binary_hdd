@@ -46,22 +46,22 @@ Create_lockfile .lock
 # Checking depends
 case "${LB_BINARY_FILESYSTEM}" in
 	fat*)
-		Check_package chroot/sbin/mkdosfs dosfstools
+		Check_package chroot /sbin/mkdosfs dosfstools
 		;;
 
 	ntfs)
-		Check_package chroot/sbin/mkfs.nfts ntfs-3g
+		Check_package chroot /sbin/mkfs.nfts ntfs-3g
 		;;
 esac
 
-Check_package chroot/usr/share/doc/mtools mtools
-Check_package chroot/sbin/parted parted
+Check_package chroot /usr/share/doc/mtools mtools
+Check_package chroot /sbin/parted parted
 
 if [ "${LB_ARCHITECTURES}" = "sparc" ]
 then
 	case "${LB_BINARY_FILESYSTEM}" in
 		ext2|ext3|ext4)
-			Check_package chroot/sbin/mkfs.${LB_BINARY_FILESYSTEM} e2fsprogs
+			Check_package chroot /sbin/mkfs.${LB_BINARY_FILESYSTEM} e2fsprogs
 			;;
 
 		*)
@@ -73,7 +73,7 @@ fi
 
 case "${LB_BOOTLOADER}" in
 	grub)
-		Check_package chroot/usr/sbin/grub grub
+		Check_package chroot /usr/sbin/grub grub
 		;;
 
 	syslinux)
@@ -89,7 +89,7 @@ case "${LB_BOOTLOADER}" in
 				exit 1
 				;;
 		esac
-		Check_package chroot/usr/bin/${_BOOTLOADER} ${_BOOTLOADER}
+		Check_package chroot /usr/bin/${_BOOTLOADER} ${_BOOTLOADER}
 		;;
 esac
 

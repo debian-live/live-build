@@ -49,8 +49,8 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 # Checking depends
-Check_package chroot/sbin/mkdosfs dosfstools
-Check_package chroot/sbin/parted parted
+Check_package chroot /sbin/mkdosfs dosfstools
+Check_package chroot /sbin/parted parted
 
 # Installing depends
 Install_package

@@ -123,12 +123,12 @@ fi
 # Checking depends
 case "${LB_BUILD_WITH_CHROOT}" in
 	true)
-		Check_package chroot/usr/lib/$(echo ${_BOOTLOADER} | tr [a-z] [A-Z]) ${_BOOTLOADER}
-		Check_package chroot/usr/lib/syslinux syslinux-common
+		Check_package chroot /usr/lib/$(echo ${_BOOTLOADER} | tr [a-z] [A-Z]) ${_BOOTLOADER}
+		Check_package chroot /usr/lib/syslinux syslinux-common
 
 		if ls "${_SOURCE}"/*.svg* > /dev/null 2>&1
 		then
-			Check_package chroot/usr/bin/rsvg-convert librsvg2-bin
+			Check_package chroot /usr/bin/rsvg-convert librsvg2-bin
 		fi
 		;;
 

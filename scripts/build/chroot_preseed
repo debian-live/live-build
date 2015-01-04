@@ -43,7 +43,7 @@ if ls config/preseed/*.cfg > /dev/null 2>&1 || \
    ls chroot/root/packages.chroot.cfg > /dev/null 2>&1
 then
 	# Check dependency
-	Check_package chroot/usr/bin/debconf-set-selections debconf
+	Check_package chroot /usr/bin/debconf-set-selections debconf
 
 	# Install dependency
 	Install_package
