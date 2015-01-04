@@ -604,19 +604,6 @@ Set_defaults ()
 			esac
 			;;
 
-		sparc)
-			case "${LB_MODE}" in
-				progress-linux)
-					Echo_error "Architecture ${LB_ARCHITECTURES} not supported in the ${LB_MODE} mode."
-					exit 1
-					;;
-
-				*)
-					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-sparc64}"
-					;;
-			esac
-			;;
-
 		*)
 			Echo_error "Architecture(s) ${LB_ARCHITECTURES} not yet supported (FIXME)"
 			exit 1
@@ -659,15 +646,7 @@ Set_defaults ()
 	## config/binary
 
 	# Setting image filesystem
-	case "${LB_ARCHITECTURES}" in
-		sparc)
-			LB_BINARY_FILESYSTEM="${LB_BINARY_FILESYSTEM:-ext4}"
-			;;
-
-		*)
-			LB_BINARY_FILESYSTEM="${LB_BINARY_FILESYSTEM:-fat32}"
-			;;
-	esac
+	LB_BINARY_FILESYSTEM="${LB_BINARY_FILESYSTEM:-fat32}"
 
 	# Setting image type
 	case "${LB_ARCHITECTURES}" in

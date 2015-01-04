@@ -139,13 +139,6 @@ case "${LB_ARCHITECTURES}" in
 		DI_REMOTE_BASE_GTK="${DI_REMOTE_BASE}/gtk"
 		;;
 
-	sparc)
-		DEFAULT_FLAVOUR="$(echo ${LB_LINUX_FLAVOURS} | awk '{ print $1 }')"
-		DI_REMOTE_KERNEL="$(basename chroot/boot/vmlinuz-*${DEFAULT_FLAVOUR})"
-		DI_REMOTE_BASE_GTK="none"
-
-		DI_REMOTE_BASE="cdrom"
-		;;
 	*)
 		case "${DI_IMAGE_TYPE}" in
 			netboot)
@@ -283,49 +276,33 @@ esac
 
 mkdir -p "${DESTDIR_DI}"
 
-if [ "${LB_ARCHITECTURES}" = "sparc" ] && [ "${DI_IMAGE_TYPE}" = "netboot" ]
+# Downloading debian-installer
+Download_file "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI_REMOTE_BASE}/${DI_REMOTE_KERNEL}
+Download_file "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI_REMOTE_BASE}/initrd.gz
+
+# Downloading graphical-installer
+DOWNLOAD_GTK_INSTALLER=0
+if [ "${LB_DEBIAN_INSTALLER_GUI}" = "true" ]
 then
-	# There are no prepared kernel/initrd pairs for sparc netboot so we
-	# must unpack them from a mini.iso
-	Download_file mini.iso ${URL}/mini.iso
-
-	mkdir mini.tmp
-	mount -o loop -t iso9660 mini.iso mini.tmp
-
-	cp mini.tmp/boot/vmlinuz-${DEFAULT_FLAVOUR} "${DESTDIR}"/"${VMLINUZ_DI}"
-	cp mini.tmp/boot/initrd.gz "${DESTDIR}"/"${INITRD_DI}"
-
-	umount mini.tmp
-	rm -rf mini.tmp mini.iso
-else
-	# Downloading debian-installer
-	Download_file "${DESTDIR}"/"${VMLINUZ_DI}" ${URL}/${DI_REMOTE_BASE}/${DI_REMOTE_KERNEL}
-	Download_file "${DESTDIR}"/"${INITRD_DI}" ${URL}/${DI_REMOTE_BASE}/initrd.gz
-
-	# Downloading graphical-installer
-	DOWNLOAD_GTK_INSTALLER=0
-	if [ "${LB_DEBIAN_INSTALLER_GUI}" = "true" ]
-	then
 		case "${LB_ARCHITECTURES}" in
-			amd64|i386)
+		amd64|i386)
+			DOWNLOAD_GTK_INSTALLER=1
+			;;
+
+		powerpc)
+			if [ "${LB_DEBIAN_INSTALLER}" = "netboot" ]
+			then
 				DOWNLOAD_GTK_INSTALLER=1
-				;;
+			fi
+			;;
+	esac
+fi
 
-			powerpc)
-				if [ "${LB_DEBIAN_INSTALLER}" = "netboot" ]
-				then
-					DOWNLOAD_GTK_INSTALLER=1
-				fi
-				;;
-		esac
-	fi
-
-	if [ ${DOWNLOAD_GTK_INSTALLER} -eq 1 ]
-	then
-		mkdir -p "${DESTDIR_GI}"
-		Download_file "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/${DI_REMOTE_KERNEL}
-		Download_file "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/initrd.gz
-	fi
+if [ ${DOWNLOAD_GTK_INSTALLER} -eq 1 ]
+then
+	mkdir -p "${DESTDIR_GI}"
+	Download_file "${DESTDIR}"/"${VMLINUZ_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/${DI_REMOTE_KERNEL}
+	Download_file "${DESTDIR}"/"${INITRD_GI}" ${URL}/${DI_REMOTE_BASE_GTK}/initrd.gz
 fi
 
 # Only download additional packages if appropriate
@@ -370,19 +347,6 @@ then
 
 				*)
 					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-486 linux-image-686-pae"
-					;;
-			esac
-			;;
-
-		sparc)
-			DI_REQ_PACKAGES="silo"
-			case "${LB_MODE}" in
-				ubuntu)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-sparc64"
-					;;
-
-				*)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-sparc64 linux-image-sparc64-smp"
 					;;
 			esac
 			;;

@@ -57,20 +57,6 @@ esac
 Check_package chroot /usr/share/doc/mtools mtools
 Check_package chroot /sbin/parted parted
 
-if [ "${LB_ARCHITECTURES}" = "sparc" ]
-then
-	case "${LB_BINARY_FILESYSTEM}" in
-		ext2|ext3|ext4)
-			Check_package chroot /sbin/mkfs.${LB_BINARY_FILESYSTEM} e2fsprogs
-			;;
-
-		*)
-			Echo_error "Sparc only supports booting from ext2, ext3, ext4 or ufs."
-			exit 1
-			;;
-	esac
-fi
-
 case "${LB_BOOTLOADER}" in
 	grub)
 		Check_package chroot /usr/sbin/grub grub
@@ -154,14 +140,7 @@ fi
 echo "!!! The following error/warning messages can be ignored !!!"
 Losetup $FREELO chroot/binary.img 0
 
-case "${LB_ARCHITECTURES}" in
-	sparc)
-		PARTITION_TABLE_TYPE="sun"
-		;;
-	*)
-		PARTITION_TABLE_TYPE="msdos"
-		;;
-esac
+PARTITION_TABLE_TYPE="msdos"
 
 case "${LB_BINARY_FILESYSTEM}" in
 	ext2|ext3|ext4)
