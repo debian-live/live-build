@@ -16,6 +16,7 @@ Depends:
  debootstrap,
 Recommends:
  cpio,
+ wget,
  live-boot-doc,
  live-config-doc,
  live-manual-html | live-manual,
