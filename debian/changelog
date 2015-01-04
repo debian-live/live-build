@@ -1,3 +1,45 @@
+live-build (5.0~a2-1) experimental; urgency=low
+
+  [ Raphaël Hertzog ]
+  * Skip comments in package lists.
+
+  [ Jan Blunck ]
+  * Bind local repository into chroot directory.
+
+  [ jnqnfe ]
+  * Address "should check that we're building on debian through e.g. a
+    'derivative-is-based-on' variable or somesuch" fixme.
+
+  [ Daniel Baumann ]
+  * Updating misc settings for progress-linux.
+  * Cleaning up from python removal (LIVE_IMAGE_PARENT_ARCHIVE_AREAS).
+  * Dropping cdebootstrap support (Closes: #773657).
+
+  [ Richard Nelson ]
+  * Dropping support of config type rescue in frontend/cgi.
+
+  [ Daniel Baumann ]
+  * Adding wget to recommends (Closes: #774326).
+  * Changing package dependency checks within chroot to work outside as
+    well.
+  * Updating wget dependency in installer_debian-installer to look for
+    wget on the host system rather than the chroot.
+  * Adding wget dependency in chroot_firmware.
+  * Dropping some sparc leftovers (Closes: #774196).
+  * Adding apt-utils to recommends (Closes: #774339).
+  * Adding gpgv and debian-keyring to suggests for bootstrapping archive
+    keyrings in derivative modes.
+  * Dropping unuseful information from bug-script (Closes: #774340).
+  * Applying slightly modified patch from jnqnfe <jnqnfe@gmail.com> to
+    show correct win32-loader ico file on windows (Closes: #772781).
+  * Correcting dependency checks in binary_package-lists (Closes:
+    #774336).
+  * Dropping manual include of dbus for live-config-systemd, it's a
+    recommends now.
+  * Updating year in copyright notices to 2015.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 04 Jan 2015 20:06:56 +0100
+
 live-build (5.0~a1-1) experimental; urgency=low
 
   * Dropping support for wheezy.
