@@ -1351,7 +1351,6 @@ then
 
 				systemd)
 					echo "live-config-systemd" >> config/package-lists/live.list.chroot
-					echo "dbus" >> config/package-lists/live.list.chroot
 					;;
 
 				sysvinit|upstart)
