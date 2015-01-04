@@ -43,6 +43,20 @@ Check_lockfile .lock
 # Creating lock file
 Create_lockfile .lock
 
+case "${LB_MODE}" in
+	progress-linux)
+		RUN_LABEL="Run Progress Linux"
+		;;
+
+	ubuntu)
+		RUN_LABEL="Run Ubuntu"
+		;;
+
+	*)
+		RUN_LABEL="Run Debian GNU/Linux"
+		;;
+esac
+
 case "${LB_ARCHITECTURES}" in
 	amd64|i386)
 		if [ "${LB_BUILD_WITH_CHROOT}" = "true" ]
@@ -69,6 +83,13 @@ case "${LB_ARCHITECTURES}" in
 cat >> binary/autorun.inf << EOF
 [autorun]
 open=setup.exe
+icon=setup.exe,0
+label=${RUN_LABEL}
+
+[Content]
+MusicFiles=false
+PictureFiles=false
+VideoFiles=false
 EOF
 
 		if [ "${LB_DEBIAN_INSTALLER}" != "false" ]
