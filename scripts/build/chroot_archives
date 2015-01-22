@@ -796,6 +796,9 @@ EOF
 			Chroot chroot apt-key del ${_LB_LOCAL_KEY_EMAIL}
 		fi
 
+		# Ensure package list is removed
+		rm -f chroot/root/packages.chroot
+
 		# Removing stage file
 		rm -f .build/chroot_archives
 		;;
