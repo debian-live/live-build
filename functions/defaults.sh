@@ -623,7 +623,7 @@ Set_defaults ()
 
 	# Setting security updates option
 	case "${LB_PARENT_DISTRIBUTION}" in
-		jessie|sid)
+		sid)
 			LB_SECURITY="${LB_SECURITY:-false}"
 			;;
 
@@ -634,7 +634,7 @@ Set_defaults ()
 
 	# Setting updates updates option
 	case "${LB_PARENT_DISTRIBUTION}" in
-		jessie|sid)
+		sid)
 			LB_UPDATES="${LB_UPDATES:-false}"
 			;;
 
