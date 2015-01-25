@@ -46,5 +46,5 @@ then
 	cd "${OLDPWD}"
 
 	# Creating stage file
-	Create_stagefile .build/includs.chroot
+	Create_stagefile .build/includes.chroot
 fi
