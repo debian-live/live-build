@@ -138,7 +138,7 @@ Discover_package_architectures ()
 			for _LB_PACKAGE_LINE_PART in ${_LB_PACKAGE_LINE}
 			do
 				# Looking for <package>:<architecture>
-				if [ -n "$(echo ${_LB_PACKAGE_LINE_PART} | awk -F':' '{print $2}')" ]
+				if [ -n "$(echo ${_LB_PACKAGE_LINE_PART} | awk -F"=" '{print $1}' | awk -F':' '{print $2}')" ]
 				then
 					_LB_DISCOVERED_ARCHITECTURES="${_LB_DISCOVERED_ARCHITECTURES} $(echo ${_LB_PACKAGE_LINE_PART} | awk -F':' '{print $2}')"
 				fi
