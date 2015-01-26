@@ -556,7 +556,7 @@ Set_defaults ()
 					;;
 
 				*)
-					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486}"
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-586}"
 					;;
 			esac
 			;;

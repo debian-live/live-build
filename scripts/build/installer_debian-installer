@@ -346,7 +346,7 @@ then
 					;;
 
 				*)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-486 linux-image-686-pae"
+					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-586 linux-image-686-pae"
 					;;
 			esac
 			;;
