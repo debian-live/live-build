@@ -369,7 +369,15 @@ then
 					;;
 
 				*)
-					DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-486 linux-image-686-pae"
+					case "${LB_PARENT_DISTRIBUTION}" in
+						wheezy)
+							DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-486 linux-image-686-pae"
+							;;
+
+						*)
+							DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-586 linux-image-686-pae"
+							;;
+					esac
 					;;
 			esac
 			;;

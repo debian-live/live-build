@@ -589,7 +589,15 @@ Set_defaults ()
 					;;
 
 				*)
-					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486}"
+					case "${LB_PARENT_DISTRIBUTION}" in
+						wheezy)
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-486}"
+							;;
+
+						*)
+							LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-586}"
+							;;
+					esac
 					;;
 			esac
 			;;
