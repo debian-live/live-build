@@ -47,6 +47,7 @@ then
 	lb chroot_hosts install ${@}
 	lb chroot_resolv install ${@}
 	lb chroot_hostname install ${@}
+	lb chroot_dpkg install ${@}
 	lb chroot_sysv-rc install ${@}
 	lb chroot_upstart install ${@}
 	lb chroot_apt install-binary ${@}
