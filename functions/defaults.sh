@@ -506,6 +506,18 @@ Set_defaults ()
 
 	# Setting linux flavour string
 	case "${LB_ARCHITECTURES}" in
+		arm64)
+			case "${LB_MODE}" in
+				ubuntu)
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-generic}"
+					;;
+
+				*)
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-arm64}"
+					;;
+			esac
+			;;
+
 		armel)
 			case "${LB_MODE}" in
                                 ubuntu)
@@ -520,9 +532,17 @@ Set_defaults ()
 			;;
 
 		armhf)
-			# armhf will have special images: one rootfs image and many additional kernel images.
-			# therefore we default to all available armhf flavours
-			LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-armmp armmp-lpae}"
+			case "${LB_MODE}" in
+				ubuntu)
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-generic}"
+					;;
+
+				*)
+					# armhf will have special images: one rootfs image and many additional kernel images.
+					# therefore we default to all available armhf flavours
+					LB_LINUX_FLAVOURS="${LB_LINUX_FLAVOURS:-armmp armmp-lpae}"
+					;;
+			esac
 			;;
 
 		amd64)
