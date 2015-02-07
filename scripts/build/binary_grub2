@@ -210,7 +210,7 @@ then
 fi
 
 # Copying templates
-mkdir -p binary/boot/grub
+mkdir -p binary/boot/grub/i386-pc
 cp -r "${TEMPLATES}"/* binary/boot/grub
 
 case ${LIVE_IMAGE_TYPE} in
@@ -229,7 +229,7 @@ then
 fi
 
 # Copying grub
-cp ${FILES} binary/boot/grub
+cp ${FILES} binary/boot/grub/i386-pc
 
 sed -i -e "s|LINUX_LIVE|${LINUX_LIVE}|" -e "s|LINUX_INSTALL|${LINUX_INSTALL}|" -e "s|MEMTEST|${MEMTEST}|" binary/boot/grub/grub.cfg
 sed -i -e "s#LB_BOOTAPPEND_INSTALL#${LB_BOOTAPPEND_INSTALL}#" -e "s#LB_BOOTAPPEND_LIVE#${LB_BOOTAPPEND_LIVE}#" binary/boot/grub/grub.cfg

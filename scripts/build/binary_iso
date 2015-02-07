@@ -172,7 +172,7 @@ for file in \${input_dir}/*.mod \${input_dir}/efiemu??.o \
 do
 	if test -f "\$file"
 	then
-		cp -f "\$file" binary/boot/grub
+		cp -f "\$file" binary/boot/grub/i386-pc
 	fi
 done
 EOF
