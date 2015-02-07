@@ -1,3 +1,30 @@
+live-build (5.0~a3-1) experimental; urgency=low
+
+  [ Daniel Baumann ]
+  * Removing spurious .grep.swp temporary file in source tree.
+  * Adding check for isolinux build-depends in chroot.
+  * Updating d-i bootparameter separator for jessie.
+  * Enabling security and release updates for jessie.
+  * Correcting typo in stagefile check for includes.chroot.
+  * Using -iso-level 3 option for xorriso to work with image sizes beyond
+    4 GB (Closes: #775424).
+  * Correcting packagelist parsing when packages are listed with notation
+    of a specific version (Closes: #775832).
+  * Switching to default to linux-image-586 on i386.
+
+  [ Fathi Boudra ]
+  * Adding linux flavours for arm64/armhf architectures.
+
+  [ Daniel Baumann ]
+  * Making functions/chroot_bind_path.sh executable within the source tree
+    (Closes: #777096).
+  * Using same logic to create the source/.disk/archive_trace for
+    binary/.disk/archive_trace too (Closes: #774200).
+  * Applying patch from jnqnfe <jnqnfe@gmail.com> to correct grub2
+    bootloader directory within the binary images (Closes: #775316).
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 07 Feb 2015 06:57:26 +0100
+
 live-build (5.0~a2-1) experimental; urgency=low
 
   [ Raphaël Hertzog ]
