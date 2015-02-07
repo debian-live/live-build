@@ -1,3 +1,17 @@
+live-build (4.0.5-1) unstable; urgency=low
+
+  * Cleaning up from python removal (LIVE_IMAGE_PARENT_ARCHIVE_AREAS).
+  * Applying slightly modified patch from jnqnfe <jnqnfe@gmail.com> to
+    show correct win32-loader ico file on windows (Closes: #772781).
+  * Dropping manual include of dbus for live-config-systemd, it's a
+    recommends now.
+  * Updating d-i bootparameter separator for jessie.
+  * Enabling security and release updates for jessie.
+  * Correcting typo in stagefile check for includes.chroot.
+  * Switching to default to linux-image-586 on i386.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 07 Feb 2015 06:35:15 +0100
+
 live-build (4.0.4-1) unstable; urgency=low
 
   [ Daniel Baumann ]
