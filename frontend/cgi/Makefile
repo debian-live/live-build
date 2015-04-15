@@ -2,6 +2,7 @@
 
 install:
 	install -D -m 0755 live-build-cgi $(DESTDIR)/usr/lib/cgi-bin/live-build
+	install -D -m 0755 live-build-status-cgi $(DESTDIR)/usr/lib/cgi-bin/live-build-status
 	install -D -m 0755 live-build-cgi.cron $(DESTDIR)/etc/cron.hourly/live-build-cgi
 	install -D -m 0644 live-build-cgi.crontab $(DESTDIR)/etc/cron.d/live-build-cgi
 	install -D -m 0644 live-build-cgi.default $(DESTDIR)/etc/default/live-build-cgi
@@ -13,6 +14,7 @@ install:
 
 uninstall:
 	rm -f $(DESTDIR)/usr/lib/cgi-bin/live-build
+	rm -f $(DESTDIR)/usr/lib/cgi-bin/live-build-status
 	rm -f $(DESTDIR)/etc/cron.d/live-build-cgi
 	rm -f $(DESTDIR)/etc/cron.hourly/live-build-cgi
 	rm -f $(DESTDIR)/etc/default/live-build-cgi

@@ -1,0 +1,138 @@
+#!/bin/sh
+
+## live-build(7) - System Build Scripts
+## Copyright (C) 2015 Daniel Baumann <mail@daniel-baumann.ch>
+## Copyright (C) 2015 Richard Nelson <unixabg@gmail.com>
+##
+## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+## This is free software, and you are welcome to redistribute it
+## under certain conditions; see COPYING for details.
+
+
+# Including common functions
+. /usr/lib/live/build.sh
+
+# Reading defaults
+if [ -r /etc/default/live-build-cgi ]
+then
+	. /etc/default/live-build-cgi
+else
+	echo "E: /etc/default/live-build-cgi missing"
+	exit 1
+fi
+
+_HOSTNAME="$(hostname -f)"
+
+# Turn on debug if true
+if [ "${_DEBUG}" = "true" ]
+then
+	set -x
+fi
+
+# Sending http header
+echo "Content-type: text/html"
+echo
+
+# Sending html header
+cat "${_TEMPLATES}"/header.html
+
+# CGI
+if [ -z "${QUERY_STRING}" ]
+then
+	# Sending html form
+	echo "<h2><div style='color: red;'>Error: No cgi build specified.</div></h2>"
+else
+	# Converting spaces:	sed 's/+/ /g'
+	# Converting '@':	sed 's/%40/@/g'
+	# Converting ':':	sed 's/%3A/:/g'
+	# Converting ';':	sed 's/%3B/\;/g'
+	# Converting '/':	sed 's/%2F/\//g'
+	# Converting '~':	sed 's/%7E/\~/g'
+	# Converting '=':	sed 's/%3D/=/g'
+	# Converting '+':	sed 's/%2B/+/g'
+
+	# Standard options
+	_CGI_BUILD=$(echo "${QUERY_STRING}" | grep -oE '(^|[?&])cgi_build=[0-9.]+' | cut -f 2 -d '=' | head -n1)
+
+	#echo ${_CGI_BUILD}
+	#echo ${QUERY_STRING}
+
+	# FIXME: filter invalid options
+	unset QUERY_STRING
+
+	if [ -z "${_CGI_BUILD}" ]
+	then
+		echo "<h2><div style='color: red;'>Error: No cgi build specified.</div></h2>"
+		sed -e "s/VERSION/${VERSION}/" "${_TEMPLATES}"/footer.html
+		_CGI_BUILD="BAD"
+	fi
+
+	# Getting number of builds pending.
+	_QUEUENUM=$(ls "${_TEMPDIR}"/*.build | wc -l)
+
+	# Find the build if exists and populate status html else respond no build.
+	#echo "${QUERY_STRING}"
+	if [ -f "${_TEMPDIR}"/"${_CGI_BUILD}".build ]
+	then
+		# If build file exists in the tempdir folder then the build is pending.
+		_STATUS="PENDING"
+		. "${_TEMPDIR}"/"${_CGI_BUILD}".build
+
+	elif [ -f "${_TEMPDIR}"/"${_CGI_BUILD}"/"${_CGI_BUILD}".build ]
+	then
+		# If build file exists the tempdir/build folder the build is running.
+		_STATUS="RUNNING"
+		. "${_TEMPDIR}"/"${_CGI_BUILD}"/"${_CGI_BUILD}".build
+
+	elif [ -f "${_DESTDIR}"/"${_CGI_BUILD}"/build ]
+	then
+		# If build file exists the tempdir/build folder the build is running.
+		_STATUS="COMPLETED"
+		. "${_DESTDIR}"/"${_CGI_BUILD}"/build
+
+	else
+		_STATUS="Bad or malformed"
+	fi
+
+	# Test whether to send out information
+	if [ "${_STATUS}" != "Bad or malformed" ]
+	then
+		# Send out the html
+		# Note: On each string remember to use a delimeter that is not in the string.
+		sed -e "s/BUILD/${_CGI_BUILD}/g" \
+		    -e "s/EMAIL/${_EMAIL}/" \
+		    -e "s/STATUS/${_STATUS}/" \
+		    -e "s/QUEUENUM/${_QUEUENUM}/" \
+		    -e "s/LIVE_IMAGE_TYPE/${LIVE_IMAGE_TYPE}/" \
+		    -e "s/LB_DISTRIBUTION/${LB_DISTRIBUTION}/" \
+		    -e "s#_LB_CONFIG#${_LB_CONFIG}#" \
+		    -e "s/LB_APT_INDICES/${LB_APT_INDICES}/" \
+		    -e "s/LB_APT/${LB_APT}/" \
+		    -e "s/_LB_CGIPACKAGES/${_LB_CGIPACKAGES}/" \
+		    -e "s/LIVE_IMAGE_ARCHITECTURE/${LIVE_IMAGE_ARCHITECTURE}/" \
+		    -e "s/LIVE_IMAGE_ARCHIVE_AREAS/${LIVE_IMAGE_ARCHIVE_AREAS}/" \
+		    -e "s/LB_CHROOT_FILESYSTEM/${LB_CHROOT_FILESYSTEM}/" \
+		    -e "s/LB_LINUX_FLAVOURS/${LB_LINUX_FLAVOURS}/" \
+		    -e "s/LB_SECURITY/${LB_SECURITY}/" \
+		    -e "s#LB_BOOTAPPEND_INSTALL#${LB_BOOTAPPEND_INSTALL}#" \
+		    -e "s#LB_BOOTAPPEND_LIVE#${LB_BOOTAPPEND_LIVE}#" \
+		    -e "s/LB_BOOTLOADER/${LB_BOOTLOADER}/" \
+		    -e "s/LB_DEBIAN_INSTALLER/${LB_DEBIAN_INSTALLER}/" \
+		    -e "s#LB_ISO_APPLICATION#${LB_ISO_APPLICATION}#" \
+		    -e "s#LB_ISO_PREPARER#${LB_ISO_PREPARER}#" \
+		    -e "s#LB_ISO_PUBLISHER#${LB_ISO_PUBLISHER}#" \
+		    -e "s#LB_ISO_VOLUME#${LB_ISO_VOLUME}#" \
+		    -e "s/LB_MEMTEST/${LB_MEMTEST}/" \
+		    -e "s#LB_NET_ROOT_PATH#${LB_NET_ROOT_PATH}#" \
+		    -e "s/LB_NET_ROOT_SERVER/${LB_NET_ROOT_SERVER}/" \
+		    -e "s#SERVER#${_SERVER}#g" \
+		    -e "s/LB_SOURCE_IMAGES/${LB_SOURCE_IMAGES}/" \
+		    -e "s/LB_SOURCE/${LB_SOURCE}/" \
+		"${_TEMPLATES}"/status.html
+
+	else
+		echo "Your request of ${_CGI_BUILD}, resulted in a malformed request or build number not found. All requests are logged."
+	fi
+	echo "$(date +%b\ %d\ %H:%M:%S) ${_HOSTNAME} live-build-status: ${_STATUS} build status requested for (${_CGI_BUILD}) from ${REMOTE_ADDR}." >> /var/log/live/live-build-status
+fi
+sed -e "s/VERSION/${VERSION}/" "${_TEMPLATES}"/footer.html
