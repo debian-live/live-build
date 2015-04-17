@@ -71,7 +71,7 @@ else
 	_QUEUENUM=$(ls "${_TEMPDIR}"/*.build | wc -l)
 
 	# Getting number of builds processing.
-	_PNUM=$(ls "${_TEMPDIR}"/*/ | wc -l)
+	_PNUM=$(ls -d "${_TEMPDIR}"/*/ | wc -l)
 
 	# Find the build if exists and populate status html else respond no build.
 	#echo "${QUERY_STRING}"
