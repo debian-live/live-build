@@ -70,6 +70,9 @@ else
 	# Getting number of builds pending.
 	_QUEUENUM=$(ls "${_TEMPDIR}"/*.build | wc -l)
 
+	# Getting number of builds processing.
+	_PNUM=$(ls "${_TEMPDIR}"/*/ | wc -l)
+
 	# Find the build if exists and populate status html else respond no build.
 	#echo "${QUERY_STRING}"
 	if [ -f "${_TEMPDIR}"/"${_CGI_BUILD}".build ]
@@ -103,6 +106,7 @@ else
 		    -e "s/EMAIL/${_EMAIL}/" \
 		    -e "s/STATUS/${_STATUS}/" \
 		    -e "s/QUEUENUM/${_QUEUENUM}/" \
+		    -e "s/PNUM/${_PNUM}/" \
 		    -e "s/LB_BINARY_IMAGES/${LB_BINARY_IMAGES}/" \
 		    -e "s/LB_DISTRIBUTION/${LB_DISTRIBUTION}/" \
 		    -e "s#_LB_CONFIG#${_LB_CONFIG}#" \
