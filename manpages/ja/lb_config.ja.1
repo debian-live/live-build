@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2015\-02\-07 5.0~a3\-1 "Live システムプロジェクト"
+.TH LIVE\-BUILD 1 2015\-04\-26 5.0~a4\-1 "Live システムプロジェクト"
 
 .SH 名前
 \fBlb config\fP \- 設定ディレクトリを作成します
@@ -428,8 +428,7 @@ JFFS2 (Second Journaling Flash File System) ファイルシステムの eraseblo
 .IP "\fB\-\-linux\-packages\fP \(dq\fIパッケージ\fP\(dq" 4
 カーネルのパッケージ命名規則に従った内部名をセットします。Debian のカーネルパッケージを利用している場合は調整する必要はありません。Debian
 の命名規則に従わない独自のカーネルパッケージを利用する場合にはこのオプションでパッケージの前半部 (Debian の場合は
-linux\-image\-2.6) だけを忘れずに指定し、\fI前半部\fP\-\fIフレーバー\fP (Debian の場合は例えば 
-linux\-image\-586)
+linux\-image\-2.6) だけを忘れずに指定し、\fI前半部\fP\-\fIフレーバー\fP (Debian の場合は例えば linux\-image\-586)
 が有効なパッケージ名になるようにしてください。好ましいのは、メタパッケージがある場合にはその名前を前半部に使うことで、そうすると設定とABIが独立します。また、unionfs
 や aufs、squashfs
 のバイナリモジュールパッケージについても、ツリー外でビルドした場合にはその前半部を含める必要があることを忘れないようにしてください。

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build\n"
-"POT-Creation-Date: 2015-02-07 06:57+0100\n"
+"POT-Creation-Date: 2015-04-26 20:20+0200\n"
 "PO-Revision-Date: 2015-02-07 14:57+0900\n"
 "Last-Translator: victory <victory.deb@gmail.com>\n"
 "Language-Team: none\n"
@@ -26,16 +26,18 @@ msgstr "LIVE-BUILD"
 #: en/lb.1:1 en/lb_binary.1:1 en/lb_bootstrap.1:1 en/lb_build.1:1
 #: en/lb_chroot.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
 #: en/live-build.7:1
-#, no-wrap
-msgid "2015-02-07"
+#, fuzzy, no-wrap
+#| msgid "2015-02-07"
+msgid "2015-04-26"
 msgstr "2015-02-07"
 
 #. type: TH
 #: en/lb.1:1 en/lb_binary.1:1 en/lb_bootstrap.1:1 en/lb_build.1:1
 #: en/lb_chroot.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
 #: en/live-build.7:1
-#, no-wrap
-msgid "5.0~a3-1"
+#, fuzzy, no-wrap
+#| msgid "5.0~a3-1"
+msgid "5.0~a4-1"
 msgstr "5.0~a3-1"
 
 #. type: TH
@@ -1787,9 +1789,9 @@ msgstr ""
 "パッケージを利用している場合は調整する必要はありません。Debian の命名規則に従"
 "わない独自のカーネルパッケージを利用する場合にはこのオプションでパッケージの"
 "前半部 (Debian の場合は linux-image-2.6) だけを忘れずに指定し、I<前半部>-I<フ"
-"レーバー> (Debian の場合は例えば linux-image-586) が有効なパッケージ名に"
-"なるようにしてください。好ましいのは、メタパッケージがある場合にはその名前を"
-"前半部に使うことで、そうすると設定とABIが独立します。また、unionfs や aufs、"
+"レーバー> (Debian の場合は例えば linux-image-586) が有効なパッケージ名になる"
+"ようにしてください。好ましいのは、メタパッケージがある場合にはその名前を前半"
+"部に使うことで、そうすると設定とABIが独立します。また、unionfs や aufs、"
 "squashfs のバイナリモジュールパッケージについても、ツリー外でビルドした場合に"
 "はその前半部を含める必要があることを忘れないようにしてください。"
 

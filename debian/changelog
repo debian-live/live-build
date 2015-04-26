@@ -1,3 +1,30 @@
+live-build (5.0~a4-1) unstable; urgency=low
+
+  [ Richard Nelson ]
+  * Adding live-build version information to the footer of live-build-cgi
+    footer.html.
+
+  [ Daniel Baumann ]
+  * Adding hook to create locales files.
+
+  [ victory ]
+  * Unfuzzy Japanese translation.
+
+  [ Richard Nelson ]
+  * Rename LIVE_IMAGE_TYPE to LB_BINARY_IMAGES on l-b-cgi frontend.
+  * Initial commit to provide biuld status on l-b-cgi frontend.
+  * Harmonize variables on build status script for l-b-cgi frontend.
+  * Added output of processing builds to status page for l-b-cgi frontend.
+  * On status output of running builds only count directories for l-b-cgi
+    frontend.
+  * Adding live option for debian_installer in template for l-b-cgi
+    frontend.
+
+  [ Daniel Reichelt ]
+  * Don't truncate files outside the build chroot.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 26 Apr 2015 20:20:53 +0200
+
 live-build (5.0~a3-1) experimental; urgency=low
 
   [ Daniel Baumann ]
