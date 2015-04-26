@@ -36,6 +36,9 @@ Truncate ()
 {
 	for FILE in ${@}
 	do
-		: > ${FILE}
+		if [ ! -L ${FILE} ]
+		then
+			: > ${FILE}
+		fi
 	done
 }
