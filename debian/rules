@@ -9,10 +9,6 @@ override_dh_auto_install:
 	# Removing unused files
 	rm -f debian/live-build/usr/share/doc/live-build/COPYING
 
-	# live-build-cgi
-	mkdir -p debian/live-build-cgi/usr/share/live/build
-	mv debian/live-build/usr/share/live/build/cgi debian/live-build-cgi/usr/share/live/build
-
 override_dh_builddeb:
 	dh_builddeb -- -Zxz
 

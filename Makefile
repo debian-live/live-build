@@ -4,7 +4,7 @@ SHELL := sh -e
 
 LANGUAGES = $(shell cd manpages/po && ls)
 
-SCRIPTS = frontend/cli/* frontend/cgi/live-build-cgi frontend/cgi/live-build-cgi.cron functions/* examples/auto/* examples/hooks/* scripts/*.sh scripts/*/* share/bin/* share/hooks/*
+SCRIPTS = frontend/cli/* functions/* examples/auto/* examples/hooks/* scripts/*.sh scripts/*/* share/bin/* share/hooks/*
 
 all: build
 
@@ -40,7 +40,7 @@ build:
 install:
 	# Installing shared data
 	mkdir -p $(DESTDIR)/usr/share/live/build
-	cp -r frontend/cgi data functions templates VERSION $(DESTDIR)/usr/share/live/build
+	cp -r data functions templates VERSION $(DESTDIR)/usr/share/live/build
 	cp -r share/* $(DESTDIR)/usr/share/live/build
 
 	# Installing executables
