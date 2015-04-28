@@ -43,6 +43,7 @@ Arguments "${@}"
 if [ ! -d config ]
 then
 	Echo_warning "No config/ directory; using defaults for all options"
+	lb config
 fi
 
 if [ "$(pwd)" = "/" ]
