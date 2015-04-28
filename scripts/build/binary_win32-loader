@@ -80,7 +80,7 @@ case "${LB_ARCHITECTURES}" in
 		mv binary/win32-loader/g2ldr* binary
 		rmdir binary/win32-loader > /dev/null 2>&1 || true
 
-cat >> binary/autorun.inf << EOF
+cat > binary/autorun.inf << EOF
 [autorun]
 open=setup.exe
 icon=setup.exe,0
