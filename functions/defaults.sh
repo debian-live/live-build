@@ -125,7 +125,7 @@ Set_defaults ()
 	# Setting distribution name
 	case "${LB_MODE}" in
 		progress-linux)
-			LB_DISTRIBUTION="${LB_DISTRIBUTION:-baureo}"
+			LB_DISTRIBUTION="${LB_DISTRIBUTION:-cairon}"
 			LB_DERIVATIVE="true"
 			LB_DERIVATIVE_IS_BASED_ON="debian"
 			;;
