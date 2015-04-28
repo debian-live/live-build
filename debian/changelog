@@ -1,3 +1,19 @@
+live-build (5.0~a5-1) unstable; urgency=low
+
+  * Removing temporary hack to exclude prism2-usb-firmware-installer, the
+    download homepage seems to work again (Closes: #783433).
+  * Moving cgi to its own source package.
+  * Correcting wrong tar command for tarball images, thanks to Yadickson
+    Soto <yadickson@gmail.com> (Closes: #780627).
+  * Setting debian default distribution to stretch.
+  * Setting progress-linux default distribution to cairon.
+  * Calling lb config in lb build to support building a all-default-image
+    with a simple lb build (Closes: #778327).
+  * Overwriting reather than appending content of autorun.inf (Closes:
+    #777359).
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 28 Apr 2015 07:53:25 +0200
+
 live-build (5.0~a4-1) unstable; urgency=low
 
   [ Richard Nelson ]
