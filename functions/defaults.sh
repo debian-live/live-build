@@ -136,7 +136,7 @@ Set_defaults ()
 			;;
 
 		*)
-			LB_DISTRIBUTION="${LB_DISTRIBUTION:-jessie}"
+			LB_DISTRIBUTION="${LB_DISTRIBUTION:-stretch}"
 			LB_DERIVATIVE="false"
 			;;
 	esac
