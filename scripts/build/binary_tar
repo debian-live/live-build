@@ -46,7 +46,8 @@ Create_lockfile .lock
 # Remove old binary
 rm -f ${LIVE_IMAGE_NAME}-${LB_ARCHITECTURES}.tar.bz2 ${LIVE_IMAGE_NAME}-${LB_ARCHITECTURES}.tar.gz ${LIVE_IMAGE_NAME}-${LB_ARCHITECTURES}.tar.lz ${LIVE_IMAGE_NAME}-${LB_ARCHITECTURES}.tar
 
-tar cf ${LIVE_IMAGE_NAME}-${LB_ARCHITECTURES}.tar.tar ${LIVE_IMAGE_NAME}-${LB_ARCHITECTURES}.
+tar cf ${LIVE_IMAGE_NAME}-${LB_ARCHITECTURES}.tar.tar binary
+
 case "${LB_COMPRESSION}" in
 	bzip2)
 		bzip2 ${BZIP2_OPTIONS} ${LIVE_IMAGE_NAME}-${LB_ARCHITECTURES}.tar.tar
