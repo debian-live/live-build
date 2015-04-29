@@ -4,7 +4,7 @@ SHELL := sh -e
 
 LANGUAGES = $(shell cd manpages/po && ls)
 
-SCRIPTS = frontend/cli/* functions/* examples/auto/* examples/hooks/* scripts/*.sh scripts/*/* share/bin/* share/hooks/*
+SCRIPTS = frontend/* functions/* examples/auto/* examples/hooks/* scripts/*.sh scripts/*/* share/bin/* share/hooks/*
 
 all: build
 
@@ -45,7 +45,7 @@ install:
 
 	# Installing executables
 	mkdir -p $(DESTDIR)/usr/bin
-	cp -a frontend/cli/* $(DESTDIR)/usr/bin
+	cp -a frontend/* $(DESTDIR)/usr/bin
 
 	mkdir -p $(DESTDIR)/usr/lib/live
 	cp -a scripts/* $(DESTDIR)/usr/lib/live
