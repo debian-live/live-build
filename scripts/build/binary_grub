@@ -117,6 +117,20 @@ Grub_install_entry ()
 	done
 }
 
+if [ -e "config/bootloaders/grub" ]
+then
+	# Internal local copy
+	_SOURCE="config/bootloaders/grub"
+else
+	# Internal system copy
+	if [ -n "${LIVE_BUILD}" ]
+	then
+		_SOURCE="${LIVE_BUILD}/share/bootloaders/grub"
+	else
+		_SOURCE="/usr/share/live/build/bootloaders/grub"
+	fi
+fi
+
 case "${LB_INITRAMFS}" in
 	casper)
 		INITFS="casper"
@@ -238,7 +252,7 @@ fi
 
 # Copying templates
 mkdir -p binary/boot/grub
-cp -r "${TEMPLATES}"/* binary/boot/grub
+cp -r "${_SOURCE}"/* binary/boot/grub
 
 case ${LIVE_IMAGE_TYPE} in
 	iso*)

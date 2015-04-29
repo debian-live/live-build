@@ -341,14 +341,6 @@ Set_defaults ()
 			;;
 	esac
 
-	# Setting templates
-	if [ -n "${LIVE_BUILD}" ]
-	then
-		LB_TEMPLATES="${LB_TEMPLATES:-${LIVE_BUILD}/templates}"
-	else
-		LB_TEMPLATES="${LB_TEMPLATES:-/usr/share/live/build/templates}"
-	fi
-
 	# Setting live build options
 	_BREAKPOINTS="${_BREAKPOINTS:-false}"
 	_COLOR="${_COLOR:-false}"
