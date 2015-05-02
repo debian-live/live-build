@@ -59,9 +59,9 @@ done
 
 ## Processing local hooks
 
-if Find_files config/hooks/*.source
+if Find_files config/hooks/live/*.source
 then
-	for HOOK in config/hooks/*.source
+	for HOOK in config/hooks/live/*.source
 	do
 		# Making hook executable
 		if [ ! -x "${HOOK}" ]

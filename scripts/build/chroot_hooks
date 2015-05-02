@@ -79,12 +79,12 @@ fi
 
 ## Processing local hooks
 
-if Find_files config/hooks/*.chroot
+if Find_files config/hooks/live/*.chroot
 then
 	# Restoring cache
 	Restore_cache cache/packages.chroot
 
-	for _HOOK in config/hooks/*.chroot
+	for _HOOK in config/hooks/live/*.chroot
 	do
 		# Copying hook
 		cp "${_HOOK}" chroot/root
