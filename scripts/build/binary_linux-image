@@ -44,10 +44,6 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 case "${LB_INITRAMFS}" in
-	casper)
-		DESTDIR="binary/casper"
-		;;
-
 	live-boot)
 		DESTDIR="binary/live"
 		;;

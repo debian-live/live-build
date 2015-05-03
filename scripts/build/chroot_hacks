@@ -65,10 +65,6 @@ esac
 
 # Update initramfs (always, because of udev rules in initrd)
 case "${LB_INITRAMFS}" in
-	casper)
-		UPDATE_INITRAMFS_OPTIONS="CASPER_GENERATE_UUID=1"
-		;;
-
 	live-boot)
 		#UPDATE_INITRAMFS_OPTIONS="LIVE_GENERATE_UUID=1"
 		;;
@@ -104,10 +100,6 @@ case "${LB_INITRAMFS_COMPRESSION}" in
 esac
 
 case "${LB_INITRAMFS}" in
-	casper)
-		ID="999"
-		;;
-
 	live-boot)
 		ID="1000"
 		;;

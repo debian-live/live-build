@@ -61,7 +61,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--grub-splash FILE]\n\
 \t    [--gzip-options OPTION|\"OPTIONS\"]\n\
 \t    [--ignore-system-defaults]\n\
-\t    [--initramfs auto|none|live-boot|casper]\n\
+\t    [--initramfs auto|none|live-boot]\n\
 \t    [--initramfs-compression bzip2|gzip|lzma]\n\
 \t    [--initsystem sysvinit|systemd|upstart|none]\n\
 \t    [--image-name [NAME]\n\
@@ -1348,10 +1348,6 @@ then
 					echo "sysvinit-core" >> config/package-lists/live.list.chroot
 					;;
 			esac
-			;;
-
-		casper)
-			echo "casper" > config/package-lists/live.list.chroot
 			;;
 
 		*)

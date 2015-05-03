@@ -234,15 +234,7 @@ Set_defaults ()
 	# Setting initramfs hook
 	case "${LB_SYSTEM}" in
 		live)
-			case "${LB_MODE}" in
-				ubuntu)
-					LB_INITRAMFS="${LB_INITRAMFS:-casper}"
-					;;
-
-				*)
-					LB_INITRAMFS="${LB_INITRAMFS:-live-boot}"
-					;;
-			esac
+			LB_INITRAMFS="${LB_INITRAMFS:-live-boot}"
 			;;
 
 		normal)
@@ -749,11 +741,6 @@ Set_defaults ()
 		live-boot)
 			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE:-boot=live components quiet splash}"
 			LB_BOOTAPPEND_LIVE_FAILSAFE="${LB_BOOTAPPEND_LIVE_FAILSAFE:-boot=live components memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal}"
-			;;
-
-		casper)
-			LB_BOOTAPPEND_LIVE="${LB_BOOTAPPEND_LIVE:-boot=casper quiet splash}"
-			LB_BOOTAPPEND_LIVE_FAILSAFE="${LB_BOOTAPPEND_LIVE_FAILSAFE:-boot=casper memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal}"
 			;;
 
 		none)

@@ -48,10 +48,6 @@ Check_architectures amd64 i386
 Check_crossarchitectures
 
 case "${LB_INITRAMFS}" in
-	casper)
-		_INITRAMFS="casper"
-		;;
-
 	*)
 		_INITRAMFS="live"
 		;;

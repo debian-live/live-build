@@ -44,11 +44,6 @@ Check_lockfile .lock
 Create_lockfile .lock
 
 case "${LB_INITRAMFS}" in
-	casper)
-		INITFS="casper"
-		SUFFIX="manifest"
-		;;
-
 	live-boot)
 		INITFS="live"
 		SUFFIX="packages"

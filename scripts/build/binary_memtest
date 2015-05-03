@@ -80,10 +80,6 @@ Install_package
 
 # Setting destination directory
 case "${LB_INITRAMFS}" in
-	casper)
-		DESTDIR="binary/casper"
-		;;
-
 	live-boot)
 		DESTDIR="binary/live"
 		;;

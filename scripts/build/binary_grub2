@@ -106,10 +106,6 @@ else
 fi
 
 case "${LB_INITRAMFS}" in
-	casper)
-		INITFS="casper"
-		;;
-
 	live-boot)
 		INITFS="live"
 		;;
@@ -123,10 +119,6 @@ esac
 case "${LIVE_IMAGE_TYPE}" in
 	iso*|tar)
 		case "${LB_INITRAMFS}" in
-			casper)
-				DESTDIR_LIVE="binary/casper"
-				;;
-
 			live-boot)
 				DESTDIR_LIVE="binary/live"
 				;;

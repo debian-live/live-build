@@ -97,40 +97,6 @@ then
 	esac
 fi
 
-case "${LB_INITRAMFS}" in
-	casper)
-		for INITRD in binary/casper/initrd.img*
-		do
-			mkdir -p binary/uuid
-			cd binary/uuid
-
-			case "${LB_INITRAMFS_COMPRESSION}" in
-				gzip)
-					zcat "../../${INITRD}" | cpio --quiet -id conf/uuid.conf
-					;;
-
-				bzip2)
-					bzcat "../../${INITRD}" | cpio --quiet -id conf/uuid.conf
-					;;
-
-				lzma)
-					lzcat -S "" "../../${INITRD}" | cpio --quiet -id conf/uuid.conf
-					;;
-			esac
-
-			if [ -e conf/uuid.conf ]
-			then
-				mv conf/uuid.conf "../.disk/casper-uuid${INITRD#binary/casper/initrd.img}"
-			else
-				Echo_warning "Failed to find casper uuid.conf in '${INITRD}'"
-			fi
-
-			cd ${OLDPWD}
-			rm -rf binary/uuid
-		done
-		;;
-esac
-
 case "${LB_DEBIAN_INSTALLER}" in
 	cdrom)
 		echo "main" > binary/.disk/base_components

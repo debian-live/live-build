@@ -49,10 +49,6 @@ case "${LB_ARCHITECTURES}" in
 esac
 
 case "${LB_INITRAMFS}" in
-	casper)
-		INITFS="casper"
-		;;
-
 	live-boot)
 		INITFS="live"
 		;;
