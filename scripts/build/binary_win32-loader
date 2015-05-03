@@ -48,10 +48,6 @@ case "${LB_MODE}" in
 		RUN_LABEL="Run Progress Linux"
 		;;
 
-	ubuntu)
-		RUN_LABEL="Run Ubuntu"
-		;;
-
 	*)
 		RUN_LABEL="Run Debian GNU/Linux"
 		;;

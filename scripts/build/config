@@ -91,7 +91,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--mirror-binary URL]\n\
 \t    [--mirror-binary-security URL]\n\
 \t    [--mirror-debian-installer URL]\n\
-\t    [--mode debian|ubuntu]\n\
+\t    [--mode debian]\n\
 \t    [--system live|normal]\n\
 \t    [--net-root-filesystem nfs|cfs]\n\
 \t    [--net-root-mountoptions OPTIONS]\n\

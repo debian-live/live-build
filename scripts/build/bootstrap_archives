@@ -126,15 +126,6 @@ then
 				fi
 			fi
 			;;
-
-		ubuntu)
-			echo "deb ${LB_PARENT_MIRROR_CHROOT_SECURITY} ${LB_PARENT_DISTRIBUTION}-security ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/${_PARENT_FILE}
-
-			if [ "${_PASS}" = "source" ] || [ "${LB_APT_SOURCE_ARCHIVES}" = "true" ]
-			then
-				echo "deb-src ${LB_PARENT_MIRROR_CHROOT_SECURITY} ${LB_PARENT_DISTRIBUTION}-security ${LB_PARENT_ARCHIVE_AREAS}" >> chroot/etc/apt/${_PARENT_FILE}
-			fi
-			;;
 	esac
 fi
 
