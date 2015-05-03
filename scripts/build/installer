@@ -45,7 +45,6 @@ then
 	lb chroot_dpkg install ${@}
 	lb chroot_tmpfs install ${@}
 	lb chroot_sysv-rc install ${@}
-	lb chroot_upstart install ${@}
 	lb chroot_hosts install ${@}
 	lb chroot_resolv install ${@}
 	lb chroot_hostname install ${@}
@@ -66,7 +65,6 @@ then
 	lb chroot_resolv remove ${@}
 	lb chroot_hosts remove ${@}
 	lb chroot_sysv-rc remove ${@}
-	lb chroot_upstart remove ${@}
 	lb chroot_tmpfs remove ${@}
 	lb chroot_dpkg remove ${@}
 	lb chroot_debianchroot remove ${@}

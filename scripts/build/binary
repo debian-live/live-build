@@ -48,7 +48,6 @@ then
 	lb chroot_resolv install ${@}
 	lb chroot_hostname install ${@}
 	lb chroot_sysv-rc install ${@}
-	lb chroot_upstart install ${@}
 	lb chroot_apt install-binary ${@}
 	lb chroot_archives chroot install ${@}
 fi
@@ -95,7 +94,6 @@ then
 	lb chroot_hostname remove ${@}
 	lb chroot_resolv remove ${@}
 	lb chroot_hosts remove ${@}
-	lb chroot_upstart remove ${@}
 	lb chroot_sysv-rc remove ${@}
 	lb chroot_dpkg remove ${@}
 	lb chroot_debianchroot remove ${@}

@@ -63,7 +63,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--ignore-system-defaults]\n\
 \t    [--initramfs auto|none|live-boot]\n\
 \t    [--initramfs-compression bzip2|gzip|lzma]\n\
-\t    [--initsystem sysvinit|systemd|upstart|none]\n\
+\t    [--initsystem sysvinit|systemd|none]\n\
 \t    [--image-name [NAME]\n\
 \t    [--interactive shell]\n\
 \t    [--isohybrid-options OPTION|\"OPTIONS\"]\n\
@@ -1343,7 +1343,7 @@ then
 					echo "live-config-systemd" >> config/package-lists/live.list.chroot
 					;;
 
-				sysvinit|upstart)
+				sysvinit)
 					echo "live-config-${LB_INITSYSTEM}" >> config/package-lists/live.list.chroot
 					echo "sysvinit-core" >> config/package-lists/live.list.chroot
 					;;
