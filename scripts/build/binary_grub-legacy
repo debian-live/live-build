@@ -37,9 +37,6 @@ Require_stagefile .build/config .build/bootstrap
 # Checking stage file
 Check_stagefile .build/binary_grub-legacy
 
-# Checking grub-legacy templates
-Check_templates grub-legacy
-
 # Checking lock file
 Check_lockfile .lock
 
