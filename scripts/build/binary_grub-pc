@@ -14,7 +14,7 @@ set -e
 [ -e "${LIVE_BUILD}/scripts/build.sh" ] && . "${LIVE_BUILD}/scripts/build.sh" || . /usr/lib/live/build.sh
 
 # Setting static variables
-DESCRIPTION="$(Echo 'installs grub2 into binary')"
+DESCRIPTION="$(Echo 'installs grub-pc into binary')"
 HELP=""
 USAGE="${PROGRAM} [--force]"
 
@@ -24,12 +24,12 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LB_BOOTLOADER}" != "grub2" ]
+if [ "${LB_BOOTLOADER}" != "grub-pc" ]
 then
 	exit 0
 fi
 
-Echo_message "Begin installing grub2..."
+Echo_message "Begin installing grub-pc..."
 
 # Requiring stage file
 Require_stagefile .build/config .build/bootstrap
@@ -37,8 +37,8 @@ Require_stagefile .build/config .build/bootstrap
 # Checking stage file
 Check_stagefile .build/binary_grub
 
-# Checking grub2 templates
-Check_templates grub2
+# Checking grub-pc templates
+Check_templates grub-pc
 
 # Checking lock file
 Check_lockfile .lock
@@ -91,17 +91,17 @@ Grub_install_entry ()
 	LINUX_INSTALL="${LINUX_INSTALL}\n}"
 }
 
-if [ -e "config/bootloaders/grub2" ]
+if [ -e "config/bootloaders/grub-pc" ]
 then
 	# Internal local copy
-	_SOURCE="config/bootloaders/grub2"
+	_SOURCE="config/bootloaders/grub-pc"
 else
 	# Internal system copy
 	if [ -n "${LIVE_BUILD}" ]
 	then
-		_SOURCE="${LIVE_BUILD}/share/bootloaders/grub2"
+		_SOURCE="${LIVE_BUILD}/share/bootloaders/grub-pc"
 	else
-		_SOURCE="/usr/share/live/build/bootloaders/grub2"
+		_SOURCE="/usr/share/live/build/bootloaders/grub-pc"
 	fi
 fi
 

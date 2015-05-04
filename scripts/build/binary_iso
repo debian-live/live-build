@@ -115,7 +115,7 @@ case "${LB_BOOTLOADER}" in
 		XORRISO_EXCLUDE="boot/grub/stage2_eltorito"
 		;;
 
-	grub2)
+	grub-pc)
 		XORRISO_OPTIONS="${XORRISO_OPTIONS} -no-emul-boot -boot-load-size 4 -boot-info-table"
 		XORRISO_OPTIONS="${XORRISO_OPTIONS} -b boot/grub/grub_eltorito -J"
 		XORRISO_EXCLUDE="boot/grub/grub_eltorito"
@@ -149,7 +149,7 @@ esac
 #	XORRISO_OPTIONS="${XORRISO_OPTIONS} -m ${XORRISO_EXCLUDE}"
 #fi
 
-if [ "${LB_BOOTLOADER}" = "grub2" ]
+if [ "${LB_BOOTLOADER}" = "grub-pc" ]
 then
 
 cat > binary.sh << EOF

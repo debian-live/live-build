@@ -61,7 +61,7 @@ lb binary_package-lists ${@}
 lb binary_linux-image ${@}
 lb binary_memtest ${@}
 lb binary_grub ${@}
-lb binary_grub2 ${@}
+lb binary_grub-pc ${@}
 lb binary_syslinux ${@}
 lb binary_disk ${@}
 lb binary_loadlin ${@}
