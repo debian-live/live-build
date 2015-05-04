@@ -1,3 +1,20 @@
+live-build (5.0~a6-1) unstable; urgency=low
+
+  * Moving grub and grub2 templates into shared bootloader config
+    directory.
+  * Updating example gitignore file.
+  * Flattening frontend directory within the source tree.
+  * Adding hook to disable tmpfs on /tmp when using sysvinit, previously
+    done by live-config.
+  * Moving hooks to hooks/live, both in live-build sources and live-build
+    configs.
+  * Dropping automagics for casper.
+  * Dropping automagics for ubuntu.
+  * Adding data symlink for stretch.
+  * Dropping support for upstart.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 04 May 2015 20:03:59 +0200
+
 live-build (5.0~a5-1) unstable; urgency=low
 
   * Removing temporary hack to exclude prism2-usb-firmware-installer, the
