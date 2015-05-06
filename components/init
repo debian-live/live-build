@@ -1,0 +1,75 @@
+#!/bin/sh
+
+# live-build(7) - System Build Scripts
+# Copyright (C) 2006-2015 Daniel Baumann <mail@daniel-baumann.ch>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+# The complete text of the GNU General Public License
+# can be found in /usr/share/common-licenses/GPL-3 file.
+
+set -e
+
+# Checking meta-data directory
+if [ ! -e .build ]
+then
+	echo "Initialized empty live-build configuration in ${PWD}/"
+
+	if [ "$(ls -a ${PWD})" ]
+	then
+		echo "Warning: directory not empty"
+	fi
+else
+	echo "Reinitialized existing live-build configuration in ${PWD}/"
+fi
+
+# Reading defaults
+. ./defaults.conf
+
+# Creating meta-data directory
+mkdir -p .build
+
+# Creating archive configuration directory
+mkdir -p config/archives
+
+# Creating default archive configuration
+cat > config/archives/debian.list << EOF
+deb ${DEFAULT_ARCHIVE_URI} ${DEFAULT_ARCHIVE_SUITE} ${DEFAULT_ARCHIVE_COMPONENTS}
+EOF
+
+# Creating default architecture configuration
+ARCHITECTURE="$(dpkg --print-architecture)"
+
+echo "${ARCHITECTURE}" > config/archives/architecture
+
+# Creating default foreign architecture configuration
+case "${ARCHITECTURE}" in
+	amd64)
+		FOREIGN_ARCHITECTURES="i386"
+		;;
+
+	i386)
+		FOREIGN_ARCHITECTURES="amd64"
+		;;
+esac
+
+if [ -n "${FOREIGN_ARCHITECTURES}" ]
+then
+	rm -f config/archives/foreign-architectures
+
+	for FOREIGN_ARCHITECTURE in ${FOREIGN_ARCHITECTURES}
+	do
+		echo "${FOREIGN_ARCHITECTURE}" >> config/archives/foreign-architecture
+	done
+fi

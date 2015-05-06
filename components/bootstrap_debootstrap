@@ -1,0 +1,130 @@
+#!/bin/sh
+
+# live-build(7) - System Build Scripts
+# Copyright (C) 2006-2015 Daniel Baumann <mail@daniel-baumann.ch>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+# The complete text of the GNU General Public License
+# can be found in /usr/share/common-licenses/GPL-3 file.
+
+set -e
+
+# Checking meta-data directory
+if [ ! -e .build ]
+then
+	echo "fatal: Not a live-build configuration in ${PWD}/: .build"
+	exit 1
+fi
+
+# Checking meta-data file
+if [ ! -e .build/bootstrap_debootstrap ]
+then
+	echo "${0} already run, skipping."
+	exit 0
+fi
+
+# Checking host dependencies
+if [ ! -x "$(which debootstrap 2>/dev/null)" ]
+then
+	echo "E: debootstrap - command not found"
+	echo "I: debootstrap can be obtained from http://ftp.debian.org/debian/pool/main/d/debootstrap/"
+	echo "I: On Debian based systems, debootstrap can be installed with 'sudo apt install debootstrap'."
+	exit 1
+fi
+
+# Creating lock file
+# FIXME
+
+# Reading archive configuration
+for FILE in config/archives/debian.list.bootstrap config/archives/debian.list
+do
+	if [ -e "${FILE}" ]
+	then
+		DEB="$(grep -m 1 '^deb ' ${FILE})"
+
+		ARCHIVE_URI="$(echo ${DEB} | awk '{ print $2 }')"
+		ARCHIVE_SUITE="$(echo ${DEB} | awk '{ print $3 }')"
+		ARCHIVE_COMPONENTS="$(echo ${DEB} | awk -F${ARCHIVE_SUITE} '{ print $2 }' | sed -e 's|^ ||')"
+
+		break
+	fi
+done
+
+# Setting archive defaults
+ARCHIVE_URI="${ARCHIVE_URI:-${DEFAULT_ARCHIVE_URI}}"
+ARCHIVE_SUITE="${ARCHIVE_SUITE:-${DEFAULT_ARCHIVE_SUITE}}"
+ARCHIVE_COMPONENTS="${ARCHIVE_COMPONENTS:-${DEFAULT_ARCHIVE_COMPONENTS}}"
+
+# Creating cache directory
+mkdir -p "cache/${DISTRIBUTION}"
+
+# Creating chroot directory
+mkdir -p chroot
+
+# Setting debootstrap options
+DEBOOTSTRAP_OPTIONS=""
+
+if [ "${ARCHIVE_AREAS}" != "main" ]
+then
+	DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --components=$(echo ${ARCHIVE_AREAS} | sed -e 's| |,|g')"
+fi
+
+if [ "${LB_CACHE_PACKAGES}" = "true" ]
+then
+	if ls cache/packages.bootstrap/*.deb > /dev/null 2>&1
+	then
+		mkdir -p chroot/var/cache/apt/archives
+		cp cache/packages.bootstrap/*.deb chroot/var/cache/apt/archives
+	fi
+
+	Echo_breakage "Running debootstrap (download-only)... "
+	debootstrap ${DEBOOTSTRAP_OPTIONS} --download-only "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}"
+
+	# Removing old cache
+	rm -f cache/packages.bootstrap/*.deb
+
+	# Saving new cache
+	mkdir -p cache/packages.bootstrap
+	cp chroot/var/cache/apt/archives/*.deb cache/packages.bootstrap
+fi
+
+Echo_breakage "Running debootstrap... "
+
+# Run appropriate bootstrap, i.e. foreign or regular bootstrap
+if [ "${LB_BOOTSTRAP_QEMU_ARCHITECTURES}" = "${LB_ARCHITECTURES}" ]; then
+
+	if [ -n "${LB_BOOTSTRAP_QEMU_EXCLUDE}" ]
+	then
+		DEBOOTSTRAP_OPTIONS="${DEBOOTSTRAP_OPTIONS} --exclude=$(echo ${LB_BOOTSTRAP_QEMU_EXCLUDE} | sed 's|  *|,|g')"
+	fi
+
+	Echo_message "Bootstrap will be foreign"
+	debootstrap ${DEBOOTSTRAP_OPTIONS} --foreign "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}"
+
+	Echo_message "Running debootstrap second stage under QEMU"
+	cp ${LB_BOOTSTRAP_QEMU_STATIC} chroot/usr/bin
+	Chroot chroot /bin/sh /debootstrap/debootstrap --second-stage
+else
+	debootstrap ${DEBOOTSTRAP_OPTIONS} "${LB_PARENT_DISTRIBUTION}" chroot "${LB_PARENT_MIRROR_BOOTSTRAP}"
+fi
+
+# Deconfiguring debootstrap configurations
+rm -f chroot/etc/hosts
+
+# Removing bootstrap cache
+rm -f chroot/var/cache/apt/archives/*.deb
+
+# Creating stage file
+Create_stagefile .build/bootstrap
