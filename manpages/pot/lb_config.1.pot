@@ -1677,7 +1677,7 @@ msgid ""
 "in the final image and which is the one a user would see and use. This has "
 "not necessarily to be the same that is used to build the image, e.g. if you "
 "use a local mirror but want to have an official mirror in the image. By "
-"default, 'http://http.debian.net/debian/' is used."
+"default, 'http://httpredir.debian.org/debian/' is used."
 msgstr ""
 
 #. type: IP

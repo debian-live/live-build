@@ -355,7 +355,7 @@ Set_defaults ()
 	# Setting mirror which ends up in the image
 	case "${LB_MODE}" in
 		debian)
-			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://http.debian.net/debian/}"
+			LB_MIRROR_BINARY="${LB_MIRROR_BINARY:-http://httpredir.debian.org/debian/}"
 			LB_PARENT_MIRROR_BINARY="${LB_PARENT_MIRROR_BINARY:-${LB_MIRROR_BINARY}}"
 			;;
 
