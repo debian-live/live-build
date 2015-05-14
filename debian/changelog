@@ -1,3 +1,14 @@
+live-build (5.0~a7-1) unstable; urgency=low
+
+  * Renaming grub2 helper to grub-pc for later grub-efi addition.
+  * Renaming grub helper to grub-legacy for consistency.
+  * Dropping obsolete template checks within grub helpers.
+  * Switching from http.debian.net to httpredir.debian.org as default
+    binary mirror.
+  * Removing broken samhain handling (Closes: #785264).
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 14 May 2015 13:16:38 +0200
+
 live-build (5.0~a6-1) unstable; urgency=low
 
   * Moving grub and grub2 templates into shared bootloader config
