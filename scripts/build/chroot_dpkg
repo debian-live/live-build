@@ -62,15 +62,6 @@ EOF
 		# Generic live-build handle for other live packages to act upon
 		touch chroot/.live-build
 
-		# samhain
-		if [ -e /var/state/samhain/samhain_file ]
-		then
-			mv /var/state/samhain/samhain_file /var/state/samhain/samhain_file.orig
-		else
-			mkdir -p /var/state/samhain
-			touch /var/state/samhain/samhain_file
-		fi
-
 		# flash-kernel
 		Chroot chroot dpkg-divert --rename --quiet --add /usr/sbin/flash-kernel
 		ln -s /bin/true chroot/usr/sbin/flash-kernel
@@ -96,16 +87,6 @@ EOF
 		# flash-kernel
 		rm -f chroot/usr/sbin/flash-kernel
 		Chroot chroot dpkg-divert --rename --quiet --remove /usr/sbin/flash-kernel
-
-		# samhain
-		if [ -e /var/state/samhain/samhain_file.orig ]
-		then
-			mv /var/state/samhain/samhain_file.orig /var/state/samhain/samhain_file
-		elif [ -d /var/state/samhain ]
-		then
-			rm -f /var/state/samhain/samhain_file
-			rmdir --ignore-fail-on-non-empty /var/state/samhain || true
-		fi
 
 		# Remove custom start-stop-daemon program
 		rm -f chroot/sbin/start-stop-daemon
