@@ -30,18 +30,3 @@ Description: Live System Build Components
  .
  live-build contains the components to build a live system from a configuration
  directory.
-
-Package: live-build-cgi
-Architecture: all
-Depends: ${misc:Depends}, live-build (= ${source:Version})
-Recommends:
- apache2 | httpd,
- cron,
-Description: Live System Build Scripts (CGI frontend)
- The Live Systems project maintains the components to build Debian based Live
- systems and the official Debian Live images themselves.
- .
- live-build contains the components to build a live system from a configuration
- directory.
- .
- This package contains the CGI frontend (experimental!).
