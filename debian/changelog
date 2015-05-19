@@ -1,3 +1,10 @@
+live-build (5.0~a8-1) unstable; urgency=low
+
+  * Actually removing live-build-cgi from control.
+  * Correcting leftover reference to binary_grub in binary.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 19 May 2015 06:26:38 +0200
+
 live-build (5.0~a7-1) unstable; urgency=low
 
   * Renaming grub2 helper to grub-pc for later grub-efi addition.
