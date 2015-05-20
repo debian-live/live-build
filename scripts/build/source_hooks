@@ -58,21 +58,22 @@ do
 done
 
 ## Processing local hooks
+for HOOK in config/hooks/normal/*.source config/hooks/live/*.source
+do
+	if [ ! -e "${HOOK}" ]
+	then
+		continue
+	fi
 
-if Find_files config/hooks/live/*.source
-then
-	for HOOK in config/hooks/live/*.source
-	do
-		# Making hook executable
-		if [ ! -x "${HOOK}" ]
-		then
-			chmod +x "${HOOK}"
-		fi
+	# Making hook executable
+	if [ ! -x "${HOOK}" ]
+	then
+		chmod +x "${HOOK}"
+	fi
 
-		# Executing hook
-		./"${HOOK}" || { Echo_error "${HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
-	done
+	# Executing hook
+	./"${HOOK}" || { Echo_error "${HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
+done
 
-	# Creating stage file
-	Create_stagefile .build/source_hooks
-fi
+# Creating stage file
+Create_stagefile .build/source_hooks

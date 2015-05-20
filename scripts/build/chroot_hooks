@@ -78,28 +78,32 @@ then
 fi
 
 ## Processing local hooks
-
-if Find_files config/hooks/live/*.chroot
+if ls config/hooks/*.chroot > /dev/null 2>&1
 then
 	# Restoring cache
 	Restore_cache cache/packages.chroot
 
-	for _HOOK in config/hooks/live/*.chroot
+	for HOOK in config/hooks/normal/*.binary config/hooks/live/*.binary
 	do
+		if [ ! -e "${HOOK}" ]
+		then
+			continue
+		fi
+
 		# Copying hook
-		cp "${_HOOK}" chroot/root
+		cp "${HOOK}" chroot/root
 
 		# Making hook executable
-		if [ ! -x chroot/root/"$(basename ${_HOOK})" ]
+		if [ ! -x chroot/root/"$(basename ${HOOK})" ]
 		then
-			chmod +x chroot/root/"$(basename ${_HOOK})"
+			chmod +x chroot/root/"$(basename ${HOOK})"
 		fi
 
 		# Executing hook
-		Chroot chroot "/root/$(basename ${_HOOK})" || { Echo_error "${_HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
+		Chroot chroot "/root/$(basename ${HOOK})" || { Echo_error "${HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
 
 		# Removing hook
-		rm -f chroot/root/"$(basename ${_HOOK})"
+		rm -f chroot/root/"$(basename ${HOOK})"
 	done
 
 	# Saving cache
@@ -112,4 +116,3 @@ fi
 # Remove bind mount of build config inside chroot.
 umount chroot/live-build/config
 rmdir chroot/live-build/config
-
