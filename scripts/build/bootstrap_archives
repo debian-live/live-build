@@ -264,6 +264,12 @@ fi
 rm -rf chroot/var/cache/apt/*.bin
 
 Apt chroot update
+
+if [ "${LB_DERIVATIVE}" = "true" ]
+then
+	Apt chroot install apt dpkg
+fi
+
 Apt chroot "upgrade"
 Apt chroot "dist-upgrade"
 
