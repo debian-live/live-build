@@ -1317,7 +1317,7 @@ mkdir -p config/includes config/includes.bootstrap config/includes.chroot config
 
 Echo_message "Symlinking hooks..."
 
-for _HOOK in "${LIVE_BUILD}"/share/hooks/normal/*.hook* /usr/share/normal/build/hooks/normal/*.hook*
+for _HOOK in "${LIVE_BUILD}"/share/hooks/normal/*.hook* /usr/share/live/build/hooks/normal/*.hook*
 do
 	if [ -e "${_HOOK}" ] && [ ! -e "config/hooks/normal/$(basename ${_HOOK})" ]
 	then
