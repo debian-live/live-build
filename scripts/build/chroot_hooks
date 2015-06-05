@@ -116,3 +116,4 @@ fi
 # Remove bind mount of build config inside chroot.
 umount chroot/live-build/config
 rmdir chroot/live-build/config
+rmdir chroot/live-build
