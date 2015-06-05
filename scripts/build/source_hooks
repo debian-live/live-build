@@ -72,7 +72,9 @@ do
 	fi
 
 	# Executing hook
-	./"${HOOK}" || { Echo_error "${HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
+	cd source
+	../"${HOOK}" || { Echo_error "${HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
+	cd "${OLDPWD}"
 done
 
 # Creating stage file
