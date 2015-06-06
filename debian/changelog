@@ -1,3 +1,17 @@
+live-build (5.0~a9-1) unstable; urgency=low
+
+  * Splitting non-live specific hooks into their own subdirectory within
+    hooks.
+  * Installing apt and dpkg updates (if any) first in derivatives mode,
+    then doing dist-upgrade.
+  * Correcting symlinking of hooks in lb config.
+  * Correcting execution of local binary hooks.
+  * Correcting execution of local source hooks.
+  * Removing parent-directory too when cleaning up the config tree bind
+    mount in chroot.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 06 Jun 2015 06:39:47 +0200
+
 live-build (5.0~a8-1) unstable; urgency=low
 
   * Actually removing live-build-cgi from control.
