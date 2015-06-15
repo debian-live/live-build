@@ -83,7 +83,7 @@ then
 	# Restoring cache
 	Restore_cache cache/packages.chroot
 
-	for HOOK in config/hooks/normal/*.binary config/hooks/live/*.binary
+	for HOOK in config/hooks/normal/*.chroot config/hooks/live/*.chroot
 	do
 		if [ ! -e "${HOOK}" ]
 		then
