@@ -664,6 +664,9 @@ then
 	mv binary chroot/root
 
 	eval _VERSION="$`echo RELEASE_${LB_PARENT_DISTRIBUTION}`"
+	if [ -n "${_VERSION}" ]; then
+		_LB_APT_VERSION_OPT='-o APT::FTPArchive::Release::Version="'"${_VERSION}"'"'
+	fi
 
 	case "${LB_PARENT_DISTRIBUTION}" in
 		sid)
@@ -680,7 +683,7 @@ cd /root/binary && apt-ftparchive \
 	-o APT::FTPArchive::Release::Origin="Debian" \
 	-o APT::FTPArchive::Release::Label="Debian" \
 	-o APT::FTPArchive::Release::Suite="${_SUITE}" \
-	-o APT::FTPArchive::Release::Version="${_VERSION}" \
+	${_LB_APT_VERSION_OPT} \
 	-o APT::FTPArchive::Release::Codename="${LB_PARENT_DISTRIBUTION}" \
 	-o APT::FTPArchive::Release::Date="$(date -R)" \
 	-o APT::FTPArchive::Release::Architectures="${LB_ARCHITECTURES}" \
