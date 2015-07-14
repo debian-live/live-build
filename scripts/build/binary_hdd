@@ -170,7 +170,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 
 		if [ "${LB_BOOTLOADER}" = "syslinux" ]
 		then
-			dd if=chroot/usr/lib/${_BOOTLOADER}/mbr.bin of=${FREELO} bs=440 count=1
+			dd if=chroot/usr/lib/SYSLINUX/mbr.bin of=${FREELO} bs=440 count=1
 		fi
 		;;
 
@@ -182,7 +182,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 
 		if [ "${LB_BOOTLOADER}" = "syslinux" ]
 		then
-			dd if=/usr/lib/${_BOOTLOADER}/mbr.bin of=${FREELO} bs=440 count=1
+			dd if=/usr/lib/SYSLINUX/mbr.bin of=${FREELO} bs=440 count=1
 		fi
 		;;
 esac
