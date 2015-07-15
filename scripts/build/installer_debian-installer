@@ -321,7 +321,7 @@ then
 			;;
 
 		i386)
-			DI_REQ_PACKAGES="elilo lilo grub-pc"
+			DI_REQ_PACKAGES="lilo grub-pc"
 			DI_PACKAGES="${DI_REQ_PACKAGES} linux-image-586 linux-image-686-pae"
 			;;
 
