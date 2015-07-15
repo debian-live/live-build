@@ -64,7 +64,7 @@ EOF
 
 		# flash-kernel
 		Chroot chroot dpkg-divert --rename --quiet --add /usr/sbin/flash-kernel
-		ln -s /bin/true chroot/usr/sbin/flash-kernel
+		ln -fs /bin/true chroot/usr/sbin/flash-kernel
 
 		# Creating stage file
 		Create_stagefile .build/chroot_dpkg
