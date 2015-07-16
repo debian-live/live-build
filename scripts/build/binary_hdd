@@ -172,7 +172,12 @@ esac
 case "${LB_BUILD_WITH_CHROOT}" in
 	true)
 		Chroot chroot "parted -s ${FREELO} mklabel ${PARTITION_TABLE_TYPE}" || true
-		Chroot chroot "parted -a optimal -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0% 100%" || true
+		if [ "x${LB_HDD_PARTITION_START}" = "x" ]; then
+			Chroot chroot "parted -a optimal -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0% 100%" || true
+		else
+                        Echo_message "using partition start at ${LB_HDD_PARTITION_START}"
+			Chroot chroot "parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} ${LB_HDD_PARTITION_START} 100%" || true
+		fi
 		Chroot chroot "parted -s ${FREELO} set 1 boot on" || true
 		Chroot chroot "parted -s ${FREELO} set 1 lba off" || true
 
@@ -184,7 +189,12 @@ case "${LB_BUILD_WITH_CHROOT}" in
 
 	false)
 		parted -s ${FREELO} mklabel ${PARTITION_TABLE_TYPE} || true
-		parted -a optimal -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0% 100% || true
+		if [ "x${LB_HDD_PARTITION_START}" = "x" ]; then
+			parted -a optimal -s ${FREELO} mkpart primary ${PARTITION_TYPE} 0% 100% || true
+		else
+                        Echo_message "using partition start at ${LB_HDD_PARTITION_START}"
+			parted -s ${FREELO} mkpart primary ${PARTITION_TYPE} ${LB_HDD_PARTITION_START} 100% || true
+		fi
 		parted -s "${FREELO}" set 1 boot on || true
 		parted -s "${FREELO}" set 1 lba off || true
 

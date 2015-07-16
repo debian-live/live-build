@@ -69,6 +69,7 @@ USAGE="${PROGRAM}   [--apt apt|aptitude]\n\
 \t    [--isohybrid-options OPTION|\"OPTIONS\"]\n\
 \t    [--hdd-label LABEL]\n\
 \t    [--hdd-size MB]\n\
+\t    [--hdd-partition-start [parted unit, e.g. 63s]\n\
 \t    [--iso-application NAME]\n\
 \t    [--iso-preparer NAME]\n\
 \t    [--iso-publisher NAME]\n\
@@ -139,7 +140,7 @@ Local_arguments ()
 		security:,updates:,backports:,binary-filesystem:,binary-images:,
 		apt-indices:,bootappend-install:,bootappend-live:,bootappend-live-failsafe:,bootloaders:,checksums:,compression:,config:,zsync:,build-with-chroot:,
 		debian-installer:,debian-installer-distribution:,debian-installer-preseedfile:,debian-installer-gui:,
-		grub-splash:,isohybrid-options:,hdd-label:,hdd-size:,iso-application:,iso-preparer:,iso-publisher:,
+		grub-splash:,isohybrid-options:,hdd-label:,hdd-size:,hdd-partition-start:,iso-application:,iso-preparer:,iso-publisher:,
 		iso-volume:,jffs2-eraseblock:,memtest:,net-root-filesystem:,net-root-mountoptions:,
 		net-root-path:,net-root-server:,net-cow-filesystem:,net-cow-mountoptions:,net-cow-path:,
 		net-cow-server:,net-tarball:,firmware-binary:,firmware-chroot:,swap-file-path:,swap-file-size:,
@@ -563,6 +564,11 @@ Local_arguments ()
 
 			--hdd-size)
 				LB_HDD_SIZE="${2}"
+				shift 2
+				;;
+
+			--hdd-partition-start)
+				LB_HDD_PARTITION_START="${2}"
 				shift 2
 				;;
 
@@ -1197,6 +1203,10 @@ LB_HDD_LABEL="${LB_HDD_LABEL}"
 # \$LB_HDD_SIZE: set hdd filesystem size
 # (Default: ${LB_HDD_SIZE})
 LB_HDD_SIZE="${LB_HDD_SIZE}"
+
+# \$LB_HDD_PARTITION_START: set start of partition for the hdd target for BIOSes that expect a specific boot partition start (e.g. "63s"). If empty, use optimal layout.
+# (Default: ${LB_HDD_PARTITION_START})
+LB_HDD_PARTITION_START="${LB_HDD_PARTITION_START}"
 
 # \$LB_ISO_APPLICATION: set iso author
 # (Default: ${LB_ISO_APPLICATION})
