@@ -78,7 +78,7 @@ then
 fi
 
 ## Processing local hooks
-if ls config/hooks/*.chroot > /dev/null 2>&1
+if ls config/hooks/normal/*.chroot config/hooks/live/*.chroot > /dev/null 2>&1
 then
 	# Restoring cache
 	Restore_cache cache/packages.chroot
