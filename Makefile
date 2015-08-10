@@ -4,7 +4,7 @@ SHELL := sh -e
 
 LANGUAGES = $(shell cd manpages/po && ls)
 
-SCRIPTS = frontend/* functions/* examples/auto/* examples/hooks/* scripts/*.sh scripts/*/* share/bin/* share/hooks/normal/* share/hooks/live/*
+SCRIPTS = frontend/* functions/* examples/auto/* examples/hooks/* scripts/*.sh scripts/*/* share/bin/* share/hooks/*/*
 
 all: build
 
