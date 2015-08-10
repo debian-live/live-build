@@ -1,3 +1,22 @@
+live-build (5.0~a10-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Correcting typos in chroot_hooks.
+
+  [ Raphaël Hertzog ]
+  * Do not pass an empty version in APT::FTPArchive::Release::Version
+    (Closes: #789800).
+  * Drop elilo from list of d-i required packages on i386.
+
+  [ Daniel Reichelt ]
+  * Fix check for presence of chroot hooks
+  * Fix hook scripts location in Makefile
+
+  [ Daniel Baumann ]
+  * Simplify hooks pattern in Makefile.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 10 Aug 2015 19:35:24 +0200
+
 live-build (5.0~a9-1) unstable; urgency=low
 
   * Splitting non-live specific hooks into their own subdirectory within
