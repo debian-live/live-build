@@ -229,7 +229,12 @@ then
 	esac
 fi
 
-eval _VERSION="$`echo RELEASE_${LB_DISTRIBUTION}`"
+if [ -e chroot/etc/os-release ]
+then
+	_VERSION="$(. chroot/etc/os-release && echo ${VERSION_ID})"
+fi
+
+_VERSION="${VERSION:-none}"
 
 _DISTRIBUTION="${LB_DISTRIBUTION}"
 _ARCHITECTURE="${LB_ARCHITECTURES}"

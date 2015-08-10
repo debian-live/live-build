@@ -51,7 +51,13 @@ mkdir -p source/.disk
 
 DISTRIBUTION="$(echo ${LB_DISTRIBUTION} | cut -b 1 | tr '[a-z]' '[A-Z]')"
 DISTRIBUTION="${DISTRIBUTION}$(echo ${LB_DISTRIBUTION} | cut -b 2-)"
-eval VERSION="$`echo RELEASE_${LB_DISTRIBUTION}`"
+
+if [ -e chroot/etc/os-release ]
+then
+	VERSION="$(. chroot/etc/os-release && echo ${VERSION_ID})"
+fi
+
+VERSION="${VERSION:-none}"
 
 case "${LB_MODE}" in
 	debian)
