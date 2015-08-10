@@ -220,8 +220,8 @@ EOF
 			rm -rf chroot/root/packages
 			mkdir -p chroot/root/packages
 
-			if [ "$(stat --printf %d config/packages.chroot)" = "$(stat --printf %d chroot/root/packages)" ] ||
-			   [ "$(stat --printf %d config/packages)" = "$(stat --printf %d chroot/root/packages)" ]
+			if [ "$(stat --printf %d config/packages.chroot/)" = "$(stat --printf %d chroot/root/packages/)" ] ||
+			   [ "$(stat --printf %d config/packages/)" = "$(stat --printf %d chroot/root/packages/)" ]
 			then
 				CP_OPTIONS="-l"
 			fi

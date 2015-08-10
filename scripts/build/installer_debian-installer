@@ -224,7 +224,7 @@ Download_file () {
 		fi
 	fi
 
-	if [ "$(stat --printf %d "${_LB_CACHE_DIR}")" = "$(stat --printf %d ./)" ]
+	if [ "$(stat --printf %d "${_LB_CACHE_DIR}/")" = "$(stat --printf %d ./)" ]
 	then
 		CP_OPTIONS="-l"
 	fi
