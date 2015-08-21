@@ -24,9 +24,23 @@ Arguments "${@}"
 Read_conffiles config/all config/common config/bootstrap config/chroot config/binary config/source
 Set_defaults
 
-if [ "${LB_BOOTLOADER}" != "grub-pc" ]
-then
-	exit 0
+FOUND_MYSELF=""
+OLDIFS="$IFS"
+IFS=","
+for BOOTLOADER in ${LB_BOOTLOADERS}
+do
+
+       case ${BOOTLOADER} in
+               "grub-pc" )
+                       FOUND_MYSELF="True"
+                       break ;;
+       esac
+
+done
+IFS="$OLDIFS"
+
+if [ -z ${FOUND_MYSELF} ] ; then
+        exit 0
 fi
 
 Echo_message "Begin installing grub-pc..."

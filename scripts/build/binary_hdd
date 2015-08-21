@@ -57,26 +57,34 @@ esac
 Check_package chroot /usr/share/doc/mtools mtools
 Check_package chroot /sbin/parted parted
 
-case "${LB_BOOTLOADER}" in
-	grub)
-		Check_package chroot /usr/sbin/grub grub
-		;;
+echo "${LB_BOOTLOADERS}" | \
+while IFS="," read -r BOOTLOADER
+do
+	case "${BOOTLOADER}" in
+		grub)
+			Check_package chroot /usr/sbin/grub grub
+			;;
+	esac
+done
 
-	syslinux)
-		case ${LB_BINARY_FILESYSTEM} in
-			fat*|ntfs)
-				_BOOTLOADER=syslinux
-				;;
-			ext[234]|btrfs)
-				_BOOTLOADER=extlinux
-				;;
-			*)
-				Echo_error "syslinux/extlinux doesn't support ${LB_BINARY_FILESYSTEM}"
-				exit 1
-				;;
-		esac
-		Check_package chroot /usr/bin/${_BOOTLOADER} ${_BOOTLOADER}
-		;;
+LB_PRIMARY_BOOTLOADER=$(echo "${LB_BOOTLOADERS}" | awk -F, '{ print $1 }')
+
+case ${LB_PRIMARY_BOOTLOADER} in
+		syslinux)
+			case ${LB_BINARY_FILESYSTEM} in
+				fat*|ntfs)
+					_BOOTLOADER=syslinux
+					;;
+				ext[234]|btrfs)
+					_BOOTLOADER=extlinux
+					;;
+				*)
+					Echo_error "syslinux/extlinux doesn't support ${LB_BINARY_FILESYSTEM}"
+					exit 1
+					;;
+			esac
+			Check_package chroot /usr/bin/${_BOOTLOADER} ${_BOOTLOADER}
+			;;
 esac
 
 # Restoring cache
@@ -168,7 +176,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 		Chroot chroot "parted -s ${FREELO} set 1 boot on" || true
 		Chroot chroot "parted -s ${FREELO} set 1 lba off" || true
 
-		if [ "${LB_BOOTLOADER}" = "syslinux" ]
+		if [ "${LB_PRIMARY_BOOTLOADER}" = "syslinux" ]
 		then
 			dd if=chroot/usr/lib/SYSLINUX/mbr.bin of=${FREELO} bs=440 count=1
 		fi
@@ -180,7 +188,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 		parted -s "${FREELO}" set 1 boot on || true
 		parted -s "${FREELO}" set 1 lba off || true
 
-		if [ "${LB_BOOTLOADER}" = "syslinux" ]
+		if [ "${LB_PRIMARY_BOOTLOADER}" = "syslinux" ]
 		then
 			dd if=/usr/lib/SYSLINUX/mbr.bin of=${FREELO} bs=440 count=1
 		fi
@@ -246,7 +254,7 @@ cp -T ${CP_OPTIONS} binary/ chroot/binary.tmp
 
 FIXME()
 {
-if [ "${LB_BOOTLOADER}" = "grub" ]
+if [ "${LB_PRIMARY_BOOTLOADER}" = "grub" ]
 then
 
 cat > chroot/grub.sh << EOF

@@ -52,8 +52,15 @@ fi
 # Download sources
 Chroot chroot "dpkg --get-selections" | awk '{ print $1 }' > source-selection.txt
 
+echo "${LB_BOOTLOADERS}" | \
+while IFS="," read -r BOOTLOADER
+do
+  cat >> source-selection.txt << EOF
+  ${BOOTLOADER}
+EOF
+done
+
 cat >> source-selection.txt << EOF
-${LB_BOOTLOADER}
 live-build
 EOF
 

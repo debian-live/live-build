@@ -107,8 +107,10 @@ then
 	XORRISO_OPTIONS="${XORRISO_OPTIONS} -V \"${LB_ISO_VOLUME}\""
 fi
 
+LB_PRIMARY_BOOTLOADER=$(echo "${LB_BOOTLOADERS}" | awk -F, '{ print $1 }')
+
 # Handle xorriso architecture specific options
-case "${LB_BOOTLOADER}" in
+case "${LB_PRIMARY_BOOTLOADER}" in
 	grub)
 		XORRISO_OPTIONS="${XORRISO_OPTIONS} -no-emul-boot -boot-load-size 4 -boot-info-table"
 		XORRISO_OPTIONS="${XORRISO_OPTIONS} -b boot/grub/stage2_eltorito"
@@ -149,7 +151,7 @@ esac
 #	XORRISO_OPTIONS="${XORRISO_OPTIONS} -m ${XORRISO_EXCLUDE}"
 #fi
 
-if [ "${LB_BOOTLOADER}" = "grub-pc" ]
+if [ "${LB_PRIMARY_BOOTLOADER}" = "grub-pc" ]
 then
 
 cat > binary.sh << EOF
