@@ -1,3 +1,20 @@
+live-build (5.0~a11-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Getting rid of hard-coded release numbers and using /etc/os-release
+    instead (Closes: #790860).
+  * Updating stat calls to also give the right result in container setups,
+    thanks to Kristian Klausen <klausenbusk@hotmail.com> (Closes:
+    #789300).
+
+  [ Maximilian Mehnert ]
+  * Correct syslinux mbr.bin path.
+
+  [ Daniel Baumann ]
+  * Wrap and sort debian control file.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 23 Aug 2015 10:57:38 +0200
+
 live-build (5.0~a10-1) unstable; urgency=low
 
   [ Daniel Baumann ]

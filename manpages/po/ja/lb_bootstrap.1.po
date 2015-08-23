@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build\n"
-"POT-Creation-Date: 2015-08-10 19:36+0200\n"
+"POT-Creation-Date: 2015-08-23 10:57+0200\n"
 "PO-Revision-Date: 2014-08-29 06:25+0900\n"
 "Last-Translator: victory <victory.deb@gmail.com>\n"
 "Language-Team: none\n"
@@ -27,7 +27,7 @@ msgstr "LIVE-BUILD"
 #: en/lb_chroot.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
 #: en/live-build.7:1
 #, fuzzy, no-wrap
-msgid "2015-08-10"
+msgid "2015-08-23"
 msgstr "2015-02-07"
 
 #. type: TH
@@ -35,7 +35,7 @@ msgstr "2015-02-07"
 #: en/lb_chroot.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
 #: en/live-build.7:1
 #, fuzzy, no-wrap
-msgid "5.0~a10-1"
+msgid "5.0~a11-1"
 msgstr "5.0~a3-1"
 
 #. type: TH
