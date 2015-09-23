@@ -193,7 +193,7 @@ case "${LB_BUILD_WITH_CHROOT}" in
 	false)
 		parted -s ${FREELO} mklabel ${PARTITION_TABLE_TYPE} || true
 		if [ "x${LB_HDD_PARTITION_START}" = "x" ];
-                then
+		then
 			parted -a optimal -s ${FREELO} mkpart primary ${PARTITION_TYPE}\
 				0% 100% || true
 		else
