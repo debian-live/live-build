@@ -172,12 +172,12 @@ msgstr ""
 #. type: Plain text
 #: en/lb_clean.1:5
 msgid "B<lb clean> - Clean build directory"
-msgstr ""
+msgstr "B<lb clean> - Nettoie le répertoire de construction"
 
 #. type: Plain text
 #: en/lb_clean.1:8
 msgid "B<lb clean> [I<live-build options>]"
-msgstr ""
+msgstr "B<lb clean> [I<live-build options>]"
 
 #. type: Plain text
 #: en/lb_clean.1:11
@@ -185,6 +185,8 @@ msgid ""
 "B<lb clean> is a high-level command (porcelain) of I<live-build>(7), the "
 "live systems tool suite."
 msgstr ""
+"B<lb clean> est une commande de haut-niveau (porcelaine) de I<live-"
+"build>(7), la suite d'outils de live-systems."
 
 #.  FIXME
 #.  FIXME
@@ -195,6 +197,10 @@ msgid ""
 "removes the build directories, and removes some other files including stage "
 "files, and any detritus left behind by other live-build commands."
 msgstr ""
+"B<lb clean> est responsable du nettoyage après la construction d'un système. "
+"Il supprime les répertoires de constructions, et supprime d'autres fichiers "
+"y compris les fichiers de stage, et tout détritus oublié par les autres "
+"commandes live-build."
 
 #. type: Plain text
 #: en/lb_clean.1:18
@@ -203,13 +209,16 @@ msgid ""
 "build options. See I<live-build>(7) for a complete list of all generic live-"
 "build options."
 msgstr ""
+"En plus de ses options spécifiques B<lb clean> fonctionne avec toutes les "
+"options génériques de live-build. Voir I<live-build>(7) pour une liste "
+"complète de toutes les options génériques de live-build options."
 
 #.  FIXME
 #. type: IP
 #: en/lb_clean.1:20
 #, no-wrap
 msgid "B<--all>"
-msgstr ""
+msgstr "B<--all>"
 
 #. type: Plain text
 #: en/lb_clean.1:22
@@ -217,57 +226,64 @@ msgid ""
 "removes chroot, binary, stage, and source. The cache directory is kept. This "
 "is the default operation and will be performed if no argument is given."
 msgstr ""
+"supprimes le chroot, le binaire, le stage et la source. Le répertoire de "
+"cache est conservé. C'est l'opération par défaut et sera activé si aucun "
+"argument n'est donné."
 
 #. type: IP
 #: en/lb_clean.1:22
 #, no-wrap
 msgid "B<--cache>"
-msgstr ""
+msgstr "B<--cache>"
 
 #. type: Plain text
 #: en/lb_clean.1:24
 msgid "removes the cache directories."
-msgstr ""
+msgstr "supprime les répertoires de cache."
 
 #. type: IP
 #: en/lb_clean.1:24
 #, no-wrap
 msgid "B<--chroot>"
-msgstr ""
+msgstr "B<--chroot>"
 
 #. type: Plain text
 #: en/lb_clean.1:26
 msgid "unmounts and removes the chroot directory."
-msgstr ""
+msgstr "démonte et retire le répertoire de chroot."
 
 #. type: IP
 #: en/lb_clean.1:26
 #, no-wrap
 msgid "B<--binary>"
-msgstr ""
+msgstr "B<--binary>"
 
 #. type: Plain text
 #: en/lb_clean.1:28
 msgid ""
 "removes all binary related caches, files, directories, and stages files."
 msgstr ""
+"supprime tous les caches, fichiers, répertoires et fichiers de stage "
+"relatifs au binaire."
 
 #. type: IP
 #: en/lb_clean.1:28
 #, no-wrap
 msgid "B<--purge>"
-msgstr ""
+msgstr "B<--purge>"
 
 #. type: Plain text
 #: en/lb_clean.1:30
 msgid "removes everything, including all caches. The config directory is kept."
 msgstr ""
+"supprime tout, y compris tous les caches. Le répertoire de configuration est "
+"conservé."
 
 #. type: IP
 #: en/lb_clean.1:30
 #, no-wrap
 msgid "B<--remove>"
-msgstr ""
+msgstr "B<--remove>"
 
 #. type: Plain text
 #: en/lb_clean.1:32
@@ -275,33 +291,37 @@ msgid ""
 "removes everything, including package cache but not stage cache. The config "
 "directory is kept."
 msgstr ""
+"supprime tout, y compris le cache des paquets mais pas le cache de stage. Le "
+"répertoire de configuration est conservé."
 
 #. type: IP
 #: en/lb_clean.1:32
 #, no-wrap
 msgid "B<--stage>"
-msgstr ""
+msgstr "B<--stage>"
 
 #. type: Plain text
 #: en/lb_clean.1:34
 msgid "removes all stage files."
-msgstr ""
+msgstr "supprime tous les fichiers de stage."
 
 #. type: IP
 #: en/lb_clean.1:34
 #, no-wrap
 msgid "B<--source>"
-msgstr ""
+msgstr "B<--source>"
 
 #.  FIXME
 #. type: Plain text
 #: en/lb_clean.1:37
 msgid "removes all source related caches, files, directories, and stage files."
 msgstr ""
+"supprime tous les caches, fichiers, répertoires et fichiers de stage "
+"relatifs aux sources."
 
 #.  FIXME
 #. type: IP
 #: en/lb_clean.1:40
 #, no-wrap
 msgid "B<auto/clean>"
-msgstr ""
+msgstr "B<auto/clean>"

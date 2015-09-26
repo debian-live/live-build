@@ -6,46 +6,51 @@
 .TH LIVE\-BUILD 1 26.09.2015 5.0~a11\-1 "Projet Live Systems"
 
 .SH NOM
-\fBlb clean\fP \- Clean build directory
+\fBlb clean\fP \- Nettoie le répertoire de construction
 
 .SH SYNOPSIS
 \fBlb clean\fP [\fIlive\-build options\fP]
 
 .SH DESCRIPTION
-\fBlb clean\fP is a high\-level command (porcelain) of \fIlive\-build\fP(7), the
-live systems tool suite.
+\fBlb clean\fP est une commande de haut\-niveau (porcelaine) de
+\fIlive\-build\fP(7), la suite d'outils de live\-systems.
 .PP
 .\" FIXME
 .\" FIXME
-\fBlb clean\fP is responsible for cleaning up after a system is built. It
-removes the build directories, and removes some other files including stage
-files, and any detritus left behind by other live\-build commands.
+\fBlb clean\fP est responsable du nettoyage après la construction d'un
+système. Il supprime les répertoires de constructions, et supprime d'autres
+fichiers y compris les fichiers de stage, et tout détritus oublié par les
+autres commandes live\-build.
 
 .SH OPTIONS
-In addition to its specific options \fBlb clean\fP understands all generic
-live\-build options. See \fIlive\-build\fP(7) for a complete list of all generic
-live\-build options.
+En plus de ses options spécifiques \fBlb clean\fP fonctionne avec toutes les
+options génériques de live\-build. Voir \fIlive\-build\fP(7) pour une liste
+complète de toutes les options génériques de live\-build options.
 .PP
 .\" FIXME
 .IP \fB\-\-all\fP 4
-removes chroot, binary, stage, and source. The cache directory is kept. This
-is the default operation and will be performed if no argument is given.
+supprimes le chroot, le binaire, le stage et la source. Le répertoire de
+cache est conservé. C'est l'opération par défaut et sera activé si aucun
+argument n'est donné.
 .IP \fB\-\-cache\fP 4
-removes the cache directories.
+supprime les répertoires de cache.
 .IP \fB\-\-chroot\fP 4
-unmounts and removes the chroot directory.
+démonte et retire le répertoire de chroot.
 .IP \fB\-\-binary\fP 4
-removes all binary related caches, files, directories, and stages files.
+supprime tous les caches, fichiers, répertoires et fichiers de stage
+relatifs au binaire.
 .IP \fB\-\-purge\fP 4
-removes everything, including all caches. The config directory is kept.
+supprime tout, y compris tous les caches. Le répertoire de configuration est
+conservé.
 .IP \fB\-\-remove\fP 4
-removes everything, including package cache but not stage cache. The config
-directory is kept.
+supprime tout, y compris le cache des paquets mais pas le cache de stage. Le
+répertoire de configuration est conservé.
 .IP \fB\-\-stage\fP 4
-removes all stage files.
+supprime tous les fichiers de stage.
 .IP \fB\-\-source\fP 4
 .\" FIXME
-removes all source related caches, files, directories, and stage files.
+supprime tous les caches, fichiers, répertoires et fichiers de stage
+relatifs aux sources.
 
 .SH FICHIERS
 .\" FIXME
