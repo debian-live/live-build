@@ -105,7 +105,7 @@ msgstr "I<live-build>(7)"
 #: en/lb_chroot.1:24 en/lb_clean.1:47 en/lb_config.1:477 en/lb_source.1:24
 #: en/live-build.7:223
 msgid "This program is a part of live-build."
-msgstr "Ce programme est une partiede live-build."
+msgstr "Ce programme est une partie de live-build."
 
 #. type: SH
 #: en/lb.1:27 en/lb_binary.1:25 en/lb_bootstrap.1:25 en/lb_build.1:27
@@ -173,11 +173,13 @@ msgstr ""
 #: en/lb_build.1:5
 msgid "B<lb build> - Complete the bootstrap, chroot, binary, and source stages"
 msgstr ""
+"B<lb build> - Complète les stages d'amorçage (bootstrap), de chroot, "
+"binaire, et source"
 
 #. type: Plain text
 #: en/lb_build.1:8
 msgid "B<lb build> [I<live-build options>]"
-msgstr ""
+msgstr "B<lb build> [I<live-build options>]"
 
 #. type: Plain text
 #: en/lb_build.1:11
@@ -185,6 +187,8 @@ msgid ""
 "B<lb build> is a high-level command (porcelain) of I<live-build>(7), the "
 "live systems tool suite."
 msgstr ""
+"B<lb build> est une commande de haut-niveau (porcelaine) de I<live-"
+"build>(7), la suite d'outils de live-systems."
 
 #. type: Plain text
 #: en/lb_build.1:13
@@ -192,6 +196,8 @@ msgid ""
 "B<lb build> calls all necessary live-build programs in the correct order to "
 "complete the bootstrap, chroot, binary, and source stages."
 msgstr ""
+"B<lb build> appelle tous les programmes live-build nécessaires dans le bon "
+"ordre pour complèter les stages d'amorçage, de chroot, binaire et source."
 
 #. type: Plain text
 #: en/lb_build.1:16
@@ -200,10 +206,13 @@ msgid ""
 "options. See I<live-build>(7) for a complete list of all generic live-build "
 "options."
 msgstr ""
+"B<lb build>n'a pas d'options spécifiques mais fonctionne avec toutes les "
+"options génériques de live-build. Voir I<live-build>(7) pour une liste "
+"complète de toutes les options génériques de live-build options."
 
 #.  FIXME
 #. type: IP
 #: en/lb_build.1:19
 #, no-wrap
 msgid "B<auto/build>"
-msgstr ""
+msgstr "B<auto/build>"
