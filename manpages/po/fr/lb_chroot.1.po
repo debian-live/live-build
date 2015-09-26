@@ -179,12 +179,12 @@ msgstr ""
 #. type: Plain text
 #: en/lb_chroot.1:5
 msgid "B<lb chroot> - Complete the chroot stage"
-msgstr ""
+msgstr "B<lb chroot> - Complète le stage de chroot"
 
 #. type: Plain text
 #: en/lb_chroot.1:8
 msgid "B<lb chroot> [I<live-build options>]"
-msgstr ""
+msgstr "B<lb chroot> [I<live-build options>]"
 
 #. type: Plain text
 #: en/lb_chroot.1:11
@@ -192,6 +192,8 @@ msgid ""
 "B<lb chroot> is a high-level command (porcelain) of I<live-build>(7), the "
 "live systems tool suite."
 msgstr ""
+"B<lb chroot> est une commande de haut-niveau (porcelaine) de I<live-"
+"build>(7), la suite d'outils de live-systems."
 
 #. type: Plain text
 #: en/lb_chroot.1:13
@@ -199,6 +201,8 @@ msgid ""
 "B<lb chroot> calls all necessary live-build programs in the correct order to "
 "complete the chroot stage."
 msgstr ""
+"B<lb chroot> appelle tous les programmes live-build nécessaires dans le bon "
+"ordre pour complèter le stage de source."
 
 #. type: Plain text
 #: en/lb_chroot.1:16
@@ -207,3 +211,6 @@ msgid ""
 "options. See I<live-build>(7) for a complete list of all generic live-build "
 "options."
 msgstr ""
+"B<lb chroot>n'a pas d'options spécifiques mais fonctionne avec toutes les "
+"options génériques de live-build. Voir I<live-build>(7) pour une liste "
+"complète de toutes les options génériques de live-build options."
