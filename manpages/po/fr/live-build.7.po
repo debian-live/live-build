@@ -177,13 +177,9 @@ msgstr "B<--force>"
 
 #. type: IP
 #: en/lb_config.1:421 en/live-build.7:40
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "B<--quiet>"
-msgstr ""
-"#-#-#-#-#  live-build.7.po (live-build 5.0~a11-1)  #-#-#-#-#\n"
-"B<--quiet>\n"
-"#-#-#-#-#  lb_config.1.po (live-build 5.0~a11-1)  #-#-#-#-#\n"
-"<--quiet>"
+msgstr "B<--quiet>"
 
 #. type: IP
 #: en/lb_config.1:451 en/live-build.7:42
