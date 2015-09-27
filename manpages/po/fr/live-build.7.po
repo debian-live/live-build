@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build 5.0~a11-1\n"
-"POT-Creation-Date: 2015-09-26 14:42+0200\n"
+"POT-Creation-Date: 2015-09-27 12:14+0200\n"
 "PO-Revision-Date: 2015-09-20 14:53+0200\n"
 "Last-Translator: Olivier Humbert <trebmuh@tuxfamily.org>\n"
 "Language-Team: none\n"
@@ -27,8 +27,8 @@ msgstr "LIVE-BUILD"
 #: en/lb_chroot.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
 #: en/live-build.7:1
 #, no-wrap
-msgid "2015-09-26"
-msgstr "26.09.2015"
+msgid "2015-09-27"
+msgstr "27.09.2015"
 
 #. type: TH
 #: en/lb.1:1 en/lb_binary.1:1 en/lb_bootstrap.1:1 en/lb_build.1:1
@@ -167,40 +167,44 @@ msgstr ""
 #: en/lb_config.1:302 en/live-build.7:36
 #, no-wrap
 msgid "B<--debug>"
-msgstr ""
+msgstr "B<--debug>"
 
 #. type: IP
 #: en/lb_config.1:314 en/live-build.7:38
 #, no-wrap
 msgid "B<--force>"
-msgstr ""
+msgstr "B<--force>"
 
 #. type: IP
 #: en/lb_config.1:421 en/live-build.7:40
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "B<--quiet>"
 msgstr ""
+"#-#-#-#-#  live-build.7.po (live-build 5.0~a11-1)  #-#-#-#-#\n"
+"B<--quiet>\n"
+"#-#-#-#-#  lb_config.1.po (live-build 5.0~a11-1)  #-#-#-#-#\n"
+"<--quiet>"
 
 #. type: IP
 #: en/lb_config.1:451 en/live-build.7:42
 #, no-wrap
 msgid "B<--verbose>"
-msgstr ""
+msgstr "B<--verbose>"
 
 #. type: Plain text
 #: en/lb_config.1:473 en/live-build.7:219
 msgid "I<live-boot>(7)"
-msgstr ""
+msgstr "I<live-boot>(7)"
 
 #. type: Plain text
 #: en/lb_config.1:475 en/live-build.7:221
 msgid "I<live-config>(7)"
-msgstr ""
+msgstr "I<live-config>(7)"
 
 #. type: Plain text
 #: en/live-build.7:5
 msgid "B<live-build> - the live systems tool suite"
-msgstr ""
+msgstr "B<live-build> - la suite d'outils live systems"
 
 #.  FIXME
 #.  FIXME
@@ -211,6 +215,9 @@ msgid ""
 "breakpoints>] [B<--conffile>] [B<--debug>] [B<--force>] [B<--quiet>] [B<--"
 "verbose>]"
 msgstr ""
+"B<lb >I<COMMAND> [B<-h|--help>] [B<-u|--usage>] [B<-v|--version>] [B<--"
+"breakpoints>] [B<--conffile>] [B<--debug>] [B<--force>] [B<--quiet>] [B<--"
+"verbose>]"
 
 #.  FIXME
 #. type: Plain text
@@ -220,11 +227,15 @@ msgid ""
 "live-build is a tool suite that uses a configuration directory to completely "
 "automate and customize all aspects of building a Live image."
 msgstr ""
+"live-build est un ensemble de scripts pour construire des images de système "
+"live. L'idée derrière live-build est une suite d'outils qui utilise un "
+"répertoire de configuration pour automatiser complètement et personnaliser "
+"tous les aspects de la construction d'une image Live."
 
 #. type: Plain text
 #: en/live-build.7:16
 msgid "The I<COMMAND> is a name of a live-build command (see below)."
-msgstr ""
+msgstr "La I<COMMANDE> est un nom d'une commande live-build (voir ci-dessous)."
 
 #.  FIXME
 #. type: Plain text
@@ -234,58 +245,63 @@ msgid ""
 "individual manpages for each helper and in the manual at E<lt>I<http://live-"
 "systems.org/manual/>E<gt>."
 msgstr ""
+"Davantage de documentation à propos de la façon d'utiliser live-build est "
+"disponible dans les pages de manuel individuelles de chaque assistant ainsi "
+"dans le manual à E<lt>I<http://live-systems.org/manual/>E<gt>."
 
 #.  FIXME
 #. type: SS
 #: en/live-build.7:22
 #, no-wrap
 msgid "Shared live-build options"
-msgstr ""
+msgstr "Options live-build partagées"
 
 #. type: Plain text
 #: en/live-build.7:24
 msgid ""
 "The following command line options are supported by all live-build programs."
 msgstr ""
+"Les options en ligne de commande suivantes sont supportées par l'ensemble "
+"des programmes live-build."
 
 #. type: IP
 #: en/live-build.7:24
 #, no-wrap
 msgid "B<-h, --help>"
-msgstr ""
+msgstr "B<-h, --help>"
 
 #. type: Plain text
 #: en/live-build.7:26
 msgid "display help and exit."
-msgstr ""
+msgstr "affiche l'aide et quitte"
 
 #. type: IP
 #: en/live-build.7:26
 #, no-wrap
 msgid "B<-u, --usage>"
-msgstr ""
+msgstr "B<-u, --usage>"
 
 #. type: Plain text
 #: en/live-build.7:28
 msgid "show usage and exit."
-msgstr ""
+msgstr "affiche l'utilisation et quitte"
 
 #. type: IP
 #: en/live-build.7:28
 #, no-wrap
 msgid "B<-v, --version>"
-msgstr ""
+msgstr "B<-v, --version>"
 
 #. type: Plain text
 #: en/live-build.7:30
 msgid "output version information and exit."
-msgstr ""
+msgstr "affiche les informations de version et quitte"
 
 #. type: SS
 #: en/live-build.7:30
 #, no-wrap
 msgid "Common live-build options"
-msgstr ""
+msgstr "Options live-build communes"
 
 #. type: Plain text
 #: en/live-build.7:32
@@ -294,55 +310,58 @@ msgid ""
 "programs. See the man page of each program for a complete explanation of "
 "what each option does."
 msgstr ""
+"Les options de lignes de commandes suivantes sont supportées par la plupart "
+"des programmes live-build programs. Voir la page de manuel e chaque "
+"programme pour une explication complète de ce que chaque option fait."
 
 #. type: IP
 #: en/live-build.7:32
 #, no-wrap
 msgid "B<--breakpoints>"
-msgstr ""
+msgstr "B<--breakpoints>"
 
 #. type: Plain text
 #: en/live-build.7:34
 msgid "run with breakpoints."
-msgstr ""
+msgstr "lance avec des points d'arrêt (breakpoints)."
 
 #. type: IP
 #: en/live-build.7:34
 #, no-wrap
 msgid "B<--conffile>"
-msgstr ""
+msgstr "B<--conffile>"
 
 #. type: Plain text
 #: en/live-build.7:36
 msgid "use custom configuration file."
-msgstr ""
+msgstr "utilise un fichier de configuration personnalisé."
 
 #. type: Plain text
 #: en/live-build.7:38
 msgid "show debug information."
-msgstr ""
+msgstr "affiche des informations de déboguage."
 
 #. type: Plain text
 #: en/live-build.7:40
 msgid "force helper execution, even if stage file exists."
-msgstr ""
+msgstr "force l'exécution d'un assistant, même si le fichier de stage existe."
 
 #. type: Plain text
 #: en/live-build.7:42
 msgid "be quiet."
-msgstr ""
+msgstr "soit calme."
 
 #.  FIXME
 #. type: Plain text
 #: en/live-build.7:45
 msgid "be verbose."
-msgstr ""
+msgstr "soit verbeux."
 
 #. type: SH
 #: en/live-build.7:46
 #, no-wrap
 msgid "LIVE-BUILD COMMANDS"
-msgstr ""
+msgstr "COMMANDES LIVE-BUILD"
 
 #.  FIXME
 #. type: Plain text
@@ -351,6 +370,8 @@ msgid ""
 "We divide live-build into high level (\"porcelain\") commands and low level "
 "(\"plumbing\") commands."
 msgstr ""
+"Nous divisons live-build entre des commandes de haut-niveau (\"porcelaine\") "
+"et de bas-niveau (\"plomberie\")."
 
 #.  FIXME
 #. type: Plain text
@@ -359,12 +380,15 @@ msgid ""
 "Here is the complete list of all available live-build commands. See their "
 "man pages for additional documentation."
 msgstr ""
+"Voici une liste complète des toutes les commandes live-build disponibles. "
+"Consultez leurs pages de manuel pour obtenir de la documentation "
+"additionnelle."
 
 #. type: SH
 #: en/live-build.7:54
 #, no-wrap
 msgid "HIGH-LEVEL COMMANDS (PORCELAIN)"
-msgstr ""
+msgstr "COMMANDES HAUT-NIVEAU (PORCELAINE)"
 
 #.  FIXME
 #. type: Plain text
@@ -373,135 +397,137 @@ msgid ""
 "We separate the porcelain commands into the main commands and some ancillary "
 "user utilities."
 msgstr ""
+"Nous séparons les commandes porcelaine en commandes principales et en "
+"utilitaires utilisateur auxilaires."
 
 #. type: SS
 #: en/live-build.7:57
 #, no-wrap
 msgid "Main porcelain commands"
-msgstr ""
+msgstr "Commandes porcelaine principales"
 
 #. type: IP
 #: en/live-build.7:58
 #, no-wrap
 msgid "B<lb_config>(1)"
-msgstr ""
+msgstr "B<lb_config>(1)"
 
 #. type: Plain text
 #: en/live-build.7:60
 msgid "create configuration for live-build"
-msgstr ""
+msgstr "crée une configuration pour live-build"
 
 #. type: IP
 #: en/live-build.7:60
 #, no-wrap
 msgid "B<lb_bootstrap>(1)"
-msgstr ""
+msgstr "B<lb_bootstrap>(1)"
 
 #. type: Plain text
 #: en/live-build.7:62
 msgid "create the first stage by bootstrapping a basic debian system"
-msgstr ""
+msgstr "crée le premier stage en amorçant un système debian basique"
 
 #. type: IP
 #: en/live-build.7:62
 #, no-wrap
 msgid "B<lb_chroot>(1)"
-msgstr ""
+msgstr "B<lb_chroot>(1)"
 
 #. type: Plain text
 #: en/live-build.7:64
 msgid "create the second stage by customizing the chroot"
-msgstr ""
+msgstr "crée un deuxième stage en personnalisant le chroot"
 
 #. type: IP
 #: en/live-build.7:64
 #, no-wrap
 msgid "B<lb_binary>(1)"
-msgstr ""
+msgstr "B<lb_binary>(1)"
 
 #. type: Plain text
 #: en/live-build.7:66
 msgid "create the third stage by generating a binary image"
-msgstr ""
+msgstr "crée le troisième stage en générant une image binaire"
 
 #. type: IP
 #: en/live-build.7:66
 #, no-wrap
 msgid "B<lb_source>(1)"
-msgstr ""
+msgstr "B<lb_source>(1)"
 
 #. type: Plain text
 #: en/live-build.7:68
 msgid "create the optional fourth stage by generating a source image"
-msgstr ""
+msgstr "crée le quatrième stage optionel en générant une image source"
 
 #. type: IP
 #: en/live-build.7:68
 #, no-wrap
 msgid "B<lb_clean>(1)"
-msgstr ""
+msgstr "B<lb_clean>(1)"
 
 #. type: Plain text
 #: en/live-build.7:70
 msgid "clean up system build directories"
-msgstr ""
+msgstr "nettoie les répertoires de construction du système"
 
 #. type: SS
 #: en/live-build.7:70
 #, no-wrap
 msgid "Ancillary Commands"
-msgstr ""
+msgstr "Commandes auxilliaires"
 
 #. type: IP
 #: en/live-build.7:71
 #, no-wrap
 msgid "B<lb>(1)"
-msgstr ""
+msgstr "B<lb>(1)"
 
 #. type: Plain text
 #: en/live-build.7:73
 msgid "generic live-build wrapper"
-msgstr ""
+msgstr "emballage live-build générique"
 
 #. type: IP
 #: en/live-build.7:73
 #, no-wrap
 msgid "B<lb_build>(1)"
-msgstr ""
+msgstr "B<lb_build>(1)"
 
 #. type: Plain text
 #: en/live-build.7:75
 msgid "alias for all stages"
-msgstr ""
+msgstr "alias pour tous les stages"
 
 #. type: IP
 #: en/live-build.7:75
 #, no-wrap
 msgid "B<lb_local>(1)"
-msgstr ""
+msgstr "B<lb_local>(1)"
 
 #. type: Plain text
 #: en/live-build.7:77
 msgid "helper for using a local live-build"
-msgstr ""
+msgstr "assistant pour l'utilisation d'un live-build local"
 
 #. type: IP
 #: en/live-build.7:77
 #, no-wrap
 msgid "B<lb_testroot>(1)"
-msgstr ""
+msgstr "B<lb_testroot>(1)"
 
 #.  FIXME
 #. type: Plain text
 #: en/live-build.7:80
 msgid "ensure that a system is built as root"
-msgstr ""
+msgstr "s'assure que le système est construit en tant qu'administrateur (root)"
 
 #. type: SH
 #: en/live-build.7:81
 #, no-wrap
 msgid "LOW-LEVEL COMMANDS (PLUMBING)"
-msgstr ""
+msgstr "COMMANDES BAS-NIVEAU (PLOMBERIE)"
 
 #.  FIXME
 #. type: Plain text
@@ -514,6 +540,13 @@ msgid ""
 "live-build commands in your own scripts, then the plumbings might be of "
 "interest for you."
 msgstr ""
+"Le travail réel de live-build est implémenté dans les commandes bas-niveau, "
+"appelées plomberie. Elles ne sont pas supposées être utilisées par les "
+"utilisateurs finaux, ils devraient rester avec les porcelaines puisqu'elles "
+"s'assurent que toutes les différentes commandes de plomberie sont exécutées "
+"dans le bon ordre. Toutefois, si vous prévoyez de ré-utiliser les commandes "
+"live-build dans vos propres scripts, alors les plomberies pourraient vous "
+"intéresser."
 
 #. type: Plain text
 #: en/live-build.7:86
@@ -523,626 +556,631 @@ msgid ""
 "commands. The interface to Porcelain commands on the other hand are subject "
 "to change in order to improve the end user experience."
 msgstr ""
+"Notez que l'interface (ensemble des options et des semantiques) de ces "
+"commandes bas-niveau sont pensées pour être beaucoup plus stables que les "
+"commandes de niveau Porcelaine. D'un autre côté, l'interface des commandes "
+"Porcelaine sont sujettes à changement afin d'améliorer l'expérience de "
+"l'utilisateur final."
 
 #. type: SS
 #: en/live-build.7:86
 #, no-wrap
 msgid "Bootstrap commands"
-msgstr ""
+msgstr "Commandes d'amorçage"
 
 #. type: IP
 #: en/live-build.7:87
 #, no-wrap
 msgid "B<lb_bootstrap_cache>(1)"
-msgstr ""
+msgstr "B<lb_bootstrap_cache>(1)"
 
 #. type: Plain text
 #: en/live-build.7:89
 msgid "cache bootstrap stage"
-msgstr ""
+msgstr "stage d'amorçage cache"
 
 #. type: IP
 #: en/live-build.7:89
 #, no-wrap
 msgid "B<lb_bootstrap_debootstrap>(1)"
-msgstr ""
+msgstr "B<lb_bootstrap_debootstrap>(1)"
 
 #. type: Plain text
 #: en/live-build.7:91
 msgid "bootstrap a Debian system with debootstrap(8)"
-msgstr ""
+msgstr "amorçcer un système Debian avec debootstrap(8)"
 
 #. type: SS
 #: en/live-build.7:91
 #, no-wrap
 msgid "Chroot commands"
-msgstr ""
+msgstr "Commandes chroot"
 
 #. type: IP
 #: en/live-build.7:92
 #, no-wrap
 msgid "B<lb_chroot_apt>(1)"
-msgstr ""
+msgstr "B<lb_chroot_apt>(1)"
 
 #. type: Plain text
 #: en/live-build.7:94
 msgid "manage /etc/apt/apt.conf"
-msgstr ""
+msgstr "gère /etc/apt/apt.conf"
 
 #. type: IP
 #: en/live-build.7:94
 #, no-wrap
 msgid "B<lb_chroot_cache>(1)"
-msgstr ""
+msgstr "B<lb_chroot_cache>(1)"
 
 #. type: Plain text
 #: en/live-build.7:96
 msgid "cache chroot stage"
-msgstr ""
+msgstr "stage de chroot cache"
 
 #. type: IP
 #: en/live-build.7:96
 #, no-wrap
 msgid "B<lb_chroot_debianchroot>(1)"
-msgstr ""
+msgstr "B<lb_chroot_debianchroot>(1)"
 
 #. type: Plain text
 #: en/live-build.7:98
 msgid "manage /etc/debian_chroot"
-msgstr ""
+msgstr "gère /etc/debian_chroot"
 
 #. type: IP
 #: en/live-build.7:98
 #, no-wrap
 msgid "B<lb_chroot_devpts>(1)"
-msgstr ""
+msgstr "B<lb_chroot_devpts>(1)"
 
 #. type: Plain text
 #: en/live-build.7:100
 msgid "mount /dev/pts"
-msgstr ""
+msgstr "monte /dev/pts"
 
 #. type: IP
 #: en/live-build.7:100
 #, no-wrap
 msgid "B<lb_chroot_dpkg>(1)"
-msgstr ""
+msgstr "B<lb_chroot_dpkg>(1)"
 
 #. type: Plain text
 #: en/live-build.7:102
 msgid "manage /sbin/dpkg"
-msgstr ""
+msgstr "gère /sbin/dpkg"
 
 #. type: IP
 #: en/live-build.7:102
 #, no-wrap
 msgid "B<lb_chroot_hacks>(1)"
-msgstr ""
+msgstr "B<lb_chroot_hacks>(1)"
 
 #. type: Plain text
 #: en/live-build.7:104
 msgid "execute hacks in chroot"
-msgstr ""
+msgstr "exécute les hacks dans le chroot"
 
 #. type: IP
 #: en/live-build.7:104
 #, no-wrap
 msgid "B<lb_chroot_hostname>(1)"
-msgstr ""
+msgstr "B<lb_chroot_hostname>(1)"
 
 #. type: Plain text
 #: en/live-build.7:106
 msgid "manage /bin/hostname"
-msgstr ""
+msgstr "gère /bin/hostname"
 
 #. type: IP
 #: en/live-build.7:106
 #, no-wrap
 msgid "B<lb_chroot_hosts>(1)"
-msgstr ""
+msgstr "B<lb_chroot_hosts>(1)"
 
 #. type: Plain text
 #: en/live-build.7:108
 msgid "manage /etc/hosts"
-msgstr ""
+msgstr "gère /etc/hosts"
 
 #. type: IP
 #: en/live-build.7:108
 #, no-wrap
 msgid "B<lb_chroot_install-packages>(1)"
-msgstr ""
+msgstr "B<lb_chroot_install-packages>(1)"
 
 #. type: Plain text
 #: en/live-build.7:110
 msgid "install queued packages into chroot"
-msgstr ""
+msgstr "installe les paquets en attente dans le chroot"
 
 #. type: IP
 #: en/live-build.7:110
 #, no-wrap
 msgid "B<lb_chroot_interactive>(1)"
-msgstr ""
+msgstr "B<lb_chroot_interactive>(1)"
 
 #. type: Plain text
 #: en/live-build.7:112
 msgid "make build interactive"
-msgstr ""
+msgstr "rend la construction intéractive"
 
 #. type: IP
 #: en/live-build.7:112
 #, no-wrap
 msgid "B<lb_chroot_linux-image>(1)"
-msgstr ""
+msgstr "B<lb_chroot_linux-image>(1)"
 
 #. type: Plain text
 #: en/live-build.7:114
 msgid "manage /etc/kernel-img.conf"
-msgstr ""
+msgstr "gère /etc/kernel-img.conf"
 
 #. type: IP
 #: en/live-build.7:114
 #, no-wrap
 msgid "B<lb_chroot_hooks>(1)"
-msgstr ""
+msgstr "B<lb_chroot_hooks>(1)"
 
 #. type: Plain text
 #: en/live-build.7:116
 msgid "execute local hooks in chroot"
-msgstr ""
+msgstr "exécute les hooks locaux dans le chroot"
 
 #. type: IP
 #: en/live-build.7:116
 #, no-wrap
 msgid "B<lb_chroot_local-includes>(1)"
-msgstr ""
+msgstr "B<lb_chroot_local-includes>(1)"
 
 #. type: Plain text
 #: en/live-build.7:118
 msgid "copy local files into chroot"
-msgstr ""
+msgstr "copie les fichiers locaux dans le chroot"
 
 #. type: IP
 #: en/live-build.7:118
 #, no-wrap
 msgid "B<lb_chroot_packages>(1)"
-msgstr ""
+msgstr "B<lb_chroot_packages>(1)"
 
 #. type: Plain text
 #: en/live-build.7:120
 msgid "queue install of packages into chroot"
-msgstr ""
+msgstr "met en attente l'installation des paquets dans le chroot"
 
 #. type: IP
 #: en/live-build.7:120
 #, no-wrap
 msgid "B<lb_chroot_local-patches>(1)"
-msgstr ""
+msgstr "B<lb_chroot_local-patches>(1)"
 
 #. type: Plain text
 #: en/live-build.7:122
 msgid "apply local patches against chroot"
-msgstr ""
+msgstr "appliques les rustines locales dans le chroot"
 
 #. type: IP
 #: en/live-build.7:122
 #, no-wrap
 msgid "B<lb_chroot_local-preseed>(1)"
-msgstr ""
+msgstr "B<lb_chroot_local-preseed>(1)"
 
 #. type: Plain text
 #: en/live-build.7:124
 msgid "use debconf local preseeding file"
-msgstr ""
+msgstr "utilise un fichier de pré-configuration local debconf"
 
 #. type: IP
 #: en/live-build.7:124
 #, no-wrap
 msgid "B<lb_chroot_packagelists>(1)"
-msgstr ""
+msgstr "B<lb_chroot_packagelists>(1)"
 
 #. type: Plain text
 #: en/live-build.7:126
 msgid "queue install of package lists into chroot"
-msgstr ""
+msgstr "met en attente l'installation des listes de paquets dans le chroot"
 
 #. type: IP
 #: en/live-build.7:126
 #, no-wrap
 msgid "B<lb_chroot_proc>(1)"
-msgstr ""
+msgstr "B<lb_chroot_proc>(1)"
 
 #. type: Plain text
 #: en/live-build.7:128
 msgid "mount /proc"
-msgstr ""
+msgstr "monte /proc"
 
 #. type: IP
 #: en/live-build.7:128
 #, no-wrap
 msgid "B<lb_chroot_resolv>(1)"
-msgstr ""
+msgstr "B<lb_chroot_resolv>(1)"
 
 #. type: Plain text
 #: en/live-build.7:130
 msgid "manage /etc/resolv.conf"
-msgstr ""
+msgstr "gère /etc/resolv.conf"
 
 #. type: IP
 #: en/live-build.7:130
 #, no-wrap
 msgid "B<lb_chroot_selinuxfs>(1)"
-msgstr ""
+msgstr "B<lb_chroot_selinuxfs>(1)"
 
 #. type: Plain text
 #: en/live-build.7:132
 msgid "mount /selinux"
-msgstr ""
+msgstr "monte /selinux"
 
 #. type: IP
 #: en/live-build.7:132
 #, no-wrap
 msgid "B<lb_chroot_archives>(1)"
-msgstr ""
+msgstr "B<lb_chroot_archives>(1)"
 
 #. type: Plain text
 #: en/live-build.7:134
 msgid "manage /etc/apt/sources.list"
-msgstr ""
+msgstr "gère /etc/apt/sources.list"
 
 #. type: IP
 #: en/live-build.7:134
 #, no-wrap
 msgid "B<lb_chroot_sysfs>(1)"
-msgstr ""
+msgstr "B<lb_chroot_sysfs>(1)"
 
 #. type: Plain text
 #: en/live-build.7:136
 msgid "mount /sys"
-msgstr ""
+msgstr "gère /sys"
 
 #. type: IP
 #: en/live-build.7:136
 #, no-wrap
 msgid "B<lb_chroot_sysv-rc>(1)"
-msgstr ""
+msgstr "B<lb_chroot_sysv-rc>(1)"
 
 #. type: Plain text
 #: en/live-build.7:138
 msgid "manage /usr/sbin/policy-rc.d"
-msgstr ""
+msgstr "gère /usr/sbin/policy-rc.d"
 
 #. type: IP
 #: en/live-build.7:138
 #, no-wrap
 msgid "B<lb_chroot_task-lists>(1)"
-msgstr ""
+msgstr "B<lb_chroot_task-lists>(1)"
 
 #. type: Plain text
 #: en/live-build.7:140
 msgid "install task lists into chroot"
-msgstr ""
+msgstr "installe les listes de tâches dans le chroot"
 
 #. type: SS
 #: en/live-build.7:140
 #, no-wrap
 msgid "Binary commands"
-msgstr ""
+msgstr "Commandes binaires"
 
 #. type: IP
 #: en/live-build.7:141
 #, no-wrap
 msgid "B<lb_binary_chroot>(1)"
-msgstr ""
+msgstr "B<lb_binary_chroot>(1)"
 
 #. type: Plain text
 #: en/live-build.7:143
 msgid "copy chroot into chroot"
-msgstr ""
+msgstr "copie le chroot dans le chroot"
 
 #. type: IP
 #: en/live-build.7:143
 #, no-wrap
 msgid "B<lb_binary_debian-installer>(1)"
-msgstr ""
+msgstr "B<lb_binary_debian-installer>(1)"
 
 #. type: Plain text
 #: en/live-build.7:145
 msgid "install debian-installer into binary"
-msgstr ""
+msgstr "installe debian-installer dans le binaire"
 
 #. type: IP
 #: en/live-build.7:145
 #, no-wrap
 msgid "B<lb_binary_disk>(1)"
-msgstr ""
+msgstr "B<lb_binary_disk>(1)"
 
 #. type: Plain text
 #: en/live-build.7:147
 msgid "install disk information into binary"
-msgstr ""
+msgstr "installe les informations de disque dans le binaire"
 
 #. type: IP
 #: en/live-build.7:147
 #, no-wrap
 msgid "B<lb_binary_grub>(1)"
-msgstr ""
+msgstr "B<lb_binary_grub>(1)"
 
 #. type: Plain text
 #: en/live-build.7:149
 msgid "installs grub into binary"
-msgstr ""
+msgstr "installe grub dans le binaire"
 
 #. type: IP
 #: en/live-build.7:149
 #, no-wrap
 msgid "B<lb_binary_grub2>(1)"
-msgstr ""
+msgstr "B<lb_binary_grub2>(1)"
 
 #. type: Plain text
 #: en/live-build.7:151
 msgid "installs grub2 into binary"
-msgstr ""
+msgstr "installe grub2 dans le binaire"
 
 #. type: IP
 #: en/live-build.7:151
 #, no-wrap
 msgid "B<lb_binary_includes>(1)"
-msgstr ""
+msgstr "B<lb_binary_includes>(1)"
 
 #. type: Plain text
 #: en/live-build.7:153 en/live-build.7:161
 msgid "copy files into binary"
-msgstr ""
+msgstr "copie les fichiers dans le binaire"
 
 #. type: IP
 #: en/live-build.7:153
 #, no-wrap
 msgid "B<lb_binary_iso>(1)"
-msgstr ""
+msgstr "B<lb_binary_iso>(1)"
 
 #. type: Plain text
 #: en/live-build.7:155
 msgid "build iso binary image"
-msgstr ""
+msgstr "construit l'image binaire iso"
 
 #. type: IP
 #: en/live-build.7:155
 #, no-wrap
 msgid "B<lb_binary_linux-image>(1)"
-msgstr ""
+msgstr "B<lb_binary_linux-image>(1)"
 
 #. type: Plain text
 #: en/live-build.7:157
 msgid "install linux-image into binary"
-msgstr ""
+msgstr "installe linux-image dans le binaire"
 
 #. type: IP
 #: en/live-build.7:157
 #, no-wrap
 msgid "B<lb_binary_local-hooks>(1)"
-msgstr ""
+msgstr "B<lb_binary_local-hooks>(1)"
 
 #. type: Plain text
 #: en/live-build.7:159
 msgid "execute local hooks in binary"
-msgstr ""
+msgstr "exécute les hooks locaux dans le binaire"
 
 #. type: IP
 #: en/live-build.7:159
 #, no-wrap
 msgid "B<lb_binary_local-includes>(1)"
-msgstr ""
+msgstr "B<lb_binary_local-includes>(1)"
 
 #. type: IP
 #: en/live-build.7:161
 #, no-wrap
 msgid "B<lb_binary_local-packagelists>(1)"
-msgstr ""
+msgstr "B<lb_binary_local-packagelists>(1)"
 
 #. type: Plain text
 #: en/live-build.7:163
 msgid "install local package lists into binary"
-msgstr ""
+msgstr "installe les listes de paquet locaux dans le binaire"
 
 #. type: IP
 #: en/live-build.7:163
 #, no-wrap
 msgid "B<lb_binary_manifest>(1)"
-msgstr ""
+msgstr "B<lb_binary_manifest>(1)"
 
 #. type: Plain text
 #: en/live-build.7:165
 msgid "create manifest"
-msgstr ""
+msgstr "crée le manifeste"
 
 #. type: IP
 #: en/live-build.7:165
 #, no-wrap
 msgid "B<lb_binary_checksums>(1)"
-msgstr ""
+msgstr "B<lb_binary_checksums>(1)"
 
 #. type: Plain text
 #: en/live-build.7:167
 msgid "create binary checksums (md5, sha1, and/or sha256)"
-msgstr ""
+msgstr "crée les sommes de vérification binaires (md5, sha1, et/ou sha256)"
 
 #. type: IP
 #: en/live-build.7:167
 #, no-wrap
 msgid "B<lb_binary_memtest>(1)"
-msgstr ""
+msgstr "B<lb_binary_memtest>(1)"
 
 #. type: Plain text
 #: en/live-build.7:169
 msgid "installs a memtest into binary"
-msgstr ""
+msgstr "installe memtest dans le binaire"
 
 #. type: IP
 #: en/live-build.7:169
 #, no-wrap
 msgid "B<lb_binary_net>(1)"
-msgstr ""
+msgstr "B<lb_binary_net>(1)"
 
 #. type: Plain text
 #: en/live-build.7:171
 msgid "build netboot binary image"
-msgstr ""
+msgstr "construit l'image binaire netboot"
 
 #. type: IP
 #: en/live-build.7:171
 #, no-wrap
 msgid "B<lb_binary_rootfs>(1)"
-msgstr ""
+msgstr "B<lb_binary_rootfs>(1)"
 
 #. type: Plain text
 #: en/live-build.7:173
 msgid "build rootfs image"
-msgstr ""
+msgstr "construit l'image rootfs"
 
 #. type: IP
 #: en/live-build.7:173
 #, no-wrap
 msgid "B<lb_binary_syslinux>(1)"
-msgstr ""
+msgstr "B<lb_binary_syslinux>(1)"
 
 #. type: Plain text
 #: en/live-build.7:175
 msgid "installs syslinux into binary"
-msgstr ""
+msgstr "installe syslinux dans le binaire"
 
 #. type: IP
 #: en/live-build.7:175
 #, no-wrap
 msgid "B<lb_binary_tar>(1)"
-msgstr ""
+msgstr "B<lb_binary_tar>(1)"
 
 #. type: Plain text
 #: en/live-build.7:177
 msgid "build harddisk binary image"
-msgstr ""
+msgstr "construit une image binaire pour disque dur"
 
 #. type: IP
 #: en/live-build.7:177
 #, no-wrap
 msgid "B<lb_binary_hdd>(1)"
-msgstr ""
+msgstr "B<lb_binary_hdd>(1)"
 
 #. type: Plain text
 #: en/live-build.7:179
 msgid "build binary hdd image"
-msgstr ""
+msgstr "construit une image binaire hdd"
 
 #. type: IP
 #: en/live-build.7:179
 #, no-wrap
 msgid "B<lb_binary_win32-loader>(1)"
-msgstr ""
+msgstr "B<lb_binary_win32-loader>(1)"
 
 #. type: Plain text
 #: en/live-build.7:181
 msgid "installs win32-loader into binary"
-msgstr ""
+msgstr "installe win32-loader dans le binaire"
 
 #. type: SS
 #: en/live-build.7:181
 #, no-wrap
 msgid "Source commands"
-msgstr ""
+msgstr "Commandes source"
 
 #. type: IP
 #: en/live-build.7:182
 #, no-wrap
 msgid "B<lb_source_debian>(1)"
-msgstr ""
+msgstr "B<lb_source_debian>(1)"
 
 #. type: Plain text
 #: en/live-build.7:184
 msgid "download sources"
-msgstr ""
+msgstr "télécharge les sources"
 
 #. type: IP
 #: en/live-build.7:184
 #, no-wrap
 msgid "B<lb_source_debian-live>(1)"
-msgstr ""
+msgstr "B<lb_source_debian-live>(1)"
 
 #. type: Plain text
 #: en/live-build.7:186
 msgid "copy debian-live config into source"
-msgstr ""
+msgstr "copie la configuration debian-live dans la source"
 
 #. type: IP
 #: en/live-build.7:186
 #, no-wrap
 msgid "B<lb_source_disk>(1)"
-msgstr ""
+msgstr "B<lb_source_disk>(1)"
 
 #. type: Plain text
 #: en/live-build.7:188
 msgid "install disk information into source"
-msgstr ""
+msgstr "installe les informations de disque dans la source"
 
 #. type: IP
 #: en/live-build.7:188
 #, no-wrap
 msgid "B<lb_source_iso>(1)"
-msgstr ""
+msgstr "B<lb_source_iso>(1)"
 
 #. type: Plain text
 #: en/live-build.7:190
 msgid "build iso source image"
-msgstr ""
+msgstr "construit l'image source iso"
 
 #. type: IP
 #: en/live-build.7:190
 #, no-wrap
 msgid "B<lb_source_checksums>(1)"
-msgstr ""
+msgstr "B<lb_source_checksums>(1)"
 
 #. type: Plain text
 #: en/live-build.7:192
 msgid "create source checksums (md5, sha1, and/or sha256)"
-msgstr ""
+msgstr "crée les sommes de vérification binaires (md5, sha1, et/ou sha256)"
 
 #. type: IP
 #: en/live-build.7:192
 #, no-wrap
 msgid "B<lb_source_net>(1)"
-msgstr ""
+msgstr "B<lb_source_net>(1)"
 
 #. type: Plain text
 #: en/live-build.7:194
 msgid "build source net image"
-msgstr ""
+msgstr "construit l'image net source"
 
 #. type: IP
 #: en/live-build.7:194
 #, no-wrap
 msgid "B<lb_source_tar>(1)"
-msgstr ""
+msgstr "B<lb_source_tar>(1)"
 
 #. type: Plain text
 #: en/live-build.7:196
 msgid "build source tarball"
-msgstr ""
+msgstr "construit le tarball source"
 
 #. type: IP
 #: en/live-build.7:196
 #, no-wrap
 msgid "B<lb_source_hdd>(1)"
-msgstr ""
+msgstr "B<lb_source_hdd>(1)"
 
 #.  FIXME
 #. type: Plain text
 #: en/live-build.7:199
 msgid "build source hdd image"
-msgstr ""
+msgstr "construit l'image hdd source"
 
 #. type: SH
 #: en/live-build.7:200
 #, no-wrap
 msgid "CONFIG FILES"
-msgstr ""
+msgstr "FICHIERS DE CONFIGURATION"
 
 #.  FIXME
 #. type: Plain text
@@ -1156,6 +1194,14 @@ msgid ""
 "with the name of the stage that they belong to, and \"helper\" with the name "
 "of the helper)."
 msgstr ""
+"Plusieurs commandes live-build utilisent de fichiers dans le répertoire  "
+"I<config/> pour contrôler ce qu'elles font. En plus du I<config/common> "
+"commun, qui est utilisé par toutes les commandes live-build, plusieurs "
+"fichiers additionels peuvent être utilisés pour configurer le comportement "
+"de commandes live-build spécifiques. Ces fichiers sont typiquement nommés "
+"config/stage ou config/stage_assistant (où \"stage\" est évidemment remplacé "
+"par le nom du stage auquel il appartient, \"assistant\" par le nom de "
+"l'assistant)."
 
 #. type: Plain text
 #: en/live-build.7:205
@@ -1167,6 +1213,14 @@ msgid ""
 "assigned, one variable per line. Some programs in live-build use pairs of "
 "values or slightly more complicated variable assignments."
 msgstr ""
+"Par exemple, lb_bootstrap_debootstrap utilise des fichiers nommés config/"
+"bootstrap et config/bootstrap_debootstrap pour lire les options qu'il "
+"utilisera. Voir les pages des commandes individuelles de manuel pour des "
+"détails à propos des noms et des formats de fichiers qu'ils utilisent. "
+"Généralement, ces fichiers contiennent des variables avec des valeurs "
+"assignées, une variable par ligne. Plusieurs programmes dans live-build "
+"utilisent des paires de valeur ou des assignations de variable légèrement "
+"plus compliquées."
 
 #. type: Plain text
 #: en/live-build.7:207
@@ -1178,6 +1232,13 @@ msgid ""
 "variable can be found and thus is unset, live-build will automatically set "
 "it to the default value."
 msgstr ""
+"Notez que live-build respectera les variables d'environment présentes dans "
+"le contexte du shell lancé. Si les variables peuvent être lues depuis les "
+"fichiersde configuration, alors elles prennent le pas sur les variables "
+"d'environement, et si les options en ligne de commande sont utilisées, elles "
+"sont prioritaires sur les fichiers de configuration. Si pour une variable "
+"donnée, aucune valeur ne peut être trouvée et donc, est non-paramétrèe, live-"
+"build la paramètrera automatiquement à la valeur par défaut."
 
 #. type: Plain text
 #: en/live-build.7:209
@@ -1190,6 +1251,13 @@ msgid ""
 "target distribution, then they will be used in preference to other, more "
 "general files."
 msgstr ""
+"Dans de rares cas, vous pourriez vouloir avoir différentes versions de ces "
+"fichiers pour différentes architectures ou distributions. Si des fichiers "
+"nommés config/stage.arch ou config/stage_assistant.arch, et config/stage."
+"dist ou config/stage_assistant.dist existent, où \"arch\" est équivalent à "
+"la sortie de \"dpkg --print-architecture\" et \"dist\" équivalent au nom de "
+"code de la distribution cible, alors ils seront utilisés en priorité aux "
+"autres fichier plus généraux."
 
 #.  FIXME
 #. type: Plain text
@@ -1199,15 +1267,19 @@ msgid ""
 "program. That means they have to follow the normal shell syntax. You can "
 "also put comments in these files; lines beginning with \"#\" are ignored."
 msgstr ""
+"Tous les fichiers de configuration sont des scripts shell qui sont sourcés "
+"par un programme live-build. Ceci signifie qu'ils doivent suivre la syntaxe "
+"de shell normale. Vous pouvez également mettre des commentaires dans ces "
+"fichiers; les lignes commençant par des \"#\" sont ignorèes."
 
 #. type: IP
 #: en/live-build.7:214
 #, no-wrap
 msgid "B</etc/live/build.conf>"
-msgstr ""
+msgstr "B</etc/live/build.conf>"
 
 #. type: IP
 #: en/live-build.7:215
 #, no-wrap
 msgid "B</etc/live/build/*>"
-msgstr ""
+msgstr "B</etc/live/build/*>"
