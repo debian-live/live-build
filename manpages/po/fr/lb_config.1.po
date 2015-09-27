@@ -172,419 +172,420 @@ msgstr ""
 #. type: Plain text
 #: en/lb_config.1:5
 msgid "B<lb config> - Create config directory"
-msgstr ""
+msgstr "B<lb config> - Crée un répertoire de configuration"
 
 #. type: Plain text
 #: en/lb_config.1:8
 msgid "B<lb config> [I<live-build options>]"
-msgstr ""
+msgstr "B<lb config> [I<live-build options>]"
 
 #.  FIXME
 #. type: Plain text
 #: en/lb_config.1:11
 msgid "B<lb config>"
-msgstr ""
+msgstr "B<lb config>"
 
 #. type: Plain text
 #: en/lb_config.1:13
 msgid "  [B<--apt> apt|aptitude]"
-msgstr ""
+msgstr "  [B<--apt> apt|aptitude]"
 
 #. type: Plain text
 #: en/lb_config.1:15
 msgid "  [B<--apt-ftp-proxy> I<URL>]"
-msgstr ""
+msgstr "  [B<--apt-ftp-proxy> I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:17
 msgid "  [B<--apt-http-proxy> I<URL>]"
-msgstr ""
+msgstr "  [B<--apt-http-proxy> I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:19
 msgid "  [B<--apt-indices> true|false]"
-msgstr ""
+msgstr "  [B<--apt-indices> true|false]"
 
 #. type: Plain text
 #: en/lb_config.1:21
 msgid "  [B<--apt-options> I<OPTION>|\"I<OPTIONS>\"]"
-msgstr ""
+msgstr "  [B<--apt-options> I<OPTION>|\"I<OPTIONS>\"]"
 
 #. type: Plain text
 #: en/lb_config.1:23
 msgid "  [B<--aptitude-options> I<OPTION>|\"I<OPTIONS>\"]"
-msgstr ""
+msgstr "  [B<--aptitude-options> I<OPTION>|\"I<OPTIONS>\"]"
 
 #. type: Plain text
 #: en/lb_config.1:25
 msgid "  [B<--apt-pipeline> I<DEPTH>]"
-msgstr ""
+msgstr "  [B<--apt-pipeline> I<PROFONDEUR>]"
 
 #. type: Plain text
 #: en/lb_config.1:27
 msgid "  [B<--apt-recommends> true|false]"
-msgstr ""
+msgstr "  [B<--apt-recommends> true|false]"
 
 #. type: Plain text
 #: en/lb_config.1:29
 msgid "  [B<--apt-secure> true|false]"
-msgstr ""
+msgstr "  [B<--apt-secure> true|false]"
 
 #. type: Plain text
 #: en/lb_config.1:31
 msgid "  [B<--apt-source-archives> true|false]"
-msgstr ""
+msgstr "  [B<--apt-source-archives> true|false]"
 
 #. type: Plain text
 #: en/lb_config.1:33
 msgid "  [-a|B<--architectures> I<ARCHITECTURE>]"
-msgstr ""
+msgstr "  [-a|B<--architectures> I<ARCHITECTURE>]"
 
 #. type: Plain text
 #: en/lb_config.1:35
 msgid "  [-b|B<--binary-images> iso|iso-hybrid|netboot|tar|hdd]"
-msgstr ""
+msgstr "  [-b|B<--binary-images> iso|iso-hybrid|netboot|tar|hdd]"
 
 #. type: Plain text
 #: en/lb_config.1:37
 msgid "  [B<--binary-filesystem> fat16|fat32|ext2|ext3|ext4]"
-msgstr ""
+msgstr "  [B<--binary-filesystem> fat16|fat32|ext2|ext3|ext4]"
 
 #. type: Plain text
 #: en/lb_config.1:39
 msgid "  [B<--bootappend-install> I<PARAMETER>|I<\"PARAMETERS\">]"
-msgstr ""
+msgstr "  [B<--bootappend-install> I<PARAMÈTRES>|I<\"PARAMÈTRES\">]"
 
 #. type: Plain text
 #: en/lb_config.1:41
 msgid "  [B<--bootappend-live> I<PARAMETER>|I<\"PARAMETERS\">]"
-msgstr ""
+msgstr "  [B<--bootappend-live> I<PARAMÈTRES>|I<\"PARAMÈTRES\">]"
 
 #. type: Plain text
 #: en/lb_config.1:43
 msgid "  [B<--bootloader> grub|grub2|syslinux]"
-msgstr ""
+msgstr "  [B<--bootloader> grub|grub2|syslinux]"
 
 #. type: Plain text
 #: en/lb_config.1:45
 msgid "  [B<--cache> true|false]"
-msgstr ""
+msgstr "  [B<--cache> true|false]"
 
 #. type: Plain text
 #: en/lb_config.1:47
 msgid "  [B<--cache-indices> true|false]"
-msgstr ""
+msgstr "  [B<--cache-indices> true|false]"
 
 #. type: Plain text
 #: en/lb_config.1:49
 msgid "  [B<--cache-packages> true|false]"
-msgstr ""
+msgstr "  [B<--cache-packages> true|false]"
 
 #. type: Plain text
 #: en/lb_config.1:51
 msgid "  [B<--cache-stages> I<STAGE>|I<\"STAGES\">]"
-msgstr ""
+msgstr "  [B<--cache-stages> I<STAGE>|I<\"STAGES\">]"
 
 #. type: Plain text
 #: en/lb_config.1:53
 msgid "  [B<--checksums> md5|sha1|sha256|none]"
-msgstr ""
+msgstr "  [B<--checksums> md5|sha1|sha256|none]"
 
 #. type: Plain text
 #: en/lb_config.1:55
 msgid "  [B<--compression> bzip2|gzip|lzip|none]"
-msgstr ""
+msgstr "  [B<--compression> bzip2|gzip|lzip|none]"
 
 #. type: Plain text
 #: en/lb_config.1:57
 msgid "  [B<--config> I<GIT_URL::GIT_ID>]"
-msgstr ""
+msgstr "  [B<--config> I<GIT_URL::GIT_ID>]"
 
 #. type: Plain text
 #: en/lb_config.1:59
 msgid "  [B<--build-with-chroot> true|false]"
-msgstr ""
+msgstr "  [B<--build-with-chroot> true|false]"
 
 #. type: Plain text
 #: en/lb_config.1:61
 msgid "  [B<--chroot-filesystem> ext2|ext3|ext4|squashfs|jffs2|none]"
-msgstr ""
+msgstr "  [B<--chroot-filesystem> ext2|ext3|ext4|squashfs|jffs2|none]"
 
 #. type: Plain text
 #: en/lb_config.1:63
 msgid "  [B<--clean>]"
-msgstr ""
+msgstr "  [B<--clean>]"
 
 #. type: Plain text
 #: en/lb_config.1:65
 msgid "  [-c|B<--conffile> I<FILE>]"
-msgstr ""
+msgstr "  [-c|B<--conffile> I<FICHIER>]"
 
 #. type: Plain text
 #: en/lb_config.1:67
 msgid "  [B<--debconf-frontend> dialog|editor|noninteractive|readline]"
-msgstr ""
+msgstr "  [B<--debconf-frontend> dialog|editor|noninteractive|readline]"
 
 #. type: Plain text
 #: en/lb_config.1:69
 msgid "  [B<--debconf-priority> low|medium|high|critical]"
-msgstr ""
+msgstr "  [B<--debconf-priority> low|medium|high|critical]"
 
 #. type: Plain text
 #: en/lb_config.1:71
 msgid ""
 "  [B<--debian-installer> true|cdrom|netinst|netboot|businesscard|live|false]"
 msgstr ""
+"  [B<--debian-installer> true|cdrom|netinst|netboot|businesscard|live|false]"
 
 #. type: Plain text
 #: en/lb_config.1:73
 msgid "  [B<--debian-installer-distribution> daily|I<CODENAME>]"
-msgstr ""
+msgstr "  [B<--debian-installer-distribution> daily|I<NOM_DE_CODE>]"
 
 #. type: Plain text
 #: en/lb_config.1:75
 msgid "  [B<--debian-installer-preseedfile> I<FILE>|I<URL>]"
-msgstr ""
+msgstr "  [B<--debian-installer-preseedfile> I<FICHIER>|I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:77
 msgid "  [B<--debian-installer-gui> true|false]"
-msgstr ""
+msgstr "  [B<--debian-installer-gui> true|false]"
 
 #. type: Plain text
 #: en/lb_config.1:79
 msgid "  [B<--debug>]"
-msgstr ""
+msgstr "  [B<--debug>]"
 
 #. type: Plain text
 #: en/lb_config.1:81
 msgid "  [-d|B<--distribution> I<CODENAME>]"
-msgstr ""
+msgstr "  [-d|B<--distribution> I<NOM_DE_CODE>]"
 
 #. type: Plain text
 #: en/lb_config.1:83
 msgid "  [B<--parent-distribution> I<CODENAME>]"
-msgstr ""
+msgstr "  [B<--parent-distribution> I<NOM_DE_CODE>]"
 
 #. type: Plain text
 #: en/lb_config.1:85
 msgid "  [B<--parent-debian-installer-distribution> I<CODENAME>]"
-msgstr ""
+msgstr "  [B<--parent-debian-installer-distribution> I<NOM_DE_CODE>]"
 
 #. type: Plain text
 #: en/lb_config.1:87
 msgid "  [B<--dump>]"
-msgstr ""
+msgstr "  [B<--dump>]"
 
 #. type: Plain text
 #: en/lb_config.1:89
 msgid "  [B<--fdisk> fdisk|fdisk.dist]"
-msgstr ""
+msgstr "  [B<--fdisk> fdisk|fdisk.dist]"
 
 #. type: Plain text
 #: en/lb_config.1:91
 msgid "  [B<--firmware-binary true|false>]"
-msgstr ""
+msgstr "  [B<--firmware-binary true|false>]"
 
 #. type: Plain text
 #: en/lb_config.1:93
 msgid "  [B<--firmware-chroot true|false>]"
-msgstr ""
+msgstr "  [B<--firmware-chroot true|false>]"
 
 #. type: Plain text
 #: en/lb_config.1:95
 msgid "  [B<--force>]"
-msgstr ""
+msgstr "  [B<--force>]"
 
 #. type: Plain text
 #: en/lb_config.1:97
 msgid "  [B<--grub-splash> I<FILE>]"
-msgstr ""
+msgstr "  [B<--grub-splash> I<FICHIER>]"
 
 #. type: Plain text
 #: en/lb_config.1:99
 msgid "  [B<--gzip-options> I<OPTION>|\"I<OPTIONS>\"]"
-msgstr ""
+msgstr "  [B<--gzip-options> I<OPTION>|\"I<OPTIONS>\"]"
 
 #. type: Plain text
 #: en/lb_config.1:101
 msgid "  [B<--hooks> I<FILE>]"
-msgstr ""
+msgstr "  [B<--hooks> I<FICHIER>]"
 
 #. type: Plain text
 #: en/lb_config.1:103
 msgid "  [B<--ignore-system-defaults>]"
-msgstr ""
+msgstr "  [B<--ignore-system-defaults>]"
 
 #. type: Plain text
 #: en/lb_config.1:105
 msgid "  [B<--initramfs> auto|none|live-boot|casper]"
-msgstr ""
+msgstr "  [B<--initramfs> auto|none|live-boot|casper]"
 
 #. type: Plain text
 #: en/lb_config.1:107
 msgid "  [B<--initramfs-compression> bzip2|gzip|lzma]"
-msgstr ""
+msgstr "  [B<--initramfs-compression> bzip2|gzip|lzma]"
 
 #. type: Plain text
 #: en/lb_config.1:109
 msgid "  [B<--initsystem> sysvinit|runit|systemd|upstart|none]"
-msgstr ""
+msgstr "  [B<--initsystem> sysvinit|runit|systemd|upstart|none]"
 
 #. type: Plain text
 #: en/lb_config.1:111
 msgid "  [B<--interactive> shell]"
-msgstr ""
+msgstr "  [B<--interactive> shell]"
 
 #. type: Plain text
 #: en/lb_config.1:113
 msgid "  [B<--isohybrid-options> I<OPTION>|\"I<OPTIONS>\"]"
-msgstr ""
+msgstr "  [B<--isohybrid-options> I<OPTION>|\"I<OPTIONS>\"]"
 
 #. type: Plain text
 #: en/lb_config.1:115
 msgid "  [B<--iso-application> I<NAME>]"
-msgstr ""
+msgstr "  [B<--iso-application> I<NOM>]"
 
 #. type: Plain text
 #: en/lb_config.1:117
 msgid "  [B<--iso-preparer> I<NAME>]"
-msgstr ""
+msgstr "  [B<--iso-preparer> I<NOM>]"
 
 #. type: Plain text
 #: en/lb_config.1:119
 msgid "  [B<--iso-publisher> I<NAME>]"
-msgstr ""
+msgstr "  [B<--iso-publisher> I<NOM>]"
 
 #. type: Plain text
 #: en/lb_config.1:121
 msgid "  [B<--iso-volume> I<NAME>]"
-msgstr ""
+msgstr "  [B<--iso-volume> I<NOM>]"
 
 #. type: Plain text
 #: en/lb_config.1:123
 msgid "  [B<--jffs2-eraseblock> I<SIZE>]"
-msgstr ""
+msgstr "  [B<--jffs2-eraseblock> I<TAILLE>]"
 
 #. type: Plain text
 #: en/lb_config.1:125
 msgid "  [B<--keyring-packages> I<PACKAGE|\"PACKAGES\">]"
-msgstr ""
+msgstr "  [B<--keyring-packages> I<PAQUET|\"PAQUETS\">]"
 
 #. type: Plain text
 #: en/lb_config.1:127
 msgid "  [-k|B<--linux-flavours> I<FLAVOUR>|I<\"FLAVOURS\">]"
-msgstr ""
+msgstr "  [-k|B<--linux-flavours> I<VARIÉTÉ>|I<\"VARIÉTÉS\">]"
 
 #. type: Plain text
 #: en/lb_config.1:129
 msgid "  [B<--linux-packages> I<\"PACKAGES\">]"
-msgstr ""
+msgstr "  [B<--linux-packages> I<\"PAQUETS\">]"
 
 #. type: Plain text
 #: en/lb_config.1:131
 msgid "  [B<--losetup> losetup|losetup.orig]"
-msgstr ""
+msgstr "  [B<--losetup> losetup|losetup.orig]"
 
 #. type: Plain text
 #: en/lb_config.1:133
 msgid "  [B<--memtest> memtest86+|memtest86|none]"
-msgstr ""
+msgstr "  [B<--memtest> memtest86+|memtest86|none]"
 
 #. type: Plain text
 #: en/lb_config.1:135
 msgid "  [-m|B<--parent-mirror-bootstrap> I<URL>]"
-msgstr ""
+msgstr "  [-m|B<--parent-mirror-bootstrap> I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:137
 msgid "  [B<--parent-mirror-chroot> I<URL>]"
-msgstr ""
+msgstr "  [B<--parent-mirror-chroot> I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:139
 msgid "  [B<--parent-mirror-chroot-security> I<URL>]"
-msgstr ""
+msgstr "  [B<--parent-mirror-chroot-security> I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:141
 msgid "  [B<--parent-mirror-chroot-updates> I<URL>]"
-msgstr ""
+msgstr "  [B<--parent-mirror-chroot-updates> I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:143
 msgid "  [B<--parent-mirror-chroot-backports> I<URL>]"
-msgstr ""
+msgstr "  [B<--parent-mirror-chroot-backports> I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:145
 msgid "  [B<--parent-mirror-binary> I<URL>]"
-msgstr ""
+msgstr "  [B<--parent-mirror-binary> I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:147
 msgid "  [B<--parent-mirror-binary-security> I<URL>]"
-msgstr ""
+msgstr "  [B<--parent-mirror-binary-security> I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:149
 msgid "  [B<--parent-mirror-binary-updates> I<URL>]"
-msgstr ""
+msgstr "  [B<--parent-mirror-binary-updates> I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:151
 msgid "  [B<--parent-mirror-binary-backports> I<URL>]"
-msgstr ""
+msgstr "  [B<--parent-mirror-binary-backports> I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:153
 msgid "  [B<--parent-mirror-debian-installer> I<URL>]"
-msgstr ""
+msgstr "  [B<--parent-mirror-debian-installer> I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:155
 msgid "  [B<--mirror-bootstrap> I<URL>]"
-msgstr ""
+msgstr "  [B<--mirror-bootstrap> I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:157
 msgid "  [B<--mirror-chroot> I<URL>]"
-msgstr ""
+msgstr "  [B<--mirror-chroot> I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:159
 msgid "  [B<--mirror-chroot-security> I<URL>]"
-msgstr ""
+msgstr "  [B<--mirror-chroot-security> I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:161
 msgid "  [B<--mirror-chroot-updates> I<URL>]"
-msgstr ""
+msgstr "  [B<--mirror-chroot-updates> I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:163
 msgid "  [B<--mirror-chroot-backports> I<URL>]"
-msgstr ""
+msgstr "  [B<--mirror-chroot-backports> I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:165
 msgid "  [B<--mirror-binary> I<URL>]"
-msgstr ""
+msgstr "  [B<--mirror-binary> I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:167
 msgid "  [B<--mirror-binary-security> I<URL>]"
-msgstr ""
+msgstr "  [B<--mirror-binary-security> I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:169
 msgid "  [B<--mirror-binary-updates> I<URL>]"
-msgstr ""
+msgstr "  [B<--mirror-binary-updates> I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:171
 msgid "  [B<--mirror-binary-backports> I<URL>]"
-msgstr ""
+msgstr "  [B<--mirror-binary-backports> I<URL>]"
 
 #. type: Plain text
 #: en/lb_config.1:173
@@ -594,62 +595,62 @@ msgstr ""
 #. type: Plain text
 #: en/lb_config.1:175
 msgid "  [B<--mode> debian|progress-linux|ubuntu]"
-msgstr ""
+msgstr "  [B<--mode> debian|progress-linux|ubuntu]"
 
 #. type: Plain text
 #: en/lb_config.1:177
 msgid "  [B<--system> live|normal]"
-msgstr ""
+msgstr "  [B<--system> live|normal]"
 
 #. type: Plain text
 #: en/lb_config.1:179
 msgid "  [B<--net-root-filesystem> nfs|cfs]"
-msgstr ""
+msgstr "  [B<--net-root-filesystem> nfs|cfs]"
 
 #. type: Plain text
 #: en/lb_config.1:181
 msgid "  [B<--net-root-mountoptions> I<OPTIONS>]"
-msgstr ""
+msgstr "  [B<--net-root-mountoptions> I<OPTIONS>]"
 
 #. type: Plain text
 #: en/lb_config.1:183
 msgid "  [B<--net-root-path> I<PATH>]"
-msgstr ""
+msgstr "  [B<--net-root-path> I<CHEMIN>]"
 
 #. type: Plain text
 #: en/lb_config.1:185
 msgid "  [B<--net-root-server> I<IP>|I<HOSTNAME>]"
-msgstr ""
+msgstr "  [B<--net-root-server> I<IP>|I<NOM_D_HÔTE>]"
 
 #. type: Plain text
 #: en/lb_config.1:187
 msgid "  [B<--net-cow-filesystem> nfs|cfs]"
-msgstr ""
+msgstr "  [B<--net-cow-filesystem> nfs|cfs]"
 
 #. type: Plain text
 #: en/lb_config.1:189
 msgid "  [B<--net-cow-mountoptions> I<OPTIONS>]"
-msgstr ""
+msgstr "  [B<--net-cow-mountoptions> I<OPTIONS>]"
 
 #. type: Plain text
 #: en/lb_config.1:191
 msgid "  [B<--net-cow-path> I<PATH>]"
-msgstr ""
+msgstr "  [B<--net-cow-path> I<CHEMIN>]"
 
 #. type: Plain text
 #: en/lb_config.1:193
 msgid "  [B<--net-cow-server> I<IP>|I<HOSTNAME>]"
-msgstr ""
+msgstr "  [B<--net-cow-server> I<IP>|I<NOM_D_HÔTE>]"
 
 #. type: Plain text
 #: en/lb_config.1:195
 msgid "  [B<--net-tarball> true|false]"
-msgstr ""
+msgstr "  [B<--net-tarball> true|false]"
 
 #. type: Plain text
 #: en/lb_config.1:197
 msgid "  [B<--quiet>]"
-msgstr ""
+msgstr "  [B<--quiet>]"
 
 #. type: Plain text
 #: en/lb_config.1:199
@@ -2046,13 +2047,9 @@ msgstr ""
 
 #. type: IP
 #: en/lb_config.1:421 en/live-build.7:40
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "B<--quiet>"
-msgstr ""
-"#-#-#-#-#  live-build.7.po (live-build 5.0~a11-1)  #-#-#-#-#\n"
-"B<--quiet>\n"
-"#-#-#-#-#  lb_config.1.po (live-build 5.0~a11-1)  #-#-#-#-#\n"
-"<--quiet>"
+msgstr "B<--quiet>"
 
 #. type: Plain text
 #: en/lb_config.1:423

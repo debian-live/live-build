@@ -6,7 +6,7 @@
 .TH LIVE\-BUILD 1 27.09.2015 5.0~a11\-1 "Projet Live Systems"
 
 .SH NOM
-\fBlb config\fP \- Create config directory
+\fBlb config\fP \- Crée un répertoire de configuration
 
 .SH SYNOPSIS
 \fBlb config\fP [\fIlive\-build options\fP]
@@ -26,7 +26,7 @@
 .br
   [\fB\-\-aptitude\-options\fP \fIOPTION\fP|"\fIOPTIONS\fP"]
 .br
-  [\fB\-\-apt\-pipeline\fP \fIDEPTH\fP]
+  [\fB\-\-apt\-pipeline\fP \fIPROFONDEUR\fP]
 .br
   [\fB\-\-apt\-recommends\fP true|false]
 .br
@@ -40,9 +40,9 @@
 .br
   [\fB\-\-binary\-filesystem\fP fat16|fat32|ext2|ext3|ext4]
 .br
-  [\fB\-\-bootappend\-install\fP \fIPARAMETER\fP|\fI"PARAMETERS"\fP]
+  [\fB\-\-bootappend\-install\fP \fIPARAMÈTRES\fP|\fI"PARAMÈTRES"\fP]
 .br
-  [\fB\-\-bootappend\-live\fP \fIPARAMETER\fP|\fI"PARAMETERS"\fP]
+  [\fB\-\-bootappend\-live\fP \fIPARAMÈTRES\fP|\fI"PARAMÈTRES"\fP]
 .br
   [\fB\-\-bootloader\fP grub|grub2|syslinux]
 .br
@@ -66,7 +66,7 @@
 .br
   [\fB\-\-clean\fP]
 .br
-  [\-c|\fB\-\-conffile\fP \fIFILE\fP]
+  [\-c|\fB\-\-conffile\fP \fIFICHIER\fP]
 .br
   [\fB\-\-debconf\-frontend\fP dialog|editor|noninteractive|readline]
 .br
@@ -74,19 +74,19 @@
 .br
   [\fB\-\-debian\-installer\fP true|cdrom|netinst|netboot|businesscard|live|false]
 .br
-  [\fB\-\-debian\-installer\-distribution\fP daily|\fICODENAME\fP]
+  [\fB\-\-debian\-installer\-distribution\fP daily|\fINOM_DE_CODE\fP]
 .br
-  [\fB\-\-debian\-installer\-preseedfile\fP \fIFILE\fP|\fIURL\fP]
+  [\fB\-\-debian\-installer\-preseedfile\fP \fIFICHIER\fP|\fIURL\fP]
 .br
   [\fB\-\-debian\-installer\-gui\fP true|false]
 .br
   [\fB\-\-debug\fP]
 .br
-  [\-d|\fB\-\-distribution\fP \fICODENAME\fP]
+  [\-d|\fB\-\-distribution\fP \fINOM_DE_CODE\fP]
 .br
-  [\fB\-\-parent\-distribution\fP \fICODENAME\fP]
+  [\fB\-\-parent\-distribution\fP \fINOM_DE_CODE\fP]
 .br
-  [\fB\-\-parent\-debian\-installer\-distribution\fP \fICODENAME\fP]
+  [\fB\-\-parent\-debian\-installer\-distribution\fP \fINOM_DE_CODE\fP]
 .br
   [\fB\-\-dump\fP]
 .br
@@ -98,11 +98,11 @@
 .br
   [\fB\-\-force\fP]
 .br
-  [\fB\-\-grub\-splash\fP \fIFILE\fP]
+  [\fB\-\-grub\-splash\fP \fIFICHIER\fP]
 .br
   [\fB\-\-gzip\-options\fP \fIOPTION\fP|"\fIOPTIONS\fP"]
 .br
-  [\fB\-\-hooks\fP \fIFILE\fP]
+  [\fB\-\-hooks\fP \fIFICHIER\fP]
 .br
   [\fB\-\-ignore\-system\-defaults\fP]
 .br
@@ -116,21 +116,21 @@
 .br
   [\fB\-\-isohybrid\-options\fP \fIOPTION\fP|"\fIOPTIONS\fP"]
 .br
-  [\fB\-\-iso\-application\fP \fINAME\fP]
+  [\fB\-\-iso\-application\fP \fINOM\fP]
 .br
-  [\fB\-\-iso\-preparer\fP \fINAME\fP]
+  [\fB\-\-iso\-preparer\fP \fINOM\fP]
 .br
-  [\fB\-\-iso\-publisher\fP \fINAME\fP]
+  [\fB\-\-iso\-publisher\fP \fINOM\fP]
 .br
-  [\fB\-\-iso\-volume\fP \fINAME\fP]
+  [\fB\-\-iso\-volume\fP \fINOM\fP]
 .br
-  [\fB\-\-jffs2\-eraseblock\fP \fISIZE\fP]
+  [\fB\-\-jffs2\-eraseblock\fP \fITAILLE\fP]
 .br
-  [\fB\-\-keyring\-packages\fP \fIPACKAGE|"PACKAGES"\fP]
+  [\fB\-\-keyring\-packages\fP \fIPAQUET|"PAQUETS"\fP]
 .br
-  [\-k|\fB\-\-linux\-flavours\fP \fIFLAVOUR\fP|\fI"FLAVOURS"\fP]
+  [\-k|\fB\-\-linux\-flavours\fP \fIVARIÉTÉ\fP|\fI"VARIÉTÉS"\fP]
 .br
-  [\fB\-\-linux\-packages\fP \fI"PACKAGES"\fP]
+  [\fB\-\-linux\-packages\fP \fI"PAQUETS"\fP]
 .br
   [\fB\-\-losetup\fP losetup|losetup.orig]
 .br
@@ -184,17 +184,17 @@
 .br
   [\fB\-\-net\-root\-mountoptions\fP \fIOPTIONS\fP]
 .br
-  [\fB\-\-net\-root\-path\fP \fIPATH\fP]
+  [\fB\-\-net\-root\-path\fP \fICHEMIN\fP]
 .br
-  [\fB\-\-net\-root\-server\fP \fIIP\fP|\fIHOSTNAME\fP]
+  [\fB\-\-net\-root\-server\fP \fIIP\fP|\fINOM_D_HÔTE\fP]
 .br
   [\fB\-\-net\-cow\-filesystem\fP nfs|cfs]
 .br
   [\fB\-\-net\-cow\-mountoptions\fP \fIOPTIONS\fP]
 .br
-  [\fB\-\-net\-cow\-path\fP \fIPATH\fP]
+  [\fB\-\-net\-cow\-path\fP \fICHEMIN\fP]
 .br
-  [\fB\-\-net\-cow\-server\fP \fIIP\fP|\fIHOSTNAME\fP]
+  [\fB\-\-net\-cow\-server\fP \fIIP\fP|\fINOM_D_HÔTE\fP]
 .br
   [\fB\-\-net\-tarball\fP true|false]
 .br
