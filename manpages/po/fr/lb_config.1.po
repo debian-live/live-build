@@ -655,7 +655,7 @@ msgstr "  [B<--quiet>]"
 #. type: Plain text
 #: en/lb_config.1:199
 msgid "  [B<--archive-areas> I<ARCHIVE_AREA>|I<\"ARCHIVE_AREAS\">]"
-msgstr ""
+msgstr "  [B<--archive-areas> I<DOMAINES_D'ARCHIVE>|I<\"DOMAINES_D'ARCHIVE\">]"
 
 #. type: Plain text
 #: en/lb_config.1:201
@@ -663,57 +663,59 @@ msgid ""
 "  [B<--parent-archive-areas> I<PARENT_ARCHIVE_AREA>|I<\"PARENT_ARCHIVE_AREAS"
 "\">]"
 msgstr ""
+"  [B<--parent-archive-areas> I<DOMAINE_D'ARCHIVE_PARENT>|I<"
+"\"DOMAINE_D'ARCHIVE_PARENT\">]"
 
 #. type: Plain text
 #: en/lb_config.1:203
 msgid "  [B<--security> true|false]"
-msgstr ""
+msgstr "  [B<--security> true|false]"
 
 #. type: Plain text
 #: en/lb_config.1:205
 msgid "  [B<--source> true|false]"
-msgstr ""
+msgstr "  [B<--source> true|false]"
 
 #. type: Plain text
 #: en/lb_config.1:207
 msgid "  [-s|B<--source-images> iso|netboot|tar|hdd]"
-msgstr ""
+msgstr "  [-s|B<--source-images> iso|netboot|tar|hdd]"
 
 #. type: Plain text
 #: en/lb_config.1:209
 msgid "  [B<--tasksel> apt|aptitude|tasksel]"
-msgstr ""
+msgstr "  [B<--tasksel> apt|aptitude|tasksel]"
 
 #. type: Plain text
 #: en/lb_config.1:211
 msgid "  [B<--templates> I<PATH>]"
-msgstr ""
+msgstr "  [B<--templates> I<CHEMIN>]"
 
 #. type: Plain text
 #: en/lb_config.1:213
 msgid "  [B<--hdd-size >I<MB>]"
-msgstr ""
+msgstr "  [B<--hdd-size >I<MB>]"
 
 #. type: Plain text
 #: en/lb_config.1:215
 msgid "  [B<--updates> true|false]"
-msgstr ""
+msgstr "  [B<--updates> true|false]"
 
 #. type: Plain text
 #: en/lb_config.1:217
 msgid "  [B<--backports> true|false]"
-msgstr ""
+msgstr "  [B<--backports> true|false]"
 
 #. type: Plain text
 #: en/lb_config.1:219
 msgid "  [B<--verbose>]"
-msgstr ""
+msgstr "  [B<--verbose>]"
 
 #.  FIXME
 #. type: Plain text
 #: en/lb_config.1:222
 msgid "  [B<--win32-loader true|false]>"
-msgstr ""
+msgstr "  [B<--win32-loader true|false]>"
 
 #. type: Plain text
 #: en/lb_config.1:225
@@ -721,6 +723,8 @@ msgid ""
 "B<lb config> is a high-level command (porcelain) of I<live-build>(7), the "
 "live systems tool suite."
 msgstr ""
+"B<lb config> est une commande de haut-niveau (porcelaine) de I<live-"
+"build>(7), la suite d'outils live systems."
 
 #.  FIXME
 #. type: Plain text
@@ -730,6 +734,9 @@ msgid ""
 "default, this directory is named 'config' and is created in the current "
 "directory where B<lb config> was executed."
 msgstr ""
+"B<lb config> rempli le répertoire de configuration pour live-build. Par "
+"défaut, ce répertoire est nomméd 'config' et est crée dans le répertoire "
+"courant où B<lb config> a été éxecuté."
 
 #.  FIXME
 #. type: Plain text

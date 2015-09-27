@@ -200,10 +200,10 @@
 .br
   [\fB\-\-quiet\fP]
 .br
-  [\fB\-\-archive\-areas\fP \fIARCHIVE_AREA\fP|\fI"ARCHIVE_AREAS"\fP]
+  [\fB\-\-archive\-areas\fP \fIDOMAINES_D'ARCHIVE\fP|\fI"DOMAINES_D'ARCHIVE"\fP]
 .br
   [\fB\-\-parent\-archive\-areas\fP
-\fIPARENT_ARCHIVE_AREA\fP|\fI"PARENT_ARCHIVE_AREAS"\fP]
+\fIDOMAINE_D'ARCHIVE_PARENT\fP|\fI"DOMAINE_D'ARCHIVE_PARENT"\fP]
 .br
   [\fB\-\-security\fP true|false]
 .br
@@ -213,7 +213,7 @@
 .br
   [\fB\-\-tasksel\fP apt|aptitude|tasksel]
 .br
-  [\fB\-\-templates\fP \fIPATH\fP]
+  [\fB\-\-templates\fP \fICHEMIN\fP]
 .br
   [\fB\-\-hdd\-size \fP\fIMB\fP]
 .br
@@ -227,13 +227,13 @@
   [\fB\-\-win32\-loader true|false]\fP
 
 .SH DESCRIPTION
-\fBlb config\fP is a high\-level command (porcelain) of \fIlive\-build\fP(7), the
-live systems tool suite.
+\fBlb config\fP est une commande de haut\-niveau (porcelaine) de
+\fIlive\-build\fP(7), la suite d'outils live systems.
 .PP
 .\" FIXME
-\fBlb config\fP populates the configuration directory for live\-build. By
-default, this directory is named 'config' and is created in the current
-directory where \fBlb config\fP was executed.
+\fBlb config\fP rempli le répertoire de configuration pour live\-build. Par
+défaut, ce répertoire est nomméd 'config' et est crée dans le répertoire
+courant où \fBlb config\fP a été éxecuté.
 .PP
 .\" FIXME
 Note: Currently \fBlb config\fP tries to be smart and sets defaults for some
