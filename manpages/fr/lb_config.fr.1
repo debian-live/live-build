@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 27.09.2015 5.0~a11\-1 "Projet Live Systems"
+.TH LIVE\-BUILD 1 2015\-09\-28 5.0~a11\-1 "Projet Live Systems"
 
 .SH NOM
 \fBlb config\fP \- Crée un répertoire de configuration
@@ -236,89 +236,97 @@ défaut, ce répertoire est nomméd 'config' et est crée dans le répertoire
 courant où \fBlb config\fP a été éxecuté.
 .PP
 .\" FIXME
-Note: Currently \fBlb config\fP tries to be smart and sets defaults for some
-options depending on the setting of other options (e.g. which linux packages
-to be used depending on if a wheezy system gets build or not). This means
-that when generating a new configuration, you should call \fBlb config\fP only
-once with all options specified. Calling it several times with only a subset
-of the options each can result in non working configurations. This is also
-caused by the fact that \fBlb config\fP called with one option only changes
-that option, and leaves everything else as is unless its not
-defined. However, \fBlb config\fP does warn about know impossible or likely
-impossible combinations that would lead to non working live systems. If
-unsure, remove config/{binary,bootstrap,chroot,common,source} and call \fBlb
-config\fP again.
+Note : actuellement, \fBlb config\fP essaie d'être malin et paramètre les
+défauts pour plusieurs des options dépendemment des paramètres d'autres
+options (ex quel paquet linux doit être utililisé si un système wheezy est
+construit ou non). Ceci signifie que lorsque vous générez une nouvelle
+configuration, vous devriez appeler \fBlb config\fP une seule fois avec toutes
+les options spécifiées. L'appeler une seule fois avec uniquement un
+sous\-ensemble des options à chaque fois peut résulter dans des
+configurations non\-fonctionnelles. Ceci est également engendré par le fait
+que \fBlb config\fP appelé avec une seule option va seulement modifier cette
+option, et laisser tout le reste en l'état, sauf si ça n'est pas
+défini. Toutefois, \fBlb config\fP ne préviens pas à propos de combinaisons
+connues comme étant ou semblant impossibles qui conduiraient à un système
+live non\-fonctionnel. Si vous n'êtes pas sûr, supprimer
+config/{binary,bootstrap,chroot,common,source} et rappeler \fBlb config\fP.
 
 .SH OPTIONS
-In addition to its specific options \fBlb config\fP understands all generic
-live\-build options. See \fIlive\-build\fP(7) for a complete list of all generic
-live\-build options.
+En plus de ses options spécifiques \fBlb config\fP fonctionne avec toutes les
+options génériques de live\-build. Voir \fIlive\-build\fP(7) pour une liste
+complète de toutes les options génériques de live\-build options.
 .PP
 .\" FIXME
 .IP "\fB\-\-apt\fP apt|aptitude" 4
-defines if apt\-get or aptitude is used to install packages when building the
-image. The default is apt.
+définit si apt\-get ou aptitude est utilisé pour installer des paquets lors
+de la construction de l'image. Par défaut : apt.
 .IP "\fB\-\-apt\-ftp\-proxy\fP \fIURL\fP" 4
-sets the ftp proxy to be used by apt. By default, this is empty. Note that
-this variable is only for the proxy that gets used by apt internally within
-the chroot, it is not used for anything else.
+paramètre le proxy ftp à être utilisé par apt. Par défaut, cette option est
+vide. Notez que cette variable est uniquement pour le proxy qui est utilisé
+par apt à l'intérieur du chroot, il n'est utilisé pour rien d'autre.
 .IP "\fB\-\-apt\-http\-proxy\fP \fIURL\fP" 4
-sets the http proxy to be used by apt. By default, this is empty. Note that
-this variable is only for the proxy that gets used by apt internally within
-the chroot, it is not used for anything else.
+paramètre le proxy http à être utilisé par apt. Par défaut, cette option est
+vide. Notez que cette variable est uniquement pour le proxy qui est utilisé
+par apt à l'intérieur du chroot, il n'est utilisé pour rien d'autre.
 .IP "\fB\-\-apt\-indices\fP true|false|none" 4
-defines if the resulting images should have apt indices or not and defaults
-to true. If set to none, no indices are included at all.
+définit si les images résultantes devraient avoir des indices apt ou non et
+paramètre true par défaut. Si paramétré à none, aucun indice ne sera inclu.
 .IP "\fB\-\-apt\-options\fP \fIOPTION\fP|\(dq\fIOPTIONS\fP\(dq" 4
-defines the default options that will be appended to every apt call that is
-made inside chroot during the building of the image. By default, this is set
-to \-\-yes to allow non\-interactive installation of packages.
+définit les options par défaut qui seront ajoutées à chaque appel apt qui
+est fait à l'intérieur du chroot pendant la construction de l'image. Par
+défaut, ceci est paramétré à \-\-yes pour permettre l'installation
+non\-interactive de paquets.
 .IP "\fB\-\-aptitude\-options\fP \fIOPTION\fP|\(dq\fIOPTIONS\fP\(dq" 4
-defines the default options that will be appended to every aptitude call
-that is made inside chroot during building of the image. By default, this is
-set to \-\-assume\-yes to allow non\-interactive installation of packages.
-.IP "\fB\-\-apt\-pipeline\fP \fIDEPTH\fP" 4
-sets the depth of the apt/aptitude pipeline. In cases where the remote
-server is not RFC conforming or buggy (such as Squid 2.0.2) this option can
-be a value from 0 to 5 indicating how many outstanding requests APT should
-send. A value of zero MUST be specified if the remote host does not properly
-linger on TCP connections \- otherwise data corruption will occur. Hosts
-which require this are in violation of RFC 2068. By default, live\-build does
-not set this option.
+définit les options par défaut qui seront ajoutées à chaque appel d'aptitude
+fait à l'intérieur du chroot pendant la construction de l'image. Par défaut,
+ceci est paramétré à \-\-assume\-yes pour permettre l'installation
+non\-interactive de paquets.
+.IP "\fB\-\-apt\-pipeline\fP \fIPROFONDEUR\fP" 4
+paramètre la profondeur du tube (pipeline) apt/aptitude. Dans les cas où le
+serveur distant n'est pas conforme aux RFC ou est bogué (comme Squid 2.0.2),
+cette option peut être une valeur de 0 à 5 indiquant combien de requêtes
+non\-résolue APT devrait envoyer. Une valeur de zéro doit être spécifiée si
+l'hôte distant s'attarde improprement sur les connexions TCP \- autrement,
+une corruption des données apparaîtra. Les hôtes qui nécessitent ceci sont
+en violation de la RFC 2068. Par défaut, live\-build ne paramètre pas cette
+option.
 .IP "\fB\-\-apt\-recommends\fP true|false" 4
-defines if apt should install recommended packages automatically. By
-default, this is true.
+définit si apt devrait installer automatiquement les paquets
+recommandés. Par défaut : true.
 .IP "\fB\-\-apt\-secure\fP true|false" 4
-defines if apt should check repository signatures. This is true by default.
+définit si apt devrait vérifier les signatures de dépôt. Par défaut : true.
 .IP "\fB\-\-apt\-source\-archives\fP true|false" 4
-defines if deb\-src entries should be included in the resulting live image or
-not, defaults to true.
+définit si les entrées deb\-src doivent être incluses dans l'image live
+résultante ou non. Par défaut : true.
 .IP "\-a|\fB\-\-architectures\fP \fIARCHITECTURE\fP" 4
-defines the architecture of the to be build image. By default, this is set
-to the host architecture. Note that you cannot crossbuild for another
-architecture if your host system is not able to execute binaries for the
-target architecture natively. For example, building amd64 images on i386 and
-vice versa is possible if you have a 64bit capable i386 processor and the
-right kernel. But building powerpc images on an i386 system is not possible.
+définit l'architecture de l'image devant être construite. Par défaut, ceci
+est paramètré sur l'architecture hôte. Notez que vous ne pouvez pas
+crossbuilder pour une autre architecture si votre système hôte n'est pas
+capable d'exécuter les binaires pour la distribution cible nativement. Par
+exemple, construire des images amd64 sur un i386 et vice versa est possible
+si vous avez un processeur i386 compatible 64bits et le bon noyau. Mais
+construire des images powerpc sur une système i386 n'est pas possible.
 .IP "\-b|\fB\-\-binary\-images\fP iso|iso\-hybrid|netboot|tar|hdd" 4
-defines the image type to build. By default, for images using syslinux this
-is set to iso\-hybrid to build CD/DVD images that may also be used like hdd
-images, for non\-syslinux images, it defaults to iso.
+définit le type d'image à construire. Par défaut, pour les images utilisant
+syslinux, ceci est paramétré pour iso\-hybrid pour construire des images
+CD/DVD qui peuvent également être utilisée comme images hdd, pour les images
+non\-syslinux, le défaut est iso.
 .IP "\fB\-\-binary\-filesystem\fP fat16|fat32|ext2|ext3|ext4" 4
-defines the filesystem to be used in the image type. This only has an effect
-if the selected binary image type does allow to choose a filesystem. For
-example, when selection iso the resulting CD/DVD has always the filesystem
-ISO9660. When building hdd images for usb sticks, this is active. Note that
-it defaults to fat16 on all architectures except sparc where it defaults to
-ext4. Also note that if you choose fat16 and your resulting binary image
-gets bigger than 2GB, the binary filesystem automatically gets switched to
-fat32.
-.IP "\fB\-\-bootappend\-install\fP \fIPARAMETER\fP|\(dq\fIPARAMETERS\fP\(dq" 4
-sets boot parameters specific to debian\-installer, if included.
-.IP "\fB\-\-bootappend\-live\fP \fIPARAMETER\fP|\(dq\fIPARAMETERS\fP\(dq" 4
-sets boot parameters specific to debian\-live. A complete list of boot
-parameters can be found in the \fIlive\-boot\fP(7) and \fIlive\-config\fP(7) manual
-pages.
+définit le système de fichier à utiliser dans le type d'image. Ceci a un
+effet si le type d'image binaire sélectionnée permet de choisir un système
+de fichier. Par exemple, lorsque iso est sélectionné, le CD/DVD résultant a
+toujours un système de fichier ISO9660. Lors de la construction d'une image
+hdd pour des clefs usb, ceci est actif. Notez que ceci sélectionne fat16 par
+défaut sur toutes les architectures excepté sparc où le défaut est
+ext4. Notez également que si vous choisissez fat16 et que votre image
+binaire résultante est plus grosse que 2GB, alors le système de fichier
+binaire sera automatiquement passé à fat32.
+.IP "\fB\-\-bootappend\-install\fP \fIPARAMÈTRE\fP|\(dq\fIPARAMÈTRES\fP\(dq" 4
+paramètre les options de démarrage spécifiques à debian\-installer, si inclu.
+.IP "\fB\-\-bootappend\-live\fP \fIPARAMÈTRE\fP|\(dq\fIPARAMÈTRES\fP\(dq" 4
+paramètre les options de démarrage spécifiques à debian\-live. Une liste
+complète des paramètres de démarrage peut être trouvée dans les pages de
+manuel \fIlive\-boot\fP(7) et \fIlive\-config\fP(7).
 .IP "\fB\-\-bootloader\fP grub|grub2|syslinux" 4
 defines which bootloader is being used in the generated image. This has only
 an effect if the selected binary image type does allow to choose the

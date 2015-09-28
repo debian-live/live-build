@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build 5.0~a11-1\n"
-"POT-Creation-Date: 2015-09-27 12:14+0200\n"
+"POT-Creation-Date: 2015-09-28 08:03+0200\n"
 "PO-Revision-Date: 2015-09-20 14:53+0200\n"
 "Last-Translator: Olivier Humbert <trebmuh@tuxfamily.org>\n"
 "Language-Team: none\n"
@@ -26,9 +26,10 @@ msgstr "LIVE-BUILD"
 #: en/lb.1:1 en/lb_binary.1:1 en/lb_bootstrap.1:1 en/lb_build.1:1
 #: en/lb_chroot.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
 #: en/live-build.7:1
-#, no-wrap
-msgid "2015-09-27"
-msgstr "27.09.2015"
+#, fuzzy, no-wrap
+#| msgid "2015-09-27"
+msgid "2015-09-28"
+msgstr "28.09.2015"
 
 #. type: TH
 #: en/lb.1:1 en/lb_binary.1:1 en/lb_bootstrap.1:1 en/lb_build.1:1
@@ -754,6 +755,20 @@ msgid ""
 "combinations that would lead to non working live systems. If unsure, remove "
 "config/{binary,bootstrap,chroot,common,source} and call B<lb config> again."
 msgstr ""
+"Note : actuellement, B<lb config> essaie d'être malin et paramètre les "
+"défauts pour plusieurs des options dépendemment des paramètres d'autres "
+"options (ex quel paquet linux doit être utililisé si un système wheezy est "
+"construit ou non). Ceci signifie que lorsque vous générez une nouvelle "
+"configuration, vous devriez appeler B<lb config> une seule fois avec toutes  "
+"les options spécifiées. L'appeler une seule fois avec uniquement un sous-"
+"ensemble des options à chaque fois peut résulter dans des configurations non-"
+"fonctionnelles. Ceci est également engendré par le fait que B<lb config> "
+"appelé avec une seule option va seulement modifier cette option, et laisser "
+"tout le reste en l'état, sauf si ça n'est pas défini. Toutefois, B<lb "
+"config> ne préviens pas à propos de combinaisons connues comme étant ou "
+"semblant impossibles qui conduiraient à un système live non-fonctionnel. Si "
+"vous n'êtes pas sûr, supprimer config/{binary,bootstrap,chroot,common,"
+"source} et rappeler B<lb config>."
 
 #. type: Plain text
 #: en/lb_config.1:234
@@ -762,13 +777,16 @@ msgid ""
 "live-build options. See I<live-build>(7) for a complete list of all generic "
 "live-build options."
 msgstr ""
+"En plus de ses options spécifiques B<lb config> fonctionne avec toutes les "
+"options génériques de live-build. Voir I<live-build>(7) pour une liste "
+"complète de toutes les options génériques de live-build options."
 
 #.  FIXME
 #. type: IP
 #: en/lb_config.1:236
 #, no-wrap
 msgid "B<--apt> apt|aptitude"
-msgstr ""
+msgstr "B<--apt> apt|aptitude"
 
 #. type: Plain text
 #: en/lb_config.1:238
@@ -776,12 +794,14 @@ msgid ""
 "defines if apt-get or aptitude is used to install packages when building the "
 "image. The default is apt."
 msgstr ""
+"définit si apt-get ou aptitude est utilisé pour installer des paquets lors "
+"de la construction de l'image. Par défaut : apt."
 
 #. type: IP
 #: en/lb_config.1:238
 #, no-wrap
 msgid "B<--apt-ftp-proxy> I<URL>"
-msgstr ""
+msgstr "B<--apt-ftp-proxy> I<URL>"
 
 #. type: Plain text
 #: en/lb_config.1:240
@@ -790,12 +810,15 @@ msgid ""
 "this variable is only for the proxy that gets used by apt internally within "
 "the chroot, it is not used for anything else."
 msgstr ""
+"paramètre le proxy ftp à être utilisé par apt. Par défaut, cette option est "
+"vide. Notez que cette variable est uniquement pour le proxy qui est utilisé "
+"par apt à l'intérieur du chroot, il n'est utilisé pour rien d'autre."
 
 #. type: IP
 #: en/lb_config.1:240
 #, no-wrap
 msgid "B<--apt-http-proxy> I<URL>"
-msgstr ""
+msgstr "B<--apt-http-proxy> I<URL>"
 
 #. type: Plain text
 #: en/lb_config.1:242
@@ -804,12 +827,15 @@ msgid ""
 "this variable is only for the proxy that gets used by apt internally within "
 "the chroot, it is not used for anything else."
 msgstr ""
+"paramètre le proxy http à être utilisé par apt. Par défaut, cette option est "
+"vide. Notez que cette variable est uniquement pour le proxy qui est utilisé "
+"par apt à l'intérieur du chroot, il n'est utilisé pour rien d'autre."
 
 #. type: IP
 #: en/lb_config.1:242
 #, no-wrap
 msgid "B<--apt-indices> true|false|none"
-msgstr ""
+msgstr "B<--apt-indices> true|false|none"
 
 #. type: Plain text
 #: en/lb_config.1:244
@@ -817,12 +843,14 @@ msgid ""
 "defines if the resulting images should have apt indices or not and defaults "
 "to true. If set to none, no indices are included at all."
 msgstr ""
+"définit si les images résultantes devraient avoir des indices apt ou non et "
+"paramètre true par défaut. Si paramétré à none, aucun indice ne sera inclu."
 
 #. type: IP
 #: en/lb_config.1:244
 #, no-wrap
 msgid "B<--apt-options> I<OPTION>|\"I<OPTIONS>\""
-msgstr ""
+msgstr "B<--apt-options> I<OPTION>|\"I<OPTIONS>\""
 
 #. type: Plain text
 #: en/lb_config.1:246
@@ -831,12 +859,16 @@ msgid ""
 "made inside chroot during the building of the image. By default, this is set "
 "to --yes to allow non-interactive installation of packages."
 msgstr ""
+"définit les options par défaut qui seront ajoutées à chaque appel apt qui "
+"est fait à l'intérieur du chroot pendant la construction de l'image. Par "
+"défaut, ceci est paramétré à --yes pour permettre l'installation non-"
+"interactive de paquets."
 
 #. type: IP
 #: en/lb_config.1:246
 #, no-wrap
 msgid "B<--aptitude-options> I<OPTION>|\"I<OPTIONS>\""
-msgstr ""
+msgstr "B<--aptitude-options> I<OPTION>|\"I<OPTIONS>\""
 
 #. type: Plain text
 #: en/lb_config.1:248
@@ -845,12 +877,16 @@ msgid ""
 "that is made inside chroot during building of the image. By default, this is "
 "set to --assume-yes to allow non-interactive installation of packages."
 msgstr ""
+"définit les options par défaut qui seront ajoutées à chaque appel d'aptitude "
+"fait à l'intérieur du chroot pendant la construction de l'image. Par défaut, "
+"ceci est paramétré à --assume-yes pour permettre l'installation non-"
+"interactive de paquets."
 
 #. type: IP
 #: en/lb_config.1:248
 #, no-wrap
 msgid "B<--apt-pipeline> I<DEPTH>"
-msgstr ""
+msgstr "B<--apt-pipeline> I<PROFONDEUR>"
 
 #. type: Plain text
 #: en/lb_config.1:250
@@ -863,12 +899,20 @@ msgid ""
 "which require this are in violation of RFC 2068. By default, live-build does "
 "not set this option."
 msgstr ""
+"paramètre la profondeur du tube (pipeline) apt/aptitude. Dans les cas où le "
+"serveur distant n'est pas conforme aux RFC ou est bogué (comme Squid 2.0.2), "
+"cette option peut être une valeur de 0 à 5 indiquant combien de requêtes non-"
+"résolue APT devrait envoyer. Une valeur de zéro doit être spécifiée si "
+"l'hôte distant s'attarde improprement sur les connexions TCP - autrement, "
+"une corruption des données apparaîtra. Les hôtes qui nécessitent ceci sont "
+"en violation de la RFC 2068. Par défaut, live-build ne paramètre pas cette "
+"option."
 
 #. type: IP
 #: en/lb_config.1:250
 #, no-wrap
 msgid "B<--apt-recommends> true|false"
-msgstr ""
+msgstr "B<--apt-recommends> true|false"
 
 #. type: Plain text
 #: en/lb_config.1:252
@@ -876,24 +920,27 @@ msgid ""
 "defines if apt should install recommended packages automatically. By "
 "default, this is true."
 msgstr ""
+"définit si apt devrait installer automatiquement les paquets recommandés. "
+"Par défaut : true."
 
 #. type: IP
 #: en/lb_config.1:252
 #, no-wrap
 msgid "B<--apt-secure> true|false"
-msgstr ""
+msgstr "B<--apt-secure> true|false"
 
 #. type: Plain text
 #: en/lb_config.1:254
 msgid ""
 "defines if apt should check repository signatures. This is true by default."
 msgstr ""
+"définit si apt devrait vérifier les signatures de dépôt. Par défaut : true."
 
 #. type: IP
 #: en/lb_config.1:254
 #, no-wrap
 msgid "B<--apt-source-archives> true|false"
-msgstr ""
+msgstr "B<--apt-source-archives> true|false"
 
 #. type: Plain text
 #: en/lb_config.1:256
@@ -901,12 +948,14 @@ msgid ""
 "defines if deb-src entries should be included in the resulting live image or "
 "not, defaults to true."
 msgstr ""
+"définit si les entrées deb-src doivent être incluses dans l'image live "
+"résultante ou non. Par défaut : true."
 
 #. type: IP
 #: en/lb_config.1:256
 #, no-wrap
 msgid "-a|B<--architectures> I<ARCHITECTURE>"
-msgstr ""
+msgstr "-a|B<--architectures> I<ARCHITECTURE>"
 
 #. type: Plain text
 #: en/lb_config.1:258
@@ -918,12 +967,19 @@ msgid ""
 "vice versa is possible if you have a 64bit capable i386 processor and the "
 "right kernel. But building powerpc images on an i386 system is not possible."
 msgstr ""
+"définit l'architecture de l'image devant être construite. Par défaut, ceci "
+"est paramètré sur l'architecture hôte. Notez que vous ne pouvez pas "
+"crossbuilder pour une autre architecture si votre système hôte n'est pas "
+"capable d'exécuter les binaires pour la distribution cible nativement. Par "
+"exemple, construire des images amd64 sur un i386 et vice versa est possible "
+"si vous avez un processeur i386 compatible 64bits et le bon noyau. Mais "
+"construire des images powerpc sur une système i386 n'est pas possible."
 
 #. type: IP
 #: en/lb_config.1:258
 #, no-wrap
 msgid "-b|B<--binary-images> iso|iso-hybrid|netboot|tar|hdd"
-msgstr ""
+msgstr "-b|B<--binary-images> iso|iso-hybrid|netboot|tar|hdd"
 
 #. type: Plain text
 #: en/lb_config.1:260
@@ -932,12 +988,16 @@ msgid ""
 "is set to iso-hybrid to build CD/DVD images that may also be used like hdd "
 "images, for non-syslinux images, it defaults to iso."
 msgstr ""
+"définit le type d'image à construire. Par défaut, pour les images utilisant "
+"syslinux, ceci est paramétré pour iso-hybrid pour construire des images CD/"
+"DVD qui peuvent également être utilisée comme images hdd, pour les images "
+"non-syslinux, le défaut est iso."
 
 #. type: IP
 #: en/lb_config.1:260
 #, no-wrap
 msgid "B<--binary-filesystem> fat16|fat32|ext2|ext3|ext4"
-msgstr ""
+msgstr "B<--binary-filesystem> fat16|fat32|ext2|ext3|ext4"
 
 #. type: Plain text
 #: en/lb_config.1:262
@@ -951,23 +1011,33 @@ msgid ""
 "gets bigger than 2GB, the binary filesystem automatically gets switched to "
 "fat32."
 msgstr ""
+"définit le système de fichier à utiliser dans le type d'image. Ceci a un "
+"effet si le type d'image binaire sélectionnée permet de choisir un système "
+"de fichier. Par exemple, lorsque iso est sélectionné, le CD/DVD résultant a "
+"toujours un système de fichier ISO9660. Lors de la construction d'une image "
+"hdd pour des clefs usb, ceci est actif. Notez que ceci sélectionne fat16 par "
+"défaut sur toutes les architectures excepté sparc où le défaut est ext4. "
+"Notez également que si vous choisissez fat16 et que votre image binaire "
+"résultante est plus grosse que 2GB, alors le système de fichier binaire sera "
+"automatiquement passé à fat32."
 
 #. type: IP
 #: en/lb_config.1:262
 #, no-wrap
 msgid "B<--bootappend-install> I<PARAMETER>|\"I<PARAMETERS>\""
-msgstr ""
+msgstr "B<--bootappend-install> I<PARAMÈTRE>|\"I<PARAMÈTRES>\""
 
 #. type: Plain text
 #: en/lb_config.1:264
 msgid "sets boot parameters specific to debian-installer, if included."
 msgstr ""
+"paramètre les options de démarrage spécifiques à debian-installer, si inclu."
 
 #. type: IP
 #: en/lb_config.1:264
 #, no-wrap
 msgid "B<--bootappend-live> I<PARAMETER>|\"I<PARAMETERS>\""
-msgstr ""
+msgstr "B<--bootappend-live> I<PARAMÈTRE>|\"I<PARAMÈTRES>\""
 
 #. type: Plain text
 #: en/lb_config.1:266
@@ -976,12 +1046,15 @@ msgid ""
 "parameters can be found in the I<live-boot>(7) and I<live-config>(7) manual "
 "pages."
 msgstr ""
+"paramètre les options de démarrage spécifiques à debian-live. Une liste "
+"complète des paramètres de démarrage peut être trouvée dans les pages de "
+"manuel I<live-boot>(7) et I<live-config>(7)."
 
 #. type: IP
 #: en/lb_config.1:266
 #, no-wrap
 msgid "B<--bootloader> grub|grub2|syslinux"
-msgstr ""
+msgstr "B<--bootloader> grub|grub2|syslinux"
 
 #. type: Plain text
 #: en/lb_config.1:268
