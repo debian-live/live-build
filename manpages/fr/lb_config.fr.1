@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2015\-09\-28 5.0~a11\-1 "Projet Live Systems"
+.TH LIVE\-BUILD 1 2015\-09\-29 5.0~a11\-1 "Projet Live Systems"
 
 .SH NOM
 \fBlb config\fP \- Crée un répertoire de configuration
@@ -328,49 +328,56 @@ paramètre les options de démarrage spécifiques à debian\-live. Une liste
 complète des paramètres de démarrage peut être trouvée dans les pages de
 manuel \fIlive\-boot\fP(7) et \fIlive\-config\fP(7).
 .IP "\fB\-\-bootloader\fP grub|grub2|syslinux" 4
-defines which bootloader is being used in the generated image. This has only
-an effect if the selected binary image type does allow to choose the
-bootloader. For example, if you build a iso, always syslinux (or more
-precise, isolinux) is being used. Also note that some combinations of binary
-images types and bootloaders may be possible but live\-build does not support
-them yet. \fBlb config\fP will fail to create such a not yet supported
-configuration and give a explanation about it. For hdd images on amd64 and
-i386, the default is syslinux.
+définit quel chargeur de démarrage est utilisé dans l'image générée. Ceci a
+effet seulement si l'image binaire sélectionnée permet de choisir le
+chargeur de démarrage. Par exemple, si vous construisez une iso, syslinux
+(ou plus précisément, isolinux) est toujours utilisé. Notez également que
+certaines combinaisons de types d'images binaires et de chargeurs de
+démarrage peuvent être possibles mais que live\-build ne les prend pas encore
+en charge. \fBlb config\fP échouera a créer une de ses configurations pas
+encore supportées et donnera une explication à ce propos. Pour des images
+hdd sur amd64 et i386, le défaut est syslinux.
 .IP "\fB\-\-cache\fP true|false" 4
-defines globally if any cache should be used at all. Different caches can be
-controlled through the their own options.
+définit globalement si un cache devrait être utilisé. Les différents caches
+peuvent être controlés à travers leurs propres options.
 .IP "\fB\-\-cache\-indices\fP true|false" 4
-defines if downloaded package indices and lists should be cached which is
-false by default. Enabling it would allow to rebuild an image completely
-offline, however, you would not get updates anymore then.
+définit si les indices et les listes de paquets téléchargés devrait être
+cachés ce qui est faux (false) par défaut. L'activer autoriserait la
+reconstruction d'une image complétement hors\-ligne, vous n'auriez donc plus
+les mises\-à\-jour.
 .IP "\fB\-\-cache\-packages\fP true|false" 4
-defines if downloaded packages files should be cached which is true by
-default. Disabling it does save space consumption in your build directory,
-but remember that you will cause much unnecessary traffic if you do a couple
-of rebuilds. In general you should always leave it true, however, in some
-particular rare build setups, it can be faster to refetch packages from the
-local network mirror rather than to utilize the local disk.
+définit si les fichiers de paquets téléchargés pourrait être cachés ce qui
+est vrai (true) par défaut. Le désactiver économise la consomation d'espace
+dans votre répertoire de construction mais rappelez\-vous que vous créerez
+beaucoup de traffic non\-nécessaire si vous effectuez une paire de
+reconstructions. En général, vous devriez toujours le laisser à vrai (true),
+toutefois, dans certains cas particuliers d'environnement de constructions,
+il peut être plus rapide de re\-télécharger les paquets depuis le miroir
+réseau local plutôt que d'utiliser le disque local.
 .IP "\fB\-\-cache\-stages\fP true|false|\fISTAGE\fP|\(dq\fISTAGES\fP\(dq" 4
-sets which stages should be cached. By default set to bootstrap. As an
-exception to the normal stage names, also rootfs can be used here which does
-only cache the generated root filesystem in
-filesystem.{dir,ext*,squashfs}. This is useful during development if you
-want to rebuild the binary stage but not regenerate the root filesystem all
-the time.
+paramètre quels stages seront mis en cache. Par défaut, le paramètre est sur
+démarrage (bootstrap). En tant qu'exception au noms de stages normaux,
+rootfs peut également être utilisé ici ce qui met en cache uniquement le
+système de fichier racine généré dans filesystem.{dir,ext*,squashfs}. Ceci
+est utile le dévelopmment si vous désirez reconstruire le stage binaire mais
+pas régénéré le système de fichier à chaque reprise.
 .IP "\fB\-\-checksums\fP md5|sha1|sha256|none" 4
-defines if the binary image should contain a file called md5sums.txt,
-sha1sums.txt and/or sha256sums.txt. These lists all files on the image
-together with their checksums. This in turn can be used by live\-boot's
-built\-in integrity\-check to verify the medium if specified at boot
-prompt. In general, this should not be false and is an important feature of
-live system released to the public. However, during development of very big
-images it can save some time by not calculating the checksums.
+définit si l'image binaire devrait contenir un fichier appelé md5sums.txt,
+sha1sums.txt et/ou sha256sums.txt. Ceux\-ci listent tous les fichiers
+présents dans l'image avec leurs sommes de vérification. Ils pourront alors
+être utilisés par la vérification d'intégrité inclue dans live\-boot pour
+vérifier le dispositif si spécifié à l'invite de démarrage. En général, ceci
+ne devrait pas être faux (false) et est une fonctionnalité important des
+versions de live system pour le public. Toutefois, pendant le développement
+de grosses images, ceci peut économiser du temps en ne calculant pas les
+sommes de vérification.
 .IP "\fB\-\-compression\fP bzip2|gzip|lzip|none" 4
-defines the compression program to be used to compress tarballs. Defaults to
-gzip.
+définit le programme de compression à utiliser pour compresser les
+tarballs. Par défaut : gzip.
 .IP "\fB\-\-config\fP \fIGIT_URL\fP::\fIGIT_ID\fP" 4
-allows to bootstrap a config tree from a git repositories, optionally
-appended by a Git Id (branch, commit, tag, etc.).
+permet d'amorcer un arbre de configuration depuis un dépôt GIT,
+optionnellement avec un numéro d'identification GIT (branche, commit, tag,
+etc.).
 .IP "\fB\-\-build\-with\-chroot\fP true|false" 4
 defines whether live\-build should use the tools from within the chroot to
 build the binary image or not by using and including the host system's

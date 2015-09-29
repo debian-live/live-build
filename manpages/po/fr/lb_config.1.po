@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build 5.0~a11-1\n"
-"POT-Creation-Date: 2015-09-28 08:03+0200\n"
+"POT-Creation-Date: 2015-09-29 13:48+0200\n"
 "PO-Revision-Date: 2015-09-20 14:53+0200\n"
 "Last-Translator: Olivier Humbert <trebmuh@tuxfamily.org>\n"
 "Language-Team: none\n"
@@ -27,9 +27,9 @@ msgstr "LIVE-BUILD"
 #: en/lb_chroot.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
 #: en/live-build.7:1
 #, fuzzy, no-wrap
-#| msgid "2015-09-27"
-msgid "2015-09-28"
-msgstr "28.09.2015"
+#| msgid "2015-09-28"
+msgid "2015-09-29"
+msgstr "29.09.2015"
 
 #. type: TH
 #: en/lb.1:1 en/lb_binary.1:1 en/lb_bootstrap.1:1 en/lb_build.1:1
@@ -1068,12 +1068,21 @@ msgid ""
 "configuration and give a explanation about it. For hdd images on amd64 and "
 "i386, the default is syslinux."
 msgstr ""
+"définit quel chargeur de démarrage est utilisé dans l'image générée. Ceci a "
+"effet seulement si l'image binaire sélectionnée permet de choisir le "
+"chargeur de démarrage. Par exemple, si vous construisez une iso, syslinux "
+"(ou plus précisément, isolinux) est toujours utilisé. Notez également que "
+"certaines combinaisons de types d'images binaires et de chargeurs de "
+"démarrage peuvent être possibles mais que live-build ne les prend pas encore "
+"en charge. B<lb config> échouera a créer une de ses configurations pas "
+"encore supportées et donnera une explication à ce propos. Pour des images "
+"hdd sur amd64 et i386, le défaut est syslinux."
 
 #. type: IP
 #: en/lb_config.1:268
 #, no-wrap
 msgid "B<--cache> true|false"
-msgstr ""
+msgstr "B<--cache> true|false"
 
 #. type: Plain text
 #: en/lb_config.1:270
@@ -1081,12 +1090,14 @@ msgid ""
 "defines globally if any cache should be used at all. Different caches can be "
 "controlled through the their own options."
 msgstr ""
+"définit globalement si un cache devrait être utilisé. Les différents caches "
+"peuvent être controlés à travers leurs propres options."
 
 #. type: IP
 #: en/lb_config.1:270
 #, no-wrap
 msgid "B<--cache-indices> true|false"
-msgstr ""
+msgstr "B<--cache-indices> true|false"
 
 #. type: Plain text
 #: en/lb_config.1:272
@@ -1095,12 +1106,16 @@ msgid ""
 "false by default. Enabling it would allow to rebuild an image completely "
 "offline, however, you would not get updates anymore then."
 msgstr ""
+"définit si les indices et les listes de paquets téléchargés devrait être "
+"cachés ce qui est faux (false) par défaut. L'activer autoriserait la "
+"reconstruction d'une image complétement hors-ligne, vous n'auriez donc plus "
+"les mises-à-jour."
 
 #. type: IP
 #: en/lb_config.1:272
 #, no-wrap
 msgid "B<--cache-packages> true|false"
-msgstr ""
+msgstr "B<--cache-packages> true|false"
 
 #. type: Plain text
 #: en/lb_config.1:274
@@ -1112,12 +1127,20 @@ msgid ""
 "particular rare build setups, it can be faster to refetch packages from the "
 "local network mirror rather than to utilize the local disk."
 msgstr ""
+"définit si les fichiers de paquets téléchargés pourrait être cachés ce qui "
+"est vrai (true) par défaut. Le désactiver économise la consomation d'espace "
+"dans votre répertoire de construction mais rappelez-vous que vous créerez "
+"beaucoup de traffic non-nécessaire si vous effectuez une paire de "
+"reconstructions. En général, vous devriez toujours le laisser à vrai (true), "
+"toutefois, dans certains cas particuliers d'environnement de constructions, "
+"il peut être plus rapide de re-télécharger les paquets depuis le miroir "
+"réseau local plutôt que d'utiliser le disque local."
 
 #. type: IP
 #: en/lb_config.1:274
 #, no-wrap
 msgid "B<--cache-stages> true|false|I<STAGE>|\"I<STAGES>\""
-msgstr ""
+msgstr "B<--cache-stages> true|false|I<STAGE>|\"I<STAGES>\""
 
 #. type: Plain text
 #: en/lb_config.1:276
@@ -1128,12 +1151,18 @@ msgid ""
 "This is useful during development if you want to rebuild the binary stage "
 "but not regenerate the root filesystem all the time."
 msgstr ""
+"paramètre quels stages seront mis en cache. Par défaut, le paramètre est sur "
+"démarrage (bootstrap). En tant qu'exception au noms de stages normaux, "
+"rootfs peut également être utilisé ici ce qui met en cache uniquement le "
+"système de fichier racine généré dans filesystem.{dir,ext*,squashfs}. Ceci "
+"est utile le dévelopmment si vous désirez reconstruire le stage binaire mais "
+"pas régénéré le système de fichier à chaque reprise."
 
 #. type: IP
 #: en/lb_config.1:276
 #, no-wrap
 msgid "B<--checksums> md5|sha1|sha256|none"
-msgstr ""
+msgstr "B<--checksums> md5|sha1|sha256|none"
 
 #. type: Plain text
 #: en/lb_config.1:278
@@ -1146,12 +1175,21 @@ msgid ""
 "released to the public. However, during development of very big images it "
 "can save some time by not calculating the checksums."
 msgstr ""
+"définit si l'image binaire devrait contenir un fichier appelé md5sums.txt, "
+"sha1sums.txt et/ou sha256sums.txt. Ceux-ci listent tous les fichiers "
+"présents dans l'image avec leurs sommes de vérification. Ils pourront alors "
+"être utilisés par la vérification d'intégrité inclue dans live-boot pour "
+"vérifier le dispositif si spécifié à l'invite de démarrage. En général, ceci "
+"ne devrait pas être faux (false) et est une fonctionnalité important des "
+"versions de live system pour le public. Toutefois, pendant le développement "
+"de grosses images, ceci peut économiser du temps en ne calculant pas les "
+"sommes de vérification."
 
 #. type: IP
 #: en/lb_config.1:278
 #, no-wrap
 msgid "B<--compression> bzip2|gzip|lzip|none"
-msgstr ""
+msgstr "B<--compression> bzip2|gzip|lzip|none"
 
 #. type: Plain text
 #: en/lb_config.1:280
@@ -1159,12 +1197,14 @@ msgid ""
 "defines the compression program to be used to compress tarballs. Defaults to "
 "gzip."
 msgstr ""
+"définit le programme de compression à utiliser pour compresser les tarballs. "
+"Par défaut : gzip."
 
 #. type: IP
 #: en/lb_config.1:280
 #, no-wrap
 msgid "B<--config> I<GIT_URL>::I<GIT_ID>"
-msgstr ""
+msgstr "B<--config> I<GIT_URL>::I<GIT_ID>"
 
 #. type: Plain text
 #: en/lb_config.1:282
@@ -1172,12 +1212,15 @@ msgid ""
 "allows to bootstrap a config tree from a git repositories, optionally "
 "appended by a Git Id (branch, commit, tag, etc.)."
 msgstr ""
+"permet d'amorcer un arbre de configuration depuis un dépôt GIT, "
+"optionnellement avec un numéro d'identification GIT (branche, commit, tag, "
+"etc.)."
 
 #. type: IP
 #: en/lb_config.1:282
 #, no-wrap
 msgid "B<--build-with-chroot> true|false"
-msgstr ""
+msgstr "B<--build-with-chroot> true|false"
 
 #. type: Plain text
 #: en/lb_config.1:284
