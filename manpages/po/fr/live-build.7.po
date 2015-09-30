@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: live-build 5.0~a11-1\n"
-"POT-Creation-Date: 2015-09-29 13:48+0200\n"
+"POT-Creation-Date: 2015-09-30 12:21+0200\n"
 "PO-Revision-Date: 2015-09-20 14:53+0200\n"
 "Last-Translator: Olivier Humbert <trebmuh@tuxfamily.org>\n"
 "Language-Team: none\n"
@@ -27,9 +27,9 @@ msgstr "LIVE-BUILD"
 #: en/lb_chroot.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
 #: en/live-build.7:1
 #, fuzzy, no-wrap
-#| msgid "2015-09-28"
-msgid "2015-09-29"
-msgstr "29.09.2015"
+#| msgid "2015-09-29"
+msgid "2015-09-30"
+msgstr "30.09.2015"
 
 #. type: TH
 #: en/lb.1:1 en/lb_binary.1:1 en/lb_bootstrap.1:1 en/lb_build.1:1
@@ -244,7 +244,7 @@ msgid ""
 msgstr ""
 "Davantage de documentation à propos de la façon d'utiliser live-build est "
 "disponible dans les pages de manuel individuelles de chaque assistant ainsi "
-"dans le manual à E<lt>I<http://live-systems.org/manual/>E<gt>."
+"que dans le manual à E<lt>I<http://live-systems.org/manual/>E<gt>."
 
 #.  FIXME
 #. type: SS
@@ -308,8 +308,8 @@ msgid ""
 "what each option does."
 msgstr ""
 "Les options de lignes de commandes suivantes sont supportées par la plupart "
-"des programmes live-build programs. Voir la page de manuel e chaque "
-"programme pour une explication complète de ce que chaque option fait."
+"des programmes live-build. Voir la page de manuel de chaque programme pour "
+"une explication complète de ce que chaque option fait."
 
 #. type: IP
 #: en/live-build.7:32
@@ -346,7 +346,7 @@ msgstr "force l'exécution d'un assistant, même si le fichier de stage existe."
 #. type: Plain text
 #: en/live-build.7:42
 msgid "be quiet."
-msgstr "soit calme."
+msgstr "soit discret."
 
 #.  FIXME
 #. type: Plain text
@@ -377,7 +377,7 @@ msgid ""
 "Here is the complete list of all available live-build commands. See their "
 "man pages for additional documentation."
 msgstr ""
-"Voici une liste complète des toutes les commandes live-build disponibles. "
+"Voici une liste complète de toutes les commandes live-build disponibles. "
 "Consultez leurs pages de manuel pour obtenir de la documentation "
 "additionnelle."
 
@@ -395,7 +395,7 @@ msgid ""
 "user utilities."
 msgstr ""
 "Nous séparons les commandes porcelaine en commandes principales et en "
-"utilitaires utilisateur auxilaires."
+"utilitaires utilisateur auxiliaires."
 
 #. type: SS
 #: en/live-build.7:57
@@ -473,7 +473,7 @@ msgstr "nettoie les répertoires de construction du système"
 #: en/live-build.7:70
 #, no-wrap
 msgid "Ancillary Commands"
-msgstr "Commandes auxilliaires"
+msgstr "Commandes auxiliaires"
 
 #. type: IP
 #: en/live-build.7:71
@@ -977,7 +977,7 @@ msgstr "B<lb_binary_local-packagelists>(1)"
 #. type: Plain text
 #: en/live-build.7:163
 msgid "install local package lists into binary"
-msgstr "installe les listes de paquet locaux dans le binaire"
+msgstr "installe les listes de paquets locaux dans le binaire"
 
 #. type: IP
 #: en/live-build.7:163
@@ -1191,7 +1191,7 @@ msgid ""
 "with the name of the stage that they belong to, and \"helper\" with the name "
 "of the helper)."
 msgstr ""
-"Plusieurs commandes live-build utilisent de fichiers dans le répertoire  "
+"Plusieurs commandes live-build utilisent des fichiers dans le répertoire "
 "I<config/> pour contrôler ce qu'elles font. En plus du I<config/common> "
 "commun, qui est utilisé par toutes les commandes live-build, plusieurs "
 "fichiers additionels peuvent être utilisés pour configurer le comportement "
@@ -1216,7 +1216,7 @@ msgstr ""
 "détails à propos des noms et des formats de fichiers qu'ils utilisent. "
 "Généralement, ces fichiers contiennent des variables avec des valeurs "
 "assignées, une variable par ligne. Plusieurs programmes dans live-build "
-"utilisent des paires de valeur ou des assignations de variable légèrement "
+"utilisent des paires de valeur ou des assignations de variables légèrement "
 "plus compliquées."
 
 #. type: Plain text
@@ -1231,7 +1231,7 @@ msgid ""
 msgstr ""
 "Notez que live-build respectera les variables d'environment présentes dans "
 "le contexte du shell lancé. Si les variables peuvent être lues depuis les "
-"fichiersde configuration, alors elles prennent le pas sur les variables "
+"fichiers de configuration, alors elles prennent le pas sur les variables "
 "d'environement, et si les options en ligne de commande sont utilisées, elles "
 "sont prioritaires sur les fichiers de configuration. Si pour une variable "
 "donnée, aucune valeur ne peut être trouvée et donc, est non-paramétrèe, live-"
@@ -1267,7 +1267,7 @@ msgstr ""
 "Tous les fichiers de configuration sont des scripts shell qui sont sourcés "
 "par un programme live-build. Ceci signifie qu'ils doivent suivre la syntaxe "
 "de shell normale. Vous pouvez également mettre des commentaires dans ces "
-"fichiers; les lignes commençant par des \"#\" sont ignorèes."
+"fichiers; les lignes commençant par des \"#\" sont ignorées."
 
 #. type: IP
 #: en/live-build.7:214
