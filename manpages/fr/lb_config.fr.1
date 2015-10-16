@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2015\-10\-16 5.0~a11\-1 "Projet Live Systems"
+.TH LIVE\-BUILD 1 16.10.2015 5.0~a11\-1 "Projet Live Systems"
 
 .SH NOM
 \fBlb config\fP \- Crée un répertoire de configuration
@@ -379,33 +379,38 @@ permet d'amorcer un arbre de configuration depuis un dépôt GIT,
 optionnellement avec un numéro d'identification GIT (branche, commit, tag,
 etc.).
 .IP "\fB\-\-build\-with\-chroot\fP true|false" 4
-defines whether live\-build should use the tools from within the chroot to
-build the binary image or not by using and including the host system's
-tools. This is a very dangerous option, using the tools of the host system
-can lead to tainted and even non\-bootable images if the host systems version
-of the required tools (mainly these are the bootloaders such as syslinux and
-grub, and the auxiliary tools such as dosfstools, xorriso, squashfs\-tools
-and others) do not \fBexactly\fP match what is present at build\-time in the
-target distribution. Never do disable this option unless you are \fBexactly\fP
-sure what you are doing and have \fBcompletely\fP\fI understood its
-consequences.\fP
+définit si live\-build devrait utiliser les outils de l'intérieur du chroot
+pour construire l'image binaire ou non en utilisant et incluant les outils
+du système hôte. Ceci est une option très dangereuse, l'utilisation des
+outils du système hôte peut amener à des images teintées et même à des
+images non\-démarrables si les versions des outils nécessaires du système
+hôte (principalement il s'agit des bootloaders comme syslinux et grub, et
+des outils auxiliaires tels que dosfstools, xorriso, squashfs\-tools et
+autres) ne correspondent pas \fBexactement\fP à ce qui est présent au moment de
+la construction dans la distribution cible. Ne jamais désactivée cette
+option sauf si vous savez \fBexactement\fP ce que vous faites et avez compris
+\fBcomplètement\fP\fI les conséquences.\fP
 .IP "\fB\-\-chroot\-filesystem\fP ext2|ext3|ext4|squashfs|jffs2|none" 4
-defines which filesystem type should be used for the root filesystem
-image. If you use none, then no filesystem image is created and the root
-filesystem content is copied on the binary image filesystem as flat
-files. Depending on what binary filesystem you have chosen, it may not be
-possible to build with such a plain root filesystem, e.g. fat16/fat32 will
-not work as linux does not support to run directly on them.
+définit quel type de système de fichier devrait être utilisé pour l'image du
+système de fichier racine. Si vous utilisez none, alors aucune image de
+système de fichiers n'est créée et le contenu du système de fichier racine
+est copiée sur le système de fichiers de l'image binaire en tant que
+fichiers plats. En fonction de quel système de fichiers binaire vous avez
+choisi, il pourrait ne pas être possible de construire avec un tel système
+de fichiers racine plein, exemple : fat16/fat32 ne fonctionneront pas
+puisque linux ne supporte pas directement de fonctionner dessus.
 .IP \fB\-\-clean\fP 4
-minimizes config directory by automatically removing unused and thus empty
-subdirectories.
-.IP "\-c|\fB\-\-conffile\fP \fIFILE\fP" 4
-using a user specified alternative configuration file in addition to the
-normally used one in the config directory.
+minimise le répertoire de configuration en supprimant automatiquement les
+sous\-répertoires non\-utilisés et donc vides.
+.IP "\-c|\fB\-\-conffile\fP \fIFICHIER\fP" 4
+l'utilisation d'un fichier de configuration anternatif spécifique pour un
+utilisateur en addition à celui utilisé normalement dans le répertoire de
+configuration.
 .IP "\fB\-\-debconf\-frontend\fP dialog|editor|noninteractive|readline" 4
-defines what value the debconf frontend should be set to inside the
-chroot. Note that setting it to anything but noninteractive, which is the
-default, makes your build asking questions during the build.
+définit à quelle valeur le frontend debconf devrait être paramétré à
+l'intérieur du chroot. Notez que le mettre à n'importe lequel sauf
+noninteractive, qui est le défaut, fait que le processus vous posera des
+questions pendant la construction.
 .IP "\fB\-\-debconf\-priority\fP low|medium|high|critical" 4
 defines what value the debconf priority should be set to inside the
 chroot. By default, it is set to critical, which means that almost no

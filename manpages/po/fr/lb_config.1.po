@@ -26,8 +26,7 @@ msgstr "LIVE-BUILD"
 #: en/lb.1:1 en/lb_binary.1:1 en/lb_bootstrap.1:1 en/lb_build.1:1
 #: en/lb_chroot.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
 #: en/live-build.7:1
-#, fuzzy, no-wrap
-#| msgid "2015-09-30"
+#, no-wrap
 msgid "2015-10-16"
 msgstr "16.10.2015"
 
@@ -1236,12 +1235,23 @@ msgid ""
 "sure what you are doing and have B<completely>I< understood its consequences."
 ">"
 msgstr ""
+"définit si live-build devrait utiliser les outils de l'intérieur du chroot "
+"pour construire l'image binaire ou non en utilisant et incluant les outils "
+"du système hôte. Ceci est une option très dangereuse, l'utilisation des "
+"outils du système hôte peut amener à des images teintées et même à des "
+"images non-démarrables si les versions des outils nécessaires du système "
+"hôte (principalement il s'agit des bootloaders comme syslinux et grub, et "
+"des outils auxiliaires tels que dosfstools, xorriso, squashfs-tools et "
+"autres) ne correspondent pas B<exactement> à ce qui est présent au moment de "
+"la construction dans la distribution cible. Ne jamais désactivée cette "
+"option sauf si vous savez B<exactement> ce que vous faites et avez compris "
+"B<complètement>I< les conséquences.>"
 
 #. type: IP
 #: en/lb_config.1:284
 #, no-wrap
 msgid "B<--chroot-filesystem> ext2|ext3|ext4|squashfs|jffs2|none"
-msgstr ""
+msgstr "B<--chroot-filesystem> ext2|ext3|ext4|squashfs|jffs2|none"
 
 #. type: Plain text
 #: en/lb_config.1:286
@@ -1253,12 +1263,20 @@ msgid ""
 "such a plain root filesystem, e.g. fat16/fat32 will not work as linux does "
 "not support to run directly on them."
 msgstr ""
+"définit quel type de système de fichier devrait être utilisé pour l'image du "
+"système de fichier racine. Si vous utilisez none, alors aucune image de "
+"système de fichiers n'est créée et le contenu du système de fichier racine "
+"est copiée sur le système de fichiers de l'image binaire en tant que "
+"fichiers plats. En fonction de quel système de fichiers binaire vous avez "
+"choisi, il pourrait ne pas être possible de construire avec un tel système "
+"de fichiers racine plein, exemple : fat16/fat32 ne fonctionneront pas "
+"puisque linux ne supporte pas directement de fonctionner dessus."
 
 #. type: IP
 #: en/lb_config.1:286
 #, no-wrap
 msgid "B<--clean>"
-msgstr ""
+msgstr "B<--clean>"
 
 #. type: Plain text
 #: en/lb_config.1:288
@@ -1266,12 +1284,14 @@ msgid ""
 "minimizes config directory by automatically removing unused and thus empty "
 "subdirectories."
 msgstr ""
+"minimise le répertoire de configuration en supprimant automatiquement les "
+"sous-répertoires non-utilisés et donc vides."
 
 #. type: IP
 #: en/lb_config.1:288
 #, no-wrap
 msgid "-c|B<--conffile> I<FILE>"
-msgstr ""
+msgstr "-c|B<--conffile> I<FICHIER>"
 
 #. type: Plain text
 #: en/lb_config.1:290
@@ -1279,12 +1299,15 @@ msgid ""
 "using a user specified alternative configuration file in addition to the "
 "normally used one in the config directory."
 msgstr ""
+"l'utilisation d'un fichier de configuration anternatif spécifique pour un "
+"utilisateur en addition à celui utilisé normalement dans le répertoire de "
+"configuration."
 
 #. type: IP
 #: en/lb_config.1:290
 #, no-wrap
 msgid "B<--debconf-frontend> dialog|editor|noninteractive|readline"
-msgstr ""
+msgstr "B<--debconf-frontend> dialog|editor|noninteractive|readline"
 
 #. type: Plain text
 #: en/lb_config.1:292
@@ -1293,6 +1316,10 @@ msgid ""
 "Note that setting it to anything but noninteractive, which is the default, "
 "makes your build asking questions during the build."
 msgstr ""
+"définit à quelle valeur le frontend debconf devrait être paramétré à "
+"l'intérieur du chroot. Notez que le mettre à n'importe lequel sauf "
+"noninteractive, qui est le défaut, fait que le processus vous posera des "
+"questions pendant la construction."
 
 #. type: IP
 #: en/lb_config.1:292
