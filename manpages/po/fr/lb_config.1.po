@@ -26,8 +26,7 @@ msgstr "LIVE-BUILD"
 #: en/lb.1:1 en/lb_binary.1:1 en/lb_bootstrap.1:1 en/lb_build.1:1
 #: en/lb_chroot.1:1 en/lb_clean.1:1 en/lb_config.1:1 en/lb_source.1:1
 #: en/live-build.7:1
-#, fuzzy, no-wrap
-#| msgid "2015-10-16"
+#, no-wrap
 msgid "2015-10-21"
 msgstr "21.10.2015"
 
@@ -1326,7 +1325,7 @@ msgstr ""
 #: en/lb_config.1:292
 #, no-wrap
 msgid "B<--debconf-priority> low|medium|high|critical"
-msgstr ""
+msgstr "B<--debconf-priority> low|medium|high|critical"
 
 #. type: Plain text
 #: en/lb_config.1:294
@@ -1336,12 +1335,16 @@ msgid ""
 "displayed. Note that this only has an effect if you use any debconf frontend "
 "different from noninteractive."
 msgstr ""
+"définit à quelle valeur la priorité debconf devra être paramétrée dans le "
+"chroot. Par défaut, elle est paramétrée à critical, ce qui signifie que "
+"presque aucune question n'est affichée. Notez que ceci a seulement un effet "
+"si vous utilisez un des frontend debconf n'étant pas noninteractive."
 
 #. type: IP
 #: en/lb_config.1:294
 #, no-wrap
 msgid "B<--debian-installer> true|cdrom|netinst|netboot|businesscard|live|false"
-msgstr ""
+msgstr "B<--debian-installer> true|cdrom|netinst|netboot|businesscard|live|false"
 
 #. type: Plain text
 #: en/lb_config.1:296
@@ -1354,12 +1357,20 @@ msgid ""
 "than usual - instead of installing the debian system from packages from the "
 "medium or the network, it installs the live system to the disk."
 msgstr ""
+"définit quel type, si vous en demandez un, de debian-installer devrait être "
+"inclu dans l'image binaire résultante. Par défaut, aucun installateur n'est "
+"inclu. Toutes les flavours sauf live sont les configurations identiques "
+"utilisées sur le média installateur produit par un cd-debian régulier. "
+"Lorsque live est choisi, l'udeb live-installer est inclu pour que "
+"l'installateur-debian ait un comportement différent de d'habitude - au lieu "
+"de l'installation du système debian depuis les paquets du média ou du "
+"réseau, il installe le système live sur le disque."
 
 #. type: IP
 #: en/lb_config.1:296
 #, no-wrap
 msgid "B<--debian-installer-distribution> daily|I<CODENAME>"
-msgstr ""
+msgstr "B<--debian-installer-distribution> daily|I<NOM_DE_CODE>"
 
 #. type: Plain text
 #: en/lb_config.1:298
@@ -1369,12 +1380,16 @@ msgid ""
 "system. However, some times, one wants to use a newer or even daily built "
 "installer."
 msgstr ""
+"définit la distribution d'où les fichiers de l'installateur debian devrait "
+"être pris. Normallement, ceci devrait être paramétré pour la même "
+"distribution que le système live. Ceci dit, parfois, quelqu'un veut utiliser "
+"un installateur plus récent ou même une construction du jour."
 
 #. type: IP
 #: en/lb_config.1:298
 #, no-wrap
 msgid "B<--debian-installer-preseedfile> I<FILE>|I<URL>"
-msgstr ""
+msgstr "B<--debian-installer-preseedfile> I<FICHIER>|I<URL>"
 
 #. type: Plain text
 #: en/lb_config.1:300
@@ -1383,12 +1398,15 @@ msgid ""
 "for debian-installer. If config/binary_debian-installer/preseed.cfg exists, "
 "it will be used by default."
 msgstr ""
+"paramètre le nom de fichier ou l'URL pour un fichier de pré-configuration "
+"inclu ou utilisé optionnellement pour l'installateur debian. Si le config/"
+"binary_debian-installer/preseed.cfg existe, il sera utilisé par défaut. "
 
 #. type: IP
 #: en/lb_config.1:300
 #, no-wrap
 msgid "B<--debian-installer-gui> true|false"
-msgstr ""
+msgstr "B<--debian-installer-gui> true|false"
 
 #. type: Plain text
 #: en/lb_config.1:302
@@ -1397,6 +1415,9 @@ msgid ""
 "not. In Debian mode and for most versions of Ubuntu, this option is true, "
 "whereas otherwise false, by default."
 msgstr ""
+"définit si l'interface graphique GTK de l'installateur-debian devrait être "
+"vraie ou pas. En mode Debian et pour la plupart des versions d'Ubuntu, cette "
+"option est vraie, tandis que sinon fausse, par défaut."
 
 #. type: IP
 #: en/lb_config.1:302 en/live-build.7:36
@@ -1407,36 +1428,38 @@ msgstr "B<--debug>"
 #. type: Plain text
 #: en/lb_config.1:304
 msgid "turn on debugging informational messages."
-msgstr ""
+msgstr "active les messages d'information de déboguage."
 
 #. type: IP
 #: en/lb_config.1:304
 #, no-wrap
 msgid "-d|B<--distribution> I<CODENAME>"
-msgstr ""
+msgstr "-d|B<--distribution> I<NOM_DE_CODE>"
 
 #. type: Plain text
 #: en/lb_config.1:306
 msgid "defines the distribution of the resulting live system."
-msgstr ""
+msgstr "définit la distribution du système live résultant."
 
 #. type: IP
 #: en/lb_config.1:306
 #, no-wrap
 msgid "-d|B<--parent-distribution> I<CODENAME>"
-msgstr ""
+msgstr "-d|B<--parent-distribution> I<NOM_DE_CODE>"
 
 #. type: Plain text
 #: en/lb_config.1:308
 msgid ""
 "defines the parent distribution for derivatives of the resulting live system."
 msgstr ""
+"définit la distribution parente pour les dérivations du système live "
+"résultant."
 
 #. type: IP
 #: en/lb_config.1:308
 #, no-wrap
 msgid "-d|B<--parent-debian-installer-distribution> I<CODENAME>"
-msgstr ""
+msgstr "-d|B<--parent-debian-installer-distribution> I<CODENAME>"
 
 #. type: Plain text
 #: en/lb_config.1:310
@@ -1444,6 +1467,8 @@ msgid ""
 "defines the parent debian-installer distribution for derivatives of the "
 "resulting live system."
 msgstr ""
+"définit la distribution de l'installateur-debian parent pour les dérivations "
+"du système live résultant."
 
 #. type: IP
 #: en/lb_config.1:310

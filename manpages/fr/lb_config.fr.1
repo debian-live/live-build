@@ -3,7 +3,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH LIVE\-BUILD 1 2015\-10\-21 5.0~a11\-1 "Projet Live Systems"
+.TH LIVE\-BUILD 1 21.10.2015 5.0~a11\-1 "Projet Live Systems"
 
 .SH NOM
 \fBlb config\fP \- Crée un répertoire de configuration
@@ -412,41 +412,43 @@ l'intérieur du chroot. Notez que le mettre à n'importe lequel sauf
 noninteractive, qui est le défaut, fait que le processus vous posera des
 questions pendant la construction.
 .IP "\fB\-\-debconf\-priority\fP low|medium|high|critical" 4
-defines what value the debconf priority should be set to inside the
-chroot. By default, it is set to critical, which means that almost no
-questions are displayed. Note that this only has an effect if you use any
-debconf frontend different from noninteractive.
+définit à quelle valeur la priorité debconf devra être paramétrée dans le
+chroot. Par défaut, elle est paramétrée à critical, ce qui signifie que
+presque aucune question n'est affichée. Notez que ceci a seulement un effet
+si vous utilisez un des frontend debconf n'étant pas noninteractive.
 .IP "\fB\-\-debian\-installer\fP true|cdrom|netinst|netboot|businesscard|live|false" 4
-defines which type, if any, of the debian\-installer should be included in
-the resulting binary image. By default, no installer is included. All
-available flavours except live are the identical configurations used on the
-installer media produced by regular debian\-cd. When live is chosen, the
-live\-installer udeb is included so that debian\-installer will behave
-different than usual \- instead of installing the debian system from packages
-from the medium or the network, it installs the live system to the disk.
-.IP "\fB\-\-debian\-installer\-distribution\fP daily|\fICODENAME\fP" 4
-defines the distribution where the debian\-installer files should be taken
-out from. Normally, this should be set to the same distribution as the live
-system. However, some times, one wants to use a newer or even daily built
-installer.
-.IP "\fB\-\-debian\-installer\-preseedfile\fP \fIFILE\fP|\fIURL\fP" 4
-sets the filename or URL for an optionally used and included preseeding file
-for debian\-installer. If config/binary_debian\-installer/preseed.cfg exists,
-it will be used by default.
+définit quel type, si vous en demandez un, de debian\-installer devrait être
+inclu dans l'image binaire résultante. Par défaut, aucun installateur n'est
+inclu. Toutes les flavours sauf live sont les configurations identiques
+utilisées sur le média installateur produit par un cd\-debian
+régulier. Lorsque live est choisi, l'udeb live\-installer est inclu pour que
+l'installateur\-debian ait un comportement différent de d'habitude \- au lieu
+de l'installation du système debian depuis les paquets du média ou du
+réseau, il installe le système live sur le disque.
+.IP "\fB\-\-debian\-installer\-distribution\fP daily|\fINOM_DE_CODE\fP" 4
+définit la distribution d'où les fichiers de l'installateur debian devrait
+être pris. Normallement, ceci devrait être paramétré pour la même
+distribution que le système live. Ceci dit, parfois, quelqu'un veut utiliser
+un installateur plus récent ou même une construction du jour.
+.IP "\fB\-\-debian\-installer\-preseedfile\fP \fIFICHIER\fP|\fIURL\fP" 4
+paramètre le nom de fichier ou l'URL pour un fichier de pré\-configuration
+inclu ou utilisé optionnellement pour l'installateur debian. Si le
+config/binary_debian\-installer/preseed.cfg existe, il sera utilisé par
+défaut.
 .IP "\fB\-\-debian\-installer\-gui\fP true|false" 4
-defines if the debian\-installer graphical GTK interface should be true or
-not. In Debian mode and for most versions of Ubuntu, this option is true,
-whereas otherwise false, by default.
+définit si l'interface graphique GTK de l'installateur\-debian devrait être
+vraie ou pas. En mode Debian et pour la plupart des versions d'Ubuntu, cette
+option est vraie, tandis que sinon fausse, par défaut.
 .IP \fB\-\-debug\fP 4
-turn on debugging informational messages.
-.IP "\-d|\fB\-\-distribution\fP \fICODENAME\fP" 4
-defines the distribution of the resulting live system.
-.IP "\-d|\fB\-\-parent\-distribution\fP \fICODENAME\fP" 4
-defines the parent distribution for derivatives of the resulting live
-system.
+active les messages d'information de déboguage.
+.IP "\-d|\fB\-\-distribution\fP \fINOM_DE_CODE\fP" 4
+définit la distribution du système live résultant.
+.IP "\-d|\fB\-\-parent\-distribution\fP \fINOM_DE_CODE\fP" 4
+définit la distribution parente pour les dérivations du système live
+résultant.
 .IP "\-d|\fB\-\-parent\-debian\-installer\-distribution\fP \fICODENAME\fP" 4
-defines the parent debian\-installer distribution for derivatives of the
-resulting live system.
+définit la distribution de l'installateur\-debian parent pour les dérivations
+du système live résultant.
 .IP \fB\-\-dump\fP 4
 prepares a report of the currently present live system configuration and the
 version of live\-build used. This is useful to provide if you submit bug
